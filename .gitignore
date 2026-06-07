@@ -84,3 +84,16 @@ tmp/
 
 temp/
 
+
+
+
+# generated/local audio files
+
+backend/data/audio/
+
+*.wav
+
+*.mp3
+
+*.m4a
+
