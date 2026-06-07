@@ -64,7 +64,7 @@ function buildGroundedFallbackNarration(params: {
   if (languageCode === 'es') {
     const arrival = params.position === 'first'
       ? `Bienvenidos a esta caminata por ${cityName}. Empezamos en ${params.localName}, un lugar que merece una mirada atenta. Su arquitectura y su posición dentro de la trama urbana ya sugieren pistas sobre cómo se organiza y se vive la ciudad.`
-      : `Llegamos a ${params.localName}, una parada de este recorrido por ${cityName}. Cada rincón de la ciudad ofrece señales concretas sobre su ritmo, su escala y la forma en que Madrid se deja recorrer a pie.`;
+      : `Llegamos a ${params.localName}, una parada de este recorrido por ${cityName}. Cada rincón de la ciudad ofrece señales concretas sobre su ritmo, su escala y la forma en que ${cityName} se deja recorrer a pie.`;
     const history = `Los datos disponibles lo describen con detalles como ${tagSummary}. Esa información permite hablar de este lugar con fundamento: sin necesidad de adornos, la propia geografía urbana cuenta una historia de transformación, uso y permanencia.`;
     const significance = params.position === 'last'
       ? `Antes de cerrar la caminata, vale la pena observar cómo esta parada resume algo importante del recorrido. En un paseo sobre ${params.theme}, su valor está en conectar espacio, uso y memoria cotidiana, ofreciendo un cierre con sentido.`
