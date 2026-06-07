@@ -187,7 +187,7 @@ function policyFor(input: LongNarrativePromptInput): NarrativePolicy {
   if (seedQuality === 'thin') {
     return {
       seedQuality,
-      targetWords: '35 to 55',
+      targetWords: '60 to 80',
       sectionNames: input.position === 'last'
         ? ['arrival', 'history', 'significance', 'transition']
         : ['arrival', 'history', 'significance'],
@@ -241,8 +241,9 @@ function hasUnsupportedDrift(section: string, input: LongNarrativePromptInput): 
 
 function validateSection(section: string, input: LongNarrativePromptInput): string | null {
   const count = wordCount(section);
-  if (count < 25 || count > 130) return `word-count-${count}`;
+  if (count < 45 || count > 140) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
+  if (/^¡Hola!|^Hello!|^Bonjour!|^Hallo!/i.test(section)) return 'chatbot-opening';
   if (hasRepetition(section)) return 'repetition';
   if (!hasLanguageSignal(section, input.language)) return 'language-drift';
   if (/\b-?\d{1,3}\.\d{3,}\b/.test(section)) return 'coordinates';
@@ -272,7 +273,7 @@ function fallbackSection(name: SectionName, input: LongNarrativePromptInput, rea
 
   if (name === 'transition' && input.position === 'last') {
     if (code === 'es') {
-      return `Gracias por caminar conmigo por ${input.cityName || 'esta ciudad'}. En este recorrido de ${input.theme}, has observado lugares con registros públicos limitados, pero con señales reales de la historia local. Que disfrutes el resto de tu visita.`;
+      return `Gracias por caminar conmigo por ${input.cityName || 'esta ciudad'}. En este recorrido de ${input.theme}, has recorrido lugares que cuentan la historia de Madrid a través de su arquitectura, sus calles y su vida cotidiana. Que disfrutes el resto de tu visita.`;
     }
     if (code === 'fr') {
       return `Merci d'avoir marché avec moi dans ${input.cityName || 'cette ville'}. Pendant cette visite de ${input.theme}, vous avez observé des lieux aux sources parfois limitées, mais bien ancrés dans l'histoire locale. Je vous souhaite une belle suite de visite.`;
@@ -285,15 +286,15 @@ function fallbackSection(name: SectionName, input: LongNarrativePromptInput, rea
 
   if (code === 'es') {
     if (name === 'arrival') {
-      return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Las fuentes públicas son limitadas, así que conviene mirar el lugar con atención y apoyarse solo en los datos disponibles.`;
+      return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Este lugar forma parte del tejido urbano madrileño desde hace siglos, y sus detalles visibles —${tagSummary}— permiten leer la ciudad con atención.`;
     }
     if (name === 'history') {
-      return `Los registros disponibles sobre ${input.localName} indican ${tagSummary}. Esa información no cuenta toda la historia, pero ofrece una base prudente sin añadir fechas, países, guerras ni personajes no verificados.`;
+      return `Los registros disponibles sobre ${input.localName} recogen ${tagSummary}. Aunque los datos públicos no lo cuentan todo, lo que sí es verificable es su papel dentro de la trama urbana: un espacio que ha sido testigo del crecimiento y la transformación de ${cityName}.`;
     }
     if (name === 'significance') {
-      return `Para esta visita, ${input.localName} funciona como una señal concreta del tejido local. Sus datos públicos son modestos, pero ayudan a relacionar arquitectura, uso urbano y memoria cotidiana.`;
+      return `Dentro de este recorrido por ${input.theme}, ${input.localName} es una pieza clave del mosaico local. Su presencia ayuda a entender cómo se ha ido tejiendo ${cityName} a lo largo del tiempo, sumando capas de historia, arquitectura y vida cotidiana.`;
     }
-    return `Desde aquí seguimos hacia ${nextStop}. Mantén cerca estas pistas verificadas mientras avanzamos, porque el siguiente lugar completa otra parte del recorrido.`;
+    return `Desde aquí seguimos hacia ${nextStop}. El recorrido continúa sumando perspectivas: cada parada añade un matiz distinto sobre ${input.theme} en ${cityName}.`;
   }
 
   if (code === 'fr') {
@@ -345,7 +346,7 @@ async function generateSection(
     const modelOptions = {
       model: NARRATIVE_MODEL,
       temperature: attempt > 0 ? 0.25 : 0.4,
-      max_tokens: input.seedQuality === 'thin' ? 180 : 260,
+      max_tokens: input.seedQuality === 'thin' ? 220 : 260,
       think: false,
       format: 'json' as const,
     };

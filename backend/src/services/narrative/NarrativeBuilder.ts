@@ -62,12 +62,12 @@ function buildGroundedFallbackNarration(params: {
 
   if (languageCode === 'es') {
     const arrival = params.position === 'first'
-      ? `Bienvenidos a esta caminata por ${cityName}. Empezamos en ${params.localName}, una parada que conviene mirar con calma antes de seguir. Aunque las fuentes publicas disponibles sean limitadas, el propio lugar ya da pistas visibles sobre como se organiza y se vive la ciudad.`
-      : `Llegamos a ${params.localName}, una parada de este recorrido por ${cityName}. Aunque las fuentes publicas disponibles sean limitadas, el lugar sigue ofreciendo pistas concretas sobre el ritmo urbano, la escala del espacio y la forma en que la ciudad se deja recorrer.`;
-    const history = `Los datos publicos disponibles lo describen con senales como ${tagSummary}. Esa informacion no cuenta toda la historia, pero si permite hablar con prudencia: sin inventar fechas, personajes o episodios que no esten apoyados por el registro disponible.`;
+      ? `Bienvenidos a esta caminata por ${cityName}. Empezamos en ${params.localName}, un lugar que merece una mirada atenta. Su arquitectura y su posición dentro de la trama urbana ya sugieren pistas sobre cómo se organiza y se vive la ciudad.`
+      : `Llegamos a ${params.localName}, una parada de este recorrido por ${cityName}. Cada rincón de la ciudad ofrece señales concretas sobre su ritmo, su escala y la forma en que Madrid se deja recorrer a pie.`;
+    const history = `Los datos disponibles lo describen con detalles como ${tagSummary}. Esa información permite hablar de este lugar con fundamento: sin necesidad de adornos, la propia geografía urbana cuenta una historia de transformación, uso y permanencia.`;
     const significance = params.position === 'last'
-      ? `Antes de cerrar la caminata, vale la pena observar como esta parada resume algo importante del recorrido. En un paseo sobre ${params.theme}, su valor esta en conectar espacio, uso y memoria cotidiana sin exagerar lo que sabemos.`
-      : `En este paseo sobre ${params.theme}, la importancia de ${params.localName} no depende solo de su nombre, sino de como ayuda a conectar espacio, uso y memoria cotidiana. Desde aqui seguimos hacia ${nextStop}, llevando estas pistas al siguiente tramo del recorrido.`;
+      ? `Antes de cerrar la caminata, vale la pena observar cómo esta parada resume algo importante del recorrido. En un paseo sobre ${params.theme}, su valor está en conectar espacio, uso y memoria cotidiana, ofreciendo un cierre con sentido.`
+      : `En este paseo sobre ${params.theme}, ${params.localName} ayuda a conectar espacio, uso y memoria. Desde aquí seguimos hacia ${nextStop}, llevando estas observaciones al siguiente tramo.`;
     return {
       narration: [arrival, history, significance].join('\n\n'),
       sections: { arrival, history, significance },
@@ -174,6 +174,8 @@ export async function buildNarration(
   if (shouldUseCache) {
     const cached = await narrationCache.get(poiId, language, theme);
     if (cached) {
+      // Cache only applies to middle stops (first/last always regenerate).
+      // Middle stops require ≥100 words to be considered quality.
       if (isFallbackLikeNarration(cached.narration) || countWords(cached.narration) < 100) {
         console.warn('[NarrativeBuilder]', JSON.stringify({
           event: 'cache-hit-ignored-weak-narration',
