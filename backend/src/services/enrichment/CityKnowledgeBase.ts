@@ -13,7 +13,8 @@ export interface EnrichedContext {
   theme: string;
 }
 
-const INDEX_BASE_DIR = path.resolve(__dirname, '../../../../pods/llm-pod/src/enrichment');
+const INDEX_BASE_DIR = process.env.ENRICHMENT_INDEX_BASE_DIR
+  || path.resolve(__dirname, '../../../../pods/llm-pod/src/enrichment');
 
 function cityIndexExists(city: string): boolean {
   const cityKey = city.toLowerCase().replace(/\s+/g, '_');
@@ -58,12 +59,14 @@ export async function enrichContext(
 
 /**
  * Builds an enriched seed text for narrative generation.
+ * @param k - number of enrichment passages to retrieve (progressive: 5 for very thin, 2 for medium, 0 to skip)
  */
 export async function enrichSeeds(
   existingSeeds: { wikipediaLead?: string; wikipediaBody?: string; osmTags?: Record<string, string> },
   placeName: string,
   theme: string,
   language: string = 'es',
+  k: number = 3,
   city?: string,
   llmServiceUrl?: string
 ): Promise<string> {
@@ -72,8 +75,8 @@ export async function enrichSeeds(
   if (existingSeeds.wikipediaLead) parts.push(existingSeeds.wikipediaLead);
   if (existingSeeds.wikipediaBody) parts.push(existingSeeds.wikipediaBody);
 
-  if (city) {
-    const contexts = await enrichContext(city, placeName, theme, language, 3, llmServiceUrl);
+  if (city && k > 0) {
+    const contexts = await enrichContext(city, placeName, theme, language, k, llmServiceUrl);
     for (const ctx of contexts) {
       if (ctx.similarity > 0.15) {
         parts.push(ctx.text);

@@ -226,6 +226,7 @@ export async function buildNarration(
           localName,
           theme,
           language,
+          enrichmentK,
           tourMeta?.cityName,
           llmServiceUrl
         );
