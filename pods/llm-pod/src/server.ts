@@ -7,6 +7,7 @@ import translationRoutes from './routes/translation';
 import textRoutes from './routes/text';
 import narrativeRoutes from './routes/narrative';
 import narrativeLongRoutes from './routes/narrativeLong';
+import enrichmentRoutes from './routes/enrichment';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use('/generate', textRoutes);
 app.use('/translate', translationRoutes);
 app.use('/narrative', narrativeRoutes);
 app.use('/narrative', narrativeLongRoutes);
+app.use('/enrichment', enrichmentRoutes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {

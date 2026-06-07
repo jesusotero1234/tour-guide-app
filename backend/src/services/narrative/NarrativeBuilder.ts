@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import { EnrichedPoi } from '../../domain/poi/EnrichedPoi';
 import { prismaClient } from '../../infrastructure/db/prismaClient';
 import { PostgresNarrationCacheRepository } from '../../infrastructure/postgres/PostgresNarrationCacheRepository';
-import { enrichSeeds } from '../enrichment/MadridKnowledgeBase';
+import { enrichSeeds } from '../enrichment/CityKnowledgeBase';
 
 const MODEL_VERSION = 'llama3.1:8b-long-v4';
 
@@ -225,7 +225,9 @@ export async function buildNarration(
           },
           localName,
           theme,
-          language
+          language,
+          tourMeta?.cityName,
+          llmServiceUrl
         );
         if (enrichedText) {
           console.log('[NarrativeBuilder]', JSON.stringify({
