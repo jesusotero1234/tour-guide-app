@@ -84,9 +84,9 @@ export async function enrichSeeds(
   if (existingSeeds.wikipediaLead) parts.push(existingSeeds.wikipediaLead);
   if (existingSeeds.wikipediaBody) parts.push(existingSeeds.wikipediaBody);
 
-  // Enriched context
+  // Enriched context — similarity is 1 - cosine_distance (higher = more similar)
   for (const ctx of contexts) {
-    if (ctx.similarity < 0.6) {  // Only use highly relevant results (lower distance = more similar)
+    if (ctx.similarity > 0.15) {  // Only use results with at least weak semantic relevance
       parts.push(ctx.text);
     }
   }

@@ -201,18 +201,26 @@ export async function buildNarration(
   }
 
   try {
-    // Enrich thin seeds with Madrid Knowledge Base
+    // Enrich thin seeds with Madrid Knowledge Base — progressive threshold
     const totalChars = (poi.enriched.wikipediaLead || '').length +
       (poi.enriched.wikipediaBody || '').length +
       JSON.stringify(poi.enriched.wikidataClaims || {}).length;
 
     let enrichedText = '';
-    if (totalChars < 500) {
+    // Progressive enrichment based on seed quality:
+    //   < 300 chars → maximum effort (k=5)
+    //   300-800 chars → light enrichment (k=2)
+    //   > 800 chars → seeds are sufficient, skip enrichment
+    const enrichmentK = totalChars < 300 ? 5 : totalChars < 800 ? 2 : 0;
+
+    if (enrichmentK > 0) {
       try {
+        const lead = poi.enriched.wikipediaLead ?? undefined;
+        const body = poi.enriched.wikipediaBody ?? undefined;
         enrichedText = await enrichSeeds(
           {
-            wikipediaLead: poi.enriched.wikipediaLead,
-            wikipediaBody: poi.enriched.wikipediaBody,
+            wikipediaLead: lead,
+            wikipediaBody: body,
             osmTags: poi.enriched.osmTags,
           },
           localName,
