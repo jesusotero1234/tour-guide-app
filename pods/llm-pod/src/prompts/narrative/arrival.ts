@@ -20,7 +20,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       `Tour theme: ${input.theme}.`,
       `OSM visual/type cues: ${compactRecord(input.seeds.osmTags)}.`,
       `Wikipedia lead: ${input.seeds.wikipediaLead || 'none'}.`,
+      input.seeds.enrichedContext ? `Enriched context (use this as the primary factual source): ${input.seeds.enrichedContext.slice(0, 800)}` : '',
       'Open visually: orient the visitor to what they can see or feel as they arrive, such as facade, scale, materials, light, activity, or atmosphere. Then explain why this arrival matters to the tour theme.',
+      'If enriched context is provided, use it as your primary source — it contains rich, verified detail about this place.',
       'If records are sparse, say so honestly and use only the available cues; do not invent architectural details or history.',
     ].filter(Boolean).join('\n'),
   };

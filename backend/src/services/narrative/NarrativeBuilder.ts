@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { EnrichedPoi } from '../../domain/poi/EnrichedPoi';
 import { prismaClient } from '../../infrastructure/db/prismaClient';
 import { PostgresNarrationCacheRepository } from '../../infrastructure/postgres/PostgresNarrationCacheRepository';
+import { enrichSeeds } from '../enrichment/MadridKnowledgeBase';
 
 const MODEL_VERSION = 'llama3.1:8b-long-v4';
 
@@ -200,6 +201,38 @@ export async function buildNarration(
   }
 
   try {
+    // Enrich thin seeds with Madrid Knowledge Base
+    const totalChars = (poi.enriched.wikipediaLead || '').length +
+      (poi.enriched.wikipediaBody || '').length +
+      JSON.stringify(poi.enriched.wikidataClaims || {}).length;
+
+    let enrichedText = '';
+    if (totalChars < 500) {
+      try {
+        enrichedText = await enrichSeeds(
+          {
+            wikipediaLead: poi.enriched.wikipediaLead,
+            wikipediaBody: poi.enriched.wikipediaBody,
+            osmTags: poi.enriched.osmTags,
+          },
+          localName,
+          theme,
+          language
+        );
+        if (enrichedText) {
+          console.log('[NarrativeBuilder]', JSON.stringify({
+            event: 'enriched-thin-seeds',
+            traceId,
+            stopName: localName,
+            enrichedChars: enrichedText.length,
+          }));
+        }
+      } catch (enrichError) {
+        // Enrichment is best-effort; continue with original seeds
+        console.warn('[NarrativeBuilder] enrichment skipped:', (enrichError as Error).message);
+      }
+    }
+
     console.log('[NarrativeBuilder]', JSON.stringify({
       event: 'long-request',
       traceId,
@@ -221,6 +254,7 @@ export async function buildNarration(
           wikidataClaims: poi.enriched.wikidataClaims,
           osmTags: poi.enriched.osmTags,
           wikivoyage: poi.enriched.wikivoyage,
+          enrichedContext: enrichedText || undefined,
         },
         theme,
         language,

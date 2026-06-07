@@ -160,6 +160,7 @@ function seedText(input: LongNarrativePromptInput): string {
     input.localName || '',
     seeds.wikipediaLead || '',
     seeds.wikipediaBody || '',
+    seeds.enrichedContext || '',
     Object.values(seeds.wikidataClaims || {}).join(' '),
     Object.values(seeds.osmTags || {}).join(' '),
     seeds.wikivoyage || '',

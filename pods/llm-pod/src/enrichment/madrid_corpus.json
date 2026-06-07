@@ -1,0 +1,62 @@
+[
+  {
+    "id": "puerta-del-sol",
+    "place": "Puerta del Sol",
+    "theme": "history",
+    "text": "La Puerta del Sol es el kilómetro cero de las carreteras radiales españolas. La Real Casa de Correos, construida entre 1766 y 1768 por el arquitecto francés Jaime Marquet, preside la plaza. Su reloj de torre fue construido en el siglo XIX por José Rodríguez de Losada y sus campanadas de medianoche del 31 de diciembre marcan la tradición de las doce uvas. Durante el siglo XV, la Puerta del Sol era uno de los accesos de la cerca que rodeaba Madrid, orientada hacia el levante. A medida que crecían los arrabales medievales, se convirtió en lugar de encuentro. En sus inmediaciones estaban la iglesia del Buen Suceso, el convento de San Felipe el Real y la fuente de la Mariblanca. Aquí tuvo lugar la revuelta del 2 de mayo de 1808 contra las tropas napoleónicas."
+  },
+  {
+    "id": "plaza-mayor",
+    "place": "Plaza Mayor",
+    "theme": "history",
+    "text": "La Plaza Mayor de Madrid, construida en el siglo XVI, fue encargada por Felipe II a Juan de Herrera. Diego Sillero comenzó la Casa de la Panadería en 1590 sobre las ruinas de la antigua lonja. La plaza ha sido escenario de corridas de toros, autos de fe de la Inquisición, ejecuciones públicas y mercados. La estatua ecuestre de Felipe III en el centro fue realizada por Giambologna y Pietro Tacca en 1616. Los soportales albergan comercios tradicionales como la sombrerería Medrano y la casa de la tripicallería. Bajo los arcos se encuentra el Arco de Cuchilleros, escalera que conecta con la calle Cuchilleros, donde antiguamente se reunía el gremio de cuchilleros."
+  },
+  {
+    "id": "museo-del-prado",
+    "place": "Museo del Prado",
+    "theme": "art",
+    "text": "El Museo Nacional del Prado, inaugurado en 1819 como Museo Real de Pinturas por Fernando VII, alberga la colección de arte europeo más importante del mundo. Entre sus obras maestras destacan Las Meninas de Velázquez, La maja desnuda y La maja vestida de Goya, El jardín de las delicias de El Bosco y Las tres Gracias de Rubens. El edificio neoclásico fue diseñado por Juan de Villanueva en 1785 como Gabinete de Ciencias Naturales. En 1872 se incorporaron los fondos del Museo de la Trinidad. La ampliación de Rafael Moneo en 2007 añadió el claustro de los Jerónimos."
+  },
+  {
+    "id": "fuente-cibeles",
+    "place": "Fuente de Cibeles",
+    "theme": "history",
+    "text": "La Fuente de Cibeles, diseñada por Ventura Rodríguez en 1782, representa a la diosa frigia Cibeles sobre un carro tirado por dos leones. Los leones, esculpidos por Roberto Michel, representan a Hipómenes y Atalanta. La fuente formó parte del proyecto del Salón del Prado de Carlos III, junto con la Fuente de Neptuno. Desde los años 80, es el lugar donde el Real Madrid celebra sus títulos. En 1994 fue restaurada completamente y protegida del tráfico con un cerramiento de seguridad."
+  },
+  {
+    "id": "mercado-san-miguel",
+    "place": "Mercado de San Miguel",
+    "theme": "food",
+    "text": "El Mercado de San Miguel, construido entre 1913 y 1916 bajo la dirección del arquitecto Alfonso Dubé y Díez, es el único mercado de hierro que se conserva en Madrid de los varios que se construyeron en el siglo XIX. Su estructura de hierro se inspira en las Halles de París. Originalmente fue un mercado de abastos. En mayo de 2009 reabrió como mercado gastronómico tras una cuidadosa renovación que mantuvo su carácter original. Tiene una superficie de 1200 metros cuadrados distribuidos en dos plantas. Antes del mercado, la plaza de San Miguel albergó la parroquia de San Miguel de los Octoes y un mercado de pescado al aire libre."
+  },
+  {
+    "id": "cocido-madrileno",
+    "place": "Cocido madrileño",
+    "theme": "food",
+    "text": "El cocido madrileño es el plato más emblemático de la gastronomía de la capital. Sus orígenes se remontan a la olla podrida medieval, pero evolucionó hasta su forma actual en los siglos XVII y XVIII. Se sirve en tres vuelcos: primero la sopa de fideos, después los garbanzos con verduras como repollo y zanahoria, y finalmente las carnes que incluyen tocino, morcillo, gallina, chorizo y morcilla. Tabernas centenarias como La Bola, fundada en 1870, mantienen la tradición de cocinarlo en puchero de barro sobre carbón de encina."
+  },
+  {
+    "id": "jardin-botanico",
+    "place": "Real Jardín Botánico",
+    "theme": "history",
+    "text": "El Real Jardín Botánico de Madrid fue creado en 1755 por el rey Fernando VI en el Soto de Migas Calientes, cerca del río Manzanares. En 1781, Carlos III ordenó su traslado al Paseo del Prado, junto al Museo de Ciencias Naturales que hoy es el Museo del Prado. El diseño fue encargado a Francesco Sabatini y Juan de Villanueva. Alberga más de 5000 especies vegetales distribuidas en tres terrazas escalonadas. La Puerta de Murillo, la Puerta del Rey y el Pabellón Villanueva son sus elementos arquitectónicos más destacados."
+  },
+  {
+    "id": "plaza-chueca",
+    "place": "Plaza de Chueca",
+    "theme": "history",
+    "text": "La plaza de Chueca, en el barrio del mismo nombre, debe su denominación a Federico Chueca, compositor de zarzuela madrileño, desde 1943. Antes de ser plaza, el lugar albergó la Galera, una prisión para mujeres, y posteriormente los huertos de los duques de Frías. La calle San Gregorio se abrió hasta aquí y la calle Gravina se ensanchó, transformando el paisaje urbano. El barrio de Chueca es hoy el centro neurálgico del movimiento LGTB de Madrid y alberga las celebraciones del Orgullo, las más multitudinarias de Europa."
+  },
+  {
+    "id": "plaza-colon",
+    "place": "Plaza de Colón",
+    "theme": "history",
+    "text": "La Plaza de Colón conecta las calles Serrano, Goya, Jorge Juan y los paseos de Recoletos y La Castellana. Su nombre homenajea a Cristóbal Colón. En el centro se alza una estatua neogótica con base cuadrada y relieves en piedra, obra de Arturo Mélida. En este lugar se encontraba la Real Casa de la Moneda hasta los años setenta. Hoy alberga los Jardines del Descubrimiento y el Centro de Arte Teatro Fernán Gómez. La bandera de España más grande del mundo ondea en esta plaza, con un mástil de 50 metros."
+  },
+  {
+    "id": "plaza-callao",
+    "place": "Plaza de Callao",
+    "theme": "history",
+    "text": "La Plaza del Callao debe su nombre al combate naval de 1866. Con las obras de la Gran Vía en 1917, la plaza se transformó radicalmente, pasando de ser un espacio modesto a uno de los cruces más importantes de Madrid. La calle Preciados se ensanchó y la plaza cobró vida como centro comercial. En los años 20, Antonio Rodilla abrió una pequeña tienda repostera que se convertiría en una institución madrileña. Galerías Preciados y el cine Callao definen el carácter comercial y de ocio de la plaza."
+  }
+]

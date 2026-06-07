@@ -4,6 +4,7 @@ export interface LongNarrativeSeeds {
   wikidataClaims?: Record<string, string> | null;
   osmTags?: Record<string, string>;
   wikivoyage?: string | null;
+  enrichedContext?: string | null;
 }
 
 export interface LongNarrativePromptInput {
