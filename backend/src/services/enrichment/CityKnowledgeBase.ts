@@ -16,6 +16,17 @@ export interface EnrichedContext {
 const INDEX_BASE_DIR = process.env.ENRICHMENT_INDEX_BASE_DIR
   || path.resolve(__dirname, '../../../../pods/llm-pod/src/enrichment');
 
+// Feature flag: comma-separated list of cities with RAG enabled.
+// Set to '*' to enable all, or 'madrid,barcelona' for specific cities.
+// Default: only Madrid is enabled (backward compatible, safe rollout).
+const ENABLED_CITIES = (process.env.ENRICHMENT_ENABLED_CITIES || 'madrid')
+  .split(',').map(c => c.trim().toLowerCase());
+
+function isCityEnabled(city: string): boolean {
+  if (ENABLED_CITIES.includes('*')) return true;
+  return ENABLED_CITIES.includes(city.toLowerCase());
+}
+
 function cityIndexExists(city: string): boolean {
   const cityKey = city.toLowerCase().replace(/\s+/g, '_');
   const indexDir = path.join(INDEX_BASE_DIR, `${cityKey}_index`);
@@ -31,6 +42,11 @@ export async function enrichContext(
   k: number = 3,
   llmServiceUrl?: string
 ): Promise<EnrichedContext[]> {
+  if (!isCityEnabled(city)) {
+    console.warn(`[CityKB] RAG not enabled for city: ${city} (ENRICHMENT_ENABLED_CITIES=${ENABLED_CITIES})`);
+    return [];
+  }
+
   if (!cityIndexExists(city)) {
     console.warn(`[CityKB] No enrichment index for city: ${city}`);
     return [];

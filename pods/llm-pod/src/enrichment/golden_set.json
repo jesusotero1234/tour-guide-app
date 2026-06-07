@@ -1,0 +1,242 @@
+[
+  {
+    "city": "madrid",
+    "query": "Puerta del Sol historia kilómetro cero reloj",
+    "expected_place": "Puerta del Sol",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Plaza Mayor arquitectura Felipe II Casa Panadería",
+    "expected_place": "Plaza Mayor",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Museo del Prado Goya Velázquez obras maestras",
+    "expected_place": "Museo del Prado",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Fuente Cibeles Ventura Rodríguez leones diosa",
+    "expected_place": "Fuente de Cibeles",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Mercado San Miguel hierro Alfonso Dubé gastronómico",
+    "expected_place": "Mercado de San Miguel",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Jardín Botánico Carlos III Sabatini Villanueva especies",
+    "expected_place": "Real Jardín Botánico",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Plaza Chueca barrio Federico Chueca Orgullo LGTB",
+    "expected_place": "Plaza de Chueca",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Plaza Colón estatua Arturo Mélida Casa Moneda bandera",
+    "expected_place": "Plaza de Colón",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Plaza Callao Gran Vía comercio cine Rodilla",
+    "expected_place": "Plaza del Callao",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "cocido madrileño plato tradicional garbanzos vuelcos taberna",
+    "expected_place": "Cocido madrileño",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "madrid",
+    "query": "Catedral Almudena Madrid arquitectura neogótica",
+    "expected_place": "Catedral de la Almudena",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Palacio Real Madrid Sabatini Carlos III Borbones",
+    "expected_place": "Palacio Real",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Templo Debod egipcio trasladado piedra a piedra",
+    "expected_place": "Templo de Debod",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "parque Retiro estanque cristal Velázquez Felipe IV",
+    "expected_place": "Parque del Retiro",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Santiago Bernabéu Real Madrid estadio fútbol",
+    "expected_place": "Santiago Bernabéu",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "tapas Madrid bares cañas tradición gastronomía",
+    "expected_place": "",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Rastro Madrid domingo mercado antigüedades",
+    "expected_place": "El Rastro",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Gran Vía Madrid Broadway español teatros cines",
+    "expected_place": "Gran Vía",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Barrio Letras Madrid Cervantes Lope Vega Quevedo",
+    "expected_place": "Barrio de las Letras",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "madrid",
+    "query": "Matadero Madrid cultura contemporánea exposiciones",
+    "expected_place": "Matadero Madrid",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Sagrada Familia Gaudí torres fachada Natividad",
+    "expected_place": "Sagrada Familia",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Park Güell Gaudí mosaico trencadís bancos serpiente",
+    "expected_place": "Park Güell",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Catedral Barcelona gótico claustro ocas Sant Eulàlia",
+    "expected_place": "Catedral de Barcelona",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "La Pedrera Gaudí chimeneas guerreros azotea",
+    "expected_place": "Casa Milà",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Mercat Boqueria Ramblas puestos frutas jamón",
+    "expected_place": "Mercado de La Boqueria",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Camp Nou Barça estadio museo fútbol",
+    "expected_place": "Camp Nou",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "playa Barceloneta mar restaurantes chiringuitos",
+    "expected_place": "La Barceloneta",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Parc Ciutadella Cascada fuente Gaudí",
+    "expected_place": "Parque de la Ciudadela",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Palau Música Catalana Domènech Montaner vidrieras",
+    "expected_place": "Palau de la Música",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Hospital Sant Pau Domènech Montaner pabellones modernismo",
+    "expected_place": "Hospital de Sant Pau",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "barrio Gótico calles medievales plaza Sant Jaume",
+    "expected_place": "Barrio Gótico",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Montjuïc castillo teleférico vistas mar",
+    "expected_place": "Montjuïc",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Casa Batlló Gaudí dragón tejado huesos fachada",
+    "expected_place": "Casa Batlló",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "paella marisco Barcelona cocina mediterránea",
+    "expected_place": "",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Tibidabo iglesia parque atracciones vistas Barcelona",
+    "expected_place": "Tibidabo",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Poble Espanyol arquitectura española artesanos",
+    "expected_place": "Poble Espanyol",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "modernismo catalán arquitectura Gaudí Domènech Puig",
+    "expected_place": "",
+    "min_relevant_passages": 1
+  },
+  {
+    "city": "barcelona",
+    "query": "Raval Barcelona MACBA arte contemporáneo移民",
+    "expected_place": "El Raval",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "Eixample Cerdà cuadrícula manzanas chaflán",
+    "expected_place": "Eixample",
+    "min_relevant_passages": 0
+  },
+  {
+    "city": "barcelona",
+    "query": "fuentes Montjuïc luz agua música espectáculo nocturno",
+    "expected_place": "Fuente Mágica de Montjuïc",
+    "min_relevant_passages": 0
+  }
+]
