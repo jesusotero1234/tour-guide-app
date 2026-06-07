@@ -1947,6 +1947,17 @@ export class OrchestrationService {
     language: string,
     options?: { skipExistingAudio?: boolean }
   ): Promise<any[]> {
+    // Fast path: skip audio generation entirely for quick testing
+    if (process.env.SKIP_AUDIO === 'true') {
+      console.log('[orchestration] SKIP_AUDIO=true — returning places without audio');
+      return places.map((place: any) => ({
+        ...place,
+        audioUrl: '',
+        audioDurationSeconds: 0,
+        _audioSkipped: true,
+      }));
+    }
+
     const placesWithAudio = [];
 
     // Sort places by position to ensure correct audio sequence
