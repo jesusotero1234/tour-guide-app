@@ -5,6 +5,8 @@
 import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
+import { prismaClient } from '../../infrastructure/db/prismaClient';
+import { PostgresEnrichmentCacheRepository } from '../../infrastructure/postgres/PostgresEnrichmentCacheRepository';
 
 export interface EnrichedContext {
   similarity: number;
@@ -34,6 +36,8 @@ function cityIndexExists(city: string): boolean {
     && fs.existsSync(path.join(indexDir, 'texts.json'));
 }
 
+const enrichmentCache = new PostgresEnrichmentCacheRepository(prismaClient);
+
 export async function enrichContext(
   city: string,
   placeName: string,
@@ -52,6 +56,10 @@ export async function enrichContext(
     return [];
   }
 
+  // Check cache first
+  const cached = await enrichmentCache.get(city, placeName, theme, language);
+  if (cached) return cached;
+
   const query = `${placeName} ${theme}`;
   const baseUrl = llmServiceUrl || 'http://localhost:3002';
 
@@ -65,6 +73,8 @@ export async function enrichContext(
     const results: EnrichedContext[] = response.data?.results || [];
     if (results.length > 0) {
       console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${results.length} passages`);
+      // Cache for future queries
+      enrichmentCache.set(city, placeName, theme, language, query, results).catch(() => {});
     }
     return results;
   } catch (error) {

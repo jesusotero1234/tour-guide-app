@@ -134,6 +134,21 @@ model CityConceptCache {
   @@map("city_concept_cache")
 }
 
+model EnrichmentCache {
+  id        String   @id @default(uuid()) @db.Uuid
+  city      String
+  placeName String   @map("place_name")
+  theme     String
+  language  String
+  query     String
+  results   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  ttlHours  Int      @default(720) @map("ttl_hours")
+
+  @@unique([city, placeName, theme, language])
+  @@map("enrichment_cache")
+}
+
 model TourConcept {
   id                       String   @id @default(uuid()) @db.Uuid
   city                     String
