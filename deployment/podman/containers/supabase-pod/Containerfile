@@ -1,0 +1,24 @@
+# Use Node.js LTS (Light Touch Support)
+FROM node:20-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY pods/supabase-pod/package*.json ./
+RUN npm ci --only=production
+
+# Copy source code
+COPY pods/supabase-pod/ ./
+
+# Build TypeScript to JavaScript
+RUN npm run build
+
+# Expose port
+EXPOSE 3006
+
+# Use non-root user for security
+USER node
+
+# Start the service
+CMD ["node", "dist/server.js"]

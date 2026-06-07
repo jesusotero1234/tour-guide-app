@@ -1,0 +1,492 @@
+{
+  "city": "Paris",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Cathédrale Notre-Dame de Paris",
+      "wikidataId": "Q2981",
+      "coordinates": {
+        "lat": 48.8529371,
+        "lng": 2.3498701
+      },
+      "importance_score": 53.11258893116062,
+      "fameScore": 29.112588931160623,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Tour Eiffel",
+      "wikidataId": "Q243",
+      "coordinates": {
+        "lat": 48.8582603,
+        "lng": 2.2945008
+      },
+      "importance_score": 50.95956682499285,
+      "fameScore": 29.959566824992844,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Sainte-Chapelle",
+      "wikidataId": "Q193193",
+      "coordinates": {
+        "lat": 48.8553966,
+        "lng": 2.3450136
+      },
+      "importance_score": 48.823942985382715,
+      "fameScore": 25.823942985382715,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Arc de Triomphe",
+      "wikidataId": "Q64436",
+      "coordinates": {
+        "lat": 48.8737782,
+        "lng": 2.2950354
+      },
+      "importance_score": 47.375118294040774,
+      "fameScore": 26.375118294040774,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Musée d'Orsay",
+      "wikidataId": "Q23402",
+      "coordinates": {
+        "lat": 48.8599188,
+        "lng": 2.3265259
+      },
+      "importance_score": 47.32754351601772,
+      "fameScore": 28.32754351601772,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Palais du Louvre",
+      "wikidataId": "Q1075988",
+      "coordinates": {
+        "lat": 48.8614768,
+        "lng": 2.3351677
+      },
+      "importance_score": 47.10620665658675,
+      "fameScore": 24.106206656586746,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Cimetière du Père-Lachaise",
+      "wikidataId": "Q311",
+      "coordinates": {
+        "lat": 48.8611438,
+        "lng": 2.3941849
+      },
+      "importance_score": 46.699241358514044,
+      "fameScore": 25.699241358514048,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Opéra Garnier",
+      "wikidataId": "Q187840",
+      "coordinates": {
+        "lat": 48.8720294,
+        "lng": 2.3317281
+      },
+      "importance_score": 46.18183977049975,
+      "fameScore": 25.18183977049975,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Musée du Louvre",
+      "wikidataId": "Q19675",
+      "coordinates": {
+        "lat": 48.8611474,
+        "lng": 2.3358637
+      },
+      "importance_score": 46.15111287742216,
+      "fameScore": 28.151112877422158,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Palais de l'Élysée",
+      "wikidataId": "Q188190",
+      "coordinates": {
+        "lat": 48.8703766,
+        "lng": 2.3166056
+      },
+      "importance_score": 45.948267571373314,
+      "fameScore": 24.948267571373314,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Église de la Madeleine",
+      "wikidataId": "Q330564",
+      "coordinates": {
+        "lat": 48.870028,
+        "lng": 2.3244655
+      },
+      "importance_score": 45.913766555032915,
+      "fameScore": 24.913766555032915,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Château de Vincennes",
+      "wikidataId": "Q663673",
+      "coordinates": {
+        "lat": 48.8427637,
+        "lng": 2.4358888
+      },
+      "importance_score": 45.32265601385425,
+      "fameScore": 24.32265601385425,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Palais Royal",
+      "wikidataId": "Q329948",
+      "coordinates": {
+        "lat": 48.8635185,
+        "lng": 2.3369196
+      },
+      "importance_score": 44.767276025914484,
+      "fameScore": 23.767276025914484,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Palais de Chaillot",
+      "wikidataId": "Q13360213",
+      "coordinates": {
+        "lat": 48.8618668,
+        "lng": 2.288865
+      },
+      "importance_score": 44.6378490508349,
+      "fameScore": 23.637849050834898,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Grand Palais",
+      "wikidataId": "Q457318",
+      "coordinates": {
+        "lat": 48.8661514,
+        "lng": 2.3122667
+      },
+      "importance_score": 44.60131915442328,
+      "fameScore": 24.601319154423276,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Musée des beaux-arts de la Ville de Paris",
+      "wikidataId": "Q820892",
+      "coordinates": {
+        "lat": 48.8660437,
+        "lng": 2.3149694
+      },
+      "importance_score": 43.25488750216347,
+      "fameScore": 24.25488750216347,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Hôtel des Invalides",
+      "wikidataId": "Q188977",
+      "coordinates": {
+        "lat": 48.8559525,
+        "lng": 2.3125541
+      },
+      "importance_score": 43.248670042494226,
+      "fameScore": 23.248670042494226,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Musée Guimet",
+      "wikidataId": "Q860994",
+      "coordinates": {
+        "lat": 48.8653886,
+        "lng": 2.2935591
+      },
+      "importance_score": 43.00977500432694,
+      "fameScore": 23.009775004326936,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Centre Georges Pompidou",
+      "wikidataId": "Q178065",
+      "coordinates": {
+        "lat": 48.8605235,
+        "lng": 2.3524395
+      },
+      "importance_score": 43,
+      "fameScore": 24,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Église Saint-Sulpice",
+      "wikidataId": "Q295844",
+      "coordinates": {
+        "lat": 48.8509825,
+        "lng": 2.3348657
+      },
+      "importance_score": 42.87836009688685,
+      "fameScore": 21.87836009688685,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Jardin des Plantes",
+      "wikidataId": "Q730948",
+      "coordinates": {
+        "lat": 48.8440393,
+        "lng": 2.3596915
+      },
+      "importance_score": 42.75977500432694,
+      "fameScore": 22.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "La Samaritaine",
+      "wikidataId": "Q1583780",
+      "coordinates": {
+        "lat": 48.8592672,
+        "lng": 2.3424349
+      },
+      "importance_score": 41.25,
+      "fameScore": 22.25,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Jardin des Tuileries",
+      "wikidataId": "Q818517",
+      "coordinates": {
+        "lat": 48.8636681,
+        "lng": 2.3266855
+      },
+      "importance_score": 41.094129532345626,
+      "fameScore": 22.094129532345626,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Tour Saint-Jacques",
+      "wikidataId": "Q1431547",
+      "coordinates": {
+        "lat": 48.8579983,
+        "lng": 2.3489178
+      },
+      "importance_score": 40.823942985382715,
+      "fameScore": 21.823942985382715,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Collège de France - PSL",
+      "wikidataId": "Q202660",
+      "coordinates": {
+        "lat": 48.8487976,
+        "lng": 2.3453786
+      },
+      "importance_score": 40.75977500432694,
+      "fameScore": 23.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Église Saint-Eustache",
+      "wikidataId": "Q1338207",
+      "coordinates": {
+        "lat": 48.8634023,
+        "lng": 2.3451777
+      },
+      "importance_score": 40.6378490508349,
+      "fameScore": 21.637849050834898,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Musée Marmottan Monet",
+      "wikidataId": "Q1327886",
+      "coordinates": {
+        "lat": 48.8594041,
+        "lng": 2.2672558
+      },
+      "importance_score": 39.96578428466209,
+      "fameScore": 21.96578428466209,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Galerie de Botanique",
+      "wikidataId": "Q181916",
+      "coordinates": {
+        "lat": 48.842443,
+        "lng": 2.3601616
+      },
+      "importance_score": 39.93183977049975,
+      "fameScore": 23.93183977049975,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Arc de Triomphe du Carrousel",
+      "wikidataId": "Q631104",
+      "coordinates": {
+        "lat": 48.8617276,
+        "lng": 2.3329082
+      },
+      "importance_score": 39.71578428466209,
+      "fameScore": 21.71578428466209,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Porte Saint-Denis",
+      "wikidataId": "Q684594",
+      "coordinates": {
+        "lat": 48.8697934,
+        "lng": 2.3526868
+      },
+      "importance_score": 39.67206476617281,
+      "fameScore": 21.67206476617281,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Musée des Arts et Métiers",
+      "wikidataId": "Q1538826",
+      "coordinates": {
+        "lat": 48.8660977,
+        "lng": 2.3554138
+      },
+      "importance_score": 39.5146625064904,
+      "fameScore": 22.514662506490403,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Musée d'Art Moderne de Paris",
+      "wikidataId": "Q857276",
+      "coordinates": {
+        "lat": 48.8643053,
+        "lng": 2.297793
+      },
+      "importance_score": 39.07265601385425,
+      "fameScore": 22.07265601385425,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Muséum national d'histoire naturelle",
+      "wikidataId": "Q838691",
+      "coordinates": {
+        "lat": 48.8432471,
+        "lng": 2.3595052
+      },
+      "importance_score": 39.07265601385425,
+      "fameScore": 22.07265601385425,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Musée du quai Branly",
+      "wikidataId": "Q167863",
+      "coordinates": {
+        "lat": 48.8609823,
+        "lng": 2.2977973
+      },
+      "importance_score": 38.62836009688685,
+      "fameScore": 21.62836009688685,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Conciergerie",
+      "wikidataId": "Q138101",
+      "coordinates": {
+        "lat": 48.8559492,
+        "lng": 2.3460263
+      },
+      "importance_score": 38.62829485591189,
+      "fameScore": 21.628294855911893,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Musée national Picasso-Paris",
+      "wikidataId": "Q743206",
+      "coordinates": {
+        "lat": 48.8598781,
+        "lng": 2.3620895
+      },
+      "importance_score": 37.85620665658675,
+      "fameScore": 21.856206656586746,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Fondation Louis Vuitton",
+      "wikidataId": "Q3075489",
+      "coordinates": {
+        "lat": 48.8766546,
+        "lng": 2.2633259
+      },
+      "importance_score": 37.743782540330756,
+      "fameScore": 21.743782540330756,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Catacombes de Paris",
+      "wikidataId": "Q28924",
+      "coordinates": {
+        "lat": 48.8337439,
+        "lng": 2.3322925
+      },
+      "importance_score": 36.82068586817104,
+      "fameScore": 21.82068586817104,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Musée de l'Orangerie",
+      "wikidataId": "Q726781",
+      "coordinates": {
+        "lat": 48.8637655,
+        "lng": 2.3226594
+      },
+      "importance_score": 36.50977500432694,
+      "fameScore": 21.509775004326936,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Musée Rodin",
+      "wikidataId": "Q650519",
+      "coordinates": {
+        "lat": 48.8546543,
+        "lng": 2.3159185
+      },
+      "importance_score": 35.85620665658675,
+      "fameScore": 21.856206656586746,
+      "landmarkTier": "major",
+      "category": "museum"
+    }
+  ]
+}

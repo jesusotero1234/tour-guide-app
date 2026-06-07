@@ -1,0 +1,492 @@
+{
+  "city": "Berlin",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Berliner Dom",
+      "wikidataId": "Q154563",
+      "coordinates": {
+        "lat": 52.5190862,
+        "lng": 13.4010278
+      },
+      "importance_score": 49.35131915442328,
+      "fameScore": 25.351319154423276,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "St. Hedwigs-Kathedrale Berlin",
+      "wikidataId": "Q170123",
+      "coordinates": {
+        "lat": 52.5157591,
+        "lng": 13.3948424
+      },
+      "importance_score": 47.75977500432694,
+      "fameScore": 23.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Neue Synagoge",
+      "wikidataId": "Q246474",
+      "coordinates": {
+        "lat": 52.5249867,
+        "lng": 13.3943198
+      },
+      "importance_score": 46.25,
+      "fameScore": 23.25,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Deutscher Dom",
+      "wikidataId": "Q315644",
+      "coordinates": {
+        "lat": 52.5127454,
+        "lng": 13.3927048
+      },
+      "importance_score": 45.5146625064904,
+      "fameScore": 22.514662506490403,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Pergamonmuseum",
+      "wikidataId": "Q157298",
+      "coordinates": {
+        "lat": 52.5209122,
+        "lng": 13.3964686
+      },
+      "importance_score": 45.36258893116062,
+      "fameScore": 25.362588931160623,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Neues Museum",
+      "wikidataId": "Q157316",
+      "coordinates": {
+        "lat": 52.520184,
+        "lng": 13.3977404
+      },
+      "importance_score": 44.163766555032915,
+      "fameScore": 24.163766555032915,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Nikolaikirche",
+      "wikidataId": "Q679052",
+      "coordinates": {
+        "lat": 52.516815,
+        "lng": 13.407513
+      },
+      "importance_score": 44.073942985382715,
+      "fameScore": 22.073942985382715,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Museumsinsel",
+      "wikidataId": "Q151963",
+      "coordinates": {
+        "lat": 52.5199984,
+        "lng": 13.397183
+      },
+      "importance_score": 43.823942985382715,
+      "fameScore": 24.823942985382715,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Neue Kaiser-Wilhelm-Gedächtniskirche",
+      "wikidataId": "Q153951",
+      "coordinates": {
+        "lat": 52.504907,
+        "lng": 13.3346162
+      },
+      "importance_score": 43.62829485591189,
+      "fameScore": 22.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Zitadelle Spandau",
+      "wikidataId": "Q206211",
+      "coordinates": {
+        "lat": 52.541052,
+        "lng": 13.2127948
+      },
+      "importance_score": 43.62829485591189,
+      "fameScore": 21.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Schloss Babelsberg",
+      "wikidataId": "Q702477",
+      "coordinates": {
+        "lat": 52.4076605,
+        "lng": 13.0931358
+      },
+      "importance_score": 43.42695226833628,
+      "fameScore": 21.426952268336283,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Glienicker Brücke",
+      "wikidataId": "Q694708",
+      "coordinates": {
+        "lat": 52.4134597,
+        "lng": 13.0902272
+      },
+      "importance_score": 42.970671786825555,
+      "fameScore": 21.970671786825555,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Konzerthaus Berlin",
+      "wikidataId": "Q702548",
+      "coordinates": {
+        "lat": 52.5135807,
+        "lng": 13.3918548
+      },
+      "importance_score": 42.823942985382715,
+      "fameScore": 21.823942985382715,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Alte Nationalgalerie",
+      "wikidataId": "Q162111",
+      "coordinates": {
+        "lat": 52.5208337,
+        "lng": 13.3983173
+      },
+      "importance_score": 42.35620665658675,
+      "fameScore": 23.356206656586746,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Neue Wache",
+      "wikidataId": "Q152341",
+      "coordinates": {
+        "lat": 52.5178894,
+        "lng": 13.395536
+      },
+      "importance_score": 41.5146625064904,
+      "fameScore": 21.514662506490403,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Portikus des zerstörten Anhalter Bahnhofs",
+      "wikidataId": "Q695244",
+      "coordinates": {
+        "lat": 52.5036777,
+        "lng": 13.3825217
+      },
+      "importance_score": 41.42695226833628,
+      "fameScore": 20.426952268336283,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Schloss Schönhausen",
+      "wikidataId": "Q681355",
+      "coordinates": {
+        "lat": 52.5783452,
+        "lng": 13.4056919
+      },
+      "importance_score": 41.243782540330756,
+      "fameScore": 20.243782540330756,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Hackesche Höfe",
+      "wikidataId": "Q736425",
+      "coordinates": {
+        "lat": 52.524536,
+        "lng": 13.4016361
+      },
+      "importance_score": 41.21578428466209,
+      "fameScore": 20.21578428466209,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Denkmal für die ermordeten Juden Europas",
+      "wikidataId": "Q160700",
+      "coordinates": {
+        "lat": 52.5138996,
+        "lng": 13.378714
+      },
+      "importance_score": 41.028794264106295,
+      "fameScore": 22.028794264106295,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Sowjetisches Ehrenmal Tiergarten",
+      "wikidataId": "Q32660126",
+      "coordinates": {
+        "lat": 52.5166394,
+        "lng": 13.3719488
+      },
+      "importance_score": 41.00488750216347,
+      "fameScore": 21.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Reststück der Berliner Mauer",
+      "wikidataId": "Q5086",
+      "coordinates": {
+        "lat": 52.39856,
+        "lng": 13.1349828
+      },
+      "importance_score": 40.41865405719638,
+      "fameScore": 24.41865405719638,
+      "landmarkTier": "flagship",
+      "category": "memorial"
+    },
+    {
+      "name": "Jüdisches Museum Berlin",
+      "wikidataId": "Q157003",
+      "coordinates": {
+        "lat": 52.5022844,
+        "lng": 13.395421
+      },
+      "importance_score": 40.21578428466209,
+      "fameScore": 21.21578428466209,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Oberbaumbrücke",
+      "wikidataId": "Q695082",
+      "coordinates": {
+        "lat": 52.5017334,
+        "lng": 13.4456613
+      },
+      "importance_score": 40.17206476617281,
+      "fameScore": 20.17206476617281,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Bundesrat",
+      "wikidataId": "Q146138",
+      "coordinates": {
+        "lat": 52.5092852,
+        "lng": 13.3812586
+      },
+      "importance_score": 39.748670042494226,
+      "fameScore": 22.748670042494226,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Nikolaiviertel",
+      "wikidataId": "Q703927",
+      "coordinates": {
+        "lat": 52.5168781,
+        "lng": 13.4065136
+      },
+      "importance_score": 39.62829485591189,
+      "fameScore": 20.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Staatsoper Unter den Linden",
+      "wikidataId": "Q312576",
+      "coordinates": {
+        "lat": 52.5166928,
+        "lng": 13.3947663
+      },
+      "importance_score": 38.993782540330756,
+      "fameScore": 20.993782540330756,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Neue Nationalgalerie",
+      "wikidataId": "Q32659772",
+      "coordinates": {
+        "lat": 52.5069809,
+        "lng": 13.3675768
+      },
+      "importance_score": 38.92206476617281,
+      "fameScore": 21.92206476617281,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Schloss Glienicke",
+      "wikidataId": "Q301684",
+      "coordinates": {
+        "lat": 52.4139456,
+        "lng": 13.0953145
+      },
+      "importance_score": 38.71578428466209,
+      "fameScore": 19.71578428466209,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Museum für Naturkunde",
+      "wikidataId": "Q233098",
+      "coordinates": {
+        "lat": 52.5304903,
+        "lng": 13.3791152
+      },
+      "importance_score": 38.512388523751014,
+      "fameScore": 20.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Friedrichswerdersche Kirche",
+      "wikidataId": "Q833817",
+      "coordinates": {
+        "lat": 52.5158844,
+        "lng": 13.3975222
+      },
+      "importance_score": 38.42695226833628,
+      "fameScore": 19.426952268336283,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Schloss Köpenick",
+      "wikidataId": "Q563805",
+      "coordinates": {
+        "lat": 52.4438607,
+        "lng": 13.5728876
+      },
+      "importance_score": 38.012388523751014,
+      "fameScore": 19.012388523751017,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Deutsches Technikmuseum",
+      "wikidataId": "Q706530",
+      "coordinates": {
+        "lat": 52.4972059,
+        "lng": 13.376498
+      },
+      "importance_score": 37.573942985382715,
+      "fameScore": 20.573942985382715,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Bahnhof Alexanderplatz",
+      "wikidataId": "Q698497",
+      "coordinates": {
+        "lat": 52.5214995,
+        "lng": 13.4112263
+      },
+      "importance_score": 36.18156856932417,
+      "fameScore": 19.181568569324174,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Deutsches Historisches Museum",
+      "wikidataId": "Q688335",
+      "coordinates": {
+        "lat": 52.5177477,
+        "lng": 13.3970225
+      },
+      "importance_score": 35.823942985382715,
+      "fameScore": 19.823942985382715,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Zeughaus",
+      "wikidataId": "Q196970",
+      "coordinates": {
+        "lat": 52.5180977,
+        "lng": 13.3969618
+      },
+      "importance_score": 35.62829485591189,
+      "fameScore": 18.628294855911893,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Berlinische Galerie",
+      "wikidataId": "Q700222",
+      "coordinates": {
+        "lat": 52.5039018,
+        "lng": 13.3982269
+      },
+      "importance_score": 35.17695226833628,
+      "fameScore": 19.176952268336283,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "AVUS-Tribüne",
+      "wikidataId": "Q155810",
+      "coordinates": {
+        "lat": 52.4994618,
+        "lng": 13.2732723
+      },
+      "importance_score": 34.11258893116062,
+      "fameScore": 20.112588931160623,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Schwules Museum *",
+      "wikidataId": "Q685162",
+      "coordinates": {
+        "lat": 52.5042512,
+        "lng": 13.3582193
+      },
+      "importance_score": 33.82068586817104,
+      "fameScore": 18.82068586817104,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "DDR-Museum",
+      "wikidataId": "Q573322",
+      "coordinates": {
+        "lat": 52.5194214,
+        "lng": 13.4022558
+      },
+      "importance_score": 33.50977500432694,
+      "fameScore": 18.509775004326936,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Museum Berggruen",
+      "wikidataId": "Q641630",
+      "coordinates": {
+        "lat": 52.5191024,
+        "lng": 13.2949985
+      },
+      "importance_score": 33.50977500432694,
+      "fameScore": 18.509775004326936,
+      "landmarkTier": "major",
+      "category": "museum"
+    }
+  ]
+}

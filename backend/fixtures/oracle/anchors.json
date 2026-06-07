@@ -1,0 +1,104 @@
+{
+  "_README": "EVALUATION ORACLE — TEST-ONLY. Never import from src/. These are the must-see landmarks a first-time visitor would expect, keyed by wikidata id, used only to score acceptance test runs. Production must DISCOVER anchors via fame/tiering; this file only verifies that discovery worked. Q-ids verified against captured pools at authoring time.",
+  "Madrid/history": [
+    { "qid": "Q160112", "name": "Museo del Prado" },
+    { "qid": "Q1123493", "name": "Plaza Mayor" },
+    { "qid": "Q427163", "name": "Puerta del Sol" },
+    { "qid": "Q849711", "name": "Catedral de la Almudena" },
+    { "qid": "Q171517", "name": "Palacio Real" },
+    { "qid": "Q1140249", "name": "Templo de Debod" },
+    { "qid": "Q1140634", "name": "Puerta de Alcalá" },
+    { "qid": "Q460889", "name": "Museo Reina Sofía" }
+  ],
+  "Berlin/history": [
+    { "qid": "Q157298", "name": "Pergamonmuseum" },
+    { "qid": "Q151963", "name": "Museumsinsel" },
+    { "qid": "Q154563", "name": "Berliner Dom" },
+    { "qid": "Q246474", "name": "Neue Synagoge" },
+    { "qid": "Q160700", "name": "Memorial del Holocausto" },
+    { "qid": "Q32659772", "name": "Neue Nationalgalerie" }
+  ],
+  "Paris/history": [
+    { "qid": "Q2981", "name": "Notre-Dame" },
+    { "qid": "Q243", "name": "Torre Eiffel" },
+    { "qid": "Q19675", "name": "Museo del Louvre" },
+    { "qid": "Q23402", "name": "Museo de Orsay" },
+    { "qid": "Q64436", "name": "Arco del Triunfo" },
+    { "qid": "Q193193", "name": "Sainte-Chapelle" },
+    { "qid": "Q187840", "name": "Ópera Garnier" },
+    { "qid": "Q457318", "name": "Grand Palais" }
+  ],
+  "Roma/history": [
+    { "qid": "Q10285", "name": "Colosseo" },
+    { "qid": "Q180212", "name": "Forum Romanum" },
+    { "qid": "Q99309", "name": "Pantheon" },
+    { "qid": "Q463400", "name": "Piazza Navona" },
+    { "qid": "Q486382", "name": "Castel Sant’Angelo" },
+    { "qid": "Q2943", "name": "Cappella Sistina" },
+    { "qid": "Q12512", "name": "Basilica di San Pietro" }
+  ],
+  "Amsterdam/history": [
+    { "qid": "Q190804", "name": "Rijksmuseum" },
+    { "qid": "Q839050", "name": "Dam" },
+    { "qid": "Q1056152", "name": "Koninklijk Paleis" },
+    { "qid": "Q165366", "name": "Anne Frank Huis" },
+    { "qid": "Q623558", "name": "Oude Kerk" },
+    { "qid": "Q224124", "name": "Van Gogh Museum" }
+  ],
+  "Barcelona/history": [
+    { "qid": "Q48435", "name": "Sagrada Família" },
+    { "qid": "Q17155", "name": "Catedral de Barcelona" },
+    { "qid": "Q597051", "name": "Palau Güell" },
+    { "qid": "Q212867", "name": "Parc Güell" },
+    { "qid": "Q327940", "name": "Palau de la Música Catalana" },
+    { "qid": "Q908802", "name": "Santa Maria del Mar" },
+    { "qid": "Q507282", "name": "Hospital de Sant Pau" }
+  ],
+  "Toulouse/history": {
+    "positive": [
+      { "qid": "Q202494", "name": "Canal du Midi" },
+      { "qid": "Q1010268", "name": "Basilique Saint-Sernin" },
+      { "qid": "Q2737833", "name": "Cathédrale Saint-Étienne" },
+      { "qid": "Q2351013", "name": "Capitole" },
+      { "qid": "Q2887166", "name": "Basilique Notre-Dame de la Daurade" },
+      { "qid": "Q1376", "name": "Musée Saint-Raymond" }
+    ],
+    "negative": [
+      { "qid": "Q723045", "name": "Chang'e 4" },
+      { "qid": "Q579421", "name": "Véhicule Soyouz" },
+      { "qid": "Q63347", "name": "Satellite ERS-2" },
+      { "qid": "Q752180", "name": "Astrovan" },
+      { "qid": "Q15714017", "name": "Aeroscopia" }
+    ]
+  },
+  "Toledo/history": {
+    "positive": [
+      { "qid": "Q1123180", "name": "Catedral de Santa María" },
+      { "qid": "Q1326589", "name": "Alcázar de Toledo" },
+      { "qid": "Q1324080", "name": "Mezquita del Cristo de la Luz" },
+      { "qid": "Q1289106", "name": "Monasterio de San Juan de los Reyes" },
+      { "qid": "Q1568115", "name": "Santa María la Blanca" },
+      { "qid": "Q581532", "name": "Puente de Alcántara" }
+    ],
+    "negative": [
+      { "qid": "Q5836", "name": "Toledo (entidad ciudad)" }
+    ]
+  },
+  "Valencia/history": [
+    { "qid": "Q588009", "name": "Llotja de la Seda" },
+    { "qid": "Q2197068", "name": "Mercat Central" },
+    { "qid": "Q1466926", "name": "Catedral de València" },
+    { "qid": "Q1779244", "name": "Plaça de la Mare de Déu" },
+    { "qid": "Q1102684", "name": "Estació del Nord" },
+    { "qid": "Q2455550", "name": "Torres dels Serrans" }
+  ],
+  "Malaga/history": [
+    { "qid": "Q1582758", "name": "Catedral de Málaga" },
+    { "qid": "Q3127243", "name": "Alcazaba de Málaga" },
+    { "qid": "Q1049197", "name": "Castillo de Gibralfaro" },
+    { "qid": "Q1368396", "name": "Museo Picasso Málaga" },
+    { "qid": "Q3849447", "name": "Teatro Romano" },
+    { "qid": "Q11680432", "name": "Calle Marqués de Larios" }
+  ],
+  "London/history": []
+}

@@ -1,0 +1,492 @@
+{
+  "city": "Valencia",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Llotja de la Seda",
+      "wikidataId": "Q588009",
+      "coordinates": {
+        "lat": 39.4744082,
+        "lng": -0.3784312
+      },
+      "importance_score": 44.528794264106295,
+      "fameScore": 23.528794264106295,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Ciutat de les Arts i les Ciències",
+      "wikidataId": "Q239935",
+      "coordinates": {
+        "lat": 39.4556547,
+        "lng": -0.3516207
+      },
+      "importance_score": 41.82265601385425,
+      "fameScore": 21.82265601385425,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Mercat Central",
+      "wikidataId": "Q2197068",
+      "coordinates": {
+        "lat": 39.4734987,
+        "lng": -0.3789285
+      },
+      "importance_score": 40.42206476617281,
+      "fameScore": 18.422064766172813,
+      "landmarkTier": "flagship",
+      "category": "market"
+    },
+    {
+      "name": "Catedral de València",
+      "wikidataId": "Q1466926",
+      "coordinates": {
+        "lat": 39.4755689,
+        "lng": -0.3751044
+      },
+      "importance_score": 39.61258893116062,
+      "fameScore": 18.612588931160623,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Museu de Belles Arts de València",
+      "wikidataId": "Q1748404",
+      "coordinates": {
+        "lat": 39.4792844,
+        "lng": -0.3708633
+      },
+      "importance_score": 37,
+      "fameScore": 18,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Plaça de la Mare de Déu",
+      "wikidataId": "Q1779244",
+      "coordinates": {
+        "lat": 39.4764019,
+        "lng": -0.3752749
+      },
+      "importance_score": 36.67206476617281,
+      "fameScore": 16.672064766172813,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Mercat de Colón",
+      "wikidataId": "Q3393246",
+      "coordinates": {
+        "lat": 39.4689499,
+        "lng": -0.3683708
+      },
+      "importance_score": 34.50977500432694,
+      "fameScore": 14.509775004326936,
+      "landmarkTier": "flagship",
+      "category": "market"
+    },
+    {
+      "name": "Casa Museu Benlluire",
+      "wikidataId": "Q2402329",
+      "coordinates": {
+        "lat": 39.4807682,
+        "lng": -0.3789781
+      },
+      "importance_score": 34.262388523751014,
+      "fameScore": 18.262388523751017,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Estació del Nord",
+      "wikidataId": "Q1102684",
+      "coordinates": {
+        "lat": 39.4661206,
+        "lng": -0.3774453
+      },
+      "importance_score": 34.012388523751014,
+      "fameScore": 16.012388523751017,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Plaça de l'Ajuntament",
+      "wikidataId": "Q1031982",
+      "coordinates": {
+        "lat": 39.4706562,
+        "lng": -0.376246
+      },
+      "importance_score": 33.75977500432694,
+      "fameScore": 15.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Torres dels Serrans",
+      "wikidataId": "Q2455550",
+      "coordinates": {
+        "lat": 39.4792726,
+        "lng": -0.3760028
+      },
+      "importance_score": 33.75,
+      "fameScore": 15.75,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Palau del Marqués de Dosaigües",
+      "wikidataId": "Q1993940",
+      "coordinates": {
+        "lat": 39.4725416,
+        "lng": -0.3748047
+      },
+      "importance_score": 33.25977500432694,
+      "fameScore": 14.259775004326936,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Plaça de la Reina",
+      "wikidataId": "Q5801391",
+      "coordinates": {
+        "lat": 39.4744704,
+        "lng": -0.375458
+      },
+      "importance_score": 33.25,
+      "fameScore": 15.25,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "L'ETNO - Museu Valencià d'Etnologia",
+      "wikidataId": "Q1577723",
+      "coordinates": {
+        "lat": 39.4783529,
+        "lng": -0.383332
+      },
+      "importance_score": 33.00488750216347,
+      "fameScore": 16.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Torres de Quart",
+      "wikidataId": "Q2343754",
+      "coordinates": {
+        "lat": 39.4759009,
+        "lng": -0.3839263
+      },
+      "importance_score": 32.85131915442328,
+      "fameScore": 14.851319154423276,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Museo Nacional de Cerámica y Artes Suntuarias González Martí",
+      "wikidataId": "Q9046886",
+      "coordinates": {
+        "lat": 39.4725239,
+        "lng": -0.3746678
+      },
+      "importance_score": 32.75977500432694,
+      "fameScore": 14.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Museu de Prehistòria de València",
+      "wikidataId": "Q2701512",
+      "coordinates": {
+        "lat": 39.4783158,
+        "lng": -0.3830583
+      },
+      "importance_score": 32.75977500432694,
+      "fameScore": 14.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Institut Valencià d'Art Modern",
+      "wikidataId": "Q1600831",
+      "coordinates": {
+        "lat": 39.4796141,
+        "lng": -0.3828694
+      },
+      "importance_score": 32.62829485591189,
+      "fameScore": 15.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Palau de la Generalitat Valenciana",
+      "wikidataId": "Q3393221",
+      "coordinates": {
+        "lat": 39.4766593,
+        "lng": -0.3763764
+      },
+      "importance_score": 32.50488750216347,
+      "fameScore": 14.504887502163468,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Basílica de la Mare de Déu dels Desemparats",
+      "wikidataId": "Q978306",
+      "coordinates": {
+        "lat": 39.4762535,
+        "lng": -0.374809
+      },
+      "importance_score": 32.12829485591189,
+      "fameScore": 14.128294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Monestir de Sant Miquel dels Reis",
+      "wikidataId": "Q4891102",
+      "coordinates": {
+        "lat": 39.499387,
+        "lng": -0.3692735
+      },
+      "importance_score": 31.50488750216347,
+      "fameScore": 13.504887502163468,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Iglesia de San Esteban",
+      "wikidataId": "Q9007046",
+      "coordinates": {
+        "lat": 39.4761039,
+        "lng": -0.3731681
+      },
+      "importance_score": 31.259775004326936,
+      "fameScore": 13.259775004326936,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Plaça Redona",
+      "wikidataId": "Q11942014",
+      "coordinates": {
+        "lat": 39.4735815,
+        "lng": -0.3766002
+      },
+      "importance_score": 31.215784284662085,
+      "fameScore": 13.215784284662087,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Església de Sant Nicolau",
+      "wikidataId": "Q9007252",
+      "coordinates": {
+        "lat": 39.4761944,
+        "lng": -0.3788284
+      },
+      "importance_score": 31.128294855911893,
+      "fameScore": 14.128294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Església de Santa Caterina",
+      "wikidataId": "Q2839013",
+      "coordinates": {
+        "lat": 39.474119,
+        "lng": -0.3763935
+      },
+      "importance_score": 31.128294855911893,
+      "fameScore": 14.128294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Palau de l'Exposició",
+      "wikidataId": "Q48975834",
+      "coordinates": {
+        "lat": 39.4734713,
+        "lng": -0.3623651
+      },
+      "importance_score": 30.75,
+      "fameScore": 12.75,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Església dels Sants Joans",
+      "wikidataId": "Q3393224",
+      "coordinates": {
+        "lat": 39.4742703,
+        "lng": -0.3792239
+      },
+      "importance_score": 30.715784284662085,
+      "fameScore": 13.715784284662087,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Jardí Botànic de la Universitat de València",
+      "wikidataId": "Q9010986",
+      "coordinates": {
+        "lat": 39.4768814,
+        "lng": -0.386851
+      },
+      "importance_score": 30.50488750216347,
+      "fameScore": 13.504887502163468,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Plaça de Bous de València",
+      "wikidataId": "Q6080287",
+      "coordinates": {
+        "lat": 39.4664769,
+        "lng": -0.3760775
+      },
+      "importance_score": 30.50488750216347,
+      "fameScore": 13.504887502163468,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Torre de la Plaça",
+      "wikidataId": "Q2894773",
+      "coordinates": {
+        "lat": 39.2849584,
+        "lng": -0.4271463
+      },
+      "importance_score": 30.25,
+      "fameScore": 12.25,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "El Paleontològic",
+      "wikidataId": "Q9047012",
+      "coordinates": {
+        "lat": 39.4792681,
+        "lng": -0.369029
+      },
+      "importance_score": 29.75488750216347,
+      "fameScore": 13.754887502163468,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Torre de Silla",
+      "wikidataId": "Q10836",
+      "coordinates": {
+        "lat": 39.3624247,
+        "lng": -0.4122028
+      },
+      "importance_score": 29.75,
+      "fameScore": 12.75,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Museu d'Història de València",
+      "wikidataId": "Q9047049",
+      "coordinates": {
+        "lat": 39.4725076,
+        "lng": -0.4082434
+      },
+      "importance_score": 28.75488750216347,
+      "fameScore": 13.754887502163468,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Col·legi del Patriarca",
+      "wikidataId": "Q4984364",
+      "coordinates": {
+        "lat": 39.4726387,
+        "lng": -0.3731053
+      },
+      "importance_score": 28.75,
+      "fameScore": 12.75,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Palau de Benicarló",
+      "wikidataId": "Q3068088",
+      "coordinates": {
+        "lat": 39.4778705,
+        "lng": -0.3746253
+      },
+      "importance_score": 28.75,
+      "fameScore": 12.75,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Jardí de Monforte",
+      "wikidataId": "Q2743957",
+      "coordinates": {
+        "lat": 39.4776535,
+        "lng": -0.3648723
+      },
+      "importance_score": 28.715784284662085,
+      "fameScore": 12.715784284662087,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Plaça del Mercat",
+      "wikidataId": "Q4846088",
+      "coordinates": {
+        "lat": 39.4739413,
+        "lng": -0.3785748
+      },
+      "importance_score": 28.25,
+      "fameScore": 12.25,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Museu Faller",
+      "wikidataId": "Q27924428",
+      "coordinates": {
+        "lat": 39.4588375,
+        "lng": -0.3591292
+      },
+      "importance_score": 27.965784284662085,
+      "fameScore": 12.965784284662087,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Plaça de l'Almoina",
+      "wikidataId": "Q3392928",
+      "coordinates": {
+        "lat": 39.4757644,
+        "lng": -0.3745304
+      },
+      "importance_score": 27.215784284662085,
+      "fameScore": 13.215784284662087,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Museu de l'Almoina",
+      "wikidataId": "Q3867999",
+      "coordinates": {
+        "lat": 39.4762479,
+        "lng": -0.3742834
+      },
+      "importance_score": 22.75488750216347,
+      "fameScore": 12.754887502163468,
+      "landmarkTier": "major",
+      "category": "museum"
+    }
+  ]
+}

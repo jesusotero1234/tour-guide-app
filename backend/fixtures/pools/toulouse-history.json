@@ -1,0 +1,6805 @@
+{
+  "city": "Toulouse",
+  "theme": "history",
+  "capturedAt": "2026-05-30",
+  "geocode": {
+    "lat": 43.6044638,
+    "lng": 1.4442433,
+    "boundingBox": {
+      "minLat": 43.5326969,
+      "maxLat": 43.6687119,
+      "minLng": 1.3503311,
+      "maxLng": 1.5153356
+    }
+  },
+  "rawPois": [
+    {
+      "lat": 43.5863196,
+      "lng": 1.4483355,
+      "name": "Ancienne prison Saint-Michel",
+      "tags": {
+        "name": "Ancienne prison Saint-Michel",
+        "height": "6",
+        "barrier": "wall",
+        "ref:mhs": "PA31000090",
+        "heritage": "3",
+        "wikidata": "Q2059713",
+        "wikipedia": "fr:Prison Saint-Michel (Toulouse)",
+        "source:heritage": "data.gouv.fr, Ministère de la Culture - 2016",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2011-02-25"
+      },
+      "osmId": 22387128,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5893349,
+      "lng": 1.4593402,
+      "name": "Bassin de Radoub",
+      "tags": {
+        "name": "Bassin de Radoub",
+        "water": "reservoir",
+        "natural": "water",
+        "ref:mhs": "PA00094675",
+        "website": "http://www.jacobins.mairie-toulouse.fr/patrhist/periples/canal_midi/textes/role_eco_bassin_de_radoub.html",
+        "heritage": "3",
+        "wikidata": "Q22938906",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1989-08-08"
+      },
+      "osmId": 22392906,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6010357,
+      "lng": 1.4463424,
+      "name": "Musée des Augustins",
+      "tags": {
+        "fee": "yes",
+        "name": "Musée des Augustins",
+        "phone": "+33 5 61 22 21 82",
+        "source": "Ministère de la Culture - Muséofile - 09/2019",
+        "ref:mhs": "PA00094510",
+        "tourism": "museum",
+        "website": "https://augustins.toulouse.fr/",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q3001664",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Musée des Augustins de Toulouse",
+        "start_date": "1795",
+        "addr:street": "Rue de Metz",
+        "addr:postcode": "31000",
+        "opening_hours": "Mo,Th-Fr 12:00-18:00; Sa-Su 10:00-18:00",
+        "contact:youtube": "https://www.youtube.com/channel/UCrFKWF9kqaOsMrQ6_-5Krpg",
+        "addr:housenumber": "21",
+        "contact:facebook": "https://www.facebook.com/MuseedesAugustins/",
+        "contact:linkedin": "https://fr.linkedin.com/company/mus%C3%A9e-des-augustins",
+        "ref:FR:museofile": "M0562",
+        "contact:instagram": "https://www.instagram.com/museeaugustins/",
+        "contact:pinterest": "https://fr.pinterest.com/museeaugustins/",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1840"
+      },
+      "osmId": 22718219,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6003056,
+      "lng": 1.4321216,
+      "name": "Hôpital de la Grave",
+      "tags": {
+        "url": "https://www.chu-toulouse.fr/IMG/pdf/hopital_la_grave_plan_detaille_2019-12.pdf",
+        "name": "Hôpital de la Grave",
+        "source": "Le ministère des solidarités et de la santé - 08/2018",
+        "amenity": "hospital",
+        "ref:mhs": "PA00094529",
+        "website": "https://www.chu-toulouse.fr/-hopital-la-grave-cite-de-la-sante-",
+        "heritage": "2",
+        "operator": "CHU Toulouse",
+        "wikidata": "Q3145280",
+        "addr:city": "Toulouse",
+        "healthcare": "hospital",
+        "addr:street": "Rue du Pont Saint-Pierre",
+        "addr:postcode": "31300",
+        "operator:type": "public",
+        "ref:FR:FINESS": "310783063",
+        "type:FR:FINESS": "101",
+        "source:heritage": "Ministère de la Culture - 07/2018",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1978-07-17"
+      },
+      "osmId": 22720240,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6009176,
+      "lng": 1.429599,
+      "name": "Les Abattoirs",
+      "tags": {
+        "fee": "yes",
+        "name": "Les Abattoirs",
+        "ref:mhs": "PA00094674",
+        "website": "https://www.lesabattoirs.org",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3230368",
+        "wikipedia": "fr:Les Abattoirs",
+        "wheelchair": "yes",
+        "contact:city": "Toulouse",
+        "building:part": "no",
+        "contact:phone": "+33 5 62 48 58 00",
+        "opening_hours": "We-Fr 12:00-18:00; Sa,Su 10:00-18:00",
+        "contact:street": "Allees Charles de Fitte",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "contact:postcode": "31300",
+        "ref:FR:museofile": "M0566",
+        "heritage:operator": "mhs",
+        "contact:housenumber": "76",
+        "mhs:inscription_date": "1990-03-13",
+        "check_date:opening_hours": "2026-05-02"
+      },
+      "osmId": 22896377,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5976691,
+      "lng": 1.4425836,
+      "name": "Église Notre-Dame de la Dalbade",
+      "tags": {
+        "name": "Église Notre-Dame de la Dalbade",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/6/64/Notre-Dame_de_la_Dalbade.JPG",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094518",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q3580740",
+        "wikipedia": "fr:Église Notre-Dame de la Dalbade",
+        "ref:FR:CEF": "31555_13",
+        "denomination": "catholic",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1886-07-12"
+      },
+      "osmId": 23315210,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5597032,
+      "lng": 1.4203368,
+      "name": "Hôpital Psychiatrique Gérard Marchant",
+      "tags": {
+        "name": "Hôpital Psychiatrique Gérard Marchant",
+        "amenity": "hospital",
+        "barrier": "wall",
+        "ref:mhs": "PA31000083",
+        "heritage": "3",
+        "wikidata": "Q105164633",
+        "emergency": "no",
+        "wikipedia": "fr:Centre hospitalier Gérard-Marchant",
+        "healthcare": "hospital",
+        "ref:FR:FINESS": "310000369",
+        "type:FR:FINESS": "292",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 23506866,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6085442,
+      "lng": 1.3849785,
+      "name": "Route de Bayonne",
+      "tags": {
+        "name": "Route de Bayonne",
+        "note": "maxweight=* déprécié, utilisez maxweightrating=* à la place (https://forum.openstreetmap.fr/t/proposition-d-edition-automatisee-migration-de-maxweight-en-maxweightrating-pour-la-france/35439/71)",
+        "image": "http://storage9.openstreetcam.org/files/photo/2018/9/20/lth/1291355_10_4ff80_54.jpg",
+        "lanes": "2",
+        "layer": "1",
+        "bridge": "yes",
+        "highway": "tertiary",
+        "old_ref": "N 124",
+        "ref:mhs": "PA00094629",
+        "surface": "asphalt",
+        "heritage": "3",
+        "maxspeed": "50",
+        "wikidata": "Q22938816",
+        "survey:date": "2018-09-20",
+        "parking_lane": "none",
+        "cycleway:both": "lane",
+        "source:heritage": "Ministère de la Culture - 2024-10",
+        "maxweight:signed": "no",
+        "heritage:operator": "mhs",
+        "cycleway:both:lane": "exclusive",
+        "mhs:inscription_date": "1950-04-11",
+        "maxweightrating:signed": "no",
+        "name:etymology:wikidata": "Q134674"
+      },
+      "osmId": 26392562,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5991837,
+      "lng": 1.4342159,
+      "name": "Église Saint-Nicolas",
+      "tags": {
+        "name": "Église Saint-Nicolas",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094522",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "religion": "christian",
+        "wikidata": "Q3583425",
+        "wikipedia": "fr:Église Saint-Nicolas de Toulouse",
+        "check_date": "2026-04-04",
+        "ref:FR:CEF": "31555_32",
+        "denomination": "catholic",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1986-07-24"
+      },
+      "osmId": 28132042,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.607852,
+      "lng": 1.4438313,
+      "name": "Bibliothèque municipale d'étude et du patrimoine",
+      "tags": {
+        "name": "Bibliothèque municipale d'étude et du patrimoine",
+        "phone": "+33 5 62 27 40 88",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2020",
+        "amenity": "library",
+        "ref:mhs": "PA00132768",
+        "website": "https://bibliotheque.toulouse.fr/22-bibliotheques/bibliotheque-detude-et-du-patrimoine",
+        "alt_name": "Bibliotheque Municipale",
+        "building": "civic",
+        "heritage": "3",
+        "wikidata": "Q2901556",
+        "short_name": "BEP",
+        "addr:street": "Rue de Périgord",
+        "source:date": "2012-05-30",
+        "contact:phone": "+33 5 61 22 34 32",
+        "opening_hours": "Tu, We, Sa 10:00-19:00; Th, Fr 14:00-19:00",
+        "building:levels": "5",
+        "contact:website": "http://www.bibliotheque.toulouse.fr",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "addr:housenumber": "1",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1994-12-07"
+      },
+      "osmId": 34712432,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5998893,
+      "lng": 1.4504439,
+      "name": "Cathédrale Saint-Étienne",
+      "tags": {
+        "name": "Cathédrale Saint-Étienne",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/2/28/Cathedrale_St_Etienne_Toulouse.jpg",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2008",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094498",
+        "tourism": "attraction",
+        "building": "cathedral",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q2737833",
+        "wikipedia": "fr:Cathédrale Saint-Étienne de Toulouse",
+        "ref:FR:CEF": "31555_01",
+        "addr:street": "Impasse de la Préfecture",
+        "denomination": "catholic",
+        "addr:postcode": "31000",
+        "opening_hours": "Mo-Su 08:00-19:00",
+        "addr:housenumber": "1",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1862"
+      },
+      "osmId": 35316357,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6049303,
+      "lng": 1.4423459,
+      "name": "Hôtel du Grand Balcon",
+      "tags": {
+        "name": "Hôtel du Grand Balcon",
+        "phone": "+33 5 34 25 44 09",
+        "stars": "4",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA31000041",
+        "smoking": "yes",
+        "tourism": "hotel",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "building",
+        "wikidata": "Q3146284",
+        "ref:FR:SIRET": "42215990500021",
+        "contact:street": "Rue Jean-Antoine Romiguières",
+        "building:levels": "5",
+        "contact:website": "http://www.grandbalconhotel.com",
+        "internet_access": "wlan",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "contact:housenumber": "8",
+        "internet_access:fee": "no",
+        "mhs:inscription_date": "1999-01-25"
+      },
+      "osmId": 36707025,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6032622,
+      "lng": 1.4462192,
+      "name": "Église Saint-Jérôme",
+      "tags": {
+        "name": "Église Saint-Jérôme",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094500",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "old_name": "Chapelle des Pénitents Bleus",
+        "religion": "christian",
+        "wikidata": "Q3582238",
+        "wikipedia": "fr:Église Saint-Jérôme de Toulouse",
+        "check_date": "2025-04-25",
+        "ref:FR:CEF": "31555_27",
+        "denomination": "catholic",
+        "source:heritage": "Ministère de la Culture - 07/2018",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1980-03-06"
+      },
+      "osmId": 36707791,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6009363,
+      "lng": 1.4398504,
+      "name": "Basilique Notre-Dame de la Daurade",
+      "tags": {
+        "name": "Basilique Notre-Dame de la Daurade",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "amenity": "place_of_worship",
+        "name:oc": "Basilica Nòstra Dòna de la Daurada",
+        "ref:mhs": "PA00094519",
+        "tourism": "attraction",
+        "alt_name": "Église Notre-Dame de la Daurade",
+        "basilica": "minor",
+        "building": "church",
+        "heritage": "2",
+        "historic": "church",
+        "religion": "christian",
+        "wikidata": "Q2887166",
+        "wikipedia": "fr:Basilique de la Daurade",
+        "ref:FR:CEF": "31555_14",
+        "wheelchair": "no",
+        "alt_name:oc": "Glèisa Nòstra Dòna de la Daurada",
+        "denomination": "catholic",
+        "source:name:oc": "http://www.gegeloccitan-photo.com/article-eglise-de-la-daurade-toulouse-98714067.html",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1963-02-01"
+      },
+      "osmId": 38129169,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5996327,
+      "lng": 1.4486476,
+      "name": "Hôtel Jean Catel",
+      "tags": {
+        "name": "Hôtel Jean Catel",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2008",
+        "ref:mhs": "PA00094552",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938622",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1950-04-11"
+      },
+      "osmId": 38790061,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5972761,
+      "lng": 1.4426289,
+      "name": "Hôtel des chevaliers de Saint-Jean de Jérusalem",
+      "tags": {
+        "name": "Hôtel des chevaliers de Saint-Jean de Jérusalem",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094571",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q3146253",
+        "wikipedia": "fr:Hôtel des chevaliers de Saint-Jean de Jérusalem",
+        "short_name": "Hôtel Saint-Jean",
+        "addr:street": "Rue de la Dalbade",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1986-10-31"
+      },
+      "osmId": 39303466,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5987377,
+      "lng": 1.4459153,
+      "name": "Hôtel de Pins",
+      "tags": {
+        "name": "Hôtel de Pins",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00135452",
+        "building": "apartments",
+        "heritage": "3",
+        "wikidata": "Q22976097",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1995-07-10"
+      },
+      "osmId": 39440490,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5972033,
+      "lng": 1.4459213,
+      "name": "Hôtel du Vieux-Raisin",
+      "tags": {
+        "name": "Hôtel du Vieux-Raisin",
+        "ref:mhs": "PA00094554",
+        "tourism": "attraction",
+        "alt_name": "Hôtel de Lasbordes",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q3146303",
+        "wikipedia": "fr:Hôtel du Vieux-Raisin",
+        "start_date": "1530",
+        "wheelchair": "no",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1889"
+      },
+      "osmId": 39440507,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5971281,
+      "lng": 1.4465638,
+      "name": "Hôtel Dahus",
+      "tags": {
+        "name": "Hôtel Dahus",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094539",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q15950425",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-06-27"
+      },
+      "osmId": 39446334,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5993584,
+      "lng": 1.4442535,
+      "name": "Maison de Calas",
+      "tags": {
+        "name": "Maison de Calas",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094612",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "building",
+        "wikidata": "Q22938776",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1980-01-15"
+      },
+      "osmId": 39597522,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5996933,
+      "lng": 1.4436848,
+      "name": "Maison Empire",
+      "tags": {
+        "name": "Maison Empire",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094622",
+        "building": "apartments",
+        "heritage": "3",
+        "wikidata": "Q22938809",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1946-11-27"
+      },
+      "osmId": 39822823,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5998639,
+      "lng": 1.442921,
+      "name": "Maison en terre cuite de Virebent",
+      "tags": {
+        "name": "Maison en terre cuite de Virebent",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094621",
+        "tourism": "attraction",
+        "building": "apartments",
+        "heritage": "3",
+        "wikidata": "Q22938806",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1975-10-29"
+      },
+      "osmId": 39822833,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5994287,
+      "lng": 1.4417364,
+      "name": "Hôtel Dassier",
+      "tags": {
+        "name": "Hôtel Dassier",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094544",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q22938613",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1927-08-27"
+      },
+      "osmId": 39822852,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6020668,
+      "lng": 1.4466677,
+      "name": "Hôtel de Guillaume de Bernuy",
+      "tags": {
+        "name": "Hôtel de Guillaume de Bernuy",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094550",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938620",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-23"
+      },
+      "osmId": 45729287,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6009697,
+      "lng": 1.4499292,
+      "name": "Hôtel d'Hautpoul",
+      "tags": {
+        "name": "Hôtel d'Hautpoul",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094636",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938838",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1952-05-27"
+      },
+      "osmId": 45730989,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6010328,
+      "lng": 1.4447202,
+      "name": "Hôtel Desplats",
+      "tags": {
+        "name": "Hôtel Desplats",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00125579",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22969014",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1993-04-01"
+      },
+      "osmId": 46166667,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6009184,
+      "lng": 1.443859,
+      "name": "Hôtel de Saint-Germain",
+      "tags": {
+        "name": "Hôtel de Saint-Germain",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094570",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938645",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-06"
+      },
+      "osmId": 46166681,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.602373,
+      "lng": 1.4442495,
+      "name": "Collège Saint-Rome",
+      "tags": {
+        "name": "Collège Saint-Rome",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094509",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938586",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1946-12-09"
+      },
+      "osmId": 46185435,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6000954,
+      "lng": 1.4407219,
+      "name": "Hôtel d'Olmières",
+      "tags": {
+        "name": "Hôtel d'Olmières",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094561",
+        "building": "apartments",
+        "heritage": "3",
+        "wikidata": "Q22938634",
+        "building:levels": "4",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1946-04-05"
+      },
+      "osmId": 46197429,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6008275,
+      "lng": 1.4420871,
+      "name": "Hôtel de Nupces",
+      "tags": {
+        "name": "Hôtel de Nupces",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094560",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3145925",
+        "wikipedia": "fr:Hôtel de Nupces",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1950-06-20"
+      },
+      "osmId": 46650709,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6012909,
+      "lng": 1.4424726,
+      "name": "Hôtel de la Bourse",
+      "tags": {
+        "name": "Hôtel de la Bourse",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094536",
+        "building": "government",
+        "heritage": "3",
+        "wikidata": "Q22938608",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1975-10-29"
+      },
+      "osmId": 46651376,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6008289,
+      "lng": 1.4431475,
+      "name": "Hôtel Boysson",
+      "tags": {
+        "name": "Hôtel Boysson",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094537",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q15950571",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1928-05-24"
+      },
+      "osmId": 46651381,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6009919,
+      "lng": 1.4425242,
+      "name": "Maison de Pierre Delfau",
+      "tags": {
+        "name": "Maison de Pierre Delfau",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094614",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938783",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-16"
+      },
+      "osmId": 46651392,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6007922,
+      "lng": 1.4435567,
+      "name": "Hôtel d'Arnaud de Brucelles",
+      "tags": {
+        "name": "Hôtel d'Arnaud de Brucelles",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094530",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q3145772",
+        "wikipedia": "fr:Hôtel de Brucelles",
+        "start_date": "1532",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-09-18"
+      },
+      "osmId": 46651402,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6017715,
+      "lng": 1.443381,
+      "name": "Hôtel Pierre Comère",
+      "tags": {
+        "name": "Hôtel Pierre Comère",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2020",
+        "ref:mhs": "PA00094564",
+        "tourism": "attraction",
+        "building": "apartments",
+        "heritage": "3",
+        "wikidata": "Q3145459",
+        "wikipedia": "fr:Hôtel de Pierre Comère",
+        "building:levels": "4",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1950-04-11"
+      },
+      "osmId": 46653391,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6016148,
+      "lng": 1.4403176,
+      "name": "Hôtel de Gayssion",
+      "tags": {
+        "name": "Hôtel de Gayssion",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094549",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938617",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1979-05-16"
+      },
+      "osmId": 46654468,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6021608,
+      "lng": 1.4417316,
+      "name": "Pavillon Mazar",
+      "tags": {
+        "name": "Pavillon Mazar",
+        "source": "GrandToulouse",
+        "amenity": "theatre",
+        "ref:mhs": "PA00125583",
+        "website": "www.pavillonmazar.com",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22969020",
+        "source:date": "2011-11-06",
+        "contact:phone": "+33561227466",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1993-05-27"
+      },
+      "osmId": 46655056,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6042843,
+      "lng": 1.4356331,
+      "name": "Auditorium Saint-Pierre des Cuisines",
+      "tags": {
+        "name": "Auditorium Saint-Pierre des Cuisines",
+        "amenity": "theatre",
+        "name:oc": "Glèisa de Sant Pèire de las Cosinas",
+        "ref:mhs": "PA00094523",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "historic": "church",
+        "wikidata": "Q3584182",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Église Saint-Pierre-des-Cuisines",
+        "addr:street": "Place Saint-Pierre",
+        "addr:postcode": "31000",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "addr:housenumber": "12",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1977-06-06"
+      },
+      "osmId": 46661963,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6067552,
+      "lng": 1.4349239,
+      "name": "Rempart médiéval",
+      "tags": {
+        "name": "Rempart médiéval",
+        "barrier": "city_wall",
+        "ref:mhs": "PA31000011",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22976661",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1997-08-13"
+      },
+      "osmId": 46670981,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6048383,
+      "lng": 1.4375811,
+      "name": "Ilôt Valade",
+      "tags": {
+        "name": "Ilôt Valade",
+        "layer": "1",
+        "ref:mhs": "PA00094634",
+        "alt_name": "Ancien séminaire",
+        "building": "government",
+        "heritage": "3",
+        "operator": "Mairie de Toulouse",
+        "wikidata": "Q22938835",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1965-03-22"
+      },
+      "osmId": 46672166,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6058084,
+      "lng": 1.4408205,
+      "name": "Salle capitulaire",
+      "tags": {
+        "name": "Salle capitulaire",
+        "ruins": "no",
+        "access": "destination",
+        "ref:mhs": "PA00132945",
+        "tourism": "attraction",
+        "building": "university",
+        "heritage": "2",
+        "historic": "yes",
+        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
+        "short_name": "Salle capitulaire",
+        "description": "Salle capitulaire du Couvent des Cordeliers",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "wikimedia_commons": "File:Toulouse (31) Couvent des Cordeliers Salle capitulaire 01.jpg",
+        "mhs:inscription_date": "1994-07-18"
+      },
+      "osmId": 46711881,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6054975,
+      "lng": 1.440695,
+      "name": "Ruines de l'église des Cordeliers",
+      "tags": {
+        "name": "Ruines de l'église des Cordeliers",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/3/3e/%C3%89glise_des_Cordeliers_de_Toulouse.JPG",
+        "ruins": "yes",
+        "disused": "yes",
+        "ref:mhs": "PA00094517",
+        "tourism": "attraction",
+        "building": "church",
+        "end_date": "1871",
+        "heritage": "2",
+        "historic": "ruins",
+        "wikidata": "Q3585905",
+        "wikipedia": "fr:Église des Cordeliers de Toulouse",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1862"
+      },
+      "osmId": 46711884,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5670607,
+      "lng": 1.4615987,
+      "name": "Couvent des Dominicains",
+      "tags": {
+        "name": "Couvent des Dominicains",
+        "amenity": "monastery",
+        "ref:mhs": "PA31000081",
+        "website": "https://toulouse.dominicains.com/",
+        "building": "monastery",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q22996471",
+        "addr:city": "Toulouse",
+        "community": "OP",
+        "check_date": "2026-03-21",
+        "addr:street": "Impasse Henri-Dominique Lacordaire",
+        "addr:postcode": "31400",
+        "building:colour": "#cccccc",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 48394476,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5672324,
+      "lng": 1.4754417,
+      "name": "Château de Lespinet",
+      "tags": {
+        "name": "Château de Lespinet",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "building": "university",
+        "historic": "castle",
+        "castle_type": "manor"
+      },
+      "osmId": 50901893,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5567917,
+      "lng": 1.4732038,
+      "name": "Château Lespinet-Lasvignes",
+      "tags": {
+        "name": "Château Lespinet-Lasvignes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q50822861",
+        "castle_type": "manor"
+      },
+      "osmId": 55604841,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5588541,
+      "lng": 1.45808,
+      "name": "Château de Bellevue",
+      "tags": {
+        "name": "Château de Bellevue",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2010",
+        "ref:mhs": "PA00125576",
+        "building": "school",
+        "heritage": "3",
+        "wikidata": "Q22969009",
+        "roof:levels": "1",
+        "building:levels": "2",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 59988538,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6056359,
+      "lng": 1.4430484,
+      "name": "Église Notre-Dame-du-Taur",
+      "tags": {
+        "name": "Église Notre-Dame-du-Taur",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/2/2f/Toulouse_-_Notre-Dame_du_Taur-fa%C3%A7ade.jpg",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094521",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q3580780",
+        "wikipedia": "fr:Église Notre-Dame du Taur",
+        "ref:FR:CEF": "31555_12",
+        "denomination": "catholic",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1840"
+      },
+      "osmId": 60535162,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6065277,
+      "lng": 1.4411011,
+      "name": "Collège de l'Esquile",
+      "tags": {
+        "name": "Collège de l'Esquile",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00125572",
+        "tourism": "attraction",
+        "building": "government",
+        "heritage": "3",
+        "wikidata": "Q22969005",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1993-11-29"
+      },
+      "osmId": 60538085,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.607543,
+      "lng": 1.4432849,
+      "name": "Chapelle des Carmélites",
+      "tags": {
+        "fee": "no",
+        "name": "Chapelle des Carmélites",
+        "phone": "+33 5 34 44 92 05",
+        "access": "yes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094635",
+        "tourism": "attraction",
+        "website": "https://www.toulouse-tourisme.com/chapelle-des-carmelites/toulouse/pcumid031fs00094",
+        "building": "church",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q2957369",
+        "wikipedia": "fr:Chapelle des Carmélites",
+        "denomination": "catholic",
+        "opening_hours": "We-Su 12:00-19:00",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1909-02-10"
+      },
+      "osmId": 60544436,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6063144,
+      "lng": 1.4459819,
+      "name": "Immeuble de La Dépêche du Midi",
+      "tags": {
+        "name": "Immeuble de La Dépêche du Midi",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA31000010",
+        "building": "office",
+        "heritage": "3",
+        "wikidata": "Q22976660",
+        "building:levels": "4",
+        "source:heritage": "Ministère de la Culture - 07/2018",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1997-03-04"
+      },
+      "osmId": 60582542,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6003083,
+      "lng": 1.4309581,
+      "name": "Rempart Saint-Cyprien",
+      "tags": {
+        "name": "Rempart Saint-Cyprien",
+        "barrier": "city_wall",
+        "ref:mhs": "PA00094633",
+        "heritage": "2",
+        "wikidata": "Q22938833",
+        "source:heritage": "Ministère de la Culture - 07/2018",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1988-12-05"
+      },
+      "osmId": 61412564,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5986973,
+      "lng": 1.4369307,
+      "name": "Galerie Le Château d'eau",
+      "tags": {
+        "fee": "yes",
+        "name": "Galerie Le Château d'eau",
+        "source": "GrandToulouse",
+        "barrier": "wall",
+        "name:da": "Toulouse Vandtårn",
+        "ref:mhs": "PA00094504",
+        "tourism": "museum",
+        "website": "https://chateaudeau.toulouse.fr/",
+        "alt_name": "Château d'eau de Toulouse",
+        "building": "water_tower",
+        "heritage": "3",
+        "historic": "industrial",
+        "wikidata": "Q2968376",
+        "wikipedia": "fr:Château d'eau de Toulouse",
+        "wheelchair": "no",
+        "source:date": "2011-11-06",
+        "contact:phone": "+33561770940",
+        "opening_hours": "We-Su 11:00-18:00",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1987-09-28",
+        "name:etymology:wikidata": "Q2959549"
+      },
+      "osmId": 61565556,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6082441,
+      "lng": 1.4401647,
+      "name": "Hôtel Jean du Barry",
+      "tags": {
+        "name": "Hôtel Jean du Barry",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094551",
+        "building": "college",
+        "heritage": "2",
+        "wikidata": "Q3145479",
+        "wikipedia": "fr:Hôtel Dubarry",
+        "roof:levels": "1",
+        "building:levels": "3",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1984-10-11"
+      },
+      "osmId": 61990268,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6090971,
+      "lng": 1.4415828,
+      "name": "Greniers du Chapitre Saint-Sernin",
+      "tags": {
+        "name": "Greniers du Chapitre Saint-Sernin",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA31000082",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22996472",
+        "addr:city": "Toulouse",
+        "addr:street": "Rue des Cuves Saint-Sernin",
+        "addr:postcode": "31000",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "addr:housenumber": "1 bis",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2007-03-19"
+      },
+      "osmId": 61990470,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5846283,
+      "lng": 1.4482123,
+      "name": "Villa Gabès",
+      "tags": {
+        "name": "Villa Gabès",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094644",
+        "building": "house",
+        "heritage": "3",
+        "wikidata": "Q22938849",
+        "roof:shape": "gabled",
+        "roof:colour": "brown",
+        "building:levels": "2",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1981-12-18"
+      },
+      "osmId": 63136325,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5925391,
+      "lng": 1.4425101,
+      "name": "Immeuble de Seube",
+      "tags": {
+        "name": "Immeuble de Seube",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094580",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938684",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1981-12-18"
+      },
+      "osmId": 63547450,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5968129,
+      "lng": 1.4529406,
+      "name": "Hôtel Calestroupat",
+      "tags": {
+        "name": "Hôtel Calestroupat",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA31000103",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q65684911",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2018-12-19"
+      },
+      "osmId": 63649959,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5966373,
+      "lng": 1.4533269,
+      "name": "Maison Guignard",
+      "tags": {
+        "name": "Maison Guignard",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA31000105",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q65685368",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2018-12-19"
+      },
+      "osmId": 63650239,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5836223,
+      "lng": 1.4438297,
+      "name": "Église Sainte-Marie-des-Anges",
+      "tags": {
+        "name": "Église Sainte-Marie-des-Anges",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094516",
+        "alt_name": "Église du Calvaire",
+        "building": "church",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q22938593",
+        "check_date": "2025-10-31",
+        "ref:FR:CEF": "31555_43",
+        "denomination": "catholic",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 63969185,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5817116,
+      "lng": 1.4439848,
+      "name": "Chapelle Notre-Dame du Férétra",
+      "tags": {
+        "name": "Chapelle Notre-Dame du Férétra",
+        "phone": "+335 61 74 27 93;+335 61 55 42 88",
+        "source": "data.gouv.fr:Ministère de la Culture - 08/2011",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094502",
+        "alt_name": "Ancienne Chapelle Saint-Roch-du-Férétra",
+        "building": "chapel",
+        "heritage": "3",
+        "operator": "FSSPX",
+        "religion": "christian",
+        "wikidata": "Q22938577",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Chapelle Saint-Roch-du-Férétra de Toulouse",
+        "check_date": "2025-08-09",
+        "addr:street": "Place Saint-Roch (Rue du Férétra)",
+        "denomination": "roman_catholic",
+        "addr:postcode": "31400",
+        "service_times": "Mo-Sa 18:30; Su,PH 08:00, 09:00, 10:30; Jul-Aug  Su,PH 09:00, 10:30",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1979",
+        "source:service_times": "https://laportelatine.org/district/lieux/page.php?no_dept=31"
+      },
+      "osmId": 63970317,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5515003,
+      "lng": 1.4634785,
+      "name": "Belvédère",
+      "tags": {
+        "name": "Belvédère",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094495",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938571",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 64000091,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5497971,
+      "lng": 1.4621938,
+      "name": "Orangerie",
+      "tags": {
+        "name": "Orangerie",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094631",
+        "building": "detached",
+        "heritage": "3",
+        "wikidata": "Q22938820",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 64000175,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6317238,
+      "lng": 1.5006741,
+      "name": "Château de Thegra",
+      "tags": {
+        "fee": "yes",
+        "name": "Château de Thegra",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094282",
+        "tourism": "guest_house",
+        "website": "https://www.chateau-de-thegra.com/",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "castle",
+        "wikidata": "Q22938008",
+        "wikipedia": "fr:Château de Thégra (Haute-Garonne)",
+        "opening_hours": "Su-We 13:00-18:00;Oct 1 - Jun 14 Off",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1984-11-09"
+      },
+      "osmId": 64104445,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.63417,
+      "lng": 1.3993357,
+      "name": "Saint-Pierre",
+      "tags": {
+        "name": "Saint-Pierre",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094291",
+        "building": "church",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q3583782",
+        "wikipedia": "fr:Église Saint-Pierre de Blagnac",
+        "ref:FR:CEF": "31069_01",
+        "wheelchair": "yes",
+        "denomination": "catholic",
+        "source:heritage": "data.gouv.fr, Ministère de la Culture - 2016",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1926-12-23"
+      },
+      "osmId": 64405100,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5837266,
+      "lng": 1.4608112,
+      "name": "Serres municipales de Toulouse",
+      "tags": {
+        "name": "Serres municipales de Toulouse",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094638",
+        "website": "https://www.toulouse.fr/web/environnement/serres-municipales",
+        "building": "greenhouse",
+        "heritage": "3",
+        "wikidata": "Q22938840",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1987-06-16"
+      },
+      "osmId": 64499238,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6130998,
+      "lng": 1.4385459,
+      "name": "Castel-Gesta",
+      "tags": {
+        "name": "Castel-Gesta",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094677",
+        "tourism": "attraction",
+        "alt_name": "Maison des Verrières",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q2941346",
+        "addr:city": "Toulouse",
+        "addr:street": "Avenue Honoré Serres",
+        "addr:postcode": "31000",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "addr:housenumber": "22",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1991-10-03"
+      },
+      "osmId": 64650998,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6378573,
+      "lng": 1.464005,
+      "name": "Mairie Annexe de Croix Daurade",
+      "tags": {
+        "name": "Mairie Annexe de Croix Daurade",
+        "source": "GrandToulouse",
+        "amenity": "townhall",
+        "alt_name": "Château Ozenne",
+        "building": "civic",
+        "historic": "castle",
+        "operator": "Mairie de Toulouse",
+        "contact:fax": "+33561610849",
+        "roof:levels": "0",
+        "source:date": "2012-05-30",
+        "contact:phone": "+33561998480",
+        "opening_hours": "Mo-Fr 8:30-12:00,13:30-17:00",
+        "townhall:type": "Mairie annexe",
+        "building:levels": "2",
+        "operator:wikidata": "Q59916588"
+      },
+      "osmId": 67494820,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5976986,
+      "lng": 1.4506238,
+      "name": "Hôtel de Lestang",
+      "tags": {
+        "name": "Hôtel de Lestang",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094555",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938626",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1947-04-28"
+      },
+      "osmId": 70082779,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5975961,
+      "lng": 1.4499959,
+      "name": "Hôtel de Jean de Ulmo",
+      "tags": {
+        "name": "Hôtel de Jean de Ulmo",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094553",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3145732",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-16"
+      },
+      "osmId": 70082888,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5972436,
+      "lng": 1.4502198,
+      "name": "Hôtel de Castagnier d'Auriac",
+      "tags": {
+        "name": "Hôtel de Castagnier d'Auriac",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA31000072",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22996464",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2005-08-16"
+      },
+      "osmId": 70082915,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5963417,
+      "lng": 1.4478465,
+      "name": "Hôtel Mansencal",
+      "tags": {
+        "name": "Hôtel Mansencal",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094557",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938627",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-23"
+      },
+      "osmId": 70082917,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5962403,
+      "lng": 1.4490576,
+      "name": "Hôtel de Pénautier",
+      "tags": {
+        "name": "Hôtel de Pénautier",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094562",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q22938635",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1946-12-09"
+      },
+      "osmId": 70082955,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5995623,
+      "lng": 1.4467876,
+      "name": "Hôtel de Bonnefoy",
+      "tags": {
+        "name": "Hôtel de Bonnefoy",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094535",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3145759",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1950-04-11"
+      },
+      "osmId": 70083209,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5961588,
+      "lng": 1.4461229,
+      "name": "Chapelle Notre-Dame-de-Nazareth",
+      "tags": {
+        "name": "Chapelle Notre-Dame-de-Nazareth",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094499",
+        "building": "church",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q22938572",
+        "check_date": "2023-10-14",
+        "ref:FR:CEF": "31555_08",
+        "denomination": "catholic",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1974-12-27"
+      },
+      "osmId": 70540645,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5944587,
+      "lng": 1.4469544,
+      "name": "Église du Gésu",
+      "tags": {
+        "name": "Église du Gésu",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00132670",
+        "alt_name": "Église du Jésus",
+        "building": "church",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q3585959",
+        "wikipedia": "fr:Église du Gésu de Toulouse",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1994-04-07"
+      },
+      "osmId": 70540654,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5970289,
+      "lng": 1.4440628,
+      "name": "Hôtel Marvéjol",
+      "tags": {
+        "name": "Hôtel Marvéjol",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094558",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938630",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-06"
+      },
+      "osmId": 70540722,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5960811,
+      "lng": 1.4435854,
+      "name": "Hôtel Réquy",
+      "tags": {
+        "name": "Hôtel Réquy",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094567",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q21294389",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1933-04-19"
+      },
+      "osmId": 70540873,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5951167,
+      "lng": 1.4456884,
+      "name": "Maison de la Belle-Paule",
+      "tags": {
+        "name": "Maison de la Belle-Paule",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094619",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938799",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-18"
+      },
+      "osmId": 70540951,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5963467,
+      "lng": 1.446069,
+      "name": "Hôtel Magnier et Jean-Burnet",
+      "tags": {
+        "name": "Hôtel Magnier et Jean-Burnet",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094559",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938631",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-06"
+      },
+      "osmId": 70540954,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5966137,
+      "lng": 1.4426165,
+      "name": "Hôtel de Felzins",
+      "tags": {
+        "name": "Hôtel de Felzins",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094548",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q21294385",
+        "start_date": "1556",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1889"
+      },
+      "osmId": 70541008,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5951999,
+      "lng": 1.4445439,
+      "name": "Temple du Salin",
+      "tags": {
+        "name": "Temple du Salin",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094643",
+        "building": "church",
+        "heritage": "2",
+        "religion": "christian",
+        "wikidata": "Q2365596",
+        "wikipedia": "fr:Temple du Salin",
+        "wheelchair": "no",
+        "denomination": "protestant",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1990-05-07"
+      },
+      "osmId": 70541054,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6080336,
+      "lng": 1.4514341,
+      "name": "Immeuble des Cariatides",
+      "tags": {
+        "name": "Immeuble des Cariatides",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00135454",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22976098",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1994-08-22"
+      },
+      "osmId": 73018467,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5916583,
+      "lng": 1.4531228,
+      "name": "Monument à la gloire de la Résistance",
+      "tags": {
+        "name": "Monument à la gloire de la Résistance",
+        "ref:mhs": "PA31000096",
+        "heritage": "3",
+        "historic": "memorial",
+        "wikidata": "Q59199406",
+        "source:heritage": "Ministère de la Culture - 07/2018",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "2016-08-22"
+      },
+      "osmId": 241775919,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.595337,
+      "lng": 1.4430488,
+      "name": "Fonderie de canons de Toulouse",
+      "tags": {
+        "name": "Fonderie de canons de Toulouse",
+        "ref:mhs": "PA00094632",
+        "tourism": "attraction",
+        "heritage": "2",
+        "wikidata": "Q22938827",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1963-12-11"
+      },
+      "osmId": 1772759884,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6209252,
+      "lng": 1.4003497,
+      "name": "Vestiges village néolithique",
+      "tags": {
+        "name": "Vestiges village néolithique",
+        "source": "survey",
+        "ref:mhs": "PA00094645",
+        "heritage": "3",
+        "historic": "ruins",
+        "wikidata": "Q22938851",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 3057277813,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5938018,
+      "lng": 1.443134,
+      "name": "Hôtel de Bruée",
+      "tags": {
+        "name": "Hôtel de Bruée",
+        "access": "private",
+        "historic": "manor",
+        "survey:date": "2023-08-08"
+      },
+      "osmId": 11099244805,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5911189,
+      "lng": 1.458467,
+      "name": "Musée Georges Labit",
+      "tags": {
+        "fee": "yes",
+        "name": "Musée Georges Labit",
+        "phone": "+33 5 31 22 99 80",
+        "museum": "archaeological;art",
+        "source": "GrandToulouse",
+        "toilets": "yes",
+        "tourism": "museum",
+        "website": "https://www.museegeorgeslabit.fr/",
+        "building": "yes",
+        "wikidata": "Q167182",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Musée Georges-Labit",
+        "wheelchair": "yes",
+        "addr:street": "Rue du Japon",
+        "museum_type": "municipal",
+        "source:date": "2011-11-06",
+        "addr:postcode": "31400",
+        "opening_hours": "We-Mo 10:00-18:00",
+        "addr:housenumber": "17",
+        "ref:FR:museofile": "M0564"
+      },
+      "osmId": 63801451,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.541478,
+      "lng": 1.4075634,
+      "name": "Musée de la Mémoire Camp du Récébédou",
+      "tags": {
+        "name": "Musée de la Mémoire Camp du Récébédou",
+        "museum": "history",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "tourism": "museum",
+        "website": "https://www.cheminsdememoire.gouv.fr/fr/musee-de-la-memoire",
+        "building": "yes",
+        "wikidata": "Q3329931",
+        "survey:date": "2021-08-10"
+      },
+      "osmId": 84369454,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6148796,
+      "lng": 1.3977253,
+      "name": "Amphithéâtre et Termes Romains de Purpan-Ancely",
+      "tags": {
+        "name": "Amphithéâtre et Termes Romains de Purpan-Ancely",
+        "barrier": "fence",
+        "ref:mhs": "PA00094494",
+        "tourism": "attraction",
+        "website": "https://saintraymond.toulouse.fr/L-amphitheatre-romain-de-Toulouse-Purpan-et-la-piscine-des-thermes-d-Ancely_a96.html",
+        "heritage": "2",
+        "historic": "archaeological_site",
+        "wikidata": "Q2844425",
+        "wikipedia": "fr:Amphithéâtre romain de Purpan-Ancely",
+        "opening_hours": "Su 14:00-17:00; Nov-Dec off; Jan-Apr off",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 95656275,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5977851,
+      "lng": 1.4474309,
+      "name": "Hôtel Reynier",
+      "tags": {
+        "name": "Hôtel Reynier",
+        "ref:mhs": "PA00094568",
+        "tourism": "attraction",
+        "heritage": "2",
+        "wikidata": "Q22938642",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1971-10-20"
+      },
+      "osmId": 115027056,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6068638,
+      "lng": 1.441428,
+      "name": "Cinémathèque de Toulouse",
+      "tags": {
+        "name": "Cinémathèque de Toulouse",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "cinema",
+        "website": "https://www.lacinemathequedetoulouse.com/",
+        "building": "yes",
+        "historic": "yes",
+        "wikidata": "Q2973244",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Cinémathèque de Toulouse",
+        "ref:FR:CNC": "no",
+        "addr:street": "Rue du Taur",
+        "addr:postcode": "31080",
+        "opening_hours": "Tu-Sa 14:00-21:00; Su 14:00-19:00",
+        "addr:housenumber": "69"
+      },
+      "osmId": 60538081,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5933609,
+      "lng": 1.4495786,
+      "name": "Muséum d'Histoire Naturelle",
+      "tags": {
+        "fee": "yes",
+        "name": "Muséum d'Histoire Naturelle",
+        "museum": "history;nature",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011",
+        "tourism": "museum",
+        "website": "http://www.museum.toulouse.fr",
+        "alt_name": "Muséum Histoire Naturelle",
+        "wikidata": "Q422",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Muséum de Toulouse",
+        "addr:street": "Allées Jules Guesde",
+        "museum_type": "municipal",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 67 73 84 84",
+        "opening_hours": "Tu-Su 10:00-18:00",
+        "contact:website": "http://www.museum.toulouse.fr",
+        "addr:housenumber": "35",
+        "ref:FR:museofile": "M7013",
+        "check_date:opening_hours": "2024-03-24"
+      },
+      "osmId": 134123637,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5973772,
+      "lng": 1.4419869,
+      "name": "Hôtel de la Mamye",
+      "tags": {
+        "name": "Hôtel de la Mamye",
+        "ref:mhs": "PA00094556",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3146033",
+        "wikipedia": "fr:Hôtel de la Mamye",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-16"
+      },
+      "osmId": 165741912,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5966425,
+      "lng": 1.445953,
+      "name": "Tour de Guillaume Garreri",
+      "tags": {
+        "name": "Tour de Guillaume Garreri",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094639",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "man_made": "tower",
+        "wikidata": "Q22938843",
+        "tower:type": "decorative",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1950-04-11"
+      },
+      "osmId": 165741914,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6036047,
+      "lng": 1.4463359,
+      "name": "Hôtel Caulet-Resseguier",
+      "tags": {
+        "name": "Hôtel Caulet-Resseguier",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094540",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938609",
+        "wikipedia": "fr:Hôtel Caulet-Resseguier",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1961-07-01"
+      },
+      "osmId": 166106353,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5941343,
+      "lng": 1.443522,
+      "name": "Maison Seilhan",
+      "tags": {
+        "fee": "no",
+        "name": "Maison Seilhan",
+        "ref:mhs": "PA00094579",
+        "tourism": "attraction",
+        "heritage": "2",
+        "wikidata": "Q3278998",
+        "wikipedia": "fr:Maison Seilhan",
+        "wheelchair": "no",
+        "opening_hours": "Tu,We,Sa 14:00-18:00",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1976-02-12"
+      },
+      "osmId": 193040329,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5997933,
+      "lng": 1.4365279,
+      "name": "Hôpital Hôtel-Dieu Saint-Jacques",
+      "tags": {
+        "name": "Hôpital Hôtel-Dieu Saint-Jacques",
+        "source": "Le ministère des solidarités et de la santé - 08/2018",
+        "amenity": "hospital",
+        "ref:mhs": "PA00094545",
+        "ref:whc": "868-046",
+        "tourism": "attraction",
+        "heritage": "2",
+        "operator": "CHU Toulouse",
+        "wikidata": "Q15950372",
+        "check_date": "2026-04-04",
+        "healthcare": "hospital",
+        "operator:type": "public",
+        "ref:FR:FINESS": "310000484",
+        "type:FR:FINESS": "101",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "whc;mhs",
+        "mhs:inscription_date": "1986-10-31",
+        "whc:inscription_date": "1998",
+        "name:etymology:wikidata": "Q43999"
+      },
+      "osmId": 219748548,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6083805,
+      "lng": 1.441884,
+      "name": "Basilique Saint-Sernin",
+      "tags": {
+        "name": "Basilique Saint-Sernin",
+        "amenity": "place_of_worship",
+        "name:oc": "Basilica de Sant Sernin",
+        "ref:mhs": "PA00094524",
+        "ref:whc": "868-045",
+        "tourism": "attraction",
+        "website": "https://basilique-saint-sernin.fr/",
+        "basilica": "minor",
+        "building": "church",
+        "heritage": "1",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q1010268",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Basilique Saint-Sernin de Toulouse",
+        "ref:FR:CEF": "31555_02",
+        "start_date": "1180",
+        "wheelchair": "yes",
+        "addr:street": "Place Saint-Sernin",
+        "denomination": "catholic",
+        "addr:postcode": "31000",
+        "building:part": "no",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "whc;mhs",
+        "mhs:inscription_date": "1840",
+        "whc:inscription_date": "1998"
+      },
+      "osmId": 260584755,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6078306,
+      "lng": 1.4411185,
+      "name": "Musée Saint-Raymond",
+      "tags": {
+        "fee": "yes",
+        "name": "Musée Saint-Raymond",
+        "email": "msr.web@mairie-toulouse.fr",
+        "phone": "+33 5 61 22 31 44",
+        "museum": "history",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2008",
+        "ref:mhs": "PA00094508",
+        "tourism": "museum",
+        "website": "https://saintraymond.toulouse.fr/",
+        "alt_name": "Musée Saint-Raymond, musée d'archéologie de Toulouse",
+        "building": "yes",
+        "heritage": "2",
+        "old_name": "Collège Saint-Raymond",
+        "wikidata": "Q1376",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Musée Saint-Raymond, musée d'archéologie de Toulouse",
+        "check_date": "2024-08-12",
+        "wheelchair": "yes",
+        "addr:street": "Place Saint-Sernin",
+        "addr:postcode": "31000",
+        "building:part": "no",
+        "opening_hours": "Tu-Su 10:00-18:00; Jan 01,May 01,Dec 31 off",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "addr:housenumber": "1",
+        "ref:FR:museofile": "M0563",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1975-08-11"
+      },
+      "osmId": 261558997,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.601663,
+      "lng": 1.4437002,
+      "name": "Tour de Serta",
+      "tags": {
+        "name": "Tour de Serta",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2012",
+        "ref:mhs": "PA00094642",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "man_made": "tower",
+        "wikidata": "Q22938847",
+        "tower:type": "decorative",
+        "wheelchair": "no",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1980-07-09"
+      },
+      "osmId": 353680646,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5765772,
+      "lng": 1.3991302,
+      "name": "Aqueduc de la reine Pédauque",
+      "tags": {
+        "name": "Aqueduc de la reine Pédauque",
+        "note": "Aqueduc à fleur de sol (quasiment tout enterré)",
+        "source": "Bing",
+        "tourism": "attraction",
+        "historic": "archaeological_site"
+      },
+      "osmId": 374894215,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5993422,
+      "lng": 1.4390816,
+      "name": "Pont Neuf",
+      "tags": {
+        "name": "Pont Neuf",
+        "layer": "1",
+        "name:fr": "Pont Neuf",
+        "tourism": "attraction",
+        "historic": "yes",
+        "man_made": "bridge",
+        "wikidata": "Q1460090",
+        "wikipedia": "fr:Pont-Neuf (Toulouse)",
+        "wheelchair": "yes",
+        "bridge:structure": "humpback"
+      },
+      "osmId": 420826560,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6057192,
+      "lng": 1.4409667,
+      "name": "Chapelle des Cordeliers",
+      "tags": {
+        "name": "Chapelle des Cordeliers",
+        "ruins": "no",
+        "access": "private",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00132945",
+        "tourism": "attraction",
+        "alt_name": "Sacristie des Cordeliers",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
+        "description": "Sacristie de l'ancienne église du Couvent des Cordeliers",
+        "denomination": "catholic",
+        "building:part": "chapel",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "wikimedia_commons": "File:Sacristie-cordeliers-toulouse.jpg",
+        "mhs:inscription_date": "1994-07-18"
+      },
+      "osmId": 784923753,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5985611,
+      "lng": 1.4463763,
+      "name": "Hôtel de Puivert",
+      "tags": {
+        "name": "Hôtel de Puivert",
+        "ref:mhs": "PA00094566",
+        "tourism": "attraction",
+        "alt_name": "Hôtel de Puyvert",
+        "heritage": "3",
+        "wikipedia": "fr:Hôtel de Puivert",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1998-02-25"
+      },
+      "osmId": 813402585,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5970166,
+      "lng": 1.446913,
+      "name": "Musée des arts précieux Paul-Dupuy",
+      "tags": {
+        "fee": "yes",
+        "name": "Musée des arts précieux Paul-Dupuy",
+        "museum": "art",
+        "tourism": "museum",
+        "website": "https://museepauldupuy.toulouse.fr/",
+        "wikidata": "Q3329305",
+        "addr:city": "Toulouse",
+        "wheelchair": "yes",
+        "addr:street": "Rue de la Pleau",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 31 22 95 40",
+        "opening_hours": "Tu-Su 10:00-18:00",
+        "addr:housenumber": "13",
+        "ref:FR:museofile": "M0565"
+      },
+      "osmId": 833971998,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6607444,
+      "lng": 1.3599367,
+      "name": "Aeroscopia",
+      "tags": {
+        "fee": "yes",
+        "name": "Aeroscopia",
+        "tourism": "museum",
+        "wikidata": "Q15714017",
+        "wikipedia": "fr:Aeroscopia",
+        "wheelchair": "yes",
+        "contact:email": "info@musee-aeroscopia.fr",
+        "contact:phone": "+33 534394200",
+        "opening_hours": "Mo-Su 09:30-19:00",
+        "contact:website": "http://www.musee-aeroscopia.fr",
+        "note:opening_hours": "en période scolaire zone A : jusqu'à 19h"
+      },
+      "osmId": 1465652591,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5969721,
+      "lng": 1.445979,
+      "name": "Hôtel de Puymaurin",
+      "tags": {
+        "name": "Hôtel de Puymaurin",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094565",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3145937",
+        "wikipedia": "fr:Hôtel de Puymaurin",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-10-21"
+      },
+      "osmId": 214987,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5974483,
+      "lng": 1.4470423,
+      "name": "Hôtel d'Espie",
+      "tags": {
+        "name": "Hôtel d'Espie",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094543",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q3145723",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1932-02-02"
+      },
+      "osmId": 214991,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6003813,
+      "lng": 1.4420217,
+      "name": "Hôtel d'Assézat",
+      "tags": {
+        "fee": "yes",
+        "name": "Hôtel d'Assézat",
+        "type": "multipolygon",
+        "museum": "art",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "ref:mhs": "PA00094532",
+        "tourism": "museum",
+        "website": "http://www.fondation-bemberg.fr/",
+        "building": "yes",
+        "heritage": "2",
+        "operator": "Fondation Bemberg",
+        "wikidata": "Q3145715",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Hôtel d'Assézat",
+        "start_date": "1555",
+        "addr:street": "Place d'Assezat",
+        "addr:postcode": "31000",
+        "contact:phone": "+33561120689",
+        "opening_hours": "Tu-Su 10:00-18:00; May-Jul Mo 08:00-18:00; Tu[1] 10:00-20:00",
+        "operator:type": "private",
+        "fee:icom_member": "no",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1914-07-22"
+      },
+      "osmId": 216048,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.4050497,
+      "lng": 2.478324,
+      "name": "Canal du Midi",
+      "tags": {
+        "name": "Canal du Midi",
+        "type": "waterway",
+        "name:sk": "Južný prieplav",
+        "ref:whc": "770",
+        "tourism": "attraction",
+        "heritage": "1",
+        "waterway": "canal",
+        "wikidata": "Q202494",
+        "motorboat": "yes",
+        "wikipedia": "fr:Canal du Midi",
+        "ref:sandre": "----0142",
+        "whc:criteria": "(i) (ii) (iv) (vi)",
+        "heritage:operator": "whc",
+        "whc:inscription_date": "1996"
+      },
+      "osmId": 302044,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6021992,
+      "lng": 1.4481411,
+      "name": "Hôtel de la Fage",
+      "tags": {
+        "name": "Hôtel de la Fage",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094547",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938616",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1978-03-13"
+      },
+      "osmId": 357334,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6013045,
+      "lng": 1.4448454,
+      "name": "Hôtel Sipière",
+      "tags": {
+        "name": "Hôtel Sipière",
+        "type": "multipolygon",
+        "ref:mhs": "PA00125578",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22969013",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1993-02-18"
+      },
+      "osmId": 361806,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6004606,
+      "lng": 1.4431092,
+      "name": "Hôtel de Cheverry",
+      "tags": {
+        "name": "Hôtel de Cheverry",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094541",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938611",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-16"
+      },
+      "osmId": 366263,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6044439,
+      "lng": 1.4442552,
+      "name": "Capitole",
+      "tags": {
+        "name": "Capitole",
+        "type": "multipolygon",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/b/ba/CapitoleTOLOSAII.jpg",
+        "access": "yes",
+        "height": "25",
+        "name:en": "Capitole",
+        "name:es": "Capitolio",
+        "name:oc": "Capitòli",
+        "ref:mhs": "PA00094497",
+        "tourism": "attraction",
+        "website": "https://metropole.toulouse.fr/annuaire/capitole",
+        "building": "public",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q2351013",
+        "wikipedia": "fr:Capitole de Toulouse",
+        "addr:street": "Place du Capitole",
+        "roof:levels": "1",
+        "addr:housename": "Capitole",
+        "source:name:oc": "ieo-bdtopoc",
+        "building:levels": "3",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1840"
+      },
+      "osmId": 367073,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5969496,
+      "lng": 1.4420821,
+      "name": "Hôtel de Bagis",
+      "tags": {
+        "name": "Hôtel de Bagis",
+        "type": "multipolygon",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/8/89/Hotel_de_Pierre_-_Toulouse.jpg",
+        "access": "no",
+        "ref:mhs": "PA00094563",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q3145737",
+        "wikipedia": "fr:Hôtel de Bagis",
+        "start_date": "1537",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1889"
+      },
+      "osmId": 1181695,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6034853,
+      "lng": 1.4402341,
+      "name": "Église des Jacobins",
+      "tags": {
+        "fee": "no",
+        "name": "Église des Jacobins",
+        "type": "multipolygon",
+        "access": "yes",
+        "height": "29",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2018",
+        "amenity": "place_of_worship",
+        "name:ca": "Església dels Jacobins",
+        "name:es": "Iglesia de los Jacobinos",
+        "name:oc": "Glèisa dels Jacobins",
+        "tourism": "museum",
+        "website": "https://jacobins.toulouse.fr/fr/",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q2759640",
+        "wikipedia": "fr:Ensemble conventuel des Jacobins",
+        "ref:FR:CEF": "31555_54",
+        "start_date": "1292",
+        "wheelchair": "yes",
+        "denomination": "catholic",
+        "opening_hours": "09:00-19:00",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 1562254,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5980263,
+      "lng": 1.4483198,
+      "name": "Ancien hôtel Arquata",
+      "tags": {
+        "name": "Ancien hôtel Arquata",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094531",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q22938604",
+        "addr:city": "Toulouse",
+        "addr:street": "Place Sainte-Scarbes",
+        "heritage:ref": "mhs",
+        "addr:postcode": "31000",
+        "addr:housenumber": "1"
+      },
+      "osmId": 1596326,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5995193,
+      "lng": 1.4464828,
+      "name": "Immeuble dit Maison romano-gothique",
+      "tags": {
+        "name": "Immeuble dit Maison romano-gothique",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094618",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "wikidata": "Q22938796",
+        "description": "Maison romano-gothique",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1923-12-07"
+      },
+      "osmId": 1596332,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6027369,
+      "lng": 1.4406652,
+      "name": "Hôtel de Bernuy",
+      "tags": {
+        "name": "Hôtel de Bernuy",
+        "type": "multipolygon",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/6/69/Lycee_pierre_de_fermat_toulouse.jpg",
+        "ref:mhs": "PA00094533",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q22938605",
+        "wikipedia": "fr:Hôtel de Bernuy",
+        "start_date": "1530",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1889"
+      },
+      "osmId": 1605632,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5961272,
+      "lng": 1.4432218,
+      "name": "Hôtel de Claude de Saint-Félix",
+      "tags": {
+        "name": "Hôtel de Claude de Saint-Félix",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094542",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "wikidata": "Q21294388",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-07-06"
+      },
+      "osmId": 2208746,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5741426,
+      "lng": 1.4774763,
+      "name": "L'envol des pionniers",
+      "tags": {
+        "fee": "yes",
+        "name": "L'envol des pionniers",
+        "type": "multipolygon",
+        "phone": "+33 5 67 22 23 24",
+        "ref:mhs": "PA31000012",
+        "tourism": "museum",
+        "website": "https://www.lenvol-des-pionniers.com",
+        "heritage": "3",
+        "operator": "Semeccel",
+        "wikidata": "Q22976662",
+        "addr:city": "Toulouse",
+        "addr:street": "Rue Jacqueline Auriol",
+        "addr:postcode": "31400",
+        "opening_hours": "Tu-Fr 13:00-18:00; Sa-Su 10:00-18:00; SH Tu-Su 10:00-18:00; Jul 28: 10:00-18:00,20:00-23:00; Aug 4: 10:00-18:00,20:00-23:00; Aug 11: 10:00-18:00,20:00-23:00; Aug 18: 10:00-18:00,20:00-23:00",
+        "addr:housenumber": "6",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 8495554,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6031651,
+      "lng": 1.4320012,
+      "name": "Espace EDF Bazacle",
+      "tags": {
+        "name": "Espace EDF Bazacle",
+        "type": "site",
+        "name:en": "EDF Bazacle Complex",
+        "name:es": "Espacio EDF Bazacle",
+        "tourism": "museum",
+        "historic": "yes",
+        "operator": "EDF",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Bazacle",
+        "addr:street": "Quai Saint-Pierre",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 62301600",
+        "opening_hours": "Jan-Apr, Nov-Dec Tu-Su 11:00-18:00; May-Oct Tu-Su 11:00-19:00",
+        "contact:website": "http://bazacle.edf.com/",
+        "addr:housenumber": "11"
+      },
+      "osmId": 8776305,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.604394,
+      "lng": 1.4433789,
+      "name": "Place du Capitole",
+      "tags": {
+        "lit": "yes",
+        "name": "Place du Capitole",
+        "type": "multipolygon",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/4/4e/Toulouse_Capitole_Night_Wikimedia_Commons.jpg",
+        "place": "square",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:es": "Plaza del Capitolio",
+        "name:oc": "Plaça del Capitòli",
+        "surface": "paving_stones",
+        "tourism": "attraction",
+        "historic": "yes",
+        "loc_name": "Place du Cap",
+        "wikidata": "Q3390578",
+        "wikipedia": "fr:Place du Capitole (Toulouse)",
+        "start_date": "1730",
+        "wheelchair": "yes",
+        "motor_vehicle": "no",
+        "source:name:oc": "ieo-bdtopoc",
+        "construction_date": "1851"
+      },
+      "osmId": 11148976,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.604662,
+      "lng": 1.4363035,
+      "name": "Église Saint-Pierre des Chartreux",
+      "tags": {
+        "name": "Église Saint-Pierre des Chartreux",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094503",
+        "tourism": "attraction",
+        "building": "church",
+        "heritage": "2",
+        "historic": "church",
+        "religion": "christian",
+        "wikidata": "Q3584181",
+        "wikipedia": "fr:Église Saint-Pierre des Chartreux de Toulouse",
+        "ref:FR:CEF": "31555_35",
+        "denomination": "catholic",
+        "service_times": "mo-fr 19:00",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1956-05-07"
+      },
+      "osmId": 11381438,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6023148,
+      "lng": 1.4431296,
+      "name": "Musée du Vieux-Toulouse",
+      "tags": {
+        "fee": "yes",
+        "name": "Musée du Vieux-Toulouse",
+        "source": "GrandToulouse",
+        "tourism": "museum",
+        "website": "https://www.toulouse-tourisme.com/activite/musee-du-vieux-toulouse/",
+        "wikidata": "Q3330403",
+        "wikipedia": "fr:Musée du Vieux Toulouse",
+        "wheelchair": "no",
+        "museum_type": "municipal",
+        "source:date": "2011-11-06",
+        "contact:phone": "+33 5 62 27 11 50",
+        "opening_hours": "Mo-Sa 14:00-18:00; PH closed",
+        "ref:FR:museofile": "M0567"
+      },
+      "osmId": 247081244,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5844452,
+      "lng": 1.4276068,
+      "name": "La Croix de Pierre",
+      "tags": {
+        "name": "La Croix de Pierre",
+        "source": "Connaissance locale",
+        "tourism": "attraction",
+        "historic": "wayside_cross"
+      },
+      "osmId": 1419857956,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5992854,
+      "lng": 1.4366659,
+      "name": "Musée d'Histoire de la Médecine de Toulouse",
+      "tags": {
+        "fee": "no",
+        "name": "Musée d'Histoire de la Médecine de Toulouse",
+        "source": "GrandToulouse",
+        "tourism": "museum",
+        "website": "https://www.musee-medecine.com/",
+        "wikidata": "Q2379397",
+        "addr:city": "Toulouse",
+        "addr:street": "Rue Viguerie",
+        "source:date": "2011-11-06",
+        "addr:postcode": "31055",
+        "opening_hours": "Th, Fr, Su 11:00-17:00",
+        "addr:housenumber": "2"
+      },
+      "osmId": 1534355624,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5889001,
+      "lng": 1.4566916,
+      "name": "Musée de La Résistance et de la Déportation",
+      "tags": {
+        "fee": "no",
+        "name": "Musée de La Résistance et de la Déportation",
+        "email": "musee-resistance@cd31.fr",
+        "museum": "history",
+        "source": "GrandToulouse",
+        "toilets": "yes",
+        "tourism": "museum",
+        "operator": "Conseil départemental de la Haute-Garonne",
+        "wikidata": "Q3330527",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Musée départemental de la Résistance et de la Déportation (Toulouse)",
+        "wheelchair": "yes",
+        "addr:street": "Allée des Demoiselles",
+        "source:date": "2011-11-06",
+        "addr:postcode": "31400",
+        "contact:phone": "+33 5 34 33 17 40",
+        "opening_hours": "Tu-Sa 10:00-12:30,13:30-18:00; PH off; Dec 24 off; Jul 16 off; Aug 16 off; May 08 open",
+        "operator:type": "government",
+        "contact:website": "https://www.haute-garonne.fr/service/le-musee-departemental-de-la-resistance-et-de-la-deportation",
+        "addr:housenumber": "52",
+        "deaf:description:fr": "Toutes les vidéos présentes dans les espaces d’expositions sont sous-titrées. Il est possible d’échanger en LSF, selon la disponibilité des agents en capacité de signer.",
+        "blind:description:fr": "Les chiens-guides sont autorisés. Une bande de guidage mène jusqu’à l’accueil du musée. Sur demande, possibilité de fournir un plan agrandi du musée et un livret avec les textes d’exposition en gros caractère.",
+        "wheelchair:description:fr": "L’accès au musée peut se faire par un monte-personne et les étages sont accessibles par un ascenseur. Tous les espaces de visites du musée sont accessibles en fauteuil. Les vitrines et les textes d’exposition sont visibles à hauteur de fauteuil. Un fauteu"
+      },
+      "osmId": 1649207017,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6001991,
+      "lng": 1.4420464,
+      "name": "Fondation Bemberg",
+      "tags": {
+        "fee": "yes",
+        "name": "Fondation Bemberg",
+        "tourism": "museum",
+        "website": "https://www.fondation-bemberg.fr/fr/home.html",
+        "wikidata": "Q16303680",
+        "opening_hours": "Tu-Su 10:00-12:30,13:30-18:00, Th 10:00-12:30,13:30-20:30",
+        "contact:street": "Place d'Assézat"
+      },
+      "osmId": 1982847379,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5945205,
+      "lng": 1.4510813,
+      "name": "Quai des savoirs",
+      "tags": {
+        "fee": "yes",
+        "name": "Quai des savoirs",
+        "museum": "science;technology;art",
+        "tourism": "museum",
+        "operator": "Toulouse Métropole",
+        "wikidata": "Q40041199",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Quai des Savoirs",
+        "addr:street": "Allées Jules Guesde",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 67 73 84 84",
+        "opening_hours": "Tu-Su 10:00-18:00",
+        "contact:website": "https://www.quaidessavoirs.fr",
+        "addr:housenumber": "39",
+        "check_date:opening_hours": "2024-05-12"
+      },
+      "osmId": 4011776228,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6041754,
+      "lng": 1.431971,
+      "name": "Espace EDF Bazacle",
+      "tags": {
+        "name": "Espace EDF Bazacle",
+        "name:en": "EDF Bazacle Complex",
+        "name:es": "Espacio EDF Bazacle",
+        "tourism": "attraction",
+        "historic": "museum",
+        "operator": "EDF",
+        "wikidata": "Q30140515",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Bazacle",
+        "wheelchair": "yes",
+        "addr:street": "Quai Saint-Pierre",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 62301600",
+        "opening_hours": "Jan-Apr, Nov-Dec Tu-Su 11:00-18:00; May-Oct Tu-Su 11:00-19:00",
+        "contact:website": "http://bazacle.edf.com/",
+        "addr:housenumber": "11"
+      },
+      "osmId": 5955826168,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.601708,
+      "lng": 1.4431072,
+      "name": "Musée des Compagnons du Tour de France",
+      "tags": {
+        "fee": "no",
+        "name": "Musée des Compagnons du Tour de France",
+        "phone": "+33 5 62 47 41 77",
+        "tourism": "museum",
+        "website": "https://toulouse.compagnonsdutourdefrance.org/pages/nos-musees",
+        "wikidata": "Q56649863",
+        "wheelchair": "no",
+        "addr:street": "Rue Tripière",
+        "addr:postcode": "31200",
+        "opening_hours": "We 14:00-17:00",
+        "addr:housenumber": "12"
+      },
+      "osmId": 7398834035,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6044871,
+      "lng": 1.4451045,
+      "name": "Square du Général de Gaulle",
+      "tags": {
+        "name": "Square du Général de Gaulle",
+        "place": "square",
+        "leisure": "park",
+        "alt_name": "Square Charles de Gaulle",
+        "wikidata": "Q3494530",
+        "wikipedia": "fr:Square Charles-de-Gaulle"
+      },
+      "osmId": 7975280,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6034897,
+      "lng": 1.4356999,
+      "name": "Place Saint-Pierre",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place Saint-Pierre",
+        "place": "square",
+        "highway": "pedestrian",
+        "name:oc": "Plaça de Sant Pèire",
+        "surface": "paving_stones",
+        "tourism": "attraction",
+        "wikidata": "Q3390113",
+        "wikipedia": "fr:Place Saint-Pierre (Toulouse)",
+        "smoothness": "good",
+        "wheelchair": "yes"
+      },
+      "osmId": 22717774,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6013246,
+      "lng": 1.4421402,
+      "name": "Place de la Bourse",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place de la Bourse",
+        "place": "square",
+        "bicycle": "permissive",
+        "highway": "pedestrian",
+        "name:oc": "Plaça de la Borsa",
+        "surface": "sett",
+        "wikidata": "Q25397571",
+        "smoothness": "good"
+      },
+      "osmId": 38121931,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5981724,
+      "lng": 1.4367144,
+      "name": "Place Charles Laganne",
+      "tags": {
+        "lit": "yes",
+        "name": "Place Charles Laganne",
+        "place": "square",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "wikidata": "Q30443012",
+        "wikipedia": "fr:Place Charles-Laganne",
+        "short_name": "Place Laganne",
+        "name:etymology:wikidata": "Q2959549"
+      },
+      "osmId": 61673784,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5946267,
+      "lng": 1.4471654,
+      "name": "Place des Hauts-Murats",
+      "tags": {
+        "name": "Place des Hauts-Murats",
+        "place": "square",
+        "name:oc": "Plaça dels Murats Nauts",
+        "wikidata": "Q24933925",
+        "wikipedia": "fr:Place des Hauts-Murats",
+        "source:name:oc": "http://www.gegeloccitan-photo.com/article-eglise-de-gesu-toulouse-86700210.html"
+      },
+      "osmId": 106770975,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6048543,
+      "lng": 1.4473785,
+      "name": "Place du Président Wilson",
+      "tags": {
+        "name": "Place du Président Wilson",
+        "place": "square",
+        "name:oc": "Plaça del President Thomas Wilson",
+        "ref:mhs": "PA00094626",
+        "heritage": "3",
+        "old_name": "Place Gilbert du Motier de La Fayette",
+        "wikidata": "Q3390181",
+        "wikipedia": "fr:Place Wilson (Toulouse)",
+        "short_name": "Place Wilson",
+        "old_short_name": "Place Lafayette",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1974-08-20"
+      },
+      "osmId": 166133954,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5976467,
+      "lng": 1.4449018,
+      "name": "Marché des Carmes",
+      "tags": {
+        "name": "Marché des Carmes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2008",
+        "amenity": "marketplace",
+        "website": "https://metropole.toulouse.fr/annuaire/marche-couvert-carmes",
+        "building": "yes",
+        "wikidata": "Q48720371",
+        "description": "La halle des Carmes abrite des loges lumineuses où foisonnent fruits et légumes, viandes et charcuteries, pains et pâtisseries…",
+        "opening_hours": "Tu-Su 07:00-13:30",
+        "building:levels": "1"
+      },
+      "osmId": 216950080,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5940775,
+      "lng": 1.443972,
+      "name": "Place du Parlement",
+      "tags": {
+        "name": "Place du Parlement",
+        "place": "square",
+        "wikidata": "Q20971141"
+      },
+      "osmId": 658203194,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5945904,
+      "lng": 1.4444782,
+      "name": "Place du Salin",
+      "tags": {
+        "name": "Place du Salin",
+        "place": "square",
+        "wikidata": "Q16670312"
+      },
+      "osmId": 658203196,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.60651,
+      "lng": 1.4466498,
+      "name": "Marché Victor Hugo",
+      "tags": {
+        "name": "Marché Victor Hugo",
+        "level": "0",
+        "amenity": "marketplace",
+        "tourism": "yes",
+        "website": "https://www.marche-victor-hugo.fr",
+        "wikidata": "Q65157729",
+        "wikipedia": "fr:Marché Victor-Hugo",
+        "description": "Ce marché couvert dispose de restaurants installés au premier étage, qui font la part belle aux produits du terroir vendus au rez-de-chaussée",
+        "official_name": "Marché couvert Victor Hugo",
+        "opening_hours": "Tu-Su 07:00-13:30",
+        "contact:facebook": "https://www.facebook.com/March%C3%A9-Victor-Hugo-371015773085262",
+        "contact:instagram": "https://www.instagram.com/marche_victor_hugo/",
+        "contact:tripadvisor": "https://www.tripadvisor.fr/Attraction_Review-g187175-d8545702-Reviews-Marche_Victor_Hugo-Toulouse_Haute_Garonne_Occitanie.html"
+      },
+      "osmId": 828576847,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5774569,
+      "lng": 1.4437651,
+      "name": "Place Guy Hersant",
+      "tags": {
+        "name": "Place Guy Hersant",
+        "place": "square",
+        "name:oc": "Plaça Louis Hersant",
+        "wikidata": "Q105735455"
+      },
+      "osmId": 1081176657,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5873115,
+      "lng": 1.4633375,
+      "name": "Place Roger Arnaud",
+      "tags": {
+        "name": "Place Roger Arnaud",
+        "place": "square",
+        "wikidata": "Q105733022"
+      },
+      "osmId": 1175859801,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.609074,
+      "lng": 1.4462411,
+      "name": "Place Jeanne d'Arc",
+      "tags": {
+        "name": "Place Jeanne d'Arc",
+        "place": "square",
+        "name:oc": "Plaça Joana d'Arc",
+        "wikidata": "Q105687937",
+        "wikipedia": "fr:Place Jeanne-d'Arc (Toulouse)"
+      },
+      "osmId": 1486259882,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6103497,
+      "lng": 1.4313567,
+      "name": "Place de l'Europe",
+      "tags": {
+        "name": "Place de l'Europe",
+        "type": "multipolygon",
+        "place": "square",
+        "wikidata": "Q105735319"
+      },
+      "osmId": 19675169,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6022004,
+      "lng": 1.4348263,
+      "name": "Pont Saint-Pierre",
+      "tags": {
+        "lit": "yes",
+        "name": "Pont Saint-Pierre",
+        "note": "maxweight=* déprécié, utilisez maxweightrating=* à la place (https://forum.openstreetmap.fr/t/proposition-d-edition-automatisee-migration-de-maxweight-en-maxweightrating-pour-la-france/35439/71)",
+        "lanes": "1",
+        "layer": "1",
+        "bridge": "yes",
+        "note_1": "Piétonnisation du Pont Saint-Pierre, du 27 mai au 1er octobre 2026. https://actu.fr/occitanie/toulouse_31555/la-circulation-des-vehicules-interdite-sur-ce-pont-de-toulouse-qui-redevient-un-lieu-de-detente-pendant-quatre-mois_64301875.html",
+        "highway": "pedestrian",
+        "name:oc": "Pont Sant Pèire",
+        "surface": "asphalt",
+        "maxspeed": "6",
+        "wikidata": "Q3396746",
+        "wikipedia": "fr:Pont Saint-Pierre de Toulouse",
+        "parking:both": "no",
+        "cycleway:left": "separate",
+        "sidewalk:both": "separate",
+        "cycleway:right": "no",
+        "maxweight:signed": "no",
+        "maxweightrating:signed": "no"
+      },
+      "osmId": 5149948,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5993208,
+      "lng": 1.4439838,
+      "name": "Rue des Filatiers",
+      "tags": {
+        "lit": "yes",
+        "name": "Rue des Filatiers",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:oc": "Carrièra dels Filatièrs",
+        "surface": "sett",
+        "tourism": "attraction",
+        "wikidata": "Q14378579",
+        "smoothness": "good",
+        "motor_vehicle": "delivery",
+        "oneway:bicycle": "no"
+      },
+      "osmId": 5150672,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6026993,
+      "lng": 1.4434558,
+      "name": "Rue Saint-Rome",
+      "tags": {
+        "lit": "yes",
+        "name": "Rue Saint-Rome",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:oc": "Carrièra Sant Roman",
+        "surface": "sett",
+        "tourism": "attraction",
+        "sidewalk": "both",
+        "wikidata": "Q14378539",
+        "smoothness": "bad",
+        "parking:both": "no",
+        "motor_vehicle": "delivery",
+        "oneway:bicycle": "no"
+      },
+      "osmId": 5150673,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6059133,
+      "lng": 1.4425637,
+      "name": "Rue du Taur",
+      "tags": {
+        "lit": "yes",
+        "name": "Rue du Taur",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:oc": "Carrièra del Taur",
+        "surface": "sett",
+        "sidewalk": "both",
+        "wikidata": "Q3452607",
+        "smoothness": "intermediate",
+        "parking:both": "no",
+        "cycleway:both": "no",
+        "motor_vehicle": "delivery",
+        "oneway:bicycle": "no",
+        "sidewalk:both:surface": "paving_stones",
+        "parking:both:restriction": "no_parking"
+      },
+      "osmId": 8590239,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6097947,
+      "lng": 1.4398186,
+      "name": "Rue Gramat",
+      "tags": {
+        "lit": "yes",
+        "name": "Rue Gramat",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:oc": "Carrièra Gramat",
+        "surface": "asphalt",
+        "tourism": "attraction",
+        "alt_name": "Rue des Graffs",
+        "wheelchair": "yes",
+        "description": "Rue des graffs",
+        "source:name": "http://www.gegeloccitan-photo.com/article-rue-gramat-toulouse-le-bourg-107110810.html",
+        "parking:both": "no",
+        "motor_vehicle": "delivery",
+        "oneway:bicycle": "no"
+      },
+      "osmId": 10235276,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.593043,
+      "lng": 1.4508484,
+      "name": "Jardin des Plantes",
+      "tags": {
+        "name": "Jardin des Plantes",
+        "source": "http://www.toulouse-tourisme.com/offre/recherche/Sur-place/Patrimoine/Parcs-et-jardins/parcs-et-jardins~~/page-1",
+        "barrier": "fence",
+        "leisure": "park",
+        "tourism": "attraction",
+        "wikidata": "Q3162572",
+        "wikipedia": "fr:Jardin des Plantes (Toulouse)",
+        "fence_type": "metal",
+        "opening_hours": "Nov-Feb 08:00-18:00; Mar-May 08:00-20:00; Jun-Aug 08:00-21:00; Sep-Oct 1-15 08:00-20:00"
+      },
+      "osmId": 10526259,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6014064,
+      "lng": 1.439006,
+      "name": "Port de la Daurade",
+      "tags": {
+        "name": "Port de la Daurade",
+        "leisure": "park",
+        "name:oc": "Plaça de la Daurada",
+        "tourism": "attraction",
+        "wikidata": "Q3398612",
+        "wheelchair": "yes"
+      },
+      "osmId": 22718218,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6044068,
+      "lng": 1.4447798,
+      "name": "Donjon du Capitole",
+      "tags": {
+        "name": "Donjon du Capitole",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/c/c1/France-Toulouse-Donjon_du_Capitole.jpg",
+        "height": "30",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2008",
+        "tourism": "attraction",
+        "building": "tower",
+        "man_made": "tower",
+        "old_name": "Tour du Consistoire;Tour des Archives",
+        "wikidata": "Q30449623",
+        "wikipedia": "fr:Capitole de Toulouse",
+        "roof:shape": "hipped",
+        "start_date": "1525",
+        "roof:material": "slate",
+        "building:material": "brick"
+      },
+      "osmId": 34923008,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5975491,
+      "lng": 1.4419643,
+      "name": "Hôtel de Bruni",
+      "tags": {
+        "name": "Hôtel de Bruni",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "tourism": "attraction",
+        "building": "yes",
+        "wikidata": "Q21294384"
+      },
+      "osmId": 64527151,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5822744,
+      "lng": 1.4637004,
+      "name": "Place François Andreossy",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place François Andreossy",
+        "highway": "pedestrian",
+        "surface": "compacted",
+        "wikidata": "Q105733010",
+        "smoothness": "intermediate"
+      },
+      "osmId": 194000873,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6008122,
+      "lng": 1.4329753,
+      "name": "Chapelle Saint-Joseph de la Grave",
+      "tags": {
+        "fee": "yes",
+        "name": "Chapelle Saint-Joseph de la Grave",
+        "amenity": "place_of_worship",
+        "tourism": "attraction",
+        "website": "https://www.toulouse-tourisme.com/chapelle-saint-joseph-de-la-grave/toulouse/pcumid031v50160o",
+        "alt_name": "Dôme de la Grave",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38380201",
+        "check_date": "2026-04-03",
+        "denomination": "catholic",
+        "opening_hours": "Fr,Sa,Su 11:00-18:00;SH 11:00-18:00"
+      },
+      "osmId": 219747752,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6125274,
+      "lng": 1.4483691,
+      "name": "Place Roquelaine",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place Roquelaine",
+        "highway": "pedestrian",
+        "surface": "concrete",
+        "alt_name": "Place de Roquelaine",
+        "wikidata": "Q66592318",
+        "smoothness": "good"
+      },
+      "osmId": 226744472,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6075192,
+      "lng": 1.4265322,
+      "name": "Canal de Brienne",
+      "tags": {
+        "name": "Canal de Brienne",
+        "water": "river",
+        "natural": "water",
+        "tourism": "attraction",
+        "wikidata": "Q2935989",
+        "wikipedia": "fr:Canal de Brienne"
+      },
+      "osmId": 274541894,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5747621,
+      "lng": 1.4617693,
+      "name": "Place du Recteur Claude Chalin",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place du Recteur Claude Chalin",
+        "level": "0",
+        "highway": "pedestrian",
+        "surface": "asphalt",
+        "wikidata": "Q105732930",
+        "smoothness": "excellent",
+        "motor_vehicle": "no"
+      },
+      "osmId": 443094557,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6109285,
+      "lng": 1.4387991,
+      "name": "Place Arnaud Bernard",
+      "tags": {
+        "name": "Place Arnaud Bernard",
+        "highway": "pedestrian",
+        "surface": "concrete",
+        "wikidata": "Q3389706",
+        "wikipedia": "fr:Place Arnaud-Bernard",
+        "motor_vehicle": "delivery"
+      },
+      "osmId": 794153715,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5856348,
+      "lng": 1.4940054,
+      "name": "Station Mir",
+      "tags": {
+        "area": "yes",
+        "name": "Station Mir",
+        "layer": "1",
+        "tourism": "attraction",
+        "building": "yes",
+        "operator": "Cité de l'espace",
+        "wikidata": "Q124607533",
+        "wheelchair": "no"
+      },
+      "osmId": 1110290249,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5855606,
+      "lng": 1.4930072,
+      "name": "Ariane 5",
+      "tags": {
+        "name": "Ariane 5",
+        "layer": "1",
+        "height": "53",
+        "tourism": "attraction",
+        "building": "yes",
+        "wikidata": "Q124608223",
+        "roof:shape": "dome",
+        "wheelchair": "yes",
+        "description": "Maquette 1:1 de la fusée Ariane.",
+        "wikimedia_commons": "File:Ariane 5 at Cite de l'Espace 5.jpg"
+      },
+      "osmId": 1276158603,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.608314,
+      "lng": 1.4418724,
+      "name": "Place Saint-Sernin",
+      "tags": {
+        "name": "Place Saint-Sernin",
+        "type": "multipolygon",
+        "layer": "1",
+        "highway": "pedestrian",
+        "surface": "paving_stones",
+        "wikidata": "Q29398619"
+      },
+      "osmId": 3498206,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6020049,
+      "lng": 1.4476696,
+      "name": "Place Saint-Georges",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Place Saint-Georges",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "name:oc": "Plaça de Sant Jòrdi",
+        "surface": "paving_stones",
+        "tourism": "attraction",
+        "wikidata": "Q3390089",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 3933295,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6004183,
+      "lng": 1.4446861,
+      "name": "Place Étienne Esquirol",
+      "tags": {
+        "lit": "yes",
+        "name": "Place Étienne Esquirol",
+        "type": "multipolygon",
+        "level": "0",
+        "bicycle": "no",
+        "highway": "pedestrian",
+        "name:oc": "Plaça Estève Esquiròl",
+        "surface": "paving_stones",
+        "wikidata": "Q3389801",
+        "wikipedia": "fr:Place Étienne-Esquirol",
+        "short_name": "Place Esquirol",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 5729007,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5997361,
+      "lng": 1.4441911,
+      "name": "Place de la Trinité",
+      "tags": {
+        "lit": "yes",
+        "name": "Place de la Trinité",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "name:oc": "Plaça de la Trinitat",
+        "surface": "paving_stones",
+        "tourism": "attraction",
+        "wikidata": "Q16670295",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 10962771,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5999317,
+      "lng": 1.4491775,
+      "name": "Place Saint-Étienne",
+      "tags": {
+        "name": "Place Saint-Étienne",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "surface": "sett",
+        "tourism": "attraction",
+        "wikipedia": "fr:Place Saint-Étienne (Toulouse)"
+      },
+      "osmId": 11017673,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.610872,
+      "lng": 1.4391311,
+      "name": "Place Arnaud Bernard",
+      "tags": {
+        "lit": "yes",
+        "name": "Place Arnaud Bernard",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "name:oc": "Plaça Naut Bernat",
+        "surface": "paved",
+        "wikipedia": "fr:Place Arnaud-Bernard",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 11017756,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.599298,
+      "lng": 1.4454309,
+      "name": "Place Rouaix",
+      "tags": {
+        "lit": "yes",
+        "name": "Place Rouaix",
+        "type": "multipolygon",
+        "bicycle": "no",
+        "highway": "pedestrian",
+        "name:oc": "Plaça Roaix",
+        "surface": "sett",
+        "wikidata": "Q3390071",
+        "wikipedia": "fr:Place Rouaix",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 11142809,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5976293,
+      "lng": 1.4449193,
+      "name": "Place des Carmes",
+      "tags": {
+        "lit": "yes",
+        "name": "Place des Carmes",
+        "type": "multipolygon",
+        "level": "0",
+        "highway": "pedestrian",
+        "name:oc": "Plaça dels Carmes",
+        "surface": "asphalt",
+        "wikidata": "Q16510100",
+        "wikipedia": "fr:Place des Carmes (Toulouse)",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 11381439,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5964179,
+      "lng": 1.4230922,
+      "name": "Place de la Patte d'Oie",
+      "tags": {
+        "lit": "yes",
+        "name": "Place de la Patte d'Oie",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "surface": "asphalt",
+        "wikidata": "Q62614724"
+      },
+      "osmId": 13375433,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5939382,
+      "lng": 1.4438656,
+      "name": "Vestige de rempart",
+      "tags": {
+        "name": "Vestige de rempart",
+        "tourism": "attraction",
+        "wikipedia": "fr:Rempart gallo-romain de Toulouse",
+        "description": "Vestiges du rempart gallo-romain de Toulouse"
+      },
+      "osmId": 786851741,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5864072,
+      "lng": 1.492958,
+      "name": "XMM-Newton",
+      "tags": {
+        "name": "XMM-Newton",
+        "tourism": "attraction",
+        "wikidata": "Q124608423",
+        "wheelchair": "yes"
+      },
+      "osmId": 4275473805,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5864435,
+      "lng": 1.4932855,
+      "name": "Véhicule Soyouz",
+      "tags": {
+        "name": "Véhicule Soyouz",
+        "tourism": "attraction",
+        "wikidata": "Q579421",
+        "wikipedia": "fr:Soyouz_(véhicule_spatial)",
+        "wheelchair": "yes"
+      },
+      "osmId": 4275473809,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5864477,
+      "lng": 1.4935975,
+      "name": "Satellite ERS-2",
+      "tags": {
+        "name": "Satellite ERS-2",
+        "tourism": "attraction",
+        "wikidata": "Q63347",
+        "wheelchair": "yes"
+      },
+      "osmId": 4275473810,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5862483,
+      "lng": 1.4924511,
+      "name": "Chang'e 4",
+      "tags": {
+        "name": "Chang'e 4",
+        "tourism": "attraction",
+        "wikidata": "Q723045",
+        "wikipedia": "fr:Chang'e 4",
+        "wheelchair": "yes"
+      },
+      "osmId": 8021491567,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.585825,
+      "lng": 1.4935448,
+      "name": "Astrovan",
+      "tags": {
+        "name": "Astrovan",
+        "tourism": "attraction",
+        "wikidata": "Q752180",
+        "wikipedia": "fr:Astrovan",
+        "wheelchair": "yes"
+      },
+      "osmId": 11637614767,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5764216,
+      "lng": 1.4929561,
+      "name": "Église Saint-Étienne",
+      "tags": {
+        "name": "Église Saint-Étienne",
+        "source": "Orthophotoplan Toulouse 2017",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q23780476",
+        "check_date": "2024-07-17",
+        "ref:FR:CEF": "31555_50",
+        "denomination": "catholic"
+      },
+      "osmId": 21053171,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6036028,
+      "lng": 1.455319,
+      "name": "Église Saint-Aubin",
+      "tags": {
+        "name": "Église Saint-Aubin",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2008",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q3580997",
+        "check_date": "2024-11-16",
+        "ref:FR:CEF": "31555_17",
+        "wheelchair": "no",
+        "denomination": "catholic"
+      },
+      "osmId": 34713901,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6013483,
+      "lng": 1.4464552,
+      "name": "Église des Augustins",
+      "tags": {
+        "name": "Église des Augustins",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "building": "church",
+        "wikidata": "Q38426323"
+      },
+      "osmId": 36706994,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6017016,
+      "lng": 1.4459511,
+      "name": "Chapelle Saint-Jean-Baptiste",
+      "tags": {
+        "name": "Chapelle Saint-Jean-Baptiste",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "amenity": "place_of_worship",
+        "website": "http://www.icrsp-toulouse.fr",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q2956859",
+        "wikipedia": "fr:Chapelle Saint Jean-Baptiste (Toulouse)",
+        "check_date": "2026-03-10",
+        "ref:FR:CEF": "31555_57",
+        "start_date": "1827-08-07",
+        "denomination": "catholic",
+        "service_times": "mo-sa 10:00; su 8:30,10:30"
+      },
+      "osmId": 36706997,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5992188,
+      "lng": 1.4507092,
+      "name": "Chapelle Sainte-Anne",
+      "tags": {
+        "name": "Chapelle Sainte-Anne",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2008",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60366789",
+        "check_date": "2023-11-16",
+        "denomination": "catholic"
+      },
+      "osmId": 38652837,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6048141,
+      "lng": 1.4408678,
+      "name": "Vieux Temple",
+      "tags": {
+        "name": "Vieux Temple",
+        "amenity": "place_of_worship",
+        "website": "https://www.eglise-protestante-unie.fr/toulouse-p80991",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60428432",
+        "wheelchair": "no",
+        "denomination": "protestant"
+      },
+      "osmId": 46709630,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5671763,
+      "lng": 1.4623714,
+      "name": "Église Notre-Dame du Rosaire",
+      "tags": {
+        "name": "Église Notre-Dame du Rosaire",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38394091",
+        "check_date": "2024-12-28",
+        "ref:FR:CEF": "31555_11",
+        "wheelchair": "yes",
+        "denomination": "catholic",
+        "building:colour": "#cccccc"
+      },
+      "osmId": 48394501,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5739473,
+      "lng": 1.4575542,
+      "name": "Église Saint-Marc",
+      "tags": {
+        "name": "Église Saint-Marc",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60387567",
+        "check_date": "2026-02-21",
+        "ref:FR:CEF": "31555_30",
+        "denomination": "catholic"
+      },
+      "osmId": 52285727,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5705698,
+      "lng": 1.4034501,
+      "name": "Église Saint-Paul-des-Nations",
+      "tags": {
+        "name": "Église Saint-Paul-des-Nations",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q131674823",
+        "ref:FR:CEF": "31555_34",
+        "denomination": "catholic"
+      },
+      "osmId": 52437342,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5836252,
+      "lng": 1.4827465,
+      "name": "Église du Christ-Roi",
+      "tags": {
+        "name": "Église du Christ-Roi",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38383944",
+        "ref:FR:CEF": "31555_03",
+        "wheelchair": "no",
+        "denomination": "catholic"
+      },
+      "osmId": 55691979,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6662588,
+      "lng": 1.4295103,
+      "name": "Église Notre-Dame",
+      "tags": {
+        "name": "Église Notre-Dame",
+        "source": "cadastre-dgi-fr source : Direction Générale des Finances Publiques - Cadastre. Mise à jour : 2019",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38390172",
+        "ref:FR:CEF": "31022_01",
+        "denomination": "catholic"
+      },
+      "osmId": 62109738,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5863142,
+      "lng": 1.4282013,
+      "name": "Église Saint-François-Xavier",
+      "tags": {
+        "name": "Église Saint-François-Xavier",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "toilets": "no",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38582880",
+        "check_date": "2023-10-19",
+        "ref:FR:CEF": "31555_23",
+        "opening_hours": "Sa 18:30-19:30; Su 10:30-11:30"
+      },
+      "osmId": 63570737,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5804629,
+      "lng": 1.4485127,
+      "name": "Église Sainte-Germaine",
+      "tags": {
+        "name": "Église Sainte-Germaine",
+        "email": "paroissesaintegermaine31@gmail.com",
+        "phone": "+33 5 82 75 37 08",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "website": "https://saintegermaine.fr/",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38514296",
+        "check_date": "2024-08-20",
+        "ref:FR:CEF": "31555_40",
+        "wheelchair": "yes",
+        "denomination": "catholic",
+        "building:colour": "brown"
+      },
+      "osmId": 63969399,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5739463,
+      "lng": 1.4517125,
+      "name": "Église Sainte-Rita",
+      "tags": {
+        "name": "Église Sainte-Rita",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60369743",
+        "check_date": "2026-01-24",
+        "wheelchair": "no",
+        "denomination": "catholic"
+      },
+      "osmId": 63970702,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.548609,
+      "lng": 1.454169,
+      "name": "Église Sainte-Madeleine",
+      "tags": {
+        "url": "http://ramonville.pouvourville.perso.neuf.fr/pages/home",
+        "name": "Église Sainte-Madeleine",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38521065",
+        "check_date": "2024-11-03",
+        "ref:FR:CEF": "31555_51",
+        "denomination": "catholic"
+      },
+      "osmId": 63998972,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5974262,
+      "lng": 1.423252,
+      "name": "Église du Sacré-Cœur",
+      "tags": {
+        "name": "Église du Sacré-Cœur",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38385624",
+        "check_date": "2025-12-12",
+        "ref:FR:CEF": "31555_15",
+        "denomination": "catholic"
+      },
+      "osmId": 64093340,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5998345,
+      "lng": 1.5065316,
+      "name": "Église de Lasbordes",
+      "tags": {
+        "name": "Église de Lasbordes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "alt_name": "Église Saint-Martin-de-Boville",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60389035",
+        "check_date": "2023-09-23",
+        "ref:FR:CEF": "31044_02",
+        "denomination": "catholic"
+      },
+      "osmId": 64108222,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.610034,
+      "lng": 1.497975,
+      "name": "Église Saint-Joseph",
+      "tags": {
+        "name": "Église Saint-Joseph",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38643320",
+        "check_date": "2023-03-25",
+        "ref:FR:CEF": "31044_01",
+        "wheelchair": "yes",
+        "denomination": "catholic"
+      },
+      "osmId": 64115221,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6230878,
+      "lng": 1.3921327,
+      "name": "Chapelle Saint-Gabriel",
+      "tags": {
+        "name": "Chapelle Saint-Gabriel",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38583366",
+        "ref:FR:CEF": "31069_03",
+        "denomination": "catholic"
+      },
+      "osmId": 64411535,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6140889,
+      "lng": 1.4435369,
+      "name": "Église Saint-Hilaire",
+      "tags": {
+        "name": "Église Saint-Hilaire",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q55109814",
+        "ref:FR:CEF": "31555_24",
+        "denomination": "catholic"
+      },
+      "osmId": 64650885,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6000849,
+      "lng": 1.4668102,
+      "name": "Église Saint-François d'Assise",
+      "tags": {
+        "name": "Église Saint-François d'Assise",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38582071",
+        "ref:FR:CEF": "31555_21",
+        "denomination": "catholic",
+        "service_times": "Sa 18:00; Su 10:30"
+      },
+      "osmId": 64849689,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6059396,
+      "lng": 1.4079404,
+      "name": "Chapelle Sainte-Marie de Casselardit",
+      "tags": {
+        "name": "Chapelle Sainte-Marie de Casselardit",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60368520",
+        "check_date": "2025-04-30",
+        "ref:FR:CEF": "31555_55",
+        "denomination": "catholic",
+        "service_times": "su 9:15"
+      },
+      "osmId": 64892009,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6046369,
+      "lng": 1.4052664,
+      "name": "Église Orthodoxe Saint-Nicolas",
+      "tags": {
+        "name": "Église Orthodoxe Saint-Nicolas",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q61854837",
+        "addr:city": "Toulouse",
+        "check_date": "2025-08-07",
+        "addr:street": "Avenue de Grande Bretagne",
+        "denomination": "orthodox",
+        "addr:postcode": "31300",
+        "addr:housenumber": "302"
+      },
+      "osmId": 64893062,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6587282,
+      "lng": 1.4835688,
+      "name": "Église Saint-Jean-Baptiste",
+      "tags": {
+        "name": "Église Saint-Jean-Baptiste",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38631748",
+        "check_date": "2026-05-30"
+      },
+      "osmId": 67862441,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5479931,
+      "lng": 1.4775369,
+      "name": "Église Saint-Jean",
+      "tags": {
+        "name": "Église Saint-Jean",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38624697",
+        "check_date": "2026-03-01",
+        "denomination": "catholic",
+        "service_times": "Sa 18:30; Su 11:00"
+      },
+      "osmId": 73845358,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5492585,
+      "lng": 1.4665188,
+      "name": "Église Saint-Agne",
+      "tags": {
+        "name": "Église Saint-Agne",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38407652",
+        "check_date": "2026-02-28",
+        "denomination": "catholic"
+      },
+      "osmId": 73846817,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5641047,
+      "lng": 1.4082196,
+      "name": "Notre-Dame de Lafourguette",
+      "tags": {
+        "name": "Notre-Dame de Lafourguette",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38372674",
+        "ref:FR:CEF": "31555_47",
+        "denomination": "catholic",
+        "service_times": "Su 11:15; Th 08:30"
+      },
+      "osmId": 74241818,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5727167,
+      "lng": 1.4194099,
+      "name": "Église de la Trinité",
+      "tags": {
+        "name": "Église de la Trinité",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60383901",
+        "ref:FR:CEF": "31555_45",
+        "denomination": "catholic"
+      },
+      "osmId": 74252426,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5725492,
+      "lng": 1.3979206,
+      "name": "Château de la Reynerie",
+      "tags": {
+        "name": "Château de la Reynerie",
+        "access": "no",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094506",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "castle",
+        "wikidata": "Q2970369",
+        "wikipedia": "fr:Château de Reynerie",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 74255735,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5569919,
+      "lng": 1.3810827,
+      "name": "Église Saint-Simon",
+      "tags": {
+        "name": "Église Saint-Simon",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q100272727",
+        "ref:FR:CEF": "31555_36",
+        "wheelchair": "yes",
+        "denomination": "catholic"
+      },
+      "osmId": 74255862,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5783386,
+      "lng": 1.3906039,
+      "name": "Église Sainte-Germaine des Pradettes",
+      "tags": {
+        "name": "Église Sainte-Germaine des Pradettes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38514316",
+        "ref:FR:CEF": "31555_41",
+        "denomination": "catholic"
+      },
+      "osmId": 74687228,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5868347,
+      "lng": 1.4004945,
+      "name": "Château de La Cépière",
+      "tags": {
+        "name": "Château de La Cépière",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094505",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "castle",
+        "wikidata": "Q22938580",
+        "wikipedia": "fr:Château de La Cépière",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1980-12-31"
+      },
+      "osmId": 74693433,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5907215,
+      "lng": 1.3843767,
+      "name": "Église Saint-Michel",
+      "tags": {
+        "name": "Église Saint-Michel",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q59091355",
+        "check_date": "2023-11-03",
+        "ref:FR:CEF": "31555_49",
+        "denomination": "catholic"
+      },
+      "osmId": 74701771,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6148169,
+      "lng": 1.3966033,
+      "name": "Église Sainte-Marguerite",
+      "tags": {
+        "name": "Église Sainte-Marguerite",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "website": "https://toulouse.catholique.fr/?page=adel-lieu-culte&id_adel=2498",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38522737",
+        "ref:FR:CEF": "31555_42",
+        "denomination": "catholic"
+      },
+      "osmId": 74705578,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6090526,
+      "lng": 1.3818798,
+      "name": "Église Saint-Martin",
+      "tags": {
+        "name": "Église Saint-Martin",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60388945",
+        "ref:FR:CEF": "31555_31",
+        "denomination": "catholic"
+      },
+      "osmId": 74708645,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5859994,
+      "lng": 1.4639464,
+      "name": "Église Saint-Joseph",
+      "tags": {
+        "name": "Église Saint-Joseph",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38645210",
+        "check_date": "2025-12-28",
+        "ref:FR:CEF": "31555_28",
+        "denomination": "catholic"
+      },
+      "osmId": 74996396,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6141207,
+      "lng": 1.4125779,
+      "name": "Église Saint-Jean-Baptiste",
+      "tags": {
+        "name": "Église Saint-Jean-Baptiste",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38636525",
+        "ref:FR:CEF": "31555_25",
+        "denomination": "catholic"
+      },
+      "osmId": 75550598,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6462358,
+      "lng": 1.4298224,
+      "name": "Église Sainte-Marie-Madeleine",
+      "tags": {
+        "name": "Église Sainte-Marie-Madeleine",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "alt_name": "Église de Lalande",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38520105",
+        "check_date": "2024-07-20",
+        "denomination": "catholic"
+      },
+      "osmId": 76302867,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6258591,
+      "lng": 1.4676518,
+      "name": "Église Saint-André",
+      "tags": {
+        "name": "Église Saint-André",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38415700",
+        "ref:FR:CEF": "31555_16",
+        "denomination": "catholic"
+      },
+      "osmId": 76309179,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6360075,
+      "lng": 1.4647603,
+      "name": "Église Saint-Caprais",
+      "tags": {
+        "name": "Église Saint-Caprais",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q29569386",
+        "ref:FR:CEF": "31555_53",
+        "denomination": "catholic"
+      },
+      "osmId": 76312858,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.62832,
+      "lng": 1.4311564,
+      "name": "Église Notre-Dame de l'Assomption",
+      "tags": {
+        "name": "Église Notre-Dame de l'Assomption",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38392271",
+        "ref:FR:CEF": "31555_06",
+        "denomination": "catholic"
+      },
+      "osmId": 76322234,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6394879,
+      "lng": 1.4416799,
+      "name": "Église Saint-Jean-Marie-Vianney",
+      "tags": {
+        "name": "Église Saint-Jean-Marie-Vianney",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38642696",
+        "ref:FR:CEF": "31555_26",
+        "denomination": "catholic"
+      },
+      "osmId": 76324927,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6186342,
+      "lng": 1.4582367,
+      "name": "Église de l'Immaculée-Conception",
+      "tags": {
+        "name": "Église de l'Immaculée-Conception",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "alt_name": "Église Bonnefoy",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q29569385",
+        "addr:city": "Toulouse",
+        "ref:FR:CEF": "31555_04",
+        "addr:street": "Place du Chanoine Philippe Ravary",
+        "denomination": "catholic",
+        "addr:postcode": "31500"
+      },
+      "osmId": 76328696,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6139694,
+      "lng": 1.4751904,
+      "name": "Église Saint-Vincent-de-Paul",
+      "tags": {
+        "name": "Église Saint-Vincent-de-Paul",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60393245",
+        "check_date": "2026-01-05",
+        "ref:FR:CEF": "31555_38",
+        "denomination": "catholic"
+      },
+      "osmId": 76329830,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6179731,
+      "lng": 1.4361699,
+      "name": "Église Saint-François-de-Paule",
+      "tags": {
+        "name": "Église Saint-François-de-Paule",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094520",
+        "website": "https://www.toulouse.catholique.fr/Doyenne-des-Minimes-203",
+        "alt_name": "Église des Minimes",
+        "building": "church",
+        "heritage": "3",
+        "religion": "christian",
+        "wikidata": "Q55108974",
+        "check_date": "2026-01-28",
+        "ref:FR:CEF": "31555_22",
+        "denomination": "catholic",
+        "source:heritage": "Ministère de la Culture - 2023-01",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1974-12-27"
+      },
+      "osmId": 76331248,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6207168,
+      "lng": 1.4587465,
+      "name": "Eglise de Jesus-Christ des saints des derniers jours",
+      "tags": {
+        "name": "Eglise de Jesus-Christ des saints des derniers jours",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikipedia": "fr:Église de Jésus-Christ des Saints des Derniers Jours",
+        "check_date": "2025-10-26",
+        "wheelchair": "yes",
+        "addr:street": "Avenue de Lavaur",
+        "denomination": "latter_day_saints",
+        "addr:housenumber": "10"
+      },
+      "osmId": 76333052,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6106135,
+      "lng": 1.4597568,
+      "name": "Église Saint-Sylve",
+      "tags": {
+        "name": "Église Saint-Sylve",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q3584522",
+        "check_date": "2025-07-07",
+        "ref:FR:CEF": "31555_37",
+        "denomination": "catholic"
+      },
+      "osmId": 76446829,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.594527,
+      "lng": 1.4856787,
+      "name": "Église Sainte-Claire",
+      "tags": {
+        "name": "Église Sainte-Claire",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38509889",
+        "ref:FR:CEF": "31555_39",
+        "denomination": "catholic"
+      },
+      "osmId": 76495944,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5999972,
+      "lng": 1.4373835,
+      "name": "Pont de la Daurade",
+      "tags": {
+        "name": "Pont de la Daurade",
+        "source": "local_knowledge",
+        "historic": "ruins",
+        "wikipedia": "fr:Pont de la Daurade",
+        "description": "Ancien pont de la Daurade",
+        "historic:civilization": "medieval"
+      },
+      "osmId": 120362223,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6060195,
+      "lng": 1.4262635,
+      "name": "Église Saint-Paul",
+      "tags": {
+        "name": "Église Saint-Paul",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00094684",
+        "alt_name": "Ancien moulin des Amidonniers",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "religion": "christian",
+        "wikidata": "Q2845807",
+        "wikipedia": "fr:Ancien moulin des Amidonniers",
+        "ref:FR:CEF": "31555_33",
+        "denomination": "catholic",
+        "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1991-02-06"
+      },
+      "osmId": 122978402,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6671825,
+      "lng": 1.5030035,
+      "name": "Église Saint-Jean",
+      "tags": {
+        "name": "Église Saint-Jean",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38624825",
+        "source:name": "clochers.org",
+        "denomination": "catholic"
+      },
+      "osmId": 127896311,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5908188,
+      "lng": 1.4539093,
+      "name": "Église Notre-Dame de Lourdes",
+      "tags": {
+        "name": "Église Notre-Dame de Lourdes",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q60385380",
+        "check_date": "2025-12-24",
+        "ref:FR:CEF": "31555_07",
+        "wheelchair": "yes",
+        "denomination": "catholic"
+      },
+      "osmId": 132049380,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5817581,
+      "lng": 1.4130548,
+      "name": "Église du Saint-Esprit",
+      "tags": {
+        "name": "Église du Saint-Esprit",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38386749",
+        "ref:FR:CEF": "31555_19",
+        "denomination": "catholic"
+      },
+      "osmId": 132049381,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5879607,
+      "lng": 1.4371325,
+      "name": "Soufflerie de Banlève",
+      "tags": {
+        "name": "Soufflerie de Banlève",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011",
+        "ref:mhs": "PA31000013",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "scientific_place",
+        "wikidata": "Q22976663",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1997-11-26"
+      },
+      "osmId": 133729667,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5937875,
+      "lng": 1.4489725,
+      "name": "Église Saint-Exupère",
+      "tags": {
+        "name": "Église Saint-Exupère",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q3581424",
+        "wikipedia": "fr:Église Saint-Exupère de Toulouse",
+        "check_date": "2024-03-24",
+        "ref:FR:CEF": "31555_20",
+        "denomination": "catholic"
+      },
+      "osmId": 133909123,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5970255,
+      "lng": 1.4512373,
+      "name": "Palais Niel",
+      "tags": {
+        "name": "Palais Niel",
+        "access": "private",
+        "source": "Bing",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q3360899",
+        "wikipedia": "fr:Palais Niel",
+        "start_date": "1863",
+        "castle_type": "palace"
+      },
+      "osmId": 165741913,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5927723,
+      "lng": 1.4525778,
+      "name": "Ancienne porte du Capitole",
+      "tags": {
+        "name": "Ancienne porte du Capitole",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2012",
+        "ref:mhs": "PA00094630",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22938818",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-18"
+      },
+      "osmId": 166106355,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5943226,
+      "lng": 1.4476533,
+      "name": "Rempart médiéval de Toulouse",
+      "tags": {
+        "name": "Rempart médiéval de Toulouse",
+        "barrier": "city_wall",
+        "ref:mhs": "PA00135455",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22976100",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1995-07-10"
+      },
+      "osmId": 180451179,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6007611,
+      "lng": 1.440431,
+      "name": "Ancien prieuré de la Daurade",
+      "tags": {
+        "name": "Ancien prieuré de la Daurade",
+        "ref:mhs": "PA00135704",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "yes",
+        "wikidata": "Q941853",
+        "description": "Tour des latrines de l'ancien prieuré de la Daurade",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1995-09-18"
+      },
+      "osmId": 180749334,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5932153,
+      "lng": 1.4438588,
+      "name": "Barbacane",
+      "tags": {
+        "name": "Barbacane",
+        "barrier": "city_wall",
+        "ref:mhs": "PA00125574",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22969007",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1993-11-29"
+      },
+      "osmId": 180866233,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5946255,
+      "lng": 1.4476678,
+      "name": "Tour des Hauts-Murats",
+      "tags": {
+        "name": "Tour des Hauts-Murats",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "ref:mhs": "PA00094640",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22938844",
+        "roof:shape": "pyramidal",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-10-21"
+      },
+      "osmId": 182063610,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.608593,
+      "lng": 1.450684,
+      "name": "Chapelle Notre-Dame-des-Victoires",
+      "tags": {
+        "name": "Chapelle Notre-Dame-des-Victoires",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2012",
+        "building": "church",
+        "wikidata": "Q55111048"
+      },
+      "osmId": 194572073,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6377643,
+      "lng": 1.3958725,
+      "name": "Petit Théâtre Saint-Exupère",
+      "tags": {
+        "name": "Petit Théâtre Saint-Exupère",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "theatre",
+        "building": "church",
+        "wikidata": "Q22938079"
+      },
+      "osmId": 217875612,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5896423,
+      "lng": 1.4179468,
+      "name": "Église Saint-Christophe",
+      "tags": {
+        "name": "Église Saint-Christophe",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38480705",
+        "ref:FR:CEF": "31555_18",
+        "roof:shape": "gabled",
+        "denomination": "catholic",
+        "disused:amenity": "place_of_worship",
+        "disused:religion": "christian",
+        "disused:denomination": "catholic"
+      },
+      "osmId": 244347257,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5956966,
+      "lng": 1.4646795,
+      "name": "Église Sainte-Thérèse-de-l'Enfant-Jésus",
+      "tags": {
+        "name": "Église Sainte-Thérèse-de-l'Enfant-Jésus",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q38566853",
+        "ref:FR:CEF": "31555_44",
+        "denomination": "catholic"
+      },
+      "osmId": 260990993,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5768468,
+      "lng": 1.3982961,
+      "name": "Château du Mirail",
+      "tags": {
+        "name": "Château du Mirail",
+        "amenity": "university",
+        "ref:mhs": "PA00132671",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "castle",
+        "wikidata": "Q2408159",
+        "wikipedia": "fr:Château du Mirail (Toulouse)",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 412449615,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5998163,
+      "lng": 1.4491355,
+      "name": "Fontaine du Griffoul",
+      "tags": {
+        "name": "Fontaine du Griffoul",
+        "amenity": "fountain",
+        "ref:mhs": "PA00094525",
+        "alt_name": "Fontaine Saint-Étienne",
+        "fountain": "decorative",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q22938600",
+        "start_date": "1593",
+        "drinking_water": "no",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-04-18"
+      },
+      "osmId": 793270925,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5981244,
+      "lng": 1.4513237,
+      "name": "Rempart Gallo-Romain",
+      "tags": {
+        "name": "Rempart Gallo-Romain",
+        "ref:mhs": "PA00094679",
+        "heritage": "3",
+        "historic": "archaeological_site",
+        "wikidata": "Q3424606",
+        "wikipedia": "fr:Rempart gallo-romain de Toulouse",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1990-10-19"
+      },
+      "osmId": 813973353,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6112595,
+      "lng": 1.4621175,
+      "name": "Colonne du dix avril 1814",
+      "tags": {
+        "name": "Colonne du dix avril 1814",
+        "format": "obelisk",
+        "height": "30",
+        "ref:mhs": "PA00094686",
+        "heritage": "3",
+        "historic": "memorial",
+        "man_made": "obelisk",
+        "memorial": "war_memorial",
+        "wikidata": "Q22938921",
+        "obelisk:size": "monumental",
+        "obelisk:material": "brick",
+        "heritage:operator": "mhs"
+      },
+      "osmId": 1237794823,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5995476,
+      "lng": 1.4483032,
+      "name": "Ancien hôtel de Bonfontan",
+      "tags": {
+        "name": "Ancien hôtel de Bonfontan",
+        "type": "multipolygon",
+        "ref:mhs": "PA00094534",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q3145758",
+        "wikipedia": "fr:Hôtel de Bonfontan",
+        "start_date": "1771",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-23"
+      },
+      "osmId": 1596323,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6051083,
+      "lng": 1.4412972,
+      "name": "Collège de Foix",
+      "tags": {
+        "name": "Collège de Foix",
+        "type": "multipolygon",
+        "access": "no",
+        "source": "Bing",
+        "ref:mhs": "PA00094507",
+        "website": "https://www.collegedefoix.com/",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "yes",
+        "wikidata": "Q2983756",
+        "start_date": "1457",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1925-05-23"
+      },
+      "osmId": 1606567,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.6086083,
+      "lng": 1.4459115,
+      "name": "Statue équestre de Jeanne d'Arc",
+      "tags": {
+        "name": "Statue équestre de Jeanne d'Arc",
+        "tourism": "artwork",
+        "historic": "memorial",
+        "memorial": "statue",
+        "wikidata": "Q20798577",
+        "artist_name": "Antonin Mercié",
+        "artwork_type": "statue",
+        "source:artist_name": "https://fr.wikipedia.org/wiki/Statue_%C3%A9questre_de_Jeanne_d'Arc"
+      },
+      "osmId": 775978212,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5706742,
+      "lng": 1.4798736,
+      "name": "Aérodrome de Montaudran",
+      "tags": {
+        "name": "Aérodrome de Montaudran",
+        "note": "Cet aéroport historique a été définitivement fermé le 31 décembre 2003.",
+        "historic": "runway",
+        "wikipedia": "fr:Montaudran#L.27a.C3.A9rodrome"
+      },
+      "osmId": 1042046664,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6043651,
+      "lng": 1.4451877,
+      "name": "Statue de Claude Nougaro",
+      "tags": {
+        "name": "Statue de Claude Nougaro",
+        "source": "survey",
+        "tourism": "artwork",
+        "historic": "memorial",
+        "memorial": "statue",
+        "wikidata": "Q719314",
+        "addr:street": "Square du Général de Gaulle",
+        "artist_name": "Sébastien Langloÿs",
+        "inscription": "«Voici le Capitole, j'y arrête mes pas...» Poète, Chanteur (1929-2004)",
+        "artwork_type": "statue",
+        "addr:postcode": "31000",
+        "wikimedia_commons": "File:STATUE-NOUGARO.jpg"
+      },
+      "osmId": 3197727384,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5762078,
+      "lng": 1.4929316,
+      "name": "Monument aux morts de Montaudran",
+      "tags": {
+        "name": "Monument aux morts de Montaudran",
+        "historic": "memorial",
+        "memorial": "war_memorial",
+        "wikidata": "Q136097148",
+        "ref:FR:MemorialGenWeb": "77408"
+      },
+      "osmId": 4010997789,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6000298,
+      "lng": 1.4537327,
+      "name": "Colonne Dupuy",
+      "tags": {
+        "name": "Colonne Dupuy",
+        "height": "19.2",
+        "historic": "memorial",
+        "memorial": "obelisk",
+        "wikidata": "Q3041475",
+        "wheelchair": "yes"
+      },
+      "osmId": 5818162632,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5680126,
+      "lng": 1.4181965,
+      "name": "Stèle des Martyrs de Bordelongue",
+      "tags": {
+        "name": "Stèle des Martyrs de Bordelongue",
+        "historic": "memorial",
+        "memorial": "war_memorial",
+        "wikipedia": "fr:Bordelongue"
+      },
+      "osmId": 6644388391,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5911128,
+      "lng": 1.4456759,
+      "name": "Jean-Jacques Laffont 1947-2004",
+      "tags": {
+        "name": "Jean-Jacques Laffont 1947-2004",
+        "tourism": "artwork",
+        "historic": "memorial",
+        "memorial": "bust",
+        "wikidata": "Q1005479",
+        "panoramax": "27c62ace-49a5-4d23-97cc-283fdfb49be6",
+        "artwork_type": "bust"
+      },
+      "osmId": 13618376618,
+      "osmType": "node"
+    }
+  ],
+  "sitelinks": {
+    "Q2059713": 3,
+    "Q22938906": 2,
+    "Q3001664": 5,
+    "Q3145280": 5,
+    "Q3230368": 7,
+    "Q3580740": 7,
+    "Q105164633": 2,
+    "Q22938816": 1,
+    "Q3583425": 5,
+    "Q2901556": 2,
+    "Q2737833": 20,
+    "Q3146284": 2,
+    "Q3582238": 5,
+    "Q2887166": 16,
+    "Q22938622": 1,
+    "Q3146253": 2,
+    "Q22976097": 2,
+    "Q3146303": 4,
+    "Q15950425": 3,
+    "Q22938776": 1,
+    "Q22938809": 1,
+    "Q22938806": 1,
+    "Q22938613": 1,
+    "Q22938620": 3,
+    "Q22938838": 0,
+    "Q22969014": 2,
+    "Q22938645": 3,
+    "Q22938586": 1,
+    "Q22938634": 2,
+    "Q3145925": 2,
+    "Q22938608": 1,
+    "Q15950571": 4,
+    "Q22938783": 2,
+    "Q3145772": 3,
+    "Q3145459": 2,
+    "Q22938617": 2,
+    "Q22969020": 1,
+    "Q3584182": 6,
+    "Q22976661": 1,
+    "Q22938835": 1,
+    "Q3585905": 4,
+    "Q22996471": 1,
+    "Q50822861": 1,
+    "Q22969009": 1,
+    "Q3580780": 10,
+    "Q22969005": 2,
+    "Q2957369": 2,
+    "Q22976660": 1,
+    "Q22938833": 1,
+    "Q2968376": 8,
+    "Q3145479": 3,
+    "Q22996472": 1,
+    "Q22938849": 1,
+    "Q22938684": 1,
+    "Q65684911": 1,
+    "Q65685368": 1,
+    "Q22938593": 2,
+    "Q22938577": 2,
+    "Q22938571": 0,
+    "Q22938820": 0,
+    "Q22938008": 2,
+    "Q3583782": 2,
+    "Q22938840": 0,
+    "Q2941346": 2,
+    "Q22938626": 2,
+    "Q3145732": 3,
+    "Q22996464": 1,
+    "Q22938627": 3,
+    "Q22938635": 1,
+    "Q3145759": 2,
+    "Q22938572": 2,
+    "Q3585959": 3,
+    "Q22938630": 2,
+    "Q21294389": 2,
+    "Q22938799": 1,
+    "Q22938631": 4,
+    "Q21294385": 4,
+    "Q2365596": 3,
+    "Q22976098": 1,
+    "Q59199406": 2,
+    "Q22938827": 1,
+    "Q22938851": 0,
+    "Q167182": 8,
+    "Q3329931": 1,
+    "Q2844425": 3,
+    "Q22938642": 1,
+    "Q2973244": 4,
+    "Q422": 20,
+    "Q3146033": 3,
+    "Q22938843": 0,
+    "Q22938609": 1,
+    "Q3278998": 5,
+    "Q15950372": 2,
+    "Q1010268": 25,
+    "Q1376": 13,
+    "Q22938847": 1,
+    "Q1460090": 10,
+    "Q3329305": 2,
+    "Q15714017": 25,
+    "Q3145937": 2,
+    "Q3145723": 2,
+    "Q3145715": 9,
+    "Q202494": 56,
+    "Q22938616": 1,
+    "Q22969013": 2,
+    "Q22938611": 4,
+    "Q2351013": 22,
+    "Q3145737": 6,
+    "Q2759640": 13,
+    "Q22938604": 1,
+    "Q22938796": 2,
+    "Q22938605": 3,
+    "Q21294388": 2,
+    "Q22976662": 2,
+    "Q3390578": 6,
+    "Q3584181": 5,
+    "Q3330403": 5,
+    "Q2379397": 2,
+    "Q3330527": 2,
+    "Q16303680": 3,
+    "Q40041199": 2,
+    "Q30140515": 1,
+    "Q56649863": 1,
+    "Q3494530": 2,
+    "Q3390113": 5,
+    "Q25397571": 3,
+    "Q30443012": 2,
+    "Q24933925": 2,
+    "Q3390181": 4,
+    "Q48720371": 2,
+    "Q20971141": 2,
+    "Q16670312": 2,
+    "Q65157729": 2,
+    "Q105735455": 1,
+    "Q105733022": 1,
+    "Q105687937": 2,
+    "Q105735319": 2,
+    "Q3396746": 4,
+    "Q14378579": 2,
+    "Q14378539": 2,
+    "Q3452607": 3,
+    "Q3162572": 7,
+    "Q3398612": 4,
+    "Q30449623": 1,
+    "Q21294384": 2,
+    "Q105733010": 0,
+    "Q38380201": 2,
+    "Q66592318": 2,
+    "Q2935989": 12,
+    "Q105732930": 0,
+    "Q3389706": 2,
+    "Q124607533": 1,
+    "Q124608223": 1,
+    "Q29398619": 3,
+    "Q3390089": 3,
+    "Q3389801": 3,
+    "Q16670295": 2,
+    "Q3390071": 3,
+    "Q16510100": 2,
+    "Q62614724": 3,
+    "Q124608423": 1,
+    "Q579421": 66,
+    "Q63347": 17,
+    "Q723045": 45,
+    "Q752180": 8,
+    "Q23780476": 2,
+    "Q3580997": 3,
+    "Q38426323": 0,
+    "Q2956859": 2,
+    "Q60366789": 0,
+    "Q60428432": 1,
+    "Q38394091": 0,
+    "Q60387567": 1,
+    "Q131674823": 1,
+    "Q38383944": 1,
+    "Q38390172": 1,
+    "Q38582880": 0,
+    "Q38514296": 2,
+    "Q60369743": 1,
+    "Q38521065": 1,
+    "Q38385624": 1,
+    "Q60389035": 1,
+    "Q38643320": 1,
+    "Q38583366": 0,
+    "Q55109814": 1,
+    "Q38582071": 0,
+    "Q60368520": 0,
+    "Q61854837": 1,
+    "Q38631748": 1,
+    "Q38624697": 0,
+    "Q38407652": 0,
+    "Q38372674": 1,
+    "Q60383901": 1,
+    "Q2970369": 3,
+    "Q100272727": 1,
+    "Q38514316": 0,
+    "Q22938580": 2,
+    "Q59091355": 1,
+    "Q38522737": 1,
+    "Q60388945": 1,
+    "Q38645210": 1,
+    "Q38636525": 1,
+    "Q38520105": 1,
+    "Q38415700": 1,
+    "Q29569386": 1,
+    "Q38392271": 2,
+    "Q38642696": 1,
+    "Q29569385": 2,
+    "Q60393245": 1,
+    "Q55108974": 1,
+    "Q3584522": 2,
+    "Q38509889": 0,
+    "Q2845807": 2,
+    "Q38624825": 1,
+    "Q60385380": 1,
+    "Q38386749": 1,
+    "Q22976663": 2,
+    "Q3581424": 2,
+    "Q3360899": 3,
+    "Q22938818": 1,
+    "Q22976100": 1,
+    "Q941853": 3,
+    "Q22969007": 0,
+    "Q22938844": 2,
+    "Q55111048": 1,
+    "Q22938079": 1,
+    "Q38480705": 0,
+    "Q38566853": 1,
+    "Q2408159": 3,
+    "Q22938600": 1,
+    "Q3424606": 2,
+    "Q22938921": 1,
+    "Q3145758": 2,
+    "Q2983756": 2,
+    "Q20798577": 1,
+    "Q719314": 25,
+    "Q136097148": 0,
+    "Q3041475": 1,
+    "Q1005479": 10
+  },
+  "wikidataMetadata": {
+    "Q2059713": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "prison"
+      ]
+    },
+    "Q22938906": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "canal basin"
+      ]
+    },
+    "Q3001664": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "secularized convent"
+      ]
+    },
+    "Q3145280": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "hospital",
+        "facility"
+      ]
+    },
+    "Q3230368": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q3580740": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q105164633": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "centre hospitalier"
+      ]
+    },
+    "Q22938816": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "bridge"
+      ]
+    },
+    "Q3583425": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2901556": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "library",
+        "municipal library with regional vocation",
+        "municipal library"
+      ]
+    },
+    "Q2737833": {
+      "sitelinks": 20,
+      "instanceOfLabels": [
+        "Catholic cathedral",
+        "cathedral"
+      ]
+    },
+    "Q3146284": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "revenue house"
+      ]
+    },
+    "Q3582238": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2887166": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "church building",
+        "minor basilica"
+      ]
+    },
+    "Q22938622": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3146253": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "hospital priory",
+        "private mansion"
+      ]
+    },
+    "Q22976097": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3146303": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q15950425": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938776": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q22938809": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q22938806": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "house",
+        "private mansion"
+      ]
+    },
+    "Q22938613": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938620": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938838": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "minor seminary"
+      ]
+    },
+    "Q22969014": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938645": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938586": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "school building"
+      ]
+    },
+    "Q22938634": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145925": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938608": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q15950571": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938783": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145772": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145459": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938617": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22969020": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "pavilion"
+      ]
+    },
+    "Q3584182": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "church building",
+        "archaeological site"
+      ]
+    },
+    "Q22976661": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "rampart"
+      ]
+    },
+    "Q22938835": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "school building"
+      ]
+    },
+    "Q3585905": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22996471": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "convent",
+        "church building"
+      ]
+    },
+    "Q50822861": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "château"
+      ]
+    },
+    "Q22969009": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "château"
+      ]
+    },
+    "Q3580780": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22969005": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "school building",
+        "academic institution"
+      ]
+    },
+    "Q2957369": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q22976660": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "multi-story urban building"
+      ]
+    },
+    "Q22938833": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "rampart"
+      ]
+    },
+    "Q2968376": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "water tower"
+      ]
+    },
+    "Q3145479": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22996472": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "granary"
+      ]
+    },
+    "Q22938849": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "villa"
+      ]
+    },
+    "Q22938684": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "multi-story urban building"
+      ]
+    },
+    "Q65684911": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q65685368": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q22938593": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22938577": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q22938571": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "belvedere"
+      ]
+    },
+    "Q22938820": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q22938008": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "château"
+      ]
+    },
+    "Q3583782": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22938840": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "greenhouse"
+      ]
+    },
+    "Q2941346": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "villa"
+      ]
+    },
+    "Q22938626": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145732": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22996464": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938627": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938635": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145759": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938572": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q3585959": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22938630": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q21294389": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938799": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938631": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q21294385": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q2365596": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "Protestant church building"
+      ]
+    },
+    "Q22976098": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "multi-story urban building"
+      ]
+    },
+    "Q59199406": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "monument",
+        "building"
+      ]
+    },
+    "Q22938827": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "Q57242690"
+      ]
+    },
+    "Q22938851": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "village"
+      ]
+    },
+    "Q167182": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "art museum"
+      ]
+    },
+    "Q3329931": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q2844425": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "Roman amphitheatre",
+        "archaeological site",
+        "ancient Roman structure"
+      ]
+    },
+    "Q22938642": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q2973244": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "cinematheque"
+      ]
+    },
+    "Q422": {
+      "sitelinks": 20,
+      "instanceOfLabels": [
+        "natural history museum"
+      ]
+    },
+    "Q3146033": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938843": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q22938609": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3278998": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "museum",
+        "chapel"
+      ]
+    },
+    "Q15950372": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "hospital"
+      ]
+    },
+    "Q1010268": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "minor basilica",
+        "monastery"
+      ]
+    },
+    "Q1376": {
+      "sitelinks": 13,
+      "instanceOfLabels": [
+        "archaeological museum"
+      ]
+    },
+    "Q22938847": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q1460090": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "deck arch bridge",
+        "stone bridge",
+        "road bridge",
+        "bridge"
+      ]
+    },
+    "Q3329305": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q15714017": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "aviation museum"
+      ]
+    },
+    "Q3145937": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145723": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q3145715": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q202494": {
+      "sitelinks": 56,
+      "instanceOfLabels": [
+        "summit level canal"
+      ]
+    },
+    "Q22938616": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22969013": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938611": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q2351013": {
+      "sitelinks": 22,
+      "instanceOfLabels": [
+        "capitol building"
+      ]
+    },
+    "Q3145737": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q2759640": {
+      "sitelinks": 13,
+      "instanceOfLabels": [
+        "secularized convent"
+      ]
+    },
+    "Q22938604": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22938796": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q22938605": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q21294388": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q22976662": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "factory"
+      ]
+    },
+    "Q3390578": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3584181": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3330403": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q2379397": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q3330527": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q16303680": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "art museum",
+        "art gallery"
+      ]
+    },
+    "Q40041199": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "cultural center"
+      ]
+    },
+    "Q30140515": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "museum",
+        "building"
+      ]
+    },
+    "Q56649863": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q3494530": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square",
+        "urban park",
+        "archaeological site",
+        "garden square"
+      ]
+    },
+    "Q3390113": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q25397571": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q30443012": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q24933925": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3390181": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q48720371": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q20971141": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q16670312": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q65157729": {
+      "sitelinks": 2,
+      "instanceOfLabels": []
+    },
+    "Q105735455": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q105733022": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q105687937": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q105735319": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3396746": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "bridge"
+      ]
+    },
+    "Q14378579": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q14378539": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q3452607": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "street",
+        "pedestrian street"
+      ]
+    },
+    "Q3162572": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "botanical garden",
+        "urban park"
+      ]
+    },
+    "Q3398612": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "port"
+      ]
+    },
+    "Q30449623": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "tower"
+      ]
+    },
+    "Q21294384": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q105733010": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q38380201": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q66592318": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q2935989": {
+      "sitelinks": 12,
+      "instanceOfLabels": [
+        "canal"
+      ]
+    },
+    "Q105732930": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3389706": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q124607533": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "model spacecraft"
+      ]
+    },
+    "Q124608223": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "model rocket",
+        "replica"
+      ]
+    },
+    "Q29398619": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3390089": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3389801": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square",
+        "archaeological site"
+      ]
+    },
+    "Q16670295": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3390071": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q16510100": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q62614724": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q124608423": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "model spacecraft"
+      ]
+    },
+    "Q579421": {
+      "sitelinks": 66,
+      "instanceOfLabels": [
+        "vehicle family"
+      ]
+    },
+    "Q63347": {
+      "sitelinks": 17,
+      "instanceOfLabels": [
+        "satellite program"
+      ]
+    },
+    "Q723045": {
+      "sitelinks": 45,
+      "instanceOfLabels": [
+        "lunar lander"
+      ]
+    },
+    "Q752180": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "vehicle family"
+      ]
+    },
+    "Q23780476": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3580997": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38426323": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2956859": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q60366789": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q60428432": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "Protestant church building"
+      ]
+    },
+    "Q38394091": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60387567": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q131674823": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38383944": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38390172": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38582880": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38514296": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60369743": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q38521065": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38385624": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60389035": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38643320": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38583366": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q55109814": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q38582071": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60368520": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q61854837": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38631748": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38624697": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38407652": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38372674": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60383901": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2970369": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "castle"
+      ]
+    },
+    "Q100272727": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38514316": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22938580": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "château"
+      ]
+    },
+    "Q59091355": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38522737": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60388945": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38645210": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38636525": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38520105": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38415700": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q29569386": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38392271": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38642696": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q29569385": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60393245": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q55108974": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3584522": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38509889": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2845807": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building",
+        "paper mill"
+      ]
+    },
+    "Q38624825": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q60385380": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38386749": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q22976663": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "wind tunnel"
+      ]
+    },
+    "Q3581424": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3360899": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q22938818": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "door"
+      ]
+    },
+    "Q22976100": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "rampart"
+      ]
+    },
+    "Q941853": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "school building",
+        "educational institution"
+      ]
+    },
+    "Q22969007": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "barbican"
+      ]
+    },
+    "Q22938844": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q55111048": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q22938079": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "oratory",
+        "chapel"
+      ]
+    },
+    "Q38480705": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q38566853": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2408159": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "château"
+      ]
+    },
+    "Q22938600": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "fountain"
+      ]
+    },
+    "Q3424606": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "rampart"
+      ]
+    },
+    "Q22938921": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "obelisk"
+      ]
+    },
+    "Q3145758": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "private mansion"
+      ]
+    },
+    "Q2983756": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "school building"
+      ]
+    },
+    "Q20798577": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "sculpture"
+      ]
+    },
+    "Q719314": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "human"
+      ]
+    },
+    "Q136097148": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "war memorial"
+      ]
+    },
+    "Q3041475": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "neighborhood"
+      ]
+    },
+    "Q1005479": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "human"
+      ]
+    }
+  }
+}

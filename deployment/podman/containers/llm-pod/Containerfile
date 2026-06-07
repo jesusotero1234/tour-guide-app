@@ -1,0 +1,42 @@
+# Build stage
+FROM node:20-slim AS builder
+
+WORKDIR /app
+
+COPY ./pods/llm-pod/package*.json ./
+RUN npm install
+
+COPY ./pods/llm-pod/ .
+RUN npm run build
+
+# Production stage
+FROM node:20-slim
+
+WORKDIR /app
+
+# Install Ollama
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://ollama.com/install.sh | sh
+
+# Copy application files
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm install --production
+
+# Environment variables
+ENV PORT=3002
+ENV NODE_ENV=production
+ENV OLLAMA_HOST=http://localhost:11434
+ENV OLLAMA_MODEL=llama3.2:latest
+
+# Pull the model during build
+RUN ollama pull llama3.2:latest
+
+# Set up the entrypoint script
+COPY ./deployment/podman/containers/llm-pod/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 3002
+EXPOSE 11434
+
+ENTRYPOINT ["/entrypoint.sh"]

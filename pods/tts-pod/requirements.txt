@@ -1,0 +1,7 @@
+# Core TTS dependencies
+kokoro-onnx>=0.4.5
+numpy>=1.24.0
+onnxruntime>=1.21.0
+soundfile>=0.13.0
+
+# Remove other dependencies - they're part of kokoro-tts CLI

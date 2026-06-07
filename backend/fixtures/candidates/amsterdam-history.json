@@ -1,0 +1,492 @@
+{
+  "city": "Amsterdam",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Rijksmuseum",
+      "wikidataId": "Q190804",
+      "coordinates": {
+        "lat": 52.3598609,
+        "lng": 4.8849957
+      },
+      "importance_score": 44.8878490508349,
+      "fameScore": 25.887849050834898,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Dam",
+      "wikidataId": "Q839050",
+      "coordinates": {
+        "lat": 52.3731226,
+        "lng": 4.8926093
+      },
+      "importance_score": 44.512388523751014,
+      "fameScore": 23.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Koninklijk Paleis",
+      "wikidataId": "Q1056152",
+      "coordinates": {
+        "lat": 52.3731449,
+        "lng": 4.891336
+      },
+      "importance_score": 43.37836009688685,
+      "fameScore": 22.37836009688685,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Oude Kerk",
+      "wikidataId": "Q623558",
+      "coordinates": {
+        "lat": 52.3743606,
+        "lng": 4.8980721
+      },
+      "importance_score": 43.07068586817104,
+      "fameScore": 21.07068586817104,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Westerkerk",
+      "wikidataId": "Q1130722",
+      "coordinates": {
+        "lat": 52.3745627,
+        "lng": 4.8839192
+      },
+      "importance_score": 42.323942985382715,
+      "fameScore": 20.323942985382715,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Muiderslot",
+      "wikidataId": "Q2426916",
+      "coordinates": {
+        "lat": 52.3343742,
+        "lng": 5.071307
+      },
+      "importance_score": 41.87829485591189,
+      "fameScore": 20.878294855911893,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Van Gogh Museum",
+      "wikidataId": "Q224124",
+      "coordinates": {
+        "lat": 52.3582033,
+        "lng": 4.8811434
+      },
+      "importance_score": 41.79221201268866,
+      "fameScore": 23.79221201268866,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Munttoren",
+      "wikidataId": "Q1429748",
+      "coordinates": {
+        "lat": 52.3670594,
+        "lng": 4.8932212
+      },
+      "importance_score": 41.21578428466209,
+      "fameScore": 20.21578428466209,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Leidseplein",
+      "wikidataId": "Q1409805",
+      "coordinates": {
+        "lat": 52.3639683,
+        "lng": 4.8823304
+      },
+      "importance_score": 40.970671786825555,
+      "fameScore": 19.970671786825555,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Concertgebouw",
+      "wikidataId": "Q849957",
+      "coordinates": {
+        "lat": 52.3562088,
+        "lng": 4.8790441
+      },
+      "importance_score": 40.10620665658675,
+      "fameScore": 21.106206656586746,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Spui",
+      "wikidataId": "Q281703",
+      "coordinates": {
+        "lat": 52.3687861,
+        "lng": 4.889851
+      },
+      "importance_score": 39.215784284662085,
+      "fameScore": 18.215784284662085,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Anne Frank Huis",
+      "wikidataId": "Q165366",
+      "coordinates": {
+        "lat": 52.3751546,
+        "lng": 4.8840978
+      },
+      "importance_score": 38.85620665658675,
+      "fameScore": 21.856206656586746,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "de Wallen",
+      "wikidataId": "Q447664",
+      "coordinates": {
+        "lat": 52.3734589,
+        "lng": 4.8981942
+      },
+      "importance_score": 38.37836009688685,
+      "fameScore": 21.37836009688685,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Beurs van Berlage",
+      "wikidataId": "Q851200",
+      "coordinates": {
+        "lat": 52.375045,
+        "lng": 4.8962774
+      },
+      "importance_score": 38.35131915442328,
+      "fameScore": 18.351319154423276,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Stelling van Amsterdam",
+      "wikidataId": "Q855003",
+      "coordinates": {
+        "lat": 52.3842759,
+        "lng": 4.8306731
+      },
+      "importance_score": 38.21578428466209,
+      "fameScore": 21.21578428466209,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Museumplein",
+      "wikidataId": "Q639321",
+      "coordinates": {
+        "lat": 52.3587105,
+        "lng": 4.8833872
+      },
+      "importance_score": 38.00488750216347,
+      "fameScore": 20.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Rembrandthuis",
+      "wikidataId": "Q277316",
+      "coordinates": {
+        "lat": 52.3693692,
+        "lng": 4.9012497
+      },
+      "importance_score": 37.823942985382715,
+      "fameScore": 19.823942985382715,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Rembrandtplein",
+      "wikidataId": "Q1579642",
+      "coordinates": {
+        "lat": 52.3660256,
+        "lng": 4.8966284
+      },
+      "importance_score": 37.512388523751014,
+      "fameScore": 18.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Nieuwe Kerk",
+      "wikidataId": "Q1419675",
+      "coordinates": {
+        "lat": 52.3739231,
+        "lng": 4.8916924
+      },
+      "importance_score": 37.35131915442328,
+      "fameScore": 19.351319154423276,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Magere Brug",
+      "wikidataId": "Q1344400",
+      "coordinates": {
+        "lat": 52.3635809,
+        "lng": 4.9023579
+      },
+      "importance_score": 37.32068586817104,
+      "fameScore": 19.32068586817104,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Zuiderkerk",
+      "wikidataId": "Q228629",
+      "coordinates": {
+        "lat": 52.3702929,
+        "lng": 4.8997483
+      },
+      "importance_score": 37.17206476617281,
+      "fameScore": 17.172064766172813,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Noorderkerk",
+      "wikidataId": "Q613854",
+      "coordinates": {
+        "lat": 52.3796377,
+        "lng": 4.8864279
+      },
+      "importance_score": 36.970671786825555,
+      "fameScore": 17.970671786825555,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Wereldmuseum Amsterdam",
+      "wikidataId": "Q1131589",
+      "coordinates": {
+        "lat": 52.362688,
+        "lng": 4.9224397
+      },
+      "importance_score": 36.67206476617281,
+      "fameScore": 19.67206476617281,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Bloemenmarkt",
+      "wikidataId": "Q643079",
+      "coordinates": {
+        "lat": 52.3669538,
+        "lng": 4.8914048
+      },
+      "importance_score": 36.50977500432694,
+      "fameScore": 19.509775004326936,
+      "landmarkTier": "flagship",
+      "category": "market"
+    },
+    {
+      "name": "Hortus Botanicus",
+      "wikidataId": "Q1576733",
+      "coordinates": {
+        "lat": 52.3666432,
+        "lng": 4.9077753
+      },
+      "importance_score": 36.493782540330756,
+      "fameScore": 18.493782540330756,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Joods Museum",
+      "wikidataId": "Q702726",
+      "coordinates": {
+        "lat": 52.3671501,
+        "lng": 4.9038182
+      },
+      "importance_score": 35.50977500432694,
+      "fameScore": 18.509775004326936,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Het Scheepvaartmuseum",
+      "wikidataId": "Q1616123",
+      "coordinates": {
+        "lat": 52.3720101,
+        "lng": 4.9147861
+      },
+      "importance_score": 35.262388523751014,
+      "fameScore": 18.262388523751017,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Amsterdam Museum",
+      "wikidataId": "Q1820897",
+      "coordinates": {
+        "lat": 52.3704312,
+        "lng": 4.8904288
+      },
+      "importance_score": 35.21578428466209,
+      "fameScore": 18.21578428466209,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "H'ART Museum",
+      "wikidataId": "Q1350009",
+      "coordinates": {
+        "lat": 52.3656522,
+        "lng": 4.9022137
+      },
+      "importance_score": 34.993782540330756,
+      "fameScore": 17.993782540330756,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Sint-Franciscus Xaveriuskerk",
+      "wikidataId": "Q1180056",
+      "coordinates": {
+        "lat": 52.3677817,
+        "lng": 4.8880739
+      },
+      "importance_score": 34.67206476617281,
+      "fameScore": 17.672064766172813,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Schreierstoren",
+      "wikidataId": "Q610402",
+      "coordinates": {
+        "lat": 52.3763582,
+        "lng": 4.9022377
+      },
+      "importance_score": 34.215784284662085,
+      "fameScore": 17.215784284662085,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Nationaal Monument",
+      "wikidataId": "Q473851",
+      "coordinates": {
+        "lat": 52.3728196,
+        "lng": 4.8936888
+      },
+      "importance_score": 33.970671786825555,
+      "fameScore": 16.970671786825555,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Blauwbrug",
+      "wikidataId": "Q883126",
+      "coordinates": {
+        "lat": 52.366359,
+        "lng": 4.9008808
+      },
+      "importance_score": 33.25,
+      "fameScore": 17.25,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Ons' Lieve Heer op Solder",
+      "wikidataId": "Q493160",
+      "coordinates": {
+        "lat": 52.3751725,
+        "lng": 4.8993657
+      },
+      "importance_score": 33.25,
+      "fameScore": 17.25,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Grachtengordel van Amsterdam",
+      "wikidataId": "Q478707",
+      "coordinates": {
+        "lat": 52.371891,
+        "lng": 4.8953936
+      },
+      "importance_score": 32.75977500432694,
+      "fameScore": 17.759775004326936,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Fort Pampus",
+      "wikidataId": "Q924769",
+      "coordinates": {
+        "lat": 52.3647665,
+        "lng": 5.0689849
+      },
+      "importance_score": 32.25,
+      "fameScore": 17.25,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Eye Filmmuseum",
+      "wikidataId": "Q1538389",
+      "coordinates": {
+        "lat": 52.384335,
+        "lng": 4.900812
+      },
+      "importance_score": 31.970671786825555,
+      "fameScore": 16.970671786825555,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Venustempel Sexmuseum",
+      "wikidataId": "Q3329876",
+      "coordinates": {
+        "lat": 52.3765815,
+        "lng": 4.8972749
+      },
+      "importance_score": 31.970671786825555,
+      "fameScore": 16.970671786825555,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Portugese Synagoge",
+      "wikidataId": "Q1853707",
+      "coordinates": {
+        "lat": 52.3675391,
+        "lng": 4.9053431
+      },
+      "importance_score": 31.71578428466209,
+      "fameScore": 17.71578428466209,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Albert Cuyp-markt",
+      "wikidataId": "Q2342892",
+      "coordinates": {
+        "lat": 52.356054,
+        "lng": 4.8949678
+      },
+      "importance_score": 29.720671786825555,
+      "fameScore": 17.720671786825555,
+      "landmarkTier": "major",
+      "category": "market"
+    }
+  ]
+}

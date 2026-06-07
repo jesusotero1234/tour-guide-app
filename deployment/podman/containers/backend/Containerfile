@@ -1,0 +1,16 @@
+FROM quay.io/fedora/nodejs-20
+
+WORKDIR /opt/app-root/src
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3001
+
+ENV NODE_ENV=production \
+    PORT=3001
+
+CMD ["npm", "start"]

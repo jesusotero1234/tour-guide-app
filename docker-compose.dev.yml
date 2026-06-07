@@ -1,0 +1,177 @@
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  postgres-local:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=tour_guide_local
+      - POSTGRES_USER=tour_guide
+      - POSTGRES_PASSWORD=tour_guide_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tour_guide -d tour_guide_local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - API_KEYS=development-api-key
+      - LLM_SERVICE_URL=http://localhost:3002
+      - VERIFICATION_SERVICE_URL=http://verification-pod:3003
+      - DESCRIPTION_SERVICE_URL=http://description-pod:3004
+      - TTS_SERVICE_URL=http://tts-pod:3005
+      - SUPABASE_SERVICE_URL=http://supabase-pod:3006
+      - USE_SERVICE_NAMES=false  # Set to true in production
+      - HOST_SYSTEM=host.containers.internal
+    depends_on:
+      - llm-pod
+      - verification-pod
+      - description-pod
+      - tts-pod
+      - supabase-pod
+    networks:
+      - app-network
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+      - "host.podman.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+    # Development additions for hot reloading
+    command: npm run dev
+    volumes:
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./backend:/app:ro  # Mount local files as read-only
+
+  llm-pod:
+    build: 
+      context: ./pods/llm-pod
+      dockerfile: Dockerfile
+    network_mode: "host"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - OLLAMA_HOST=http://localhost:11434
+      - OLLAMA_MODEL=llama3.2:latest
+    # Development additions for hot reloading
+    command: npm run dev
+    volumes:
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./pods/llm-pod:/app:ro  # Mount local files as read-only
+
+  verification-pod:
+    build: 
+      context: ./pods/verification-pod
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - LLM_SERVICE_URL=http://llm-pod:3002
+      - LLM_POD_URL=http://host.docker.internal:3002
+    depends_on:
+      - llm-pod
+    networks:
+      - app-network
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+      - "host.podman.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+    # Development additions for hot reloading
+    command: npm run dev
+    volumes:
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./pods/verification-pod:/app:ro  # Mount local files as read-only
+
+  description-pod:
+    build: 
+      context: ./pods/description-pod
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - PORT=3004
+      - LLM_SERVICE_URL=http://llm-pod:3002
+      - LLM_POD_URL=http://host.docker.internal:3002
+    depends_on:
+      - llm-pod
+    networks:
+      - app-network
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+      - "host.podman.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+    # Development additions for hot reloading
+    command: npm run dev
+    volumes:
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./pods/description-pod:/app:ro  # Mount local files as read-only
+
+  tts-pod:
+    build: 
+      context: ./pods/tts-pod
+      dockerfile: Dockerfile
+      target: development # Target the development stage
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=development
+      - PORT=3005
+      - BASE_URL=http://localhost:3005
+    volumes:
+      # Development additions for hot reloading
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - /app/models  # Preserve container's model files downloaded during build
+      - tts_cache:/app/cache
+      - ./pods/tts-pod:/app:ro  # Mount local files as read-only
+    networks:
+      - app-network
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+      - "host.podman.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+    command: npm run dev
+
+  supabase-pod:
+    build: 
+      context: ./pods/supabase-pod
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3006"
+    environment:
+      - NODE_ENV=development
+      - PORT=3006
+    env_file:
+      - ./pods/supabase-pod/.env
+    networks:
+      - app-network
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+      - "host.podman.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
+    # Development additions for hot reloading
+    command: npm run dev
+    volumes:
+      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./pods/supabase-pod:/app:ro  # Mount local files as read-only
+
+volumes:
+  postgres_data:
+  tts_models:
+  tts_cache:

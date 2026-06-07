@@ -1,0 +1,52 @@
+# Build stage for TypeScript
+FROM node:20-slim AS builder
+WORKDIR /app
+COPY ./pods/tts-pod/package*.json ./
+RUN npm install
+COPY ./pods/tts-pod/ .
+RUN npm run build
+
+# Production stage
+FROM python:3.12-slim
+WORKDIR /app
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    nodejs \
+    npm \
+    git \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create directories
+RUN mkdir -p models cache
+
+# Install Python dependencies and kokoro-tts
+RUN pip install --no-cache-dir numpy torch soundfile && \
+    pip install --no-cache-dir git+https://github.com/nazdridoy/kokoro-tts.git
+
+# Download model files
+WORKDIR /app/models
+RUN wget https://github.com/nazdridoy/kokoro-tts/releases/download/v1.0.0/voices-v1.0.bin && \
+    wget https://github.com/nazdridoy/kokoro-tts/releases/download/v1.0.0/kokoro-v1.0.onnx
+
+# Copy built files
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm ci --only=production
+
+# Copy scripts
+COPY ./pods/tts-pod/scripts ./scripts
+RUN chmod +x ./scripts/*
+
+# Set environment
+ENV PORT=3005 \
+    NODE_ENV=production \
+    MODELS_PATH=/app/models \
+    AUDIO_CACHE=/app/cache
+
+EXPOSE 3005
+
+CMD ["./scripts/startup.sh"]

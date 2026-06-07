@@ -1,0 +1,38 @@
+# Dependencies
+/node_modules
+/dist
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs
+npm-debug.log*
+
+# Coverage directory used by tools like nyc
+coverage/
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Build files
+build/
+dist/
+*.tsbuildinfo
+
+# Test files
+/coverage
+/.nyc_output
+
+# Debug files
+.debug/

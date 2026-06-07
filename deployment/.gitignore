@@ -1,0 +1,26 @@
+# Environment files
+.env
+
+# Local configuration
+*.local
+
+# Logs
+*.log
+
+# Podman generated files
+podman-compose.yml.bak
+podman-compose.yml.debug
+
+# Test artifacts
+test-results/
+coverage/
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db

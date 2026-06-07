@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tour {
+  id              String          @id @default(uuid()) @db.Uuid
+  city            String
+  country         String
+  countryCode     String          @map("country_code")
+  theme           String
+  language        String
+  durationMinutes Int             @map("duration_minutes")
+  status          String          @default("created")
+  metadata        Json            @default("{}")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @default(now()) @updatedAt @map("updated_at")
+  places          Place[]
+  generationJobs  GenerationJob[]
+
+  @@map("tours")
+}
+
+model Place {
+  id              String       @id @default(uuid()) @db.Uuid
+  tourId          String       @map("tour_id") @db.Uuid
+  name            String
+  description     String
+  latitude        Float        @map("lat")
+  longitude       Float        @map("lng")
+  position        Int
+  importanceScore Float?       @map("importance_score")
+  imageUrl        String?      @map("image_url")
+  metadata        Json         @default("{}")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @default(now()) @updatedAt @map("updated_at")
+  tour            Tour         @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  audioAssets     AudioAsset[]
+
+  @@unique([tourId, position])
+  @@map("places")
+}
+
+model AudioAsset {
+  id              String   @id @default(uuid()) @db.Uuid
+  placeId         String   @map("place_id") @db.Uuid
+  language        String
+  format          String
+  storagePath     String   @map("storage_path")
+  durationSeconds Int?     @map("duration_seconds")
+  metadata        Json     @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+  place           Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
+
+  @@map("audio_assets")
+}
+
+model VoiceReferenceAudio {
+  id              String   @id @default(uuid()) @db.Uuid
+  language        String
+  provider        String
+  model           String
+  voiceProfile    String   @map("voice_profile")
+  format          String   @default("wav")
+  storagePath     String   @map("storage_path")
+  durationSeconds Float?   @map("duration_seconds")
+  metadata        Json     @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([language, provider, model, voiceProfile], name: "voice_reference_audio_identity_unique")
+  @@index([language, provider, model], name: "voice_reference_audio_lookup_idx")
+  @@map("voice_reference_audio")
+}
+
+model GenerationJob {
+  id           String    @id @default(uuid()) @db.Uuid
+  tourId       String?   @map("tour_id") @db.Uuid
+  status       String
+  step         String?
+  errorCode    String?   @map("error_code")
+  errorMessage String?   @map("error_message")
+  errorDetails Json?     @map("error_details")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at")
+  startedAt    DateTime? @map("started_at")
+  finishedAt   DateTime? @map("finished_at")
+  tour         Tour?     @relation(fields: [tourId], references: [id], onDelete: SetNull)
+
+  @@map("generation_jobs")
+}
+
+model PoiCache {
+  id        String   @id @default(uuid()) @db.Uuid
+  city      String
+  theme     String
+  fetchedAt DateTime @default(now()) @map("fetched_at")
+  payload   Json
+
+  @@unique([city, theme])
+  @@map("poi_cache")
+}
+
+model PoiNarrationCache {
+  poiId        String   @map("poi_id")
+  language     String
+  theme        String
+  sections     Json
+  narration    String
+  modelVersion String   @map("model_version")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@id([poiId, language, theme])
+  @@index([modelVersion])
+  @@map("poi_narration_cache")
+}
+
+model CityConceptCache {
+  id          String   @id @default(uuid()) @db.Uuid
+  city        String
+  countryCode String   @map("country_code")
+  language    String
+  payload     Json
+  computedAt  DateTime @default(now()) @map("computed_at")
+  expiresAt   DateTime @map("expires_at")
+
+  @@unique([city, countryCode, language])
+  @@map("city_concept_cache")
+}
+
+model TourConcept {
+  id                       String   @id @default(uuid()) @db.Uuid
+  city                     String
+  countryCode              String   @map("country_code")
+  language                 String
+  slug                     String
+  title                    String
+  routeType                String   @map("route_type")
+  angle                    String?
+  iconKey                  String?  @map("icon_key")
+  estimatedStops           Int      @map("estimated_stops")
+  suggestedDurationMinutes Int      @map("suggested_duration_minutes")
+  confidence               String
+  status                   String   @default("draft")
+  anchorPoiIds             Json     @map("anchor_poi_ids")
+  supportingPoiIds         Json     @map("supporting_poi_ids")
+  signals                  Json
+  createdAt                DateTime @default(now()) @map("created_at")
+  updatedAt                DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([city, countryCode, language, slug])
+  @@map("tour_concepts")
+}

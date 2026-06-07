@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --surface: #f7f4ef;
+  --surface-elevated: #fffdf8;
+  --ink: #4a3f35;
+  --ink-muted: #766a5f;
+  --accent: #c0a65f;
+  --border: rgba(74, 63, 53, 0.18);
+  --danger: #b6493a;
+  --danger-surface: #fceeea;
+}
+
+@theme {
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-danger: var(--danger);
+  --color-danger-surface: var(--danger-surface);
+  --color-beige: var(--surface);
+  --color-darkBrown: var(--ink);
+  --color-mutedGold: var(--accent);
+  --font-sans: var(--font-body), Georgia, serif;
+  --font-serif: var(--font-heading), "Times New Roman", serif;
+  --animate-fade-in: fade-in 0.4s ease-in-out;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body), Georgia, serif;
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif), "Times New Roman", serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 55%, white 45%);
+  color: var(--ink);
+}

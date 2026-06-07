@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS Service Tester</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background: #ccc;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+        }
+        #error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>TTS Service Tester</h1>
+    
+    <div id="error"></div>
+
+    <div class="form-group">
+        <label for="text">Text to speak:</label>
+        <textarea id="text" rows="4">Welcome to our tour guide service!</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="language">Language:</label>
+        <select id="language">
+            <option value="en-us">English (US)</option>
+            <option value="en-gb">English (UK)</option>
+            <option value="fr-fr">French</option>
+            <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="cmn">Chinese (Mandarin)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="voice">Voice:</label>
+        <select id="voice"></select>
+    </div>
+
+    <div class="form-group">
+        <label for="speed">Speed:</label>
+        <select id="speed">
+            <option value="0.5">0.5x (Slow)</option>
+            <option value="0.75">0.75x</option>
+            <option value="1.0" selected>1.0x (Normal)</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2.0">2.0x (Fast)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="format">Format:</label>
+        <select id="format">
+            <option value="wav">WAV</option>
+            <option value="mp3">MP3</option>
+        </select>
+    </div>
+
+    <button onclick="generateSpeech()">Generate Speech</button>
+
+    <div id="result">
+        <audio id="audio" controls></audio>
+    </div>
+
+    <script>
+        // Load voices on startup
+        fetch('/voices')
+            .then(res => res.json())
+            .then(data => {
+                const voiceSelect = document.getElementById('voice');
+                data.voices.forEach(lang => {
+                    const female = lang.voices.female || [];
+                    const male = lang.voices.male || [];
+                    const voices = [...female, ...male];
+                    
+                    voices.forEach(voice => {
+                        const option = document.createElement('option');
+                        option.value = voice;
+                        option.textContent = voice;
+                        option.dataset.language = lang.language;
+                        voiceSelect.appendChild(option);
+                    });
+                });
+
+                // Set default voice
+                voiceSelect.value = data.defaultVoice;
+
+                // Setup language change handler
+                document.getElementById('language').addEventListener('change', (e) => {
+                    const lang = e.target.value;
+                    Array.from(voiceSelect.options).forEach(option => {
+                        option.style.display = option.dataset.language === lang ? '' : 'none';
+                    });
+                    
+                    // Select first available voice for language
+                    const firstVoice = Array.from(voiceSelect.options)
+                        .find(option => option.dataset.language === lang);
+                    if (firstVoice) voiceSelect.value = firstVoice.value;
+                });
+            })
+            .catch(err => {
+                document.getElementById('error').textContent = 'Failed to load voices';
+                document.getElementById('error').style.display = 'block';
+            });
+
+        function generateSpeech() {
+            const button = document.querySelector('button');
+            const result = document.getElementById('result');
+            const error = document.getElementById('error');
+            const audio = document.getElementById('audio');
+
+            button.disabled = true;
+            error.style.display = 'none';
+            result.style.display = 'none';
+
+            fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: document.getElementById('text').value,
+                    language: document.getElementById('language').value,
+                    voice: document.getElementById('voice').value,
+                    speed: parseFloat(document.getElementById('speed').value),
+                    format: document.getElementById('format').value
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    audio.src = data.audioUrl;
+                    result.style.display = 'block';
+                    audio.play();
+                } else {
+                    throw new Error(data.error || 'Generation failed');
+                }
+            })
+            .catch(err => {
+                error.textContent = err.message;
+                error.style.display = 'block';
+            })
+            .finally(() => {
+                button.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>

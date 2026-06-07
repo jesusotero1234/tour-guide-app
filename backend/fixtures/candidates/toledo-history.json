@@ -1,0 +1,492 @@
+{
+  "city": "Toledo",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Catedral de Santa María",
+      "wikidataId": "Q1123180",
+      "coordinates": {
+        "lat": 39.8573916,
+        "lng": -4.0237544
+      },
+      "importance_score": 41.225559288989025,
+      "fameScore": 20.225559288989025,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Alcázar de Toledo",
+      "wikidataId": "Q1326589",
+      "coordinates": {
+        "lat": 39.858,
+        "lng": -4.0205118
+      },
+      "importance_score": 40.470671786825555,
+      "fameScore": 21.470671786825555,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Mezquita del Cristo de la Luz",
+      "wikidataId": "Q1324080",
+      "coordinates": {
+        "lat": 39.8605972,
+        "lng": -4.0241698
+      },
+      "importance_score": 39.25977500432694,
+      "fameScore": 18.259775004326936,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Monasterio de San Juan de los Reyes",
+      "wikidataId": "Q1289106",
+      "coordinates": {
+        "lat": 39.8577745,
+        "lng": -4.0317075
+      },
+      "importance_score": 38.85131915442328,
+      "fameScore": 16.851319154423276,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Antigua Sinagoga Mayor Santa María la Blanca",
+      "wikidataId": "Q1568115",
+      "coordinates": {
+        "lat": 39.8569307,
+        "lng": -4.0304198
+      },
+      "importance_score": 38.493782540330756,
+      "fameScore": 18.493782540330756,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Iglesia de Santo Tomé",
+      "wikidataId": "Q3139146",
+      "coordinates": {
+        "lat": 39.8567528,
+        "lng": -4.0281586
+      },
+      "importance_score": 35.12829485591189,
+      "fameScore": 16.128294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Museo del Greco",
+      "wikidataId": "Q3848124",
+      "coordinates": {
+        "lat": 39.8558546,
+        "lng": -4.0290329
+      },
+      "importance_score": 34.720671786825555,
+      "fameScore": 17.720671786825555,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Puente de Alcántara",
+      "wikidataId": "Q581532",
+      "coordinates": {
+        "lat": 39.8603742,
+        "lng": -4.0174391
+      },
+      "importance_score": 34.470671786825555,
+      "fameScore": 17.470671786825555,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Antiguo Hospital Tavera",
+      "wikidataId": "Q2037255",
+      "coordinates": {
+        "lat": 39.8656673,
+        "lng": -4.0242207
+      },
+      "importance_score": 34.12829485591189,
+      "fameScore": 16.128294855911893,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Puerta de Bisagra",
+      "wikidataId": "Q1112621",
+      "coordinates": {
+        "lat": 39.86246,
+        "lng": -4.0251666
+      },
+      "importance_score": 33.715784284662085,
+      "fameScore": 15.715784284662087,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Iglesia de San Román",
+      "wikidataId": "Q1107398",
+      "coordinates": {
+        "lat": 39.8583783,
+        "lng": -4.027105
+      },
+      "importance_score": 33.37829485591189,
+      "fameScore": 15.378294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Mezquita-Iglesia de El Salvador",
+      "wikidataId": "Q5116861",
+      "coordinates": {
+        "lat": 39.8565724,
+        "lng": -4.0266808
+      },
+      "importance_score": 32.17206476617281,
+      "fameScore": 14.172064766172813,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Castillo de San Servando",
+      "wikidataId": "Q2993456",
+      "coordinates": {
+        "lat": 39.8604309,
+        "lng": -4.0155944
+      },
+      "importance_score": 31.75,
+      "fameScore": 16.75,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Parroquia de Santiago del Arrabal",
+      "wikidataId": "Q2389665",
+      "coordinates": {
+        "lat": 39.8619767,
+        "lng": -4.0255045
+      },
+      "importance_score": 31.128294855911893,
+      "fameScore": 14.128294855911893,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Museo del Ejército",
+      "wikidataId": "Q6034428",
+      "coordinates": {
+        "lat": 39.8586119,
+        "lng": -4.0203663
+      },
+      "importance_score": 30.965784284662085,
+      "fameScore": 15.965784284662087,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Iglesia de Santa Leocadia",
+      "wikidataId": "Q1100859",
+      "coordinates": {
+        "lat": 39.8596312,
+        "lng": -4.0285406
+      },
+      "importance_score": 30.75,
+      "fameScore": 12.75,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Plaza de Toros de Toledo",
+      "wikidataId": "Q6080359",
+      "coordinates": {
+        "lat": 39.867284,
+        "lng": -4.0233058
+      },
+      "importance_score": 30.50488750216347,
+      "fameScore": 13.504887502163468,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Museo sefardi",
+      "wikidataId": "Q6033742",
+      "coordinates": {
+        "lat": 39.8558395,
+        "lng": -4.0294527
+      },
+      "importance_score": 29.25,
+      "fameScore": 14.25,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Iglesia de San Ildefonso",
+      "wikidataId": "Q19360888",
+      "coordinates": {
+        "lat": 39.8583379,
+        "lng": -4.0262695
+      },
+      "importance_score": 29.172064766172813,
+      "fameScore": 12.172064766172813,
+      "landmarkTier": "supporting",
+      "category": "religious"
+    },
+    {
+      "name": "Convento de San Antonio de Padua",
+      "wikidataId": "Q5785692",
+      "coordinates": {
+        "lat": 39.8569555,
+        "lng": -4.0288927
+      },
+      "importance_score": 28.75,
+      "fameScore": 11.75,
+      "landmarkTier": "supporting",
+      "category": "religious"
+    },
+    {
+      "name": "Monasterio de Santo Domingo El Real",
+      "wikidataId": "Q14475457",
+      "coordinates": {
+        "lat": 39.8607181,
+        "lng": -4.0268196
+      },
+      "importance_score": 28.50488750216347,
+      "fameScore": 11.504887502163468,
+      "landmarkTier": "supporting",
+      "category": "religious"
+    },
+    {
+      "name": "Palacio Arzobispal de Toledo",
+      "wikidataId": "Q9290171",
+      "coordinates": {
+        "lat": 39.8571944,
+        "lng": -4.0248947
+      },
+      "importance_score": 28.172064766172813,
+      "fameScore": 13.172064766172813,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Puerta del Sol",
+      "wikidataId": "Q1112601",
+      "coordinates": {
+        "lat": 39.8610536,
+        "lng": -4.0239546
+      },
+      "importance_score": 27.50488750216347,
+      "fameScore": 14.504887502163468,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Convento de San Gil",
+      "wikidataId": "Q5785755",
+      "coordinates": {
+        "lat": 39.8539148,
+        "lng": -4.0286439
+      },
+      "importance_score": 27.215784284662085,
+      "fameScore": 12.215784284662087,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Capilla de los Reyes Nuevos",
+      "wikidataId": "Q8262617",
+      "coordinates": {
+        "lat": 39.8573382,
+        "lng": -4.0231084
+      },
+      "importance_score": 27,
+      "fameScore": 11,
+      "landmarkTier": "supporting",
+      "category": "other"
+    },
+    {
+      "name": "Capilla de San Blas",
+      "wikidataId": "Q2881461",
+      "coordinates": {
+        "lat": 39.8578907,
+        "lng": -4.023886
+      },
+      "importance_score": 27,
+      "fameScore": 11,
+      "landmarkTier": "supporting",
+      "category": "other"
+    },
+    {
+      "name": "Palacio de fuensalida",
+      "wikidataId": "Q6058006",
+      "coordinates": {
+        "lat": 39.8567013,
+        "lng": -4.0279222
+      },
+      "importance_score": 26.965784284662085,
+      "fameScore": 11.965784284662087,
+      "landmarkTier": "supporting",
+      "category": "other"
+    },
+    {
+      "name": "Convento de Santa Úrsula",
+      "wikidataId": "Q5785892",
+      "coordinates": {
+        "lat": 39.8563415,
+        "lng": -4.0262223
+      },
+      "importance_score": 26.75,
+      "fameScore": 11.75,
+      "landmarkTier": "supporting",
+      "category": "other"
+    },
+    {
+      "name": "Plaza de San Justo",
+      "wikidataId": "Q30594203",
+      "coordinates": {
+        "lat": 39.8563497,
+        "lng": -4.0217599
+      },
+      "importance_score": 26.25,
+      "fameScore": 12.25,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Circo romano de Toledo",
+      "wikidataId": "Q1985588",
+      "coordinates": {
+        "lat": 39.8642976,
+        "lng": -4.0295686
+      },
+      "importance_score": 26.172064766172813,
+      "fameScore": 12.172064766172813,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Plaza de Zocodover",
+      "wikidataId": "Q2884002",
+      "coordinates": {
+        "lat": 39.8594989,
+        "lng": -4.0214538
+      },
+      "importance_score": 25.215784284662085,
+      "fameScore": 15.215784284662087,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Plaza de las Cuatro Calles",
+      "wikidataId": "Q30594205",
+      "coordinates": {
+        "lat": 39.8582643,
+        "lng": -4.0234594
+      },
+      "importance_score": 25.00488750216347,
+      "fameScore": 12.504887502163468,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Palacio de Benacazón",
+      "wikidataId": "Q30594155",
+      "coordinates": {
+        "lat": 39.8607285,
+        "lng": -4.0217875
+      },
+      "importance_score": 25,
+      "fameScore": 11,
+      "landmarkTier": "supporting",
+      "category": "other"
+    },
+    {
+      "name": "Palacio de Galiana",
+      "wikidataId": "Q2499221",
+      "coordinates": {
+        "lat": 39.8654392,
+        "lng": -4.0050733
+      },
+      "importance_score": 24.50488750216347,
+      "fameScore": 14.504887502163468,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Iglesia de San Sebastián",
+      "wikidataId": "Q7415304",
+      "coordinates": {
+        "lat": 39.8534865,
+        "lng": -4.0255009
+      },
+      "importance_score": 23.259775004326936,
+      "fameScore": 12.259775004326936,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Mezquita de las Tornerías",
+      "wikidataId": "Q4119622",
+      "coordinates": {
+        "lat": 39.8585278,
+        "lng": -4.0227835
+      },
+      "importance_score": 22.715784284662085,
+      "fameScore": 12.715784284662087,
+      "landmarkTier": "major",
+      "category": "religious"
+    },
+    {
+      "name": "Guarrazar",
+      "wikidataId": "Q1552900",
+      "coordinates": {
+        "lat": 39.8151575,
+        "lng": -4.1187841
+      },
+      "importance_score": 22.259775004326936,
+      "fameScore": 15.259775004326936,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Iglesia de los Santos Justo y Pastor",
+      "wikidataId": "Q5912675",
+      "coordinates": {
+        "lat": 39.8560551,
+        "lng": -4.0214481
+      },
+      "importance_score": 21.172064766172813,
+      "fameScore": 11.172064766172813,
+      "landmarkTier": "supporting",
+      "category": "religious"
+    },
+    {
+      "name": "Puerta de Valmardón",
+      "wikidataId": "Q7258527",
+      "coordinates": {
+        "lat": 39.8608589,
+        "lng": -4.0244138
+      },
+      "importance_score": 21.128294855911893,
+      "fameScore": 13.128294855911893,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Puerta del Cambrón",
+      "wikidataId": "Q9064518",
+      "coordinates": {
+        "lat": 39.8592845,
+        "lng": -4.0322718
+      },
+      "importance_score": 19.75,
+      "fameScore": 11.75,
+      "landmarkTier": "supporting",
+      "category": "other"
+    }
+  ]
+}

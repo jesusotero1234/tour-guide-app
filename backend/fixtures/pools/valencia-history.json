@@ -1,0 +1,5121 @@
+{
+  "city": "Valencia",
+  "theme": "history",
+  "capturedAt": "2026-05-30",
+  "geocode": {
+    "lat": 39.4697065,
+    "lng": -0.3763353,
+    "boundingBox": {
+      "minLat": 39.2784496,
+      "maxLat": 39.566609,
+      "minLng": -0.4325512,
+      "maxLng": -0.2725205
+    }
+  },
+  "rawPois": [
+    {
+      "lat": 39.4792726,
+      "lng": -0.3760028,
+      "name": "Torres dels Serrans",
+      "tags": {
+        "name": "Torres dels Serrans",
+        "height": "33",
+        "name:ca": "Torres dels Serrans",
+        "name:es": "Torres de Serranos",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q2455550",
+        "wikipedia": "es:Torres de Serranos",
+        "alt_name:es": "Puerta de Serranos",
+        "opening_hours": "Mo-Sa 10:00-18:00; Su 10:00-15:00; PH 10:00-15:00; Mar 15-Oct 15: Mo-Sa 10:00-19:00; Mar 15-Oct 15: Su 10:00-15:00",
+        "building:levels": "3",
+        "building:material": "stone"
+      },
+      "osmId": 9281502,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4759009,
+      "lng": -0.3839263,
+      "name": "Torres de Quart",
+      "tags": {
+        "name": "Torres de Quart",
+        "height": "34",
+        "name:ca": "Torres de Quart",
+        "name:es": "Porta de Quart",
+        "name:ru": "Башни Куарта",
+        "building": "tower",
+        "historic": "city_gate",
+        "wikidata": "Q2343754",
+        "wikipedia": "ca:Porta de Quart",
+        "roof:shape": "flat",
+        "alt_name:ca": "Torres de Quart",
+        "building:colour": "beige",
+        "building:levels": "4",
+        "building:material": "stone"
+      },
+      "osmId": 13073736,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4734778,
+      "lng": -0.3826306,
+      "name": "Palau de Balmes",
+      "tags": {
+        "name": "Palau de Balmes",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 16077055,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4744082,
+      "lng": -0.3784312,
+      "name": "Llotja de la Seda",
+      "tags": {
+        "name": "Llotja de la Seda",
+        "email": "lonja@valencia.es",
+        "phone": "+34 962 084 153",
+        "name:ca": "Llotja de la Seda",
+        "name:de": "Seidenbörse",
+        "name:en": "Silk Exchange",
+        "name:es": "Lonja de la Seda",
+        "name:ru": "Шелковая биржа",
+        "name:uk": "Шовкова біржа",
+        "name:zh": "絲綢交易中心",
+        "ref:whc": "782",
+        "tourism": "attraction",
+        "website": "https://www.comunitatvalenciana.com/es/valencia/valencia/monumentos/lonja-de-la-seda-1",
+        "building": "yes",
+        "heritage": "1",
+        "historic": "heritage",
+        "wikidata": "Q588009",
+        "addr:city": "València",
+        "wikipedia": "en:Lonja de la Seda",
+        "addr:street": "Carrer de la Llotja",
+        "whc:criteria": "(i)(iv)",
+        "addr:postcode": "46001",
+        "opening_hours": "Mo-Sa 10:00-19:00; Su,PH 10:00-14:00",
+        "addr:housenumber": "2",
+        "heritage:operator": "whc",
+        "whc:inscription_date": "1996"
+      },
+      "osmId": 23377876,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4683696,
+      "lng": -0.3440055,
+      "name": "Palauet d'Aiora",
+      "tags": {
+        "name": "Palauet d'Aiora",
+        "name:ca": "Palauet d'Aiora",
+        "name:es": "Palacete de Ayora",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q9054302",
+        "wikipedia": "ca:Palauet d'Aiora",
+        "castle_type": "palace"
+      },
+      "osmId": 23413021,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4755689,
+      "lng": -0.3751044,
+      "name": "Catedral de València",
+      "tags": {
+        "name": "Catedral de València",
+        "roof": "yes",
+        "height": "13",
+        "amenity": "place_of_worship",
+        "name:ar": "كاتدرائية بلنسية",
+        "name:ca": "Catedral de València",
+        "name:de": "Kathedrale von Valencia",
+        "name:el": "Καθεδρικός Ναός της Βαλένθιας",
+        "name:en": "Valencia Cathedral",
+        "name:es": "Catedral de Valencia",
+        "name:it": "Cattedrale di Valencia",
+        "name:pt": "Catedral de Valência",
+        "name:ur": "بالنسیا کیتھیڈرل",
+        "alt_name": "Catedral de Santa María",
+        "basilica": "minor",
+        "building": "cathedral",
+        "religion": "christian",
+        "wikidata": "Q1466926",
+        "addr:city": "València",
+        "long_name": "Catedral de Santa María de Valencia",
+        "wikipedia": "es:Catedral de Santa María (Valencia)",
+        "roof:shape": "flat",
+        "wheelchair": "yes",
+        "alt_name:es": "Catedral de Santa María",
+        "roof:colour": "#c19d86",
+        "denomination": "roman_catholic",
+        "long_name:es": "Catedral de Santa María de Valencia",
+        "building:colour": "#cfccb9",
+        "building:material": "sandstone",
+        "toilets:wheelchair": "yes"
+      },
+      "osmId": 135630267,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4734713,
+      "lng": -0.3623651,
+      "name": "Palau de l'Exposició",
+      "tags": {
+        "name": "Palau de l'Exposició",
+        "name:ca": "Palau de l'Exposició",
+        "name:es": "Palacio de la Exposición",
+        "tourism": "attraction",
+        "building": "palace",
+        "wikidata": "Q48975834",
+        "wikipedia": "ca:Palau de l'Exposició",
+        "addr:street": "Calle Galicia",
+        "addr:housenumber": "1"
+      },
+      "osmId": 150277194,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4748647,
+      "lng": -0.3734002,
+      "name": "Banys de l'Almirall",
+      "tags": {
+        "name": "Banys de l'Almirall",
+        "name:ca": "Banys de l'Almirall",
+        "ref:bic": "R-I-51-0001141",
+        "website": "https://www.banysdelalmirall.org/",
+        "building": "yes",
+        "heritage": "2",
+        "historic": "archaeological_site",
+        "wikidata": "Q511925",
+        "wikipedia": "ca:Banys de l'Almirall",
+        "protection_title": "Bé d'Interés Cultural",
+        "heritage:operator": "mecd",
+        "archaeological_site": "baths",
+        "bic:inscription_date": "1944-02-16",
+        "historic:civilization": "islamic_iberia",
+        "protection_title:category": "Monument"
+      },
+      "osmId": 218841695,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.478015,
+      "lng": -0.3761278,
+      "name": "Palau de Cerveró",
+      "tags": {
+        "name": "Palau de Cerveró",
+        "building": "yes",
+        "historic": "manor",
+        "addr:street": "Plaça de Cisneros",
+        "building:levels": "3"
+      },
+      "osmId": 413146307,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.3624247,
+      "lng": -0.4122028,
+      "name": "Torre de Silla",
+      "tags": {
+        "name": "Torre de Silla",
+        "access": "yes",
+        "name:ca": "Torre de Silla",
+        "tourism": "attraction",
+        "building": "yes",
+        "historic": "castle",
+        "man_made": "tower",
+        "wikidata": "Q10836",
+        "addr:city": "Silla",
+        "wikipedia": "es:Torre musulmana de Silla",
+        "start_date": "C12",
+        "tower:type": "defensive",
+        "addr:street": "Carrer Castell",
+        "castle_type": "defensive",
+        "addr:postcode": "46460",
+        "tower:construction": "stone",
+        "historic:civilization": "islamic_iberia"
+      },
+      "osmId": 423657722,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4713317,
+      "lng": -0.3719306,
+      "name": "Palau dels Pescara",
+      "tags": {
+        "name": "Palau dels Pescara",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 492626789,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4788367,
+      "lng": -0.3787122,
+      "name": "Palau de Pineda",
+      "tags": {
+        "name": "Palau de Pineda",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 493777443,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4755239,
+      "lng": -0.3709409,
+      "name": "Palau del Baró de Campolivar",
+      "tags": {
+        "name": "Palau del Baró de Campolivar",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 495226734,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4743693,
+      "lng": -0.3704082,
+      "name": "Palau de Cevelló",
+      "tags": {
+        "name": "Palau de Cevelló",
+        "phone": "+34 963 52 54 78",
+        "name:ca": "Palau de Cevelló",
+        "name:es": "Palacio de Cervelló",
+        "website": "https://www.valencia.es/",
+        "building": "yes",
+        "historic": "manor",
+        "wikidata": "Q9054454",
+        "addr:city": "València",
+        "wikipedia": "ca:Palau de Cervelló",
+        "addr:street": "Plaça de Tetuan",
+        "addr:postcode": "46003",
+        "opening_hours": "Mo-Th 09:30-14:00,15:00-19:00",
+        "addr:housenumber": "3"
+      },
+      "osmId": 495233207,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.472553,
+      "lng": -0.3739897,
+      "name": "Palau dels Boïl d'Arenós",
+      "tags": {
+        "name": "Palau dels Boïl d'Arenós",
+        "name:ca": "Palau dels Boïl d'Arenós",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q11697429",
+        "addr:city": "València",
+        "wikipedia": "ca:Palau dels Boïl d'Arenós",
+        "addr:street": "Carrer dels Llibrers",
+        "castle_type": "palace",
+        "addr:postcode": "46002",
+        "addr:housenumber": "2"
+      },
+      "osmId": 495741186,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4613188,
+      "lng": -0.3335562,
+      "name": "les Drassanes del Grau",
+      "tags": {
+        "name": "les Drassanes del Grau",
+        "name:ca": "les Drassanes del Grau",
+        "name:es": "Atarazanas",
+        "ref:bic": "51-0001251",
+        "tourism": "museum",
+        "heritage": "2",
+        "historic": "building",
+        "addr:city": "València",
+        "wikipedia": "ca:Drassanes del Grau",
+        "addr:street": "Plaça de Joan Antoni Benlliure",
+        "addr:postcode": "46011",
+        "nohousenumber": "yes",
+        "heritage:website": "https://www.culturaydeporte.gob.es/cultura/patrimonio/bienes-culturales-protegidos.html",
+        "protection_title": "Bien de Interés Cultural",
+        "heritage:operator": "mecd",
+        "bic:inscription_date": "1949-11-24",
+        "name:etymology:wikidata": "Q8207890",
+        "protection_title:category": "Monumento"
+      },
+      "osmId": 512378878,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4776595,
+      "lng": -0.3756001,
+      "name": "Casa-Palau de la Real Mestrança",
+      "tags": {
+        "name": "Casa-Palau de la Real Mestrança",
+        "name:ca": "Casa-Palau de la Real Mestrança",
+        "name:es": "Casa-Palacio de la Real Maestranza",
+        "building": "yes",
+        "historic": "manor",
+        "addr:city": "València",
+        "wikipedia": "ca:Reial Mestrança de Cavalleria de València",
+        "addr:street": "Plaça de Nules",
+        "addr:postcode": "46003",
+        "addr:housenumber": "1"
+      },
+      "osmId": 515033618,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4764362,
+      "lng": -0.3765251,
+      "name": "Palau de Castellfort",
+      "tags": {
+        "name": "Palau de Castellfort",
+        "name:ca": "Palau de Castellfort",
+        "name:es": "Palacio de Castellfort",
+        "building": "yes",
+        "historic": "manor",
+        "wikidata": "Q943466",
+        "wikipedia": "ca:Palau_de_Castellfort"
+      },
+      "osmId": 515080603,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4725416,
+      "lng": -0.3748047,
+      "name": "Palau del Marqués de Dosaigües",
+      "tags": {
+        "name": "Palau del Marqués de Dosaigües",
+        "name:ca": "Palau del Marqués de Dosaigües",
+        "name:es": "Palacio del Marqués de Dos Aguas",
+        "ref:bic": "RI-51-0001106",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q1993940",
+        "wikipedia": "ca:Palau del Marqués de Dosaigües",
+        "castle_type": "palace"
+      },
+      "osmId": 515082661,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4775602,
+      "lng": -0.3786175,
+      "name": "Portal de la Valldigna",
+      "tags": {
+        "name": "Portal de la Valldigna",
+        "name:ca": "Portal de la Valldigna",
+        "historic": "city_gate",
+        "start_date": "1400",
+        "historic:civilization": "medieval_christianity"
+      },
+      "osmId": 515327993,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.2893903,
+      "lng": -0.4318519,
+      "name": "Torre de Mussa",
+      "tags": {
+        "name": "Torre de Mussa",
+        "name:ca": "Torre de Mussa",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "castle",
+        "man_made": "tower",
+        "wikidata": "Q6150213",
+        "wikipedia": "ca:Torre Mussa",
+        "tower:type": "defensive",
+        "heritage:operator": "Generalitat Valenciana"
+      },
+      "osmId": 611884335,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4768269,
+      "lng": -0.3785624,
+      "name": "Palau dels Mercader",
+      "tags": {
+        "name": "Palau dels Mercader",
+        "building": "yes",
+        "historic": "manor",
+        "addr:street": "Carrer dels Cavallers",
+        "addr:housenumber": "24"
+      },
+      "osmId": 810457663,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4745115,
+      "lng": -0.3701756,
+      "name": "Palau de los Marqueses de Montortal",
+      "tags": {
+        "name": "Palau de los Marqueses de Montortal",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 813605747,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4664597,
+      "lng": -0.4230015,
+      "name": "Alquería de 'La Closa'",
+      "tags": {
+        "name": "Alquería de 'La Closa'",
+        "building": "house",
+        "historic": "manor",
+        "description": "Edificio Etnológico de origen romano. Interés arquitectónico."
+      },
+      "osmId": 837564229,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5442943,
+      "lng": -0.3470705,
+      "name": "Castell d'Albalat dels Sorells",
+      "tags": {
+        "name": "Castell d'Albalat dels Sorells",
+        "name:ca": "Castell d'Albalat dels Sorells",
+        "building": "yes",
+        "historic": "castle"
+      },
+      "osmId": 889390986,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4730723,
+      "lng": -0.4012868,
+      "name": "Alqueria Julià",
+      "tags": {
+        "name": "Alqueria Julià",
+        "name:ca": "Alqueria Julià",
+        "ref:bic": "R-I-51-0007258",
+        "alt_name": "Hort de Julià",
+        "building": "detached",
+        "heritage": "2",
+        "historic": "manor",
+        "wikidata": "Q5488956",
+        "wikipedia": "es:Alquería de Juliá",
+        "addr:street": "Carrer de la Democràcia",
+        "alt_name:ca": "Hort de Julià",
+        "addr:postcode": "46018",
+        "building:levels": "4",
+        "addr:housenumber": "62",
+        "heritage:website": "https://www.culturaydeporte.gob.es/cultura/patrimonio/bienes-culturales-protegidos.html",
+        "protection_title": "Bien de Interés Cultural",
+        "heritage:operator": "mecd",
+        "bic:inscription_date": "2007-10-05",
+        "protection_title:category": "Monumento"
+      },
+      "osmId": 892377652,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5441993,
+      "lng": -0.3853944,
+      "name": "Castell de la Senyoria - Palau dels Cruïlles",
+      "tags": {
+        "name": "Castell de la Senyoria - Palau dels Cruïlles",
+        "name:ca": "Castell de la Senyoria - Palau dels Cruïlles",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q5645133",
+        "wikipedia": "ca:Castell de la Senyoria",
+        "castle_type": "palace"
+      },
+      "osmId": 910928891,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5289191,
+      "lng": -0.409446,
+      "name": "Casa Bou",
+      "tags": {
+        "name": "Casa Bou",
+        "name:ca": "Casa Bou",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 996696161,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5298597,
+      "lng": -0.4087213,
+      "name": "Villa Amparo",
+      "tags": {
+        "name": "Villa Amparo",
+        "access": "yes",
+        "building": "yes",
+        "historic": "manor",
+        "wikidata": "Q29183174",
+        "wikipedia": "es:Villa Amparo",
+        "description": "En esta casa va viure Antonio Machado",
+        "opening_hours": "Sa-Su 10:00-14:00"
+      },
+      "osmId": 1057180796,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4991756,
+      "lng": -0.3960126,
+      "name": "Alqueria dels Moros",
+      "tags": {
+        "name": "Alqueria dels Moros",
+        "name:ca": "Alqueria dels Moros",
+        "ref:bic": "RI-51-0010452",
+        "alt_name": "Alqueria del Moro",
+        "building": "detached",
+        "heritage": "2",
+        "historic": "building",
+        "wikidata": "Q5670595",
+        "wikipedia": "es:Alquería del Moro",
+        "alt_name:ca": "Alqueria del Moro",
+        "protection_title": "Bien de Interés Cultural",
+        "heritage:operator": "mecd",
+        "bic:inscription_date": "2004-02-25",
+        "protection_title:category": "Monumento"
+      },
+      "osmId": 1115796656,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5308782,
+      "lng": -0.3850457,
+      "name": "Casa de la Sirena",
+      "tags": {
+        "name": "Casa de la Sirena",
+        "name:ca": "Casa de la Sirena",
+        "building": "yes",
+        "historic": "manor",
+        "wikidata": "Q55686",
+        "wikipedia": "ca:Casa de la Sirena"
+      },
+      "osmId": 1168295995,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4682584,
+      "lng": -0.3779964,
+      "name": "Capella de l'Antic Col·legi de Sant Pau",
+      "tags": {
+        "name": "Capella de l'Antic Col·legi de Sant Pau",
+        "ref:bic": "R-I-51-0004844",
+        "heritage": "2",
+        "historic": "heritage",
+        "wikidata": "Q11680508",
+        "wikipedia": "es:Capilla del antiguo colegio San Pablo",
+        "roof:shape": "dome",
+        "roof:colour": "#ddb995",
+        "building:part": "yes",
+        "building:colour": "#ddb995",
+        "building:levels": "4",
+        "protection_title": "Bé d'Interés Cultural",
+        "heritage:operator": "mecd",
+        "bic:inscription_date": "1983-05-27",
+        "protection_title:category": "Monument"
+      },
+      "osmId": 1180933287,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.53356,
+      "lng": -0.4123486,
+      "name": "Vil·la Contat",
+      "tags": {
+        "name": "Vil·la Contat",
+        "name:ca": "Vil·la Contat",
+        "name:es": "Villa Contat",
+        "building": "yes",
+        "historic": "manor",
+        "start_date": "1928"
+      },
+      "osmId": 1194707814,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5313982,
+      "lng": -0.4113638,
+      "name": "Xalet del Molí",
+      "tags": {
+        "name": "Xalet del Molí",
+        "name:ca": "Xalet del Molí",
+        "name:es": "Casa del Molino",
+        "building": "yes",
+        "historic": "manor",
+        "start_date": "1893"
+      },
+      "osmId": 1194707815,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5367751,
+      "lng": -0.4117841,
+      "name": "Xalet Dinnbier",
+      "tags": {
+        "name": "Xalet Dinnbier",
+        "building": "yes",
+        "historic": "manor",
+        "start_date": "1936"
+      },
+      "osmId": 1194707816,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4771812,
+      "lng": -0.3766818,
+      "name": "Palau de la Batlia",
+      "tags": {
+        "name": "Palau de la Batlia",
+        "access": "yes",
+        "building": "yes",
+        "historic": "castle",
+        "wikipedia": "ca:Palau de la Batlia",
+        "castle_type": "stately"
+      },
+      "osmId": 1303164127,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4760373,
+      "lng": -0.3780641,
+      "name": "Casa del Marquès de Cáceres",
+      "tags": {
+        "name": "Casa del Marquès de Cáceres",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 1312924226,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4762336,
+      "lng": -0.3781749,
+      "name": "Palau del Marquès de Santa Bàrbara",
+      "tags": {
+        "name": "Palau del Marquès de Santa Bàrbara",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 1312924227,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5330181,
+      "lng": -0.4113929,
+      "name": "Caperucita Roja",
+      "tags": {
+        "name": "Caperucita Roja",
+        "access": "private",
+        "building": "yes",
+        "historic": "manor",
+        "description": "Casa construida en el estilo de Bavaria"
+      },
+      "osmId": 1353726395,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4246193,
+      "lng": -0.402236,
+      "name": "Porta del Castell",
+      "tags": {
+        "name": "Porta del Castell",
+        "building": "yes",
+        "historic": "city_gate",
+        "start_date": "s. XVII",
+        "designation": "Arquitectura Militar",
+        "historic:civilization": "modern"
+      },
+      "osmId": 1360964485,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.476664,
+      "lng": -0.3734047,
+      "name": "Palau dels Escrivà i Boïl",
+      "tags": {
+        "name": "Palau dels Escrivà i Boïl",
+        "type": "multipolygon",
+        "name:ca": "Palau dels Escrivà i Boïl",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 8216452,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4769314,
+      "lng": -0.3781442,
+      "name": "Palau dels Marquesos de Malferit",
+      "tags": {
+        "name": "Palau dels Marquesos de Malferit",
+        "type": "multipolygon",
+        "name:ca": "Palau dels Marquesos de Malferit",
+        "name:es": "Palacio de los Marqueses de Malferit",
+        "building": "yes",
+        "historic": "castle",
+        "addr:city": "València",
+        "addr:street": "Carrer Cavallers",
+        "castle_type": "manor",
+        "addr:postcode": "46003",
+        "addr:housenumber": "22"
+      },
+      "osmId": 11162129,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4771111,
+      "lng": -0.3762547,
+      "name": "Palau del Marqués de la Scala",
+      "tags": {
+        "name": "Palau del Marqués de la Scala",
+        "type": "multipolygon",
+        "access": "yes",
+        "building": "public",
+        "historic": "castle",
+        "wikipedia": "ca:Palau del Marqués de la Scala",
+        "addr:street": "Plaza de Manises",
+        "castle_type": "stately",
+        "addr:housenumber": "4"
+      },
+      "osmId": 11270791,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4776025,
+      "lng": -0.3752298,
+      "name": "Palau dels Català de Valeriola",
+      "tags": {
+        "name": "Palau dels Català de Valeriola",
+        "type": "multipolygon",
+        "building": "yes",
+        "historic": "manor",
+        "wikidata": "Q9054644",
+        "wikipedia": "es:Palacio de los Catalá de Valeriola"
+      },
+      "osmId": 16754082,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.2849584,
+      "lng": -0.4271463,
+      "name": "Torre de la Plaça",
+      "tags": {
+        "name": "Torre de la Plaça",
+        "type": "multipolygon",
+        "name:ca": "Torre de la Plaça",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "castle",
+        "man_made": "tower",
+        "wikidata": "Q2894773",
+        "wikipedia": "ca:Torre de la Plaça de Benifaió",
+        "tower:type": "defensive",
+        "heritage:operator": "Generalitat Valenciana"
+      },
+      "osmId": 17532267,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.403208,
+      "lng": -0.4037784,
+      "name": "Palau de Vivanco",
+      "tags": {
+        "name": "Palau de Vivanco",
+        "type": "multipolygon",
+        "access": "yes",
+        "name:ca": "Palau de Vivanco",
+        "name:es": "Palacio de Vivanco",
+        "alt_name": "Casa Vivanco",
+        "building": "yes",
+        "heritage": "3",
+        "historic": "manor",
+        "wikidata": "Q5754562",
+        "addr:city": "Catarroja",
+        "wikipedia": "ca:Casa Vivanco (Catarroja)",
+        "addr:street": "Camí Reial",
+        "addr:postcode": "46470",
+        "addr:housenumber": "22",
+        "heritage:operator": "Generalitat Valenciana"
+      },
+      "osmId": 19854479,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.3624022,
+      "lng": -0.4122045,
+      "name": "Torre Musulmana",
+      "tags": {
+        "name": "Torre Musulmana",
+        "historic": "castle",
+        "operator": "Ajuntament de Silla",
+        "addr:city": "Silla",
+        "start_date": "C12",
+        "addr:street": "Carrer Castell",
+        "castle_type": "tower",
+        "designation": "Edificación Militar (Colección Museográfica Arqueológica)",
+        "inscription": "Torre Musulmana (s.XII)",
+        "addr:postcode": "46460",
+        "historic:civilization": "islamic_iberia"
+      },
+      "osmId": 1761302222,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.2900197,
+      "lng": -0.4137275,
+      "name": "Torre Racef",
+      "tags": {
+        "name": "Torre Racef",
+        "name:ca": "Torre de Rassef",
+        "heritage": "3",
+        "man_made": "tower",
+        "wikidata": "Q810902",
+        "wikipedia": "ca:Torre de Rassef",
+        "tower:type": "defensive",
+        "heritage:operator": "Generalitat Valenciana"
+      },
+      "osmId": 4773594840,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4734987,
+      "lng": -0.3789285,
+      "name": "Mercat Central",
+      "tags": {
+        "dog": "no",
+        "name": "Mercat Central",
+        "email": "informacion@mercadocentralvalencia.es",
+        "level": "0",
+        "phone": "+34 963 829 100",
+        "amenity": "marketplace",
+        "bicycle": "no",
+        "name:ca": "Mercat Central",
+        "name:en": "Central Market",
+        "name:es": "Mercado Central",
+        "name:it": "Mercato Centrale",
+        "name:ko": "중앙 시장",
+        "name:ru": "Центральный рынок Валенсии",
+        "name:zh": "中央市場",
+        "smoking": "no",
+        "tourism": "attraction",
+        "website": "https://www.mercadocentralvalencia.es",
+        "building": "yes",
+        "historic": "yes",
+        "wikidata": "Q2197068",
+        "addr:city": "València",
+        "wikipedia": "es:Mercado Central de Valencia",
+        "check_date": "2026-04-11",
+        "addr:street": "Plaça de la Ciutat de Bruges",
+        "addr:postcode": "46001",
+        "opening_hours": "Mo-Sa 07:30-15:00; Su off",
+        "building:levels": "2",
+        "building:levels:underground": "1"
+      },
+      "osmId": 5007139,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4695899,
+      "lng": -0.3812329,
+      "name": "Museu Valencià de la Il·lustració i de la Modernitat",
+      "tags": {
+        "fee": "no",
+        "name": "Museu Valencià de la Il·lustració i de la Modernitat",
+        "layer": "1",
+        "phone": "+34 96 388 37 30",
+        "name:ca": "Museu Valencià de la Il·lustració i de la Modernitat",
+        "name:es": "Museo Valenciano de la Ilustración y la Modernidad",
+        "tourism": "museum",
+        "website": "http://www.muvim.es/",
+        "building": "yes",
+        "operator": "Diputació de València",
+        "wikidata": "Q7883975",
+        "addr:city": "València",
+        "wikipedia": "ca:Museu Valencià de la Il·lustració i de la Modernitat",
+        "short_name": "MuVIM",
+        "addr:street": "Carrer de Quevedo",
+        "addr:postcode": "46001",
+        "operator:type": "public",
+        "addr:housenumber": "10",
+        "name:etymology:wikidata": "Q7883975"
+      },
+      "osmId": 15218690,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4792681,
+      "lng": -0.369029,
+      "name": "El Paleontològic",
+      "tags": {
+        "fee": "yes",
+        "name": "El Paleontològic",
+        "email": "museociencias@valencia.es",
+        "phone": "+34 962 08 43 13",
+        "tourism": "museum",
+        "building": "public",
+        "old_name": "Museu de Ciències Naturals",
+        "operator": "Ajuntament de València",
+        "wikidata": "Q9047012",
+        "addr:city": "València",
+        "wikipedia": "es:Museo de Ciencias Naturales de Valencia",
+        "addr:street": "Carrer del General Elío",
+        "addr:postcode": "46010",
+        "nohousenumber": "yes",
+        "opening_hours": "Tu-Su,PH 10:00-19:00",
+        "building:levels": "2",
+        "name:etymology:wikidata": "Q9047012"
+      },
+      "osmId": 23807859,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.499387,
+      "lng": -0.3692735,
+      "name": "Monestir de Sant Miquel dels Reis",
+      "tags": {
+        "name": "Monestir de Sant Miquel dels Reis",
+        "name:ca": "Monestir de Sant Miquel dels Reis",
+        "tourism": "attraction",
+        "historic": "monastery",
+        "operator": "Generalitat Valenciana",
+        "wikidata": "Q4891102",
+        "wikipedia": "ca:Monestir de Sant Miquel dels Reis",
+        "addr:street": "Avinguda de la Constitució",
+        "addr:housenumber": "284"
+      },
+      "osmId": 150244048,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4588375,
+      "lng": -0.3591292,
+      "name": "Museu Faller",
+      "tags": {
+        "fee": "yes",
+        "name": "Museu Faller",
+        "name:ca": "Museu Faller",
+        "name:es": "Museo Fallero",
+        "tourism": "museum",
+        "building": "yes",
+        "wikidata": "Q27924428",
+        "addr:city": "València",
+        "wikipedia": "ca:Museu Faller de València",
+        "addr:street": "Plaça Montolivet",
+        "addr:postcode": "46006",
+        "building:levels": "5",
+        "addr:housenumber": "4",
+        "name:etymology:wikidata": "Q27924428"
+      },
+      "osmId": 444067498,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4826756,
+      "lng": -0.325976,
+      "name": "Casa-Museo Blasco Ibañez",
+      "tags": {
+        "fee": "yes",
+        "name": "Casa-Museo Blasco Ibañez",
+        "charge": "2 EUR",
+        "source": "Imagen de Catastro de España",
+        "name:ca": "Casa-Museu de Blasco Ibáñez",
+        "name:es": "Casa-Museo de Blasco Ibáñez",
+        "tourism": "museum",
+        "building": "public",
+        "wikidata": "Q13548107",
+        "addr:city": "València",
+        "wikipedia": "ca:Casa-Museu de Blasco Ibáñez",
+        "addr:street": "Carrer d'Isabel de Villena",
+        "addr:postcode": "46011",
+        "opening_hours": "Tu-Sa 10:00-14:00, 15:00-19:00; Su 10:00-14:00",
+        "building:levels": "3",
+        "addr:housenumber": "159"
+      },
+      "osmId": 512676794,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.47573,
+      "lng": -0.3742477,
+      "name": "Cripta de la Carcel de San Vicente",
+      "tags": {
+        "name": "Cripta de la Carcel de San Vicente",
+        "tourism": "museum",
+        "building": "yes",
+        "wikidata": "Q11916088",
+        "addr:city": "València",
+        "addr:street": "Plaça de l'Arquebisbe",
+        "addr:postcode": "46003",
+        "addr:housenumber": "1"
+      },
+      "osmId": 513699154,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4706917,
+      "lng": -0.3809605,
+      "name": "Col·legi de l'Art Major de la Seda",
+      "tags": {
+        "name": "Col·legi de l'Art Major de la Seda",
+        "museum": "art",
+        "name:es": "Colegio del Arte Mayor de la Seda",
+        "tourism": "museum",
+        "building": "yes",
+        "operator": "Diputació de València",
+        "wikidata": "Q8347734",
+        "addr:city": "València",
+        "wikipedia": "ca:Col·legi de l'Art Major de la Seda (València)",
+        "addr:street": "Carrer de l'Hospital",
+        "addr:postcode": "46001",
+        "operator:type": "public",
+        "addr:housenumber": "7"
+      },
+      "osmId": 514894836,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4725076,
+      "lng": -0.4082434,
+      "name": "Museu d'Història de València",
+      "tags": {
+        "name": "Museu d'Història de València",
+        "phone": "+34 963 70 11 05",
+        "name:ca": "Museu d'Història de València",
+        "name:en": "Valencia History Museum",
+        "name:es": "Museo de Historia de Valencia",
+        "tourism": "museum",
+        "website": "http://www.mhv.com.es",
+        "building": "yes",
+        "operator": "Ajuntament de València",
+        "wikidata": "Q9047049",
+        "addr:city": "Mislata",
+        "wikipedia": "ca:Museu d'història de València",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de València",
+        "addr:postcode": "46920",
+        "opening_hours": "Tu-Sa 10:00-19:00; PH,Su 10:00-14:00; Mo off",
+        "addr:housenumber": "42"
+      },
+      "osmId": 514898814,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4242014,
+      "lng": -0.4173003,
+      "name": "Museu de la Rajoleria",
+      "tags": {
+        "name": "Museu de la Rajoleria",
+        "name:ca": "Museu de la Rajoleria",
+        "tourism": "museum",
+        "building": "yes",
+        "wikidata": "Q27043450",
+        "wikipedia": "es:Rajolar de Bauset"
+      },
+      "osmId": 539012576,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.3484983,
+      "lng": -0.4255908,
+      "name": "Molí Forés",
+      "tags": {
+        "name": "Molí Forés",
+        "access": "private",
+        "tourism": "attraction",
+        "historic": "ruins",
+        "historic:civilization": "modern"
+      },
+      "osmId": 547126833,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4218788,
+      "lng": -0.3897551,
+      "name": "Antiga Seu del Sindicat Arrocer",
+      "tags": {
+        "name": "Antiga Seu del Sindicat Arrocer",
+        "name:ca": "Antiga Seu del Sindicat Arrocer",
+        "name:es": "Antigua Sede del Sindicato Arrocero",
+        "tourism": "attraction",
+        "building": "yes",
+        "heritage": "3",
+        "heritage:operator": "Generalitat Valenciana"
+      },
+      "osmId": 837564209,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4232819,
+      "lng": -0.4026358,
+      "name": "Museu d'Història de Benetússer",
+      "tags": {
+        "name": "Museu d'Història de Benetússer",
+        "museum": "archaeological",
+        "name:ca": "Museu d'Història de Benetússer",
+        "tourism": "museum",
+        "building": "yes",
+        "wikidata": "Q9046949",
+        "addr:city": "Benetússer",
+        "wikipedia": "ca:Museu de Benetússer",
+        "addr:street": "Carrer del Molí",
+        "designation": "Molí Arrosser de Favara (Edifici Etnològico)",
+        "addr:postcode": "46910",
+        "addr:housenumber": "30"
+      },
+      "osmId": 1360964477,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4787957,
+      "lng": -0.3829982,
+      "name": "Centre Museístic la Beneficiència",
+      "tags": {
+        "name": "Centre Museístic la Beneficiència",
+        "type": "multipolygon",
+        "phone": "+34 963 88 35 65",
+        "museum": "history",
+        "name:ca": "Centre Museístic la Beneficiència",
+        "name:es": "Centro Museístico la Beneficiencia",
+        "tourism": "museum",
+        "website": "http://www.labeneficencia.es/",
+        "building": "yes",
+        "operator": "Diputació de València",
+        "wikidata": "Q8343592",
+        "addr:city": "València",
+        "wikipedia": "ca:Centre Cultural la Beneficència",
+        "addr:street": "Carrer de la Corona",
+        "description": "Aquest centre cultural és seu del Museu de Prehistòria de València, el Museu d'Etnologia, la Institució Alfons el Magnànim i el Centre de Publicacions de la Diputació de València.",
+        "addr:postcode": "46003",
+        "opening_hours": "Tu-Su 10:00-20:00",
+        "operator:type": "public",
+        "building:levels": "3",
+        "addr:housenumber": "36"
+      },
+      "osmId": 3865968,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.476046,
+      "lng": -0.3737649,
+      "name": "Palau del Marqués de Campo",
+      "tags": {
+        "name": "Palau del Marqués de Campo",
+        "type": "multipolygon",
+        "name:ca": "Palau del Marqués de Campo",
+        "name:es": "Palacio del Marques de Campo",
+        "tourism": "attraction",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q5644720",
+        "addr:city": "València",
+        "wikipedia": "ca:Palau del Marqués de Campo",
+        "addr:street": "Plaça de l'Arquebisbe",
+        "addr:postcode": "46003",
+        "addr:housenumber": "3"
+      },
+      "osmId": 7286126,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4792844,
+      "lng": -0.3708633,
+      "name": "Museu de Belles Arts de València",
+      "tags": {
+        "fee": "no",
+        "name": "Museu de Belles Arts de València",
+        "type": "multipolygon",
+        "email": "museobellasartesvalencia@gva.es",
+        "phone": "+34 963 87 03 00",
+        "museum": "art",
+        "name:ca": "Museu de Belles Arts de València",
+        "name:es": "Museo de Bellas Artes de Valencia",
+        "name:ru": "Музей изящных искусств Валенсии",
+        "tourism": "museum",
+        "website": "http://museobellasartesvalencia.gva.es/",
+        "alt_name": "Museo de San Pío V",
+        "building": "public",
+        "operator": "Generalitat Valenciana",
+        "wikidata": "Q1748404",
+        "addr:city": "València",
+        "wikipedia": "es:Museo de Bellas Artes de Valencia",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de Sant Pius V",
+        "contact:fax": "+34 96 387 03 01",
+        "addr:postcode": "46010",
+        "opening_hours": "Tu-Su 10:00-20:00",
+        "operator:type": "public",
+        "building:levels": "5",
+        "contact:twitter": "GVAmubav",
+        "addr:housenumber": "9",
+        "name:etymology:wikidata": "Q1748404",
+        "building:levels:underground": "1"
+      },
+      "osmId": 11026210,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4762479,
+      "lng": -0.3742834,
+      "name": "Museu de l'Almoina",
+      "tags": {
+        "name": "Museu de l'Almoina",
+        "type": "multipolygon",
+        "museum": "archaeological",
+        "tourism": "museum",
+        "building": "yes",
+        "operator": "Ajuntament de València",
+        "wikidata": "Q3867999",
+        "operator:type": "public"
+      },
+      "osmId": 11150998,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4807682,
+      "lng": -0.3789781,
+      "name": "Casa Museu Benlluire",
+      "tags": {
+        "name": "Casa Museu Benlluire",
+        "type": "multipolygon",
+        "phone": "+34 963 91 16 62",
+        "name:ca": "Casa Museu Benlliure",
+        "name:es": "Casa Museo Benlliure",
+        "tourism": "museum",
+        "website": "http://valencia.es/ayuntamiento/infociudad_accesible.nsf/vDocumentosWebListadov/55BB0B184AACB248C125739B0043B748?OpenDocument&bdOrigen=ayuntamiento/laciudad.nsf&idapoyo=7A56E0AFD4368CBFC12571A900268CE5&nivel=5&lang=2",
+        "building": "apartments",
+        "wikidata": "Q2402329",
+        "wikipedia": "es:Mariano Benlliure",
+        "wheelchair": "yes",
+        "roof:levels": "1",
+        "opening_hours": "Tu-Sa 10:00-14:00, 15:00-19:00; Su,PH 10:00-14:00",
+        "building:levels": "4"
+      },
+      "osmId": 11195454,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4556333,
+      "lng": -0.3518224,
+      "name": "Museu de les Ciències «Príncep Felip»",
+      "tags": {
+        "name": "Museu de les Ciències «Príncep Felip»",
+        "type": "multipolygon",
+        "layer": "1",
+        "name:ca": "Museu de les Ciències «Príncep Felip»",
+        "name:en": "Príncipe Felipe Science Museum",
+        "name:es": "Museo de las Ciencias «Príncipe Felipe»",
+        "name:it": "Museo delle scienze \"Principe Felipe\"",
+        "name:ru": "Музей наук принца Фелипе",
+        "tourism": "museum",
+        "building": "roof;yes",
+        "wikidata": "Q939288",
+        "wikipedia": "ca:Museu de les Ciències Príncep Felip",
+        "designation": "Museo De Las Artes y Las Ciencias \"Principe Felipe\"",
+        "opening_hours": "10:00-18:00; Jan 08-Mar 28,Oct 15-Dec 05,Dec 10-Dec 23: Fr-Su 10:00-19:00; Jan 02-Jan 07,Mar 29-Jun 29,Sep 10-Oct 14,Dec 06-09,Dec 26-Dec 30: 10:00-19:00; Jun 30-Sep 09: 10:00-21:00; Jan 01: 16:00-20:00; Dec 24: 10:00-14:00; Dec 25: 17:00-21:00",
+        "name:etymology:wikidata": "Q939288"
+      },
+      "osmId": 14693200,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4719578,
+      "lng": -0.3618688,
+      "name": "Museu Històric Militar de València",
+      "tags": {
+        "name": "Museu Històric Militar de València",
+        "type": "multipolygon",
+        "tourism": "museum",
+        "building": "yes",
+        "wikidata": "Q61608450",
+        "addr:city": "València",
+        "addr:street": "Carrer del General Gil Dolz",
+        "addr:postcode": "46010",
+        "addr:housenumber": "6",
+        "name:etymology:wikidata": "Q61608450"
+      },
+      "osmId": 17051090,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.466283,
+      "lng": -0.3756447,
+      "name": "Museo Taurino",
+      "tags": {
+        "fee": "yes",
+        "name": "Museo Taurino",
+        "phone": "+34 963 157 919",
+        "charge": "2 EUR",
+        "name:ru": "Музей корриды",
+        "tourism": "museum",
+        "website": "http://www.museotaurinovalencia.es/",
+        "wikidata": "Q1431438",
+        "wikipedia": "es:Museo Taurino de Valencia",
+        "opening_hours": "Mo-Sa 10:00-19:00; PH,Su 10:00-14:00"
+      },
+      "osmId": 2508173010,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4767176,
+      "lng": -0.3782275,
+      "name": "Museo de los Soldaditos de Plomo L'Iber",
+      "tags": {
+        "fee": "yes",
+        "name": "Museo de los Soldaditos de Plomo L'Iber",
+        "note": "January closed,February open weekends, from Match 14 see opening hours",
+        "phone": "+34 963 918675",
+        "name:ca": "Museu dels Soldadets de Plom L'Iber",
+        "tourism": "museum",
+        "website": "https://www.museoliber.org/",
+        "wikidata": "Q9047028",
+        "addr:city": "València",
+        "wikipedia": "es:Museo de Soldaditos de Plomo L’Iber",
+        "start_date": "2007",
+        "wheelchair": "limited",
+        "addr:street": "Carrer Cavallers",
+        "addr:postcode": "46003",
+        "opening_hours": "Jan off; Feb: Sa 11:00-14:00,16:00-19:00; Su 11:00-14:00; Mar-Dec: Tu-Sa 11:00-14:00,16:00-19:00; Su 11:00-14:00"
+      },
+      "osmId": 2700282752,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4783158,
+      "lng": -0.3830583,
+      "name": "Museu de Prehistòria de València",
+      "tags": {
+        "name": "Museu de Prehistòria de València",
+        "email": "servici.visites@dival.es",
+        "phone": "+34 963 883 565",
+        "name:ca": "Museu de Prehistòria de València",
+        "name:es": "Museo de Prehistoria de Valencia",
+        "tourism": "museum",
+        "website": "https://mupreva.org",
+        "wikidata": "Q2701512",
+        "wikipedia": "ca:Museu de Prehistòria de València",
+        "check_date": "2026-04-15",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de la Corona",
+        "addr:postcode": "46003",
+        "opening_hours": "Tu-Su 10:00-20:00",
+        "addr:housenumber": "36",
+        "check_date:opening_hours": "2026-04-15"
+      },
+      "osmId": 4854372337,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4783529,
+      "lng": -0.383332,
+      "name": "L'ETNO - Museu Valencià d'Etnologia",
+      "tags": {
+        "name": "L'ETNO - Museu Valencià d'Etnologia",
+        "phone": "+34 963 88 36 19",
+        "name:ca": "L'ETNO - Museu Valencià d'Etnologia",
+        "name:es": "L'ETNO - Museo Valenciano de Etnología",
+        "tourism": "museum",
+        "website": "https://letno.dival.es",
+        "wikidata": "Q1577723",
+        "wikipedia": "ca:Museu Valencià d'Etnologia",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de la Corona",
+        "addr:postcode": "46003",
+        "opening_hours": "Tu-Su 10:00-22:00",
+        "addr:housenumber": "36"
+      },
+      "osmId": 4854372524,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4855478,
+      "lng": -0.3849821,
+      "name": "Bombas Gens Centre d'Art",
+      "tags": {
+        "name": "Bombas Gens Centre d'Art",
+        "tourism": "museum",
+        "website": "https://www.bombasgens.com/",
+        "operator": "Fundació per Amor a l'Art",
+        "wikidata": "Q16911704",
+        "wikipedia": "ca:Bombas Gens",
+        "contact:email": "info@bombasgens.com",
+        "contact:phone": "+34 963 463 856",
+        "opening_hours": "We 17:00-21:00; Th-Su 11:00-14:00,17:00-21:00; Mo,Tu off",
+        "contact:twitter": "https://twitter.com/BombasGens",
+        "contact:facebook": "https://www.facebook.com/BombasGens/"
+      },
+      "osmId": 5100017480,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4725239,
+      "lng": -0.3746678,
+      "name": "Museo Nacional de Cerámica y Artes Suntuarias González Martí",
+      "tags": {
+        "fee": "yes",
+        "name": "Museo Nacional de Cerámica y Artes Suntuarias González Martí",
+        "name:ca": "Museu Nacional de Ceràmica i de les Arts Sumptuàries González Martí",
+        "name:es": "Museo Nacional de Cerámica y Artes Suntuarias González Martí",
+        "name:it": "Museo della Ceramica González Martí",
+        "name:ru": "Музей керамики",
+        "tourism": "museum",
+        "wikidata": "Q9046886",
+        "addr:city": "València",
+        "wikipedia": "ca:Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí»",
+        "check_date": "2024-04-01",
+        "wheelchair": "no",
+        "addr:street": "Carrer del Poeta Querol",
+        "addr:postcode": "46002",
+        "opening_hours": "Mo-Su 10:00-14:00, 16:00-20:00",
+        "addr:housenumber": "2"
+      },
+      "osmId": 5126811958,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4632842,
+      "lng": -0.3319217,
+      "name": "Museu de l'Arròs de València",
+      "tags": {
+        "fee": "yes",
+        "name": "Museu de l'Arròs de València",
+        "email": "info.museo@arrozdevalencia.org",
+        "name:ca": "Museu de l'Arròs",
+        "name:es": "Museo del Arroz",
+        "tourism": "museum",
+        "website": "https:// museodelarrozdevalencia.com",
+        "wikidata": "Q107509424",
+        "addr:street": "Carrer del Rosari",
+        "addr:postcode": "46011",
+        "contact:phone": "+34 962084075",
+        "opening_hours": "Mo off; Tu-Sa 10:00-14:00,15:00-19:00; Su 10:30-14:00; PH 10:00-14:00",
+        "addr:housenumber": "3"
+      },
+      "osmId": 5167202796,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.3487058,
+      "lng": -0.4251253,
+      "name": "Molí Forés",
+      "tags": {
+        "name": "Molí Forés",
+        "access": "private",
+        "tourism": "attraction",
+        "historic": "ruins",
+        "historic:civilization": "modern"
+      },
+      "osmId": 5286548473,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.363551,
+      "lng": -0.4121501,
+      "name": "Refugio Guerra Civil",
+      "tags": {
+        "name": "Refugio Guerra Civil",
+        "access": "private",
+        "tourism": "attraction",
+        "historic": "ruins",
+        "inscription": "Refugio Guerra Civil",
+        "historic:civilization": "modern"
+      },
+      "osmId": 5292562274,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4854087,
+      "lng": -0.3852041,
+      "name": "Refugi Antiaeri",
+      "tags": {
+        "name": "Refugi Antiaeri",
+        "name:ca": "Refugi Antiaeri",
+        "tourism": "attraction",
+        "building": "bunker",
+        "historic": "yes",
+        "location": "underground",
+        "military": "bunker",
+        "wheelchair": "no",
+        "bunker_type": "air_raid_shelter"
+      },
+      "osmId": 6592312835,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4701362,
+      "lng": -0.3776497,
+      "name": "Refugi Antiaeri de l'Ajuntament",
+      "tags": {
+        "fee": "no",
+        "name": "Refugi Antiaeri de l'Ajuntament",
+        "name:ca": "Refugi Antiaeri de l'Ajuntament",
+        "name:es": "Refugio Antiaéreo del Ayuntamiento",
+        "tourism": "attraction",
+        "website": "https://refugivalencia.webs.upv.es",
+        "building": "bunker",
+        "historic": "yes",
+        "location": "underground",
+        "military": "bunker",
+        "wikidata": "Q68284046",
+        "wheelchair": "no",
+        "bunker_type": "air_raid_shelter",
+        "description": "Entrada gratuita con reserva previa.",
+        "reservation": "required",
+        "contact:phone": "+34 962 08 13 90",
+        "description:ca": "Entrada gratuïta amb reserva prèvia.",
+        "description:en": "Free entrance with previous reservation.",
+        "description:es": "Entrada gratuita con reserva previa."
+      },
+      "osmId": 6660593039,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4826588,
+      "lng": -0.3484221,
+      "name": "Museu d'Informàtica",
+      "tags": {
+        "fee": "no",
+        "name": "Museu d'Informàtica",
+        "email": "museo@inf.upv.es",
+        "phone": "+34 96 387 7200",
+        "museum": "history",
+        "name:ca": "Museu d'Informàtica",
+        "name:en": "Museum of Informatics",
+        "name:es": "Museo de Informática",
+        "tourism": "museum",
+        "website": "https://museo.inf.upv.es/",
+        "operator": "Universitat Politècnica de València",
+        "wikidata": "Q96657803",
+        "addr:city": "València",
+        "addr:street": "Camí de Vera",
+        "addr:postcode": "46022",
+        "opening_hours": "Mo-Fr 09:00-20:00; Sa 09:00-14:00",
+        "operator:type": "public"
+      },
+      "osmId": 7600453744,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4723672,
+      "lng": -0.3730379,
+      "name": "Museu del Patriarca",
+      "tags": {
+        "name": "Museu del Patriarca",
+        "museum": "art",
+        "name:ca": "Museu del Patriarca",
+        "name:es": "Museo del Patriarca",
+        "tourism": "museum",
+        "website": "https://patriarcavalencia.es/",
+        "wikidata": "Q5484867"
+      },
+      "osmId": 12997141042,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4760432,
+      "lng": -0.3737384,
+      "name": "Museu de la Ciutat de València",
+      "tags": {
+        "name": "Museu de la Ciutat de València",
+        "name:ca": "Museu de la Ciutat de València",
+        "name:es": "Museo de la Ciudad de Valencia",
+        "tourism": "museum",
+        "website": "https://www.visitvalencia.com/que-hacer-valencia/cultura-valenciana/museos-en-valencia/museo-ciudad-palacio-marques-campo",
+        "wikidata": "Q18005084",
+        "addr:city": "València",
+        "wikipedia": "ca:Museu de la Ciutat de València",
+        "addr:street": "Plaça de l'Arquebisbe",
+        "addr:postcode": "46003",
+        "addr:housenumber": "3"
+      },
+      "osmId": 13012356018,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4879975,
+      "lng": -0.3496608,
+      "name": "Via fèrria de l'antiga Via Xurra",
+      "tags": {
+        "name": "Via fèrria de l'antiga Via Xurra",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/7/70/2018_08_29_Detalls_de_la_Via_Xurra_18.jpg",
+        "name:ca": "Via fèrria de l'antiga Via Xurra",
+        "name:es": "Vía férrea de la antigua Vía Xurra",
+        "tourism": "attraction",
+        "historic": "yes",
+        "description": "Tros de via fèrria preservat de l'antic ferrocarril València - Puçol."
+      },
+      "osmId": 13188698274,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4796141,
+      "lng": -0.3828694,
+      "name": "Institut Valencià d'Art Modern",
+      "tags": {
+        "fee": "no",
+        "name": "Institut Valencià d'Art Modern",
+        "museum": "art",
+        "name:ca": "Institut Valencià d'Art Modern",
+        "name:en": "Valencian Institute of Modern Art",
+        "name:es": "Instituto Valenciano de Arte Moderno",
+        "tourism": "museum",
+        "website": "https://ivam.es",
+        "operator": "Generalitat Valenciana",
+        "wikidata": "Q1600831",
+        "addr:city": "València",
+        "wikipedia": "es:Instituto Valenciano de Arte Moderno",
+        "short_name": "IVAM",
+        "addr:street": "Carrer de Guillem de Castro",
+        "addr:postcode": "46003",
+        "opening_hours": "Tu-Th,Sa,Su 10:00-19:00; Fr 10:00-20:00; Mo off",
+        "operator:type": "public",
+        "addr:housenumber": "118"
+      },
+      "osmId": 13198848139,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4720772,
+      "lng": -0.3684532,
+      "name": "Plaça Porta de la Mar",
+      "tags": {
+        "name": "Plaça Porta de la Mar",
+        "place": "square",
+        "leisure": "garden",
+        "name:ca": "Plaça Porta de la Mar",
+        "name:es": "Plaza Puerta del Mar",
+        "wikipedia": "ca:Plaça de la Porta de la Mar"
+      },
+      "osmId": 6277225,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.472091,
+      "lng": -0.3735002,
+      "name": "Plaça del Col·legi del Patriarca",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça del Col·legi del Patriarca",
+        "place": "square",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Plaça del Col·legi del Patriarca",
+        "name:es": "Plaza del Colegio del Patriarca",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q11942043",
+        "wikipedia": "ca:Plaça del Col·legi del Patriarca",
+        "name:etymology:wikidata": "Q4984364"
+      },
+      "osmId": 7724664,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4757644,
+      "lng": -0.3745304,
+      "name": "Plaça de l'Almoina",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça de l'Almoina",
+        "place": "square",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Plaça de l'Almoina",
+        "name:es": "Plaza de la Almoina",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "motorcar": "no",
+        "wikidata": "Q3392928",
+        "wikipedia": "ca:Plaça de l'Almoina"
+      },
+      "osmId": 9861525,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4689499,
+      "lng": -0.3683708,
+      "name": "Mercat de Colón",
+      "tags": {
+        "name": "Mercat de Colón",
+        "email": "info@mercadocolon.es",
+        "source": "survey",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Colón",
+        "name:es": "Mercado de Colón",
+        "name:ru": "Рынок Колумба",
+        "website": "https://mercadocolon.es/",
+        "alt_name": "Mercado Colón",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q3393246",
+        "addr:city": "València",
+        "architect": "Francisco Mora",
+        "wikipedia": "ca:Mercat de Colom",
+        "check_date": "2024-10-10",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de Jorge Juan",
+        "addr:city:ca": "València",
+        "payment:cash": "yes",
+        "addr:postcode": "46004",
+        "opening_hours": "Mo-Th,Su 07:30-02:00; Fr-Sa 07:30-03:00",
+        "addr:housenumber": "19",
+        "architect:wikidata": "Q5650676",
+        "payment:debit_cards": "yes",
+        "payment:credit_cards": "yes",
+        "building:architecture": "art_nouveau"
+      },
+      "osmId": 10120283,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4620189,
+      "lng": -0.3714053,
+      "name": "Mercat de Russafa",
+      "tags": {
+        "name": "Mercat de Russafa",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Russafa",
+        "name:es": "Mercado de Ruzafa",
+        "organic": "yes",
+        "building": "retail",
+        "wikidata": "Q59429024",
+        "addr:city": "València",
+        "wikipedia": "ca:Mercat de Russafa",
+        "wheelchair": "yes",
+        "addr:street": "Plaça del Baró de Cortes",
+        "addr:city:ca": "València",
+        "addr:postcode": "46006",
+        "access:covid19": "yes",
+        "building:levels": "4",
+        "addr:housenumber": "30",
+        "delivery:covid19": "no",
+        "takeaway:covid19": "yes",
+        "opening_hours:covid19": "Mo-Sa 09:00-14:00",
+        "building:levels:underground": "1"
+      },
+      "osmId": 12403536,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4678367,
+      "lng": -0.333243,
+      "name": "Mercat Municipal del Cabanyal",
+      "tags": {
+        "name": "Mercat Municipal del Cabanyal",
+        "amenity": "marketplace",
+        "name:ca": "Mercat Municipal del Cabanyal",
+        "name:es": "Mercado Municipal del Cabañal",
+        "website": "https://www.mercadocabanyal.com/",
+        "building": "retail",
+        "wikidata": "Q18004765",
+        "wikipedia": "ca:Mercat del Cabanyal",
+        "opening_hours": "Mo-Th, Sa 07:00-22:30; Fr 07:00-20:30",
+        "building:levels": "4",
+        "wikimedia_commons": "File:Mercado del Cabanyal, Valencia 03.jpg"
+      },
+      "osmId": 23455760,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4761848,
+      "lng": -0.3801794,
+      "name": "Plaça del Tossal",
+      "tags": {
+        "name": "Plaça del Tossal",
+        "place": "square",
+        "name:ca": "Plaça del Tossal",
+        "name:es": "Plaza del Tossal",
+        "alt_name": "Plaça del Tros Alt",
+        "wikidata": "Q11942047",
+        "wikipedia": "ca:Plaça del Tossal"
+      },
+      "osmId": 47511716,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4778758,
+      "lng": -0.3805266,
+      "name": "Mercat de Mossén Sorell",
+      "tags": {
+        "name": "Mercat de Mossén Sorell",
+        "amenity": "marketplace",
+        "building": "retail",
+        "wikidata": "Q108287727",
+        "building:levels": "1"
+      },
+      "osmId": 216891043,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4976925,
+      "lng": -0.3755383,
+      "name": "Mercat de Torrefiel",
+      "tags": {
+        "name": "Mercat de Torrefiel",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Torrefiel",
+        "name:es": "Mercado de Torrefiel",
+        "building": "yes",
+        "wikidata": "Q21815350",
+        "wikipedia": "ca:Mercat de Torrefiel"
+      },
+      "osmId": 256966146,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5037918,
+      "lng": -0.4113244,
+      "name": "Municipal de Burjassot",
+      "tags": {
+        "name": "Municipal de Burjassot",
+        "amenity": "marketplace",
+        "name:ca": "Municipal de Burjassot",
+        "building": "yes",
+        "wikidata": "Q85810941",
+        "addr:street": "Avenida Virgen de la Cabeza",
+        "addr:postcode": "46100"
+      },
+      "osmId": 355115490,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4729897,
+      "lng": -0.3855144,
+      "name": "Mercat de Rojas Clemente",
+      "tags": {
+        "name": "Mercat de Rojas Clemente",
+        "email": "mercadorojasclemente@gmail.com",
+        "phone": "+34 963 525478",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Rojas Clemente",
+        "name:es": "Mercado Rojas Clemente",
+        "website": "http://rojasclemente.com",
+        "alt_name": "Mercado de Rojas Clemente",
+        "building": "yes",
+        "operator": "Ajuntament de València",
+        "wikidata": "Q51879157",
+        "addr:city": "València",
+        "wikipedia": "ca:Mercat de Rojas Clemente",
+        "addr:street": "Plaça de Rojas Clemente",
+        "addr:postcode": "46008",
+        "opening_hours": "Mo-Sa 07:30-14:30",
+        "building:levels": "3",
+        "contact:facebook": "mercadorojasclemente",
+        "building:levels:underground": "1"
+      },
+      "osmId": 372352252,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.2844685,
+      "lng": -0.4257663,
+      "name": "Mercat Municipal de Benifaió",
+      "tags": {
+        "name": "Mercat Municipal de Benifaió",
+        "amenity": "marketplace",
+        "building": "public",
+        "operator": "Ajuntament de Benifaió",
+        "wikidata": "Q117769952",
+        "addr:city": "Benifaió",
+        "addr:street": "Carrer de Santa Bàrbara",
+        "addr:postcode": "46450",
+        "opening_hours": "Mo-Sa 08:00-14:00",
+        "addr:housenumber": "7"
+      },
+      "osmId": 410233140,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4697915,
+      "lng": -0.353365,
+      "name": "Mercat municipal Algirós",
+      "tags": {
+        "name": "Mercat municipal Algirós",
+        "phone": "+34963626820",
+        "amenity": "marketplace",
+        "name:ca": "Mercat municipal Algirós",
+        "name:es": "Mercado municipal Algirós",
+        "name:ru": "Городской рынок Алжирос",
+        "website": "https://mercadodealgiros.es/",
+        "alt_name": "Mercat d'Algirós",
+        "building": "retail",
+        "operator": "Ajuntament de València",
+        "wikidata": "Q111820078",
+        "addr:city": "València",
+        "wheelchair": "yes",
+        "addr:street": "Plaça de Sant Felip Neri",
+        "addr:country": "ES",
+        "addr:district": "Algirós",
+        "addr:postcode": "46021",
+        "addr:province": "València",
+        "nohousenumber": "yes",
+        "official_name": "Mercat municipal Algirós",
+        "opening_hours": "Mo-Sa 07:30-15:00; Fr 07:30-20:30",
+        "building:levels": "1",
+        "building:levels:underground": "1"
+      },
+      "osmId": 419515257,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.475921,
+      "lng": -0.3836665,
+      "name": "Plaça de Santa Úrsula",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça de Santa Úrsula",
+        "place": "square",
+        "highway": "pedestrian",
+        "name:ca": "Plaça de Santa Úrsula",
+        "name:es": "Plaza de Santa Úrsula",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q123527462",
+        "wikipedia": "es:Plaza de Santa Úrsula",
+        "smoothness": "good",
+        "old_name:1658": "Plaça de la Calç"
+      },
+      "osmId": 493771509,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4739413,
+      "lng": -0.3785748,
+      "name": "Plaça del Mercat",
+      "tags": {
+        "lit": "yes",
+        "psv": "yes",
+        "name": "Plaça del Mercat",
+        "layer": "1",
+        "place": "square",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Plaça del Mercat",
+        "name:es": "Plaza del Mercado",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q4846088",
+        "emergency": "yes",
+        "wikipedia": "ca:Plaça del Mercat (València)",
+        "motor_vehicle": "permit",
+        "name:etymology:wikidata": "Q2197068",
+        "motor_vehicle:conditional": "delivery @ (06:00-10:00)"
+      },
+      "osmId": 515322582,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4654912,
+      "lng": -0.4032111,
+      "name": "Mercat de Castella",
+      "tags": {
+        "name": "Mercat de Castella",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Castella",
+        "name:es": "Mercado de Castilla",
+        "building": "yes",
+        "wikidata": "Q105725013",
+        "wikipedia": "ca:Mercat Municipal de Castella"
+      },
+      "osmId": 566781393,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4836211,
+      "lng": -0.3742747,
+      "name": "Mercat de Sant Pere Nolasc",
+      "tags": {
+        "name": "Mercat de Sant Pere Nolasc",
+        "amenity": "marketplace",
+        "name:ca": "Mercat de Sant Pere Nolasc",
+        "name:es": "Mercado de San Pedro Nolasco",
+        "building": "retail",
+        "wikidata": "Q108288039",
+        "building:levels": "1"
+      },
+      "osmId": 574199026,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4744704,
+      "lng": -0.375458,
+      "name": "Plaça de la Reina",
+      "tags": {
+        "name": "Plaça de la Reina",
+        "place": "square",
+        "name:ca": "Plaça de la Reina",
+        "name:es": "Plaza de la Reina",
+        "name:ru": "Площадь королевы",
+        "wikidata": "Q5801391",
+        "wikipedia": "ca:Plaça de la Reina",
+        "name:etymology:wikidata": "Q5801391"
+      },
+      "osmId": 636811203,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4657494,
+      "lng": -0.3818003,
+      "name": "Plaça d'Espanya",
+      "tags": {
+        "name": "Plaça d'Espanya",
+        "place": "square",
+        "name:ca": "Plaça d'Espanya",
+        "name:es": "Plaza de España",
+        "wikidata": "Q11942017",
+        "wikipedia": "ca:Plaça d'Espanya (València)"
+      },
+      "osmId": 737146997,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4685792,
+      "lng": -0.3798297,
+      "name": "Plaça de Sant Agustí",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça de Sant Agustí",
+        "place": "square",
+        "bicycle": "designated",
+        "highway": "pedestrian",
+        "name:ca": "Plaça de Sant Agustí",
+        "name:es": "Plaza San Agustín",
+        "surface": "concrete",
+        "wikidata": "Q11942022",
+        "wikipedia": "ca:Plaça de Sant Agustí",
+        "name:etymology:wikidata": "Q8018"
+      },
+      "osmId": 820134198,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4706562,
+      "lng": -0.376246,
+      "name": "Plaça de l'Ajuntament",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça de l'Ajuntament",
+        "type": "multipolygon",
+        "place": "square",
+        "highway": "pedestrian",
+        "name:ar": "ساحة دار البلدية",
+        "name:ca": "Plaça de l'Ajuntament",
+        "name:es": "Plaza del Ayuntamiento",
+        "surface": "paving_stones",
+        "alt_name": "Plaza Ayuntamiento",
+        "wikidata": "Q1031982",
+        "wikipedia": "ca:Plaça de l'Ajuntament",
+        "old_name:ca": "Plaça del País Valencià",
+        "old_name:es": "Plaza del País Valenciano;Plaza del Caudillo",
+        "name:etymology:wikidata": "Q1031982"
+      },
+      "osmId": 3562063,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4764019,
+      "lng": -0.3752749,
+      "name": "Plaça de la Mare de Déu",
+      "tags": {
+        "lit": "yes",
+        "name": "Plaça de la Mare de Déu",
+        "type": "multipolygon",
+        "place": "square",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Plaça de la Mare de Déu",
+        "name:es": "Plaza de la Virgen",
+        "surface": "paving_stones",
+        "tourism": "attraction",
+        "maxspeed": "walk",
+        "motorcar": "no",
+        "old_name": "Plaça de la Seu",
+        "wikidata": "Q1779244",
+        "wikipedia": "ca:Plaça de la Mare de Déu",
+        "wheelchair": "limited",
+        "alt_name:ca": "Plaça de la Verge",
+        "old_name:ca": "Plaça de la Seu",
+        "old_name:es": "Plaza de la Seo",
+        "name:etymology:wikidata": "Q345"
+      },
+      "osmId": 7893046,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4735815,
+      "lng": -0.3766002,
+      "name": "Plaça Redona",
+      "tags": {
+        "name": "Plaça Redona",
+        "type": "multipolygon",
+        "place": "square",
+        "bicycle": "yes",
+        "name:ca": "Plaça Redona",
+        "name:es": "Plaza Redonda",
+        "alt_name": "Plaça del Clot",
+        "motorcar": "no",
+        "wikidata": "Q11942014",
+        "wikipedia": "ca:Plaça Redona",
+        "name:etymology:wikidata": "Q11942014"
+      },
+      "osmId": 9194724,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.461529,
+      "lng": -0.3347665,
+      "name": "Mercat del Grau",
+      "tags": {
+        "name": "Mercat del Grau",
+        "type": "multipolygon",
+        "amenity": "marketplace",
+        "name:ca": "Mercat del Grau",
+        "name:es": "Mercado del Grao",
+        "website": "https://www.valencia.es/ayuntamiento/infociudad_accesible.nsf/vDocumentosWebListado/EDCC0F4BB5C6F806C12572C20023FFD6?OpenDocument&bdOrigen=&idapoyo=&nivel=2&lang=1",
+        "building": "construction",
+        "wikidata": "Q108292907",
+        "building:levels": "1"
+      },
+      "osmId": 10846413,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4714664,
+      "lng": -0.3829273,
+      "name": "Plaça del Pilar",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaça del Pilar",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Plaça del Pilar",
+        "name:es": "Plaza del Pilar",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q26202662",
+        "wikipedia": "ca:Plaça del Pilar",
+        "smoothness": "excellent"
+      },
+      "osmId": 4790962,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4755012,
+      "lng": -0.380025,
+      "name": "Carrer de la Bosseria",
+      "tags": {
+        "lit": "yes",
+        "name": "Carrer de la Bosseria",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer de la Bosseria",
+        "name:es": "Calle Bolsería",
+        "surface": "sett",
+        "maxspeed": "walk",
+        "sidewalk": "both",
+        "wikidata": "Q17593177",
+        "wikipedia": "ca:Carrer de la Bosseria"
+      },
+      "osmId": 4808258,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4776535,
+      "lng": -0.3648723,
+      "name": "Jardí de Monforte",
+      "tags": {
+        "name": "Jardí de Monforte",
+        "leisure": "park",
+        "name:ca": "Jardí de Monforte",
+        "name:es": "Jardines de Monforte",
+        "tourism": "attraction",
+        "alt_name": "Hort de Romero",
+        "operator": "Organismo Autónomo Municipal Parques y Jardines Singulares y Escuela Municipal de Jardinería y Paisaje",
+        "wikidata": "Q2743957",
+        "wikipedia": "ca:Jardí de Monforte",
+        "opening_hours": "Mar 21-Sep 20 10:30-20:00; Sep 21-Mar 20 10:30-18:00"
+      },
+      "osmId": 8082828,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4754791,
+      "lng": -0.3741189,
+      "name": "Carrer del Palau",
+      "tags": {
+        "name": "Carrer del Palau",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer del Palau",
+        "name:es": "Calle del Palacio",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q118873954",
+        "name:etymology:wikidata": "Q18005297"
+      },
+      "osmId": 8102624,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4768814,
+      "lng": -0.386851,
+      "name": "Jardí Botànic de la Universitat de València",
+      "tags": {
+        "fee": "yes",
+        "name": "Jardí Botànic de la Universitat de València",
+        "leisure": "garden",
+        "name:ca": "Jardí Botànic de la Universitat de València",
+        "name:en": "Botanic Garden of University of Valencia",
+        "name:es": "Jardín Botánico de la Universidad de Valencia",
+        "name:it": "Giardino Botanico dell'Università di Valencia",
+        "name:ru": "Ботанический сад",
+        "tourism": "attraction",
+        "website": "http://www.jardibotanic.org/",
+        "loc_name": "Jardí Botànic de València",
+        "wikidata": "Q9010986",
+        "wikipedia": "es:Jardín Botánico de la Universidad de Valencia",
+        "wheelchair": "yes",
+        "addr:street": "Calle Doctor Peset Cervera",
+        "garden:type": "botanical",
+        "opening_hours": "Nov-Feb: 10:00-18:00; May-Aug: 10:00-21:00; Mar: 10:00-19:00; Apr: 10:00-20:00; Sep: 10:00-20:00; Oct: 10:00-19:00; Dec 25: off; Jan 01: off",
+        "addr:housenumber": "80"
+      },
+      "osmId": 10115902,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4766204,
+      "lng": -0.3771121,
+      "name": "Carrer dels Cavallers",
+      "tags": {
+        "lit": "yes",
+        "psv": "yes",
+        "name": "Carrer dels Cavallers",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer dels Cavallers",
+        "name:es": "Calle Caballeros",
+        "surface": "sett",
+        "maxspeed": "walk",
+        "sidewalk": "both",
+        "wikidata": "Q11912598",
+        "emergency": "yes",
+        "wikipedia": "ca:Carrer dels Cavallers",
+        "motor_vehicle": "permit",
+        "motor_vehicle:conditional": "delivery @ (06:00-10:00)"
+      },
+      "osmId": 662347792,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4753788,
+      "lng": -0.3772878,
+      "name": "Carrer de la Corretgeria",
+      "tags": {
+        "lit": "yes",
+        "psv": "yes",
+        "name": "Carrer de la Corretgeria",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer de la Corretgeria",
+        "name:es": "Calle Corregería",
+        "surface": "asphalt",
+        "maxspeed": "walk",
+        "sidewalk": "both",
+        "wikidata": "Q11912586",
+        "emergency": "yes",
+        "wikipedia": "ca:Carrer de la Corretgeria",
+        "alt_name:es": "Calle Correjería",
+        "motor_vehicle": "permit",
+        "name:etymology:wikidata": "Q1760988",
+        "motor_vehicle:conditional": "delivery @ (06:00-10:00)"
+      },
+      "osmId": 10524953,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4806466,
+      "lng": -0.3753597,
+      "name": "Pont dels Serrans",
+      "tags": {
+        "foot": "yes",
+        "name": "Pont dels Serrans",
+        "layer": "1",
+        "bridge": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Pont dels Serrans",
+        "name:es": "Puente de Serranos",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikipedia": "ca:Pont dels Serrans",
+        "motor_vehicle": "no",
+        "name:etymology:wikidata": "Q11942346"
+      },
+      "osmId": 14351081,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4813708,
+      "lng": -0.3804589,
+      "name": "Carrer de Guillem de Castro",
+      "tags": {
+        "name": "Carrer de Guillem de Castro",
+        "lanes": "2",
+        "oneway": "no",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer de Guillem de Castro",
+        "name:es": "Calle de Guillem de Castro",
+        "surface": "asphalt",
+        "maxspeed": "30",
+        "wikidata": "Q17593160",
+        "wikipedia": "ca:Carrer de Guillem de Castro",
+        "source:maxspeed": "ES:zone30"
+      },
+      "osmId": 18592799,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4821729,
+      "lng": -0.3803249,
+      "name": "Pont de Sant Josep",
+      "tags": {
+        "lit": "yes",
+        "name": "Pont de Sant Josep",
+        "lanes": "1",
+        "layer": "1",
+        "bridge": "yes",
+        "oneway": "no",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Pont de Sant Josep",
+        "name:es": "Puente de San José",
+        "surface": "asphalt",
+        "wikidata": "Q11942317",
+        "wikipedia": "ca:Pont de Sant Josep",
+        "name:etymology:wikidata": "Q11942317"
+      },
+      "osmId": 18592805,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4810381,
+      "lng": -0.4147614,
+      "name": "Parc de la Canaleta",
+      "tags": {
+        "dog": "no",
+        "name": "Parc de la Canaleta",
+        "leisure": "park",
+        "name:ca": "Parc de la Canaleta",
+        "name:es": "Parque de la Canaleta",
+        "tourism": "attraction",
+        "wikidata": "Q24024440",
+        "addr:city": "Mislata",
+        "addr:street": "Parque de la canaleta",
+        "addr:postcode": "46920"
+      },
+      "osmId": 23738747,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.475639,
+      "lng": -0.3784202,
+      "name": "Carrer dels Cadirers",
+      "tags": {
+        "psv": "yes",
+        "name": "Carrer dels Cadirers",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer dels Cadirers",
+        "name:es": "Calle Cadirers",
+        "surface": "paving_stones",
+        "maxspeed": "walk",
+        "wikidata": "Q115940991",
+        "emergency": "yes",
+        "motor_vehicle": "permit",
+        "name:etymology:wikidata": "Q3306125",
+        "motor_vehicle:conditional": "delivery @ (06:00-10:00)"
+      },
+      "osmId": 409285036,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.3629487,
+      "lng": -0.4123416,
+      "name": "Iglesia de Nuestra Señora de los Ángeles",
+      "tags": {
+        "name": "Iglesia de Nuestra Señora de los Ángeles",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Mare de Déu dels Àngels",
+        "tourism": "attraction",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q28134567",
+        "wikipedia": "ca:Església de la Mare de Déu dels Àngels de Silla",
+        "start_date": "C18",
+        "denomination": "catholic"
+      },
+      "osmId": 423658574,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4556547,
+      "lng": -0.3516207,
+      "name": "Ciutat de les Arts i les Ciències",
+      "tags": {
+        "fax": "+34 96 197 44 71",
+        "name": "Ciutat de les Arts i les Ciències",
+        "phone": "+34 96 197 44 00",
+        "name:ca": "Ciutat de les Arts i les Ciències",
+        "name:es": "Ciudad de las Artes y las Ciencias",
+        "tourism": "attraction",
+        "website": "https://www.cac.es/",
+        "wikidata": "Q239935",
+        "addr:city": "València",
+        "wikipedia": "ca:Ciutat de les Arts i les Ciències",
+        "wheelchair": "yes",
+        "addr:street": "Avinguda del Professor López Piñero (Historiador de la Medicina)",
+        "addr:postcode": "46013",
+        "addr:housenumber": "7"
+      },
+      "osmId": 513681817,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4664769,
+      "lng": -0.3760775,
+      "name": "Plaça de Bous de València",
+      "tags": {
+        "name": "Plaça de Bous de València",
+        "sport": "bullfighting",
+        "source": "field_work",
+        "leisure": "stadium",
+        "name:ca": "Plaça de Bous de València",
+        "name:en": "Valencia Bullring",
+        "name:es": "Plaza de Toros de Valencia",
+        "name:ru": "Арена для боя быков",
+        "tourism": "attraction",
+        "website": "http://www.plaçadebous.es/",
+        "wikidata": "Q6080287",
+        "addr:city": "València",
+        "wikipedia": "es:Plaza de Toros de Valencia",
+        "wheelchair": "yes",
+        "addr:street": "Carrer de Xàtiva",
+        "addr:city:ca": "València",
+        "addr:postcode": "46004",
+        "addr:housenumber": "28",
+        "name:etymology:wikidata": "Q526528"
+      },
+      "osmId": 515256276,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4779199,
+      "lng": -0.3799917,
+      "name": "Carrer de Dalt",
+      "tags": {
+        "lit": "yes",
+        "psv": "yes",
+        "name": "Carrer de Dalt",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer de Dalt",
+        "name:es": "Calle Alta",
+        "surface": "sett",
+        "maxspeed": "walk",
+        "wikidata": "Q11912570",
+        "emergency": "yes",
+        "wikipedia": "ca:Carrer de Dalt (València)",
+        "motor_vehicle": "permit",
+        "motor_vehicle:conditional": "delivery @ (06:00-10:00)"
+      },
+      "osmId": 540430599,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4758262,
+      "lng": -0.383512,
+      "name": "Carrer de Quart",
+      "tags": {
+        "lit": "yes",
+        "name": "Carrer de Quart",
+        "oneway": "no",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:ca": "Carrer de Quart",
+        "name:es": "Calle de Quart",
+        "surface": "sett",
+        "maxspeed": "walk",
+        "wikipedia": "ca:Carrer de Quart",
+        "name:etymology:wikidata": "Q945911"
+      },
+      "osmId": 770701559,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.3824014,
+      "lng": -0.3333358,
+      "name": "La Casa de la Demanà",
+      "tags": {
+        "name": "La Casa de la Demanà",
+        "email": "casadelademana@gmail.com",
+        "name:ca": "La Casa de la Demanà",
+        "tourism": "attraction",
+        "operator": "Asociación Cultural Casa de la Demanà",
+        "wikidata": "Q89914333"
+      },
+      "osmId": 2477521730,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4661206,
+      "lng": -0.3774453,
+      "name": "Estació del Nord",
+      "tags": {
+        "name": "Estació del Nord",
+        "height": "15.15",
+        "name:ca": "Estació del Nord",
+        "name:de": "Nordbahnhof",
+        "name:en": "North Station",
+        "name:es": "Estación del Norte",
+        "name:ru": "Северный вокзал",
+        "alt_name": "València Nord",
+        "building": "train_station",
+        "historic": "yes",
+        "wikidata": "Q1102684",
+        "addr:city": "València",
+        "wikipedia": "ca:Estació del Nord (València)",
+        "roof:shape": "flat",
+        "addr:street": "Carrer de Xàtiva",
+        "alt_name:es": "Valencia Norte",
+        "addr:postcode": "46007",
+        "official_name": "Estació del Nord",
+        "addr:housenumber": "24"
+      },
+      "osmId": 10153012,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4627808,
+      "lng": -0.3267838,
+      "name": "Aduana de Valencia",
+      "tags": {
+        "name": "Aduana de Valencia",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q106163969",
+        "addr:city": "València",
+        "architect": "Enrique Viedma",
+        "start_date": "1930",
+        "addr:street": "Moll de la Duana",
+        "addr:postcode": "46024",
+        "building:colour": "white",
+        "building:material": "plaster"
+      },
+      "osmId": 10380367,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4714706,
+      "lng": -0.3833946,
+      "name": "Església del Pilar",
+      "tags": {
+        "name": "Església del Pilar",
+        "amenity": "place_of_worship",
+        "name:ca": "Església del Pilar",
+        "name:es": "Iglesia del Pilar",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q9006935",
+        "wikipedia": "ca:Església del Pilar (València)",
+        "denomination": "catholic"
+      },
+      "osmId": 15218699,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.472078,
+      "lng": -0.3684534,
+      "name": "Porta de la Mar",
+      "tags": {
+        "name": "Porta de la Mar",
+        "name:ca": "Porta de la Mar",
+        "name:es": "Puerta del Mar",
+        "historic": "monument",
+        "wikidata": "Q18005693",
+        "wikipedia": "ca:Plaça de la Porta de la Mar"
+      },
+      "osmId": 23309513,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4583209,
+      "lng": -0.3323978,
+      "name": "Estació del Grau de València",
+      "tags": {
+        "name": "Estació del Grau de València",
+        "name:ca": "Estació del Grau de València",
+        "name:es": "Estación Grao de Valencia",
+        "building": "yes",
+        "historic": "yes",
+        "wikidata": "Q42885186",
+        "disused:railway": "station"
+      },
+      "osmId": 23524457,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5434442,
+      "lng": -0.3934447,
+      "name": "Església de Sant Jaume",
+      "tags": {
+        "name": "Església de Sant Jaume",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q21857816",
+        "wikipedia": "es:Iglesia de San Jaime (Moncada)",
+        "denomination": "catholic"
+      },
+      "osmId": 24304797,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4762535,
+      "lng": -0.374809,
+      "name": "Basílica de la Mare de Déu dels Desemparats",
+      "tags": {
+        "name": "Basílica de la Mare de Déu dels Desemparats",
+        "roof": "yes",
+        "layer": "1",
+        "height": "13",
+        "amenity": "place_of_worship",
+        "name:ca": "Basílica de la Mare de Déu dels Desemparats",
+        "name:en": "Basilica of the Virgin of the Helpless",
+        "name:es": "Basílica de la Virgen de los Desamparados",
+        "name:fr": "Basilique de la Vierge des Désemparés",
+        "name:pt": "Basílica da Virgem dos Desamparados",
+        "basilica": "minor",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q978306",
+        "addr:city": "València",
+        "wikipedia": "ca:Basílica de la Mare de Déu dels Desemparats",
+        "check_date": "2026-04-25",
+        "roof:shape": "flat",
+        "wheelchair": "yes",
+        "addr:street": "Plaça de la Mare de Déu",
+        "roof:colour": "#cfccb9",
+        "denomination": "roman_catholic",
+        "addr:postcode": "46003",
+        "building:colour": "#E3B292"
+      },
+      "osmId": 135630265,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.474119,
+      "lng": -0.3763935,
+      "name": "Església de Santa Caterina",
+      "tags": {
+        "name": "Església de Santa Caterina",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Santa Caterina",
+        "name:es": "Iglesia de Santa Catalina",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q2839013",
+        "wikipedia": "ca:Església de Santa Caterina (València)",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 135638445,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4589754,
+      "lng": -0.358738,
+      "name": "Santuari de la Mare de Déu de Montolivet",
+      "tags": {
+        "name": "Santuari de la Mare de Déu de Montolivet",
+        "amenity": "place_of_worship",
+        "name:ca": "Santuari de la Mare de Déu de Montolivet",
+        "name:es": "Nuestra Señora de Monteolivete",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q118680898",
+        "building:levels": "4"
+      },
+      "osmId": 147064106,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4742703,
+      "lng": -0.3792239,
+      "name": "Església dels Sants Joans",
+      "tags": {
+        "name": "Església dels Sants Joans",
+        "phone": "+34 680 48 48 87",
+        "amenity": "place_of_worship",
+        "name:ca": "Església dels Sants Joans",
+        "name:en": "Royal Parish of the St Johns",
+        "name:es": "Iglesia de los Santos Juanes",
+        "website": "https://santosjuanesvalencia.com/",
+        "alt_name": "Iglesia de San Juan del Mercado",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q3393224",
+        "wikipedia": "ca:Església de Sant Joan del Mercat",
+        "check_date": "2024-04-03",
+        "alt_name:ca": "Església de Sant Joan del Mercat",
+        "alt_name:es": "Iglesia de San Juan del Mercado",
+        "denomination": "roman_catholic",
+        "building:levels": "5"
+      },
+      "osmId": 183237709,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4750217,
+      "lng": -0.3783133,
+      "name": "Església de la Companyia de Jesús",
+      "tags": {
+        "name": "Església de la Companyia de Jesús",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Companyia de Jesús",
+        "name:es": "Iglesia de la Compañía de Jesús",
+        "basilica": "minor",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884300",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 216891044,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4854885,
+      "lng": -0.3378445,
+      "name": "Ermita de la Vera",
+      "tags": {
+        "name": "Ermita de la Vera",
+        "amenity": "place_of_worship",
+        "name:ca": "Ermita de la Vera",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q91237552",
+        "addr:street": "Camí de L'esglesia de Vera",
+        "denomination": "catholic",
+        "addr:postcode": "46022",
+        "building:levels": "2",
+        "addr:housenumber": "16"
+      },
+      "osmId": 217845184,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5010062,
+      "lng": -0.4233881,
+      "name": "Capella del col·legi El Ave María",
+      "tags": {
+        "name": "Capella del col·legi El Ave María",
+        "amenity": "place_of_worship",
+        "name:ca": "Capella del col·legi El Ave María",
+        "name:en": "Chapel of El Ave María school",
+        "name:es": "Capilla del colegio El Ave María",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q93275283",
+        "addr:city": "València",
+        "architect": "Manuel Peris Ferrando",
+        "addr:street": "Carrer del Campament",
+        "denomination": "catholic",
+        "addr:postcode": "46035",
+        "building:levels": "4",
+        "addr:housenumber": "57",
+        "wikimedia_commons": "Category:Església del col·legi Avemaria",
+        "architect:wikidata": "Q24943742"
+      },
+      "osmId": 220262964,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4765751,
+      "lng": -0.3738657,
+      "name": "Almodí",
+      "tags": {
+        "name": "Almodí",
+        "amenity": "arts_centre",
+        "name:ca": "Almodí",
+        "name:es": "Almudín",
+        "building": "public",
+        "historic": "building",
+        "wikidata": "Q8196158",
+        "wikipedia": "es:Almudín de Valencia",
+        "addr:street": "Carrer de l'Almodí",
+        "opening_hours": "Tu-Sa 10:00-14:00, 15:00-19:00; Su 10:00-14:00",
+        "addr:housename": "l'Almodi",
+        "name:etymology:wikidata": "Q5858894"
+      },
+      "osmId": 227916537,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4687455,
+      "lng": -0.3800923,
+      "name": "Església de Sant Agustí i Santa Caterina",
+      "tags": {
+        "name": "Església de Sant Agustí i Santa Caterina",
+        "phone": "+34 963 52 68 70",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Agustí i Santa Caterina",
+        "name:es": "Iglesia de San Augustin y Santa Catalina",
+        "website": "https://www.parroquiasanagustin.es/",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q9007399",
+        "addr:city": "València",
+        "wikipedia": "es:Iglesia de Santa Catalina y San Agustín",
+        "addr:street": "Carrer de la Mare de Déu de Gràcia",
+        "denomination": "roman_catholic",
+        "addr:postcode": "46022",
+        "addr:housenumber": "5"
+      },
+      "osmId": 239784943,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4680075,
+      "lng": -0.3882377,
+      "name": "Complex Esportiu - Cultural Abastos",
+      "tags": {
+        "name": "Complex Esportiu - Cultural Abastos",
+        "name:ca": "Complex Esportiu - Cultural Abastos",
+        "name:es": "Complejo Deportivo - Cultural Abastos",
+        "alt_name": "Mercat d'Abastos",
+        "building": "public",
+        "historic": "building",
+        "wikidata": "Q8200942",
+        "wikipedia": "es:Mercado de Abastos de Valencia",
+        "roof:shape": "many",
+        "alt_name:ca": "Mercat d'Abastos",
+        "alt_name:es": "Mercado de Abastos",
+        "building:levels": "4"
+      },
+      "osmId": 243447549,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4794615,
+      "lng": -0.3785357,
+      "name": "Església de la Santíssima Creu",
+      "tags": {
+        "name": "Església de la Santíssima Creu",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Santíssima Creu",
+        "name:es": "Parroquia de la Santísima Cruz",
+        "alt_name": "Església del Convent del Carme",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q126111434",
+        "wikipedia": "es:Iglesia de la Santísima Cruz (Valencia)",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 264453281,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4761039,
+      "lng": -0.3731681,
+      "name": "Iglesia de San Esteban",
+      "tags": {
+        "name": "Iglesia de San Esteban",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Esteve",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q9007046",
+        "wikipedia": "ca:Església de Sant Esteve (València)",
+        "check_date": "2025-05-05",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 279478350,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4307681,
+      "lng": -0.4174305,
+      "name": "Església de Sant Jordi",
+      "tags": {
+        "name": "Església de Sant Jordi",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Jordi",
+        "name:es": "Iglesia de San Jorge",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q28132284",
+        "wikipedia": "ca:Església de Sant Jordi de Paiporta",
+        "designation": "Monumento Religioso",
+        "denomination": "catholic"
+      },
+      "osmId": 283414176,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.2853671,
+      "lng": -0.42759,
+      "name": "Església de Sant Pere",
+      "tags": {
+        "name": "Església de Sant Pere",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Pere",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q2882734",
+        "addr:city": "Benifaió",
+        "wikipedia": "ca:Església de Sant Pere (Benifaió)",
+        "addr:street": "Plaça Major",
+        "denomination": "catholic",
+        "addr:postcode": "46450",
+        "addr:housenumber": "17"
+      },
+      "osmId": 410233145,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.477844,
+      "lng": -0.3750127,
+      "name": "Església de Sant Llorenç",
+      "tags": {
+        "name": "Església de Sant Llorenç",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Llorenç",
+        "name:es": "Iglesia de San Lorenzo",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884282",
+        "addr:city": "València",
+        "addr:street": "Carrer dels Franciscans",
+        "denomination": "catholic",
+        "addr:postcode": "46003",
+        "addr:housenumber": "2"
+      },
+      "osmId": 413146304,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4678346,
+      "lng": -0.369077,
+      "name": "Basílica San Vicente Ferrer",
+      "tags": {
+        "name": "Basílica San Vicente Ferrer",
+        "amenity": "place_of_worship",
+        "name:es": "Basílica San Vicente Ferrer",
+        "basilica": "minor",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884348",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 414889062,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.559898,
+      "lng": -0.4210553,
+      "name": "Poblat ibèric emmurallat del Tos Pelat",
+      "tags": {
+        "area": "yes",
+        "name": "Poblat ibèric emmurallat del Tos Pelat",
+        "name:ca": "Poblat ibèric emmurallat del Tos Pelat",
+        "name:es": "Poblado ibérico amurallado del Tos Pelat",
+        "ref:bic": "RI-51-0011388",
+        "historic": "archaeological_site",
+        "wikidata": "Q6081057",
+        "wikipedia": "ca:Poblat ibèric emmurallat del Tos Pelat",
+        "archaeological_site": "settlement",
+        "historic:civilization": "iberian"
+      },
+      "osmId": 476161792,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.464742,
+      "lng": -0.375936,
+      "name": "La Casa Judía",
+      "tags": {
+        "name": "La Casa Judía",
+        "name:ca": "La Casa Jueva",
+        "name:es": "La Casa Judía",
+        "building": "apartments",
+        "historic": "building",
+        "wikidata": "Q50419723",
+        "addr:city": "València",
+        "architect": "Juan Guardiola",
+        "wikipedia": "es:Casa Judía",
+        "start_date": "1930",
+        "addr:street": "Carrer de Castelló",
+        "addr:city:ca": "València",
+        "addr:housenumber": "20",
+        "architect:wikidata": "Q11927741",
+        "architect:wikipedia": "es:Juan Guardiola",
+        "building:architecture": "art_deco"
+      },
+      "osmId": 478348143,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4770473,
+      "lng": -0.3811097,
+      "name": "Iglesia de Nuestra Señora del Puig",
+      "tags": {
+        "name": "Iglesia de Nuestra Señora del Puig",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884521",
+        "wheelchair": "yes",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 493034848,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4793622,
+      "lng": -0.3790735,
+      "name": "Consell Valencià de Cultura",
+      "tags": {
+        "name": "Consell Valencià de Cultura",
+        "name:ca": "Consell Valencià de Cultura",
+        "name:es": "Consejo Valenciano de Cultura",
+        "alt_name": "Palau de Forcalló",
+        "building": "public",
+        "historic": "building",
+        "wikidata": "Q8350003",
+        "wikipedia": "ca:Consell Valencià de Cultura",
+        "short_name": "CVC",
+        "addr:street": "Carrer del Museu",
+        "roof:levels": "1",
+        "building:levels": "3",
+        "addr:housenumber": "3"
+      },
+      "osmId": 493777421,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4694661,
+      "lng": -0.3753513,
+      "name": "Edifici de Correus i Telègrafs",
+      "tags": {
+        "name": "Edifici de Correus i Telègrafs",
+        "name:ca": "Edifici de Correus i Telègrafs",
+        "name:cs": "Budova pošty",
+        "name:es": "Edificio de Correos y Telégrafos",
+        "building": "public",
+        "historic": "building",
+        "wikidata": "Q21711039",
+        "architect": "Miguel Ángel Navarro",
+        "wikipedia": "ca:Edifici de Correus (València)",
+        "check_date": "2025-05-20",
+        "start_date": "1915",
+        "alt_name:ca": "Palau de correus i telègrafs",
+        "alt_name:es": "Palacio de correos y telégrafos"
+      },
+      "osmId": 513696236,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4720731,
+      "lng": -0.3747455,
+      "name": "Sant Joan de la Creu",
+      "tags": {
+        "name": "Sant Joan de la Creu",
+        "source": "Bing",
+        "amenity": "place_of_worship",
+        "name:ca": "Sant Joan de la Creu",
+        "name:es": "San Juan de la Cruz",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q5657503",
+        "addr:city": "València",
+        "wikipedia": "ca:Església de Sant Joan de la Creu (València)",
+        "addr:street": "Carrer del Poeta Querol",
+        "denomination": "catholic",
+        "addr:postcode": "46002",
+        "addr:housenumber": "6"
+      },
+      "osmId": 513977884,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4649434,
+      "lng": -0.3321359,
+      "name": "Església parroquial de Nostra Senyora del Rosari",
+      "tags": {
+        "name": "Església parroquial de Nostra Senyora del Rosari",
+        "amenity": "place_of_worship",
+        "name:ca": "Església parroquial de Nostra Senyora del Rosari",
+        "name:es": "Iglesia Parroquial de Nuestra Señora del Rosario",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884486",
+        "check_date": "2026-05-03",
+        "denomination": "catholic",
+        "building:levels": "1"
+      },
+      "osmId": 514287755,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4533497,
+      "lng": -0.4073993,
+      "name": "Iglesia de Nuestra Señora de los Desamparados y San Isidro",
+      "tags": {
+        "name": "Iglesia de Nuestra Señora de los Desamparados y San Isidro",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Mare de Déu dels Desemparats i Sant Isidre",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884548",
+        "denomination": "catholic"
+      },
+      "osmId": 514307766,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4761944,
+      "lng": -0.3788284,
+      "name": "Església de Sant Nicolau",
+      "tags": {
+        "name": "Església de Sant Nicolau",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Nicolau",
+        "name:en": "Church of Sant Nicolau de Bari and Sant Pere Màrtir",
+        "name:es": "Iglesia Parroquial de San Nicolas",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q9007252",
+        "addr:city": "València",
+        "wikipedia": "ca:Església de Sant Nicolau (València)",
+        "addr:street": "Carrer dels Cavallers",
+        "denomination": "catholic",
+        "addr:postcode": "46001",
+        "addr:housenumber": "35"
+      },
+      "osmId": 514601809,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4790093,
+      "lng": -0.3727015,
+      "name": "Pont de la Trinitat",
+      "tags": {
+        "name": "Pont de la Trinitat",
+        "layer": "1",
+        "name:ca": "Pont de la Trinitat",
+        "name:es": "Puente de la Trinidad",
+        "historic": "bridge",
+        "man_made": "bridge",
+        "wikidata": "Q11942327",
+        "wikipedia": "ca:Pont de la Trinitat",
+        "bridge:structure": "arch"
+      },
+      "osmId": 515337491,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4702638,
+      "lng": -0.3636729,
+      "name": "Pont de la Mar",
+      "tags": {
+        "name": "Pont de la Mar",
+        "layer": "1",
+        "name:ca": "Pont de la Mar",
+        "name:es": "Puente del Mar",
+        "historic": "bridge",
+        "man_made": "bridge",
+        "wikidata": "Q18005859",
+        "wikipedia": "ca:Pont de la Mar",
+        "bridge:structure": "beam"
+      },
+      "osmId": 515339216,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4742052,
+      "lng": -0.3689963,
+      "name": "Convent de Sant Doménec",
+      "tags": {
+        "name": "Convent de Sant Doménec",
+        "phone": "+34 961963038;+34 961963003",
+        "name:ca": "Convent de Sant Doménec",
+        "name:es": "Antiguo Real Convento de Santo Domingo",
+        "historic": "monastery",
+        "wikidata": "Q8350474",
+        "addr:city": "València",
+        "wikipedia": "ca:Convent de Sant Doménec (València)",
+        "addr:street": "Plaça de Tetuan",
+        "addr:postcode": "46003",
+        "opening_hours": "Tu,We 11:00+ \"Visitas con reserva previa,llamar por teléfono de lunes a viernes de 08:00 a 14:00\"",
+        "disused:amenity": "monastery",
+        "addr:housenumber": "22"
+      },
+      "osmId": 515350925,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4806449,
+      "lng": -0.3753572,
+      "name": "Pont dels Serrans",
+      "tags": {
+        "name": "Pont dels Serrans",
+        "layer": "1",
+        "bridge": "yes",
+        "name:ca": "Pont dels Serrans",
+        "name:es": "Puente de Serranos",
+        "surface": "paving_stones",
+        "historic": "bridge",
+        "man_made": "bridge",
+        "wikidata": "Q11942346",
+        "wikipedia": "ca:Pont dels Serrans",
+        "bridge:structure": "arch"
+      },
+      "osmId": 516051598,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5121853,
+      "lng": -0.355636,
+      "name": "Església Parroquial del Santíssim Sagrament",
+      "tags": {
+        "name": "Església Parroquial del Santíssim Sagrament",
+        "amenity": "place_of_worship",
+        "name:ca": "Església Parroquial del Santíssim Sagrament",
+        "name:es": "Iglesia Parroquial del Santísimo Sacramento",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q11682931",
+        "wikipedia": "es:Iglesia del Santísimo Sacramento (Almácera)",
+        "denomination": "catholic"
+      },
+      "osmId": 551163539,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4718798,
+      "lng": -0.370594,
+      "name": "Jaume I",
+      "tags": {
+        "name": "Jaume I",
+        "source": "survey",
+        "name:ca": "Jaume I",
+        "historic": "memorial",
+        "material": "metal",
+        "memorial": "statue",
+        "wikidata": "Q97798254",
+        "wikipedia": "en:Monument to James I (Valencia)"
+      },
+      "osmId": 556834653,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4004055,
+      "lng": -0.402096,
+      "name": "Església de Sant Miquel",
+      "tags": {
+        "name": "Església de Sant Miquel",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Miquel",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q28089436",
+        "addr:city": "Catarroja",
+        "wikipedia": "ca:Església de Sant Miquel de Catarroja",
+        "addr:street": "Plaça de la Llotgeta",
+        "denomination": "catholic",
+        "addr:postcode": "46470",
+        "addr:housenumber": "2"
+      },
+      "osmId": 557917973,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4732441,
+      "lng": -0.3756825,
+      "name": "Església de Sant Martí",
+      "tags": {
+        "name": "Església de Sant Martí",
+        "source": "survey",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Martí",
+        "name:es": "Iglesia de San Martín",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q9007196",
+        "wikipedia": "ca:Església de Sant Martí (València)",
+        "check_date": "2025-11-19",
+        "wheelchair": "yes",
+        "denomination": "roman_catholic",
+        "addr:postcode": "46002"
+      },
+      "osmId": 661320825,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.537957,
+      "lng": -0.3566627,
+      "name": "Església de l'Assumpció de Nostra Senyora",
+      "tags": {
+        "name": "Església de l'Assumpció de Nostra Senyora",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de l'Assumpció de Nostra Senyora",
+        "name:es": "Asunción de Nuestra Señora",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q5912329",
+        "wikipedia": "ca:Església de l'Assumpció de Nostra Senyora (Foios)",
+        "check_date": "2024-08-24",
+        "denomination": "roman_catholic"
+      },
+      "osmId": 662608468,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4981027,
+      "lng": -0.380746,
+      "name": "Alqueria de Falcó",
+      "tags": {
+        "name": "Alqueria de Falcó",
+        "source": "Catastro Spain",
+        "building": "detached",
+        "historic": "building",
+        "wikidata": "Q8196504",
+        "wikipedia": "es:Alquería de Falcó",
+        "building:levels": "3",
+        "disused:building": "residential"
+      },
+      "osmId": 679556173,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4653907,
+      "lng": -0.3859803,
+      "name": "Iglesia Parroquial de Nuestra Señora del Socorro",
+      "tags": {
+        "name": "Iglesia Parroquial de Nuestra Señora del Socorro",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q110288387",
+        "denomination": "roman_catholic",
+        "building:levels": "4"
+      },
+      "osmId": 686866322,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4924025,
+      "lng": -0.3912058,
+      "name": "Iglesia Parroquial de San Roque de Benicalap",
+      "tags": {
+        "name": "Iglesia Parroquial de San Roque de Benicalap",
+        "amenity": "place_of_worship",
+        "name:ca": "Església parroquial de Sant Roc de Benicalap",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q42884511",
+        "addr:city": "València",
+        "addr:street": "Plaça Nova de l'Església",
+        "denomination": "catholic",
+        "addr:postcode": "46025",
+        "building:levels": "1",
+        "addr:housenumber": "2"
+      },
+      "osmId": 687557652,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4469894,
+      "lng": -0.3511834,
+      "name": "Ermita del Fiscal",
+      "tags": {
+        "name": "Ermita del Fiscal",
+        "amenity": "place_of_worship",
+        "name:ca": "Ermita del Fiscal",
+        "alt_name": "Ermita de Nuestra Señora de los Desamparados Partida del Fiscal",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q94574284",
+        "addr:place": "Entrada Fiscal",
+        "denomination": "catholic",
+        "addr:postcode": "46013",
+        "building:levels": "2",
+        "addr:housenumber": "12"
+      },
+      "osmId": 688589848,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4761476,
+      "lng": -0.3836022,
+      "name": "Església de Santa Úrsula",
+      "tags": {
+        "name": "Església de Santa Úrsula",
+        "layer": "1",
+        "name:ca": "Església de Santa Úrsula",
+        "name:es": "Iglesia de Santa Úrsula",
+        "building": "yes",
+        "historic": "building",
+        "old_name": "Convento de Santa Úrsula",
+        "wikidata": "Q42884379",
+        "wikipedia": "es:Convento de Santa Úrsula (Valencia)",
+        "old_name:ca": "Convent de Santa Úrsula"
+      },
+      "osmId": 783760610,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4772081,
+      "lng": -0.3769717,
+      "name": "Torre de Sant Bartomeu",
+      "tags": {
+        "name": "Torre de Sant Bartomeu",
+        "name:ca": "Torre de Sant Bartomeu",
+        "name:es": "Torre San Bartolomé Apostol",
+        "building": "bell_tower",
+        "historic": "tower",
+        "man_made": "tower",
+        "wikidata": "Q6150461",
+        "wikipedia": "es:Torre de San Bartolomé (Valencia)",
+        "tower:type": "bell_tower"
+      },
+      "osmId": 807759872,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.3970879,
+      "lng": -0.4147332,
+      "name": "Iglesia de la Mare de Déu dels Àngels",
+      "tags": {
+        "name": "Iglesia de la Mare de Déu dels Àngels",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q17318464",
+        "wikipedia": "es:Iglesia de Nuestra Señora de los Ángeles (Albal)",
+        "denomination": "catholic"
+      },
+      "osmId": 837564198,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.465878,
+      "lng": -0.4253259,
+      "name": "Iglesia de la Virgen de la Salud",
+      "tags": {
+        "name": "Iglesia de la Virgen de la Salud",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Mare de Déu de la Salut",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q19367967",
+        "wikipedia": "ca:Església Parroquial de la Mare de Déu de la Salut",
+        "description": "Monumento Religioso",
+        "denomination": "catholic"
+      },
+      "osmId": 837564228,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.53678,
+      "lng": -0.3701819,
+      "name": "Església de Sant Honorat",
+      "tags": {
+        "name": "Església de Sant Honorat",
+        "name:ca": "Església de Sant Honorat",
+        "building": "church",
+        "wikidata": "Q5407491",
+        "wikipedia": "ca:Església parroquial de Sant Honorat (Vinalesa)"
+      },
+      "osmId": 886559905,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5198666,
+      "lng": -0.3649423,
+      "name": "Església del Pilar",
+      "tags": {
+        "name": "Església del Pilar",
+        "amenity": "place_of_worship",
+        "name:ca": "Església del Pilar",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q23498808",
+        "wikipedia": "ca:Església del Pilar de Bonrepòs",
+        "denomination": "catholic"
+      },
+      "osmId": 887379304,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5277515,
+      "lng": -0.3484771,
+      "name": "Església dels Sants Joans",
+      "tags": {
+        "name": "Església dels Sants Joans",
+        "amenity": "place_of_worship",
+        "name:ca": "Església dels Sants Joans",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q21858023",
+        "wikipedia": "es:Iglesia de los Santos Juanes (Meliana)",
+        "denomination": "catholic"
+      },
+      "osmId": 887887422,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5436915,
+      "lng": -0.3456513,
+      "name": "Església dels Sants Reis",
+      "tags": {
+        "name": "Església dels Sants Reis",
+        "amenity": "place_of_worship",
+        "name:ca": "Església dels Sants Reis",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q17339515",
+        "wikipedia": "es:Iglesia de los Santos Reyes (Albalat dels Sorells)",
+        "building:use": "religious",
+        "denomination": "catholic"
+      },
+      "osmId": 889921735,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5439584,
+      "lng": -0.384862,
+      "name": "Església de Sant Bertomeu",
+      "tags": {
+        "name": "Església de Sant Bertomeu",
+        "image": "https://ca.wikipedia.org/wiki/Fitxer:Alfara._Esgl%C3%A9sia.jpg",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de Sant Bartomeu",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q23498795",
+        "wikipedia": "ca:Església de Sant Bartomeu d'Alfara del Patriarca",
+        "denomination": "catholic"
+      },
+      "osmId": 909137221,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4197963,
+      "lng": -0.4192651,
+      "name": "Motor d'Estela",
+      "tags": {
+        "name": "Motor d'Estela",
+        "name:ca": "Motor d'Estela",
+        "building": "yes",
+        "historic": "yes",
+        "wikidata": "Q97485721",
+        "designation": "Antiguo Pozo a Motor (rehabilitado en restaurante)"
+      },
+      "osmId": 1185797278,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.532379,
+      "lng": -0.408731,
+      "name": "Caserna Vella de la Guàrdia Civil",
+      "tags": {
+        "name": "Caserna Vella de la Guàrdia Civil",
+        "name:ca": "Caserna Vella de la Guàrdia Civil",
+        "name:es": "Antiguo Cuartel de la Guardia Civil",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q105095745",
+        "start_date": "1937"
+      },
+      "osmId": 1194707813,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5000675,
+      "lng": -0.3497093,
+      "name": "Església de la Mare de Déu de l'Assumpció",
+      "tags": {
+        "name": "Església de la Mare de Déu de l'Assumpció",
+        "amenity": "place_of_worship",
+        "name:ca": "Església de la Mare de Déu de l'Assumpció",
+        "name:es": "Iglesia de Nuestra Señora",
+        "building": "church",
+        "religion": "christian",
+        "wikipedia": "ca:Església parroquial de l'Assumpció de Nostra Senyora d'Alboraia",
+        "wheelchair": "yes",
+        "denomination": "catholic"
+      },
+      "osmId": 1201528740,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5289492,
+      "lng": -0.4102625,
+      "name": "Església de Sant Sebastià Màrtir",
+      "tags": {
+        "name": "Església de Sant Sebastià Màrtir",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q21815334",
+        "wikipedia": "ca:Església de Sant Sebastià Màrtir",
+        "denomination": "catholic"
+      },
+      "osmId": 1201528745,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4778705,
+      "lng": -0.3746253,
+      "name": "Palau de Benicarló",
+      "tags": {
+        "name": "Palau de Benicarló",
+        "name:ca": "Palau de Benicarló",
+        "name:es": "Palacio de Benicarló",
+        "alt_name": "Palau dels Borja",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q3068088",
+        "wikipedia": "es:Palacio de Benicarló",
+        "alt_name:ca": "Palau dels Borja",
+        "alt_name:es": "Palacio de los Borja",
+        "castle_type": "manor",
+        "building:part": "yes",
+        "building:levels": "4"
+      },
+      "osmId": 1286369610,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5194435,
+      "lng": -0.4105084,
+      "name": "Torre de la Casa Palau dels Boïl",
+      "tags": {
+        "name": "Torre de la Casa Palau dels Boïl",
+        "height": "5.2",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q474885",
+        "addr:city": "Godella",
+        "wikipedia": "ca:Torre de la Casa Palau dels Boïl",
+        "addr:street": "Carrer Músic Francesc Caballer",
+        "addr:postcode": "46110",
+        "building:levels": "3",
+        "addr:housenumber": "1",
+        "wikimedia_commons": "File:Torre de la Casa Palau dels Boïl o Cerdanyola.jpg"
+      },
+      "osmId": 1288381081,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.4233035,
+      "lng": -0.4013346,
+      "name": "Església de la Mare de Déu dels Socors",
+      "tags": {
+        "name": "Església de la Mare de Déu dels Socors",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q28089429",
+        "addr:city": "Benetússer",
+        "wikipedia": "ca:Església de la Mare de Déu del Socors de Benetússer",
+        "addr:street": "Plaça del Cardenal Benlloch",
+        "designation": "Monumento Religioso",
+        "denomination": "roman_catholic",
+        "addr:postcode": "46910",
+        "addr:housenumber": "5"
+      },
+      "osmId": 1332186298,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5090426,
+      "lng": -0.4117808,
+      "name": "les Sitges",
+      "tags": {
+        "name": "les Sitges",
+        "layer": "-1",
+        "access": "yes",
+        "name:ca": "les Sitges",
+        "name:es": "Los Silos",
+        "historic": "yes",
+        "man_made": "silo",
+        "wikipedia": "ca:Sitges de Burjassot",
+        "start_date": "1573",
+        "description": "monumento constituido por un conjunto de depósitos destinados a almacenar trigo para el consumo de los habitantes de la ciudad de Valencia y poblaciones de alrededor"
+      },
+      "osmId": 1426678853,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.5089859,
+      "lng": -0.4163351,
+      "name": "Iglesia del Sagrado Corazón de Jesús",
+      "tags": {
+        "name": "Iglesia del Sagrado Corazón de Jesús",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "name:ca": "Església del Sagrat Cor",
+        "name:es": "Iglesia del Sagrado Corazón de Jesús",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q21480706",
+        "addr:city": "Burjassot",
+        "wikipedia": "ca:Església del Sagrat Cor de Burjassot",
+        "addr:street": "Calle Teodoro Llorente",
+        "denomination": "catholic",
+        "addr:postcode": "46100",
+        "addr:housenumber": "9"
+      },
+      "osmId": 7240815,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4766593,
+      "lng": -0.3763764,
+      "name": "Palau de la Generalitat Valenciana",
+      "tags": {
+        "name": "Palau de la Generalitat Valenciana",
+        "type": "multipolygon",
+        "name:ca": "Palau de la Generalitat Valenciana",
+        "name:es": "Palacio de la Generalitat Valenciana",
+        "building": "government",
+        "historic": "building",
+        "wikidata": "Q3393221",
+        "wikipedia": "ca:Palau de la Generalitat Valenciana"
+      },
+      "osmId": 11137438,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4803602,
+      "lng": -0.3720794,
+      "name": "Reial Monestir de la Santíssima Trinitat",
+      "tags": {
+        "name": "Reial Monestir de la Santíssima Trinitat",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "name:ca": "Reial Monestir de la Santíssima Trinitat",
+        "name:es": "Real Monasterio de la Trinidad de Valencia",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q11702312",
+        "wikipedia": "ca:Monestir de la Trinitat",
+        "denomination": "roman_catholic",
+        "building:levels": "5"
+      },
+      "osmId": 11289994,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4807273,
+      "lng": -0.3797482,
+      "name": "Monestir de Sant Josep i Santa Teresa",
+      "tags": {
+        "name": "Monestir de Sant Josep i Santa Teresa",
+        "type": "multipolygon",
+        "name:ca": "Monestir de Sant Josep i Santa Teresa",
+        "name:es": "Monasterio de San José y Santa Teresa",
+        "building": "yes",
+        "historic": "building",
+        "wikidata": "Q42884373"
+      },
+      "osmId": 17657779,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.4726387,
+      "lng": -0.3731053,
+      "name": "Col·legi del Patriarca",
+      "tags": {
+        "name": "Col·legi del Patriarca",
+        "type": "multipolygon",
+        "source": "Bing",
+        "name:ca": "Col·legi del Patriarca",
+        "name:es": "Real Colegio de Corpus Christi Patriarca",
+        "alt_name": "Reial Col·legi del Corpus Christi",
+        "building": "public",
+        "historic": "building",
+        "wikidata": "Q4984364",
+        "wikipedia": "ca:Reial Col·legi Seminari de Corpus Christi",
+        "alt_name:es": "Real Colegio Seminario del Corpus Christi"
+      },
+      "osmId": 18681030,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.5205537,
+      "lng": -0.3434837,
+      "name": "Palauet Nolla",
+      "tags": {
+        "name": "Palauet Nolla",
+        "name:ca": "Palau de Nolla",
+        "alt_name": "Villa Yvonne",
+        "historic": "monument",
+        "wikidata": "Q28662795",
+        "wikipedia": "ca:Palau de Nolla"
+      },
+      "osmId": 2541159063,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4902654,
+      "lng": -0.3993201,
+      "name": "La Dama Ibèrica",
+      "tags": {
+        "ele": "20",
+        "name": "La Dama Ibèrica",
+        "name:ca": "La Dama Ibèrica",
+        "name:es": "La Dama Ibérica",
+        "historic": "monument",
+        "wikidata": "Q16745578",
+        "wikipedia": "es:Dama Ibérica",
+        "wikimedia_commons": "Category:Dama Ibèrica (València)",
+        "architect:wikidata": "Q546947"
+      },
+      "osmId": 3540456749,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.557406,
+      "lng": -0.3914154,
+      "name": "Paretetes dels Moros",
+      "tags": {
+        "name": "Paretetes dels Moros",
+        "name:ca": "Paretetes dels Moros",
+        "name:en": "Paretetes dels Moros",
+        "historic": "archaeological_site",
+        "wikidata": "Q20107036",
+        "wikipedia": "ca:Les Paretetes dels Moros",
+        "wikimedia_commons": "Category:Paretetes dels Moros",
+        "archaeological_site": "roman_villa"
+      },
+      "osmId": 12453650834,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.4752732,
+      "lng": -0.370104,
+      "name": "Refugi Espasa",
+      "tags": {
+        "name": "Refugi Espasa",
+        "building": "bunker",
+        "historic": "bunker",
+        "military": "bunker",
+        "wikidata": "Q90700981",
+        "bunker_type": "bomb_shelter"
+      },
+      "osmId": 13022649055,
+      "osmType": "node"
+    }
+  ],
+  "sitelinks": {
+    "Q2455550": 15,
+    "Q2343754": 12,
+    "Q588009": 42,
+    "Q9054302": 3,
+    "Q1466926": 30,
+    "Q48975834": 3,
+    "Q511925": 4,
+    "Q10836": 3,
+    "Q9054454": 3,
+    "Q11697429": 3,
+    "Q943466": 3,
+    "Q1993940": 8,
+    "Q6150213": 3,
+    "Q5488956": 3,
+    "Q5645133": 3,
+    "Q29183174": 2,
+    "Q5670595": 3,
+    "Q55686": 4,
+    "Q11680508": 2,
+    "Q9054644": 3,
+    "Q2894773": 3,
+    "Q5754562": 3,
+    "Q810902": 3,
+    "Q2197068": 13,
+    "Q7883975": 3,
+    "Q9047012": 5,
+    "Q4891102": 5,
+    "Q27924428": 4,
+    "Q13548107": 3,
+    "Q11916088": 2,
+    "Q8347734": 3,
+    "Q9047049": 5,
+    "Q27043450": 3,
+    "Q9046949": 3,
+    "Q8343592": 3,
+    "Q5644720": 3,
+    "Q1748404": 15,
+    "Q3867999": 5,
+    "Q2402329": 16,
+    "Q939288": 14,
+    "Q61608450": 1,
+    "Q1431438": 3,
+    "Q9047028": 4,
+    "Q2701512": 8,
+    "Q1577723": 11,
+    "Q16911704": 3,
+    "Q9046886": 8,
+    "Q107509424": 1,
+    "Q68284046": 1,
+    "Q96657803": 0,
+    "Q5484867": 5,
+    "Q18005084": 3,
+    "Q1600831": 10,
+    "Q11942043": 2,
+    "Q3392928": 4,
+    "Q3393246": 8,
+    "Q59429024": 3,
+    "Q18004765": 2,
+    "Q11942047": 2,
+    "Q108287727": 1,
+    "Q21815350": 2,
+    "Q85810941": 1,
+    "Q51879157": 2,
+    "Q117769952": 1,
+    "Q111820078": 1,
+    "Q123527462": 1,
+    "Q4846088": 3,
+    "Q105725013": 2,
+    "Q108288039": 1,
+    "Q5801391": 7,
+    "Q11942017": 2,
+    "Q11942022": 2,
+    "Q1031982": 8,
+    "Q1779244": 6,
+    "Q11942014": 4,
+    "Q108292907": 1,
+    "Q26202662": 2,
+    "Q17593177": 2,
+    "Q2743957": 4,
+    "Q118873954": 1,
+    "Q9010986": 5,
+    "Q11912598": 3,
+    "Q11912586": 2,
+    "Q17593160": 2,
+    "Q11942317": 3,
+    "Q24024440": 1,
+    "Q115940991": 1,
+    "Q28134567": 3,
+    "Q239935": 40,
+    "Q6080287": 5,
+    "Q11912570": 2,
+    "Q89914333": 1,
+    "Q1102684": 16,
+    "Q106163969": 0,
+    "Q9006935": 3,
+    "Q18005693": 3,
+    "Q42885186": 1,
+    "Q21857816": 3,
+    "Q978306": 10,
+    "Q2839013": 10,
+    "Q118680898": 2,
+    "Q3393224": 9,
+    "Q42884300": 3,
+    "Q91237552": 1,
+    "Q93275283": 1,
+    "Q8196158": 4,
+    "Q9007399": 3,
+    "Q8200942": 3,
+    "Q126111434": 2,
+    "Q9007046": 8,
+    "Q28132284": 2,
+    "Q2882734": 3,
+    "Q42884282": 1,
+    "Q42884348": 2,
+    "Q6081057": 4,
+    "Q50419723": 3,
+    "Q42884521": 1,
+    "Q8350003": 4,
+    "Q21711039": 3,
+    "Q5657503": 3,
+    "Q42884486": 1,
+    "Q42884548": 2,
+    "Q9007252": 10,
+    "Q11942327": 3,
+    "Q18005859": 4,
+    "Q8350474": 6,
+    "Q11942346": 4,
+    "Q11682931": 3,
+    "Q97798254": 3,
+    "Q28089436": 2,
+    "Q9007196": 3,
+    "Q5912329": 3,
+    "Q8196504": 3,
+    "Q110288387": 1,
+    "Q42884511": 2,
+    "Q94574284": 0,
+    "Q42884379": 2,
+    "Q6150461": 3,
+    "Q17318464": 3,
+    "Q19367967": 3,
+    "Q5407491": 3,
+    "Q23498808": 3,
+    "Q21858023": 3,
+    "Q17339515": 3,
+    "Q23498795": 3,
+    "Q97485721": 1,
+    "Q105095745": 0,
+    "Q21815334": 2,
+    "Q3068088": 7,
+    "Q474885": 3,
+    "Q28089429": 2,
+    "Q21480706": 3,
+    "Q3393221": 11,
+    "Q11702312": 3,
+    "Q42884373": 1,
+    "Q4984364": 7,
+    "Q28662795": 3,
+    "Q16745578": 2,
+    "Q20107036": 2,
+    "Q90700981": 1
+  },
+  "wikidataMetadata": {
+    "Q2455550": {
+      "sitelinks": 15,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q2343754": {
+      "sitelinks": 12,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q588009": {
+      "sitelinks": 42,
+      "instanceOfLabels": [
+        "lonja"
+      ]
+    },
+    "Q9054302": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q1466926": {
+      "sitelinks": 30,
+      "instanceOfLabels": [
+        "Catholic cathedral",
+        "Monument (Spain)",
+        "minor basilica"
+      ]
+    },
+    "Q48975834": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q511925": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "bathhouse"
+      ]
+    },
+    "Q10836": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q9054454": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q11697429": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q943466": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q1993940": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q6150213": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q5488956": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "alqueria"
+      ]
+    },
+    "Q5645133": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "castle",
+        "monument"
+      ]
+    },
+    "Q29183174": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "mansion",
+        "house"
+      ]
+    },
+    "Q5670595": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "alqueria"
+      ]
+    },
+    "Q55686": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "monument",
+        "great house"
+      ]
+    },
+    "Q11680508": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q9054644": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q2894773": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "fortified tower"
+      ]
+    },
+    "Q5754562": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q810902": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "fortified tower",
+        "monument"
+      ]
+    },
+    "Q2197068": {
+      "sitelinks": 13,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q7883975": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q9047012": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "museum",
+        "building"
+      ]
+    },
+    "Q4891102": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "monastery"
+      ]
+    },
+    "Q27924428": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q13548107": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "historic house museum",
+        "house",
+        "museographic collection"
+      ]
+    },
+    "Q11916088": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "crypt"
+      ]
+    },
+    "Q8347734": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q9047049": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "history museum",
+        "museum"
+      ]
+    },
+    "Q27043450": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "factory"
+      ]
+    },
+    "Q9046949": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "archaeological museum",
+        "history museum"
+      ]
+    },
+    "Q8343592": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "museum building",
+        "cultural center"
+      ]
+    },
+    "Q5644720": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q1748404": {
+      "sitelinks": 15,
+      "instanceOfLabels": [
+        "art museum"
+      ]
+    },
+    "Q3867999": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "archaeological museum"
+      ]
+    },
+    "Q2402329": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "human"
+      ]
+    },
+    "Q939288": {
+      "sitelinks": 14,
+      "instanceOfLabels": [
+        "science museum"
+      ]
+    },
+    "Q61608450": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "military museum"
+      ]
+    },
+    "Q1431438": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "bullfighting museum"
+      ]
+    },
+    "Q9047028": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "museum",
+        "building",
+        "museum of tin soldiers and historical miniatures"
+      ]
+    },
+    "Q2701512": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q1577723": {
+      "sitelinks": 11,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q16911704": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "factory"
+      ]
+    },
+    "Q9046886": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "art museum",
+        "national museum"
+      ]
+    },
+    "Q107509424": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q68284046": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "air-raid shelter"
+      ]
+    },
+    "Q96657803": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "computer museum",
+        "museum"
+      ]
+    },
+    "Q5484867": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "art museum",
+        "museum"
+      ]
+    },
+    "Q18005084": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q1600831": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "art museum"
+      ]
+    },
+    "Q11942043": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3392928": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q3393246": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q59429024": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "market"
+      ]
+    },
+    "Q18004765": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q11942047": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q108287727": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q21815350": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q85810941": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "public library",
+        "main library"
+      ]
+    },
+    "Q51879157": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "market"
+      ]
+    },
+    "Q117769952": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q111820078": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q123527462": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q4846088": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q105725013": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "market"
+      ]
+    },
+    "Q108288039": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q5801391": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q11942017": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q11942022": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q1031982": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q1779244": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q11942014": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "square",
+        "cultural property"
+      ]
+    },
+    "Q108292907": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "market hall"
+      ]
+    },
+    "Q26202662": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q17593177": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q2743957": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "park",
+        "garden"
+      ]
+    },
+    "Q118873954": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q9010986": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "botanical garden",
+        "museum"
+      ]
+    },
+    "Q11912598": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q11912586": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q17593160": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q11942317": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "bridge"
+      ]
+    },
+    "Q24024440": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "park"
+      ]
+    },
+    "Q115940991": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q28134567": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q239935": {
+      "sitelinks": 40,
+      "instanceOfLabels": [
+        "tourist destination",
+        "building complex",
+        "cultural center",
+        "tourist attraction",
+        "museum"
+      ]
+    },
+    "Q6080287": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "bullring",
+        "second-class bullring"
+      ]
+    },
+    "Q11912570": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q89914333": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "alqueria"
+      ]
+    },
+    "Q1102684": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "railway station",
+        "station located on surface",
+        "dead-end railway station"
+      ]
+    },
+    "Q106163969": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "wharf"
+      ]
+    },
+    "Q9006935": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q18005693": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q42885186": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "railway station"
+      ]
+    },
+    "Q21857816": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q978306": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "minor basilica",
+        "Catholic church building"
+      ]
+    },
+    "Q2839013": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building",
+        "fixed construction"
+      ]
+    },
+    "Q118680898": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3393224": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q42884300": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "minor basilica"
+      ]
+    },
+    "Q91237552": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "hermitage church"
+      ]
+    },
+    "Q93275283": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q8196158": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q9007399": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q8200942": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q126111434": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q9007046": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q28132284": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2882734": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q42884282": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "cultural property",
+        "church building"
+      ]
+    },
+    "Q42884348": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "cultural property",
+        "church building",
+        "minor basilica"
+      ]
+    },
+    "Q6081057": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "cultural property",
+        "iberian settlement"
+      ]
+    },
+    "Q50419723": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q42884521": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "cultural property",
+        "church building"
+      ]
+    },
+    "Q8350003": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "council"
+      ]
+    },
+    "Q21711039": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q5657503": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q42884486": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "cultural property",
+        "Catholic parish church",
+        "church building"
+      ]
+    },
+    "Q42884548": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "hermitage",
+        "cultural property",
+        "Catholic parish church",
+        "church building"
+      ]
+    },
+    "Q9007252": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q11942327": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "road bridge"
+      ]
+    },
+    "Q18005859": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "bridge",
+        "cultural property"
+      ]
+    },
+    "Q8350474": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "convent"
+      ]
+    },
+    "Q11942346": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "bridge"
+      ]
+    },
+    "Q11682931": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q97798254": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "statue"
+      ]
+    },
+    "Q28089436": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q9007196": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q5912329": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q8196504": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "alqueria"
+      ]
+    },
+    "Q110288387": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q42884511": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "cultural property",
+        "Catholic parish church"
+      ]
+    },
+    "Q94574284": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "cultural property",
+        "church building",
+        "hermitage church"
+      ]
+    },
+    "Q42884379": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "cultural property",
+        "monastery"
+      ]
+    },
+    "Q6150461": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "tower"
+      ]
+    },
+    "Q17318464": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q19367967": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q5407491": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q23498808": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q21858023": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q17339515": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q23498795": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q97485721": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "irrigation pumping station"
+      ]
+    },
+    "Q105095745": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "Guardia Civil barracks"
+      ]
+    },
+    "Q21815334": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q3068088": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "palace",
+        "parliament building"
+      ]
+    },
+    "Q474885": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "tower"
+      ]
+    },
+    "Q28089429": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q21480706": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "cultural property"
+      ]
+    },
+    "Q3393221": {
+      "sitelinks": 11,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q11702312": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "monastery"
+      ]
+    },
+    "Q42884373": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "cultural property",
+        "monastery"
+      ]
+    },
+    "Q4984364": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "church building",
+        "museum building",
+        "cultural property",
+        "school"
+      ]
+    },
+    "Q28662795": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q16745578": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "work of art"
+      ]
+    },
+    "Q20107036": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "archaeological site"
+      ]
+    },
+    "Q90700981": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "air-raid shelter"
+      ]
+    }
+  }
+}

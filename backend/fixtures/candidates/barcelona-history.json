@@ -1,0 +1,492 @@
+{
+  "city": "Barcelona",
+  "theme": "history",
+  "requestedDuration": 240,
+  "capturedAt": "2026-05-30",
+  "stopBounds": {
+    "minStops": 6,
+    "maxStops": 10
+  },
+  "candidates": [
+    {
+      "name": "Basílica de la Sagrada Família",
+      "wikidataId": "Q48435",
+      "coordinates": {
+        "lat": 41.4035047,
+        "lng": 2.1742801
+      },
+      "importance_score": 52.47440095920344,
+      "fameScore": 28.474400959203443,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Catedral de la Santa Creu i Santa Eulàlia",
+      "wikidataId": "Q17155",
+      "coordinates": {
+        "lat": 41.3839273,
+        "lng": 2.1763464
+      },
+      "importance_score": 48.725559288989025,
+      "fameScore": 24.725559288989025,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Palau Güell",
+      "wikidataId": "Q597051",
+      "coordinates": {
+        "lat": 41.3788127,
+        "lng": 2.1742337
+      },
+      "importance_score": 46.512388523751014,
+      "fameScore": 23.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Parc Güell",
+      "wikidataId": "Q212867",
+      "coordinates": {
+        "lat": 41.4142213,
+        "lng": 2.1516022
+      },
+      "importance_score": 45.67206476617281,
+      "fameScore": 24.67206476617281,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Palau de la Música Catalana",
+      "wikidataId": "Q327940",
+      "coordinates": {
+        "lat": 41.3875838,
+        "lng": 2.1752198
+      },
+      "importance_score": 44.62829485591189,
+      "fameScore": 23.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Spotify Camp Nou",
+      "wikidataId": "Q159848",
+      "coordinates": {
+        "lat": 41.3808857,
+        "lng": 2.1228105
+      },
+      "importance_score": 44.225559288989025,
+      "fameScore": 25.225559288989025,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Basílica de Santa Maria del Mar",
+      "wikidataId": "Q908802",
+      "coordinates": {
+        "lat": 41.3838035,
+        "lng": 2.1820034
+      },
+      "importance_score": 44.11258893116062,
+      "fameScore": 23.112588931160623,
+      "landmarkTier": "flagship",
+      "category": "religious"
+    },
+    {
+      "name": "Hospital de la Santa Creu i Sant Pau",
+      "wikidataId": "Q507282",
+      "coordinates": {
+        "lat": 41.413977,
+        "lng": 2.1742203
+      },
+      "importance_score": 43.87836009688685,
+      "fameScore": 22.87836009688685,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Plaça Reial",
+      "wikidataId": "Q1519964",
+      "coordinates": {
+        "lat": 41.3800897,
+        "lng": 2.175274
+      },
+      "importance_score": 43.75977500432694,
+      "fameScore": 20.759775004326936,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Casa Vicens",
+      "wikidataId": "Q746333",
+      "coordinates": {
+        "lat": 41.4034992,
+        "lng": 2.1506266
+      },
+      "importance_score": 43.512388523751014,
+      "fameScore": 22.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Mercat de Sant Josep - La Boqueria",
+      "wikidataId": "Q1334899",
+      "coordinates": {
+        "lat": 41.3817347,
+        "lng": 2.1715777
+      },
+      "importance_score": 43.2646625064904,
+      "fameScore": 21.264662506490403,
+      "landmarkTier": "flagship",
+      "category": "market"
+    },
+    {
+      "name": "La Rambla",
+      "wikidataId": "Q850593",
+      "coordinates": {
+        "lat": 41.3790982,
+        "lng": 2.1750788
+      },
+      "importance_score": 42.21578428466209,
+      "fameScore": 22.71578428466209,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Plaça del Rei",
+      "wikidataId": "Q2067174",
+      "coordinates": {
+        "lat": 41.3841291,
+        "lng": 2.1774066
+      },
+      "importance_score": 41.25,
+      "fameScore": 20.25,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Pavelló Mies van der Rohe",
+      "wikidataId": "Q807915",
+      "coordinates": {
+        "lat": 41.3705518,
+        "lng": 2.1499635
+      },
+      "importance_score": 40.61258893116062,
+      "fameScore": 20.612588931160623,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Gran Teatre del Liceu",
+      "wikidataId": "Q1130050",
+      "coordinates": {
+        "lat": 41.3801319,
+        "lng": 2.1734126
+      },
+      "importance_score": 40.0146625064904,
+      "fameScore": 20.014662506490403,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Museu Nacional d'Art de Catalunya",
+      "wikidataId": "Q861252",
+      "coordinates": {
+        "lat": 41.3683887,
+        "lng": 2.153478
+      },
+      "importance_score": 40,
+      "fameScore": 21,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Plaça de Catalunya",
+      "wikidataId": "Q822881",
+      "coordinates": {
+        "lat": 41.3868743,
+        "lng": 2.1699402
+      },
+      "importance_score": 39.993782540330756,
+      "fameScore": 21.993782540330756,
+      "landmarkTier": "flagship",
+      "category": "square_civic"
+    },
+    {
+      "name": "Font Màgica de Montjuïc",
+      "wikidataId": "Q1414600",
+      "coordinates": {
+        "lat": 41.3711573,
+        "lng": 2.151738
+      },
+      "importance_score": 39.68156856932417,
+      "fameScore": 19.681568569324174,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Monument a Colom",
+      "wikidataId": "Q2288815",
+      "coordinates": {
+        "lat": 41.3758015,
+        "lng": 2.1777736
+      },
+      "importance_score": 39.50488750216347,
+      "fameScore": 19.50488750216347,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "name": "Casa Milà",
+      "wikidataId": "Q207870",
+      "coordinates": {
+        "lat": 41.3953994,
+        "lng": 2.1618775
+      },
+      "importance_score": 39.4337613636896,
+      "fameScore": 21.433761363689598,
+      "landmarkTier": "flagship",
+      "category": "artwork"
+    },
+    {
+      "name": "Casa Batlló",
+      "wikidataId": "Q461371",
+      "coordinates": {
+        "lat": 41.3915411,
+        "lng": 2.1647614
+      },
+      "importance_score": 39.35131915442328,
+      "fameScore": 21.351319154423276,
+      "landmarkTier": "flagship",
+      "category": "artwork"
+    },
+    {
+      "name": "Castell de Montjuïc",
+      "wikidataId": "Q2500125",
+      "coordinates": {
+        "lat": 41.3627047,
+        "lng": 2.1647847
+      },
+      "importance_score": 39.25977500432694,
+      "fameScore": 19.259775004326936,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Palau de la Generalitat de Catalunya",
+      "wikidataId": "Q599118",
+      "coordinates": {
+        "lat": 41.3831095,
+        "lng": 2.1763183
+      },
+      "importance_score": 38.470671786825555,
+      "fameScore": 18.470671786825555,
+      "landmarkTier": "major",
+      "category": "palace_castle"
+    },
+    {
+      "name": "Museu d'Art Contemporani de Barcelona",
+      "wikidataId": "Q1067140",
+      "coordinates": {
+        "lat": 41.3830995,
+        "lng": 2.166748
+      },
+      "importance_score": 38.42206476617281,
+      "fameScore": 20.42206476617281,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Poble Espanyol",
+      "wikidataId": "Q1062480",
+      "coordinates": {
+        "lat": 41.3686484,
+        "lng": 2.1485021
+      },
+      "importance_score": 38.17695226833628,
+      "fameScore": 19.176952268336283,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Torre Bellesguard",
+      "wikidataId": "Q815935",
+      "coordinates": {
+        "lat": 41.409565,
+        "lng": 2.1268441
+      },
+      "importance_score": 36.25977500432694,
+      "fameScore": 18.259775004326936,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Torre de comunicacions de Montjuïc",
+      "wikidataId": "Q202530",
+      "coordinates": {
+        "lat": 41.3642794,
+        "lng": 2.1506071
+      },
+      "importance_score": 35.92695226833628,
+      "fameScore": 18.926952268336283,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Camp Nou Experience",
+      "wikidataId": "Q616238",
+      "coordinates": {
+        "lat": 41.38039,
+        "lng": 2.1206365
+      },
+      "importance_score": 35.5146625064904,
+      "fameScore": 19.514662506490403,
+      "landmarkTier": "flagship",
+      "category": "museum"
+    },
+    {
+      "name": "Plaça de Sant Jaume",
+      "wikidataId": "Q2082605",
+      "coordinates": {
+        "lat": 41.3826595,
+        "lng": 2.1770228
+      },
+      "importance_score": 35.25,
+      "fameScore": 18.25,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Parc del Laberint d'Horta",
+      "wikidataId": "Q1435468",
+      "coordinates": {
+        "lat": 41.4399784,
+        "lng": 2.1455932
+      },
+      "importance_score": 35.012388523751014,
+      "fameScore": 18.012388523751017,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Casa Museu Gaudí",
+      "wikidataId": "Q1968399",
+      "coordinates": {
+        "lat": 41.4144236,
+        "lng": 2.1535697
+      },
+      "importance_score": 35,
+      "fameScore": 18,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Castell dels Tres Dragons",
+      "wikidataId": "Q1048705",
+      "coordinates": {
+        "lat": 41.3880765,
+        "lng": 2.1833083
+      },
+      "importance_score": 34.512388523751014,
+      "fameScore": 17.512388523751017,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "name": "Plaça del Fossar de les Moreres",
+      "wikidataId": "Q2749521",
+      "coordinates": {
+        "lat": 41.3837017,
+        "lng": 2.1824267
+      },
+      "importance_score": 34.35131915442328,
+      "fameScore": 17.351319154423276,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Palau de la Virreina",
+      "wikidataId": "Q1798216",
+      "coordinates": {
+        "lat": 41.3823496,
+        "lng": 2.1715288
+      },
+      "importance_score": 34.10131915442328,
+      "fameScore": 17.101319154423276,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Museu Marítim",
+      "wikidataId": "Q1286354",
+      "coordinates": {
+        "lat": 41.3753128,
+        "lng": 2.1758566
+      },
+      "importance_score": 34,
+      "fameScore": 18,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Museu d'Història de la Ciutat",
+      "wikidataId": "Q3571337",
+      "coordinates": {
+        "lat": 41.383921,
+        "lng": 2.1776778
+      },
+      "importance_score": 33.42695226833628,
+      "fameScore": 18.426952268336283,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "CaixaForum Barcelona",
+      "wikidataId": "Q960115",
+      "coordinates": {
+        "lat": 41.3714827,
+        "lng": 2.1493553
+      },
+      "importance_score": 32.75488750216347,
+      "fameScore": 16.75488750216347,
+      "landmarkTier": "major",
+      "category": "museum"
+    },
+    {
+      "name": "Plaça de Sant Felip Neri",
+      "wikidataId": "Q9060949",
+      "coordinates": {
+        "lat": 41.3833836,
+        "lng": 2.1750774
+      },
+      "importance_score": 32.62829485591189,
+      "fameScore": 16.628294855911893,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Gran Via de les Corts Catalanes",
+      "wikidataId": "Q263293",
+      "coordinates": {
+        "lat": 41.411851,
+        "lng": 2.1971931
+      },
+      "importance_score": 31.759775004326936,
+      "fameScore": 17.259775004326936,
+      "landmarkTier": "major",
+      "category": "square_civic"
+    },
+    {
+      "name": "Museu de la Xocolata",
+      "wikidataId": "Q2890127",
+      "coordinates": {
+        "lat": 41.3871081,
+        "lng": 2.1817252
+      },
+      "importance_score": 31.509775004326936,
+      "fameScore": 18.509775004326936,
+      "landmarkTier": "major",
+      "category": "museum"
+    }
+  ]
+}

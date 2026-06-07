@@ -1,0 +1,1839 @@
+{
+  "city": "Toledo",
+  "theme": "history",
+  "capturedAt": "2026-05-30",
+  "geocode": {
+    "lat": 39.8558913,
+    "lng": -4.024265,
+    "boundingBox": {
+      "minLat": 39.8108202,
+      "maxLat": 39.9254339,
+      "minLng": -4.1800787,
+      "maxLng": -3.8147929
+    }
+  },
+  "rawPois": [
+    {
+      "lat": 39.858,
+      "lng": -4.0205118,
+      "name": "Alcázar de Toledo",
+      "tags": {
+        "name": "Alcázar de Toledo",
+        "height": "60",
+        "name:en": "Alcázar of Toledo",
+        "name:fr": "Alcázar de Tolède",
+        "name:it": "Alcázar di Toledo",
+        "tourism": "attraction",
+        "building": "civic",
+        "historic": "castle",
+        "wikidata": "Q1326589",
+        "wikipedia": "es:Alcázar de Toledo",
+        "castle_type": "defensive",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 83998985,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8604309,
+      "lng": -4.0155944,
+      "name": "Castillo de San Servando",
+      "tags": {
+        "name": "Castillo de San Servando",
+        "email": "alberguesclm@jccm.es",
+        "phone": "+34 925 224 554",
+        "source": "Bing",
+        "name:zh": "聖塞瓦多堡",
+        "tourism": "hostel",
+        "website": "https://reaj.com/albergues/juvenil-castillo-de-san-servando/",
+        "building": "yes",
+        "historic": "castle",
+        "operator": "Junta de Comunidades de Castilla-La Mancha",
+        "wikidata": "Q2993456",
+        "wikipedia": "es:Castillo de San Servando"
+      },
+      "osmId": 106051059,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8608589,
+      "lng": -4.0244138,
+      "name": "Puerta de Valmardón",
+      "tags": {
+        "name": "Puerta de Valmardón",
+        "source": "https://es.wikipedia.org/wiki/Puerta_de_Valmard%C3%B3n",
+        "barrier": "entrance",
+        "alt_name": "Puerta Cristo de la Luz;Puerta de Bāb al-Mardūm",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q7258527",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 150564178,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8610697,
+      "lng": -4.0231973,
+      "name": "Puerta de Alarcones",
+      "tags": {
+        "name": "Puerta de Alarcones",
+        "barrier": "entrance",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q29034131",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 150564181,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8610536,
+      "lng": -4.0239546,
+      "name": "Puerta del Sol",
+      "tags": {
+        "name": "Puerta del Sol",
+        "barrier": "sally_port",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q1112601",
+        "wikipedia": "es:Puerta del Sol (Toledo)",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 150564182,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8654392,
+      "lng": -4.0050733,
+      "name": "Palacio de Galiana",
+      "tags": {
+        "name": "Palacio de Galiana",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q2499221",
+        "castle_type": "palace"
+      },
+      "osmId": 190444273,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8571422,
+      "lng": -4.0335525,
+      "name": "Torre del Puente de San Martín",
+      "tags": {
+        "name": "Torre del Puente de San Martín",
+        "barrier": "city_wall",
+        "building": "yes",
+        "historic": "city_gate",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 257932774,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8580939,
+      "lng": -4.0346569,
+      "name": "Torreón del Baño de la Cava",
+      "tags": {
+        "name": "Torreón del Baño de la Cava",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikipedia": "es:Torreón del Baño de la Cava",
+        "roof:material": "roof_tiles",
+        "source:outline": "Catastro Spain"
+      },
+      "osmId": 302971829,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8387739,
+      "lng": -4.0124453,
+      "name": "Palacio de La Sisla",
+      "tags": {
+        "name": "Palacio de La Sisla",
+        "barrier": "wall",
+        "historic": "castle",
+        "castle_type": "palace"
+      },
+      "osmId": 677992875,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8573916,
+      "lng": -4.0237544,
+      "name": "Catedral de Santa María",
+      "tags": {
+        "name": "Catedral de Santa María",
+        "type": "multipolygon",
+        "height": "92",
+        "amenity": "place_of_worship",
+        "name:de": "Kathedrale von Toledo",
+        "name:en": "Toledo Cathedral",
+        "name:es": "Catedral de Santa María",
+        "name:fr": "Cathédrale de Tolède",
+        "name:it": "Cattedrale di Toledo",
+        "name:ko": "톨레도 대성당",
+        "name:ru": "Собор Толедо",
+        "building": "cathedral",
+        "religion": "christian",
+        "wikidata": "Q1123180",
+        "wikipedia": "es:Catedral de Toledo",
+        "alt_name:en": "Primate Cathedral of Saint Mary of Toledo",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 1605452,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8571944,
+      "lng": -4.0248947,
+      "name": "Palacio Arzobispal de Toledo",
+      "tags": {
+        "name": "Palacio Arzobispal de Toledo",
+        "type": "multipolygon",
+        "name:de": "Erzbischöflicher Palast von Toledo",
+        "name:es": "Palacio Arzobispal de Toledo",
+        "name:fr": "Palais archiépiscopal de Tolède",
+        "name:it": "Palazzo arcivescovile di Toledo",
+        "name:ko": "대주교의 톨레도 궁전",
+        "name:pt": "Palácio Arquiepiscopal de Toledo",
+        "name:ru": "Архиепископский дворец Толедо",
+        "building": "civic",
+        "historic": "castle",
+        "wikidata": "Q9290171",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Palacio arzobispal de Toledo",
+        "addr:street": "Plaza del Ayuntamiento",
+        "addr:postcode": "45002",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 3475929,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.86246,
+      "lng": -4.0251666,
+      "name": "Puerta de Bisagra",
+      "tags": {
+        "name": "Puerta de Bisagra",
+        "type": "multipolygon",
+        "tourism": "attraction",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q1112621",
+        "wikipedia": "es:Puerta Nueva de Bisagra",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 4028505,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8592845,
+      "lng": -4.0322718,
+      "name": "Puerta del Cambrón",
+      "tags": {
+        "name": "Puerta del Cambrón",
+        "type": "multipolygon",
+        "barrier": "sally_port",
+        "building": "yes",
+        "historic": "city_gate",
+        "wikidata": "Q9064518",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 4031844,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8539148,
+      "lng": -4.0286439,
+      "name": "Convento de San Gil",
+      "tags": {
+        "name": "Convento de San Gil",
+        "type": "multipolygon",
+        "ref:bic": "RI-51-0009356",
+        "building": "religious",
+        "heritage": "2",
+        "historic": "monastery",
+        "wikidata": "Q5785755",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Convento de San Gil (Toledo)",
+        "addr:street": "Calle Calvario",
+        "addr:postcode": "45002",
+        "nohousenumber": "yes",
+        "roof:material": "roof_tiles",
+        "protection_title": "Bien de Interés Cultural",
+        "heritage:operator": "ipce",
+        "bic:inscription_date": "1998-02-05",
+        "protection_title:category": "Monumento"
+      },
+      "osmId": 14043949,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.9096806,
+      "lng": -3.9334893,
+      "name": "Castillo de Higares",
+      "tags": {
+        "name": "Castillo de Higares",
+        "type": "multipolygon",
+        "access": "private",
+        "building": "yes",
+        "historic": "castle",
+        "wikidata": "Q138375119",
+        "castle_type": "defensive",
+        "historic:civilization": "middle-ages"
+      },
+      "osmId": 20245697,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8562741,
+      "lng": -4.0346098,
+      "name": "Torre del Puente de San Martín",
+      "tags": {
+        "name": "Torre del Puente de San Martín",
+        "historic": "city_gate"
+      },
+      "osmId": 6184709739,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8603242,
+      "lng": -4.0183328,
+      "name": "Puerta de Alcántara",
+      "tags": {
+        "name": "Puerta de Alcántara",
+        "name:fr": "Porte d'Alcántara",
+        "tourism": "attraction",
+        "historic": "city_gate"
+      },
+      "osmId": 6791427364,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8583783,
+      "lng": -4.027105,
+      "name": "Iglesia de San Román",
+      "tags": {
+        "fee": "no",
+        "name": "Iglesia de San Román",
+        "amenity": "place_of_worship",
+        "tourism": "museum",
+        "website": "https://cultura.castillalamancha.es/museos/nuestros-museos/museo-de-los-concilios",
+        "alt_name": "Museo de los Concilios y de la Cultura Visigótica",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q1107398",
+        "wikipedia": "es:Iglesia de San Román (Toledo)",
+        "denomination": "catholic",
+        "opening_hours": "Tu-Sa 10:00-14:00,16:00-18:00; Su 09:00-15:00",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114237902,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8564061,
+      "lng": -4.0274075,
+      "name": "Museo Taller del Moro",
+      "tags": {
+        "name": "Museo Taller del Moro",
+        "ref:bic": "RI-51-0000949",
+        "tourism": "museum",
+        "website": "https://cultura.castillalamancha.es/museos/nuestros-museos/museo-taller-del-moro",
+        "building": "civic",
+        "wikidata": "Q43089008",
+        "wikipedia": "es:Taller del Moro",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114237905,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8558546,
+      "lng": -4.0290329,
+      "name": "Museo del Greco",
+      "tags": {
+        "fee": "yes",
+        "name": "Museo del Greco",
+        "name:en": "El Greco Museum",
+        "name:es": "Museo del Greco",
+        "name:ko": "엘 그레코 박물관",
+        "name:ru": "музей эль греко. 3е, суббота с 14 б/п",
+        "tourism": "museum",
+        "building": "civic",
+        "old_name": "Casa Museo de \"El Greco\"",
+        "wikidata": "Q3848124",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Museo del Greco",
+        "addr:street": "Paseo del Tránsito",
+        "addr:postcode": "45002",
+        "nohousenumber": "yes",
+        "opening_hours": "Tu-Sa 09:30-18:30; Su 10:00-15:00",
+        "roof:material": "roof_tiles",
+        "contact:twitter": "https://twitter.com/museodelgreco"
+      },
+      "osmId": 114467178,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8605972,
+      "lng": -4.0241698,
+      "name": "Mezquita del Cristo de la Luz",
+      "tags": {
+        "name": "Mezquita del Cristo de la Luz",
+        "name:zh": "光輝基督清真寺",
+        "tourism": "attraction",
+        "building": "church",
+        "historic": "monument",
+        "wikidata": "Q1324080",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Cristo de la Luz",
+        "addr:street": "Calle Cristo de la Luz",
+        "description": "antigua mezquita",
+        "addr:postcode": "45002",
+        "nohousenumber": "yes",
+        "opening_hours": "Oct 16-Feb 28: Mo-Fr 10:00-14:00,15:30-17:45; Sa-Su 10:00-17:45; Mar 01-Oct 15: Mo-Fr 10:00-14:00,15:30-18:45; Sa-Su 10:00-18:45",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114522030,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8586119,
+      "lng": -4.0203663,
+      "name": "Museo del Ejército",
+      "tags": {
+        "fee": "yes",
+        "name": "Museo del Ejército",
+        "phone": "+34 925 23 88 00",
+        "name:en": "Army Museum",
+        "name:it": "Museo del Esercito",
+        "tourism": "museum",
+        "website": "http://www.museo.ejercito.es",
+        "building": "civic",
+        "wikidata": "Q6034428",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Museo del Ejército (España)",
+        "addr:street": "Calle Unión",
+        "addr:postcode": "45001",
+        "nohousenumber": "yes",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 257842084,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8569555,
+      "lng": -4.0288927,
+      "name": "Convento de San Antonio de Padua",
+      "tags": {
+        "name": "Convento de San Antonio de Padua",
+        "ref:bic": "RI-51-0009348",
+        "tourism": "attraction",
+        "building": "church",
+        "historic": "monument",
+        "wikidata": "Q5785692",
+        "wikipedia": "es:Convento de San Antonio de Padua (Toledo)",
+        "start_date": "C16",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 620708116,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8656673,
+      "lng": -4.0242207,
+      "name": "Antiguo Hospital Tavera",
+      "tags": {
+        "name": "Antiguo Hospital Tavera",
+        "type": "multipolygon",
+        "tourism": "attraction",
+        "building": "civic",
+        "historic": "monument",
+        "wikidata": "Q2037255",
+        "wikipedia": "es:Hospital de Tavera",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 1466271,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.860252,
+      "lng": -4.0203853,
+      "name": "Museo de Santa Cruz",
+      "tags": {
+        "name": "Museo de Santa Cruz",
+        "type": "multipolygon",
+        "image": "https://commons.wikimedia.org/wiki/File:Museo_de_Santa_Cruz._Toledo._31.jpg",
+        "name:ko": "산타크루스 미술관",
+        "name:zh": "聖十字博物館",
+        "tourism": "museum",
+        "building": "civic",
+        "historic": "monument",
+        "wikidata": "Q52162671",
+        "wikipedia": "es:Museo de Santa Cruz",
+        "roof:material": "roof_tiles",
+        "wikimedia_commons": "File:Museo_de_Santa_Cruz._Toledo._31.jpg"
+      },
+      "osmId": 7569571,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8603742,
+      "lng": -4.0174391,
+      "name": "Puente de Alcántara",
+      "tags": {
+        "name": "Puente de Alcántara",
+        "type": "multipolygon",
+        "tourism": "attraction",
+        "historic": "building",
+        "wikidata": "Q581532",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Puente de Alcántara (Toledo)",
+        "wikimedia_commons": "Category:Puente de Alcántara, Toledo"
+      },
+      "osmId": 10032868,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8577921,
+      "lng": -4.0286629,
+      "name": "Museo de Arte Contemporáneo de Toledo",
+      "tags": {
+        "name": "Museo de Arte Contemporáneo de Toledo",
+        "tourism": "museum",
+        "wikidata": "Q9046973"
+      },
+      "osmId": 1296667840,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8558395,
+      "lng": -4.0294527,
+      "name": "Museo sefardi",
+      "tags": {
+        "name": "Museo sefardi",
+        "phone": "+34 925 22 36 65",
+        "name:en": "The Sephardic Museum",
+        "name:es": "Museo sefardi",
+        "tourism": "museum",
+        "website": "https://www.culturaydeporte.gob.es/msefardi/home.html",
+        "wikidata": "Q6033742",
+        "wikipedia": "es:Museo Sefardí",
+        "start_date": "1964"
+      },
+      "osmId": 4650862289,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8563587,
+      "lng": -4.0296563,
+      "name": "Casa del Judío",
+      "tags": {
+        "name": "Casa del Judío",
+        "phone": "+34 925 25 30 80",
+        "tourism": "attraction",
+        "website": "https://consorciotoledo.org/patrimonio/casa-del-judio/",
+        "historic": "monument",
+        "wikidata": "Q30593171"
+      },
+      "osmId": 5864391672,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8598274,
+      "lng": -4.0232356,
+      "name": "Virgen de los Alfileritos",
+      "tags": {
+        "name": "Virgen de los Alfileritos",
+        "tourism": "attraction",
+        "historic": "wayside_shrine",
+        "religion": "christian",
+        "denomination": "catholic"
+      },
+      "osmId": 10131533816,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8607285,
+      "lng": -4.0217875,
+      "name": "Palacio de Benacazón",
+      "tags": {
+        "name": "Palacio de Benacazón",
+        "tourism": "attraction",
+        "historic": "yes",
+        "wikidata": "Q30594155",
+        "wikipedia": "en:Palacio de Benacazón",
+        "addr:street": "Calle de Recoletos",
+        "addr:housenumber": "1"
+      },
+      "osmId": 12626426480,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.857465,
+      "lng": -4.0225386,
+      "name": "Mercado de Abastos",
+      "tags": {
+        "name": "Mercado de Abastos",
+        "amenity": "marketplace",
+        "building": "commercial",
+        "historic": "building",
+        "wikidata": "Q6010512",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 115089046,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8563497,
+      "lng": -4.0217599,
+      "name": "Plaza de San Justo",
+      "tags": {
+        "name": "Plaza de San Justo",
+        "place": "square",
+        "wikidata": "Q30594203",
+        "wikipedia": "en:Plaza de San Justo, Toledo"
+      },
+      "osmId": 115604024,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8568478,
+      "lng": -4.0247278,
+      "name": "Plaza del Ayuntamiento",
+      "tags": {
+        "lit": "yes",
+        "name": "Plaza del Ayuntamiento",
+        "type": "multipolygon",
+        "place": "square",
+        "highway": "pedestrian",
+        "surface": "paving_stones",
+        "wikidata": "Q43045269"
+      },
+      "osmId": 7846861,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8594989,
+      "lng": -4.0214538,
+      "name": "Plaza de Zocodover",
+      "tags": {
+        "area": "yes",
+        "name": "Plaza de Zocodover",
+        "type": "multipolygon",
+        "place": "square",
+        "highway": "pedestrian",
+        "wikidata": "Q2884002"
+      },
+      "osmId": 19752600,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.867284,
+      "lng": -4.0233058,
+      "name": "Plaza de Toros de Toledo",
+      "tags": {
+        "name": "Plaza de Toros de Toledo",
+        "sport": "bullfighting",
+        "leisure": "stadium",
+        "tourism": "attraction",
+        "wikidata": "Q6080359",
+        "wikipedia": "es:Plaza de toros de Toledo",
+        "check_date": "2025-01-21"
+      },
+      "osmId": 103177212,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8565724,
+      "lng": -4.0266808,
+      "name": "Mezquita-Iglesia de El Salvador",
+      "tags": {
+        "name": "Mezquita-Iglesia de El Salvador",
+        "image": "https://commons.wikimedia.org/wiki/File:Iglesia_del_Salvador_-_Toledo.JPG",
+        "amenity": "place_of_worship",
+        "ref:bic": "RI-51-0000946-00000",
+        "tourism": "attraction",
+        "building": "mosque",
+        "religion": "christian",
+        "wikidata": "Q5116861",
+        "wikipedia": "es:Iglesia de El Salvador (Toledo)",
+        "addr:street": "Calle Santa Úrsula",
+        "denomination": "catholic",
+        "opening_hours": "Oct 16-Feb 28 10:00-17:45; Mar 01-Oct 15 10:00-18:45",
+        "roof:material": "roof_tiles",
+        "wikimedia_commons": "File:Iglesia_del_Salvador_-_Toledo.JPG"
+      },
+      "osmId": 113958010,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8567528,
+      "lng": -4.0281586,
+      "name": "Iglesia de Santo Tomé",
+      "tags": {
+        "name": "Iglesia de Santo Tomé",
+        "phone": "+34 925 256 098",
+        "charge": "Mo-Tu, Th-Su 3 EUR",
+        "amenity": "place_of_worship",
+        "name:en": "Church of Santo Tomé",
+        "name:ru": "Церковь Сан Томе",
+        "name:zh": "聖多美教堂",
+        "tourism": "attraction",
+        "website": "https://santotome.org/",
+        "building": "religious",
+        "religion": "christian",
+        "wikidata": "Q3139146",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Iglesia de Santo Tomé (Toledo)",
+        "addr:street": "Plaza del Conde",
+        "denomination": "catholic",
+        "addr:postcode": "45002",
+        "opening_hours": "Oct 16-Feb 28 10:00-17:45; Mar 01-Oct 15 10:00-18:45",
+        "roof:material": "roof_tiles",
+        "addr:housenumber": "4"
+      },
+      "osmId": 113973874,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8563415,
+      "lng": -4.0262223,
+      "name": "Convento de Santa Úrsula",
+      "tags": {
+        "name": "Convento de Santa Úrsula",
+        "ref:bic": "RI-51-0009539-00000",
+        "tourism": "attraction",
+        "building": "monastery",
+        "wikidata": "Q5785892",
+        "wikipedia": "es:Convento de Santa Úrsula (Toledo)",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114679227,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8607928,
+      "lng": -4.025669,
+      "name": "Convento de las Comendadoras de Santiago",
+      "tags": {
+        "name": "Convento de las Comendadoras de Santiago",
+        "tourism": "attraction",
+        "building": "monastery",
+        "wikidata": "Q5786029",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 150277696,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.857488,
+      "lng": -4.0308809,
+      "name": "Plaza del Soler",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaza del Soler",
+        "highway": "pedestrian",
+        "surface": "wood",
+        "wikidata": "Q62699049",
+        "wikipedia": "es:Sinagoga del Sofer"
+      },
+      "osmId": 150415799,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8569307,
+      "lng": -4.0304198,
+      "name": "Antigua Sinagoga Mayor Santa María la Blanca",
+      "tags": {
+        "area": "yes",
+        "name": "Antigua Sinagoga Mayor Santa María la Blanca",
+        "name:en": "Old Synagogue Santa Maria la Blanca",
+        "name:es": "Antigua Sinagoga Mayor Santa María la Blanca",
+        "name:ja": "サンフアンデロスレイエス教会",
+        "name:ko": "산타 마리아 라 블랑카 시너고그",
+        "name:zh": "白色的聖母瑪麗亞教堂",
+        "tourism": "attraction",
+        "wikidata": "Q1568115",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Santa María la Blanca (Toledo)",
+        "addr:street": "Calle Reyes Católicos",
+        "addr:postcode": "45002",
+        "opening_hours": "Oct 16-Feb 28 10:00-17:45; Mar 01-Oct 15 10:00-18:45",
+        "addr:housenumber": "4"
+      },
+      "osmId": 150415800,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8582643,
+      "lng": -4.0234594,
+      "name": "Plaza de las Cuatro Calles",
+      "tags": {
+        "lit": "yes",
+        "area": "yes",
+        "name": "Plaza de las Cuatro Calles",
+        "highway": "pedestrian",
+        "surface": "sett",
+        "wikidata": "Q30594205",
+        "wikipedia": "es:Plaza de las Cuatro Calles (Toledo)"
+      },
+      "osmId": 266944504,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8577745,
+      "lng": -4.0317075,
+      "name": "Monasterio de San Juan de los Reyes",
+      "tags": {
+        "name": "Monasterio de San Juan de los Reyes",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "name:es": "Monasterio de San Juan de los Reyes",
+        "name:ja": "サント・トメ教会",
+        "name:ko": "산 후안 데 로스 레예스 수도원",
+        "name:zh": "圣胡安皇家修道院",
+        "tourism": "attraction",
+        "religion": "christian",
+        "wikidata": "Q1289106",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Monasterio de San Juan de los Reyes",
+        "addr:street": "Calle Reyes Católicos",
+        "denomination": "roman_catholic",
+        "addr:postcode": "45002",
+        "opening_hours": "24/7",
+        "addr:housenumber": "17"
+      },
+      "osmId": 1623723,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8578907,
+      "lng": -4.023886,
+      "name": "Capilla de San Blas",
+      "tags": {
+        "name": "Capilla de San Blas",
+        "tourism": "attraction",
+        "wikidata": "Q2881461",
+        "wikipedia": "es:Capilla de San Blas (Catedral de Toledo)"
+      },
+      "osmId": 2590897948,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8573382,
+      "lng": -4.0231084,
+      "name": "Capilla de los Reyes Nuevos",
+      "tags": {
+        "name": "Capilla de los Reyes Nuevos",
+        "tourism": "attraction",
+        "wikidata": "Q8262617",
+        "wikipedia": "es:Capilla de los Reyes Nuevos (Catedral de Toledo)"
+      },
+      "osmId": 2590897953,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8567013,
+      "lng": -4.0279222,
+      "name": "Palacio de fuensalida",
+      "tags": {
+        "name": "Palacio de fuensalida",
+        "name:es": "Palacio de fuensalida",
+        "ref:bic": "RI-51-0001430-00000",
+        "tourism": "attraction",
+        "wikidata": "Q6058006",
+        "wikipedia": "es:Palacio de Fuensalida",
+        "wikimedia_commons": "File:Toledo_Capital_-_144_(38217448872).jpg"
+      },
+      "osmId": 4650862389,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8642976,
+      "lng": -4.0295686,
+      "name": "Circo romano de Toledo",
+      "tags": {
+        "name": "Circo romano de Toledo",
+        "source": "Bing",
+        "website": "https://cultura.castillalamancha.es/patrimonio/catalogo-patrimonio-cultural/circo-romano-de-toledo",
+        "historic": "archaeological_site",
+        "wikidata": "Q1985588",
+        "wikipedia": "es:Circo romano de Toledo",
+        "archaeological_site": "roman_circus",
+        "historic:civilization": "ancient_roman"
+      },
+      "osmId": 102597821,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.859026,
+      "lng": -4.0296593,
+      "name": "Real Colegio de Doncellas Nobles",
+      "tags": {
+        "name": "Real Colegio de Doncellas Nobles",
+        "building": "church",
+        "wikidata": "Q5142930",
+        "addr:city": "Toledo",
+        "addr:street": "Plaza del Cardenal Silíceo",
+        "addr:postcode": "45002",
+        "roof:material": "roof_tiles",
+        "addr:housenumber": "1"
+      },
+      "osmId": 104424848,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8566686,
+      "lng": -4.0200569,
+      "name": "Iglesia de San Miguel",
+      "tags": {
+        "name": "Iglesia de San Miguel",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q6446846",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 113879750,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8596312,
+      "lng": -4.0285406,
+      "name": "Iglesia de Santa Leocadia",
+      "tags": {
+        "name": "Iglesia de Santa Leocadia",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q1100859",
+        "wikipedia": "es:Iglesia de Santa Leocadia (Toledo)",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114022111,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8586907,
+      "lng": -4.0314129,
+      "name": "Palacio de La Cava",
+      "tags": {
+        "name": "Palacio de La Cava",
+        "building": "yes",
+        "historic": "yes",
+        "wikidata": "Q30594018",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114022121,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8589231,
+      "lng": -4.0232158,
+      "name": "Iglesia de Santa Justa y Rufina",
+      "tags": {
+        "name": "Iglesia de Santa Justa y Rufina",
+        "amenity": "place_of_worship",
+        "ref:bic": "RI-51-0009552-00000",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q6447254",
+        "wikipedia": "es:Iglesia de las Santas Justa y Rufina (Toledo)",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114290359,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8560551,
+      "lng": -4.0214481,
+      "name": "Iglesia de los Santos Justo y Pastor",
+      "tags": {
+        "name": "Iglesia de los Santos Justo y Pastor",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q5912675",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114290360,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8595457,
+      "lng": -4.0251725,
+      "name": "Iglesia de San Vicente",
+      "tags": {
+        "name": "Iglesia de San Vicente",
+        "note": "Iglesia desacralizada, no es un place_of_worship",
+        "ref:bic": "RI-51-0009573",
+        "building": "church",
+        "wikidata": "Q5911392",
+        "wikipedia": "es:Iglesia de San Vicente (Toledo)",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 114688400,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8584405,
+      "lng": -4.0218531,
+      "name": "Iglesia de La Magdalena",
+      "tags": {
+        "name": "Iglesia de La Magdalena",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q30593484",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 115021976,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8585278,
+      "lng": -4.0227835,
+      "name": "Mezquita de las Tornerías",
+      "tags": {
+        "name": "Mezquita de las Tornerías",
+        "building": "church",
+        "historic": "monument",
+        "wikidata": "Q4119622",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 115553136,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8583379,
+      "lng": -4.0262695,
+      "name": "Iglesia de San Ildefonso",
+      "tags": {
+        "name": "Iglesia de San Ildefonso",
+        "amenity": "place_of_worship",
+        "name:ko": "산 일데폰소 성당",
+        "alt_name": "Iglesia de los Jesuitas",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q19360888",
+        "addr:city": "Toledo",
+        "wikipedia": "es:Iglesia de San Ildefonso (Toledo)",
+        "wheelchair": "no",
+        "addr:street": "Plaza Juan de Mariana",
+        "denomination": "catholic",
+        "addr:postcode": "45002",
+        "opening_hours": "Oct 16-Feb 28 10:00-17:45; Mar 01-Oct 15 10:00-18:45",
+        "roof:material": "roof_tiles",
+        "addr:housenumber": "1"
+      },
+      "osmId": 115677185,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8589417,
+      "lng": -4.0286728,
+      "name": "Iglesia de Santa Eulalia",
+      "tags": {
+        "name": "Iglesia de Santa Eulalia",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q43088954",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 116038981,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8619767,
+      "lng": -4.0255045,
+      "name": "Parroquia de Santiago del Arrabal",
+      "tags": {
+        "name": "Parroquia de Santiago del Arrabal",
+        "amenity": "place_of_worship",
+        "name:ko": "산티아고 델 아라발 성당",
+        "building": "church",
+        "historic": "monument",
+        "religion": "christian",
+        "wikidata": "Q2389665",
+        "wikipedia": "es:Iglesia de Santiago del Arrabal (Toledo)",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 116412584,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8549589,
+      "lng": -4.0220478,
+      "name": "Iglesia de San Lorenzo",
+      "tags": {
+        "name": "Iglesia de San Lorenzo",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q11682850",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 117367480,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8536906,
+      "lng": -4.0274427,
+      "name": "Iglesia de San Cipriano",
+      "tags": {
+        "name": "Iglesia de San Cipriano",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q5910031",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 117367481,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8534865,
+      "lng": -4.0255009,
+      "name": "Iglesia de San Sebastián",
+      "tags": {
+        "name": "Iglesia de San Sebastián",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q7415304",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 117367483,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8555281,
+      "lng": -4.027343,
+      "name": "Torre de San Cristóbal",
+      "tags": {
+        "name": "Torre de San Cristóbal",
+        "historic": "monument",
+        "man_made": "tower",
+        "wikidata": "Q6150463"
+      },
+      "osmId": 117578637,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8652991,
+      "lng": -4.0381187,
+      "name": "Yacimiento Arqueológico de la Vega Baja",
+      "tags": {
+        "name": "Yacimiento Arqueológico de la Vega Baja",
+        "historic": "archaeological_site",
+        "wikidata": "Q5553707",
+        "wikipedia": "es:Yacimiento arqueológico de la Vega Baja de Toledo"
+      },
+      "osmId": 257126174,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8586612,
+      "lng": -4.0243592,
+      "name": "Cuevas de Hércules",
+      "tags": {
+        "name": "Cuevas de Hércules",
+        "name:cs": "Herkulova jeskyně",
+        "name:en": "Hercules cave",
+        "name:es": "Cuevas de Hércules",
+        "building": "civic",
+        "historic": "archaeological_site",
+        "wikidata": "Q5794148",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 266944503,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8527281,
+      "lng": -4.0188416,
+      "name": "Yacimiento Arqueológico Cerro del Bú",
+      "tags": {
+        "name": "Yacimiento Arqueológico Cerro del Bú",
+        "historic": "archaeological_site",
+        "wikidata": "Q43177045",
+        "wikipedia": "es:Cerro del Bu",
+        "historic_1": "fort",
+        "historic:period": "bronze_age",
+        "historic:period_1": "medieval"
+      },
+      "osmId": 393277682,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8151575,
+      "lng": -4.1187841,
+      "name": "Guarrazar",
+      "tags": {
+        "name": "Guarrazar",
+        "historic": "archaeological_site",
+        "wikidata": "Q1552900"
+      },
+      "osmId": 456094560,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8532401,
+      "lng": -4.0319945,
+      "name": "Ermita de Nuestra Señora de la Cabeza",
+      "tags": {
+        "name": "Ermita de Nuestra Señora de la Cabeza",
+        "building": "church",
+        "wikidata": "Q61946888",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 461358172,
+      "osmType": "way"
+    },
+    {
+      "lat": 39.8607181,
+      "lng": -4.0268196,
+      "name": "Monasterio de Santo Domingo El Real",
+      "tags": {
+        "name": "Monasterio de Santo Domingo El Real",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q14475457",
+        "wikipedia": "es:Monasterio de Santo Domingo el Real (Toledo)",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 3491586,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8557287,
+      "lng": -4.0226704,
+      "name": "Colegio de Infantes",
+      "tags": {
+        "name": "Colegio de Infantes",
+        "type": "multipolygon",
+        "building": "civic",
+        "historic": "building",
+        "wikidata": "Q5776922",
+        "wikipedia": "es:Colegio de Nuestra Señora de los Infantes (Toledo)",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 5596151,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8579518,
+      "lng": -4.0317831,
+      "name": "San Juan de los Reyes",
+      "tags": {
+        "name": "San Juan de los Reyes",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q111389816",
+        "roof:material": "roof_tiles",
+        "source:outline": "Catastro Spain"
+      },
+      "osmId": 10036612,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8544349,
+      "lng": -4.0239949,
+      "name": "Iglesia de San Andrés",
+      "tags": {
+        "name": "Iglesia de San Andrés",
+        "type": "multipolygon",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikidata": "Q5909874",
+        "denomination": "catholic",
+        "roof:material": "roof_tiles"
+      },
+      "osmId": 15874025,
+      "osmType": "relation"
+    },
+    {
+      "lat": 39.8696794,
+      "lng": -4.0209014,
+      "name": "Estatua ecuestre de Alfonso VI",
+      "tags": {
+        "name": "Estatua ecuestre de Alfonso VI",
+        "historic": "monument",
+        "wikidata": "Q52555747"
+      },
+      "osmId": 2611444743,
+      "osmType": "node"
+    },
+    {
+      "lat": 39.8576892,
+      "lng": -4.019505,
+      "name": "Monumento a la gesta del Alcázar",
+      "tags": {
+        "name": "Monumento a la gesta del Alcázar",
+        "historic": "memorial",
+        "memorial": "statue",
+        "wikidata": "Q56672801"
+      },
+      "osmId": 5864391675,
+      "osmType": "node"
+    }
+  ],
+  "sitelinks": {
+    "Q1326589": 29,
+    "Q2993456": 15,
+    "Q7258527": 10,
+    "Q29034131": 5,
+    "Q1112601": 11,
+    "Q2499221": 11,
+    "Q1123180": 44,
+    "Q9290171": 6,
+    "Q1112621": 9,
+    "Q9064518": 7,
+    "Q5785755": 4,
+    "Q138375119": 0,
+    "Q1107398": 10,
+    "Q43089008": 2,
+    "Q3848124": 14,
+    "Q1324080": 17,
+    "Q6034428": 9,
+    "Q5785692": 3,
+    "Q2037255": 10,
+    "Q52162671": 2,
+    "Q581532": 14,
+    "Q9046973": 1,
+    "Q6033742": 7,
+    "Q30593171": 1,
+    "Q30594155": 3,
+    "Q6010512": 2,
+    "Q30594203": 3,
+    "Q43045269": 1,
+    "Q2884002": 9,
+    "Q6080359": 5,
+    "Q5116861": 6,
+    "Q3139146": 10,
+    "Q5785892": 3,
+    "Q5786029": 2,
+    "Q62699049": 2,
+    "Q1568115": 18,
+    "Q30594205": 5,
+    "Q1289106": 12,
+    "Q2881461": 3,
+    "Q8262617": 3,
+    "Q6058006": 4,
+    "Q1985588": 6,
+    "Q5142930": 4,
+    "Q6446846": 4,
+    "Q1100859": 7,
+    "Q30594018": 4,
+    "Q6447254": 4,
+    "Q5912675": 6,
+    "Q5911392": 4,
+    "Q30593484": 3,
+    "Q4119622": 9,
+    "Q19360888": 6,
+    "Q43088954": 0,
+    "Q2389665": 10,
+    "Q11682850": 5,
+    "Q5910031": 3,
+    "Q7415304": 8,
+    "Q6150463": 3,
+    "Q5553707": 2,
+    "Q5794148": 4,
+    "Q43177045": 3,
+    "Q1552900": 17,
+    "Q61946888": 1,
+    "Q14475457": 5,
+    "Q5776922": 3,
+    "Q111389816": 0,
+    "Q5909874": 4,
+    "Q52555747": 1,
+    "Q56672801": 1
+  },
+  "wikidataMetadata": {
+    "Q1326589": {
+      "sitelinks": 29,
+      "instanceOfLabels": [
+        "library",
+        "museum building"
+      ]
+    },
+    "Q2993456": {
+      "sitelinks": 15,
+      "instanceOfLabels": [
+        "castle"
+      ]
+    },
+    "Q7258527": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "city gate",
+        "monument"
+      ]
+    },
+    "Q29034131": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "city gate",
+        "monument"
+      ]
+    },
+    "Q1112601": {
+      "sitelinks": 11,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q2499221": {
+      "sitelinks": 11,
+      "instanceOfLabels": [
+        "palace",
+        "monument"
+      ]
+    },
+    "Q1123180": {
+      "sitelinks": 44,
+      "instanceOfLabels": [
+        "Catholic cathedral"
+      ]
+    },
+    "Q9290171": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "archbishop's palace"
+      ]
+    },
+    "Q1112621": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q9064518": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q5785755": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "parliament building",
+        "convent"
+      ]
+    },
+    "Q138375119": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "castle",
+        "watchtower",
+        "tower"
+      ]
+    },
+    "Q1107398": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q43089008": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "monument",
+        "building"
+      ]
+    },
+    "Q3848124": {
+      "sitelinks": 14,
+      "instanceOfLabels": [
+        "historic house museum",
+        "biographical museum",
+        "museum"
+      ]
+    },
+    "Q1324080": {
+      "sitelinks": 17,
+      "instanceOfLabels": [
+        "secularized mosque",
+        "hermitage church",
+        "former mosque"
+      ]
+    },
+    "Q6034428": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "military museum",
+        "national museum",
+        "museum",
+        "collection"
+      ]
+    },
+    "Q5785692": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "convent",
+        "monument",
+        "farm"
+      ]
+    },
+    "Q2037255": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "former hospital",
+        "museum building",
+        "hospital"
+      ]
+    },
+    "Q52162671": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "hospital",
+        "monument",
+        "former hospital",
+        "hospital"
+      ]
+    },
+    "Q581532": {
+      "sitelinks": 14,
+      "instanceOfLabels": [
+        "deck arch bridge",
+        "Roman bridge",
+        "gothic bridge"
+      ]
+    },
+    "Q9046973": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "art museum"
+      ]
+    },
+    "Q6033742": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "museum"
+      ]
+    },
+    "Q30593171": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q30594155": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q6010512": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "commercial building",
+        "market"
+      ]
+    },
+    "Q30594203": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q43045269": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q2884002": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q6080359": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "bullring",
+        "second-class bullring"
+      ]
+    },
+    "Q5116861": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q3139146": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q5785892": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "convent"
+      ]
+    },
+    "Q5786029": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "building",
+        "monument"
+      ]
+    },
+    "Q62699049": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "demolished synagogue"
+      ]
+    },
+    "Q1568115": {
+      "sitelinks": 18,
+      "instanceOfLabels": [
+        "secularized church",
+        "desecrated synagogue",
+        "museum building"
+      ]
+    },
+    "Q30594205": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q1289106": {
+      "sitelinks": 12,
+      "instanceOfLabels": [
+        "monastery"
+      ]
+    },
+    "Q2881461": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q8262617": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "chapel"
+      ]
+    },
+    "Q6058006": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "mansion"
+      ]
+    },
+    "Q1985588": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "archaeological site",
+        "circus",
+        "monument",
+        "roman ruins"
+      ]
+    },
+    "Q5142930": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "school building",
+        "monument"
+      ]
+    },
+    "Q6446846": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q1100859": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q30594018": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q6447254": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "Catholic church building"
+      ]
+    },
+    "Q5912675": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q5911392": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q30593484": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q4119622": {
+      "sitelinks": 9,
+      "instanceOfLabels": [
+        "secularized mosque",
+        "monument"
+      ]
+    },
+    "Q19360888": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "Catholic church building",
+        "Jesuit church"
+      ]
+    },
+    "Q43088954": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q2389665": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q11682850": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q5910031": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q7415304": {
+      "sitelinks": 8,
+      "instanceOfLabels": [
+        "secularized church",
+        "Monument (Spain)",
+        "secularized mosque"
+      ]
+    },
+    "Q6150463": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "tower",
+        "religious building"
+      ]
+    },
+    "Q5553707": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "archaeological site"
+      ]
+    },
+    "Q5794148": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "subterranea",
+        "architectural structure"
+      ]
+    },
+    "Q43177045": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "archaeological site"
+      ]
+    },
+    "Q1552900": {
+      "sitelinks": 17,
+      "instanceOfLabels": [
+        "archaeological find"
+      ]
+    },
+    "Q61946888": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "hermitage church"
+      ]
+    },
+    "Q14475457": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "monastery in Spain",
+        "building",
+        "monument"
+      ]
+    },
+    "Q5776922": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "school building",
+        "textile museum"
+      ]
+    },
+    "Q111389816": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "hotel"
+      ]
+    },
+    "Q5909874": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "Catholic church building",
+        "parish church"
+      ]
+    },
+    "Q52555747": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "sculpture"
+      ]
+    },
+    "Q56672801": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "statue"
+      ]
+    }
+  }
+}
