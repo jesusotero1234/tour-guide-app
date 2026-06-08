@@ -6,7 +6,7 @@ import { dedupeByWikidata } from '../../domain/poi/dedupePois';
 
 const USER_AGENT = 'tour-guide-app/1.0 (contact: jesusoteo1234@gmail.com)';
 const OVERPASS_BASE = 'https://overpass-api.de/api/interpreter';
-const MIN_INTERVAL_MS = 1000;
+const MIN_INTERVAL_MS = 3000;
 // Overpass emits elements in type order (node -> way -> relation). Iconic landmarks
 // are almost always ways/relations (geometries), while nodes are dominated by statues,
 // markers, and bus stops. A single shared cap lets the node flood truncate the query
@@ -15,7 +15,7 @@ const MIN_INTERVAL_MS = 1000;
 const AREA_FETCH_LIMIT = 120;
 const NODE_FETCH_LIMIT = 60;
 const PRIORITIZED_POI_TOTAL_LIMIT = 300;
-const MAX_FETCH_RETRIES = 2;
+const MAX_FETCH_RETRIES = 3;
 const OVERPASS_QUERY_TIMEOUT_S = 60;
 
 let lastRequestTime = 0;
@@ -122,9 +122,30 @@ async function fetchPoisForFilters(city: GeocodedCity, theme: Theme, filters: st
       const retriable = !axiosErr.response || status === 429 || status === 502 || status === 503 || status === 504;
 
       if (retriable && attempt < MAX_FETCH_RETRIES) {
-        const backoffMs = MIN_INTERVAL_MS * (attempt + 2);
-        console.warn(`[OverpassPoiFetcher] ${status ?? 'network'} error; retrying in ${backoffMs}ms (attempt ${attempt + 1}/${MAX_FETCH_RETRIES})`);
-        await new Promise(resolve => setTimeout(resolve, backoffMs));
+        // On 429, respect Retry-After header if present; otherwise exponential backoff.
+        // Retry-After can be seconds (integer) or HTTP-date (RFC 7231).
+        let backoffMs = MIN_INTERVAL_MS * Math.pow(2, attempt);
+        let minBackoffMs = 0;
+        if (status === 429) {
+          const retryAfter = axiosErr.response?.headers?.['retry-after'];
+          if (retryAfter) {
+            const asSeconds = parseInt(retryAfter, 10);
+            if (!isNaN(asSeconds)) {
+              minBackoffMs = asSeconds * 1000;
+            } else {
+              const asDate = Date.parse(retryAfter);
+              if (!isNaN(asDate)) {
+                minBackoffMs = Math.max(0, asDate - Date.now());
+              }
+            }
+            backoffMs = Math.max(backoffMs, minBackoffMs);
+          }
+        }
+        // Jitter (+0-20%) but never drop below Retry-After minimum
+        const jitter = backoffMs * (1.0 + Math.random() * 0.2);
+        const waitMs = Math.max(Math.round(jitter), minBackoffMs);
+        console.warn(`[OverpassPoiFetcher] ${status ?? 'network'} error; retrying in ${waitMs}ms (attempt ${attempt + 1}/${MAX_FETCH_RETRIES})`);
+        await new Promise(resolve => setTimeout(resolve, waitMs));
         continue;
       }
 

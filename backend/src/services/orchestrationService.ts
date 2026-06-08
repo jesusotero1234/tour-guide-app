@@ -387,6 +387,15 @@ export class OrchestrationService {
           ? ['food', 'history']
           : ['history', 'architecture'];
 
+    // Cross-theme fallback: if Overpass rate-limits a theme, load POIs from
+    // related themes so the tour still has a viable candidate pool.
+    const FALLBACK_THEMES: Record<Theme, Theme[]> = {
+      history: ['architecture', 'art', 'food'],
+      architecture: ['history', 'art'],
+      art: ['architecture', 'history'],
+      food: ['history', 'architecture', 'art'],
+    };
+
     const merged = new Map<string, RawPoi>();
     for (const theme of themes) {
       let rawPois = await poiCache.get(city, theme);
@@ -394,6 +403,20 @@ export class OrchestrationService {
         rawPois = await fetchPoisForTheme(geocoded, theme);
         if (rawPois.length > 0) {
           await poiCache.set(city, theme, rawPois);
+        }
+      }
+
+      // Fallback: if specific theme is empty (Overpass 429 / no results),
+      // try already-cached related themes. We do NOT fetch fresh from Overpass
+      // here to avoid amplifying rate-limit pressure when Overpass is throttling.
+      if (rawPois.length === 0 && FALLBACK_THEMES[theme]) {
+        for (const fallbackTheme of FALLBACK_THEMES[theme]) {
+          const fallbackPois = await poiCache.get(city, fallbackTheme);
+          if (fallbackPois && fallbackPois.length > 0) {
+            console.warn(`[loadConceptRawPoiPool] Theme "${theme}" empty for ${city} — using cached fallback "${fallbackTheme}" (${fallbackPois.length} POIs)`);
+            rawPois = fallbackPois;
+            break;
+          }
         }
       }
 
