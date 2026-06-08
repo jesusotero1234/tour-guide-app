@@ -62,6 +62,7 @@ def wikipedia_fetch(article_title: str, lang: str = "es") -> Optional[str]:
         "exintro": 0,
         "explaintext": 1,
         "exsectionformat": "plain",
+        "redirects": 1,
     }
     url = f"{WIKIPEDIA_API.format(lang=lang)}?{urllib.parse.urlencode(params)}"
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
@@ -148,63 +149,94 @@ def filter_article_text(text: str) -> str:
 # ── Relevance scoring ──────────────────────────────────────────────
 
 # Articles to skip — too generic or not useful for tour context
-SKIP_TITLES = {
-    "estación", "station", "bahnhof", "gare", "stazione",
+SKIP_WORDS = {
+    # Transport (stations, lines, highways, airports)
+    "estación", "estacion", "station", "bahnhof", "gare", "stazione",
     "aeropuerto", "airport", "flughafen", "aéroport", "aeroporto",
-    "línea", "line", "linie", "ligne", "linea",
-    "autovía", "autopista", "highway", "autobahn", "autoroute", "autostrada",
-    "río", "river", "fluss", "rivière", "fiume",
+    "línea", "linea", "line", "linie", "ligne",
+    "autovía", "autovia", "autopista", "highway", "autobahn", "autoroute", "autostrada",
+    # Water features
+    "río", "rio", "river", "fluss", "rivière", "fiume",
     "arroyo", "stream", "bach", "ruisseau", "ruscello",
+    # Mills (very common in rural areas, not tour-relevant)
+    "mühle", "muehle", "muhle", "mill", "molino", "moulin", "watermill",
+    "molen", "mlyn", "młyn", "myly", "moinho",
+    # Sports venues
+    "estadio", "stadium", "stadion", "stade", "stadio",
+    "polideportivo", "sportzentrum", "sports centre",
+    # Generic infrastructure
+    "cementerio", "cemetery", "friedhof", "cimetière", "cimitero",
+    "aparcamiento", "parking", "parkplatz", "parking lot",
+    "gasolinera", "gas station", "tankstelle",
+    "polígono", "poligono", "industrial", "industriepark",
 }
+
+CULTURAL_KEYWORDS = [
+    # ES
+    "iglesia", "catedral", "castillo", "museo", "plaza", "palacio",
+    "monasterio", "convento", "torre", "muralla", "puente", "pazo",
+    "historia", "patrimonio", "monumento", "basílica", "ermita",
+    "ayuntamiento", "mercado", "universidad", "biblioteca", "teatro",
+    # EN
+    "church", "cathedral", "castle", "museum", "square", "palace",
+    "monastery", "convent", "tower", "wall", "bridge", "manor",
+    "history", "heritage", "monument", "basilica", "chapel",
+    "town hall", "market", "university", "library", "theatre", "theater",
+    # DE
+    "kirche", "dom", "schloss", "museum", "platz", "palast",
+    "kloster", "turm", "mauer", "brücke", "herrenhaus",
+    "geschichte", "denkmal", "basilika", "kapelle",
+    "rathaus", "markt", "universität", "bibliothek", "theater",
+    # FR
+    "église", "eglise", "cathédrale", "cathedrale", "château", "chateau",
+    "musée", "musee", "place", "palais",
+    "monastère", "monastere", "tour", "pont", "histoire", "patrimoine", "basilique",
+    "mairie", "marché", "marche", "université", "universite", "bibliothèque", "theatre",
+]
 
 
 def score_article(article: dict, distance: float) -> float:
-    """Score an article for relevance to tour context. Higher = better."""
+    """Score an article for relevance to tour context. Higher = better.
+    Type/entity weight > distance after ~500m."""
     title = article.get("title", "").lower()
+    # Normalize: remove punctuation for matching
+    title_clean = title.replace("-", " ").replace("_", " ")
     score = 0.0
     
-    # Penalize distance (closer = better)
-    score += max(0, 10 - distance / 1000)  # 10 at 0m, 0 at 10km
+    # Distance: strong bonus for <500m, gentle decay beyond
+    if distance < 500:
+        score += 5
+    elif distance < 2000:
+        score += 2
+    else:
+        score += max(0, 1 - distance / 10000)
     
-    # Penalize generic titles
-    for skip_word in SKIP_TITLES:
-        if skip_word in title:
-            score -= 20
+    # Penalize skip words (check both as whole words and substrings in compounds)
+    title_words = set(title_clean.split())
+    for skip_word in SKIP_WORDS:
+        if skip_word in title_words or f" {skip_word} " in f" {title_clean} ":
+            score -= 30
     
-    # Boost articles with cultural keywords
-    cultural_keywords = [
-        # ES
-        "iglesia", "catedral", "castillo", "museo", "plaza", "palacio",
-        "monasterio", "convento", "torre", "muralla", "puente", "pazo",
-        "historia", "patrimonio", "monumento", "basílica", "ermita",
-        # EN
-        "church", "cathedral", "castle", "museum", "square", "palace",
-        "monastery", "convent", "tower", "wall", "bridge", "manor",
-        "history", "heritage", "monument", "basilica", "chapel",
-        # DE
-        "kirche", "dom", "schloss", "museum", "platz", "palast",
-        "kloster", "turm", "mauer", "brücke", "herrenhaus",
-        "geschichte", "denkmal", "basilika", "kapelle",
-        # FR
-        "église", "cathédrale", "château", "musée", "place", "palais",
-        "monastère", "tour", "pont", "histoire", "patrimoine", "basilique",
-    ]
-    title_words = set(title.split())
-    for kw in cultural_keywords:
-        if kw in title_words:
-            score += 5
+    # Boost cultural keywords (check against full title, handling compounds)
+    for kw in CULTURAL_KEYWORDS:
+        if kw in title_clean:
+            score += 8
+            break  # one category boost is enough
+    
+    # Penalize very short titles (likely stubs or disambiguation pages)
+    if len(title) < 10:
+        score -= 10
     
     return score
 
 
 # ── Adaptive radius ─────────────────────────────────────────────────
 
-def adaptive_radius(article_count: int) -> int:
-    """Choose radius based on how many articles were found.
-    Small towns need wider radius to find enough content."""
-    if article_count >= 10: return 5000
-    if article_count >= 5:  return 10000
-    return 20000
+def adaptive_radius(article_count: int, current_radius: int) -> int:
+    """Choose next radius. Cap at Wikipedia max (10000m)."""
+    if article_count >= 8: return current_radius
+    if article_count >= 3: return min(current_radius * 2, 10000)
+    return min(current_radius * 3, 10000)
 
 
 # ── Main corpus builder ─────────────────────────────────────────────
@@ -250,15 +282,22 @@ def build_city_corpus(
     else:
         print(f"     ⚠️  No article found", file=sys.stderr)
     
-    # 3. Geosearch nearby articles (level: nearby)
+    # 3. Geosearch nearby articles
+    # Large cities: fetch more candidates, score all, pick best
+    gslimit = 50  # fetch many, score will filter
     radius = 5000
     all_articles = []
-    for attempt in range(2):
-        articles = wikipedia_geosearch(lat, lon, radius, lang, limit=15)
-        if articles:
+    
+    for attempt in range(3):
+        articles = wikipedia_geosearch(lat, lon, radius, lang, limit=gslimit)
+        if articles and len(articles) >= 3:
             all_articles = articles
             break
-        radius = adaptive_radius(len(all_articles))
+        new_radius = adaptive_radius(len(articles) if articles else 0, radius)
+        if new_radius == radius:
+            all_articles = articles or []
+            break
+        radius = new_radius
         print(f"  🔍 Expanding search to {radius}m...", file=sys.stderr)
         time.sleep(0.5)
     
