@@ -75,8 +75,9 @@ export async function enrichContext(
     );
 
     const results: EnrichedContext[] = response.data?.results || [];
+    let deduped: EnrichedContext[] = [];
     if (results.length > 0) {
-      const deduped = deduplicatePassages(results);
+      deduped = deduplicatePassages(results);
       console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${deduped.length} passages`);
       // Cache for future queries (best-effort)
       enrichmentCache.set(city, placeName, theme, language, query, deduped).catch(() => {});

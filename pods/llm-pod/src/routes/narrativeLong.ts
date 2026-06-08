@@ -312,7 +312,7 @@ function validateSection(section: string, input: LongNarrativePromptInput): stri
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// Factual Validator — post-generation extraction + source verification
+// 3-Tier Factual Validator — VERIFIED / UNVERIFIED / CONTRADICTED
 // ═══════════════════════════════════════════════════════════════════
 
 const KNOWN_ARCHITECTURAL_STYLES = [
@@ -341,28 +341,57 @@ const KNOWN_MATERIALS = [
   'sillar', 'sillares', 'mampostería', 'mamposteria',
 ];
 
-interface FactViolation {
-  type: 'date' | 'style' | 'material' | 'measurement' | 'architect';
+// ── 3-tier claim verification ────────────────────────────────────
+
+type ClaimType = 'date' | 'style' | 'material' | 'measurement' | 'architect' | 'historical_person';
+type ClaimStatus = 'verified' | 'unverified' | 'contradicted';
+type ClaimSeverity = 'critical' | 'warning' | 'info';
+
+interface VerifiedClaim {
+  type: ClaimType;
   value: string;
-  context: string;
+  status: ClaimStatus;
+  severity: ClaimSeverity;
+  source: string;          // e.g. 'wikidata:P571', 'wikipedia_body', 'wikidata:P149', 'none'
+  context: string;         // snippet around the claim in generated text
 }
 
-interface FactCheckResult {
-  violations: FactViolation[];
+interface ClaimCheckResult {
+  claims: VerifiedClaim[];
   totalExtracted: number;
-  unsupportedRate: number;
+  verifiedCount: number;
+  contradictedCount: number;
+  unverifiedCount: number;
+  criticalFailCount: number;
+  warningCount: number;
+  infoCount: number;
+  // rates for dashboard
+  verifiedRate: number;       // 0.0 – 1.0
+  contradictedRate: number;   // 0.0 – 1.0  (true alarm)
+  unverifiedRate: number;     // 0.0 – 1.0  (coverage gap)
 }
+
+// ── Severity map: which claim types cause hard-fail ──────────────
+
+const SEVERITY_MAP: Record<ClaimType, { unverified: ClaimSeverity; contradicted: ClaimSeverity }> = {
+  date:              { unverified: 'warning',  contradicted: 'critical' },
+  architect:         { unverified: 'warning',  contradicted: 'critical' },
+  historical_person: { unverified: 'warning',  contradicted: 'critical' },
+  style:             { unverified: 'warning',  contradicted: 'critical' },
+  material:          { unverified: 'info',     contradicted: 'warning' },
+  measurement:       { unverified: 'info',     contradicted: 'warning' },
+};
+
+// ── Extraction functions ─────────────────────────────────────────
 
 function extractDates(text: string): string[] {
   const dates: string[] = [];
-  // 4-digit years in sensible range
   const yearRe = /\b(\d{4})\b/g;
   let match;
   while ((match = yearRe.exec(text)) !== null) {
     const year = parseInt(match[1]);
     if (year >= 300 && year <= 2030) dates.push(match[1]);
   }
-  // Century references
   const centuryRe = /\b(siglo\s+[IVXLCDM]+)\b/gi;
   while ((match = centuryRe.exec(text)) !== null) {
     dates.push(match[0]);
@@ -408,7 +437,6 @@ function extractArchitects(text: string): string[] {
   let match;
   while ((match = re.exec(text)) !== null) {
     const name = match[1].trim();
-    // Filter out false positives (common words that happen after "por")
     if (!/^(el|la|los|las|su|un|una|este|esta|eso|aquel|cuando|donde|primera|segunda)\b/i.test(name)) {
       architects.push(name);
     }
@@ -416,18 +444,56 @@ function extractArchitects(text: string): string[] {
   return [...new Set(architects)];
 }
 
-/** Build a single searchable corpus from all seed sources. */
-function buildVerifiedCorpus(seeds: LongNarrativeSeeds): string {
-  const parts: string[] = [];
-  if (seeds.wikipediaLead) parts.push(seeds.wikipediaLead);
-  if (seeds.wikipediaBody) parts.push(seeds.wikipediaBody);
-  if (seeds.enrichedContext) parts.push(seeds.enrichedContext);
-  if (seeds.wikivoyage) parts.push(seeds.wikivoyage);
-  return normalizeNFD(parts.join(' '));
+function extractHistoricalPersons(text: string): string[] {
+  const persons: string[] = [];
+  // Named entities with context: "como X", "por X", "en tiempos de X", "según X"
+  const re = /(?:como|por|en tiempos de|según|bajo|durante el reinado de|reinado de|época de)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,3})/g;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    const name = match[1].trim();
+    if (!/^(el|la|los|las|su|un|una|este|esta|eso|aquel|cuando|donde|aqui|alli)\b/i.test(name)) {
+      persons.push(name);
+    }
+  }
+  return [...new Set(persons)];
 }
 
-/** Extract a short context snippet around the violation for debugging. */
-function violationContext(text: string, value: string): string {
+// ── Multi-source corpus builder (tiered confidence) ──────────────
+
+interface TieredCorpus {
+  high: string;    // Wikidata claims (highest confidence)
+  medium: string;  // Wikipedia + enriched context
+  low: string;     // Wikivoyage
+}
+
+function buildTieredCorpus(seeds: LongNarrativeSeeds): TieredCorpus {
+  // High: Wikidata claims only (structured, verified)
+  const wikidataParts: string[] = [];
+  if (seeds.wikidataClaims) {
+    for (const v of Object.values(seeds.wikidataClaims)) {
+      if (typeof v === 'string') wikidataParts.push(v);
+    }
+  }
+
+  // Medium: Wikipedia (semi-structured, editorial)
+  const wikiParts: string[] = [];
+  if (seeds.wikipediaLead) wikiParts.push(seeds.wikipediaLead);
+  if (seeds.wikipediaBody) wikiParts.push(seeds.wikipediaBody);
+  if (seeds.enrichedContext) wikiParts.push(seeds.enrichedContext);
+
+  // Low: Wikivoyage (travel guide, not factual-primary)
+  const lowParts: string[] = [];
+  if (seeds.wikivoyage) lowParts.push(seeds.wikivoyage);
+
+  return {
+    high: normalizeNFD(wikidataParts.join(' ')),
+    medium: normalizeNFD(wikiParts.join(' ')),
+    low: normalizeNFD(lowParts.join(' ')),
+  };
+}
+
+/** Extracts a short snippet around the claim for debugging. */
+function claimContext(text: string, value: string): string {
   const idx = normalizeNFD(text).indexOf(normalizeNFD(value));
   if (idx < 0) return '';
   const start = Math.max(0, idx - 30);
@@ -435,55 +501,188 @@ function violationContext(text: string, value: string): string {
   return text.slice(start, end).replace(/\n/g, ' ');
 }
 
-/** Post-generation factual validation: extracts claims from generated
- *  narration and checks each against the seed corpus. Returns violations
- *  and an unsupported-fact rate (0.0 = all facts supported, 1.0 = none). */
-function validateNarrativeFacts(
+// ── Source-specific claim search ──────────────────────────────────
+
+/** Search for a value across tiered corpora. Returns the tier where first found.
+ *  For date/architect/historical_person: Wikidata (high) + Wikipedia (medium) only.
+ *  For style: Wikidata + Wikipedia + enrichedContext.
+ *  For material/measurement: all sources. */
+function findClaimSource(
+  normalizedValue: string,
+  claimType: ClaimType,
+  corpus: TieredCorpus
+): { found: boolean; tier: string } {
+  // Always check Wikidata first (structured facts)
+  if (corpus.high.includes(normalizedValue)) {
+    return { found: true, tier: 'wikidata' };
+  }
+
+  // Wikipedia/enrichedContext — always relevant for styles, dates, architects
+  if (corpus.medium.includes(normalizedValue)) {
+    return { found: true, tier: 'wikipedia' };
+  }
+
+  // Wikivoyage — only for material/measurement (descriptive, not authorative)
+  if ((claimType === 'material' || claimType === 'measurement') && corpus.low.includes(normalizedValue)) {
+    return { found: true, tier: 'wikivoyage' };
+  }
+
+  return { found: false, tier: 'none' };
+}
+
+// ── Contradiction detection ───────────────────────────────────────
+
+/** Check if a claim directly contradicts known facts.
+ *  Example: generated says "1911" but Wikidata says "1910" → contradicted.
+ *  Example: generated says "barroco" but Wikidata says "neoclásico" → contradicted. */
+function isContradicted(
+  generatedValue: string,
+  claimType: ClaimType,
+  corpus: TieredCorpus
+): boolean {
+  const norm = normalizeNFD(generatedValue);
+
+  // For dates: if a different year is present in high-confidence corpus, it's a contradiction
+  if (claimType === 'date') {
+    const genYear = parseInt(generatedValue);
+    if (!isNaN(genYear) && genYear >= 300 && genYear <= 2030) {
+      // Extract all years from high and medium corpus
+      const allYears = new Set<number>();
+      const yearRe = /\b(\d{4})\b/g;
+      let m;
+      const combinedHighMed = `${corpus.high} ${corpus.medium}`;
+      while ((m = yearRe.exec(combinedHighMed)) !== null) {
+        const y = parseInt(m[1]);
+        if (y >= 300 && y <= 2030) allYears.add(y);
+      }
+      // If corpus has at least one date in range, check proximity
+      if (allYears.size > 0) {
+        // Find closest year in corpus
+        let closest = Infinity;
+        for (const cy of allYears) {
+          const dist = Math.abs(genYear - cy);
+          if (dist < closest) closest = dist;
+        }
+        // If generated year is >50 years away from any corpus year, it's contradicted
+        // (50-year window accounts for "siglo XVI" ≈ 1501–1600 range)
+        return closest > 50;
+      }
+    }
+    return false;
+  }
+
+  // For style: if corpus has a DIFFERENT style, it's contradicted
+  if (claimType === 'style') {
+    // Check if any OTHER style is present in high-confidence corpus
+    for (const knownStyle of KNOWN_ARCHITECTURAL_STYLES) {
+      const ksNorm = normalizeNFD(knownStyle);
+      if (ksNorm === norm) continue; // same style, not a contradiction
+      if (corpus.high.includes(ksNorm)) {
+        return true; // corpus says "gótico" but generated says "renacentista"
+      }
+    }
+    return false;
+  }
+
+  // For architect: if corpus names a different architect → contradicted
+  if (claimType === 'architect') {
+    // Look for proper-name patterns in the high-confidence corpus
+    const nameRe = /(?:arquitecto|architect|designed by|obra de|diseñad[oa] por)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,4})/gi;
+    let m;
+    const corpusArchitects = new Set<string>();
+    while ((m = nameRe.exec(corpus.high + ' ' + corpus.medium)) !== null) {
+      corpusArchitects.add(normalizeNFD(m[1].trim()));
+    }
+    if (corpusArchitects.size > 0 && !corpusArchitects.has(norm)) {
+      return true; // corpus names a different architect
+    }
+    return false;
+  }
+
+  return false;
+}
+
+// ── Main claim validation ─────────────────────────────────────────
+
+/** Post-generation 3-tier factual validation.
+ *  Extracts claims from generated narration, checks each against tiered
+ *  seed corpora, and classifies as VERIFIED, UNVERIFIED, or CONTRADICTED
+ *  with appropriate severity. */
+function validateNarrativeClaims(
   narration: string,
   input: LongNarrativePromptInput
-): FactCheckResult {
-  const corpus = buildVerifiedCorpus(input.seeds);
+): ClaimCheckResult {
+  const corpus = buildTieredCorpus(input.seeds);
 
-  const dates = extractDates(narration);
-  const styles = extractStyles(narration);
-  const materials = extractMaterials(narration);
-  const measurements = extractMeasurements(narration);
-  const architects = extractArchitects(narration);
+  // Extract all claims by type
+  const extracted: Record<ClaimType, string[]> = {
+    date: extractDates(narration),
+    style: extractStyles(narration),
+    material: extractMaterials(narration),
+    measurement: extractMeasurements(narration),
+    architect: extractArchitects(narration),
+    historical_person: extractHistoricalPersons(narration),
+  };
 
-  const violations: FactViolation[] = [];
+  const claims: VerifiedClaim[] = [];
+  let totalExtracted = 0;
 
-  for (const d of dates) {
-    if (!corpus.includes(normalizeNFD(d))) {
-      violations.push({ type: 'date', value: d, context: violationContext(narration, d) });
+  for (const [claimType, values] of Object.entries(extracted) as [ClaimType, string[]][]) {
+    const type = claimType;
+    const severityRules = SEVERITY_MAP[type];
+
+    for (const value of values) {
+      totalExtracted++;
+      const normValue = normalizeNFD(value);
+      const { found, tier } = findClaimSource(normValue, type, corpus);
+      const contradicted = !found && isContradicted(value, type, corpus);
+
+      let status: ClaimStatus;
+      let severity: ClaimSeverity;
+
+      if (found) {
+        status = 'verified';
+        severity = 'info'; // verified claims are always info-level (expected)
+      } else if (contradicted) {
+        status = 'contradicted';
+        severity = severityRules.contradicted;
+      } else {
+        status = 'unverified';
+        severity = severityRules.unverified;
+      }
+
+      claims.push({
+        type,
+        value,
+        status,
+        severity,
+        source: found ? tier : 'none',
+        context: claimContext(narration, value),
+      });
     }
   }
-  for (const s of styles) {
-    if (!corpus.includes(normalizeNFD(s))) {
-      violations.push({ type: 'style', value: s, context: violationContext(narration, s) });
-    }
-  }
-  for (const m of materials) {
-    if (!corpus.includes(normalizeNFD(m))) {
-      violations.push({ type: 'material', value: m, context: violationContext(narration, m) });
-    }
-  }
-  for (const m of measurements) {
-    if (!corpus.includes(normalizeNFD(m))) {
-      violations.push({ type: 'measurement', value: m, context: violationContext(narration, m) });
-    }
-  }
-  for (const a of architects) {
-    if (!corpus.includes(normalizeNFD(a))) {
-      violations.push({ type: 'architect', value: a, context: violationContext(narration, a) });
-    }
-  }
 
-  const totalExtracted = dates.length + styles.length + materials.length + measurements.length + architects.length;
-  const unsupportedRate = totalExtracted > 0
-    ? Math.round((violations.length / totalExtracted) * 100) / 100
-    : 0;
+  // Aggregate counts
+  const verified = claims.filter(c => c.status === 'verified');
+  const contradicted = claims.filter(c => c.status === 'contradicted');
+  const unverified = claims.filter(c => c.status === 'unverified');
+  const criticalFails = claims.filter(c => c.severity === 'critical');
+  const warnings = claims.filter(c => c.severity === 'warning');
+  const infos = claims.filter(c => c.severity === 'info');
 
-  return { violations, totalExtracted, unsupportedRate };
+  return {
+    claims,
+    totalExtracted,
+    verifiedCount: verified.length,
+    contradictedCount: contradicted.length,
+    unverifiedCount: unverified.length,
+    criticalFailCount: criticalFails.length,
+    warningCount: warnings.length,
+    infoCount: infos.length,
+    verifiedRate: totalExtracted > 0 ? verified.length / totalExtracted : 0,
+    contradictedRate: totalExtracted > 0 ? contradicted.length / totalExtracted : 0,
+    unverifiedRate: totalExtracted > 0 ? unverified.length / totalExtracted : 0,
+  };
 }
 
 function parseSection(content: string): string | null {
@@ -746,19 +945,25 @@ router.post('/stop/long', async (req, res) => {
       .join('\n\n');
     const totalDurationMs = Date.now() - requestStartedAt;
 
-    // ── Post-generation factual validation ────────────────────────
-    const factCheck = validateNarrativeFacts(narration, input);
-    if (factCheck.violations.length > 0) {
-      narrativeLog('fact-violations', {
-        traceId,
-        stopName: input.localName,
-        position: input.position,
-        violationCount: factCheck.violations.length,
-        totalExtracted: factCheck.totalExtracted,
-        unsupportedRate: factCheck.unsupportedRate,
-        violations: factCheck.violations,
-      });
-    }
+    // ── Post-generation 3-tier claim validation ──────────────────
+    const claimCheck = validateNarrativeClaims(narration, input);
+    narrativeLog('claim-check', {
+      traceId,
+      stopName: input.localName,
+      position: input.position,
+      totalExtracted: claimCheck.totalExtracted,
+      verified: claimCheck.verifiedCount,
+      contradicted: claimCheck.contradictedCount,
+      unverified: claimCheck.unverifiedCount,
+      criticalFails: claimCheck.criticalFailCount,
+      warnings: claimCheck.warningCount,
+      infos: claimCheck.infoCount,
+      verifiedRate: claimCheck.verifiedRate,
+      contradictedRate: claimCheck.contradictedRate,
+      unverifiedRate: claimCheck.unverifiedRate,
+      ...(claimCheck.contradictedCount > 0 ? { contradictedClaims: claimCheck.claims.filter(c => c.status === 'contradicted') } : {}),
+      ...(claimCheck.criticalFailCount > 0 ? { criticalClaims: claimCheck.claims.filter(c => c.severity === 'critical') } : {}),
+    });
 
     narrativeLog('summary', {
       traceId,
@@ -791,10 +996,18 @@ router.post('/stop/long', async (req, res) => {
         sectionsFallbacked: droppedReasons.length,
         totalSeedChars: totalSeedChars(input),
         totalDurationMs,
-        factCheck: {
-          violations: factCheck.violations.length,
-          totalExtracted: factCheck.totalExtracted,
-          unsupportedRate: factCheck.unsupportedRate,
+        claimCheck: {
+          totalExtracted: claimCheck.totalExtracted,
+          verifiedRate: claimCheck.verifiedRate,
+          contradictedRate: claimCheck.contradictedRate,
+          unverifiedRate: claimCheck.unverifiedRate,
+          verifiedCount: claimCheck.verifiedCount,
+          contradictedCount: claimCheck.contradictedCount,
+          unverifiedCount: claimCheck.unverifiedCount,
+          criticalFailCount: claimCheck.criticalFailCount,
+          warningCount: claimCheck.warningCount,
+          infoCount: claimCheck.infoCount,
+          ...(claimCheck.totalExtracted > 0 ? { claims: claimCheck.claims } : {}),
         },
         ...(droppedReasons.length > 0 ? { droppedReasons } : {}),
       },
