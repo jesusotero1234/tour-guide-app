@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Guide App — Pipeline de Generación</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'JetBrains Mono', monospace; background: #020617; min-height: 100vh; padding: 2rem; color: white; }
+    .container { max-width: 1300px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+    .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+    .diagram-container { background: rgba(15, 23, 42, 0.5); border-radius: 1rem; border: 1px solid #1e293b; padding: 1.5rem; overflow-x: auto; }
+    svg { width: 100%; min-width: 1100px; display: block; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .card { background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem; }
+    .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .card-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .card-dot.cyan { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.violet { background: #a78bfa; }
+    .card-dot.amber { background: #fbbf24; }
+    .card h3 { font-size: 0.875rem; font-weight: 600; }
+    .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+    .card li { margin-bottom: 0.375rem; }
+    .footer { text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>Tour Guide App — Pipeline de Generación</h1>
+      </div>
+      <p class="subtitle">Flujo completo: desde la petición del usuario hasta la audioguía generada con enriquecimiento RAG</p>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1200 780">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+          </marker>
+          <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee" />
+          </marker>
+          <marker id="arrow-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
+          </marker>
+          <marker id="arrow-violet" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#a78bfa" />
+          </marker>
+          <marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <!-- ===== REGION: Tour Guide Backend ===== -->
+        <rect x="200" y="30" width="960" height="720" rx="12" fill="rgba(52, 211, 153, 0.04)" stroke="#34d399" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="212" y="50" fill="#34d399" font-size="10" font-weight="600">Tour Guide App Backend (Express :3001)</text>
+
+        <!-- ===== 1. USER ===== -->
+        <rect x="20" y="250" width="140" height="70" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+        <rect x="20" y="250" width="140" height="70" rx="6" fill="rgba(30, 41, 59, 0.5)"/>
+        <text x="90" y="278" fill="white" font-size="11" font-weight="600" text-anchor="middle">Usuario</text>
+        <text x="90" y="296" fill="#94a3b8" font-size="9" text-anchor="middle">Browser / App</text>
+        <text x="90" y="310" fill="#22d3ee" font-size="8" text-anchor="middle">POST /generate</text>
+
+        <!-- ===== 2. API ROUTER ===== -->
+        <rect x="230" y="100" width="160" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+        <rect x="230" y="100" width="160" height="60" rx="6" fill="rgba(8, 51, 68, 0.4)"/>
+        <text x="310" y="125" fill="white" font-size="11" font-weight="600" text-anchor="middle">API Router</text>
+        <text x="310" y="143" fill="#94a3b8" font-size="9" text-anchor="middle">validateTourRequest</text>
+
+        <!-- Arrow: User → Router -->
+        <line x1="160" y1="285" x2="228" y2="150" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+        <text x="180" y="210" fill="#94a3b8" font-size="8">{city, theme, lang, duration}</text>
+
+        <!-- ===== 3. ORCHESTRATION SERVICE ===== -->
+        <rect x="230" y="190" width="180" height="80" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+        <rect x="230" y="190" width="180" height="80" rx="6" fill="rgba(6, 78, 59, 0.4)"/>
+        <text x="320" y="215" fill="white" font-size="11" font-weight="600" text-anchor="middle">Orchestration</text>
+        <text x="320" y="233" fill="#94a3b8" font-size="9" text-anchor="middle">generateCompleteTour()</text>
+        <text x="320" y="249" fill="#94a3b8" font-size="8" text-anchor="middle">findExactTour → cache?</text>
+        <text x="320" y="263" fill="#fbbf24" font-size="7" text-anchor="middle">↓ miss → generateFullTour</text>
+
+        <!-- Arrow: Router → Orchestration -->
+        <path d="M 310 160 L 310 188" fill="none" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+
+        <!-- ===== 4. DATABASE (cache check) ===== -->
+        <rect x="490" y="195" width="150" height="70" rx="6" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+        <rect x="490" y="195" width="150" height="70" rx="6" fill="rgba(76, 29, 149, 0.4)"/>
+        <text x="565" y="220" fill="white" font-size="11" font-weight="600" text-anchor="middle">PostgreSQL</text>
+        <text x="565" y="238" fill="#94a3b8" font-size="9" text-anchor="middle">tours, places</text>
+        <text x="565" y="254" fill="#94a3b8" font-size="8" text-anchor="middle">enrichment_cache</text>
+
+        <!-- Arrow: Orchestration ⇄ DB -->
+        <line x1="410" y1="230" x2="488" y2="230" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-violet)"/>
+        <text x="450" y="222" fill="#94a3b8" font-size="8" text-anchor="middle">SQL</text>
+
+        <!-- ===== 5. POI SELECTION ===== -->
+        <rect x="230" y="310" width="180" height="65" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+        <rect x="230" y="310" width="180" height="65" rx="6" fill="rgba(120, 53, 15, 0.3)"/>
+        <text x="320" y="335" fill="white" font-size="11" font-weight="600" text-anchor="middle">POI Selection</text>
+        <text x="320" y="353" fill="#94a3b8" font-size="9" text-anchor="middle">Wikidata + Wikipedia</text>
+        <text x="320" y="368" fill="#fbbf24" font-size="7" text-anchor="middle">seeds: lead, body, tags</text>
+
+        <!-- Arrow: Orchestration → POI Selection -->
+        <path d="M 320 270 L 320 308" fill="none" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- ===== 6. EXTERNAL: Wikidata / Wikipedia ===== -->
+        <rect x="490" y="310" width="150" height="65" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+        <rect x="490" y="310" width="150" height="65" rx="6" fill="rgba(30, 41, 59, 0.5)"/>
+        <text x="565" y="338" fill="white" font-size="11" font-weight="600" text-anchor="middle">External APIs</text>
+        <text x="565" y="354" fill="#94a3b8" font-size="8" text-anchor="middle">• Wikidata SPARQL</text>
+        <text x="565" y="368" fill="#94a3b8" font-size="8" text-anchor="middle">• Wikipedia REST</text>
+
+        <line x1="410" y1="342" x2="488" y2="342" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- ===== 7. SEED QUALITY CHECK ===== -->
+        <rect x="230" y="415" width="180" height="55" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+        <rect x="230" y="415" width="180" height="55" rx="6" fill="rgba(6, 78, 59, 0.4)"/>
+        <text x="320" y="438" fill="white" font-size="11" font-weight="600" text-anchor="middle">Seed Quality</text>
+        <text x="320" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">rich → k=0 | med → k=2</text>
+        <text x="320" y="468" fill="#fb7185" font-size="8" text-anchor="middle">thin → k=5 (RAG!)</text>
+
+        <path d="M 320 375 L 320 413" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+
+        <!-- ===== 8. RAG ENRICHMENT (only thin seeds) ===== -->
+        <rect x="500" y="405" width="200" height="75" rx="6" fill="#0f172a" stroke="#fb7185" stroke-width="2"/>
+        <rect x="500" y="405" width="200" height="75" rx="6" fill="rgba(136, 19, 55, 0.3)"/>
+        <text x="600" y="428" fill="white" font-size="11" font-weight="600" text-anchor="middle">RAG Enrichment</text>
+        <text x="600" y="446" fill="#94a3b8" font-size="8" text-anchor="middle">CityKnowledgeBase</text>
+        <text x="600" y="460" fill="#94a3b8" font-size="8" text-anchor="middle">enrichContext(city, name, theme)</text>
+        <text x="600" y="475" fill="#fb7185" font-size="7" text-anchor="middle">umbral similitud: 0.25</text>
+
+        <!-- Arrow: Seed Quality → RAG if thin -->
+        <path d="M 410 442 L 440 442 Q 460 442 470 442 L 498 442" fill="none" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-cyan)"/>
+        <text x="470" y="435" fill="#fb7185" font-size="7">k>0?</text>
+
+        <!-- ===== 9. ENRICHMENT SERVER ===== -->
+        <rect x="760" y="405" width="200" height="75" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+        <rect x="760" y="405" width="200" height="75" rx="6" fill="rgba(120, 53, 15, 0.3)"/>
+        <text x="860" y="428" fill="white" font-size="11" font-weight="600" text-anchor="middle">Enrichment Server</text>
+        <text x="860" y="446" fill="#94a3b8" font-size="8" text-anchor="middle">:11435 — MiniLM L12</text>
+        <text x="860" y="460" fill="#94a3b8" font-size="8" text-anchor="middle">turbovec semantic search</text>
+        <text x="860" y="475" fill="#fbbf24" font-size="7" text-anchor="middle">Índices: madrid, toledo</text>
+
+        <line x1="700" y1="442" x2="758" y2="442" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- ===== 10. LLM POD (Narrative) ===== -->
+        <rect x="230" y="520" width="180" height="70" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+        <rect x="230" y="520" width="180" height="70" rx="6" fill="rgba(8, 51, 68, 0.4)"/>
+        <text x="320" y="545" fill="white" font-size="11" font-weight="600" text-anchor="middle">LLM Pod :3002</text>
+        <text x="320" y="563" fill="#94a3b8" font-size="9" text-anchor="middle">NarrativeBuilder</text>
+        <text x="320" y="580" fill="#22d3ee" font-size="7" text-anchor="middle">arrival → history → significance → transition</text>
+
+        <!-- Arrow: Seed Quality → LLM (rich/med seeds) -->
+        <path d="M 320 470 L 320 518" fill="none" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+        <text x="335" y="498" fill="#94a3b8" font-size="7">seeds + RAG ctx</text>
+
+        <!-- Arrow: RAG → LLM (inject enriched seeds) -->
+        <path d="M 600 480 L 600 510 Q 600 530 500 530 L 412 530" fill="none" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-cyan)"/>
+        <text x="500" y="545" fill="#fb7185" font-size="7">enriched seeds</text>
+
+        <!-- ===== 11. POST-VALIDATION ===== -->
+        <rect x="230" y="630" width="180" height="55" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+        <rect x="230" y="630" width="180" height="55" rx="6" fill="rgba(6, 78, 59, 0.4)"/>
+        <text x="320" y="655" fill="white" font-size="11" font-weight="600" text-anchor="middle">Validation</text>
+        <text x="320" y="673" fill="#94a3b8" font-size="8" text-anchor="middle">banned phrases · formal</text>
+        <text x="320" y="683" fill="#34d399" font-size="7" text-anchor="middle">NFD accents · validateSection()</text>
+
+        <path d="M 320 590 L 320 628" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+
+        <!-- ===== 12. TTS ===== -->
+        <rect x="500" y="630" width="150" height="55" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+        <rect x="500" y="630" width="150" height="55" rx="6" fill="rgba(120, 53, 15, 0.3)"/>
+        <text x="575" y="655" fill="white" font-size="11" font-weight="600" text-anchor="middle">TTS</text>
+        <text x="575" y="673" fill="#94a3b8" font-size="8" text-anchor="middle">VoxCPM / Kokoro</text>
+        <text x="575" y="683" fill="#94a3b8" font-size="7" text-anchor="middle">SKIP_AUDIO=true</text>
+
+        <line x1="410" y1="657" x2="498" y2="657" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- ===== 13. SAVE TO DB ===== -->
+        <path d="M 410 688 L 490 688 Q 520 688 540 688 L 540 267 L 488 265" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="520" y="345" fill="#a78bfa" font-size="7" transform="rotate(-90, 520, 345)">save tour + places</text>
+
+        <!-- ===== 14. RESPONSE ===== -->
+        <path d="M 320 685 L 320 720 Q 320 740 300 740 L 90 740 Q 20 740 90 330" fill="none" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+        <text x="150" y="720" fill="#94a3b8" font-size="8" text-anchor="middle">TourResponse JSON</text>
+
+        <!-- ===== LEGEND ===== -->
+        <text x="1000" y="60" fill="white" font-size="10" font-weight="600">Leyenda</text>
+        <rect x="1000" y="72" width="16" height="10" rx="2" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1"/>
+        <text x="1022" y="80" fill="#94a3b8" font-size="8">API / LLM</text>
+        <rect x="1000" y="88" width="16" height="10" rx="2" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1"/>
+        <text x="1022" y="96" fill="#94a3b8" font-size="8">Orchestration / Validation</text>
+        <rect x="1000" y="104" width="16" height="10" rx="2" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1"/>
+        <text x="1022" y="112" fill="#94a3b8" font-size="8">Database</text>
+        <rect x="1000" y="120" width="16" height="10" rx="2" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1"/>
+        <text x="1022" y="128" fill="#94a3b8" font-size="8">External / Enrichment</text>
+        <rect x="1000" y="136" width="16" height="10" rx="2" fill="rgba(136, 19, 55, 0.3)" stroke="#fb7185" stroke-width="1"/>
+        <text x="1022" y="144" fill="#94a3b8" font-size="8">RAG Pipeline</text>
+        <line x1="1000" y1="158" x2="1016" y2="158" stroke="#fb7185" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="1022" y="161" fill="#94a3b8" font-size="8">Condicional (thin seeds)</text>
+
+        <!-- RAG detail box -->
+        <rect x="1000" y="180" width="175" height="100" rx="6" fill="rgba(136, 19, 55, 0.15)" stroke="#fb7185" stroke-width="0.5" stroke-dasharray="3,3"/>
+        <text x="1087" y="198" fill="#fb7185" font-size="8" text-anchor="middle" font-weight="600">Detalle RAG</text>
+        <text x="1010" y="215" fill="#94a3b8" font-size="7">1. encode(query) → MiniLM L12</text>
+        <text x="1010" y="230" fill="#94a3b8" font-size="7">2. turbovec search(city_index)</text>
+        <text x="1010" y="245" fill="#94a3b8" font-size="7">3. filtro similitud &gt; 0.25</text>
+        <text x="1010" y="260" fill="#94a3b8" font-size="7">4. top-k passages → prompt</text>
+        <text x="1010" y="275" fill="#fbbf24" font-size="7">Corpus: 10-15 pasajes/ciudad</text>
+      </svg>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-header"><div class="card-dot emerald"></div><h3>Flujo Principal</h3></div>
+        <ul>
+          <li>• POST /generate → validateTourRequest</li>
+          <li>• findExactTour (cache PostgreSQL)</li>
+          <li>• miss → generateFullTour</li>
+          <li>• POI selection via Wikidata + Wikipedia</li>
+          <li>• Seed quality → progressive enrichment</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot cyan"></div><h3>RAG Enrichment</h3></div>
+        <ul>
+          <li>• Solo para seeds "thin" (k=3-5)</li>
+          <li>• CityKnowledgeBase → :3002/enrichment/search</li>
+          <li>• Enrichment Server :11435 (MiniLM + turbovec)</li>
+          <li>• Umbral similitud: 0.25</li>
+          <li>• Corpus: 10-15 pasajes pre-indexados por ciudad</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot violet"></div><h3>Post-procesado</h3></div>
+        <ul>
+          <li>• validateSection(): frases prohibidas</li>
+          <li>• Detección registro formal (usted/miren)</li>
+          <li>• Normalización NFD (acentos)</li>
+          <li>• TTS → audio (VoxCPM/Kokoro)</li>
+          <li>• Persistencia en PostgreSQL</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer">Tour Guide App · Hermes Agent · June 2026</p>
+  </div>
+</body>
+</html>

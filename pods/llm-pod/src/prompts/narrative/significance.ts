@@ -1,4 +1,4 @@
-import { compactRecord, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
+import { compactRecord, formatStructuredFacts, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
 
 export function significancePrompt(input: LongNarrativePromptInput): SectionPrompt {
   return {
@@ -6,8 +6,8 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
     user: [
       `Section: significance for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
+      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
       `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
-      `Wikidata claims: ${compactRecord(input.seeds.wikidataClaims)}.`,
       `Wikivoyage note: ${input.seeds.wikivoyage || 'none'}.`,
       `Enriched context: ${input.seeds.enrichedContext || 'none'}.`,
       'Describe what makes this place distinctive within the tour theme. Use only verifiable facts from the provided context.',

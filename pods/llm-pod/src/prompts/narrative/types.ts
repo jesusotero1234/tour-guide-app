@@ -19,6 +19,7 @@ export interface LongNarrativePromptInput {
   targetWords?: string;
   cityName?: string;
   totalStops?: number;
+  stopIndex?: number;
   tourDurationMinutes?: number;
   /** Anti-pattern: openings/styles already used in this tour (injected as negative prompt) */
   usedOpenings?: string[];
@@ -104,4 +105,69 @@ export function compactRecord(record?: Record<string, string> | null): string {
     .map(([key, value]) => `${key}: ${value}`)
     .join('; ')
     .slice(0, 1200);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Structured Wikidata facts — typed, sourced, confidence-tagged
+// ═══════════════════════════════════════════════════════════════════
+
+const WIKIDATA_LABELS: Record<string, { label: string; type: string; confidence: string }> = {
+  P84:   { label: 'Arquitecto',      type: 'architect',  confidence: 'high' },
+  P571:  { label: 'Año de creación',  type: 'date',       confidence: 'high' },
+  P149:  { label: 'Estilo',           type: 'style',      confidence: 'high' },
+  P186:  { label: 'Material',         type: 'material',   confidence: 'medium' },
+  P2048: { label: 'Altura',           type: 'measurement',confidence: 'high' },
+  P170:  { label: 'Creador',          type: 'creator',    confidence: 'high' },
+  P1435: { label: 'Patrimonio',       type: 'heritage',   confidence: 'high' },
+  P276:  { label: 'Ubicación',        type: 'location',   confidence: 'high' },
+  P1619: { label: 'Inauguración',     type: 'date',       confidence: 'high' },
+  P793:  { label: 'Evento clave',     type: 'event',      confidence: 'medium' },
+};
+
+interface StructuredFact {
+  label: string;
+  value: string;
+  type: string;
+  source: string;
+  confidence: string;
+}
+
+/** Formats Wikidata claims into a human-readable, grounded facts block for the prompt.
+ *  Groups facts by type and adds provenance so the LLM knows what it can safely assert. */
+export function formatStructuredFacts(
+  wikidataClaims: Record<string, string> | null | undefined,
+  language: string
+): string {
+  if (!wikidataClaims || Object.keys(wikidataClaims).length === 0) return '';
+
+  const isEs = language?.startsWith('es');
+  const facts: StructuredFact[] = [];
+
+  for (const [propId, value] of Object.entries(wikidataClaims)) {
+    const meta = WIKIDATA_LABELS[propId];
+    if (!meta) continue;
+    facts.push({
+      label: isEs ? meta.label : propId,
+      value,
+      type: meta.type,
+      source: `Wikidata ${propId}`,
+      confidence: meta.confidence,
+    });
+  }
+
+  if (facts.length === 0) return '';
+
+  const lines = [isEs
+    ? 'HECHOS VERIFICADOS (usa solo estos — no inventes fechas, arquitectos ni estilos):'
+    : 'VERIFIED FACTS (use only these — do not invent dates, architects, or styles):'];
+
+  for (const f of facts) {
+    lines.push(`- ${f.label}: ${f.value} [fuente: ${f.source}, confianza: ${f.confidence}]`);
+  }
+
+  lines.push(isEs
+    ? 'IMPORTANTE: Puedes describir la atmósfera y sensaciones libremente, pero CUALQUIER fecha, nombre de arquitecto, estilo arquitectónico o material específico debe salir de esta lista. Si un dato tiene confianza "medium", menciónalo con cautela ("se cree que...").'
+    : 'IMPORTANT: You may describe atmosphere and sensations freely, but ALL dates, architect names, architectural styles, and materials MUST come from this list. If confidence is "medium", phrase it cautiously.');
+
+  return lines.join('\n');
 }

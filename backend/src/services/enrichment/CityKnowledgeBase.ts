@@ -76,15 +76,43 @@ export async function enrichContext(
 
     const results: EnrichedContext[] = response.data?.results || [];
     if (results.length > 0) {
-      console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${results.length} passages`);
+      const deduped = deduplicatePassages(results);
+      console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${deduped.length} passages`);
       // Cache for future queries (best-effort)
-      enrichmentCache.set(city, placeName, theme, language, query, results).catch(() => {});
+      enrichmentCache.set(city, placeName, theme, language, query, deduped).catch(() => {});
     }
-    return results;
+    return deduped;
   } catch (error) {
     console.warn(`[CityKB] Enrichment query failed for ${city}/${placeName}: ${(error as Error).message}`);
     return [];
   }
+}
+
+/** Removes near-duplicate passages by Jaccard word overlap.
+ *  Keeps the highest-similarity passage per cluster. */
+function deduplicatePassages(passages: EnrichedContext[], maxResults = 3): EnrichedContext[] {
+  if (passages.length <= 1) return passages;
+
+  const sorted = [...passages].sort((a, b) => b.similarity - a.similarity);
+  const kept: EnrichedContext[] = [sorted[0]];
+
+  for (let i = 1; i < sorted.length && kept.length < maxResults; i++) {
+    const candidate = sorted[i];
+    const isDup = kept.some(k => jaccardOverlap(k.text, candidate.text) > 0.55);
+    if (!isDup) {
+      kept.push(candidate);
+    }
+  }
+
+  return kept;
+}
+
+function jaccardOverlap(a: string, b: string): number {
+  const wordsA = new Set(a.toLowerCase().split(/\s+/));
+  const wordsB = new Set(b.toLowerCase().split(/\s+/));
+  const intersection = new Set([...wordsA].filter(w => wordsB.has(w)));
+  const union = new Set([...wordsA, ...wordsB]);
+  return union.size === 0 ? 0 : intersection.size / union.size;
 }
 
 /**

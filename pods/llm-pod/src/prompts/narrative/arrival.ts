@@ -1,4 +1,4 @@
-import { compactRecord, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
+import { compactRecord, formatStructuredFacts, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
 
 /**
  * Archetypes for arrival openings — rotated per POI to avoid repetition.
@@ -40,6 +40,7 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       welcomeBeat,
       `Section: arrival opening for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
+      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
       `OSM visual/type cues: ${compactRecord(input.seeds.osmTags)}.`,
       `Wikipedia lead: ${input.seeds.wikipediaLead || 'none'}.`,
       input.seeds.enrichedContext ? `Enriched context (use this as the primary factual source): ${input.seeds.enrichedContext.slice(0, 800)}` : '',

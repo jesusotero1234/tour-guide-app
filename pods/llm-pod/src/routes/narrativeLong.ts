@@ -263,6 +263,20 @@ const BANNED_OUTPUT_PHRASES = [
 /** Regex for Spanish formal-register markers that should never appear in "tú" narration. */
 const FORMAL_REGISTER_RE = /\b(usted(es)?|miren|observen|fíjense|vean|suyo|su\s+alrededor|les\s+invito)\b/i;
 
+/** Phrases that indicate an invalid end-of-tour transition in a non-last stop. */
+const INVALID_END_PHRASES = [
+  'final del recorrido', 'terminamos aquí', 'nuestra última parada',
+  'para concluir el tour', 'final de nuestro paseo', 'llegado al final',
+  'hemos terminado', 'se acaba aquí', 'fin del tour',
+  'nuestro recorrido termina', 'despedimos aquí',
+];
+
+function hasInvalidTransition(section: string): string | null {
+  const normalized = normalizeNFD(section);
+  const match = INVALID_END_PHRASES.find(phrase => normalized.includes(phrase));
+  return match ? `invalid-transition-${match.slice(0, 30)}` : null;
+}
+
 function hasBannedPhrase(section: string): string | null {
   const normalized = normalizeNFD(section);
   const match = BANNED_OUTPUT_PHRASES.find(phrase => normalized.includes(phrase));
@@ -281,6 +295,11 @@ function validateSection(section: string, input: LongNarrativePromptInput): stri
   const banned = hasBannedPhrase(section);
   if (banned) return banned;
   if (hasRepetition(section)) return 'repetition';
+  // Check invalid end-of-tour phrases in non-last stops
+  if (input.position !== 'last') {
+    const invalidTrans = hasInvalidTransition(section);
+    if (invalidTrans) return invalidTrans;
+  }
   if (!hasLanguageSignal(section, input.language)) return 'language-drift';
   if (/\b-?\d{1,3}\.\d{3,}\b/.test(section)) return 'coordinates';
   const unsupportedDrift = hasUnsupportedDrift(section, input);

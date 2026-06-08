@@ -332,6 +332,7 @@ export async function buildNarration(
         position,
         cityName: tourMeta?.cityName,
         totalStops: tourMeta?.totalStops,
+        stopIndex,
         tourDurationMinutes: tourMeta?.tourDurationMinutes,
         usedOpenings,
         openingArchetype: archetype,
