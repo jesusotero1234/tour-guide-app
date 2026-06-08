@@ -1,19 +1,41 @@
 import { compactRecord, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
 
+/**
+ * Archetypes for arrival openings — rotated per POI to avoid repetition.
+ * Each archetype defines a distinct narrative entry point.
+ */
+const ARRIVAL_ARCHETYPES = [
+  'anecdotal: start with a specific person, event, or curious detail tied to this place',
+  'sensory: open with a sound, smell, or texture that defines the atmosphere right now',
+  'contrast: begin by contrasting something old vs. new, or expected vs. surprising',
+  'question: start with a rhetorical question that hooks curiosity about this stop',
+  'scene: open by painting a quick scene — who is here, what are they doing, what does the light look like',
+  'detail: zoom in on one small architectural or urban detail and use it as a lens for the whole stop',
+  'rumour: begin with something a local might tell you — not a date, but an observation passed down',
+  'scale: open by describing the physical scale or position of this place within the city fabric',
+];
+
+function pickArchetype(index: number): string {
+  return ARRIVAL_ARCHETYPES[index % ARRIVAL_ARCHETYPES.length];
+}
+
 export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
   const isFirst = input.position === 'first';
+  const stopIndex = input.totalStops ? (input.position === 'first' ? 0 : input.position === 'last' ? (input.totalStops - 1) : undefined) : undefined;
+  const archetype = input.openingArchetype || (stopIndex !== undefined ? pickArchetype(stopIndex) : '');
+
   const welcomeBeat = isFirst
     ? [
-        `IMPORTANT: This is the FIRST stop of the tour. Begin the section with a warm welcome.`,
-        `Open with a sentence like: "Welcome to this ${input.theme} walking tour of ${input.cityName ?? 'this city'}."`,
-        input.totalStops ? `Mention there are ${input.totalStops} stops.` : '',
-        input.tourDurationMinutes ? `Mention the tour takes about ${input.tourDurationMinutes} minutes.` : '',
-        `Then say "Our first stop is ${input.localName}." and continue with arrival narration.`,
+        `IMPORTANT: This is the FIRST stop. Give a warm opening — but DO NOT say "Bienvenidos a esta caminata" or "Welcome to this walking tour".`,
+        `Instead, open like a real guide who is already on the street with the visitor: drop them straight into the moment.`,
+        input.totalStops ? `Naturally mention there are ${input.totalStops} stops.` : '',
+        input.tourDurationMinutes ? `Naturally mention the tour takes about ${input.tourDurationMinutes} minutes.` : '',
+        `Then introduce the first stop: "${input.localName}."`,
       ].filter(Boolean).join(' ')
     : '';
 
   return {
-    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
+    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, archetype),
     user: [
       welcomeBeat,
       `Section: arrival opening for ${input.localName}.`,

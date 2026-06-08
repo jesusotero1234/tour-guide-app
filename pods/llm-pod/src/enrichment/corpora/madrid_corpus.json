@@ -1,0 +1,167 @@
+[
+  {
+    "id": "madrid-001",
+    "place": "Museo del Prado",
+    "theme": "art",
+    "text": "El Museo del Prado es uno de los museos de arte más importantes del mundo. Fundado en 1819 por Fernando VII, alberga la mejor colección de pintura española, incluyendo obras maestras de Velázquez, Goya y El Greco. Su edificio neoclásico fue diseñado por Juan de Villanueva en 1785. El Prado recibe más de 3 millones de visitantes anuales. Entre sus obras más famosas destacan Las Meninas, El Jardín de las Delicias y Los Fusilamientos del 3 de mayo. La colección incluye más de 8,600 cuadros y 700 esculturas.",
+    "source_url": "https://es.wikipedia.org/wiki/Museo_del_Prado",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-002",
+    "place": "Palacio Real",
+    "theme": "history",
+    "text": "El Palacio Real de Madrid es la residencia oficial del rey de España, aunque actualmente se usa solo para ceremonias de Estado. Construido entre 1738 y 1764 sobre las ruinas del antiguo Alcázar, es el palacio real más grande de Europa Occidental con 135,000 metros cuadrados y 3,418 habitaciones. Su arquitectura es de estilo barroco clasicista italiano, diseñado por Filippo Juvarra y continuado por Giovanni Battista Sacchetti. Destaca la escalera principal de Sabatini, el Salón del Trono con su bóveda pintada por Tiépolo, y la Real Armería con una de las mejores colecciones de armaduras del mundo.",
+    "source_url": "https://es.wikipedia.org/wiki/Palacio_Real_de_Madrid",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-003",
+    "place": "Plaza Mayor",
+    "theme": "history",
+    "text": "La Plaza Mayor de Madrid es uno de los espacios públicos más emblemáticos de la ciudad. Construida entre 1617 y 1619 por Juan Gómez de Mora durante el reinado de Felipe III, ha sido escenario de mercados, corridas de toros, autos de fe y ejecuciones públicas. La estatua ecuestre de Felipe III en el centro es obra de Giambologna. La plaza es de forma rectangular, de 129 por 94 metros, y está rodeada de edificios residenciales de tres plantas con 237 balcones. La Casa de la Panadería, con sus frescos de Carlos Franco, preside el conjunto. Hoy alberga cafeterías, restaurantes y el mercado navideño anual.",
+    "source_url": "https://es.wikipedia.org/wiki/Plaza_Mayor_de_Madrid",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-004",
+    "place": "Catedral de la Almudena",
+    "theme": "religious",
+    "text": "La Catedral de Santa María la Real de la Almudena es la catedral de Madrid, consagrada por el papa Juan Pablo II en 1993. Su construcción comenzó en 1883 con un proyecto neogótico de Francisco de Cubas, pero tras la Guerra Civil se modificó hacia un estilo neoclásico para armonizar con el Palacio Real vecino. La catedral mide 104 metros de largo por 76 de ancho. Su cripta neorrománica, terminada en 1911, es la más grande de España. La fachada principal mira hacia la Plaza de la Armería. En su interior destaca la capilla de la Virgen de la Almudena, patrona de Madrid.",
+    "source_url": "https://es.wikipedia.org/wiki/Catedral_de_la_Almudena",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-005",
+    "place": "Parque del Retiro",
+    "theme": "nature",
+    "text": "El Parque del Buen Retiro es el parque más emblemático de Madrid, con 118 hectáreas de jardines, monumentos y espacios culturales. Fue creado en el siglo XVII como jardín del Palacio del Buen Retiro de Felipe IV. En 2021 fue declarado Patrimonio de la Humanidad por la UNESCO junto al Paseo del Prado. Alberga el Palacio de Cristal (1887), un pabellón de hierro y vidrio que hoy es sala de exposiciones del Museo Reina Sofía, y el Estanque Grande donde se puede remar. El monumento a Alfonso XII, con su gran columnata, domina el estanque. Otros puntos destacados son la Rosaleda, el Parterre francés y el Jardín de Vivaces.",
+    "source_url": "https://es.wikipedia.org/wiki/Parque_del_Retiro",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-006",
+    "place": "Puerta del Sol",
+    "theme": "history",
+    "text": "La Puerta del Sol es la plaza más famosa de Madrid y el kilómetro 0 de las carreteras radiales españolas. Su origen se remonta al siglo XV como una de las puertas de la muralla que rodeaba Madrid. El edificio más emblemático es la Real Casa de Correos, construida en 1768, que hoy alberga la Presidencia de la Comunidad de Madrid. Su reloj marca las tradicionales campanadas de Nochevieja. Otros símbolos de la plaza son la estatua del Oso y el Madroño (emblema de Madrid) y la placa del Kilómetro Cero en el suelo. Ha sido escenario de acontecimientos históricos como la proclamación de la Segunda República o el levantamiento del 2 de mayo.",
+    "source_url": "https://es.wikipedia.org/wiki/Puerta_del_Sol",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-007",
+    "place": "Museo Reina Sofía",
+    "theme": "art",
+    "text": "El Museo Nacional Centro de Arte Reina Sofía es el museo nacional español de arte del siglo XX. Inaugurado en 1992, ocupa el antiguo Hospital General de Madrid, un edificio neoclásico del siglo XVIII diseñado por Francesco Sabatini. Su colección incluye más de 21,000 obras, con especial énfasis en el arte español contemporáneo. La obra más famosa es el Guernica de Pablo Picasso (1937), un alegato antibélico que ocupa una sala dedicada junto a sus bocetos preparatorios. También alberga obras de Salvador Dalí, Joan Miró, Juan Gris y artistas internacionales. La ampliación de Jean Nouvel añadió 15,000 metros cuadrados en 2005.",
+    "source_url": "https://es.wikipedia.org/wiki/Museo_Reina_Sofía",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-008",
+    "place": "Templo de Debod",
+    "theme": "history",
+    "text": "El Templo de Debod es un templo egipcio del siglo II a.C. situado en el Parque del Oeste de Madrid. Fue donado por Egipto a España en 1968 como agradecimiento por la ayuda española en el salvamento de los templos de Nubia durante la construcción de la presa de Asuán. El templo fue desmontado piedra a piedra y reconstruido en Madrid, abriendo al público en 1972. Dedicado originalmente a los dioses Amón e Isis, conserva relieves y jeroglíficos originales. Es uno de los pocos templos egipcios que pueden visitarse fuera de Egipto y ofrece unas de las mejores puestas de sol de Madrid desde su mirador.",
+    "source_url": "https://es.wikipedia.org/wiki/Templo_de_Debod",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-009",
+    "place": "Mercado de San Miguel",
+    "theme": "markets",
+    "text": "El Mercado de San Miguel es un mercado cubierto histórico situado junto a la Plaza Mayor. Construido entre 1913 y 1916 en estilo modernista con estructura de hierro, es obra del arquitecto Alfonso Dubé y Díez. Originalmente fue un mercado de abastos tradicional, pero tras años de decadencia fue rehabilitado en 2009 como mercado gourmet. Hoy es uno de los principales atractivos gastronómicos de Madrid, con más de 30 puestos que ofrecen tapas, vinos, jamón ibérico, marisco, sushi, ostras y repostería. Su horario se extiende hasta la madrugada los fines de semana. Recibe más de 7 millones de visitantes al año.",
+    "source_url": "https://es.wikipedia.org/wiki/Mercado_de_San_Miguel",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-010",
+    "place": "Real Basílica de San Francisco el Grande",
+    "theme": "religious",
+    "text": "La Real Basílica de San Francisco el Grande es una basílica neoclásica de Madrid, construida entre 1761 y 1784 según diseño de Francisco Cabezas y terminada por Francesco Sabatini. Su cúpula, de 33 metros de diámetro, es la tercera más grande de la cristiandad circular tras el Panteón de Roma y San Pedro del Vaticano. El interior está decorado con frescos de artistas como Francisco de Goya. La capilla mayor alberga un retablo de mármol del siglo XIX. Fue declarada Monumento Nacional en 1980. Actualmente es gestionada por los franciscanos y alberga conciertos de música clásica por su excelente acústica.",
+    "source_url": "https://es.wikipedia.org/wiki/Real_Basílica_de_San_Francisco_el_Grande",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-011",
+    "place": "Gran Vía",
+    "theme": "history",
+    "text": "La Gran Vía es la calle más emblemática de Madrid, conocida como el Broadway madrileño por sus teatros y musicales. Su construcción, entre 1910 y 1932, requirió demoler cientos de edificios medievales del centro. Destaca el edificio Metrópolis (1911) de estilo Beaux-Arts con su cúpula de pizarra y estatua de la Victoria alada. El edificio Telefónica (1929), de 89 metros, fue el primer rascacielos de Europa. El edificio Carrión (1933), con su icónico letrero de Schweppes, es de estilo art déco. La calle alberga salas de cine históricas como el Capitol. Su arquitectura mezcla estilos Belle Époque, regionalista, art déco y racionalista.",
+    "source_url": "https://es.wikipedia.org/wiki/Gran_Vía",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-012",
+    "place": "Museo Thyssen-Bornemisza",
+    "theme": "art",
+    "text": "El Museo Thyssen-Bornemisza completa el Triángulo del Arte del Paseo del Prado junto al Prado y el Reina Sofía. Alberga la colección privada de la familia Thyssen-Bornemisza con más de 1,000 obras que recorren la historia de la pintura occidental desde el siglo XIII hasta el XX. El museo ocupa el Palacio de Villahermosa, un edificio neoclásico del siglo XVIII remodelado por Rafael Moneo. Entre sus obras destacan pinturas de Duccio, Van Eyck, Durero, Caravaggio, Rubens, Rembrandt, Monet, Renoir, Van Gogh, Kandinsky y Hopper. La colección incluye primitivos italianos, renacimiento alemán, impresionismo, expresionismo y pop art.",
+    "source_url": "https://es.wikipedia.org/wiki/Museo_Thyssen-Bornemisza",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-013",
+    "place": "Fuente de Cibeles",
+    "theme": "history",
+    "text": "La Fuente de Cibeles es uno de los símbolos más icónicos de Madrid. Diseñada por Ventura Rodríguez en 1782, representa a la diosa frigia Cibeles sobre un carro tirado por dos leones, Hipómenes y Atalanta. Está esculpida en mármol blanco y piedra de Redueña. Se encuentra en la plaza del mismo nombre, rodeada por el Palacio de Cibeles (antigua Casa de Correos), el Banco de España y el Palacio de Buenavista. Es el lugar donde el Real Madrid celebra sus títulos. La fuente originalmente tuvo una función práctica: abastecer de agua a los madrileños. Hoy es monumento histórico-artístico y punto neurálgico del tráfico madrileño.",
+    "source_url": "https://es.wikipedia.org/wiki/Fuente_de_Cibeles",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-014",
+    "place": "Plaza de España",
+    "theme": "history",
+    "text": "La Plaza de España de Madrid es una gran plaza ajardinada que conecta el centro histórico con el barrio de Argüelles. Fue construida entre 1910 y 1950 tras la demolición de un antiguo cuartel. Está presidida por el monumento a Miguel de Cervantes, con esculturas de Don Quijote y Sancho Panza a los pies del escritor. La flanquean dos icónicos rascacielos: el Edificio España (1953, 117 metros) y la Torre de Madrid (1957, 142 metros, el edificio más alto de España durante décadas). Tras una profunda remodelación finalizada en 2021, la plaza ganó zonas verdes, carriles bici y un gran espacio peatonal junto al Templo de Debod.",
+    "source_url": "https://es.wikipedia.org/wiki/Plaza_de_Espa%C3%B1a_(Madrid)",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  },
+  {
+    "id": "madrid-015",
+    "place": "Museo Arqueológico Nacional",
+    "theme": "art",
+    "text": "El Museo Arqueológico Nacional (MAN) alberga una de las colecciones arqueológicas más importantes de Europa. Fundado en 1867 por Isabel II, ocupa el Palacio de Biblioteca y Museos Nacionales desde 1895, compartiendo edificio con la Biblioteca Nacional. Su colección abarca desde la Prehistoria hasta el siglo XIX, con piezas emblemáticas como la Dama de Elche (busto íbero del siglo V a.C.), la Dama de Baza, el Tesoro de Guarrazar (coronas visigodas) y los toros de Guisando. Destacan también sus salas de Egipto, Grecia y Roma. Tras una profunda renovación completada en 2014, el museo modernizó toda su museografía con criterios contemporáneos.",
+    "source_url": "https://es.wikipedia.org/wiki/Museo_Arqueológico_Nacional",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-07T00:00:00Z"
+  }
+]

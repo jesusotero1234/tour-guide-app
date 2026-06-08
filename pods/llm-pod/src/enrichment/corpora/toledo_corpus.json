@@ -1,0 +1,112 @@
+[
+  {
+    "id": "toledo-001",
+    "place": "Alcázar de Toledo",
+    "theme": "history",
+    "text": "El Alcázar de Toledo es una fortificación situada en la parte más alta de la ciudad. De origen romano en el siglo III, fue reconstruido como alcázar por los visigodos y transformado por los árabes. Carlos V encargó su reconstrucción renacentista a Alonso de Covarrubias en 1545. Su fachada principal es de estilo herreriano con influencias platerescas. Durante la Guerra Civil española, el Alcázar fue escenario de un famoso asedio de 70 días en 1936 donde el coronel Moscardó resistió con la guardia civil. Destruido casi por completo, fue reconstruido entre 1939 y 1957. Actualmente alberga el Museo del Ejército y la Biblioteca de Castilla-La Mancha.",
+    "source_url": "https://es.wikipedia.org/wiki/Alcázar_de_Toledo",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-002",
+    "place": "Catedral de Toledo",
+    "theme": "religious",
+    "text": "La Catedral de Santa María de Toledo es la sede de la Archidiócesis de Toledo y una de las catedrales góticas más importantes de España. Su construcción comenzó en 1226 bajo el reinado de Fernando III el Santo sobre la antigua mezquita mayor. Es de estilo gótico francés con planta de cinco naves y doble girola. Mide 120 metros de largo por 60 de ancho. Destaca el Transparente, obra maestra del barroco de Narciso Tomé, la Capilla Mozárabe, la Sala Capitular y la sacristía con obras de El Greco, Goya, Van Dyck y Tiziano. La torre campanario alcanza 92 metros de altura.",
+    "source_url": "https://es.wikipedia.org/wiki/Catedral_de_Toledo",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-003",
+    "place": "Sinagoga de Santa María la Blanca",
+    "theme": "religious",
+    "text": "La Sinagoga de Santa María la Blanca es uno de los monumentos más singulares de la judería toledana. Construida en 1180 bajo el reinado de Alfonso VIII, es obra de arquitectos mudéjares. Su interior está formado por cinco naves separadas por arcos de herradura sobre pilares octogonales decorados con yeserías de tradición almohade. Los capiteles muestran piñas y volutas. Fue sinagoga hasta 1391, cuando tras las revueltas antijudías fue convertida en iglesia cristiana. En el siglo XV pasó a ser beaterio. Hoy es museo y uno de los ejemplos más hermosos de arte mudéjar de España.",
+    "source_url": "https://es.wikipedia.org/wiki/Sinagoga_de_Santa_María_la_Blanca",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-004",
+    "place": "Monasterio de San Juan de los Reyes",
+    "theme": "religious",
+    "text": "El Monasterio de San Juan de los Reyes es un monasterio franciscano de estilo gótico isabelino construido por orden de los Reyes Católicos entre 1477 y 1504. Fue erigido para conmemorar la victoria en la Batalla de Toro (1476) y como panteón real. Su arquitecto fue Juan Guas. El claustro es uno de los más bellos del gótico tardío español, con arquerías decoradas con cardos y granadas. La iglesia es de nave única con capillas laterales entre contrafuertes. El exterior está adornado con cadenas colgantes de los cautivos cristianos liberados. Las bóvedas de crucería y los arcos conopiales son característicos del estilo isabelino.",
+    "source_url": "https://es.wikipedia.org/wiki/Monasterio_de_San_Juan_de_los_Reyes",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-005",
+    "place": "Puente de San Martín",
+    "theme": "history",
+    "text": "El Puente de San Martín es un puente medieval del siglo XIV que cruza el río Tajo en Toledo. Construido en piedra con cinco arcos, el central alcanza 40 metros de luz, siendo uno de los mayores arcos de su época. La leyenda cuenta que el arquitecto, al darse cuenta de un error en la construcción que haría colapsar el puente, fue ayudado por su esposa que incendió los andamios durante la noche para que él pudiera corregir el fallo sin ser notado. El puente está flanqueado por dos torres defensivas hexagonales en sus extremos. Ofrece una de las vistas más impresionantes del perfil monumental de Toledo.",
+    "source_url": "https://es.wikipedia.org/wiki/Puente_de_San_Martín_(Toledo)",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-006",
+    "place": "Puerta de Bisagra",
+    "theme": "history",
+    "text": "La Puerta de Bisagra es la entrada principal al casco histórico de Toledo. La puerta original data del siglo X, de época musulmana. La actual fue construida por Alonso de Covarrubias en 1550 por orden de Carlos V. Es de estilo renacentista con dos torreones semicirculares y un gran arco de medio punto coronado por el escudo imperial de Carlos V con el águila bicéfala. Entre el cuerpo exterior y el interior hay un patio de armas porticado. En el interior, un segundo arco da acceso a la ciudad. Sobre él, una gran hornacina alberga la Virgen con el Niño.",
+    "source_url": "https://es.wikipedia.org/wiki/Puerta_de_Bisagra",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-007",
+    "place": "Iglesia de Santo Tomé",
+    "theme": "art",
+    "text": "La Iglesia de Santo Tomé es famosa por albergar El Entierro del Conde de Orgaz, la obra maestra de El Greco pintada en 1586. El templo, de origen mudéjar del siglo XII, fue reconstruido en el siglo XIV por el señor de Orgaz. La torre mudéjar es uno de los mejores ejemplos de este estilo en Toledo, con arcos de herradura y decoración de sebka. El Entierro del Conde de Orgaz representa el milagro de San Esteban y San Agustín descendiendo para enterrar al noble toledano. La obra está dividida en dos zonas: la terrenal con el entierro y retratos de caballeros toledanos, y la celestial con Cristo y la Virgen.",
+    "source_url": "https://es.wikipedia.org/wiki/Iglesia_de_Santo_Tomé_(Toledo)",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-008",
+    "place": "Mezquita del Cristo de la Luz",
+    "theme": "religious",
+    "text": "La Mezquita del Cristo de la Luz es el monumento más antiguo de Toledo que se conserva completo, construida en el año 999. Es una pequeña mezquita de planta cuadrada de 8 metros de lado, con cuatro columnas visigodas que sostienen nueve bóvedas de crucería califal. La fachada principal tiene una inscripción cufí y arcos de herradura. Tras la conquista cristiana en 1085, fue convertida en iglesia por Alfonso VI, añadiendo un ábside mudéjar semicircular con pinturas románicas del siglo XII. El nombre proviene de la leyenda que dice que el caballo del rey se arrodilló frente a una luz misteriosa que resultó ser un Cristo oculto.",
+    "source_url": "https://es.wikipedia.org/wiki/Mezquita_del_Cristo_de_la_Luz",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-009",
+    "place": "Palacio de Galiana",
+    "theme": "history",
+    "text": "El Palacio de Galiana es un palacio mudéjar del siglo XIII situado en la vega del Tajo. Su nombre evoca la leyenda de la princesa Galiana, hija del rey visigodo Galafre, que según la tradición habitó estos jardines y se enamoró del joven Carlomagno. El edificio actual fue construido por el rey taifa Al-Mamún como residencia de recreo, rodeado de jardines y huertas. Conserva elementos islámicos originales como arcos de herradura, yeserías y restos de un sistema hidráulico. Tras la conquista cristiana pasó a ser propiedad de la Orden de Calatrava. El conjunto incluye una torre y un salón noble con vistas al río Tajo.",
+    "source_url": "https://es.wikipedia.org/wiki/Palacio_de_Galiana",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  },
+  {
+    "id": "toledo-010",
+    "place": "Plaza de Zocodover",
+    "theme": "history",
+    "text": "La Plaza de Zocodover es el corazón de la vida social toledana desde hace siglos. Su nombre proviene del árabe 'suq ad-dawabb' (mercado de bestias). Durante la dominación musulmana fue zoco principal de la medina. Tras la reconquista, se convirtió en plaza mayor de la ciudad, escenario de mercados, corridas de toros y autos de fe de la Inquisición. El edificio más emblemático es el Arco de la Sangre, puerta de acceso desde el Alcázar. La plaza actual fue remodelada en el siglo XIX. Hoy está llena de terrazas, cafeterías y tiendas de mazapán, el dulce típico toledano elaborado con almendra y azúcar desde la Edad Media.",
+    "source_url": "https://es.wikipedia.org/wiki/Plaza_de_Zocodover",
+    "source": "wikipedia",
+    "lang": "es",
+    "license": "CC BY-SA 4.0",
+    "retrieved_at": "2026-06-08T00:00:00Z"
+  }
+]

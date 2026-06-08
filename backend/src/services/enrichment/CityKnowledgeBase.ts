@@ -16,7 +16,7 @@ export interface EnrichedContext {
 }
 
 const INDEX_BASE_DIR = process.env.ENRICHMENT_INDEX_BASE_DIR
-  || path.resolve(__dirname, '../../pods/llm-pod/enrichment');
+  || path.resolve(__dirname, '../../../../pods/llm-pod/enrichment');
 
 // Feature flag: comma-separated list of cities with RAG enabled.
 // Set to '*' to enable all, or 'madrid,barcelona' for specific cities.
