@@ -240,16 +240,55 @@ function hasUnsupportedDrift(section: string, input: LongNarrativePromptInput): 
   return unsupported ? `unsupported-drift-${unsupported}` : null;
 }
 
+/** Normalize text for accent/diacritic-insensitive comparison.
+ *  NFD decomposition + strip combining marks + lowercase. */
+function normalizeNFD(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+/** Phrases banned in generated output — checked post-generation, not just in the prompt.
+ *  Normalized forms (no accents) for reliable matching after normalizeNFD(). */
+const BANNED_OUTPUT_PHRASES = [
+  'mire a su alrededor', 'mira a tu alrededor', 'miren hacia arriba', 'mira hacia abajo',
+  'al llegar a', 'la primera impresion', 'es un lugar emblematico', 'fachada de ladrillo rojo',
+  'bienvenidos a esta caminata', 'se presenta ante ti',
+  'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
+  'refleja como', 'muestra como',
+  'must-see destination', 'steeped in history', 'hidden gem',
+];
+
+/** Regex for Spanish formal-register markers that should never appear in "tú" narration. */
+const FORMAL_REGISTER_RE = /\b(usted(es)?|miren|observen|fíjense|vean|suyo|su\s+alrededor|les\s+invito)\b/i;
+
+function hasBannedPhrase(section: string): string | null {
+  const normalized = normalizeNFD(section);
+  const match = BANNED_OUTPUT_PHRASES.find(phrase => normalized.includes(phrase));
+  return match ? `banned-phrase-${match.slice(0, 30)}` : null;
+}
+
+function hasFormalRegister(section: string): string | null {
+  return FORMAL_REGISTER_RE.test(section) ? 'formal-register' : null;
+}
+
 function validateSection(section: string, input: LongNarrativePromptInput): string | null {
   const count = wordCount(section);
   if (count < 45 || count > 140) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
   if (/^¡Hola!|^Hello!|^Bonjour!|^Hallo!/i.test(section)) return 'chatbot-opening';
+  const banned = hasBannedPhrase(section);
+  if (banned) return banned;
   if (hasRepetition(section)) return 'repetition';
   if (!hasLanguageSignal(section, input.language)) return 'language-drift';
   if (/\b-?\d{1,3}\.\d{3,}\b/.test(section)) return 'coordinates';
   const unsupportedDrift = hasUnsupportedDrift(section, input);
   if (unsupportedDrift) return unsupportedDrift;
+  if (input.language === 'es' || input.language?.startsWith('es-')) {
+    const formal = hasFormalRegister(section);
+    if (formal) return formal;
+  }
   return null;
 }
 
