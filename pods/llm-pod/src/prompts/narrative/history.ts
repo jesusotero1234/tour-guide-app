@@ -3,7 +3,7 @@ import { compactRecord, LongNarrativePromptInput, sectionSystem, SectionPrompt }
 export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
   if (input.theme === 'food') {
     return {
-      system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
+      system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
       user: [
         `Section: culinary or market background for ${input.localName}.`,
         `Tour theme: ${input.theme}.`,
@@ -16,7 +16,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
   }
 
   return {
-    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
+    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
     user: [
       `Section: historical background for ${input.localName}.`,
       `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,

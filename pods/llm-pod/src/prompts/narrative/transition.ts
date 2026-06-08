@@ -20,7 +20,7 @@ export function transitionPrompt(input: LongNarrativePromptInput): SectionPrompt
       ].join('\n');
 
   return {
-    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
+    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
     user: userBlock,
   };
 }
