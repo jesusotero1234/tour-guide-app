@@ -47,8 +47,8 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       'Open visually: orient the visitor to what they can see or feel as they arrive, such as facade, scale, materials, light, activity, or atmosphere. Then explain why this arrival matters to the tour theme.',
       'If enriched context is provided, use it as your primary source — it contains rich, verified detail about this place.',
       input.seedQuality === 'thin'
-        ? 'THIN-SEED: Records on this place are very limited. Do NOT invent dates, eras, architects, or styles. Describe honestly what is visible: materials, light, scale, atmosphere. Say that historical records are sparse if appropriate.'
-        : 'If records are sparse, say so honestly and use only the available cues; do not invent architectural details or history.',
+        ? 'THIN-SEED: Do not invent dates, eras, architects, or styles. Do not mention sparse records or source limits. Orient the visitor through what can be seen or felt now: scale, light, activity, materials if visible or provided, atmosphere, and the role this place plays in the walk.'
+        : 'If records are sparse, use only available cues; do not say that records are sparse and do not invent architectural details or history.',
     ].filter(Boolean).join('\n'),
   };
 }

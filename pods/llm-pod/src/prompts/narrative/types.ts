@@ -62,10 +62,12 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
         '  - Relationships to royalty, nobility, religious orders, or institutions.',
         '  - Phrases like "was built in", "dates back to", "belonged to", "was the scene of".',
         '  - Any sentence that begins with "In the year..." or "During the...".',
-        'WHEN FACTS ARE MISSING:',
-        '  - Say honestly that records are limited. Example: "The public record on this place is sparse, but standing here you can feel..."',
+        'NARRATIVE STRATEGY WHEN FACTS ARE MISSING:',
+        '  - Never tell the visitor that records, sources, data, or verification are limited.',
+        '  - Do not describe your safety rules or what you are avoiding.',
+        '  - Build the section from visible cues, the POI name/type, the route context, and the tour theme.',
         '  - Focus on what the visitor can observe right now, not on what might have happened here.',
-        '  - Prefer a shorter, honest description over a longer, invented one.',
+        '  - Prefer a shorter, vivid guide-style observation over filler.',
       ].join(' ')
     : '';
 
@@ -92,6 +94,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
 
   const metaBan = 'NEVER say "this is significant because" or "this is important for our tour because". NEVER use meta-narrative or abstract justifications. Show importance through concrete facts, do not announce it.';
   const speculationBan = 'If you lack a specific verified fact, do not speculate. Prefer brevity over filler. Phrases like "must have been" or "surely" or "probably" are forbidden.';
+  const sourceMetaBan = 'CRITICAL: NEVER mention source limitations, public records, available data, verified facts, unverified facts, caution, prudence, or what you are not inventing. These are internal safety rules, not visitor-facing narration. The visitor must never hear about your data constraints.';
 
   const personaNote = language.startsWith('es')
     ? 'Address the visitor as "tu" (informal, warm). NEVER use "usted" or "ustedes".'
@@ -108,6 +111,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     'Good style example: {"section":"Notice how the pale stone catches the afternoon light, making the doorway feel larger than it first appears. That quiet sense of ceremony is exactly why this stop belongs in our architecture walk: the building does not need to shout to show how the city wanted to present itself."}',
     metaBan,
     speculationBan,
+    sourceMetaBan,
     bannedPrompt,
     usedPrompt,
     archetypePrompt,

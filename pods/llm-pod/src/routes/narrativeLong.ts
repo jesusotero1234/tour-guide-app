@@ -258,6 +258,20 @@ const BANNED_OUTPUT_PHRASES = [
   'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
+  // Anti-meta-lenguaje: el modelo no debe mencionar sus limitaciones de datos
+  'public sources are limited', 'records are limited', 'available records',
+  'available public record', 'verified facts', 'unverified facts',
+  'without adding unverified', 'cautious base', 'stay grounded',
+  'sources are limited', 'records are sparse', 'available sources',
+  'source limitations', 'available data', 'limited records',
+  'sources publiques', 'donnees publiques', 'sources disponibles',
+  'ne raconte pas toute', 'sans ajouter', 'non verifies',
+  'donnees disponibles', 'sources limitees',
+  'offentlichen angaben', 'ungeprufte', 'verfugbaren quellen',
+  'begrenzten quellen', 'offentlichen quellen',
+  'fonti pubbliche', 'senza inventare', 'fonti disponibili',
+  'datos publicos', 'registros disponibles', 'fuentes publicas',
+  'fuentes disponibles', 'datos disponibles',
 ];
 
 /** Regex for Spanish formal-register markers that should never appear in "tú" narration. */
@@ -876,64 +890,64 @@ function fallbackSection(name: SectionName, input: LongNarrativePromptInput, rea
 
   if (name === 'transition' && input.position === 'last') {
     if (code === 'es') {
-      return `Gracias por caminar conmigo por ${input.cityName || 'esta ciudad'}. En este recorrido de ${input.theme}, has recorrido lugares que cuentan la historia de Madrid a través de su arquitectura, sus calles y su vida cotidiana. Que disfrutes el resto de tu visita.`;
+      return `Gracias por caminar conmigo por ${input.cityName || 'esta ciudad'}. En este recorrido de ${input.theme}, has visto cómo la ciudad se lee a través de sus espacios, su arquitectura y su vida cotidiana. Que disfrutes el resto de tu visita.`;
     }
     if (code === 'fr') {
-      return `Merci d'avoir marché avec moi dans ${input.cityName || 'cette ville'}. Pendant cette visite de ${input.theme}, vous avez observé des lieux aux sources parfois limitées, mais bien ancrés dans l'histoire locale. Je vous souhaite une belle suite de visite.`;
+      return `Merci d'avoir marché avec moi dans ${input.cityName || 'cette ville'}. Pendant cette visite de ${input.theme}, vous avez observé des lieux où l'architecture, l'espace urbain et la vie quotidienne se croisent. Je vous souhaite une belle suite de visite.`;
     }
     if (code === 'de') {
-      return `Danke, dass Sie mit mir durch ${input.cityName || 'diese Stadt'} gegangen sind. Auf dieser ${input.theme}-Tour haben Sie Orte mit begrenzten öffentlichen Angaben, aber echten Spuren lokaler Geschichte gesehen. Ich wünsche Ihnen noch einen schönen Aufenthalt.`;
+      return `Danke, dass Sie mit mir durch ${input.cityName || 'diese Stadt'} gegangen sind. Auf dieser ${input.theme}-Tour haben Sie Orte gesehen, an denen sich Architektur, Stadtraum und Alltagsleben begegnen. Ich wünsche Ihnen noch einen schönen Aufenthalt.`;
     }
-    return `Thank you for walking with me through ${input.cityName || 'this city'}. On this ${input.theme} tour, you have seen places with limited public records but real traces of local history. I hope the rest of your visit is warm and memorable.`;
+    return `Thank you for walking with me through ${input.cityName || 'this city'}. On this ${input.theme} tour, you have seen places where architecture, urban space, and everyday life come together. I hope the rest of your visit is warm and memorable.`;
   }
 
   if (code === 'es') {
     if (name === 'arrival') {
-      return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Este lugar forma parte del tejido urbano madrileño desde hace siglos, y sus detalles visibles —${tagSummary}— permiten leer la ciudad con atención.`;
+      return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Este lugar forma parte del tejido urbano, y sus detalles visibles —${tagSummary}— invitan a leer la ciudad con atención.`;
     }
     if (name === 'history') {
-      return `Los registros disponibles sobre ${input.localName} recogen ${tagSummary}. Aunque los datos públicos no lo cuentan todo, lo que sí es verificable es su papel dentro de la trama urbana: un espacio que ha sido testigo del crecimiento y la transformación de ${cityName}.`;
+      return `${input.localName} se inscribe en la trama de ${cityName} a través de señales como ${tagSummary}. Su valor no está en una gran fecha, sino en cómo el espacio ha acompañado el crecimiento y la transformación de la ciudad.`;
     }
     if (name === 'significance') {
-      return `Dentro de este recorrido por ${input.theme}, ${input.localName} es una pieza clave del mosaico local. Su presencia ayuda a entender cómo se ha ido tejiendo ${cityName} a lo largo del tiempo, sumando capas de historia, arquitectura y vida cotidiana.`;
+      return `Dentro de este recorrido por ${input.theme}, ${input.localName} ayuda a entender cómo se ha ido tejiendo ${cityName}: espacio, uso y memoria cotidiana se encuentran aquí sin necesidad de un gran anuncio.`;
     }
-    return `Desde aquí seguimos hacia ${nextStop}. El recorrido continúa sumando perspectivas: cada parada añade un matiz distinto sobre ${input.theme} en ${cityName}.`;
+    return `Desde aquí seguimos hacia ${nextStop}. Cada parada añade un matiz distinto sobre ${input.theme} en ${cityName}.`;
   }
 
   if (code === 'fr') {
     if (name === 'arrival') {
-      return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Les sources publiques restent limitées, il faut donc observer le lieu avec attention et s'appuyer seulement sur les données disponibles.`;
+      return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Depuis ce point, la ville se lit à hauteur de marche: le rythme de la rue, l'échelle des façades et les usages quotidiens donnent déjà le ton de la visite.`;
     }
     if (name === 'history') {
-      return `Les informations disponibles sur ${input.localName} indiquent ${tagSummary}. Cela ne raconte pas toute son histoire, mais donne une base prudente sans ajouter de dates, de pays, de guerres ou de personnages non vérifiés.`;
+      return `Autour de ${input.localName}, les indices disponibles (${tagSummary}) suffisent à poser le regard: ce n'est pas un décor isolé, mais un morceau de ville où se croisent circulation, architecture et vie quotidienne.`;
     }
     if (name === 'significance') {
-      return `Dans cette visite, ${input.localName} sert de repère concret dans le tissu local. Ses données publiques sont modestes, mais elles aident à relier architecture, usage urbain et mémoire quotidienne.`;
+      return `Dans cette visite, ${input.localName} aide à comprendre ${cityName} par petites touches: l'espace, les usages et la mémoire urbaine se rejoignent ici sans avoir besoin d'une grande annonce historique.`;
     }
-    return `Depuis ce point, nous continuons vers ${nextStop}. Gardez ces indices vérifiés en tête, car le prochain lieu ajoute une autre pièce au parcours.`;
+    return `Depuis ce point, nous continuons vers ${nextStop}. Gardez en tête cette manière de lire la ville par ses détails: elle donnera une autre résonance au prochain arrêt.`;
   }
   if (code === 'de') {
     if (name === 'arrival') {
-      return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Die öffentlichen Angaben sind begrenzt, deshalb betrachten wir den Ort aufmerksam und stützen uns nur auf verfügbare Daten.`;
+      return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Von hier aus lässt sich die Stadt im Gehen lesen: der Rhythmus der Straße, die Maßstäbe der Fassaden und der alltägliche Gebrauch geben den Ton der Führung vor.`;
     }
     if (name === 'history') {
-      return `Die verfügbaren Angaben zu ${input.localName} nennen ${tagSummary}. Das erzählt nicht die ganze Geschichte, bietet aber eine vorsichtige Grundlage ohne ungeprüfte Daten, Länder, Kriege oder Personen.`;
+      return `Rund um ${input.localName} genügen die Hinweise (${tagSummary}), um den Blick zu schärfen: kein isoliertes Dekor, sondern ein Stück Stadt, in dem sich Verkehr, Architektur und Alltagsleben kreuzen.`;
     }
     if (name === 'significance') {
-      return `Für diesen Rundgang ist ${input.localName} ein konkreter Hinweis im lokalen Stadtgefüge. Die öffentlichen Daten sind knapp, helfen aber, Architektur, Nutzung und Alltagsgeschichte miteinander zu verbinden.`;
+      return `In diesem Rundgang hilft ${input.localName}, ${cityName} in kleinen Schritten zu verstehen: Raum, Nutzung und städtisches Gedächtnis treffen hier zusammen, ohne dass es einer großen historischen Ansage bedarf.`;
     }
-    return `Von hier gehen wir weiter zu ${nextStop}. Behalten Sie diese überprüfbaren Hinweise im Kopf, denn der nächste Ort ergänzt den Rundgang um eine weitere Perspektive.`;
+    return `Von hier gehen wir weiter zu ${nextStop}. Behalten Sie diesen lesenden Blick auf die Stadt im Kopf — er wird dem nächsten Halt eine andere Resonanz geben.`;
   }
   if (name === 'arrival') {
-    return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. Public sources are limited, so the best approach is to observe carefully and stay grounded in the available facts.`;
+    return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. From here, the city reads at walking height: the rhythm of the street, the scale of the facades, and the everyday uses already set the tone for this visit.`;
   }
   if (name === 'history') {
-    return `The available records for ${input.localName} give ${tagSummary}. That does not tell the whole story, but it gives us a cautious base without adding unverified dates, countries, wars, or people.`;
+    return `Around ${input.localName}, the available clues (${tagSummary}) are enough to sharpen the eye: not an isolated backdrop, but a piece of city where movement, architecture, and daily life intersect.`;
   }
   if (name === 'significance') {
-    return `For this walk, ${input.localName} works as a concrete clue in the local fabric. Its public data is modest, but it helps connect architecture, urban use, and everyday memory.`;
+    return `On this walk, ${input.localName} helps make sense of ${cityName} in small steps: space, use, and urban memory meet here without needing a grand historical announcement.`;
   }
-  return `From here, we continue toward ${nextStop}. Keep these verified clues in mind, because the next place adds another piece to the route.`;
+  return `From here, we continue toward ${nextStop}. Keep this way of reading the city through its details in mind — it will give the next stop a different resonance.`;
 }
 
 async function generateSection(

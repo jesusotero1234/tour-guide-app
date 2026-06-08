@@ -53,10 +53,10 @@ export const PlaceCard = ({ place, language = 'en', onPlaybackStateChange }: Pla
   const sectionOrder = ['arrival', 'history', 'significance', 'transition'];
   const sectionLabels: Record<string, Record<string, string>> = {
     en: { arrival: 'Arrival', history: 'Background', significance: 'Why It Matters', transition: 'Next' },
-    es: { arrival: 'Llegada', history: 'Contexto', significance: 'Por Que Importa', transition: 'Siguiente Parada' },
-    fr: { arrival: 'Arrivee', history: 'Contexte', significance: 'Pourquoi C Est Important', transition: 'Etape Suivante' },
-    de: { arrival: 'Ankunft', history: 'Kontext', significance: 'Warum Das Zaehlt', transition: 'Naechste Station' },
-    it: { arrival: 'Arrivo', history: 'Contesto', significance: 'Perche Conta', transition: 'Tappa Successiva' },
+    es: { arrival: 'Llegada', history: 'Contexto', significance: 'A observar', transition: 'Siguiente parada' },
+    fr: { arrival: 'Arrivée', history: 'Contexte', significance: 'À observer', transition: 'Étape suivante' },
+    de: { arrival: 'Ankunft', history: 'Kontext', significance: 'Im Detail', transition: 'Nächste Station' },
+    it: { arrival: 'Arrivo', history: 'Contesto', significance: 'Da osservare', transition: 'Tappa successiva' },
   };
   const labelLanguage = language.slice(0, 2).toLowerCase();
   const labels = sectionLabels[labelLanguage] || sectionLabels.en;

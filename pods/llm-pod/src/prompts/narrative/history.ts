@@ -23,8 +23,8 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
       `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
       'Frame supported facts as a short story: begin with a hook around a real date, person, use, transformation, or broader era only when provided. Do not recite claims as a list.',
       input.seedQuality === 'thin'
-        ? 'THIN-SEED: There is almost no historical data on this place. Do NOT invent a backstory. Instead, describe what the OSM tags and visible structure reveal: "This type of construction often served as..." or "In this region, such buildings were typically...". Never attribute a specific era, event, or person to this POI.'
-        : 'When a date is unavailable, connect cautiously to the recorded type or use of the place without inventing an era. If records are sparse, explain that the surviving public record is limited and avoid making up details.',
+        ? 'THIN-SEED: Do not mention that historical data is missing. Do not invent a backstory. Use the recorded place type, name, OSM tags, and visible urban role to create a concise guide-style observation. You may speak generally about what this kind of place lets a visitor notice, but never attach an unprovided era, event, owner, architect, or date to this POI.'
+        : 'When a date is unavailable, connect cautiously to the recorded type or use of the place without inventing an era. Do not mention sparse records; simply omit unsupported claims.',
     ].join('\n'),
   };
 }

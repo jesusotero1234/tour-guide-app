@@ -133,12 +133,12 @@ function buildGroundedFallbackNarration(params: {
 
   if (languageCode === 'fr') {
     const arrival = params.position === 'first'
-      ? `Bienvenue dans cette promenade a travers ${cityName}. Nous commencons a ${params.localName}, une etape qui merite d'etre regardee calmement avant de continuer. Meme lorsque les sources publiques sont limitees, le lieu donne deja de vrais indices sur la facon dont la ville est organisee, habitee et ressentie.`
-      : `Nous arrivons a ${params.localName}, une etape de cette promenade dans ${cityName}. Meme lorsque les sources publiques sont limitees, le lieu offre encore des indices concrets sur l'echelle, le mouvement et la maniere dont la ville se vit a pied.`;
-    const history = `Les donnees publiques disponibles le decrivent avec des indices comme ${tagSummary}. Cela ne raconte pas toute l'histoire, mais cela suffit pour rester prudent: sans inventer de dates, de personnages ni d'evenements qui ne sont pas appuyes par les traces disponibles.`;
+      ? `Bienvenue dans cette promenade à travers ${cityName}. Nous commençons à ${params.localName}, non pas par une grande déclaration, mais par ce que la rue donne déjà à voir: l'échelle du lieu, le mouvement autour de nous et la façon dont la ville se laisse lire à pied.`
+      : `Nous arrivons à ${params.localName}, une étape de cette promenade dans ${cityName}. Ici, le regard peut s'arrêter sur l'échelle du lieu, le mouvement autour de nous et la manière dont cette partie de la ville se vit à pied.`;
+    const history = `Autour de ${params.localName}, quelques indices concrets comme ${tagSummary} suffisent à guider l'observation. Le lieu prend sens par sa position dans la ville, par les usages qui l'entourent et par le rythme quotidien qu'il révèle.`;
     const significance = params.position === 'last'
-      ? `Avant de terminer la promenade, il vaut la peine de remarquer comment cette etape resume une partie importante du parcours. Dans une visite consacree a ${params.theme}, sa valeur vient de la facon dont elle relie l'espace, l'usage et la memoire quotidienne sans exagerer ce que nous savons.`
-      : `Dans cette visite consacree a ${params.theme}, l'importance de ${params.localName} ne tient pas seulement a son nom, mais a la facon dont il relie l'espace, l'usage et la memoire quotidienne. D'ici, nous continuons vers ${nextStop}, en emportant ces indices vers la suite du parcours.`;
+      ? `Avant de terminer la promenade, cette étape rassemble plusieurs fils du parcours. Dans une visite consacrée à ${params.theme}, elle rappelle que l'histoire d'une ville se lit aussi dans ses espaces ordinaires, ses passages et ses habitudes.`
+      : `Dans cette visite consacrée à ${params.theme}, ${params.localName} sert de point d'appui pour relier espace, usage et mémoire urbaine. D'ici, nous continuons vers ${nextStop}, avec cette lecture du lieu en tête.`;
     return {
       narration: [arrival, history, significance].join('\n\n'),
       sections: { arrival, history, significance },
@@ -148,12 +148,12 @@ function buildGroundedFallbackNarration(params: {
 
   if (languageCode === 'de') {
     const arrival = params.position === 'first'
-      ? `Willkommen zu diesem Rundgang durch ${cityName}. Wir beginnen bei ${params.localName}, einem Ort, den man ruhig auf sich wirken lassen sollte, bevor es weitergeht. Selbst wenn die oeffentlichen Quellen begrenzt sind, gibt der Ort bereits echte Hinweise darauf, wie die Stadt geformt, genutzt und erlebt wird.`
-      : `Wir erreichen ${params.localName}, eine Station dieses Rundgangs durch ${cityName}. Selbst wenn die oeffentlichen Quellen begrenzt sind, bietet der Ort noch konkrete Hinweise auf Massstab, Bewegung und darauf, wie die Stadt zu Fuss erfahren wird.`;
-    const history = `Die verfuegbaren oeffentlichen Angaben beschreiben den Ort mit Signalen wie ${tagSummary}. Das erzaehlt nicht die ganze Geschichte, reicht aber aus, um vorsichtig zu bleiben: ohne Daten, Personen oder Ereignisse zu erfinden, die nicht durch die vorhandenen Spuren gestuetzt werden.`;
+      ? `Willkommen zu diesem Rundgang durch ${cityName}. Wir beginnen bei ${params.localName}, einem Ort, der sich von hier aus im Gehen erschliesst: der Rhythmus der Strasse, die Massstäbe der Fassaden und der alltägliche Gebrauch geben bereits den Ton der Führung vor.`
+      : `Wir erreichen ${params.localName}, eine Station dieses Rundgangs durch ${cityName}. Von hier aus liest sich die Stadt auf Gehhöhe: Massstab, Bewegung und die Art, wie dieser Teil der Stadt zu Fuss erfahren wird.`;
+    const history = `Rund um ${params.localName} genügen die Hinweise (${tagSummary}), um den Blick zu schärfen: kein isoliertes Dekor, sondern ein Stück Stadt, in dem sich Verkehr, Architektur und Alltagsleben kreuzen.`;
     const significance = params.position === 'last'
-      ? `Bevor wir den Rundgang beenden, lohnt es sich zu bemerken, wie diese Station etwas Wichtiges aus der Route zusammenfasst. Auf einem Rundgang zu ${params.theme} liegt ihr Wert darin, Raum, Nutzung und alltaegliche Stadterinnerung zu verbinden, ohne unser Wissen zu uebertreiben.`
-      : `Auf diesem Rundgang zu ${params.theme} liegt der Wert von ${params.localName} nicht nur im Namen, sondern darin, wie der Ort Raum, Nutzung und alltaegliche Stadterinnerung verbindet. Von hier aus gehen wir weiter nach ${nextStop} und nehmen diese Hinweise mit in den naechsten Abschnitt.`;
+      ? `Bevor wir den Rundgang beenden, sammelt diese Station mehrere Fäden der Route ein. In einem Rundgang zu ${params.theme} liegt ihr Wert darin, Raum, Nutzung und städtisches Gedächtnis zu verbinden — ohne grosse historische Ansage.`
+      : `Auf diesem Rundgang zu ${params.theme} liegt der Wert von ${params.localName} nicht nur im Namen, sondern darin, wie der Ort Raum, Nutzung und städtisches Gedächtnis verbindet. Von hier aus gehen wir weiter nach ${nextStop}, mit diesem lesenden Blick im Kopf.`;
     return {
       narration: [arrival, history, significance].join('\n\n'),
       sections: { arrival, history, significance },
@@ -163,12 +163,12 @@ function buildGroundedFallbackNarration(params: {
 
   if (languageCode === 'it') {
     const arrival = params.position === 'first'
-      ? `Benvenuti in questa passeggiata attraverso ${cityName}. Cominciamo da ${params.localName}, una tappa che vale la pena osservare con calma prima di proseguire. Anche quando le fonti pubbliche sono limitate, il luogo offre comunque indizi reali su come la citta e organizzata, vissuta e ricordata.`
-      : `Arriviamo a ${params.localName}, una tappa di questa passeggiata a ${cityName}. Anche quando le fonti pubbliche sono limitate, il luogo continua a offrire indizi concreti sulla scala, sul movimento e sul modo in cui la citta si vive a piedi.`;
-    const history = `Le informazioni pubbliche disponibili lo descrivono con segnali come ${tagSummary}. Questo non racconta tutta la storia, ma basta per restare prudenti: senza inventare date, personaggi o episodi che non siano sostenuti dalle tracce disponibili.`;
+      ? `Benvenuti in questa passeggiata attraverso ${cityName}. Cominciamo da ${params.localName}, una tappa che vale la pena osservare con calma prima di proseguire. Da qui, la città si legge a passo d'uomo: il ritmo della strada, la scala delle facciate e l'uso quotidiano danno già il tono della visita.`
+      : `Arriviamo a ${params.localName}, una tappa di questa passeggiata a ${cityName}. Qui lo sguardo può fermarsi sulla scala del luogo, sul movimento intorno a noi e sul modo in cui questa parte della città si vive a piedi.`;
+    const history = `Attorno a ${params.localName}, alcuni indizi concreti come ${tagSummary} bastano a guidare l'osservazione. Il luogo prende senso dalla sua posizione nella città, dagli usi che lo circondano e dal ritmo quotidiano che rivela.`;
     const significance = params.position === 'last'
-      ? `Prima di chiudere la passeggiata, vale la pena notare come questa tappa riassuma qualcosa di importante del percorso. In un itinerario dedicato a ${params.theme}, il suo valore sta nel collegare spazio, uso e memoria quotidiana senza esagerare cio che sappiamo.`
-      : `In questa passeggiata dedicata a ${params.theme}, l'importanza di ${params.localName} non dipende solo dal suo nome, ma da come aiuta a collegare spazio, uso e memoria quotidiana. Da qui continuiamo verso ${nextStop}, portando questi indizi nel tratto successivo del percorso.`;
+      ? `Prima di chiudere la passeggiata, questa tappa raccoglie diversi fili del percorso. In un itinerario dedicato a ${params.theme}, ricorda che la storia di una città si legge anche nei suoi spazi ordinari, nei suoi passaggi e nelle sue abitudini.`
+      : `In questa passeggiata dedicata a ${params.theme}, ${params.localName} serve da punto d'appoggio per collegare spazio, uso e memoria urbana. Da qui continuiamo verso ${nextStop}, con questa lettura del luogo in testa.`;
     return {
       narration: [arrival, history, significance].join('\n\n'),
       sections: { arrival, history, significance },
@@ -177,12 +177,12 @@ function buildGroundedFallbackNarration(params: {
   }
 
   const arrival = params.position === 'first'
-    ? `Welcome to this walk through ${cityName}. We begin at ${params.localName}, a stop worth taking in slowly before moving on. Even when public sources are limited, the place itself still gives real clues about how the city is shaped, used, and remembered.`
-    : `We arrive at ${params.localName}, one stop on this walk through ${cityName}. Even when public sources are limited, the place still offers concrete clues about scale, movement, and the way the city is experienced on foot.`;
-  const history = `The available public record describes it with signals like ${tagSummary}. That does not tell the whole story, but it gives us enough to stay grounded: no invented dates, no unsupported characters, and no dramatic claims beyond what the public data can support.`;
+    ? `Welcome to this walk through ${cityName}. We begin at ${params.localName}, not with a grand announcement, but with what the street already offers: the scale of the place, the movement around us, and the way the city lets itself be read on foot.`
+    : `We arrive at ${params.localName}, one stop on this walk through ${cityName}. Here, the eye can rest on the scale of the place, the movement around us, and the way this part of the city is experienced on foot.`;
+  const history = `Around ${params.localName}, a few concrete clues like ${tagSummary} are enough to guide the eye. The place takes its meaning from its position in the city, from the uses that surround it, and from the everyday rhythm it reveals.`;
   const significance = params.position === 'last'
-    ? `Before we close the walk, it is worth noticing how this stop gathers several ideas from the route into one final scene. On a ${params.theme} walk, its value comes from connecting space, use, and everyday urban memory without overstating what we know.`
-    : `On this ${params.theme} walk, the value of ${params.localName} is not only what it is called, but how it helps connect space, use, and everyday urban memory. From here we continue toward ${nextStop}, carrying those clues into the next part of the route.`;
+    ? `Before we close the walk, this stop gathers several threads of the route. On a ${params.theme} walk, it reminds us that a city's story is also read in its ordinary spaces, its passages, and its habits.`
+    : `On this ${params.theme} walk, ${params.localName} serves as a touchpoint for connecting space, use, and urban memory. From here we continue toward ${nextStop}, with this way of reading the place in mind.`;
   return {
     narration: [arrival, history, significance].join('\n\n'),
     sections: { arrival, history, significance },

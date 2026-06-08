@@ -26,40 +26,40 @@ function buildGenericFallback(localName: string, theme: string, language: string
 
   if (code === 'es') {
     return [
-      `Llegamos a ${localName}, una parada de este recorrido sobre ${theme}. Aunque las fuentes disponibles sean limitadas, el lugar todavia puede leerse a partir de lo que muestra en el espacio urbano.`,
-      `Mas que inventar una gran historia, conviene observar como esta parada se relaciona con el movimiento, la escala y el uso cotidiano de la ciudad.`,
-      `Eso es precisamente lo que la vuelve util dentro del paseo: no solo lo que es, sino como ayuda a entender el siguiente tramo del recorrido.`
+      `Llegamos a ${localName}, una parada de este recorrido sobre ${theme}. Desde aquí, la ciudad se lee en sus detalles: el ritmo de la calle, la escala de lo que nos rodea y el uso cotidiano del espacio.`,
+      `Más que un dato aislado, esta parada conecta movimiento, escala y vida urbana.`,
+      `Eso es lo que la hace valiosa dentro del paseo: no solo lo que es, sino cómo ayuda a que el siguiente tramo tenga sentido.`
     ].join(' ');
   }
 
   if (code === 'fr') {
     return [
-      `Nous arrivons a ${localName}, une etape de cette promenade autour de ${theme}. Meme lorsque les sources disponibles sont limitees, le lieu peut encore se lire a travers la facon dont il structure l'espace urbain.`,
-      `Plutot que d'inventer une grande histoire, il vaut mieux observer comment cette etape relie le mouvement, l'echelle et l'usage quotidien de la ville.`,
-      `C'est justement ce qui la rend utile dans le parcours: pas seulement ce qu'elle est, mais la facon dont elle aide la suite de la visite a prendre sens.`
+      `Nous arrivons à ${localName}, une étape de cette promenade autour de ${theme}. Depuis ce point, la ville se lit dans ses détails: le rythme de la rue, l'échelle de ce qui nous entoure et l'usage quotidien de l'espace.`,
+      `Plus qu'une donnée isolée, cette étape relie mouvement, échelle et vie urbaine.`,
+      `C'est ce qui la rend précieuse dans le parcours: pas seulement ce qu'elle est, mais la façon dont elle aide la suite de la visite à prendre sens.`
     ].join(' ');
   }
 
   if (code === 'de') {
     return [
-      `Wir erreichen ${localName}, eine Station dieses Rundgangs zu ${theme}. Selbst wenn die verfuegbaren Quellen begrenzt sind, laesst sich der Ort noch ueber die Art lesen, wie er den Stadtraum praegt.`,
-      `Statt eine grosse Geschichte zu erfinden, ist es sinnvoller zu beobachten, wie diese Station Bewegung, Massstab und alltaegliche Nutzung der Stadt miteinander verbindet.`,
-      `Genau das macht sie fuer die Route nuetzlich: nicht nur, was sie ist, sondern wie sie dem naechsten Abschnitt Bedeutung gibt.`
+      `Wir erreichen ${localName}, eine Station dieses Rundgangs zu ${theme}. Von hier aus liest sich die Stadt in ihren Details: der Rhythmus der Straße, der Maßstab der Umgebung und der alltägliche Gebrauch des Raums.`,
+      `Mehr als eine isolierte Angabe verbindet diese Station Bewegung, Maßstab und städtisches Leben.`,
+      `Das macht sie im Rundgang wertvoll: nicht nur, was sie ist, sondern wie sie dem nächsten Abschnitt Sinn gibt.`
     ].join(' ');
   }
 
   if (code === 'it') {
     return [
-      `Arriviamo a ${localName}, una tappa di questa passeggiata dedicata a ${theme}. Anche quando le fonti disponibili sono limitate, il luogo puo ancora essere letto attraverso il modo in cui modella lo spazio urbano.`,
-      `Piu che inventare una grande storia, conviene osservare come questa tappa colleghi movimento, scala e uso quotidiano della citta.`,
-      `E proprio questo che la rende utile nel percorso: non solo cio che e, ma il modo in cui aiuta il tratto successivo del tour ad avere senso.`
+      `Arriviamo a ${localName}, una tappa di questa passeggiata dedicata a ${theme}. Da qui, la città si legge nei suoi dettagli: il ritmo della strada, la scala di ciò che ci circonda e l'uso quotidiano dello spazio.`,
+      `Più che un dato isolato, questa tappa collega movimento, scala e vita urbana.`,
+      `È questo che la rende preziosa nel percorso: non solo ciò che è, ma il modo in cui aiuta il tratto successivo ad avere senso.`
     ].join(' ');
   }
 
   return [
-    `We arrive at ${localName}, one stop on this ${theme} walk. Even when the available sources are limited, the place can still be read through the way it shapes the space around you.`,
-    `Rather than inventing a dramatic backstory, it is better to notice how this stop connects movement, scale, and everyday urban use.`,
-    `That is what makes it useful in the route: not only what it is called, but how it helps the next part of the walk make sense.`
+    `We arrive at ${localName}, one stop on this ${theme} walk. From here, the city reads in its details: the rhythm of the street, the scale of what surrounds us, and the everyday use of space.`,
+    `More than an isolated fact, this stop connects movement, scale, and urban life.`,
+    `That is what makes it valuable in the route: not only what it is, but how it helps the next part of the walk make sense.`
   ].join(' ');
 }
 

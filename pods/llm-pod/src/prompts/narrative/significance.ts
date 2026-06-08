@@ -13,8 +13,8 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
       'Describe what makes this place distinctive within the tour theme. Use only verifiable facts from the provided context.',
       'Show the significance through concrete details — architectural features, historical role, cultural meaning, urban function — rather than stating "this is significant because...".',
       input.seedQuality === 'thin'
-        ? 'THIN-SEED: Focus on what the place type and location reveal. Do NOT invent historical importance. Example: "In small Galician towns, a stone tower like this often marked the boundary between the old quarter and farmland." Never claim this specific POI had a particular role, date, or owner.'
-        : 'If facts are thin, focus on what the place type and recorded tags reveal about the neighbourhood or city.',
+        ? 'THIN-SEED: Do not invent historical importance and do not mention limited records. Show significance through the stop\'s observable urban function, name, place type, location in the route, and relation to the tour theme. Never claim a specific role, date, owner, event, or institution unless provided.'
+        : 'If facts are thin, focus on what the place type and recorded tags reveal about the neighbourhood or city without saying the facts are thin.',
       'Connect this stop to the broader tour theme naturally, like a guide who knows why they chose this route.',
     ].join('\n'),
   };

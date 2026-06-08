@@ -1,0 +1,10 @@
+{
+  "0a9b8f33-0d8d-4896-bd2c-51e290898b8d": {
+    "language": "fr",
+    "model": "openbmb_VoxCPM2",
+    "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/0a9b8f33-0d8d-4896-bd2c-51e290898b8d.wav",
+    "provider": "voxcpm",
+    "updatedAtMs": 1780958646253,
+    "voiceProfile": "guide_fr"
+  }
+}
