@@ -7,7 +7,7 @@ import { arrivalPrompt } from '../prompts/narrative/arrival';
 import { historyPrompt } from '../prompts/narrative/history';
 import { significancePrompt } from '../prompts/narrative/significance';
 import { transitionPrompt } from '../prompts/narrative/transition';
-import { LongNarrativePromptInput, SectionPrompt } from '../prompts/narrative/types';
+import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt } from '../prompts/narrative/types';
 import { env } from '../config/env';
 
 const router = express.Router();
@@ -292,6 +292,181 @@ function validateSection(section: string, input: LongNarrativePromptInput): stri
   return null;
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// Factual Validator — post-generation extraction + source verification
+// ═══════════════════════════════════════════════════════════════════
+
+const KNOWN_ARCHITECTURAL_STYLES = [
+  'gótico', 'gótica', 'góticos', 'góticas', 'gotico', 'gotica', 'goticos', 'gotica',
+  'renacentista', 'renacentistas',
+  'barroco', 'barroca', 'barrocos', 'barrocas',
+  'mudéjar', 'mudéjares', 'mudejar', 'mudejares',
+  'románico', 'románica', 'románicos', 'románicas', 'romanico', 'romanica',
+  'neoclásico', 'neoclásica', 'neoclásicos', 'neoclásicas', 'neoclasico', 'neoclasica',
+  'modernista', 'modernistas',
+  'herreriano', 'herreriana', 'herrerianos', 'herrerianas',
+  'plateresco', 'plateresca', 'platerescos', 'platerescas',
+  'visigodo', 'visigoda', 'visigodos', 'visigodas',
+  'visigótico', 'visigótica', 'visigoticos', 'visigotica',
+  'califal', 'califales',
+  'almohade', 'almohades',
+  'mozárabe', 'mozárabes', 'mozarabe', 'mozarabes',
+  'isabelino', 'isabelina', 'isabelinos', 'isabelinas',
+  'churrigueresco', 'churrigueresca',
+];
+
+const KNOWN_MATERIALS = [
+  'granito', 'mármol', 'marmol', 'ladrillo', 'piedra caliza',
+  'madera', 'hierro', 'acero', 'bronce', 'yeso',
+  'pizarra', 'azulejo', 'cerámica', 'ceramica', 'adoquín', 'adoquin',
+  'sillar', 'sillares', 'mampostería', 'mamposteria',
+];
+
+interface FactViolation {
+  type: 'date' | 'style' | 'material' | 'measurement' | 'architect';
+  value: string;
+  context: string;
+}
+
+interface FactCheckResult {
+  violations: FactViolation[];
+  totalExtracted: number;
+  unsupportedRate: number;
+}
+
+function extractDates(text: string): string[] {
+  const dates: string[] = [];
+  // 4-digit years in sensible range
+  const yearRe = /\b(\d{4})\b/g;
+  let match;
+  while ((match = yearRe.exec(text)) !== null) {
+    const year = parseInt(match[1]);
+    if (year >= 300 && year <= 2030) dates.push(match[1]);
+  }
+  // Century references
+  const centuryRe = /\b(siglo\s+[IVXLCDM]+)\b/gi;
+  while ((match = centuryRe.exec(text)) !== null) {
+    dates.push(match[0]);
+  }
+  return [...new Set(dates)];
+}
+
+function extractStyles(text: string): string[] {
+  const lower = normalizeNFD(text);
+  const seen = new Set<string>();
+  const styles: string[] = [];
+  for (const s of KNOWN_ARCHITECTURAL_STYLES) {
+    const n = normalizeNFD(s);
+    if (lower.includes(n) && !seen.has(n)) {
+      seen.add(n);
+      styles.push(s);
+    }
+  }
+  return styles;
+}
+
+function extractMaterials(text: string): string[] {
+  const lower = normalizeNFD(text);
+  return KNOWN_MATERIALS.filter(m => {
+    const n = normalizeNFD(m);
+    return lower.includes(n);
+  });
+}
+
+function extractMeasurements(text: string): string[] {
+  const measurements: string[] = [];
+  const re = /\b(\d+(?:[.,]\d+)?)\s*(metros?|m\.|km\.|kilómetros?|hectáreas?|m²|m2)\b/gi;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    measurements.push(match[0]);
+  }
+  return measurements;
+}
+
+function extractArchitects(text: string): string[] {
+  const architects: string[] = [];
+  const re = /(?:por|obra de|diseñad[oa] por|arquitecto[s]?|del arquitecto)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,4})/g;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    const name = match[1].trim();
+    // Filter out false positives (common words that happen after "por")
+    if (!/^(el|la|los|las|su|un|una|este|esta|eso|aquel|cuando|donde|primera|segunda)\b/i.test(name)) {
+      architects.push(name);
+    }
+  }
+  return [...new Set(architects)];
+}
+
+/** Build a single searchable corpus from all seed sources. */
+function buildVerifiedCorpus(seeds: LongNarrativeSeeds): string {
+  const parts: string[] = [];
+  if (seeds.wikipediaLead) parts.push(seeds.wikipediaLead);
+  if (seeds.wikipediaBody) parts.push(seeds.wikipediaBody);
+  if (seeds.enrichedContext) parts.push(seeds.enrichedContext);
+  if (seeds.wikivoyage) parts.push(seeds.wikivoyage);
+  return normalizeNFD(parts.join(' '));
+}
+
+/** Extract a short context snippet around the violation for debugging. */
+function violationContext(text: string, value: string): string {
+  const idx = normalizeNFD(text).indexOf(normalizeNFD(value));
+  if (idx < 0) return '';
+  const start = Math.max(0, idx - 30);
+  const end = Math.min(text.length, idx + value.length + 30);
+  return text.slice(start, end).replace(/\n/g, ' ');
+}
+
+/** Post-generation factual validation: extracts claims from generated
+ *  narration and checks each against the seed corpus. Returns violations
+ *  and an unsupported-fact rate (0.0 = all facts supported, 1.0 = none). */
+function validateNarrativeFacts(
+  narration: string,
+  input: LongNarrativePromptInput
+): FactCheckResult {
+  const corpus = buildVerifiedCorpus(input.seeds);
+
+  const dates = extractDates(narration);
+  const styles = extractStyles(narration);
+  const materials = extractMaterials(narration);
+  const measurements = extractMeasurements(narration);
+  const architects = extractArchitects(narration);
+
+  const violations: FactViolation[] = [];
+
+  for (const d of dates) {
+    if (!corpus.includes(normalizeNFD(d))) {
+      violations.push({ type: 'date', value: d, context: violationContext(narration, d) });
+    }
+  }
+  for (const s of styles) {
+    if (!corpus.includes(normalizeNFD(s))) {
+      violations.push({ type: 'style', value: s, context: violationContext(narration, s) });
+    }
+  }
+  for (const m of materials) {
+    if (!corpus.includes(normalizeNFD(m))) {
+      violations.push({ type: 'material', value: m, context: violationContext(narration, m) });
+    }
+  }
+  for (const m of measurements) {
+    if (!corpus.includes(normalizeNFD(m))) {
+      violations.push({ type: 'measurement', value: m, context: violationContext(narration, m) });
+    }
+  }
+  for (const a of architects) {
+    if (!corpus.includes(normalizeNFD(a))) {
+      violations.push({ type: 'architect', value: a, context: violationContext(narration, a) });
+    }
+  }
+
+  const totalExtracted = dates.length + styles.length + materials.length + measurements.length + architects.length;
+  const unsupportedRate = totalExtracted > 0
+    ? Math.round((violations.length / totalExtracted) * 100) / 100
+    : 0;
+
+  return { violations, totalExtracted, unsupportedRate };
+}
+
 function parseSection(content: string): string | null {
   try {
     const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -552,6 +727,20 @@ router.post('/stop/long', async (req, res) => {
       .join('\n\n');
     const totalDurationMs = Date.now() - requestStartedAt;
 
+    // ── Post-generation factual validation ────────────────────────
+    const factCheck = validateNarrativeFacts(narration, input);
+    if (factCheck.violations.length > 0) {
+      narrativeLog('fact-violations', {
+        traceId,
+        stopName: input.localName,
+        position: input.position,
+        violationCount: factCheck.violations.length,
+        totalExtracted: factCheck.totalExtracted,
+        unsupportedRate: factCheck.unsupportedRate,
+        violations: factCheck.violations,
+      });
+    }
+
     narrativeLog('summary', {
       traceId,
       stopName: input.localName,
@@ -583,6 +772,11 @@ router.post('/stop/long', async (req, res) => {
         sectionsFallbacked: droppedReasons.length,
         totalSeedChars: totalSeedChars(input),
         totalDurationMs,
+        factCheck: {
+          violations: factCheck.violations.length,
+          totalExtracted: factCheck.totalExtracted,
+          unsupportedRate: factCheck.unsupportedRate,
+        },
         ...(droppedReasons.length > 0 ? { droppedReasons } : {}),
       },
     });
