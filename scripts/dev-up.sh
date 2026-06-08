@@ -290,6 +290,15 @@ main() {
   ensure_voxcpm_env
   run_prisma_migrations
 
+  # ── RAG enrichment sidecar (persistent, avoids cold-start per request) ──
+  local rag_script="$ROOT_DIR/scripts/dev-up-rag.sh"
+  if [[ -x "$rag_script" ]]; then
+    log "Starting RAG enrichment sidecar..."
+    "$rag_script" || warn "RAG enrichment failed to start — tours will use fallback mode (slower)"
+  else
+    warn "RAG enrichment script not found ($rag_script). Tours will use fallback mode (slower)."
+  fi
+
   local ollama_url
   ollama_url="$(ollama_host_url)"
 
@@ -323,12 +332,13 @@ main() {
   wait_for_port 3000 "frontend" 90
 
   printf '\nStack is running.\n'
-  printf 'Frontend: http://%s:3000\n' "$browser_access_host"
-  printf 'Backend:  http://%s:3001/health\n' "$browser_access_host"
-  printf 'LLM pod:  http://localhost:3002/health\n'
-  printf 'Kokoro:   http://localhost:3005/health\n'
-  printf 'VoxCPM:   http://localhost:3006/healthz\n'
-  printf 'Logs:     %s\n' "$LOG_DIR"
+  printf 'Frontend:    http://%s:3000\n' "$browser_access_host"
+  printf 'Backend:     http://%s:3001/health\n' "$browser_access_host"
+  printf 'LLM pod:     http://localhost:3002/health\n'
+  printf 'RAG enrich:  http://localhost:11435/health\n'
+  printf 'Kokoro:      http://localhost:3005/health\n'
+  printf 'VoxCPM:      http://localhost:3006/healthz\n'
+  printf 'Logs:        %s\n' "$LOG_DIR"
   printf '\nStop managed services with: ./scripts/dev-down.sh\n'
 }
 

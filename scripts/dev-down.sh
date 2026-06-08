@@ -109,6 +109,7 @@ main() {
   stop_pid_file "tts-pod"   3005
   stop_pid_file "voxcpm-pod" 3006
   stop_pid_file "llm-pod"   3002
+  stop_pid_file "rag-enrichment" 11435
   stop_pid_file "ollama"    11434
 
   if [[ "$STOP_POSTGRES" == "true" ]]; then
