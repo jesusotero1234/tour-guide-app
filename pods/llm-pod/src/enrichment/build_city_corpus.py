@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """
-Auto-build a multi-level city enrichment corpus from Wikipedia REST API.
-Produces a JSON corpus with level tags: poi / city / comarca / province / region.
+Coordinate-first city enrichment corpus builder.
+Uses Wikipedia geosearch to find relevant articles near a city — no
+hardcoded administrative hierarchies. Works for any country.
 
 Usage:
-  python3 build_city_corpus.py Vilalba "Terra Chá" Lugo Galicia --lang es --output corpora/vilalba_corpus.json
+  python3 build_city_corpus.py Vilalba --lang es --output corpora/vilalba_corpus.json
+  python3 build_city_corpus.py "Rothenburg ob der Tauber" --lang de --output corpora/rothenburg_corpus.json
 
-No Wikidata SPARQL needed — pure Wikipedia REST API.
+Architecture:
+  1. Geocode city → (lat, lon)
+  2. Wikipedia geosearch: articles within radius km
+  3. Fetch extracts, rank by relevance, chunk
+  4. Output JSON corpus with level tags (city / nearby / regional)
 """
 
 import json
@@ -19,8 +25,32 @@ import time
 from typing import Optional
 
 WIKIPEDIA_API = "https://{lang}.wikipedia.org/w/api.php"
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 USER_AGENT = "tour-guide-app/1.0 (hermes-agent@nousresearch.com)"
 
+
+# ── Geocoding ───────────────────────────────────────────────────────
+
+def geocode(city: str, country: str = "") -> Optional[tuple[float, float]]:
+    """Geocode a city name to (lat, lon) using Nominatim."""
+    params = {
+        "q": f"{city}, {country}" if country else city,
+        "format": "json",
+        "limit": 1,
+    }
+    url = f"{NOMINATIM_URL}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read())
+        if data:
+            return float(data[0]["lat"]), float(data[0]["lon"])
+    except Exception as e:
+        print(f"  ⚠️  Geocode failed: {e}", file=sys.stderr)
+    return None
+
+
+# ── Wikipedia API ───────────────────────────────────────────────────
 
 def wikipedia_fetch(article_title: str, lang: str = "es") -> Optional[str]:
     """Fetch Wikipedia article extract via REST API."""
@@ -29,12 +59,11 @@ def wikipedia_fetch(article_title: str, lang: str = "es") -> Optional[str]:
         "format": "json",
         "titles": article_title,
         "prop": "extracts",
-        "exintro": 0,  # full article
+        "exintro": 0,
         "explaintext": 1,
         "exsectionformat": "plain",
     }
     url = f"{WIKIPEDIA_API.format(lang=lang)}?{urllib.parse.urlencode(params)}"
-    
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
@@ -42,16 +71,39 @@ def wikipedia_fetch(article_title: str, lang: str = "es") -> Optional[str]:
         pages = data.get("query", {}).get("pages", {})
         for _, page in pages.items():
             extract = page.get("extract", "")
-            if extract:
+            if extract and len(extract) > 40:
                 return extract
         return None
     except Exception as e:
-        print(f"  ⚠️  Wikipedia fetch failed for '{article_title}': {e}", file=sys.stderr)
+        print(f"  ⚠️  Fetch failed for '{article_title}': {e}", file=sys.stderr)
         return None
 
 
+def wikipedia_geosearch(lat: float, lon: float, radius: int, lang: str, limit: int = 15) -> list[dict]:
+    """Find Wikipedia articles near (lat, lon) within radius meters."""
+    params = {
+        "action": "query",
+        "format": "json",
+        "list": "geosearch",
+        "gscoord": f"{lat}|{lon}",
+        "gsradius": radius,
+        "gslimit": limit,
+    }
+    url = f"{WIKIPEDIA_API.format(lang=lang)}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read())
+        return data.get("query", {}).get("geosearch", [])
+    except Exception as e:
+        print(f"  ⚠️  Geosearch failed: {e}", file=sys.stderr)
+        return []
+
+
+# ── Text processing ─────────────────────────────────────────────────
+
 def chunk_text(text: str, max_chars: int = 1500) -> list[str]:
-    """Split long text into overlapping chunks at paragraph boundaries."""
+    """Split long text into chunks at paragraph boundaries."""
     paragraphs = text.split("\n")
     chunks = []
     current = ""
@@ -69,101 +121,238 @@ def chunk_text(text: str, max_chars: int = 1500) -> list[str]:
     return chunks
 
 
+def filter_article_text(text: str) -> str:
+    """Remove metadata sections from Wikipedia article text."""
+    paragraphs = text.split("\n")
+    filtered = []
+    skip_next = False
+    for p in paragraphs:
+        p = p.strip()
+        if not p:
+            continue
+        if p.startswith("==") and any(kw in p.lower() for kw in
+            ["referencias", "bibliografía", "enlaces externos", "véase también",
+             "references", "bibliography", "external links", "see also",
+             "referenzen", "literatur", "weblinks", "siehe auch",
+             "références", "bibliographie", "liens externes", "voir aussi"]):
+            skip_next = True
+            continue
+        if skip_next:
+            skip_next = False
+            continue
+        if len(p) > 40:
+            filtered.append(p)
+    return "\n".join(filtered)
+
+
+# ── Relevance scoring ──────────────────────────────────────────────
+
+# Articles to skip — too generic or not useful for tour context
+SKIP_TITLES = {
+    "estación", "station", "bahnhof", "gare", "stazione",
+    "aeropuerto", "airport", "flughafen", "aéroport", "aeroporto",
+    "línea", "line", "linie", "ligne", "linea",
+    "autovía", "autopista", "highway", "autobahn", "autoroute", "autostrada",
+    "río", "river", "fluss", "rivière", "fiume",
+    "arroyo", "stream", "bach", "ruisseau", "ruscello",
+}
+
+
+def score_article(article: dict, distance: float) -> float:
+    """Score an article for relevance to tour context. Higher = better."""
+    title = article.get("title", "").lower()
+    score = 0.0
+    
+    # Penalize distance (closer = better)
+    score += max(0, 10 - distance / 1000)  # 10 at 0m, 0 at 10km
+    
+    # Penalize generic titles
+    for skip_word in SKIP_TITLES:
+        if skip_word in title:
+            score -= 20
+    
+    # Boost articles with cultural keywords
+    cultural_keywords = [
+        # ES
+        "iglesia", "catedral", "castillo", "museo", "plaza", "palacio",
+        "monasterio", "convento", "torre", "muralla", "puente", "pazo",
+        "historia", "patrimonio", "monumento", "basílica", "ermita",
+        # EN
+        "church", "cathedral", "castle", "museum", "square", "palace",
+        "monastery", "convent", "tower", "wall", "bridge", "manor",
+        "history", "heritage", "monument", "basilica", "chapel",
+        # DE
+        "kirche", "dom", "schloss", "museum", "platz", "palast",
+        "kloster", "turm", "mauer", "brücke", "herrenhaus",
+        "geschichte", "denkmal", "basilika", "kapelle",
+        # FR
+        "église", "cathédrale", "château", "musée", "place", "palais",
+        "monastère", "tour", "pont", "histoire", "patrimoine", "basilique",
+    ]
+    title_words = set(title.split())
+    for kw in cultural_keywords:
+        if kw in title_words:
+            score += 5
+    
+    return score
+
+
+# ── Adaptive radius ─────────────────────────────────────────────────
+
+def adaptive_radius(article_count: int) -> int:
+    """Choose radius based on how many articles were found.
+    Small towns need wider radius to find enough content."""
+    if article_count >= 10: return 5000
+    if article_count >= 5:  return 10000
+    return 20000
+
+
+# ── Main corpus builder ─────────────────────────────────────────────
+
 def build_city_corpus(
     city: str,
-    comarca: str,
-    province: str,
-    region: str,
     lang: str = "es",
+    country: str = "",
     max_chars: int = 1500,
+    max_articles: int = 8,
 ) -> list[dict]:
-    """Build a multi-level corpus for a city."""
+    """Build enrichment corpus for any city using coordinate-first approach."""
     entries = []
     
-    targets = [
-        (city, "city", f"Artículo de Wikipedia de {city}"),
-        (comarca, "comarca", f"Artículo de Wikipedia de {comarca}"),
-        (province, "province", f"Artículo de Wikipedia de la provincia de {province}"),
-        (region, "region", f"Artículo de Wikipedia de {region}"),
-    ]
+    # 1. Geocode
+    print(f"📍 Geocoding: {city}...", file=sys.stderr)
+    coords = geocode(city, country)
+    if not coords:
+        print("  ❌ Could not geocode city", file=sys.stderr)
+        return entries
+    lat, lon = coords
+    print(f"   → {lat:.4f}, {lon:.4f}", file=sys.stderr)
     
-    for title, level, desc in targets:
-        print(f"  📥 Fetching: {title} (nivel: {level})...", file=sys.stderr)
-        text = wikipedia_fetch(title, lang)
-        if not text:
-            print(f"     ⚠️  No article found, skipping", file=sys.stderr)
-            continue
-        
-        paragraphs = text.split("\n")
-        # Skip sections that are clearly metadata
-        filtered = []
-        skip_next = False
-        for p in paragraphs:
-            p = p.strip()
-            if not p:
-                continue
-            # Skip reference/category lines
-            if p.startswith("==") and any(kw in p.lower() for kw in 
-                ["referencias", "bibliografía", "enlaces externos", "véase también",
-                 "references", "bibliography", "external links", "see also"]):
-                skip_next = True
-                continue
-            if skip_next:
-                skip_next = False
-                continue
-            if len(p) > 40:  # Skip very short lines
-                filtered.append(p)
-        
-        text = "\n".join(filtered)
-        chunks = chunk_text(text, max_chars)
-        
+    # 2. Fetch city article first (level: city)
+    print(f"  📥 City article: {city}", file=sys.stderr)
+    city_text = wikipedia_fetch(city, lang)
+    if city_text:
+        filtered = filter_article_text(city_text)
+        chunks = chunk_text(filtered, max_chars)
         for i, chunk in enumerate(chunks):
-            suffix = f" (parte {i+1})" if len(chunks) > 1 else ""
             entries.append({
-                "id": f"{city.lower().replace(' ', '_')}-{level}-{i+1:03d}",
-                "place": title,
-                "level": level,
+                "id": f"{city.lower().replace(' ', '_')}-city-{i+1:03d}",
+                "place": city,
+                "level": "city",
                 "theme": "general",
                 "text": chunk,
+                "source_url": f"https://{lang}.wikipedia.org/wiki/{urllib.parse.quote(city.replace(' ', '_'))}",
+                "source": "wikipedia",
+                "lang": lang,
+                "retrieved_at": time.strftime("%Y-%m-%d"),
+            })
+        print(f"     ✅ {len(chunks)} chunk(s)", file=sys.stderr)
+    else:
+        print(f"     ⚠️  No article found", file=sys.stderr)
+    
+    # 3. Geosearch nearby articles (level: nearby)
+    radius = 5000
+    all_articles = []
+    for attempt in range(2):
+        articles = wikipedia_geosearch(lat, lon, radius, lang, limit=15)
+        if articles:
+            all_articles = articles
+            break
+        radius = adaptive_radius(len(all_articles))
+        print(f"  🔍 Expanding search to {radius}m...", file=sys.stderr)
+        time.sleep(0.5)
+    
+    if all_articles:
+        print(f"  📍 Found {len(all_articles)} nearby articles", file=sys.stderr)
+    else:
+        print(f"  ⚠️  No nearby articles found", file=sys.stderr)
+    
+    # 4. Score, rank, and filter
+    scored = []
+    for a in all_articles:
+        title = a.get("title", "")
+        dist = a.get("dist", 99999)
+        if title.lower().strip() == city.lower().strip():
+            continue  # skip self (already fetched as city)
+        s = score_article(a, dist)
+        if s > -10:  # filter out noise
+            scored.append((s, a))
+    
+    scored.sort(key=lambda x: -x[0])  # highest score first
+    
+    # 5. Fetch top articles
+    fetched = 0
+    for score, article in scored[:max_articles]:
+        title = article["title"]
+        dist = article.get("dist", 0)
+        print(f"  📥 [{score:.0f}] {title} ({dist:.0f}m)...", file=sys.stderr)
+        
+        text = wikipedia_fetch(title, lang)
+        if not text:
+            continue
+        
+        filtered = filter_article_text(text)
+        chunks = chunk_text(filtered, max_chars)
+        
+        for i, chunk in enumerate(chunks):
+            entries.append({
+                "id": f"{city.lower().replace(' ', '_')}-nearby-{fetched+1:03d}-{i+1:02d}",
+                "place": title,
+                "level": "city",  # nearby articles are city-level context
+                "theme": "general",
+                "text": chunk,
+                "distance_m": int(dist),
+                "relevance_score": int(score),
                 "source_url": f"https://{lang}.wikipedia.org/wiki/{urllib.parse.quote(title.replace(' ', '_'))}",
                 "source": "wikipedia",
                 "lang": lang,
                 "retrieved_at": time.strftime("%Y-%m-%d"),
-                "label": f"{desc}{suffix}",
             })
         
+        fetched += 1
         print(f"     ✅ {len(chunks)} chunk(s)", file=sys.stderr)
-        time.sleep(0.5)  # Be polite to the API
+        time.sleep(0.5)
     
     return entries
 
 
+# ── CLI ─────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Build multi-level city enrichment corpus")
-    parser.add_argument("city", help="City name (e.g., Vilalba)")
-    parser.add_argument("comarca", help="Comarca/region name (e.g., Terra Chá)")
-    parser.add_argument("province", help="Province name (e.g., Lugo)")
-    parser.add_argument("region", help="Autonomous community (e.g., Galicia)")
-    parser.add_argument("--lang", default="es", help="Wikipedia language (default: es)")
+    parser = argparse.ArgumentParser(
+        description="Coordinate-first city enrichment corpus builder",
+        epilog="Example: python3 build_city_corpus.py Vilalba --lang es -o corpora/vilalba_corpus.json"
+    )
+    parser.add_argument("city", help="City name")
+    parser.add_argument("--lang", "-l", default="es", help="Wikipedia language (default: es)")
+    parser.add_argument("--country", "-c", default="", help="Country hint for geocoding")
     parser.add_argument("--output", "-o", required=True, help="Output JSON file")
     parser.add_argument("--max-chars", type=int, default=1500, help="Max chars per chunk")
+    parser.add_argument("--max-articles", type=int, default=8, help="Max nearby articles to fetch")
     args = parser.parse_args()
     
-    print(f"🔨 Building corpus for {args.city}, {args.comarca}, {args.province}, {args.region}", file=sys.stderr)
+    print(f"🔨 Building corpus for {args.city} (lang={args.lang})", file=sys.stderr)
     
     entries = build_city_corpus(
-        args.city, args.comarca, args.province, args.region,
-        lang=args.lang, max_chars=args.max_chars
+        args.city,
+        lang=args.lang,
+        country=args.country,
+        max_chars=args.max_chars,
+        max_articles=args.max_articles,
     )
     
-    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
-    with open(args.output, "w", encoding="utf-8") as f:
-        json.dump(entries, f, ensure_ascii=False, indent=2)
-    
-    levels = {}
-    for e in entries:
-        lv = e["level"]
-        levels[lv] = levels.get(lv, 0) + 1
-    
-    print(f"\n✅ Corpus built: {len(entries)} entries → {args.output}", file=sys.stderr)
-    print(f"   Levels: {json.dumps(levels)}", file=sys.stderr)
+    if entries:
+        os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+        with open(args.output, "w", encoding="utf-8") as f:
+            json.dump(entries, f, ensure_ascii=False, indent=2)
+        
+        levels = {}
+        for e in entries:
+            lv = e.get("level", "city")
+            levels[lv] = levels.get(lv, 0) + 1
+        
+        print(f"\n✅ Corpus built: {len(entries)} entries → {args.output}", file=sys.stderr)
+        print(f"   Levels: {json.dumps(levels)}", file=sys.stderr)
+    else:
+        print("\n❌ No articles found. Try a different language or city name.", file=sys.stderr)
+        sys.exit(1)
