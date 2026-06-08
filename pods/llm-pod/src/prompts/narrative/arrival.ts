@@ -46,7 +46,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       input.seeds.enrichedContext ? `Enriched context (use this as the primary factual source): ${input.seeds.enrichedContext.slice(0, 800)}` : '',
       'Open visually: orient the visitor to what they can see or feel as they arrive, such as facade, scale, materials, light, activity, or atmosphere. Then explain why this arrival matters to the tour theme.',
       'If enriched context is provided, use it as your primary source — it contains rich, verified detail about this place.',
-      'If records are sparse, say so honestly and use only the available cues; do not invent architectural details or history.',
+      input.seedQuality === 'thin'
+        ? 'THIN-SEED: Records on this place are very limited. Do NOT invent dates, eras, architects, or styles. Describe honestly what is visible: materials, light, scale, atmosphere. Say that historical records are sparse if appropriate.'
+        : 'If records are sparse, say so honestly and use only the available cues; do not invent architectural details or history.',
     ].filter(Boolean).join('\n'),
   };
 }

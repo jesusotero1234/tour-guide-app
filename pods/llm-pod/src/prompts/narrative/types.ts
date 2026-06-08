@@ -46,7 +46,27 @@ export function languageName(language: string): string {
 export function sectionSystem(language: string, retry = false, seedQuality: 'rich' | 'thin' = 'rich', targetWords = '70 to 90', usedOpenings?: string[], openingArchetype?: string): string {
   const targetLanguage = languageName(language);
   const thinGuard = seedQuality === 'thin'
-    ? 'The public record is limited: say that clearly, use only provided tags/claims, and do not introduce countries, wars, dates, people, or events that are not present in the provided facts.'
+    ? [
+        'THIN-SEED MODE — STRICT FACTUAL BOUNDARIES:',
+        'PERMITTED (you may describe freely):',
+        '  - What is visible: materials, colours, texture, scale, light, surrounding activity.',
+        '  - Atmosphere and sensory impressions: sounds, smells, how the place feels.',
+        '  - What the place type reveals about the neighbourhood or city (e.g., "a medieval gate suggests this was once a walled settlement").',
+        '  - If enriched context or Wikipedia body is provided, you may use its facts.',
+        '  - General context about the city/region is allowed ONLY for atmosphere and orientation — NEVER attribute a regional fact, event, date, person, or style to this specific POI unless confirmed by POI facts.',
+        'FORBIDDEN (do NOT include under any circumstance unless explicitly present in the provided facts):',
+        '  - Specific years, centuries, or date ranges.',
+        '  - Names of architects, builders, artists, or historical figures.',
+        '  - Architectural styles (Gothic, Baroque, Romanesque, etc.).',
+        '  - Historical events (wars, battles, inaugurations, demolitions, fires).',
+        '  - Relationships to royalty, nobility, religious orders, or institutions.',
+        '  - Phrases like "was built in", "dates back to", "belonged to", "was the scene of".',
+        '  - Any sentence that begins with "In the year..." or "During the...".',
+        'WHEN FACTS ARE MISSING:',
+        '  - Say honestly that records are limited. Example: "The public record on this place is sparse, but standing here you can feel..."',
+        '  - Focus on what the visitor can observe right now, not on what might have happened here.',
+        '  - Prefer a shorter, honest description over a longer, invented one.',
+      ].join(' ')
     : '';
 
   const BANNED_PHRASES = [

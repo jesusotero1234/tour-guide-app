@@ -12,7 +12,9 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
       `Enriched context: ${input.seeds.enrichedContext || 'none'}.`,
       'Describe what makes this place distinctive within the tour theme. Use only verifiable facts from the provided context.',
       'Show the significance through concrete details — architectural features, historical role, cultural meaning, urban function — rather than stating "this is significant because...".',
-      'If facts are thin, focus on what the place type and recorded tags reveal about the neighbourhood or city.',
+      input.seedQuality === 'thin'
+        ? 'THIN-SEED: Focus on what the place type and location reveal. Do NOT invent historical importance. Example: "In small Galician towns, a stone tower like this often marked the boundary between the old quarter and farmland." Never claim this specific POI had a particular role, date, or owner.'
+        : 'If facts are thin, focus on what the place type and recorded tags reveal about the neighbourhood or city.',
       'Connect this stop to the broader tour theme naturally, like a guide who knows why they chose this route.',
     ].join('\n'),
   };
