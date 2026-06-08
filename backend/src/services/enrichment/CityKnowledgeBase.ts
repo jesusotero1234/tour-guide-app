@@ -108,7 +108,7 @@ export async function enrichSeeds(
   if (city && k > 0) {
     const contexts = await enrichContext(city, placeName, theme, language, k, llmServiceUrl);
     for (const ctx of contexts) {
-      if (ctx.similarity > 0.35) {
+      if (ctx.similarity > 0.25) {
         parts.push(ctx.text);
       }
     }
