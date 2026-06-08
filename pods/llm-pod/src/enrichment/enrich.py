@@ -83,6 +83,7 @@ def search_index(index_dir: str, query: str, k: int = 3):
                 'text': corpus[idx]['text'],
                 'place': corpus[idx].get('place', ''),
                 'theme': corpus[idx].get('theme', ''),
+                'level': corpus[idx].get('level', 'poi'),
             })
 
     return results

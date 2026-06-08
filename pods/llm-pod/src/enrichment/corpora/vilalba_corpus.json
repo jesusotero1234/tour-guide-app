@@ -1,0 +1,50 @@
+[
+  {
+    "id": "villalba-city-001",
+    "place": "Villalba",
+    "level": "city",
+    "theme": "general",
+    "text": "El término Villalba puede hacer referencia a:",
+    "source_url": "https://es.wikipedia.org/wiki/Villalba",
+    "source": "wikipedia",
+    "lang": "es",
+    "retrieved_at": "2026-06-08",
+    "label": "Artículo de Wikipedia de Villalba"
+  },
+  {
+    "id": "villalba-province-001",
+    "place": "Lugo",
+    "level": "province",
+    "theme": "general",
+    "text": "Lugo es una ciudad y municipio de España, capital de la comarca y provincia homónimas, situada en el noroeste del país, en Galicia.\nDe origen romano, fue fundada en el año 25 a. C. por Paulo Fabio Máximo y es la más antigua de Galicia. Construida en las cercanías de un castro, en la época romana recibió el nombre de Lucus Augusti. Numerosos restos romanos, muchos de ellos conservados en el Museo Provincial, son testimonio de sus primeros años de historia, especialmente su muralla romana, única en el mundo, que conserva todo su perímetro, y que fue declarada Patrimonio de la Humanidad en 2000. Dista de la costa 85 km, aunque su provincia tiene mar.\nA lo largo de su historia experimentó tanto épocas de abandono como importantes momentos en la historia del país, desde la reunión en el año 842 de un gran ejército para conquistar Oviedo y entronizar a Ramiro I hasta el pronunciamiento del coronel Miguel Solís que daría comienzo al levantamiento de 1846 contra el presidente Narváez. Lugo ostenta el título de La Muy Noble y Leal Ciudad.",
+    "source_url": "https://es.wikipedia.org/wiki/Lugo",
+    "source": "wikipedia",
+    "lang": "es",
+    "retrieved_at": "2026-06-08",
+    "label": "Artículo de Wikipedia de la provincia de Lugo (parte 1)"
+  },
+  {
+    "id": "villalba-province-002",
+    "place": "Lugo",
+    "level": "province",
+    "theme": "general",
+    "text": "Geográficamente, la ciudad, capital del municipio, se encuentra situada sobre una colina, en una comarca de montañas redondeadas y no muy elevadas en las tierras del Alto Miño y circundada por el propio río Miño, además de otros de menor entidad. El término municipal, incluido en la reserva de la biosfera Tierras del Miño, es el segundo más extenso de Galicia, y en el que habitaban 100 143 habitantes (INE 2025), lo que lo convierte en el quinto de esta comunidad autónoma en población.\nEl gentilicio de sus habitantes es lucense o lugués. Actualmente, Lugo es una ciudad comercial y de servicios, con un campus universitario especializado en ciencias agrarias (como veterinaria o ingeniería de montes). Destacan también sus populosas fiestas, como el Arde Lucus, que rememora el pasado romano y castreño de la ciudad, y la de San Froilán, que se celebra entre el 4 y el 12 de octubre.",
+    "source_url": "https://es.wikipedia.org/wiki/Lugo",
+    "source": "wikipedia",
+    "lang": "es",
+    "retrieved_at": "2026-06-08",
+    "label": "Artículo de Wikipedia de la provincia de Lugo (parte 2)"
+  },
+  {
+    "id": "villalba-region-001",
+    "place": "Galicia",
+    "level": "region",
+    "theme": "general",
+    "text": "Galicia es una comunidad autónoma española, considerada nacionalidad histórica según su estatuto de autonomía,​ situada en el noroeste de la península ibérica. Está formada por las provincias de La Coruña, Lugo, Orense y Pontevedra, que se componen de trescientos trece municipios​ agrupados en cincuenta y tres comarcas. Su capital es la ciudad de Santiago de Compostela. Por otro lado, Vigo es el municipio con más población​ y La Coruña es el municipio más densamente poblado y la localidad con más habitantes.​\nGeográficamente, Galicia está bordeada al oeste por el océano Atlántico y al norte por el mar Cantábrico. Limita al sur con Portugal (Entre Minho e Douro y Trás-os-Montes), al noreste con Asturias y al este Castilla y León (León y de Zamora). Además del territorio continental, la comunidad autónoma incluye los archipiélagos de las islas Cíes, la isla de Ons, la isla de Sálvora, el archipiélago de Cortegada, la isla de Arosa, las Sisargas, el sub-archipiélago de las Malveiras y otras más pequeñas.\nGalicia tiene 2 714 741 habitantes (INE 2025),​ con una distribución demográfica que aglomera la mayor parte de la población en las franjas costeras comprendidas entre Ferrol y La Coruña en el noroeste y entre Villagarcía de Arosa, Pontevedra y Vigo en el suroeste. En su territorio se hablan el gallego y el castellano, ambas lenguas cooficiales según el Estatuto de Autonomía de Galicia.",
+    "source_url": "https://es.wikipedia.org/wiki/Galicia",
+    "source": "wikipedia",
+    "lang": "es",
+    "retrieved_at": "2026-06-08",
+    "label": "Artículo de Wikipedia de Galicia"
+  }
+]

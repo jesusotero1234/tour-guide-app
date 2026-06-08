@@ -100,6 +100,7 @@ class EnrichmentServer:
                     'text': entry['text'],
                     'place': entry.get('place', ''),
                     'theme': entry.get('theme', ''),
+                    'level': entry.get('level', 'poi'),
                 })
         return results
 

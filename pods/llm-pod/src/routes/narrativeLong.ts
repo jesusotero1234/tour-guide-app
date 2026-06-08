@@ -461,9 +461,10 @@ function extractHistoricalPersons(text: string): string[] {
 // ── Multi-source corpus builder (tiered confidence) ──────────────
 
 interface TieredCorpus {
-  high: string;    // Wikidata claims (highest confidence)
-  medium: string;  // Wikipedia + enriched context
-  low: string;     // Wikivoyage
+  high: string;      // Wikidata claims (highest confidence)
+  medium: string;    // Wikipedia + POI-level enriched context
+  low: string;       // Wikivoyage
+  regional: string;  // City/region-level enriched context (cannot verify POI claims)
 }
 
 function buildTieredCorpus(seeds: LongNarrativeSeeds): TieredCorpus {
@@ -475,11 +476,56 @@ function buildTieredCorpus(seeds: LongNarrativeSeeds): TieredCorpus {
     }
   }
 
-  // Medium: Wikipedia (semi-structured, editorial)
+  // Medium: Wikipedia + POI-level enriched context (can verify claims)
   const wikiParts: string[] = [];
   if (seeds.wikipediaLead) wikiParts.push(seeds.wikipediaLead);
   if (seeds.wikipediaBody) wikiParts.push(seeds.wikipediaBody);
-  if (seeds.enrichedContext) wikiParts.push(seeds.enrichedContext);
+
+  // Regional: city/comarca/province/region context (CANNOT verify POI claims)
+  const regionalParts: string[] = [];
+
+  if (seeds.enrichedContext) {
+    // Parse level markers: --- DATOS DEL POI --- / --- CONTEXTO LOCAL --- / --- CONTEXTO REGIONAL ---
+    // Pattern: \n--- LEVEL_HEADER ---\n followed by content until next header or end
+    const LEVEL_RE = /^--- (DATOS DEL POI[^\n]*|CONTEXTO LOCAL[^\n]*|CONTEXTO REGIONAL[^\n]*|POI FACTS[^\n]*|LOCAL CONTEXT[^\n]*|REGIONAL BACKGROUND[^\n]*) ---$/;
+    const lines = seeds.enrichedContext.split('\n');
+    let currentLevel: 'poi' | 'regional' | 'none' = 'none';
+    let currentChunk = '';
+
+    for (const line of lines) {
+      const m = line.trim().match(LEVEL_RE);
+      if (m) {
+        // Save previous chunk
+        if (currentChunk.trim() && currentLevel !== 'none') {
+          if (currentLevel === 'poi') {
+            wikiParts.push(currentChunk.trim());
+          } else {
+            regionalParts.push(currentChunk.trim());
+          }
+        }
+        // Determine new level
+        const header = m[1];
+        currentLevel = /DATOS DEL POI|POI FACTS/.test(header) ? 'poi' : 'regional';
+        currentChunk = '';
+      } else {
+        currentChunk += (currentChunk ? '\n' : '') + line;
+      }
+    }
+    // Save last chunk
+    if (currentChunk.trim() && currentLevel !== 'none') {
+      if (currentLevel === 'poi') {
+        wikiParts.push(currentChunk.trim());
+      } else {
+        regionalParts.push(currentChunk.trim());
+      }
+    }
+    
+    // 🔥 CRITICAL: legacy content without level markers goes to regional (safe default)
+    // It CANNOT verify POI claims because we don't know which level it belongs to
+    if (currentLevel === 'none') {
+      regionalParts.push(seeds.enrichedContext);
+    }
+  }
 
   // Low: Wikivoyage (travel guide, not factual-primary)
   const lowParts: string[] = [];
@@ -489,6 +535,7 @@ function buildTieredCorpus(seeds: LongNarrativeSeeds): TieredCorpus {
     high: normalizeNFD(wikidataParts.join(' ')),
     medium: normalizeNFD(wikiParts.join(' ')),
     low: normalizeNFD(lowParts.join(' ')),
+    regional: normalizeNFD(regionalParts.join(' ')),
   };
 }
 
