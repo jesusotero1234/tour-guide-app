@@ -503,6 +503,57 @@ function claimContext(text: string, value: string): string {
 
 // ── Source-specific claim search ──────────────────────────────────
 
+/** Roman numeral to integer. Only handles I–XXI (1–21) for century matching. */
+function romanToInt(roman: string): number {
+  const map: Record<string, number> = {
+    'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7,'VIII':8,'IX':9,
+    'X':10,'XI':11,'XII':12,'XIII':13,'XIV':14,'XV':15,'XVI':16,
+    'XVII':17,'XVIII':18,'XIX':19,'XX':20,'XXI':21,
+  };
+  return map[roman.toUpperCase()] || 0;
+}
+
+/** Expand a date claim value into multiple search variants.
+ *  "siglo XIII" → ["siglo xiii", "1200", "1300", "13"]
+ *  "1245"       → ["1245", "siglo xiii", "13"]
+ *  This bridges the gap between narrative text (century names) and
+ *  Wikidata corpus (numeric years). */
+function expandDateSearchTerms(value: string): string[] {
+  const n = normalizeNFD(value);
+  const terms = [n];
+
+  // "siglo XIII" → also search for numeric year range
+  const sigloMatch = n.match(/\bsiglo\s+(x{0,3}(?:ix|iv|v?i{0,3}))\b/i);
+  if (sigloMatch) {
+    const century = romanToInt(sigloMatch[2]);
+    if (century > 0) {
+      const startYear = (century - 1) * 100;
+      const endYear = century * 100;
+      terms.push(`${startYear}`, `${endYear}`, `${century}`);
+    }
+  }
+
+  // "1245" → also search for corresponding century name
+  const yearMatch = n.match(/\b(\d{4})\b/);
+  if (yearMatch) {
+    const year = parseInt(yearMatch[1]);
+    if (year >= 300 && year <= 2030) {
+      const century = Math.ceil(year / 100);
+      const roman = Object.entries({
+        'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7,'VIII':8,'IX':9,
+        'X':10,'XI':11,'XII':12,'XIII':13,'XIV':14,'XV':15,'XVI':16,
+        'XVII':17,'XVIII':18,'XIX':19,'XX':20,'XXI':21,
+      }).find(([_, v]) => v === century)?.[0];
+      if (roman) {
+        terms.push(`siglo ${roman.toLowerCase()}`);
+        terms.push(`${century}`);
+      }
+    }
+  }
+
+  return terms;
+}
+
 /** Search for a value across tiered corpora. Returns the tier where first found.
  *  For date/architect/historical_person: Wikidata (high) + Wikipedia (medium) only.
  *  For style: Wikidata + Wikipedia + enrichedContext.
@@ -512,25 +563,65 @@ function findClaimSource(
   claimType: ClaimType,
   corpus: TieredCorpus
 ): { found: boolean; tier: string } {
+  // For dates, expand century/year variants before searching
+  const searchTerms = claimType === 'date'
+    ? expandDateSearchTerms(normalizedValue)
+    : [normalizedValue];
+
   // Always check Wikidata first (structured facts)
-  if (corpus.high.includes(normalizedValue)) {
-    return { found: true, tier: 'wikidata' };
+  for (const term of searchTerms) {
+    if (corpus.high.includes(term)) {
+      return { found: true, tier: 'wikidata' };
+    }
   }
 
   // Wikipedia/enrichedContext — always relevant for styles, dates, architects
-  if (corpus.medium.includes(normalizedValue)) {
-    return { found: true, tier: 'wikipedia' };
+  for (const term of searchTerms) {
+    if (corpus.medium.includes(term)) {
+      return { found: true, tier: 'wikipedia' };
+    }
   }
 
   // Wikivoyage — only for material/measurement (descriptive, not authorative)
-  if ((claimType === 'material' || claimType === 'measurement') && corpus.low.includes(normalizedValue)) {
-    return { found: true, tier: 'wikivoyage' };
+  if (claimType === 'material' || claimType === 'measurement') {
+    for (const term of searchTerms) {
+      if (corpus.low.includes(term)) {
+        return { found: true, tier: 'wikivoyage' };
+      }
+    }
   }
 
   return { found: false, tier: 'none' };
 }
 
 // ── Contradiction detection ───────────────────────────────────────
+
+/** Maps style variants (gender/number) to a canonical root form.
+ *  e.g., "visigodo"/"visigoda"/"visigodos" → "visigod"
+ *        "gótico"/"gótica"/"góticos"     → "gotic"
+ *  Uses the KNOWN_ARCHITECTURAL_STYLES list to group variants by
+ *  their shortest unaccented form. */
+const STYLE_CANONICAL_MAP: Record<string, string> = (() => {
+  const map: Record<string, string> = {};
+  for (const style of KNOWN_ARCHITECTURAL_STYLES) {
+    const n = normalizeNFD(style);
+    // The canonical root is the shortest variant (typically masculine singular
+    // or the base form), stripped of trailing -o/-a/-os/-as/-es
+    let root = n.replace(/([oa]s?|es)$/, '');
+    // If stripping removed everything, fall back to original
+    if (root.length < 3) root = n;
+    map[n] = root;
+  }
+  return map;
+})();
+
+function styleCanonicalRoot(style: string): string {
+  const n = normalizeNFD(style);
+  // Known style: use precomputed canonical root
+  if (STYLE_CANONICAL_MAP[n]) return STYLE_CANONICAL_MAP[n];
+  // Unknown style: heuristic strip of gender/number suffixes
+  return n.replace(/([oa]s?|es)$/, '');
+}
 
 /** Check if a claim directly contradicts known facts.
  *  Example: generated says "1911" but Wikidata says "1910" → contradicted.
@@ -571,17 +662,26 @@ function isContradicted(
     return false;
   }
 
-  // For style: if corpus has a DIFFERENT style, it's contradicted
+  // For style: only contradicted if corpus has style data but NONE of the
+  // claim's gender/number variants appear. Multiple styles can coexist on
+  // a single building (e.g., gótico + visigodo + románico), so presence
+  // of a different style does NOT contradict the claim.
   if (claimType === 'style') {
-    // Check if any OTHER style is present in high-confidence corpus
+    // Collect all style variants present in the high-confidence corpus
+    const corpusStyleRoots = new Set<string>();
     for (const knownStyle of KNOWN_ARCHITECTURAL_STYLES) {
       const ksNorm = normalizeNFD(knownStyle);
-      if (ksNorm === norm) continue; // same style, not a contradiction
       if (corpus.high.includes(ksNorm)) {
-        return true; // corpus says "gótico" but generated says "renacentista"
+        corpusStyleRoots.add(styleCanonicalRoot(knownStyle));
       }
     }
-    return false;
+    // No style data in corpus → can't contradict
+    if (corpusStyleRoots.size === 0) return false;
+
+    // The claim is only contradicted if its canonical root doesn't match
+    // any style root found in the corpus
+    const claimRoot = styleCanonicalRoot(generatedValue);
+    return !corpusStyleRoots.has(claimRoot);
   }
 
   // For architect: if corpus names a different architect → contradicted
@@ -603,6 +703,25 @@ function isContradicted(
 }
 
 // ── Main claim validation ─────────────────────────────────────────
+
+/** Detects transition language — claims made while the narrator is
+ *  bridging to the NEXT stop, not describing the current one.
+ *  "una joya gótica que nos espera" → the "gótica" refers to the upcoming
+ *  Cocatedral, not the current baroque Llotja. These claims should never
+ *  be flagged as CONTRADICTED because they describe a different POI. */
+function isTransitionContext(context: string): boolean {
+  const n = normalizeNFD(context);
+  const markers = [
+    'nos espera', 'nos dirigimos', 'vamos a ', 'a continuacion',
+    'siguiente parada', 'siguiente destino', 'visitaremos',
+    'nos recibe', 'te espera', 'caminemos hacia', 'hacia ',
+    'proxima parada', 'proximo destino',
+  ];
+  for (const marker of markers) {
+    if (n.includes(marker)) return true;
+  }
+  return false;
+}
 
 /** Post-generation 3-tier factual validation.
  *  Extracts claims from generated narration, checks each against tiered
@@ -635,7 +754,11 @@ function validateNarrativeClaims(
       totalExtracted++;
       const normValue = normalizeNFD(value);
       const { found, tier } = findClaimSource(normValue, type, corpus);
-      const contradicted = !found && isContradicted(value, type, corpus);
+      const ctx = claimContext(narration, value);
+      // If a claim is in transition context (describing the NEXT stop),
+      // never flag it as contradicted — it's about a different POI
+      const contradicted = !found && !isTransitionContext(ctx)
+        && isContradicted(value, type, corpus);
 
       let status: ClaimStatus;
       let severity: ClaimSeverity;
@@ -657,7 +780,7 @@ function validateNarrativeClaims(
         status,
         severity,
         source: found ? tier : 'none',
-        context: claimContext(narration, value),
+        context: ctx,
       });
     }
   }
