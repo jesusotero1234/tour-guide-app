@@ -5,7 +5,7 @@ import { prismaClient } from '../../infrastructure/db/prismaClient';
 import { PostgresNarrationCacheRepository } from '../../infrastructure/postgres/PostgresNarrationCacheRepository';
 import { enrichSeeds } from '../enrichment/CityKnowledgeBase';
 
-const MODEL_VERSION = 'llama3.1:8b-long-v4';
+const MODEL_VERSION = 'llama3.1:8b-long-v5';
 
 export interface NarrativeSections {
   arrival?: string;
@@ -25,6 +25,61 @@ export interface BuiltNarration {
 export interface NarrativeStop {
   poi: EnrichedPoi;
   narration: string;
+}
+
+// ── Tour-level opening tracker (prevents repetitive starts) ──────────
+const tourOpenings = new Map<string, string[]>();
+
+const OPENING_ARCHETYPES = [
+  'anecdotal: start with a specific person, event, or curious detail tied to this place',
+  'sensory: open with a sound, smell, or texture that defines the atmosphere right now',
+  'contrast: begin by contrasting something old vs. new, or expected vs. surprising',
+  'question: start with a rhetorical question that hooks curiosity about this stop',
+  'scene: open by painting a quick scene — who is here, what are they doing, what does the light look like',
+  'detail: zoom in on one small architectural or urban detail and use it as a lens for the whole stop',
+  'rumour: begin with something a local might tell you — not a date, but an observation passed down',
+  'scale: open by describing the physical scale or position of this place within the city fabric',
+];
+
+/** Simple string hash for deterministic seeding. */
+function hashCode(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+/** Fisher-Yates shuffle with a deterministic seed (Lehmer RNG). */
+function shuffleWithSeed<T>(arr: T[], seed: number): T[] {
+  const shuffled = [...arr];
+  let s = seed;
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    s = (s * 16807 + 0) % 2147483647;
+    const j = s % (i + 1);
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/** Pick an archetype deterministically per tour (seeded by tourKey) to avoid identical
+ *  sequences across different tours of the same length. */
+function pickArchetype(tourKey: string, stopIndex: number): string {
+  const shuffled = shuffleWithSeed(OPENING_ARCHETYPES, hashCode(tourKey));
+  return shuffled[stopIndex % shuffled.length];
+}
+
+function recordOpeningStyle(tourKey: string, style: string): void {
+  const styles = tourOpenings.get(tourKey) || [];
+  if (!styles.includes(style)) {
+    styles.push(style);
+    tourOpenings.set(tourKey, styles);
+  }
+}
+
+function getUsedOpenings(tourKey: string): string[] {
+  return tourOpenings.get(tourKey) || [];
 }
 
 const narrationCache = new PostgresNarrationCacheRepository(prismaClient, MODEL_VERSION);
@@ -201,48 +256,52 @@ export async function buildNarration(
   }
 
   try {
-    // Enrich thin seeds with Madrid Knowledge Base — progressive threshold
-    const totalChars = (poi.enriched.wikipediaLead || '').length +
-      (poi.enriched.wikipediaBody || '').length +
-      JSON.stringify(poi.enriched.wikidataClaims || {}).length;
+    // ── Enrichment: always query RAG with thematic context ──────────
+    // Always attempt enrichment with k=3 and let the retrieval quality
+    // filter (similarity > 0.35) determine whether passages are injected.
 
     let enrichedText = '';
-    // Progressive enrichment based on seed quality:
-    //   < 300 chars → maximum effort (k=5)
-    //   300-800 chars → light enrichment (k=2)
-    //   > 800 chars → seeds are sufficient, skip enrichment
-    const enrichmentK = totalChars < 300 ? 5 : totalChars < 800 ? 2 : 0;
+    // Always query RAG (k=3) — retrieval quality filter handles relevance
+    const enrichmentK = 3;
 
-    if (enrichmentK > 0) {
-      try {
-        const lead = poi.enriched.wikipediaLead ?? undefined;
-        const body = poi.enriched.wikipediaBody ?? undefined;
-        enrichedText = await enrichSeeds(
-          {
-            wikipediaLead: lead,
-            wikipediaBody: body,
-            osmTags: poi.enriched.osmTags,
-          },
-          localName,
-          theme,
-          language,
-          enrichmentK,
-          tourMeta?.cityName,
-          llmServiceUrl
-        );
-        if (enrichedText) {
-          console.log('[NarrativeBuilder]', JSON.stringify({
-            event: 'enriched-thin-seeds',
-            traceId,
-            stopName: localName,
-            enrichedChars: enrichedText.length,
-          }));
-        }
-      } catch (enrichError) {
-        // Enrichment is best-effort; continue with original seeds
-        console.warn('[NarrativeBuilder] enrichment skipped:', (enrichError as Error).message);
+    try {
+      const lead = poi.enriched.wikipediaLead ?? undefined;
+      const body = poi.enriched.wikipediaBody ?? undefined;
+      enrichedText = await enrichSeeds(
+        {
+          wikipediaLead: lead,
+          wikipediaBody: body,
+          osmTags: poi.enriched.osmTags,
+        },
+        localName,
+        theme,
+        language,
+        enrichmentK,
+        tourMeta?.cityName,
+        llmServiceUrl
+      );
+      if (enrichedText) {
+        console.log('[NarrativeBuilder]', JSON.stringify({
+          event: 'enriched-seeds',
+          traceId,
+          stopName: localName,
+          enrichedChars: enrichedText.length,
+        }));
       }
+    } catch (enrichError) {
+      // Enrichment is best-effort; continue with original seeds
+      console.warn('[NarrativeBuilder] enrichment skipped:', (enrichError as Error).message);
     }
+
+    // ── Track openings per tour to avoid repetition ────────────────
+    const tourKey = `${tourMeta?.cityName || 'city'}-${theme}-${language}`;
+    // Deterministic index per stop: first=0, last=N-1, middle=hash(tourKey+stopName)
+    const stopIndex = position === 'first' ? 0
+      : position === 'last' ? (tourMeta?.totalStops || 5) - 1
+      : hashCode(`${tourKey}:${localName}`) % OPENING_ARCHETYPES.length;
+    const archetype = pickArchetype(tourKey, stopIndex);
+    const usedOpenings = getUsedOpenings(tourKey);
+    recordOpeningStyle(tourKey, archetype);
 
     console.log('[NarrativeBuilder]', JSON.stringify({
       event: 'long-request',
@@ -274,6 +333,8 @@ export async function buildNarration(
         cityName: tourMeta?.cityName,
         totalStops: tourMeta?.totalStops,
         tourDurationMinutes: tourMeta?.tourDurationMinutes,
+        usedOpenings,
+        openingArchetype: archetype,
       },
       { timeout: 120000 }
     );

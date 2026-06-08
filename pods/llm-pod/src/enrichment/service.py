@@ -83,7 +83,7 @@ class CityIndex:
             idx = int(indices[0][i])
             dist = float(distances[0][i])
             similarity = 1.0 - dist
-            if similarity > 0.15:
+            if similarity > 0.35:
                 entry = self._texts[idx]
                 results.append({
                     'similarity': round(similarity, 4),

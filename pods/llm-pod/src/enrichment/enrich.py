@@ -77,7 +77,7 @@ def search_index(index_dir: str, query: str, k: int = 3):
         idx = int(indices[0][i])
         dist = float(distances[0][i])
         similarity = 1.0 - dist
-        if similarity > 0.15:  # Minimum relevance threshold
+        if similarity > 0.35:  # Minimum relevance threshold
             results.append({
                 'similarity': round(similarity, 4),
                 'text': corpus[idx]['text'],
