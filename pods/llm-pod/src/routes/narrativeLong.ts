@@ -525,7 +525,7 @@ function expandDateSearchTerms(value: string): string[] {
   // "siglo XIII" → also search for numeric year range
   const sigloMatch = n.match(/\bsiglo\s+(x{0,3}(?:ix|iv|v?i{0,3}))\b/i);
   if (sigloMatch) {
-    const century = romanToInt(sigloMatch[2]);
+    const century = romanToInt(sigloMatch[1]);
     if (century > 0) {
       const startYear = (century - 1) * 100;
       const endYear = century * 100;
