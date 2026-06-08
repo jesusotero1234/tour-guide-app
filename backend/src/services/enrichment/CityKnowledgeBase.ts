@@ -16,7 +16,7 @@ export interface EnrichedContext {
 }
 
 const INDEX_BASE_DIR = process.env.ENRICHMENT_INDEX_BASE_DIR
-  || path.resolve(__dirname, '../../../../pods/llm-pod/src/enrichment');
+  || path.resolve(__dirname, '../../pods/llm-pod/enrichment');
 
 // Feature flag: comma-separated list of cities with RAG enabled.
 // Set to '*' to enable all, or 'madrid,barcelona' for specific cities.
@@ -56,9 +56,13 @@ export async function enrichContext(
     return [];
   }
 
-  // Check cache first
-  const cached = await enrichmentCache.get(city, placeName, theme, language);
-  if (cached) return cached;
+  // Check cache first (best-effort — falls through if table doesn't exist)
+  try {
+    const cached = await enrichmentCache.get(city, placeName, theme, language);
+    if (cached) return cached;
+  } catch {
+    // Cache miss or table missing — query enrichment server directly
+  }
 
   const query = `${placeName} ${theme}`;
   const baseUrl = llmServiceUrl || 'http://localhost:3002';
@@ -73,7 +77,7 @@ export async function enrichContext(
     const results: EnrichedContext[] = response.data?.results || [];
     if (results.length > 0) {
       console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${results.length} passages`);
-      // Cache for future queries
+      // Cache for future queries (best-effort)
       enrichmentCache.set(city, placeName, theme, language, query, results).catch(() => {});
     }
     return results;
@@ -104,7 +108,7 @@ export async function enrichSeeds(
   if (city && k > 0) {
     const contexts = await enrichContext(city, placeName, theme, language, k, llmServiceUrl);
     for (const ctx of contexts) {
-      if (ctx.similarity > 0.15) {
+      if (ctx.similarity > 0.35) {
         parts.push(ctx.text);
       }
     }
