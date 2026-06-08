@@ -78,7 +78,10 @@ export async function enrichContext(
     const results: EnrichedContext[] = response.data?.results || [];
     let deduped: EnrichedContext[] = [];
     if (results.length > 0) {
-      deduped = deduplicatePassages(results);
+      // 🔥 Pass more results to dedup, quotas will cap to 3 after
+      deduped = deduplicatePassages(results, 8);
+      // 🔥 Level quotas: prevent regional chunks from displacing POI/city chunks
+      deduped = applyLevelQuotas(deduped);
       console.log(`[CityKB] Enriched "${placeName}" (${city}) with ${deduped.length} passages`);
       // Cache for future queries (best-effort)
       enrichmentCache.set(city, placeName, theme, language, query, deduped).catch(() => {});
@@ -88,6 +91,44 @@ export async function enrichContext(
     console.warn(`[CityKB] Enrichment query failed for ${city}/${placeName}: ${(error as Error).message}`);
     return [];
   }
+}
+
+/** Level quotas: prevent regional chunks from displacing POI/city chunks.
+ *  Priority order: poi > city > comarca > province > region.
+ *  Quotas: poi=2, city=2, comarca=1, province=1, region=1 — capped at maxResults total. */
+const LEVEL_QUOTAS: Record<string, number> = {
+  poi: 2, city: 2, comarca: 1, province: 1, region: 1,
+};
+const LEVEL_PRIORITY = ['poi', 'city', 'comarca', 'province', 'region'];
+
+function applyLevelQuotas(passages: EnrichedContext[], maxResults = 3): EnrichedContext[] {
+  if (passages.length === 0) return passages;
+  
+  // Sort by level priority (poi > city > comarca > province > region),
+  // then by similarity within each level
+  const priorityMap = new Map(LEVEL_PRIORITY.map((l, i) => [l, i]));
+  const sorted = [...passages].sort((a, b) => {
+    const pa = priorityMap.get(normalizeLevel(a.level)) ?? 99;
+    const pb = priorityMap.get(normalizeLevel(b.level)) ?? 99;
+    if (pa !== pb) return pa - pb;
+    return (b.similarity || 0) - (a.similarity || 0);
+  });
+
+  const selected: EnrichedContext[] = [];
+  const used = new Map<string, number>();
+  
+  for (const p of sorted) {
+    const lv = normalizeLevel(p.level);
+    const quota = LEVEL_QUOTAS[lv] || 1;
+    const count = used.get(lv) || 0;
+    
+    if (count < quota && selected.length < maxResults) {
+      selected.push(p);
+      used.set(lv, count + 1);
+    }
+  }
+  
+  return selected;
 }
 
 /** Removes near-duplicate passages by Jaccard word overlap.
@@ -117,14 +158,15 @@ function jaccardOverlap(a: string, b: string): number {
   return union.size === 0 ? 0 : intersection.size / union.size;
 }
 
-/** Validates and normalizes a level tag. Unknown values default to 'regional'
+/** Validates and normalizes a level tag. Unknown values default to 'region'
  *  (safe default: cannot verify POI-specific claims). */
 const VALID_LEVELS = ['poi', 'city', 'comarca', 'province', 'region'] as const;
 
 function normalizeLevel(raw: string | undefined): string {
-  if (!raw) return 'regional';
+  if (!raw) return 'region';
   const lv = raw.toLowerCase().trim();
-  return (VALID_LEVELS as readonly string[]).includes(lv) ? lv : 'regional';
+  if (lv === 'regional') return 'region';  // normalize common variant
+  return (VALID_LEVELS as readonly string[]).includes(lv) ? lv : 'region';
 }
 
 /**
