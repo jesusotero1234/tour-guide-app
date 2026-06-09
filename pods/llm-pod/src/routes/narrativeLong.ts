@@ -1255,7 +1255,7 @@ async function generateSection(
   let missingFacts: string[] | undefined;
   // Fase 2: build tiered corpus once per section (cached for retry loop)
   const corpus = buildTieredCorpus(input.seeds);
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 1; attempt++) {
     const promptInput = { ...input, retry: attempt > 0, missingFacts };
     // Fase 2.6: per-section temperature calibration (lowered arrival+sig)
     const sectionTemps: Record<SectionName, [number, number]> = {
@@ -1269,7 +1269,7 @@ async function generateSection(
     const modelOptions = {
       model: NARRATIVE_MODEL,
       temperature: attempt > 0 ? temp2 : temp1,
-      max_tokens: input.seedQuality === 'thin' ? 220 : 260,
+      max_tokens: input.seedQuality === 'thin' ? 180 : 200,
       think: false,
       format: 'json' as const,
     };

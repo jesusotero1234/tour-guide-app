@@ -111,7 +111,7 @@ class Model {
       const response = await axios.post<OllamaResponse>(
         `${this.baseUrl}/api/generate`,
         ollamaRequest,
-        { timeout: 120000 }
+        { timeout: 180000 }
       );
       const durationMs = Date.now() - startedAt;
 
@@ -203,7 +203,7 @@ class Model {
       const response = await axios.post<OllamaChatResponse>(
         `${this.baseUrl}/api/chat`,
         chatRequest,
-        { timeout: 120000 }
+        { timeout: 180000 }
       );
       const durationMs = Date.now() - startedAt;
 
