@@ -163,14 +163,22 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     // FR
     'atmosphère', 'jeu de lumière', 'ombres', 'majestueux', 'imposant',
     'grandiose', 'mystérieux', 'fenêtres étroites', 'plafonds peints', 'pénombre',
+    'charme intemporel', 'témoin vivant', 'murmure du passé', 'échos de l\'histoire',
+    'invite à imaginer', 'raconte une histoire', 'captiver chaque visiteur', 'joyau caché',
     // DE
     'Atmosphäre', 'Schatten', 'Lichtspiel', 'majestätisch', 'imposant',
     'großartig', 'geheimnisvoll', 'Deckenmalerei', 'Dämmerung',
+    'zeitloser Charme', 'lebendiger Zeuge', 'Flüstern der Vergangenheit', 'Echos der Geschichte',
+    'lädt dich ein', 'erzählt eine Geschichte', 'in seinen Bann', 'verborgenes Juwel',
     // EN
     'must-see destination', 'steeped in history', 'hidden gem',
     'atmosphere', 'play of light', 'shadows', 'majestic', 'imposing', 'mysterious',
+    'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
+    'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
     // IT
     'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'imponente', 'grandioso', 'misterioso',
+    'fascino senza tempo', 'testimone vivente', 'sussurro del passato', 'echi della storia',
+    'invita a immaginare', 'racconta una storia', 'cattura ogni visitatore', 'gioiello nascosto',
   ];
 
   const BANNED_PROMPTS: Record<string, string> = {

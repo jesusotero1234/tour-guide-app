@@ -258,6 +258,8 @@ const BANNED_OUTPUT_PHRASES = [
   'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
+  'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
+  'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
   // Fase 2.6: calibrated bans — normal descriptors removed, AI-isms kept
   'atmosfera', 'juego de luces', 'sombras',
   'majestuoso', 'majestuosidad', 'majestuosamente',
@@ -269,8 +271,14 @@ const BANNED_OUTPUT_PHRASES = [
   'atmosphere', 'play of light', 'shadows', 'mysterious',
   'breathtaking', 'awe-inspiring',
   'atmosphere', 'jeu de lumiere', 'ombres', 'majestueux', 'imposant', 'mysterieux',
+  'charme intemporel', 'temoin vivant', 'murmure du passe', "echos de l'histoire",
+  'invite a imaginer', 'raconte une histoire', 'captiver chaque visiteur', 'joyau cache',
   'atmosphare', 'schatten', 'lichtspiel', 'majestatisch', 'imposant', 'geheimnisvoll',
+  'zeitloser charme', 'lebendiger zeuge', 'flustern der vergangenheit', 'echos der geschichte',
+  'ladt dich ein', 'erzahlt eine geschichte', 'in seinen bann', 'verborgenes juwel',
   'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'misterioso',
+  'fascino senza tempo', 'testimone vivente', 'sussurro del passato', 'echi della storia',
+  'invita a immaginare', 'racconta una storia', 'cattura ogni visitatore', 'gioiello nascosto',
   // Anti-meta-lenguaje: el modelo no debe mencionar sus limitaciones de datos
   'public sources are limited', 'records are limited', 'available records',
   'available public record', 'verified facts', 'unverified facts',
@@ -674,16 +682,29 @@ function extractHistoricalPersons(text: string): string[] {
 
 function extractLocations(text: string, whitelist: string[]): string[] {
   const locations: string[] = [];
-  // Proper-noun toponyms: "Plaza de X", "Calle Y", "Barrio Z", "Puerta de X", etc.
-  const re = /\b((?:Plaza|Calle|Barrio|Puerta|Fuente|Parque|Jard[ií]n|Paseo|Avenida|Glorieta|Ronda|Cuesta|Campo|Teatro|Museo|Palacio|Iglesia|Catedral|Bas[ií]lica|Monasterio|Convento|Torre|Puente|Estaci[oó]n|Mercado|Plaza\s+de\s+la|Plaza\s+del)\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,3})\b/g;
-  let match;
-  while ((match = re.exec(text)) !== null) {
-    const loc = match[1].trim();
-    const norm = normalizeNFD(loc).toLowerCase();
-    // Whitelist: skip locations that match POI name, city, or next stop
-    const isWhitelisted = whitelist.some(w => normalizeNFD(w).toLowerCase().includes(norm) || norm.includes(normalizeNFD(w).toLowerCase()));
-    if (!isWhitelisted) {
-      locations.push(loc);
+  const patterns = [
+    // ES: "Plaza de Oriente", "Calle Mayor", "Palacio Real".
+    /\b((?:Plaza|Calle|Barrio|Puerta|Fuente|Parque|Jard[ií]n|Paseo|Avenida|Glorieta|Ronda|Cuesta|Campo|Teatro|Museo|Palacio|Iglesia|Catedral|Bas[ií]lica|Monasterio|Convento|Torre|Puente|Estaci[oó]n|Mercado)\s+(?:(?:de|del|de\s+la|de\s+las|de\s+los)\s+)?[A-ZÁÉÍÓÚÑ][\p{L}'’-]+(?:\s+(?:(?:de|del|de\s+la|de\s+las|de\s+los)\s+)?[A-ZÁÉÍÓÚÑ][\p{L}'’-]+){0,3})\b/gu,
+    // EN: "Royal Palace", "Main Street", "Hyde Park".
+    /\b((?:Square|Street|Road|Avenue|Lane|Boulevard|Park|Garden|Gate|Fountain|Palace|Church|Cathedral|Basilica|Monastery|Convent|Tower|Bridge|Station|Market|Museum|Theatre|Theater|Castle)\s+(?:(?:of|the)\s+)?[A-Z][\p{L}'’-]+(?:\s+(?:(?:of|the)\s+)?[A-Z][\p{L}'’-]+){0,3})\b/gu,
+    // FR: "Place Vendome", "Rue de Rivoli", "Palais Royal".
+    /\b((?:Place|Rue|Avenue|Boulevard|Parc|Jardin|Porte|Fontaine|Palais|[ÉE]glise|Cath[ée]drale|Basilique|Monast[èe]re|Couvent|Tour|Pont|Gare|March[ée]|Mus[ée]e|Th[ée][aâ]tre|Ch[âa]teau)\s+(?:(?:de|du|des|d’|d'|la|le|les)\s+)?[A-ZÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸ][\p{L}'’-]+(?:\s+(?:(?:de|du|des|d’|d'|la|le|les)\s+)?[A-ZÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸ][\p{L}'’-]+){0,3})\b/gu,
+    // DE: "Brandenburger Tor", "Museumsinsel", "Schloss Charlottenburg".
+    /\b((?:Platz|Stra[ßs]e|Gasse|Allee|Park|Garten|Tor|Brunnen|Palast|Schloss|Kirche|Dom|Kathedrale|Basilika|Kloster|Turm|Br[üu]cke|Bahnhof|Markt|Museum|Theater)\s+(?:(?:von|der|die|das|am|im|zu|zum|zur)\s+)?[A-ZÄÖÜ][\p{L}'’-]+(?:\s+(?:(?:von|der|die|das|am|im|zu|zum|zur)\s+)?[A-ZÄÖÜ][\p{L}'’-]+){0,3})\b/gu,
+    // IT: "Piazza Navona", "Via del Corso", "Palazzo Pitti".
+    /\b((?:Piazza|Via|Viale|Corso|Vicolo|Parco|Giardino|Porta|Fontana|Palazzo|Chiesa|Cattedrale|Basilica|Monastero|Convento|Torre|Ponte|Stazione|Mercato|Museo|Teatro|Castello)\s+(?:(?:di|del|della|delle|degli|dei|da|d’|d'|la|il|le|lo|l’)\s+)?[A-ZÀÉÈÌÒÙ][\p{L}'’-]+(?:\s+(?:(?:di|del|della|delle|degli|dei|da|d’|d'|la|il|le|lo|l’)\s+)?[A-ZÀÉÈÌÒÙ][\p{L}'’-]+){0,3})\b/gu,
+  ];
+
+  for (const re of patterns) {
+    let match;
+    while ((match = re.exec(text)) !== null) {
+      const loc = match[1].trim();
+      const norm = normalizeNFD(loc).toLowerCase();
+      // Whitelist: skip locations that match POI name, city, or next stop
+      const isWhitelisted = whitelist.some(w => normalizeNFD(w).toLowerCase().includes(norm) || norm.includes(normalizeNFD(w).toLowerCase()));
+      if (!isWhitelisted) {
+        locations.push(loc);
+      }
     }
   }
   return [...new Set(locations)];
