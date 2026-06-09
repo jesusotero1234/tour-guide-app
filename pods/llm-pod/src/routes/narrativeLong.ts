@@ -1122,19 +1122,49 @@ function parseSection(content: string): string | null {
 
 const FALLBACK_FACT_ORDER = ['P571', 'P1619', 'P84', 'P170', 'P149', 'P1435', 'P186', 'P2048', 'P276', 'P793'];
 
+/** Maps label-based claim keys (from backend enrichment) to Wikidata prop IDs. */
+const LABEL_TO_PROP: Record<string, string> = {
+  architect: 'P84', creator: 'P170',
+  inception: 'P571', built: 'P571', year: 'P571', construction: 'P571',
+  architecturalStyle: 'P149', style: 'P149',
+  heritageDesignation: 'P1435', heritage: 'P1435', protection: 'P1435',
+  material: 'P186', materials: 'P186',
+  height: 'P2048', measurement: 'P2048',
+  location: 'P276', locatedIn: 'P276',
+  event: 'P793', keyEvent: 'P793',
+  inauguration: 'P1619',
+};
+
 function fallbackFactSummary(input: LongNarrativePromptInput): string {
   const claims = input.seeds.wikidataClaims || {};
-  const facts = Object.entries(claims)
-    .filter(([propId, value]) => Boolean(PROP_TO_CATEGORY[propId] && value?.trim()))
-    .sort(([a], [b]) => {
-      const ai = FALLBACK_FACT_ORDER.indexOf(a);
-      const bi = FALLBACK_FACT_ORDER.indexOf(b);
+  const facts: { propId: string; cat: FactCategory; value: string }[] = [];
+
+  for (const [key, value] of Object.entries(claims)) {
+    if (!value?.trim()) continue;
+    // Try direct prop ID match first, then label-based mapping
+    let propId = key;
+    let cat = PROP_TO_CATEGORY[key];
+    if (!cat) {
+      const mappedId = LABEL_TO_PROP[key.toLowerCase()];
+      if (mappedId) {
+        propId = mappedId;
+        cat = PROP_TO_CATEGORY[mappedId];
+      }
+    }
+    if (!cat) continue;
+
+    facts.push({ propId, cat, value: value.trim() });
+  }
+
+  return facts
+    .sort((a, b) => {
+      const ai = FALLBACK_FACT_ORDER.indexOf(a.propId);
+      const bi = FALLBACK_FACT_ORDER.indexOf(b.propId);
       return (ai === -1 ? FALLBACK_FACT_ORDER.length : ai) - (bi === -1 ? FALLBACK_FACT_ORDER.length : bi);
     })
     .slice(0, 4)
-    .map(([propId, value]) => `${categoryLabel(PROP_TO_CATEGORY[propId], input.language)}: ${value.trim()}`);
-
-  return facts.join('; ');
+    .map(f => `${categoryLabel(f.cat, input.language)}: ${f.value}`)
+    .join('; ');
 }
 
 function fallbackSection(name: SectionName, input: LongNarrativePromptInput, reason: string): string {
