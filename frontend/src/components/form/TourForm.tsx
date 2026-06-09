@@ -70,40 +70,13 @@ export const TourForm = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    const fetchConcepts = async () => {
-      if (!location?.countryCode) {
-        setConceptDiscovery(null);
-        setSelectedConcept(null);
-        return;
-      }
-
-      setIsLoadingConcepts(true);
-      setConceptError(null);
+    // Reset concepts when city or country changes — user must explicitly request discovery
+    if (location?.countryCode) {
       setConceptDiscovery(null);
       setSelectedConcept(null);
-
-      try {
-        const result = await getCityConcepts(location.city, location.countryCode, language);
-        setConceptDiscovery(result);
-        if (result.concepts.length > 0) {
-          const preferred = result.concepts.find((concept) => concept.confidence === 'high') || result.concepts[0];
-          setSelectedConcept(preferred);
-          setUseManualThemeMode(false);
-          setDuration(String(preferred.suggestedDurationMinutes));
-        } else {
-          setUseManualThemeMode(true);
-        }
-      } catch (error) {
-        console.error('Failed to load concept recommendations:', error);
-        setConceptError('We could not load city recommendations right now. You can still build a tour manually.');
-        setUseManualThemeMode(true);
-      } finally {
-        setIsLoadingConcepts(false);
-      }
-    };
-
-    fetchConcepts();
-  }, [location?.city, location?.countryCode, language]);
+      setUseManualThemeMode(false);
+    }
+  }, [location?.city, location?.countryCode]);
 
   const validateForm = (): boolean => {
     const newErrors: { location?: string; theme?: string; concept?: string } = {};
@@ -122,6 +95,33 @@ export const TourForm = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handleDiscoverConcepts = async () => {
+    if (!location?.countryCode) return;
+    setIsLoadingConcepts(true);
+    setConceptError(null);
+    setConceptDiscovery(null);
+    setSelectedConcept(null);
+
+    try {
+      const result = await getCityConcepts(location.city, location.countryCode, language);
+      setConceptDiscovery(result);
+      if (result.concepts.length > 0) {
+        const preferred = result.concepts.find((concept) => concept.confidence === 'high') || result.concepts[0];
+        setSelectedConcept(preferred);
+        setUseManualThemeMode(false);
+        setDuration(String(preferred.suggestedDurationMinutes));
+      } else {
+        setUseManualThemeMode(true);
+      }
+    } catch (error) {
+      console.error('Failed to load concept recommendations:', error);
+      setConceptError('We could not load city recommendations right now. You can still build a tour manually.');
+      setUseManualThemeMode(true);
+    } finally {
+      setIsLoadingConcepts(false);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -200,6 +200,16 @@ export const TourForm = () => {
                 setDuration(String(concept.suggestedDurationMinutes));
               }}
             />
+          ) : !conceptDiscovery ? (
+            <button
+              type="button"
+              onClick={handleDiscoverConcepts}
+              disabled={isLoadingConcepts}
+              className="w-full rounded-xl border-2 border-dashed border-darkBrown/20 px-4 py-6 text-sm text-darkBrown/60 hover:border-darkBrown/40 hover:text-darkBrown transition-colors"
+            >
+              <span className="font-medium">Discover tours for {location.city}</span>
+              <span className="block mt-1 text-xs text-darkBrown/40">We will analyze the city and suggest curated walking tours</span>
+            </button>
           ) : null}
 
           {conceptError && (
