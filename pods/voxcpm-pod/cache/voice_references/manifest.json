@@ -6,5 +6,13 @@
     "provider": "voxcpm",
     "updatedAtMs": 1780958646253,
     "voiceProfile": "guide_fr"
+  },
+  "28f41338-a465-4196-a1d6-c01ea6aa8354": {
+    "language": "en",
+    "model": "openbmb_VoxCPM2",
+    "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/28f41338-a465-4196-a1d6-c01ea6aa8354.wav",
+    "provider": "voxcpm",
+    "updatedAtMs": 1781043843434,
+    "voiceProfile": "guide_en"
   }
 }

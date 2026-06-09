@@ -115,7 +115,7 @@ export class OrchestrationService {
       this.kokoroServiceUrl = process.env.TTS_SERVICE_URL || 'http://tts-pod:3005';
     } else {
       // Development mode with network issues: use special DNS name for host
-      const hostName = process.env.HOST_SYSTEM || 'host.containers.internal';
+      const hostName = process.env.HOST_SYSTEM || 'localhost';
       this.llmServiceUrl = `http://${hostName}:3002`;
       this.descriptionServiceUrl = `http://${hostName}:3004`;
       this.voxcpmServiceUrl = process.env.TTS_POD_URL;
