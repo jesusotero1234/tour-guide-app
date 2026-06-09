@@ -14,7 +14,7 @@ POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-tour_guide_dev}"
 DATABASE_URL="${DATABASE_URL:-postgresql://tour_guide:tour_guide_dev@localhost:5432/tour_guide_local?schema=public}"
 API_KEY="${API_KEY:-development-api-key}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-gemma4:26b}"
-NARRATIVE_MODEL="${NARRATIVE_MODEL:-llama3.1:8b}"
+NARRATIVE_MODEL="${NARRATIVE_MODEL:-qwen2.5:14b}"
 
 log() {
   printf '[dev-up] %s\n' "$*"

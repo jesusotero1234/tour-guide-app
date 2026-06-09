@@ -46,7 +46,10 @@ command -v npm >/dev/null 2>&1 || {
 }
 
 log "Resetting local database via Prisma migrate reset..."
-(cd "$BACKEND_DIR" && npx prisma migrate reset --force --skip-generate --skip-seed)
+# Use the same DATABASE_URL that dev-up.sh provisions in the Postgres container.
+# The backend .env may have different (masked) credentials set by another flow.
+export DATABASE_URL="${DATABASE_URL:-postgresql://tour_guide:tour_guide_dev@localhost:5432/tour_guide_local?schema=public}"
+(cd "$BACKEND_DIR" && DATABASE_URL="$DATABASE_URL" npx prisma migrate reset --force --skip-generate --skip-seed)
 
 if [[ "$SEED" == "true" ]]; then
   log "Running Prisma seed..."
