@@ -153,12 +153,13 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
     'refleja como', 'refleja cómo', 'muestra como', 'muestra cómo',
     'usted', 'ustedes', 'miren', 'observen', 'fíjense', 'vean',
-    'atmósfera', 'juego de luces', 'sombras', 'majestuoso', 'imponente',
+    'atmósfera', 'juego de luces', 'sombras', 'majestuoso',
     'majestuosidad', 'majestuosamente',
-    'grandioso', 'misterioso', 'imponente fachada', 'la iluminación', 'penumbra',
+    'misterioso', 'la iluminación', 'penumbra',
     'testimonio de', 'testimonio tangible', 'poder y riqueza', 'riqueza del',
     'fachada dorada', 'lujosa decoración', 'lujosa', 'dorada fachada',
-    'se alza majestuosamente', 'imponente presencia',
+    'se alza majestuosamente', 'se alza imponente', 'imponente estructura',
+    'presencia imponente', 'grandiosidad',
     // FR
     'atmosphère', 'jeu de lumière', 'ombres', 'majestueux', 'imposant',
     'grandiose', 'mystérieux', 'fenêtres étroites', 'plafonds peints', 'pénombre',
@@ -212,6 +213,27 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     it: `Tentativo precedente fallito. Riscrivi essendo più specifico, evita frasi generiche, non ripetere, e rimani vicino a ${targetWords} parole.`,
   };
 
+  const CONTRASTIVE_EXAMPLES: Record<string, string> = {
+    es: [
+      'EJEMPLOS CONTRASTIVOS: copia el patrón GOOD, nunca el BAD.',
+      'TEMA llegada BAD: "La fachada dorada se alza imponente y su majestuosidad envuelve al visitante".',
+      'TEMA llegada GOOD: "Fíjate en la base de piedra y en cómo el edificio ocupa la esquina; esos datos visibles explican su papel en la calle".',
+      'TEMA historia BAD: "Este lugar es testimonio de una época misteriosa llena de poder y riqueza".',
+      'TEMA historia GOOD: "La obra comenzó en 1738 y el proyecto se atribuye a Pedro de Ribera; esa fecha sitúa el edificio en una fase concreta de la ciudad".',
+      'TEMA significado BAD: "Su grandiosidad lo convierte en un símbolo eterno para todos".',
+      'TEMA significado GOOD: "Si consta como bien patrimonial, ese estatus explica por qué se conserva y cómo entra en la memoria pública".',
+    ].join(' '),
+    en: [
+      'CONTRASTIVE EXAMPLES: copy the GOOD pattern, never the BAD one.',
+      'TOPIC arrival BAD: "The majestic facade rises with an imposing aura that captivates every visitor".',
+      'TOPIC arrival GOOD: "Notice the stone base and the way the building holds the corner; those visible facts explain its role on the street".',
+      'TOPIC history BAD: "This place stands as a mysterious testimony to power, wealth, and timeless grandeur".',
+      'TOPIC history GOOD: "Work began in 1738 and the design is attributed to Pedro de Ribera; that date places the building in a specific urban phase".',
+      'TOPIC significance BAD: "Its grandeur makes it an eternal symbol for everyone who passes by".',
+      'TOPIC significance GOOD: "When a heritage status is recorded, that status explains why the site is preserved and how it enters public memory".',
+    ].join(' '),
+  };
+
   // ── Thin-seed guard (Fase 2: no atmosphere/sensory even on thin) ──
   const thinGuard = seedQuality === 'thin'
     ? (langCode === 'es'
@@ -252,6 +274,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
   const speculationBan = SPECULATION_BANS[langCode] || SPECULATION_BANS.en;
   const sourceMetaBan = SOURCE_META_BANS[langCode] || SOURCE_META_BANS.en;
   const bannedPrompt = BANNED_PROMPTS[langCode] || BANNED_PROMPTS.en;
+  const contrastiveExamples = CONTRASTIVE_EXAMPLES[langCode] || '';
   const jsonInstruction = JSON_INSTRUCTIONS[langCode] || JSON_INSTRUCTIONS.en;
   const retryMessage = RETRY_MESSAGES[langCode] || RETRY_MESSAGES.en;
 
@@ -264,6 +287,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     speculationBan,
     sourceMetaBan,
     bannedPrompt,
+    contrastiveExamples,
     usedPrompt,
     archetypePrompt,
     jsonInstruction,

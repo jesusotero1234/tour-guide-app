@@ -258,17 +258,19 @@ const BANNED_OUTPUT_PHRASES = [
   'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
-  // Fase 2: atmosphere/sensory bans (synced with prompt-level bans)
+  // Fase 2.6: calibrated bans — normal descriptors removed, AI-isms kept
   'atmosfera', 'juego de luces', 'sombras',
-  'majestuoso', 'imponente', 'majestuosidad', 'majestuosamente',
-  'grandioso', 'misterioso', 'imponente fachada', 'la iluminacion', 'penumbra',
+  'majestuoso', 'majestuosidad', 'majestuosamente',
+  'misterioso', 'la iluminacion', 'penumbra',
   'testimonio de', 'testimonio tangible', 'poder y riqueza', 'riqueza del',
-  'fachada dorada', 'lujosa decoracion', 'lujosa', 'dorada fachada', 'se alza majestuosamente',
-  'imponente presencia',
-  'atmosphere', 'play of light', 'shadows', 'majestic', 'imposing', 'mysterious',
+  'fachada dorada', 'lujosa decoracion', 'lujosa', 'dorada fachada',
+  'se alza majestuosamente', 'se alza imponente', 'imponente estructura', 'presencia imponente',
+  'grandiosidad',
+  'atmosphere', 'play of light', 'shadows', 'mysterious',
+  'breathtaking', 'awe-inspiring',
   'atmosphere', 'jeu de lumiere', 'ombres', 'majestueux', 'imposant', 'mysterieux',
   'atmosphare', 'schatten', 'lichtspiel', 'majestatisch', 'imposant', 'geheimnisvoll',
-  'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'imponente', 'misterioso',
+  'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'misterioso',
   // Anti-meta-lenguaje: el modelo no debe mencionar sus limitaciones de datos
   'public sources are limited', 'records are limited', 'available records',
   'available public record', 'verified facts', 'unverified facts',
@@ -1097,11 +1099,29 @@ function parseSection(content: string): string | null {
   }
 }
 
+const FALLBACK_FACT_ORDER = ['P571', 'P1619', 'P84', 'P170', 'P149', 'P1435', 'P186', 'P2048', 'P276', 'P793'];
+
+function fallbackFactSummary(input: LongNarrativePromptInput): string {
+  const claims = input.seeds.wikidataClaims || {};
+  const facts = Object.entries(claims)
+    .filter(([propId, value]) => Boolean(PROP_TO_CATEGORY[propId] && value?.trim()))
+    .sort(([a], [b]) => {
+      const ai = FALLBACK_FACT_ORDER.indexOf(a);
+      const bi = FALLBACK_FACT_ORDER.indexOf(b);
+      return (ai === -1 ? FALLBACK_FACT_ORDER.length : ai) - (bi === -1 ? FALLBACK_FACT_ORDER.length : bi);
+    })
+    .slice(0, 4)
+    .map(([propId, value]) => `${categoryLabel(PROP_TO_CATEGORY[propId], input.language)}: ${value.trim()}`);
+
+  return facts.join('; ');
+}
+
 function fallbackSection(name: SectionName, input: LongNarrativePromptInput, reason: string): string {
   const code = input.language.slice(0, 2).toLowerCase();
   const tagSummary = Object.entries(input.seeds.osmTags || {})
     .map(([key, value]) => `${key}=${value}`)
     .join(', ') || 'limited public tags';
+  const factSummary = fallbackFactSummary(input);
   const nextStop = input.nextStopName || 'the next stop';
   const cityName = input.cityName || 'this city';
 
@@ -1120,12 +1140,21 @@ function fallbackSection(name: SectionName, input: LongNarrativePromptInput, rea
 
   if (code === 'es') {
     if (name === 'arrival') {
+      if (factSummary) {
+        return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. El punto de partida es concreto: ${factSummary}. Fíjate en cómo esos datos ayudan a leer el lugar antes de seguir con la ruta.`;
+      }
       return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Este lugar forma parte del tejido urbano, y sus detalles visibles —${tagSummary}— invitan a leer la ciudad con atención.`;
     }
     if (name === 'history') {
+      if (factSummary) {
+        return `${input.localName} se entiende mejor desde estos datos: ${factSummary}. No hace falta adornarlo; esas referencias bastan para situar el lugar dentro de la historia urbana de ${cityName}.`;
+      }
       return `${input.localName} se inscribe en la trama de ${cityName} a través de señales como ${tagSummary}. Su valor no está en una gran fecha, sino en cómo el espacio ha acompañado el crecimiento y la transformación de la ciudad.`;
     }
     if (name === 'significance') {
+      if (factSummary) {
+        return `Dentro de este recorrido por ${input.theme}, ${input.localName} aporta una referencia precisa: ${factSummary}. Esa base permite entender su valor sin recurrir a elogios genéricos.`;
+      }
       return `Dentro de este recorrido por ${input.theme}, ${input.localName} ayuda a entender cómo se ha ido tejiendo ${cityName}: espacio, uso y memoria cotidiana se encuentran aquí sin necesidad de un gran anuncio.`;
     }
     return `Desde aquí seguimos hacia ${nextStop}. Cada parada añade un matiz distinto sobre ${input.theme} en ${cityName}.`;
@@ -1133,35 +1162,62 @@ function fallbackSection(name: SectionName, input: LongNarrativePromptInput, rea
 
   if (code === 'fr') {
     if (name === 'arrival') {
+      if (factSummary) {
+        return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Le point d'appui est précis: ${factSummary}. Ces repères aident à lire le lieu avant de poursuivre la visite.`;
+      }
       return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Depuis ce point, la ville se lit à hauteur de marche: le rythme de la rue, l'échelle des façades et les usages quotidiens donnent déjà le ton de la visite.`;
     }
     if (name === 'history') {
+      if (factSummary) {
+        return `${input.localName} se comprend mieux à partir de ces repères: ${factSummary}. Ils suffisent à situer le lieu dans l'histoire urbaine de ${cityName}, sans l'alourdir d'effets.`;
+      }
       return `Autour de ${input.localName}, les indices disponibles (${tagSummary}) suffisent à poser le regard: ce n'est pas un décor isolé, mais un morceau de ville où se croisent circulation, architecture et vie quotidienne.`;
     }
     if (name === 'significance') {
+      if (factSummary) {
+        return `Dans cette visite de ${input.theme}, ${input.localName} apporte des repères concrets: ${factSummary}. C'est par ces éléments que le lieu prend sa place dans la mémoire de ${cityName}.`;
+      }
       return `Dans cette visite, ${input.localName} aide à comprendre ${cityName} par petites touches: l'espace, les usages et la mémoire urbaine se rejoignent ici sans avoir besoin d'une grande annonce historique.`;
     }
     return `Depuis ce point, nous continuons vers ${nextStop}. Gardez en tête cette manière de lire la ville par ses détails: elle donnera une autre résonance au prochain arrêt.`;
   }
   if (code === 'de') {
     if (name === 'arrival') {
+      if (factSummary) {
+        return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Der konkrete Ausgangspunkt lautet: ${factSummary}. Diese Angaben helfen, den Ort vor dem Weitergehen genauer zu lesen.`;
+      }
       return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Von hier aus lässt sich die Stadt im Gehen lesen: der Rhythmus der Straße, die Maßstäbe der Fassaden und der alltägliche Gebrauch geben den Ton der Führung vor.`;
     }
     if (name === 'history') {
+      if (factSummary) {
+        return `${input.localName} wird durch diese Angaben greifbarer: ${factSummary}. Sie reichen aus, um den Ort in der Stadtgeschichte von ${cityName} zu verorten, ohne ihn auszuschmücken.`;
+      }
       return `Rund um ${input.localName} genügen die Hinweise (${tagSummary}), um den Blick zu schärfen: kein isoliertes Dekor, sondern ein Stück Stadt, in dem sich Verkehr, Architektur und Alltagsleben kreuzen.`;
     }
     if (name === 'significance') {
+      if (factSummary) {
+        return `Auf dieser ${input.theme}-Tour bringt ${input.localName} konkrete Anhaltspunkte mit: ${factSummary}. Genau diese Angaben erklären seinen Platz im Gedächtnis von ${cityName}.`;
+      }
       return `In diesem Rundgang hilft ${input.localName}, ${cityName} in kleinen Schritten zu verstehen: Raum, Nutzung und städtisches Gedächtnis treffen hier zusammen, ohne dass es einer großen historischen Ansage bedarf.`;
     }
     return `Von hier gehen wir weiter zu ${nextStop}. Behalten Sie diesen lesenden Blick auf die Stadt im Kopf — er wird dem nächsten Halt eine andere Resonanz geben.`;
   }
   if (name === 'arrival') {
+    if (factSummary) {
+      return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. The concrete anchors are ${factSummary}. Use those details to read the place before we continue through the route.`;
+    }
     return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. From here, the city reads at walking height: the rhythm of the street, the scale of the facades, and the everyday uses already set the tone for this visit.`;
   }
   if (name === 'history') {
+    if (factSummary) {
+      return `${input.localName} becomes clearer through these facts: ${factSummary}. They are enough to place the site within the urban history of ${cityName} without adding decorative claims.`;
+    }
     return `Around ${input.localName}, the available clues (${tagSummary}) are enough to sharpen the eye: not an isolated backdrop, but a piece of city where movement, architecture, and daily life intersect.`;
   }
   if (name === 'significance') {
+    if (factSummary) {
+      return `On this ${input.theme} walk, ${input.localName} contributes concrete anchors: ${factSummary}. Those details explain its value more clearly than broad praise would.`;
+    }
     return `On this walk, ${input.localName} helps make sense of ${cityName} in small steps: space, use, and urban memory meet here without needing a grand historical announcement.`;
   }
   return `From here, we continue toward ${nextStop}. Keep this way of reading the city through its details in mind — it will give the next stop a different resonance.`;
@@ -1180,11 +1236,11 @@ async function generateSection(
   const corpus = buildTieredCorpus(input.seeds);
   for (let attempt = 0; attempt < 2; attempt++) {
     const promptInput = { ...input, retry: attempt > 0, missingFacts };
-    // Fase 2: per-section temperature calibration
+    // Fase 2.6: per-section temperature calibration (lowered arrival+sig)
     const sectionTemps: Record<SectionName, [number, number]> = {
       history: [0.2, 0.15],
-      significance: [0.4, 0.25],
-      arrival: [0.5, 0.3],
+      significance: [0.35, 0.2],
+      arrival: [0.4, 0.25],
       transition: [0.5, 0.3],
     };
     const [temp1, temp2] = sectionTemps[name] || [0.4, 0.25];
