@@ -43,8 +43,8 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
         : [
             'TASK:',
             '- Use the VERIFIED FACTS as the backbone of this section.',
-            '- If two or more verified facts are listed, include exactly two or three of them.',
-            '- If only one verified fact is listed, include that one fact.',
+            '- If three or more verified facts are listed, include three of them.',
+            '- If fewer than three verified facts are listed, include all available ones.',
             '- Prefer this order: date or inauguration, architect or creator, style, heritage status, location.',
             '- Open with a verified fact, not with a generic spatial phrase like "Frente a ti se alza".',
             '- Turn the facts into one short story, but keep the actual date, name, style, or status intact.',

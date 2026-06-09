@@ -16,6 +16,9 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
         ? 'THIN-SEED: Do not invent historical importance and do not mention limited records. Show significance through the stop\'s observable urban function, name, place type, location in the route, and relation to the tour theme. Never claim a specific role, date, owner, event, or institution unless provided.'
         : 'If facts are thin, focus on what the place type and recorded tags reveal about the neighbourhood or city without saying the facts are thin.',
       'Connect this stop to the broader tour theme naturally, like a guide who knows why they chose this route.',
+      input.missingFacts && input.missingFacts.length > 0
+        ? `Previous attempt failed — missing these facts: ${input.missingFacts.join(', ')}. Rewrite including them.`
+        : '',
     ].join('\n'),
   };
 }

@@ -7,7 +7,7 @@ import { arrivalPrompt } from '../prompts/narrative/arrival';
 import { historyPrompt } from '../prompts/narrative/history';
 import { significancePrompt } from '../prompts/narrative/significance';
 import { transitionPrompt } from '../prompts/narrative/transition';
-import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt, FactCategory, PROP_TO_CATEGORY } from '../prompts/narrative/types';
+import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt, FactCategory, PROP_TO_CATEGORY, categoryLabel } from '../prompts/narrative/types';
 import { env } from '../config/env';
 
 const router = express.Router();
@@ -259,8 +259,12 @@ const BANNED_OUTPUT_PHRASES = [
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
   // Fase 2: atmosphere/sensory bans (synced with prompt-level bans)
-  'atmosfera', 'juego de luces', 'sombras', 'majestuoso', 'imponente',
+  'atmosfera', 'juego de luces', 'sombras',
+  'majestuoso', 'imponente', 'majestuosidad', 'majestuosamente',
   'grandioso', 'misterioso', 'imponente fachada', 'la iluminacion', 'penumbra',
+  'testimonio de', 'testimonio tangible', 'poder y riqueza', 'riqueza del',
+  'fachada dorada', 'lujosa decoracion', 'lujosa', 'dorada fachada', 'se alza majestuosamente',
+  'imponente presencia',
   'atmosphere', 'play of light', 'shadows', 'majestic', 'imposing', 'mysterious',
   'atmosphere', 'jeu de lumiere', 'ombres', 'majestueux', 'imposant', 'mysterieux',
   'atmosphare', 'schatten', 'lichtspiel', 'majestatisch', 'imposant', 'geheimnisvoll',
@@ -308,7 +312,64 @@ function hasFormalRegister(section: string): string | null {
   return FORMAL_REGISTER_RE.test(section) ? 'formal-register' : null;
 }
 
-function validateSection(section: string, input: LongNarrativePromptInput, name?: SectionName): string | null {
+// ═══════════════════════════════════════════════════════════════════
+// Fase 2 — Per-section unverified claim check (reuses 3-tier extractors)
+// ═══════════════════════════════════════════════════════════════════
+
+/** Lightweight per-section check: extracts critical claim types (date, architect,
+ *  style, location) and flags any that are unverified or contradicted against the
+ *  cached tiered corpus. Used inside the retry loop to catch invented facts. */
+function hasUnverifiedClaim(
+  section: string,
+  input: LongNarrativePromptInput,
+  corpus: TieredCorpus
+): string | null {
+  const whitelist = [input.localName, input.cityName, input.nextStopName].filter(Boolean) as string[];
+
+  // Check dates (critical)
+  const dates = extractDates(section);
+  for (const d of dates) {
+    const { found } = findClaimSource(normalizeNFD(d), 'date', corpus);
+    if (!found) {
+      narrativeLog('unverified-claim', { section: 'section', type: 'date', value: d });
+      return `unverified-date:${d.slice(0, 30)}`;
+    }
+  }
+
+  // Check styles (critical)
+  const styles = extractStyles(section);
+  for (const s of styles) {
+    const { found } = findClaimSource(normalizeNFD(s), 'style', corpus);
+    if (!found) {
+      narrativeLog('unverified-claim', { section: 'section', type: 'style', value: s });
+      return `unverified-style:${s.slice(0, 30)}`;
+    }
+  }
+
+  // Check architects (critical)
+  const architects = extractArchitects(section);
+  for (const a of architects) {
+    const { found } = findClaimSource(normalizeNFD(a), 'architect', corpus);
+    if (!found) {
+      narrativeLog('unverified-claim', { section: 'section', type: 'architect', value: a });
+      return `unverified-architect:${a.slice(0, 30)}`;
+    }
+  }
+
+  // Check locations (warning) — invented toponyms
+  const locations = extractLocations(section, whitelist);
+  for (const l of locations) {
+    const { found } = findClaimSource(normalizeNFD(l), 'location', corpus);
+    if (!found) {
+      narrativeLog('unverified-claim', { section: 'section', type: 'location', value: l });
+      return `unverified-location:${l.slice(0, 30)}`;
+    }
+  }
+
+  return null;
+}
+
+function validateSection(section: string, input: LongNarrativePromptInput, name?: SectionName, corpus?: TieredCorpus): string | null {
   const count = wordCount(section);
   if (count < 45 || count > 140) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
@@ -334,6 +395,11 @@ function validateSection(section: string, input: LongNarrativePromptInput, name?
     const coverageGap = hasFactCoverageGap(section, input, name);
     if (coverageGap) return coverageGap;
   }
+  // Fase 2: per-section unverified claim check (dates, architects, styles, locations)
+  if (corpus) {
+    const unverifiedClaim = hasUnverifiedClaim(section, input, corpus);
+    if (unverifiedClaim) return unverifiedClaim;
+  }
   return null;
 }
 
@@ -348,7 +414,7 @@ const SECTION_ANCHORS: Record<SectionName, { categories: FactCategory[]; minCove
   },
   arrival: {
     categories: ['material', 'location'],
-    minCoverage: 0,
+    minCoverage: 1,
   },
   significance: {
     categories: ['heritage', 'event'],
@@ -439,6 +505,10 @@ function hasFactCoverageGap(section: string, input: LongNarrativePromptInput, na
   if (coveredCategories.length < requiredCount) {
     const missingCategories = availableCategories.filter(c => !coveredCategories.includes(c));
     const missingPropIds = missingCategories.flatMap(c => claimsByCategory.get(c)!.map(e => e.propId));
+    const missingLabels = missingCategories.map(c => {
+      const langCode = input.language?.slice(0, 2)?.toLowerCase() || 'en';
+      return categoryLabel(c, langCode);
+    });
     // Log coverage metrics
     narrativeLog('fact-coverage-check', {
       section: name,
@@ -447,7 +517,7 @@ function hasFactCoverageGap(section: string, input: LongNarrativePromptInput, na
       availableCount: availableCategories.length,
       missingProps: missingPropIds,
     });
-    return `fact-coverage:${coveredCategories.length}/${requiredCount}:missing=${missingPropIds.join(',')}`;
+    return `fact-coverage:${coveredCategories.length}/${requiredCount}:missing=${missingPropIds.join(',')}:labels=${missingLabels.join(',')}`;
   }
   return null;
 }
@@ -484,7 +554,7 @@ const KNOWN_MATERIALS = [
 
 // ── 3-tier claim verification ────────────────────────────────────
 
-type ClaimType = 'date' | 'style' | 'material' | 'measurement' | 'architect' | 'historical_person';
+type ClaimType = 'date' | 'style' | 'material' | 'measurement' | 'architect' | 'historical_person' | 'location';
 type ClaimStatus = 'verified' | 'unverified' | 'contradicted';
 type ClaimSeverity = 'critical' | 'warning' | 'info';
 
@@ -521,6 +591,7 @@ const SEVERITY_MAP: Record<ClaimType, { unverified: ClaimSeverity; contradicted:
   style:             { unverified: 'warning',  contradicted: 'critical' },
   material:          { unverified: 'info',     contradicted: 'warning' },
   measurement:       { unverified: 'info',     contradicted: 'warning' },
+  location:          { unverified: 'warning',  contradicted: 'critical' },
 };
 
 // ── Extraction functions ─────────────────────────────────────────
@@ -597,6 +668,23 @@ function extractHistoricalPersons(text: string): string[] {
     }
   }
   return [...new Set(persons)];
+}
+
+function extractLocations(text: string, whitelist: string[]): string[] {
+  const locations: string[] = [];
+  // Proper-noun toponyms: "Plaza de X", "Calle Y", "Barrio Z", "Puerta de X", etc.
+  const re = /\b((?:Plaza|Calle|Barrio|Puerta|Fuente|Parque|Jard[ií]n|Paseo|Avenida|Glorieta|Ronda|Cuesta|Campo|Teatro|Museo|Palacio|Iglesia|Catedral|Bas[ií]lica|Monasterio|Convento|Torre|Puente|Estaci[oó]n|Mercado|Plaza\s+de\s+la|Plaza\s+del)\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,3})\b/g;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    const loc = match[1].trim();
+    const norm = normalizeNFD(loc).toLowerCase();
+    // Whitelist: skip locations that match POI name, city, or next stop
+    const isWhitelisted = whitelist.some(w => normalizeNFD(w).toLowerCase().includes(norm) || norm.includes(normalizeNFD(w).toLowerCase()));
+    if (!isWhitelisted) {
+      locations.push(loc);
+    }
+  }
+  return [...new Set(locations)];
 }
 
 // ── Multi-source corpus builder (tiered confidence) ──────────────
@@ -922,6 +1010,7 @@ function validateNarrativeClaims(
   const corpus = buildTieredCorpus(input.seeds);
 
   // Extract all claims by type
+  const whitelist = [input.localName, input.cityName, input.nextStopName].filter(Boolean) as string[];
   const extracted: Record<ClaimType, string[]> = {
     date: extractDates(narration),
     style: extractStyles(narration),
@@ -929,6 +1018,7 @@ function validateNarrativeClaims(
     measurement: extractMeasurements(narration),
     architect: extractArchitects(narration),
     historical_person: extractHistoricalPersons(narration),
+    location: extractLocations(narration, whitelist),
   };
 
   const claims: VerifiedClaim[] = [];
@@ -1086,6 +1176,8 @@ async function generateSection(
 ): Promise<{ name: SectionName; section: string | null; droppedReason?: string }> {
   let lastReason = 'unknown';
   let missingFacts: string[] | undefined;
+  // Fase 2: build tiered corpus once per section (cached for retry loop)
+  const corpus = buildTieredCorpus(input.seeds);
   for (let attempt = 0; attempt < 2; attempt++) {
     const promptInput = { ...input, retry: attempt > 0, missingFacts };
     // Fase 2: per-section temperature calibration
@@ -1170,7 +1262,7 @@ async function generateSection(
       continue;
     }
 
-    const validationError = validateSection(section, input, name);
+    const validationError = validateSection(section, input, name, corpus);
     attemptTrace.parseResult = section;
     attemptTrace.validationFailure = validationError;
     attemptTrace.wordCount = wordCount(section);
@@ -1193,11 +1285,11 @@ async function generateSection(
     });
     if (!validationError) return { name, section };
     lastReason = validationError;
-    // Fase 2: if coverage gap, store missing facts locally for retry (don't mutate input)
+    // Fase 2: if coverage gap, store missing fact labels locally for retry (don't mutate input)
     if (validationError.startsWith('fact-coverage:')) {
-      const missingMatch = validationError.match(/missing=([^)]+)/);
-      if (missingMatch) {
-        missingFacts = missingMatch[1].split(',');
+      const labelsMatch = validationError.match(/labels=([^)]+)/);
+      if (labelsMatch) {
+        missingFacts = labelsMatch[1].split(',');
       }
     }
   }

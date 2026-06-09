@@ -47,6 +47,26 @@ export const PROP_TO_CATEGORY: Record<string, FactCategory> = {
   P793: 'event', P2048: 'measurement',
 };
 
+/** Localized human-readable labels for FactCategory values.
+ *  Used in retry feedback (missingFacts) and fact card formatting. */
+export const CATEGORY_LABELS: Record<FactCategory, Record<string, string>> = {
+  year_built:    { es: 'año de creación', fr: 'année de création', de: 'Baujahr', en: 'year built', it: 'anno di costruzione' },
+  architect:     { es: 'arquitecto', fr: 'architecte', de: 'Architekt', en: 'architect', it: 'architetto' },
+  creator:       { es: 'creador', fr: 'créateur', de: 'Schöpfer', en: 'creator', it: 'creatore' },
+  style:         { es: 'estilo', fr: 'style', de: 'Stil', en: 'style', it: 'stile' },
+  heritage:      { es: 'patrimonio', fr: 'patrimoine', de: 'Kulturerbe', en: 'heritage', it: 'patrimonio' },
+  material:      { es: 'material', fr: 'matériau', de: 'Material', en: 'material', it: 'materiale' },
+  location:      { es: 'ubicación', fr: 'emplacement', de: 'Standort', en: 'location', it: 'ubicazione' },
+  event:         { es: 'evento', fr: 'événement', de: 'Ereignis', en: 'event', it: 'evento' },
+  measurement:   { es: 'medida', fr: 'mesure', de: 'Maß', en: 'measurement', it: 'misura' },
+};
+
+/** Get a localized label for a FactCategory. Falls back to English. */
+export function categoryLabel(category: FactCategory, language: string): string {
+  const code = language.slice(0, 2).toLowerCase();
+  return CATEGORY_LABELS[category]?.[code] || CATEGORY_LABELS[category]?.en || category;
+}
+
 export function languageName(language: string): string {
   const code = language.slice(0, 2).toLowerCase();
   return ({
@@ -134,7 +154,11 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     'refleja como', 'refleja cómo', 'muestra como', 'muestra cómo',
     'usted', 'ustedes', 'miren', 'observen', 'fíjense', 'vean',
     'atmósfera', 'juego de luces', 'sombras', 'majestuoso', 'imponente',
+    'majestuosidad', 'majestuosamente',
     'grandioso', 'misterioso', 'imponente fachada', 'la iluminación', 'penumbra',
+    'testimonio de', 'testimonio tangible', 'poder y riqueza', 'riqueza del',
+    'fachada dorada', 'lujosa decoración', 'lujosa', 'dorada fachada',
+    'se alza majestuosamente', 'imponente presencia',
     // FR
     'atmosphère', 'jeu de lumière', 'ombres', 'majestueux', 'imposant',
     'grandiose', 'mystérieux', 'fenêtres étroites', 'plafonds peints', 'pénombre',
@@ -288,8 +312,10 @@ export function formatStructuredFacts(
   for (const [propId, value] of Object.entries(wikidataClaims)) {
     const meta = WIKIDATA_LABELS[propId];
     if (!meta) continue;
+    const cat = PROP_TO_CATEGORY[propId];
+    const label = cat ? categoryLabel(cat, language) : (isEs ? meta.label : propId);
     facts.push({
-      label: isEs ? meta.label : propId,
+      label,
       value,
     });
   }

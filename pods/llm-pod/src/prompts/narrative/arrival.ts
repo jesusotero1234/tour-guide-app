@@ -47,6 +47,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       input.seedQuality === 'thin'
         ? 'THIN-SEED: Do not invent dates, eras, architects, or styles. Do not mention sparse records or source limits. Orient the visitor through what can be seen: scale, materials, activity, and what the place type reveals about the area.'
         : 'If records are sparse, use only available cues; do not say that records are sparse and do not invent architectural details or history.',
+      input.missingFacts && input.missingFacts.length > 0
+        ? `Previous attempt failed — missing these facts: ${input.missingFacts.join(', ')}. Rewrite including them.`
+        : '',
     ].filter(Boolean).join('\n'),
   };
 }
