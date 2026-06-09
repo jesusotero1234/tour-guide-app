@@ -38,10 +38,10 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       welcomeBeat,
       `Section: arrival opening for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
-      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
       `OSM visual/type cues: ${compactRecord(input.seeds.osmTags)}.`,
-      `Wikipedia lead: ${input.seeds.wikipediaLead || 'none'}.`,
-      input.seeds.enrichedContext ? `Enriched context (use this as the primary factual source): ${input.seeds.enrichedContext.slice(0, 800)}` : '',
+      `Wikipedia lead (primary narrative source): ${input.seeds.wikipediaLead || 'none'}.`,
+      input.seeds.enrichedContext ? `Enriched context: ${input.seeds.enrichedContext.slice(0, 800)}` : '',
+      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
       'Describe only what is visible from outside: scale, materials, relationship to street/square, surrounding activity. FORBIDDEN: atmosphere, interior light, shadows, sensations that require being inside the building.',
       'If enriched context is provided, use it as your primary source — it contains rich, verified detail about this place.',
       input.seedQuality === 'thin'

@@ -364,8 +364,8 @@ export function formatStructuredFacts(
   }
 
   const instruction = isEs
-    ? 'INSTRUCCIÓN: Usa estos datos como la base factual principal. No menciones esta lista, fuentes, Wikidata ni niveles de confianza al visitante. No añadas datos del mismo tipo fuera de esta lista.'
-    : 'INSTRUCTION: Use these facts as the main factual base. Do not mention this list, sources, Wikidata, or confidence levels to the visitor. Do not add same-type facts outside this list.';
+    ? 'INSTRUCCIÓN: Usa estos datos como anclas de precisión — si aparecen en tu narración, deben ser exactos. Pero la narrativa principal debe construirse desde el contexto de Wikipedia y el texto enriquecido, no desde esta lista. No menciones esta lista, fuentes, Wikidata ni niveles de confianza al visitante.'
+    : 'INSTRUCTION: Use these as precision anchors — if they appear in your narration, they must be exact. But build the main narrative from the Wikipedia context and enriched text, not from this list. Do not mention this list, sources, Wikidata, or confidence levels to the visitor.';
 
   lines.push(instruction);
   return lines.join('\n');

@@ -6,10 +6,10 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
     user: [
       `Section: significance for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
-      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
-      `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
+      `Wikipedia body (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,
       `Wikivoyage note: ${input.seeds.wikivoyage || 'none'}.`,
       `Enriched context: ${input.seeds.enrichedContext || 'none'}.`,
+      formatStructuredFacts(input.seeds.wikidataClaims, input.language),
       'Describe what makes this place distinctive within the tour theme. Use only verifiable facts from the provided context.',
       'Show the significance through concrete details — architectural features, historical role, cultural meaning, urban function — rather than stating "this is significant because...".',
       input.seedQuality === 'thin'

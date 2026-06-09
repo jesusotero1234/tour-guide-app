@@ -30,8 +30,8 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
     user: [
       `Section: historical background for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
+      `Wikipedia context (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,
       factCard || 'VERIFIED FACTS: none.',
-      `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
       input.seedQuality === 'thin'
         ? [
             'TASK:',
@@ -42,9 +42,9 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
           ].join('\n')
         : [
             'TASK:',
-            '- Use the VERIFIED FACTS as the backbone of this section.',
-            '- If three or more verified facts are listed, include three of them.',
-            '- If fewer than three verified facts are listed, include all available ones.',
+            '- Usa el texto de Wikipedia como fuente narrativa principal: contexto histórico, causas, papel en la ciudad, historias humanas.',
+            '- Entreteje los HECHOS VERIFICADOS solo como anclas de precisión (fechas exactas, nombres, estilos, estatus patrimonial).',
+            '- Si un hecho verificado encaja naturalmente, inclúyelo. Si no, no lo fuerces.',
             '- Prefer this order: date or inauguration, architect or creator, style, heritage status, location.',
             '- Open with a verified fact, not with a generic spatial phrase like "Frente a ti se alza".',
             '- Turn the facts into one short story, but keep the actual date, name, style, or status intact.',
