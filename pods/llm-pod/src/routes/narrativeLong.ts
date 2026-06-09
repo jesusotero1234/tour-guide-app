@@ -7,7 +7,7 @@ import { arrivalPrompt } from '../prompts/narrative/arrival';
 import { historyPrompt } from '../prompts/narrative/history';
 import { significancePrompt } from '../prompts/narrative/significance';
 import { transitionPrompt } from '../prompts/narrative/transition';
-import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt } from '../prompts/narrative/types';
+import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt, FactCategory, PROP_TO_CATEGORY } from '../prompts/narrative/types';
 import { env } from '../config/env';
 
 const router = express.Router();
@@ -258,6 +258,13 @@ const BANNED_OUTPUT_PHRASES = [
   'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
+  // Fase 2: atmosphere/sensory bans (synced with prompt-level bans)
+  'atmosfera', 'juego de luces', 'sombras', 'majestuoso', 'imponente',
+  'grandioso', 'misterioso', 'imponente fachada', 'la iluminacion', 'penumbra',
+  'atmosphere', 'play of light', 'shadows', 'majestic', 'imposing', 'mysterious',
+  'atmosphere', 'jeu de lumiere', 'ombres', 'majestueux', 'imposant', 'mysterieux',
+  'atmosphare', 'schatten', 'lichtspiel', 'majestatisch', 'imposant', 'geheimnisvoll',
+  'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'imponente', 'misterioso',
   // Anti-meta-lenguaje: el modelo no debe mencionar sus limitaciones de datos
   'public sources are limited', 'records are limited', 'available records',
   'available public record', 'verified facts', 'unverified facts',
@@ -301,7 +308,7 @@ function hasFormalRegister(section: string): string | null {
   return FORMAL_REGISTER_RE.test(section) ? 'formal-register' : null;
 }
 
-function validateSection(section: string, input: LongNarrativePromptInput): string | null {
+function validateSection(section: string, input: LongNarrativePromptInput, name?: SectionName): string | null {
   const count = wordCount(section);
   if (count < 45 || count > 140) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
@@ -321,6 +328,126 @@ function validateSection(section: string, input: LongNarrativePromptInput): stri
   if (input.language === 'es' || input.language?.startsWith('es-')) {
     const formal = hasFormalRegister(section);
     if (formal) return formal;
+  }
+  // Fase 2: Fact Card coverage check
+  if (name) {
+    const coverageGap = hasFactCoverageGap(section, input, name);
+    if (coverageGap) return coverageGap;
+  }
+  return null;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Fase 2 — SECTION ANCHORS & FACT COVERAGE VALIDATOR
+// ═══════════════════════════════════════════════════════════════════
+
+const SECTION_ANCHORS: Record<SectionName, { categories: FactCategory[]; minCoverage: number }> = {
+  history: {
+    categories: ['year_built', 'architect', 'creator', 'style', 'heritage'],
+    minCoverage: 3,
+  },
+  arrival: {
+    categories: ['material', 'location'],
+    minCoverage: 0,
+  },
+  significance: {
+    categories: ['heritage', 'event'],
+    minCoverage: 1,
+  },
+  transition: {
+    categories: [],
+    minCoverage: 0,
+  },
+};
+
+function expandDateTerms(value: string): string[] {
+  const terms = [value];
+  const yearMatch = value.match(/(\d{4})/);
+  if (yearMatch) {
+    const year = parseInt(yearMatch[1]);
+    const century = Math.ceil(year / 100);
+    terms.push(`siglo ${century}`);
+    const romanNumerals: Record<number, string> = {
+      1: 'i', 2: 'ii', 3: 'iii', 4: 'iv', 5: 'v', 6: 'vi', 7: 'vii', 8: 'viii',
+      9: 'ix', 10: 'x', 11: 'xi', 12: 'xii', 13: 'xiii', 14: 'xiv', 15: 'xv',
+      16: 'xvi', 17: 'xvii', 18: 'xviii', 19: 'xix', 20: 'xx', 21: 'xxi',
+    };
+    if (romanNumerals[century]) terms.push(romanNumerals[century]);
+  }
+  return terms;
+}
+
+function expandFactTerms(value: string, category: FactCategory): string[] {
+  const base = normalizeNFD(value).toLowerCase();
+  const terms: string[] = [base];
+  if (category === 'year_built') {
+    terms.push(...expandDateTerms(value));
+  }
+  // Handle multi-values: "Filippo Juvarra y Juan Bautista Sachetti"
+  const parts = value.split(/[,;]|\sy\s|\s&\s/);
+  terms.push(...parts.map(p => normalizeNFD(p.trim()).toLowerCase()).filter(t => t.length > 2));
+  return [...new Set(terms)];
+}
+
+function extractClaimsFromContext(input: LongNarrativePromptInput): Record<string, string> {
+  if (input.seeds.wikidataClaims && Object.keys(input.seeds.wikidataClaims).length > 0) {
+    return input.seeds.wikidataClaims;
+  }
+  // Fallback: extract from enrichedContext/wikipediaBody
+  const context = input.seeds.enrichedContext || input.seeds.wikipediaBody || '';
+  const claims: Record<string, string> = {};
+  const yearMatch = context.match(/(\d{4})/g);
+  if (yearMatch) claims['P571'] = yearMatch[0];
+  const nameMatch = context.match(/diseñado por ([A-ZÁÉÍÓÚ][a-záéíóú]+ [A-ZÁÉÍÓÚ][a-záéíóú]+)/i);
+  if (nameMatch) claims['P84'] = nameMatch[1];
+  const styleMatch = context.match(/(barroco|gótico|renacentista|neoclásico|románico|modernista)[a-z]*/i);
+  if (styleMatch) claims['P149'] = styleMatch[0];
+  return claims;
+}
+
+function hasFactCoverageGap(section: string, input: LongNarrativePromptInput, name: SectionName): string | null {
+  const anchors = SECTION_ANCHORS[name];
+  if (!anchors || anchors.minCoverage === 0) return null;
+
+  const claims = extractClaimsFromContext(input);
+  const claimsByCategory = new Map<FactCategory, { propId: string; terms: string[] }[]>();
+
+  for (const [propId, value] of Object.entries(claims)) {
+    const category = PROP_TO_CATEGORY[propId];
+    if (!category || !anchors.categories.includes(category)) continue;
+    if (!claimsByCategory.has(category)) claimsByCategory.set(category, []);
+    claimsByCategory.get(category)!.push({ propId, terms: expandFactTerms(value, category) });
+  }
+
+  const availableCategories = [...claimsByCategory.keys()];
+  if (availableCategories.length === 0) return null;
+
+  const effectiveMin = input.seedQuality === 'thin'
+    ? Math.min(1, availableCategories.length)
+    : anchors.minCoverage;
+
+  const normalizedSection = normalizeNFD(section).toLowerCase();
+  const requiredCount = Math.min(effectiveMin, availableCategories.length);
+
+  const coveredCategories = availableCategories.filter(cat => {
+    const entries = claimsByCategory.get(cat)!;
+    return entries.some(entry =>
+      entry.terms.some(term => normalizedSection.includes(term))
+    );
+  });
+
+  if (coveredCategories.length < requiredCount) {
+    const missingCategories = availableCategories.filter(c => !coveredCategories.includes(c));
+    const missingPropIds = missingCategories.flatMap(c => claimsByCategory.get(c)!.map(e => e.propId));
+    // Log coverage metrics
+    narrativeLog('fact-coverage-check', {
+      section: name,
+      requiredCount,
+      coveredCount: coveredCategories.length,
+      availableCount: availableCategories.length,
+      missingProps: missingPropIds,
+    });
+    return `fact-coverage:${coveredCategories.length}/${requiredCount}:missing=${missingPropIds.join(',')}`;
   }
   return null;
 }
@@ -958,11 +1085,21 @@ async function generateSection(
   debugTrace?: NarrativeDebugTrace
 ): Promise<{ name: SectionName; section: string | null; droppedReason?: string }> {
   let lastReason = 'unknown';
+  let missingFacts: string[] | undefined;
   for (let attempt = 0; attempt < 2; attempt++) {
-    const prompt = buildPrompt({ ...input, retry: attempt > 0 });
+    const promptInput = { ...input, retry: attempt > 0, missingFacts };
+    // Fase 2: per-section temperature calibration
+    const sectionTemps: Record<SectionName, [number, number]> = {
+      history: [0.2, 0.15],
+      significance: [0.4, 0.25],
+      arrival: [0.5, 0.3],
+      transition: [0.5, 0.3],
+    };
+    const [temp1, temp2] = sectionTemps[name] || [0.4, 0.25];
+    const prompt = buildPrompt(promptInput);
     const modelOptions = {
       model: NARRATIVE_MODEL,
-      temperature: attempt > 0 ? 0.25 : 0.4,
+      temperature: attempt > 0 ? temp2 : temp1,
       max_tokens: input.seedQuality === 'thin' ? 220 : 260,
       think: false,
       format: 'json' as const,
@@ -1033,7 +1170,7 @@ async function generateSection(
       continue;
     }
 
-    const validationError = validateSection(section, input);
+    const validationError = validateSection(section, input, name);
     attemptTrace.parseResult = section;
     attemptTrace.validationFailure = validationError;
     attemptTrace.wordCount = wordCount(section);
@@ -1049,12 +1186,20 @@ async function generateSection(
       durationMs,
       parseSuccess: true,
       validationFailures: validationError ? [validationError] : [],
+      validationType: validationError?.startsWith('fact-coverage') ? 'coverage' : validationError?.startsWith('banned') ? 'banned' : 'other',
       wordCount: attemptTrace.wordCount,
       fallbackUsed: false,
       model: modelOptions.model,
     });
     if (!validationError) return { name, section };
     lastReason = validationError;
+    // Fase 2: if coverage gap, store missing facts locally for retry (don't mutate input)
+    if (validationError.startsWith('fact-coverage:')) {
+      const missingMatch = validationError.match(/missing=([^)]+)/);
+      if (missingMatch) {
+        missingFacts = missingMatch[1].split(',');
+      }
+    }
   }
 
   const fallbackText = fallbackSection(name, input, lastReason);
