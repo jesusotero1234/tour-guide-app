@@ -13,6 +13,7 @@ export function transitionPrompt(input: LongNarrativePromptInput): SectionPrompt
     : 'RULES FOR TRANSITION: Do NOT say "we have reached the end" or "final stop" or "last stop" or "conclude our tour". This is NOT the last stop. Briefly reflect on this stop, then guide naturally toward the next one. Keep it short (35-55 words).';
 
   const userBlock = [
+    input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract):\n${input.narrativeBriefText}` : '',
     `Section: ${isLast ? 'FINAL GOODBYE' : 'walking-tour transition'} from ${input.localName}.`,
     tourState,
     transitionRules,
@@ -26,6 +27,9 @@ export function transitionPrompt(input: LongNarrativePromptInput): SectionPrompt
           `Next stop: ${nextStop}.`,
           'Write a reflective closing beat and guide the visitor onward. If the theme naturally connects this stop to the next, include a brief callback or contrast. Do not add new historical facts. Do not mention distance, coordinates, or street names.',
         ].join('\n'),
+    input.missingFacts && input.missingFacts.length > 0
+      ? `Previous attempt failed — ${input.missingFacts.join(' ')} Rewrite fixing these issues.`
+      : '',
   ].filter(Boolean).join('\n');
 
   return {

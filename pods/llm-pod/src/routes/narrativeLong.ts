@@ -8,6 +8,7 @@ import { historyPrompt } from '../prompts/narrative/history';
 import { significancePrompt } from '../prompts/narrative/significance';
 import { transitionPrompt } from '../prompts/narrative/transition';
 import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt, FactCategory, PROP_TO_CATEGORY, categoryLabel } from '../prompts/narrative/types';
+import { buildNarrativeBrief, formatBriefForPrompt } from '../prompts/narrative/narrativeBrief';
 import { env } from '../config/env';
 
 const router = express.Router();
@@ -140,6 +141,61 @@ function hasRepetition(text: string): boolean {
   return false;
 }
 
+// ── Connector repetition detector (Board: 1x/section max) ──────
+
+const NARRATIVE_CONNECTORS = [
+  'fíjate', 'observa', 'mira', 'nota', 'imagina',
+  'si miras', 'date cuenta', 'verás', 'encontrarás', 'descubrirás',
+  'fíjate cómo', 'mira hacia', 'observa cómo',
+  'notice how', 'look at', 'imagine', 'you will see', 'take a moment',
+  'regarde', 'remarque', 'observez', 'imaginez',
+  'schau', 'beachte', 'stell dir vor',
+  'osserva', 'guarda', 'immagina',
+];
+
+/** Checks if a connector appears at the START of a sentence/clause, not mid-phrase.
+ *  Splits on ., ;, !, ?, and newlines to find sentence boundaries. */
+function findConnectorAtSentenceStart(text: string, connector: string): number {
+  const normalized = normalizeNFD(text);
+  const escapedCon = connector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+  // Match connector at: start of text, after sentence-ending punctuation, after newline
+  const re = new RegExp(`(^|[.!?;]\\s+|\\n)\\s*${escapedCon}\\b`, 'gi');
+  const matches = normalized.match(re);
+  return matches ? matches.length : 0;
+}
+
+function hasRepeatedConnector(text: string): string | null {
+  for (const connector of NARRATIVE_CONNECTORS) {
+    const count = findConnectorAtSentenceStart(text, connector);
+    if (count > 1) {
+      return `repetition-connector:${connector.slice(0, 20)}`;
+    }
+  }
+  return null;
+}
+
+// ── Long phrase repetition detector (Board: ≥5 words, ≥2 times) ──
+
+function hasRepeatedLongPhrase(text: string): string | null {
+  const words = text.toLowerCase().match(/[\p{L}\p{N}']+/gu) || [];
+  if (words.length < 10) return null; // need at least 5+5 words
+
+  const seen = new Map<string, number>();
+
+  for (let n = 7; n >= 5; n--) { // check longest first
+    for (let i = 0; i <= words.length - n; i++) {
+      const phrase = words.slice(i, i + n).join(' ');
+      const count = (seen.get(phrase) || 0) + 1;
+      if (count >= 2) {
+        return `repetition-long-phrase:${phrase.slice(0, 40)}`;
+      }
+      seen.set(phrase, count);
+    }
+  }
+
+  return null;
+}
+
 function hasLanguageSignal(text: string, language: string): boolean {
   const code = language.slice(0, 2).toLowerCase();
   if (!STOP_WORDS[code]) return true;
@@ -249,36 +305,27 @@ function normalizeNFD(text: string): string {
     .toLowerCase();
 }
 
-/** Phrases banned in generated output — checked post-generation, not just in the prompt.
+/** Normalize a Spanish token to its root form for gender/number-insensitive matching.
+ *  "góticos" → "gotic", "testimonios" → "testimoni", "majestuosa" → "majestuos"
+ *  Pure deterministic suffix stripping — no external NLP deps. */
+function normalizeSpanishTokenRoot(token: string): string {
+  const n = normalizeNFD(token);
+  // Strip common gender/number suffixes
+  return n
+    .replace(/([oa]s?|es)$/, '')       // -o, -a, -os, -as, -es
+    .replace(/(mente)$/, '')            // -mente adverbs
+    .replace(/(isimo|isima|isimos|isimas)$/, ''); // superlatives
+}
+
+/** Phrases banned in generated output — Fase 3: evidence-aware tiers.
+ *
+ *  Tier 1 — HARD_META_BANS: meta-language, always banned (never acceptable)
+ *  Tier 2 — HARD_CLICHE_BANS: formulaic tourist phrases, always banned
+ *  Tier 3 — EVIDENCE_AWARE_VISUAL: visual/sensory claims that pass if evidence supports
+ *
  *  Normalized forms (no accents) for reliable matching after normalizeNFD(). */
-const BANNED_OUTPUT_PHRASES = [
-  'mire a su alrededor', 'mira a tu alrededor', 'miren hacia arriba', 'mira hacia abajo',
-  'al llegar a', 'la primera impresion', 'es un lugar emblematico', 'fachada de ladrillo rojo',
-  'bienvenidos a esta caminata', 'se presenta ante ti',
-  'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
-  'refleja como', 'muestra como',
-  'must-see destination', 'steeped in history', 'hidden gem',
-  'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
-  'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
-  // Fase 2.6: calibrated bans — normal descriptors removed, AI-isms kept
-  'atmosfera', 'juego de luces', 'sombras',
-  'majestuoso', 'majestuosidad', 'majestuosamente',
-  'misterioso', 'la iluminacion', 'penumbra',
-  'testimonio de', 'testimonio tangible', 'poder y riqueza', 'riqueza del',
-  'fachada dorada', 'lujosa decoracion', 'lujosa', 'dorada fachada',
-  'se alza majestuosamente', 'se alza imponente', 'imponente estructura', 'presencia imponente',
-  'grandiosidad',
-  'atmosphere', 'play of light', 'shadows', 'mysterious',
-  'breathtaking', 'awe-inspiring',
-  'atmosphere', 'jeu de lumiere', 'ombres', 'majestueux', 'imposant', 'mysterieux',
-  'charme intemporel', 'temoin vivant', 'murmure du passe', "echos de l'histoire",
-  'invite a imaginer', 'raconte une histoire', 'captiver chaque visiteur', 'joyau cache',
-  'atmosphare', 'schatten', 'lichtspiel', 'majestatisch', 'imposant', 'geheimnisvoll',
-  'zeitloser charme', 'lebendiger zeuge', 'flustern der vergangenheit', 'echos der geschichte',
-  'ladt dich ein', 'erzahlt eine geschichte', 'in seinen bann', 'verborgenes juwel',
-  'atmosfera', 'giochi di luce', 'ombre', 'maestoso', 'misterioso',
-  'fascino senza tempo', 'testimone vivente', 'sussurro del passato', 'echi della storia',
-  'invita a immaginare', 'racconta una storia', 'cattura ogni visitatore', 'gioiello nascosto',
+
+const HARD_META_BANS = [
   // Anti-meta-lenguaje: el modelo no debe mencionar sus limitaciones de datos
   'public sources are limited', 'records are limited', 'available records',
   'available public record', 'verified facts', 'unverified facts',
@@ -293,6 +340,72 @@ const BANNED_OUTPUT_PHRASES = [
   'fonti pubbliche', 'senza inventare', 'fonti disponibili',
   'datos publicos', 'registros disponibles', 'fuentes publicas',
   'fuentes disponibles', 'datos disponibles',
+];
+
+const HARD_CLICHE_BANS = [
+  'mire a su alrededor', 'mira a tu alrededor', 'miren hacia arriba', 'mira hacia abajo',
+  'al llegar a', 'la primera impresion', 'es un lugar emblematico', 'fachada de ladrillo rojo',
+  'bienvenidos a esta caminata', 'se presenta ante ti',
+  'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
+  'refleja como', 'muestra como',
+  'must-see destination', 'steeped in history', 'hidden gem',
+  'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
+  'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
+  'poder y riqueza', 'riqueza del',
+  'grandiosidad',
+  'breathtaking', 'awe-inspiring',
+  'charme intemporel', 'temoin vivant', 'murmure du passe', "echos de l'histoire",
+  'invite a imaginer', 'raconte une histoire', 'captiver chaque visiteur', 'joyau cache',
+  'zeitloser charme', 'lebendiger zeuge', 'flustern der vergangenheit', 'echos der geschichte',
+  'ladt dich ein', 'erzahlt eine geschichte', 'in seinen bann', 'verborgenes juwel',
+  'fascino senza tempo', 'testimone vivente', 'sussurro del passato', 'echi della storia',
+  'invita a immaginare', 'racconta una storia', 'cattura ogni visitatore', 'gioiello nascosto',
+];
+
+/** Evidence-aware visual/sensory claims. Each entry maps a banned phrase to evidence
+ *  keywords that, if present in the seed corpus, allow the phrase to pass.
+ *  Example: "fachada dorada" passes if evidence mentions "dorado", "oro", "gold". */
+const EVIDENCE_AWARE_VISUAL: Array<{ phrase: string; evidenceKeys: string[] }> = [
+  { phrase: 'fachada dorada',       evidenceKeys: ['dorado', 'dorada', 'oro', 'gold', 'gilded', 'dore'] },
+  { phrase: 'dorada fachada',       evidenceKeys: ['dorado', 'dorada', 'oro', 'gold', 'gilded', 'dore'] },
+  { phrase: 'lujosa decoracion',    evidenceKeys: ['lujo', 'lujoso', 'lujosa', 'luxury', 'luxe'] },
+  { phrase: 'lujosa',               evidenceKeys: ['lujo', 'lujoso', 'lujosa', 'luxury', 'luxe'] },
+  { phrase: 'majestuoso',           evidenceKeys: [] }, // never evidenced — always banned unless...
+  { phrase: 'majestuosidad',        evidenceKeys: [] },
+  { phrase: 'majestuosamente',      evidenceKeys: [] },
+  { phrase: 'se alza majestuosamente', evidenceKeys: [] },
+  { phrase: 'se alza imponente',    evidenceKeys: [] },
+  { phrase: 'imponente estructura',  evidenceKeys: [] },
+  { phrase: 'presencia imponente',   evidenceKeys: [] },
+  { phrase: 'atmosfera',            evidenceKeys: [] }, // sensory claims rarely documentable
+  { phrase: 'la iluminacion',       evidenceKeys: [] },
+  { phrase: 'penumbra',             evidenceKeys: [] },
+  { phrase: 'misterioso',           evidenceKeys: [] },
+  { phrase: 'juego de luces',       evidenceKeys: [] },
+  { phrase: 'sombras',              evidenceKeys: [] },
+  { phrase: 'testimonio de',        evidenceKeys: [] },
+  { phrase: 'testimonio tangible',  evidenceKeys: [] },
+  // Multilingual equivalents
+  { phrase: 'atmosphere',           evidenceKeys: [] },
+  { phrase: 'play of light',        evidenceKeys: [] },
+  { phrase: 'shadows',              evidenceKeys: [] },
+  { phrase: 'mysterious',           evidenceKeys: [] },
+  { phrase: 'atmosphere',           evidenceKeys: [] },
+  { phrase: 'jeu de lumiere',       evidenceKeys: [] },
+  { phrase: 'ombres',               evidenceKeys: [] },
+  { phrase: 'majestueux',           evidenceKeys: [] },
+  { phrase: 'imposant',             evidenceKeys: [] },
+  { phrase: 'mysterieux',           evidenceKeys: [] },
+  { phrase: 'atmosphare',           evidenceKeys: [] },
+  { phrase: 'schatten',             evidenceKeys: [] },
+  { phrase: 'lichtspiel',           evidenceKeys: [] },
+  { phrase: 'majestatisch',         evidenceKeys: [] },
+  { phrase: 'geheimnisvoll',        evidenceKeys: [] },
+  { phrase: 'atmosfera',            evidenceKeys: [] },
+  { phrase: 'giochi di luce',       evidenceKeys: [] },
+  { phrase: 'ombre',                evidenceKeys: [] },
+  { phrase: 'maestoso',             evidenceKeys: [] },
+  { phrase: 'misterioso',           evidenceKeys: [] },
 ];
 
 /** Regex for Spanish formal-register markers that should never appear in "tú" narration. */
@@ -312,10 +425,47 @@ function hasInvalidTransition(section: string): string | null {
   return match ? `invalid-transition-${match.slice(0, 30)}` : null;
 }
 
-function hasBannedPhrase(section: string): string | null {
+// ── Evidence-aware ban system (Fase 3) ──────────────────────────
+
+/** Checks if any evidence keyword for a visual claim appears in the seed corpus.
+ *  Uses word-boundary matching to avoid false positives (e.g., "oro" matching "tesoro"). */
+function hasEvidenceForVisual(evidenceKeys: string[], input: LongNarrativePromptInput): boolean {
+  if (evidenceKeys.length === 0) return false; // never evidenced → always ban
+  const corpus = normalizeNFD(seedText(input));
+  // Use word-boundary or whitespace-delimited matching
+  return evidenceKeys.some(key => {
+    const nKey = normalizeNFD(key);
+    // Check as whole word: surrounded by word boundaries or whitespace/punctuation
+    const re = new RegExp(`(^|[\\s.,;:!?()\\[\\]{}"'\\-])${nKey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[\\s.,;:!?()\\[\\]{}"'\\-])`, 'i');
+    return re.test(corpus);
+  });
+}
+
+function hasBannedPhrase(section: string, input?: LongNarrativePromptInput): string | null {
   const normalized = normalizeNFD(section);
-  const match = BANNED_OUTPUT_PHRASES.find(phrase => normalized.includes(phrase));
-  return match ? `banned-phrase-${match.slice(0, 30)}` : null;
+
+  // Tier 1: HARD_META_BANS — always fail
+  const metaMatch = HARD_META_BANS.find(phrase => normalized.includes(phrase));
+  if (metaMatch) return `banned-meta:${metaMatch.slice(0, 30)}`;
+
+  // Tier 2: HARD_CLICHE_BANS — always fail
+  const clicheMatch = HARD_CLICHE_BANS.find(phrase => normalized.includes(phrase));
+  if (clicheMatch) return `banned-cliche:${clicheMatch.slice(0, 30)}`;
+
+  // Tier 3: EVIDENCE_AWARE_VISUAL — fail only if unsupported
+  // Check ALL visual phrases, not just the first match
+  if (input) {
+    for (const { phrase, evidenceKeys } of EVIDENCE_AWARE_VISUAL) {
+      if (normalized.includes(phrase)) {
+        if (!hasEvidenceForVisual(evidenceKeys, input)) {
+          return `unsupported-visual:${phrase.slice(0, 30)}`;
+        }
+        // Evidence supports this one — continue checking others
+      }
+    }
+  }
+
+  return null;
 }
 
 function hasFormalRegister(section: string): string | null {
@@ -384,9 +534,15 @@ function validateSection(section: string, input: LongNarrativePromptInput, name?
   if (count < 45 || count > 140) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
   if (/^¡Hola!|^Hello!|^Bonjour!|^Hallo!/i.test(section)) return 'chatbot-opening';
-  const banned = hasBannedPhrase(section);
+  const banned = hasBannedPhrase(section, input);
   if (banned) return banned;
   if (hasRepetition(section)) return 'repetition';
+  // Board repetición: connector repetition (1x/section max)
+  const repeatedConnector = hasRepeatedConnector(section);
+  if (repeatedConnector) return repeatedConnector;
+  // Board repetición: long phrase repetition (≥5 words, ≥2 times)
+  const repeatedPhrase = hasRepeatedLongPhrase(section);
+  if (repeatedPhrase) return repeatedPhrase;
   // Check invalid end-of-tour phrases in non-last stops
   if (input.position !== 'last') {
     const invalidTrans = hasInvalidTransition(section);
@@ -771,7 +927,7 @@ function buildTieredCorpus(seeds: LongNarrativeSeeds): TieredCorpus {
         regionalParts.push(currentChunk.trim());
       }
     }
-    
+
     // 🔥 CRITICAL: legacy content without level markers goes to regional (safe default)
     // It CANNOT verify POI claims because we don't know which level it belongs to
     if (currentLevel === 'none') {
@@ -874,6 +1030,24 @@ function findClaimSource(
     }
   }
 
+  // For styles: use root normalization to match gender/number variants
+  // "góticas" and "gótico" should both normalize to the same root
+  if (claimType === 'style') {
+    const styleRoot = normalizeSpanishTokenRoot(normalizedValue);
+    for (const knownStyle of KNOWN_ARCHITECTURAL_STYLES) {
+      if (normalizeSpanishTokenRoot(knownStyle) === styleRoot) {
+        // Found the canonical form — now check if any variant exists in the corpus
+        const variants = KNOWN_ARCHITECTURAL_STYLES.filter(s => normalizeSpanishTokenRoot(s) === styleRoot);
+        for (const variant of variants) {
+          if (corpus.high.includes(normalizeNFD(variant))) return { found: true, tier: 'wikidata' };
+          if (corpus.medium.includes(normalizeNFD(variant))) return { found: true, tier: 'wikipedia' };
+        }
+        return { found: false, tier: 'none' };
+      }
+    }
+    return { found: false, tier: 'none' };
+  }
+
   // Wikipedia/enrichedContext — always relevant for styles, dates, architects
   for (const term of searchTerms) {
     if (corpus.medium.includes(term)) {
@@ -904,11 +1078,7 @@ const STYLE_CANONICAL_MAP: Record<string, string> = (() => {
   const map: Record<string, string> = {};
   for (const style of KNOWN_ARCHITECTURAL_STYLES) {
     const n = normalizeNFD(style);
-    // The canonical root is the shortest variant (typically masculine singular
-    // or the base form), stripped of trailing -o/-a/-os/-as/-es
-    let root = n.replace(/([oa]s?|es)$/, '');
-    // If stripping removed everything, fall back to original
-    if (root.length < 3) root = n;
+    const root = normalizeSpanishTokenRoot(n);
     map[n] = root;
   }
   return map;
@@ -918,8 +1088,8 @@ function styleCanonicalRoot(style: string): string {
   const n = normalizeNFD(style);
   // Known style: use precomputed canonical root
   if (STYLE_CANONICAL_MAP[n]) return STYLE_CANONICAL_MAP[n];
-  // Unknown style: heuristic strip of gender/number suffixes
-  return n.replace(/([oa]s?|es)$/, '');
+  // Unknown style: use heuristic root normalization
+  return normalizeSpanishTokenRoot(n);
 }
 
 /** Check if a claim directly contradicts known facts.
@@ -998,280 +1168,261 @@ function isContradicted(
     return false;
   }
 
-  return false;
-}
-
-// ── Main claim validation ─────────────────────────────────────────
-
-/** Detects transition language — claims made while the narrator is
- *  bridging to the NEXT stop, not describing the current one.
- *  "una joya gótica que nos espera" → the "gótica" refers to the upcoming
- *  Cocatedral, not the current baroque Llotja. These claims should never
- *  be flagged as CONTRADICTED because they describe a different POI. */
-function isTransitionContext(context: string): boolean {
-  const n = normalizeNFD(context);
-  const markers = [
-    'nos espera', 'nos dirigimos', 'vamos a ', 'a continuacion',
-    'siguiente parada', 'siguiente destino', 'visitaremos',
-    'nos recibe', 'te espera', 'caminemos hacia', 'hacia ',
-    'proxima parada', 'proximo destino',
-  ];
-  for (const marker of markers) {
-    if (n.includes(marker)) return true;
+  // For locations: similar to architect — corpus has data but not this one
+  if (claimType === 'location') {
+    // Only check if corpus has location data
+    const locRe = /(?:plaza|calle|barrio|puerta|fuente|parque|square|street|park|gate|fountain)/gi;
+    if (locRe.test(corpus.high + ' ' + corpus.medium)) {
+      const normNoAccents = norm.replace(/[áéíóú]/g, m => 'aeiou'['áéíóú'.indexOf(m)]);
+      if (!(corpus.high + ' ' + corpus.medium).toLowerCase().includes(normNoAccents)) {
+        return true;
+      }
+    }
+    return false;
   }
+
   return false;
 }
 
-/** Post-generation 3-tier factual validation.
- *  Extracts claims from generated narration, checks each against tiered
- *  seed corpora, and classifies as VERIFIED, UNVERIFIED, or CONTRADICTED
- *  with appropriate severity. */
+// ── Full narrative claim verification ──────────────────────────────
+
 function validateNarrativeClaims(
-  narration: string,
+  text: string,
   input: LongNarrativePromptInput
 ): ClaimCheckResult {
   const corpus = buildTieredCorpus(input.seeds);
-
-  // Extract all claims by type
-  const whitelist = [input.localName, input.cityName, input.nextStopName].filter(Boolean) as string[];
-  const extracted: Record<ClaimType, string[]> = {
-    date: extractDates(narration),
-    style: extractStyles(narration),
-    material: extractMaterials(narration),
-    measurement: extractMeasurements(narration),
-    architect: extractArchitects(narration),
-    historical_person: extractHistoricalPersons(narration),
-    location: extractLocations(narration, whitelist),
-  };
-
   const claims: VerifiedClaim[] = [];
-  let totalExtracted = 0;
+  const whitelist = [input.localName, input.cityName, input.nextStopName].filter(Boolean) as string[];
 
-  for (const [claimType, values] of Object.entries(extracted) as [ClaimType, string[]][]) {
-    const type = claimType;
-    const severityRules = SEVERITY_MAP[type];
+  // Extract and verify each claim type
+  const extractors: Array<{ fn: (text: string) => string[]; type: ClaimType; severity: ClaimSeverity; whitelistArgs?: boolean }> = [
+    { fn: extractDates, type: 'date', severity: 'critical' },
+    { fn: extractArchitects, type: 'architect', severity: 'critical' },
+    { fn: extractHistoricalPersons, type: 'historical_person', severity: 'critical' },
+    { fn: extractStyles, type: 'style', severity: 'critical' },
+    { fn: extractMaterials, type: 'material', severity: 'warning' },
+    { fn: extractMeasurements, type: 'measurement', severity: 'info' },
+    { fn: (t: string) => extractLocations(t, whitelist), type: 'location', severity: 'warning' },
+  ];
 
-    for (const value of values) {
-      totalExtracted++;
-      const normValue = normalizeNFD(value);
-      const { found, tier } = findClaimSource(normValue, type, corpus);
-      const ctx = claimContext(narration, value);
-      // If a claim is in transition context (describing the NEXT stop),
-      // never flag it as contradicted — it's about a different POI
-      const contradicted = !found && !isTransitionContext(ctx)
-        && isContradicted(value, type, corpus);
+  for (const { fn, type, severity } of extractors) {
+    for (const value of fn(text)) {
+      const norm = normalizeNFD(value);
 
-      let status: ClaimStatus;
-      let severity: ClaimSeverity;
-
-      if (found) {
-        status = 'verified';
-        severity = 'info'; // verified claims are always info-level (expected)
-      } else if (contradicted) {
-        status = 'contradicted';
-        severity = severityRules.contradicted;
-      } else {
-        status = 'unverified';
-        severity = severityRules.unverified;
+      // Check if claim is contradicted
+      const contradicted = isContradicted(value, type, corpus);
+      if (contradicted) {
+        claims.push({
+          type,
+          value,
+          status: 'contradicted',
+          severity,
+          source: 'none',
+          context: claimContext(text, value),
+        });
+        continue;
       }
 
-      claims.push({
-        type,
-        value,
-        status,
-        severity,
-        source: found ? tier : 'none',
-        context: ctx,
-      });
+      // Check if claim is verified or unverified
+      const { found, tier } = findClaimSource(norm, type, corpus);
+      const sevMap = SEVERITY_MAP[type];
+      const unverifiedSeverity = sevMap?.unverified || severity;
+
+      if (found) {
+        claims.push({
+          type,
+          value,
+          status: 'verified',
+          severity: 'info',
+          source: tier,
+          context: claimContext(text, value),
+        });
+      } else {
+        claims.push({
+          type,
+          value,
+          status: 'unverified',
+          severity: unverifiedSeverity,
+          source: 'none',
+          context: claimContext(text, value),
+        });
+      }
     }
   }
 
-  // Aggregate counts
-  const verified = claims.filter(c => c.status === 'verified');
-  const contradicted = claims.filter(c => c.status === 'contradicted');
-  const unverified = claims.filter(c => c.status === 'unverified');
-  const criticalFails = claims.filter(c => c.severity === 'critical');
-  const warnings = claims.filter(c => c.severity === 'warning');
-  const infos = claims.filter(c => c.severity === 'info');
+  const verifiedCount = claims.filter(c => c.status === 'verified').length;
+  const contradictedCount = claims.filter(c => c.status === 'contradicted').length;
+  const unverifiedCount = claims.filter(c => c.status === 'unverified').length;
+  const criticalFailCount = claims.filter(c => c.status === 'contradicted' && c.severity === 'critical').length;
+  const warningCount = claims.filter(c => c.severity === 'warning').length;
+  const infoCount = claims.filter(c => c.severity === 'info').length;
+  const totalExtracted = claims.length;
+  const verifiedRate = totalExtracted > 0 ? verifiedCount / totalExtracted : 0; // 0 claims = unknown, not 100% verified
+  const contradictedRate = totalExtracted > 0 ? contradictedCount / totalExtracted : 0;
+  const unverifiedRate = totalExtracted > 0 ? unverifiedCount / totalExtracted : 0;
 
   return {
     claims,
     totalExtracted,
-    verifiedCount: verified.length,
-    contradictedCount: contradicted.length,
-    unverifiedCount: unverified.length,
-    criticalFailCount: criticalFails.length,
-    warningCount: warnings.length,
-    infoCount: infos.length,
-    verifiedRate: totalExtracted > 0 ? verified.length / totalExtracted : 0,
-    contradictedRate: totalExtracted > 0 ? contradicted.length / totalExtracted : 0,
-    unverifiedRate: totalExtracted > 0 ? unverified.length / totalExtracted : 0,
+    verifiedCount,
+    contradictedCount,
+    unverifiedCount,
+    criticalFailCount,
+    warningCount,
+    infoCount,
+    verifiedRate,
+    contradictedRate,
+    unverifiedRate,
   };
 }
 
-function parseSection(content: string): string | null {
+// ═══════════════════════════════════════════════════════════════════
+// SOFT WEAK-PHRASE SCORING + CONCURRENCY LIMITER + SECTION GENERATION
+// ═══════════════════════════════════════════════════════════════════
+
+// ── Soft weak-phrase scoring (Fase 9 — editorial layer) ──────────
+
+interface EditorialScoreResult {
+  score: number;
+  hits: string[];
+  severity: 'none' | 'soft' | 'heavy';
+}
+
+const WEAK_PHRASES: Array<{ pattern: RegExp; label: string }> = [
+  { pattern: /\b(merece una mirada|merece la pena|vale la pena)\b/i, label: 'merece-mirada' },
+  { pattern: /\b(ofrece un cierre|cierre con sentido|broche final)\b/i, label: 'cierre-formulaico' },
+  { pattern: /\b(destaca por|se caracteriza por|es conocido por)\b/i, label: 'destaca-por' },
+  { pattern: /\b(importante|relevante|significativo) (para|en|por)\b/i, label: 'importante-para' },
+  { pattern: /\b(interesante|fascinante|sorprendente)\b/i, label: 'adjetivo-vacio' },
+  { pattern: /\b(ofreciendo una|brindando una|proporcionando una)\b/i, label: 'gerundio-debil' },
+  { pattern: /\b(refleja la importancia|simboliza la|representa la esencia)\b/i, label: 'simbolismo-vacio' },
+];
+
+function scoreWeakPhrases(section: string): EditorialScoreResult {
+  const normalized = normalizeNFD(section);
+  const hits: string[] = [];
+
+  for (const { pattern, label } of WEAK_PHRASES) {
+    if (pattern.test(normalized)) {
+      hits.push(label);
+    }
+  }
+
+  const score = hits.length;
+  const severity: EditorialScoreResult['severity'] =
+    score === 0 ? 'none' : score <= 2 ? 'soft' : 'heavy';
+
+  return { score, hits, severity };
+}
+
+/** Limits concurrent async tasks to avoid saturating Ollama with
+ *  parallel requests that degrade consistency and latency. */
+async function parallelLimit<T>(
+  tasks: Array<() => Promise<T>>,
+  limit: number
+): Promise<T[]> {
+  const results: T[] = [];
+  let index = 0;
+
+  async function worker(): Promise<void> {
+    while (index < tasks.length) {
+      const i = index++;
+      results[i] = await tasks[i]();
+    }
+  }
+
+  const workers = Array.from({ length: Math.min(limit, tasks.length) }, () => worker());
+  await Promise.all(workers);
+  return results;
+}
+
+function parseSection(raw: string): string | null {
   try {
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) return null;
-    const parsed = JSON.parse(jsonMatch[0]);
-    return typeof parsed.section === 'string' ? parsed.section.trim() : null;
+    const parsed = JSON.parse(raw.trim());
+    // Standard prompt format: {"section": "text..."}
+    if (typeof parsed.section === 'string' && parsed.section.length > 0) return parsed.section;
+    // Alternative: {"text": "..."}
+    if (typeof parsed.text === 'string' && parsed.text.length > 0) return parsed.text;
+    // Bare string
+    if (typeof parsed === 'string') return parsed;
+    // Array format: [{"section": "..."}]
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      if (typeof parsed[0].section === 'string') return parsed[0].section;
+      if (typeof parsed[0].text === 'string') return parsed[0].text;
+    }
+    return null;
   } catch {
+    // Try to extract JSON block from markdown code fences
+    const match = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (match) {
+      try {
+        const inner = JSON.parse(match[1].trim());
+        if (typeof inner.section === 'string') return inner.section;
+        if (typeof inner.text === 'string') return inner.text;
+        if (typeof inner === 'string') return inner;
+      } catch { /* ignore */ }
+    }
     return null;
   }
 }
 
-const FALLBACK_FACT_ORDER = ['P571', 'P1619', 'P84', 'P170', 'P149', 'P1435', 'P186', 'P2048', 'P276', 'P793'];
+// ── Fallback builders (Fase 9 — narrative-quality fallback) ──────
 
-/** Maps label-based claim keys (from backend enrichment) to Wikidata prop IDs. */
-const LABEL_TO_PROP: Record<string, string> = {
-  architect: 'P84', creator: 'P170',
-  inception: 'P571', built: 'P571', year: 'P571', construction: 'P571',
-  architecturalStyle: 'P149', style: 'P149',
-  heritageDesignation: 'P1435', heritage: 'P1435', protection: 'P1435',
-  material: 'P186', materials: 'P186',
-  height: 'P2048', measurement: 'P2048',
-  location: 'P276', locatedIn: 'P276',
-  event: 'P793', keyEvent: 'P793',
-  inauguration: 'P1619',
-};
+function buildFallbackEvidence(input: LongNarrativePromptInput): string {
+  const parts: string[] = [];
+  const claims = input.seeds?.wikidataClaims || {};
 
-function fallbackFactSummary(input: LongNarrativePromptInput): string {
-  const claims = input.seeds.wikidataClaims || {};
-  const facts: { propId: string; cat: FactCategory; value: string }[] = [];
+  if (claims['P571']) parts.push(`construido en ${claims['P571']}`);
+  if (claims['P84']) parts.push(`obra de ${claims['P84']}`);
+  if (claims['P149']) parts.push(`de estilo ${claims['P149']}`);
+  if (claims['P1435']) parts.push(`declarado ${claims['P1435']}`);
 
-  for (const [key, value] of Object.entries(claims)) {
-    if (!value?.trim()) continue;
-    // Try direct prop ID match first, then label-based mapping
-    let propId = key;
-    let cat = PROP_TO_CATEGORY[key];
-    if (!cat) {
-      const mappedId = LABEL_TO_PROP[key.toLowerCase()];
-      if (mappedId) {
-        propId = mappedId;
-        cat = PROP_TO_CATEGORY[mappedId];
-      }
-    }
-    if (!cat) continue;
+  if (parts.length > 0) return parts.join(', ');
+  return '';
+}
 
-    facts.push({ propId, cat, value: value.trim() });
-  }
-
-  return facts
-    .sort((a, b) => {
-      const ai = FALLBACK_FACT_ORDER.indexOf(a.propId);
-      const bi = FALLBACK_FACT_ORDER.indexOf(b.propId);
-      return (ai === -1 ? FALLBACK_FACT_ORDER.length : ai) - (bi === -1 ? FALLBACK_FACT_ORDER.length : bi);
-    })
-    .slice(0, 4)
-    .map(f => `${categoryLabel(f.cat, input.language)}: ${f.value}`)
-    .join('; ');
+function buildFallbackObservation(input: LongNarrativePromptInput): string {
+  const tags = input.seeds?.osmTags || {};
+  const type = tags['historic'] || tags['tourism'] || tags['amenity'] || tags['building'];
+  if (type) return `${input.localName} es un ${type.replace(/_/g, ' ')} en ${input.cityName || 'la ciudad'}.`;
+  return '';
 }
 
 function fallbackSection(name: SectionName, input: LongNarrativePromptInput, reason: string): string {
-  const code = input.language.slice(0, 2).toLowerCase();
-  const tagSummary = Object.entries(input.seeds.osmTags || {})
-    .map(([key, value]) => `${key}=${value}`)
-    .join(', ') || 'limited public tags';
-  const factSummary = fallbackFactSummary(input);
-  const nextStop = input.nextStopName || 'the next stop';
-  const cityName = input.cityName || 'this city';
+  const language = input.language?.slice(0, 2).toLowerCase() || 'en';
+  const evidence = buildFallbackEvidence(input);
+  const observation = buildFallbackObservation(input);
+  const nextStop = input.nextStopName || (language === 'es' ? 'la siguiente parada' : 'the next stop');
 
-  if (name === 'transition' && input.position === 'last') {
-    if (code === 'es') {
-      return `Gracias por caminar conmigo por ${input.cityName || 'esta ciudad'}. En este recorrido de ${input.theme}, has visto cómo la ciudad se lee a través de sus espacios, su arquitectura y su vida cotidiana. Que disfrutes el resto de tu visita.`;
+  // Build language-aware templates that NEVER emit "classified as" or meta-language
+  switch (name) {
+    case 'arrival': {
+      const base = observation || `${input.localName}, ${input.cityName || 'esta ciudad'}.`;
+      const detail = evidence ? ` ${evidence.charAt(0).toUpperCase() + evidence.slice(1)}.` : '';
+      if (language === 'es') return `Has llegado a ${base}${detail} Observa la estructura y su entorno inmediato.`;
+      return `You've arrived at ${base}${detail} Take in the structure and its immediate surroundings.`;
     }
-    if (code === 'fr') {
-      return `Merci d'avoir marché avec moi dans ${input.cityName || 'cette ville'}. Pendant cette visite de ${input.theme}, vous avez observé des lieux où l'architecture, l'espace urbain et la vie quotidienne se croisent. Je vous souhaite une belle suite de visite.`;
+    case 'history': {
+      if (evidence) return evidence.charAt(0).toUpperCase() + evidence.slice(1) + '.';
+      if (observation) return observation;
+      if (language === 'es') return `${input.localName} forma parte de la historia urbana de ${input.cityName || 'la ciudad'}.`;
+      return `${input.localName} is part of ${input.cityName || "the city"}'s urban history.`;
     }
-    if (code === 'de') {
-      return `Danke, dass Sie mit mir durch ${input.cityName || 'diese Stadt'} gegangen sind. Auf dieser ${input.theme}-Tour haben Sie Orte gesehen, an denen sich Architektur, Stadtraum und Alltagsleben begegnen. Ich wünsche Ihnen noch einen schönen Aufenthalt.`;
+    case 'significance': {
+      if (evidence) {
+        if (language === 'es') return `${evidence.charAt(0).toUpperCase() + evidence.slice(1)}. Un punto clave en este recorrido de ${input.theme}.`;
+        return `${evidence.charAt(0).toUpperCase() + evidence.slice(1)}. A key stop on this ${input.theme} tour.`;
+      }
+      if (language === 'es') return `${input.localName} es una parada relevante de este recorrido por ${input.cityName || 'la ciudad'}.`;
+      return `${input.localName} is a relevant stop on this ${input.cityName || 'city'} tour.`;
     }
-    return `Thank you for walking with me through ${input.cityName || 'this city'}. On this ${input.theme} tour, you have seen places where architecture, urban space, and everyday life come together. I hope the rest of your visit is warm and memorable.`;
+    case 'transition': {
+      if (language === 'es') return `Desde aquí, continúa hacia ${nextStop}. Observa cómo cambia el paisaje urbano a tu alrededor.`;
+      return `From here, continue toward ${nextStop}. Notice how the urban landscape shifts around you.`;
+    }
+    default:
+      return input.localName;
   }
-
-  if (code === 'es') {
-    if (name === 'arrival') {
-      if (factSummary) {
-        return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. El punto de partida es concreto: ${factSummary}. Fíjate en cómo esos datos ayudan a leer el lugar antes de seguir con la ruta.`;
-      }
-      return `Llegamos a ${input.localName}, una parada de ${input.theme} en ${cityName}. Este lugar forma parte del tejido urbano, y sus detalles visibles —${tagSummary}— invitan a leer la ciudad con atención.`;
-    }
-    if (name === 'history') {
-      if (factSummary) {
-        return `${input.localName} se entiende mejor desde estos datos: ${factSummary}. No hace falta adornarlo; esas referencias bastan para situar el lugar dentro de la historia urbana de ${cityName}.`;
-      }
-      return `${input.localName} se inscribe en la trama de ${cityName} a través de señales como ${tagSummary}. Su valor no está en una gran fecha, sino en cómo el espacio ha acompañado el crecimiento y la transformación de la ciudad.`;
-    }
-    if (name === 'significance') {
-      if (factSummary) {
-        return `Dentro de este recorrido por ${input.theme}, ${input.localName} aporta una referencia precisa: ${factSummary}. Esa base permite entender su valor sin recurrir a elogios genéricos.`;
-      }
-      return `Dentro de este recorrido por ${input.theme}, ${input.localName} ayuda a entender cómo se ha ido tejiendo ${cityName}: espacio, uso y memoria cotidiana se encuentran aquí sin necesidad de un gran anuncio.`;
-    }
-    return `Desde aquí seguimos hacia ${nextStop}. Cada parada añade un matiz distinto sobre ${input.theme} en ${cityName}.`;
-  }
-
-  if (code === 'fr') {
-    if (name === 'arrival') {
-      if (factSummary) {
-        return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Le point d'appui est précis: ${factSummary}. Ces repères aident à lire le lieu avant de poursuivre la visite.`;
-      }
-      return `Nous arrivons à ${input.localName}, une étape de ${input.theme} dans ${cityName}. Depuis ce point, la ville se lit à hauteur de marche: le rythme de la rue, l'échelle des façades et les usages quotidiens donnent déjà le ton de la visite.`;
-    }
-    if (name === 'history') {
-      if (factSummary) {
-        return `${input.localName} se comprend mieux à partir de ces repères: ${factSummary}. Ils suffisent à situer le lieu dans l'histoire urbaine de ${cityName}, sans l'alourdir d'effets.`;
-      }
-      return `Autour de ${input.localName}, les indices disponibles (${tagSummary}) suffisent à poser le regard: ce n'est pas un décor isolé, mais un morceau de ville où se croisent circulation, architecture et vie quotidienne.`;
-    }
-    if (name === 'significance') {
-      if (factSummary) {
-        return `Dans cette visite de ${input.theme}, ${input.localName} apporte des repères concrets: ${factSummary}. C'est par ces éléments que le lieu prend sa place dans la mémoire de ${cityName}.`;
-      }
-      return `Dans cette visite, ${input.localName} aide à comprendre ${cityName} par petites touches: l'espace, les usages et la mémoire urbaine se rejoignent ici sans avoir besoin d'une grande annonce historique.`;
-    }
-    return `Depuis ce point, nous continuons vers ${nextStop}. Gardez en tête cette manière de lire la ville par ses détails: elle donnera une autre résonance au prochain arrêt.`;
-  }
-  if (code === 'de') {
-    if (name === 'arrival') {
-      if (factSummary) {
-        return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Der konkrete Ausgangspunkt lautet: ${factSummary}. Diese Angaben helfen, den Ort vor dem Weitergehen genauer zu lesen.`;
-      }
-      return `Wir erreichen ${input.localName}, einen Abschnitt dieser ${input.theme}-Tour in ${cityName}. Von hier aus lässt sich die Stadt im Gehen lesen: der Rhythmus der Straße, die Maßstäbe der Fassaden und der alltägliche Gebrauch geben den Ton der Führung vor.`;
-    }
-    if (name === 'history') {
-      if (factSummary) {
-        return `${input.localName} wird durch diese Angaben greifbarer: ${factSummary}. Sie reichen aus, um den Ort in der Stadtgeschichte von ${cityName} zu verorten, ohne ihn auszuschmücken.`;
-      }
-      return `Rund um ${input.localName} genügen die Hinweise (${tagSummary}), um den Blick zu schärfen: kein isoliertes Dekor, sondern ein Stück Stadt, in dem sich Verkehr, Architektur und Alltagsleben kreuzen.`;
-    }
-    if (name === 'significance') {
-      if (factSummary) {
-        return `Auf dieser ${input.theme}-Tour bringt ${input.localName} konkrete Anhaltspunkte mit: ${factSummary}. Genau diese Angaben erklären seinen Platz im Gedächtnis von ${cityName}.`;
-      }
-      return `In diesem Rundgang hilft ${input.localName}, ${cityName} in kleinen Schritten zu verstehen: Raum, Nutzung und städtisches Gedächtnis treffen hier zusammen, ohne dass es einer großen historischen Ansage bedarf.`;
-    }
-    return `Von hier gehen wir weiter zu ${nextStop}. Behalten Sie diesen lesenden Blick auf die Stadt im Kopf — er wird dem nächsten Halt eine andere Resonanz geben.`;
-  }
-  if (name === 'arrival') {
-    if (factSummary) {
-      return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. The concrete anchors are ${factSummary}. Use those details to read the place before we continue through the route.`;
-    }
-    return `We arrive at ${input.localName}, a ${input.theme} stop in ${cityName}. From here, the city reads at walking height: the rhythm of the street, the scale of the facades, and the everyday uses already set the tone for this visit.`;
-  }
-  if (name === 'history') {
-    if (factSummary) {
-      return `${input.localName} becomes clearer through these facts: ${factSummary}. They are enough to place the site within the urban history of ${cityName} without adding decorative claims.`;
-    }
-    return `Around ${input.localName}, the available clues (${tagSummary}) are enough to sharpen the eye: not an isolated backdrop, but a piece of city where movement, architecture, and daily life intersect.`;
-  }
-  if (name === 'significance') {
-    if (factSummary) {
-      return `On this ${input.theme} walk, ${input.localName} contributes concrete anchors: ${factSummary}. Those details explain its value more clearly than broad praise would.`;
-    }
-    return `On this walk, ${input.localName} helps make sense of ${cityName} in small steps: space, use, and urban memory meet here without needing a grand historical announcement.`;
-  }
-  return `From here, we continue toward ${nextStop}. Keep this way of reading the city through its details in mind — it will give the next stop a different resonance.`;
 }
 
 async function generateSection(
@@ -1285,7 +1436,7 @@ async function generateSection(
   let missingFacts: string[] | undefined;
   // Fase 2: build tiered corpus once per section (cached for retry loop)
   const corpus = buildTieredCorpus(input.seeds);
-  for (let attempt = 0; attempt < 1; attempt++) {
+  for (let attempt = 0; attempt < 2; attempt++) {
     const promptInput = { ...input, retry: attempt > 0, missingFacts };
     // Fase 2.6: per-section temperature calibration (lowered arrival+sig)
     const sectionTemps: Record<SectionName, [number, number]> = {
@@ -1332,18 +1483,19 @@ async function generateSection(
       attemptTrace.error = lastReason;
       debugTrace?.attempts.push(attemptTrace);
       narrativeLog('section-attempt', {
-        traceId,
-        section: name,
-        attempt: attempt + 1,
-        temperature: modelOptions.temperature,
-        max_tokens: modelOptions.max_tokens,
-        num_predict: response.metadata?.num_predict ?? modelOptions.max_tokens,
-        durationMs,
-        parseSuccess: false,
-        validationFailures: [lastReason],
-        fallbackUsed: false,
-        model: modelOptions.model,
-      });
+      traceId,
+      section: name,
+      attempt: attempt + 1,
+      seedQuality: input.seedQuality,
+      model: modelOptions.model,
+      temperature: modelOptions.temperature,
+      max_tokens: modelOptions.max_tokens,
+      num_predict: response.metadata?.num_predict ?? modelOptions.max_tokens,
+      durationMs,
+      parseSuccess: false,
+      validationFailures: [lastReason],
+      fallbackUsed: false,
+    });
       continue;
     }
 
@@ -1354,17 +1506,18 @@ async function generateSection(
       attemptTrace.parseError = lastReason;
       debugTrace?.attempts.push(attemptTrace);
       narrativeLog('section-attempt', {
-        traceId,
-        section: name,
-        attempt: attempt + 1,
-        temperature: modelOptions.temperature,
-        max_tokens: modelOptions.max_tokens,
-        num_predict: response.metadata?.num_predict ?? modelOptions.max_tokens,
-        durationMs,
+      traceId,
+      section: name,
+      attempt: attempt + 1,
+      seedQuality: input.seedQuality,
+      model: modelOptions.model,
+      temperature: modelOptions.temperature,
+      max_tokens: modelOptions.max_tokens,
+      num_predict: response.metadata?.num_predict ?? modelOptions.max_tokens,
+      durationMs,
         parseSuccess: false,
         validationFailures: [lastReason],
         fallbackUsed: false,
-        model: modelOptions.model,
       });
       continue;
     }
@@ -1374,30 +1527,61 @@ async function generateSection(
     attemptTrace.validationFailure = validationError;
     attemptTrace.wordCount = wordCount(section);
     attemptTrace.success = !validationError;
+    // Soft editorial scoring (non-blocking)
+    const editorialScore = scoreWeakPhrases(section);
     debugTrace?.attempts.push(attemptTrace);
     narrativeLog('section-attempt', {
       traceId,
       section: name,
       attempt: attempt + 1,
+      seedQuality: input.seedQuality,
+      model: modelOptions.model,
       temperature: modelOptions.temperature,
       max_tokens: modelOptions.max_tokens,
       num_predict: response.metadata?.num_predict ?? modelOptions.max_tokens,
       durationMs,
       parseSuccess: true,
       validationFailures: validationError ? [validationError] : [],
-      validationType: validationError?.startsWith('fact-coverage') ? 'coverage' : validationError?.startsWith('banned') ? 'banned' : 'other',
+      validationType: validationError?.startsWith('fact-coverage') ? 'coverage'
+        : validationError?.startsWith('banned-meta') ? 'meta'
+        : validationError?.startsWith('banned-cliche') ? 'cliche'
+        : validationError?.startsWith('unsupported-visual') ? 'visual'
+        : validationError?.startsWith('repetition-connector') ? 'repetition-connector'
+        : validationError?.startsWith('repetition-long-phrase') ? 'repetition-long'
+        : validationError?.startsWith('banned') ? 'banned'
+        : 'other',
       wordCount: attemptTrace.wordCount,
+      editorialScore: editorialScore.score,
+      editorialHits: editorialScore.hits,
+      editorialSeverity: editorialScore.severity,
       fallbackUsed: false,
-      model: modelOptions.model,
     });
     if (!validationError) return { name, section };
     lastReason = validationError;
-    // Fase 2: if coverage gap, store missing fact labels locally for retry (don't mutate input)
+    // Fase 5: targeted retry feedback per error type
     if (validationError.startsWith('fact-coverage:')) {
       const labelsMatch = validationError.match(/labels=([^)]+)/);
       if (labelsMatch) {
         missingFacts = labelsMatch[1].split(',');
       }
+    } else if (validationError.startsWith('banned-meta:')) {
+      missingFacts = ['NO META: no menciones fuentes, registros, datos limitados, ni reglas internas del sistema'];
+    } else if (validationError.startsWith('banned-cliche:')) {
+      missingFacts = ['EVITA CLICHÉS: no uses frases turísticas formulaicas. Sé concreto y específico.'];
+    } else if (validationError.startsWith('unsupported-visual:')) {
+      missingFacts = ['ELIMINA la afirmación visual no soportada por la evidencia. Sustitúyela por una observación verificable.'];
+    } else if (validationError.startsWith('word-count-')) {
+      missingFacts = [`AJUSTA longitud: objetivo ${input.targetWords} palabras. Sección actual fuera de rango.`];
+    } else if (validationError.startsWith('unverified-')) {
+      missingFacts = ['Verifica que cada claim (fecha, arquitecto, estilo) esté respaldado por los hechos permitidos. Elimina lo inventado.'];
+    } else if (validationError.startsWith('repetition-connector:')) {
+      missingFacts = ['VARÍA conectores: no uses el mismo conector de apertura dos veces en esta sección. Usa estructuras distintas para empezar las oraciones.'];
+    } else if (validationError.startsWith('repetition-long-phrase:')) {
+      missingFacts = ['NO REPITAS frases largas textualmente. Si necesitas decir lo mismo, reformúlalo con otras palabras.'];
+    } else if (validationError === 'repetition') {
+      missingFacts = ['Varía estructura de frases. Evita repetir los mismos trigramas.'];
+    } else if (validationError === 'formal-register') {
+      missingFacts = ['Usa "tú", no "usted". Lenguaje cercano y directo.'];
     }
   }
 
@@ -1458,8 +1642,25 @@ router.post('/stop/long', async (req, res) => {
       significance: significancePrompt,
       transition: transitionPrompt,
     };
-    const ordered = await Promise.all(
-      policy.sectionNames.map(sectionName => generateSection(sectionName, promptBuilders[sectionName], input, traceId, debugTrace))
+
+    // Fase 4: NarrativeBrief integration (behind feature flag)
+    const brief = env.narrativeBriefEnabled ? buildNarrativeBrief(input) : null;
+    const briefText = brief ? formatBriefForPrompt(brief) : undefined;
+    if (brief && briefText) {
+      input.narrativeBriefText = briefText;
+      narrativeLog('brief-built', {
+        traceId,
+        seedQuality: brief.seedQuality,
+        factCount: brief.allowedFacts.length,
+        tone: brief.tone,
+      });
+    }
+    const maxConcurrency = env.narrativeMaxConcurrency || 2;
+    const ordered = await parallelLimit(
+      policy.sectionNames.map(sectionName => () =>
+        generateSection(sectionName, promptBuilders[sectionName], input, traceId, debugTrace)
+      ),
+      maxConcurrency
     );
     const sections = Object.fromEntries(
       ordered.filter(item => item.section).map(item => [item.name, item.section])

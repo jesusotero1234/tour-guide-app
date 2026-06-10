@@ -7,6 +7,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
     return {
       system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
       user: [
+        input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract):\n${input.narrativeBriefText}` : '',
         `Section: culinary or market background for ${input.localName}.`,
         `Tour theme: ${input.theme}.`,
         factCard || 'VERIFIED FACTS: none.',
@@ -28,6 +29,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
   return {
     system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
     user: [
+      input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: historical background for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
       `Wikipedia context (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,

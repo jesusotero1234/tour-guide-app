@@ -27,6 +27,8 @@ export interface LongNarrativePromptInput {
   openingArchetype?: string;
   /** Missing facts from previous attempt (injected on retry) */
   missingFacts?: string[];
+  /** NarrativeBrief text injected when NARRATIVE_BRIEF_ENABLED=true (Fase 4) */
+  narrativeBriefText?: string;
 }
 
 export interface SectionPrompt {
@@ -141,6 +143,15 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     de: 'KRITISCH: Erwähne NIEMALS Quellenbeschränkungen, öffentliche Aufzeichnungen, verfügbare Daten, verifizierte oder ungeprüfte Fakten, Vorsicht oder was du nicht erfindest. Das sind interne Regeln, keine Erzählung.',
     en: 'CRITICAL: NEVER mention source limitations, public records, available data, verified or unverified facts, caution, or what you are not inventing. These are internal rules, not narration. The visitor must not hear about your data constraints.',
     it: 'CRITICO: Non menzionare MAI limitazioni delle fonti, registri pubblici, dati disponibili, fatti verificati o meno, cautela o cosa non stai inventando. Sono regole interne, non narrazione.',
+  };
+
+  // ── Anti-repetition rules (Board) ──
+  const ANTI_REPETITION: Record<string, string> = {
+    es: 'ESTILO: No empieces dos oraciones con el mismo conector. No repitas frases de 5+ palabras dentro de la misma narración. Varía la estructura de tus frases.',
+    en: 'STYLE: Do not start two sentences with the same connector. Do not repeat phrases of 5+ words within the same narration. Vary your sentence structure.',
+    fr: 'STYLE : Ne commence pas deux phrases avec le même connecteur. Ne répète pas des phrases de 5+ mots dans la même narration. Varie la structure de tes phrases.',
+    de: 'STIL: Beginne nicht zwei Sätze mit demselben Konnektor. Wiederhole keine Sätze mit 5+ Wörtern innerhalb derselben Erzählung. Variiere deine Satzstruktur.',
+    it: 'STILE: Non iniziare due frasi con lo stesso connettore. Non ripetere frasi di 5+ parole nella stessa narrazione. Varia la struttura delle tue frasi.',
   };
 
   // ── Banned phrases (Fase 1a expanded) ──
@@ -281,6 +292,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
   const metaBan = META_BANS[langCode] || META_BANS.en;
   const speculationBan = SPECULATION_BANS[langCode] || SPECULATION_BANS.en;
   const sourceMetaBan = SOURCE_META_BANS[langCode] || SOURCE_META_BANS.en;
+  const antiRepetition = ANTI_REPETITION[langCode] || ANTI_REPETITION.en;
   const bannedPrompt = BANNED_PROMPTS[langCode] || BANNED_PROMPTS.en;
   const contrastiveExamples = CONTRASTIVE_EXAMPLES[langCode] || '';
   const jsonInstruction = JSON_INSTRUCTIONS[langCode] || JSON_INSTRUCTIONS.en;
@@ -294,6 +306,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     metaBan,
     speculationBan,
     sourceMetaBan,
+    antiRepetition,
     bannedPrompt,
     contrastiveExamples,
     usedPrompt,

@@ -303,7 +303,7 @@ main() {
   ollama_url="$(ollama_host_url)"
 
   start_managed "llm-pod" 3002 "$ROOT_DIR/pods/llm-pod" \
-    env PORT=3002 OLLAMA_HOST="$ollama_url" OLLAMA_MODEL="$OLLAMA_MODEL" NARRATIVE_MODEL="$NARRATIVE_MODEL" npm run dev
+    env PORT=3002 OLLAMA_HOST="$ollama_url" OLLAMA_MODEL="$OLLAMA_MODEL" NARRATIVE_MODEL="$NARRATIVE_MODEL" NARRATIVE_BRIEF_ENABLED=true npm run dev
   wait_for_url "http://localhost:3002/health" "llm-pod" 90
 
   start_managed "voxcpm-pod" 3006 "$ROOT_DIR/pods/voxcpm-pod" \

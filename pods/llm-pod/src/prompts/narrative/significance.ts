@@ -4,6 +4,7 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
   return {
     system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
     user: [
+      input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: significance for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
       `Wikipedia body (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,

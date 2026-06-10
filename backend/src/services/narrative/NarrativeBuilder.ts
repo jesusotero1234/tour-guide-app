@@ -5,7 +5,7 @@ import { prismaClient } from '../../infrastructure/db/prismaClient';
 import { PostgresNarrationCacheRepository } from '../../infrastructure/postgres/PostgresNarrationCacheRepository';
 import { enrichSeeds } from '../enrichment/CityKnowledgeBase';
 
-const MODEL_VERSION = 'llama3.1:8b-long-v5';
+const MODEL_VERSION = process.env.NARRATIVE_MODEL_VERSION || 'qwen2.5:14b';
 
 export interface NarrativeSections {
   arrival?: string;
