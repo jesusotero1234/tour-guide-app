@@ -1337,33 +1337,43 @@ async function parallelLimit<T>(
 }
 
 function parseSection(raw: string): string | null {
+  const trimmed = raw.trim();
+
+  // Strategy 1: Try strict JSON parse first
   try {
-    const parsed = JSON.parse(raw.trim());
-    // Standard prompt format: {"section": "text..."}
+    const parsed = JSON.parse(trimmed);
     if (typeof parsed.section === 'string' && parsed.section.length > 0) return parsed.section;
-    // Alternative: {"text": "..."}
     if (typeof parsed.text === 'string' && parsed.text.length > 0) return parsed.text;
-    // Bare string
     if (typeof parsed === 'string') return parsed;
-    // Array format: [{"section": "..."}]
     if (Array.isArray(parsed) && parsed.length > 0) {
       if (typeof parsed[0].section === 'string') return parsed[0].section;
       if (typeof parsed[0].text === 'string') return parsed[0].text;
     }
-    return null;
-  } catch {
-    // Try to extract JSON block from markdown code fences
-    const match = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
-    if (match) {
-      try {
-        const inner = JSON.parse(match[1].trim());
-        if (typeof inner.section === 'string') return inner.section;
-        if (typeof inner.text === 'string') return inner.text;
-        if (typeof inner === 'string') return inner;
-      } catch { /* ignore */ }
-    }
-    return null;
+  } catch { /* fall through to extraction strategies */ }
+
+  // Strategy 2: Extract JSON from markdown code fences
+  const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenceMatch) {
+    try {
+      const inner = JSON.parse(fenceMatch[1].trim());
+      if (typeof inner.section === 'string') return inner.section;
+      if (typeof inner.text === 'string') return inner.text;
+      if (typeof inner === 'string') return inner;
+    } catch { /* ignore */ }
   }
+
+  // Strategy 3: Extract first JSON object from text with surrounding noise
+  // LLMs often add "Here is the response:" or notes before/after JSON
+  const jsonMatch = trimmed.match(/\{[\s\S]*?\}/);
+  if (jsonMatch) {
+    try {
+      const obj = JSON.parse(jsonMatch[0]);
+      if (typeof obj.section === 'string' && obj.section.length > 0) return obj.section;
+      if (typeof obj.text === 'string' && obj.text.length > 0) return obj.text;
+    } catch { /* ignore */ }
+  }
+
+  return null;
 }
 
 // ── Fallback builders (Fase 9 — narrative-quality fallback) ──────

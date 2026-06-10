@@ -90,9 +90,9 @@ export function evaluateTourQuality(input: QualityEvaluationInput): QualityEvalu
   if (criticalFails > 0 || contradictedClaims > 0) {
     status = 'blocked'; // Contradictions in critical claims = product defect
   } else if (fallbackRate > QUALITY_THRESHOLDS.DEGRADED_THRESHOLD) {
-    status = 'degraded'; // >40% fallback — not commercial quality
+    status = 'degraded'; // >25% fallback — not commercial quality
   } else if (fallbackRate > QUALITY_THRESHOLDS.REVIEW_REQUIRED_THRESHOLD) {
-    status = 'review_required'; // 10-40% fallback — needs human look
+    status = 'review_required'; // 10-25% fallback — needs human look
   } else {
     status = 'ready'; // 0-10% fallback, no critical fails
   }

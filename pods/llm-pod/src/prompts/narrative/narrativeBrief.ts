@@ -113,69 +113,87 @@ function determineSeedQuality(input: LongNarrativePromptInput): SeedQualityTier 
   return 'thin';
 }
 
-/** Build section beats — micro-objectives for each section. */
+/** Build section beats — micro-objectives for each section, localized. */
 function buildSectionBeats(
   input: LongNarrativePromptInput,
   seedQuality: SeedQualityTier
 ): NarrativeBrief['sectionBeats'] {
   const name = input.localName;
+  const lang = input.language?.slice(0, 2).toLowerCase() || 'en';
+
+  const t = (es: string, en: string) => lang === 'es' ? es : en;
 
   const beats: NarrativeBrief['sectionBeats'] = {
     arrival: [
-      `Describe la ubicación de ${name}`,
-      'Menciona un detalle visible de la fachada o estructura',
+      t(`Describe la ubicación de ${name}`, `Describe the location of ${name}`),
+      t('Menciona un detalle visible de la fachada o estructura', 'Mention a visible detail of the facade or structure'),
       seedQuality === 'thin'
-        ? 'Mantén la descripción breve y observacional'
-        : 'Incluye el material o estilo si está en los hechos permitidos',
+        ? t('Mantén la descripción breve y observacional', 'Keep the description brief and observational')
+        : t('Incluye el material o estilo si está en los hechos permitidos', 'Include material or style if in the allowed facts'),
     ],
     history: [
       seedQuality === 'thin'
-        ? 'Ofrece un dato histórico breve si está disponible'
-        : 'Incluye fecha de construcción y arquitecto si están en los hechos permitidos',
-      'Contextualiza en una frase la época o propósito original',
-      'Evita narrativas grandilocuentes',
+        ? t('Ofrece un dato histórico breve si está disponible', 'Offer a brief historical fact if available')
+        : t('Incluye fecha de construcción y arquitecto si están en los hechos permitidos', 'Include construction date and architect if in the allowed facts'),
+      t('Contextualiza en una frase la época o propósito original', 'Contextualize the era or original purpose in one sentence'),
+      t('Evita narrativas grandilocuentes', 'Avoid grandiose narratives'),
     ],
     significance: [
-      `Explica por qué ${name} es relevante para este recorrido de ${input.theme}`,
-      'Conecta con un detalle concreto, no con abstracciones',
-      'No uses frases como "testimonio de" o "símbolo de"',
+      t(`Explica por qué ${name} es relevante para este recorrido de ${input.theme}`, `Explain why ${name} is relevant to this ${input.theme} tour`),
+      t('Conecta con un detalle concreto, no con abstracciones', 'Connect with a concrete detail, not abstractions'),
+      t('No uses frases como "testimonio de" o "símbolo de"', 'Do not use phrases like "testimony to" or "symbol of"'),
     ],
     transition: input.position === 'last' ? [
-      'Cierra el recorrido sin despedidas forzadas',
-      'Conecta con una observación final que dé cohesión al tour',
+      t('Cierra el recorrido sin despedidas forzadas', 'Close the tour without forced goodbyes'),
+      t('Conecta con una observación final que dé cohesión al tour', 'Connect with a final observation that gives cohesion to the tour'),
     ] : undefined,
   };
 
   return beats;
 }
 
-/** Derive forbidden claims that the model should not mention. */
+/** Derive forbidden claims that the model should not mention, localized. */
 function extractForbiddenClaims(input: LongNarrativePromptInput): string[] {
   const forbidden: string[] = [];
+  const lang = input.language?.slice(0, 2).toLowerCase() || 'en';
+  const t = (es: string, en: string) => lang === 'es' ? es : en;
 
-  // If we don't have an architect in the evidence, forbid architect claims
   const hasArchitect = input.seeds?.wikidataClaims?.['P84'];
   if (!hasArchitect) {
-    forbidden.push('No inventes arquitectos ni atribuciones de autoría');
+    forbidden.push(t('No inventes arquitectos ni atribuciones de autoría', 'Do not invent architects or authorship claims'));
   }
 
-  // If we don't have style data, forbid style claims
   const hasStyle = input.seeds?.wikidataClaims?.['P149'];
   if (!hasStyle) {
-    forbidden.push('No asignes estilos arquitectónicos sin evidencia');
+    forbidden.push(t('No asignes estilos arquitectónicos sin evidencia', 'Do not assign architectural styles without evidence'));
   }
 
-  // Thin seeds: forbid grand historical narratives
   if (determineSeedQuality(input) === 'thin') {
-    forbidden.push('No inventes eventos históricos ni personajes');
-    forbidden.push('No uses frases grandilocuentes sobre la importancia del lugar');
+    forbidden.push(t('No inventes eventos históricos ni personajes', 'Do not invent historical events or figures'));
+    forbidden.push(t('No uses frases grandilocuentes sobre la importancia del lugar', 'Do not use grandiose phrases about the place'));
   }
 
-  // Always forbidden
-  forbidden.push('No menciones fuentes de datos ni limitaciones de registros');
-  forbidden.push('No uses adjetivación vacía: majestuoso, impresionante, increíble');
+  forbidden.push(t(
+    'No menciones fuentes de datos ni limitaciones de registros',
+    'Do not mention data sources or record limitations'
+  ));
+  forbidden.push(t(
+    'No uses adjetivación vacía: majestuoso, impresionante, increíble',
+    'Do not use empty adjectives: majestic, impressive, incredible'
+  ));
 
   return forbidden;
+}
+
+/** Local context from the city/environment. */
+function buildLocalContext(input: LongNarrativePromptInput): string[] {
+  const lang = input.language?.slice(0, 2).toLowerCase() || 'en';
+  const t = (es: string, en: string) => lang === 'es' ? es : en;
+  const ctx: string[] = [];
+  if (input.cityName) ctx.push(`${t('Ciudad', 'City')}: ${input.cityName}`);
+  if (input.theme) ctx.push(`${t('Tema', 'Theme')}: ${input.theme}`);
+  if (input.language) ctx.push(`${t('Idioma', 'Language')}: ${input.language}`);
+  return ctx;
 }
 
 /** Build the deterministic NarrativeBrief from input seeds. */
@@ -186,12 +204,7 @@ export function buildNarrativeBrief(input: LongNarrativePromptInput): NarrativeB
   const forbiddenClaims = extractForbiddenClaims(input);
   const sectionBeats = buildSectionBeats(input, seedQuality);
   const tone = THEME_TONE[input.theme] || THEME_TONE.default;
-
-  // Local context from the city/environment
-  const localContext: string[] = [];
-  if (input.cityName) localContext.push(`Ciudad: ${input.cityName}`);
-  if (input.theme) localContext.push(`Tema: ${input.theme}`);
-  if (input.language) localContext.push(`Idioma: ${input.language}`);
+  const localContext = buildLocalContext(input);
 
   return {
     poiName: input.localName,
