@@ -12,8 +12,8 @@
     "routeDiagnostics": {
       "degraded": false,
       "degradationReason": null,
-      "coverageRatio": 0.9917952474986008,
-      "estimatedTourMinutes": 238.0308593996642,
+      "coverageRatio": 0.952086563276535,
+      "estimatedTourMinutes": 228.5007751863684,
       "requestedDuration": 240
     }
   },
@@ -21,631 +21,18 @@
     {
       "id": "fixture-1",
       "tourId": "fixture-candidate",
-      "name": "Museo del Prado",
-      "description": "Detente un momento frente a esta fachada del Museo del Prado para entender dónde estamos. Observa cómo su presencia domina la calle y te invita a reflexionar sobre nuestra pregunta central: ¿cómo ha reinventado Madrid su vida pública manteniendo las huellas de cada era anterior? Este es el primer encuentro de los doce que nos esperan en este recorrido de unos 240 minutos. Aquí, la historia se materializa antes de que crucemos cualquier umbral.\n\nImagina que este espacio guarda la esencia de nuestra cultura más brillante y perdurable. Fíjate cómo la institución se ha consolidado como el corazón cultural del país. Esta concentración de pintura europea permite leer las transformaciones de nuestra historia a través de miles de piezas, desde dibujos hasta fotografías históricas anteriores a 1939.\n\nAl entrar, notarás que este lugar no es solo un depósito de objetos, sino una lente para descifrar nuestra identidad. Fíjate cómo la densidad de sus salas ofrece una concentración única de maestría por metro cuadrado, donde cada pincelada cuenta un cambio de época. Si recorres sus pasillos, descubrirás que la historia se manifiesta tanto en grabados como en armaduras o fotografías antiguas. Esta riqueza permite comprender cómo Madrid preserva su legado más brillante mientras se transforma constantemente.\n\nSi te quedas con esa idea de la pintura como crónica de cambios, verás que el siguiente paso nos lleva a otra forma de interpretar nuestra identidad. Deja atrás estas pinceladas clásicas para descubrir cómo el arte contemporáneo dialoga con la memoria en el Museo Nacional Centro de Arte Reina Sofía.",
-      "descriptionSections": {
-        "arrival": "Detente un momento frente a esta fachada del Museo del Prado para entender dónde estamos. Observa cómo su presencia domina la calle y te invita a reflexionar sobre nuestra pregunta central: ¿cómo ha reinventado Madrid su vida pública manteniendo las huellas de cada era anterior? Este es el primer encuentro de los doce que nos esperan en este recorrido de unos 240 minutos. Aquí, la historia se materializa antes de que crucemos cualquier umbral.",
-        "history": "Imagina que este espacio guarda la esencia de nuestra cultura más brillante y perdurable. Fíjate cómo la institución se ha consolidado como el corazón cultural del país. Esta concentración de pintura europea permite leer las transformaciones de nuestra historia a través de miles de piezas, desde dibujos hasta fotografías históricas anteriores a 1939.",
-        "significance": "Al entrar, notarás que este lugar no es solo un depósito de objetos, sino una lente para descifrar nuestra identidad. Fíjate cómo la densidad de sus salas ofrece una concentración única de maestría por metro cuadrado, donde cada pincelada cuenta un cambio de época. Si recorres sus pasillos, descubrirás que la historia se manifiesta tanto en grabados como en armaduras o fotografías antiguas. Esta riqueza permite comprender cómo Madrid preserva su legado más brillante mientras se transforma constantemente.",
-        "transition": "Si te quedas con esa idea de la pintura como crónica de cambios, verás que el siguiente paso nos lleva a otra forma de interpretar nuestra identidad. Deja atrás estas pinceladas clásicas para descubrir cómo el arte contemporáneo dialoga con la memoria en el Museo Nacional Centro de Arte Reina Sofía."
-      },
-      "latitude": 40.4138195,
-      "longitude": -3.6916199,
-      "position": 0,
-      "importanceScore": 44.01955000865387,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "relation",
-          "osmId": 7726080,
-          "wikidata": "Q160112",
-          "wikipedia": "es:Museo del Prado",
-          "category": "museum",
-          "landmarkTier": "flagship",
-          "fameScore": 25.019550008653873,
-          "osmTags": {
-            "addr:city": "Madrid",
-            "addr:postcode": "28014",
-            "addr:street": "Paseo del Prado",
-            "addr:suburb": "Los Jerónimos",
-            "air_conditioning": "yes",
-            "alt_name": "el Prado",
-            "check_date": "2024-03-09",
-            "description": "Construido inicialmente como Museo de Ciencias Naturales, este edificio neoclásico fue transformado en pinacoteca de las Colecciones Reales en 1818 con colecciones de pintura, dibujos, grabados, monedas y medallas desde el Románico hasta el siglo XIX.",
-            "fee": "15€. 2h before closing free.",
-            "internet_access": "no",
-            "museum": "art",
-            "name": "Museo del Prado",
-            "name:en": "Prado Museum",
-            "name:etymology:wikidata": "Q160112",
-            "name:it": "Museo del Prado",
-            "name:ja": "プラド美術館",
-            "name:ko": "프라도 국립미술관",
-            "name:pt": "Museu do Prado",
-            "name:ru": "музей Прадо",
-            "name:zh": "普拉多美術館",
-            "name:zh-Hans": "普拉多博物馆",
-            "nohousenumber": "yes",
-            "official_name": "Museo Nacional de El Prado",
-            "opening_hours": "Mo-Sa 10:00-20:00; Su 10:00-19:00",
-            "payment:cash": "yes",
-            "payment:credit_cards": "yes",
-            "payment:debit_cards": "yes",
-            "phone": "+34 913302800",
-            "source": "Ayuntamiento de Madrid",
-            "toilets": "yes",
-            "toilets:wheelchair": "yes",
-            "tourism": "museum",
-            "type": "multipolygon",
-            "url": "https://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=060079262ef5d010VgnVCM1000000b205a0aRCRD",
-            "website": "https://www.museodelprado.es/",
-            "wheelchair": "yes",
-            "wheelchair:description": "wheelchair toilet",
-            "wikidata": "Q160112",
-            "wikipedia": "es:Museo del Prado"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "3255de45-a418-43f3-905f-5beb78bfd457",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 4336,
-          "totalDurationMs": 9038,
-          "claimCheck": {
-            "totalExtracted": 1,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 1,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 1,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1939",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "afías históricas anteriores a 1939.  Al entrar, notarás que este"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-2",
-      "tourId": "fixture-candidate",
-      "name": "Museo Nacional Centro de Arte Reina Sofía",
-      "description": "Mientras que el Prado te rodeó de pinceladas clásicas, frente a ti surge la sobriedad de un pasado muy distinto. Fíjate cómo este imponente edificio neoclásico del siglo XVIII se alza con una escala que impone respeto en la zona de Atocha. Si observas su estructura, verás las huellas del antiguo Hospital General de Madrid. Este espacio ya no alberga pacientes, sino el arte contemporáneo, transformando un lugar de cuidado físico en uno de encuentro cultural.\n\nObserva las huellas de la arquitectura italiana en este complejo, donde el trabajo de Francesco Sabatini dejó una marca indeleble. Lo que antes funcionaba como un hospital para sanar cuerpos, se transformó tras su inauguración en 1992 para albergar las vanguardias del siglo XX. Si miras hacia sus ampliaciones, notarás cómo la estructura evolucionó con la apertura del edificio Nouvel en 2005. Este cambio de uso refleja la capacidad de Madrid para reinventar sus espacios, dejando atrás el pasado clínico por un nuevo horizonte cultural.\n\nAl dejar atrás la calma del Prado, notas cómo el pulso de Madrid se acelera en este rincón de Atocha. Fíjate que aquí la historia no solo se contempla, sino que se habita mediante una transformación radical de su función original. Si observas los muros neoclásicos, comprendes que la ciudad ha logrado convertir un antiguo refugio de salud en un epicentro de vanguardia. Este cambio de propósito marca el inicio de nuestra exploración sobre cómo lo antiguo sostiene lo nuevo, preparando tu mirada para descubrir las raíces humanas en el próximo destino.\n\nTras contemplar cómo este espacio sanador se volvió vanguardia, siente la curiosidad por lo que nos define como especie. Si sigues esta estela de transformación social, pronto descubrirás en el Museo Nacional de Antropología los vestigios de nuestra propia esencia humana y las huellas que dejamos al habitar el mundo.",
-      "descriptionSections": {
-        "arrival": "Mientras que el Prado te rodeó de pinceladas clásicas, frente a ti surge la sobriedad de un pasado muy distinto. Fíjate cómo este imponente edificio neoclásico del siglo XVIII se alza con una escala que impone respeto en la zona de Atocha. Si observas su estructura, verás las huellas del antiguo Hospital General de Madrid. Este espacio ya no alberga pacientes, sino el arte contemporáneo, transformando un lugar de cuidado físico en uno de encuentro cultural.",
-        "history": "Observa las huellas de la arquitectura italiana en este complejo, donde el trabajo de Francesco Sabatini dejó una marca indeleble. Lo que antes funcionaba como un hospital para sanar cuerpos, se transformó tras su inauguración en 1992 para albergar las vanguardias del siglo XX. Si miras hacia sus ampliaciones, notarás cómo la estructura evolucionó con la apertura del edificio Nouvel en 2005. Este cambio de uso refleja la capacidad de Madrid para reinventar sus espacios, dejando atrás el pasado clínico por un nuevo horizonte cultural.",
-        "significance": "Al dejar atrás la calma del Prado, notas cómo el pulso de Madrid se acelera en este rincón de Atocha. Fíjate que aquí la historia no solo se contempla, sino que se habita mediante una transformación radical de su función original. Si observas los muros neoclásicos, comprendes que la ciudad ha logrado convertir un antiguo refugio de salud en un epicentro de vanguardia. Este cambio de propósito marca el inicio de nuestra exploración sobre cómo lo antiguo sostiene lo nuevo, preparando tu mirada para descubrir las raíces humanas en el próximo destino.",
-        "transition": "Tras contemplar cómo este espacio sanador se volvió vanguardia, siente la curiosidad por lo que nos define como especie. Si sigues esta estela de transformación social, pronto descubrirás en el Museo Nacional de Antropología los vestigios de nuestra propia esencia humana y las huellas que dejamos al habitar el mundo."
-      },
-      "latitude": 40.4080445,
-      "longitude": -3.694595,
-      "position": 1,
-      "importanceScore": 41.57068586817104,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "way",
-          "osmId": 991444051,
-          "wikidata": "Q460889",
-          "wikipedia": "es:Museo Nacional Centro de Arte Reina Sofía",
-          "category": "museum",
-          "landmarkTier": "flagship",
-          "fameScore": 22.57068586817104,
-          "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "52",
-            "addr:postcode": "28012",
-            "addr:street": "Calle de Santa Isabel",
-            "addr:suburb": "Embajadores",
-            "alt_name": "Museo Reina Sofía",
-            "amenity": "arts_centre",
-            "building:colour": "white",
-            "building:levels": "4",
-            "check_date": "2025-08-23",
-            "description": "Museo de arte moderno",
-            "email": "info@museoreinasofia.es",
-            "fee": "yes",
-            "name": "Museo Nacional Centro de Arte Reina Sofía",
-            "name:es": "Museo Nacional Centro de Arte Reina Sofía",
-            "name:etymology:wikidata": "Q460889",
-            "name:ko": "국립 소피아 왕비 예술센터(레이나 소피아 국립미술센터)",
-            "opening_hours": "Mo 10:00-21:00; We-Sa 10:00-21:00; Su 10:00-19:00",
-            "phone": "+34 917741000",
-            "roof:colour": "grey",
-            "source:email": "Ayuntamiento de Madrid",
-            "tourism": "museum",
-            "website": "https://www.museoreinasofia.es/",
-            "wheelchair": "yes",
-            "wheelchair:description": "wheelchair toilett",
-            "wikidata": "Q460889",
-            "wikimedia_commons": "Category:Museo Nacional Centro de Arte Reina Sofía",
-            "wikipedia": "es:Museo Nacional Centro de Arte Reina Sofía"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "654c4260-2de6-44fd-803d-bf369281d8c2",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2734,
-          "totalDurationMs": 9046,
-          "claimCheck": {
-            "totalExtracted": 6,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 6,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 6,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1992",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "formó tras su inauguración en 1992 para albergar las vanguardias"
-              },
-              {
-                "type": "date",
-                "value": "2005",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ertura del edificio Nouvel en 2005. Este cambio de uso refleja l"
-              },
-              {
-                "type": "date",
-                "value": "siglo XVIII",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "nente edificio neoclásico del siglo XVIII se alza con una escala que im"
-              },
-              {
-                "type": "date",
-                "value": "siglo XX",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": " albergar las vanguardias del siglo XX. Si miras hacia sus ampliacio"
-              },
-              {
-                "type": "style",
-                "value": "neoclásico",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": " cómo este imponente edificio neoclásico del siglo XVIII se alza con u"
-              },
-              {
-                "type": "style",
-                "value": "neoclásicos",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "iginal. Si observas los muros neoclásicos, comprendes que la ciudad ha "
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-3",
-      "tourId": "fixture-candidate",
-      "name": "Museo Nacional de Antropología",
-      "description": "¿Alguna vez te has preguntado dónde se guardan los rastros más profundos de la humanidad? Al dejar atrás el arte contemporáneo del Reina Sofía, te encuentras frente a la fachada del número 68 de la calle Alfonso XII. Fíjate en este edificio cívico que nos recibe con una sobriedad distinta. Observa cómo su presencia marca un cambio hacia lo esencial. Aquí, la historia deja de ser solo imagen para convertirse en el estudio de nuestra propia especie.\n\nTodo comenzó con la visión del médico Pedro González de Velasco, quien deseaba un refugio permanente para sus colecciones científicas inspirado en el modelo británico. Tras el fallecimiento del doctor en 1882, el Estado adquirió el edificio y sus piezas en 1887. Esta transición transformó una iniciativa privada en un pilar estatal que hoy conecta con la transparencia del cristal.\n\nAl cruzar este umbral, la mirada se desplaza de las pinceladas modernas hacia el estudio de nuestra propia esencia. Este espacio es el primer museo antropológico de España y ofrece una visión global de los cinco continentes. Su existencia permite entender cómo Madrid integra el saber científico en su tejido histórico, preparando el camino hacia la luz del Palacio de Cristal.\n\nTras comprender la esencia humana que resguarda este edificio, deja que tu curiosidad fluya hacia lo que la luz puede revelar. Si el estudio de nuestra especie nos conecta con la tierra, lo que verás a continuación te invita a observar cómo la transparencia y el reflejo transforman nuestro entorno.",
-      "descriptionSections": {
-        "arrival": "¿Alguna vez te has preguntado dónde se guardan los rastros más profundos de la humanidad? Al dejar atrás el arte contemporáneo del Reina Sofía, te encuentras frente a la fachada del número 68 de la calle Alfonso XII. Fíjate en este edificio cívico que nos recibe con una sobriedad distinta. Observa cómo su presencia marca un cambio hacia lo esencial. Aquí, la historia deja de ser solo imagen para convertirse en el estudio de nuestra propia especie.",
-        "history": "Todo comenzó con la visión del médico Pedro González de Velasco, quien deseaba un refugio permanente para sus colecciones científicas inspirado en el modelo británico. Tras el fallecimiento del doctor en 1882, el Estado adquirió el edificio y sus piezas en 1887. Esta transición transformó una iniciativa privada en un pilar estatal que hoy conecta con la transparencia del cristal.",
-        "significance": "Al cruzar este umbral, la mirada se desplaza de las pinceladas modernas hacia el estudio de nuestra propia esencia. Este espacio es el primer museo antropológico de España y ofrece una visión global de los cinco continentes. Su existencia permite entender cómo Madrid integra el saber científico en su tejido histórico, preparando el camino hacia la luz del Palacio de Cristal.",
-        "transition": "Tras comprender la esencia humana que resguarda este edificio, deja que tu curiosidad fluya hacia lo que la luz puede revelar. Si el estudio de nuestra especie nos conecta con la tierra, lo que verás a continuación te invita a observar cómo la transparencia y el reflejo transforman nuestro entorno."
-      },
-      "latitude": 40.407765,
-      "longitude": -3.6891068,
-      "position": 2,
-      "importanceScore": 37.262388523751014,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "relation",
-          "osmId": 4525000,
-          "wikidata": "Q2917041",
-          "wikipedia": "es:Museo Nacional de Antropología (España)",
-          "category": "museum",
-          "landmarkTier": "flagship",
-          "fameScore": 18.262388523751017,
-          "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "68",
-            "addr:postcode": "28014",
-            "addr:street": "Calle de Alfonso XII",
-            "addr:suburb": "Los Jeronimos",
-            "building": "civic",
-            "description": "El Museo Nacional de Antropología ofrece al público una visión global de la cultura de diferentes pueblos y establece las semejanzas o diferencias culturales que les unen o separan para poner de manifiesto la riqueza y diversidad de las culturas del Mundo",
-            "fax": "+34 914677098",
-            "name": "Museo Nacional de Antropología",
-            "name:de": "Nationalmuseum für Anthropologie",
-            "name:en": "National Museum of Anthropology",
-            "name:es": "Museo Nacional de Antropología",
-            "name:fr": "Musée national d’anthropologie",
-            "name:it": "Museo nazionale di antropologia",
-            "name:pl": "Narodowe Muzeum Antropologiczne",
-            "name:pt": "Museu Nacional de Antropologia",
-            "name:ru": "Национальный Музей Антропологии",
-            "opening_hours": "Tu-Sa 09:30-20:00; Su 09:30-15:00",
-            "phone": "+34 915306418",
-            "source": "Ayuntamiento de Madrid",
-            "tourism": "museum",
-            "type": "multipolygon",
-            "url": "https://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=456079262ef5d010VgnVCM1000000b205a0aRCRD",
-            "wheelchair": "yes",
-            "wikidata": "Q2917041",
-            "wikipedia": "es:Museo Nacional de Antropología (España)"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "91076229-0db2-45d3-aae0-31999f556af2",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2998,
-          "totalDurationMs": 9139,
-          "claimCheck": {
-            "totalExtracted": 2,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 2,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 2,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1882",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "l fallecimiento del doctor en 1882, el Estado adquirió el edific"
-              },
-              {
-                "type": "date",
-                "value": "1887",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ó el edificio y sus piezas en 1887. Esta transición transformó u"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-4",
-      "tourId": "fixture-candidate",
-      "name": "Palacio de Cristal del Retiro",
-      "description": "Fíjate cómo los reflejos se fragmentan al rozar la superficie de este enorme invernadero. Si te acercas a sus muros, notarás que el metal y el cristal forman una estructura transparente que parece desafiar la solidez del entorno. Aquí, la arquitectura deja de ser piedra para convertirse en luz, preparando tu mirada para entender cómo Madrid transformó sus espacios públicos.\n\nEn 1887, este espacio nació con un propósito muy específico: albergar la Exposición General de las Islas Filipinas. Ricardo Velázquez Bosco diseñó esta estructura para que funcionara como un invernadero capaz de mantener el clima necesario para plantas tropicales y especies exóticas. Si observas los detalles cerámicos en los frisos, verás las figuras de grutescos con cabezas de ánades creadas por Daniel Zuloaga. Este edificio buscaba recrear entornos lejanos mediante su luz natural y el lago artificial que lo rodea.\n\nObserva cómo el edificio funciona como un puente entre mundos, pues su estructura permitió que especies tropicales habitaran nuestra capital. Esta transparencia marca un cambio en nuestra ruta: la historia ya no solo se lee en muros sólidos, sino en la capacidad de la ciudad para albergar nuevos horizontes antes de avanzar hacia la Puerta de Alcalá.\n\nDeja que la luz de este invernadero guíe tus pasos fuera del jardín. Al abandonar esta transparencia vegetal, buscaremos una estructura donde la piedra recupera su peso y autoridad. Camina conmigo para descubrir cómo un monumento imponente aguarda para contarnos otra etapa de nuestra historia.",
-      "descriptionSections": {
-        "arrival": "Fíjate cómo los reflejos se fragmentan al rozar la superficie de este enorme invernadero. Si te acercas a sus muros, notarás que el metal y el cristal forman una estructura transparente que parece desafiar la solidez del entorno. Aquí, la arquitectura deja de ser piedra para convertirse en luz, preparando tu mirada para entender cómo Madrid transformó sus espacios públicos.",
-        "history": "En 1887, este espacio nació con un propósito muy específico: albergar la Exposición General de las Islas Filipinas. Ricardo Velázquez Bosco diseñó esta estructura para que funcionara como un invernadero capaz de mantener el clima necesario para plantas tropicales y especies exóticas. Si observas los detalles cerámicos en los frisos, verás las figuras de grutescos con cabezas de ánades creadas por Daniel Zuloaga. Este edificio buscaba recrear entornos lejanos mediante su luz natural y el lago artificial que lo rodea.",
-        "significance": "Observa cómo el edificio funciona como un puente entre mundos, pues su estructura permitió que especies tropicales habitaran nuestra capital. Esta transparencia marca un cambio en nuestra ruta: la historia ya no solo se lee en muros sólidos, sino en la capacidad de la ciudad para albergar nuevos horizontes antes de avanzar hacia la Puerta de Alcalá.",
-        "transition": "Deja que la luz de este invernadero guíe tus pasos fuera del jardín. Al abandonar esta transparencia vegetal, buscaremos una estructura donde la piedra recupera su peso y autoridad. Camina conmigo para descubrir cómo un monumento imponente aguarda para contarnos otra etapa de nuestra historia."
-      },
-      "latitude": 40.4135924,
-      "longitude": -3.682057,
-      "position": 3,
-      "importanceScore": 35.75,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "way",
-          "osmId": 23596451,
-          "wikidata": "Q2420025",
-          "wikipedia": "es:Palacio de Cristal del Retiro",
-          "category": "other",
-          "landmarkTier": "major",
-          "fameScore": 17.75,
-          "osmTags": {
-            "alt_name:zh": "水晶宫",
-            "amenity": "arts_centre",
-            "building": "greenhouse",
-            "historic": "building",
-            "name": "Palacio de Cristal",
-            "name:de": "Kristallpalast",
-            "name:en": "Crystal Palace",
-            "name:es": "Palacio de Cristal",
-            "name:it": "Palazzo di Cristallo",
-            "name:pt": "Palácio de Cristal",
-            "name:ru": "Хрустальный дворец",
-            "name:zh": "玻璃房",
-            "tourism": "attraction",
-            "wheelchair": "yes",
-            "wikidata": "Q2420025",
-            "wikimedia_commons": "Category:Palacio de Cristal, Madrid",
-            "wikipedia": "es:Palacio de Cristal del Retiro"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "8498854a-b7d2-44d1-a0b7-08445d401803",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2667,
-          "totalDurationMs": 8844,
-          "claimCheck": {
-            "totalExtracted": 2,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 2,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 2,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1887",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "mó sus espacios públicos.  En 1887, este espacio nació con un pr"
-              },
-              {
-                "type": "historical_person",
-                "value": "Daniel Zuloaga",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "cabezas de ánades creadas por Daniel Zuloaga. Este edificio buscaba recrea"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-5",
-      "tourId": "fixture-candidate",
-      "name": "Puerta de Alcalá",
-      "description": "Dicen por aquí que este monumento no siempre fue un símbolo de bienvenida, sino un límite que separaba la ciudad del campo. Aquí, la piedra se vuelve sólida y delimita el espacio donde antes llegaban los viajeros desde Alcalá de Henares. Observa su posición estratégica, justo al lado de las puertas del Retiro.\n\nFíjate cómo el diseño de Francesco Sabatini se impuso tras una verdadera disputa creativa. El Rey Carlos III rechazó las propuestas de Ventura Rodríguez y José de Hermosilla para elegir personalmente este proyecto. En 1778, esta estructura comenzó a funcionar como un límite real frente a los viajeros que venían de Aragón o Francia. Lo que antes era la frontera exterior de Madrid, hoy es un núcleo urbano transformado por el ensanche del siglo XIX. Esta evolución nos prepara para descubrir piezas mucho más antiguas en el Museo Arqueológico Nacional.\n\nObserva cómo este monumento altera nuestra percepción del límite urbano. Si miras hacia su ubicación actual, notarás que ya no separa la ciudad de los campos exteriores, sino que se integra en un cruce vital junto a las puertas del Retiro. Esta transformación convierte lo que fue una frontera para viajeros procedentes de Aragón o Francia en un punto de encuentro. La estructura sobrevive como un vestigio de autoridad que ahora convive con el movimiento constante de la ciudad moderna.\n\nDeja que la idea de este límite urbano te acompañe mientras avanzamos. Si reflexionas sobre cómo esta frontera se integró al movimiento actual, comprenderás mejor el tesoro que aguarda en el Museo Arqueológico Nacional, donde las piezas más antiguas nos cuentan una historia aún más profunda.",
-      "descriptionSections": {
-        "arrival": "Dicen por aquí que este monumento no siempre fue un símbolo de bienvenida, sino un límite que separaba la ciudad del campo. Aquí, la piedra se vuelve sólida y delimita el espacio donde antes llegaban los viajeros desde Alcalá de Henares. Observa su posición estratégica, justo al lado de las puertas del Retiro.",
-        "history": "Fíjate cómo el diseño de Francesco Sabatini se impuso tras una verdadera disputa creativa. El Rey Carlos III rechazó las propuestas de Ventura Rodríguez y José de Hermosilla para elegir personalmente este proyecto. En 1778, esta estructura comenzó a funcionar como un límite real frente a los viajeros que venían de Aragón o Francia. Lo que antes era la frontera exterior de Madrid, hoy es un núcleo urbano transformado por el ensanche del siglo XIX. Esta evolución nos prepara para descubrir piezas mucho más antiguas en el Museo Arqueológico Nacional.",
-        "significance": "Observa cómo este monumento altera nuestra percepción del límite urbano. Si miras hacia su ubicación actual, notarás que ya no separa la ciudad de los campos exteriores, sino que se integra en un cruce vital junto a las puertas del Retiro. Esta transformación convierte lo que fue una frontera para viajeros procedentes de Aragón o Francia en un punto de encuentro. La estructura sobrevive como un vestigio de autoridad que ahora convive con el movimiento constante de la ciudad moderna.",
-        "transition": "Deja que la idea de este límite urbano te acompañe mientras avanzamos. Si reflexionas sobre cómo esta frontera se integró al movimiento actual, comprenderás mejor el tesoro que aguarda en el Museo Arqueológico Nacional, donde las piezas más antiguas nos cuentan una historia aún más profunda."
-      },
-      "latitude": 40.4199868,
-      "longitude": -3.6887244,
-      "position": 4,
-      "importanceScore": 39.85131915442328,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "way",
-          "osmId": 174805987,
-          "wikidata": "Q1140634",
-          "wikipedia": "es:Puerta de Alcalá",
-          "category": "other",
-          "landmarkTier": "flagship",
-          "fameScore": 19.851319154423276,
-          "osmTags": {
-            "addr:city": "Madrid",
-            "addr:postcode": "28001",
-            "addr:street": "Plaza de la Independencia",
-            "building": "triumphal_arch",
-            "height": "21.946",
-            "historic": "yes",
-            "name": "Puerta de Alcalá",
-            "name:en": "Puerta de Alcala",
-            "name:es": "Puerta de Alcalá",
-            "name:ko": "푸에르타 데 알칼라(마드리드 개선문)",
-            "nohousenumber": "yes",
-            "source:name": "common knowledge",
-            "tourism": "attraction",
-            "wheelchair": "limited",
-            "wikidata": "Q1140634",
-            "wikimedia_commons": "Category:Puerta de Alcalá, Madrid",
-            "wikipedia": "es:Puerta de Alcalá"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "fab9f4fc-03ab-4135-9bf5-f8bf455090bd",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 3217,
-          "totalDurationMs": 8516,
-          "claimCheck": {
-            "totalExtracted": 2,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 2,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 2,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1778",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "rsonalmente este proyecto. En 1778, esta estructura comenzó a fu"
-              },
-              {
-                "type": "date",
-                "value": "siglo XIX",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "nsformado por el ensanche del siglo XIX. Esta evolución nos prepara p"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-6",
-      "tourId": "fixture-candidate",
-      "name": "Museo Arqueológico Nacional",
-      "description": "Fíjate cómo su estructura del siglo XIX, iniciada por Francisco Jareño, se integra en el tejido urbano junto a la plaza de Colón. Al observar su fachada, notas que este espacio no solo guarda objetos, sino que custodia las capas de tiempo de España. Ahora, prepárate para descubrir qué cronologías habitan bajo este mismo techo.\n\nEn 1862, una decisión transformó este rincón de la ciudad al proyectarse el Palacio de Biblioteca y Museos Nacionales. Tras las desamortizaciones eclesiásticas que pusieron en riesgo tanto el patrimonio como la historia, surgió la necesidad de proteger estas piezas. Francisco Jareño inició este edificio para albergar no solo libros, sino también tesoros arqueológicos. Observa cómo este espacio nace para mitigar una pérdida cultural, preparando el camino hacia el bullicio que aguarda en Puerta del Sol.\n\nSi te detienes frente a este palacio, notarás que la narrativa de Madrid se vuelve más profunda y compleja. Aquí, la historia deja de ser solo un monumento exterior para convertirse en una acumulación de eras. Al recorrer sus salas, descubres cómo piezas desde la Prehistoria hasta la Edad Moderna conviven bajo el mismo techo. Este lugar transforma nuestra visión urbana al integrar fragmentos de épocas lejanas en el corazón de la ciudad, preparando tu mente para el ritmo frenético que encontrarás en Puerta del Sol.\n\nAl dejar atrás esta acumulación de eras que conviven en silencio, tu mirada se prepara para un cambio de ritmo. Deja que la calma de estos tesoros antiguos se transforme mientras caminamos hacia el pulso vibrante y el bullicio constante que te aguarda en Puerta del Sol.",
-      "descriptionSections": {
-        "arrival": "Fíjate cómo su estructura del siglo XIX, iniciada por Francisco Jareño, se integra en el tejido urbano junto a la plaza de Colón. Al observar su fachada, notas que este espacio no solo guarda objetos, sino que custodia las capas de tiempo de España. Ahora, prepárate para descubrir qué cronologías habitan bajo este mismo techo.",
-        "history": "En 1862, una decisión transformó este rincón de la ciudad al proyectarse el Palacio de Biblioteca y Museos Nacionales. Tras las desamortizaciones eclesiásticas que pusieron en riesgo tanto el patrimonio como la historia, surgió la necesidad de proteger estas piezas. Francisco Jareño inició este edificio para albergar no solo libros, sino también tesoros arqueológicos. Observa cómo este espacio nace para mitigar una pérdida cultural, preparando el camino hacia el bullicio que aguarda en Puerta del Sol.",
-        "significance": "Si te detienes frente a este palacio, notarás que la narrativa de Madrid se vuelve más profunda y compleja. Aquí, la historia deja de ser solo un monumento exterior para convertirse en una acumulación de eras. Al recorrer sus salas, descubres cómo piezas desde la Prehistoria hasta la Edad Moderna conviven bajo el mismo techo. Este lugar transforma nuestra visión urbana al integrar fragmentos de épocas lejanas en el corazón de la ciudad, preparando tu mente para el ritmo frenético que encontrarás en Puerta del Sol.",
-        "transition": "Al dejar atrás esta acumulación de eras que conviven en silencio, tu mirada se prepara para un cambio de ritmo. Deja que la calma de estos tesoros antiguos se transforme mientras caminamos hacia el pulso vibrante y el bullicio constante que te aguarda en Puerta del Sol."
-      },
-      "latitude": 40.4234289,
-      "longitude": -3.6888894,
-      "position": 5,
-      "importanceScore": 38.38318235807536,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "node",
-          "osmId": 255288522,
-          "wikidata": "Q1352282",
-          "wikipedia": "es:Museo Arqueológico Nacional (España)",
-          "category": "museum",
-          "landmarkTier": "flagship",
-          "fameScore": 20.38318235807536,
-          "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "13",
-            "addr:postcode": "28001",
-            "addr:street": "Calle de Serrano",
-            "addr:suburb": "Recoletos",
-            "air_conditioning": "yes",
-            "check_date": "2025-02-26",
-            "description": "Fundado en 1867, el MAN se inauguró en 1895 en su actual sede, en el Palacio de Biblioteca y Museos, edificio proyectado por Francisco Jareño y terminado por Antonio Ruiz de Salces. Visitas para grupos previa concertación de cita.",
-            "email": "sugerencias@man.es",
-            "fax": "+34 914326840",
-            "fee": "no",
-            "internet_access": "wlan",
-            "internet_access:fee": "customers",
-            "internet_access:ssid": "MAN-Publico",
-            "museum": "archaeological",
-            "name": "Museo Arqueológico Nacional",
-            "name:de": "Archäologisches Nationalmuseum",
-            "name:en": "National Archaeological Museum of Spain",
-            "name:es": "Museo Arqueológico Nacional",
-            "name:fr": "Musée archéologique national",
-            "name:pl": "Narodowe Muzeum Archeologiczne",
-            "name:zh": "国立考古博物馆",
-            "name:zh-Hant": "國立考古博物館",
-            "opening_hours": "Mo off; Tu-Sa 09:30-20:00; Su 09:30-15:00; PH 09:30-15:00; Jan 01,06,May 01,Dec 24,25,31 off",
-            "payment:cash": "yes",
-            "payment:credit_cards": "yes",
-            "payment:debit_cards": "yes",
-            "phone": "+34 915 77 79 12",
-            "source": "Ayuntamiento de Madrid",
-            "toilets": "yes",
-            "toilets:wheelchair": "yes",
-            "tourism": "museum",
-            "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=8fd8ef4d7f71c010VgnVCM1000000b205a0aRCRD",
-            "website": "http://man.mcu.es/",
-            "wheelchair": "yes",
-            "wikidata": "Q1352282",
-            "wikimedia_commons": "Category:Museo Arqueológico Nacional de España",
-            "wikipedia": "es:Museo Arqueológico Nacional (España)"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "b78c3318-482c-44f0-9d02-c5af258638ac",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2611,
-          "totalDurationMs": 8866,
-          "claimCheck": {
-            "totalExtracted": 4,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 4,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 4,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1862",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "an bajo este mismo techo.  En 1862, una decisión transformó este"
-              },
-              {
-                "type": "date",
-                "value": "siglo XIX",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Fíjate cómo su estructura del siglo XIX, iniciada por Francisco Jareñ"
-              },
-              {
-                "type": "historical_person",
-                "value": "Francisco Jareño",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "a del siglo XIX, iniciada por Francisco Jareño, se integra en el tejido urba"
-              },
-              {
-                "type": "location",
-                "value": "Palacio de Biblioteca",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "e la ciudad al proyectarse el Palacio de Biblioteca y Museos Nacionales. Tras las"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-7",
-      "tourId": "fixture-candidate",
       "name": "Puerta del Sol",
-      "description": "Busca la marca en el suelo que señala el kilómetro cero de las carreteras radiales, instalado aquí desde 1950. Al situarte frente a la Real Casa de Correos, el edificio más antiguo de esta plaza, notarás cómo la escala urbana cambia respecto a las piezas arqueológicas que acabas de ver. El reloj de torre, donado por José Rodríguez de Losada en el siglo XIX, marca un ritmo distinto al de los restos antiguos; sus campanadas dictan una tradición nacional cada fin de año.\n\nObserva cómo este espacio se transformó desde aquel acceso de la muralla del siglo XV. Si miras hacia las gradas de San Felipe, imaginas los antiguos mentideros del Siglo de Oro. La construcción de la Real Casa de Correos entre 1766 y 1768 comenzó a definir esta plaza, alejándola de su pasado medieval.\n\nAquí la historia deja de ser un objeto de vitrina para convertirse en movimiento constante. Fíjate cómo el pulso urbano se acelera al abandonar la quietud arqueológica; ya no contemplas restos estáticos, sino el epicentro donde las carreteras del país convergen desde 1950. Este espacio demuestra que Madrid sabe reinventarse, transformando un antiguo acceso murallado en el corazón de una red nacional. Mientras el reloj marca rituales colectivos, la plaza nos prepara para encontrar un refugio de silencio y recogimiento muy cerca.\n\nTras experimentar este pulso de movimiento constante en el centro neurálgico del país, deja que la agitación urbana se desvanezca. Buscamos ahora un cambio radical hacia ese refugio de silencio y recogimiento que aguarda para contrastar con toda esta energía colectiva en el Monasterio de las Descalzas Reales.",
+      "description": "Imagina que hace décadas, alguien llegaba a este punto exacto para buscar noticias del resto del país. Estamos parados en la Puerta del Sol, el inicio de nuestro recorrido por trece paradas que nos tomarán unos 240 minutos. Fíjate cómo este espacio invita a preguntarse cómo Madrid logra reinventar su vida pública manteniendo huellas de cada era pasada. Este lugar es el punto de partida para entender las capas de tiempo que habitan nuestra ciudad.\n\nObserva la Real Casa de Correos, erigida entre 1766 y 1768 por Jaime Marquet. Este edificio comenzó a definir el espacio actual cuando la plaza ocupaba apenas la mitad de su extensión presente. Si miras hacia arriba, notarás el reloj donado en el siglo XIX por José Rodríguez de Losada. Sus campanadas conectan el pasado con la tradición moderna, pues desde 1962 se televisan cada fin de año, uniendo a toda una nación en este punto exacto.\n\nEste rincón funciona como el latido que conecta todas las rutas del país. Fíjate en el suelo, pues aquí late el kilómetro cero de las carreteras radiales, un punto donde la geografía española converge. Al observar este centro neurálgico, comprendes cómo Madrid organiza su expansión hacia el exterior. La plaza no es solo un lugar de paso, sino el origen físico de la comunicación nacional, estableciendo la base para entender cómo cada nueva capa urbana se expande desde este núcleo.\n\nTras comprender cómo este núcleo organiza la expansión de toda una nación, deja que esa idea de convergencia te guíe. Sigue el rastro de estas rutas hacia la Plaza Mayor, donde las capas de tiempo que acabas de vislumbrar se revelan con una intensidad distinta.",
       "descriptionSections": {
-        "arrival": "Busca la marca en el suelo que señala el kilómetro cero de las carreteras radiales, instalado aquí desde 1950. Al situarte frente a la Real Casa de Correos, el edificio más antiguo de esta plaza, notarás cómo la escala urbana cambia respecto a las piezas arqueológicas que acabas de ver. El reloj de torre, donado por José Rodríguez de Losada en el siglo XIX, marca un ritmo distinto al de los restos antiguos; sus campanadas dictan una tradición nacional cada fin de año.",
-        "history": "Observa cómo este espacio se transformó desde aquel acceso de la muralla del siglo XV. Si miras hacia las gradas de San Felipe, imaginas los antiguos mentideros del Siglo de Oro. La construcción de la Real Casa de Correos entre 1766 y 1768 comenzó a definir esta plaza, alejándola de su pasado medieval.",
-        "significance": "Aquí la historia deja de ser un objeto de vitrina para convertirse en movimiento constante. Fíjate cómo el pulso urbano se acelera al abandonar la quietud arqueológica; ya no contemplas restos estáticos, sino el epicentro donde las carreteras del país convergen desde 1950. Este espacio demuestra que Madrid sabe reinventarse, transformando un antiguo acceso murallado en el corazón de una red nacional. Mientras el reloj marca rituales colectivos, la plaza nos prepara para encontrar un refugio de silencio y recogimiento muy cerca.",
-        "transition": "Tras experimentar este pulso de movimiento constante en el centro neurálgico del país, deja que la agitación urbana se desvanezca. Buscamos ahora un cambio radical hacia ese refugio de silencio y recogimiento que aguarda para contrastar con toda esta energía colectiva en el Monasterio de las Descalzas Reales."
+        "arrival": "Imagina que hace décadas, alguien llegaba a este punto exacto para buscar noticias del resto del país. Estamos parados en la Puerta del Sol, el inicio de nuestro recorrido por trece paradas que nos tomarán unos 240 minutos. Fíjate cómo este espacio invita a preguntarse cómo Madrid logra reinventar su vida pública manteniendo huellas de cada era pasada. Este lugar es el punto de partida para entender las capas de tiempo que habitan nuestra ciudad.",
+        "history": "Observa la Real Casa de Correos, erigida entre 1766 y 1768 por Jaime Marquet. Este edificio comenzó a definir el espacio actual cuando la plaza ocupaba apenas la mitad de su extensión presente. Si miras hacia arriba, notarás el reloj donado en el siglo XIX por José Rodríguez de Losada. Sus campanadas conectan el pasado con la tradición moderna, pues desde 1962 se televisan cada fin de año, uniendo a toda una nación en este punto exacto.",
+        "significance": "Este rincón funciona como el latido que conecta todas las rutas del país. Fíjate en el suelo, pues aquí late el kilómetro cero de las carreteras radiales, un punto donde la geografía española converge. Al observar este centro neurálgico, comprendes cómo Madrid organiza su expansión hacia el exterior. La plaza no es solo un lugar de paso, sino el origen físico de la comunicación nacional, estableciendo la base para entender cómo cada nueva capa urbana se expande desde este núcleo.",
+        "transition": "Tras comprender cómo este núcleo organiza la expansión de toda una nación, deja que esa idea de convergencia te guíe. Sigue el rastro de estas rutas hacia la Plaza Mayor, donde las capas de tiempo que acabas de vislumbrar se revelan con una intensidad distinta."
       },
       "latitude": 40.4168622,
       "longitude": -3.7034948,
-      "position": 6,
-      "importanceScore": 43.6378490508349,
+      "position": 0,
+      "importanceScore": 55.6378490508349,
       "metadata": {
         "sourcePoi": {
           "osmType": "relation",
@@ -654,12 +41,18 @@
           "wikipedia": "es:Puerta del Sol",
           "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 23.637849050834898,
+          "fameScore": 30.637849050834898,
           "osmTags": {
+            "name": "Puerta del Sol",
+            "wikidata": "Q427163",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "34",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
             "foot": "designated",
             "highway": "pedestrian",
             "lit": "yes",
-            "name": "Puerta del Sol",
             "name:ar": "باب الشمس",
             "name:es": "Puerta del Sol",
             "name:etymology:wikidata": "Q427163",
@@ -669,25 +62,22 @@
             "name:uk": "Пуерта-дель-Соль",
             "name:zh": "太阳门",
             "official_name": "Plaza de la Puerta del Sol",
-            "place": "square",
             "postal_code": "28013",
             "smoothness": "excellent",
             "surface": "paving_stones",
-            "tourism": "attraction",
             "type": "multipolygon",
             "wheelchair": "yes",
-            "wikidata": "Q427163",
             "wikipedia": "es:Puerta del Sol"
           }
         },
         "narrationMeta": {
-          "traceId": "311ed4c7-7e00-4b09-9049-8d27ce99ea0e",
+          "traceId": "8359c336-62be-4651-b7ff-84b58f8e890b",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
           "totalSeedChars": 2523,
-          "totalDurationMs": 11527,
+          "totalDurationMs": 33229,
           "claimCheck": {
             "totalExtracted": 6,
             "verifiedRate": 1,
@@ -702,19 +92,11 @@
             "claims": [
               {
                 "type": "date",
-                "value": "1950",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "adiales, instalado aquí desde 1950. Al situarte frente a la Real"
-              },
-              {
-                "type": "date",
                 "value": "1766",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "la Real Casa de Correos entre 1766 y 1768 comenzó a definir esta"
+                "context": "asa de Correos, erigida entre 1766 y 1768 por Jaime Marquet. Est"
               },
               {
                 "type": "date",
@@ -722,7 +104,15 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": " Casa de Correos entre 1766 y 1768 comenzó a definir esta plaza,"
+                "context": "Correos, erigida entre 1766 y 1768 por Jaime Marquet. Este edifi"
+              },
+              {
+                "type": "date",
+                "value": "1962",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "tradición moderna, pues desde 1962 se televisan cada fin de año,"
               },
               {
                 "type": "date",
@@ -730,15 +120,15 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "osé Rodríguez de Losada en el siglo XIX, marca un ritmo distinto al d"
+                "context": "notarás el reloj donado en el siglo XIX por José Rodríguez de Losada."
               },
               {
-                "type": "date",
-                "value": "siglo XV",
+                "type": "historical_person",
+                "value": "Jaime Marquet",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "quel acceso de la muralla del siglo XV. Si miras hacia las gradas de"
+                "context": "erigida entre 1766 y 1768 por Jaime Marquet. Este edificio comenzó a defi"
               },
               {
                 "type": "historical_person",
@@ -746,7 +136,7 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "El reloj de torre, donado por José Rodríguez de Losada en el siglo XIX, marca un rit"
+                "context": "oj donado en el siglo XIX por José Rodríguez de Losada. Sus campanadas conectan el p"
               }
             ]
           }
@@ -754,99 +144,120 @@
       }
     },
     {
-      "id": "fixture-8",
+      "id": "fixture-2",
       "tourId": "fixture-candidate",
-      "name": "Monasterio de las Descalzas Reales",
-      "description": "Mientras que en la Puerta del Sol el pulso de la ciudad late con un movimiento frenético y comercial, aquí frente al Monasterio de las Descalzas Reales el ritmo se transforma por completo. Fíjate cómo este edificio clasicista del siglo XVI se asienta con sobriedad en plena plaza. Al observar su fachada, notas una presencia que parece detener el tiempo entre el bullicio de la calle Preciados y la calma de esta zona histórica. Este refugio guarda secretos que pronto descubriremos.\n\nEn 1559, Juana de Austria decidió fundar este monasterio para las clarisas coletinas tras quedar viuda del príncipe Juan Manuel de Portugal. Si miras hacia la plaza, comprenderás cómo este espacio fue el corazón del antiguo arrabal de San Martín. Observa que este lugar no solo albergaba monjas, sino que servía como escenario para proclamar reyes bajo doseles especiales. Esta transformación de un barrio antiguo en un centro de poder real marca el inicio de una nueva etapa urbana.\n\nAl dejar atrás el caos de la Puerta del Sol, notas que Madrid deja de ser solo comercio para convertirse en un escenario de devoción y linaje. Fíjate cómo este recinto altera la dinámica urbana; aquí, lo público se entrelaza con lo sagrado bajo el silencio de las clarisas coletinas. Este espacio no es solo un refugio, sino un punto donde la ciudad se reorganiza alrededor del poder monástico. Si observas su entorno, verás que la estructura misma del barrio cambió para albergar esta presencia religiosa.\n\nSi notas cómo la devoción religiosa moldeó este antiguo barrio, prepárate para profundizar en esa misma esencia espiritual. Esta transformación del espacio urbano nos conduce hacia otro refugio donde el linaje y la fe se entrelazan, aguardando en el Real Monasterio de la Encarnación.",
+      "name": "Plaza Mayor de Madrid",
+      "description": "Si crees que el bullicio de la Puerta del Sol es intenso, fíjate cómo al doblar la calle Mayor el espacio se transforma por completo. Aquí, lo que antes era un flujo de paso se detiene para encerrarse en este recinto cerrado. Observa cómo los edificios rodean el vacío central, creando una frontera clara entre la calle y la plaza. Esta estructura delimita un escenario donde la ciudad se repliega sobre sí misma, preparándote para entender su pasado.\n\nAntes de que la corte llegara en 1561, este lugar era solo el mercado del Arrabal, un punto de encuentro entre los caminos de Toledo y Atocha. Fíjate cómo la necesidad de orden transformó el caos comercial; Felipe II encargó a Juan de Herrera una remodelación que derribó las antiguas casas para dar paso a algo nuevo. Tras años de cambios, Juan Gómez de Mora concluyó la estructura en 1619. Esta plaza ha renacido tras incendios en 1631, 1672 y 1790, demostrando una resistencia constante.\n\nAl dejar atrás el flujo ininterrumpido de la Puerta del Sol, notas que este recinto te obliga a mirar hacia adentro. Fíjate cómo la plaza funciona como un corazón cerrado que protege su propia memoria frente al exterior. Cada vez que los incendios de 1631, 1672 o 1790 intentaron borrarla, la estructura se reconstruyó para mantener viva esta función de encuentro. Esta capacidad de resistir y redefinirse es el primer gran ejemplo de cómo Madrid reinventa su vida pública.\n\nEsa capacidad de resistir y redefinirse que acabas de presenciar marca el pulso de nuestra ciudad. Si sigues este rastro de reconstrucciones constantes, verás cómo la memoria se desplaza hacia otros rincones donde el poder antiguo aún respira con fuerza, aguardando en la Plaza de la Villa.",
       "descriptionSections": {
-        "arrival": "Mientras que en la Puerta del Sol el pulso de la ciudad late con un movimiento frenético y comercial, aquí frente al Monasterio de las Descalzas Reales el ritmo se transforma por completo. Fíjate cómo este edificio clasicista del siglo XVI se asienta con sobriedad en plena plaza. Al observar su fachada, notas una presencia que parece detener el tiempo entre el bullicio de la calle Preciados y la calma de esta zona histórica. Este refugio guarda secretos que pronto descubriremos.",
-        "history": "En 1559, Juana de Austria decidió fundar este monasterio para las clarisas coletinas tras quedar viuda del príncipe Juan Manuel de Portugal. Si miras hacia la plaza, comprenderás cómo este espacio fue el corazón del antiguo arrabal de San Martín. Observa que este lugar no solo albergaba monjas, sino que servía como escenario para proclamar reyes bajo doseles especiales. Esta transformación de un barrio antiguo en un centro de poder real marca el inicio de una nueva etapa urbana.",
-        "significance": "Al dejar atrás el caos de la Puerta del Sol, notas que Madrid deja de ser solo comercio para convertirse en un escenario de devoción y linaje. Fíjate cómo este recinto altera la dinámica urbana; aquí, lo público se entrelaza con lo sagrado bajo el silencio de las clarisas coletinas. Este espacio no es solo un refugio, sino un punto donde la ciudad se reorganiza alrededor del poder monástico. Si observas su entorno, verás que la estructura misma del barrio cambió para albergar esta presencia religiosa.",
-        "transition": "Si notas cómo la devoción religiosa moldeó este antiguo barrio, prepárate para profundizar en esa misma esencia espiritual. Esta transformación del espacio urbano nos conduce hacia otro refugio donde el linaje y la fe se entrelazan, aguardando en el Real Monasterio de la Encarnación."
+        "arrival": "Si crees que el bullicio de la Puerta del Sol es intenso, fíjate cómo al doblar la calle Mayor el espacio se transforma por completo. Aquí, lo que antes era un flujo de paso se detiene para encerrarse en este recinto cerrado. Observa cómo los edificios rodean el vacío central, creando una frontera clara entre la calle y la plaza. Esta estructura delimita un escenario donde la ciudad se repliega sobre sí misma, preparándote para entender su pasado.",
+        "history": "Antes de que la corte llegara en 1561, este lugar era solo el mercado del Arrabal, un punto de encuentro entre los caminos de Toledo y Atocha. Fíjate cómo la necesidad de orden transformó el caos comercial; Felipe II encargó a Juan de Herrera una remodelación que derribó las antiguas casas para dar paso a algo nuevo. Tras años de cambios, Juan Gómez de Mora concluyó la estructura en 1619. Esta plaza ha renacido tras incendios en 1631, 1672 y 1790, demostrando una resistencia constante.",
+        "significance": "Al dejar atrás el flujo ininterrumpido de la Puerta del Sol, notas que este recinto te obliga a mirar hacia adentro. Fíjate cómo la plaza funciona como un corazón cerrado que protege su propia memoria frente al exterior. Cada vez que los incendios de 1631, 1672 o 1790 intentaron borrarla, la estructura se reconstruyó para mantener viva esta función de encuentro. Esta capacidad de resistir y redefinirse es el primer gran ejemplo de cómo Madrid reinventa su vida pública.",
+        "transition": "Esa capacidad de resistir y redefinirse que acabas de presenciar marca el pulso de nuestra ciudad. Si sigues este rastro de reconstrucciones constantes, verás cómo la memoria se desplaza hacia otros rincones donde el poder antiguo aún respira con fuerza, aguardando en la Plaza de la Villa."
       },
-      "latitude": 40.4186773,
-      "longitude": -3.7061361,
-      "position": 7,
-      "importanceScore": 38.25977500432694,
+      "latitude": 40.4154007,
+      "longitude": -3.7073747,
+      "position": 1,
+      "importanceScore": 55.993782540330756,
       "metadata": {
         "sourcePoi": {
           "osmType": "relation",
-          "osmId": 4726588,
-          "wikidata": "Q2268271",
-          "wikipedia": "es:Monasterio de las Descalzas Reales (Madrid)",
-          "category": "other",
+          "osmId": 16657232,
+          "wikidata": "Q1123493",
+          "wikipedia": "es:Plaza Mayor de Madrid",
+          "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 18.259775004326936,
+          "fameScore": 30.993782540330756,
           "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "3",
-            "addr:postcode": "28013",
-            "addr:street": "Plaza de las Descalzas",
-            "addr:suburb": "Sol",
-            "alt_name": "Monasterio_Descalzas_Reales",
-            "amenity": "monastery",
-            "building": "religious",
-            "community:gender": "female",
-            "denomination": "roman_catholic",
-            "description": "Convento fundado por la Princesa Juana de Austria, transformando un antiguo palacio de su madre Isabel de Portugal.",
-            "fax": "+34 915212779",
-            "historic": "yes",
-            "monastery:type": "monastery",
-            "name": "Monasterio de las Descalzas Reales",
-            "name:es": "Monasterio de las Descalzas Reales",
-            "name:ru": "Монастырь Дескальсас Реалес",
-            "opening_hours": "Tu-Sa 10:00-14:00,16:00-18:30; Su,PH 10:00-15:00; Mo off; Jan 01,06,May 01,Dec 24,25,31: off",
-            "religion": "christian",
-            "source:addr": "Ayuntamiento de Madrid",
-            "source:description": "Ayuntamiento de Madrid",
-            "source:fax": "Ayuntamiento de Madrid",
-            "source:opening_hours": "Ayuntamiento de Madrid",
-            "source:url": "Ayuntamiento de Madrid",
-            "source:wheelchair": "Ayuntamiento de Madrid",
+            "name": "Plaza Mayor",
+            "wikidata": "Q1123493",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "37",
+            "canonical:instance_of": "tourist destination|porticoed square",
             "tourism": "attraction",
+            "place": "square",
+            "highway": "pedestrian",
+            "layer": "1",
+            "lit": "yes",
+            "maxheight": "2.7 m",
+            "maxspeed": "30",
+            "motor_vehicle": "no",
+            "name:ca": "Plaça Major",
+            "name:de": "Hauptplatz",
+            "name:en": "Plaza Mayor",
+            "name:es": "Plaza Mayor",
+            "name:etymology:wikidata": "Q1123493",
+            "name:ko": "마요르 광장",
+            "name:ru": "Площадь Пласа-Майор",
+            "name:zh": "主廣場",
+            "postal_code": "28012",
+            "smoothness": "intermediate",
+            "surface": "sett",
+            "toilets:wheelchair": "yes",
             "type": "multipolygon",
-            "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=12e113db5b71c010VgnVCM1000000b205a0aRCRD",
-            "website": "https://www.patrimonionacional.es/visita/monasterio-de-las-descalzas-reales",
-            "wheelchair": "no",
-            "wikidata": "Q2268271",
-            "wikipedia": "es:Monasterio de las Descalzas Reales (Madrid)"
+            "wheelchair": "yes",
+            "wheelchair:description": "Pedestrian area, step-free access from NW and east, steps from south and north",
+            "wikipedia": "es:Plaza Mayor de Madrid"
           }
         },
         "narrationMeta": {
-          "traceId": "e3ff5223-9ba8-4a7c-b4b7-dd06b78c526e",
+          "traceId": "3fa85183-6b43-4871-b79c-e5d9aeceef3b",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2773,
-          "totalDurationMs": 8805,
+          "totalSeedChars": 2232,
+          "totalDurationMs": 10289,
           "claimCheck": {
-            "totalExtracted": 3,
+            "totalExtracted": 6,
             "verifiedRate": 1,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 3,
+            "verifiedCount": 6,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 3,
+            "infoCount": 6,
             "claims": [
               {
                 "type": "date",
-                "value": "1559",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "que pronto descubriremos.  En 1559, Juana de Austria decidió fun"
-              },
-              {
-                "type": "date",
-                "value": "siglo XVI",
+                "value": "1561",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": " este edificio clasicista del siglo XVI se asienta con sobriedad en p"
+                "context": "es de que la corte llegara en 1561, este lugar era solo el merca"
+              },
+              {
+                "type": "date",
+                "value": "1619",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ora concluyó la estructura en 1619. Esta plaza ha renacido tras "
+              },
+              {
+                "type": "date",
+                "value": "1631",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ha renacido tras incendios en 1631, 1672 y 1790, demostrando una"
+              },
+              {
+                "type": "date",
+                "value": "1672",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "acido tras incendios en 1631, 1672 y 1790, demostrando una resis"
+              },
+              {
+                "type": "date",
+                "value": "1790",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ras incendios en 1631, 1672 y 1790, demostrando una resistencia "
               },
               {
                 "type": "location",
@@ -854,7 +265,7 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "Mientras que en la Puerta del Sol el pulso de la ciudad late co"
+                "context": "i crees que el bullicio de la Puerta del Sol es intenso, fíjate cómo al do"
               }
             ]
           }
@@ -862,66 +273,48 @@
       }
     },
     {
-      "id": "fixture-9",
+      "id": "fixture-3",
       "tourId": "fixture-candidate",
-      "name": "Real Monasterio de la Encarnación",
-      "description": "¿Te has preguntado alguna vez cómo se entrelazan los destinos de la nobleza con los muros de esta ciudad? Al dejar atrás las Descalzas Reales, te encuentras frente a este convento agustino que guarda un silencio distinto. Observa su fachada integrada en el tejido madrileño, donde la piedra y la estructura religiosa marcan un nuevo punto en nuestro recorrido por la historia. Este espacio, fruto de una voluntad real, nos prepara para descubrir quién trazó sus líneas originales.\n\nLa reina Margarita de Austria decidió fundar este convento agustino entre 1611 y 1616 para albergar a damas de la alta nobleza. Fíjate en el diseño de fray Alberto de la Madre, cuya visión introdujo las primeras formas barrocas en Castilla bajo el deseo de la monarca. Su capacidad creativa permitió que este espacio se convirtiera en un referente arquitectónico. Tras este encuentro con la devoción real, nos dirigiremos hacia la Plaza de Oriente para buscar nuevas huellas del poder.\n\nSi observas la sobriedad de estas paredes, notarás cómo el silencio aquí no es solo ausencia de ruido, sino un refugio para la alta nobleza. Mientras que en la parada anterior sentías una devoción distinta, este convento agustino introduce una nueva capa de complejidad social en Madrid. Al recorrer sus alrededores, comprendes que la ciudad no solo se construye con piedra, sino con voluntades reales que buscaban preservar su linaje. Esta pausa nos eleva hacia el siguiente gran enigma que aguarda cerca, en la Plaza de Oriente.\n\nTras comprender cómo estas voluntades reales buscaban preservar su linaje, deja que tu mirada se aleje de este refugio de piedra. Caminemos ahora hacia la Plaza de Oriente, donde las huellas del poder te aguardan para revelar un nuevo enigma sobre el origen de esta ciudad.",
+      "name": "plaza de la Villa",
+      "description": "¿Te has preguntado alguna vez dónde latía el verdadero corazón de la antigua Madrid? Fíjate cómo las calles que rodean este espacio parecen converger en un punto único. Si observas con atención, verás que aquí se encuentran las tres vías que conforman el trazado medieval original: la del Codo, la del Cordón y la de Madrid.\n\nAntes de que este espacio se llamara Plaza de la Villa, lo conocías como plaza de San Salvador. Fíjate cómo su identidad cambió en el siglo XV, cuando Madrid recibió el título de Noble y Leal Villa por manos del rey Enrique IV. Si miras hacia el este, verás la Casa y Torre de los Lujanes; sus muros gótico-mudéjar del siglo XV nos recuerdan que este era un núcleo vital entre las antiguas puertas de Guadalajara y la Vega. ¿Te imaginas cómo estas piedras guardan secretos antes de avanzar hacia el poder real?\n\nEsta plaza no es solo un espacio abierto; funciona como el nexo donde las tres calles medievales —del Codo, del Cordón y de Madrid— se entrelazan para sostener la memoria fundacional. Observa este contraste: mientras otros lugares celebran la expansión, aquí la ciudad se repliega sobre su origen más íntimo. Este rincón preserva la esencia de lo que fuimos antes de que el poder real transformara todo.\n\nTras contemplar este núcleo donde la ciudad se repliega sobre su origen más íntimo, deja que tu mirada busque esa transformación definitiva. Si los muros de esta villa guardan la memoria fundacional, el siguiente paso nos revelará cómo aquel poder real terminó por redefinir todo el horizonte madrileño.",
       "descriptionSections": {
-        "arrival": "¿Te has preguntado alguna vez cómo se entrelazan los destinos de la nobleza con los muros de esta ciudad? Al dejar atrás las Descalzas Reales, te encuentras frente a este convento agustino que guarda un silencio distinto. Observa su fachada integrada en el tejido madrileño, donde la piedra y la estructura religiosa marcan un nuevo punto en nuestro recorrido por la historia. Este espacio, fruto de una voluntad real, nos prepara para descubrir quién trazó sus líneas originales.",
-        "history": "La reina Margarita de Austria decidió fundar este convento agustino entre 1611 y 1616 para albergar a damas de la alta nobleza. Fíjate en el diseño de fray Alberto de la Madre, cuya visión introdujo las primeras formas barrocas en Castilla bajo el deseo de la monarca. Su capacidad creativa permitió que este espacio se convirtiera en un referente arquitectónico. Tras este encuentro con la devoción real, nos dirigiremos hacia la Plaza de Oriente para buscar nuevas huellas del poder.",
-        "significance": "Si observas la sobriedad de estas paredes, notarás cómo el silencio aquí no es solo ausencia de ruido, sino un refugio para la alta nobleza. Mientras que en la parada anterior sentías una devoción distinta, este convento agustino introduce una nueva capa de complejidad social en Madrid. Al recorrer sus alrededores, comprendes que la ciudad no solo se construye con piedra, sino con voluntades reales que buscaban preservar su linaje. Esta pausa nos eleva hacia el siguiente gran enigma que aguarda cerca, en la Plaza de Oriente.",
-        "transition": "Tras comprender cómo estas voluntades reales buscaban preservar su linaje, deja que tu mirada se aleje de este refugio de piedra. Caminemos ahora hacia la Plaza de Oriente, donde las huellas del poder te aguardan para revelar un nuevo enigma sobre el origen de esta ciudad."
+        "arrival": "¿Te has preguntado alguna vez dónde latía el verdadero corazón de la antigua Madrid? Fíjate cómo las calles que rodean este espacio parecen converger en un punto único. Si observas con atención, verás que aquí se encuentran las tres vías que conforman el trazado medieval original: la del Codo, la del Cordón y la de Madrid.",
+        "history": "Antes de que este espacio se llamara Plaza de la Villa, lo conocías como plaza de San Salvador. Fíjate cómo su identidad cambió en el siglo XV, cuando Madrid recibió el título de Noble y Leal Villa por manos del rey Enrique IV. Si miras hacia el este, verás la Casa y Torre de los Lujanes; sus muros gótico-mudéjar del siglo XV nos recuerdan que este era un núcleo vital entre las antiguas puertas de Guadalajara y la Vega. ¿Te imaginas cómo estas piedras guardan secretos antes de avanzar hacia el poder real?",
+        "significance": "Esta plaza no es solo un espacio abierto; funciona como el nexo donde las tres calles medievales —del Codo, del Cordón y de Madrid— se entrelazan para sostener la memoria fundacional. Observa este contraste: mientras otros lugares celebran la expansión, aquí la ciudad se repliega sobre su origen más íntimo. Este rincón preserva la esencia de lo que fuimos antes de que el poder real transformara todo.",
+        "transition": "Tras contemplar este núcleo donde la ciudad se repliega sobre su origen más íntimo, deja que tu mirada busque esa transformación definitiva. Si los muros de esta villa guardan la memoria fundacional, el siguiente paso nos revelará cómo aquel poder real terminó por redefinir todo el horizonte madrileño."
       },
-      "latitude": 40.4200211,
-      "longitude": -3.7116805,
-      "position": 8,
-      "importanceScore": 35.17206476617281,
+      "latitude": 40.4152086,
+      "longitude": -3.710424,
+      "position": 2,
+      "importanceScore": 37.870671786825554,
       "metadata": {
         "sourcePoi": {
           "osmType": "relation",
-          "osmId": 2336078,
-          "wikidata": "Q205524",
-          "wikipedia": "es:Real Monasterio de la Encarnación (Madrid)",
-          "category": "other",
+          "osmId": 8096274,
+          "wikidata": "Q2711992",
+          "wikipedia": "es:Plaza de la Villa",
+          "category": "square_civic",
           "landmarkTier": "major",
-          "fameScore": 17.172064766172813,
+          "fameScore": 21.370671786825554,
           "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "1",
-            "addr:postcode": "28013",
-            "addr:street": "Plaza de la Encarnación",
-            "addr:suburb": "Palacio",
-            "alt_name": "Monasterio Encarnación",
-            "building": "religious",
-            "description": "Edificio construído por Juan Gómez de Mora de 1611 a 1616 como monasterio anejo al Alcázar Real, modelo de lo que se ha dado en llamar barroco madrileño. Cuenta con la reliquia de San Pantaleón.",
-            "email": "info@patrimonionacional.es",
-            "historic": "monastery",
-            "name": "Real Monasterio de la Encarnación",
-            "phone": "+34 914548700",
-            "source:addr": "Ayuntamiento de Madrid",
-            "source:description": "Ayuntamiento de Madrid",
-            "source:email": "Ayuntamiento de Madrid",
-            "source:fax": "Ayuntamiento de Madrid",
-            "source:opening_hours": "Ayuntamiento de Madrid",
-            "source:phone": "Ayuntamiento de Madrid",
-            "source:wheelchair": "Ayuntamiento de Madrid",
-            "tourism": "attraction",
+            "highway": "pedestrian",
+            "lit": "yes",
+            "name": "Plaza de la Villa",
+            "name:etymology:wikidata": "Q2711992",
+            "surface": "paving_stones",
             "type": "multipolygon",
-            "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=72ad0713fb71c010VgnVCM1000000b205a0aRCRD",
-            "website": "https://www.patrimonionacional.es/visita/real-monasterio-de-la-encarnacion",
-            "wheelchair": "yes",
-            "wikidata": "Q205524",
-            "wikipedia": "es:Real Monasterio de la Encarnación (Madrid)"
+            "wikidata": "Q2711992",
+            "wikipedia": "es:Plaza de la Villa"
           }
         },
         "narrationMeta": {
-          "traceId": "eecade44-c316-4b23-97e5-3907a52a17ba",
+          "traceId": "0723b2bf-6a3e-40a1-90a4-ac1d4a8f77da",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2762,
-          "totalDurationMs": 9115,
+          "totalSeedChars": 2508,
+          "totalDurationMs": 8238,
           "claimCheck": {
             "totalExtracted": 4,
             "verifiedRate": 1,
@@ -936,121 +329,35 @@
             "claims": [
               {
                 "type": "date",
-                "value": "1611",
+                "value": "siglo XV",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": " este convento agustino entre 1611 y 1616 para albergar a damas "
-              },
-              {
-                "type": "date",
-                "value": "1616",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "onvento agustino entre 1611 y 1616 para albergar a damas de la a"
+                "context": "ómo su identidad cambió en el siglo XV, cuando Madrid recibió el tít"
               },
               {
                 "type": "style",
-                "value": "barroca",
+                "value": "gótico",
                 "status": "verified",
                 "severity": "info",
-                "source": "wikidata",
-                "context": "introdujo las primeras formas barrocas en Castilla bajo el deseo de"
+                "source": "wikipedia",
+                "context": "rre de los Lujanes; sus muros gótico-mudéjar del siglo XV nos recu"
               },
               {
                 "type": "style",
-                "value": "barrocas",
+                "value": "mudéjar",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "introdujo las primeras formas barrocas en Castilla bajo el deseo de "
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-10",
-      "tourId": "fixture-candidate",
-      "name": "plaza de Oriente",
-      "description": "Fíjate cómo la curvatura del extremo de esta plaza te invita a detenerte frente al espacio abierto. Al dejar atrás el recogimiento del Monasterio de la Encarnación, tus ojos encuentran este rectángulo monumental que parece diseñado para contener la mirada. Observa la amplitud de su trazado, una configuración que surge de un proyecto de 1844. Este diseño definitivo es el resultado de transformar lo que antes era un solar ocupado por casas medievales, preparando el escenario para lo que verás a continuación.\n\nObserva cómo el espacio se expande tras la orden de José I de demoler las antiguas casas medievales que ocupaban este solar. El rey buscaba un nuevo horizonte, eliminando el caserío para dar paso a una visión más abierta. Si miras hacia el centro, notarás la efigie de Felipe IV, una pieza del siglo XVII de Pietro Tacca donde el caballo se sostiene únicamente sobre sus patas traseras. Esta plaza, que mira hacia el oriente, te sitúa justo en el umbral del Palacio Real.\n\nAl contemplar este espacio, comprendes cómo Madrid decidió romper con su pasado denso para abrazar la amplitud. La desaparición de aquel tejido medieval no fue un simple cambio urbanístico, sino una voluntad de transformar la vida pública hacia lo monumental. Fíjate que esta apertura actúa como el gran respiro necesario antes del siguiente capítulo. Ahora, con la mirada despejada por este diseño de cabecera curvada, te encuentras frente al umbral donde la historia se vuelve piedra y poder.\n\nTras contemplar cómo este espacio rompió el antiguo tejido medieval para ganar amplitud, siente la fuerza de esa transformación urbana. Esta apertura monumental te prepara para lo que late justo enfrente. Camina conmigo hacia el Palacio Real, donde la historia se vuelve piedra y poder.",
-      "descriptionSections": {
-        "arrival": "Fíjate cómo la curvatura del extremo de esta plaza te invita a detenerte frente al espacio abierto. Al dejar atrás el recogimiento del Monasterio de la Encarnación, tus ojos encuentran este rectángulo monumental que parece diseñado para contener la mirada. Observa la amplitud de su trazado, una configuración que surge de un proyecto de 1844. Este diseño definitivo es el resultado de transformar lo que antes era un solar ocupado por casas medievales, preparando el escenario para lo que verás a continuación.",
-        "history": "Observa cómo el espacio se expande tras la orden de José I de demoler las antiguas casas medievales que ocupaban este solar. El rey buscaba un nuevo horizonte, eliminando el caserío para dar paso a una visión más abierta. Si miras hacia el centro, notarás la efigie de Felipe IV, una pieza del siglo XVII de Pietro Tacca donde el caballo se sostiene únicamente sobre sus patas traseras. Esta plaza, que mira hacia el oriente, te sitúa justo en el umbral del Palacio Real.",
-        "significance": "Al contemplar este espacio, comprendes cómo Madrid decidió romper con su pasado denso para abrazar la amplitud. La desaparición de aquel tejido medieval no fue un simple cambio urbanístico, sino una voluntad de transformar la vida pública hacia lo monumental. Fíjate que esta apertura actúa como el gran respiro necesario antes del siguiente capítulo. Ahora, con la mirada despejada por este diseño de cabecera curvada, te encuentras frente al umbral donde la historia se vuelve piedra y poder.",
-        "transition": "Tras contemplar cómo este espacio rompió el antiguo tejido medieval para ganar amplitud, siente la fuerza de esa transformación urbana. Esta apertura monumental te prepara para lo que late justo enfrente. Camina conmigo hacia el Palacio Real, donde la historia se vuelve piedra y poder."
-      },
-      "latitude": 40.4183363,
-      "longitude": -3.7123832,
-      "position": 9,
-      "importanceScore": 37.512388523751014,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "relation",
-          "osmId": 4777910,
-          "wikidata": "Q2193218",
-          "wikipedia": "es:Plaza de Oriente",
-          "category": "square_civic",
-          "landmarkTier": "flagship",
-          "fameScore": 18.512388523751017,
-          "osmTags": {
-            "highway": "pedestrian",
-            "layer": "1",
-            "lit": "yes",
-            "name": "Plaza de Oriente",
-            "name:etymology:wikidata": "Q2193218",
-            "name:ko": "오리엔테 광장",
-            "place": "square",
-            "type": "multipolygon",
-            "wikidata": "Q2193218",
-            "wikipedia": "es:Plaza de Oriente"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "e9e57ecd-af0d-4e4b-9877-7ed5cca0afc8",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2463,
-          "totalDurationMs": 8486,
-          "claimCheck": {
-            "totalExtracted": 3,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 3,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 3,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1844",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "n que surge de un proyecto de 1844. Este diseño definitivo es el"
-              },
-              {
-                "type": "date",
-                "value": "siglo XVII",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "e de Felipe IV, una pieza del siglo XVII de Pietro Tacca donde el caba"
+                "context": "los Lujanes; sus muros gótico-mudéjar del siglo XV nos recuerdan qu"
               },
               {
                 "type": "location",
-                "value": "Monasterio de la Encarnación",
+                "value": "Torre de los Lujanes",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "jar atrás el recogimiento del Monasterio de la Encarnación, tus ojos encuentran este rec"
+                "context": "acia el este, verás la Casa y Torre de los Lujanes; sus muros gótico-mudéjar del"
               }
             ]
           }
@@ -1058,20 +365,20 @@
       }
     },
     {
-      "id": "fixture-11",
+      "id": "fixture-4",
       "tourId": "fixture-candidate",
       "name": "Palacio Real de Madrid",
-      "description": "Dicen los vecinos que este lugar guarda el eco de las ceremonias más solemnes de España. Al dejar atrás la Plaza de Oriente, te encuentras frente a una estructura de dimensiones asombrosas. Fíjate cómo su escala domina el paisaje urbano; hablamos de unos 135.000 m² que albergan 3418 habitaciones. Aunque no es la vivienda actual de la familia real, sus muros custodian tesoros como los Stradivarius Palatinos. Esta inmensidad marca el punto culminante de nuestro recorrido por las capas históricas de Madrid.\n\nTodo comenzó con una tragedia en 1734, cuando un incendio destruyó casi por completo el antiguo Real Alcázar. El rey Felipe V aprovechó este desastre para ordenar la creación de algo nuevo sobre las cenizas. Si observas los cimientos, notarás que algunas estructuras del viejo edificio aún sostienen esta obra. Aunque Juvara diseñó planos originales, su discípulo Sachetti tuvo que adaptar el proyecto al solar existente. Así, la necesidad de reconstruir transformó para siempre el corazón de Madrid.\n\nAl cruzar este umbral, la historia deja de ser un relato de calles para convertirse en pura ceremonia de Estado. Fíjate cómo el uso del edificio trasciende lo cotidiano; aquí, las paredes no solo guardan pinturas o tapicerías, sino que sostienen actos solemnes donde la monarquía se manifiesta ante el mundo. Esta escala monumental nos prepara para entender la última pieza de nuestro viaje, pues si este palacio es el corazón del poder, pronto buscaremos un refugio de paz muy distinto.\n\nTras contemplar este refugio de ceremonias solemnes, la escala del poder nos invita a buscar un contraste necesario. Si dejamos atrás el peso de la historia monárquica, caminaremos hacia un espacio donde la serenidad reemplaza al protocolo, buscando una paz que parece venir de tierras muy lejanas.",
+      "description": "Si te acercas a los muros del Palacio Real de Madrid, notarás su escala monumental que domina el entorno. Este edificio alberga 3418 habitaciones, una cifra que supera con creces la extensión de Versalles o Buckingham. Aunque hoy no es la vivienda de la familia real, sus muros custodian instrumentos Stradivarius Palatinos y tesoros artísticos. Observa cómo esta estructura marca un cambio de jerarquía en nuestra historia.\n\nImagina el desconcierto tras el incendio de 1734 que consumió el antiguo Real Alcázar. Aquel fuego permitió al rey Felipe V tomar una decisión decisiva: sustituir la vieja estructura por algo acorde a su época. La construcción comenzó en 1738, aprovechando incluso algunos cimientos del edificio anterior. Fíjate cómo los planos originales de Filippo Juvara tuvieron que ser adaptados por Sachetti para encajar en el solar existente. Esta transformación arquitectónica nos prepara para entender la importancia política que pronto verás en el Senado.\n\nFíjate que este espacio no es solo un monumento, sino el escenario donde el Estado se manifiesta en sus actos más oficiales y ceremonias. Aunque la familia real reside actualmente en la Zarzuela, estas paredes mantienen viva la función pública del poder. Observa cómo su inmensidad, con miles de habitaciones, custodia tesoros como los Stradivarius Palatinos, conectando nuestra ruta con el siguiente capítulo institucional: el Senado.\n\nDeja que la magnitud de estas paredes te haga reflexionar sobre el peso del poder. Si observas cómo esta estructura custodia tesoros y ceremonias oficiales, entenderás la importancia de las instituciones. Esa misma relevancia política nos conduce ahora hacia el lugar donde se debate el futuro en el Senado de España.",
       "descriptionSections": {
-        "arrival": "Dicen los vecinos que este lugar guarda el eco de las ceremonias más solemnes de España. Al dejar atrás la Plaza de Oriente, te encuentras frente a una estructura de dimensiones asombrosas. Fíjate cómo su escala domina el paisaje urbano; hablamos de unos 135.000 m² que albergan 3418 habitaciones. Aunque no es la vivienda actual de la familia real, sus muros custodian tesoros como los Stradivarius Palatinos. Esta inmensidad marca el punto culminante de nuestro recorrido por las capas históricas de Madrid.",
-        "history": "Todo comenzó con una tragedia en 1734, cuando un incendio destruyó casi por completo el antiguo Real Alcázar. El rey Felipe V aprovechó este desastre para ordenar la creación de algo nuevo sobre las cenizas. Si observas los cimientos, notarás que algunas estructuras del viejo edificio aún sostienen esta obra. Aunque Juvara diseñó planos originales, su discípulo Sachetti tuvo que adaptar el proyecto al solar existente. Así, la necesidad de reconstruir transformó para siempre el corazón de Madrid.",
-        "significance": "Al cruzar este umbral, la historia deja de ser un relato de calles para convertirse en pura ceremonia de Estado. Fíjate cómo el uso del edificio trasciende lo cotidiano; aquí, las paredes no solo guardan pinturas o tapicerías, sino que sostienen actos solemnes donde la monarquía se manifiesta ante el mundo. Esta escala monumental nos prepara para entender la última pieza de nuestro viaje, pues si este palacio es el corazón del poder, pronto buscaremos un refugio de paz muy distinto.",
-        "transition": "Tras contemplar este refugio de ceremonias solemnes, la escala del poder nos invita a buscar un contraste necesario. Si dejamos atrás el peso de la historia monárquica, caminaremos hacia un espacio donde la serenidad reemplaza al protocolo, buscando una paz que parece venir de tierras muy lejanas."
+        "arrival": "Si te acercas a los muros del Palacio Real de Madrid, notarás su escala monumental que domina el entorno. Este edificio alberga 3418 habitaciones, una cifra que supera con creces la extensión de Versalles o Buckingham. Aunque hoy no es la vivienda de la familia real, sus muros custodian instrumentos Stradivarius Palatinos y tesoros artísticos. Observa cómo esta estructura marca un cambio de jerarquía en nuestra historia.",
+        "history": "Imagina el desconcierto tras el incendio de 1734 que consumió el antiguo Real Alcázar. Aquel fuego permitió al rey Felipe V tomar una decisión decisiva: sustituir la vieja estructura por algo acorde a su época. La construcción comenzó en 1738, aprovechando incluso algunos cimientos del edificio anterior. Fíjate cómo los planos originales de Filippo Juvara tuvieron que ser adaptados por Sachetti para encajar en el solar existente. Esta transformación arquitectónica nos prepara para entender la importancia política que pronto verás en el Senado.",
+        "significance": "Fíjate que este espacio no es solo un monumento, sino el escenario donde el Estado se manifiesta en sus actos más oficiales y ceremonias. Aunque la familia real reside actualmente en la Zarzuela, estas paredes mantienen viva la función pública del poder. Observa cómo su inmensidad, con miles de habitaciones, custodia tesoros como los Stradivarius Palatinos, conectando nuestra ruta con el siguiente capítulo institucional: el Senado.",
+        "transition": "Deja que la magnitud de estas paredes te haga reflexionar sobre el peso del poder. Si observas cómo esta estructura custodia tesoros y ceremonias oficiales, entenderás la importancia de las instituciones. Esa misma relevancia política nos conduce ahora hacia el lugar donde se debate el futuro en el Senado de España."
       },
       "latitude": 40.417828,
       "longitude": -3.714361,
-      "position": 10,
-      "importanceScore": 40.32068586817104,
+      "position": 3,
+      "importanceScore": 53.32068586817104,
       "metadata": {
         "sourcePoi": {
           "osmType": "relation",
@@ -1080,8 +387,15 @@
           "wikipedia": "es:Palacio Real de Madrid",
           "category": "palace_castle",
           "landmarkTier": "flagship",
-          "fameScore": 21.32068586817104,
+          "fameScore": 30.32068586817104,
           "osmTags": {
+            "name": "Palacio Real",
+            "wikidata": "Q171517",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "45",
+            "canonical:instance_of": "palace|museum|official residence|tourist attraction|city palace|Monument (Spain)|royal palace",
+            "tourism": "attraction",
+            "historic": "castle",
             "addr:city": "Madrid",
             "addr:postcode": "28013",
             "addr:street": "Plaza de la Armería",
@@ -1090,8 +404,6 @@
             "castle_type": "palace",
             "description": "Construido sobre el solar del antiguo Alcázar tras un incendio en 1734. Proyectado por Juvara en 1735 y construido por Sachet de 1738 a 1764 bajo las influencias del clasicismo barroco. A partir de 1770 Sabatini añadió el ala sudeste y la gran escalera.",
             "email": "info@patrimonionacional.es",
-            "historic": "castle",
-            "name": "Palacio Real",
             "name:de": "Königlicher Palast",
             "name:en": "Royal Palace",
             "name:es": "Palacio Real",
@@ -1106,29 +418,28 @@
             "type": "multipolygon",
             "website": "https://www.patrimonionacional.es/",
             "wheelchair": "yes",
-            "wikidata": "Q171517",
             "wikipedia": "es:Palacio Real de Madrid"
           }
         },
         "narrationMeta": {
-          "traceId": "293215da-912a-447e-8dd7-85e70a0f8596",
+          "traceId": "66c2a195-fd15-45ad-9223-9dcf54efab67",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 3170,
-          "totalDurationMs": 9144,
+          "totalSeedChars": 3181,
+          "totalDurationMs": 8311,
           "claimCheck": {
-            "totalExtracted": 2,
+            "totalExtracted": 3,
             "verifiedRate": 1,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 2,
+            "verifiedCount": 3,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 2,
+            "infoCount": 3,
             "claims": [
               {
                 "type": "date",
@@ -1136,15 +447,588 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "o comenzó con una tragedia en 1734, cuando un incendio destruyó "
+                "context": "concierto tras el incendio de 1734 que consumió el antiguo Real "
               },
               {
-                "type": "location",
-                "value": "Plaza de Oriente",
+                "type": "date",
+                "value": "1738",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": " de España. Al dejar atrás la Plaza de Oriente, te encuentras frente a una e"
+                "context": "a. La construcción comenzó en 1738, aprovechando incluso algunos"
+              },
+              {
+                "type": "historical_person",
+                "value": "Sachetti",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "uvieron que ser adaptados por Sachetti para encajar en el solar exis"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "Senado de España",
+      "description": "Dicen los vecinos que este lugar guarda el eco de las decisiones más importantes de la ciudad. Al acercarte, observa la escala de sus muros y cómo se asienta frente a la calle, marcando un cambio en el ritmo del paseo. Este edificio gubernamental nos prepara para entender cómo Madrid transforma sus espacios de poder.\n\nAquí, el Senado de España representa esa transición donde las decisiones dejan de ser privadas para ocupar un espacio público y visible. Observa su presencia en la calle; es el reflejo de una ciudad que decidió transformar sus estructuras de mando en instituciones abiertas a la mirada de todos, preparando el camino hacia los grandes ensanches que verás más adelante.\n\nEl Senado de España ocupa este espacio con una disposición que integra la actividad política en el tejido urbano de Madrid. Esta estructura marca el paso de los recintos cerrados a las sedes de debate público, estableciendo un precedente para la apertura de los grandes ejes que encontrarás al avanzar hacia Plaza de España.",
+      "descriptionSections": {
+        "arrival": "Dicen los vecinos que este lugar guarda el eco de las decisiones más importantes de la ciudad. Al acercarte, observa la escala de sus muros y cómo se asienta frente a la calle, marcando un cambio en el ritmo del paseo. Este edificio gubernamental nos prepara para entender cómo Madrid transforma sus espacios de poder.",
+        "history": "Aquí, el Senado de España representa esa transición donde las decisiones dejan de ser privadas para ocupar un espacio público y visible. Observa su presencia en la calle; es el reflejo de una ciudad que decidió transformar sus estructuras de mando en instituciones abiertas a la mirada de todos, preparando el camino hacia los grandes ensanches que verás más adelante.",
+        "significance": "El Senado de España ocupa este espacio con una disposición que integra la actividad política en el tejido urbano de Madrid. Esta estructura marca el paso de los recintos cerrados a las sedes de debate público, estableciendo un precedente para la apertura de los grandes ejes que encontrarás al avanzar hacia Plaza de España."
+      },
+      "latitude": 40.42055556,
+      "longitude": -3.71277778,
+      "position": 4,
+      "importanceScore": 50.46578428466209,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -855343,
+          "wikidata": "Q855343",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 27.96578428466209,
+          "osmTags": {
+            "name": "Senate of Spain",
+            "wikidata": "Q855343",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "39",
+            "canonical:instance_of": "senate",
+            "tourism": "attraction",
+            "building": "government"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d0759e70-74e2-439b-8fa6-f95c39c59b73",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 60,
+          "totalDurationMs": 7798,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "plaza de España",
+      "description": "Al dejar atrás la sobriedad del Senado, te encuentras ante la amplitud de la Plaza de España, un espacio que redefine el horizonte urbano con su escala monumental. Fíjate cómo los edificios circundantes rodean este gran vacío, marcando una transición hacia una zona donde la ciudad se expande y se abre. Observa la disposición de sus calles, pues aquí la estructura urbana parece prepararse para algo mucho más dinámico.\n\nObserva cómo este espacio rompe con la densidad de las calles anteriores para ofrecer una perspectiva distinta. Si te fijas en su amplitud, notarás que el diseño busca integrar nuevas dimensiones al tejido urbano, transformando lo que antes era un límite en un punto de encuentro. Esta apertura refleja una voluntad de expandir la vida pública hacia horizontes más despejados, preparando el camino para el bullicio que aguarda en Plaza de Callao.\n\nAl caminar por este espacio, notas cómo la escala de los edificios cambia tu percepción del entorno urbano. La amplitud de sus avenidas rompe con el trazado estrecho que recorrimos anteriormente, permitiendo que el flujo de personas y vehículos se reorganice bajo una lógica distinta. Esta transición hacia un diseño más abierto marca el inicio de una transformación en la estructura de Madrid, dejando atrás la densidad para avanzar hacia la energía de Plaza de Callao.",
+      "descriptionSections": {
+        "arrival": "Al dejar atrás la sobriedad del Senado, te encuentras ante la amplitud de la Plaza de España, un espacio que redefine el horizonte urbano con su escala monumental. Fíjate cómo los edificios circundantes rodean este gran vacío, marcando una transición hacia una zona donde la ciudad se expande y se abre. Observa la disposición de sus calles, pues aquí la estructura urbana parece prepararse para algo mucho más dinámico.",
+        "history": "Observa cómo este espacio rompe con la densidad de las calles anteriores para ofrecer una perspectiva distinta. Si te fijas en su amplitud, notarás que el diseño busca integrar nuevas dimensiones al tejido urbano, transformando lo que antes era un límite en un punto de encuentro. Esta apertura refleja una voluntad de expandir la vida pública hacia horizontes más despejados, preparando el camino para el bullicio que aguarda en Plaza de Callao.",
+        "significance": "Al caminar por este espacio, notas cómo la escala de los edificios cambia tu percepción del entorno urbano. La amplitud de sus avenidas rompe con el trazado estrecho que recorrimos anteriormente, permitiendo que el flujo de personas y vehículos se reorganice bajo una lógica distinta. Esta transición hacia un diseño más abierto marca el inicio de una transformación en la estructura de Madrid, dejando atrás la densidad para avanzar hacia la energía de Plaza de Callao."
+      },
+      "latitude": 40.423391666,
+      "longitude": -3.712233333,
+      "position": 5,
+      "importanceScore": 51.073942985382715,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -1326261,
+          "wikidata": "Q1326261",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 28.073942985382715,
+          "osmTags": {
+            "name": "plaza de España",
+            "wikidata": "Q1326261",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "28",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "7a23c352-ac23-4d89-bc89-82eb2ae456c9",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 61,
+          "totalDurationMs": 9316,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "plaza del Callao",
+      "description": "Fíjate cómo el ritmo cambia al dejar atrás la amplitud de Plaza de España para entrar en este corazón vibrante. Al situarte aquí, notas que la calle Preciados se divide en dos tramos, marcando el inicio del tercer segmento de la Gran Vía. Observa cómo este espacio actúa como un nudo donde convergen múltiples caminos de Madrid. Si sigues con la mirada hacia la calle del Carmen, entenderás que estás ante un punto de transición fundamental antes de explorar su pasado.\n\nObserva cómo este espacio se transformó radicalmente entre 1917 y 1922 con las obras de la Gran Vía. Antes de esa reforma, te encontrarías en el antiguo arrabal de San Martín, una zona mucho más pequeña. Fíjate que hubo tensiones urbanísticas, pues existió un proyecto para ensanchar la calle Preciados que terminó olvidado por el plan actual. Tras la guerra, en 1939, Antonio Rodilla comenzó su historia repostera aquí mismo. Esta evolución de la plaza nos prepara para ver cómo cambia la identidad del barrio al acercarnos a Chueca.\n\nFíjate en la división que genera la calle Preciados al partirse en dos tramos; esa fragmentación define el carácter de este nodo. Al conectar con el tercer segmento de la Gran Vía, la plaza deja de ser un simple cruce para convertirse en una articulación urbana. La ausencia del proyecto original para ensanchar Preciados altera la fisonomía que hoy recorres. Esta configuración técnica marca el paso hacia una nueva dinámica social, preparando tu llegada a las calles de Chueca.\n\nEsta configuración técnica marca el paso hacia una nueva dinámica social. Si dejas atrás la fragmentación que define este nodo urbano, notarás cómo la esencia del entorno se transforma nuevamente. Camina conmigo para descubrir qué nuevas identidades aguardan al entrar en Plaza de Chueca.",
+      "descriptionSections": {
+        "arrival": "Fíjate cómo el ritmo cambia al dejar atrás la amplitud de Plaza de España para entrar en este corazón vibrante. Al situarte aquí, notas que la calle Preciados se divide en dos tramos, marcando el inicio del tercer segmento de la Gran Vía. Observa cómo este espacio actúa como un nudo donde convergen múltiples caminos de Madrid. Si sigues con la mirada hacia la calle del Carmen, entenderás que estás ante un punto de transición fundamental antes de explorar su pasado.",
+        "history": "Observa cómo este espacio se transformó radicalmente entre 1917 y 1922 con las obras de la Gran Vía. Antes de esa reforma, te encontrarías en el antiguo arrabal de San Martín, una zona mucho más pequeña. Fíjate que hubo tensiones urbanísticas, pues existió un proyecto para ensanchar la calle Preciados que terminó olvidado por el plan actual. Tras la guerra, en 1939, Antonio Rodilla comenzó su historia repostera aquí mismo. Esta evolución de la plaza nos prepara para ver cómo cambia la identidad del barrio al acercarnos a Chueca.",
+        "significance": "Fíjate en la división que genera la calle Preciados al partirse en dos tramos; esa fragmentación define el carácter de este nodo. Al conectar con el tercer segmento de la Gran Vía, la plaza deja de ser un simple cruce para convertirse en una articulación urbana. La ausencia del proyecto original para ensanchar Preciados altera la fisonomía que hoy recorres. Esta configuración técnica marca el paso hacia una nueva dinámica social, preparando tu llegada a las calles de Chueca.",
+        "transition": "Esta configuración técnica marca el paso hacia una nueva dinámica social. Si dejas atrás la fragmentación que define este nodo urbano, notarás cómo la esencia del entorno se transforma nuevamente. Camina conmigo para descubrir qué nuevas identidades aguardan al entrar en Plaza de Chueca."
+      },
+      "latitude": 40.4198647,
+      "longitude": -3.7057983,
+      "position": 6,
+      "importanceScore": 42.572064766172815,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 13452454,
+          "wikidata": "Q2099125",
+          "wikipedia": "es:Plaza del Callao",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 22.57206476617281,
+          "osmTags": {
+            "highway": "pedestrian",
+            "lit": "yes",
+            "name": "Plaza de Callao",
+            "name:etymology:wikidata": "Q2099125",
+            "place": "square",
+            "smoothness": "excellent",
+            "surface": "paving_stones",
+            "type": "multipolygon",
+            "wheelchair": "yes",
+            "wikidata": "Q2099125",
+            "wikipedia": "es:Plaza del Callao"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "5c3b703b-1a36-47cf-b841-50e4ba9426ef",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2521,
+          "totalDurationMs": 10771,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1917",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "transformó radicalmente entre 1917 y 1922 con las obras de la Gr"
+              },
+              {
+                "type": "date",
+                "value": "1922",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rmó radicalmente entre 1917 y 1922 con las obras de la Gran Vía."
+              },
+              {
+                "type": "date",
+                "value": "1939",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "an actual. Tras la guerra, en 1939, Antonio Rodilla comenzó su h"
+              },
+              {
+                "type": "location",
+                "value": "Plaza de España",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "al dejar atrás la amplitud de Plaza de España para entrar en este corazón v"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "plaza de Chueca",
+      "description": "Mientras que en Callao te encuentras rodeado de grandes avenidas y movimiento constante, aquí la escala se reduce para ofrecerte un respiro. Fíjate cómo el espacio se estrecha entre las calles Gravina y Augusto Figueroa, creando un rincón más íntimo. Al asomarte a este pequeño enclave peatonal del barrio de Justicia, notarás que la amplitud desaparece para dar paso a una configuración mucho más contenida.\n\nSi retrocedemos a 1861, verás que este rincón ni siquiera existía en los mapas de Mesonero Romanos. En aquel entonces, el terreno albergaba la prisión de mujeres La Galera y los huertos de los duques de Frías. Observa cómo la ciudad transformó ese pasado sombrío mediante la apertura de las calles Gravina y Augusto Figueroa.\n\nObserva cómo la identidad de este rincón se reinventa al alejarse del bullicio comercial. Si antes caminabas por la monumentalidad de Callao, aquí la historia se vuelve personal y melódica. Esta transformación convierte un antiguo terreno de huertos en un refugio cultural. Ahora, la ciudad nos prepara para descubrir la elegancia contenida que aguarda cerca del Palacio de Buenavista.\n\nDeja que esa calma de los antiguos huertos guíe tus pasos hacia una nueva escala. Prepárate para descubrir qué secretos guarda el Palacio de Buenavista mientras avanzamos por esta historia de contrastes.",
+      "descriptionSections": {
+        "arrival": "Mientras que en Callao te encuentras rodeado de grandes avenidas y movimiento constante, aquí la escala se reduce para ofrecerte un respiro. Fíjate cómo el espacio se estrecha entre las calles Gravina y Augusto Figueroa, creando un rincón más íntimo. Al asomarte a este pequeño enclave peatonal del barrio de Justicia, notarás que la amplitud desaparece para dar paso a una configuración mucho más contenida.",
+        "history": "Si retrocedemos a 1861, verás que este rincón ni siquiera existía en los mapas de Mesonero Romanos. En aquel entonces, el terreno albergaba la prisión de mujeres La Galera y los huertos de los duques de Frías. Observa cómo la ciudad transformó ese pasado sombrío mediante la apertura de las calles Gravina y Augusto Figueroa.",
+        "significance": "Observa cómo la identidad de este rincón se reinventa al alejarse del bullicio comercial. Si antes caminabas por la monumentalidad de Callao, aquí la historia se vuelve personal y melódica. Esta transformación convierte un antiguo terreno de huertos en un refugio cultural. Ahora, la ciudad nos prepara para descubrir la elegancia contenida que aguarda cerca del Palacio de Buenavista.",
+        "transition": "Deja que esa calma de los antiguos huertos guíe tus pasos hacia una nueva escala. Prepárate para descubrir qué secretos guarda el Palacio de Buenavista mientras avanzamos por esta historia de contrastes."
+      },
+      "latitude": 40.4227124,
+      "longitude": -3.6976271,
+      "position": 7,
+      "importanceScore": 45.215784284662085,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 4291307,
+          "wikidata": "Q24944157",
+          "wikipedia": "es:Plaza de Chueca",
+          "category": "square_civic",
+          "landmarkTier": "major",
+          "fameScore": 22.215784284662085,
+          "osmTags": {
+            "area": "yes",
+            "highway": "pedestrian",
+            "lit": "yes",
+            "name": "Plaza de Chueca",
+            "name:es": "Plaza de Chueca",
+            "name:etymology:wikidata": "Q24944157",
+            "name:ko": "추에카 광장",
+            "place": "square",
+            "postal_code": "28004",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "wikidata": "Q24944157",
+            "wikipedia": "es:Plaza de Chueca"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "cd2999fc-863b-4e10-93da-99bb7878b362",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2450,
+          "totalDurationMs": 8466,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1861",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "contenida.  Si retrocedemos a 1861, verás que este rincón ni siq"
+              },
+              {
+                "type": "style",
+                "value": "roman",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "stía en los mapas de Mesonero Romanos. En aquel entonces, el terr"
+              },
+              {
+                "type": "location",
+                "value": "barrio de Justicia",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " pequeño enclave peatonal del barrio de Justicia, notarás que la amplitud desa"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "Palacio de Buenavista",
+      "description": "Al dejar atrás el ambiente vibrante de Chueca, tu mirada se encuentra con este imponente perímetro vallado. Fíjate cómo el edificio se asienta sobre un promontorio ajardinado, elevándose con una sobriedad distinta a la del resto de la ciudad. Esta estructura, que hoy funciona como Cuartel General del Ejército de Tierra, te invita a observar su escala civil y su carácter de castillo urbano.\n\nTodo comenzó en el siglo XVI, cuando Gaspar de Quiroga regaló esta finca al rey Felipe II para establecer la corte en Madrid. Tras pasar por manos de Isabel de Farnesio entre 1759 y 1766, la propiedad llegó a la casa de Alba. Fíjate cómo la ambición de la duquesa Cayetana transformó el lugar; ella ordenó derribar la antigua estructura para construir este palacio en 1777. Sus muros albergaron obras de Velázquez y Rafael, hasta que los incendios de 1795 alteraron su interior para siempre.\n\nAl dejar atrás la vitalidad de Chueca, este perímetro vallado introduce una sobriedad distinta en tu recorrido. El uso actual como Cuartel General del Ejército de Tierra transforma la antigua residencia de la casa de Alba en un centro de mando institucional. Si observas su posición sobre el promontorio ajardinado de Cibeles, notarás cómo la ciudad pasa de lo social a lo administrativo.\n\nTras contemplar este cambio hacia lo institucional y administrativo, tu mente aún procesa la sobriedad de estos muros militares. Sin embargo, esa transformación del poder también tiene otros matices.",
+      "descriptionSections": {
+        "arrival": "Al dejar atrás el ambiente vibrante de Chueca, tu mirada se encuentra con este imponente perímetro vallado. Fíjate cómo el edificio se asienta sobre un promontorio ajardinado, elevándose con una sobriedad distinta a la del resto de la ciudad. Esta estructura, que hoy funciona como Cuartel General del Ejército de Tierra, te invita a observar su escala civil y su carácter de castillo urbano.",
+        "history": "Todo comenzó en el siglo XVI, cuando Gaspar de Quiroga regaló esta finca al rey Felipe II para establecer la corte en Madrid. Tras pasar por manos de Isabel de Farnesio entre 1759 y 1766, la propiedad llegó a la casa de Alba. Fíjate cómo la ambición de la duquesa Cayetana transformó el lugar; ella ordenó derribar la antigua estructura para construir este palacio en 1777. Sus muros albergaron obras de Velázquez y Rafael, hasta que los incendios de 1795 alteraron su interior para siempre.",
+        "significance": "Al dejar atrás la vitalidad de Chueca, este perímetro vallado introduce una sobriedad distinta en tu recorrido. El uso actual como Cuartel General del Ejército de Tierra transforma la antigua residencia de la casa de Alba en un centro de mando institucional. Si observas su posición sobre el promontorio ajardinado de Cibeles, notarás cómo la ciudad pasa de lo social a lo administrativo.",
+        "transition": "Tras contemplar este cambio hacia lo institucional y administrativo, tu mente aún procesa la sobriedad de estos muros militares. Sin embargo, esa transformación del poder también tiene otros matices."
+      },
+      "latitude": 40.4209668,
+      "longitude": -3.6946012,
+      "position": 8,
+      "importanceScore": 41.12829485591189,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 132468,
+          "wikidata": "Q3889284",
+          "wikipedia": "es:Palacio de Buenavista (Madrid)",
+          "category": "palace_castle",
+          "landmarkTier": "major",
+          "fameScore": 22.128294855911893,
+          "osmTags": {
+            "building": "civic",
+            "building:levels": "4",
+            "castle_type": "palace",
+            "historic": "castle",
+            "name": "Palacio de Buenavista",
+            "name:es": "Palacio de Buenavista",
+            "roof:material": "slate",
+            "roof:shape": "hipped",
+            "source": "Catastro Spain",
+            "type": "multipolygon",
+            "wikidata": "Q3889284",
+            "wikipedia": "es:Palacio de Buenavista (Madrid)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "cfbf5560-8ca4-4934-8938-577b5c439640",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2324,
+          "totalDurationMs": 10999,
+          "claimCheck": {
+            "totalExtracted": 6,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 6,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 6,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1759",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s de Isabel de Farnesio entre 1759 y 1766, la propiedad llegó a "
+              },
+              {
+                "type": "date",
+                "value": "1766",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "abel de Farnesio entre 1759 y 1766, la propiedad llegó a la casa"
+              },
+              {
+                "type": "date",
+                "value": "1777",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ara construir este palacio en 1777. Sus muros albergaron obras d"
+              },
+              {
+                "type": "date",
+                "value": "1795",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "l, hasta que los incendios de 1795 alteraron su interior para si"
+              },
+              {
+                "type": "date",
+                "value": "siglo XVI",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "o urbano.  Todo comenzó en el siglo XVI, cuando Gaspar de Quiroga reg"
+              },
+              {
+                "type": "historical_person",
+                "value": "Cuartel General",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "uctura, que hoy funciona como Cuartel General del Ejército de Tierra, te in"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "Palacio de Linares",
+      "description": "Fíjate en los relieves que adornan su fachada principal. Observa cómo la piedra se vuelve protagonista aquí, cubriendo cada superficie disponible. Esta transición hacia una presencia más decorativa marca un cambio en el pulso de la ciudad, preparándote para lo que encontrarás al caminar hacia la siguiente gran puerta.\n\nAl dejar atrás la sobriedad de Buenavista, notas cómo el Palacio de Linares introduce una nueva intención en el paisaje urbano. Observa esa transición hacia lo ornamental; es como si la ciudad decidiera mostrar sus capas más decorativas para transformar su propia identidad. Este cambio de ritmo te prepara para entender cómo Madrid ha sabido reinventarse, dejando atrás estructuras austeras para dar paso a espacios que buscan cautivar la mirada antes de alcanzar la Puerta de Alcalá.\n\nAl contemplar este palacio, notas que la ciudad ya no solo busca protegerse o administrar, sino también exhibirse. Fíjate cómo el Palacio de Linares eleva la apuesta de nuestro recorrido al integrar una ornamentación que desafía la sobriedad anterior. Esta transformación sugiere que Madrid aprendió a usar su arquitectura como un lenguaje de prestigio, preparando tu mirada para el encuentro con la monumental Puerta de Alcalá.",
+      "descriptionSections": {
+        "arrival": "Fíjate en los relieves que adornan su fachada principal. Observa cómo la piedra se vuelve protagonista aquí, cubriendo cada superficie disponible. Esta transición hacia una presencia más decorativa marca un cambio en el pulso de la ciudad, preparándote para lo que encontrarás al caminar hacia la siguiente gran puerta.",
+        "history": "Al dejar atrás la sobriedad de Buenavista, notas cómo el Palacio de Linares introduce una nueva intención en el paisaje urbano. Observa esa transición hacia lo ornamental; es como si la ciudad decidiera mostrar sus capas más decorativas para transformar su propia identidad. Este cambio de ritmo te prepara para entender cómo Madrid ha sabido reinventarse, dejando atrás estructuras austeras para dar paso a espacios que buscan cautivar la mirada antes de alcanzar la Puerta de Alcalá.",
+        "significance": "Al contemplar este palacio, notas que la ciudad ya no solo busca protegerse o administrar, sino también exhibirse. Fíjate cómo el Palacio de Linares eleva la apuesta de nuestro recorrido al integrar una ornamentación que desafía la sobriedad anterior. Esta transformación sugiere que Madrid aprendió a usar su arquitectura como un lenguaje de prestigio, preparando tu mirada para el encuentro con la monumental Puerta de Alcalá."
+      },
+      "latitude": 40.4199,
+      "longitude": -3.6921,
+      "position": 9,
+      "importanceScore": 43.262388523751014,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -2628455,
+          "wikidata": "Q2628455",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 23.262388523751017,
+          "osmTags": {
+            "name": "Palace of Linares",
+            "wikidata": "Q2628455",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "16",
+            "canonical:instance_of": "palace|public body in Spain|monument",
+            "tourism": "attraction",
+            "historic": "monument"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "5b88ddea-6088-4711-a3c7-b9e0a28288be",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 118,
+          "totalDurationMs": 5610,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "Puerta de Alcalá",
+      "description": "Dicen los vecinos que por este arco aún se siente el paso de los antiguos viajeros que llegaban desde Aragón o Francia. Fíjate cómo esta estructura se alza ahora en el centro de la rotonda, marcando el cruce donde convergen las calles Alcalá, Serrano y Alfonso XII. Observa su presencia junto a los jardines del Retiro, justo antes de que descubramos quién diseñó este monumento.\n\nEl rey Carlos III buscaba renovar la antigua entrada del siglo XVI y para ello organizó una competencia de proyectos. Observa cómo el diseño del italiano Francesco Sabatini se impuso sobre las propuestas de Ventura Rodríguez y José de Hermosilla tras la elección personal del monarca. Esta estructura, erigida en 1778, dejó de ser una frontera exterior para integrarse al corazón urbano durante el ensanche del siglo XIX. Ahora, este monumento histórico-artístico nos prepara para entender la siguiente etapa hacia la Plaza de Colón.\n\nFíjate en su posición actual, rodeada por las calles Alcalá, Serrano y Alfonso XII; ya no funciona como un límite para los viajeros que venían de Aragón o Francia. Al quedar integrada en la rotonda de la Plaza de la Independencia, esta estructura dejó de ser una frontera exterior para convertirse en un punto de encuentro urbano. Su ubicación junto a las puertas del Retiro marca el cierre de este recorrido por las capas históricas, antes de avanzar hacia la Plaza de Colón.\n\nAl contemplar este punto de encuentro urbano donde las capas históricas convergen, comprendes cómo la ciudad se transforma. Deja que esa idea de integración te acompañe mientras nos dirigimos hacia la Plaza de Colón, buscando descubrir qué otros elementos definen nuestro próximo destino.",
+      "descriptionSections": {
+        "arrival": "Dicen los vecinos que por este arco aún se siente el paso de los antiguos viajeros que llegaban desde Aragón o Francia. Fíjate cómo esta estructura se alza ahora en el centro de la rotonda, marcando el cruce donde convergen las calles Alcalá, Serrano y Alfonso XII. Observa su presencia junto a los jardines del Retiro, justo antes de que descubramos quién diseñó este monumento.",
+        "history": "El rey Carlos III buscaba renovar la antigua entrada del siglo XVI y para ello organizó una competencia de proyectos. Observa cómo el diseño del italiano Francesco Sabatini se impuso sobre las propuestas de Ventura Rodríguez y José de Hermosilla tras la elección personal del monarca. Esta estructura, erigida en 1778, dejó de ser una frontera exterior para integrarse al corazón urbano durante el ensanche del siglo XIX. Ahora, este monumento histórico-artístico nos prepara para entender la siguiente etapa hacia la Plaza de Colón.",
+        "significance": "Fíjate en su posición actual, rodeada por las calles Alcalá, Serrano y Alfonso XII; ya no funciona como un límite para los viajeros que venían de Aragón o Francia. Al quedar integrada en la rotonda de la Plaza de la Independencia, esta estructura dejó de ser una frontera exterior para convertirse en un punto de encuentro urbano. Su ubicación junto a las puertas del Retiro marca el cierre de este recorrido por las capas históricas, antes de avanzar hacia la Plaza de Colón.",
+        "transition": "Al contemplar este punto de encuentro urbano donde las capas históricas convergen, comprendes cómo la ciudad se transforma. Deja que esa idea de integración te acompañe mientras nos dirigimos hacia la Plaza de Colón, buscando descubrir qué otros elementos definen nuestro próximo destino."
+      },
+      "latitude": 40.4199868,
+      "longitude": -3.6887244,
+      "position": 10,
+      "importanceScore": 48.85131915442328,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 174805987,
+          "wikidata": "Q1140634",
+          "wikipedia": "es:Puerta de Alcalá",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 26.851319154423276,
+          "osmTags": {
+            "name": "Puerta de Alcalá",
+            "wikidata": "Q1140634",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "25",
+            "canonical:instance_of": "city gate|triumphal arch",
+            "tourism": "attraction",
+            "historic": "city_gate",
+            "addr:city": "Madrid",
+            "addr:postcode": "28001",
+            "addr:street": "Plaza de la Independencia",
+            "building": "triumphal_arch",
+            "height": "21.946",
+            "name:en": "Puerta de Alcala",
+            "name:es": "Puerta de Alcalá",
+            "name:ko": "푸에르타 데 알칼라(마드리드 개선문)",
+            "nohousenumber": "yes",
+            "source:name": "common knowledge",
+            "wheelchair": "limited",
+            "wikimedia_commons": "Category:Puerta de Alcalá, Madrid",
+            "wikipedia": "es:Puerta de Alcalá"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "884d67e1-d055-4c98-bc5f-3c81057fbaa2",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 3223,
+          "totalDurationMs": 10807,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1778",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": ". Esta estructura, erigida en 1778, dejó de ser una frontera ext"
+              },
+              {
+                "type": "date",
+                "value": "siglo XVI",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "enovar la antigua entrada del siglo XVI y para ello organizó una comp"
+              },
+              {
+                "type": "date",
+                "value": "siglo XIX",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rbano durante el ensanche del siglo XIX. Ahora, este monumento histór"
+              },
+              {
+                "type": "location",
+                "value": "Plaza de la Independencia",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "integrada en la rotonda de la Plaza de la Independencia, esta estructura dejó de ser "
               }
             ]
           }
@@ -1154,96 +1038,177 @@
     {
       "id": "fixture-12",
       "tourId": "fixture-candidate",
-      "name": "Templo de Debod",
-      "description": "Elevado sobre el terreno donde antaño se alzaba el cuartel de la Montaña, este edificio marca el final de nuestro recorrido. Fíjate cómo su presencia rompe con el entorno urbano de Madrid, situándose junto al paseo del Pintor Rosales en un alto estratégico. Al observar su estructura desde fuera, notas una escala que no pertenece al paisaje madrileño habitual. Esta construcción se mantiene alineada de este a oeste, respetando la orientación original que tenía en su lugar de origen.\n\nEn 1968, este monumento llegó como un gesto de gratitud hacia España tras la intervención de la Unesco para salvar los templos de Nubia ante la construcción de la presa de Asuán. Observa cómo su estructura conserva la orientación de este a oeste que tenía junto al Nilo.\n\nEste rincón nos ofrece la respuesta final sobre cómo Madrid integra lo ajeno para reinventarse. Al situarse aquí, el templo rompe la cronología local para unirnos a otras culturas. Si miras su alineación de este a oeste, comprendes que la ciudad sabe preservar la esencia original de lo que recibe, manteniendo viva una memoria que trasciende sus propios límites.\n\nGracias por caminar conmigo y recorrer estas capas de historia en Madrid. Al observar este templo, comprendes cómo la ciudad integra lo ajeno para reinventarse sin perder su esencia. Has visto desde el arte clásico hasta este gesto de gratitud internacional que une culturas lejanas. Que disfrutes de tu estancia y sigas descubriendo los tesoros que este paisaje ofrece.",
+      "name": "plaza de Colón",
+      "description": "La plaza de Colón se despliega ante ti como un nodo donde la ciudad parece expandirse y reorganizarse. Fíjate cómo las calles Goya y Génova convergen aquí, entrelazándose con los paseos de la Castellana y Recoletos para formar este gran cruce urbano. Este punto marca un cambio en la escala del recorrido, preparando tu mirada para lo que sigue.\n\nObserva el monumento neogótico erigido entre 1881 y 1885. Si miras hacia arriba, verás la estatua de tres metros en mármol blanco de Italia que corona este pilar octogonal. Este espacio guarda las huellas de grandes ambiciones truncadas, como el Proyecto de Palacio de las Artes que Antonio Palacios trazó en 1926 sin llegar a construirse jamás. La plaza es un palimpsesto donde lo antiguo y lo moderno conviven, anticipando la vibrante vida cultural que aguarda cerca del Teatro de la Zarzuela.\n\nLa convergencia de las calles Goya, Génova, Castellana y Recoletos transforma este nodo en un punto de expansión urbana. La presencia del monumento neogótico entre 1881 y 1885 junto al mármol blanco italiano marca una escala distinta en nuestra ruta. Este cruce de vías define un espacio donde las ambiciones arquitectónicas, como el proyecto de 1926, preparan tu llegada al Teatro de la Zarzuela.\n\nEsta expansión urbana nos deja ante un escenario de grandes ambiciones por construir. Al dejar atrás este cruce donde las ideas arquitectónicas quedaron suspendidas, tu mirada se desplaza hacia la esencia cultural que late en el Teatro de la Zarzuela, buscando esa melodía que completa nuestro recorrido.",
       "descriptionSections": {
-        "arrival": "Elevado sobre el terreno donde antaño se alzaba el cuartel de la Montaña, este edificio marca el final de nuestro recorrido. Fíjate cómo su presencia rompe con el entorno urbano de Madrid, situándose junto al paseo del Pintor Rosales en un alto estratégico. Al observar su estructura desde fuera, notas una escala que no pertenece al paisaje madrileño habitual. Esta construcción se mantiene alineada de este a oeste, respetando la orientación original que tenía en su lugar de origen.",
-        "history": "En 1968, este monumento llegó como un gesto de gratitud hacia España tras la intervención de la Unesco para salvar los templos de Nubia ante la construcción de la presa de Asuán. Observa cómo su estructura conserva la orientación de este a oeste que tenía junto al Nilo.",
-        "significance": "Este rincón nos ofrece la respuesta final sobre cómo Madrid integra lo ajeno para reinventarse. Al situarse aquí, el templo rompe la cronología local para unirnos a otras culturas. Si miras su alineación de este a oeste, comprendes que la ciudad sabe preservar la esencia original de lo que recibe, manteniendo viva una memoria que trasciende sus propios límites.",
-        "transition": "Gracias por caminar conmigo y recorrer estas capas de historia en Madrid. Al observar este templo, comprendes cómo la ciudad integra lo ajeno para reinventarse sin perder su esencia. Has visto desde el arte clásico hasta este gesto de gratitud internacional que une culturas lejanas. Que disfrutes de tu estancia y sigas descubriendo los tesoros que este paisaje ofrece."
+        "arrival": "La plaza de Colón se despliega ante ti como un nodo donde la ciudad parece expandirse y reorganizarse. Fíjate cómo las calles Goya y Génova convergen aquí, entrelazándose con los paseos de la Castellana y Recoletos para formar este gran cruce urbano. Este punto marca un cambio en la escala del recorrido, preparando tu mirada para lo que sigue.",
+        "history": "Observa el monumento neogótico erigido entre 1881 y 1885. Si miras hacia arriba, verás la estatua de tres metros en mármol blanco de Italia que corona este pilar octogonal. Este espacio guarda las huellas de grandes ambiciones truncadas, como el Proyecto de Palacio de las Artes que Antonio Palacios trazó en 1926 sin llegar a construirse jamás. La plaza es un palimpsesto donde lo antiguo y lo moderno conviven, anticipando la vibrante vida cultural que aguarda cerca del Teatro de la Zarzuela.",
+        "significance": "La convergencia de las calles Goya, Génova, Castellana y Recoletos transforma este nodo en un punto de expansión urbana. La presencia del monumento neogótico entre 1881 y 1885 junto al mármol blanco italiano marca una escala distinta en nuestra ruta. Este cruce de vías define un espacio donde las ambiciones arquitectónicas, como el proyecto de 1926, preparan tu llegada al Teatro de la Zarzuela.",
+        "transition": "Esta expansión urbana nos deja ante un escenario de grandes ambiciones por construir. Al dejar atrás este cruce donde las ideas arquitectónicas quedaron suspendidas, tu mirada se desplaza hacia la esencia cultural que late en el Teatro de la Zarzuela, buscando esa melodía que completa nuestro recorrido."
       },
-      "latitude": 40.4240312,
-      "longitude": -3.7177876,
+      "latitude": 40.4252776,
+      "longitude": -3.6904471,
       "position": 11,
-      "importanceScore": 38.86258893116062,
+      "importanceScore": 53.21578428466209,
       "metadata": {
         "sourcePoi": {
-          "osmType": "relation",
-          "osmId": 6432785,
-          "wikidata": "Q1140249",
-          "wikipedia": "es:Templo de Debod",
-          "category": "museum",
+          "osmType": "way",
+          "osmId": 699379821,
+          "wikidata": "Q970525",
+          "wikipedia": "es:Plaza de Colón (Madrid)",
+          "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 20.862588931160623,
+          "fameScore": 28.21578428466209,
           "osmTags": {
-            "addr:city": "Madrid",
-            "addr:housenumber": "1",
-            "addr:postcode": "28008",
-            "addr:street": "Calle de Ferraz",
-            "addr:suburb": "Casa de Campo",
-            "alt_name": "Templo Deboid",
-            "building": "yes",
-            "description": "Templo egipcio dedicado a Amón de Debod y a Isis, construido entre 185 a. de C. y el siglo I de la Era. Fue donado por Egipto a España en 1968, en agradecimiento por la ayuda en el salvamento de los templos de Abu Simbel.",
-            "email": "templodebod@madrid.es",
-            "historic": "yes",
-            "name": "Templo de Debod",
-            "name:cs": "Chrám Debod",
-            "name:en": "The Temple of Debod",
-            "name:es": "Templo de Debod",
-            "name:etymology:wikidata": "Q1140249",
-            "name:fr": "Temple de Debod",
-            "name:pl": "Świątynia Debod",
-            "opening_hours": "Oct-Mar: Tu-Fr 09:45-13:45,16:15-18:15; Oct-Mar: Sa,Su,PH 09:30-20:00; Apr-Sep: Tu-Fr 10:00-14:00,18:00-20:00; Apr-Sep: Sa,Su,PH 09:30-20:00; Mo off; Jan 01,06,May 01,Dec 25: off",
-            "phone": "+34 913667415",
-            "source:addr": "Ayuntamiento de Madrid",
-            "source:description": "Ayuntamiento de Madrid",
-            "source:email": "Ayuntamiento de Madrid",
-            "source:fax": "Ayuntamiento de Madrid",
-            "source:opening_hours": "Ayuntamiento de Madrid",
-            "source:phone": "Ayuntamiento de Madrid",
-            "source:url": "Ayuntamiento de Madrid",
-            "tourism": "museum",
-            "type": "multipolygon",
-            "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=13b432df1d51c010VgnVCM2000000c205a0aRCRD",
-            "wheelchair": "limited",
-            "wikidata": "Q1140249",
-            "wikipedia": "es:Templo de Debod"
+            "name": "Plaza de Colón",
+            "wikidata": "Q970525",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "19",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
+            "wikimedia_commons": "Category:Plaza de Colón, Madrid",
+            "wikipedia": "es:Plaza de Colón (Madrid)"
           }
         },
         "narrationMeta": {
-          "traceId": "ff1f1df8-a1b1-4f7d-b6fd-d316e938314d",
+          "traceId": "0fb7759c-5b5d-4d6d-9edc-2fc728014aa2",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2530,
-          "totalDurationMs": 8633,
+          "totalSeedChars": 2219,
+          "totalDurationMs": 13328,
           "claimCheck": {
-            "totalExtracted": 1,
+            "totalExtracted": 7,
             "verifiedRate": 1,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 1,
+            "verifiedCount": 7,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 1,
+            "infoCount": 7,
             "claims": [
               {
                 "type": "date",
-                "value": "1968",
+                "value": "1881",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "ía en su lugar de origen.  En 1968, este monumento llegó como un"
+                "context": "mento neogótico erigido entre 1881 y 1885. Si miras hacia arriba"
+              },
+              {
+                "type": "date",
+                "value": "1885",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "eogótico erigido entre 1881 y 1885. Si miras hacia arriba, verás"
+              },
+              {
+                "type": "date",
+                "value": "1926",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "que Antonio Palacios trazó en 1926 sin llegar a construirse jamá"
+              },
+              {
+                "type": "style",
+                "value": "gótico",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "gue.  Observa el monumento neogótico erigido entre 1881 y 1885. Si"
+              },
+              {
+                "type": "material",
+                "value": "mármol",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " la estatua de tres metros en mármol blanco de Italia que corona e"
+              },
+              {
+                "type": "material",
+                "value": "marmol",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " la estatua de tres metros en mármol blanco de Italia que corona e"
+              },
+              {
+                "type": "location",
+                "value": "Palacio de las Artes",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "runcadas, como el Proyecto de Palacio de las Artes que Antonio Palacios trazó en"
               }
             ]
           }
         }
       }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "Teatro de la Zarzuela",
+      "description": "Fíjate cómo este edificio se asienta con firmeza frente a ti, cerrando nuestro recorrido por la ciudad. Al observar su fachada, notas que no es solo una estructura de piedra y ornamentos, sino un punto donde el pulso urbano se detiene para dar paso al arte. Si miras su presencia en esta calle, comprendes cómo Madrid logra integrar sus espacios de cultura con el movimiento cotidiano del barrio.\n\nObserva cómo este espacio responde a la necesidad de transformar el entretenimiento en un encuentro social compartido. Al caminar por estas calles, notas que la ciudad ha sabido redefinir sus funciones sin borrar su esencia. Este teatro representa esa capacidad de reinventarse, manteniendo viva una tradición que conecta las antiguas formas de ocio con la vida pública actual, permitiendo que lo cultural permanezca integrado en el corazón del movimiento madrileño.\n\nFíjate cómo este teatro actúa como el broche final para entender nuestra pregunta inicial. Si observas su posición en la trama urbana, notas que no es un monumento aislado, sino un espacio que invita al encuentro. Al integrar la cultura en el flujo de la calle, Madrid demuestra que puede renovar sus usos sociales sin perder su identidad, permitiendo que la tradición del espectáculo siga siendo parte viva del pulso cotidiano.\n\nGracias por recorrer estas calles conmigo y observar los detalles que conforman nuestra identidad. Al contemplar este teatro, completas la visión de una ciudad que transforma sus espacios sin olvidar su esencia. Te llevas contigo el rastro de cada plaza y monumento visitado. Espero que disfrutes de tu estancia en Madrid. ¡Buen viaje!",
+      "descriptionSections": {
+        "arrival": "Fíjate cómo este edificio se asienta con firmeza frente a ti, cerrando nuestro recorrido por la ciudad. Al observar su fachada, notas que no es solo una estructura de piedra y ornamentos, sino un punto donde el pulso urbano se detiene para dar paso al arte. Si miras su presencia en esta calle, comprendes cómo Madrid logra integrar sus espacios de cultura con el movimiento cotidiano del barrio.",
+        "history": "Observa cómo este espacio responde a la necesidad de transformar el entretenimiento en un encuentro social compartido. Al caminar por estas calles, notas que la ciudad ha sabido redefinir sus funciones sin borrar su esencia. Este teatro representa esa capacidad de reinventarse, manteniendo viva una tradición que conecta las antiguas formas de ocio con la vida pública actual, permitiendo que lo cultural permanezca integrado en el corazón del movimiento madrileño.",
+        "significance": "Fíjate cómo este teatro actúa como el broche final para entender nuestra pregunta inicial. Si observas su posición en la trama urbana, notas que no es un monumento aislado, sino un espacio que invita al encuentro. Al integrar la cultura en el flujo de la calle, Madrid demuestra que puede renovar sus usos sociales sin perder su identidad, permitiendo que la tradición del espectáculo siga siendo parte viva del pulso cotidiano.",
+        "transition": "Gracias por recorrer estas calles conmigo y observar los detalles que conforman nuestra identidad. Al contemplar este teatro, completas la visión de una ciudad que transforma sus espacios sin olvidar su esencia. Te llevas contigo el rastro de cada plaza y monumento visitado. Espero que disfrutes de tu estancia en Madrid. ¡Buen viaje!"
+      },
+      "latitude": 40.417186111,
+      "longitude": -3.696780555,
+      "position": 12,
+      "importanceScore": 43.262388523751014,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -3321632,
+          "wikidata": "Q3321632",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 23.262388523751017,
+          "osmTags": {
+            "name": "Teatro de la Zarzuela",
+            "wikidata": "Q3321632",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "16",
+            "canonical:instance_of": "theatre building|monument",
+            "tourism": "attraction",
+            "historic": "monument"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "a1417103-7edc-4f3a-adba-3d826ca8832c",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 116,
+          "totalDurationMs": 7184,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
     }
   ],
-  "createdAt": "2026-06-23T22:58:14.980Z",
-  "updatedAt": "2026-06-23T22:58:14.980Z"
+  "createdAt": "2026-06-24T10:57:38.940Z",
+  "updatedAt": "2026-06-24T10:57:38.940Z"
 }

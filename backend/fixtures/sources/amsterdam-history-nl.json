@@ -1,0 +1,1562 @@
+{
+  "schemaVersion": 1,
+  "city": "Amsterdam",
+  "theme": "history",
+  "language": "nl",
+  "capturedAt": "2026-06-24T10:28:46.007Z",
+  "wikidata": {
+    "Q839050": {
+      "wikidataId": "Q839050",
+      "nameTranslations": {
+        "pt": "Praça Dam",
+        "zh-hans": "水坝广场",
+        "zh-hant": "水壩廣場",
+        "zh-hk": "水壩廣場",
+        "eo": "Placo de Dam",
+        "fr": "place du Dam",
+        "he": "דה דאם",
+        "ru": "Площадь Дам",
+        "en": "Dam Square",
+        "es": "Plaza Dam",
+        "tr": "Dam Meydanı",
+        "ca": "Plaça Dam",
+        "hu": "Dam tér",
+        "uk": "Площа Дам",
+        "it": "Dam",
+        "cy": "Sgwâr Dam",
+        "de": "Damplatz",
+        "ja": "ダム広場",
+        "nl": "Dam",
+        "sv": "Dam",
+        "zh": "水坝广场",
+        "ar": "ساحة دام",
+        "eu": "Dam plaza",
+        "ko": "담 광장",
+        "mk": "Дам",
+        "hy": "Դամ հրապարակ",
+        "da": "Dam",
+        "af": "Dam",
+        "fo": "Dam",
+        "nn": "Dam",
+        "nb": "Dam",
+        "ro": "Piața Dam",
+        "sr": "Trg Dam",
+        "gl": "Praza Dam",
+        "lfn": "Dam",
+        "arz": "ميدان دام",
+        "ms": "Medan Dam",
+        "cs": "Dam",
+        "sl": "Dam",
+        "id": "Lapangan Dam",
+        "is": "Dam-torgið",
+        "ha": "Dam Square"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q839050",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1270-00-00",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q855003": {
+      "wikidataId": "Q855003",
+      "nameTranslations": {
+        "zh-hans": "阿姆斯特丹的防线",
+        "zh-hant": "阿姆斯特丹防線",
+        "zh-hk": "阿姆斯特丹的防線",
+        "eo": "Stelling van Amsterdam",
+        "xmf": "ამსტერდამიშ მათხილე ღოზი",
+        "ko": "암스테르담 방어선",
+        "fr": "ligne de défense d'Amsterdam",
+        "he": "קווי ההגנה של אמסטרדם",
+        "en": "Defence Line of Amsterdam",
+        "es": "Línea de defensa de Ámsterdam",
+        "fy": "Stelling fan Amsterdam",
+        "nds-nl": "Stelling van Amsterdam",
+        "ca": "línia de defensa d'Amsterdam",
+        "fi": "Amsterdamin puolustusrintama",
+        "it": "linea di difesa di Amsterdam",
+        "de": "Stellung von Amsterdam",
+        "ja": "アムステルダムの防塞線",
+        "vi": "Stelling van Amsterdam",
+        "ka": "ამსტერდამის დამცავი ხაზი",
+        "hr": "Obrambena linija Amsterdama",
+        "nl": "Stelling van Amsterdam",
+        "sv": "Amsterdams försvarslinje",
+        "nb": "Amsterdams forsvarslinje",
+        "cs": "Obranná linie Amsterdamu",
+        "ar": "خط دفاع أمستردام",
+        "zh": "阿姆斯特丹防线",
+        "pt": "Linha de Defesa de Amesterdão",
+        "ru": "Линия оборонительных сооружений Амстердама",
+        "th": "แนวป้องกันของอัมสเตอร์ดัม",
+        "sr": "Одбрамбена линија Амстердама",
+        "sq": "Linja Mbrojtëse e Amsterdamit",
+        "hi": "एम्स्टर्डम की रक्षा रेखा",
+        "tr": "Stelling van Amsterdam",
+        "hy": "Ամստերդամի պաշտպանության գիծ",
+        "mk": "Одбранбена линија на Амстердам",
+        "az": "Amsterdamın müdafiə xətti",
+        "arz": "خط دفاع امستردام",
+        "da": "Stelling van Amsterdam",
+        "fa": "خط دفاعی آمستردام",
+        "vec": "Lìnea de defeza de Ámsterdam",
+        "uk": "Захисні укріплення Амстердама",
+        "lv": "Amsterdamas aizsardzības līnija",
+        "pl": "Holenderskie linie obrony wodnej",
+        "af": "Stelling van Amsterdam"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q855003",
+      "wikidataClaims": {
+        "instanceOf": "waterlinie",
+        "heritageDesignation": "deel van een werelderfgoedsite",
+        "locatedIn": "Noord-Holland"
+      }
+    },
+    "Q639321": {
+      "wikidataId": "Q639321",
+      "nameTranslations": {
+        "fr": "place du Musée",
+        "ar": "ميدان المتاحف",
+        "br": "Museumplein",
+        "ca": "Museumplein",
+        "da": "Museumplein",
+        "de": "Museumplein",
+        "en": "Museumplein",
+        "ga": "Plás an Mhúsaeim",
+        "gl": "Museumplein",
+        "he": "מוזאומפליין",
+        "nl": "Museumplein",
+        "sv": "Museumplein",
+        "zh": "博物馆广场",
+        "es": "Plaza de los Museos",
+        "ko": "뮈세윔플레인",
+        "eu": "Museumplein",
+        "tr": "Museumplein",
+        "pt": "Praça dos Museus",
+        "id": "Museumplein",
+        "it": "Museumplein",
+        "arz": "ميدان المتاحف",
+        "cs": "Museumplein",
+        "uk": "Музейна площа (Амстердам)",
+        "eo": "Placo de la Muzeoj",
+        "sl": "Museumplein"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q639321",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1903-00-00",
+        "architect": "Pierre Cuypers",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Museumstraat"
+      }
+    },
+    "Q1056152": {
+      "wikidataId": "Q1056152",
+      "nameTranslations": {
+        "pt": "Palácio Real de Amesterdão",
+        "zh-hans": "阿姆斯特丹王宫",
+        "zh-hant": "阿姆斯特丹王宮",
+        "zh-hk": "阿姆斯特丹王宮",
+        "pl": "Pałac królewski w Amsterdamie",
+        "ru": "Королевский дворец",
+        "be": "Каралеўскі палац",
+        "fr": "palais royal d'Amsterdam",
+        "ko": "네덜란드 왕궁",
+        "es": "Palacio Real de Ámsterdam",
+        "en": "Royal Palace of Amsterdam",
+        "tr": "Amsterdam Kraliyet Sarayı",
+        "ro": "Palatul Regal din Amsterdam",
+        "ca": "Paleis op de Dam",
+        "uk": "Королівський палац",
+        "it": "Palazzo Reale",
+        "de": "Paleis op de Dam",
+        "vi": "Cung điện Hoàng gia Amsterdam",
+        "nl": "Paleis op de Dam",
+        "zh": "阿姆斯特丹王宫",
+        "ar": "القصر الملكي في أمستردام",
+        "id": "Istana Raja Amsterdam",
+        "he": "הארמון המלכותי של אמסטרדם",
+        "eu": "Amsterdamgo errege-erreginen jauregia",
+        "hy": "Ամստերդամի թագավորական պալատ",
+        "ja": "アムステルダム王宮",
+        "cs": "Královský palác v Amsterdamu",
+        "sr": "Краљевска палата у Амстердаму",
+        "mk": "Кралски дворец",
+        "hu": "Paleis op de Dam",
+        "eo": "Reĝa Palaco de Amsterdamo",
+        "fa": "کاخ سلطنتی آمستردام",
+        "ast": "Palaciu Real d'Ámsterdam",
+        "fi": "Amsterdamin kuninkaallinen palatsi",
+        "cy": "Palas Brenhinol Amsterdam",
+        "en-gb": "Royal Palace of Amsterdam",
+        "hr": "Kraljevska palača u Amsterdamu",
+        "gl": "Palacio Real de Ámsterdam",
+        "sv": "Kungliga slottet i Amsterdam",
+        "da": "Kongeslottet i Amsterdam",
+        "el": "Βασιλικό Παλάτι του Άμστερνταμ",
+        "ms": "Istana Diraja Amsterdam",
+        "sl": "Kraljeva palača v Amsterdamu",
+        "nb": "Kongeslottet i Amsterdam",
+        "az": "Amsterdam Kral Sarayı",
+        "ga": "Pálás Ríoga Amstardam"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1056152",
+      "wikidataClaims": {
+        "instanceOf": "koninklijk paleis",
+        "inception": "1665-00-00",
+        "architect": "Jacob van Campen",
+        "architecturalStyle": "Hollands classicisme",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1429748": {
+      "wikidataId": "Q1429748",
+      "nameTranslations": {
+        "zh-hans": "铸币塔",
+        "zh-hant": "鑄幣塔",
+        "zh-hk": "鑄幣塔",
+        "pl": "Munttoren",
+        "fr": "Munttoren",
+        "ru": "Монетная башня",
+        "he": "מונטורן",
+        "en": "Munttoren",
+        "uk": "Мунтторен",
+        "it": "Munttoren",
+        "de": "Munttoren",
+        "ja": "ムント塔",
+        "br": "Munttoren",
+        "cs": "Munttoren",
+        "pnb": "منتورن",
+        "nl": "Munttoren",
+        "zh": "鑄幣塔",
+        "es": "Munttoren",
+        "eo": "Munttoren",
+        "arz": "مونتورين",
+        "da": "Munttoren"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1429748",
+      "wikidataClaims": {
+        "instanceOf": "stadspoort",
+        "architect": "Hendrick de Keyser",
+        "architecturalStyle": "renaissance",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q165366": {
+      "wikidataId": "Q165366",
+      "nameTranslations": {
+        "pt": "Casa de Anne Frank",
+        "zh-hans": "安妮·弗兰克之家",
+        "zh-hant": "安妮·弗蘭克之家",
+        "zh-hk": "安妮·弗蘭克之家",
+        "zh-cn": "安妮·弗兰克之家",
+        "zh-sg": "安妮·弗兰克之家",
+        "zh-tw": "安妮·弗蘭克之家",
+        "is": "Hús Önnu Frank",
+        "eu": "Anne Franken etxea",
+        "pl": "Dom Anny Frank",
+        "fr": "maison Anne Frank",
+        "ko": "안네 프랑크의 집",
+        "he": "בית אנה פרנק",
+        "ru": "Дом Анны Франк",
+        "es": "Casa de Ana Frank",
+        "en": "Anne Frank House",
+        "ca": "Casa d'Anne Frank",
+        "fi": "Anne Frankin talo",
+        "uk": "Будинок Анни Франк",
+        "it": "casa di Anna Frank",
+        "cy": "Tŷ Anne Frank",
+        "de": "Anne-Frank-Haus",
+        "ja": "アンネ・フランクの家",
+        "cs": "Dům Anne Frankové",
+        "da": "Anne Franks hus",
+        "sv": "Anne Frank-huset",
+        "nl": "Anne Frank Huis",
+        "zh": "安妮·弗兰克之家",
+        "nb": "Anne Frank-huset",
+        "de-ch": "Anne-Frank-Haus",
+        "el": "Μουσείο Άννας Φρανκ",
+        "en-ca": "Anne Frank House",
+        "en-gb": "Anne Frank House",
+        "pt-br": "Casa de Anne Frank",
+        "hy": "Աննա Ֆրանկի տունը",
+        "be": "Дом Ганны Франк",
+        "id": "Anne Frank House",
+        "et": "Anne Franki maja",
+        "eo": "Hejmo de Anne Frank",
+        "fa": "خانه آنه فرانک",
+        "ar": "منزل آن فرانك",
+        "ro": "Casa Anne Frank",
+        "sr": "Музеј Ане Франк",
+        "gl": "Casa de Anne Frank",
+        "my": "အာနာ ဖရန့်၏ အိမ်",
+        "tr": "Anne Frank Evi",
+        "en-us": "Anne Frank House",
+        "uz": "Anne Frank uyi",
+        "tt": "Анна Франк йорты",
+        "bg": "музей на Ане Франк",
+        "sl": "hiša Anne Frank",
+        "tly": "Anna Frank kə"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q165366",
+      "wikidataClaims": {
+        "instanceOf": "museumhuis",
+        "inception": "1960-05-03",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Anne Frank"
+      }
+    },
+    "Q473851": {
+      "wikidataId": "Q473851",
+      "nameTranslations": {
+        "de": "Nationalmonument",
+        "ru": "Национальный монумент",
+        "en": "National Monument on Dam Square",
+        "uk": "Національний монумент",
+        "nl": "Nationaal Monument op de Dam",
+        "ar": "النصب التذكاري الوطني",
+        "hy": "Ազգային հուշարձան",
+        "fr": "monument national sur la place du Dam",
+        "he": "האנדרטה הלאומית (אמסטרדם)",
+        "zh": "國家紀念碑",
+        "it": "Monumento nazionale",
+        "hyw": "Ազգային Յուշարձան",
+        "uz": "Milliy yodgorlik",
+        "id": "Monumen Nasional Amsterdam"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q473851",
+      "wikidataClaims": {
+        "instanceOf": "gedenkmonument",
+        "inception": "1956-05-04",
+        "architect": "Jacobus Johannes Pieter Oud",
+        "architecturalStyle": "wederopbouwarchitectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1568693": {
+      "wikidataId": "Q1568693",
+      "nameTranslations": {
+        "de": "Nieuwmarkt",
+        "br": "Nieuwmarkt",
+        "en": "Nieuwmarkt",
+        "nl": "Nieuwmarkt",
+        "it": "Nieuwmarkt",
+        "ja": "ニーウマルクト広場",
+        "fr": "Nieuwmarkt",
+        "pt": "Nieuwmarkt",
+        "es": "Nieuwmarkt",
+        "sv": "Nieuwmarkt",
+        "he": "ניומארקט",
+        "zh": "新广场 (阿姆斯特丹)",
+        "arz": "نيوماركت",
+        "cs": "Nieuwmarkt",
+        "mul": "Nieuwmarkt",
+        "sk": "Nieuwmarkt",
+        "ko": "니우마르크트"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1568693",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1585-00-00",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q228629": {
+      "wikidataId": "Q228629",
+      "nameTranslations": {
+        "fr": "Zuiderkerk d'Amsterdam",
+        "en": "Zuiderkerk",
+        "nl": "Zuiderkerk",
+        "uk": "Південна церква (Амстердам)",
+        "zh": "南教堂 (阿姆斯特丹)",
+        "de": "Zuiderkerk",
+        "pl": "Zuiderkerk",
+        "it": "Zuiderkerk",
+        "ru": "Зюйдеркерк",
+        "eu": "Zuiderkerk",
+        "gl": "Zuiderkerk",
+        "arz": "كنيسه زويدركيرك",
+        "ca": "Zuiderkerk",
+        "he": "זאודרקרק",
+        "fy": "Sudertsjerke (Amsterdam)",
+        "sl": "Zuiderkerk"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q228629",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "inception": "1603-00-00",
+        "architect": "Hendrick de Keyser",
+        "architecturalStyle": "barokarchitectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q51411": {
+      "wikidataId": "Q51411",
+      "nameTranslations": {
+        "en": "Homomonument",
+        "de": "Homomonument in Amsterdam",
+        "fr": "Homomonument",
+        "ru": "Гомомонумент",
+        "ca": "Homomonument",
+        "cs": "Homomonument",
+        "de-ch": "Homomonument",
+        "en-ca": "Homomonument",
+        "en-gb": "Homomonument",
+        "es": "Homomonument",
+        "he": "הומומונומנט",
+        "it": "Homomonument",
+        "ja": "ホモモニュメント",
+        "la": "Homomonument",
+        "nl": "Homomonument",
+        "pl": "Homomonument",
+        "tr": "Homomonument",
+        "uk": "Гомомонумент",
+        "zh": "同性恋纪念碑",
+        "oc": "Homomonument",
+        "fa": "هومومانیومنت",
+        "hy": "Հոմոմոնումենտ",
+        "gl": "Homomonument",
+        "hu": "Homomonument",
+        "id": "Homomonument",
+        "fi": "Homomonument",
+        "el": "Homomonument"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q51411",
+      "wikidataClaims": {
+        "instanceOf": "LGBT monument or memorial",
+        "inception": "1987-09-05",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q3128167": {
+      "wikidataId": "Q3128167",
+      "nameTranslations": {
+        "nl": "Sint-Olofskapel",
+        "en": "Sint-Olofskapel",
+        "de": "Sint Olofskapel",
+        "de-ch": "Sint Olofskapel",
+        "de-at": "Sint Olofskapel"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3128167",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1579642": {
+      "wikidataId": "Q1579642",
+      "nameTranslations": {
+        "be-tarask": "Плошча Рэмбранта",
+        "de": "Rembrandtplatz",
+        "ja": "レンブラント広場",
+        "fr": "place Rembrandt",
+        "be": "Плошча Рэмбранта",
+        "ru": "площадь Рембрандта",
+        "he": "רמברנדטפליין",
+        "en": "Rembrandtplein",
+        "uk": "Площа Рембрандта",
+        "it": "Rembrandtplein",
+        "nl": "Rembrandtplein",
+        "es": "Rembrandtplein",
+        "ca": "Rembrandtplein",
+        "gl": "Rembrandtplein",
+        "zh-hant": "倫勃朗廣場",
+        "zh-cn": "伦勃朗广场",
+        "zh": "伦勃朗广场",
+        "arz": "رامبرانتبلين",
+        "cs": "Rembrandtplein"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1579642",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1876-00-00",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Rembrandt van Rijn"
+      }
+    },
+    "Q643079": {
+      "wikidataId": "Q643079",
+      "nameTranslations": {
+        "de": "Bloemenmarkt",
+        "en": "Bloemenmarkt",
+        "he": "בלומנמארקט",
+        "ms": "Bloemenmarkt",
+        "nl": "Bloemenmarkt",
+        "ru": "Цветочный рынок",
+        "uk": "Квітковий ринок",
+        "th": "บลูเมนมาร์ค",
+        "fr": "Bloemenmarkt",
+        "es": "Bloemenmarkt",
+        "it": "Bloemenmarkt",
+        "be-tarask": "Кветкавы рынак",
+        "be": "Кветкавы рынак",
+        "zh": "辛格花市",
+        "hy": "Ամստերդամի ծաղկի շուկա",
+        "pt": "Bloemenmarkt",
+        "hyw": "Ամսթերտամի Ծաղիկի Շուկայ",
+        "da": "Bloemenmarkt"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q643079",
+      "wikidataClaims": {
+        "instanceOf": "markt",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1344400": {
+      "wikidataId": "Q1344400",
+      "nameTranslations": {
+        "lb": "Magere Brug",
+        "pl": "Magere Brug",
+        "fr": "Magere Brug",
+        "ru": "Магере-Брюг",
+        "hy": "Մագերե Բրյուգ",
+        "en": "Magere Brug",
+        "cv": "Магере-Брюг",
+        "tr": "Magere Brug",
+        "af": "Magere Brug",
+        "uk": "Магере Брюг",
+        "it": "Magere Brug",
+        "de": "Magere Brug",
+        "ja": "マヘレの跳ね橋",
+        "cs": "Magere Brug",
+        "br": "Magere Brug",
+        "nl": "Magere Brug",
+        "es": "Magere Brug",
+        "zh": "瘦橋",
+        "ko": "마헤러 브뤼흐",
+        "az": "Maqere-Burq",
+        "li": "Magere Brug",
+        "id": "Magere Brug",
+        "sv": "Magere Brug",
+        "he": "הגשר הצר",
+        "da": "Magere Brug",
+        "ca": "Magere Brug"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1344400",
+      "wikidataClaims": {
+        "instanceOf": "basculebrug",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1993531": {
+      "wikidataId": "Q1993531",
+      "nameTranslations": {
+        "nl": "Ruiterstandbeeld koningin Wilhelmina",
+        "en": "Equestrian statue of Queen Wilhelmina",
+        "fr": "statue équestre de la reine Wilhelmine",
+        "es": "Estatua ecuestre de la reina Guillermina",
+        "ru": "Конная статуя королевы Вильгельмины",
+        "pt": "Estátua Equestre da Rainha Wilhelmina",
+        "arz": "تمثال الفروسيه للملكه ويلهيلمينا"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1993531",
+      "wikidataClaims": {
+        "instanceOf": "standbeeld",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q3408888": {
+      "wikidataId": "Q3408888",
+      "nameTranslations": {
+        "zh-hans": "东教堂",
+        "zh-hant": "東教堂",
+        "zh-hk": "東教堂",
+        "br": "Oosterkerk",
+        "en": "Oosterkerk",
+        "mk": "Остеркерк",
+        "nl": "Oosterkerk",
+        "fr": "Oosterkerk",
+        "zh": "东教堂",
+        "ru": "Остеркерк",
+        "ca": "Oosterkerk",
+        "de": "Oosterkerk",
+        "es": "Oosterkerk",
+        "it": "Oosterkerk",
+        "pl": "Oosterkerk",
+        "sv": "Oosterkerk"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3408888",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "inception": "1671-00-00",
+        "architect": "Adriaan Dortsman",
+        "architecturalStyle": "renaissance",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2342892": {
+      "wikidataId": "Q2342892",
+      "nameTranslations": {
+        "de": "Albert Cuyp",
+        "ja": "アルバート・カイプ市場",
+        "vi": "Khu chợ Albert Cuyp",
+        "ru": "Рынок Альберта Кёйпа",
+        "en": "Albert Cuyp Market",
+        "es": "Mercado de Albert Cuyp",
+        "ms": "Pasar Albert Cuyp",
+        "nl": "Albert Cuypmarkt",
+        "fr": "Albert Cuypmarkt",
+        "he": "שוק אלברט קאופ",
+        "it": "Albert Cuypmarkt",
+        "id": "Pasar Albert Cuyp",
+        "ca": "mercat d'Albert Cuyp"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2342892",
+      "wikidataClaims": {
+        "instanceOf": "markt",
+        "inception": "1904-00-00",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Albert Cuyp"
+      }
+    },
+    "Q1946061": {
+      "wikidataId": "Q1946061",
+      "nameTranslations": {
+        "ru": "Монтелбансторен",
+        "fr": "Montelbaanstoren",
+        "en": "Montelbaanstoren",
+        "nl": "Montelbaanstoren",
+        "de": "Montelbaanstoren",
+        "pnb": "مونٹلبانسٹورن",
+        "it": "Montelbaanstoren",
+        "pl": "Montelbaanstoren",
+        "pt": "Torre Montalban",
+        "zh": "淚水塔",
+        "hu": "Montelbaanstoren",
+        "en-ca": "Montelbaanstoren",
+        "en-gb": "Montelbaanstoren",
+        "pt-br": "Torre Montalban",
+        "he": "מונטלבאנסטורן"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1946061",
+      "wikidataClaims": {
+        "instanceOf": "toren",
+        "architect": "Hendrick de Keyser",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1409805": {
+      "wikidataId": "Q1409805",
+      "nameTranslations": {
+        "de": "Leidseplein",
+        "en": "Leidseplein",
+        "fr": "Leidseplein",
+        "he": "ליידספליין",
+        "it": "Leidseplein",
+        "ja": "ライツェ広場",
+        "nl": "Leidseplein",
+        "zh": "莱顿广场",
+        "es": "Leidseplein",
+        "sv": "Leidseplein",
+        "tr": "Leidseplein",
+        "mk": "Леидсеплеин",
+        "arz": "لايدسبلين",
+        "eo": "Leidseplein"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1409805",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1750-00-00",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Leidsepoort"
+      }
+    },
+    "Q1130722": {
+      "wikidataId": "Q1130722",
+      "nameTranslations": {
+        "lb": "Westerkerk",
+        "pt": "Westerkerk",
+        "zh-hans": "西教堂",
+        "zh-hant": "西教堂",
+        "zh-hk": "西教堂",
+        "eo": "Westerkerk",
+        "pl": "Westerkerk",
+        "fr": "Westerkerk",
+        "ru": "Вестеркерк",
+        "sr-el": "Vesterkerk",
+        "sr-ec": "Вестеркерк",
+        "en": "Westerkerk",
+        "fi": "Westerkerk",
+        "uk": "Західна церква",
+        "it": "Westerkerk",
+        "de": "Westerkerk",
+        "br": "Westerkerk",
+        "ka": "ვესტერკერკი",
+        "pnb": "لیندا گرجا",
+        "nl": "Westerkerk",
+        "da": "Westerkerk",
+        "sr": "Вестеркерк",
+        "zh": "西教堂",
+        "ja": "ウェスターケルク",
+        "id": "Westerkerk",
+        "ca": "Westerkerk",
+        "eu": "Westerkerk",
+        "nb": "Westerkerk",
+        "nn": "Westerkerk",
+        "he": "הכנסייה המערבית (אמסטרדם)",
+        "ro": "Westerkerk",
+        "az": "Vesterkerk kilsəsi",
+        "cs": "Westerkerk",
+        "sv": "Westerkerk",
+        "be-tarask": "Вэстэркерк",
+        "arz": "كنيسه ويستيركيرك",
+        "tr": "Westerkerk",
+        "mk": "Вестеркерк",
+        "fy": "Westertsjerke (Amsterdam)",
+        "vi": "Westerkerk"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1130722",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "inception": "1631-00-00",
+        "architect": "Hendrick de Keyser",
+        "architecturalStyle": "barokarchitectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2577520": {
+      "wikidataId": "Q2577520",
+      "nameTranslations": {
+        "nl": "Monument Indië-Nederland",
+        "en": "Monument Indië-Nederland"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2577520",
+      "wikidataClaims": {
+        "instanceOf": "gedenkteken",
+        "inception": "1935-00-00",
+        "architect": "Gijsbert Friedhoff",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2343931": {
+      "wikidataId": "Q2343931",
+      "nameTranslations": {
+        "nl": "Haarlemmerpoort",
+        "it": "Haarlemmerpoort",
+        "nds-nl": "Hoarlemmerpoorte",
+        "fr": "Haarlemmerpoort",
+        "en": "Haarlemmerpoort"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2343931",
+      "wikidataClaims": {
+        "instanceOf": "stadspoort",
+        "inception": "1837-00-00",
+        "architect": "Cornelis Alewijn",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q281703": {
+      "wikidataId": "Q281703",
+      "nameTranslations": {
+        "hu": "Spui",
+        "de": "Spui",
+        "en": "Spui",
+        "fr": "Spui",
+        "he": "ספאו",
+        "nl": "Spui",
+        "ru": "Площадь Спёй",
+        "it": "Spui",
+        "sl": "Spui",
+        "ga": "Spui"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q281703",
+      "wikidataClaims": {
+        "instanceOf": "plein",
+        "inception": "1882-00-00",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "spuien"
+      }
+    },
+    "Q190804": {
+      "wikidataId": "Q190804",
+      "nameTranslations": {
+        "zh-hans": "阿姆斯特丹国家博物馆",
+        "zh-hant": "阿姆斯特丹國家博物館",
+        "zh-hk": "阿姆斯特丹國家博物館",
+        "zh-cn": "阿姆斯特丹国家博物馆",
+        "zh-sg": "阿姆斯特丹国家博物馆",
+        "zh-tw": "阿姆斯特丹國家博物館",
+        "pl": "Rijksmuseum",
+        "he": "רייקסמוזיאום",
+        "ko": "암스테르담 국립미술관",
+        "fr": "Rijksmuseum",
+        "es": "Rijksmuseum",
+        "ms": "Rijksmuseum Amsterdam",
+        "it": "Rijksmuseum",
+        "gl": "Rijksmuseum",
+        "de": "Rijksmuseum",
+        "ja": "アムステルダム国立美術館",
+        "br": "Rijksmuseum Amsterdam",
+        "el": "Ρέικσμουζεουμ",
+        "ga": "Ard-mhúsaem na hÍsiltíre",
+        "pnb": "رائیکس میوزیم ایمسٹرڈیم",
+        "ar": "متحف ريكز",
+        "sv": "Rijksmuseum",
+        "nl": "Rijksmuseum Amsterdam",
+        "pt": "Rijksmuseum",
+        "is": "Rijksmuseum",
+        "eo": "Rijksmuseum",
+        "sk": "Rijksmuseum",
+        "ru": "Рейксмюсеум",
+        "sr-el": "Rijksmuzeum Amsterdam",
+        "sr-ec": "Ријксмузеум Амстердам",
+        "en": "Rijksmuseum",
+        "fy": "Ryksmuseum Amsterdam",
+        "tr": "Rijksmuseum",
+        "th": "ไรกส์มือเซยึม อัมสเตอร์ดัม",
+        "ro": "Rijksmuseum",
+        "ca": "Rijksmuseum",
+        "fi": "Rijksmuseum",
+        "uk": "Рейксмузей",
+        "cs": "Rijksmuseum",
+        "io": "Rijksmuseum",
+        "mzn": "ریک موزه",
+        "hr": "Državni muzej u Amsterdamu",
+        "lt": "Valstybinis muziejus",
+        "da": "Rijksmuseum",
+        "be": "Дзяржаўны музей",
+        "sr": "Национални музеј у Амстердаму",
+        "zh": "阿姆斯特丹国家博物馆",
+        "mk": "Државен музеј",
+        "nb": "Rijksmuseum",
+        "fa": "موزه امپراتوری",
+        "hu": "Rijksmuseum",
+        "fo": "Rijksmuseum",
+        "cy": "Rijksmuseum",
+        "hy": "Պետական թանգարան",
+        "eu": "Rijksmuseum",
+        "sco": "Rijksmuseum",
+        "et": "Rijksmuseum",
+        "jv": "Rijksmuseum Amsterdam",
+        "vi": "Rijksmuseum",
+        "ast": "Rijksmuseum",
+        "az": "Reyksmüzyem",
+        "be-tarask": "Рэйксмузэй",
+        "bg": "Държавен музей (Амстердам)",
+        "af": "Rijksmuseum",
+        "arz": "متحف رايكس",
+        "wuu": "阿姆斯特丹国家博物馆",
+        "id": "Rijksmuseum",
+        "ka": "რეიკსმუზეუმი",
+        "uz": "Rijks muzeyi",
+        "ba": "Рейксмюсеум",
+        "ml": "റിക്സ്മ്യൂസിയം",
+        "yue": "阿姆斯特丹國家博物館",
+        "sl": "Rijksmuseum",
+        "ban": "Rijksmuseum",
+        "en-us": "Rijksmuseum",
+        "lv": "Rijksmuseum",
+        "hi": "रिज्क्सम्यूजियम",
+        "li": "Rieksmuseum (Amsterdam)",
+        "pt-br": "Museu Estatal de Amsterdã"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q190804",
+      "wikidataClaims": {
+        "instanceOf": "nationaal museum",
+        "inception": "1800-00-00",
+        "architect": "Pierre Cuypers",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q613854": {
+      "wikidataId": "Q613854",
+      "nameTranslations": {
+        "pl": "Noorderkerk",
+        "br": "Noorderkerk",
+        "de": "Noorderkerk",
+        "en": "Noorderkerk",
+        "fr": "Noorderkerk",
+        "nl": "Noorderkerk",
+        "uk": "Північна церква",
+        "zh": "北教堂",
+        "it": "Noorderkerk",
+        "ru": "Нордеркерк",
+        "fy": "Noardertsjerke",
+        "arz": "كنيسه نورديركيرك",
+        "he": "נורדרקרק",
+        "pt": "Noorderkerk"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q613854",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "inception": "1620-00-00",
+        "architect": "Hendrick de Keyser",
+        "architecturalStyle": "barokarchitectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2426916": {
+      "wikidataId": "Q2426916",
+      "nameTranslations": {
+        "ru": "Мёйдерслот",
+        "fr": "Muiderslot",
+        "en": "Muiderslot",
+        "fy": "Muiderslot",
+        "nds-nl": "Muderslot",
+        "uk": "Замок Мюйдерслот",
+        "nl": "Muiderslot",
+        "li": "Muidersjlot",
+        "it": "Muiderslot",
+        "eo": "Muiderslot",
+        "es": "Muiderslot",
+        "ca": "Castell de Muiden",
+        "zh": "木登城堡",
+        "ja": "ムイデン城",
+        "arz": "مويديرسلوت",
+        "fa": "قلعه مایدن",
+        "el": "Κάστρο του Μόιντεν",
+        "de": "Muiderslot",
+        "sl": "Grad Muiden",
+        "mk": "Мејденски замок",
+        "bg": "Мойдерслот",
+        "da": "Muiderslot"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2426916",
+      "wikidataClaims": {
+        "instanceOf": "waterburcht",
+        "inception": "1280-00-00",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Gooise Meren"
+      }
+    },
+    "Q447664": {
+      "wikidataId": "Q447664",
+      "nameTranslations": {
+        "zh-hans": "德瓦伦",
+        "zh-hant": "德瓦倫",
+        "zh-hk": "德瓦倫",
+        "zh-cn": "德瓦伦",
+        "zh-sg": "德瓦伦",
+        "zh-tw": "德瓦倫",
+        "eu": "Amsterdameko auzo gorria",
+        "pl": "De Wallen",
+        "he": "דה ואלן",
+        "fr": "De Wallen",
+        "es": "Barrio rojo de Ámsterdam",
+        "it": "De Wallen",
+        "gl": "Barrio vermello",
+        "de": "De Wallen",
+        "ja": "飾り窓",
+        "vi": "De Wallen",
+        "en": "De Wallen",
+        "sv": "De Wallen",
+        "nl": "De Wallen",
+        "pt": "De Wallen",
+        "sk": "De Wallen",
+        "ca": "Districte roig d'Amsterdam",
+        "fi": "De Wallen",
+        "sgs": "Rauduonūju žėbintu kvartals",
+        "lt": "Amsterdamo raudonųjų žibintų kvartalas",
+        "da": "De Wallen",
+        "zh": "德瓦伦",
+        "fa": "دو والن",
+        "nb": "De Wallen",
+        "ru": "Де Валлен",
+        "sr": "Де Вален",
+        "mk": "Де Вален",
+        "hi": "hindo",
+        "ko": "더 발런",
+        "uk": "Де Валлен",
+        "ar": "دي فالين",
+        "eo": "De Wallen",
+        "cs": "De Wallen",
+        "tr": "De Wallen",
+        "be-tarask": "Дэ Вален",
+        "so": "De Wallen",
+        "hu": "De Wallen",
+        "id": "De Wallen",
+        "ur": "ڈی والین"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q447664",
+      "wikidataClaims": {
+        "instanceOf": "buurt of wijk",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1180056": {
+      "wikidataId": "Q1180056",
+      "nameTranslations": {
+        "fr": "Krijtberg",
+        "en": "De Krijtberg",
+        "zh": "圣方济各沙勿略堂 (阿姆斯特丹)",
+        "nl": "De Krijtberg",
+        "de": "De Krijtberg",
+        "mk": "Црква Де Криџберг",
+        "it": "De Krijtberg",
+        "pt": "De Krijtberg",
+        "pl": "De Krijtberg (Amsterdam)",
+        "la": "Mons Creteus",
+        "es": "Iglesia de San Francisco Javier",
+        "arz": "كنيسه كريتبرج"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1180056",
+      "wikidataClaims": {
+        "instanceOf": "kerkgebouw",
+        "inception": "1881-00-00",
+        "architect": "Alfred Tepe",
+        "architecturalStyle": "neogotiek",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Franciscus Xaverius"
+      }
+    },
+    "Q389909": {
+      "wikidataId": "Q389909",
+      "nameTranslations": {
+        "hu": "Warmoesstraat",
+        "en": "Warmoesstraat",
+        "nl": "Warmoesstraat",
+        "fr": "Warmoesstraat",
+        "de": "Warmoesstraat",
+        "ja": "ヴァルメ通り",
+        "ga": "Warmoesstraat",
+        "ca": "Warmoesstraat"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q389909",
+      "wikidataClaims": {
+        "instanceOf": "straat",
+        "inception": "1200-00-00",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2623069": {
+      "wikidataId": "Q2623069",
+      "nameTranslations": {
+        "nl": "Stadhuis van Weesp",
+        "en": "City Hall, Weesp"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2623069",
+      "wikidataClaims": {
+        "instanceOf": "gemeentehuis",
+        "inception": "1776-00-00",
+        "architect": "Jacob Otten Husly",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q478707": {
+      "wikidataId": "Q478707",
+      "nameTranslations": {
+        "eo": "Grachtengordel",
+        "en": "Grachtengordel",
+        "nl": "grachtengordel van Amsterdam",
+        "de": "Amsterdamer Grachtengürtel",
+        "it": "Grachtengordel",
+        "pl": "Grachtengordel",
+        "fr": "Grachtengordel",
+        "pt": "Amsterdam/Anel",
+        "he": "חרכטנחורדל",
+        "ar": "حزام القنوات",
+        "zh": "運河區",
+        "uk": "Грахтенгордель",
+        "sl": "Grachtengordel",
+        "es": "Grachtengordel"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q478707",
+      "wikidataClaims": {
+        "instanceOf": "buurt of wijk",
+        "heritageDesignation": "werelderfgoed",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q849957": {
+      "wikidataId": "Q849957",
+      "nameTranslations": {
+        "pt": "Concertgebouw",
+        "zh-hans": "阿姆斯特丹音乐厅",
+        "zh-hant": "阿姆斯特丹音樂廳",
+        "zh-hk": "阿姆斯特丹音樂廳",
+        "sk": "Concertgebouw",
+        "fr": "Concertgebouw",
+        "ru": "Консертгебау",
+        "he": "קונצרטחבאו",
+        "en": "Concertgebouw",
+        "es": "Concertgebouw",
+        "ca": "Concertgebouw",
+        "fi": "Concertgebouw",
+        "uk": "Консертгебау",
+        "it": "Concertgebouw",
+        "be-tarask": "Канцэртгебаў",
+        "de": "Concertgebouw",
+        "ja": "コンセルトヘボウ",
+        "sl": "Concertgebouw",
+        "bg": "Консертгебау",
+        "fa": "تالار کنسرت آمستردام",
+        "ar": "كونسيرت خيباو",
+        "da": "Concertgebouw",
+        "nl": "Concertgebouw",
+        "sv": "Concertgebouw",
+        "zh": "阿姆斯特丹音樂廳",
+        "ko": "콘세르트헤바우",
+        "en-gb": "Concertgebouw",
+        "eu": "Concertgebouw",
+        "be": "Кансертгебау",
+        "hy": "Կոնսերտգեբաու",
+        "zh-cn": "音乐厅 (阿姆斯特丹)",
+        "mk": "Концертен дом",
+        "hu": "Concertgebouw",
+        "id": "Concertgebouw",
+        "eo": "Concertgebouw",
+        "vi": "Concertgebouw",
+        "pl": "Concertgebouw",
+        "cs": "Concertgebouw",
+        "arz": "كونسيرت خيباو",
+        "el": "Βασιλικό Μέγαρο Μουσικής του Άμστερνταμ",
+        "ro": "Concertgebouw",
+        "nb": "Concertgebouw",
+        "af": "Concertgebouw",
+        "ban": "Concertgebouw, Amsterdam",
+        "mul": "Concertgebouw"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q849957",
+      "wikidataClaims": {
+        "instanceOf": "concertgebouw",
+        "inception": "1886-00-00",
+        "architect": "Dolf van Gendt",
+        "architecturalStyle": "neoclassicistische architectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q1853707": {
+      "wikidataId": "Q1853707",
+      "nameTranslations": {
+        "zh-hans": "葡萄牙犹太会堂",
+        "zh-hant": "葡萄牙猶太會堂",
+        "zh-hk": "葡萄牙猶太會堂",
+        "pt": "Sinagoga Portuguesa de Amsterdão",
+        "de": "Portugiesische Synagoge",
+        "nn": "Den portugisiske synagogen i Amsterdam",
+        "pl": "Synagoga Portugalska w Amsterdamie",
+        "he": "בית הכנסת הפורטוגזי באמסטרדם",
+        "en": "Portuguese Synagogue",
+        "lad": "Esnoga de Amsterdam",
+        "it": "sinagoga portoghese di Amsterdam",
+        "nl": "Portugees-Israëlietische Synagoge",
+        "es": "Sinagoga portuguesa de Ámsterdam",
+        "fr": "synagogue portugaise d'Amsterdam",
+        "zh": "葡萄牙犹太会堂",
+        "ja": "ポルトガル系イスラエル人シナゴーグ",
+        "eo": "Portugala-Israela Sinagogo",
+        "da": "Den portugisiske synagoge i Amsterdam",
+        "cs": "Portugalská synagoga v Amsterdamu",
+        "tr": "Portekiz Sinagogu",
+        "arz": "كنيس برتجالى",
+        "uk": "Португальська синагога (Амстердам)",
+        "fi": "Portugalilainen synagoga",
+        "ca": "Sinagoga portuguesa d'Amsterdam",
+        "ru": "Португальская синагога"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1853707",
+      "wikidataClaims": {
+        "instanceOf": "synagoge",
+        "inception": "1676-00-00",
+        "architect": "Elias Bouman",
+        "architecturalStyle": "barokarchitectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q851200": {
+      "wikidataId": "Q851200",
+      "nameTranslations": {
+        "sk": "Berlageho burza v Amsterdame",
+        "fr": "bourse d'Amsterdam",
+        "en": "Beurs van Berlage",
+        "nl": "Beurs van Berlage",
+        "ca": "Borsa d'Amsterdam",
+        "de": "Alte Börse",
+        "it": "Borsa di Amsterdam",
+        "es": "Beurs van Berlage",
+        "ru": "Биржа Берлаге",
+        "scn": "Beurs van Berlage",
+        "zh": "阿姆斯特丹舊證券交易所",
+        "zh-hant": "貝爾拉赫展覽館",
+        "zh-cn": "贝尔拉赫展览馆",
+        "ja": "ブールス・ファン・ベルラーヘ",
+        "zh-hans": "阿姆斯特丹旧证券交易所",
+        "ms": "Beurs van Berlage",
+        "id": "Beurs van Berlage"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q851200",
+      "wikidataClaims": {
+        "instanceOf": "concertgebouw",
+        "inception": "1903-00-00",
+        "architect": "Hendrik Petrus Berlage",
+        "architecturalStyle": "modernisme",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam",
+        "namedAfter": "Hendrik Petrus Berlage"
+      }
+    },
+    "Q1576733": {
+      "wikidataId": "Q1576733",
+      "nameTranslations": {
+        "pt": "Hortus Botanicus Amsterdam",
+        "de": "Hortus Botanicus Amsterdam",
+        "fr": "jardin botanique d'Amsterdam",
+        "ru": "Ботанический сад",
+        "es": "Hortus Botanicus de Ámsterdam",
+        "en": "Hortus Botanicus Amsterdam",
+        "ca": "Hortus Botanicus Amsterdam",
+        "uk": "Амстердамський ботанічний сад",
+        "nl": "Hortus Botanicus Amsterdam",
+        "it": "Orto botanico di Amsterdam",
+        "da": "Hortus Botanicus Amsterdam",
+        "pl": "Hortus Botanicus Amsterdam",
+        "he": "הורטוס בוטניקוס",
+        "zh-hant": "阿姆斯特丹植物園",
+        "zh-cn": "阿姆斯特丹植物园",
+        "zh": "阿姆斯特丹植物園",
+        "ja": "アムステルダム植物園",
+        "zh-hans": "阿姆斯特丹植物园",
+        "gl": "Xardín Botánico de Ámsterdam",
+        "id": "Hortus Botanicus, Amsterdam",
+        "mul": "Hortus Botanicus Amsterdam"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1576733",
+      "wikidataClaims": {
+        "instanceOf": "hortus botanicus",
+        "inception": "1638-00-00",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q610402": {
+      "wikidataId": "Q610402",
+      "nameTranslations": {
+        "nl": "Schreierstoren",
+        "da": "Schreierstoren",
+        "de": "Schreierstoren",
+        "en": "Schreierstoren",
+        "it": "Schreierstoren",
+        "ru": "Схрейерсторен",
+        "fr": "Schreierstoren",
+        "zh": "淚塔"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q610402",
+      "wikidataClaims": {
+        "instanceOf": "toren",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q924769": {
+      "wikidataId": "Q924769",
+      "nameTranslations": {
+        "es": "Fuerte Pampus",
+        "de": "Fort Pampus",
+        "en": "Pampus",
+        "fr": "fort Pampus",
+        "fy": "Pampus",
+        "nl": "Fort aan het Pampus",
+        "zh": "帕姆皮斯岛",
+        "ja": "パンパス要塞",
+        "it": "Forte Pampus",
+        "ceb": "Pampus",
+        "cs": "Pevnost Pampus",
+        "id": "Pulau Pampus",
+        "bho": "पाम्पेस",
+        "ms": "Fort Pampus",
+        "ru": "Форт Пампус",
+        "sv": "Fästning Pampus",
+        "fi": "Linnake Pampus",
+        "mk": "Пампус",
+        "eo": "Pampus",
+        "arz": "حصن بامبوس",
+        "uk": "Форт Пампус"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q924769",
+      "wikidataClaims": {
+        "instanceOf": "kunstmatig eiland",
+        "heritageDesignation": "deel van een werelderfgoedsite",
+        "locatedIn": "Muiden"
+      }
+    },
+    "Q2466999": {
+      "wikidataId": "Q2466999",
+      "nameTranslations": {
+        "ja": "計量所",
+        "en": "Waag, Amsterdam",
+        "it": "Waag",
+        "nl": "Waag van Amsterdam",
+        "da": "Waag",
+        "ru": "Весовая Палата (Амстердам)",
+        "fr": "Waag",
+        "es": "Waag",
+        "zh": "阿姆斯特丹測量所",
+        "zh-cn": "阿姆斯特丹测量所",
+        "he": "ואך",
+        "zh-hans": "阿姆斯特丹测量所",
+        "arz": "واج",
+        "de": "De Waag",
+        "ko": "바흐 (암스테르담)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2466999",
+      "wikidataClaims": {
+        "instanceOf": "stadspoort",
+        "architecturalStyle": "gotische architectuur",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q883126": {
+      "wikidataId": "Q883126",
+      "nameTranslations": {
+        "ru": "Синий мост (Амстердам)",
+        "de": "Blauwbrug",
+        "en": "Blauwbrug",
+        "nl": "Blauwbrug",
+        "af": "Blauwbrug",
+        "tr": "Blauwbrug",
+        "fr": "Blauwbrug",
+        "nb": "Blauwbrug",
+        "sv": "Blauwbrug",
+        "it": "Blauwbrug",
+        "hy": "Կապույտ կամուրջ",
+        "da": "Blauwbrug",
+        "nn": "Blauwbrug",
+        "zh": "藍橋",
+        "mk": "Синиот мост",
+        "li": "Blauwbrug",
+        "br": "Blauwbrug",
+        "id": "Blauwbrug",
+        "cs": "Blauwbrug"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q883126",
+      "wikidataClaims": {
+        "instanceOf": "verkeersbrug",
+        "inception": "1883-00-00",
+        "heritageDesignation": "rijksmonument",
+        "locatedIn": "Amsterdam"
+      }
+    },
+    "Q2087433": {
+      "wikidataId": "Q2087433",
+      "nameTranslations": {
+        "nl": "Fort Hinderdam",
+        "fy": "Fort Hinderdam",
+        "nb": "Fort Hinderdam",
+        "en": "Fort bij Hinderdam"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2087433",
+      "wikidataClaims": {
+        "instanceOf": "fort",
+        "heritageDesignation": "rijksmonumentcomplex",
+        "locatedIn": "Wijdemeren"
+      }
+    }
+  },
+  "wikipedia": {
+    "nl:Dam (Amsterdam)": {
+      "description": "De Dam is een plein in het centrum van de Nederlandse hoofdstad Amsterdam. Het is het historische hart van de stad en de locatie van veel evenementen van nationale betekenis. Aan en op de Dam staan het Koninklijk Paleis, de Nieuwe Kerk en het Nationaal Monument, waar de jaarlijkse Nationale Dodenherdenking wordt gehouden.",
+      "body": "De Dam is een plein in het centrum van de Nederlandse hoofdstad Amsterdam. Het is het historische hart van de stad en de locatie van veel evenementen van nationale betekenis. Aan en op de Dam staan het Koninklijk Paleis, de Nieuwe Kerk en het Nationaal Monument, waar de jaarlijkse Nationale Dodenherdenking wordt gehouden.\n\n\nLigging en omschrijving\nDe Dam ligt ongeveer 750 meter ten zuiden van het Centraal Station. Het plein is rechthoekig, van noord naar zuid ongeveer 100 meter breed en van west naar oost ongeveer 200 meter lang. De Dam verbindt de straten Damrak en Rokin, die van het Centraal Station naar het Muntplein lopen. Op de Dam komen ook bekende straten uit als Nieuwendijk, Kalverstraat, Warmoesstraat, Nes, Damstraat en de Paleisstraat.\nAan het plein staan enkele markante gebouwen. Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is. Verder bevinden de Nieuwe Kerk en wassenbeeldenmuseum Madame Tussaud (1970) zich aan de Dam.\nAan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog. Eveneens aan de oostzijde van het plein bevindt zich Hotel Krasnapolsky. Aan de noordoostzijde staat de Amsterdamse vestiging van het warenhuis De Bijenkorf. De gebouwen maken de Dam tot een bekende toeristische trekpleister. \nDe Dam staat ook bekend om de vele duiven die er 's zomers zijn.\n\n\nGeschiedenis\nDe Dam ontleent zijn naam aan de eigenlijke functie die het plein in het begin had: het was namelijk een dam in de Amstel, die tussen 1204 en 1275 werd gebouwd. De meest waarschijnlijke datum ligt tussen 1265 en 1275. De Dam vormde de eerste verbinding tussen de nederzettingen aan de Warmoesstraat en de Nieuwendijk aan weerszijden van de rivier. Er zat een sluis in de dam, waarmee schepen geschut konden worden en waarmee ook gespuid kon worden. Door af en toe het water met grote",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Dam%20(Amsterdam)"
+    },
+    "nl:Museumplein": {
+      "description": "Museumplein kan verwijzen naar:",
+      "body": "Museumplein kan verwijzen naar:\n\nMuseumplein (Amsterdam), een plein in Amsterdam-Zuid\nParkeergarage Museumplein, een parkeergarage onder dit plein\nStation Amsterdam Museumplein was een gepland spoorwegstation als eindpunt van de Schiphollijn\nMuseumplein (Brussel), een plein in Brussel aan het Koningsplein met onder andere het Paleis van Karel van Lotharingen en afdelingen van de Koninklijke Musea voor Schone Kunsten van België\nMuseumplein (Gent), een project in Gent om de N60 tussen de twee musea in het Citadelpark te vervangen door een autovrij plein\nPlaza del Museo (Bilbao), een plein in Bilbao\nPlaza del Museo (Sevilla), een plein in Sevilla",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Museumplein"
+    },
+    "nl:Stelling van Amsterdam": {
+      "description": "De Stelling van Amsterdam was een verdedigingslinie, gelegen op 15 tot 20 kilometer rond het centrum van de Nederlandse stad Amsterdam. De Stelling is 135 kilometer lang, bevat 45 forten en is aangelegd van 1880 tot 1920.\nOp 26 september 1995 werd de Stelling van Amsterdam samen met de Nieuwe Hollandse Waterlinie bij UNESCO aangemeld voor plaatsing op de Werelderfgoedlijst waar zij in in haar geheel op werd geplaatst in 1996.",
+      "body": "De Stelling van Amsterdam was een verdedigingslinie, gelegen op 15 tot 20 kilometer rond het centrum van de Nederlandse stad Amsterdam. De Stelling is 135 kilometer lang, bevat 45 forten en is aangelegd van 1880 tot 1920.\nOp 26 september 1995 werd de Stelling van Amsterdam samen met de Nieuwe Hollandse Waterlinie bij UNESCO aangemeld voor plaatsing op de Werelderfgoedlijst waar zij in in haar geheel op werd geplaatst in 1996. In 2021 werd de Nieuwe Hollandse Waterlinie toegevoegd aan het reeds bestaande werelderfgoed. Beide componenten staan sindsdien op de lijst onder de naam Nederlandse waterverdedigingslinie.\n\n\nFunctie\nPrimair was de Stelling van Amsterdam een waterlinie. In geval van vijandelijkheden zouden grote delen van het gebied rond Amsterdam onder water worden gezet. De vijand zou dan niet kunnen oprukken. Amsterdam zou fungeren als nationaal reduit, als het laatste bastion van Nederland. De aanleg van de Stelling van Amsterdam werd geregeld in de Vestingwet van 1874.\nDe forten werden gesitueerd op plaatsen waar de waterlinie wordt doorkruist door dijken, wegen of spoorlijnen. Plaatsen waar het water diep genoeg was voor boten waren kwetsbaar, doordat de oprukkende vijand op die plaatsen niet door het water zou worden tegengehouden, zodat hij ook op deze plekken onder vuur genomen moest kunnen worden. In het militaire jargon stonden deze wegen etc. bekend als accessen.\n\n\nVoorbereiding\nRondom Amsterdam bevonden zich sinds 1805 de posten van Krayenhoff, een reeks van aarden en stenen forten. Door de wapenontwikkeling bleken deze veelal niet ver genoeg van Amsterdam te liggen. In 1880 lag het traject voor een nieuwe stelling vast en legde men de laatste hand aan het ontwerp van de forten. Het ontwerp was een verbeterde versie van het gebastioneerde stelsel van de Nieuwe Hollandse Waterlinie. De verdedigingslinie bestond uit drie onderdelen, de inundatiegebieden van het voorliggend terrein, de militaire forten en de reduit Amsterdam.\n\n\nNationaal reduit\nHet ge",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Stelling%20van%20Amsterdam"
+    },
+    "nl:Paleis op de Dam": {
+      "description": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam. Het paleis is in gebruik door het Koninklijk Huis als ontvangstpaleis en wordt gebruikt voor tentoonstellingen.\nHet werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655.",
+      "body": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam. Het paleis is in gebruik door het Koninklijk Huis als ontvangstpaleis en wordt gebruikt voor tentoonstellingen.\nHet werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655. Het bouwwerk wordt gezien als Nederlands belangrijkste historische en culturele monument van de zeventiende eeuw. Het Paleis op de Dam is venster nummer 24 van de Canon van Amsterdam.\n\n\nBeschrijving\n\n\nStijl en vorm\nHet paleis is een monumentaal gebouw met barokke versiering, maar helder van opzet, in de stijl van het Hollands classicisme. Het beeldhouwwerk mocht nergens de aandacht afleiden van het grootse geheel.\n\n\nGevel\nDe compositie van de gevel is harmonieus en voldoet aan de ideale barokke verhoudingen. De zware sokkel draagt twee pilasterorden die beide een hoog en een laag venster beslaan, overeenkomend met een hele en een halve verdieping erachter. In navolging van Vincenzo Scamozzi is een Korinthische orde boven een composiet geplaatst. De middenpartij met het fronton komt iets naar voren, evenals de hoekpaviljoens.\n\n\nBeeldhouwwerk\nDe heldere structuur van het gebouw is zo overheersend dat het fraaie beeldhouwwerk nauwelijks opvalt. We zien de festoenen op grachtenhuizen overal in de stad nagevolgd. Het indrukwekkendst zijn de timpanen (waarvan nog steeds de modellen in het Rijksmuseum te zien zijn), het beeldhouwwerk in marmer, en de bronzen beelden op de frontons.\nDe reliëfs boven de deuren van de vertrekken geven de functie ervan aan, zoals van de desolate boedelkamer, waar faillissementen werden uitgesproken, de assurantiekamer, waar geschillen over verzekeringen werden behandeld en de secretarie, waar processtukken werden opgesteld en gearchiveerd.\n\n\nKoepel\nBoven de middenpartij rijst een hoge koepel op, van waaruit men de aankomst van de schepen op het IJ kon zien.",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Paleis%20op%20de%20Dam"
+    },
+    "nl:Anne Frank Huis": {
+      "description": "Het Anne Frank Huis is een museum aan de Westermarkt 20 in de Nederlandse hoofdstad Amsterdam ter gedachtenis aan Anne Frank en haar Joodse familie die tijdens de Tweede Wereldoorlog zaten ondergedoken. Het museum is gebouwd rond hun onderduikadres het Achterhuis aan Prinsengracht 263 waar Anne haar wereldberoemde dagboek Het Achterhuis schreef. Het museum opende haar deuren op 3 mei 1960.",
+      "body": "Het Anne Frank Huis is een museum aan de Westermarkt 20 in de Nederlandse hoofdstad Amsterdam ter gedachtenis aan Anne Frank en haar Joodse familie die tijdens de Tweede Wereldoorlog zaten ondergedoken. Het museum is gebouwd rond hun onderduikadres het Achterhuis aan Prinsengracht 263 waar Anne haar wereldberoemde dagboek Het Achterhuis schreef. Het museum opende haar deuren op 3 mei 1960.\nHet museum heeft geen winstoogmerk en is ondergebracht bij de Anne Frank Stichting die gefinancierd wordt door de entreegelden en donaties. Het trekt meer dan 1 miljoen bezoekers per jaar, van wie bijna 90% uit het buitenland. In 2019 kwam er een recordaantal van 1,3 miljoen bezoekers. Die kwamen uit 95 landen. De grootste groep is tussen de 20 en 30 jaar oud (32 procent).\n\n\nVoorgeschiedenis\nDe Duits-Joodse familie Frank vluchtte in 1933 vanuit nazi-Duitsland naar Amsterdam om aan het toenemende antisemitisme te ontkomen. Otto Frank zette in het centrum van Amsterdam een eigen bedrijf op, Opekta genaamd, een filiaal van het in 1928 in Keulen gestichte moederbedrijf Opekta GmbH. In 1938 startte hij een tweede onderneming in kruiden en specerijen Pectacon genaamd, samen met een eveneens uit Duitsland gevluchte zakenpartner: Hermann van Pels. \n\n\nOnderduik van de familie Frank\n\nOp 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263. In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder. Directe aanleiding was dat dochter Margot Frank een dag eerder een oproep voor 'tewerkstelling' in Duitsland had gekregen. Op 13 juli volgde het gezin Van Pels (in het dagboek van Anne Frank de familie Van Daan genoemd), en in augustus werd een draaikast aangebracht die de toegang tot de onderduikruimte moest verbergen. In november dook Fritz Pfeffer, een Duits-Joodse kenn",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Anne%20Frank%20Huis"
+    },
+    "nl:Nationaal Monument op de Dam": {
+      "description": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945). Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei.",
+      "body": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945). Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei. \n\n\nOntwerp\n\nHet vrijstaande Nationaal Monument op de Dam in Amsterdam is met de voorzijde naar het Paleis op de Dam gekeerd en staat op een perceel van 2183 m². Het werd ontworpen door architect J.J.P. Oud. Het bestaat uit een 22 meter hoge pyloon met beelden aan voor- en zijkanten en reliëfs van duiven aan de achterzijde. Aan de achterzijde wordt het omsloten door een vrijstaande, halfronde urnenmuur met veertien nissen voor urnen. Elf daarvan zijn voor de toen elf Nederlandse provincies en de andere drie voor de Nederlandse kolonie Nederlands-Indië, en de destijds bij de onthulling autonome landen binnen het Koninkrijk der Nederlanden Suriname en de Nederlandse Antillen. De provincies worden daarnaast weergegeven met gebeeldhouwde wapenschilden. De nissen voor Suriname en de Antillen zijn altijd leeg gebleven. Op het monument staat een Latijnse tekst en een Nederlandstalig gedicht. Het monument zelf bevindt zich op een oplopende reeks van zes cirkelvormige traptreden.\n\n\nKunstenaars\nDe beelden zijn van beeldhouwers John Rädecker en zijn zoon Jan Willem Rädecker, de reliëfs van Paul Grégoire. Aan de voorkant staan twee leeuwenfiguren van de hand van Jan Willem Rädecker. De Latijnse tekst aan de voorzijde is van de classicus J.P. Meerwaldt, de tekst boven de urnen aan de achterzijde van Anthonie Donker (pseudoniem voor Nico Donkersloot) en het Nederlandstalige gedicht is van Adriaan Roland Holst. Het ontwerp voor de belettering van de dichtregels is van Jan van Krimpen.\n\n\nPyloon\nDe 22 meter hoge pyloon is van beton en bekleed met travertijn, een kalksteen uit Toscane met kenmerkende onregelmatige structuur. Aan de voorzijde zijn een gekruisigde en drie geketende mannenfigu",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Nationaal%20Monument%20op%20de%20Dam"
+    },
+    "nl:Nieuwmarkt (Amsterdam)": {
+      "description": "De Nieuwmarkt is een plein in het centrum van Amsterdam, tussen de Geldersekade en de Kloveniersburgwal. Het grenst in het noorden aan de Zeedijk en in het zuiden aan de Sint Antoniesbreestraat en vormt het middelpunt van de Nieuwmarktbuurt.\nCentraal staat de Waag, oorspronkelijk een 15e-eeuwse stadspoort.",
+      "body": "De Nieuwmarkt is een plein in het centrum van Amsterdam, tussen de Geldersekade en de Kloveniersburgwal. Het grenst in het noorden aan de Zeedijk en in het zuiden aan de Sint Antoniesbreestraat en vormt het middelpunt van de Nieuwmarktbuurt.\nCentraal staat de Waag, oorspronkelijk een 15e-eeuwse stadspoort. De gebouwen rondom het plein zijn bijna alle aangewezen als rijksmonument of gemeentelijk monument. Rondom het plein liggen veel horecagelegenheden, een supermarkt en een wooncomplex voor ouderen, (de) Flesseman. \nEr is een dagelijkse markt, op zaterdag een biologische markt, en in de zomermaanden op zondag een antiek-, curiosa- en boekenmarkt. In het voorjaar zijn er, in de week voorafgaand aan koningsdag, de Aprilfeesten met een buurtontbijt en een nostalgische kermis met zweefmolen, spiegeltent en kindertheater.\nEen bekende horecazaak aan de Nieuwmarkt is jazzcafé Cotton Club, dat in 1940 geopend werd. In augustus 2020 moest de zaak door een huurverhoging en de gevolgen van de coronacrisis verkocht worden, al is daarbij bedongen dat de naam behouden blijft.\nDe Nieuwmarkt grenst aan de Wallen, Chinatown en de Lastage. Omdat de Nieuwmarktbuurt, met name op de Zeedijk, veel Chinese inwoners en bedrijven kent, zijn de straatnaambordjes in de omgeving zowel in het Nederlands als in Chinese karakters uitgevoerd.\nAan het plein is een ingang van het gelijknamige  metrostation Nieuwmarkt.\n\n\nGeschiedenis\nSinds ca. 1425 ligt hier de Bijleveldschesluis tussen het water van de Geldersekade en de Kloveniersburgwal. De Sint Anthoniespoort (nu de Waag) werd gebouwd als onderdeel van de middeleeuwse stadsommuring in de jaren 1481-1494. Het plein ontstond in 1614 toen het water rondom de Sint Anthoniespoort overkluisd werd.\nDoor de stadsuitbreiding (bouw van de Lastage) verschoof de stadsgrens verder naar de Montelbaanstoren en de Oude Schans. De Sint Anthoniespoort verloor zijn verdedigende functie en werd een waag. Het plein werd een marktplein, waar ook een vis- en \"Oosterse\"",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Nieuwmarkt%20(Amsterdam)"
+    },
+    "nl:Munttoren (Amsterdam)": {
+      "description": "De Munttoren, ook wel De Munt genoemd, heet officieel Regulierstoren en maakte vroeger deel uit van de Regulierspoort. Deze stadspoort was een van de drie hoofdpoorten van de middeleeuwse vestingwerken van Amsterdam. De poort was genoemd naar het Reguliersklooster (1394-1532).",
+      "body": "De Munttoren, ook wel De Munt genoemd, heet officieel Regulierstoren en maakte vroeger deel uit van de Regulierspoort. Deze stadspoort was een van de drie hoofdpoorten van de middeleeuwse vestingwerken van Amsterdam. De poort was genoemd naar het Reguliersklooster (1394-1532). Dit klooster stond ter hoogte van de latere Keizersgracht buiten de Regulierspoort.\nDe toren staat op het Muntplein, dat tot 1877 Schapenplein en van 1877 tot 1917 Sophiaplein heette (naar koningin Sophie). Het is tegenwoordig een druk kruispunt tussen Kalverstraat en Reguliersbreestraat, vlak bij de bloemenmarkt op de Singel. Naast de toren onder de kleine poort door gaat men richting Kalverstraat of Reguliersbreestraat.\n\n\nGeschiedenis\n\nDe bijnaam van de toren verwijst naar het feit dat er in de 17e eeuw in het aangrenzende wachthuis munten werden geslagen. De toren kreeg zijn huidige naam in het Rampjaar 1672, toen Amsterdam tijdelijk het recht van muntslag kreeg omdat Franse troepen grote delen van het land bezet hielden, en het niet mogelijk was zilver en goud te transporteren naar de muntplaatsen Dordrecht en Enkhuizen.\nDe Regulierspoort, gebouwd tussen 1480 en 1487, bestond uit twee torens en een wachthuis. Nadat de poort in 1618 in vlammen opging, besloot men alleen de westelijke toren te herbouwen. De stompe toren kreeg daarna in 1619-1620 een achtkantige bovenbouw en een sierlijke open lantaarn naar een ontwerp van Hendrick de Keyser, met daarin een uurwerk met vier wijzerplaten, en in 1668 een beiaard van de Gebroeders Hemony. De Munttoren is 35 meter hoog.\nHet wachthuis, dat de brand van 1618 redelijk had doorstaan, werd in de negentiende eeuw afgebroken en vervangen door het het huidige gebouw. Het werd gebouwd tussen 1885 en 1887 in historiserende neorenaissance-stijl, onder leiding van architect Willem Springer. Tijdens een vernieuwing van het gebouw in 1938-1939 kwam er op de begane grond een doorgang.\nOnder het wachthuis bevond zich een openbaar toilet dat buitenom bereikbaar w",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Munttoren%20(Amsterdam)"
+    },
+    "nl:Zuiderkerk (Amsterdam)": {
+      "description": "De Zuiderkerk is de eerste voor de protestantse eredienst ontworpen kerk in Amsterdam. De kerk is gebouwd nabij de Sint Antoniesbreestraat in de Lastage, een buurt die eind 16e eeuw bij de stad werd gevoegd. Tegenwoordig is dit de Nieuwmarktbuurt.",
+      "body": "De Zuiderkerk is de eerste voor de protestantse eredienst ontworpen kerk in Amsterdam. De kerk is gebouwd nabij de Sint Antoniesbreestraat in de Lastage, een buurt die eind 16e eeuw bij de stad werd gevoegd. Tegenwoordig is dit de Nieuwmarktbuurt. De kerk staat aan de Zandstraat no. 17.\n\n\nBouw\nDe heiwerkzaamheden voor de Zuiderkerk (of Janskerk) begonnen in 1603, en op 22 augustus datzelfde jaar werd de eerste steen gelegd door Johan Bicker, zoon van burgemeester Gerrit Bicker. Het ontwerp uit 1603, in renaissancestijl, is van de Amsterdamse stadsarchitect Hendrick de Keyser, zoon van een meubelmaker uit Utrecht, die rond 1591 samen met de stadsingenieur Cornelis Bloemaert naar Amsterdam was gekomen. Hoewel voor de bouw stenen konden worden gebruikt uit de afgebroken stadsmuur, moest het werk toch bijna vier jaar worden stilgelegd wegens geldgebrek.\nDe kerk werd in gebruik genomen op Pinksterzondag 1611; daarna duurde het nog tot 1614 voordat ook de toren en het kerkhof met haar twee zandstenen poorten klaar was. Hiervan is de poort aan de St.Anthoniesbreestraat nog bewaard. Ook deze is ontworpen door Hendrick de Keyser.\nToen Hendrick de Keyser in 1621 overleed, werd hij in de Zuiderkerk begraven. Zijn grafsteen is nog steeds aanwezig. Hoewel de kerk voor de protestantse eredienst werd gebouwd, kreeg deze de naam (St.) Janskerk. (zie G.D. Bom H.Gzn)\n\n\nHet verdwenen orgel\nHet orgel dat in 1821 met deels oud pijpwerk uit de Oude Kerk werd gebouwd door orgelmaker J.C. Friederichs werd na 1929 verkocht aan de Gereformeerde kerk van Aalten.\n\n\nNieuwe functies\n\nDe Zuiderkerk is tot 1929 voor kerkdiensten in gebruik gebleven. Tijdens de Hongerwinter (1944-'45) werden van februari tot augustus 1945 overleden Amsterdammers hier tijdelijk ondergebracht in afwachting van hun begrafenis.\nIn de jaren zestig werden er regelmatig presentaties met maquettes gehouden over de toekomstplannen van Amsterdam. Het gebouw werd rond 1970 gesloten omdat het te bouwvallig was, en vervolgens t",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Zuiderkerk%20(Amsterdam)"
+    },
+    "nl:Sint Olofskapel": {
+      "description": "De Sint-Olofskapel, of Oudezijds Kapel, is een gebouw in de Nederlandse stad Amsterdam.\nHet voormalige kerkgebouw staat in de binnenstad van Amsterdam, tussen de Zeedijk en de Nieuwebrugsteeg, nabij het Damrak.\nDe eerste Sint Olofskapel werd tussen 1440 en 1450 gebouwd tegen een grote stadspoort aan, de Sint Olofspoort.",
+      "body": "De Sint-Olofskapel, of Oudezijds Kapel, is een gebouw in de Nederlandse stad Amsterdam.\nHet voormalige kerkgebouw staat in de binnenstad van Amsterdam, tussen de Zeedijk en de Nieuwebrugsteeg, nabij het Damrak.\nDe eerste Sint Olofskapel werd tussen 1440 en 1450 gebouwd tegen een grote stadspoort aan, de Sint Olofspoort. In 1618 is het poortgebouw afgebroken, maar de vroegere doorgang heet nog steeds \"Sint Olofspoort\" (als straatnaam). Beschermheilige was \"Sint Olof\".\n\n\nGeschiedenis\nDe kapel is gewijd aan Sint-Olof (Olaf II), de patroonheilige der zeevaarders, die tevens koning van Noorwegen was en het christendom in dat land had verspreid. Niet alleen in de geschiedenisboeken uit de Gouden Eeuw staat dit expliciet vermeld, ook Vondel maakte er gewag van in zijn gedicht voor het nieuwe stadhuis in 1655 (Daer d’Aemstelheer, van outs, de zeekapelle wydde, Ter eere van Godts Helt, Sint Olof, die zijn’ troon in ’t Noorden had gebouwt, en wien de martelkroon met recht wert toegekeurt).\nDoor sommigen werd gesuggereerd dat de kapel mogelijk aan de brabander Sint Odulphus was gewijd, maar aangezien dit de auteurs uit de Gouden Eeuw tegenspreekt, en deze heilige geen enkele associatie met de zeevaart had (Amsterdams belangrijkste bron van inkomsten), is dit nogal onwaarschijnlijk. Aan het einde van de 15de eeuw werd de kapel meerdere malen uitgebreid. Zo werd er een veelhoekig kapelletje aangebouwd: de Jeruzalemkapel, waarin een \"kopie\" van het Heilig Graf moet hebben gestaan; deze Jeruzalemkapel is in 1644 gesloopt.\nNa de Alteratie (omwenteling) van Amsterdam, in 1578, stond het gebouw een tijd leeg. Vanaf 1586 mochten kooplieden ervan gebruikmaken om beurs te houden. In 1602 werd de kapel overgedragen aan de gereformeerden die er kerkdiensten hielden. Sindsdien sprak men van de Oudezijds Kapel (de Nieuwezijds Kapel was de vroegere Heilige Stede aan Rokin en Kalverstraat, gesloopt in 1908). De vergroting van de kapel in 1644 leverde het huidige gebouw op, een driebeukige ker",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Sint%20Olofskapel"
+    },
+    "nl:Rembrandtplein (Amsterdam)": {
+      "description": "Het Rembrandtplein is een plein in het centrum van Amsterdam, tussen de Reguliersbreestraat en de Amstelstraat.\nHet Rembrandtplein is een druk uitgaansgebied met veel horecagelegenheden en terrasjes.\nHet plein grenst aan het Thorbeckeplein.",
+      "body": "Het Rembrandtplein is een plein in het centrum van Amsterdam, tussen de Reguliersbreestraat en de Amstelstraat.\nHet Rembrandtplein is een druk uitgaansgebied met veel horecagelegenheden en terrasjes.\nHet plein grenst aan het Thorbeckeplein. De Reguliersdwarsstraat, Korte Reguliersdwarsstraat, Halvemaansteeg, Bakkersstraat en Utrechtsestraat komen uit op het plein.\nHet plein is vernoemd naar de schilder Rembrandt van Rijn. Midden op het plein staat een standbeeld van Rembrandt, het oudste nog bestaande standbeeld in Amsterdam. Het beeld is aangewezen als rijksmonument.\nIn 2009 werd een rotsfontein op het plein geïnstalleerd, waarbij water over een rotsblok stroomt. In 2023 werd de sculptuur The Thinker van Joseph Klibansky op het plein geplaatst.\nAan het plein staat een reeks monumentale panden. Het grootste gebouw aan het plein is The Bank, het voormalige hoofdkantoor van de Amsterdamsche Bank aan Rembrandtplein 47.\n\n\nGeschiedenis\nIn 1655 werd bij de Reguliersbreestraat de Derde Regulierspoort gebouwd. Deze poort maakte deel uit van de stadsomwalling. Na de uitleg van de stad en de bouw van de Utrechtsepoort op het huidige Frederiksplein, werd de Regulierspoort overbodig. In 1668 werd de poort tot Boterwaag verbouwd en het plein eromheen Reguliersplein gedoopt. In 1669 werd de maandagmarkt voor zuivelproducten van de Dam naar het plein verplaatst en kreeg het plein de naam Botermarkt. Op de zgn. Kippenhoek werd allerlei gevogelte verhandeld, waarmee niet langs de deuren gevent mocht worden.\nIn 1852 onthulde koning Willem III op het plein een door Louis Royer ontworpen gietijzeren Rembrandtmonument. Het is het oudste nog bestaande standbeeld in Amsterdam en werd gegoten in één stuk. Rond 1870 verdwenen de boter- en kaasmarkten en in 1876 werd het beeld verplaatst naar een nieuw aangelegd plantsoentje. Op 17 mei 1876 wijzigde de gemeenteraad in een geheime raadszitting de naam Botermarkt in Rembrandtplein.\n\n\nHoofdkantoor van de Amsterdamsche Bank\nThe Bank, het voormal",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Rembrandtplein%20(Amsterdam)"
+    },
+    "nl:Bloemenmarkt": {
+      "description": "De Bloemenmarkt, voluit: bloemen- en plantenmarkt, is een permanente markt in de binnenstad van Amsterdam.\nDe markt was van 1620 (oudste vermelding) tot 1862 gevestigd aan de Sint-Luciënwal, langs de Nieuwezijds Voorburgwal. Daarna verhuisde de bloemenmarkt naar de huidige locatie aan het Singel tussen het Koningsplein en het Muntplein.",
+      "body": "De Bloemenmarkt, voluit: bloemen- en plantenmarkt, is een permanente markt in de binnenstad van Amsterdam.\nDe markt was van 1620 (oudste vermelding) tot 1862 gevestigd aan de Sint-Luciënwal, langs de Nieuwezijds Voorburgwal. Daarna verhuisde de bloemenmarkt naar de huidige locatie aan het Singel tussen het Koningsplein en het Muntplein. In die tijd heette de markt nog bomen- en plantenmarkt, er werden nauwelijks snijbloemen verkocht tot in de jaren zestig van de twintigste eeuw.\nDe bomen, planten en bloemen werden verkocht vanaf boten liggend in de gracht. De handel werd vroeger dagelijks via het water aangevoerd van kwekerijen buiten de stad. Tegen het einde van de twintigste eeuw zijn de boten aan het Singel vervangen door betonnen bakken met daarop bouwsels die gelijkenis hebben met plantenkassen en vanaf de waterzijde gezien een gesloten front vormen. De bloemenmarkt werd meer en meer een toeristische attractie en het assortiment bestaat vooral uit bloembollen en souvenirs. De gemeente probeerde hier paal en perk aan te stellen, door een maximum te stellen aan de te koop aangeboden hoeveelheid souvenirs. Dit leverde conflicten op met de marktkooplui, die bang waren hierdoor het hoofd niet boven water te kunnen houden.\nDe verkoop van planten en bloemen aan Amsterdammers in de Binnenstad vindt tegenwoordig vooral plaats op de markten op het Amstelveld en de Noordermarkt. Omdat de bloemenmarkt geen rol meer speelt in de verkoop van bloemen en planten aan Amsterdammers en een 'toeristenfuik' is geworden, werd in 2022 geadviseerd de markt van karakter te veranderen of op te heffen.",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Bloemenmarkt"
+    },
+    "nl:Magere Brug": {
+      "description": "De Magere Brug (brug nr. 242) is een dubbele ophaalbrug in Amsterdam-Centrum over de rivier de Amstel en verbindt de  Kerkstraat met de Nieuwe Kerkstraat. De brug is alleen geopend voor fiets- en voetgangersverkeer.",
+      "body": "De Magere Brug (brug nr. 242) is een dubbele ophaalbrug in Amsterdam-Centrum over de rivier de Amstel en verbindt de  Kerkstraat met de Nieuwe Kerkstraat. De brug is alleen geopend voor fiets- en voetgangersverkeer. Enkele keren per dag wordt ze opgehaald om schepen te laten passeren; de rondvaartboten kunnen eronderdoor als ze dicht is. \nDe brug is sinds 2002 een rijksmonument. In 2015 kreeg ze een Water & Heritage Awareness-schild van ICOMOS.\n\n\nNaamgeving\nToen het Amsterdam voor de wind ging in de Gouden Eeuw werd er tijdens de vierde stadsuitbreiding van 1663 op deze plek een monumentale brede brug gepland (van steen). Deze zou de Kerkstraat (die de functie had van doorvoerstraat) verbinden met de andere oever van de Amstel. Het rampjaar 1672 gooide echter roet in het eten, en veroorzaakte een grote economische terugslag. Hierdoor nam de vraag naar bouwgrond sterk af. De overkant van de Amstel (Nieuwe Herengracht, Nieuwe Keizersgracht, Nieuwe Prinsengracht) bleef lange tijd vrijwel onbebouwd. Een brug was daardoor overbodig geworden. Toen er later, eind 17e eeuw, toch enige bebouwing ontstond, werd besloten om alsnog een brug aan te leggen, maar veel goedkoper (van hout in plaats van steen) en smaller (magerder). Hieruit is de naam \"Magere Brug\" voortgekomen.\nOmdat deze geschiedenis in vergetelheid raakte, kwamen er in de loop der tijd enige anekdotes in omloop (zoals die van twee magere en gierige zusters die de brug bekostigd zouden hebben), maar deze zijn alle op fantasie gebaseerd.\n\n\nGeschiedenis\nEr ligt hier al eeuwen een brug. Stadsarchitect Daniël Stalpaert tekende al een brug in op zijn ontwerpplattegrond van 1662, omdat deze tijdens de stadsuitbreiding gepland was, maar er was hier toen nog geen enkele bebouwing ingetekend en de bouw van de brug ging voorlopig niet door. Jacob Bosch’ plattegrond voor de vierde uitleg (1679) laat daarom geen brug zien. Ook op een schilderij van Gerrit Berckheyde uit 1685 is nog geen brug te zien (wel de Amstelsluizen). Fr",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Magere%20Brug"
+    },
+    "nl:Ruiterstandbeeld koningin Wilhelmina (Amsterdam)": {
+      "description": "Het Ruiterstandbeeld van koningin Wilhelmina staat op het Rokin in Amsterdam, op de hoek van de Langebrugsteeg. Het beeld van Wilhelmina te paard is gemaakt van brons door de kunstenares Theresia R. van der Pant. Op de eveneens bronzen sokkel - naar een ontwerp van architect Karel Sijmons - staat geschreven: Wilhelmina 1880 - 1962.",
+      "body": "Het Ruiterstandbeeld van koningin Wilhelmina staat op het Rokin in Amsterdam, op de hoek van de Langebrugsteeg. Het beeld van Wilhelmina te paard is gemaakt van brons door de kunstenares Theresia R. van der Pant. Op de eveneens bronzen sokkel - naar een ontwerp van architect Karel Sijmons - staat geschreven: Wilhelmina 1880 - 1962.\n\n\nGeschiedenis\nHet beeld kwam tot stand op initiatief van het Contactorgaan Vrouwenorganisaties Amsterdam (COVA). De kosten van deze onderneming (ruim 130.000 gulden) werden opgebracht door de Amsterdamse bevolking via Contactorgaan Vrouwenorganisaties Amsterdam. \nAanvankelijk was het de bedoeling dat de koningin zou worden afgebeeld zittend achter de microfoon van Radio Oranje. Theresia van der Pant voelde daar niet voor en vervaardigde een beeld van Wilhelmina als jonge vorstin, gezeten te paard. Van der Pant koos hiervoor omdat er recent al beelden waren onthuld van de standvastige, oudere Wilhelmina als het beeld van Charlotte van Pallandt in Rotterdam Ook speelde mee dat Van der Pant vooral bekend was als beeldhouwer van dieren. Overigens kreeg Van der Pant assistentie van Wilhelmina's dochter, koningin Juliana die haar onder meer hielp bij het bepalen van de kleding die Wilhelmina zou moeten dragen.\nAls standplaats voor het beeld was in eerste instantie gedacht aan het Damrak, maar omdat het beeld groter uitviel dan aanvankelijk gedacht, werd het in 1972 op het Rokin geplaatst. De onthulling, op 17 mei van dat jaar, vond plaats in aanwezigheid van koningin Juliana en burgemeester Samkalden.\nHet beeld werd in 2025 besproken in de rubriek Blikvangers van Het Parool. Daarbij werd geconstateerd dat Van der Pants liefde voor dieren duidelijk zichtbaar is (het paard zou de blikvanger zijn). Wilhelmina is ook anders afgebeeld dan gangbaar; in plaats van een stevige en standvastige vrouw, is ze hier sierlijk haast fragiel in amazonezit op het paard afgebeeld. Zadel en stijgbeugels zijn niet te zien. Van der Pant was er zelf overigens niet l",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Ruiterstandbeeld%20koningin%20Wilhelmina%20(Amsterdam)"
+    },
+    "nl:Oosterkerk (Amsterdam)": {
+      "description": "De Oosterkerk is een 17e-eeuws kerkgebouw aan de Wittenburgergracht op Wittenburg in Amsterdam.",
+      "body": "De Oosterkerk is een 17e-eeuws kerkgebouw aan de Wittenburgergracht op Wittenburg in Amsterdam.\n\n\nBeschrijving\nDe plattegrond is een vierkant, door pijlers met bogen verbonden, verdeeld in een gelijkarmig kruis.\nIn de kerk bevindt zich een Van Oeckelen-orgel uit 1871.\nOp de kruising van de hoge schilddaken staat een met lood beklede houten koepeltoren. Daarin hangt een klok, waarop de hele en de halve uren worden geslagen. Rond de klok loopt in reliëf het opschrift:\n\n Met mijn slagen verdeel ik, de klok, de tijd in gelijke stukken,  Pieter Hemony heeft mij gemaakt in Amsterdam in het jaar des Heren 1671.\nHet uurwerk onderaan de koepeltoren is afkomstig van de oude beurstoren die ooit op het Rokin stond.\n\n\nGeschiedenis\n\nIn 1659 had de vroedschap van Amsterdam besloten om twee kerken te bouwen, de Oosterkerk en de Eilandskerk op het Bickerseiland. Beide houten gebouwen zouden in de toekomst door stenen kerken worden vervangen. De oude Oosterkerk is later vervangen door een stenen kerk, echter niet op de oorspronkelijke plaats op het Rapenburg maar op Wittenburg.\n\n\nBouw\nDe Oosterkerk werd gebouwd als Nederlands-hervormde kerk in de periode 1669-1671 naar een ontwerp van architect Adriaan Dortsman met medewerking van Daniël Stalpaert.\nDe Oosterkerk te Amsterdam is de monumentaalste van Stalpaerts kerken. Het was een opdracht van de stad in het kader van de vergroting in 1663. Daar waren in de diverse wijken vier nieuwe kerken voorzien, waarvan alleen de Oosterkerk en de voorlopige Amstelkerk tot stand zijn gekomen. Uit het resolutieboek van de Thesaurieren is bekend dat op 4 juli 1669 het ontwerp van Daniël Stalpaert is goedgekeurd.\nDe opzet is gelijk aan de Oudshoornse kerk in Alphen aan den Rijn, gebouwd in opdracht van ambachtsheer Cornelis de Vlaming van Outshoorn die ook meerdere malen burgemeester van Amsterdam was, waaronder in 1663, 1668 en 1672.\nDe grondvorm is een Grieks kruis met lagere hoekvlakken en een aanbouw als ingangsportaal. De balustrade daarop is ec",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Oosterkerk%20(Amsterdam)"
+    },
+    "nl:Montelbaanstoren": {
+      "description": "De Montelbaanstoren is een toren uit 1516 aan de Oudeschans in Amsterdam. De Montelbaanstoren staat op de hoek met de Oude Waal, bij Brug 280 over de Waalseilandsgracht. De toren werd in 1970 aangewezen als rijksmonument.",
+      "body": "De Montelbaanstoren is een toren uit 1516 aan de Oudeschans in Amsterdam. De Montelbaanstoren staat op de hoek met de Oude Waal, bij Brug 280 over de Waalseilandsgracht. De toren werd in 1970 aangewezen als rijksmonument.\n\n\nNaam\nDe naam is ontstaan toen de Hertog van Alva (Alba) bij deze toren een kasteel wilde bouwen, en dit kasteel de naam Monte Albano wilde geven. De toren ging Monte-Albaens-tooren heten, dat in de volksmond verbasterd werd tot Montelbaanstoren. \nDe toren kreeg de bijnaam Malle Jaap omdat de klokken van de toren ooit op onregelmatige tijden spontaan begonnen te spelen.\n\n\nGeschiedenis\nDe Montelbaanstoren is gebouwd na een aanval van de hertog van Gelre op de Lastage, waarbij deze volledig werd platgebrand. Hierna werd een nieuwe gracht gegraven (de huidige Oude Schans) en in 1515 de Montelbaanstoren gebouwd als uitkijktoren bij het IJ.\nIn de 17e eeuw was de dreiging geweken en verloor de toren zijn functie als uitkijktoren. In 1606 werd een sierbekroning in renaissancestijl op de toren geplaatst, ontworpen door stadsbouwmeester Hendrick de Keyser. De Montelbaanstoren werd daarmee 48 meter hoog. In de toren kwamen een uurwerk en enkele luidklokken. In 1610 zakte de toren, die gefundeerd was op plaggen (huiden genaamd), scheef. Hij moest worden rechtgetrokken en kreeg een nieuw (stenen) fundament.\nIn 1852 dreigde de toren te worden gesloopt, maar in 1878 werd het Stadswaterkantoor in de toren gevestigd. Tot 2006 was hier de afdeling Uitvoering van de sector Waterbeheer van de dienst Riolering en Waterhuishouding gehuisvest. In 2006 vertrok het Stadswaterkantoor naar een nieuwe locatie en werd de toren grondig gerestaureerd.\nVanaf 2007 stond de toren leeg omdat de gemeente geen huurder kon vinden die bereid was 9000 euro per maand te betalen. Van 2010 tot 2013 werd hij voor een veel lager bedrag verhuurd aan Stichting Secret Garden, een belangenorganisatie die opkomt voor homoseksuele, biseksuele en transgendermoslims. Sinds 2014 zit het kantoor van ",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Montelbaanstoren"
+    },
+    "nl:Westerkerk (Amsterdam)": {
+      "description": "De Westerkerk in Amsterdam is een kerk aan de Prinsengracht 279-281, op de Westermarkt, aan de rand van de Jordaan. De oorspronkelijk Nederduits Gereformeerde en sinds 1816 Nederlands Hervormde Westerkerkgemeente maakt sinds 2004 deel uit van de Protestantse Kerk in Nederland.",
+      "body": "De Westerkerk in Amsterdam is een kerk aan de Prinsengracht 279-281, op de Westermarkt, aan de rand van de Jordaan. De oorspronkelijk Nederduits Gereformeerde en sinds 1816 Nederlands Hervormde Westerkerkgemeente maakt sinds 2004 deel uit van de Protestantse Kerk in Nederland.\n\n\nArchitectuur\nDe Westerkerk is tussen 1620 en 1631 in renaissancestijl gebouwd naar ontwerpen van bouwmeester Hendrick de Keyser (1565-1621). Hij ligt begraven in de Zuiderkerk. De Westerkerk is onder leiding van zijn zoon Pieter de Keyser (1595-1676) voltooid en op 8 juni 1631 in gebruik genomen.\nDe kerk heeft een lengte van 58 meter en een breedte van 29 meter. Het hoge middenschip wordt geflankeerd door de beide lagere zijbeuken. De driebeukige basiliek heeft een rechthoekige plattegrond met twee transepten van gelijke afmetingen. Daardoor kreeg de plattegrond de vorm van twee met elkaar verbonden Griekse kruisen.\n\n\nWestertoren\nDe toren van de kerk: de Westertoren, staat aan de westzijde van het middenschip en vormt een geheel met de kerk. Het is de hoogste kerktoren van Amsterdam (± 87 meter). De bovenbouw met de keizerskroon is van 1637 en bevat naast uurslagklokken van Ahasverus Koster een carillon van Hemony. De romp van de toren is van baksteen met achter de galmgaten drie luidklokken, de bovenbouw bestaat uit drie, in grootte afnemende verdiepingen. Het eerste deel met jaartal en wapen van Amsterdam is van zandsteen. De lantaarns er boven zijn van hout met lood bekleed.\n\n\nOrgels\nHet hoofdorgel, gebouwd door Roelof Barentszn Duyschot en Johannes Duyschot, werd in 1686 opgeleverd. In 1727 werd het orgel door Christian Vater, leerling van Arp Schnitger, uitgebreid met een derde klavier. Na vele wijzigingen in de 18e, 19e en 20e eeuw werd het orgel tussen 1989 en 1992 herbouwd door Flentrop Orgelbouw. Tijdens de interieurrestauratie van de kerk werd het orgel leeggemaakt en daarna weer schoon in de kas geplaatst in het voorjaar van 2020. Deze werkzaamheden werden eveneens uitgevoerd door",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Westerkerk%20(Amsterdam)"
+    },
+    "nl:Leidseplein (Amsterdam)": {
+      "description": "Het Leidseplein is een plein in het centrum van Amsterdam. Het plein ligt in het verlengde van de Leidsestraat en loopt over de Leidsebrug en langs het Leidsebosje naar de Stadhouderskade. De Marnixstraat en Leidsekade komen uit op het plein.",
+      "body": "Het Leidseplein is een plein in het centrum van Amsterdam. Het plein ligt in het verlengde van de Leidsestraat en loopt over de Leidsebrug en langs het Leidsebosje naar de Stadhouderskade. De Marnixstraat en Leidsekade komen uit op het plein. Naast het Leidseplein ligt het Kleine-Gartmanplantsoen, dat vaak als deel van het plein wordt gezien. Het plein vormt samen met de nabijgelegen Korte en Lange Leidsedwarsstraat en de Leidsekruisstraat de Leidsebuurt.\nHet Leidseplein is een bekend uitgaansgebied met terrassen, theaters en horecagelegenheden. Aan het plein en in de directe omgeving staan de Stadsschouwburg, het American Hotel met Café Américain, de bioscoop City Theater, theater De Balie met drie zalen aan het Kleine-Gartmanplantsoen, Theater Bellevue met drie zalen aan de Leidsekade, theater DeLaMar met twee zalen aan de Marnixstraat, de poppodia Paradiso en de Melkweg en coffeeshop The Bulldog.\nOp het plein staat het beeld Tegen alle stromen in ter nagedachtenis aan Peter R. de Vries. Voor het American Hotel ligt de Hans Snoekfontein. Hier tegenover is het Hirschgebouw met een opvallend torentje. Naast de Leidsebrug (brug nr. 174) over de Singelgracht ligt het Leidsebosje, met twee van de grootste bomen van Amsterdam: platanen met een omtrek van ruim 6,5 meter. Op een van de takken is in 1989 het beeldje het Boomzagertje geplaatst door De Onbekende Beeldhouwer.\nIn de winter is een kunstijsbaan op de plaats van het terras van het Leidseplein. \n\n\nGeschiedenis\nHet plein dateert uit 1660, de Vierde Uitleg van de grachtengordel. Het plein werd, net als het Haarlemmerplein en het Weesperplein, aangelegd als \"wagenplein\" waar bezoekers van buiten de stad hun karren konden parkeren voordat zij verder de stad in gingen. Het plein werd vernoemd naar de Leidsepoort die hier tot 1862 stond. \nIn 1774 werd de eerste Stadsschouwburg op het plein gebouwd. Dit houten gebouw brandde in 1890 geheel af, waarna in 1894 het huidige gebouw verrees. Vanaf 1875 werd het plein ook een b",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Leidseplein%20(Amsterdam)"
+    },
+    "nl:Monument Indië-Nederland": {
+      "description": "Het Monument Indië-Nederland bevindt zich in een plantsoen aan het Olympiaplein bij de Apollolaan in Amsterdam-Zuid. Het monument was oorspronkelijk een ereteken voor generaal J.B. van Heutsz, commandant van het Nederlands-Indische leger en gouverneur-generaal van Nederlands-Indië. In 2004 werd het monument hernoemd in Monument Indië-Nederland.De door twee leeuwtjes geflankeerde vrouwenfiguur wordt in de volksmond \"Mien met de hondjes\" genoemd.",
+      "body": "Het Monument Indië-Nederland bevindt zich in een plantsoen aan het Olympiaplein bij de Apollolaan in Amsterdam-Zuid. Het monument was oorspronkelijk een ereteken voor generaal J.B. van Heutsz, commandant van het Nederlands-Indische leger en gouverneur-generaal van Nederlands-Indië. In 2004 werd het monument hernoemd in Monument Indië-Nederland.De door twee leeuwtjes geflankeerde vrouwenfiguur wordt in de volksmond \"Mien met de hondjes\" genoemd.",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Monument%20Indi%C3%AB-Nederland"
+    },
+    "nl:Noorderkerk (Amsterdam)": {
+      "description": "De Noorderkerk aan de Noordermarkt in Amsterdam is gebouwd naar een ontwerp van Hendrick de Keyser (1565-1621).",
+      "body": "De Noorderkerk aan de Noordermarkt in Amsterdam is gebouwd naar een ontwerp van Hendrick de Keyser (1565-1621). De kerk wordt gebruikt door de Noorderkerkgemeente van de Protestantse Kerk Amsterdam, onderdeel van de PKN.\n\n\nProtestants\nDe kerk is gebouwd tussen 1620 en 1623 in de zogenaamde centraalbouw, de kerkplattegrond vormt een Grieks kruis, in de oksels zijn driehoekige dienstwoningen gebouwd. Naar dit voorbeeld is onder andere in Groningen de Nieuwe Kerk gebouwd.\nNet als de Westerkerk, zo'n 700 meter ten zuiden van deze kerk, is het gebouw neergezet om de in de 17e eeuw snel groeiende bevolking van de Westelijke Grachtengordel en Jordaan een protestantse kerk te bieden.\n\n\nToren\nDe kleine vieringtoren is het werk van stadstimmerman Hendrick Jacobsz. Staets en de toenmalige stadsmetselaar Cornelis Danckertsz. de Rij. Dat deze beide vaklieden het werk van Hendrick de Keyser, na diens dood samen met diens zoon Pieter, hebben voltooid wijst op betrokkenheid van het stadsbestuur omdat kerkenbouw in Amsterdam in die tijd weinig prioriteit had.\n\n\nHeden\nDe Noorderkerk is gerestaureerd tussen 1993 en 1998. Bij de grotendeels door de gemeente Amsterdam en het rijk betaalde restauratie is bedongen dat de kerk ook voor culturele activiteiten wordt gebruikt. Er worden regelmatig concerten gehouden. Sinds 1999 vinden er elke zaterdagmiddag de Noorderkerkconcerten plaats. Sinds 2024 vindt er in de Noorderkerk een lichtshow plaats onder de naam: Van Gogh en Rembrandt in Amsterdam.\nAan de zuidelijke buitenmuur van de kerk zijn twee bronzen plaquettes aangebracht; één ter nagedachtenis aan tijdens de Tweede Wereldoorlog gevallen buurtgenoten, de tweede plaquette herinnert aan de Februaristaking in 1941. De oproep tot de staking werd gedaan tijdens verboden bijeenkomsten op de Noordermarkt. Een monumentje naast de ingang van de kerk herinnert aan het Jordaanoproer van 1934.\nDe kerk is in gebruik bij de Noorderkerkgemeente, een wijkgemeente met een Gereformeerde Bonds-signatuur. D",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Noorderkerk%20(Amsterdam)"
+    },
+    "nl:De Wallen": {
+      "description": "De Wallen of de walletjes is een prostitutiegebied in het oudste deel van Amsterdam in de buurt Burgwallen Oude Zijde. Er wordt op ruim 300 werkplekken raamprostitutie bedreven. De buurt wordt in het Engels aangeduid met Red Light District, vanwege de rode lampen die traditioneel in de ramen van de prostituees branden.",
+      "body": "De Wallen of de walletjes is een prostitutiegebied in het oudste deel van Amsterdam in de buurt Burgwallen Oude Zijde. Er wordt op ruim 300 werkplekken raamprostitutie bedreven. De buurt wordt in het Engels aangeduid met Red Light District, vanwege de rode lampen die traditioneel in de ramen van de prostituees branden. Het is een van de belangrijkste toeristische bezienswaardigheden van Amsterdam.\n\n\nGebied\nHet prostitutiegebied meet circa 250 × 250 meter en wordt begrensd door de Lange Niezel en Korte Niezel in het noorden, de Zeedijk / Nieuwmarkt in het oosten, de Koestraat / Sint Jansstraat in het zuiden en de Warmoesstraat in het westen. Binnen de Wallen bevinden zich ook deelgebieden met geen of weinig seksgerelateerde activiteiten. Het Blaauwlakenblok is zo'n gebied.\nProstitutie vindt plaats in de Barndesteeg, Bethlehemsteeg, Bloedstraat, Dollebegijnensteeg, Enge Kerksteeg, Goldbergersteeg, Gordijnensteeg, Molensteeg, Monnikenstraat, Oudekerksplein, Oudekennissteeg, Oudezijds Achterburgwal, Oudezijds Voorburgwal, Sint Annendwarsstraat, Sint Annenstraat, Stoofsteeg en Trompettersteeg.\nHet gebied huisvest ook seksshops, het erotische theater Casa Rosso, de Bananenbar, het Hash Marihuana & Hemp Museum en coffeeshops.\n\n\nGeschiedenis\nDe Wallen liggen in het oudste deel van Amsterdam. De Oude Kerk, het oudste nog bestaande gebouw van de stad, en de Warmoesstraat dateren van de 13e eeuw.\nVóór 1385 werd Amsterdam in het westen afgeschermd met een gracht (nu de Nieuwezijds Voorburgwal) met daarbuiten een aarden wal met palissade, en in het oosten hetzelfde (nu de Oudezijds Voorburgwal). Omstreeks 1385 werden de vestingwerken van Amsterdam daarbuiten uitgebreid met nieuwe grachten met wallen: Nieuwezijds Achterburgwal (nu de Spuistraat) in het westen en Oudezijds Achterburgwal in het oosten. Zo ontstond het gebied dat in de twintigste eeuw \"de Wallen\" genoemd werd.\nTot 1578 werd het gebied Oudezijde gekenmerkt door vele kloosters. Na de Alteratie kregen de kloosters van ",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/De%20Wallen"
+    },
+    "nl:Muiderslot": {
+      "description": "Het Muiderslot is een middeleeuws kasteel in het Noord-Hollandse Muiden, gebouwd rond 1285, herbouwd vanaf 1370 en een Rijksmuseum sinds 1878.\nHet slot is waarschijnlijk in het laatste kwart van de 13e eeuw gebouwd en veel van de inrichting dateert uit de 17e eeuw, maar is er pas later neergezet. In 1296 werd graaf Floris V in de omgeving van het kasteel vermoord.",
+      "body": "Het Muiderslot is een middeleeuws kasteel in het Noord-Hollandse Muiden, gebouwd rond 1285, herbouwd vanaf 1370 en een Rijksmuseum sinds 1878.\nHet slot is waarschijnlijk in het laatste kwart van de 13e eeuw gebouwd en veel van de inrichting dateert uit de 17e eeuw, maar is er pas later neergezet. In 1296 werd graaf Floris V in de omgeving van het kasteel vermoord. In de jaren 1610-1647 was P.C. Hooft de hoofdbewoner vanwege zijn functie van drost van Muiden. Hooft bracht er voornamelijk de zomers door en stelde het slot gastvrij open voor zijn vriendenkring, wier bezoeken later leidden tot de schilderachtige Muiderkringmythe. In de Franse tijd gebruikte het Franse leger het kasteel als kazerne en toen het slot vanaf 1795 niet meer bewoond werd, raakte het in verval.\nDe eerste restauratie begon in 1895. Een volgende, waarbij ook de directe omgeving in 17e-eeuwse staat werd teruggebracht, in 1955. In 1999 werden de vesting en de groentetuin gerenoveerd.\n\n\nArchitectuur\nHet kasteel is een vierkante waterburcht. Op iedere hoek van het kasteel staat een ronde toren en binnen de muren staat een groot gebouw met trapgevels. Het kasteel heeft een slotgracht met een ophaalbrug. Om het kasteel heen liggen vestingwerken, een moestuin en een kruidentuin.\nHet kasteel werd gebouwd aan de monding van de Vecht in de Zuiderzee, het latere IJmeer. Direct bij het kasteel ligt Muiden met zijn haven.\n\n\nGeschiedenis\nDe geschiedenis van het kasteel is niet met zekerheid bekend. In de dertiende eeuw werd Muiden als leengoed van het Sticht beheerd door de heren Van Amstel. De beheersing van de mondingen van de handelsvaarwegen zoals de Vecht en de toegang tot het open IJ waren van groot strategisch belang voor dit gebied. Waarschijnlijk werd in die tijd een versterking van hout en later van steen opgericht om de noordgrens en belangrijke waterweg van het Sticht en de economische belangen van de familie Van Amstel te beschermen. Op verschillende plaatsen werd tol geïnd, in die tijden een bela",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Muiderslot"
+    },
+    "nl:De Krijtberg": {
+      "description": "De Krijtberg of Sint-Franciscus Xaveriuskerk is een rooms-katholieke rectoraatskerk in het centrum van Amsterdam, gewijd aan de heilige Franciscus Xaverius. Zij wordt bediend door priesters van de Sociëteit van Jezus, beter bekend als de jezuïeten. De kerk staat aan de Singel en maakt deel uit van binnenstadsparochie van de Heilige Nicolaas.",
+      "body": "De Krijtberg of Sint-Franciscus Xaveriuskerk is een rooms-katholieke rectoraatskerk in het centrum van Amsterdam, gewijd aan de heilige Franciscus Xaverius. Zij wordt bediend door priesters van de Sociëteit van Jezus, beter bekend als de jezuïeten. De kerk staat aan de Singel en maakt deel uit van binnenstadsparochie van de Heilige Nicolaas. Ze staat in de volksmond ook wel bekend als De Rijtjeskerk.\n\n\nGeschiedenis\nDe Krijtberg is de opvolger van een schuilkerk die sinds 1654 was gevestigd in een huis met de naam Crijtberg en werd bediend door jezuïeten. Met de bouw van de huidige kerk werd in 1881 begonnen. De neogotische kerk werd ontworpen door architect Alfred Tepe. Net als eerder bij de Sint-Willibrorduskerk in Utrecht moest Tepe een grote kerk bouwen op een relatief klein oppervlak, dit keer tussen de bestaande grachtenpanden in. Omdat de beschikbare grond alleen aan de oostkant aan een straat grensde werd de kerk niet georiënteerd. Om de ruimte optimaal te benutten werd de breedte van de zijbeuken beperkt en werd de kerk voorzien van galerijen. In plaats van een transept kreeg de kerk een pseudotransept ter breedte van de zijbeuken. Voor een optimale lichtinval kwamen de meeste ramen zo hoog mogelijk. De inwendige hoogte van het gewelf bedraagt 31 meter. Omdat de kerk verder aan alle kanten was ingebouwd gaf Tepe de kerk een monumentale voorgevel met twee traptorens. In 1883 werd de kerk gewijd. De inrichting werd verzorgd door kunstenaars van het St. Bernulphusgilde onder wie Friedrich Wilhelm Mengelberg.\n\n\nJezuïeten\nVanaf de oprichting in 1654 tot op heden wordt de Krijtberg bediend door de paters en broeders van de Sociëteit van Jezus. In de pastorie van de kerk was ooit het Roothaan-museum gevestigd rond de 19e-eeuwse generaal-overste van de jezuïeten, Jan Philip Roothaan. Thans bevindt zich in de Krijtberg een buste waarin het hart van pater Roothaan bewaard wordt. De Krijtberg werkt ook samen met het om de hoek gelegen Ignatiushuis dat eveneens door de ",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/De%20Krijtberg"
+    },
+    "nl:Grachtengordel (Amsterdam)": {
+      "description": "De grachtengordel is het deel van de Amsterdamse binnenstad dat langs de vier voornaamste grachten ligt: de Singel, Herengracht, Keizersgracht en Prinsengracht. Vanaf de Brouwersgracht buigen deze grachten zich min of meer evenwijdig aan elkaar geleidelijk naar het zuidoosten, maken een viertal flauwe bochten en eindigen in de Amstel. In verlenging lopen de Nieuwe Herengracht, Nieuwe Keizersgracht en Nieuwe Prinsengracht vanaf de Amstel naar het noordoosten tot aan de Muidergracht, waarna de Plantage begint.",
+      "body": "De grachtengordel is het deel van de Amsterdamse binnenstad dat langs de vier voornaamste grachten ligt: de Singel, Herengracht, Keizersgracht en Prinsengracht. Vanaf de Brouwersgracht buigen deze grachten zich min of meer evenwijdig aan elkaar geleidelijk naar het zuidoosten, maken een viertal flauwe bochten en eindigen in de Amstel. In verlenging lopen de Nieuwe Herengracht, Nieuwe Keizersgracht en Nieuwe Prinsengracht vanaf de Amstel naar het noordoosten tot aan de Muidergracht, waarna de Plantage begint.\nDe grachtengordel is een systeem van straten, kades, bruggen en woonhuizen op tamelijk identieke kavels van gelijke lengte en breedte met gesloten binnentuinen, de zogenoemde keurblokken. Veel grachtenpanden getuigen van de welvaart in de Gouden Eeuw, maar in de meeste gevallen van de 18e eeuw. Omdat de panden in de loop der eeuwen diverse malen zijn verbouwd, komen naast elkaar veel verschillende architectuurstijlen en gevels voor. Ondanks doorbraken en nieuwbouw in de 20e eeuw is de grachtengordel een van de belangrijkste toeristische attracties van Amsterdam\nDe grachtengordel staat sinds 1 augustus 2010 op de Werelderfgoedlijst van UNESCO. In 2013 vierde Amsterdam het 400-jarig jubileum van het besluit op 5 maart 1613 om de grachtengordel aan te leggen.\n\n\nGeschiedenis\n\nTot het einde van de 16e eeuw bestond de stad Amsterdam uit het gebied binnen de Singel en de huidige Kloveniersburgwal. Na de Alteratie en de daarmee samenhangende bestuurswisseling, breidde de stad zich explosief uit. Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665. In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels. Ter hoogte van de Leidsegracht is de nieuwe verdedigingslijn met een knik weer op de oude, bestaande omwalling aangesloten.\nNa de Vrede van Münster ontstond opnieuw ruimte voor investeringen en werden nieuwe plannen ontw",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Grachtengordel%20(Amsterdam)"
+    },
+    "nl:Warmoesstraat (Amsterdam)": {
+      "description": "De Warmoesstraat is een straat in het centrum van de Nederlandse hoofdstad Amsterdam. De Warmoesstraat is een van de oudste straten van Amsterdam en telt tientallen rijks- en gemeentelijke monumenten.",
+      "body": "De Warmoesstraat is een straat in het centrum van de Nederlandse hoofdstad Amsterdam. De Warmoesstraat is een van de oudste straten van Amsterdam en telt tientallen rijks- en gemeentelijke monumenten.\n\n\nLigging en verkeer\nDe Warmoesstraat is een circa 550 meter lange, vrij smalle straat in de wijk Oudezijde in het stadsdeel Amsterdam-Centrum. Ze loopt vanaf de Dam evenwijdig met het Damrak naar de Nieuwebrugsteeg, vlak bij het Centraal Station. De straat grenst aan de Wallen.\nDe straat is autoluw: auto's hebben alleen tussen 7 en 12 uur 's morgens toegang. In de hele straat geldt een parkeerverbod. Fietsen is toegestaan, maar is soms onmogelijk door de vele voetgangers (vooral toeristen) en de smalle stoepen.\n\n\nGeschiedenis\n\n\nNaam\nDe huidige Warmoesstraat had tot in de 17e eeuw twee namen: Kerkstraat voor het noordelijke deel tot de Oude Kerk en Warmoesstraat voor het zuidelijke deel. De naam is afgeleid van warmoezerijen, naar de handel in groenten, met name snijbiet (in sommige dialecten 'warmoes' genoemd). In 1957 is het meest zuidelijke straatdeel bij Hotel Krasnapolsky na afbraak van enkele panden bij de Dam gevoegd. Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond.\n\n\nOntstaan en bloeitijd\n\nMet het leggen van de Dam in de Amstel ontstond in de 13e eeuw de huidige stad Amsterdam. Het centrum van de stad wordt gevormd door de oude monding van de Amstel, het Damrak. De Amstel had toen nog de volledige breedte tussen de Nieuwendijk en de Warmoesstraat. De Warmoesstraat ligt op de dijk aan de oostkant van het Damrak. Al snel werd echter een strook in het Damrak aangeplempt en was de straat aan beide zijden bebouwd, waarbij de gevels aan de Damrakzijde in het water stonden (en nog steeds staan). \nWarmoesstraat 90 is het oudste nog bestaande woonhuis van de stad, zo bleek in 2012 uit dendrochronologisch onderzoek: het gebruikte hout dat",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Warmoesstraat%20(Amsterdam)"
+    },
+    "nl:Koninklijk Concertgebouw": {
+      "description": "Het Koninklijk Concertgebouw, geopend op 11 april 1888, is een gebouw met diverse concertzalen, gelegen aan de Van Baerlestraat tegenover het Museumplein in Amsterdam. Het is de thuisbasis van het Koninklijk Concertgebouworkest.\nHet Concertgebouw heeft vier concertzalen: de Grote Zaal, de Kleine Zaal, de Koorzaal en de Spiegelzaal.",
+      "body": "Het Koninklijk Concertgebouw, geopend op 11 april 1888, is een gebouw met diverse concertzalen, gelegen aan de Van Baerlestraat tegenover het Museumplein in Amsterdam. Het is de thuisbasis van het Koninklijk Concertgebouworkest.\nHet Concertgebouw heeft vier concertzalen: de Grote Zaal, de Kleine Zaal, de Koorzaal en de Spiegelzaal. Sinds een grote renovatie en verbouwing in 1988 is de hoofdentree niet langer aan de Van Baerlestraat, maar aan het Concertgebouwplein nr. 2.\nHet gebouw werd op 4 juli 1974 tot rijksmonument verklaard. Tijdens de viering in 2013 van het 125-jarig bestaan kreeg het Concertgebouw het predicaat Koninklijk. Sindsdien is de officiële naam Het Koninklijk Concertgebouw.\n\n\nGeschiedenis\n\n\nOprichting\nDe oprichtingsvergadering van de naamloze vennootschap die het Concertgebouw liet bouwen, werd gehouden in 1882 in theaterzaal Odeon aan de Singel, waarin in de 21e eeuw een gelijknamige discotheek is gevestigd.\nDe bouw begon in 1883 in een veenweidegebied dat destijds net buiten de stadsgrenzen van Amsterdam lag, in de gemeente Nieuwer-Amstel. In 1896 kwam het binnen de grenzen van Amsterdam. Er tegenover lag het latere IJsclubterrein, sinds 1903 het Museumplein. Als fundering werden 2186 heipalen van twaalf tot dertien meter lang tot op de zandbodem geslagen.\nDe zaal werd geopend op 11 april 1888, met een inwijdingsconcert waaraan 120 musici en een koor van 500 personen deelnamen. Er werd muziek ten gehore gebracht van Wagner, Händel, Bach en Beethoven.\n\n\nTweede Wereldoorlog\nTen tijde van de Tweede Wereldoorlog werd de uitvoering van werken van joodse componisten als Gustav Mahler en Felix Mendelssohn verboden. De zeventien Joodse leden van het Concertgebouworkest, bijna eenvijfde van het totaal aantal musici, moesten worden ontslagen omwille van de zogenaamde arisering. In 2020 werden de betreffende musici postuum geëerd in het Gedenkteken Joodse Musici in een gang achter de Grote Zaal.\n\n\nNaoorlogse jaren\nTot 1952 vormden het gebouw en het Concertge",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Koninklijk%20Concertgebouw"
+    },
+    "nl:Stadhuis van Weesp": {
+      "description": "Op het adres Nieuwstraat 41 te Weesp staat het voormalig Stadhuis van Weesp.",
+      "body": "Op het adres Nieuwstraat 41 te Weesp staat het voormalig Stadhuis van Weesp.\n\n\nAchtergrond\nVoor het ontwerp van het gebouw werd gekozen voor de toen bekende architect Jacob Otten Husly. Hij kwam, geholpen door meester steenhouwer Leendert Viervant met een gebouw in de  neoclassicistische stijl. Er werd tussen 1772 en 1776 aan gebouwd. Otten Husley liet zich inspireren door het Stadhuis van Amsterdam van Jacob van Campen, dat later het Paleis op de Dam werd. Dat voorbeeld werd opgenomen in beeldhouwwerk in de schepenzaal. Bekeken naar de voorgevel lijkt het een miniatuurversie van het Amsterdamse gebouw. Toch zijn er ook enkele verschillen. Voor het Paleis op de Dam werd een regelmatige rechthoek gereserveerd; het Stadhuis van Weesp werd gebouwd op een bestaand perceel; dat perceel heeft geen rechte hoeken, maar scherpe en stompe hoeken. Otten Husley wist dat deels te camoufleren, zo ziet de voorgevel er kaarsrecht uit. Ook het interieur werd zodanig ingericht dat een bezoeker het idee heeft in een rechthoekig gebouw te staan. Ook de omgeving van beide stadhuizen ziet er totaal verschillen uit. Het stadhuis van Weesp staat tussen andere gebouwen; het Paleis op de Dam heeft een groot plein voor de deur (nadat allerlei gebouwen gedurende de eeuwen gesloopt waren).\nHet gebouw werd al vanaf het begin geprezen, zo blijkt uit de publicatie van de opstandtekening van de voorgevel met beschrijving in De Maandelykse Nederlandsche Mercurius in 1776, nog in het jaar waarin het bouwwerk werd voltooid. Kosten noch moeite waren gespaard bij dit gebouw, dat niet alleen “mooi stond in Weesp”, maar ook na eeuwen lux afsteekt bij andere stadhuizen in Nederland. Men roemt de natuurstenen trap naar de eerste etage en ook de inrichting van de burgerzaal met een geometrisch ontworpen vloer met minstens drie soorten natuursteen. Een en ander wordt nog eens benadrukt door de rijke houten betimmeringen (of soms werd steen zodanig beschilderd dat het op hout lijkt).\nEr werd bestuurd vanaf de ",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Stadhuis%20van%20Weesp"
+    },
+    "nl:Beurs van Berlage": {
+      "description": "De Beurs van Berlage is een rijksmonument, gelegen aan het Damrak en Beursplein, Oude Brugsteeg en Beursstraat, in het centrum van Amsterdam, ontworpen door Hendrik Petrus Berlage.\nHet gebouw is tegenwoordig in gebruik als centrum voor exposities, congressen en andere bijeenkomsten. De Beurs van Berlage behoort tot de 'Top 100 van de Rijksdienst voor de Monumentenzorg' uit 1990.",
+      "body": "De Beurs van Berlage is een rijksmonument, gelegen aan het Damrak en Beursplein, Oude Brugsteeg en Beursstraat, in het centrum van Amsterdam, ontworpen door Hendrik Petrus Berlage.\nHet gebouw is tegenwoordig in gebruik als centrum voor exposities, congressen en andere bijeenkomsten. De Beurs van Berlage behoort tot de 'Top 100 van de Rijksdienst voor de Monumentenzorg' uit 1990.\n\n\nOntstaansgeschiedenis\nIn de loop van de jaren 70 van de 19e eeuw werd duidelijk dat Amsterdam behoefte had aan een nieuwe Koopmansbeurs. De bestaande Beurs van Zocher uit 1848 was, door de economische opleving, niet alleen te klein geworden, het gebouw, dat de bijnaam \"het mausoleum\" had, was ook qua stijl uit de mode geraakt. Het in 1876 ontworpen Centraal Station, tegenover de oude beurs, maakte dit nog maar eens duidelijk. De behoefte aan een nieuwe beurs in combinatie met het CS als nieuwe gateway tot de stad waren de aanleiding tot een lange discussie tussen de gemeente enerzijds, en ondernemers georganiseerd in de Kamer van Koophandel en architecten georganiseerd in Architectura et Amicitia (A et A) anderzijds. De gemeente wilde zo min mogelijk geld uitgeven, de ondernemers wilden zo snel mogelijk een nieuwe beurs en de architecten, met A et A-voorzitter Jan Springer voorop, wilden een architectonisch hoogstandje, dat een plaats kreeg in een groot stedenbouwkundig plan, dat het CS met de Dam moest verbinden.\n\n\nDe ‘Beursquaestie’\n\nIn 1879 werd door de gemeenteraad een commissie benoemd om de al bestaande beursontwerpen op uitvoerbaarheid te toetsen. Deze commissie bracht op 19 november van dat jaar een rapport uit, dat echter nooit werd behandeld. Op 18 oktober 1882 wees de raad het zojuist gedempte Damrak tussen de Dam en de Oudebrug aan als locatie voor de nieuwe beurs. Deze moest zo veel mogelijk door de handelaren zelf betaald worden en dus werd op initiatief van Adriaan Heynsius een 'beursbelasting' ingevoerd. In juni 1883 kondigde de gemeente Amsterdam aan dat het van plan was e",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Beurs%20van%20Berlage"
+    },
+    "nl:Hortus Botanicus Amsterdam": {
+      "description": "De Hortus Botanicus Amsterdam is een botanische tuin. De tuin ligt aan de Plantage Middenlaan, in de Plantagebuurt. De tuin is ongeveer 1,2 ha groot en bevat meer dan zesduizend tropische en inheemse bomen en planten.",
+      "body": "De Hortus Botanicus Amsterdam is een botanische tuin. De tuin ligt aan de Plantage Middenlaan, in de Plantagebuurt. De tuin is ongeveer 1,2 ha groot en bevat meer dan zesduizend tropische en inheemse bomen en planten.\n\n\nGebouwen\nDe monumentale palmenkas dateert uit 1912. Er is een oranjerie, waarin vanouds 's winters sinaasappelbomen en andere kuipplanten binnen worden gezet. Aangrenzend bevindt zich aan de Plantage Middenlaan het voormalige Hugo de Vries-laboratorium; dit gebouw is ontworpen door architect Jo van der Mey.\n\n\nMonumentale status\nEnkele bouwwerken van de hortus zijn beschermd als rijksmonument:\n\nhet oude kasgebouw, tegenwoordig de Oranjerie, aan de Plantage Middenlaan,\nhet toegangshek met toegangspoort aan de Plantage Middenlaan,\nde palmen- en varenkas aan de Plantage Parklaan bij de Nieuwe Keizersgracht,\nde voormalige hortulanuswoning,\nhet voormalig speelhuis, de latere zaadkoepel.\nDeze bouwwerken vormen samen met het voormalige Hugo de Vries-laboratorium en twee voetbruggen, de (afgesloten) brug 232 (de \"Oostelijke Hortusbrug\") en de (openbaar toegankelijke) Johan van Hulstbrug (brug 233, de \"Westelijke Hortusbrug\") het rijksmonumentcomplex Hortus Botanicus.\nDaarnaast is het hek aan de Plantage Middenlaan voor het voormalige Hugo de Vries-laboratorium beschermd als gemeentelijk monument.\n\n\nGeschiedenis\n\n\nReguliershof\nDe Amsterdamse 'Hortus Medicus', een tuin met medicinale planten ten dienste van chirurgijns en apothekers in de Reguliershof, op het terrein van het voormalige regulierenklooster ter hoogte van de Utrechtsestraat en de Keizersgracht, werd gesticht in 1638. Constantijn Huygens en P.C. Hooft bemoeiden zich met de herschepping van de tuin in een hortus. Vanwege de pest waren doktoren op zoek naar een kruid als geneesmiddel, maar ook effectievere behandelwijzen van ziekten onder schepelingen op verre reizen hadden de aandacht van de medici. De eerste hortus was mogelijk ingericht naar voorbeeld van de Hortus botanicus Leiden waar Carolus Cl",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Hortus%20Botanicus%20Amsterdam"
+    },
+    "nl:Schreierstoren": {
+      "description": "De Schreierstoren is een 15e-eeuwse verdedigingstoren op de hoek van de Prins Hendrikkade en Geldersekade in het centrum van Amsterdam. Het is de enige bewaard gebleven verdedigingstoren van Amsterdam. De toren werd in 1970 aangewezen als rijksmonument.",
+      "body": "De Schreierstoren is een 15e-eeuwse verdedigingstoren op de hoek van de Prins Hendrikkade en Geldersekade in het centrum van Amsterdam. Het is de enige bewaard gebleven verdedigingstoren van Amsterdam. De toren werd in 1970 aangewezen als rijksmonument.\n\n\nGeschiedenis\nDe toren werd gebouwd rond 1487 op de hoek van het IJ en de oostkant van de stad, als onderdeel van de   stadsmuur van Amsterdam. De stadsmuur liep langs het havenfront en maakte bij de Schreierstoren een scherpe hoek naar het zuidoosten, waarna de stadsmuur langs de stadsgracht (de huidige Geldersekade) doorliep naar de Sint Anthoniespoort op wat nu de Nieuwmarkt is. In de kademuur langs de Geldersekade zijn grote zandstenen blokken te zien; dit zijn restanten van de oude stadsmuur.\nDe toren heette oorspronkelijk de Schrayershoucktoren omdat de stadsmuur hier een scherpe hoek maakte (van schray = \"scherp\"). De huidige naam Schreierstoren zou de toren hebben gekregen omdat hij op de plaats stond waar in de tijd van de VOC vrouwen afscheid namen van hun mannen voordat die op reis gingen. Dit verhaal is echter waarschijnlijk apocrief.\nNadat de toren zijn verdedigende functie had verloren, deed hij nog geruime tijd dienst als havenkantoor. In 1960 verhuisde de havenmeester naar het nieuwe Havengebouw aan de De Ruyterkade.\nIn 1966 werd de toren gerestaureerd. De kantelen die op oude prenten zijn te zien, zijn toen niet opnieuw aangebracht omdat bij bouwhistorisch onderzoek voor het bestaan ervan geen aanwijzingen in het gebouw zelf werden gevonden. \nSinds de restauratie is het gebouw deels een horecagelegenheid. Boven in de toren bevindt zich een scheepskaarten- en scheepsboekenhandel.\n\n\nGevel- en gedenkstenen\nIn 1569 werd een gevelsteen aangebracht met een afbeelding van een schreiende vrouw, die wijst naar het uitvarende schip van haar zeeman.\nIn de noordoostelijke muur werd in september 1927 een plaquette aangebracht ter herinnering aan het feit dat Henry Hudson op 4 april 1609 hiervandaan naar de Nieuw",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Schreierstoren"
+    },
+    "nl:Pampus (eiland)": {
+      "description": "Pampus (officieel Fort aan het Pampus) is een forteiland in het deel van het IJmeer dat behoort tot de gemeente Gooise Meren. Het kunstmatig eiland werd in 1887 aangelegd als onderdeel van de Stelling van Amsterdam om de vaargeul Pampus te verdedigen tegen aanvallen vanuit de Zuiderzee.",
+      "body": "Pampus (officieel Fort aan het Pampus) is een forteiland in het deel van het IJmeer dat behoort tot de gemeente Gooise Meren. Het kunstmatig eiland werd in 1887 aangelegd als onderdeel van de Stelling van Amsterdam om de vaargeul Pampus te verdedigen tegen aanvallen vanuit de Zuiderzee.\n\n\nPlannen\nNa de Frans-Duitse Oorlog van 1870 was het Nederlands bestuur bevreesd voor een aanval op Amsterdam. Men bouwde rondom Amsterdam een vesting, de Stelling van Amsterdam. In 1879 deed Tweede Kamerlid jhr.mr. Jan Willem Rutgers van Rozenburg bij de behandeling van de Vestingsbegroting het eerste voorstel om op het Muiderzand, ten zuiden van Pampus een permanent fort aan te leggen. Met de batterijen ten noorden van het IJ op het Vuurtoreneiland en ten zuiden met Fort Diemerdam zou de gehele toegang tot Amsterdam worden bewaakt.\n\n\nBouw\nIn 1884 ging de Minister van Oorlog akkoord met de bouw in de begroting 1885. De aanleg van het fort startte in 1887 met de aanleg van een werkplateau op de plek waar het middelpunt van het fort ging komen. De firma Kalis baggerde de modder weg tot aan de zandplaat en stortte schoon zand in de plaats. Zinkstukken, stortsteen en basaltblokken gaven het kunstmatige eiland een stevige basis.\nNa enige discussie tussen Amsterdam en Muiden werd het fort op 7 april 1891 bij Koninklijk Besluit ingedeeld bij de gemeente Muiden, die later opging in de gemeente Gooise Meren. In 1893 was reeds de voor het fort bestemde 4e compagnie opgericht die behoorde tot het korps Pantserfort-Artillerie. Op 1 mei van dat jaar komt deze voor het eerst bij het garnizoen van Muiden bijeen met kapitein L.C. Dyxhoorn als commandant. Het fort werd in 1895 voltooid en op 20 augustus droeg de Minister van Oorlog het over aan de artillerie.\n\n\nBebouwing\nHet fort staat op 3852 heipalen van 11 meter lang en de bebouwing is een combinatie van beton en gemetselde bakstenen. Het fort heeft een ovale vorm en het hoofdgebouw telt twee verdiepingen. Op de benedenverdieping bevonden zich de",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Pampus%20(eiland)"
+    },
+    "nl:Waag (Amsterdam)": {
+      "description": "De Waag is een 15e-eeuws gebouw op de Nieuwmarkt in het centrum van Amsterdam. Het was oorspronkelijk een stadspoort. De huidige naam verwijst naar de latere functie als waag.",
+      "body": "De Waag is een 15e-eeuws gebouw op de Nieuwmarkt in het centrum van Amsterdam. Het was oorspronkelijk een stadspoort. De huidige naam verwijst naar de latere functie als waag.\nHet gebouw heeft een reeks andere functies gehad, waaronder gildehuis, museum, brandweerkazerne en anatomisch theater. Sinds 1996 is er de Stichting Waag gevestigd, met horeca op de begane grond.\n\n\nEerste periode: Sint Antoniespoort\nOorspronkelijk was het gebouw een stadspoort, de Sint Antoniespoort geheten. De poort lag in het verlengde van de Zeedijk. Buiten de stadsmuren liep de dijk verder als Sint Antoniesdijk. Na aanleg van de Lastage in de 16e eeuw kwam hier de Sint Antoniesbreestraat te liggen en werd een tweede Sint Antoniespoort gebouwd bij de latere Hortus Botanicus.\nDe stadspoort was onderdeel van de middeleeuwse stadsommuring langs het huidige Singel, de Kloveniersburgwal en de Geldersekade. Deze ommuring werd aangelegd in de jaren 1481-1494, en bestond uit verdedigingstorens en stadspoorten, onderling verbonden door een stadsmuur. De stadsmuur was uit baksteen opgetrokken, op een natuurstenen voet na. Van de muur is vrijwel niets over, maar in de kademuur van de Geldersekade bevinden zich nog steeds stukken zandsteen van de stadsmuur. De Schreierstoren is de enige overgebleven verdedigingstoren. Van de stadspoorten zijn alleen de Sint Antoniespoort (de huidige Waag) en een deel van de Regulierspoort over (het onderste deel van de Munttoren).\nIn de toren op de hoek tussen de Zeedijk en de Geldersekade zit de oudste gevelsteen van Amsterdam met het opschrift MCCCCLXXXVIII de XXVIII dach in April wart d'eerste steen van dese poert gheleit (\"Op 28 april 1488 werd de eerste steen van deze poort gelegd\"). Het bouwjaar 1488, zoals vermeld op deze gevelsteen en in vele officiële bronnen, blijkt echter onjuist. Er zijn aanwijzingen dat de poort van veel oudere datum is. Zo bestaan er meerdere archiefstukken in het Stadsarchief Amsterdam van vóór 1488 die de Sint Antoniespoort al noemen. V",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Waag%20(Amsterdam)"
+    },
+    "nl:Blauwbrug": {
+      "description": "De Blauwbrug (brug 236) in Amsterdam is een vaste brug in Amsterdam-Centrum. De brug verbindt de Amstelstraat met het Waterlooplein. Ze overspant daarbij de Amstel.",
+      "body": "De Blauwbrug (brug 236) in Amsterdam is een vaste brug in Amsterdam-Centrum. De brug verbindt de Amstelstraat met het Waterlooplein. Ze overspant daarbij de Amstel. In de directe omgeving liggen de Stopera, de Mozes en Aäronkerk, de Hermitage Amsterdam en de Waterloopleinmarkt.\n\n\nNaam\nDe naam Blauwbrug is afkomstig van de bijnaam van de oude bruggen die hier voor 1883 lagen; zij hadden blauwe leuningen.\nIn de loop der jaren had de brug nog andere bijnamen. Koning Willem III der Nederlanden wilde de brug in 1839 Sophiabrug noemen naar zijn vrouw Sophie van Württemberg. De bijnaam Leeuwenbrug geeft aan dat er vermoedelijk ooit leeuwenkoppen te zien waren aan de houten brugleuningen. \nBloubrik is de naam voor de brug in het Jiddisch. Hij vormde een toegang tot de vroegere Jodenbuurt. De naam komt voor in tal van Jiddische gezegden; allemaal over hoe iemand nooit loskomt van zijn achtergrond.\n\n\nGeschiedenis\nHier lag een houten ophaalbrug tussen de stad en het eiland Vlooienburg. Zij had toen net als andere bruggen over de Amstel de vorm van de Magere Brug. Het gemeentebestuur van Amsterdam wilde een nieuwe brug in verband met het laten rijden van een tramverbinding. Ze wilde daarbij een brug van luxe aanzien, mede om te kunnen pronken tijdens de Koloniale Tentoonstelling van 1883. Architect Bastiaan de Greef en zijn assistent Willem Springer werd gevraagd met een ontwerp te komen (\"op dat schoone punt eene eenigszins monumentale brug\"). Zij kwamen met een brug in de stijl van de Alexandre III brug uit Parijs. De zoon van Willem Springer, Jan Springer, maakte ontwerpen voor versieringen. Een probleem daarbij was dat als de bogen van de Alexandre III overgezet werden naar Amsterdam de brug in de modder zou wegzakken, er werd derhalve gekozen voor kortere bogen. Wat wel meekwam naar Amsterdam zijn de stevige brugpijlers, in Parijs nodig om ijsschotsen in de snelstromende Seine van de brug af te houden, maar in wezen nutteloos in de traag stromende Amstel. \nFrans V. Smit le",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Blauwbrug"
+    }
+  }
+}

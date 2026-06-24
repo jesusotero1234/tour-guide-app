@@ -1608,6 +1608,711 @@
         "inception": "1925-00-00",
         "locatedIn": "Madrid"
       }
+    },
+    "Q855343": {
+      "wikidataId": "Q855343",
+      "nameTranslations": {
+        "pt": "Senado de Espanha",
+        "eo": "Senato de Hispanio",
+        "pl": "Senat",
+        "eu": "Espainiako Senatua",
+        "ru": "Сенат Испании",
+        "ko": "스페인 상원",
+        "fr": "Sénat",
+        "ast": "Senáu d'España",
+        "en": "Senate of Spain",
+        "es": "Senado de España",
+        "ca": "Senat espanyol",
+        "fi": "Espanjan senaatti",
+        "it": "Senato del Regno di Spagna",
+        "gl": "Senado de España",
+        "de": "Senado",
+        "ja": "スペインの元老院",
+        "el": "Ισπανική Γερουσία",
+        "ka": "ესპანეთის სენატი",
+        "nl": "Senaat van Spanje",
+        "sv": "Spanska senaten",
+        "cs": "Senát Španělska",
+        "an": "Senato d'Espanya",
+        "nb": "Spanias senat",
+        "uk": "Сенат Іспанії",
+        "vi": "Thượng viện Tây Ban Nha",
+        "ar": "مجلس الشيوخ الإسباني",
+        "zh": "參議院",
+        "lv": "Spānijas senāts",
+        "lmo": "Senad de la Spagna",
+        "tr": "İspanya Senatosu",
+        "oc": "Senat espanhòl",
+        "id": "Senat Spanyol",
+        "hu": "Szenátus (Spanyolország)",
+        "he": "הסנאט של ספרד",
+        "ro": "Senatul Spaniei",
+        "fa": "مجلس سنای اسپانیا",
+        "vec": "Senato de Spagna",
+        "sms": "Espanja senatt",
+        "smn": "Espanja seenaat",
+        "sl": "Senat",
+        "arz": "مجلس الشيوخ الاسبانى",
+        "zh-hant": "參議院 (西班牙)",
+        "ga": "Seanad na Spáinne"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q855343",
+      "wikidataClaims": {
+        "instanceOf": "senado",
+        "inception": "1977-00-00"
+      }
+    },
+    "Q539149": {
+      "wikidataId": "Q539149",
+      "nameTranslations": {
+        "fr": "Congrès des députés",
+        "ast": "Congresu de los Diputaos",
+        "ca": "Congrés dels Diputats",
+        "de": "Congreso de los Diputados",
+        "en": "Congress of Deputies",
+        "eo": "Congreso de los Diputados",
+        "es": "Congreso de los Diputados",
+        "eu": "Espainiako Diputatuen Kongresua",
+        "fi": "Espanjan edustajainhuone",
+        "gl": "Congreso dos Deputados de España",
+        "it": "Congresso dei deputati",
+        "ja": "代議院",
+        "ko": "스페인 하원",
+        "nl": "Congres van Afgevaardigden",
+        "pl": "Kongres Deputowanych",
+        "pt": "Congresso dos Deputados",
+        "ru": "Конгресс депутатов",
+        "cs": "Kongres poslanců Španělska",
+        "an": "Congreso d'os Deputatos d'Espanya",
+        "nb": "Spanias deputertkammer",
+        "uk": "Конгрес депутатів (Іспанія)",
+        "fa": "مجلس نمایندگان",
+        "mk": "Претставнички конгрес",
+        "vi": "Đại hội Đại biểu Tây Ban Nha",
+        "sr": "Конгрес посланика",
+        "el": "Ισπανικό Κοινοβούλιο",
+        "zh": "眾議院",
+        "ar": "مجلس النواب الإسباني",
+        "hu": "Képviselőház",
+        "tr": "Temsilciler Kongresi",
+        "oc": "Congrès dels Deputats",
+        "id": "Kongres Deputi",
+        "he": "קונגרס הנציגים",
+        "sv": "Spaniens kongress",
+        "ro": "Congresul Deputaților",
+        "vec": "Congreso dei Deputai",
+        "hy": "Պատգամավորների կոնգրես (Իսպանիա)",
+        "zh-hans": "众议院",
+        "sl": "Kongres poslancev",
+        "ga": "Comhdháil Deputies",
+        "arz": "مجلس نواب اسبانيا",
+        "et": "Saadikute Kongress"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q539149",
+      "wikidataClaims": {
+        "instanceOf": "cámara de diputados"
+      }
+    },
+    "Q211250": {
+      "wikidataId": "Q211250",
+      "nameTranslations": {
+        "pt": "Teatro Real (Madrid)",
+        "eo": "Reĝa Teatro",
+        "eu": "Madrilgo Errege Antzokia",
+        "fr": "théâtre royal de Madrid",
+        "he": "התיאטרון המלכותי",
+        "ru": "Королевский театр",
+        "ko": "왕립극장",
+        "es": "Teatro Real",
+        "en": "Teatro Real",
+        "ca": "Teatro Real",
+        "fi": "Teatro Real",
+        "uk": "Королівський театр",
+        "it": "Teatro Real",
+        "de": "Teatro Real",
+        "ja": "テアトロ・レアル",
+        "nl": "Teatro Real",
+        "hy": "Տեատրո Ռեալ",
+        "da": "Teatro Real",
+        "de-ch": "Teatro Real",
+        "el": "Τεάτρο Ρεάλ",
+        "en-ca": "Teatro Real",
+        "en-gb": "Teatro Real",
+        "pt-br": "Teatro Real",
+        "pl": "Teatro Real",
+        "gl": "Teatro Real de Madrid",
+        "zh": "馬德里皇家歌劇院",
+        "zh-hant": "馬德里皇家劇院",
+        "zh-cn": "马德里皇家剧院",
+        "cs": "Teatro Real",
+        "tr": "Teatro Real",
+        "nb": "Teatro Real",
+        "nn": "Teatro Real",
+        "se": "Teatro Real",
+        "zh-hans": "马德里皇家剧院",
+        "arz": "تياترو ريال",
+        "sv": "Teatro Real",
+        "ckb": "تیاترۆ ڕیاڵ",
+        "fa": "تئاترو رئال",
+        "en-us": "Teatro Real",
+        "ar": "المسرح الملكي"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q211250",
+      "wikidataClaims": {
+        "instanceOf": "teatro de ópera",
+        "architect": "Antonio López Aguado",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Palacio"
+      }
+    },
+    "Q9054619": {
+      "wikidataId": "Q9054619",
+      "nameTranslations": {
+        "fi": "Palacio de las Cortes",
+        "es": "Palacio de las Cortes",
+        "eo": "Kortesa Palaco",
+        "en": "Palacio de las Cortes",
+        "fr": "palais des Cortes",
+        "it": "palazzo delle Corti",
+        "eu": "Espainiako Gorteen jauregia",
+        "gl": "Palacio das Cortes",
+        "ru": "Дворец Кортесов",
+        "id": "Istana Cortes",
+        "ca": "Palau de les Corts",
+        "ast": "Palaciu de les Cortes",
+        "zh": "科爾特斯宮",
+        "he": "ארמון הפרלמנט של ספרד",
+        "ja": "下院議事堂",
+        "pt": "Palacio de las Cortes, Madrid",
+        "uk": "Палац Кортесів",
+        "sl": "palača Kongresa poslancev",
+        "cs": "Palacio de las Cortes",
+        "ar": "قصر الكورتيس"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9054619",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1843-00-00",
+        "architect": "Narciso Pascual Colomer",
+        "architecturalStyle": "arquitectura neoclásica",
+        "locatedIn": "Cortes"
+      }
+    },
+    "Q1472798": {
+      "wikidataId": "Q1472798",
+      "nameTranslations": {
+        "eo": "Fontano Neptuno",
+        "pt": "Fonte de Neptuno",
+        "eu": "Neptunoren iturria (Madril)",
+        "de": "Fuente de Neptuno",
+        "it": "Fontana di Nettuno",
+        "es": "Neptuno",
+        "fr": "fontaine de Neptune",
+        "nl": "Fuente de Neptuno",
+        "en": "Fountain of Neptune",
+        "ca": "Font de Neptú",
+        "arz": "نافورة نبتون",
+        "ru": "Нептун",
+        "ko": "넵투노 분수"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1472798",
+      "wikidataClaims": {
+        "instanceOf": "fuente",
+        "inception": "1780-00-00",
+        "architect": "Ventura Rodríguez",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q1326261": {
+      "wikidataId": "Q1326261",
+      "nameTranslations": {
+        "pt": "Praça de Espanha",
+        "zh-hans": "西班牙广场",
+        "zh-hant": "西班牙廣場",
+        "zh-hk": "西班牙廣場",
+        "eo": "Placo Hispanio",
+        "pl": "Plaza de España",
+        "fr": "place d'Espagne",
+        "he": "פלאסה דה אספניה",
+        "ru": "Площадь Испании",
+        "es": "plaza de España",
+        "en": "plaza de España",
+        "it": "plaza de España",
+        "de": "Plaza de España",
+        "ja": "スペイン広場",
+        "bg": "Испания",
+        "lt": "Plaza de España",
+        "sv": "Plaza de España",
+        "nl": "plaza de España",
+        "zh": "西班牙广场",
+        "ko": "스페인 광장",
+        "sl": "Plaza de España",
+        "cs": "Plaza de España",
+        "gl": "Plaza de España de Madrid",
+        "tr": "Plaza de España",
+        "eu": "Espainia plaza",
+        "hy": "Իսպանիայի հրապարակ",
+        "ca": "plaça d'Espanya",
+        "uk": "Площа Іспанії (Мадрид)",
+        "et": "Plaza de España",
+        "sr": "Трг Шпаније, Мадрид"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1326261",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "inception": "1911-00-00",
+        "locatedIn": "Madrid",
+        "namedAfter": "España"
+      }
+    },
+    "Q2982559": {
+      "wikidataId": "Q2982559",
+      "nameTranslations": {
+        "pt": "Palácio de Santa Cruz (Madrid)",
+        "eo": "Palaco Sankta Kruco",
+        "ru": "Дворец Санта-Крус",
+        "es": "Palacio de Santa Cruz",
+        "en": "Santa Cruz Palace",
+        "fi": "Palacio de Santa Cruz",
+        "ca": "Palau de Santa Cruz",
+        "de": "Palacio de Santa Cruz",
+        "hy": "Պալատ Սանտա Կրուս",
+        "nl": "Santa Cruz Palace",
+        "uk": "Палац Санта-Крус",
+        "arz": "قصر سانتا كروز",
+        "fr": "palais de Santa Cruz",
+        "sl": "Palacio de Santa Cruz",
+        "gl": "Palacio de Santa Cruz",
+        "ar": "قصر سانتا كروث (مدريد)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2982559",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architect": "Juan Gómez de Mora",
+        "architecturalStyle": "arquitectura barroca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q833213": {
+      "wikidataId": "Q833213",
+      "nameTranslations": {
+        "pt": "Bosque del Recuerdo",
+        "zh-hans": "死难者树林",
+        "zh-hant": "死難者樹林",
+        "zh-hk": "死難者樹林",
+        "eo": "Bosque de los Ausentes",
+        "fr": "bois des absents",
+        "ru": "Лес умерших",
+        "en": "Forest of Remembrance",
+        "ast": "Viesca de los Ausentes",
+        "es": "Bosque del Recuerdo",
+        "tr": "Ölmüşlerin Ormanı",
+        "ca": "Bosc dels Absents",
+        "hu": "Emlékezés erdeje",
+        "it": "Bosco degli scomparsi",
+        "la": "Silva absentium",
+        "de": "Wald der Erinnerung (Madrid)",
+        "ja": "故人の森",
+        "vi": "Rừng của người đã mất",
+        "scn": "Voscu dî Difunti",
+        "lt": "Velionių miškas",
+        "sv": "Bosque de los Ausentes",
+        "da": "De afdødes skov",
+        "zh": "死難者樹林",
+        "ko": "기억의 숲",
+        "hy": "Մեռյալների անտառ",
+        "wuu": "死难者树林",
+        "uk": "Ліс померлих"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q833213",
+      "wikidataClaims": {
+        "instanceOf": "monumento",
+        "locatedIn": "Atocha"
+      }
+    },
+    "Q1537446": {
+      "wikidataId": "Q1537446",
+      "nameTranslations": {
+        "pt": "Praça de Cibeles",
+        "zh-hans": "西贝莱斯广场",
+        "zh-hant": "西貝萊斯廣場",
+        "zh-hk": "西貝萊斯廣場",
+        "de": "Plaza de Cibeles",
+        "ja": "シベーレス広場",
+        "pl": "Plaza de Cibeles",
+        "he": "פלאסה דה סיבלס",
+        "fr": "place de Cibeles",
+        "en": "plaza de Cibeles",
+        "es": "plaza de Cibeles",
+        "fi": "Plaza de Cibeles",
+        "it": "plaza de Cibeles",
+        "nl": "plaza de Cibeles",
+        "ru": "площадь сивелес",
+        "da": "Plaza de Cibeles",
+        "zh": "西贝莱斯广场",
+        "nb": "plaza de Cibeles",
+        "ko": "시벨레스 광장",
+        "sv": "Plaza de Cibeles",
+        "sl": "plaza de Cibeles",
+        "gl": "Plaza de Cibeles",
+        "eu": "Zibeles plaza",
+        "tr": "Plaza de Cibeles",
+        "ca": "plaça de Cibeles",
+        "az": "Plaza de Cibeles",
+        "ar": "بلاثا دي سيبيليس",
+        "arz": "بلاثا دى سيبيليس",
+        "hu": "Plaza de Cibeles"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1537446",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Madrid",
+        "namedAfter": "Cibeles"
+      }
+    },
+    "Q10343739": {
+      "wikidataId": "Q10343739",
+      "nameTranslations": {
+        "pt": "Palacio del Senado",
+        "es": "Palacio del Senado",
+        "fr": "palais du Sénat",
+        "en": "Palace of the Senate",
+        "gl": "Palacio do Senado",
+        "ca": "Palau del Senat",
+        "ja": "上院議事堂",
+        "ru": "Дворец Сената (Испания)",
+        "ar": "قصر مجلس الشيوخ",
+        "zh": "參議院宮",
+        "it": "Palazzo del Senato"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q10343739",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architecturalStyle": "arquitectura herreriana",
+        "locatedIn": "Palacio"
+      }
+    },
+    "Q24944157": {
+      "wikidataId": "Q24944157",
+      "nameTranslations": {
+        "es": "plaza de Chueca",
+        "en": "plaza de Chueca",
+        "pt": "plaza de Chueca",
+        "zh-hant": "丘埃卡廣場",
+        "zh-hans": "丘埃卡广场",
+        "zh": "丘埃卡广场",
+        "eu": "Chuecako plaza",
+        "fr": "Plaza de Chueca"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q24944157",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Justicia",
+        "namedAfter": "Federico Chueca"
+      }
+    },
+    "Q2628455": {
+      "wikidataId": "Q2628455",
+      "nameTranslations": {
+        "eo": "Palaco Linares",
+        "ru": "Дворец Линарес",
+        "es": "Palacio de Linares",
+        "en": "Palace of Linares",
+        "ca": "Palau de Linares",
+        "uk": "Палац Лінарес",
+        "it": "Palacio de Linares",
+        "ko": "리나레스궁",
+        "pa": "ਲੀਨਾਰੇਸ ਮਹਿਲ",
+        "fr": "palais de Linares",
+        "hy": "Պալատ Լինարես",
+        "nl": "Palace of Linares",
+        "eu": "Linaresko jauregia",
+        "zh": "利纳雷斯宫",
+        "sco": "Pailace o Linares",
+        "ar": "قصر ليناريس",
+        "tr": "Linares Sarayı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2628455",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1877-00-00",
+        "architect": "Carlos Colubí",
+        "architecturalStyle": "neobarroco",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q3889284": {
+      "wikidataId": "Q3889284",
+      "nameTranslations": {
+        "it": "Palacio de Buenavista",
+        "es": "Palacio de Buenavista",
+        "ko": "부에나비스타궁",
+        "ca": "palau de Buenavista",
+        "pt": "Palácio de Buenavista",
+        "nl": "Palacio de Buenavista",
+        "eu": "Buenavistako jauregia",
+        "en": "Palacio de Buenavista",
+        "sco": "Pailace o Buenavista",
+        "ar": "قصر بوينابيستا (مدريد)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3889284",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1777-00-00",
+        "architect": "Juan Pedro Arnal",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q1849031": {
+      "wikidataId": "Q1849031",
+      "nameTranslations": {
+        "gl": "Palacio de Comunicacións de Madrid",
+        "pt": "Palácio de Cibeles",
+        "eo": "Palaco de Komunikaĵoj",
+        "de": "Palacio de Cibeles",
+        "fr": "Palais des Cibeles",
+        "en": "Palacio de Cibeles",
+        "es": "Palacio de Cibeles",
+        "ca": "Palau de Cibeles de Madrid",
+        "nl": "Palacio de Comunicaciones",
+        "it": "Palazzo di Cibele",
+        "ko": "시벨레스궁",
+        "fa": "کاخ سیبل",
+        "eu": "Madrilgo Komunikabideen Jauregia",
+        "tr": "Cibeles Sarayı",
+        "zh": "通信宫",
+        "be-tarask": "палац Цыбэле",
+        "nb": "Palacio de Comunicaciones",
+        "ja": "シベレ宮殿",
+        "bar": "Palacio de Cibeles",
+        "ar": "قصر ثيبيليس"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1849031",
+      "wikidataClaims": {
+        "instanceOf": "casa consistorial",
+        "inception": "1907-00-00",
+        "architect": "Antonio Palacios",
+        "architecturalStyle": "ecléctico",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q3321632": {
+      "wikidataId": "Q3321632",
+      "nameTranslations": {
+        "pt": "Teatro de la Zarzuela",
+        "sk": "Teatro de la Zarzuela",
+        "es": "Teatro de la Zarzuela",
+        "en": "Teatro de la Zarzuela",
+        "ca": "Teatro de la Zarzuela",
+        "it": "Teatro de la Zarzuela",
+        "en-ca": "Teatro de la Zarzuela",
+        "en-gb": "Teatro de la Zarzuela",
+        "pt-br": "Teatro de la Zarzuela",
+        "fr": "Teatro de la Zarzuela",
+        "de": "Teatro de la Zarzuela",
+        "ast": "Teatru de la Zarzuela",
+        "nl": "Teatro de la Zarzuela",
+        "eu": "Zarzuela antzokia",
+        "hy": "Սարսուելա թատրոն",
+        "ru": "Театр сарсуэлы",
+        "arz": "مسرح دى زارزويلا",
+        "et": "Teatro de la Zarzuela",
+        "ar": "مسرح الثارثيولا",
+        "mul": "Teatro de la Zarzuela",
+        "el": "Θέατρο της Θαρθουέλα"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3321632",
+      "wikidataClaims": {
+        "instanceOf": "teatro",
+        "architect": "Jerónimo de la Gándara",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid",
+        "namedAfter": "zarzuela"
+      }
+    },
+    "Q1141262": {
+      "wikidataId": "Q1141262",
+      "nameTranslations": {
+        "pt": "Puerta de Europa",
+        "zh-hans": "欧洲门",
+        "zh-hant": "歐洲門",
+        "zh-hk": "歐洲門",
+        "eo": "Pordo de Eŭropo",
+        "sk": "Puerta de Europa",
+        "pl": "Puerta de Europa",
+        "fr": "Puerta de Europa",
+        "he": "שער אירופה",
+        "en": "Gate of Europe",
+        "es": "Puerta de Europa",
+        "it": "Porta d'Europa di Madrid",
+        "de": "Puerta de Europa",
+        "ja": "プエルタ・デ・エウローパ",
+        "fa": "پوئرتا د اورپا",
+        "nl": "Torres KIO",
+        "sv": "Puerta de Europa",
+        "ar": "أبراج بوابة أوروبا",
+        "zh": "欧洲门",
+        "ru": "Ворота Европы",
+        "ml": "ഗേറ്റ് ഓഫ് യൂറോപ്പ്",
+        "ko": "푸에르타 데 에우로파",
+        "gl": "Puerta de Europa",
+        "ceb": "Puerta de Europa",
+        "cs": "Puerta de Europa",
+        "hy": "Եվրոպայի դարպասներ",
+        "ca": "Puerta de Europa",
+        "eu": "Puerta de Europa",
+        "arz": "ابراج بوابة اوروبا"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1141262",
+      "wikidataClaims": {
+        "instanceOf": "torres gemelas",
+        "inception": "1996-00-00",
+        "architect": "Philip Johnson",
+        "architecturalStyle": "arquitectura posmoderna",
+        "locatedIn": "Madrid",
+        "namedAfter": "Kuwait Investment Office"
+      }
+    },
+    "Q1046524": {
+      "wikidataId": "Q1046524",
+      "nameTranslations": {
+        "ka": "კასა-დე-კამპო",
+        "en": "Casa de Campo Park",
+        "zh": "田园之家",
+        "pt": "Casa de Campo",
+        "ca": "Casa de Campo",
+        "de": "Casa de Campo",
+        "eo": "Parko Kampardomo",
+        "sv": "Casa de Campo",
+        "pl": "Casa de Campo",
+        "eu": "Casa de Campo",
+        "nl": "Casa de Campo",
+        "ja": "カサ・デ・カンポ",
+        "es": "Casa de Campo",
+        "it": "Casa de Campo",
+        "fr": "Casa de Campo",
+        "ko": "카사 데 캄포",
+        "gl": "Casa de Campo",
+        "ceb": "Casa de Campo",
+        "tr": "Casa de Campo",
+        "cs": "Casa de Campo Park"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1046524",
+      "wikidataClaims": {
+        "instanceOf": "parque",
+        "inception": "1931-05-01",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q2711992": {
+      "wikidataId": "Q2711992",
+      "nameTranslations": {
+        "zh-hans": "市政广场",
+        "zh-hant": "市政廣場",
+        "zh-hk": "市政廣場",
+        "pt": "Plaza de la Villa",
+        "eo": "Placo de la Vilaĝo",
+        "ja": "ビリャ広場",
+        "he": "פלאסה דה לה ויה",
+        "es": "plaza de la Villa",
+        "it": "plaza de la Villa",
+        "zh": "市政广场",
+        "ko": "비야 광장",
+        "nl": "Plaza de la Villa",
+        "en": "Plaza de la Villa",
+        "fi": "Plaza de la Villa",
+        "pl": "Plaza de la Villa",
+        "arz": "ميدان الفيلا",
+        "eu": "La Villako plaza (Madril)",
+        "fr": "Plaza de la Villa",
+        "sl": "plaza de la Villa",
+        "tr": "Plaza de la Villa"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2711992",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q1647048": {
+      "wikidataId": "Q1647048",
+      "nameTranslations": {
+        "pt": "Fonte de Apolo",
+        "eo": "Fontano Apolo",
+        "es": "Fuente de Apolo",
+        "it": "Fontana di Apollo",
+        "en": "Fountain of Apollo",
+        "ca": "Font d'Apol·lo",
+        "fr": "fontaine d'Apollon",
+        "eu": "Apoloren iturria",
+        "az": "Fuente de Apolo (Madrid)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1647048",
+      "wikidataClaims": {
+        "instanceOf": "fuente",
+        "inception": "1777-00-00",
+        "locatedIn": "Cortes"
+      }
+    },
+    "Q1635932": {
+      "wikidataId": "Q1635932",
+      "nameTranslations": {
+        "de": "Palacio Vistalegre",
+        "ja": "パラシオ・ビスタ・アレグレ",
+        "pl": "Palacio Vistalegre",
+        "fr": "Palacio Vistalegre",
+        "he": "פלאסיו ויסטלגרה",
+        "es": "Palacio Vistalegre",
+        "en": "Palacio Vistalegre",
+        "tr": "Palacio Vistalegre",
+        "ca": "Palacio de Vistalegre",
+        "fi": "Palacio Vistalegre",
+        "it": "palacio de Vistalegre",
+        "nl": "Palacio Vistalegre",
+        "fa": "بیستالگره",
+        "hr": "Palacio Vistalegre",
+        "eu": "Vistalegre jauregia",
+        "zh": "維斯塔萊格雷宮",
+        "ko": "팔라시오 비스탈레그레",
+        "ig": "Obí Vistalegre",
+        "be-tarask": "Palacio Vistalegre"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1635932",
+      "wikidataClaims": {
+        "instanceOf": "plaza de toros",
+        "inception": "1908-07-15",
+        "locatedIn": "Madrid"
+      }
+    },
+    "Q7126237": {
+      "wikidataId": "Q7126237",
+      "nameTranslations": {
+        "en": "Palace of Infante don Luis",
+        "es": "Palacio del Infante don Luis",
+        "de": "Palacio del Infante don Luis",
+        "hi": "इनफान्टे डॉन लुइस महल",
+        "hy": "Ինֆանտե դոն Լուիս պալատ",
+        "ur": "انفانٹے ڈان لوئیس شاہی محل",
+        "ta": "இன்பான்டே டான் லூயிஸ் அரண்மனை",
+        "pa": "ਇੰਨਫਾਨਤੇ ਡੋਨ ਲੂਇਸ ਮਹਲ",
+        "fr": "palais de l'infant don Luis",
+        "sco": "Pailace o Infante don Luis (Boadilla del Monte)",
+        "ca": "Palau de l'Infant Lluís"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q7126237",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1765-00-00",
+        "architect": "Ventura Rodríguez",
+        "architecturalStyle": "arquitectura neoclásica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Boadilla del Monte"
+      }
     }
   },
   "wikipedia": {
@@ -1850,6 +2555,60 @@
       "body": "El Museo del Traje es un museo español, dependiente del Ministerio de Cultura, ubicado en la Ciudad Universitaria de Madrid. Su objetivo básico es promover el conocimiento de la evolución histórica de la indumentaria y de los testimonios del patrimonio etnológico representativos de las culturas de los pueblos de España.\nEs un Museo Nacional de España adscrito al Ministerio de Cultura, de gestión exclusiva de la Dirección General de Bellas Artes y Patrimonio Cultural.\n\n\nHistoria\n\n\nExposición del Traje Regional e Histórico\n\nA iniciativa de Trinidad von Scholtz Hermensdorff, en 1925 se celebró en Madrid la Exposición del Traje Regional e Histórico. Su organización corrió a cargo de un comité del cual formaban parte intelectuales y nobles de la época. Su director técnico fue Luis de Hoyos Sainz y para su ambientación se contó con el trabajo de varios artistas como Daniel Vázquez Díaz, Mariano Benlliure, Fernando Álvarez de Sotomayor, José Planes, Manuel Benedito y Mariano Fortuny y Madrazo.​\nLa sede fue el Palacio de Biblioteca y Museos Nacionales, del cual la exposición ocupó un patio y tres salones.​ Gracias al trabajo de los distintos comités provinciales y a donaciones particulares, se reunió una colección de 348 trajes regionales y de época, 3914 prendas, 668 fotografías y 237 acuarelas.​ El objetivo era dar a conocer, en un momento en el que el turismo era cada vez más popular, el patrimonio cultural español, en este caso el traje regional y la indumentaria histórica de las distintas regiones.​\n\n\nMuseo del Traje Regional e Histórico\nUna vez finalizada la exposición, los materiales recibidos en donación se trasladaron al Palacio de exposiciones situado en los Altos del Hipódromo, donde actualmente se encuentra el Museo Nacional de Ciencias Naturales. En marzo de 1927 se creó la Junta del Patronato del Museo del Traje Regional e Histórico, que debía hacerse cargo de los fondos y crear el museo; para la dirección de este se nombró una comisión en la que aparecen Mate",
       "language": "es",
       "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20del%20Traje%20(Madrid)"
+    },
+    "es:Palacio de las Cortes": {
+      "description": "El Palacio de las Cortes o Palacio del Congreso de los Diputados, según la página web oficial,​ es el edificio que alberga el Congreso de los Diputados, una de las dos Cámaras de las Cortes Generales, el Parlamento español. Está situado en la plaza de las Cortes de Madrid, entre la calle de Zorrilla y la Carrera de San Jerónimo, a escasa distancia del paseo del Prado. Es uno de los edificios emblemáticos del Madrid del siglo xix, de estilo neoclásico.",
+      "body": "El Palacio de las Cortes o Palacio del Congreso de los Diputados, según la página web oficial,​ es el edificio que alberga el Congreso de los Diputados, una de las dos Cámaras de las Cortes Generales, el Parlamento español. Está situado en la plaza de las Cortes de Madrid, entre la calle de Zorrilla y la Carrera de San Jerónimo, a escasa distancia del paseo del Prado. Es uno de los edificios emblemáticos del Madrid del siglo xix, de estilo neoclásico.\n\n\nHistoria\n\nEn el espacio que ocupa el Palacio de las Cortes se situaba antaño el convento del Espíritu Santo, de la Congregación de los Clérigos Regulares Menores, el cual sufrió un grave incendio en 1823. Con la llegada en 1834 del régimen liberal, el gobierno moderado de Francisco Martínez de la Rosa decidió que sus reuniones se celebrasen provisionalmente en la iglesia del convento. Al asumir el Partido Progresista el poder, se tomó la decisión de construir un nuevo edificio en sustitución del edificio religioso enfrente de la plaza de las Cortes.\nEl proyecto fue elaborado y ejecutado por el arquitecto Narciso Pascual Colomer, iniciándose el 10 de octubre de 1843 y siendo inaugurado el 31 de octubre de 1850 por la reina Isabel II. Durante los siete años que duraron las obras los diputados se vieron obligados a reunirse en el Salón de baile del Teatro Real de Madrid.\n\nEn los años 1980 sufrió la primera ampliación de sus dependencias a cargo del arquitecto Antonio Cámara, construyéndose en la manzana adyacente, en la que antaño se ubicó el Hospital de Italianos entre 1598 y 1885, un edificio que comunica con el original mediante un puente sobre la calle de Floridablanca. Dicha ampliación fue inaugurada por los reyes Juan Carlos I y Sofía el 28 de mayo de 1980.\nMás tarde, en 1994, fue realizada una nueva reforma y ampliación fruto de un concurso donde se presentaron 287 trabajos. El proyecto ganador estaba firmado por María Rubert de Ventós, Josep Parcerisa y Oriol Clos, que elaboraron el proyecto final conjuntamente ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20las%20Cortes"
+    },
+    "es:Fuente de Neptuno (Madrid)": {
+      "description": "La fuente de Neptuno en Madrid es una fuente de estilo neoclásico que representa al dios Neptuno y ocupa el centro de la glorieta a la que popularmente da nombre, dentro de la Plaza de Cánovas del Castillo. Esta fuente monumental representa fue propuesta en 1777 y su construcción, empezada en 1782, finalizó en 1786. En su origen estuvo situada en la bajada de la carrera de San Jerónimo, mirando a la fuente de Cibeles, pero fue trasladada al centro de la citada plaza en 1898.",
+      "body": "La fuente de Neptuno en Madrid es una fuente de estilo neoclásico que representa al dios Neptuno y ocupa el centro de la glorieta a la que popularmente da nombre, dentro de la Plaza de Cánovas del Castillo. Esta fuente monumental representa fue propuesta en 1777 y su construcción, empezada en 1782, finalizó en 1786. En su origen estuvo situada en la bajada de la carrera de San Jerónimo, mirando a la fuente de Cibeles, pero fue trasladada al centro de la citada plaza en 1898. Forma parte de los cinco grandes grupos escultóricos diseñados para el Salón del Prado por Ventura Rodríguez, junto con la fuente de Cibeles, la fuente de Apolo, las Cuatro Fuentes y la fuente de la Alcachofa.\n\n\nHistoria\nEn la segunda mitad del siglo XVIII Carlos III emprendió una serie de reformas, entre las que se encontraba la modernización de la capital para ponerla a la altura de las grandes urbes como San Petersburgo o París. En este plan de modernización se incluyó la colocación de monumentos emblemáticos, como la fuente de Cibeles, la Puerta de Alcalá y esta, la fuente de Neptuno. Se concibió como parte de las obras de ordenación del Salón del Prado y forma parte de un programa iconográfico inspirado en la mitología grecorromana.\nDiseñada por el arquitecto Ventura Rodríguez, el proyecto se inició en 1777, usándose de modelo unos bocetos de madera realizados por Miguel Ximénez. Fue realizada con mármol blanco procedente de Montesclaros (Toledo) (al igual que la fuente de Cibeles).​ La obra escultórica fue encargada a Juan Pascual de Mena y este comenzó los trabajos en 1782; pero falleció en 1784, habiendo terminado tan solo la figura de Neptuno, y más próxima al modelo de Hércules Farnesio que a la idea de Ventura Rodríguez.​\nLas restantes esculturas del monumento fueron continuadas por el discípulo de Mena, José Arias, además de por José Rodríguez, Pablo de la Cerda y José Guerra. Se conserva el dibujo realizado por Ventura Rodríguez que ingresó en el Museo Municipal de Madrid en 1926 pr",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Fuente%20de%20Neptuno%20(Madrid)"
+    },
+    "es:Palacio de Santa Cruz (Madrid)": {
+      "description": "El Palacio de Santa Cruz, también denominado Cárcel de Corte, hoy es una de las sedes del Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España. Se encuentra en la ciudad de Madrid, capital de España. Se sitúa muy cerca de la Plaza Mayor, en la plaza de la Provincia, presidida junto con el palacio por la reconstruida fuente de Orfeo.",
+      "body": "El Palacio de Santa Cruz, también denominado Cárcel de Corte, hoy es una de las sedes del Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España. Se encuentra en la ciudad de Madrid, capital de España. Se sitúa muy cerca de la Plaza Mayor, en la plaza de la Provincia, presidida junto con el palacio por la reconstruida fuente de Orfeo. El edificio fue empleado como cárcel hasta el reinado de Felipe V, que lo convirtió en palacio.​ Asimismo era la sede del tribunal de la Sala de Alcaldes de Casa y Corte.​ Se trata de una de las construcciones palaciegas más importantes de cuantas se conservan en la capital española y es considerado uno de los edificios más emblemáticos del Madrid de los Austrias.​\n\n\nHistoria\nSobre el lugar donde se encontraba la primera Cárcel de la Villa de Madrid, construida en 1543 y derribada en 1621.​\nEl rey Felipe IV ordenó en 1629 la construcción para albergar las dependencias de la Sala de Alcaldes de Casa y Corte y de la Cárcel de Corte, fue construido entre 1629 y terminado a comienzos de la década de 1640,​ la primera piedra se colocó el 14 de septiembre de 1629 en una ceremonia a la cual asistió, según algunas fuentes, Felipe IV, más los cinco alcaldes que formaban la Sala y sus colegas del Consejo de Castilla, y otros invitados​ y según otras fuentes, la ceremonia fue presidida por el cardenal obispo de Málaga, Gabriel Trejo Paniagua, presidente del Consejo de Castilla.​\nLas trazas del edificio parece que fueron obra de Juan Gómez de Mora, siendo aparejador Alonso Carbonel entre 1629 y 1636, junto con otros arquitectos que concluyeron las obras, como José de Villarreal, Bartolomé Hurtado García y José del Olmo.​\nEn el año 1767 mudó su función para pasar a albergar solamente la Sala de Alcaldes de Casa y Corte, denominándose desde entonces Palacio de Santa Cruz, por su cercanía con la antigua parroquia de la Santa Cruz (derribada en 1869). La cárcel fue trasladada a un edificio contiguo. Tras el incendio de 1791 que destru",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Santa%20Cruz%20(Madrid)"
+    },
+    "es:Palacio del Senado (España)": {
+      "description": "El Palacio del Senado es la sede del Senado, una de las dos cámaras que componen las Cortes Generales, el parlamento nacional de España. Se encuentra en el Barrio del Palacio, Distrito Centro de Madrid.",
+      "body": "El Palacio del Senado es la sede del Senado, una de las dos cámaras que componen las Cortes Generales, el parlamento nacional de España. Se encuentra en el Barrio del Palacio, Distrito Centro de Madrid.\n\n\nHistoria\nEl Palacio del Senado se encuentra en Madrid en la plaza de la Marina Española. Es un edificio del siglo XVI, antiguo Colegio de la Encarnación, de religiosos agustinos calzados también llamado Colegio de doña María de Aragón (parte del complejo del Real Monasterio de la Encarnación). El colegio fue una de las instituciones más destacadas de la corte madrileña, y su iglesia contenía varias obras maestras de El Greco, hoy en el Museo del Prado.​\nEntre 1820 y 1823, durante el Trienio Liberal fue el lugar de reunión de las Cortes previstas en la Constitución de 1812 (anteriormente reunidas en Cádiz hasta 1814).\nDesde 1835 pasó a ocupar el Estamento de Próceres previsto en el Estatuto Real de 1834, que se reunió, de forma provisional, en el Casón del Buen Retiro.\nCon diversos cambios de nombre y función, según la coyuntura política, siguió sirviendo de sede de la Cámara alta hasta 1923 en que la dictadura de Primo de Rivera disolvió las Cortes, instauró una única cámara legislativa denominada Asamblea Nacional Consultiva y no volvió a convocar el Senado.\nEsta situación se mantuvo a partir de 1931, durante la Segunda República Española ya que al ser las Cortes también unicamerales, celebraban sus sesiones en el palacio de la Carrera de San Jerónimo (de manera excepcional durante los debates constitucionales y para la elección de Azaña como presidente se reunieron en el Palacio de Cristal del Retiro).\nDurante el franquismo, el edificio fue la sede del Consejo Nacional del Movimiento (mientras que las Cortes Españolas ocupaban el palacio de la Carrera de San Jerónimo).\nA partir de 1976 durante la Transición, cobijó la institución que, con el nombre de \"Senado\", preveía la Ley para la Reforma Política y que intervino junto con el \"Congreso de los Diputados\" en la ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20del%20Senado%20(Espa%C3%B1a)"
+    },
+    "es:Plaza de Chueca": {
+      "description": "La plaza de Chueca, antes llamada plaza de San Gregorio Magno,​ es un pequeño espacio peatonal de la ciudad española de Madrid, en el barrio de Justicia, distrito Centro, enmarcado por la calle de Gravina, al este, y la de Augusto Figueroa al oeste, a un costado del inicio de la Gran Vía de Madrid. Dedicada desde 1943 al compositor madrileño Federico Chueca,​ da nombre a todo el barrio.",
+      "body": "La plaza de Chueca, antes llamada plaza de San Gregorio Magno,​ es un pequeño espacio peatonal de la ciudad española de Madrid, en el barrio de Justicia, distrito Centro, enmarcado por la calle de Gravina, al este, y la de Augusto Figueroa al oeste, a un costado del inicio de la Gran Vía de Madrid. Dedicada desde 1943 al compositor madrileño Federico Chueca,​ da nombre a todo el barrio. En el inicio del siglo XXI aparecía en las guías turísticas como corazón de la comunidad gay en la capital de España,​ aunque el dato aún no figuraba en la obra de algunos cronistas, estudios callejeros y enciclopedias sobre Madrid.​​\n\n\nHistoria\n\nTodavía inexistente en 1861,​ cuando el historiador y costumbrista ilustrado Ramón de Mesonero Romanos publicó sus amenos y documentados Paseos Histórico-anecdóticos por las calles y casas de esta villa, subtítulo de su obra El antiguo Madrid. En la primera mitad del siglo XIX y parte del anterior, en el espacio que ocupan los edificios que cierran la plazuela y su entorno, estuvieron La Galera, prisión para mujeres traída a esta zona desde anteriores emplazamientos, y los huertos de los duques de Frías. Los trazados urbanísticos que se han conservado se formaron al abrir la calle de San Gregorio hasta la de Augusto Figueroa (entonces llamada Santa María del Arco), y al ensanchar la calle Gravina.​\nEscribe Mesonero que aquel antiguo arrabal de \"los chisperos, ramificación de la manolería, fabricantes y mercaderes de utensilios de hierro; y lo humilde de su caserío, casi todo de un piso, y lo ennegrecido y solitario de sus revueltas, las hacían <a las calles> muy propias para las escenas inmorales y alevosas que aspiraron a poetizar don Ramón de la Cruz en sus sainetes y don Francisco Gregorio de Salas...\"​ Tras su urbanización moderna, la plaza de Chueca y su entorno vivió un periodo castizo y relativamente tranquilo, compartiendo incluso algunos privilegios de barrio nuevo y residencial. Un siglo después, el desgaste de la posguerra español",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20Chueca"
+    },
+    "es:Palacio de Buenavista (Madrid)": {
+      "description": "El palacio de Buenavista es un inmueble de Madrid, ubicado dentro de un perímetro vallado en un promontorio ajardinado en la plaza de la Cibeles. Actualmente alberga el Cuartel General del Ejército de Tierra de España.",
+      "body": "El palacio de Buenavista es un inmueble de Madrid, ubicado dentro de un perímetro vallado en un promontorio ajardinado en la plaza de la Cibeles. Actualmente alberga el Cuartel General del Ejército de Tierra de España.\n\n\nPrimer palacio\nEl palacio original se edificó en el siglo XVI en la Real finca conocida como Altillo de Buenavista (de ahí el nombre). El entonces arzobispo de Toledo, Gaspar de Quiroga, regala la finca a Felipe II, cuando el rey decide trasladar la corte y hacer de Madrid la capital permanente.\nDespués de pasar por diversos propietarios, lo ocupa Isabel de Farnesio, a la muerte de su hijastro Fernando VI, en 1759, hasta el fin de sus días en 1766. En 1796, en la testamentaría de Isabel de Farnesio, la adquiere Fernando de Silva y Álvarez de Toledo, XII duque de Alba de Tormes.\n\n\nPalacio dieciochesco\n\nEl entonces duque de Alba, tras adquirirla a la familia del rey de España, encarga en 1770 un proyecto de reajardinamiento de estilo afrancesado a Ventura Rodríguez, que no llegó a realizarse.\nFue su nieta y heredera, Cayetana,​ XIII duquesa de Alba, quien mandó derribar la edificación existente, ordenando en 1777 a Juan Pedro Arnal la construcción del actual palacio,​ más suntuoso y acorde con el rango de la casa de Alba. El arquitecto ideó un conjunto que sintetiza esquemas italianos y franceses, con fachada urbana hacia el norte. La duquesa vivió mayormente en el nuevo y bello palacio junto a su marido el duque José Álvarez de Toledo Osorio.\nEn esta época, colgaron en el palacio múltiples pinturas de los mayores maestros: la Venus del espejo de Velázquez (National Gallery, Londres), la Virgen de la Casa de Alba de Rafael (que debe su nombre precisamente a los duques de Alba; Galería Nacional de Arte, Washington D. C.) y La educación de Cupido de Correggio (National Gallery, Londres).\nEntre 1795 y 1796, Buenavista sufrió dos incendios que provocaron grandes reformas, como la supresión del cuerpo central de escaleras, y la desaparición de buena parte ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Buenavista%20(Madrid)"
+    },
+    "es:Fuente de Apolo (Madrid)": {
+      "description": "La fuente de Apolo, también llamada de las Cuatro Estaciones, es una fuente monumental de Madrid (España), situada en el Paseo del Prado, obra de  Manuel Álvarez.​ Ocupa el centro de lo que se denominó Salón del Prado, dentro de la reforma urbana patrocinada por el rey Carlos III en el siglo XVIII. Forma parte del conjunto escultórico diseñado por Ventura Rodríguez para el Paseo, junto a la de Cibeles y Neptuno. Las tres fuentes son consideradas obras maestras del Neoclasicismo español.",
+      "body": "La fuente de Apolo, también llamada de las Cuatro Estaciones, es una fuente monumental de Madrid (España), situada en el Paseo del Prado, obra de  Manuel Álvarez.​ Ocupa el centro de lo que se denominó Salón del Prado, dentro de la reforma urbana patrocinada por el rey Carlos III en el siglo XVIII. Forma parte del conjunto escultórico diseñado por Ventura Rodríguez para el Paseo, junto a la de Cibeles y Neptuno. Las tres fuentes son consideradas obras maestras del Neoclasicismo español.\n\n\nHistoria\nEn la segunda mitad del siglo XVIII Carlos III emprendió una serie de reformas, entre las que se encontraba la modernización de la capital para ponerla a la altura de las grandes urbes como San Petersburgo o París. En este plan de modernización se incluyó la colocación de monumentos emblemáticos, como la fuente de Cibeles, la Puerta de Alcalá, la fuente de Neptuno y esta, la Fuente de Apolo. Se concibió como parte de las obras de ordenación del Salón del Prado y forma parte de un programa iconográfico inspirado en la mitología grecorromana.\nLa Fuente se empezó a construir en 1780 por Manuel Álvarez, el Griego, que se encargó de las figuras de las estaciones. La erección de la estatua de Apolo tuvo participación de Alfonso Giraldo Bergaz​ en 1802. El conjunto se inauguró un año más tarde, 1803, para celebrar el enlace del príncipe heredero don Fernando (futuro Fernando VII), hijo de Carlos IV.\n\n\nCaracterísticas\nLa fuente se compone de un cuerpo central con escalinata, con dos mascarones que arrojan agua sobre tres conchas superpuestas de diferentes dimensiones. Las esculturas del pedestal representan las cuatro estaciones mediante figuras alegóricas, de ahí el nombre alternativo de la fuente. Remata el monumento una efigie del dios Apolo, divinidad de la luz y las artes, con los rasgos del rey Carlos III.\n\n\nReferencias\n\n\nBibliografía\nAndrés Ordax, Salvador (2010). «Innovaciones en la iconografía de fines del Siglo XVIII. El caso de Joaquín de Eleta en el Burgo de Osma» (pdf",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Fuente%20de%20Apolo%20(Madrid)"
+    },
+    "es:Plaza de la Villa": {
+      "description": "La plaza de la Villa (antes llamada plaza de San Salvador) está situada en el casco histórico de Madrid (España), junto a la calle Mayor. En ella tienen su origen tres pequeñas calles, correspondientes al primitivo trazado medieval de la ciudad: la del Codo aparece por el este, la del Cordón por el sur y la de Madrid por el oeste. \nEn su contorno se encuentran las fachadas principales de tres edificios de gran valor histórico-artístico, levantados en diferentes siglos.",
+      "body": "La plaza de la Villa (antes llamada plaza de San Salvador) está situada en el casco histórico de Madrid (España), junto a la calle Mayor. En ella tienen su origen tres pequeñas calles, correspondientes al primitivo trazado medieval de la ciudad: la del Codo aparece por el este, la del Cordón por el sur y la de Madrid por el oeste. \nEn su contorno se encuentran las fachadas principales de tres edificios de gran valor histórico-artístico, levantados en diferentes siglos. El más antiguo es la Casa y Torre de los Lujanes (siglo XV), construido en estilo gótico-mudéjar, que se emplaza en la cara oriental de la plaza. \nLe siguen en antigüedad la Casa de Cisneros (siglo XVI), un palacio plateresco que cierra la parte meridional del recinto, y la Casa de la Villa (siglo XVII), de estilo barroco, una de las sedes del Ayuntamiento de Madrid, ubicada en la zona occidental de la plaza.\n\n\nHistoria\n\nLa plaza de la Villa fue uno de los principales núcleos del Madrid medieval, dada su ubicación equidistante entre la puerta de Guadalajara y la de la Vega, dos de los accesos más importantes de la ciudad durante la Edad Media. \nOriginalmente llamada y conocida como plaza de San Salvador, por la iglesia del mismo nombre que daba también a la calle Mayor, y en cuyo pórtico se realizaban las sesiones del Ayuntamiento. Por ese nombre, fuente de San Salvador, se conocería popularmente la primera gran fuente ornamental que el antiguo Consejo de la Villa ordenó construir en la plazuela, reinando aún Felipe III.​\nEn el siglo xv se le dio su actual denominación, coincidiendo con la otorgación del título de Noble y Leal Villa recibido por Madrid, de manos del rey Enrique IV (1425-1474).\n\n\nCasa y Torre de los Lujanes\n\nEstos dos edificios, construidos en estilo gótico-mudéjar, son los más antiguos, entre los de carácter civil, que se conservan actualmente en la capital. Su construcción data del siglo XV y su nombre hace referencia a sus primeros propietarios, la familia de los Lujanes, ricos come",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20la%20Villa"
+    },
+    "es:Palacio del Infante don Luis (Boadilla del Monte)": {
+      "description": "El palacio del Infante don Luis es un edificio situado en el casco urbano del municipio español de Boadilla del Monte, enclavado en la parte occidental de la Comunidad de Madrid. El palacio fue construido en 1765 por Ventura Rodríguez, uno de los arquitectos más prolíficos y destacados del siglo XVIII español, quien concibió así una de las obras más importantes del neoclasicismo madrileño. Además del edificio propiamente dicho, el palacio integra una zona muy extensa ajardinada y agreste al este del núcleo central de la población.",
+      "body": "El palacio del Infante don Luis es un edificio situado en el casco urbano del municipio español de Boadilla del Monte, enclavado en la parte occidental de la Comunidad de Madrid. El palacio fue construido en 1765 por Ventura Rodríguez, uno de los arquitectos más prolíficos y destacados del siglo XVIII español, quien concibió así una de las obras más importantes del neoclasicismo madrileño. Además del edificio propiamente dicho, el palacio integra una zona muy extensa ajardinada y agreste al este del núcleo central de la población. \n\n\nHistoria\n\nEl edificio responde a una iniciativa del infante Luis Antonio de Borbón y Farnesio, el menor de los hijos varones del rey Felipe V y hermano de Carlos III, que se hizo con el señorío de Boadilla en 1761, aprovechando las dificultades económicas por las que atravesaba Josefa Micaela de Mirabal, III marquesa de Mirabal, a quien estaba adscrita la zona.​\n\nEl actual palacio se alza sobre el antiguo palacio de las Dos Torres, residencia del citado marquesado, que quedó integrado en la estructura a partir de un diseño de Ventura Rodríguez realizado en 1763. Las obras se ejecutaron a un ritmo muy rápido, quedando el edificio prácticamente concluido en 1765, como así figura en una lápida conmemorativa del fin de la construcción, colocada en la fachada principal.\nEl palacio fue la residencia principal del infante don Luis desde 1765 hasta 1776, año de su matrimonio morganático con María Teresa de Vallabriga, tras el cual se trasladó al palacio de la Mosquera, en Arenas de San Pedro. Entre sus moradores figuró el músico Luigi Boccherini, que estuvo bajo la protección del infante durante su estancia en España.\nTras la muerte del Infante, el palacio pasó a manos de sus descendientes los duques de Sueca que lo habitaron y albergaron en su interior una importantísima colección de arte, gran parte de la cual fue saqueada durante la Guerra Civil (1936-1939). Es entonces cuando la construcción sufrió daños considerables, además de la pérdida ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20del%20Infante%20don%20Luis%20(Boadilla%20del%20Monte)"
     }
   }
 }

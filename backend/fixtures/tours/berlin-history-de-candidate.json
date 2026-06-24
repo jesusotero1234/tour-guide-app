@@ -12,8 +12,8 @@
     "routeDiagnostics": {
       "degraded": false,
       "degradationReason": null,
-      "coverageRatio": 0.9427878255010435,
-      "estimatedTourMinutes": 226.26907812025044,
+      "coverageRatio": 0.9777728354832912,
+      "estimatedTourMinutes": 234.66548051598988,
       "requestedDuration": 240
     }
   },
@@ -21,164 +21,54 @@
     {
       "id": "fixture-1",
       "tourId": "fixture-candidate",
-      "name": "Pergamonmuseum",
-      "description": "Schau dir die massiven Fassaden des Pergamonmuseums direkt vor uns an. Während wir hier stehen, beginnt unsere Reise durch zwölf Stationen, die etwa 240 Minuten andauern werden. Achte auf die neoklassizistische Planung von Alfred Messel aus den Jahren 1907 bis 1909. Dieses Gebäude stellt den Auftakt zu unserer Frage dar, wie Berlin das öffentliche Leben immer wieder neu erfindet und dabei Spuren früherer Epochen bewahrt. Hier verschmelzen Geschichte und Gegenwart in Stein.\n\nBlicke zurück auf das Jahr 1906, als Wilhelm von Bode den Plan für einen Neubau entwarf. Die monumentalen Fundstücke aus Babylon oder Ägypten passten einfach nicht in die Räume des ersten Gebäudes von 1897 bis 1899. Achte darauf, wie Ludwig Hoffmann zwischen 1910 und 1930 die Ausführung übernahm, um den Platz für diese Schätze zu schaffen. Heute ist das Gebäude Teil des UNESCO-Weltkulturerbes, doch seit dem 23. Oktober 2023 ruht der Besucherstrom wegen umfassender Sanierungsarbeiten. Diese Pause ermöglicht es, die Spuren der Geschichte für kommende Generationen zu bewahren.\n\nBetrachte die Bedeutung dieses Ortes jenseits der Mauern. Das Pergamonmuseum fungiert als Fenster zu fernen Welten, indem es die Antikensammlung, das Vorderasiatische Museum und das Museum für Islamische Kunst unter einem Dach vereint. Diese Sammlung macht Berlin zu einem Knotenpunkt globaler Kulturen. Während die Sanierung seit 2013 den Zugang erschwert, bewahrt sie gleichzeitig das Erbe der Museumsinsel als UNESCO-Weltkulturerbe. So verstehen wir heute, wie die Stadt Fundstücke aus Babylon oder Ägypten in ihr eigenes Stadtbild integriert und so Geschichte lesbar macht.\n\nDiese Schätze aus fernen Welten bilden das Fundament unserer Betrachtung. Wenn du den Blick von den massiven Wänden löst, öffnet sich der Weg zu weiteren Schichten der Stadtgeschichte. Lass uns gemeinsam die Museumsinsel erkunden, um die nächste Ebene dieser vielschichtigen Erzählung über Berlin aufzuschlagen.",
+      "name": "Alexanderplatz",
+      "description": "Schau dir den weiten, offenen Raum des Alexanderplatzes an, wo die Menschenströme unaufhaltsam fließen. Wir beginnen hier unsere Reise durch 13 Stationen, die uns insgesamt etwa 240 Minuten begleiten werden. Achte auf das Zusammenspiel der verschiedenen Ebenen und Gebäude um dich herum. Hier stellt sich die Frage: Wie schafft es diese Stadt, das öffentliche Leben immer wieder neu zu erfinden und dabei Spuren jeder früheren Ära zu bewahren?\n\nBetrachte die Schichten unter deinen Füßen und die Strukturen um dich herum. Früher war dieser Ort ein Zentrum des Handels, doch durch radikale Entscheidungen wandelte sich das Gesicht des Platzes grundlegend. Achte darauf, wie alte Wege verschwanden, um Raum für neue Funktionen zu schaffen. Diese ständige Umgestaltung zeigt den Kern unserer Frage: Berlin lässt Altes weichen, um Platz für das Neue zu gewinnen, ohne die Erinnerung an das Vergangene ganz zu löschen.\n\nBetrachte die weiten Flächen, die dir zeigen, wie radikale Umgestaltungen den Charakter eines Ortes prägen. Wenn du den Blick über das geschäftige Treiben schweifen lässt, erkennst du die Funktion dieses Platzes als pulsierendes Herzstück der Stadt. Achte darauf, wie die heutige Nutzung die Spuren früherer Handelswege überlagert. Dieser Ort dient uns als erste Linse, um zu verstehen, wie Berlin durch ständige Erneuerung seine Identität zwischen den Epochen immer wieder neu definiert.",
       "descriptionSections": {
-        "arrival": "Schau dir die massiven Fassaden des Pergamonmuseums direkt vor uns an. Während wir hier stehen, beginnt unsere Reise durch zwölf Stationen, die etwa 240 Minuten andauern werden. Achte auf die neoklassizistische Planung von Alfred Messel aus den Jahren 1907 bis 1909. Dieses Gebäude stellt den Auftakt zu unserer Frage dar, wie Berlin das öffentliche Leben immer wieder neu erfindet und dabei Spuren früherer Epochen bewahrt. Hier verschmelzen Geschichte und Gegenwart in Stein.",
-        "history": "Blicke zurück auf das Jahr 1906, als Wilhelm von Bode den Plan für einen Neubau entwarf. Die monumentalen Fundstücke aus Babylon oder Ägypten passten einfach nicht in die Räume des ersten Gebäudes von 1897 bis 1899. Achte darauf, wie Ludwig Hoffmann zwischen 1910 und 1930 die Ausführung übernahm, um den Platz für diese Schätze zu schaffen. Heute ist das Gebäude Teil des UNESCO-Weltkulturerbes, doch seit dem 23. Oktober 2023 ruht der Besucherstrom wegen umfassender Sanierungsarbeiten. Diese Pause ermöglicht es, die Spuren der Geschichte für kommende Generationen zu bewahren.",
-        "significance": "Betrachte die Bedeutung dieses Ortes jenseits der Mauern. Das Pergamonmuseum fungiert als Fenster zu fernen Welten, indem es die Antikensammlung, das Vorderasiatische Museum und das Museum für Islamische Kunst unter einem Dach vereint. Diese Sammlung macht Berlin zu einem Knotenpunkt globaler Kulturen. Während die Sanierung seit 2013 den Zugang erschwert, bewahrt sie gleichzeitig das Erbe der Museumsinsel als UNESCO-Weltkulturerbe. So verstehen wir heute, wie die Stadt Fundstücke aus Babylon oder Ägypten in ihr eigenes Stadtbild integriert und so Geschichte lesbar macht.",
-        "transition": "Diese Schätze aus fernen Welten bilden das Fundament unserer Betrachtung. Wenn du den Blick von den massiven Wänden löst, öffnet sich der Weg zu weiteren Schichten der Stadtgeschichte. Lass uns gemeinsam die Museumsinsel erkunden, um die nächste Ebene dieser vielschichtigen Erzählung über Berlin aufzuschlagen."
+        "arrival": "Schau dir den weiten, offenen Raum des Alexanderplatzes an, wo die Menschenströme unaufhaltsam fließen. Wir beginnen hier unsere Reise durch 13 Stationen, die uns insgesamt etwa 240 Minuten begleiten werden. Achte auf das Zusammenspiel der verschiedenen Ebenen und Gebäude um dich herum. Hier stellt sich die Frage: Wie schafft es diese Stadt, das öffentliche Leben immer wieder neu zu erfinden und dabei Spuren jeder früheren Ära zu bewahren?",
+        "history": "Betrachte die Schichten unter deinen Füßen und die Strukturen um dich herum. Früher war dieser Ort ein Zentrum des Handels, doch durch radikale Entscheidungen wandelte sich das Gesicht des Platzes grundlegend. Achte darauf, wie alte Wege verschwanden, um Raum für neue Funktionen zu schaffen. Diese ständige Umgestaltung zeigt den Kern unserer Frage: Berlin lässt Altes weichen, um Platz für das Neue zu gewinnen, ohne die Erinnerung an das Vergangene ganz zu löschen.",
+        "significance": "Betrachte die weiten Flächen, die dir zeigen, wie radikale Umgestaltungen den Charakter eines Ortes prägen. Wenn du den Blick über das geschäftige Treiben schweifen lässt, erkennst du die Funktion dieses Platzes als pulsierendes Herzstück der Stadt. Achte darauf, wie die heutige Nutzung die Spuren früherer Handelswege überlagert. Dieser Ort dient uns als erste Linse, um zu verstehen, wie Berlin durch ständige Erneuerung seine Identität zwischen den Epochen immer wieder neu definiert."
       },
-      "latitude": 52.5209122,
-      "longitude": 13.3964686,
+      "latitude": 52.521666666,
+      "longitude": 13.413611111,
       "position": 0,
-      "importanceScore": 45.36258893116062,
+      "importanceScore": 53.43156856932417,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 313659704,
-          "wikidata": "Q157298",
-          "wikipedia": "de:Pergamonmuseum",
-          "category": "museum",
+          "osmType": "node",
+          "osmId": -152783,
+          "wikidata": "Q152783",
+          "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 25.362588931160623,
+          "fameScore": 30.431568569324174,
           "osmTags": {
-            "fee": "yes",
-            "name": "Pergamonmuseum",
-            "note": "Wegen Sanierung bis auf Weiteres geschlossen",
-            "image": "https://photos.app.goo.gl/dcym3WpTuWoxHfbm6",
-            "height": "15",
-            "name:cs": "Pergamonské muzeum",
-            "name:da": "Pergamonmuseet",
-            "name:de": "Pergamonmuseum",
-            "name:en": "Pergamon Museum",
-            "name:es": "Museo de Pérgamo",
-            "name:fr": "Musée Pergame",
-            "name:it": "Museo di Pergamo",
-            "name:nl": "Pergamonmuseum",
-            "name:pl": "Muzeum Pergamońskie",
-            "name:ru": "Пергамский музей",
-            "name:zh": "貝加蒙博物館",
-            "ref:lda": "09030056",
-            "tourism": "museum",
-            "website": "https://www.smb.museum/museen-einrichtungen/pergamonmuseum/",
-            "alt_name": "Pergamon-Museum",
-            "building": "civic",
-            "heritage": "4",
-            "wikidata": "Q157298",
-            "addr:city": "Berlin",
-            "wikipedia": "de:Pergamonmuseum",
-            "check_date": "2026-05-15",
-            "wheelchair": "yes",
-            "addr:street": "Am Kupfergraben",
-            "addr:suburb": "Mitte",
-            "addr:country": "DE",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10117",
-            "contact:phone": "+49 30 20905577",
-            "opening_hours": "off",
-            "fee:icom_member": "no",
-            "addr:housenumber": "5",
-            "heritage:operator": "lda",
-            "wikimedia_commons": "Category:Pergamonmuseum",
-            "toilets:wheelchair": "yes",
-            "blind:description:de": "Im Pergamon-Museum gibt es Führungen für Blinde und Sehgeschädigte. siehe http://www.absv.de/freizeit/pergamon.htm",
-            "name:etymology:wikidata": "Q18986"
+            "name": "Alexanderplatz",
+            "wikidata": "Q152783",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "49",
+            "canonical:instance_of": "square|tourist attraction",
+            "tourism": "attraction",
+            "place": "square"
           }
         },
         "narrationMeta": {
-          "traceId": "d97c66c4-d8a6-45cd-a9ae-695296a72eba",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "d2c88907-6e12-442c-a051-13aa67a87c23",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2699,
-          "totalDurationMs": 9774,
+          "totalSeedChars": 61,
+          "totalDurationMs": 10010,
           "claimCheck": {
-            "totalExtracted": 9,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 9,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 9,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1907",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": " Alfred Messel aus den Jahren 1907 bis 1909. Dieses Gebäude stel"
-              },
-              {
-                "type": "date",
-                "value": "1909",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "essel aus den Jahren 1907 bis 1909. Dieses Gebäude stellt den Au"
-              },
-              {
-                "type": "date",
-                "value": "1906",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": ".  Blicke zurück auf das Jahr 1906, als Wilhelm von Bode den Pla"
-              },
-              {
-                "type": "date",
-                "value": "1897",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "Räume des ersten Gebäudes von 1897 bis 1899. Achte darauf, wie L"
-              },
-              {
-                "type": "date",
-                "value": "1899",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": " ersten Gebäudes von 1897 bis 1899. Achte darauf, wie Ludwig Hof"
-              },
-              {
-                "type": "date",
-                "value": "1910",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": " wie Ludwig Hoffmann zwischen 1910 und 1930 die Ausführung übern"
-              },
-              {
-                "type": "date",
-                "value": "1930",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ig Hoffmann zwischen 1910 und 1930 die Ausführung übernahm, um d"
-              },
-              {
-                "type": "date",
-                "value": "2023",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "es, doch seit dem 23. Oktober 2023 ruht der Besucherstrom wegen "
-              },
-              {
-                "type": "date",
-                "value": "2013",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "n. Während die Sanierung seit 2013 den Zugang erschwert, bewahrt"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -186,109 +76,55 @@
     {
       "id": "fixture-2",
       "tourId": "fixture-candidate",
-      "name": "Museumsinsel",
-      "description": "Während das Pergamonmuseum monumentale Strukturen bewahrt, öffnet sich vor dir nun die weitläufige Museumsinsel als ein Ensemble aus fünf Gebäuden. Achte auf den Übergang zur Spreeinsel, wo die Architektur direkt am Wasser der historischen Mitte Berlins liegt. Diese gesamte Anlage bildet einen Komplex, der einst im Auftrag preußischer Könige zwischen 1830 und 1930 entstand. Wenn du das Gelände betrachtest, erkennst du die Bedeutung dieses Ortes, der seit 1999 zum UNESCO-Weltkulturerbe zählt. Später entfaltet sich hier die tiefe Chronologie der Geschichte.\n\nBlicke auf den Boden verraten dir die schwierige Vergangenheit dieses Ortes, denn einst war dieser nördliche Teil der Spreeinsel lediglich eine sumpfige Flussaue. Achte darauf, wie sich das Gelände durch menschliches Wirken veränderte, als man im 17. Jahrhundert den linken Spreearm zum Kupfergraben kanalisierte. Diese Maßnahme entwässerte das Land und schuf die Basis für den Cöllnischen Werder. Wo früher Wasser stand, entstand nach Mitte des 17. Jahrhunderts eine Lustgartenanlage, die einst den Pomeranzenhof beherbergte.\n\nBetrachte die Spree vor dir und erkenne, wie aus einer einst sumpfigen Flussaue durch den Kupfergraben ein kulturelles Herzstück wurde. Die Kanalisierung im 17. Jahrhundert verwandelte das Land nachhaltig und ermöglichte erst die Entstehung des Cöllnischen Werders. Achte darauf, wie sich der Raum von einem einfachen Lustgarten mit dem Pomeranzenhof zu einem weltberühmten UNESCO-Weltkulturerbe entwickelte. Dieser Wandel zeigt, wie Berlin seine Fundamente durch gezieltes menschliches Wirken festigte, bevor das Neue Museum die nächste Schicht der Geschichte offenbart.\n\nBetrachte die Spree vor dir und erkenne, wie aus einer einst sumpfigen Flussaue durch den Kupfergraben ein kulturelles Herzstück wurde. Diese gezielte Veränderung des Landes schuf die Basis für das heutige UNESCO-Weltkulturerbe. Während dieser Wandel die Fundamente Berlins festigte, offenbart das Neue Museum bald die nächste Schicht der Geschichte.",
+      "name": "Berliner Schloss",
+      "description": "Während der Alexanderplatz durch moderne Dynamik und weite Flächen besticht, begegnet dir hier eine ganz andere Schwere. Achte auf die massiven Steinwände des Berliner Schlosses, die den Raum fest umschließen. Wenn du den Blick über die Fassade schweifen lässt, bemerkst du die Beständigkeit der Materialien direkt vor deinen Augen. Dieser Ort bildet das Fundament unserer Reise durch die Zeit, bevor wir uns dem nächsten Kapitel widmen.\n\nBetrachte die tiefen Spuren der Veränderung, die sich in diesem Mauerwerk abzeichnen. Früher prägten andere Strukturen diesen Platz, doch Entscheidungen über Abriss und Wiederaufbau haben das Gesicht des Schlosses immer wieder neu geformt. Achte auf den Kontrast zwischen dem, was blieb, und dem, was verschwand. Diese stetige Wandlung bereitet dich auf die nächste Station vor, wo eine völlig andere Ära der Stadtgeschichte auf dich wartet.\n\nBetrachte die Schwere des Mauerwerks als Ankerpunkt unserer Reise. Während der Alexanderplatz durch Weite besticht, umschließen diese Steinwände den Raum mit einer ganz eigenen Beständigkeit. Achte auf die Spuren von Abriss und Wiederaufbau, die sich in der Substanz zeigen. Diese stetige Wandlung macht das Schloss zu einem Fundament unserer Geschichte.",
       "descriptionSections": {
-        "arrival": "Während das Pergamonmuseum monumentale Strukturen bewahrt, öffnet sich vor dir nun die weitläufige Museumsinsel als ein Ensemble aus fünf Gebäuden. Achte auf den Übergang zur Spreeinsel, wo die Architektur direkt am Wasser der historischen Mitte Berlins liegt. Diese gesamte Anlage bildet einen Komplex, der einst im Auftrag preußischer Könige zwischen 1830 und 1930 entstand. Wenn du das Gelände betrachtest, erkennst du die Bedeutung dieses Ortes, der seit 1999 zum UNESCO-Weltkulturerbe zählt. Später entfaltet sich hier die tiefe Chronologie der Geschichte.",
-        "history": "Blicke auf den Boden verraten dir die schwierige Vergangenheit dieses Ortes, denn einst war dieser nördliche Teil der Spreeinsel lediglich eine sumpfige Flussaue. Achte darauf, wie sich das Gelände durch menschliches Wirken veränderte, als man im 17. Jahrhundert den linken Spreearm zum Kupfergraben kanalisierte. Diese Maßnahme entwässerte das Land und schuf die Basis für den Cöllnischen Werder. Wo früher Wasser stand, entstand nach Mitte des 17. Jahrhunderts eine Lustgartenanlage, die einst den Pomeranzenhof beherbergte.",
-        "significance": "Betrachte die Spree vor dir und erkenne, wie aus einer einst sumpfigen Flussaue durch den Kupfergraben ein kulturelles Herzstück wurde. Die Kanalisierung im 17. Jahrhundert verwandelte das Land nachhaltig und ermöglichte erst die Entstehung des Cöllnischen Werders. Achte darauf, wie sich der Raum von einem einfachen Lustgarten mit dem Pomeranzenhof zu einem weltberühmten UNESCO-Weltkulturerbe entwickelte. Dieser Wandel zeigt, wie Berlin seine Fundamente durch gezieltes menschliches Wirken festigte, bevor das Neue Museum die nächste Schicht der Geschichte offenbart.",
-        "transition": "Betrachte die Spree vor dir und erkenne, wie aus einer einst sumpfigen Flussaue durch den Kupfergraben ein kulturelles Herzstück wurde. Diese gezielte Veränderung des Landes schuf die Basis für das heutige UNESCO-Weltkulturerbe. Während dieser Wandel die Fundamente Berlins festigte, offenbart das Neue Museum bald die nächste Schicht der Geschichte."
+        "arrival": "Während der Alexanderplatz durch moderne Dynamik und weite Flächen besticht, begegnet dir hier eine ganz andere Schwere. Achte auf die massiven Steinwände des Berliner Schlosses, die den Raum fest umschließen. Wenn du den Blick über die Fassade schweifen lässt, bemerkst du die Beständigkeit der Materialien direkt vor deinen Augen. Dieser Ort bildet das Fundament unserer Reise durch die Zeit, bevor wir uns dem nächsten Kapitel widmen.",
+        "history": "Betrachte die tiefen Spuren der Veränderung, die sich in diesem Mauerwerk abzeichnen. Früher prägten andere Strukturen diesen Platz, doch Entscheidungen über Abriss und Wiederaufbau haben das Gesicht des Schlosses immer wieder neu geformt. Achte auf den Kontrast zwischen dem, was blieb, und dem, was verschwand. Diese stetige Wandlung bereitet dich auf die nächste Station vor, wo eine völlig andere Ära der Stadtgeschichte auf dich wartet.",
+        "significance": "Betrachte die Schwere des Mauerwerks als Ankerpunkt unserer Reise. Während der Alexanderplatz durch Weite besticht, umschließen diese Steinwände den Raum mit einer ganz eigenen Beständigkeit. Achte auf die Spuren von Abriss und Wiederaufbau, die sich in der Substanz zeigen. Diese stetige Wandlung macht das Schloss zu einem Fundament unserer Geschichte."
       },
-      "latitude": 52.5199984,
-      "longitude": 13.397183,
+      "latitude": 52.5175,
+      "longitude": 13.402777777,
       "position": 1,
-      "importanceScore": 43.823942985382715,
+      "importanceScore": 50.57068586817104,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 330840129,
-          "wikidata": "Q151963",
-          "wikipedia": "de:Museumsinsel (Berlin)",
-          "category": "other",
+          "osmType": "node",
+          "osmId": -170119,
+          "wikidata": "Q170119",
+          "category": "palace_castle",
           "landmarkTier": "flagship",
-          "fameScore": 24.823942985382715,
+          "fameScore": 28.57068586817104,
           "osmTags": {
-            "name": "Museumsinsel",
-            "name:cs": "Ostrov muzeí",
-            "name:de": "Museumsinsel",
-            "name:en": "Museum Island",
-            "name:fr": "Îles aux musées",
-            "name:he": "אי המוזיאונים",
-            "name:it": "Isola dei musei",
-            "name:ja": "ムゼウムスインゼル",
-            "name:ko": "박물관섬",
-            "name:lt": "Muziejų sala",
-            "name:pl": "Wyspa Muzeów w Berlinie",
-            "name:ru": "Музейный остров",
-            "ref:whc": "896",
+            "name": "Berlin Palace",
+            "wikidata": "Q170119",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "45",
+            "canonical:instance_of": "château|city palace|administrative building|destroyed building or structure",
             "tourism": "attraction",
-            "website": "https://www.museumsinsel-berlin.de/",
-            "heritage": "1",
-            "wikidata": "Q151963",
-            "addr:city": "Berlin",
-            "wikipedia": "de:Museumsinsel (Berlin)",
-            "wheelchair": "yes",
-            "alt_name:cs": "Muzejní ostrov",
-            "whc:criteria": "(ii),(iv)",
-            "description:ja": "日本語で直訳すると「博物館島」",
-            "heritage:website": "http://whc.unesco.org/en/list/896",
-            "heritage:operator": "whc",
-            "whc:inscription_date": "1999"
+            "historic": "palace",
+            "building": "palace"
           }
         },
         "narrationMeta": {
-          "traceId": "5e18c947-2bd5-4a1e-9353-24d28aab06e7",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "39f78989-55e2-4016-b680-ae18d26ef4ac",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2525,
-          "totalDurationMs": 9785,
+          "totalSeedChars": 116,
+          "totalDurationMs": 9840,
           "claimCheck": {
-            "totalExtracted": 4,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 4,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 4,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1830",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "g preußischer Könige zwischen 1830 und 1930 entstand. Wenn du da"
-              },
-              {
-                "type": "date",
-                "value": "1930",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "cher Könige zwischen 1830 und 1930 entstand. Wenn du das Gelände"
-              },
-              {
-                "type": "date",
-                "value": "1999",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "eutung dieses Ortes, der seit 1999 zum UNESCO-Weltkulturerbe zäh"
-              },
-              {
-                "type": "date",
-                "value": "17. Jahrhundert",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Wirken veränderte, als man im 17. Jahrhundert den linken Spreearm zum Kupfe"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -296,129 +132,55 @@
     {
       "id": "fixture-3",
       "tourId": "fixture-candidate",
-      "name": "Neues Museum",
-      "description": "Hast du dich jemals gefragt, wie Narben in Stein die Geschichte einer Stadt erzählen können? Wenn du vor dem Neuen Museum stehst, achte auf das Zusammenspiel der Fassaden. Das Bauwerk gehört zum UNESCO-Weltkulturerbe der Museumsinsel und zeigt eine vereinfachte Form der Wiederherstellung. Die Struktur verbindet Elemente des Klassizismus mit der Neorenaissance. Während wir die Spuren der Zerstörung im Außenbereich wahrnehmen, bereitet uns dieser Ort auf die tieferen chronologischen Schichten vor, die wir gleich gemeinsam entdecken.\n\nZwischen 1843 und 1855 entstand dieser Bau nach den Plänen von Friedrich August Stüler. Achte auf die Spuren der Zeit, denn nach der Zerstörung im Zweiten Weltkrieg verfiel das Gebäude während der DDR-Zeit zur Ruine. Erst zwischen 1999 und 2009 erfolgte unter David Chipperfield ein Wiederaufbau, der die Ergänzungen als solche erkennbar lässt. Das Ägyptische Museum und die Papyrussammlung fanden so ihren Weg zurück an diesen Ort. Diese Schichten der Erneuerung führen uns nun direkt zur nächsten Station, der Alten Nationalgalerie.\n\nBetrachte die Räume als lebendige Zeugen einer Stadt, die sich ständig neu erfindet. Das Gebäude fungiert nicht nur als Archiv, sondern als Brücke zwischen den Epochen. Achte darauf, wie die Papyrussammlung im Ägyptischen Museum eine Verbindung zur fernen Vergangenheit knüpft. Diese Schichtung von Ruine und Erneuerung bereitet dich auf die nächste Station vor, wo wir uns der Kunstgeschichte widmen.\n\nDiese Schichtung von Ruine und Erneuerung bereitet dich auf das kommende Erlebnis vor. Wenn du die Spuren der Zeit im Blick behältst, merkst du, wie sich das Thema der Geschichte fortsetzt. Lass uns nun gemeinsam zur Alten Nationalgalerie weiterziehen, um uns ganz der Kunstgeschichte zu widmen.",
+      "name": "Palast der Republik",
+      "description": "Hast du dich schon einmal gefragt, wie ein Gebäude die Identität eines ganzen Platzes verändern kann? Wenn du vor dieser Struktur stehst, beachte die weite Fläche, die den Raum um das Bauwerk definiert. Achte darauf, wie sich die Architektur hier deutlich von der massiven Präsenz des Berliner Palastes unterscheidet. Während dort Stein und Tradition dominieren, zeigt sich hier eine andere Form der städtischen Nutzung, bevor wir uns dem Berliner Dom nähern.\n\nBetrachte die Leere, die dieser Ort einst füllte, als sich die Nutzung des Platzes grundlegend wandelte. Früher prägten andere Strukturen das Stadtbild, doch eine bewusste Entscheidung veränderte den Charakter dieses Areals dauerhaft. Achte darauf, wie die Funktion des öffentlichen Lebens hier neu definiert wurde, um eine neue Ära einzuläuten. Diese Transformation bereitet dich nun auf die sakrale Erhabenheit vor, die wir gleich beim Berliner Dom erleben.\n\nBetrachte die Leere, die dieser Ort einst füllte, als sich die Nutzung des Platzes grundlegend wandelte. Achte darauf, wie das Fehlen der ursprünglichen Struktur den Raum neu definiert hat. Diese Veränderung zeigt dir, dass Berlin seine Identität durch das Verschwinden und Erscheinen von Gebäuden ständig neu erfindet. Während wir eben noch die Beständigkeit des Palastes spürten, erleben wir hier eine radikale Umgestaltung des öffentlichen Lebens, bevor wir zum Berliner Dom weiterziehen.",
       "descriptionSections": {
-        "arrival": "Hast du dich jemals gefragt, wie Narben in Stein die Geschichte einer Stadt erzählen können? Wenn du vor dem Neuen Museum stehst, achte auf das Zusammenspiel der Fassaden. Das Bauwerk gehört zum UNESCO-Weltkulturerbe der Museumsinsel und zeigt eine vereinfachte Form der Wiederherstellung. Die Struktur verbindet Elemente des Klassizismus mit der Neorenaissance. Während wir die Spuren der Zerstörung im Außenbereich wahrnehmen, bereitet uns dieser Ort auf die tieferen chronologischen Schichten vor, die wir gleich gemeinsam entdecken.",
-        "history": "Zwischen 1843 und 1855 entstand dieser Bau nach den Plänen von Friedrich August Stüler. Achte auf die Spuren der Zeit, denn nach der Zerstörung im Zweiten Weltkrieg verfiel das Gebäude während der DDR-Zeit zur Ruine. Erst zwischen 1999 und 2009 erfolgte unter David Chipperfield ein Wiederaufbau, der die Ergänzungen als solche erkennbar lässt. Das Ägyptische Museum und die Papyrussammlung fanden so ihren Weg zurück an diesen Ort. Diese Schichten der Erneuerung führen uns nun direkt zur nächsten Station, der Alten Nationalgalerie.",
-        "significance": "Betrachte die Räume als lebendige Zeugen einer Stadt, die sich ständig neu erfindet. Das Gebäude fungiert nicht nur als Archiv, sondern als Brücke zwischen den Epochen. Achte darauf, wie die Papyrussammlung im Ägyptischen Museum eine Verbindung zur fernen Vergangenheit knüpft. Diese Schichtung von Ruine und Erneuerung bereitet dich auf die nächste Station vor, wo wir uns der Kunstgeschichte widmen.",
-        "transition": "Diese Schichtung von Ruine und Erneuerung bereitet dich auf das kommende Erlebnis vor. Wenn du die Spuren der Zeit im Blick behältst, merkst du, wie sich das Thema der Geschichte fortsetzt. Lass uns nun gemeinsam zur Alten Nationalgalerie weiterziehen, um uns ganz der Kunstgeschichte zu widmen."
+        "arrival": "Hast du dich schon einmal gefragt, wie ein Gebäude die Identität eines ganzen Platzes verändern kann? Wenn du vor dieser Struktur stehst, beachte die weite Fläche, die den Raum um das Bauwerk definiert. Achte darauf, wie sich die Architektur hier deutlich von der massiven Präsenz des Berliner Palastes unterscheidet. Während dort Stein und Tradition dominieren, zeigt sich hier eine andere Form der städtischen Nutzung, bevor wir uns dem Berliner Dom nähern.",
+        "history": "Betrachte die Leere, die dieser Ort einst füllte, als sich die Nutzung des Platzes grundlegend wandelte. Früher prägten andere Strukturen das Stadtbild, doch eine bewusste Entscheidung veränderte den Charakter dieses Areals dauerhaft. Achte darauf, wie die Funktion des öffentlichen Lebens hier neu definiert wurde, um eine neue Ära einzuläuten. Diese Transformation bereitet dich nun auf die sakrale Erhabenheit vor, die wir gleich beim Berliner Dom erleben.",
+        "significance": "Betrachte die Leere, die dieser Ort einst füllte, als sich die Nutzung des Platzes grundlegend wandelte. Achte darauf, wie das Fehlen der ursprünglichen Struktur den Raum neu definiert hat. Diese Veränderung zeigt dir, dass Berlin seine Identität durch das Verschwinden und Erscheinen von Gebäuden ständig neu erfindet. Während wir eben noch die Beständigkeit des Palastes spürten, erleben wir hier eine radikale Umgestaltung des öffentlichen Lebens, bevor wir zum Berliner Dom weiterziehen."
       },
-      "latitude": 52.520184,
-      "longitude": 13.3977404,
+      "latitude": 52.5175,
+      "longitude": 13.4025,
       "position": 2,
-      "importanceScore": 44.163766555032915,
+      "importanceScore": 48.720671786825555,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 18578139,
-          "wikidata": "Q157316",
-          "wikipedia": "de:Neues Museum (Berlin)",
-          "category": "museum",
+          "osmType": "node",
+          "osmId": -161156,
+          "wikidata": "Q161156",
+          "category": "palace_castle",
           "landmarkTier": "flagship",
-          "fameScore": 24.163766555032915,
+          "fameScore": 26.720671786825555,
           "osmTags": {
-            "fee": "yes",
-            "lit": "yes",
-            "name": "Neues Museum",
-            "museum": "archaeological",
-            "name:cs": "Nové muzeum",
-            "name:de": "Neues Museum",
-            "name:en": "New Museum",
-            "name:fr": "Nouveau musée",
-            "name:he": "המוזיאון החדש",
-            "name:ja": "新博物館",
-            "name:lt": "Naujas muziejus",
-            "name:nl": "Nieuw Museum",
-            "name:ru": "Новый музей",
-            "name:uk": "Новий музей",
-            "name:zh": "新博物館",
-            "ref:lda": "09030058",
-            "tourism": "museum",
-            "website": "https://www.smb.museum/museen-einrichtungen/neues-museum/",
-            "building": "museum",
-            "elevator": "yes",
-            "heritage": "4",
-            "wikidata": "Q157316",
-            "addr:city": "Berlin",
-            "wikipedia": "de:Neues Museum (Berlin)",
-            "check_date": "2026-05-15",
-            "wheelchair": "yes",
-            "addr:street": "Bodestraße",
-            "addr:suburb": "Mitte",
-            "addr:country": "DE",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10178",
-            "contact:phone": "+49 30 266424242",
-            "opening_hours": "Mo off; Tu-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
-            "building:levels": "4",
-            "fee:icom_member": "no",
-            "addr:housenumber": "1",
-            "heritage:operator": "lda",
-            "toilets:wheelchair": "yes"
+            "name": "Palace of the Republic",
+            "wikidata": "Q161156",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "29",
+            "canonical:instance_of": "convention center|performing arts center|house of culture|parliament building|destroyed building or structure",
+            "tourism": "attraction",
+            "historic": "palace",
+            "building": "palace"
           }
         },
         "narrationMeta": {
-          "traceId": "e7f1dd28-5461-49f0-9dec-72f0939accbf",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "aacc4bd3-dc05-4556-b4fd-66079e5b98a7",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2738,
-          "totalDurationMs": 13030,
+          "totalSeedChars": 113,
+          "totalDurationMs": 10036,
           "claimCheck": {
-            "totalExtracted": 5,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 5,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 5,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1843",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "emeinsam entdecken.  Zwischen 1843 und 1855 entstand dieser Bau "
-              },
-              {
-                "type": "date",
-                "value": "1855",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "entdecken.  Zwischen 1843 und 1855 entstand dieser Bau nach den "
-              },
-              {
-                "type": "date",
-                "value": "1999",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Zeit zur Ruine. Erst zwischen 1999 und 2009 erfolgte unter David"
-              },
-              {
-                "type": "date",
-                "value": "2009",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Ruine. Erst zwischen 1999 und 2009 erfolgte unter David Chipperf"
-              },
-              {
-                "type": "style",
-                "value": "Renaissance",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "e des Klassizismus mit der Neorenaissance. Während wir die Spuren der Z"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -426,147 +188,18 @@
     {
       "id": "fixture-4",
       "tourId": "fixture-candidate",
-      "name": "Alte Nationalgalerie",
-      "description": "Blicke dich einmal auf die feinen Linien der Fassade, die sich direkt vor dir erheben. Achte darauf, wie das Gebäude als Teil des UNESCO-Weltkulturerbes fest in die Museumsinsel eingebettet ist. Während du gerade noch die Spuren des Neuen Museums erlebt hast, zeigt sich hier eine andere Seite der Geschichte. Die Struktur bildet einen ruhigen Ankerpunkt auf dem Platz. Wenn du den Blick über die Steine schweifen lässt, spürst du die Beständigkeit dieses Ortes, bevor wir uns der zeitlichen Tiefe widmen.\n\nErkenne die Vision von König Friedrich Wilhelm IV., der ab 1862 den Grundstein für diesen Ort legte. Während Friedrich August Stüler die ersten Pläne entwarf, vollendete Johann Heinrich Strack das Bauwerk bis 1876 im Stil des Klassizismus und der Neorenaissance. Achte auf die Architektur, die Elemente eines Tempels, eines Schlosses und einer Kirche vereint, um Einheit zwischen Nation und Kunst zu schaffen. Wenn du zur Freitreppe blickst, siehst du Alexander Calandrellis Reiterstandbild Friedrich Wilhelms IV., das zwischen 1875 und 1886 entstand.\n\nBetrachte die Verbindung zwischen Kunst und nationaler Identität, die dieses Gebäude verkörpert. Während das Neue Museum persönliche Geschichten bewahrt, dient dieser Ort der Sammlung des 19. Jahrhunderts als kulturelles Fundament. Achte auf die Verschmelzung von Tempel- und Schlossformen, welche die Einheit von Nation und Ästhetik herbeiführen soll. Wenn du die Skulpturen betrachtest, spürst du den Übergang zur monumentalen Pracht der Stadt. Dieser Ankerpunkt bereitet dich nun auf die gewaltige Präsenz des Berliner Doms vor.\n\nDie Verschmelzung von Tempel und Schloss bildet hier das Fundament der Sammlung. Wenn du die Skulpturen betrachtest, spürst du den Übergang zur monumentalen Pracht der Stadt. Dieser Ankerpunkt bereitet dich auf die gewaltige Präsenz des Berliner Doms vor, wo sich die religiöse Dimension der Geschichte offenbart.",
-      "descriptionSections": {
-        "arrival": "Blicke dich einmal auf die feinen Linien der Fassade, die sich direkt vor dir erheben. Achte darauf, wie das Gebäude als Teil des UNESCO-Weltkulturerbes fest in die Museumsinsel eingebettet ist. Während du gerade noch die Spuren des Neuen Museums erlebt hast, zeigt sich hier eine andere Seite der Geschichte. Die Struktur bildet einen ruhigen Ankerpunkt auf dem Platz. Wenn du den Blick über die Steine schweifen lässt, spürst du die Beständigkeit dieses Ortes, bevor wir uns der zeitlichen Tiefe widmen.",
-        "history": "Erkenne die Vision von König Friedrich Wilhelm IV., der ab 1862 den Grundstein für diesen Ort legte. Während Friedrich August Stüler die ersten Pläne entwarf, vollendete Johann Heinrich Strack das Bauwerk bis 1876 im Stil des Klassizismus und der Neorenaissance. Achte auf die Architektur, die Elemente eines Tempels, eines Schlosses und einer Kirche vereint, um Einheit zwischen Nation und Kunst zu schaffen. Wenn du zur Freitreppe blickst, siehst du Alexander Calandrellis Reiterstandbild Friedrich Wilhelms IV., das zwischen 1875 und 1886 entstand.",
-        "significance": "Betrachte die Verbindung zwischen Kunst und nationaler Identität, die dieses Gebäude verkörpert. Während das Neue Museum persönliche Geschichten bewahrt, dient dieser Ort der Sammlung des 19. Jahrhunderts als kulturelles Fundament. Achte auf die Verschmelzung von Tempel- und Schlossformen, welche die Einheit von Nation und Ästhetik herbeiführen soll. Wenn du die Skulpturen betrachtest, spürst du den Übergang zur monumentalen Pracht der Stadt. Dieser Ankerpunkt bereitet dich nun auf die gewaltige Präsenz des Berliner Doms vor.",
-        "transition": "Die Verschmelzung von Tempel und Schloss bildet hier das Fundament der Sammlung. Wenn du die Skulpturen betrachtest, spürst du den Übergang zur monumentalen Pracht der Stadt. Dieser Ankerpunkt bereitet dich auf die gewaltige Präsenz des Berliner Doms vor, wo sich die religiöse Dimension der Geschichte offenbart."
-      },
-      "latitude": 52.5208337,
-      "longitude": 13.3983173,
-      "position": 3,
-      "importanceScore": 42.35620665658675,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "way",
-          "osmId": 313670733,
-          "wikidata": "Q162111",
-          "wikipedia": "de:Alte Nationalgalerie",
-          "category": "museum",
-          "landmarkTier": "flagship",
-          "fameScore": 23.356206656586746,
-          "osmTags": {
-            "fee": "yes",
-            "name": "Alte Nationalgalerie",
-            "name:cs": "Stará národní galerie",
-            "name:de": "Alte Nationalgalerie",
-            "name:en": "Old National Gallery",
-            "name:es": "Antigua Galería Nacional",
-            "name:fa": "گالری ملی قدیمی",
-            "name:nl": "Oude Nationale Galerij",
-            "name:pl": "Stara Galeria Narodowa w Berlinie",
-            "name:ru": "Старая национальная галерея",
-            "name:zh": "舊國家畫廊",
-            "ref:lda": "09030057",
-            "tourism": "museum",
-            "website": "https://www.smb.museum/en/museums-institutions/alte-nationalgalerie/home/",
-            "building": "civic",
-            "heritage": "4",
-            "wikidata": "Q162111",
-            "addr:city": "Berlin",
-            "architect": "Friedrich August Stüler",
-            "wikipedia": "de:Alte Nationalgalerie",
-            "check_date": "2026-05-15",
-            "wheelchair": "yes",
-            "addr:street": "Bodestraße",
-            "addr:suburb": "Mitte",
-            "addr:country": "DE",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10178",
-            "contact:phone": "+49 30 20905577",
-            "opening_hours": "Mo off; Tu-Su 10:00-18:00; PH 10:00-18:00; Dec 24 off; Dec 31 off",
-            "fee:icom_member": "no",
-            "addr:housenumber": "1-3",
-            "heritage:operator": "lda",
-            "wikimedia_commons": "Category:Alte Nationalgalerie",
-            "architect:wikidata": "Q61256",
-            "toilets:wheelchair": "yes",
-            "architect:wikipedia": "de:Friedrich August Stüler",
-            "building:architecture": "classicism"
-          }
-        },
-        "narrationMeta": {
-          "traceId": "e2f8e73d-db67-473c-a016-90c0ab952a06",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2590,
-          "totalDurationMs": 11838,
-          "claimCheck": {
-            "totalExtracted": 5,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 5,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 5,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1862",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Friedrich Wilhelm IV., der ab 1862 den Grundstein für diesen Ort"
-              },
-              {
-                "type": "date",
-                "value": "1876",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "inrich Strack das Bauwerk bis 1876 im Stil des Klassizismus und "
-              },
-              {
-                "type": "date",
-                "value": "1875",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ch Wilhelms IV., das zwischen 1875 und 1886 entstand.  Betrachte"
-              },
-              {
-                "type": "date",
-                "value": "1886",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ms IV., das zwischen 1875 und 1886 entstand.  Betrachte die Verb"
-              },
-              {
-                "type": "style",
-                "value": "Renaissance",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "l des Klassizismus und der Neorenaissance. Achte auf die Architektur, d"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-5",
-      "tourId": "fixture-candidate",
       "name": "Berliner Dom",
-      "description": "Man erzählt sich hier am Lustgarten oft, dass die Steine selbst von alten Herrschaftsansprüchen flüstern. Wenn du vor dem Berliner Dom stehst, achte auf die gewaltige Präsenz dieses protestantischen Bauwerks direkt am Platz. Es wirkt wie ein massiver Anker zwischen den umliegenden Museen. Betrachte die Fassade, die durch ihre Details aus der Zeit zwischen 1894 und 1905 besticht. Während die Alte Nationalgalerie Kunst bewahrt, beherbergt dieser Ort die Grabstätte des Hauses Hohenzollern.\n\nDer Kaiser gab den Befehl für diesen Bau zwischen 1894 und 1905. Julius Raschdorff entwarf nach den Plänen des Kaisers Wilhelm II. diesen Ort als protestantische Kirche und Grabstätte der Hohenzollern. Achte auf die Spuren der Zerstörung, denn die Bomben des Zweiten Weltkriegs veränderten das Innere tiefgreifend. Erst im Jahr 2002 war die Restaurierung abgeschlossen. Erinnere dich an den Verlust des Nordflügels, der 1975 durch die DDR-Behörden abgerissen wurde. Diese Brüche prägen die heutige Form des Doms.\n\nWährend die Alte Nationalgalerie Kunstwerke schützt, dient dieser Ort als monumentale Grabstätte des Hauses Hohenzollern. Achte auf die sichtbaren Brüche in der Struktur, denn das Fehlen des Nordflügels erzählt von den Abrissentscheidungen der DDR-Behörden im Jahr 1975. Wenn du den Blick über den Lustgarten schweifen lässt, erkennst du, wie sich die Stadt durch Kriegsschäden und langwierige Restaurierungen bis 2002 immer wieder neu erfand. Diese Transformation führt uns nun weg von der sakralen Schwere hin zu den lebendigen, verwinkelten Strukturen der Hackeschen Höfe.\n\nLass die Schwere dieser sakralen Grabstätte noch ein wenig nachwirken. Wir verlassen nun diesen Ort der monumentalen Brüche und bewegen uns weg von der Geschichte der Herrscherhäuser. Die verwinkelten Strukturen der Hackeschen Höfe erwarten dich gleich mit einem ganz anderen Lebensgefühl.",
+      "description": "Achte auf die detailreichen Steinmetzarbeiten, die sich über das Gebäude ziehen. Während wir uns nun von der modernen Glasarchitektur entfernen, stehen wir vor einem Bauwerk, das zwischen 1894 und 1905 nach Plänen von Julius Carl Raschdorff entstand. Die Struktur dient als evangelische Stiftskirche und Grabstätte des Hauses Hohenzollern. Diese monumentale Präsenz am Lustgarten bildet den nächsten Ankerpunkt unserer Reise durch die Geschichte.\n\nDer Kaiser gab den Befehl für diesen Bau, um die Präsenz des Hauses Hohenzollern zu festigen. Achte auf die Spuren der Zeit, denn das Gebäude durchlebte tiefe Brüche. Während die Krypten der Dynastie seit 1894 bis 1905 wuchsen, veränderte sich die Silhouette radikal, als die DDR-Behörden 1975 den nördlichen Teil der Denkmalskirche abtrugen. Diese Zerstörung hinterließ eine Lücke in der ursprünglichen Struktur. Erst im Jahr 2002 wurde das Innere wiederhergestellt, was zeigt, wie Berlin seine Spuren bewahrt. Bald führt uns unser Weg zur Neue Wache.\n\nBetrachte die tiefe Verbindung zwischen diesem Sakralbau und der Dynastie der Hohenzollern. Der Dom fungiert nicht nur als Kirche, sondern als monumentale Grabstätte, welche die Beständigkeit des Hauses im Herzen Berlins manifestiert. Wenn du den Blick über den Lustgarten schweifen lässt, erkennst du, wie das Gebäude als Ankerpunkt dient. Es verdeutlicht unsere Frage nach der Neuerfindung des öffentlichen Lebens durch die Bewahrung alter Spuren. Diese religiöse und dynastische Bedeutung bildet das Fundament für das, was wir gleich bei der Neuen Wache erleben werden.\n\nSpüre die Schwere der Geschichte, die in diesen Mauern als Grabstätte ruht. Während dieser Ort dynastische Beständigkeit bewahrt, wandelt sich unser Fokus auf das Gedenken an andere Schicksale. Die Spuren der Zerstörung weichen einer neuen Bedeutung, während wir uns der Neuen Wache nähern.",
       "descriptionSections": {
-        "arrival": "Man erzählt sich hier am Lustgarten oft, dass die Steine selbst von alten Herrschaftsansprüchen flüstern. Wenn du vor dem Berliner Dom stehst, achte auf die gewaltige Präsenz dieses protestantischen Bauwerks direkt am Platz. Es wirkt wie ein massiver Anker zwischen den umliegenden Museen. Betrachte die Fassade, die durch ihre Details aus der Zeit zwischen 1894 und 1905 besticht. Während die Alte Nationalgalerie Kunst bewahrt, beherbergt dieser Ort die Grabstätte des Hauses Hohenzollern.",
-        "history": "Der Kaiser gab den Befehl für diesen Bau zwischen 1894 und 1905. Julius Raschdorff entwarf nach den Plänen des Kaisers Wilhelm II. diesen Ort als protestantische Kirche und Grabstätte der Hohenzollern. Achte auf die Spuren der Zerstörung, denn die Bomben des Zweiten Weltkriegs veränderten das Innere tiefgreifend. Erst im Jahr 2002 war die Restaurierung abgeschlossen. Erinnere dich an den Verlust des Nordflügels, der 1975 durch die DDR-Behörden abgerissen wurde. Diese Brüche prägen die heutige Form des Doms.",
-        "significance": "Während die Alte Nationalgalerie Kunstwerke schützt, dient dieser Ort als monumentale Grabstätte des Hauses Hohenzollern. Achte auf die sichtbaren Brüche in der Struktur, denn das Fehlen des Nordflügels erzählt von den Abrissentscheidungen der DDR-Behörden im Jahr 1975. Wenn du den Blick über den Lustgarten schweifen lässt, erkennst du, wie sich die Stadt durch Kriegsschäden und langwierige Restaurierungen bis 2002 immer wieder neu erfand. Diese Transformation führt uns nun weg von der sakralen Schwere hin zu den lebendigen, verwinkelten Strukturen der Hackeschen Höfe.",
-        "transition": "Lass die Schwere dieser sakralen Grabstätte noch ein wenig nachwirken. Wir verlassen nun diesen Ort der monumentalen Brüche und bewegen uns weg von der Geschichte der Herrscherhäuser. Die verwinkelten Strukturen der Hackeschen Höfe erwarten dich gleich mit einem ganz anderen Lebensgefühl."
+        "arrival": "Achte auf die detailreichen Steinmetzarbeiten, die sich über das Gebäude ziehen. Während wir uns nun von der modernen Glasarchitektur entfernen, stehen wir vor einem Bauwerk, das zwischen 1894 und 1905 nach Plänen von Julius Carl Raschdorff entstand. Die Struktur dient als evangelische Stiftskirche und Grabstätte des Hauses Hohenzollern. Diese monumentale Präsenz am Lustgarten bildet den nächsten Ankerpunkt unserer Reise durch die Geschichte.",
+        "history": "Der Kaiser gab den Befehl für diesen Bau, um die Präsenz des Hauses Hohenzollern zu festigen. Achte auf die Spuren der Zeit, denn das Gebäude durchlebte tiefe Brüche. Während die Krypten der Dynastie seit 1894 bis 1905 wuchsen, veränderte sich die Silhouette radikal, als die DDR-Behörden 1975 den nördlichen Teil der Denkmalskirche abtrugen. Diese Zerstörung hinterließ eine Lücke in der ursprünglichen Struktur. Erst im Jahr 2002 wurde das Innere wiederhergestellt, was zeigt, wie Berlin seine Spuren bewahrt. Bald führt uns unser Weg zur Neue Wache.",
+        "significance": "Betrachte die tiefe Verbindung zwischen diesem Sakralbau und der Dynastie der Hohenzollern. Der Dom fungiert nicht nur als Kirche, sondern als monumentale Grabstätte, welche die Beständigkeit des Hauses im Herzen Berlins manifestiert. Wenn du den Blick über den Lustgarten schweifen lässt, erkennst du, wie das Gebäude als Ankerpunkt dient. Es verdeutlicht unsere Frage nach der Neuerfindung des öffentlichen Lebens durch die Bewahrung alter Spuren. Diese religiöse und dynastische Bedeutung bildet das Fundament für das, was wir gleich bei der Neuen Wache erleben werden.",
+        "transition": "Spüre die Schwere der Geschichte, die in diesen Mauern als Grabstätte ruht. Während dieser Ort dynastische Beständigkeit bewahrt, wandelt sich unser Fokus auf das Gedenken an andere Schicksale. Die Spuren der Zerstörung weichen einer neuen Bedeutung, während wir uns der Neuen Wache nähern."
       },
       "latitude": 52.5190862,
       "longitude": 13.4010278,
-      "position": 4,
-      "importanceScore": 49.35131915442328,
+      "position": 3,
+      "importanceScore": 43.90131915442328,
       "metadata": {
         "sourcePoi": {
           "osmType": "way",
@@ -575,7 +208,7 @@
           "wikipedia": "en:Berlin Cathedral",
           "category": "religious",
           "landmarkTier": "flagship",
-          "fameScore": 25.351319154423276,
+          "fameScore": 26.401319154423277,
           "osmTags": {
             "lit": "yes",
             "name": "Berliner Dom",
@@ -635,13 +268,13 @@
           }
         },
         "narrationMeta": {
-          "traceId": "c3c1fb10-1fd0-4f90-92f7-b553fdd940fe",
+          "traceId": "ad446c3b-8110-477a-b707-00b07cc72f9b",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
           "totalSeedChars": 2732,
-          "totalDurationMs": 10309,
+          "totalDurationMs": 15273,
           "claimCheck": {
             "totalExtracted": 4,
             "verifiedRate": 1,
@@ -660,7 +293,7 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikidata",
-                "context": "Details aus der Zeit zwischen 1894 und 1905 besticht. Während di"
+                "context": "r einem Bauwerk, das zwischen 1894 und 1905 nach Plänen von Juli"
               },
               {
                 "type": "date",
@@ -668,15 +301,7 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "us der Zeit zwischen 1894 und 1905 besticht. Während die Alte Na"
-              },
-              {
-                "type": "date",
-                "value": "2002",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "re tiefgreifend. Erst im Jahr 2002 war die Restaurierung abgesch"
+                "context": "auwerk, das zwischen 1894 und 1905 nach Plänen von Julius Carl R"
               },
               {
                 "type": "date",
@@ -684,7 +309,154 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": " Verlust des Nordflügels, der 1975 durch die DDR-Behörden abgeri"
+                "context": "radikal, als die DDR-Behörden 1975 den nördlichen Teil der Denkm"
+              },
+              {
+                "type": "date",
+                "value": "2002",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "lichen Struktur. Erst im Jahr 2002 wurde das Innere wiederherges"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "Neue Wache",
+      "description": "Man erzählt sich hier in den Gassen, dass die Steine der Straße selbst Geschichten flüstern. Wenn du nun vor der Neuen Wache stehst, achte auf die klare Linie des Gebäudes an der Prachtstraße Unter den Linden 4. Das Bauwerk fügt sich fest in das Forum Fridericianum ein und bildet einen ruhigen Ankerpunkt direkt am Wegrand. Betrachte, wie die Architektur den Blick fesselt, bevor wir uns den tiefen Schichten der Zeit widmen, die dieses Denkmal durchlaufen hat.\n\nZwischen 1816 und 1818 entstand dieses Bauwerk nach den Plänen von Karl Friedrich Schinkel als Wachgebäude für das Königliche Palais. Achte auf die dorischen Säulen des Portikus, die den Klassizismus prägen. Ursprünglich diente der Ort der Bewachung, doch im Jahr 1931 wandelte sich seine Bestimmung zur Gedenkstätte. Erlebe diesen Wandel nach, indem du an die Zeit denkst, als das Gebäude nach dem Zweiten Weltkrieg zwischen 1951 und 1957 wiederaufgebaut wurde. Diese Schichten der Geschichte führen uns nun weiter zum Gendarmenmarkt.\n\nBetrachte die stille Schwere dieses Ortes, der sich von einem bloßen Wachgebäude zu einer Gedenkstätte transformierte. Während wir den Berliner Dom verließen, spürtest du noch die religiöse Erhabenheit, doch hier übernimmt die Architektur eine neue, mahnende Funktion für das öffentliche Leben. Achte auf die Dorische Ordnung des Portikus, die nun weniger militärische Stärke als vielmehr einen Ort der Erinnerung ausstrahlt. Dieser Wandel zeigt, wie Berlin seine Funktionen neu definiert. Spürst du bereits die Spannung, die uns zum Gendarmenmarkt führt?\n\nSpürst du bereits die Spannung, die uns zum Gendarmenmarkt führt? Die stille Schwere dieses Ortes hat sich von einem bloßen Wachgebäude zu einer mahnenden Gedenkstätte gewandelt. Dieser tiefe Wandel zeigt, wie Berlin seine Funktionen neu definiert, während wir den Blick nun auf die kommenden Strukturen richten.",
+      "descriptionSections": {
+        "arrival": "Man erzählt sich hier in den Gassen, dass die Steine der Straße selbst Geschichten flüstern. Wenn du nun vor der Neuen Wache stehst, achte auf die klare Linie des Gebäudes an der Prachtstraße Unter den Linden 4. Das Bauwerk fügt sich fest in das Forum Fridericianum ein und bildet einen ruhigen Ankerpunkt direkt am Wegrand. Betrachte, wie die Architektur den Blick fesselt, bevor wir uns den tiefen Schichten der Zeit widmen, die dieses Denkmal durchlaufen hat.",
+        "history": "Zwischen 1816 und 1818 entstand dieses Bauwerk nach den Plänen von Karl Friedrich Schinkel als Wachgebäude für das Königliche Palais. Achte auf die dorischen Säulen des Portikus, die den Klassizismus prägen. Ursprünglich diente der Ort der Bewachung, doch im Jahr 1931 wandelte sich seine Bestimmung zur Gedenkstätte. Erlebe diesen Wandel nach, indem du an die Zeit denkst, als das Gebäude nach dem Zweiten Weltkrieg zwischen 1951 und 1957 wiederaufgebaut wurde. Diese Schichten der Geschichte führen uns nun weiter zum Gendarmenmarkt.",
+        "significance": "Betrachte die stille Schwere dieses Ortes, der sich von einem bloßen Wachgebäude zu einer Gedenkstätte transformierte. Während wir den Berliner Dom verließen, spürtest du noch die religiöse Erhabenheit, doch hier übernimmt die Architektur eine neue, mahnende Funktion für das öffentliche Leben. Achte auf die Dorische Ordnung des Portikus, die nun weniger militärische Stärke als vielmehr einen Ort der Erinnerung ausstrahlt. Dieser Wandel zeigt, wie Berlin seine Funktionen neu definiert. Spürst du bereits die Spannung, die uns zum Gendarmenmarkt führt?",
+        "transition": "Spürst du bereits die Spannung, die uns zum Gendarmenmarkt führt? Die stille Schwere dieses Ortes hat sich von einem bloßen Wachgebäude zu einer mahnenden Gedenkstätte gewandelt. Dieser tiefe Wandel zeigt, wie Berlin seine Funktionen neu definiert, während wir den Blick nun auf die kommenden Strukturen richten."
+      },
+      "latitude": 52.5178894,
+      "longitude": 13.395536,
+      "position": 4,
+      "importanceScore": 48.0146625064904,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 24240381,
+          "wikidata": "Q152341",
+          "wikipedia": "de:Neue Wache",
+          "category": "memorial",
+          "landmarkTier": "flagship",
+          "fameScore": 27.014662506490403,
+          "osmTags": {
+            "name": "Neue Wache",
+            "wikidata": "Q152341",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "26",
+            "canonical:instance_of": "guardhouse|memorial",
+            "tourism": "attraction",
+            "historic": "memorial",
+            "image": "https://commons.wikimedia.org/wiki/File:Neue_Wache.JPG",
+            "name:de": "Neue Wache",
+            "name:en": "New Guard House",
+            "name:es": "Nueva Guardia",
+            "name:fa": "نویه واخه",
+            "name:fr": "Neue Wache (Berlin)",
+            "name:he": "בית המשמר החדש",
+            "name:hy": "Նոյե Վախե",
+            "name:ja": "ノイエ・ヴァッヘ",
+            "name:ko": "노이에 바헤",
+            "name:pl": "Nowy Odwach",
+            "name:ru": "Новая караульня",
+            "name:zh": "新崗哨",
+            "ref:lda": "09095950",
+            "building": "yes",
+            "heritage": "4",
+            "old_name": "Haupt- und Königswache",
+            "addr:city": "Berlin",
+            "architect": "Karl Friedrich Schinkel",
+            "wikipedia": "de:Neue Wache",
+            "roof:shape": "pyramidal",
+            "start_date": "1818",
+            "wheelchair": "yes",
+            "addr:street": "Unter den Linden",
+            "addr:suburb": "Mitte",
+            "roof:colour": "#707d86",
+            "addr:country": "DE",
+            "lda:criteria": "Baudenkmal",
+            "addr:postcode": "10117",
+            "building:colour": "#d6bfa7",
+            "building:levels": "2",
+            "addr:housenumber": "4",
+            "building:material": "sandstone",
+            "heritage:operator": "lda",
+            "wikimedia_commons": "Category:Neue Wache",
+            "architect:wikidata": "Q151759",
+            "architect:wikipedia": "de:Karl Friedrich Schinkel",
+            "year_of_construction": "1816..1818",
+            "building:architecture": "classicism",
+            "architect:wikimedia_commons": "Category:Karl Friedrich Schinkel"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "117d96e8-7599-4fba-b3a2-51bada7d0c39",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2547,
+          "totalDurationMs": 15288,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1816",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "al durchlaufen hat.  Zwischen 1816 und 1818 entstand dieses Bauw"
+              },
+              {
+                "type": "date",
+                "value": "1818",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "aufen hat.  Zwischen 1816 und 1818 entstand dieses Bauwerk nach "
+              },
+              {
+                "type": "date",
+                "value": "1931",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "t der Bewachung, doch im Jahr 1931 wandelte sich seine Bestimmun"
+              },
+              {
+                "type": "date",
+                "value": "1951",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "em Zweiten Weltkrieg zwischen 1951 und 1957 wiederaufgebaut wurd"
+              },
+              {
+                "type": "date",
+                "value": "1957",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n Weltkrieg zwischen 1951 und 1957 wiederaufgebaut wurde. Diese "
               }
             ]
           }
@@ -694,90 +466,54 @@
     {
       "id": "fixture-6",
       "tourId": "fixture-candidate",
-      "name": "Hackesche Höfe",
-      "description": "Die Hackeschen Höfe liegen eingebettet in das dichte Geflecht der Spandauer Vorstadt, direkt am Rand des bekannten Scheunenviertels. Achte auf die Struktur dieses Ensembles, das aus acht miteinander verbundenen Gewerbehöfen besteht. Wenn du vor den Eingängen stehst, bemerkst du die enge Verbindung der Gebäude zum städtischen Raum in Berlin. Dieser Komplex umfasst eine weitläufige Anordnung von Gebäuden, die sich hinter den Fassaden an die Straße schmiegen. Diese räumliche Dichte bildet den Ausgangspunkt für unsere Betrachtung der geschichtlichen Wandlung.\n\nBlicke zurück ins Jahr 1672, als der Kurfürst befahl, alle Scheunen zur Brandvermeidung vor die Stadtmauer zu verlegen. Diese Entscheidung formte das Ackerland unmittelbar vor den Befestigungsanlagen neu und legte den Grundstein für das spätere Scheunenviertel. Später, im Jahr 1750, beauftragte Friedrich der Große Hans Christoph Graf von Hacke mit der Bebauung freier Flächen. So entstand der heutige Hackesche Markt. Achte auf die Transformation von landwirtschaftlichen Flächen hin zu einem dichten Gewerbeensemble, das zwischen 1905 und 1907 entstand.\n\nBetrachte nun, wie sich die monumentale Stille des Doms in diese lebendige Komplexität verwandelt. Die acht Gewerbehöfe bilden ein Labyrinth, das zeigt, wie Berlin durch dichte Strukturen wächst. Achte auf die Art und Weise, wie sich die Gebäude hinter den Fassaden an die Straße schmiegen. Dieser geschützte Raum bewahrt eine ganz eigene Dynamik des städtischen Lebens. Während wir uns durch diese engen Durchgänge bewegen, bereiten wir unseren Blick auf das nächste Kapitel vor, das in der Nähe der Neuen Synagoge wartet.\n\nSpüre die lebendige Dynamik dieses Labyrinths, das die Dichte der Stadt widerspiegelt. Während diese engen Durchgänge die Geschichte des Gewerbes erzählen, wandert unser Blick weiter. Lass uns die Transformation der urbanen Struktur fortsetzen und jenen Ort finden, an dem sich ein weiteres bedeutendes Kapitel der Stadtgeschichte entfaltet.",
+      "name": "Gendarmenmarkt",
+      "description": "Der Gendarmenmarkt öffnet sich vor dir als ein weitläufiger Platz inmitten der Berliner Stadtstruktur. Achte auf die symmetrische Anordnung der Gebäude, die den Raum umschließen und eine klare Grenze zum umliegenden Treiben ziehen. Während die Neue Wache eher einen Ort des Gedenkens darstellt, zeigt dieser Platz eine andere Form der städtischen Ordnung. Beobachte, wie die Architektur hier den öffentlichen Raum definiert und den Blick auf die Mitte lenkt.\n\nBetrachte die Spannung zwischen der strengen Ordnung dieses Platzes und dem Wandel des öffentlichen Lebens. Früher dienten diese Strukturen dazu, eine klare soziale Hierarchie im Stadtbild zu manifestieren. Wenn du den Blick über die symmetrischen Fassaden schweifen lässt, erkennst du, wie sich die Nutzung von rein repräsentativen Zwecken hin zu einem Ort der Begegnung verschoben hat. Diese Transformation bereitet dich auf die nächste Station vor, wo die Grenze zwischen den Mächten noch deutlicher wird.\n\nSpüre den Wandel der städtischen Funktion, während du die Symmetrie dieses Platzes betrachtest. Hier weicht das reine Gedenken einer komplexeren Ordnung, die den öffentlichen Raum neu strukturiert. Achte auf die Art und Weise, wie die umschließenden Gebäude eine Bühne für gesellschaftliche Begegnungen schaffen. Diese räumliche Disziplin bildet einen Kontrast zur vorherigen Station. Bald wirst du sehen, wie sich diese geordnete Struktur an einem Ort der harten Trennung völlig verändert.",
       "descriptionSections": {
-        "arrival": "Die Hackeschen Höfe liegen eingebettet in das dichte Geflecht der Spandauer Vorstadt, direkt am Rand des bekannten Scheunenviertels. Achte auf die Struktur dieses Ensembles, das aus acht miteinander verbundenen Gewerbehöfen besteht. Wenn du vor den Eingängen stehst, bemerkst du die enge Verbindung der Gebäude zum städtischen Raum in Berlin. Dieser Komplex umfasst eine weitläufige Anordnung von Gebäuden, die sich hinter den Fassaden an die Straße schmiegen. Diese räumliche Dichte bildet den Ausgangspunkt für unsere Betrachtung der geschichtlichen Wandlung.",
-        "history": "Blicke zurück ins Jahr 1672, als der Kurfürst befahl, alle Scheunen zur Brandvermeidung vor die Stadtmauer zu verlegen. Diese Entscheidung formte das Ackerland unmittelbar vor den Befestigungsanlagen neu und legte den Grundstein für das spätere Scheunenviertel. Später, im Jahr 1750, beauftragte Friedrich der Große Hans Christoph Graf von Hacke mit der Bebauung freier Flächen. So entstand der heutige Hackesche Markt. Achte auf die Transformation von landwirtschaftlichen Flächen hin zu einem dichten Gewerbeensemble, das zwischen 1905 und 1907 entstand.",
-        "significance": "Betrachte nun, wie sich die monumentale Stille des Doms in diese lebendige Komplexität verwandelt. Die acht Gewerbehöfe bilden ein Labyrinth, das zeigt, wie Berlin durch dichte Strukturen wächst. Achte auf die Art und Weise, wie sich die Gebäude hinter den Fassaden an die Straße schmiegen. Dieser geschützte Raum bewahrt eine ganz eigene Dynamik des städtischen Lebens. Während wir uns durch diese engen Durchgänge bewegen, bereiten wir unseren Blick auf das nächste Kapitel vor, das in der Nähe der Neuen Synagoge wartet.",
-        "transition": "Spüre die lebendige Dynamik dieses Labyrinths, das die Dichte der Stadt widerspiegelt. Während diese engen Durchgänge die Geschichte des Gewerbes erzählen, wandert unser Blick weiter. Lass uns die Transformation der urbanen Struktur fortsetzen und jenen Ort finden, an dem sich ein weiteres bedeutendes Kapitel der Stadtgeschichte entfaltet."
+        "arrival": "Der Gendarmenmarkt öffnet sich vor dir als ein weitläufiger Platz inmitten der Berliner Stadtstruktur. Achte auf die symmetrische Anordnung der Gebäude, die den Raum umschließen und eine klare Grenze zum umliegenden Treiben ziehen. Während die Neue Wache eher einen Ort des Gedenkens darstellt, zeigt dieser Platz eine andere Form der städtischen Ordnung. Beobachte, wie die Architektur hier den öffentlichen Raum definiert und den Blick auf die Mitte lenkt.",
+        "history": "Betrachte die Spannung zwischen der strengen Ordnung dieses Platzes und dem Wandel des öffentlichen Lebens. Früher dienten diese Strukturen dazu, eine klare soziale Hierarchie im Stadtbild zu manifestieren. Wenn du den Blick über die symmetrischen Fassaden schweifen lässt, erkennst du, wie sich die Nutzung von rein repräsentativen Zwecken hin zu einem Ort der Begegnung verschoben hat. Diese Transformation bereitet dich auf die nächste Station vor, wo die Grenze zwischen den Mächten noch deutlicher wird.",
+        "significance": "Spüre den Wandel der städtischen Funktion, während du die Symmetrie dieses Platzes betrachtest. Hier weicht das reine Gedenken einer komplexeren Ordnung, die den öffentlichen Raum neu strukturiert. Achte auf die Art und Weise, wie die umschließenden Gebäude eine Bühne für gesellschaftliche Begegnungen schaffen. Diese räumliche Disziplin bildet einen Kontrast zur vorherigen Station. Bald wirst du sehen, wie sich diese geordnete Struktur an einem Ort der harten Trennung völlig verändert."
       },
-      "latitude": 52.524536,
-      "longitude": 13.4016361,
+      "latitude": 52.513611111,
+      "longitude": 13.392777777,
       "position": 5,
-      "importanceScore": 41.21578428466209,
+      "importanceScore": 51.5,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 337201828,
-          "wikidata": "Q736425",
-          "wikipedia": "de:Hackesche Höfe",
-          "category": "other",
+          "osmType": "node",
+          "osmId": -170103,
+          "wikidata": "Q170103",
+          "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 20.21578428466209,
+          "fameScore": 28.5,
           "osmTags": {
-            "name": "Hackesche Höfe",
-            "landuse": "retail",
+            "name": "Gendarmenmarkt",
+            "wikidata": "Q170103",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "31",
+            "canonical:instance_of": "square",
             "tourism": "attraction",
-            "heritage": "yes",
-            "wikidata": "Q736425",
-            "wikipedia": "de:Hackesche Höfe",
-            "wheelchair": "yes"
+            "place": "square"
           }
         },
         "narrationMeta": {
-          "traceId": "b1a8e957-ff19-4729-a812-3d876dadd3c2",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "72f8bd1b-95f0-474b-b632-3c90122fc9c6",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2429,
-          "totalDurationMs": 10268,
+          "totalSeedChars": 88,
+          "totalDurationMs": 9590,
           "claimCheck": {
-            "totalExtracted": 4,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 4,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 4,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1672",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "lung.  Blicke zurück ins Jahr 1672, als der Kurfürst befahl, all"
-              },
-              {
-                "type": "date",
-                "value": "1750",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "eunenviertel. Später, im Jahr 1750, beauftragte Friedrich der Gr"
-              },
-              {
-                "type": "date",
-                "value": "1905",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "Gewerbeensemble, das zwischen 1905 und 1907 entstand.  Betrachte"
-              },
-              {
-                "type": "date",
-                "value": "1907",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "semble, das zwischen 1905 und 1907 entstand.  Betrachte nun, wie"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -785,125 +521,53 @@
     {
       "id": "fixture-7",
       "tourId": "fixture-candidate",
-      "name": "Neue Synagoge",
-      "description": "Tritt einen Moment näher an die Fassade der Oranienburger Straße heran. Achte darauf, wie sich das Gebäude massiv in den Straßenverlauf einfügt und die Umgebung dominiert. Während wir eben noch durch die engen Durchgänge der Hackeschen Höfe schlenderten, öffnet sich hier plötzlich eine ganz andere Perspektive auf die Stadtgeschichte. Die Neue Synagoge steht als markantes Baudenkmal direkt vor dir. Betrachte die Präsenz dieses Ortes, bevor wir uns den Details seiner Entstehung widmen.\n\nStell dir die Zeit um 1860 vor, als die jüdische Gemeinde in Berlin auf etwa 28.000 Mitglieder angewachsen war. Die alte Synagoge in der Heidereutergasse bot schlicht nicht mehr genug Platz für all diese Menschen. Nach dem Grundstückskauf im Jahr 1856 begann ein spannender Prozess: Zuerst plante Eduard Knoblauch das Bauwerk, doch seine schwere Erkrankung im Jahr 1859 veränderte die Geschichte des Gebäudes. Sein Freund Friedrich August Stüler übernahm daraufhin die Ausführung und gestaltete die Innenräume. So entstand 1866 dieses bedeutende Baudenkmal.\n\nBetrachte nun, wie dieser Ort unser Verständnis der Berliner Stadtgeschichte radikal verändert. Während die Hackeschen Höfe das private, verwinkelte Leben zeigen, verkörpert diese Synagoge einen öffentlichen Anspruch auf Sichtbarkeit. Die Architektur spiegelt diesen Wandel wider und schafft eine neue Ebene der Identität. Spürst du, wie sich die Erzählung der Stadt hier verdichtet? Bald erreichen wir den Deutschen Dom.\n\nSpürst du die Verdichtung dieser Erzählung? Diese neue Ebene der Identität und Sichtbarkeit bereitet uns auf eine weitere Facette der Stadtgeschichte vor. Wir lassen diesen Ort nun hinter uns, um zu sehen, wie sich das öffentliche Leben an einem anderen bedeutenden Denkmal erneut wandelt, wenn wir zum Deutschen Dom weiterziehen.",
+      "name": "Checkpoint Charlie",
+      "description": "Stell dich direkt vor die markante Kontrollstation und beobachte das bunte Treiben der Touristenströme. Achte auf die hölzernen Strukturen, die den ehemaligen Übergang nachbilden. Während am Gendarmenmarkt noch die Eleganz vergangener Tage spürbar war, zeigt sich hier eine ganz andere, rauere Seite der Stadtgeschichte. Die Grenze zwischen den Bereichen ist nun nur noch als visuelles Relikt präsent. Diese Spannung bereitet uns auf die weitreichenden Veränderungen vor, die wir gleich am Potsdamer Platz erleben.\n\nSpüre die unsichtbare Linie, die einst den Boden unter deinen Füßen teilte. Wo heute Touristen unbeschwert zwischen den Stationen hin- und herwandern, herrschte früher eine tiefe Zerrissenheit. Achte auf die Schwere der Entscheidung, die diesen Ort zu einem Schauplatz globaler Spannungen machte. Jede Bewegung über diese Grenze war ein Akt voller Risiko und politischer Bedeutung. Diese Unruhe weicht nun einer neuen Dynamik, die uns direkt zum Potsdamer Platz führt.\n\nBetrachte den Kontrast zwischen der einstigen Unbeweglichkeit und dem heutigen Pulsieren. Hier wurde die Stadt nicht nur geteilt, sondern ihre gesamte Funktion veränderte sich radikal. Achte darauf, wie das bunte Treiben heute die einstige starre Kontrolle überlagert. Diese Stelle zeigt uns, dass Geschichte oft als Bruchstelle fungiert, die den Raum neu definiert. Während dieser Ort einst Stillstand bedeutete, bereitet er dich auf die moderne Dynamik am Potsdamer Platz vor.",
       "descriptionSections": {
-        "arrival": "Tritt einen Moment näher an die Fassade der Oranienburger Straße heran. Achte darauf, wie sich das Gebäude massiv in den Straßenverlauf einfügt und die Umgebung dominiert. Während wir eben noch durch die engen Durchgänge der Hackeschen Höfe schlenderten, öffnet sich hier plötzlich eine ganz andere Perspektive auf die Stadtgeschichte. Die Neue Synagoge steht als markantes Baudenkmal direkt vor dir. Betrachte die Präsenz dieses Ortes, bevor wir uns den Details seiner Entstehung widmen.",
-        "history": "Stell dir die Zeit um 1860 vor, als die jüdische Gemeinde in Berlin auf etwa 28.000 Mitglieder angewachsen war. Die alte Synagoge in der Heidereutergasse bot schlicht nicht mehr genug Platz für all diese Menschen. Nach dem Grundstückskauf im Jahr 1856 begann ein spannender Prozess: Zuerst plante Eduard Knoblauch das Bauwerk, doch seine schwere Erkrankung im Jahr 1859 veränderte die Geschichte des Gebäudes. Sein Freund Friedrich August Stüler übernahm daraufhin die Ausführung und gestaltete die Innenräume. So entstand 1866 dieses bedeutende Baudenkmal.",
-        "significance": "Betrachte nun, wie dieser Ort unser Verständnis der Berliner Stadtgeschichte radikal verändert. Während die Hackeschen Höfe das private, verwinkelte Leben zeigen, verkörpert diese Synagoge einen öffentlichen Anspruch auf Sichtbarkeit. Die Architektur spiegelt diesen Wandel wider und schafft eine neue Ebene der Identität. Spürst du, wie sich die Erzählung der Stadt hier verdichtet? Bald erreichen wir den Deutschen Dom.",
-        "transition": "Spürst du die Verdichtung dieser Erzählung? Diese neue Ebene der Identität und Sichtbarkeit bereitet uns auf eine weitere Facette der Stadtgeschichte vor. Wir lassen diesen Ort nun hinter uns, um zu sehen, wie sich das öffentliche Leben an einem anderen bedeutenden Denkmal erneut wandelt, wenn wir zum Deutschen Dom weiterziehen."
+        "arrival": "Stell dich direkt vor die markante Kontrollstation und beobachte das bunte Treiben der Touristenströme. Achte auf die hölzernen Strukturen, die den ehemaligen Übergang nachbilden. Während am Gendarmenmarkt noch die Eleganz vergangener Tage spürbar war, zeigt sich hier eine ganz andere, rauere Seite der Stadtgeschichte. Die Grenze zwischen den Bereichen ist nun nur noch als visuelles Relikt präsent. Diese Spannung bereitet uns auf die weitreichenden Veränderungen vor, die wir gleich am Potsdamer Platz erleben.",
+        "history": "Spüre die unsichtbare Linie, die einst den Boden unter deinen Füßen teilte. Wo heute Touristen unbeschwert zwischen den Stationen hin- und herwandern, herrschte früher eine tiefe Zerrissenheit. Achte auf die Schwere der Entscheidung, die diesen Ort zu einem Schauplatz globaler Spannungen machte. Jede Bewegung über diese Grenze war ein Akt voller Risiko und politischer Bedeutung. Diese Unruhe weicht nun einer neuen Dynamik, die uns direkt zum Potsdamer Platz führt.",
+        "significance": "Betrachte den Kontrast zwischen der einstigen Unbeweglichkeit und dem heutigen Pulsieren. Hier wurde die Stadt nicht nur geteilt, sondern ihre gesamte Funktion veränderte sich radikal. Achte darauf, wie das bunte Treiben heute die einstige starre Kontrolle überlagert. Diese Stelle zeigt uns, dass Geschichte oft als Bruchstelle fungiert, die den Raum neu definiert. Während dieser Ort einst Stillstand bedeutete, bereitet er dich auf die moderne Dynamik am Potsdamer Platz vor."
       },
-      "latitude": 52.5249867,
-      "longitude": 13.3943198,
+      "latitude": 52.5075,
+      "longitude": 13.390277777,
       "position": 6,
-      "importanceScore": 46.25,
+      "importanceScore": 46.04527602591449,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 24054915,
-          "wikidata": "Q246474",
-          "wikipedia": "de:Neue Synagoge (Berlin)",
-          "category": "religious",
+          "osmType": "node",
+          "osmId": -68689,
+          "wikidata": "Q68689",
+          "category": "other",
           "landmarkTier": "flagship",
-          "fameScore": 23.25,
+          "fameScore": 27.205276025914483,
           "osmTags": {
-            "fee": "yes",
-            "name": "Neue Synagoge",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Berlin_-_Neue_Synagoge1_%28cropped%29.jpg/1920px-Berlin_-_Neue_Synagoge1_%28cropped%29.jpg",
-            "height": "21.3",
-            "amenity": "place_of_worship",
-            "name:de": "Neue Synagoge",
-            "name:en": "New Synagogue",
-            "name:es": "Nueva Sinagoga",
-            "name:fr": "Nouvelle synagogue",
-            "name:he": "בית הכנסת החדש",
-            "name:it": "Sinagoga nuova",
-            "name:nl": "Nieuwe Synagoge",
-            "name:pl": "Nowa Synagoga",
-            "name:sv": "Nya Synagogan",
-            "name:tr": "Yeni Sinagog",
-            "ref:lda": "09080249",
-            "tourism": "attraction",
-            "building": "synagogue",
-            "heritage": "4",
-            "religion": "jewish",
-            "wikidata": "Q246474",
-            "addr:city": "Berlin",
-            "architect": "Eduard Knoblauch;Friedrich August Stüler",
-            "wikipedia": "de:Neue Synagoge (Berlin)",
-            "check_date": "2026-02-15",
-            "start_date": "1866",
-            "wheelchair": "yes",
-            "addr:street": "Oranienburger Straße",
-            "contact:fax": "+49 30 88028483",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10117",
-            "contact:email": "office@centrumjudaicum.de",
-            "contact:phone": "+49 30 88028300",
-            "opening_hours": "Apr-Sep: Mo-Fr 10:00-18:00; Su 10:00-19:00; Oct-Mar: Su-Th 10:00-18:00; Fr 10:00-15:00",
-            "building:levels": "9",
-            "contact:website": "https://centrumjudaicum.de/",
-            "addr:housenumber": "28-30",
-            "heritage:operator": "lda",
-            "wikimedia_commons": "Category:Neue Synagoge (Berlin)",
-            "architect:wikidata": "Q67976;Q61256",
-            "toilets:wheelchair": "yes",
-            "year_of_construction": "1859..1866"
+            "name": "Checkpoint Charlie",
+            "wikidata": "Q68689",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "50",
+            "canonical:instance_of": "Berlin border crossing|tourist attraction",
+            "tourism": "attraction"
           }
         },
         "narrationMeta": {
-          "traceId": "f773241c-576b-4f04-8d04-def86df2f905",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "1b03ea3e-f8e6-4b52-9db9-cf7f2978b54c",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2478,
-          "totalDurationMs": 9757,
+          "totalSeedChars": 92,
+          "totalDurationMs": 9790,
           "claimCheck": {
-            "totalExtracted": 4,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 4,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 4,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1860",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "idmen.  Stell dir die Zeit um 1860 vor, als die jüdische Gemeind"
-              },
-              {
-                "type": "date",
-                "value": "1856",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "h dem Grundstückskauf im Jahr 1856 begann ein spannender Prozess"
-              },
-              {
-                "type": "date",
-                "value": "1859",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "ne schwere Erkrankung im Jahr 1859 veränderte die Geschichte des"
-              },
-              {
-                "type": "date",
-                "value": "1866",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "e die Innenräume. So entstand 1866 dieses bedeutende Baudenkmal."
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -911,129 +575,54 @@
     {
       "id": "fixture-8",
       "tourId": "fixture-candidate",
-      "name": "Deutscher Dom",
-      "description": "Während die Neue Synagoge ein Symbol für religiöse Vielfalt zeigt, steht hier der Deutsche Dom als markanter Kuppelturm am Gendarmenmarkt. Achte auf die massive Präsenz dieses Bauwerks an der Nordseite der Anton-Wilhelm-Amo-Straße. Wenn du den Blick über die Fassade schweifen lässt, bemerkst du das Zusammenspiel aus historischer Substanz und moderner Erneuerung. Dieser Ort wurde zwischen 1983 und 1996 innen modern wiederaufgebaut. Er bildet nun einen festen Ankerpunkt im Stadtbild, bevor wir uns der politischen Bedeutung des Bundesrates zuwenden.\n\nZwischen 1780 und 1785 vollzog sich hier eine architektonische Verwandlung, als Carl von Gontard den Kuppelturm im Barockstil an die bestehende Kirche anbaute. Ursprünglich diente das Gebäude ab 1701 als Simultankirche für lutherische und deutsch-reformierte Gemeinden. Achte auf den Namen: Der Begriff Dom leitet sich eigentlich vom französischen Wort dôme für Kuppel ab, da der Turm keine geistliche Funktion besitzt. Heute beherbergt dieser Ort seit 2002 die Parlamentshistorische Ausstellung des Deutschen Bundestags, was die Transformation von der religiösen Nutzung zur politischen Geschichte unterstreicht.\n\nBetrachte die Bedeutung dieses Ortes jenseits der reinen Architektur. Während die Neue Synagoge religiöse Vielfalt verkörpert, zeigt dieser Kuppelturm eine tiefere Transformation des öffentlichen Lebens. Achte darauf, wie sich die Funktion von einer lutherischen und deutsch-reformierten Nutzung hin zu einem Ort politischer Bildung verschoben hat. Seit 2002 beherbergt das Gebäude die Parlamentshistorische Ausstellung. Diese Wandlung macht deutlich, wie Berlin seine Geschichte neu interpretiert, bevor wir uns nun der staatlichen Macht im Bundesrat widmen.\n\nSpürst du den Wandel von der religiösen Nutzung hin zur politischen Bildung? Diese Transformation des öffentlichen Lebens bereitet uns auf das nächste Kapitel vor. Wenn wir die Geschichte der Parlamentsausstellung im Hinterkopf behalten, wandert unser Weg weiter zu den Strukturen der staatlichen Macht im Bundesrat.",
+      "name": "Potsdamer Platz",
+      "description": "Wo am Checkpoint Charlie die Grenze noch greifbar war, begegnet dir hier eine völlig neue Dynamik. Während früher Teilungen den Raum prägten, dominieren heute massive Strukturen den urbanen Raum. Diese moderne Architektur bildet einen starken Kontrast zur einstigen Leere und bereitet dich auf die nächste Station vor.\n\nBetrachte die Spannung zwischen der einstigen Leere und dem heutigen Treiben. Wo früher eine unüberwindbare Grenze den Blick einschränkte, wuchs nach der Wende ein neuer urbaner Kern empor. Achte auf das Zusammenspiel von Glas und Stein, das zeigt, wie sich die Stadt entschieden hat, ihre Narben durch neue Strukturen zu überdecken. Dieser Wandel bereitet dich auf die Begegnung mit der Macht vor, die am nächsten Halt auf dich wartet.\n\nHier verschwindet die schmerzhafte Trennung des Checkpoint Charlie hinter einer Fassade aus Glas und Licht. Achte darauf, wie die massive Architektur das frühere Nichts ersetzt und eine neue, pulsierende Mitte schafft. Diese Überdeckung der Narben durch moderne Strukturen zeigt die ständige Neuerfindung Berlins. Während hier alles neu wächst, wartet am nächsten Halt bereits die Begegnung mit der Macht.",
       "descriptionSections": {
-        "arrival": "Während die Neue Synagoge ein Symbol für religiöse Vielfalt zeigt, steht hier der Deutsche Dom als markanter Kuppelturm am Gendarmenmarkt. Achte auf die massive Präsenz dieses Bauwerks an der Nordseite der Anton-Wilhelm-Amo-Straße. Wenn du den Blick über die Fassade schweifen lässt, bemerkst du das Zusammenspiel aus historischer Substanz und moderner Erneuerung. Dieser Ort wurde zwischen 1983 und 1996 innen modern wiederaufgebaut. Er bildet nun einen festen Ankerpunkt im Stadtbild, bevor wir uns der politischen Bedeutung des Bundesrates zuwenden.",
-        "history": "Zwischen 1780 und 1785 vollzog sich hier eine architektonische Verwandlung, als Carl von Gontard den Kuppelturm im Barockstil an die bestehende Kirche anbaute. Ursprünglich diente das Gebäude ab 1701 als Simultankirche für lutherische und deutsch-reformierte Gemeinden. Achte auf den Namen: Der Begriff Dom leitet sich eigentlich vom französischen Wort dôme für Kuppel ab, da der Turm keine geistliche Funktion besitzt. Heute beherbergt dieser Ort seit 2002 die Parlamentshistorische Ausstellung des Deutschen Bundestags, was die Transformation von der religiösen Nutzung zur politischen Geschichte unterstreicht.",
-        "significance": "Betrachte die Bedeutung dieses Ortes jenseits der reinen Architektur. Während die Neue Synagoge religiöse Vielfalt verkörpert, zeigt dieser Kuppelturm eine tiefere Transformation des öffentlichen Lebens. Achte darauf, wie sich die Funktion von einer lutherischen und deutsch-reformierten Nutzung hin zu einem Ort politischer Bildung verschoben hat. Seit 2002 beherbergt das Gebäude die Parlamentshistorische Ausstellung. Diese Wandlung macht deutlich, wie Berlin seine Geschichte neu interpretiert, bevor wir uns nun der staatlichen Macht im Bundesrat widmen.",
-        "transition": "Spürst du den Wandel von der religiösen Nutzung hin zur politischen Bildung? Diese Transformation des öffentlichen Lebens bereitet uns auf das nächste Kapitel vor. Wenn wir die Geschichte der Parlamentsausstellung im Hinterkopf behalten, wandert unser Weg weiter zu den Strukturen der staatlichen Macht im Bundesrat."
+        "arrival": "Wo am Checkpoint Charlie die Grenze noch greifbar war, begegnet dir hier eine völlig neue Dynamik. Während früher Teilungen den Raum prägten, dominieren heute massive Strukturen den urbanen Raum. Diese moderne Architektur bildet einen starken Kontrast zur einstigen Leere und bereitet dich auf die nächste Station vor.",
+        "history": "Betrachte die Spannung zwischen der einstigen Leere und dem heutigen Treiben. Wo früher eine unüberwindbare Grenze den Blick einschränkte, wuchs nach der Wende ein neuer urbaner Kern empor. Achte auf das Zusammenspiel von Glas und Stein, das zeigt, wie sich die Stadt entschieden hat, ihre Narben durch neue Strukturen zu überdecken. Dieser Wandel bereitet dich auf die Begegnung mit der Macht vor, die am nächsten Halt auf dich wartet.",
+        "significance": "Hier verschwindet die schmerzhafte Trennung des Checkpoint Charlie hinter einer Fassade aus Glas und Licht. Achte darauf, wie die massive Architektur das frühere Nichts ersetzt und eine neue, pulsierende Mitte schafft. Diese Überdeckung der Narben durch moderne Strukturen zeigt die ständige Neuerfindung Berlins. Während hier alles neu wächst, wartet am nächsten Halt bereits die Begegnung mit der Macht."
       },
-      "latitude": 52.5127454,
-      "longitude": 13.3927048,
+      "latitude": 52.508944444,
+      "longitude": 13.376333333,
       "position": 7,
-      "importanceScore": 45.5146625064904,
+      "importanceScore": 53.517276025914484,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 43347270,
-          "wikidata": "Q315644",
-          "wikipedia": "de:Deutscher Dom",
-          "category": "religious",
+          "osmType": "node",
+          "osmId": -152252,
+          "wikidata": "Q152252",
+          "category": "square_civic",
           "landmarkTier": "flagship",
-          "fameScore": 22.514662506490403,
+          "fameScore": 30.517276025914484,
           "osmTags": {
-            "name": "Deutscher Dom",
-            "name:de": "Deutscher Dom",
-            "name:el": "ΓΕΡΜΑΝΙΚΟΣ ΚΑΘΕΔΡΙΚΟΣ",
-            "name:en": "New Church",
-            "name:fr": "Cathédrale allemande",
-            "name:he": "הקתדרלה הגרמנית",
-            "name:pl": "Katedra Niemiecka",
-            "name:ru": "Немецкий собор",
-            "name:zh": "德意志教堂",
+            "name": "Potsdamer Platz",
+            "wikidata": "Q152252",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "50",
+            "canonical:instance_of": "square|architectural ensemble",
             "tourism": "attraction",
-            "building": "church",
-            "heritage": "4",
-            "wikidata": "Q315644",
-            "addr:city": "Berlin",
-            "architect": "Carl von Gontard",
-            "wikipedia": "de:Deutscher Dom",
-            "addr:place": "Gendarmenmarkt",
-            "start_date": "1701..1708",
-            "wheelchair": "yes",
-            "addr:suburb": "Mitte",
-            "addr:country": "DE",
-            "building:use": "museum",
-            "addr:postcode": "10117",
-            "building:levels": "2",
-            "addr:housenumber": "1",
-            "heritage:operator": "lda",
-            "wikimedia_commons": "Category:Deutscher Dom (Berlin)",
-            "architect:wikidata": "Q68768",
-            "architect:wikipedia": "de:Carl von Gontard",
-            "building:architecture": "baroque"
+            "place": "square"
           }
         },
         "narrationMeta": {
-          "traceId": "f7718ee3-2ea7-4418-9b46-602f73971a09",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "e20a1ef4-9ba6-425c-b138-ec2f26c1abc9",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2604,
-          "totalDurationMs": 10168,
+          "totalSeedChars": 69,
+          "totalDurationMs": 8999,
           "claimCheck": {
-            "totalExtracted": 6,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 6,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 6,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1983",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ng. Dieser Ort wurde zwischen 1983 und 1996 innen modern wiedera"
-              },
-              {
-                "type": "date",
-                "value": "1996",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "r Ort wurde zwischen 1983 und 1996 innen modern wiederaufgebaut."
-              },
-              {
-                "type": "date",
-                "value": "1780",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ndesrates zuwenden.  Zwischen 1780 und 1785 vollzog sich hier ei"
-              },
-              {
-                "type": "date",
-                "value": "1785",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": " zuwenden.  Zwischen 1780 und 1785 vollzog sich hier eine archit"
-              },
-              {
-                "type": "date",
-                "value": "1701",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ünglich diente das Gebäude ab 1701 als Simultankirche für luther"
-              },
-              {
-                "type": "date",
-                "value": "2002",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "te beherbergt dieser Ort seit 2002 die Parlamentshistorische Aus"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -1041,96 +630,54 @@
     {
       "id": "fixture-9",
       "tourId": "fixture-candidate",
-      "name": "Bundesrat",
-      "description": "Hast du dich schon einmal gefragt, wie die Stimmen der Bundesländer in das Herz der Hauptstadt fließen? Während wir den Deutschen Dom hinter uns lassen, stehen wir nun vor dem Sitz des Bundesrates. Achte auf die Präsenz dieses Regierungsgebäudes direkt im Stadtbild Berlins. Hier begegnen sich die Interessen von 69 Personen, welche die Landesregierungen repräsentieren. Es ist ein Ort, an dem die föderale Struktur Deutschlands sichtbar wird, bevor wir uns der nächsten tiefgreifenden Ebene unserer Reise zuwenden.\n\nStell dir die Dynamik vor, wenn 69 Personen hier zusammenkommen, um die Interessen der Länder zu bündeln. Die Mitglieder sind nicht direkt gewählt, sondern werden von den Landesregierungen entsendet und bleiben dabei weisungsgebunden. Es entsteht oft eine politische Spannung, da die Parteien im Bundestag selten gleichzeitig eine Mehrheit im Bundesrat halten. Achte auf diese Notwendigkeit zum Kompromiss bei zustimmungspflichtigen Gesetzen. Seit 2006 versuchen Reformen, diesen Druck zu mindern, doch die Bedeutung der Länderstimmen bleibt bestehen.\n\nBetrachte die politische Dynamik, die dieses Gebäude ausstrahlt. Während der Deutsche Dom religiöse Spuren bewahrt, zeigt der Bundesrat die funktionale Kraft des Föderalismus. Hier treffen 69 Personen aufeinander, deren Stimmen je nach Bevölkerungszahl zwischen 3 und 6 Mitgliedern pro Land variieren. Achte auf das Spannungsfeld zwischen den Landesregierungen und dem Bund, besonders wenn Kompromisse bei zustimmungspflichtigen Gesetzen nötig werden. Dieser Ort bereitet dich auf die nächste Stufe vor, indem er zeigt, wie Macht im Verbund organisiert ist, bevor wir uns der tiefen Stille des nächsten Ortes zuwenden.\n\nVerlass die Dynamik der politischen Verhandlungen und lass den Blick nach innen gleiten. Wenn die Kompromissfindung im Bundesrat endet, beginnt eine andere Form des Gedenkens.",
+      "name": "Reichstagsgebäude",
+      "description": "Hast du dich schon einmal gefragt, wie ein Gebäude die Last der Zeit tragen kann? Achte auf die schiere Präsenz des Steins und die Art, wie sich das Bauwerk in den Raum schmiegt. Es wirkt wie ein stiller Zeuge, der die Veränderungen der Umgebung aufsaugt. Dieses Gebäude markiert den Übergang von der Dynamik der Stadt hin zu tieferen Spuren.\n\nBetrachte die Art und Weise, wie sich das Reichstagsgebäude in den städtischen Raum einfügt. Es spiegelt jene Momente wider, in denen Entscheidungen die Identität dieses Ortes grundlegend veränderten. Achte auf die Spannung zwischen Beständigkeit und dem Drang nach Erneuerung, der hier spürbar bleibt. Während wir uns vom Potsdamer Platz entfernen, zeigt sich eine neue Ebene der Geschichte. Diese Transformation bereitet dich bereits auf die stille Bedeutung des nächsten Weges vor.\n\nBetrachte nun, wie sich die Erzählung der Stadt hier verdichtet. Während am Potsdamer Platz moderne Dynamik herrscht, begegnest du am Reichstagsgebäude einer tieferen Schwere. Achte auf die Art, wie dieses Bauwerk als Ort politischer Bedeutung den Raum besetzt und die Identität Berlins mitprägt. Es zeigt uns, dass Geschichte nicht nur vergangen ist, sondern aktiv den öffentlichen Raum formt. Diese Ernsthaftigkeit leitet dich bereits weiter in Richtung der stillen Gedenkstätten im Tiergarten.",
       "descriptionSections": {
-        "arrival": "Hast du dich schon einmal gefragt, wie die Stimmen der Bundesländer in das Herz der Hauptstadt fließen? Während wir den Deutschen Dom hinter uns lassen, stehen wir nun vor dem Sitz des Bundesrates. Achte auf die Präsenz dieses Regierungsgebäudes direkt im Stadtbild Berlins. Hier begegnen sich die Interessen von 69 Personen, welche die Landesregierungen repräsentieren. Es ist ein Ort, an dem die föderale Struktur Deutschlands sichtbar wird, bevor wir uns der nächsten tiefgreifenden Ebene unserer Reise zuwenden.",
-        "history": "Stell dir die Dynamik vor, wenn 69 Personen hier zusammenkommen, um die Interessen der Länder zu bündeln. Die Mitglieder sind nicht direkt gewählt, sondern werden von den Landesregierungen entsendet und bleiben dabei weisungsgebunden. Es entsteht oft eine politische Spannung, da die Parteien im Bundestag selten gleichzeitig eine Mehrheit im Bundesrat halten. Achte auf diese Notwendigkeit zum Kompromiss bei zustimmungspflichtigen Gesetzen. Seit 2006 versuchen Reformen, diesen Druck zu mindern, doch die Bedeutung der Länderstimmen bleibt bestehen.",
-        "significance": "Betrachte die politische Dynamik, die dieses Gebäude ausstrahlt. Während der Deutsche Dom religiöse Spuren bewahrt, zeigt der Bundesrat die funktionale Kraft des Föderalismus. Hier treffen 69 Personen aufeinander, deren Stimmen je nach Bevölkerungszahl zwischen 3 und 6 Mitgliedern pro Land variieren. Achte auf das Spannungsfeld zwischen den Landesregierungen und dem Bund, besonders wenn Kompromisse bei zustimmungspflichtigen Gesetzen nötig werden. Dieser Ort bereitet dich auf die nächste Stufe vor, indem er zeigt, wie Macht im Verbund organisiert ist, bevor wir uns der tiefen Stille des nächsten Ortes zuwenden.",
-        "transition": "Verlass die Dynamik der politischen Verhandlungen und lass den Blick nach innen gleiten. Wenn die Kompromissfindung im Bundesrat endet, beginnt eine andere Form des Gedenkens."
+        "arrival": "Hast du dich schon einmal gefragt, wie ein Gebäude die Last der Zeit tragen kann? Achte auf die schiere Präsenz des Steins und die Art, wie sich das Bauwerk in den Raum schmiegt. Es wirkt wie ein stiller Zeuge, der die Veränderungen der Umgebung aufsaugt. Dieses Gebäude markiert den Übergang von der Dynamik der Stadt hin zu tieferen Spuren.",
+        "history": "Betrachte die Art und Weise, wie sich das Reichstagsgebäude in den städtischen Raum einfügt. Es spiegelt jene Momente wider, in denen Entscheidungen die Identität dieses Ortes grundlegend veränderten. Achte auf die Spannung zwischen Beständigkeit und dem Drang nach Erneuerung, der hier spürbar bleibt. Während wir uns vom Potsdamer Platz entfernen, zeigt sich eine neue Ebene der Geschichte. Diese Transformation bereitet dich bereits auf die stille Bedeutung des nächsten Weges vor.",
+        "significance": "Betrachte nun, wie sich die Erzählung der Stadt hier verdichtet. Während am Potsdamer Platz moderne Dynamik herrscht, begegnest du am Reichstagsgebäude einer tieferen Schwere. Achte auf die Art, wie dieses Bauwerk als Ort politischer Bedeutung den Raum besetzt und die Identität Berlins mitprägt. Es zeigt uns, dass Geschichte nicht nur vergangen ist, sondern aktiv den öffentlichen Raum formt. Diese Ernsthaftigkeit leitet dich bereits weiter in Richtung der stillen Gedenkstätten im Tiergarten."
       },
-      "latitude": 52.5092852,
-      "longitude": 13.3812586,
+      "latitude": 52.518611111,
+      "longitude": 13.376111111,
       "position": 8,
-      "importanceScore": 39.748670042494226,
+      "importanceScore": 53.18645607148764,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 11688785,
-          "wikidata": "Q146138",
-          "wikipedia": "de:Bundesrat (Deutschland)",
-          "category": "other",
+          "osmType": "node",
+          "osmId": -151897,
+          "wikidata": "Q151897",
+          "category": "civic_power",
           "landmarkTier": "flagship",
-          "fameScore": 22.748670042494226,
+          "fameScore": 30.68645607148764,
           "osmTags": {
-            "name": "Bundesrat",
-            "office": "government",
-            "name:da": "Forbundsrådet",
-            "name:de": "Bundesrat",
-            "name:en": "Federal Council",
-            "name:es": "Consejo Federal",
-            "name:fr": "Conseil fédéral",
-            "name:nl": "Bondsraad",
-            "name:no": "Forbundsrådet",
-            "ref:lda": "09096003",
-            "building": "government",
-            "heritage": "4",
-            "old_name": "Preußisches Herrenhaus",
-            "wikidata": "Q146138",
-            "addr:city": "Berlin",
-            "wikipedia": "de:Bundesrat (Deutschland)",
-            "government": "legislative",
-            "roof:shape": "flat",
-            "start_date": "1949-09-07",
-            "wheelchair": "yes",
-            "addr:street": "Leipziger Straße",
-            "addr:suburb": "Mitte",
-            "old_name:de": "Preußisches Herrenhaus",
-            "old_name:en": "Prussian House of Lords building",
-            "roof:colour": "#97a0a2",
-            "addr:country": "DE",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10117",
-            "contact:phone": "+49 30 1891000",
-            "building:colour": "#cbc1b4",
-            "building:levels": "4",
-            "contact:website": "https://www.bundesrat.de/",
-            "addr:housenumber": "3-4",
-            "building:material": "sandstone",
-            "construction_date": "1899..1904",
-            "heritage:operator": "lda",
-            "blind:description:de": "Im Bundesratsgebäude gibt es Führungen für Blinde und Sehgeschädigte, siehe http://www.absv.de/freizeit/bundesratsgebaeude.htm ."
+            "name": "Reichstag",
+            "wikidata": "Q151897",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "74",
+            "canonical:instance_of": "tourist attraction|parliament building|government building",
+            "tourism": "attraction",
+            "building": "government"
           }
         },
         "narrationMeta": {
-          "traceId": "d2ff6535-1e28-49e5-84fb-70b97db4b8c7",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "45abe600-0d9f-4eb4-ab33-22bddb7d5187",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2385,
-          "totalDurationMs": 9869,
+          "totalSeedChars": 123,
+          "totalDurationMs": 9700,
           "claimCheck": {
-            "totalExtracted": 1,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 1,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 1,
-            "claims": [
-              {
-                "type": "date",
-                "value": "2006",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "ngspflichtigen Gesetzen. Seit 2006 versuchen Reformen, diesen Dr"
-              }
-            ]
+            "infoCount": 0
           }
         }
       }
@@ -1138,151 +685,18 @@
     {
       "id": "fixture-10",
       "tourId": "fixture-candidate",
-      "name": "Denkmal für die ermordeten Juden Europas",
-      "description": "Blicke dich kurz um und konzentriere deinen Fokus auf die grauen Oberflächen der Betonstelen. Wenn du den Blick über diese 2711 quaderförmigen Blöcke schweifen lässt, bemerkst du die massive Präsenz des Feldes direkt südlich des Brandenburger Tors. Achte darauf, wie sich das Material von der Architektur des Bundesrates abhebt. Diese Fläche von 19.000 m² bildet nun den Kern unserer Betrachtung über die Spuren der Geschichte. Während wir uns tiefer in die Chronologie begeben, bereitet uns dieser Ort auf die nächste Station vor.\n\nZwischen 1961 und 1989 markierte genau dieser Boden den Todesstreifen der Berliner Mauer. Achte darauf, wie die Geschichte hier Schichten übereinanderlegt: Unter den Stelen liegt ein Bunker, der als Gefechtsstand der SS-Division „Nordland“ diente. Während der Bauarbeiten zwischen 2003 und Frühjahr 2005 kam dieser Überrest ans Licht und wurde schließlich im Erdreich versiegelt. Diese Entscheidung bewahrt die dunklen Spuren der Vergangenheit direkt unter unseren Füßen, während wir uns nun dem Sowjetischen Ehrenmal Tiergarten nähern.\n\nSpüre die Schwere, wenn du zwischen den 2711 Betonstelen hindurchwanderst. Dieser Ort verändert dein Verständnis von Geschichte radikal, da er das Unfassbare in eine begehbare Landschaft verwandelt. Achte darauf, wie die grauen Quader die gewohnte Ordnung der Stadt unterbrechen und dich zwingen, innezuhalten. Hier wird Erinnerung physisch erfahrbar, weit über bloße Information hinaus. Während wir diese tiefe Mahnung für die sechs Millionen ermordeten Juden verarbeiten, bereitet uns die Stille auf das Sowjetische Ehrenmal Tiergarten vor.\n\nLass die Schwere dieser Betonlandschaft noch ein wenig auf dich wirken. Wenn du die Stille zwischen den grauen Quaderflächen langsam hinter dir lässt, wandert unser Fokus weiter. Die Spuren der Erinnerung begleiten uns nun tiefer in den Park, wo das Sowjetische Ehrenmal Tiergarten auf dich wartet.",
-      "descriptionSections": {
-        "arrival": "Blicke dich kurz um und konzentriere deinen Fokus auf die grauen Oberflächen der Betonstelen. Wenn du den Blick über diese 2711 quaderförmigen Blöcke schweifen lässt, bemerkst du die massive Präsenz des Feldes direkt südlich des Brandenburger Tors. Achte darauf, wie sich das Material von der Architektur des Bundesrates abhebt. Diese Fläche von 19.000 m² bildet nun den Kern unserer Betrachtung über die Spuren der Geschichte. Während wir uns tiefer in die Chronologie begeben, bereitet uns dieser Ort auf die nächste Station vor.",
-        "history": "Zwischen 1961 und 1989 markierte genau dieser Boden den Todesstreifen der Berliner Mauer. Achte darauf, wie die Geschichte hier Schichten übereinanderlegt: Unter den Stelen liegt ein Bunker, der als Gefechtsstand der SS-Division „Nordland“ diente. Während der Bauarbeiten zwischen 2003 und Frühjahr 2005 kam dieser Überrest ans Licht und wurde schließlich im Erdreich versiegelt. Diese Entscheidung bewahrt die dunklen Spuren der Vergangenheit direkt unter unseren Füßen, während wir uns nun dem Sowjetischen Ehrenmal Tiergarten nähern.",
-        "significance": "Spüre die Schwere, wenn du zwischen den 2711 Betonstelen hindurchwanderst. Dieser Ort verändert dein Verständnis von Geschichte radikal, da er das Unfassbare in eine begehbare Landschaft verwandelt. Achte darauf, wie die grauen Quader die gewohnte Ordnung der Stadt unterbrechen und dich zwingen, innezuhalten. Hier wird Erinnerung physisch erfahrbar, weit über bloße Information hinaus. Während wir diese tiefe Mahnung für die sechs Millionen ermordeten Juden verarbeiten, bereitet uns die Stille auf das Sowjetische Ehrenmal Tiergarten vor.",
-        "transition": "Lass die Schwere dieser Betonlandschaft noch ein wenig auf dich wirken. Wenn du die Stille zwischen den grauen Quaderflächen langsam hinter dir lässt, wandert unser Fokus weiter. Die Spuren der Erinnerung begleiten uns nun tiefer in den Park, wo das Sowjetische Ehrenmal Tiergarten auf dich wartet."
-      },
-      "latitude": 52.5138996,
-      "longitude": 13.378714,
-      "position": 9,
-      "importanceScore": 41.028794264106295,
-      "metadata": {
-        "sourcePoi": {
-          "osmType": "way",
-          "osmId": 172234733,
-          "wikidata": "Q160700",
-          "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
-          "category": "other",
-          "landmarkTier": "flagship",
-          "fameScore": 22.028794264106295,
-          "osmTags": {
-            "fee": "no",
-            "name": "Denkmal für die ermordeten Juden Europas",
-            "image": "https://photos.app.goo.gl/YrmLr5gdXHPr7NS79",
-            "name:af": "Monument vir die vermoorde Jode van Europa",
-            "name:be": "Мемарыял забітым жыдам Еўропы",
-            "name:br": "Monumant da Yuzevien Europa drouklazhet",
-            "name:cs": "Židovský památník",
-            "name:de": "Denkmal für die ermordeten Juden Europas",
-            "name:en": "Memorial to the Murdered Jews of Europe",
-            "name:eo": "Memorejo por la murditaj judoj de Eŭropo",
-            "name:es": "Monumento a los judíos de Europa asesinados",
-            "name:eu": "Eraildako Europako Juduen aldeko monumentua",
-            "name:fr": "Mémorial aux Juifs assassinés d'Europe",
-            "name:he": "אנדרטה לזכר יהודי אירופה שנרצחו",
-            "name:it": "Memoriale per gli ebrei assassinati d'Europa",
-            "name:ja": "虐殺されたヨーロッパのユダヤ人のための記念碑",
-            "name:ko": "학살된 유럽 유대인을 위한 기억물",
-            "name:lb": "Memorial fir déi ermuert Judden aus Europa",
-            "name:nl": "Holocaustmonument",
-            "name:no": "Minnesmerket over Europas myrdete jøder",
-            "name:pl": "Pomnik Pomordowanych Żydów Europy",
-            "name:pt": "Memorial aos Judeus Mortos da Europa",
-            "name:ru": "Мемориал памяти убитых евреев Европы в Берлине",
-            "name:sk": "Pomník zavraždeným Židom Európy",
-            "name:sv": "Monument över Europas mördade judar",
-            "name:tr": "Katledilen Avrupalı Yahudiler Anıtı",
-            "name:zh": "歐洲被害猶太人紀念碑",
-            "tourism": "attraction",
-            "alt_name": "Holocaust-Mahnmal",
-            "historic": "monument",
-            "wikidata": "Q160700",
-            "addr:city": "Berlin",
-            "architect": "Peter Eisenman",
-            "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
-            "short_name": "Holocaust-Mahnmal",
-            "start_date": "2005-05-10",
-            "wheelchair": "limited",
-            "addr:street": "Cora-Berliner-Straße",
-            "addr:suburb": "Mitte",
-            "alt_name:es": "Monumento al Holocausto",
-            "addr:country": "DE",
-            "addr:postcode": "10117",
-            "contact:phone": "+49 30 2639430",
-            "opening_hours": "24/7",
-            "contact:website": "http://www.stiftung-denkmal.de",
-            "addr:housenumber": "1",
-            "monument:genesis": "reminding",
-            "wikimedia_commons": "File:Berlin_Holocaust_Memorial.jpg",
-            "wheelchair:description": "Es gibt 13 besonders gekennzeichnete Wege durch die Stelen für Rollstuhlfahrerinnen und Rollstuhlfahrer."
-          }
-        },
-        "narrationMeta": {
-          "traceId": "27a4c9c1-e3bd-4d1e-9601-8c81d0083b8f",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
-          "sectionsFallbacked": 0,
-          "totalSeedChars": 2594,
-          "totalDurationMs": 10103,
-          "claimCheck": {
-            "totalExtracted": 4,
-            "verifiedRate": 1,
-            "contradictedRate": 0,
-            "unverifiedRate": 0,
-            "verifiedCount": 4,
-            "contradictedCount": 0,
-            "unverifiedCount": 0,
-            "criticalFailCount": 0,
-            "warningCount": 0,
-            "infoCount": 4,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1961",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "ächste Station vor.  Zwischen 1961 und 1989 markierte genau dies"
-              },
-              {
-                "type": "date",
-                "value": "1989",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "ation vor.  Zwischen 1961 und 1989 markierte genau dieser Boden "
-              },
-              {
-                "type": "date",
-                "value": "2003",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "rend der Bauarbeiten zwischen 2003 und Frühjahr 2005 kam dieser "
-              },
-              {
-                "type": "date",
-                "value": "2005",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": "en zwischen 2003 und Frühjahr 2005 kam dieser Überrest ans Licht"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "id": "fixture-11",
-      "tourId": "fixture-candidate",
       "name": "Sowjetisches Ehrenmal mit Soldatenfigur",
-      "description": "Man erzählt sich hier im Tiergarten oft, dass die Stille dieses Ortes ganz anders gewichtet ist als die Schwere der Betonstelen, denen du gerade entkommen bist. Wenn du vor dem Sowjetischen Ehrenmal stehst, achte auf die massive Präsenz der Soldatenfigur inmitten des Grüns. Das Denkmal ragt direkt an der Straße des 17. Juni empor und bildet einen festen Ankerpunkt im Park. Es markiert einen Moment, in dem sich das Schicksal der Stadt im Jahr 1945 radikal wendete.\n\nIm Jahr 1945 entstand dieser Ort als Teil einer tiefgreifenden Veränderung der Stadtlandschaft. Achte auf die Positionierung des Denkmals, das als Riegel quer zur ehemaligen Siegesallee errichtet wurde. Der Architekt Nikolai Sergijewski entwarf diese Anlage gemeinsam mit den Bildhauern Lew Kerbel und Wladimir Zigal. Es markiert das Ende des Kampfweges der 1. Weißrussischen Front von Küstrin über Seelow bis hierher. Am 11. November 1945 fand die Einweihung statt, was die neue Realität Berlins festigte. Spätestens beim nächsten Halt wird sich dein Blick auf moderne Architektur lenken.\n\nSpüre die veränderte Schwere, während du den Blick von der abstrakten Trauer der Stelen auf diese massive Präsenz lenkst. Das Ehrenmal wirkt wie ein fester Ankerpunkt an der Straße des 17. Juni und markiert das Ende eines gewaltigen Weges, der von Küstrin bis hierher führte. Achte darauf, wie die Soldatenfigur als Riegel quer zur ehemaligen Siegesallee die Parklandschaft durchbricht. Dieser Ort zeigt, wie Berlin seine Identität durch die Erinnerung an die Gefallenen des Jahres 1945 neu formte. Bald erwartet dich eine ganz andere Form der Moderne.\n\nLass die Schwere dieses Ankerpunkts noch ein wenig nachwirken. Während das Ehrenmal die Geschichte als massiven Riegel im Park festhält, wandert dein Fokus bald weg von diesen tiefen Spuren der Vergangenheit. Achte darauf, wie sich deine Wahrnehmung auf eine völlig neue Form der Moderne vorbereitet.",
+      "description": "Blicke dich kurz auf die massiven Strukturen der Soldatenfigur vor dir. Achte darauf, wie das Metall und der Stein direkt aus dem Boden des Großen Tiergartens zu wachsen scheinen. Während wir den Reichstag hinter uns gelassen haben, verändert sich hier die Schwere der Geschichte spürbar. Das Denkmal steht als fester Ankerpunkt an der Straße des 17. Juni. Es markiert einen Moment, in dem die Stadt ihre tiefsten Wunden trug und gleichzeitig neue, komplexe Schichten ihrer Identität aufbaute.\n\nIm Jahr 1945 entstand dieser Ort als Teil eines größeren Gedenkens an die etwa 80.000 sowjetischen Soldaten, die bei der Schlacht um Berlin fielen. Achte auf die Platzierung des Denkmals, das als Riegel quer zur ehemaligen Siegesallee errichtet wurde. Es bildet den letzten Halt auf dem Kampfweg der 1. Weißrussischen Front von Küstrin über Seelow bis hierher. Diese Anlage dient nicht nur dem Gedenken, sondern ist zugleich eine Kriegsgräberstätte. Während wir uns nun dem nächsten Ort nähern, bleibt die Frage nach der Last der Erinnerung offen.\n\nBetrachte die tiefe Bedeutung dieser Stätte als lebendige Kriegsgräberstätte inmitten des Parks. Hier verschmelzen Gedenken und die physische Präsenz der Gefallenen zu einer unumgänglichen Mahnung. Während der Reichstag politische Macht repräsentiert, verkörpert dieses Ehrenmal das menschliche Opfer der Schlacht um Berlin. Achte auf die Funktion als Riegel quer zur ehemaligen Siegesallee, der den Weg der 1. Weißrussischen Front markiert. Dieser Ort bereitet dich auf die nächste Stufe vor, denn er stellt die Frage nach dem Gewicht der Schuld und des Verlusts.\n\nSpüre die Schwere des menschlichen Opfers, die diesen Ort so unumgänglich macht. Wenn du dich von der Mahnung der Kriegsgräberstätte löst, wandert dein Fokus weiter auf das Gewicht der Schuld. Achte darauf, wie sich die Frage nach dem Verlust nun auf das Denkmal für die ermordeten Juden Europas zubewegt.",
       "descriptionSections": {
-        "arrival": "Man erzählt sich hier im Tiergarten oft, dass die Stille dieses Ortes ganz anders gewichtet ist als die Schwere der Betonstelen, denen du gerade entkommen bist. Wenn du vor dem Sowjetischen Ehrenmal stehst, achte auf die massive Präsenz der Soldatenfigur inmitten des Grüns. Das Denkmal ragt direkt an der Straße des 17. Juni empor und bildet einen festen Ankerpunkt im Park. Es markiert einen Moment, in dem sich das Schicksal der Stadt im Jahr 1945 radikal wendete.",
-        "history": "Im Jahr 1945 entstand dieser Ort als Teil einer tiefgreifenden Veränderung der Stadtlandschaft. Achte auf die Positionierung des Denkmals, das als Riegel quer zur ehemaligen Siegesallee errichtet wurde. Der Architekt Nikolai Sergijewski entwarf diese Anlage gemeinsam mit den Bildhauern Lew Kerbel und Wladimir Zigal. Es markiert das Ende des Kampfweges der 1. Weißrussischen Front von Küstrin über Seelow bis hierher. Am 11. November 1945 fand die Einweihung statt, was die neue Realität Berlins festigte. Spätestens beim nächsten Halt wird sich dein Blick auf moderne Architektur lenken.",
-        "significance": "Spüre die veränderte Schwere, während du den Blick von der abstrakten Trauer der Stelen auf diese massive Präsenz lenkst. Das Ehrenmal wirkt wie ein fester Ankerpunkt an der Straße des 17. Juni und markiert das Ende eines gewaltigen Weges, der von Küstrin bis hierher führte. Achte darauf, wie die Soldatenfigur als Riegel quer zur ehemaligen Siegesallee die Parklandschaft durchbricht. Dieser Ort zeigt, wie Berlin seine Identität durch die Erinnerung an die Gefallenen des Jahres 1945 neu formte. Bald erwartet dich eine ganz andere Form der Moderne.",
-        "transition": "Lass die Schwere dieses Ankerpunkts noch ein wenig nachwirken. Während das Ehrenmal die Geschichte als massiven Riegel im Park festhält, wandert dein Fokus bald weg von diesen tiefen Spuren der Vergangenheit. Achte darauf, wie sich deine Wahrnehmung auf eine völlig neue Form der Moderne vorbereitet."
+        "arrival": "Blicke dich kurz auf die massiven Strukturen der Soldatenfigur vor dir. Achte darauf, wie das Metall und der Stein direkt aus dem Boden des Großen Tiergartens zu wachsen scheinen. Während wir den Reichstag hinter uns gelassen haben, verändert sich hier die Schwere der Geschichte spürbar. Das Denkmal steht als fester Ankerpunkt an der Straße des 17. Juni. Es markiert einen Moment, in dem die Stadt ihre tiefsten Wunden trug und gleichzeitig neue, komplexe Schichten ihrer Identität aufbaute.",
+        "history": "Im Jahr 1945 entstand dieser Ort als Teil eines größeren Gedenkens an die etwa 80.000 sowjetischen Soldaten, die bei der Schlacht um Berlin fielen. Achte auf die Platzierung des Denkmals, das als Riegel quer zur ehemaligen Siegesallee errichtet wurde. Es bildet den letzten Halt auf dem Kampfweg der 1. Weißrussischen Front von Küstrin über Seelow bis hierher. Diese Anlage dient nicht nur dem Gedenken, sondern ist zugleich eine Kriegsgräberstätte. Während wir uns nun dem nächsten Ort nähern, bleibt die Frage nach der Last der Erinnerung offen.",
+        "significance": "Betrachte die tiefe Bedeutung dieser Stätte als lebendige Kriegsgräberstätte inmitten des Parks. Hier verschmelzen Gedenken und die physische Präsenz der Gefallenen zu einer unumgänglichen Mahnung. Während der Reichstag politische Macht repräsentiert, verkörpert dieses Ehrenmal das menschliche Opfer der Schlacht um Berlin. Achte auf die Funktion als Riegel quer zur ehemaligen Siegesallee, der den Weg der 1. Weißrussischen Front markiert. Dieser Ort bereitet dich auf die nächste Stufe vor, denn er stellt die Frage nach dem Gewicht der Schuld und des Verlusts.",
+        "transition": "Spüre die Schwere des menschlichen Opfers, die diesen Ort so unumgänglich macht. Wenn du dich von der Mahnung der Kriegsgräberstätte löst, wandert dein Fokus weiter auf das Gewicht der Schuld. Achte darauf, wie sich die Frage nach dem Verlust nun auf das Denkmal für die ermordeten Juden Europas zubewegt."
       },
       "latitude": 52.5166394,
       "longitude": 13.3719488,
-      "position": 10,
-      "importanceScore": 41.00488750216347,
+      "position": 9,
+      "importanceScore": 51.00488750216347,
       "metadata": {
         "sourcePoi": {
           "osmType": "way",
@@ -1291,7 +705,7 @@
           "wikipedia": "de:Sowjetisches Ehrenmal (Tiergarten)",
           "category": "other",
           "landmarkTier": "flagship",
-          "fameScore": 21.00488750216347,
+          "fameScore": 28.00488750216347,
           "osmTags": {
             "name": "Sowjetisches Ehrenmal Tiergarten",
             "image": "http://commons.wikimedia.org/wiki/File:Sowjetisches_Ehrenmal_%28Tiergarten%29_mit_Geschuetzen.JPG",
@@ -1317,24 +731,24 @@
           }
         },
         "narrationMeta": {
-          "traceId": "c619b45b-8979-451d-a4d0-8ab727f12378",
+          "traceId": "472abf01-1d78-4768-924d-4988a4f35806",
           "seedQuality": "rich",
           "targetWords": "280-360",
           "sectionsGenerated": 4,
           "sectionsFallbacked": 0,
           "totalSeedChars": 2576,
-          "totalDurationMs": 10327,
+          "totalDurationMs": 14061,
           "claimCheck": {
-            "totalExtracted": 2,
+            "totalExtracted": 1,
             "verifiedRate": 1,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 2,
+            "verifiedCount": 1,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 2,
+            "infoCount": 1,
             "claims": [
               {
                 "type": "date",
@@ -1342,15 +756,143 @@
                 "status": "verified",
                 "severity": "info",
                 "source": "wikidata",
-                "context": "s Schicksal der Stadt im Jahr 1945 radikal wendete.  Im Jahr 194"
+                "context": " Identität aufbaute.  Im Jahr 1945 entstand dieser Ort als Teil "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "Denkmal für die ermordeten Juden Europas",
+      "description": "Man erzählt sich hier, dass die grauen Wellen aus Beton den Boden unter deinen Füßen fast vergessen lassen. Achte darauf, wie die 2711 quaderförmigen Stelen aus dem flachen Gelände emporragen und eine unregelmäßige Landschaft bilden. Während wir eben noch bei der Erinnerung an die sowjetischen Soldaten verweilten, verändert sich nun die Dimension des Gedenkens auf dieser 19.000 m² großen Fläche. Diese Betonstrukturen bilden ein Labyrinth, das direkt südlich des Brandenburger Tors liegt und den Blick auf die Geschichte lenkt.\n\nZwischen 1961 und 1989 markierte dieser Ort den Todesstreifen der Berliner Mauer. Achte darauf, wie die Geschichte hier Schichten übereinanderlegt, denn unter dem Beton verbirgt sich ein Bunker der SS-Division Nordland, der bei den Bauarbeiten zwischen 2003 und 2005 wieder ans Licht kam. Man versiegelte diesen Überrest im Erdreich, um das Gedenken an die rund sechs Millionen ermordeten Juden zu bewahren. Während dieser Fläche einst die Grenze die Stadt trennte, bereitet sie dich nun auf die Begegnung mit dem Brandenburger Tor vor.\n\nSpüre die Schwere, wenn du tiefer in dieses Labyrinth aus 2711 Betonstelen vordringst. Hier verliert sich die gewohnte Ordnung der Stadtlandschaft völlig. Achte darauf, wie die unregelmäßige Höhe der Stelen dich von der Außenwelt isoliert und eine eigene, beklemmende Realität schafft. Während wir zuvor die Grenzen der Teilung betrachteten, konfrontiert dich dieser Ort mit dem Ausmaß des Verlusts von rund sechs Millionen Menschenleben. Diese Fläche fordert deine Wahrnehmung heraus, bevor wir gleich zum Brandenburger Tor gelangen.\n\nLass die beklemmende Stille dieses Betonlabyrinths noch ein wenig nachwirken. Wenn du den Blick aus der Isolation der Stelen wieder in die Weite richtest, öffnet sich der Weg. Achte darauf, wie sich die Schwere des Gedenkens nun in Richtung des Brandenburger Tors auflöst.",
+      "descriptionSections": {
+        "arrival": "Man erzählt sich hier, dass die grauen Wellen aus Beton den Boden unter deinen Füßen fast vergessen lassen. Achte darauf, wie die 2711 quaderförmigen Stelen aus dem flachen Gelände emporragen und eine unregelmäßige Landschaft bilden. Während wir eben noch bei der Erinnerung an die sowjetischen Soldaten verweilten, verändert sich nun die Dimension des Gedenkens auf dieser 19.000 m² großen Fläche. Diese Betonstrukturen bilden ein Labyrinth, das direkt südlich des Brandenburger Tors liegt und den Blick auf die Geschichte lenkt.",
+        "history": "Zwischen 1961 und 1989 markierte dieser Ort den Todesstreifen der Berliner Mauer. Achte darauf, wie die Geschichte hier Schichten übereinanderlegt, denn unter dem Beton verbirgt sich ein Bunker der SS-Division Nordland, der bei den Bauarbeiten zwischen 2003 und 2005 wieder ans Licht kam. Man versiegelte diesen Überrest im Erdreich, um das Gedenken an die rund sechs Millionen ermordeten Juden zu bewahren. Während dieser Fläche einst die Grenze die Stadt trennte, bereitet sie dich nun auf die Begegnung mit dem Brandenburger Tor vor.",
+        "significance": "Spüre die Schwere, wenn du tiefer in dieses Labyrinth aus 2711 Betonstelen vordringst. Hier verliert sich die gewohnte Ordnung der Stadtlandschaft völlig. Achte darauf, wie die unregelmäßige Höhe der Stelen dich von der Außenwelt isoliert und eine eigene, beklemmende Realität schafft. Während wir zuvor die Grenzen der Teilung betrachteten, konfrontiert dich dieser Ort mit dem Ausmaß des Verlusts von rund sechs Millionen Menschenleben. Diese Fläche fordert deine Wahrnehmung heraus, bevor wir gleich zum Brandenburger Tor gelangen.",
+        "transition": "Lass die beklemmende Stille dieses Betonlabyrinths noch ein wenig nachwirken. Wenn du den Blick aus der Isolation der Stelen wieder in die Weite richtest, öffnet sich der Weg. Achte darauf, wie sich die Schwere des Gedenkens nun in Richtung des Brandenburger Tors auflöst."
+      },
+      "latitude": 52.5138996,
+      "longitude": 13.378714,
+      "position": 10,
+      "importanceScore": 51.028794264106295,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 172234733,
+          "wikidata": "Q160700",
+          "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 29.028794264106295,
+          "osmTags": {
+            "name": "Denkmal für die ermordeten Juden Europas",
+            "wikidata": "Q160700",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "42",
+            "canonical:instance_of": "Holocaust memorial",
+            "tourism": "attraction",
+            "historic": "monument",
+            "fee": "no",
+            "image": "https://photos.app.goo.gl/YrmLr5gdXHPr7NS79",
+            "name:af": "Monument vir die vermoorde Jode van Europa",
+            "name:be": "Мемарыял забітым жыдам Еўропы",
+            "name:br": "Monumant da Yuzevien Europa drouklazhet",
+            "name:cs": "Židovský památník",
+            "name:de": "Denkmal für die ermordeten Juden Europas",
+            "name:en": "Memorial to the Murdered Jews of Europe",
+            "name:eo": "Memorejo por la murditaj judoj de Eŭropo",
+            "name:es": "Monumento a los judíos de Europa asesinados",
+            "name:eu": "Eraildako Europako Juduen aldeko monumentua",
+            "name:fr": "Mémorial aux Juifs assassinés d'Europe",
+            "name:he": "אנדרטה לזכר יהודי אירופה שנרצחו",
+            "name:it": "Memoriale per gli ebrei assassinati d'Europa",
+            "name:ja": "虐殺されたヨーロッパのユダヤ人のための記念碑",
+            "name:ko": "학살된 유럽 유대인을 위한 기억물",
+            "name:lb": "Memorial fir déi ermuert Judden aus Europa",
+            "name:nl": "Holocaustmonument",
+            "name:no": "Minnesmerket over Europas myrdete jøder",
+            "name:pl": "Pomnik Pomordowanych Żydów Europy",
+            "name:pt": "Memorial aos Judeus Mortos da Europa",
+            "name:ru": "Мемориал памяти убитых евреев Европы в Берлине",
+            "name:sk": "Pomník zavraždeným Židom Európy",
+            "name:sv": "Monument över Europas mördade judar",
+            "name:tr": "Katledilen Avrupalı Yahudiler Anıtı",
+            "name:zh": "歐洲被害猶太人紀念碑",
+            "alt_name": "Holocaust-Mahnmal",
+            "addr:city": "Berlin",
+            "architect": "Peter Eisenman",
+            "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
+            "short_name": "Holocaust-Mahnmal",
+            "start_date": "2005-05-10",
+            "wheelchair": "limited",
+            "addr:street": "Cora-Berliner-Straße",
+            "addr:suburb": "Mitte",
+            "alt_name:es": "Monumento al Holocausto",
+            "addr:country": "DE",
+            "addr:postcode": "10117",
+            "contact:phone": "+49 30 2639430",
+            "opening_hours": "24/7",
+            "contact:website": "http://www.stiftung-denkmal.de",
+            "addr:housenumber": "1",
+            "monument:genesis": "reminding",
+            "wikimedia_commons": "File:Berlin_Holocaust_Memorial.jpg",
+            "wheelchair:description": "Es gibt 13 besonders gekennzeichnete Wege durch die Stelen für Rollstuhlfahrerinnen und Rollstuhlfahrer."
+          }
+        },
+        "narrationMeta": {
+          "traceId": "42cbbb68-a7a4-48c9-acd7-d93408908a41",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2594,
+          "totalDurationMs": 16390,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1961",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e Geschichte lenkt.  Zwischen 1961 und 1989 markierte dieser Ort"
               },
               {
-                "type": "architect",
-                "value": "Nikolai Sergijewski",
+                "type": "date",
+                "value": "1989",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "hte lenkt.  Zwischen 1961 und 1989 markierte dieser Ort den Tode"
+              },
+              {
+                "type": "date",
+                "value": "2003",
                 "status": "verified",
                 "severity": "info",
                 "source": "wikipedia",
-                "context": "rrichtet wurde. Der Architekt Nikolai Sergijewski entwarf diese Anlage gemeinsa"
+                "context": " bei den Bauarbeiten zwischen 2003 und 2005 wieder ans Licht kam"
+              },
+              {
+                "type": "date",
+                "value": "2005",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "Bauarbeiten zwischen 2003 und 2005 wieder ans Licht kam. Man ver"
               }
             ]
           }
@@ -1360,160 +902,115 @@
     {
       "id": "fixture-12",
       "tourId": "fixture-candidate",
-      "name": "Neue Nationalgalerie",
-      "description": "Du stehst nun vor der Neuen Nationalgalerie, die sich als markanter Ankerpunkt am Kulturforum präsentiert. Achte darauf, wie das Gebäude den Raum einnimmt und eine klare Grenze zwischen dem öffentlichen Platz und der Kunst bildet. Wenn du den Blick über die Struktur schweifst, bemerkst du die präzise Linienführung dieses Bauwerks aus dem Jahr 1968. Diese Architektur markiert einen entscheidenden Moment in der Berliner Stadtgeschichte, indem sie als Ikone der Klassischen Moderne eine Brücke zwischen vergangenen Epochen und der Gegenwart schlägt.\n\nIm Jahr 1962 erhielt Ludwig Mies van der Rohe den Auftrag für dieses Bauwerk in West-Berlin. Er nutzte Ideen aus seinen Entwürfen von 1957 und zwischen 1960 und 1963, um diese Ikone der Klassischen Moderne zu schaffen. Achte auf die Statik des massiven Daches, das Frei Otto mit Unterstützung berechnete. Während die Grundsteinlegung 1965 stattfand, konnte Mies die Eröffnung 1968 wegen einer chronischen Erkrankung nicht mehr persönlich erleben. So verbindet dieser Ort durch seine Entstehung und spätere Sanierung zwischen 2015 und 2021 die Geschichte der Stadt.\n\nBetrachte nun, wie dieses Bauwerk die Antwort auf unsere Reise formt. Während wir zuvor Spuren alter Epochen berührten, zeigt uns dieser Ort die radikale Erneuerung des öffentlichen Lebens. Achte darauf, wie das massive Dach den Raum darüber fast schwerelos wirken lässt. Hier findet die Stadt eine neue Sprache für die Moderne. Die Struktur dient als Ankerpunkt, der zeigt, dass Berlin sich ständig neu erfindet, ohne die Verbindung zur eigenen Geschichte zu verlieren.\n\nDanke, dass du mich heute durch diese Schichten der Stadt begleitet hast. Wir haben Spuren von Pracht und Leid berührt, um nun hier bei dieser radikalen Moderne zu enden. Achte auf den Moment, in dem sich die Geschichte neu erfindet. Ich wünsche dir alles Gute für deine weiteren Wege.",
+      "name": "Brandenburger Tor",
+      "description": "Du stehst nun vor dem massiven Tor, das den Weg zwischen den weiten Grünflächen und dem städtischen Gefüge markiert. Achte auf die schweren Säulen aus Sandstein, die den Durchgang begrenzen. Während du davor verweilst, spürst du die räumliche Schwere dieses Bauwerks direkt vor deiner Brust. Es bildet einen festen Ankerpunkt im Stadtbild. Dieser Ort bereitet dich darauf vor, wie sich das öffentliche Leben in Berlin immer wieder neu formt.\n\nBetrachte die Grenze, die dieses Bauwerk einst darstellte. Früher trennte es den städtischen Raum von der weiten Natur des Tiergartens und kontrollierte jeden Schritt durch die Durchlässe. Erinnere dich an jene Momente, in denen sich politische Spannungen in einer physischen Barriere manifestierten. Diese Struktur zeigt dir, wie Berlin sich immer wieder neu erfindet, indem sie alte Trennungen überwindet. Gleichzeitig bereitet dieser Ankerpunkt dich auf die weite Fläche des Pariser Platzes vor.\n\nSpüre die Veränderung der Bedeutung, während du den Blick von den stillen Stelen des Mahnmals auf diese massiven Sandsteinsäulen lenkst. Das Tor fungiert nicht mehr als Barriere, sondern als Durchgang, der das Stadtgefüge mit dem Tiergarten verbindet. Achte darauf, wie die Architektur den Raum zwischen Natur und Urbanität strukturiert. Hier wird die Überwindung früherer Trennungen physisch greifbar und bereitet dich auf die weite Fläche des Pariser Platzes vor.",
       "descriptionSections": {
-        "arrival": "Du stehst nun vor der Neuen Nationalgalerie, die sich als markanter Ankerpunkt am Kulturforum präsentiert. Achte darauf, wie das Gebäude den Raum einnimmt und eine klare Grenze zwischen dem öffentlichen Platz und der Kunst bildet. Wenn du den Blick über die Struktur schweifst, bemerkst du die präzise Linienführung dieses Bauwerks aus dem Jahr 1968. Diese Architektur markiert einen entscheidenden Moment in der Berliner Stadtgeschichte, indem sie als Ikone der Klassischen Moderne eine Brücke zwischen vergangenen Epochen und der Gegenwart schlägt.",
-        "history": "Im Jahr 1962 erhielt Ludwig Mies van der Rohe den Auftrag für dieses Bauwerk in West-Berlin. Er nutzte Ideen aus seinen Entwürfen von 1957 und zwischen 1960 und 1963, um diese Ikone der Klassischen Moderne zu schaffen. Achte auf die Statik des massiven Daches, das Frei Otto mit Unterstützung berechnete. Während die Grundsteinlegung 1965 stattfand, konnte Mies die Eröffnung 1968 wegen einer chronischen Erkrankung nicht mehr persönlich erleben. So verbindet dieser Ort durch seine Entstehung und spätere Sanierung zwischen 2015 und 2021 die Geschichte der Stadt.",
-        "significance": "Betrachte nun, wie dieses Bauwerk die Antwort auf unsere Reise formt. Während wir zuvor Spuren alter Epochen berührten, zeigt uns dieser Ort die radikale Erneuerung des öffentlichen Lebens. Achte darauf, wie das massive Dach den Raum darüber fast schwerelos wirken lässt. Hier findet die Stadt eine neue Sprache für die Moderne. Die Struktur dient als Ankerpunkt, der zeigt, dass Berlin sich ständig neu erfindet, ohne die Verbindung zur eigenen Geschichte zu verlieren.",
-        "transition": "Danke, dass du mich heute durch diese Schichten der Stadt begleitet hast. Wir haben Spuren von Pracht und Leid berührt, um nun hier bei dieser radikalen Moderne zu enden. Achte auf den Moment, in dem sich die Geschichte neu erfindet. Ich wünsche dir alles Gute für deine weiteren Wege."
+        "arrival": "Du stehst nun vor dem massiven Tor, das den Weg zwischen den weiten Grünflächen und dem städtischen Gefüge markiert. Achte auf die schweren Säulen aus Sandstein, die den Durchgang begrenzen. Während du davor verweilst, spürst du die räumliche Schwere dieses Bauwerks direkt vor deiner Brust. Es bildet einen festen Ankerpunkt im Stadtbild. Dieser Ort bereitet dich darauf vor, wie sich das öffentliche Leben in Berlin immer wieder neu formt.",
+        "history": "Betrachte die Grenze, die dieses Bauwerk einst darstellte. Früher trennte es den städtischen Raum von der weiten Natur des Tiergartens und kontrollierte jeden Schritt durch die Durchlässe. Erinnere dich an jene Momente, in denen sich politische Spannungen in einer physischen Barriere manifestierten. Diese Struktur zeigt dir, wie Berlin sich immer wieder neu erfindet, indem sie alte Trennungen überwindet. Gleichzeitig bereitet dieser Ankerpunkt dich auf die weite Fläche des Pariser Platzes vor.",
+        "significance": "Spüre die Veränderung der Bedeutung, während du den Blick von den stillen Stelen des Mahnmals auf diese massiven Sandsteinsäulen lenkst. Das Tor fungiert nicht mehr als Barriere, sondern als Durchgang, der das Stadtgefüge mit dem Tiergarten verbindet. Achte darauf, wie die Architektur den Raum zwischen Natur und Urbanität strukturiert. Hier wird die Überwindung früherer Trennungen physisch greifbar und bereitet dich auf die weite Fläche des Pariser Platzes vor."
       },
-      "latitude": 52.5069809,
-      "longitude": 13.3675768,
+      "latitude": 52.516272222,
+      "longitude": 13.377722222,
       "position": 11,
-      "importanceScore": 38.92206476617281,
+      "importanceScore": 50.278794264106295,
       "metadata": {
         "sourcePoi": {
-          "osmType": "way",
-          "osmId": 25652321,
-          "wikidata": "Q32659772",
-          "wikipedia": "de:Neue Nationalgalerie",
-          "category": "museum",
+          "osmType": "node",
+          "osmId": -82425,
+          "wikidata": "Q82425",
+          "category": "other",
           "landmarkTier": "flagship",
-          "fameScore": 21.92206476617281,
+          "fameScore": 30.278794264106295,
           "osmTags": {
-            "fee": "yes",
-            "name": "Neue Nationalgalerie",
-            "height": "10",
-            "museum": "art",
-            "name:de": "Neue Nationalgalerie",
-            "name:es": "Nueva Galeria Nacional",
-            "ref:lda": "09050310",
-            "tourism": "museum",
-            "heritage": "4",
-            "wikidata": "Q32659772",
-            "addr:city": "Berlin",
-            "architect": "Ludwig Mies van der Rohe",
-            "wikipedia": "de:Neue Nationalgalerie",
-            "min_height": "7.5",
-            "roof:shape": "flat",
-            "start_date": "1968",
-            "wheelchair": "yes",
-            "addr:street": "Potsdamer Straße",
-            "addr:suburb": "Tiergarten",
-            "roof:colour": "black",
-            "roof:levels": "0",
-            "addr:country": "DE",
-            "lda:criteria": "Baudenkmal",
-            "addr:postcode": "10785",
-            "building:part": "Sockelplattform",
-            "contact:phone": "+49 30 266424242",
-            "opening_hours": "Tu,We,Fr-Su 10:00-18:00; Th 10:00-20:00",
-            "roof:material": "tar_paper",
-            "addr:housename": "Neue Nationalgalerie",
-            "building:colour": "black",
-            "building:levels": "2",
-            "contact:website": "https://www.smb.museum/museen-einrichtungen/neue-nationalgalerie/",
-            "fee:icom_member": "no",
-            "addr:housenumber": "50",
-            "building:material": "stone",
-            "heritage:operator": "lda",
-            "architect:wikidata": "Q41508",
-            "construction:tourism": "museum",
-            "building:architecture": "modern",
-            "check_date:opening_hours": "2025-04-11"
+            "name": "Brandenburg Gate",
+            "wikidata": "Q82425",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "85",
+            "canonical:instance_of": "city gate|triumphal arch|tourist attraction|border checkpoint|national symbol|architectural landmark",
+            "tourism": "attraction",
+            "historic": "city_gate"
           }
         },
         "narrationMeta": {
-          "traceId": "071510e7-f869-4028-8b28-a68e0d182e71",
-          "seedQuality": "rich",
-          "targetWords": "280-360",
-          "sectionsGenerated": 4,
+          "traceId": "eecb5750-3b5c-4fe2-b928-18a3c4462ee7",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
           "sectionsFallbacked": 0,
-          "totalSeedChars": 2333,
-          "totalDurationMs": 9872,
+          "totalSeedChars": 146,
+          "totalDurationMs": 12729,
           "claimCheck": {
-            "totalExtracted": 8,
-            "verifiedRate": 1,
+            "totalExtracted": 0,
+            "verifiedRate": 0,
             "contradictedRate": 0,
             "unverifiedRate": 0,
-            "verifiedCount": 8,
+            "verifiedCount": 0,
             "contradictedCount": 0,
             "unverifiedCount": 0,
             "criticalFailCount": 0,
             "warningCount": 0,
-            "infoCount": 8,
-            "claims": [
-              {
-                "type": "date",
-                "value": "1968",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikidata",
-                "context": " dieses Bauwerks aus dem Jahr 1968. Diese Architektur markiert e"
-              },
-              {
-                "type": "date",
-                "value": "1962",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "r Gegenwart schlägt.  Im Jahr 1962 erhielt Ludwig Mies van der R"
-              },
-              {
-                "type": "date",
-                "value": "1957",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "deen aus seinen Entwürfen von 1957 und zwischen 1960 und 1963, u"
-              },
-              {
-                "type": "date",
-                "value": "1960",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "twürfen von 1957 und zwischen 1960 und 1963, um diese Ikone der "
-              },
-              {
-                "type": "date",
-                "value": "1963",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "on 1957 und zwischen 1960 und 1963, um diese Ikone der Klassisch"
-              },
-              {
-                "type": "date",
-                "value": "1965",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": " Während die Grundsteinlegung 1965 stattfand, konnte Mies die Er"
-              },
-              {
-                "type": "date",
-                "value": "2015",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "nd spätere Sanierung zwischen 2015 und 2021 die Geschichte der S"
-              },
-              {
-                "type": "date",
-                "value": "2021",
-                "status": "verified",
-                "severity": "info",
-                "source": "wikipedia",
-                "context": "e Sanierung zwischen 2015 und 2021 die Geschichte der Stadt.  Be"
-              }
-            ]
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "Pariser Platz",
+      "description": "Tritt nun einen Schritt zurück und lass den Blick über die weite Fläche des Platzes schweifen. Achte darauf, wie die umliegenden Gebäude den Raum fest umschließen und eine klare Grenze zum Brandenburger Tor ziehen. Hier fließen die Wege der Stadt zusammen, während sich die Spuren vergangener Zeiten in der Anordnung der Steine und Fassaden widerspiegeln. Dieser Ort zeigt dir ganz konkret, wie Berlin seine Identität durch das Nebeneinander verschiedener Schichten immer wieder neu definiert.\n\nBetrachte die Leere zwischen den Fassaden und spüre die Spannung, die dieser Raum ausstrahlt. Früher war dieser Platz ein Ort intensiver Bewegung, an dem sich Schicksale kreuzten und politische Umbrüche den Boden unter den Füßen veränderten. Achte darauf, wie die heutige Ordnung das Ergebnis bewusster Entscheidungen ist, um nach Zeiten der Zerstörung wieder Struktur zu schaffen. So antwortet dir dieser Platz auf unsere Reisefrage durch stetiges Neuordnen.\n\nBetrachte nun die weite Fläche vor dir und spüre das Ende unserer gemeinsamen Wanderung. Achte darauf, wie der Pariser Platz als finaler Ankerpunkt fungiert, indem er die verschiedenen Schichten der Stadt in einer einzigen Sichtachse vereint. Er dient nicht nur als Durchgang, sondern als Bühne für das heutige Berlin. Hier siehst du, dass die Stadt ihr öffentliches Leben durch stetiges Neuordnen bewahrt und gleichzeitig jede neue Epoche fest im Boden verankert.\n\nDanke, dass du mich durch diese geschichtsträchtigen Orte begleitet hast. Achte beim Verlassen des Platzes auf das Zusammenspiel der Fassaden, die wir gemeinsam betrachtet haben. Du hast gesehen, wie Berlin Schichten überlagert und dennoch Beständigkeit bewahrt. Nimm diese Eindrücke mit dir nach Hause. Ich wünsche dir alles Gute für deine weiteren Wege.",
+      "descriptionSections": {
+        "arrival": "Tritt nun einen Schritt zurück und lass den Blick über die weite Fläche des Platzes schweifen. Achte darauf, wie die umliegenden Gebäude den Raum fest umschließen und eine klare Grenze zum Brandenburger Tor ziehen. Hier fließen die Wege der Stadt zusammen, während sich die Spuren vergangener Zeiten in der Anordnung der Steine und Fassaden widerspiegeln. Dieser Ort zeigt dir ganz konkret, wie Berlin seine Identität durch das Nebeneinander verschiedener Schichten immer wieder neu definiert.",
+        "history": "Betrachte die Leere zwischen den Fassaden und spüre die Spannung, die dieser Raum ausstrahlt. Früher war dieser Platz ein Ort intensiver Bewegung, an dem sich Schicksale kreuzten und politische Umbrüche den Boden unter den Füßen veränderten. Achte darauf, wie die heutige Ordnung das Ergebnis bewusster Entscheidungen ist, um nach Zeiten der Zerstörung wieder Struktur zu schaffen. So antwortet dir dieser Platz auf unsere Reisefrage durch stetiges Neuordnen.",
+        "significance": "Betrachte nun die weite Fläche vor dir und spüre das Ende unserer gemeinsamen Wanderung. Achte darauf, wie der Pariser Platz als finaler Ankerpunkt fungiert, indem er die verschiedenen Schichten der Stadt in einer einzigen Sichtachse vereint. Er dient nicht nur als Durchgang, sondern als Bühne für das heutige Berlin. Hier siehst du, dass die Stadt ihr öffentliches Leben durch stetiges Neuordnen bewahrt und gleichzeitig jede neue Epoche fest im Boden verankert.",
+        "transition": "Danke, dass du mich durch diese geschichtsträchtigen Orte begleitet hast. Achte beim Verlassen des Platzes auf das Zusammenspiel der Fassaden, die wir gemeinsam betrachtet haben. Du hast gesehen, wie Berlin Schichten überlagert und dennoch Beständigkeit bewahrt. Nimm diese Eindrücke mit dir nach Hause. Ich wünsche dir alles Gute für deine weiteren Wege."
+      },
+      "latitude": 52.516388888,
+      "longitude": 13.378888888,
+      "position": 12,
+      "importanceScore": 51.8878490508349,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -156716,
+          "wikidata": "Q156716",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 28.887849050834898,
+          "osmTags": {
+            "name": "Pariser Platz",
+            "wikidata": "Q156716",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "34",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "94d126e0-b0b1-4b47-b0b6-e31ddb1fc082",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 129,
+          "totalDurationMs": 14156,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
           }
         }
       }
     }
   ],
-  "createdAt": "2026-06-23T22:52:29.514Z",
-  "updatedAt": "2026-06-23T22:52:29.514Z"
+  "createdAt": "2026-06-24T11:00:33.042Z",
+  "updatedAt": "2026-06-24T11:00:33.042Z"
 }
