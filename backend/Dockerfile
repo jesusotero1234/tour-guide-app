@@ -4,6 +4,9 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
+# Prisma needs OpenSSL available in Alpine-based images.
+RUN apk add --no-cache openssl
+
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install

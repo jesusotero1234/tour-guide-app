@@ -27,35 +27,30 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
+    network_mode: "host"
     environment:
       - NODE_ENV=development
       - API_KEYS=development-api-key
+      - DATABASE_URL=postgresql://tour_guide:tour_guide_dev@localhost:5432/tour_guide_local?schema=public
       - LLM_SERVICE_URL=http://localhost:3002
       - VERIFICATION_SERVICE_URL=http://verification-pod:3003
       - DESCRIPTION_SERVICE_URL=http://description-pod:3004
-      - TTS_SERVICE_URL=http://tts-pod:3005
+      - TTS_SERVICE_URL=http://localhost:3005
       - SUPABASE_SERVICE_URL=http://supabase-pod:3006
       - USE_SERVICE_NAMES=false  # Set to true in production
-      - HOST_SYSTEM=host.containers.internal
+      - HOST_SYSTEM=localhost
     depends_on:
       - llm-pod
       - verification-pod
       - description-pod
       - tts-pod
       - supabase-pod
-    networks:
-      - app-network
-    extra_hosts:
-      - "host.containers.internal:host-gateway"
-      - "host.podman.internal:host-gateway"
-      - "host.docker.internal:host-gateway"
     # Development additions for hot reloading
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
     volumes:
-      - /app/node_modules  # Preserve container's node_modules (must come first)
       - ./backend:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
+      - ./backend/data/audio:/app/data/audio  # Allow local audio files in dev
 
   llm-pod:
     build: 
@@ -65,13 +60,13 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3002
-      - OLLAMA_HOST=http://localhost:11434
-      - OLLAMA_MODEL=llama3.2:latest
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://localhost:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-gemma4:26b}
     # Development additions for hot reloading
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
     volumes:
-      - /app/node_modules  # Preserve container's node_modules (must come first)
       - ./pods/llm-pod:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
 
   verification-pod:
     build: 
@@ -93,10 +88,10 @@ services:
       - "host.podman.internal:host-gateway"
       - "host.docker.internal:host-gateway"
     # Development additions for hot reloading
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
     volumes:
-      - /app/node_modules  # Preserve container's node_modules (must come first)
       - ./pods/verification-pod:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
 
   description-pod:
     build: 
@@ -118,10 +113,10 @@ services:
       - "host.podman.internal:host-gateway"
       - "host.docker.internal:host-gateway"
     # Development additions for hot reloading
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
     volumes:
-      - /app/node_modules  # Preserve container's node_modules (must come first)
       - ./pods/description-pod:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
 
   tts-pod:
     build: 
@@ -136,17 +131,17 @@ services:
       - BASE_URL=http://localhost:3005
     volumes:
       # Development additions for hot reloading
-      - /app/node_modules  # Preserve container's node_modules (must come first)
+      - ./pods/tts-pod:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
       - /app/models  # Preserve container's model files downloaded during build
       - tts_cache:/app/cache
-      - ./pods/tts-pod:/app:ro  # Mount local files as read-only
     networks:
       - app-network
     extra_hosts:
       - "host.containers.internal:host-gateway"
       - "host.podman.internal:host-gateway"
       - "host.docker.internal:host-gateway"
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
 
   supabase-pod:
     build: 
@@ -166,10 +161,10 @@ services:
       - "host.podman.internal:host-gateway"
       - "host.docker.internal:host-gateway"
     # Development additions for hot reloading
-    command: npm run dev
+    command: sh -c "npm ci && npm run dev"
     volumes:
-      - /app/node_modules  # Preserve container's node_modules (must come first)
       - ./pods/supabase-pod:/app:ro  # Mount local files as read-only
+      - /app/node_modules  # Preserve container's node_modules
 
 volumes:
   postgres_data:
