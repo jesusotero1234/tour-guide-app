@@ -4,6 +4,7 @@ const FOOD_SHOP_VALUES = new Set(['bakery', 'pastry', 'cheese', 'wine', 'greengr
 
 export type PoiCategory =
   | 'palace_castle'
+  | 'civic_power'
   | 'square_civic'
   | 'market'
   | 'religious'
@@ -36,6 +37,17 @@ export function classifyPoiTags(tags: RawPoi['tags']): PoiCategory {
 
   if (tags.place === 'square' || tags.highway === 'pedestrian') {
     return 'square_civic';
+  }
+
+  if (
+    tags.building === 'government'
+    || tags.building === 'public'
+    || tags.building === 'civic'
+    || tags.building === 'parliament'
+    || tags.amenity === 'townhall'
+    || tags.amenity === 'courthouse'
+  ) {
+    return 'civic_power';
   }
 
   if (

@@ -31,6 +31,55 @@ export interface NarrativeBrief {
     transition?: string[];
   };
   tone: NarrativeTone;
+  routeContext: {
+    stopNumber: number;
+    totalStops: number;
+    previousStop?: string;
+    nextStop?: string;
+    role: string;
+    question: string;
+    handoff: string;
+    route: string[];
+  };
+}
+
+function buildRouteHandoff(input: LongNarrativePromptInput): string {
+  if (input.position === 'first') {
+    return `Use ${input.localName} to open the route question; do not preview every later stop.`;
+  }
+  if (input.position === 'last') {
+    return `After ${input.previousStopName || 'the previous stop'}, use ${input.localName} to answer the route question with one final concrete idea.`;
+  }
+  return `Show what changes when the route moves from ${input.previousStopName || 'the previous stop'} to ${input.localName}, then leave one open thread for ${input.nextStopName || 'the next stop'}.`;
+}
+
+export function buildRouteQuestion(input: LongNarrativePromptInput): string {
+  const theme = input.theme.toLowerCase();
+  if (theme === 'history' || theme === 'histoire' || theme === 'historia') {
+    return 'How has this city reinvented public life while keeping traces of each earlier era?';
+  }
+  if (theme === 'architecture' || theme === 'arquitectura') {
+    return 'How does this city use architecture to negotiate between inherited forms and reinvention?';
+  }
+  if (theme === 'art' || theme === 'arte') {
+    return 'How has this city turned changing ideas about art into places people can still experience?';
+  }
+  if (theme === 'food' || theme === 'gastronomy' || theme === 'gastronomía') {
+    return "How do everyday places preserve and reshape the city's food culture?";
+  }
+  return `What changes across the city when we follow ${input.theme} from one place to the next?`;
+}
+
+export function describeStopRole(input: LongNarrativePromptInput): string {
+  const total = Math.max(input.totalStops || input.tourStopNames?.length || 1, 1);
+  const index = Math.min(Math.max(input.stopIndex || 0, 0), total - 1);
+  if (index === 0) return `opening lens: establish how the visitor can read ${input.theme} in ${input.cityName || 'the city'}`;
+  if (index === total - 1) return `closing synthesis: gather the route's main thread without summarizing every stop`;
+
+  const progress = index / (total - 1);
+  if (progress <= 0.34) return `origins and foundations: add historical depth to the route's opening idea`;
+  if (progress <= 0.67) return `contrast and transformation: show how the city's story changes or complicates itself`;
+  return `culmination: raise the route's stakes and prepare the visitor for its final idea`;
 }
 
 /** Maps architectural/art themes to a cultivated, precise tone. */
@@ -122,31 +171,41 @@ function buildSectionBeats(
   const lang = input.language?.slice(0, 2).toLowerCase() || 'en';
 
   const t = (es: string, en: string) => lang === 'es' ? es : en;
+  const role = describeStopRole(input);
+  const routeQuestion = buildRouteQuestion(input);
 
   const beats: NarrativeBrief['sectionBeats'] = {
     arrival: [
-      t(`Describe la ubicación de ${name}`, `Describe the location of ${name}`),
-      t('Menciona un detalle visible de la fachada o estructura', 'Mention a visible detail of the facade or structure'),
+      t(`Sitúa al visitante ante ${name} sin volver a presentar el tour`, `Place the visitor in front of ${name} without reintroducing the tour`),
+      t('Usa un detalle exterior concreto como punto de entrada', 'Use one concrete exterior detail as the entry point'),
       seedQuality === 'thin'
         ? t('Mantén la descripción breve y observacional', 'Keep the description brief and observational')
-        : t('Incluye el material o estilo si está en los hechos permitidos', 'Include material or style if in the allowed facts'),
+        : t('Deja fechas, autores y cronología para la sección histórica', 'Leave dates, creators, and chronology to the history section'),
+      ...(input.position === 'first'
+        ? [t(`Abre de forma natural la pregunta que guiará el recorrido: ${routeQuestion}`, `Naturally open the question that will guide the route: ${routeQuestion}`)]
+        : []),
     ],
     history: [
       seedQuality === 'thin'
         ? t('Ofrece un dato histórico breve si está disponible', 'Offer a brief historical fact if available')
         : t('Incluye fecha de construcción y arquitecto si están en los hechos permitidos', 'Include construction date and architect if in the allowed facts'),
-      t('Contextualiza en una frase la época o propósito original', 'Contextualize the era or original purpose in one sentence'),
-      t('Evita narrativas grandilocuentes', 'Avoid grandiose narratives'),
+      t('Cuenta un cambio, decisión o tensión histórica como una microhistoria', 'Tell one historical change, decision, or tension as a micro-story'),
+      t('Avanza desde la llegada; no vuelvas a describir dónde está el visitante', 'Move forward from the arrival; do not describe where the visitor is again'),
     ],
     significance: [
-      t(`Explica por qué ${name} es relevante para este recorrido de ${input.theme}`, `Explain why ${name} is relevant to this ${input.theme} tour`),
-      t('Conecta con un detalle concreto, no con abstracciones', 'Connect with a concrete detail, not abstractions'),
-      t('No uses frases como "testimonio de" o "símbolo de"', 'Do not use phrases like "testimony to" or "symbol of"'),
+      t(`Interpreta qué cambia ${name} en nuestra lectura de ${input.theme}`, `Interpret what ${name} changes in our understanding of ${input.theme}`),
+      t('Parte de una consecuencia, uso o contraste concreto distinto de la cronología', 'Start from a concrete consequence, use, or contrast rather than repeating chronology'),
+      t(`Cumple este papel dentro del recorrido: ${role}`, `Fulfil this role in the route: ${role}`),
     ],
-    transition: input.position === 'last' ? [
-      t('Cierra el recorrido sin despedidas forzadas', 'Close the tour without forced goodbyes'),
-      t('Conecta con una observación final que dé cohesión al tour', 'Connect with a final observation that gives cohesion to the tour'),
-    ] : undefined,
+    transition: input.position === 'last'
+      ? [
+          t('Cierra el recorrido sin despedidas forzadas', 'Close the tour without forced goodbyes'),
+          t(`Responde a la pregunta de la ruta sin enumerar las paradas: ${routeQuestion}`, `Answer the route question without listing the stops: ${routeQuestion}`),
+        ]
+      : [
+          t(`Haz que el paso hacia ${input.nextStopName || 'la siguiente parada'} parezca una continuación de la conversación`, `Make the move to ${input.nextStopName || 'the next stop'} feel like the next thought in the conversation`),
+          t('Usa una sola idea puente; no resumas la parada', 'Use one bridging idea; do not summarize the stop'),
+        ],
   };
 
   return beats;
@@ -223,11 +282,24 @@ export function buildNarrativeBrief(input: LongNarrativePromptInput): NarrativeB
       ...(sectionBeats.transition ? { transition: sectionBeats.transition } : {}),
     },
     tone,
+    routeContext: {
+      stopNumber: (input.stopIndex || 0) + 1,
+      totalStops: input.totalStops || input.tourStopNames?.length || 1,
+      previousStop: input.previousStopName,
+      nextStop: input.nextStopName,
+      role: describeStopRole(input),
+      question: buildRouteQuestion(input),
+      handoff: buildRouteHandoff(input),
+      route: input.tourStopNames || [],
+    },
   };
 }
 
 /** Format the brief as a structured text block for prompt injection. */
-export function formatBriefForPrompt(brief: NarrativeBrief): string {
+export function formatBriefForPrompt(
+  brief: NarrativeBrief,
+  sectionName?: keyof NarrativeBrief['sectionBeats']
+): string {
   const lines: string[] = [];
 
   lines.push('=== NARRATIVE BRIEF ===');
@@ -236,6 +308,13 @@ export function formatBriefForPrompt(brief: NarrativeBrief): string {
   lines.push(`Theme: ${brief.theme}`);
   lines.push(`Tone: ${brief.tone}`);
   lines.push(`Seed Quality: ${brief.seedQuality}`);
+  lines.push(`Route role: ${brief.routeContext.role}`);
+  lines.push(`Shared route question: ${brief.routeContext.question}`);
+  lines.push(`This stop's handoff: ${brief.routeContext.handoff}`);
+  lines.push(`Route position: stop ${brief.routeContext.stopNumber} of ${brief.routeContext.totalStops}`);
+  if (brief.routeContext.previousStop) lines.push(`Previous stop: ${brief.routeContext.previousStop}`);
+  if (brief.routeContext.nextStop) lines.push(`Next stop: ${brief.routeContext.nextStop}`);
+  if (brief.routeContext.route.length > 0) lines.push(`Whole route: ${brief.routeContext.route.join(' -> ')}`);
 
   if (brief.allowedFacts.length > 0) {
     lines.push('\nALLOWED FACTS (you may use these):');
@@ -260,6 +339,7 @@ export function formatBriefForPrompt(brief: NarrativeBrief): string {
 
   lines.push('\nSECTION BEATS:');
   for (const [section, beats] of Object.entries(brief.sectionBeats)) {
+    if (sectionName && section !== sectionName) continue;
     if (beats && beats.length > 0) {
       lines.push(`  ${section}:`);
       for (const beat of beats) {

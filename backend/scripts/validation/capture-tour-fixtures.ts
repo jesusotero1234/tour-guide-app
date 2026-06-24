@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { geocodeCity } from '../../src/infrastructure/geocoder/NominatimGeocoder';
 import { fetchPoisForTheme } from '../../src/infrastructure/poi/OverpassPoiFetcher';
+import { fetchCanonicalWikidataPois, mergeCanonicalWikidataPois } from '../../src/infrastructure/poi/WikidataCanonicalPoiFetcher';
 import { PostgresPoiCacheRepository } from '../../src/infrastructure/postgres/PostgresPoiCacheRepository';
 import { PostgresPoiEnrichmentCacheRepository } from '../../src/infrastructure/postgres/PostgresPoiEnrichmentCacheRepository';
 import { prismaClient } from '../../src/infrastructure/db/prismaClient';
@@ -11,8 +12,13 @@ import { Theme } from '../../src/domain/poi/themeTags';
 import { classifyPoiTags } from '../../src/domain/poi/PoiClassification';
 import { fetchWikidataLandmarkMetadata, tierPoisByLandmarkFame } from '../../src/services/poi/LandmarkTiering';
 import { rankPois } from '../../src/services/poi/PoiRanker';
+import { getHistoryPlaceProfile } from '../../src/services/poi/HistoryPlaceScoring';
 import { getDurationPlan } from '../../src/services/poi/DurationPlanning';
 import { enrichShortlistedPois } from '../../src/services/poi/PoiEnrichmentPipeline';
+import {
+  RecordingPoiEnrichmentCache,
+  createEmptyPoiEnrichmentSnapshot,
+} from '../../src/services/poi/PoiEnrichmentSnapshot';
 
 /**
  * Captures frozen acceptance fixtures for a city/theme by running the front half of
@@ -21,6 +27,7 @@ import { enrichShortlistedPois } from '../../src/services/poi/PoiEnrichmentPipel
  *
  *   fixtures/pools/<city>-<theme>.json        (Level 1: raw pool + sitelinks + geocode)
  *   fixtures/candidates/<city>-<theme>.json   (Level 2: route-candidate input to compose)
+ *   fixtures/sources/<city>-<theme>-<lang>.json (Wikipedia/Wikidata replay data)
  *
  * One-time, slow (enrichment is networked). NEVER run in CI — fixtures are committed
  * artifacts, refreshed deliberately. See docs/architecture/tour-quality-fixtures-acceptance.md.
@@ -43,10 +50,18 @@ async function main(): Promise<void> {
 
   const poiCache = new PostgresPoiCacheRepository(prismaClient);
   const poiEnrichmentCache = new PostgresPoiEnrichmentCacheRepository(prismaClient);
+  const capturedAt = new Date().toISOString();
+  const recordingCache = new RecordingPoiEnrichmentCache(
+    poiEnrichmentCache,
+    createEmptyPoiEnrichmentSnapshot({ city, theme, language, capturedAt })
+  );
   let rawPois: RawPoi[] | null = await poiCache.get(city, theme);
   if (!rawPois) {
     rawPois = await fetchPoisForTheme(geocoded, theme);
     if (rawPois.length > 0) await poiCache.set(city, theme, rawPois);
+  } else if (theme === 'history') {
+    const canonicalPois = await fetchCanonicalWikidataPois(geocoded, theme);
+    rawPois = mergeCanonicalWikidataPois(rawPois, canonicalPois);
   }
   console.log(`Raw pool: ${rawPois.length}`);
 
@@ -70,37 +85,55 @@ async function main(): Promise<void> {
   }
 
   console.log(`Enriching ${shortlist.length} shortlisted POIs (slow)...`);
-  const enriched = await enrichShortlistedPois(shortlist, language, poiEnrichmentCache, 4);
+  const enriched = await enrichShortlistedPois(shortlist, language, recordingCache, 4);
 
-  const ranked = rankPois(enriched, geocoded.lat, geocoded.lng).slice(0, plan.candidateCount);
+  const ranked = rankPois(enriched, geocoded.lat, geocoded.lng, theme).slice(0, plan.candidateCount);
 
   // Route-candidate shape mirrors orchestrationService (the input to composeWalkingRoute),
   // plus wikidataId for acceptance assertions.
-  const candidates = ranked.map((poi) => ({
-    name: poi.name || poi.tags.name || '',
-    wikidataId: poi.tags.wikidata ?? null,
-    coordinates: { lat: poi.lat, lng: poi.lng },
-    importance_score: poi.score,
-    fameScore: (poi as any).fameScore,
-    landmarkTier: (poi as any).landmarkTier,
-    category: classifyPoiTags(poi.tags),
-  }));
+  const candidates = ranked.map((poi) => {
+    const historyProfile = theme === 'history' ? getHistoryPlaceProfile(poi) : null;
+    return {
+      name: poi.name || poi.tags.name || '',
+      wikidataId: poi.tags.wikidata ?? null,
+      coordinates: { lat: poi.lat, lng: poi.lng },
+      importance_score: poi.score,
+      fameScore: (poi as any).fameScore,
+      landmarkTier: (poi as any).landmarkTier,
+      category: classifyPoiTags(poi.tags),
+      ...(historyProfile ? {
+        historyPlaceScore: historyProfile.score,
+        historyPlaceKinds: historyProfile.kinds,
+        historyIsEventSiteLike: historyProfile.isEventSiteLike,
+        historyIsMuseumLike: historyProfile.isMuseumLike,
+      } : {}),
+    };
+  });
 
   mkdirSync(join(fixturesDir, 'pools'), { recursive: true });
   mkdirSync(join(fixturesDir, 'candidates'), { recursive: true });
+  mkdirSync(join(fixturesDir, 'sources'), { recursive: true });
 
-  const capturedAt = new Date().toISOString().slice(0, 10);
+  const capturedOn = capturedAt.slice(0, 10);
 
   writeFileSync(
     join(fixturesDir, 'pools', `${slug}.json`),
-    JSON.stringify({ city, theme, capturedAt, geocode: { lat: geocoded.lat, lng: geocoded.lng, boundingBox: geocoded.boundingBox }, rawPois, sitelinks, wikidataMetadata }, null, 2)
+    JSON.stringify({ city, theme, capturedAt: capturedOn, geocode: { lat: geocoded.lat, lng: geocoded.lng, boundingBox: geocoded.boundingBox }, rawPois, sitelinks, wikidataMetadata }, null, 2)
   );
   writeFileSync(
     join(fixturesDir, 'candidates', `${slug}.json`),
-    JSON.stringify({ city, theme, requestedDuration, capturedAt, stopBounds: { minStops: plan.minStops, maxStops: plan.maxStops }, candidates }, null, 2)
+    JSON.stringify({ city, theme, requestedDuration, capturedAt: capturedOn, stopBounds: { minStops: plan.minStops, maxStops: plan.maxStops }, candidates }, null, 2)
+  );
+  writeFileSync(
+    join(fixturesDir, 'sources', `${slug}-${language}.json`),
+    JSON.stringify(recordingCache.toSnapshot(), null, 2)
   );
 
-  console.log(`Wrote fixtures/pools/${slug}.json (${rawPois.length} POIs) and fixtures/candidates/${slug}.json (${candidates.length} candidates).`);
+  const sourceSnapshot = recordingCache.toSnapshot();
+  console.log(
+    `Wrote pool (${rawPois.length} POIs), candidates (${candidates.length}), and source snapshot `
+    + `(${Object.keys(sourceSnapshot.wikidata).length} Wikidata, ${Object.keys(sourceSnapshot.wikipedia).length} Wikipedia).`
+  );
   await prismaClient.$disconnect();
 }
 

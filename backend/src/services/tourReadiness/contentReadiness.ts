@@ -8,6 +8,9 @@ const FALLBACK_PATTERNS = [
   /^Visit\s+.+,\s+a notable/i,
   /^Visita\s+.+\.$/i,
   /^Llegamos a\s+.+\.$/i,
+  /^You've arrived at\b/i,
+  /\bes un (?:attraction|museum|heritage) en\b/i,
+  /^From here, continue toward\b/im,
 ];
 
 export interface StopContentReadiness {

@@ -13,6 +13,7 @@ export interface PlaceSourcePoiMetadata {
 
 export interface PlaceMetadata {
   sourcePoi?: PlaceSourcePoiMetadata;
+  narrationMeta?: Record<string, unknown>;
   localizedFromPlaceId?: string;
   localizedFromTourId?: string;
   localizedFromLanguage?: string;

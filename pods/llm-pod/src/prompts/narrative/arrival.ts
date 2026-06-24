@@ -19,7 +19,7 @@ function pickArchetype(index: number): string {
 
 export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
   const isFirst = input.position === 'first';
-  const stopIndex = input.totalStops ? (input.position === 'first' ? 0 : input.position === 'last' ? (input.totalStops - 1) : undefined) : undefined;
+  const stopIndex = input.stopIndex ?? (input.totalStops ? (input.position === 'first' ? 0 : input.position === 'last' ? (input.totalStops - 1) : undefined) : undefined);
   const archetype = input.openingArchetype || (stopIndex !== undefined ? pickArchetype(stopIndex) : '');
 
   const welcomeBeat = isFirst
@@ -43,6 +43,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       `Wikipedia lead (primary narrative source): ${input.seeds.wikipediaLead || 'none'}.`,
       input.seeds.enrichedContext ? `Enriched context: ${input.seeds.enrichedContext.slice(0, 800)}` : '',
       formatStructuredFacts(input.seeds.wikidataClaims, input.language),
+      'EDITORIAL JOB: make the visitor feel physically present. Choose one exterior anchor and speak from it; let the next section carry the chronology.',
+      'Use stable observations that remain true on any visit. Do not presume the current weather, sunlight, crowd, noise, or time of day.',
+      'Do not invent cardinal directions or route geometry. Connect to the previous stop by idea, not by saying north, south, east, or west.',
       'Describe only what is visible from outside: scale, materials, relationship to street/square, surrounding activity. FORBIDDEN: atmosphere, interior light, shadows, sensations that require being inside the building.',
       'If enriched context is provided, use it as your primary source — it contains rich, verified detail about this place.',
       input.seedQuality === 'thin'

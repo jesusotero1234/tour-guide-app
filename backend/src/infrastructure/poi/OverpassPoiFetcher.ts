@@ -3,6 +3,7 @@ import { RawPoi } from '../../domain/poi/RawPoi';
 import { GeocodedCity } from '../../domain/geocoder/GeocoderTypes';
 import { Theme, THEME_TAG_MAP } from '../../domain/poi/themeTags';
 import { dedupeByWikidata } from '../../domain/poi/dedupePois';
+import { fetchCanonicalWikidataPois, mergeCanonicalWikidataPois } from './WikidataCanonicalPoiFetcher';
 
 const USER_AGENT = 'tour-guide-app/1.0 (contact: jesusoteo1234@gmail.com)';
 const OVERPASS_BASE = 'https://overpass-api.de/api/interpreter';
@@ -216,7 +217,13 @@ export async function fetchPoisForTheme(city: GeocodedCity, theme: Theme): Promi
   // so the same place cannot occupy two shortlist slots / two tour stops.
   const deduped = dedupeByWikidata(merged);
   const collapsed = merged.length - deduped.length;
-  console.log(`[OverpassPoiFetcher] Fetched ${deduped.length} prioritized ${theme} POIs` +
+  const canonicalPois = theme === 'history'
+    ? await fetchCanonicalWikidataPois(city, theme)
+    : [];
+  const withCanonicalPois = canonicalPois.length > 0
+    ? mergeCanonicalWikidataPois(deduped, canonicalPois)
+    : deduped;
+  console.log(`[OverpassPoiFetcher] Fetched ${withCanonicalPois.length} prioritized ${theme} POIs` +
     (collapsed > 0 ? ` (collapsed ${collapsed} wikidata duplicates)` : ''));
-  return deduped;
+  return withCanonicalPois;
 }

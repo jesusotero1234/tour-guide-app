@@ -1,17 +1,28 @@
 import { compactRecord, formatStructuredFacts, LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types';
 
 export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
+  const sourceDates = Array.from(new Set(
+    [input.seeds.wikipediaLead, input.seeds.wikipediaBody, input.seeds.enrichedContext]
+      .filter(Boolean)
+      .join(' ')
+      .match(/\b(?:1\d{3}|20\d{2})\b/g) || []
+  )).slice(0, 24);
+  const dateGuidance = sourceDates.length > 0
+    ? `Exact years present in the supplied source: ${sourceDates.join(', ')}. If you mention a year, copy one of these exactly; do not infer or round dates.`
+    : 'No exact year is available in the supplied source. Tell the historical change without adding a year.';
+
   if (input.theme === 'food') {
     const factCard = formatStructuredFacts(input.seeds.wikidataClaims, input.language);
 
     return {
-      system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
+      system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
       user: [
         input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract):\n${input.narrativeBriefText}` : '',
         `Section: culinary or market background for ${input.localName}.`,
         `Tour theme: ${input.theme}.`,
         factCard || 'VERIFIED FACTS: none.',
         `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
+        dateGuidance,
         'TASK:',
         '- Use verified facts as your primary source.',
         '- Only connect this place to food, trade, ingredients, markets, eating, or celebration if that connection appears in the provided facts or context.',
@@ -27,13 +38,16 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
   const factCard = formatStructuredFacts(input.seeds.wikidataClaims, input.language);
 
   return {
-    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords, input.usedOpenings, input.openingArchetype),
+    system: sectionSystem(input.language, input.retry, input.seedQuality, input.targetWords),
     user: [
       input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: historical background for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
       `Wikipedia context (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,
+      dateGuidance,
       factCard || 'VERIFIED FACTS: none.',
+      input.previousSectionsText ? `WHAT THE VISITOR HAS JUST HEARD:\n${input.previousSectionsText}` : '',
+      'EDITORIAL JOB: continue from the arrival with one historical change, choice, or human tension. Do not re-orient the visitor or repeat the exterior description.',
       input.seedQuality === 'thin'
         ? [
             'TASK:',
@@ -47,7 +61,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
             '- Usa el texto de Wikipedia como fuente narrativa principal: contexto histórico, causas, papel en la ciudad, historias humanas.',
             '- Entreteje los HECHOS VERIFICADOS solo como anclas de precisión (fechas exactas, nombres, estilos, estatus patrimonial).',
             '- Si un hecho verificado encaja naturalmente, inclúyelo. Si no, no lo fuerces.',
-            '- Prefer this order: date or inauguration, architect or creator, style, heritage status, location.',
+            '- Choose the two or three facts that make one coherent micro-story; do not recite the Fact Card in a fixed order.',
             '- Open with a verified fact, not with a generic spatial phrase like "Frente a ti se alza".',
             '- Turn the facts into one short story, but keep the actual date, name, style, or status intact.',
             '- You may add one visible exterior observation, but do not name materials unless provided.',
