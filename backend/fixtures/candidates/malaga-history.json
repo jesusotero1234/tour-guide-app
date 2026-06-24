@@ -2,12 +2,36 @@
   "city": "Malaga",
   "theme": "history",
   "requestedDuration": 240,
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "stopBounds": {
     "minStops": 6,
     "maxStops": 10
   },
   "candidates": [
+    {
+      "name": "Plaza de Toros de La Malagueta",
+      "wikidataId": "Q523311",
+      "coordinates": {
+        "lat": 36.7203556,
+        "lng": -4.410785
+      },
+      "importance_score": 51.72804422444658,
+      "fameScore": 28.75,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
     {
       "name": "Catedral de Málaga",
       "wikidataId": "Q1582758",
@@ -15,10 +39,23 @@
         "lat": 36.7201789,
         "lng": -4.41941
       },
-      "importance_score": 43.470671786825555,
-      "fameScore": 20.470671786825555,
+      "importance_score": 50.022248294699715,
+      "fameScore": 27.470671786825555,
       "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "religious",
+      "historyPlaceScore": 17.95,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "heritage-religious",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Alcazaba de Málaga",
@@ -27,70 +64,22 @@
         "lat": 36.7210199,
         "lng": -4.4159336
       },
-      "importance_score": 41.68156856932417,
-      "fameScore": 20.681568569324174,
+      "importance_score": 48.16039416278642,
+      "fameScore": 27.681568569324174,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Plaza de Toros de La Malagueta",
-      "wikidataId": "Q523311",
-      "coordinates": {
-        "lat": 36.7203556,
-        "lng": -4.410785
-      },
-      "importance_score": 40.25,
-      "fameScore": 19.25,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Castillo de Gibralfaro",
-      "wikidataId": "Q1049197",
-      "coordinates": {
-        "lat": 36.7233684,
-        "lng": -4.4116294
-      },
-      "importance_score": 37.17206476617281,
-      "fameScore": 18.172064766172813,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Mercado Salamanca",
-      "wikidataId": "Q2843563",
-      "coordinates": {
-        "lat": 36.7273856,
-        "lng": -4.424402
-      },
-      "importance_score": 36.5,
-      "fameScore": 14.5,
-      "landmarkTier": "flagship",
-      "category": "market"
-    },
-    {
-      "name": "Cementerio Inglés de Málaga",
-      "wikidataId": "Q5378201",
-      "coordinates": {
-        "lat": 36.7216854,
-        "lng": -4.4068238
-      },
-      "importance_score": 36.25,
-      "fameScore": 16.25,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Museo Picasso Málaga",
-      "wikidataId": "Q1368396",
-      "coordinates": {
-        "lat": 36.7214599,
-        "lng": -4.4180895
-      },
-      "importance_score": 35.743782540330756,
-      "fameScore": 18.743782540330756,
-      "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "palace_castle",
+      "historyPlaceScore": 15.32,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio de los Condes de Buenavista",
@@ -99,46 +88,44 @@
         "lat": 36.721559,
         "lng": -4.4182724
       },
-      "importance_score": 35.00488750216347,
-      "fameScore": 15.004887502163468,
+      "importance_score": 46.23903972474731,
+      "fameScore": 23.00488750216347,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 13,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Palacio Episcopal de Málaga",
-      "wikidataId": "Q97633210",
+      "name": "Castillo de Gibralfaro",
+      "wikidataId": "Q1049197",
       "coordinates": {
-        "lat": 36.7206113,
-        "lng": -4.4205106
+        "lat": 36.7233684,
+        "lng": -4.4116294
       },
-      "importance_score": 35.00488750216347,
-      "fameScore": 15.004887502163468,
+      "importance_score": 45.73991057695397,
+      "fameScore": 25.172064766172813,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Calle Marqués de Larios",
-      "wikidataId": "Q11680432",
-      "coordinates": {
-        "lat": 36.7196693,
-        "lng": -4.4215972
-      },
-      "importance_score": 34.67206476617281,
-      "fameScore": 15.172064766172813,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Museo de Málaga",
-      "wikidataId": "Q4276495",
-      "coordinates": {
-        "lat": 36.7199694,
-        "lng": -4.4171575
-      },
-      "importance_score": 34.42206476617281,
-      "fameScore": 17.422064766172813,
-      "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "palace_castle",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Teatro Romano",
@@ -147,178 +134,20 @@
         "lat": 36.7212854,
         "lng": -4.4168967
       },
-      "importance_score": 34.25977500432694,
-      "fameScore": 15.259775004326936,
+      "importance_score": 41.852733462997534,
+      "fameScore": 22.259775004326936,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "La Farola de Málaga",
-      "wikidataId": "Q5669119",
-      "coordinates": {
-        "lat": 36.7141676,
-        "lng": -4.4145422
-      },
-      "importance_score": 33.25,
-      "fameScore": 13.25,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Museo Carmen Thyssen Málaga",
-      "wikidataId": "Q5043601",
-      "coordinates": {
-        "lat": 36.7216044,
-        "lng": -4.4228869
-      },
-      "importance_score": 32.965784284662085,
-      "fameScore": 15.965784284662087,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Plaza de la Constitución",
-      "wikidataId": "Q9060974",
-      "coordinates": {
-        "lat": 36.7210904,
-        "lng": -4.4219879
-      },
-      "importance_score": 32.67206476617281,
-      "fameScore": 14.672064766172813,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Teatro Cervantes",
-      "wikidataId": "Q3826922",
-      "coordinates": {
-        "lat": 36.7247739,
-        "lng": -4.41845
-      },
-      "importance_score": 32.67206476617281,
-      "fameScore": 13.672064766172813,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Fundación Picasso Museo Casa Natal",
-      "wikidataId": "Q11681997",
-      "coordinates": {
-        "lat": 36.7240904,
-        "lng": -4.4175397
-      },
-      "importance_score": 32.42206476617281,
-      "fameScore": 14.422064766172813,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Centro de Arte Contemporáneo",
-      "wikidataId": "Q3664802",
-      "coordinates": {
-        "lat": 36.7140483,
-        "lng": -4.4254111
-      },
-      "importance_score": 32.25,
-      "fameScore": 14.25,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Centro Pompidou Málaga",
-      "wikidataId": "Q16545730",
-      "coordinates": {
-        "lat": 36.7190429,
-        "lng": -4.4132463
-      },
-      "importance_score": 32,
-      "fameScore": 15,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Jardín Botánico-Histórico La Concepción",
-      "wikidataId": "Q1683458",
-      "coordinates": {
-        "lat": 36.7623613,
-        "lng": -4.4269454
-      },
-      "importance_score": 31.50488750216347,
-      "fameScore": 13.504887502163468,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Plaza de la Merced",
-      "wikidataId": "Q4291147",
-      "coordinates": {
-        "lat": 36.723377,
-        "lng": -4.4176028
-      },
-      "importance_score": 31.25,
-      "fameScore": 15.25,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Iglesia de San Felipe Neri",
-      "wikidataId": "Q2836410",
-      "coordinates": {
-        "lat": 36.7254479,
-        "lng": -4.4212993
-      },
-      "importance_score": 30.75,
-      "fameScore": 11.75,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Mercado de Atarazanas",
-      "wikidataId": "Q10894370",
-      "coordinates": {
-        "lat": 36.7184297,
-        "lng": -4.424061
-      },
-      "importance_score": 30.5,
-      "fameScore": 11.5,
-      "landmarkTier": "major",
-      "category": "market"
-    },
-    {
-      "name": "Iglesia de Santiago",
-      "wikidataId": "Q97633205",
-      "coordinates": {
-        "lat": 36.7223338,
-        "lng": -4.4175094
-      },
-      "importance_score": 30.25,
-      "fameScore": 12.25,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Cementerio Histórico de San Miguel",
-      "wikidataId": "Q5760368",
-      "coordinates": {
-        "lat": 36.7340557,
-        "lng": -4.4180397
-      },
-      "importance_score": 30.00488750216347,
-      "fameScore": 12.004887502163468,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Parque Balneario Nuestra Señora del Carmen",
-      "wikidataId": "Q5723875",
-      "coordinates": {
-        "lat": 36.7208414,
-        "lng": -4.3812213
-      },
-      "importance_score": 30.00488750216347,
-      "fameScore": 12.004887502163468,
-      "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio de la Aduana",
@@ -327,154 +156,149 @@
         "lat": 36.7199694,
         "lng": -4.4171575
       },
-      "importance_score": 29.215784284662085,
-      "fameScore": 12.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Mesón de San Rafael",
-      "wikidataId": "Q5664304",
-      "coordinates": {
-        "lat": 36.7215331,
-        "lng": -4.4243808
-      },
-      "importance_score": 29.00488750216347,
-      "fameScore": 12.004887502163468,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Parque de Málaga",
-      "wikidataId": "Q6062671",
-      "coordinates": {
-        "lat": 36.7194167,
-        "lng": -4.4160145
-      },
-      "importance_score": 29.00488750216347,
-      "fameScore": 12.004887502163468,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Museo del Vino",
-      "wikidataId": "Q6034512",
-      "coordinates": {
-        "lat": 36.7232821,
-        "lng": -4.4243489
-      },
-      "importance_score": 28.965784284662085,
-      "fameScore": 12.965784284662087,
+      "importance_score": 41.08652427052373,
+      "fameScore": 20.215784284662085,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "civic_power",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Félix Revello de Toro",
-      "wikidataId": "Q6033729",
+      "name": "Palacio Episcopal de Málaga",
+      "wikidataId": "Q97633210",
       "coordinates": {
-        "lat": 36.7202334,
-        "lng": -4.4182719
+        "lat": 36.7206113,
+        "lng": -4.4205106
       },
-      "importance_score": 28.965784284662085,
-      "fameScore": 12.965784284662087,
+      "importance_score": 39.30253989807186,
+      "fameScore": 20.604887502163468,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Abadía de Santa Ana",
-      "wikidataId": "Q5654652",
+      "name": "Plaza de la Merced",
+      "wikidataId": "Q4291147",
       "coordinates": {
-        "lat": 36.7208945,
-        "lng": -4.4178971
+        "lat": 36.723377,
+        "lng": -4.4176028
       },
-      "importance_score": 28.75,
-      "fameScore": 11.75,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Cortijo Jurado",
-      "wikidataId": "Q5173302",
-      "coordinates": {
-        "lat": 36.7125557,
-        "lng": -4.52955
-      },
-      "importance_score": 28.215784284662085,
-      "fameScore": 12.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Cueva del Tesoro",
-      "wikidataId": "Q97633816",
-      "coordinates": {
-        "lat": 36.71976,
-        "lng": -4.2975885
-      },
-      "importance_score": 27.965784284662085,
-      "fameScore": 11.965784284662087,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Museo Jorge Rando",
-      "wikidataId": "Q12184921",
-      "coordinates": {
-        "lat": 36.7266666,
-        "lng": -4.4237116
-      },
-      "importance_score": 27.720671786825555,
-      "fameScore": 16.720671786825555,
+      "importance_score": 38.169970064655466,
+      "fameScore": 20.15,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Chimenea de la Central Térmica de La Misericordia",
-      "wikidataId": "Q98061089",
+      "name": "Mercado Salamanca",
+      "wikidataId": "Q2843563",
       "coordinates": {
-        "lat": 36.6834179,
-        "lng": -4.4472315
+        "lat": 36.7273856,
+        "lng": -4.424402
       },
-      "importance_score": 27.25,
-      "fameScore": 11.25,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 37.18749667307474,
+      "fameScore": 18,
+      "landmarkTier": "flagship",
+      "category": "market",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Seminario de Málaga",
-      "wikidataId": "Q9075927",
+      "name": "Palacio de Villalcázar",
+      "wikidataId": "Q6058241",
       "coordinates": {
-        "lat": 36.7339243,
-        "lng": -4.4112633
+        "lat": 36.7199737,
+        "lng": -4.4178768
       },
-      "importance_score": 27.25,
-      "fameScore": 11.25,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 38.92299306547807,
+      "fameScore": 18.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "civic_power",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Cerro del Villar",
-      "wikidataId": "Q5763446",
+      "name": "Plaza de la Constitución",
+      "wikidataId": "Q9060974",
       "coordinates": {
-        "lat": 36.6718581,
-        "lng": -4.4637643
+        "lat": 36.7210904,
+        "lng": -4.4219879
       },
-      "importance_score": 27.215784284662085,
-      "fameScore": 12.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 37.44385623760094,
+      "fameScore": 19.57206476617281,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Automovilístico de Málaga",
-      "wikidataId": "Q6033164",
+      "name": "Muralla Nazarí y Muro Portuario",
+      "wikidataId": "Q6032873",
       "coordinates": {
-        "lat": 36.6998295,
-        "lng": -4.4384914
+        "lat": 36.7183224,
+        "lng": -4.4204727
       },
-      "importance_score": 27,
-      "fameScore": 12,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 35.27265320273561,
+      "fameScore": 17.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio de Zea-Salvatierra",
@@ -483,10 +307,566 @@
         "lat": 36.720879,
         "lng": -4.4191022
       },
-      "importance_score": 26.75,
-      "fameScore": 11.75,
+      "importance_score": 35.01204920046292,
+      "fameScore": 17.35,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Antiguo Mercado de Mayoristas",
+      "wikidataId": "Q18170768",
+      "coordinates": {
+        "lat": 36.7140238,
+        "lng": -4.4253205
+      },
+      "importance_score": 33.08921233032213,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "flagship",
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Calle Marqués de Larios",
+      "wikidataId": "Q11680432",
+      "coordinates": {
+        "lat": 36.7196693,
+        "lng": -4.4215972
+      },
+      "importance_score": 33.055279590073255,
+      "fameScore": 17.972064766172814,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 4,
+      "historyPlaceKinds": [
+        "public-square",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Cementerio Inglés de Málaga",
+      "wikidataId": "Q5378201",
+      "coordinates": {
+        "lat": 36.7216854,
+        "lng": -4.4068238
+      },
+      "importance_score": 34.623806237213536,
+      "fameScore": 19.75,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Real Conservatorio de Música María Cristina",
+      "wikidataId": "Q97633218",
+      "coordinates": {
+        "lat": 36.7245668,
+        "lng": -4.4232555
+      },
+      "importance_score": 32.99964016182023,
+      "fameScore": 15.904887502163469,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza San Francisco",
+      "wikidataId": "Q97633188",
+      "coordinates": {
+        "lat": 36.7241081,
+        "lng": -4.4227836
+      },
+      "importance_score": 32.38693298681299,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Castillo de Santa Catalina",
+      "wikidataId": "Q5483542",
+      "coordinates": {
+        "lat": 36.7249215,
+        "lng": -4.3940404
+      },
+      "importance_score": 34.0990030922364,
+      "fameScore": 17.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Mesón de la Victoria",
+      "wikidataId": "Q6011555",
+      "coordinates": {
+        "lat": 36.720039,
+        "lng": -4.424772
+      },
+      "importance_score": 32.2216355205598,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza Uncibay",
+      "wikidataId": "Q6080138",
+      "coordinates": {
+        "lat": 36.7225674,
+        "lng": -4.4201839
+      },
+      "importance_score": 31.945694727398855,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Jardín Botánico-Histórico La Concepción",
+      "wikidataId": "Q1683458",
+      "coordinates": {
+        "lat": 36.7623613,
+        "lng": -4.4269454
+      },
+      "importance_score": 34.00488750216347,
+      "fameScore": 17.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Teatro Echegaray",
+      "wikidataId": "Q9082136",
+      "coordinates": {
+        "lat": 36.721411,
+        "lng": -4.4194313
+      },
+      "importance_score": 32.185560488995044,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza del Obispo",
+      "wikidataId": "Q2884109",
+      "coordinates": {
+        "lat": 36.720125,
+        "lng": -4.420266
+      },
+      "importance_score": 31.497597399362782,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Acueducto de San Telmo",
+      "wikidataId": "Q5657061",
+      "coordinates": {
+        "lat": 36.7559149,
+        "lng": -4.4245237
+      },
+      "importance_score": 32.604887502163464,
+      "fameScore": 15.604887502163468,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza de Félix Sáenz",
+      "wikidataId": "Q6079979",
+      "coordinates": {
+        "lat": 36.7191975,
+        "lng": -4.4232052
+      },
+      "importance_score": 31.484118027545918,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Centro de Estudios Portuarios",
+      "wikidataId": "Q2889984",
+      "coordinates": {
+        "lat": 36.7166456,
+        "lng": -4.4202688
+      },
+      "importance_score": 31.346519094389212,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Fuerte de San Lorenzo",
+      "wikidataId": "Q108651331",
+      "coordinates": {
+        "lat": 36.7172604,
+        "lng": -4.4248421
+      },
+      "importance_score": 31.78762529768242,
+      "fameScore": 15.5,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Convento de San Andrés",
+      "wikidataId": "Q97633197",
+      "coordinates": {
+        "lat": 36.7133247,
+        "lng": -4.4297506
+      },
+      "importance_score": 31.11203580637014,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "civic_power",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza de la Marina",
+      "wikidataId": "Q6080206",
+      "coordinates": {
+        "lat": 36.7176864,
+        "lng": -4.4204139
+      },
+      "importance_score": 31.05007223547201,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Cementerio Histórico de San Miguel",
+      "wikidataId": "Q5760368",
+      "coordinates": {
+        "lat": 36.7340557,
+        "lng": -4.4180397
+      },
+      "importance_score": 31.43455770477987,
+      "fameScore": 15.504887502163468,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Palacio Deportes José María Martín Carpena",
+      "wikidataId": "Q1668721",
+      "coordinates": {
+        "lat": 36.682467,
+        "lng": -4.460628
+      },
+      "importance_score": 31.29740640365675,
+      "fameScore": 22.67778428466209,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 8.16,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Museo Jorge Rando",
+      "wikidataId": "Q12184921",
+      "coordinates": {
+        "lat": 36.7266666,
+        "lng": -4.4237116
+      },
+      "importance_score": 28.034083642450067,
+      "fameScore": 16.520671786825556,
+      "landmarkTier": "flagship",
+      "category": "civic_power",
+      "historyPlaceScore": 4,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "museum-with-site-context",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "La Farola de Málaga",
+      "wikidataId": "Q5669119",
+      "coordinates": {
+        "lat": 36.7141676,
+        "lng": -4.4145422
+      },
+      "importance_score": 30.88902917880322,
+      "fameScore": 16.75,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Mesón de San Rafael",
+      "wikidataId": "Q5664304",
+      "coordinates": {
+        "lat": 36.7215331,
+        "lng": -4.4243808
+      },
+      "importance_score": 29.587202842148027,
+      "fameScore": 15.504887502163468,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Cerro del Villar",
+      "wikidataId": "Q5763446",
+      "coordinates": {
+        "lat": 36.6718581,
+        "lng": -4.4637643
+      },
+      "importance_score": 24.38082342871052,
+      "fameScore": 17.815784284662087,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Castillo de Almogía",
+      "wikidataId": "Q43137744",
+      "coordinates": {
+        "lat": 36.824498,
+        "lng": -4.5424832
+      },
+      "importance_score": 23.597967780706366,
+      "fameScore": 17.00488750216347,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Acueducto de la Fuente del Rey",
+      "wikidataId": "Q56723622",
+      "coordinates": {
+        "lat": 36.6755185,
+        "lng": -4.518141
+      },
+      "importance_score": 15.357898770660967,
+      "fameScore": 15.604887502163468,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Yacimientos de la Araña",
+      "wikidataId": "Q6062471",
+      "coordinates": {
+        "lat": 36.7127961,
+        "lng": -4.3235998
+      },
+      "importance_score": 15.256351492219324,
+      "fameScore": 15.604887502163468,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     }
   ]
 }

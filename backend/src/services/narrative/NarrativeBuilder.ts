@@ -218,17 +218,30 @@ export async function buildNarration(
   llmServiceUrl: string,
   position: 'first' | 'middle' | 'last' = 'middle',
   nextStopName?: string,
-  tourMeta?: { cityName?: string; totalStops?: number; tourDurationMinutes?: number }
+  tourMeta?: {
+    cityName?: string;
+    totalStops?: number;
+    tourDurationMinutes?: number;
+    stopIndex?: number;
+    previousStopName?: string;
+    tourStopNames?: string[];
+  }
 ): Promise<BuiltNarration> {
   const localName = poi.enriched.nameTranslations[language] || poi.name || poi.tags.name || 'this location';
   const wikipediaExtract = poi.enriched.description;
   const poiId = `${poi.osmType}/${poi.osmId}`;
   const shouldUseCache = position === 'middle';
+  const routeSignature = JSON.stringify({
+    cityName: tourMeta?.cityName,
+    stopIndex: tourMeta?.stopIndex,
+    stops: tourMeta?.tourStopNames,
+  });
+  const cacheTheme = `${theme}:route-v1:${crypto.createHash('sha1').update(routeSignature).digest('hex').slice(0, 12)}`;
   const traceId = crypto.randomUUID();
 
   // First/last narrations include position-specific welcome/goodbye content, but the cache key has no position.
   if (shouldUseCache) {
-    const cached = await narrationCache.get(poiId, language, theme);
+    const cached = await narrationCache.get(poiId, language, cacheTheme);
     if (cached) {
       // Cache only applies to middle stops (first/last always regenerate).
       // Middle stops require ≥100 words to be considered quality.
@@ -296,9 +309,9 @@ export async function buildNarration(
     // ── Track openings per tour to avoid repetition ────────────────
     const tourKey = `${tourMeta?.cityName || 'city'}-${theme}-${language}`;
     // Deterministic index per stop: first=0, last=N-1, middle=hash(tourKey+stopName)
-    const stopIndex = position === 'first' ? 0
+    const stopIndex = tourMeta?.stopIndex ?? (position === 'first' ? 0
       : position === 'last' ? (tourMeta?.totalStops || 5) - 1
-      : hashCode(`${tourKey}:${localName}`) % OPENING_ARCHETYPES.length;
+      : hashCode(`${tourKey}:${localName}`) % OPENING_ARCHETYPES.length);
     const archetype = pickArchetype(tourKey, stopIndex);
     const usedOpenings = getUsedOpenings(tourKey);
     recordOpeningStyle(tourKey, archetype);
@@ -328,7 +341,9 @@ export async function buildNarration(
         },
         theme,
         language,
+        previousStopName: tourMeta?.previousStopName,
         nextStopName,
+        tourStopNames: tourMeta?.tourStopNames,
         position,
         cityName: tourMeta?.cityName,
         totalStops: tourMeta?.totalStops,
@@ -365,7 +380,7 @@ export async function buildNarration(
         return { ...fallback, traceId, meta: { ...fallback.meta, replacedWeakNarration: true } };
       }
       if (shouldUseCache && shouldCacheBuiltNarration(built.meta)) {
-        await narrationCache.set(poiId, language, theme, {
+        await narrationCache.set(poiId, language, cacheTheme, {
           narration: built.narration,
           sections: built.sections || {},
         });

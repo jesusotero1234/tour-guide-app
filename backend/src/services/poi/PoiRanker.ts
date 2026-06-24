@@ -1,5 +1,7 @@
 import { EnrichedPoi } from '../../domain/poi/EnrichedPoi';
 import { classifyPoiTags, hasPoiNotabilityTag } from '../../domain/poi/PoiClassification';
+import { Theme } from '../../domain/poi/themeTags';
+import { getHistoryPlaceProfile } from './HistoryPlaceScoring';
 import { LandmarkTier } from './LandmarkTiering';
 
 export interface RankedPoi extends EnrichedPoi {
@@ -14,7 +16,30 @@ interface TierAwarePoi extends EnrichedPoi {
   };
 }
 
-function scorePoi(poi: EnrichedPoi, _centroidLat: number, _centroidLng: number): number {
+function haversineKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const toRad = (degrees: number) => degrees * (Math.PI / 180);
+  const earthRadiusKm = 6371;
+  const deltaLat = toRad(b.lat - a.lat);
+  const deltaLng = toRad(b.lng - a.lng);
+  const lat1 = toRad(a.lat);
+  const lat2 = toRad(b.lat);
+  const h = Math.sin(deltaLat / 2) ** 2
+    + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng / 2) ** 2;
+  return 2 * earthRadiusKm * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function getHistoryDefaultTourDistancePenalty(poi: EnrichedPoi, centroidLat: number, centroidLng: number): number {
+  const distanceKm = haversineKm({ lat: poi.lat, lng: poi.lng }, { lat: centroidLat, lng: centroidLng });
+  if (distanceKm <= 4) {
+    return 0;
+  }
+
+  const outerCorePenalty = Math.max(0, Math.min(distanceKm, 10) - 4) * 1.8;
+  const remotePenalty = Math.max(0, distanceKm - 10) * 3.2;
+  return outerCorePenalty + remotePenalty;
+}
+
+function scorePoi(poi: EnrichedPoi, centroidLat: number, centroidLng: number, theme?: Theme): number {
   let score = 0;
   const tierAwarePoi = poi as TierAwarePoi;
 
@@ -60,6 +85,10 @@ function scorePoi(poi: EnrichedPoi, _centroidLat: number, _centroidLng: number):
     score += 2;
   }
 
+  if (category === 'civic_power' && hasPoiNotabilityTag(poi.tags)) {
+    score += 2.5;
+  }
+
   if (category === 'religious' && (poi.tags.heritage || hasPoiNotabilityTag(poi.tags))) {
     score += 2;
   }
@@ -68,6 +97,15 @@ function scorePoi(poi: EnrichedPoi, _centroidLat: number, _centroidLng: number):
   if (category === 'memorial') score -= 2;
   if (category === 'artwork') score -= 1;
   if (poi.tags.historic === 'aircraft') score -= 3;
+
+  if (theme === 'history') {
+    const historyProfile = getHistoryPlaceProfile(poi);
+    score += Math.min(10, historyProfile.score);
+    score -= getHistoryDefaultTourDistancePenalty(poi, centroidLat, centroidLng);
+    if (historyProfile.isMuseumLike && !historyProfile.isEventSiteLike) {
+      score -= 3;
+    }
+  }
 
   // Translated name available
   if (Object.keys(poi.enriched.nameTranslations).length > 0) score += 1;
@@ -99,11 +137,12 @@ function getCategoryDiversityPenalty(
 export function rankPois(
   pois: EnrichedPoi[],
   centroidLat: number,
-  centroidLng: number
+  centroidLng: number,
+  theme?: Theme
 ): RankedPoi[] {
   const scored: RankedPoi[] = pois.map(poi => ({
     ...poi,
-    score: scorePoi(poi, centroidLat, centroidLng),
+    score: scorePoi(poi, centroidLat, centroidLng, theme),
   }));
 
   const selected: RankedPoi[] = [];

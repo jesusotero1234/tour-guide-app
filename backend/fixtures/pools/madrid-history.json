@@ -1,7 +1,7 @@
 {
   "city": "Madrid",
   "theme": "history",
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "geocode": {
     "lat": 40.416782,
     "lng": -3.703507,
@@ -177,20 +177,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 141251160,
-      "name": "Pabellón del Príncipe",
-      "lat": 40.4837438,
-      "lng": -3.7967631,
-      "tags": {
-        "building": "yes",
-        "historic": "manor",
-        "layer": "1",
-        "name": "Pabellón del Príncipe",
-        "website": "http://www.casareal.es/ES/FamiliaReal/Principe/Paginas/subhome_principe.aspx"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 146498512,
       "name": "Embajada de Francia",
       "lat": 40.420813,
@@ -353,27 +339,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 291931539,
-      "name": "NH Palacio de Tepa",
-      "lat": 40.413893,
-      "lng": -3.701744,
-      "tags": {
-        "addr:city": "Madrid",
-        "addr:housenumber": "2",
-        "addr:postcode": "28012",
-        "addr:street": "Calle de San Sebastián",
-        "building": "hotel",
-        "historic": "manor",
-        "name": "NH Palacio de Tepa",
-        "opening_hours": "Mo-Su 12:00-12:00",
-        "phone": "+34913896490",
-        "stars": "5",
-        "tourism": "hotel",
-        "website": "https://www.nh-collection.com/es/hotel/nh-collection-madrid-palacio-de-tepa"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 309100118,
       "name": "Catedral del Redentor",
       "lat": 40.4263452,
@@ -461,22 +426,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 383321518,
-      "name": "Palacete de los Duques de Pastrana",
-      "lat": 40.4673694,
-      "lng": -3.6787592,
-      "tags": {
-        "access": "permit",
-        "building": "yes",
-        "castle_type": "palace",
-        "description": "Monumento Histórico-Artístico de carácter nacional declarado en el año 1979",
-        "historic": "castle",
-        "name": "Palacete de los Duques de Pastrana",
-        "start_date": "1848"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 574114500,
       "name": "Catedral ortodoxa de Santa María Magdalena",
       "lat": 40.4669804,
@@ -496,19 +445,23 @@
       "lat": 40.483271,
       "lng": -3.8015174,
       "tags": {
+        "name": "Palacio de la Zarzuela",
+        "wikidata": "Q604921",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "26",
+        "canonical:instance_of": "royal palace",
+        "tourism": "attraction",
+        "historic": "castle",
+        "building": "palace",
         "access": "private",
-        "building": "yes",
         "castle_type": "palace",
         "heritage": "2",
-        "historic": "castle",
-        "name": "Palacio de la Zarzuela",
         "name:en": "Palace of Zarzuela",
         "name:fr": "Palais de la Zarzuela",
         "protection_title": "Bien de Interés Cultural",
         "protection_title:category": "Monumento",
         "ref:bic": "RI-51-0009965-00000",
         "website": "https://www.casareal.es/",
-        "wikidata": "Q604921",
         "wikipedia": "es:Palacio de la Zarzuela"
       }
     },
@@ -605,24 +558,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 1133453299,
-      "name": "Catedral Ortodoxa Rumana en Madrid",
-      "lat": 40.3707815,
-      "lng": -3.7637677,
-      "tags": {
-        "addr:city": "Madrid",
-        "addr:street": "Calle de las Tubas",
-        "amenity": "place_of_worship",
-        "building": "cathedral",
-        "denomination": "romanian_orthodox",
-        "name": "Catedral Ortodoxa Rumana en Madrid",
-        "name:gl": "Catedral Ortodoxa Romanesa en Madrid",
-        "name:ro": "Catedrala Ortodoxă Română din Madrid",
-        "religion": "christian"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 1270426081,
       "name": "Iglesia del Monasterio de Benedictinas de San Plácido",
       "lat": 40.4226474,
@@ -669,6 +604,13 @@
       "lat": 40.417828,
       "lng": -3.714361,
       "tags": {
+        "name": "Palacio Real",
+        "wikidata": "Q171517",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "45",
+        "canonical:instance_of": "palace|museum|official residence|tourist attraction|city palace|Monument (Spain)|royal palace",
+        "tourism": "attraction",
+        "historic": "castle",
         "addr:city": "Madrid",
         "addr:postcode": "28013",
         "addr:street": "Plaza de la Armería",
@@ -677,8 +619,6 @@
         "castle_type": "palace",
         "description": "Construido sobre el solar del antiguo Alcázar tras un incendio en 1734. Proyectado por Juvara en 1735 y construido por Sachet de 1738 a 1764 bajo las influencias del clasicismo barroco. A partir de 1770 Sabatini añadió el ala sudeste y la gran escalera.",
         "email": "info@patrimonionacional.es",
-        "historic": "castle",
-        "name": "Palacio Real",
         "name:de": "Königlicher Palast",
         "name:en": "Royal Palace",
         "name:es": "Palacio Real",
@@ -693,7 +633,6 @@
         "type": "multipolygon",
         "website": "https://www.patrimonionacional.es/",
         "wheelchair": "yes",
-        "wikidata": "Q171517",
         "wikipedia": "es:Palacio Real de Madrid"
       }
     },
@@ -770,19 +709,6 @@
         "type": "multipolygon",
         "wikidata": "Q2982559",
         "wikipedia": "es:Palacio de Santa Cruz (Madrid)"
-      }
-    },
-    {
-      "osmType": "relation",
-      "osmId": 3993993,
-      "name": "Palacio de Escalona y Bornos",
-      "lat": 40.423553,
-      "lng": -3.7046637,
-      "tags": {
-        "building": "apartments",
-        "historic": "manor",
-        "name": "Palacio de Escalona y Bornos",
-        "type": "multipolygon"
       }
     },
     {
@@ -924,20 +850,6 @@
     },
     {
       "osmType": "relation",
-      "osmId": 5826447,
-      "name": "Palacio de Torres Arias",
-      "lat": 40.4459262,
-      "lng": -3.6195601,
-      "tags": {
-        "building": "yes",
-        "castle_type": "palace",
-        "historic": "castle",
-        "name": "Palacio de Torres Arias",
-        "type": "multipolygon"
-      }
-    },
-    {
-      "osmType": "relation",
       "osmId": 6274422,
       "name": "Palacio del Marqués de Villamejor",
       "lat": 40.4263644,
@@ -1001,13 +913,17 @@
       "lat": 40.4436955,
       "lng": -3.7370961,
       "tags": {
-        "access": "permit",
-        "building": "government",
-        "castle_type": "palace",
-        "historic": "castle",
         "name": "Palacio de la Moncloa",
-        "type": "multipolygon",
         "wikidata": "Q1367970",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "29",
+        "canonical:instance_of": "palace",
+        "tourism": "attraction",
+        "historic": "castle",
+        "building": "government",
+        "access": "permit",
+        "castle_type": "palace",
+        "type": "multipolygon",
         "wikipedia": "es:Palacio de la Moncloa"
       }
     },
@@ -1074,20 +990,6 @@
         "type": "multipolygon",
         "wikidata": "Q42720683",
         "wikipedia": "es:Palacio de la Duquesa de Sueca"
-      }
-    },
-    {
-      "osmType": "relation",
-      "osmId": 12988229,
-      "name": "Palacio del duque de Alba",
-      "lat": 40.4114577,
-      "lng": -3.7066615,
-      "tags": {
-        "building": "residential",
-        "historic": "manor",
-        "name": "Palacio del duque de Alba",
-        "source": "https://guia-arquitectura-madrid.coam.org/#inm.F1.19",
-        "type": "multipolygon"
       }
     },
     {
@@ -1187,37 +1089,28 @@
     },
     {
       "osmType": "relation",
-      "osmId": 18317102,
-      "name": "Palacio Condesa de Medina",
-      "lat": 40.4193807,
-      "lng": -3.7101986,
-      "tags": {
-        "building": "apartments",
-        "historic": "manor",
-        "name": "Palacio Condesa de Medina",
-        "type": "multipolygon"
-      }
-    },
-    {
-      "osmType": "relation",
       "osmId": 18324181,
       "name": "Palacio Real de El Pardo",
       "lat": 40.5212948,
       "lng": -3.7750604,
       "tags": {
+        "name": "Palacio Real de El Pardo",
+        "wikidata": "Q1368571",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "20",
+        "canonical:instance_of": "museum|monument|royal palace",
+        "tourism": "attraction",
+        "historic": "castle",
         "building": "yes",
         "building:levels": "2",
         "castle_type": "palace",
         "email": "info@patrimonionacional.es",
-        "historic": "castle",
-        "name": "Palacio Real de El Pardo",
         "name:es": "Palacio Real de El Pardo",
         "name:pl": "Pałac Królewski El Pardo",
         "name:ru": "Эль-Пардо",
         "phone": "+34 91 376 21 56",
         "type": "multipolygon",
         "website": "https://www.patrimonionacional.es/visita/palacio-real-de-el-pardo",
-        "wikidata": "Q1368571",
         "wikipedia": "es:Palacio Real de El Pardo"
       }
     },
@@ -1290,20 +1183,6 @@
         "type": "multipolygon",
         "wikidata": "Q7126278",
         "wikipedia": "es:Palacio del Marqués de Molins"
-      }
-    },
-    {
-      "osmType": "relation",
-      "osmId": 19984068,
-      "name": "Catedral Ortodoxa Griega",
-      "lat": 40.4574779,
-      "lng": -3.6729156,
-      "tags": {
-        "amenity": "place_of_worship",
-        "building": "cathedral",
-        "name": "Catedral Ortodoxa Griega",
-        "religion": "christian",
-        "type": "multipolygon"
       }
     },
     {
@@ -1490,21 +1369,24 @@
       "lat": 40.4199868,
       "lng": -3.6887244,
       "tags": {
+        "name": "Puerta de Alcalá",
+        "wikidata": "Q1140634",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "25",
+        "canonical:instance_of": "city gate|triumphal arch",
+        "tourism": "attraction",
+        "historic": "city_gate",
         "addr:city": "Madrid",
         "addr:postcode": "28001",
         "addr:street": "Plaza de la Independencia",
         "building": "triumphal_arch",
         "height": "21.946",
-        "historic": "yes",
-        "name": "Puerta de Alcalá",
         "name:en": "Puerta de Alcala",
         "name:es": "Puerta de Alcalá",
         "name:ko": "푸에르타 데 알칼라(마드리드 개선문)",
         "nohousenumber": "yes",
         "source:name": "common knowledge",
-        "tourism": "attraction",
         "wheelchair": "limited",
-        "wikidata": "Q1140634",
         "wikimedia_commons": "Category:Puerta de Alcalá, Madrid",
         "wikipedia": "es:Puerta de Alcalá"
       }
@@ -1831,13 +1713,16 @@
       "lat": 40.4067374,
       "lng": -3.7116239,
       "tags": {
+        "name": "Puerta de Toledo",
+        "wikidata": "Q2657591",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "17",
+        "canonical:instance_of": "triumphal arch|city gate",
+        "tourism": "attraction",
+        "historic": "city_gate",
         "building": "yes",
         "building:colour": "#B0B0B0",
         "height": "15.24",
-        "historic": "yes",
-        "name": "Puerta de Toledo",
-        "tourism": "attraction",
-        "wikidata": "Q2657591",
         "wikimedia_commons": "Category:Puerta de Toledo, Madrid",
         "wikipedia": "es:Puerta de Toledo (Madrid)"
       }
@@ -2024,27 +1909,18 @@
     },
     {
       "osmType": "way",
-      "osmId": 692839978,
-      "name": "Puerta de Murillo",
-      "lat": 40.4123861,
-      "lng": -3.6919784,
-      "tags": {
-        "building": "public",
-        "historic": "monument",
-        "name": "Puerta de Murillo",
-        "name:es": "Puerta de Murillo",
-        "name:zh": "穆里略门",
-        "nohousenumber": "yes",
-        "tourism": "attraction"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 991444051,
       "name": "Museo Nacional Centro de Arte Reina Sofía",
       "lat": 40.4080445,
       "lng": -3.694595,
       "tags": {
+        "name": "Museo Nacional Centro de Arte Reina Sofía",
+        "wikidata": "Q460889",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "45",
+        "canonical:instance_of": "art museum|arts center|monument|national museum|former hospital",
+        "tourism": "museum",
+        "historic": "monument",
         "addr:city": "Madrid",
         "addr:housenumber": "52",
         "addr:postcode": "28012",
@@ -2058,7 +1934,6 @@
         "description": "Museo de arte moderno",
         "email": "info@museoreinasofia.es",
         "fee": "yes",
-        "name": "Museo Nacional Centro de Arte Reina Sofía",
         "name:es": "Museo Nacional Centro de Arte Reina Sofía",
         "name:etymology:wikidata": "Q460889",
         "name:ko": "국립 소피아 왕비 예술센터(레이나 소피아 국립미술센터)",
@@ -2066,11 +1941,9 @@
         "phone": "+34 917741000",
         "roof:colour": "grey",
         "source:email": "Ayuntamiento de Madrid",
-        "tourism": "museum",
         "website": "https://www.museoreinasofia.es/",
         "wheelchair": "yes",
         "wheelchair:description": "wheelchair toilett",
-        "wikidata": "Q460889",
         "wikimedia_commons": "Category:Museo Nacional Centro de Arte Reina Sofía",
         "wikipedia": "es:Museo Nacional Centro de Arte Reina Sofía"
       }
@@ -2089,36 +1962,6 @@
         "tourism": "attraction",
         "wikidata": "Q6058261",
         "wikipedia": "es:Palacio de Vista Alegre"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 1338126462,
-      "name": "Cerca de Felipe IV",
-      "lat": 40.4071742,
-      "lng": -3.7127334,
-      "tags": {
-        "area": "yes",
-        "barrier": "wall",
-        "historic": "yes",
-        "name": "Cerca de Felipe IV",
-        "tourism": "attraction"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 1346140195,
-      "name": "Fuente de Cibeles",
-      "lat": 40.4193336,
-      "lng": -3.6930908,
-      "tags": {
-        "artwork_type": "statue",
-        "height": "8",
-        "historic": "monument",
-        "inscription": "Fuente neoclásica del siglo XVIII en la que se representa a la diosa Cibeles en un carro tirado por 2 leones.",
-        "name": "Fuente de Cibeles",
-        "tourism": "attraction",
-        "wheelchair": "no"
       }
     },
     {
@@ -2402,6 +2245,13 @@
       "lat": 40.4186773,
       "lng": -3.7061361,
       "tags": {
+        "name": "Monasterio de las Descalzas Reales",
+        "wikidata": "Q2268271",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "17",
+        "canonical:instance_of": "museum|monastery|Monument (Spain)",
+        "tourism": "attraction",
+        "historic": "monument",
         "addr:city": "Madrid",
         "addr:housenumber": "3",
         "addr:postcode": "28013",
@@ -2414,9 +2264,7 @@
         "denomination": "roman_catholic",
         "description": "Convento fundado por la Princesa Juana de Austria, transformando un antiguo palacio de su madre Isabel de Portugal.",
         "fax": "+34 915212779",
-        "historic": "yes",
         "monastery:type": "monastery",
-        "name": "Monasterio de las Descalzas Reales",
         "name:es": "Monasterio de las Descalzas Reales",
         "name:ru": "Монастырь Дескальсас Реалес",
         "opening_hours": "Tu-Sa 10:00-14:00,16:00-18:30; Su,PH 10:00-15:00; Mo off; Jan 01,06,May 01,Dec 24,25,31: off",
@@ -2427,12 +2275,10 @@
         "source:opening_hours": "Ayuntamiento de Madrid",
         "source:url": "Ayuntamiento de Madrid",
         "source:wheelchair": "Ayuntamiento de Madrid",
-        "tourism": "attraction",
         "type": "multipolygon",
         "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=12e113db5b71c010VgnVCM1000000b205a0aRCRD",
         "website": "https://www.patrimonionacional.es/visita/monasterio-de-las-descalzas-reales",
         "wheelchair": "no",
-        "wikidata": "Q2268271",
         "wikipedia": "es:Monasterio de las Descalzas Reales (Madrid)"
       }
     },
@@ -2727,6 +2573,13 @@
       "lat": 40.4234289,
       "lng": -3.6888894,
       "tags": {
+        "name": "Museo Arqueológico Nacional",
+        "wikidata": "Q1352282",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "32",
+        "canonical:instance_of": "monument|archaeological museum|national museum",
+        "tourism": "museum",
+        "historic": "monument",
         "addr:city": "Madrid",
         "addr:housenumber": "13",
         "addr:postcode": "28001",
@@ -2742,7 +2595,6 @@
         "internet_access:fee": "customers",
         "internet_access:ssid": "MAN-Publico",
         "museum": "archaeological",
-        "name": "Museo Arqueológico Nacional",
         "name:de": "Archäologisches Nationalmuseum",
         "name:en": "National Archaeological Museum of Spain",
         "name:es": "Museo Arqueológico Nacional",
@@ -2758,11 +2610,9 @@
         "source": "Ayuntamiento de Madrid",
         "toilets": "yes",
         "toilets:wheelchair": "yes",
-        "tourism": "museum",
         "url": "http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&vgnextoid=8fd8ef4d7f71c010VgnVCM1000000b205a0aRCRD",
         "website": "http://man.mcu.es/",
         "wheelchair": "yes",
-        "wikidata": "Q1352282",
         "wikimedia_commons": "Category:Museo Arqueológico Nacional de España",
         "wikipedia": "es:Museo Arqueológico Nacional (España)"
       }
@@ -3119,18 +2969,6 @@
         "wikidata": "Q5754774",
         "wikimedia_commons": "Category:Casa de Cervantes, Madrid",
         "wikipedia": "es:Casa de Cervantes (Madrid)"
-      }
-    },
-    {
-      "osmType": "node",
-      "osmId": 6342365545,
-      "name": "Pabellón de los Hexágonos",
-      "lat": 40.4126039,
-      "lng": -3.7423706,
-      "tags": {
-        "historic": "ruins",
-        "name": "Pabellón de los Hexágonos",
-        "tourism": "attraction"
       }
     },
     {
@@ -4404,8 +4242,12 @@
       "lng": -3.6904471,
       "tags": {
         "name": "Plaza de Colón",
-        "place": "square",
         "wikidata": "Q970525",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "19",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "wikimedia_commons": "Category:Plaza de Colón, Madrid",
         "wikipedia": "es:Plaza de Colón (Madrid)"
       }
@@ -4511,15 +4353,19 @@
       "lat": 40.4183363,
       "lng": -3.7123832,
       "tags": {
+        "name": "Plaza de Oriente",
+        "wikidata": "Q2193218",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "highway": "pedestrian",
         "layer": "1",
         "lit": "yes",
-        "name": "Plaza de Oriente",
         "name:etymology:wikidata": "Q2193218",
         "name:ko": "오리엔테 광장",
-        "place": "square",
         "type": "multipolygon",
-        "wikidata": "Q2193218",
         "wikipedia": "es:Plaza de Oriente"
       }
     },
@@ -4548,10 +4394,16 @@
       "lat": 40.4168622,
       "lng": -3.7034948,
       "tags": {
+        "name": "Puerta del Sol",
+        "wikidata": "Q427163",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "34",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "foot": "designated",
         "highway": "pedestrian",
         "lit": "yes",
-        "name": "Puerta del Sol",
         "name:ar": "باب الشمس",
         "name:es": "Puerta del Sol",
         "name:etymology:wikidata": "Q427163",
@@ -4561,14 +4413,11 @@
         "name:uk": "Пуерта-дель-Соль",
         "name:zh": "太阳门",
         "official_name": "Plaza de la Puerta del Sol",
-        "place": "square",
         "postal_code": "28013",
         "smoothness": "excellent",
         "surface": "paving_stones",
-        "tourism": "attraction",
         "type": "multipolygon",
         "wheelchair": "yes",
-        "wikidata": "Q427163",
         "wikipedia": "es:Puerta del Sol"
       }
     },
@@ -4704,13 +4553,19 @@
       "lat": 40.4154007,
       "lng": -3.7073747,
       "tags": {
+        "name": "Plaza Mayor",
+        "wikidata": "Q1123493",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "37",
+        "canonical:instance_of": "tourist destination|porticoed square",
+        "tourism": "attraction",
+        "place": "square",
         "highway": "pedestrian",
         "layer": "1",
         "lit": "yes",
         "maxheight": "2.7 m",
         "maxspeed": "30",
         "motor_vehicle": "no",
-        "name": "Plaza Mayor",
         "name:ca": "Plaça Major",
         "name:de": "Hauptplatz",
         "name:en": "Plaza Mayor",
@@ -4719,16 +4574,13 @@
         "name:ko": "마요르 광장",
         "name:ru": "Площадь Пласа-Майор",
         "name:zh": "主廣場",
-        "place": "square",
         "postal_code": "28012",
         "smoothness": "intermediate",
         "surface": "sett",
         "toilets:wheelchair": "yes",
-        "tourism": "attraction",
         "type": "multipolygon",
         "wheelchair": "yes",
         "wheelchair:description": "Pedestrian area, step-free access from NW and east, steps from south and north",
-        "wikidata": "Q1123493",
         "wikipedia": "es:Plaza Mayor de Madrid"
       }
     },
@@ -6109,6 +5961,391 @@
         "wheelchair": "yes",
         "wikidata": "Q110747944"
       }
+    },
+    {
+      "osmType": "node",
+      "osmId": -855343,
+      "name": "Senate of Spain",
+      "lat": 40.42055556,
+      "lng": -3.71277778,
+      "tags": {
+        "name": "Senate of Spain",
+        "wikidata": "Q855343",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "39",
+        "canonical:instance_of": "senate",
+        "tourism": "attraction",
+        "building": "government"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -539149,
+      "name": "Congress of Deputies",
+      "lat": 40.41632997,
+      "lng": -3.696630383,
+      "tags": {
+        "name": "Congress of Deputies",
+        "wikidata": "Q539149",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "37",
+        "canonical:instance_of": "chamber of deputies",
+        "tourism": "attraction",
+        "building": "government"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -211250,
+      "name": "Teatro Real",
+      "lat": 40.41824,
+      "lng": -3.71037,
+      "tags": {
+        "name": "Teatro Real",
+        "wikidata": "Q211250",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "30",
+        "canonical:instance_of": "theatre building|opera house|monument",
+        "tourism": "attraction",
+        "historic": "monument"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1326261,
+      "name": "plaza de España",
+      "lat": 40.423391666,
+      "lng": -3.712233333,
+      "tags": {
+        "name": "plaza de España",
+        "wikidata": "Q1326261",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "28",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1141262,
+      "name": "Gate of Europe",
+      "lat": 40.466388888,
+      "lng": -3.687777777,
+      "tags": {
+        "name": "Gate of Europe",
+        "wikidata": "Q1141262",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "26",
+        "canonical:instance_of": "skyscraper|twin towers",
+        "tourism": "attraction",
+        "historic": "city_gate"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1537446,
+      "name": "plaza de Cibeles",
+      "lat": 40.41917,
+      "lng": -3.69306,
+      "tags": {
+        "name": "plaza de Cibeles",
+        "wikidata": "Q1537446",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "25",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -833213,
+      "name": "Forest of Remembrance",
+      "lat": 40.411944,
+      "lng": -3.686944,
+      "tags": {
+        "name": "Forest of Remembrance",
+        "wikidata": "Q833213",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "25",
+        "canonical:instance_of": "monument",
+        "tourism": "attraction",
+        "historic": "monument"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1046524,
+      "name": "Casa de Campo Park",
+      "lat": 40.42291,
+      "lng": -3.75595,
+      "tags": {
+        "name": "Casa de Campo Park",
+        "wikidata": "Q1046524",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "21",
+        "canonical:instance_of": "park|historic site",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1635932,
+      "name": "Palacio Vistalegre",
+      "lat": 40.386111,
+      "lng": -3.738889,
+      "tags": {
+        "name": "Palacio Vistalegre",
+        "wikidata": "Q1635932",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "18",
+        "canonical:instance_of": "bullring|sports venue|second-class bullring|multipurpose building",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -3321632,
+      "name": "Teatro de la Zarzuela",
+      "lat": 40.417186111,
+      "lng": -3.696780555,
+      "tags": {
+        "name": "Teatro de la Zarzuela",
+        "wikidata": "Q3321632",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "theatre building|monument",
+        "tourism": "attraction",
+        "historic": "monument"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -2628455,
+      "name": "Palace of Linares",
+      "lat": 40.4199,
+      "lng": -3.6921,
+      "tags": {
+        "name": "Palace of Linares",
+        "wikidata": "Q2628455",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "palace|public body in Spain|monument",
+        "tourism": "attraction",
+        "historic": "monument"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -1849031,
+      "name": "Palacio de Cibeles",
+      "lat": 40.418611,
+      "lng": -3.691667,
+      "tags": {
+        "name": "Palacio de Cibeles",
+        "wikidata": "Q1849031",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "palace|monument|casa consistorial",
+        "tourism": "attraction",
+        "historic": "monument"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 141251160,
+      "name": "Pabellón del Príncipe",
+      "lat": 40.4837438,
+      "lng": -3.7967631,
+      "tags": {
+        "building": "yes",
+        "historic": "manor",
+        "layer": "1",
+        "name": "Pabellón del Príncipe",
+        "website": "http://www.casareal.es/ES/FamiliaReal/Principe/Paginas/subhome_principe.aspx"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 291931539,
+      "name": "NH Palacio de Tepa",
+      "lat": 40.413893,
+      "lng": -3.701744,
+      "tags": {
+        "addr:city": "Madrid",
+        "addr:housenumber": "2",
+        "addr:postcode": "28012",
+        "addr:street": "Calle de San Sebastián",
+        "building": "hotel",
+        "historic": "manor",
+        "name": "NH Palacio de Tepa",
+        "opening_hours": "Mo-Su 12:00-12:00",
+        "phone": "+34913896490",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.nh-collection.com/es/hotel/nh-collection-madrid-palacio-de-tepa"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 383321518,
+      "name": "Palacete de los Duques de Pastrana",
+      "lat": 40.4673694,
+      "lng": -3.6787592,
+      "tags": {
+        "access": "permit",
+        "building": "yes",
+        "castle_type": "palace",
+        "description": "Monumento Histórico-Artístico de carácter nacional declarado en el año 1979",
+        "historic": "castle",
+        "name": "Palacete de los Duques de Pastrana",
+        "start_date": "1848"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1133453299,
+      "name": "Catedral Ortodoxa Rumana en Madrid",
+      "lat": 40.3707815,
+      "lng": -3.7637677,
+      "tags": {
+        "addr:city": "Madrid",
+        "addr:street": "Calle de las Tubas",
+        "amenity": "place_of_worship",
+        "building": "cathedral",
+        "denomination": "romanian_orthodox",
+        "name": "Catedral Ortodoxa Rumana en Madrid",
+        "name:gl": "Catedral Ortodoxa Romanesa en Madrid",
+        "name:ro": "Catedrala Ortodoxă Română din Madrid",
+        "religion": "christian"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 3993993,
+      "name": "Palacio de Escalona y Bornos",
+      "lat": 40.423553,
+      "lng": -3.7046637,
+      "tags": {
+        "building": "apartments",
+        "historic": "manor",
+        "name": "Palacio de Escalona y Bornos",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5826447,
+      "name": "Palacio de Torres Arias",
+      "lat": 40.4459262,
+      "lng": -3.6195601,
+      "tags": {
+        "building": "yes",
+        "castle_type": "palace",
+        "historic": "castle",
+        "name": "Palacio de Torres Arias",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 12988229,
+      "name": "Palacio del duque de Alba",
+      "lat": 40.4114577,
+      "lng": -3.7066615,
+      "tags": {
+        "building": "residential",
+        "historic": "manor",
+        "name": "Palacio del duque de Alba",
+        "source": "https://guia-arquitectura-madrid.coam.org/#inm.F1.19",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18317102,
+      "name": "Palacio Condesa de Medina",
+      "lat": 40.4193807,
+      "lng": -3.7101986,
+      "tags": {
+        "building": "apartments",
+        "historic": "manor",
+        "name": "Palacio Condesa de Medina",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 19984068,
+      "name": "Catedral Ortodoxa Griega",
+      "lat": 40.4574779,
+      "lng": -3.6729156,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "cathedral",
+        "name": "Catedral Ortodoxa Griega",
+        "religion": "christian",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 692839978,
+      "name": "Puerta de Murillo",
+      "lat": 40.4123861,
+      "lng": -3.6919784,
+      "tags": {
+        "building": "public",
+        "historic": "monument",
+        "name": "Puerta de Murillo",
+        "name:es": "Puerta de Murillo",
+        "name:zh": "穆里略门",
+        "nohousenumber": "yes",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1338126462,
+      "name": "Cerca de Felipe IV",
+      "lat": 40.4071742,
+      "lng": -3.7127334,
+      "tags": {
+        "area": "yes",
+        "barrier": "wall",
+        "historic": "yes",
+        "name": "Cerca de Felipe IV",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1346140195,
+      "name": "Fuente de Cibeles",
+      "lat": 40.4193336,
+      "lng": -3.6930908,
+      "tags": {
+        "artwork_type": "statue",
+        "height": "8",
+        "historic": "monument",
+        "inscription": "Fuente neoclásica del siglo XVIII en la que se representa a la diosa Cibeles en un carro tirado por 2 leones.",
+        "name": "Fuente de Cibeles",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6342365545,
+      "name": "Pabellón de los Hexágonos",
+      "lat": 40.4126039,
+      "lng": -3.7423706,
+      "tags": {
+        "historic": "ruins",
+        "name": "Pabellón de los Hexágonos",
+        "tourism": "attraction"
+      }
     }
   ],
   "sitelinks": {
@@ -6389,7 +6626,19 @@
     "Q594648": 26,
     "Q3656832": 6,
     "Q6091493": 2,
-    "Q110747944": 0
+    "Q110747944": 0,
+    "Q855343": 39,
+    "Q539149": 37,
+    "Q211250": 30,
+    "Q1326261": 28,
+    "Q1141262": 26,
+    "Q1537446": 25,
+    "Q833213": 25,
+    "Q1046524": 21,
+    "Q1635932": 18,
+    "Q3321632": 16,
+    "Q2628455": 16,
+    "Q1849031": 16
   },
   "wikidataMetadata": {
     "Q8342365": {
@@ -8216,6 +8465,90 @@
       "sitelinks": 0,
       "instanceOfLabels": [
         "door"
+      ]
+    },
+    "Q855343": {
+      "sitelinks": 39,
+      "instanceOfLabels": [
+        "senate"
+      ]
+    },
+    "Q539149": {
+      "sitelinks": 37,
+      "instanceOfLabels": [
+        "chamber of deputies"
+      ]
+    },
+    "Q211250": {
+      "sitelinks": 30,
+      "instanceOfLabels": [
+        "theatre building",
+        "opera house",
+        "monument"
+      ]
+    },
+    "Q1326261": {
+      "sitelinks": 28,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q1141262": {
+      "sitelinks": 26,
+      "instanceOfLabels": [
+        "skyscraper",
+        "twin towers"
+      ]
+    },
+    "Q1537446": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q833213": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "monument"
+      ]
+    },
+    "Q1046524": {
+      "sitelinks": 21,
+      "instanceOfLabels": [
+        "park",
+        "historic site"
+      ]
+    },
+    "Q1635932": {
+      "sitelinks": 18,
+      "instanceOfLabels": [
+        "sports venue",
+        "bullring",
+        "multipurpose building",
+        "second-class bullring"
+      ]
+    },
+    "Q3321632": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "theatre building",
+        "monument"
+      ]
+    },
+    "Q2628455": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "palace",
+        "monument",
+        "public body in Spain"
+      ]
+    },
+    "Q1849031": {
+      "sitelinks": 16,
+      "instanceOfLabels": [
+        "palace",
+        "monument",
+        "casa consistorial"
       ]
     }
   }

@@ -12,7 +12,9 @@ export interface LongNarrativePromptInput {
   seeds: LongNarrativeSeeds;
   theme: string;
   language: string;
+  previousStopName?: string;
   nextStopName?: string;
+  tourStopNames?: string[];
   position: 'first' | 'middle' | 'last';
   retry?: boolean;
   seedQuality?: 'rich' | 'thin';
@@ -29,6 +31,8 @@ export interface LongNarrativePromptInput {
   missingFacts?: string[];
   /** NarrativeBrief text injected when NARRATIVE_BRIEF_ENABLED=true (Fase 4) */
   narrativeBriefText?: string;
+  /** Sections already spoken at this stop, used to make the next section advance naturally. */
+  previousSectionsText?: string;
 }
 
 export interface SectionPrompt {
@@ -183,6 +187,7 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     'lädt dich ein', 'erzählt eine Geschichte', 'in seinen Bann', 'verborgenes Juwel',
     // EN
     'must-see destination', 'steeped in history', 'hidden gem',
+    'Have you ever wondered', 'Rumour has it', 'Rumor has it',
     'atmosphere', 'play of light', 'shadows', 'majestic', 'imposing', 'mysterious',
     'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
     'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
@@ -303,17 +308,12 @@ export function sectionSystem(language: string, retry = false, seedQuality: 'ric
     styleGuide,
     factContract,        // Fase 2: positive polarity FIRST
     goldenRule,           // Fase 2: negative polarity SECOND
-    metaBan,
-    speculationBan,
-    sourceMetaBan,
     antiRepetition,
-    bannedPrompt,
-    contrastiveExamples,
     usedPrompt,
     archetypePrompt,
     jsonInstruction,
     thinGuard,
-    retry ? retryMessage : '',
+    retry ? [metaBan, speculationBan, sourceMetaBan, bannedPrompt, contrastiveExamples, retryMessage].join(' ') : '',
   ].filter(Boolean).join(' ');
 }
 

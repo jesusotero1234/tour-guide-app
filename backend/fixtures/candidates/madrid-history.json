@@ -2,7 +2,7 @@
   "city": "Madrid",
   "theme": "history",
   "requestedDuration": 240,
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "stopBounds": {
     "minStops": 6,
     "maxStops": 10
@@ -15,94 +15,22 @@
         "lat": 40.4154007,
         "lng": -3.7073747
       },
-      "importance_score": 45.993782540330756,
-      "fameScore": 23.993782540330756,
+      "importance_score": 55.993782540330756,
+      "fameScore": 30.993782540330756,
       "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Museo del Prado",
-      "wikidataId": "Q160112",
-      "coordinates": {
-        "lat": 40.4138195,
-        "lng": -3.6916199
-      },
-      "importance_score": 44.01955000865387,
-      "fameScore": 25.019550008653873,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Puerta del Sol",
-      "wikidataId": "Q427163",
-      "coordinates": {
-        "lat": 40.4168622,
-        "lng": -3.7034948
-      },
-      "importance_score": 43.6378490508349,
-      "fameScore": 23.637849050834898,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Real Basílica de San Francisco el Grande",
-      "wikidataId": "Q2473884",
-      "coordinates": {
-        "lat": 40.4104314,
-        "lng": -3.7145624
-      },
-      "importance_score": 43.25,
-      "fameScore": 20.25,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Museo Nacional Centro de Arte Reina Sofía",
-      "wikidataId": "Q460889",
-      "coordinates": {
-        "lat": 40.4080445,
-        "lng": -3.694595
-      },
-      "importance_score": 41.57068586817104,
-      "fameScore": 22.57068586817104,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Catedral de la Almudena",
-      "wikidataId": "Q849711",
-      "coordinates": {
-        "lat": 40.4157109,
-        "lng": -3.714495
-      },
-      "importance_score": 41.12829485591189,
-      "fameScore": 20.128294855911893,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Estación de Atocha",
-      "wikidataId": "Q23093",
-      "coordinates": {
-        "lat": 40.4051856,
-        "lng": -3.6891258
-      },
-      "importance_score": 40.88318235807536,
-      "fameScore": 20.88318235807536,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Palacio de la Zarzuela",
-      "wikidataId": "Q604921",
-      "coordinates": {
-        "lat": 40.483271,
-        "lng": -3.8015174
-      },
-      "importance_score": 40.5146625064904,
-      "fameScore": 20.514662506490403,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "square_civic",
+      "historyPlaceScore": 16.62,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio Real",
@@ -111,58 +39,48 @@
         "lat": 40.417828,
         "lng": -3.714361
       },
-      "importance_score": 40.32068586817104,
-      "fameScore": 21.32068586817104,
+      "importance_score": 53.32068586817104,
+      "fameScore": 30.32068586817104,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "palace_castle",
+      "historyPlaceScore": 17.76,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
     },
     {
-      "name": "Puerta de Alcalá",
-      "wikidataId": "Q1140634",
+      "name": "Puerta del Sol",
+      "wikidataId": "Q427163",
       "coordinates": {
-        "lat": 40.4199868,
-        "lng": -3.6887244
+        "lat": 40.4168622,
+        "lng": -3.7034948
       },
-      "importance_score": 39.85131915442328,
-      "fameScore": 19.851319154423276,
+      "importance_score": 55.6378490508349,
+      "fameScore": 30.637849050834898,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Museo Thyssen-Bornemisza",
-      "wikidataId": "Q176251",
-      "coordinates": {
-        "lat": 40.4162225,
-        "lng": -3.6950996
-      },
-      "importance_score": 39.743782540330756,
-      "fameScore": 21.743782540330756,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Templo de Debod",
-      "wikidataId": "Q1140249",
-      "coordinates": {
-        "lat": 40.4240312,
-        "lng": -3.7177876
-      },
-      "importance_score": 38.86258893116062,
-      "fameScore": 20.862588931160623,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Real Jardín Botánico de Madrid",
-      "wikidataId": "Q1794858",
-      "coordinates": {
-        "lat": 40.4111694,
-        "lng": -3.6907526
-      },
-      "importance_score": 38.68156856932417,
-      "fameScore": 19.681568569324174,
-      "landmarkTier": "flagship",
-      "category": "other"
+      "category": "square_civic",
+      "historyPlaceScore": 16.56,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio de la Moncloa",
@@ -171,94 +89,94 @@
         "lat": 40.4436955,
         "lng": -3.7370961
       },
-      "importance_score": 38.470671786825555,
-      "fameScore": 19.470671786825555,
+      "importance_score": 51.24064234382692,
+      "fameScore": 28.470671786825555,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "palace_castle",
+      "historyPlaceScore": 23.45,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Arqueológico Nacional",
-      "wikidataId": "Q1352282",
+      "name": "Senate of Spain",
+      "wikidataId": "Q855343",
       "coordinates": {
-        "lat": 40.4234289,
-        "lng": -3.6888894
+        "lat": 40.42055556,
+        "lng": -3.71277778
       },
-      "importance_score": 38.38318235807536,
-      "fameScore": 20.38318235807536,
+      "importance_score": 50.46578428466209,
+      "fameScore": 27.96578428466209,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "civic_power",
+      "historyPlaceScore": 17.66,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Fuente de Cibeles",
-      "wikidataId": "Q2736564",
+      "name": "Congress of Deputies",
+      "wikidataId": "Q539149",
       "coordinates": {
-        "lat": 40.4193344,
-        "lng": -3.6930878
+        "lat": 40.41632997,
+        "lng": -3.696630383
       },
-      "importance_score": 38.25977500432694,
-      "fameScore": 18.259775004326936,
+      "importance_score": 50.243782540330756,
+      "fameScore": 27.743782540330756,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 13.62,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Monasterio de las Descalzas Reales",
-      "wikidataId": "Q2268271",
+      "name": "Puerta de Alcalá",
+      "wikidataId": "Q1140634",
       "coordinates": {
-        "lat": 40.4186773,
-        "lng": -3.7061361
+        "lat": 40.4199868,
+        "lng": -3.6887244
       },
-      "importance_score": 38.25977500432694,
-      "fameScore": 18.259775004326936,
+      "importance_score": 48.85131915442328,
+      "fameScore": 26.851319154423276,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Palacio de Liria",
-      "wikidataId": "Q3288223",
-      "coordinates": {
-        "lat": 40.4277259,
-        "lng": -3.7124004
-      },
-      "importance_score": 38,
-      "fameScore": 18,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Museo de América",
-      "wikidataId": "Q2568412",
-      "coordinates": {
-        "lat": 40.4383038,
-        "lng": -3.7219627
-      },
-      "importance_score": 37.96578428466209,
-      "fameScore": 18.96578428466209,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Plaza de Oriente",
-      "wikidataId": "Q2193218",
-      "coordinates": {
-        "lat": 40.4183363,
-        "lng": -3.7123832
-      },
-      "importance_score": 37.512388523751014,
-      "fameScore": 18.512388523751017,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Museo Nacional de Antropología",
-      "wikidataId": "Q2917041",
-      "coordinates": {
-        "lat": 40.407765,
-        "lng": -3.6891068
-      },
-      "importance_score": 37.262388523751014,
-      "fameScore": 18.262388523751017,
-      "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "other",
+      "historyPlaceScore": 20.35,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Puerta de Toledo",
@@ -267,10 +185,23 @@
         "lat": 40.4067374,
         "lng": -3.7116239
       },
-      "importance_score": 37.25977500432694,
-      "fameScore": 18.259775004326936,
+      "importance_score": 47.25977500432694,
+      "fameScore": 25.259775004326936,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 20.08,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Plaza de Colón",
@@ -279,82 +210,320 @@
         "lat": 40.4252776,
         "lng": -3.6904471
       },
-      "importance_score": 37.21578428466209,
-      "fameScore": 19.21578428466209,
+      "importance_score": 53.21578428466209,
+      "fameScore": 28.21578428466209,
       "landmarkTier": "flagship",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 16.16,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Ermita de San Antonio de la Florida",
-      "wikidataId": "Q3109752",
+      "name": "Museo Nacional Centro de Arte Reina Sofía",
+      "wikidataId": "Q460889",
       "coordinates": {
-        "lat": 40.4257233,
-        "lng": -3.7259152
+        "lat": 40.4080445,
+        "lng": -3.694595
       },
-      "importance_score": 37.17206476617281,
-      "fameScore": 17.172064766172813,
+      "importance_score": 40.76268586817104,
+      "fameScore": 25.00268586817104,
+      "landmarkTier": "flagship",
+      "category": "museum",
+      "historyPlaceScore": 7.76,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "event-type",
+        "museum-container",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Teatro Real",
+      "wikidataId": "Q211250",
+      "coordinates": {
+        "lat": 40.41824,
+        "lng": -3.71037
+      },
+      "importance_score": 45.86258893116062,
+      "fameScore": 25.862588931160623,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.48,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Museo Arqueológico Nacional",
+      "wikidataId": "Q1352282",
+      "coordinates": {
+        "lat": 40.4234289,
+        "lng": -3.6888894
+      },
+      "importance_score": 38.16718235807535,
+      "fameScore": 22.64718235807536,
+      "landmarkTier": "flagship",
+      "category": "museum",
+      "historyPlaceScore": 7.52,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "event-type",
+        "museum-container",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Plaza de Oriente",
+      "wikidataId": "Q2193218",
+      "coordinates": {
+        "lat": 40.4183363,
+        "lng": -3.7123832
+      },
+      "importance_score": 52.512388523751014,
+      "fameScore": 27.512388523751017,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 16.04,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Palacio del Congreso de los Diputados",
+      "wikidataId": "Q9054619",
+      "coordinates": {
+        "lat": 40.416413,
+        "lng": -3.6965788
+      },
+      "importance_score": 44.75,
+      "fameScore": 23.75,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Real Basílica de San Francisco el Grande",
+      "wikidataId": "Q2473884",
+      "coordinates": {
+        "lat": 40.4104314,
+        "lng": -3.7145624
+      },
+      "importance_score": 35.8,
+      "fameScore": 21.3,
       "landmarkTier": "major",
-      "category": "religious"
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Palacio Real de El Pardo",
-      "wikidataId": "Q1368571",
+      "name": "Fuente de Neptuno",
+      "wikidataId": "Q1472798",
       "coordinates": {
-        "lat": 40.5212948,
-        "lng": -3.7750604
+        "lat": 40.4152553,
+        "lng": -3.6941511
       },
-      "importance_score": 36.92695226833628,
-      "fameScore": 17.926952268336283,
+      "importance_score": 45.50488750216347,
+      "fameScore": 23.50488750216347,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "other",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Colegiata de San Isidro",
-      "wikidataId": "Q3682887",
+      "name": "plaza de España",
+      "wikidataId": "Q1326261",
       "coordinates": {
-        "lat": 40.4128892,
-        "lng": -3.7068967
+        "lat": 40.423391666,
+        "lng": -3.712233333
       },
-      "importance_score": 36.85131915442328,
-      "fameScore": 16.851319154423276,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Museo Sorolla",
-      "wikidataId": "Q1592523",
-      "coordinates": {
-        "lat": 40.4353934,
-        "lng": -3.692512
-      },
-      "importance_score": 36.62829485591189,
-      "fameScore": 18.628294855911893,
+      "importance_score": 51.073942985382715,
+      "fameScore": 28.073942985382715,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "square_civic",
+      "historyPlaceScore": 16.43,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "CASA C-212-100",
-      "wikidataId": "Q6497",
+      "name": "Palacio de Santa Cruz",
+      "wikidataId": "Q2982559",
       "coordinates": {
-        "lat": 40.3234024,
-        "lng": -3.6513628
+        "lat": 40.4143707,
+        "lng": -3.7059757
       },
-      "importance_score": 36.2646625064904,
-      "fameScore": 19.264662506490403,
+      "importance_score": 44.470671786825555,
+      "fameScore": 23.470671786825555,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "palace_castle",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Lázaro Galdiano",
-      "wikidataId": "Q386570",
+      "name": "Forest of Remembrance",
+      "wikidataId": "Q833213",
       "coordinates": {
-        "lat": 40.436987,
-        "lng": -3.6857688
+        "lat": 40.411944,
+        "lng": -3.686944
       },
-      "importance_score": 36,
-      "fameScore": 18,
+      "importance_score": 45.10131915442328,
+      "fameScore": 25.101319154423276,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "other",
+      "historyPlaceScore": 16.35,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "plaza de Cibeles",
+      "wikidataId": "Q1537446",
+      "coordinates": {
+        "lat": 40.41917,
+        "lng": -3.69306
+      },
+      "importance_score": 50.60131915442328,
+      "fameScore": 27.601319154423276,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 16.35,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Palacio de Liria",
+      "wikidataId": "Q3288223",
+      "coordinates": {
+        "lat": 40.4277259,
+        "lng": -3.7124004
+      },
+      "importance_score": 43.6,
+      "fameScore": 23.6,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "museum-with-site-context",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Palacio del Senado",
+      "wikidataId": "Q10343739",
+      "coordinates": {
+        "lat": 40.4214548,
+        "lng": -3.7119825
+      },
+      "importance_score": 43.50488750216347,
+      "fameScore": 22.50488750216347,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palacio de Cristal",
@@ -363,70 +532,113 @@
         "lat": 40.4135924,
         "lng": -3.682057
       },
-      "importance_score": 35.75,
-      "fameScore": 17.75,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Exedra",
-      "wikidataId": "Q594648",
-      "coordinates": {
-        "lat": 40.4558352,
-        "lng": -3.5971753
-      },
-      "importance_score": 35.2646625064904,
-      "fameScore": 19.264662506490403,
+      "importance_score": 43.35,
+      "fameScore": 23.35,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 8,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Real Monasterio de la Encarnación",
-      "wikidataId": "Q205524",
+      "name": "Plaza de Chueca",
+      "wikidataId": "Q24944157",
       "coordinates": {
-        "lat": 40.4200211,
-        "lng": -3.7116805
+        "lat": 40.4227124,
+        "lng": -3.6976271
       },
-      "importance_score": 35.17206476617281,
-      "fameScore": 17.172064766172813,
+      "importance_score": 45.215784284662085,
+      "fameScore": 22.215784284662085,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "square_civic",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Puente de Segovia",
-      "wikidataId": "Q2838423",
+      "name": "Palace of Linares",
+      "wikidataId": "Q2628455",
       "coordinates": {
-        "lat": 40.4140005,
-        "lng": -3.7228529
+        "lat": 40.4199,
+        "lng": -3.6921
       },
-      "importance_score": 34.85131915442328,
-      "fameScore": 16.851319154423276,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 43.262388523751014,
+      "fameScore": 23.262388523751017,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 19.04,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Arco de la Victoria",
-      "wikidataId": "Q2859883",
+      "name": "Palacio de Buenavista",
+      "wikidataId": "Q3889284",
       "coordinates": {
-        "lat": 40.4359063,
-        "lng": -3.7201974
+        "lat": 40.4209668,
+        "lng": -3.6946012
       },
-      "importance_score": 34.17206476617281,
-      "fameScore": 17.172064766172813,
+      "importance_score": 41.12829485591189,
+      "fameScore": 22.128294855911893,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "palace_castle",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Cerralbo",
-      "wikidataId": "Q976019",
+      "name": "Palacio de Cibeles",
+      "wikidataId": "Q1849031",
       "coordinates": {
-        "lat": 40.4237097,
-        "lng": -3.7144064
+        "lat": 40.418611,
+        "lng": -3.691667
       },
-      "importance_score": 34.10131915442328,
-      "fameScore": 17.101319154423276,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 43.262388523751014,
+      "fameScore": 23.262388523751017,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 19.04,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Plaza de Callao",
@@ -435,22 +647,67 @@
         "lat": 40.4198647,
         "lng": -3.7057983
       },
-      "importance_score": 33.67206476617281,
-      "fameScore": 17.672064766172813,
-      "landmarkTier": "major",
-      "category": "square_civic"
+      "importance_score": 42.572064766172815,
+      "fameScore": 22.57206476617281,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Plaza de Castilla",
-      "wikidataId": "Q786291",
+      "name": "Palacio de la Zarzuela",
+      "wikidataId": "Q604921",
       "coordinates": {
-        "lat": 40.4660049,
-        "lng": -3.6893839
+        "lat": 40.483271,
+        "lng": -3.8015174
       },
-      "importance_score": 33.00488750216347,
-      "fameScore": 17.00488750216347,
-      "landmarkTier": "major",
-      "category": "square_civic"
+      "importance_score": 40.16176809858236,
+      "fameScore": 29.514662506490403,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 18.38,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Teatro de la Zarzuela",
+      "wikidataId": "Q3321632",
+      "coordinates": {
+        "lat": 40.417186111,
+        "lng": -3.696780555
+      },
+      "importance_score": 43.262388523751014,
+      "fameScore": 23.262388523751017,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.04,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Plaza de Santa Ana",
@@ -459,34 +716,221 @@
         "lat": 40.4147072,
         "lng": -3.700779
       },
-      "importance_score": 33.00488750216347,
-      "fameScore": 17.00488750216347,
+      "importance_score": 39.90488750216347,
+      "fameScore": 21.90488750216347,
       "landmarkTier": "major",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo Naval de Madrid",
-      "wikidataId": "Q1815235",
+      "name": "Gate of Europe",
+      "wikidataId": "Q1141262",
       "coordinates": {
-        "lat": 40.4175183,
-        "lng": -3.6923891
+        "lat": 40.466388888,
+        "lng": -3.687777777
       },
-      "importance_score": 32.720671786825555,
-      "fameScore": 17.720671786825555,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 42.25079244319698,
+      "fameScore": 25.264662506490403,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.38,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museo del Traje",
-      "wikidataId": "Q9047135",
+      "name": "Casa de Campo Park",
+      "wikidataId": "Q1046524",
       "coordinates": {
-        "lat": 40.44012,
-        "lng": -3.7292379
+        "lat": 40.42291,
+        "lng": -3.75595
       },
-      "importance_score": 32.10131915442328,
-      "fameScore": 17.101319154423276,
+      "importance_score": 42.1845769278609,
+      "fameScore": 23.839294855911895,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 9.23,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza de la Villa",
+      "wikidataId": "Q2711992",
+      "coordinates": {
+        "lat": 40.4152086,
+        "lng": -3.710424
+      },
+      "importance_score": 37.870671786825554,
+      "fameScore": 21.370671786825554,
       "landmarkTier": "major",
-      "category": "museum"
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Fuente de Apolo",
+      "wikidataId": "Q1647048",
+      "coordinates": {
+        "lat": 40.4172106,
+        "lng": -3.6938985
+      },
+      "importance_score": 41.75,
+      "fameScore": 21.75,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Plaza de Castilla",
+      "wikidataId": "Q786291",
+      "coordinates": {
+        "lat": 40.4660049,
+        "lng": -3.6893839
+      },
+      "importance_score": 37.020724077654826,
+      "fameScore": 21.90488750216347,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Monasterio de las Descalzas Reales",
+      "wikidataId": "Q2268271",
+      "coordinates": {
+        "lat": 40.4186773,
+        "lng": -3.7061361
+      },
+      "importance_score": 39.25977500432694,
+      "fameScore": 22.259775004326936,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 10.08,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "museum-container",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Palacio Real de El Pardo",
+      "wikidataId": "Q1368571",
+      "coordinates": {
+        "lat": 40.5212948,
+        "lng": -3.7750604
+      },
+      "importance_score": 29.196985557230438,
+      "fameScore": 26.926952268336283,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 17.2,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Palacio Vistalegre",
+      "wikidataId": "Q1635932",
+      "coordinates": {
+        "lat": 40.386111,
+        "lng": -3.738889
+      },
+      "importance_score": 37.576579676809125,
+      "fameScore": 22.427782540330753,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 8.12,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Palacio del Infante don Luis",
+      "wikidataId": "Q7126237",
+      "coordinates": {
+        "lat": 40.4070065,
+        "lng": -3.874231
+      },
+      "importance_score": 15.244203776729584,
+      "fameScore": 21.428294855911894,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     }
   ]
 }

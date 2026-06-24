@@ -1,0 +1,1129 @@
+{
+  "id": "fixture-candidate",
+  "city": "Toulouse",
+  "country": "France",
+  "countryCode": "FR",
+  "theme": "history",
+  "language": "fr",
+  "durationMinutes": 240,
+  "metadata": {
+    "generationMode": "frozen-fixture-replay",
+    "sourceSnapshot": "toulouse-history-fr.json",
+    "routeDiagnostics": {
+      "degraded": false,
+      "degradationReason": null,
+      "coverageRatio": 0.9331703545032152,
+      "estimatedTourMinutes": 223.96088508077165,
+      "requestedDuration": 240
+    }
+  },
+  "places": [
+    {
+      "id": "fixture-1",
+      "tourId": "fixture-candidate",
+      "name": "canal de Brienne",
+      "description": "Regardez cette étendue d'eau qui s'étire devant nous. Le canal de Brienne relie la Garonne au canal du Midi ainsi qu'au canal de Garonne, formant une artère vitale pour Toulouse. Durant nos 240 minutes de marche et les 13 arrêts prévus, nous chercherons à comprendre comment cette ville réinvente sa vie publique tout en conservant les traces de chaque époque passée. Ce site fait partie du patrimoine mondial de l'Unesco depuis 1996.\n\nObservez ce tracé qui fut imaginé dès 1760 par les États de Languedoc. À cette époque, le canal du Midi contournait encore les remparts, laissant le cœur urbain déconnecté des voies navigables. En lançant les travaux en 1765, les autorités ont choisi d'ouvrir le centre-ville à l'eau. Ce projet, qui aboutit à l'inauguration le 14 avril 1776, transforme la ville. Notez comment ce passage, autrefois nommé canal Saint-Pierre, porte désormais le nom de l'archevêque Étienne-Charles de Loménie de Brienne.\n\nObservez cette liaison fluide entre les différentes voies navigables de la région. En connectant la Garonne au canal du Midi et au canal de Garonne, ce tracé agit comme un véritable trait d'union hydraulique pour Toulouse. Notez comment l'eau pénètre ici le tissu urbain, brisant l'isolement ancien des quartiers centraux. Cette présence aquatique illustre parfaitement notre quête : comprendre comment la ville s'est réinventée en intégrant ses artères de transport au cœur même de sa vie publique.\n\nLaissez cette trace hydraulique s'éloigner de votre regard pour mieux vous concentrer sur la pierre. En quittant ce miroir d'eau qui a ouvert Toulouse au monde, nous allons maintenant chercher les échos du passé religieux en nous dirigeant vers l'église Saint-Nicolas.",
+      "descriptionSections": {
+        "arrival": "Regardez cette étendue d'eau qui s'étire devant nous. Le canal de Brienne relie la Garonne au canal du Midi ainsi qu'au canal de Garonne, formant une artère vitale pour Toulouse. Durant nos 240 minutes de marche et les 13 arrêts prévus, nous chercherons à comprendre comment cette ville réinvente sa vie publique tout en conservant les traces de chaque époque passée. Ce site fait partie du patrimoine mondial de l'Unesco depuis 1996.",
+        "history": "Observez ce tracé qui fut imaginé dès 1760 par les États de Languedoc. À cette époque, le canal du Midi contournait encore les remparts, laissant le cœur urbain déconnecté des voies navigables. En lançant les travaux en 1765, les autorités ont choisi d'ouvrir le centre-ville à l'eau. Ce projet, qui aboutit à l'inauguration le 14 avril 1776, transforme la ville. Notez comment ce passage, autrefois nommé canal Saint-Pierre, porte désormais le nom de l'archevêque Étienne-Charles de Loménie de Brienne.",
+        "significance": "Observez cette liaison fluide entre les différentes voies navigables de la région. En connectant la Garonne au canal du Midi et au canal de Garonne, ce tracé agit comme un véritable trait d'union hydraulique pour Toulouse. Notez comment l'eau pénètre ici le tissu urbain, brisant l'isolement ancien des quartiers centraux. Cette présence aquatique illustre parfaitement notre quête : comprendre comment la ville s'est réinventée en intégrant ses artères de transport au cœur même de sa vie publique.",
+        "transition": "Laissez cette trace hydraulique s'éloigner de votre regard pour mieux vous concentrer sur la pierre. En quittant ce miroir d'eau qui a ouvert Toulouse au monde, nous allons maintenant chercher les échos du passé religieux en nous dirigeant vers l'église Saint-Nicolas."
+      },
+      "latitude": 43.6075192,
+      "longitude": 1.4265322,
+      "position": 0,
+      "importanceScore": 26.851319154423276,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 274541894,
+          "wikidata": "Q2935989",
+          "wikipedia": "fr:Canal de Brienne",
+          "category": "other",
+          "landmarkTier": "major",
+          "fameScore": 16.851319154423276,
+          "osmTags": {
+            "name": "Canal de Brienne",
+            "water": "river",
+            "natural": "water",
+            "tourism": "attraction",
+            "wikidata": "Q2935989",
+            "wikipedia": "fr:Canal de Brienne"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "4ac58b23-9335-4f48-8198-d9725ffb7964",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 1962,
+          "totalDurationMs": 21162,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1996",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ne mondial de l'Unesco depuis 1996.  Observez ce tracé qui fut i"
+              },
+              {
+                "type": "date",
+                "value": "1760",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " ce tracé qui fut imaginé dès 1760 par les États de Languedoc. À"
+              },
+              {
+                "type": "date",
+                "value": "1765",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "es. En lançant les travaux en 1765, les autorités ont choisi d'o"
+              },
+              {
+                "type": "date",
+                "value": "1776",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " à l'inauguration le 14 avril 1776, transforme la ville. Notez c"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-2",
+      "tourId": "fixture-candidate",
+      "name": "église Saint-Nicolas de Toulouse",
+      "description": "Quittez le calme du Canal de Brienne pour retrouver l'effervescence de la rive gauche. Ici, au numéro 36 de la grande-rue Saint-Nicolas, l'église s'impose au cœur du quartier Saint-Cyprien. Regardez comment sa façade se dresse directement face au passage des passants, ancrant le bâtiment dans la vie quotidienne de cette rue commerçante. Ce monument historique, classé depuis 1986, marque une transition physique et temporelle avant que nous ne plongions dans les fondations mêmes de ce lieu.\n\nL'histoire de ce lieu s'ancre dans la protection des navigateurs. Observez le clocher octogonal dont les baies géminées rappellent Saint-Sernin. Ce saint patron veille sur ceux qui craignent le naufrage, une prière devenue vitale lors des crues de la Garonne en 1875. Si vous regardez le tympan du portail, l'adoration des mages révèle le travail de l'atelier de Pierre Viguier. Cette structure reconstruite en 1300 témoigne d'une résilience constante face aux éléments, avant que nous ne rejoignions la Place Saint-Pierre.\n\nEn quittant la rive gauche de la Garonne, vous comprenez que ce sanctuaire n'est pas qu'un simple monument classé. Observez comment sa présence structure l'identité du quartier Saint-Cyprien. Au-delà de la dévotion, cette église incarne une sentinelle spirituelle face aux caprices du fleuve. Sa silhouette octogonale agit comme un repère visuel permanent pour les habitants. Cette architecture témoigne d'une volonté de pérennité au cœur de l'agitation urbaine, préparant votre esprit à la découverte des espaces plus ouverts de la Place Saint-Pierre.\n\nLaissez derrière vous cette silhouette de sentinelle qui veille sur le quartier. Cette résilience face au fleuve nous prépare à découvrir une autre dimension de la ville, là où les espaces s'ouvrent vers la Place Saint-Pierre.",
+      "descriptionSections": {
+        "arrival": "Quittez le calme du Canal de Brienne pour retrouver l'effervescence de la rive gauche. Ici, au numéro 36 de la grande-rue Saint-Nicolas, l'église s'impose au cœur du quartier Saint-Cyprien. Regardez comment sa façade se dresse directement face au passage des passants, ancrant le bâtiment dans la vie quotidienne de cette rue commerçante. Ce monument historique, classé depuis 1986, marque une transition physique et temporelle avant que nous ne plongions dans les fondations mêmes de ce lieu.",
+        "history": "L'histoire de ce lieu s'ancre dans la protection des navigateurs. Observez le clocher octogonal dont les baies géminées rappellent Saint-Sernin. Ce saint patron veille sur ceux qui craignent le naufrage, une prière devenue vitale lors des crues de la Garonne en 1875. Si vous regardez le tympan du portail, l'adoration des mages révèle le travail de l'atelier de Pierre Viguier. Cette structure reconstruite en 1300 témoigne d'une résilience constante face aux éléments, avant que nous ne rejoignions la Place Saint-Pierre.",
+        "significance": "En quittant la rive gauche de la Garonne, vous comprenez que ce sanctuaire n'est pas qu'un simple monument classé. Observez comment sa présence structure l'identité du quartier Saint-Cyprien. Au-delà de la dévotion, cette église incarne une sentinelle spirituelle face aux caprices du fleuve. Sa silhouette octogonale agit comme un repère visuel permanent pour les habitants. Cette architecture témoigne d'une volonté de pérennité au cœur de l'agitation urbaine, préparant votre esprit à la découverte des espaces plus ouverts de la Place Saint-Pierre.",
+        "transition": "Laissez derrière vous cette silhouette de sentinelle qui veille sur le quartier. Cette résilience face au fleuve nous prépare à découvrir une autre dimension de la ville, là où les espaces s'ouvrent vers la Place Saint-Pierre."
+      },
+      "latitude": 43.5991837,
+      "longitude": 1.4342159,
+      "position": 1,
+      "importanceScore": 31.55488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 28132042,
+          "wikidata": "Q3583425",
+          "wikipedia": "fr:Église Saint-Nicolas de Toulouse",
+          "category": "religious",
+          "landmarkTier": "major",
+          "fameScore": 17.05488750216347,
+          "osmTags": {
+            "name": "Église Saint-Nicolas",
+            "amenity": "place_of_worship",
+            "ref:mhs": "PA00094522",
+            "tourism": "attraction",
+            "building": "church",
+            "heritage": "2",
+            "religion": "christian",
+            "wikidata": "Q3583425",
+            "wikipedia": "fr:Église Saint-Nicolas de Toulouse",
+            "check_date": "2026-04-04",
+            "ref:FR:CEF": "31555_32",
+            "denomination": "catholic",
+            "source:heritage": "Ministère de la Culture - 06/2019",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1986-07-24"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "13a02443-f8ae-4a0b-acf8-1a90a1934b9c",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2384,
+          "totalDurationMs": 23752,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1986",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ent historique, classé depuis 1986, marque une transition physiq"
+              },
+              {
+                "type": "date",
+                "value": "1875",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rs des crues de la Garonne en 1875. Si vous regardez le tympan d"
+              },
+              {
+                "type": "date",
+                "value": "1300",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "tte structure reconstruite en 1300 témoigne d'une résilience con"
+              },
+              {
+                "type": "location",
+                "value": "quartier Saint-Cyprien",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " l'église s'impose au cœur du quartier Saint-Cyprien. Regardez comment sa façade s"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-3",
+      "tourId": "fixture-candidate",
+      "name": "place Saint-Pierre",
+      "description": "Savez-vous comment les rives de la Garonne ont façonné l'âme de ce quartier ? En arrivant sur la place Saint-Pierre, observez cette transition naturelle depuis le pont qui nous a menés ici. Le regard s'arrête inévitablement sur l'église Saint-Pierre-des-Cuisines, dont la structure s'intègre désormais à une vie urbaine animée par les bars environnants. Cette place constitue un point de passage essentiel entre le quai Lucien Lombard et la rue Pargaminières, ouvrant la voie vers le Capitole.\n\nObservez comment l'église Saint-Pierre-des-Cuisines témoigne d'une métamorphose urbaine profonde. Autrefois lieu de culte, cet édifice fait désormais partie du site patrimonial remarquable en servant d'auditorium pour le conservatoire de la ville. Cette reconversion illustre la capacité de Toulouse à réinventer ses espaces sacrés pour les transformer en lieux de culture et de convivialité. En suivant le tracé du sentier GR 86, vous percevez ce lien entre passé et présent, avant que nos pas ne nous guident vers l'Université Toulouse Capitole.\n\nRegardez comment l'usage de cet espace redéfinit notre perception du patrimoine. Si vous observez l'église Saint-Pierre-des-Cuisines, vous ne voyez plus seulement un monument, mais un auditorium vibrant pour le conservatoire. Ce passage du sacré au culturel illustre parfaitement la mutation des fondations toulousaines. Entre les terrasses animées et ce lieu de musique, la place devient un carrefour où l'histoire s'écoute autant qu'elle se marche, préparant votre esprit à la rigueur académique de l'Université Toulouse Capitole.\n\nAdmirez cette harmonie entre les échos musicaux de l'auditorium et l'animation des terrasses. Cette transformation du sacré en culture prépare votre esprit à une autre forme de savoir. Laissez-vous porter par ce mouvement urbain, alors que nous nous dirigeons vers la rigueur académique de l'Université Toulouse Capitole.",
+      "descriptionSections": {
+        "arrival": "Savez-vous comment les rives de la Garonne ont façonné l'âme de ce quartier ? En arrivant sur la place Saint-Pierre, observez cette transition naturelle depuis le pont qui nous a menés ici. Le regard s'arrête inévitablement sur l'église Saint-Pierre-des-Cuisines, dont la structure s'intègre désormais à une vie urbaine animée par les bars environnants. Cette place constitue un point de passage essentiel entre le quai Lucien Lombard et la rue Pargaminières, ouvrant la voie vers le Capitole.",
+        "history": "Observez comment l'église Saint-Pierre-des-Cuisines témoigne d'une métamorphose urbaine profonde. Autrefois lieu de culte, cet édifice fait désormais partie du site patrimonial remarquable en servant d'auditorium pour le conservatoire de la ville. Cette reconversion illustre la capacité de Toulouse à réinventer ses espaces sacrés pour les transformer en lieux de culture et de convivialité. En suivant le tracé du sentier GR 86, vous percevez ce lien entre passé et présent, avant que nos pas ne nous guident vers l'Université Toulouse Capitole.",
+        "significance": "Regardez comment l'usage de cet espace redéfinit notre perception du patrimoine. Si vous observez l'église Saint-Pierre-des-Cuisines, vous ne voyez plus seulement un monument, mais un auditorium vibrant pour le conservatoire. Ce passage du sacré au culturel illustre parfaitement la mutation des fondations toulousaines. Entre les terrasses animées et ce lieu de musique, la place devient un carrefour où l'histoire s'écoute autant qu'elle se marche, préparant votre esprit à la rigueur académique de l'Université Toulouse Capitole.",
+        "transition": "Admirez cette harmonie entre les échos musicaux de l'auditorium et l'animation des terrasses. Cette transformation du sacré en culture prépare votre esprit à une autre forme de savoir. Laissez-vous porter par ce mouvement urbain, alors que nous nous dirigeons vers la rigueur académique de l'Université Toulouse Capitole."
+      },
+      "latitude": 43.6034897,
+      "longitude": 1.4356999,
+      "position": 2,
+      "importanceScore": 48.00488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 22717774,
+          "wikidata": "Q3390113",
+          "wikipedia": "fr:Place Saint-Pierre (Toulouse)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 23.00488750216347,
+          "osmTags": {
+            "lit": "yes",
+            "area": "yes",
+            "name": "Place Saint-Pierre",
+            "place": "square",
+            "highway": "pedestrian",
+            "name:oc": "Plaça de Sant Pèire",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "wikidata": "Q3390113",
+            "wikipedia": "fr:Place Saint-Pierre (Toulouse)",
+            "smoothness": "good",
+            "wheelchair": "yes"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "b095cd02-4d71-4b95-8675-03c2812c3c0e",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2573,
+          "totalDurationMs": 23340,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-4",
+      "tourId": "fixture-candidate",
+      "name": "université Toulouse-Capitole",
+      "description": "Observez cette façade imposante qui s'avance sur la rue. Si vous fixez les lignes verticales de ses ouvertures, vous comprenez l'importance de ce lieu de savoir. Ce bâtiment institutionnel impose sa présence par sa structure massive, ancrant ainsi le quartier dans une fonction académique durable.\n\nL'espace que nous traversons témoigne d'une mutation profonde de l'usage urbain. Autrefois, les fonctions de la ville se partageaient entre commerce et vie religieuse, mais l'arrivée de cette institution académique a redessiné le quartier. Observez comment ce pôle de savoir s'est imposé pour transformer le quotidien des habitants. Cette transition vers une vocation éducative prépare votre regard à découvrir les traces plus anciennes qui nous attendent vers la Basilique Saint-Sernin.\n\nIci, l'agitation des échanges laisse place à une rigueur académique qui structure l'espace urbain. Cette présence institutionnelle transforme la rue en un lieu de transmission. En observant cette fonction éducative, vous percevez comment le savoir s'est ancré dans le tissu toulousain, préparant votre esprit aux vestiges plus anciens que nous verrons à la Basilique Saint-Sernin.",
+      "descriptionSections": {
+        "arrival": "Observez cette façade imposante qui s'avance sur la rue. Si vous fixez les lignes verticales de ses ouvertures, vous comprenez l'importance de ce lieu de savoir. Ce bâtiment institutionnel impose sa présence par sa structure massive, ancrant ainsi le quartier dans une fonction académique durable.",
+        "history": "L'espace que nous traversons témoigne d'une mutation profonde de l'usage urbain. Autrefois, les fonctions de la ville se partageaient entre commerce et vie religieuse, mais l'arrivée de cette institution académique a redessiné le quartier. Observez comment ce pôle de savoir s'est imposé pour transformer le quotidien des habitants. Cette transition vers une vocation éducative prépare votre regard à découvrir les traces plus anciennes qui nous attendent vers la Basilique Saint-Sernin.",
+        "significance": "Ici, l'agitation des échanges laisse place à une rigueur académique qui structure l'espace urbain. Cette présence institutionnelle transforme la rue en un lieu de transmission. En observant cette fonction éducative, vous percevez comment le savoir s'est ancré dans le tissu toulousain, préparant votre esprit aux vestiges plus anciens que nous verrons à la Basilique Saint-Sernin."
+      },
+      "latitude": 43.6064,
+      "longitude": 1.43667,
+      "position": 3,
+      "importanceScore": 44.09631915442328,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -590201,
+          "wikidata": "Q590201",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 24.246319154423276,
+          "osmTags": {
+            "name": "Toulouse Capitole University",
+            "wikidata": "Q590201",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "25",
+            "canonical:instance_of": "public university|university in France",
+            "tourism": "attraction",
+            "building": "government"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "ae10a129-8580-405f-b39a-5b1ed1057ccc",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 86,
+          "totalDurationMs": 16976,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "basilique Saint-Sernin de Toulouse",
+      "description": "On raconte ici que les pierres murmurent encore le passage des pèlerins. En arrivant devant la basilique Saint-Sernin, observez cette masse imposante qui domine la place éponyme. Regardez comment l'édifice s'impose au cœur de Toulouse par son volume exceptionnel. Cette structure religieuse majeure occupe tout l'espace visuel, ancrant le quartier dans une dimension sacrée. Sa présence massive marque une rupture nette avec l'effervescence universitaire que nous venons de quitter pour entrer dans un autre temps.\n\nL'histoire de ce lieu commence bien avant la pierre, avec le martyr Saturnin. Imaginez cet évêque du IIIe siècle, traîné par un taureau après son refus de sacrifier à Jupiter. Ce drame antique transforme l'espace urbain, car la découverte de son corps plus tard pousse les évêques Silve et Exupère à ériger un sanctuaire. En bâtissant cet édifice à la fin du XIe siècle, Toulouse crée un arrêt majeur pour les pèlerins vers Saint-Jacques-de-Compostelle, faisant de l'abbaye un centre de pouvoir immense.\n\nObservez comment ce monument redéfinit l'échelle de notre parcours historique. En quittant le cadre universitaire, vous entrez dans l'une des plus grandes églises romanes conservées en Europe. Cette structure immense, comparable à celles de Spire ou de Saint-Jacques-de-Compostelle, transforme la ville en un carrefour spirituel mondial. Sa présence massive prouve que Toulouse n'était pas qu'un simple point de passage, mais une étape capitale pour les pèlerins. Ce sanctuaire ancre durablement l'identité religieuse du quartier avant que nous ne rejoignions la Place Saint-Georges.\n\nLaissez derrière vous ce carrefour de pèlerins et l'empreinte du martyr pour poursuivre notre marche. Si la basilique incarne cette ferveur ancienne, nous allons maintenant chercher un autre fragment de mémoire urbaine. Dirigeons nos pas vers la Place Saint-Georges afin d'y découvrir une nouvelle strate de notre histoire.",
+      "descriptionSections": {
+        "arrival": "On raconte ici que les pierres murmurent encore le passage des pèlerins. En arrivant devant la basilique Saint-Sernin, observez cette masse imposante qui domine la place éponyme. Regardez comment l'édifice s'impose au cœur de Toulouse par son volume exceptionnel. Cette structure religieuse majeure occupe tout l'espace visuel, ancrant le quartier dans une dimension sacrée. Sa présence massive marque une rupture nette avec l'effervescence universitaire que nous venons de quitter pour entrer dans un autre temps.",
+        "history": "L'histoire de ce lieu commence bien avant la pierre, avec le martyr Saturnin. Imaginez cet évêque du IIIe siècle, traîné par un taureau après son refus de sacrifier à Jupiter. Ce drame antique transforme l'espace urbain, car la découverte de son corps plus tard pousse les évêques Silve et Exupère à ériger un sanctuaire. En bâtissant cet édifice à la fin du XIe siècle, Toulouse crée un arrêt majeur pour les pèlerins vers Saint-Jacques-de-Compostelle, faisant de l'abbaye un centre de pouvoir immense.",
+        "significance": "Observez comment ce monument redéfinit l'échelle de notre parcours historique. En quittant le cadre universitaire, vous entrez dans l'une des plus grandes églises romanes conservées en Europe. Cette structure immense, comparable à celles de Spire ou de Saint-Jacques-de-Compostelle, transforme la ville en un carrefour spirituel mondial. Sa présence massive prouve que Toulouse n'était pas qu'un simple point de passage, mais une étape capitale pour les pèlerins. Ce sanctuaire ancre durablement l'identité religieuse du quartier avant que nous ne rejoignions la Place Saint-Georges.",
+        "transition": "Laissez derrière vous ce carrefour de pèlerins et l'empreinte du martyr pour poursuivre notre marche. Si la basilique incarne cette ferveur ancienne, nous allons maintenant chercher un autre fragment de mémoire urbaine. Dirigeons nos pas vers la Place Saint-Georges afin d'y découvrir une nouvelle strate de notre histoire."
+      },
+      "latitude": 43.6083805,
+      "longitude": 1.441884,
+      "position": 4,
+      "importanceScore": 48.40131915442328,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 260584755,
+          "wikidata": "Q1010268",
+          "wikipedia": "fr:Basilique Saint-Sernin de Toulouse",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 26.901319154423277,
+          "osmTags": {
+            "name": "Basilique Saint-Sernin",
+            "amenity": "place_of_worship",
+            "name:oc": "Basilica de Sant Sernin",
+            "ref:mhs": "PA00094524",
+            "ref:whc": "868-045",
+            "tourism": "attraction",
+            "website": "https://basilique-saint-sernin.fr/",
+            "basilica": "minor",
+            "building": "church",
+            "heritage": "1",
+            "historic": "yes",
+            "religion": "christian",
+            "wikidata": "Q1010268",
+            "addr:city": "Toulouse",
+            "wikipedia": "fr:Basilique Saint-Sernin de Toulouse",
+            "ref:FR:CEF": "31555_02",
+            "start_date": "1180",
+            "wheelchair": "yes",
+            "addr:street": "Place Saint-Sernin",
+            "denomination": "catholic",
+            "addr:postcode": "31000",
+            "building:part": "no",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+            "heritage:operator": "whc;mhs",
+            "mhs:inscription_date": "1840",
+            "whc:inscription_date": "1998"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "4b66d5c5-e075-4d4c-9d1f-0242026118cf",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2471,
+          "totalDurationMs": 22729,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 0.6666666666666666,
+            "contradictedRate": 0.3333333333333333,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 1,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 1,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "style",
+                "value": "roman",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "'une des plus grandes églises romanes conservées en Europe. Cette"
+              },
+              {
+                "type": "style",
+                "value": "romane",
+                "status": "contradicted",
+                "severity": "warning",
+                "source": "none",
+                "context": "'une des plus grandes églises romanes conservées en Europe. Cette "
+              },
+              {
+                "type": "style",
+                "value": "romanes",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "'une des plus grandes églises romanes conservées en Europe. Cette s"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "place Saint-Georges",
+      "description": "L'espace s'ouvre ici sur une étendue plus calme, loin du tumulte des grands édifices religieux précédents. Observez comment la place se déploie au cœur du tissu urbain, entourée de façades qui bordent cet espace public. Cette zone marque une transition dans notre parcours, illustrant un changement d'échelle et de fonction. Regardez ces structures qui encadrent le lieu, témoignant d'une vie citadine qui s'est réorganisée autour de ce point précis.\n\nObservez la manière dont l'usage de cet espace s'est transformé au fil du temps. Autrefois lié à des fonctions plus spécifiques, le quartier a vu ses structures se réorganiser pour répondre aux nouveaux besoins de la vie citadine. Cette mutation illustre une tension entre la conservation de l'ancien et l'adaptation nécessaire. Ce changement prépare votre esprit à découvrir, un peu plus loin, les secrets de l'église Notre-Dame de la Dalbade.\n\nIci, l'espace se fragmente et s'intime, révélant une ville qui ne cherche plus à impressionner par sa démesure, mais à s'organiser pour ses habitants. Cette place incarne une mutation urbaine où les fonctions publiques se réinventent au sein d'un tissu plus dense. Ce passage vers une échelle humaine prépare votre regard aux détails plus discrets de l'église Notre-Dame de la Dalbade.",
+      "descriptionSections": {
+        "arrival": "L'espace s'ouvre ici sur une étendue plus calme, loin du tumulte des grands édifices religieux précédents. Observez comment la place se déploie au cœur du tissu urbain, entourée de façades qui bordent cet espace public. Cette zone marque une transition dans notre parcours, illustrant un changement d'échelle et de fonction. Regardez ces structures qui encadrent le lieu, témoignant d'une vie citadine qui s'est réorganisée autour de ce point précis.",
+        "history": "Observez la manière dont l'usage de cet espace s'est transformé au fil du temps. Autrefois lié à des fonctions plus spécifiques, le quartier a vu ses structures se réorganiser pour répondre aux nouveaux besoins de la vie citadine. Cette mutation illustre une tension entre la conservation de l'ancien et l'adaptation nécessaire. Ce changement prépare votre esprit à découvrir, un peu plus loin, les secrets de l'église Notre-Dame de la Dalbade.",
+        "significance": "Ici, l'espace se fragmente et s'intime, révélant une ville qui ne cherche plus à impressionner par sa démesure, mais à s'organiser pour ses habitants. Cette place incarne une mutation urbaine où les fonctions publiques se réinventent au sein d'un tissu plus dense. Ce passage vers une échelle humaine prépare votre regard aux détails plus discrets de l'église Notre-Dame de la Dalbade."
+      },
+      "latitude": 43.6020049,
+      "longitude": 1.4476696,
+      "position": 5,
+      "importanceScore": 40.25,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3933295,
+          "wikidata": "Q3390089",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 18.75,
+          "osmTags": {
+            "lit": "yes",
+            "area": "yes",
+            "name": "Place Saint-Georges",
+            "type": "multipolygon",
+            "highway": "pedestrian",
+            "name:oc": "Plaça de Sant Jòrdi",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "wikidata": "Q3390089",
+            "source:name:oc": "ieo-bdtopoc"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "decc9698-0cb7-4e95-9fa4-f9aba5ee4c27",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 49,
+          "totalDurationMs": 18123,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "église Notre-Dame de la Dalbade",
+      "description": "Approchez-vous de la rue de la Dalbade pour découvrir cette silhouette qui s'élève au cœur du quartier des Carmes. Observez comment l'édifice se dresse, imposant sa présence face au passage des passants. Ne confondez pas ce lieu avec la basilique de la Daurade située sur le quai. Ici, l'histoire se cache dans l'étymologie même du nom. Regardez la structure et imaginez l'ancienne église qui occupait cet espace, autrefois recouverte d'un enduit blanc de chaux.\n\nLe 27 octobre 1442, un incendie ravage ce quartier, effaçant l'édifice qui occupait les lieux depuis 541. Pourtant, la mémoire de la blancheur persiste dans le nom même de la rue. Vers 1480, une nouvelle structure émerge, portant en elle les traces de transformations successives. Observez cette tour nord aux créneaux, vestige d'un passé défensif. Si vous portez votre regard sur le clocher, imaginez sa chute brutale le 12 avril 1926, un événement qui a marqué la vie des habitants environnants avant de rejoindre la Place de la Trinité.\n\nCette église incarne la résilience toulousaine face aux aléas du temps. Regardez cette tour nord et ses créneaux : ils témoignent d'une fonction défensive oubliée qui transforme ce lieu de culte en véritable sentinelle du quartier des Carmes. La ville ne se contente pas de reconstruire, elle réinvente sa propre identité à chaque sinistre. Cette permanence architecturale prépare votre arrivée vers la Place de la Trinité.\n\nLaissez derrière vous cette sentinelle qui a survécu aux flammes et aux chutes. Cette capacité de la ville à se reconstruire après chaque épreuve guide vos pas. En quittant ces murs protecteurs, votre chemin s'oriente vers une autre étape de notre parcours, la Place de la Trinité.",
+      "descriptionSections": {
+        "arrival": "Approchez-vous de la rue de la Dalbade pour découvrir cette silhouette qui s'élève au cœur du quartier des Carmes. Observez comment l'édifice se dresse, imposant sa présence face au passage des passants. Ne confondez pas ce lieu avec la basilique de la Daurade située sur le quai. Ici, l'histoire se cache dans l'étymologie même du nom. Regardez la structure et imaginez l'ancienne église qui occupait cet espace, autrefois recouverte d'un enduit blanc de chaux.",
+        "history": "Le 27 octobre 1442, un incendie ravage ce quartier, effaçant l'édifice qui occupait les lieux depuis 541. Pourtant, la mémoire de la blancheur persiste dans le nom même de la rue. Vers 1480, une nouvelle structure émerge, portant en elle les traces de transformations successives. Observez cette tour nord aux créneaux, vestige d'un passé défensif. Si vous portez votre regard sur le clocher, imaginez sa chute brutale le 12 avril 1926, un événement qui a marqué la vie des habitants environnants avant de rejoindre la Place de la Trinité.",
+        "significance": "Cette église incarne la résilience toulousaine face aux aléas du temps. Regardez cette tour nord et ses créneaux : ils témoignent d'une fonction défensive oubliée qui transforme ce lieu de culte en véritable sentinelle du quartier des Carmes. La ville ne se contente pas de reconstruire, elle réinvente sa propre identité à chaque sinistre. Cette permanence architecturale prépare votre arrivée vers la Place de la Trinité.",
+        "transition": "Laissez derrière vous cette sentinelle qui a survécu aux flammes et aux chutes. Cette capacité de la ville à se reconstruire après chaque épreuve guide vos pas. En quittant ces murs protecteurs, votre chemin s'oriente vers une autre étape de notre parcours, la Place de la Trinité."
+      },
+      "latitude": 43.5976691,
+      "longitude": 1.4425836,
+      "position": 6,
+      "importanceScore": 43.3,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 23315210,
+          "wikidata": "Q3580740",
+          "wikipedia": "fr:Église Notre-Dame de la Dalbade",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 21.8,
+          "osmTags": {
+            "name": "Église Notre-Dame de la Dalbade",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/6/64/Notre-Dame_de_la_Dalbade.JPG",
+            "amenity": "place_of_worship",
+            "ref:mhs": "PA00094518",
+            "tourism": "attraction",
+            "building": "church",
+            "heritage": "2",
+            "historic": "yes",
+            "religion": "christian",
+            "wikidata": "Q3580740",
+            "wikipedia": "fr:Église Notre-Dame de la Dalbade",
+            "ref:FR:CEF": "31555_13",
+            "denomination": "catholic",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1886-07-12"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "a14f9b50-2d5a-4f66-904f-e34bc456eada",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2542,
+          "totalDurationMs": 23805,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1442",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "lanc de chaux.  Le 27 octobre 1442, un incendie ravage ce quarti"
+              },
+              {
+                "type": "date",
+                "value": "1480",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s le nom même de la rue. Vers 1480, une nouvelle structure émerg"
+              },
+              {
+                "type": "date",
+                "value": "1926",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " sa chute brutale le 12 avril 1926, un événement qui a marqué la"
+              },
+              {
+                "type": "location",
+                "value": "quartier des Carmes",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ouette qui s'élève au cœur du quartier des Carmes. Observez comment l'édifice s"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "place de la Trinité",
+      "description": "Loin du calme de la Dalbade, vous pénétrez dans l'effervescence de la place de la Trinité. Observez ce large espace ouvert qui semble respirer différemment des ruelles précédentes. Ici, le tissu urbain s'élargit pour accueillir une activité plus dense. Regardez comment les façades bordent cet espace public, marquant une transition vers un quartier où la vie citadine se déploie avec une intensité nouvelle.\n\nObservez comment l'agitation de ce carrefour témoigne d'une mutation profonde du quartier. Autrefois plus contraint par des structures anciennes, cet espace s'est transformé pour devenir un point de passage essentiel. Cette reconfiguration illustre la volonté de la ville de modifier ses flux et son usage public. Tandis que les anciens tracés s'effacent, une nouvelle dynamique urbaine s'installe, préparant votre approche vers la Basilique Notre-Dame de la Daurade.\n\nRegardez comment cet espace rompt avec la structure serrée de nos arrêts précédents. Ici, l'ouverture du paysage urbain révèle une mutation des usages, où le passage devient un lieu de rencontre et de mouvement. Cette expansion modifie votre perception de la ville, qui délaisse ses recoins secrets pour une visibilité accrue. Ce carrefour dynamique prépare vos sens à la découverte monumentale qui vous attend désormais vers la Basilique Notre-Dame de la Daurade.",
+      "descriptionSections": {
+        "arrival": "Loin du calme de la Dalbade, vous pénétrez dans l'effervescence de la place de la Trinité. Observez ce large espace ouvert qui semble respirer différemment des ruelles précédentes. Ici, le tissu urbain s'élargit pour accueillir une activité plus dense. Regardez comment les façades bordent cet espace public, marquant une transition vers un quartier où la vie citadine se déploie avec une intensité nouvelle.",
+        "history": "Observez comment l'agitation de ce carrefour témoigne d'une mutation profonde du quartier. Autrefois plus contraint par des structures anciennes, cet espace s'est transformé pour devenir un point de passage essentiel. Cette reconfiguration illustre la volonté de la ville de modifier ses flux et son usage public. Tandis que les anciens tracés s'effacent, une nouvelle dynamique urbaine s'installe, préparant votre approche vers la Basilique Notre-Dame de la Daurade.",
+        "significance": "Regardez comment cet espace rompt avec la structure serrée de nos arrêts précédents. Ici, l'ouverture du paysage urbain révèle une mutation des usages, où le passage devient un lieu de rencontre et de mouvement. Cette expansion modifie votre perception de la ville, qui délaisse ses recoins secrets pour une visibilité accrue. Ce carrefour dynamique prépare vos sens à la découverte monumentale qui vous attend désormais vers la Basilique Notre-Dame de la Daurade."
+      },
+      "latitude": 43.5997361,
+      "longitude": 1.4441911,
+      "position": 7,
+      "importanceScore": 39.00488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 10962771,
+          "wikidata": "Q16670295",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 17.50488750216347,
+          "osmTags": {
+            "lit": "yes",
+            "name": "Place de la Trinité",
+            "type": "multipolygon",
+            "highway": "pedestrian",
+            "name:oc": "Plaça de la Trinitat",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "wikidata": "Q16670295",
+            "source:name:oc": "ieo-bdtopoc"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d5bf4e70-9342-457f-9351-4976d405b1d8",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 57,
+          "totalDurationMs": 16559,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "basilique de la Daurade de Toulouse",
+      "description": "Savez-vous comment le bord de l'eau a façonné l'âme de notre cité ? En quittant la place de la Trinité, vous arrivez face à la basilique Notre-Dame de la Daurade, qui s'étire le long des quais de la Garonne. Observez sa position stratégique, juste à côté du port et de la place éponyme. Ce monument religieux borde l'école des Beaux-Arts, créant un lien direct avec l'art. Sa présence massive marque une nouvelle étape dans notre découverte de l'histoire toulousaine.\n\nL'histoire de ce lieu remonte au Ve siècle, lorsque des empereurs romains confient un temple dodécagonal dédié à Apollon aux chrétiens. Si vous levez les yeux vers l'abside, imaginez les mosaïques dorées paléochrétiennes qui ont donné son nom à la Daurade. Ce site abritait autrefois une chapelle des rois wisigoths et un important prieuré bénédictin. Le paysage change radicalement avec la reconstruction totale à la fin du XVIIIe siècle, effaçant les anciens moulins et le pont médiéval qui bordaient jadis l'édifice.\n\nRegardez comment la ville se réinvente ici en superposant les époques. En franchissant ce seuil, vous quittez le passé wisigoth pour entrer dans une structure qui a totalement effacé les anciens moulins et le pont médiéval de son environnement. Cette transformation radicale à la fin du XVIIIe siècle illustre parfaitement notre thème : Toulouse ne détruit pas seulement, elle réinvente l'espace public. Ce lieu, autrefois prieuré bénédictin, devient un témoin de cette mutation urbaine, avant que nous n'explorions l'Hôtel de Bernuy.\n\nCette mutation urbaine, où l'ancien s'efface devant la reconstruction, prépare votre regard à une autre forme de prestige. Laissez cette transformation de l'espace public derrière vous pour découvrir comment la noblesse toulousaine a marqué son propre territoire en s'approchant de l'Hôtel de Bernuy.",
+      "descriptionSections": {
+        "arrival": "Savez-vous comment le bord de l'eau a façonné l'âme de notre cité ? En quittant la place de la Trinité, vous arrivez face à la basilique Notre-Dame de la Daurade, qui s'étire le long des quais de la Garonne. Observez sa position stratégique, juste à côté du port et de la place éponyme. Ce monument religieux borde l'école des Beaux-Arts, créant un lien direct avec l'art. Sa présence massive marque une nouvelle étape dans notre découverte de l'histoire toulousaine.",
+        "history": "L'histoire de ce lieu remonte au Ve siècle, lorsque des empereurs romains confient un temple dodécagonal dédié à Apollon aux chrétiens. Si vous levez les yeux vers l'abside, imaginez les mosaïques dorées paléochrétiennes qui ont donné son nom à la Daurade. Ce site abritait autrefois une chapelle des rois wisigoths et un important prieuré bénédictin. Le paysage change radicalement avec la reconstruction totale à la fin du XVIIIe siècle, effaçant les anciens moulins et le pont médiéval qui bordaient jadis l'édifice.",
+        "significance": "Regardez comment la ville se réinvente ici en superposant les époques. En franchissant ce seuil, vous quittez le passé wisigoth pour entrer dans une structure qui a totalement effacé les anciens moulins et le pont médiéval de son environnement. Cette transformation radicale à la fin du XVIIIe siècle illustre parfaitement notre thème : Toulouse ne détruit pas seulement, elle réinvente l'espace public. Ce lieu, autrefois prieuré bénédictin, devient un témoin de cette mutation urbaine, avant que nous n'explorions l'Hôtel de Bernuy.",
+        "transition": "Cette mutation urbaine, où l'ancien s'efface devant la reconstruction, prépare votre regard à une autre forme de prestige. Laissez cette transformation de l'espace public derrière vous pour découvrir comment la noblesse toulousaine a marqué son propre territoire en s'approchant de l'Hôtel de Bernuy."
+      },
+      "latitude": 43.6009363,
+      "longitude": 1.4398504,
+      "position": 8,
+      "importanceScore": 46.56238852375102,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 38129169,
+          "wikidata": "Q2887166",
+          "wikipedia": "fr:Basilique de la Daurade",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 25.062388523751018,
+          "osmTags": {
+            "name": "Basilique Notre-Dame de la Daurade",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009",
+            "amenity": "place_of_worship",
+            "name:oc": "Basilica Nòstra Dòna de la Daurada",
+            "ref:mhs": "PA00094519",
+            "tourism": "attraction",
+            "alt_name": "Église Notre-Dame de la Daurade",
+            "basilica": "minor",
+            "building": "church",
+            "heritage": "2",
+            "historic": "church",
+            "religion": "christian",
+            "wikidata": "Q2887166",
+            "wikipedia": "fr:Basilique de la Daurade",
+            "ref:FR:CEF": "31555_14",
+            "wheelchair": "no",
+            "alt_name:oc": "Glèisa Nòstra Dòna de la Daurada",
+            "denomination": "catholic",
+            "source:name:oc": "http://www.gegeloccitan-photo.com/article-eglise-de-la-daurade-toulouse-98714067.html",
+            "source:heritage": "Ministère de la Culture - 06/2019",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1963-02-01"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "e126d053-9623-4af7-85a0-c862acde9460",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2408,
+          "totalDurationMs": 23120,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "hôtel de Jean Bernuy",
+      "description": "Observez l'angle formé par la rue Léon-Gambetta et la rue Joseph-Lakanal, là où les façades se rejoignent. Ce bâtiment s'impose à vous par sa présence massive au cœur du centre historique de Toulouse. Regardez comment cette structure semble ancrer le carrefour, marquant une transition nette avec l'enceinte religieuse que nous venons de quitter. Cette demeure particulière n'est pas qu'un simple édifice ; elle incarne la puissance d'une époque où le commerce et le pouvoir politique commençaient à redessiner l'espace urbain.\n\nEntre 1503 et 1536, Jean de Bernuy fait ériger cette demeure grâce à la fortune accumulée par le commerce du pastel. Ce marchand, dont les racines plongent dans la Castille, accède au capitoulat entre 1534 et 1535, illustrant l'ascension des élites économiques toulousaines. Observez comment la fonction de ce lieu bascule en 1567, lorsque les Jésuites y installent un collège. Cette vocation éducative perdure encore aujourd'hui avec le collège Pierre-de-Fermat, prouvant que l'usage public se réinvente sans effacer les traces du passé.\n\nContemplez cette mutation profonde de l'usage urbain. Si la pierre témoigne d'une richesse marchande, le passage aux Jésuites en 1567 transforme ce lieu de prestige privé en un centre de savoir. Notez comment l'enseignement s'approprie ces murs pour devenir le collège Pierre-de-Fermat actuel. Cette transition illustre parfaitement notre quête : voir comment Toulouse réinvente sa vie publique sans effacer ses fondations. Ce basculement du commerce vers l'éducation prépare votre esprit à découvrir, au Capitole, l'autre visage de la puissance toulousaine.\n\nAprès avoir vu comment l'éducation s'est enracinée dans ces murs de prestige, laissez cette idée de transmission guider vos pas. Cette mutation du savoir nous prépare à une autre forme d'autorité. Dirigeons-nous vers le Capitole pour découvrir comment la cité exerce sa véritable souveraineté.",
+      "descriptionSections": {
+        "arrival": "Observez l'angle formé par la rue Léon-Gambetta et la rue Joseph-Lakanal, là où les façades se rejoignent. Ce bâtiment s'impose à vous par sa présence massive au cœur du centre historique de Toulouse. Regardez comment cette structure semble ancrer le carrefour, marquant une transition nette avec l'enceinte religieuse que nous venons de quitter. Cette demeure particulière n'est pas qu'un simple édifice ; elle incarne la puissance d'une époque où le commerce et le pouvoir politique commençaient à redessiner l'espace urbain.",
+        "history": "Entre 1503 et 1536, Jean de Bernuy fait ériger cette demeure grâce à la fortune accumulée par le commerce du pastel. Ce marchand, dont les racines plongent dans la Castille, accède au capitoulat entre 1534 et 1535, illustrant l'ascension des élites économiques toulousaines. Observez comment la fonction de ce lieu bascule en 1567, lorsque les Jésuites y installent un collège. Cette vocation éducative perdure encore aujourd'hui avec le collège Pierre-de-Fermat, prouvant que l'usage public se réinvente sans effacer les traces du passé.",
+        "significance": "Contemplez cette mutation profonde de l'usage urbain. Si la pierre témoigne d'une richesse marchande, le passage aux Jésuites en 1567 transforme ce lieu de prestige privé en un centre de savoir. Notez comment l'enseignement s'approprie ces murs pour devenir le collège Pierre-de-Fermat actuel. Cette transition illustre parfaitement notre quête : voir comment Toulouse réinvente sa vie publique sans effacer ses fondations. Ce basculement du commerce vers l'éducation prépare votre esprit à découvrir, au Capitole, l'autre visage de la puissance toulousaine.",
+        "transition": "Après avoir vu comment l'éducation s'est enracinée dans ces murs de prestige, laissez cette idée de transmission guider vos pas. Cette mutation du savoir nous prépare à une autre forme d'autorité. Dirigeons-nous vers le Capitole pour découvrir comment la cité exerce sa véritable souveraineté."
+      },
+      "latitude": 43.6027369,
+      "longitude": 1.4406652,
+      "position": 9,
+      "importanceScore": 32.75,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 1605632,
+          "wikidata": "Q22938605",
+          "wikipedia": "fr:Hôtel de Bernuy",
+          "category": "other",
+          "landmarkTier": "major",
+          "fameScore": 16.75,
+          "osmTags": {
+            "name": "Hôtel de Bernuy",
+            "type": "multipolygon",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/6/69/Lycee_pierre_de_fermat_toulouse.jpg",
+            "ref:mhs": "PA00094533",
+            "tourism": "attraction",
+            "building": "yes",
+            "heritage": "2",
+            "historic": "yes",
+            "wikidata": "Q22938605",
+            "wikipedia": "fr:Hôtel de Bernuy",
+            "start_date": "1530",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1889"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "93eeea7e-d43f-4af6-9983-9a377fc0a69f",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2614,
+          "totalDurationMs": 23488,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1503",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "siner l'espace urbain.  Entre 1503 et 1536, Jean de Bernuy fait "
+              },
+              {
+                "type": "date",
+                "value": "1536",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "espace urbain.  Entre 1503 et 1536, Jean de Bernuy fait ériger c"
+              },
+              {
+                "type": "date",
+                "value": "1534",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e, accède au capitoulat entre 1534 et 1535, illustrant l'ascensi"
+              },
+              {
+                "type": "date",
+                "value": "1535",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e au capitoulat entre 1534 et 1535, illustrant l'ascension des é"
+              },
+              {
+                "type": "date",
+                "value": "1567",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "onction de ce lieu bascule en 1567, lorsque les Jésuites y insta"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "capitole de Toulouse",
+      "description": "On raconte souvent que ce bâtiment ne se contente pas d'habiter la ville, mais qu'il en est le cœur battant. Regardez comment cette structure imposante s'impose à votre vue, marquant une rupture nette avec l'élégance de l'Hôtel de Bernuy. Observez sa présence massive qui domine l'espace public. Ce monument abrite aujourd'hui l'hôtel de ville ainsi que le théâtre du Capitole. Sa façade semble surveiller chaque mouvement autour de ses murs, ancrant solidement le pouvoir municipal dans la pierre.\n\nDès 1190, les consuls cherchent un bâtiment pour leur maison commune. Ce lieu s'appelle alors Capitulum, car les capitouls votent par tête comme les chapitres ecclésiastiques. En 1522, le greffier Pierre Salmon latinise ce nom en Capitolium, évoquant ainsi le Capitole romain. Les magistrats acquièrent progressivement les terrains alentour pour regrouper archives et prison. La façade actuelle s'élève finalement en 1750 selon les plans de Guillaume Cammas, achevant un projet de construction étalé sur près de deux cents ans.\n\nCe monument marque l'aboutissement de notre quête sur la permanence du pouvoir. Observez comment ce lieu transforme une simple assemblée de magistrats en un symbole urbain pérenne. En passant de l'intimité de l'Hôtel de Bernuy à cette structure, vous comprenez que Toulouse a su graver ses institutions dans la pierre. Le passage du Capitulum au Capitolium illustre cette volonté de grandeur. Cette enceinte, qui abritait autrefois archives et prison, prépare votre regard à découvrir l'immensité de la Place du Capitole.\n\nCette enceinte, qui abritait autrefois archives et prison, prépare votre regard à découvrir l'immensité de la Place du Capitole. En quittant cette structure imposante, vous allez ressentir comment l'espace s'ouvre brusquement pour révéler le cœur vivant de notre cité.",
+      "descriptionSections": {
+        "arrival": "On raconte souvent que ce bâtiment ne se contente pas d'habiter la ville, mais qu'il en est le cœur battant. Regardez comment cette structure imposante s'impose à votre vue, marquant une rupture nette avec l'élégance de l'Hôtel de Bernuy. Observez sa présence massive qui domine l'espace public. Ce monument abrite aujourd'hui l'hôtel de ville ainsi que le théâtre du Capitole. Sa façade semble surveiller chaque mouvement autour de ses murs, ancrant solidement le pouvoir municipal dans la pierre.",
+        "history": "Dès 1190, les consuls cherchent un bâtiment pour leur maison commune. Ce lieu s'appelle alors Capitulum, car les capitouls votent par tête comme les chapitres ecclésiastiques. En 1522, le greffier Pierre Salmon latinise ce nom en Capitolium, évoquant ainsi le Capitole romain. Les magistrats acquièrent progressivement les terrains alentour pour regrouper archives et prison. La façade actuelle s'élève finalement en 1750 selon les plans de Guillaume Cammas, achevant un projet de construction étalé sur près de deux cents ans.",
+        "significance": "Ce monument marque l'aboutissement de notre quête sur la permanence du pouvoir. Observez comment ce lieu transforme une simple assemblée de magistrats en un symbole urbain pérenne. En passant de l'intimité de l'Hôtel de Bernuy à cette structure, vous comprenez que Toulouse a su graver ses institutions dans la pierre. Le passage du Capitulum au Capitolium illustre cette volonté de grandeur. Cette enceinte, qui abritait autrefois archives et prison, prépare votre regard à découvrir l'immensité de la Place du Capitole.",
+        "transition": "Cette enceinte, qui abritait autrefois archives et prison, prépare votre regard à découvrir l'immensité de la Place du Capitole. En quittant cette structure imposante, vous allez ressentir comment l'espace s'ouvre brusquement pour révéler le cœur vivant de notre cité."
+      },
+      "latitude": 43.6044439,
+      "longitude": 1.4442552,
+      "position": 10,
+      "importanceScore": 54.32068586817104,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 367073,
+          "wikidata": "Q2351013",
+          "wikipedia": "fr:Capitole de Toulouse",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 28.82068586817104,
+          "osmTags": {
+            "name": "Capitole",
+            "wikidata": "Q2351013",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "22",
+            "canonical:instance_of": "capitol building",
+            "tourism": "attraction",
+            "building": "public",
+            "type": "multipolygon",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/b/ba/CapitoleTOLOSAII.jpg",
+            "access": "yes",
+            "height": "25",
+            "name:en": "Capitole",
+            "name:es": "Capitolio",
+            "name:oc": "Capitòli",
+            "ref:mhs": "PA00094497",
+            "website": "https://metropole.toulouse.fr/annuaire/capitole",
+            "heritage": "2",
+            "historic": "yes",
+            "wikipedia": "fr:Capitole de Toulouse",
+            "addr:street": "Place du Capitole",
+            "roof:levels": "1",
+            "addr:housename": "Capitole",
+            "source:name:oc": "ieo-bdtopoc",
+            "building:levels": "3",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1840"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "f43c015a-f370-444b-b704-d432a6fe6c95",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2474,
+          "totalDurationMs": 29298,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1190",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "unicipal dans la pierre.  Dès 1190, les consuls cherchent un bât"
+              },
+              {
+                "type": "date",
+                "value": "1522",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "chapitres ecclésiastiques. En 1522, le greffier Pierre Salmon la"
+              },
+              {
+                "type": "date",
+                "value": "1750",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ctuelle s'élève finalement en 1750 selon les plans de Guillaume "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-12",
+      "tourId": "fixture-candidate",
+      "name": "place du Capitole",
+      "description": "Élargissez votre regard pour embrasser cet immense espace qui s'ouvre devant vous, cœur battant de Toulouse. Observez comment cette vaste étendue se détache des rues étroites que nous venons de parcourir. Ici, l'urbanisme prend une dimension nouvelle, loin de la densité du Capitole. Regardez la structure même de ce lieu, conçu pour offrir un dégagement monumental à la ville. Cette place, dont les premiers projets de « place royale » apparaissent à la fin du XVIIe siècle, prépare votre esprit aux transformations successives de l'espace public.\n\nObservez comment l'ambition des capitouls a façonné ce décor. En cherchant à magnifier leur pouvoir, les magistrats ont orchestré l'élévation de la façade monumentale de la Maison commune. Entre 1809 et 1852, les côtés sud, nord et ouest adoptent le style néo-classique selon les plans de Jacques-Pascal Virebent. Ce lieu change d'âme, passant du marché aux fêtes, puis au siège de la guillotine durant la Révolution française. Notez que ce sol est protégé comme site inscrit depuis 1943, avant de retrouver sa vocation piétonne en 1993.\n\nContemplez ce changement d'échelle où l'espace public s'étire pour devenir un théâtre de la vie citoyenne. Si vous observez le sol, sachez que cet emplacement est protégé comme site inscrit depuis 1943. Cette importance patrimoniale témoigne de la capacité de Toulouse à préserver ses traces malgré les usages changeants. En quittant ce large dégagement, votre regard s'orientera vers d'autres vestiges, là où l'histoire se dévoile à travers des fragments plus fragiles.\n\nLaissez cette grandeur monumentale s'effacer pour retrouver une dimension plus intime. Si cet espace célèbre la puissance de l'urbanisme, nous allons maintenant chercher le témoignage d'un passé plus fragmenté. Suivez-moi vers des vestiges où la pierre ne cherche plus à dominer, mais raconte sa propre fragilité.",
+      "descriptionSections": {
+        "arrival": "Élargissez votre regard pour embrasser cet immense espace qui s'ouvre devant vous, cœur battant de Toulouse. Observez comment cette vaste étendue se détache des rues étroites que nous venons de parcourir. Ici, l'urbanisme prend une dimension nouvelle, loin de la densité du Capitole. Regardez la structure même de ce lieu, conçu pour offrir un dégagement monumental à la ville. Cette place, dont les premiers projets de « place royale » apparaissent à la fin du XVIIe siècle, prépare votre esprit aux transformations successives de l'espace public.",
+        "history": "Observez comment l'ambition des capitouls a façonné ce décor. En cherchant à magnifier leur pouvoir, les magistrats ont orchestré l'élévation de la façade monumentale de la Maison commune. Entre 1809 et 1852, les côtés sud, nord et ouest adoptent le style néo-classique selon les plans de Jacques-Pascal Virebent. Ce lieu change d'âme, passant du marché aux fêtes, puis au siège de la guillotine durant la Révolution française. Notez que ce sol est protégé comme site inscrit depuis 1943, avant de retrouver sa vocation piétonne en 1993.",
+        "significance": "Contemplez ce changement d'échelle où l'espace public s'étire pour devenir un théâtre de la vie citoyenne. Si vous observez le sol, sachez que cet emplacement est protégé comme site inscrit depuis 1943. Cette importance patrimoniale témoigne de la capacité de Toulouse à préserver ses traces malgré les usages changeants. En quittant ce large dégagement, votre regard s'orientera vers d'autres vestiges, là où l'histoire se dévoile à travers des fragments plus fragiles.",
+        "transition": "Laissez cette grandeur monumentale s'effacer pour retrouver une dimension plus intime. Si cet espace célèbre la puissance de l'urbanisme, nous allons maintenant chercher le témoignage d'un passé plus fragmenté. Suivez-moi vers des vestiges où la pierre ne cherche plus à dominer, mais raconte sa propre fragilité."
+      },
+      "latitude": 43.604394,
+      "longitude": 1.4433789,
+      "position": 11,
+      "importanceScore": 48.67206476617281,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 11148976,
+          "wikidata": "Q3390578",
+          "wikipedia": "fr:Place du Capitole (Toulouse)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 23.672064766172813,
+          "osmTags": {
+            "lit": "yes",
+            "name": "Place du Capitole",
+            "type": "multipolygon",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/4/4e/Toulouse_Capitole_Night_Wikimedia_Commons.jpg",
+            "place": "square",
+            "bicycle": "yes",
+            "highway": "pedestrian",
+            "name:es": "Plaza del Capitolio",
+            "name:oc": "Plaça del Capitòli",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "historic": "yes",
+            "loc_name": "Place du Cap",
+            "wikidata": "Q3390578",
+            "wikipedia": "fr:Place du Capitole (Toulouse)",
+            "start_date": "1730",
+            "wheelchair": "yes",
+            "motor_vehicle": "no",
+            "source:name:oc": "ieo-bdtopoc",
+            "construction_date": "1851"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "86d0b4bd-dfe0-4029-bc42-3a4d27e81769",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2454,
+          "totalDurationMs": 22500,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1809",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "e de la Maison commune. Entre 1809 et 1852, les côtés sud, nord "
+              },
+              {
+                "type": "date",
+                "value": "1852",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Maison commune. Entre 1809 et 1852, les côtés sud, nord et ouest"
+              },
+              {
+                "type": "date",
+                "value": "1943",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "égé comme site inscrit depuis 1943, avant de retrouver sa vocati"
+              },
+              {
+                "type": "date",
+                "value": "1993",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ouver sa vocation piétonne en 1993.  Contemplez ce changement d'"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "église des Cordeliers de Toulouse",
+      "description": "Approchez-vous de ces vestiges qui se dressent désormais à ciel ouvert. Observez comment les structures de pierre émergent du sol, témoignant d'une présence passée. Ce que vous voyez ici n'est plus une église intacte, mais un fragment de l'ancien couvent des Cordeliers. Ces ruines, classées monument historique depuis 1862, marquent la fin de notre parcours. Elles illustrent parfaitement comment Toulouse conserve les traces de ses cicatrices pour répondre à notre question sur la réinvention de sa vie publique.\n\nL'histoire de ce lieu s'enracine en 1222 avec l'arrivée des frères Franciscains. Pour rivaliser avec les Jacobins, ils bâtissent une église dont la voûte atteint vingt-cinq mètres de hauteur. Observez cette ambition gravée dans la pierre : une devise proclamait que l'édifice durerait jusqu'à ce qu'une fourmi boive la mer. Pourtant, le destin bascule avec un incendie en 1798, suivi d'une occupation militaire avant qu'un second feu ne ravage tout en 1871.\n\nRegardez ces pans de murs qui s'élèvent vers le ciel sans plafond pour vous offrir une perspective unique sur la résilience urbaine. Ce squelette de pierre ne se contente pas de raconter des incendies passés ; il incarne la transformation radicale de l'espace public toulousain. En passant d'un lieu de culte à un usage militaire, puis en devenant ce monument historique protégé, le site prouve que la ville réinvente sa mémoire. Ici, l'absence de toit devient une présence, bouclant notre voyage par cette leçon de permanence.\n\nJe vous remercie d'avoir parcouru ces siècles à mes côtés. Regardez ce squelette de pierre : il incarne la résilience toulousaine, transformant des cicatrices de feu en un patrimoine protégé. En observant ces pans de murs sans toit, vous comprenez comment notre ville réinvente son espace public tout en honorant ses racines. Ce voyage s'achève ici, sous ce ciel ouvert. Je vous souhaite une excellente suite dans la découverte de nos cités.",
+      "descriptionSections": {
+        "arrival": "Approchez-vous de ces vestiges qui se dressent désormais à ciel ouvert. Observez comment les structures de pierre émergent du sol, témoignant d'une présence passée. Ce que vous voyez ici n'est plus une église intacte, mais un fragment de l'ancien couvent des Cordeliers. Ces ruines, classées monument historique depuis 1862, marquent la fin de notre parcours. Elles illustrent parfaitement comment Toulouse conserve les traces de ses cicatrices pour répondre à notre question sur la réinvention de sa vie publique.",
+        "history": "L'histoire de ce lieu s'enracine en 1222 avec l'arrivée des frères Franciscains. Pour rivaliser avec les Jacobins, ils bâtissent une église dont la voûte atteint vingt-cinq mètres de hauteur. Observez cette ambition gravée dans la pierre : une devise proclamait que l'édifice durerait jusqu'à ce qu'une fourmi boive la mer. Pourtant, le destin bascule avec un incendie en 1798, suivi d'une occupation militaire avant qu'un second feu ne ravage tout en 1871.",
+        "significance": "Regardez ces pans de murs qui s'élèvent vers le ciel sans plafond pour vous offrir une perspective unique sur la résilience urbaine. Ce squelette de pierre ne se contente pas de raconter des incendies passés ; il incarne la transformation radicale de l'espace public toulousain. En passant d'un lieu de culte à un usage militaire, puis en devenant ce monument historique protégé, le site prouve que la ville réinvente sa mémoire. Ici, l'absence de toit devient une présence, bouclant notre voyage par cette leçon de permanence.",
+        "transition": "Je vous remercie d'avoir parcouru ces siècles à mes côtés. Regardez ce squelette de pierre : il incarne la résilience toulousaine, transformant des cicatrices de feu en un patrimoine protégé. En observant ces pans de murs sans toit, vous comprenez comment notre ville réinvente son espace public tout en honorant ses racines. Ce voyage s'achève ici, sous ce ciel ouvert. Je vous souhaite une excellente suite dans la découverte de nos cités."
+      },
+      "latitude": 43.6054975,
+      "longitude": 1.440695,
+      "position": 12,
+      "importanceScore": 47.215784284662085,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 46711884,
+          "wikidata": "Q3585905",
+          "wikipedia": "fr:Église des Cordeliers de Toulouse",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 22.215784284662085,
+          "osmTags": {
+            "name": "Ruines de l'église des Cordeliers",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/3/3e/%C3%89glise_des_Cordeliers_de_Toulouse.JPG",
+            "ruins": "yes",
+            "disused": "yes",
+            "ref:mhs": "PA00094517",
+            "tourism": "attraction",
+            "building": "church",
+            "end_date": "1871",
+            "heritage": "2",
+            "historic": "ruins",
+            "wikidata": "Q3585905",
+            "wikipedia": "fr:Église des Cordeliers de Toulouse",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1862"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "6b9c5de5-7799-4940-be70-89377f9ad75d",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2452,
+          "totalDurationMs": 20243,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1862",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "es monument historique depuis 1862, marquent la fin de notre par"
+              },
+              {
+                "type": "date",
+                "value": "1222",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "oire de ce lieu s'enracine en 1222 avec l'arrivée des frères Fra"
+              },
+              {
+                "type": "date",
+                "value": "1798",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n bascule avec un incendie en 1798, suivi d'une occupation milit"
+              },
+              {
+                "type": "date",
+                "value": "1871",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " second feu ne ravage tout en 1871.  Regardez ces pans de murs q"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "createdAt": "2026-06-24T11:05:43.136Z",
+  "updatedAt": "2026-06-24T11:05:43.136Z"
+}

@@ -129,6 +129,61 @@ describe('composeWalkingRoute', () => {
     expect(result.route.length).toBeGreaterThanOrEqual(6);
   });
 
+  it('uses extra stops beyond the nominal cap when a compact 240-minute route would be too short', () => {
+    const compactCandidates = Array.from({ length: 13 }, (_, index) => {
+      const categories = ['palace_castle', 'square_civic', 'market', 'religious', 'museum'];
+      return candidate(
+        `Compact landmark ${index + 1}`,
+        40.4168 + (index * 0.001),
+        -3.7038,
+        categories[index % categories.length],
+        13 - (index * 0.1)
+      );
+    });
+
+    const result = composeWalkingRoute(compactCandidates, 240, 'history', { minStops: 6, maxStops: 10 });
+
+    expect(result.route.length).toBeGreaterThan(10);
+    expect(result.route.length).toBe(13);
+  });
+
+  it('prioritizes event-site history over museum-heavy history when both are walkable', () => {
+    const result = composeWalkingRoute([
+      {
+        ...tieredCandidate('Famous History Museum', 52.5200, 13.3970, 'museum', 24, 'flagship', 24),
+        historyPlaceScore: -2,
+        historyIsMuseumLike: true,
+      },
+      {
+        ...tieredCandidate('National Museum Annex', 52.5204, 13.3980, 'museum', 22, 'flagship', 22),
+        historyPlaceScore: -2,
+        historyIsMuseumLike: true,
+      },
+      {
+        ...tieredCandidate('Parliament Gate', 52.5180, 13.3777, 'other', 15, 'major', 15),
+        historyPlaceScore: 10,
+        historyPlaceKinds: ['civic-power-site', 'event-name'],
+        historyIsEventSiteLike: true,
+      },
+      {
+        ...tieredCandidate('City Wall Memorial', 52.5070, 13.3900, 'memorial', 14, 'major', 14),
+        historyPlaceScore: 9,
+        historyPlaceKinds: ['memory-site', 'event-name'],
+        historyIsEventSiteLike: true,
+      },
+      {
+        ...tieredCandidate('Old Public Square', 52.5150, 13.3920, 'square_civic', 13, 'major', 13),
+        historyPlaceScore: 7,
+        historyPlaceKinds: ['public-square'],
+        historyIsEventSiteLike: true,
+      },
+    ], 120, 'history', { minStops: 3, maxStops: 3 });
+
+    const names = result.route.map((place) => place.name);
+    expect(names).toEqual(expect.arrayContaining(['Parliament Gate', 'City Wall Memorial']));
+    expect(names.filter((name) => name.includes('Museum')).length).toBeLessThanOrEqual(1);
+  });
+
   it('keeps a separated flagship instead of replacing it with compact filler', () => {
     const result = composeWalkingRoute([
       tieredCandidate('Royal Palace', 40.4168, -3.7038, 'palace_castle', 11, 'flagship'),

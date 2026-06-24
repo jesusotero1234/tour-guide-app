@@ -1,0 +1,1044 @@
+{
+  "id": "fixture-candidate",
+  "city": "Roma",
+  "country": "Italy",
+  "countryCode": "IT",
+  "theme": "history",
+  "language": "it",
+  "durationMinutes": 240,
+  "metadata": {
+    "generationMode": "frozen-fixture-replay",
+    "sourceSnapshot": "roma-history-it.json",
+    "routeDiagnostics": {
+      "degraded": false,
+      "degradationReason": null,
+      "coverageRatio": 0.9538602091056094,
+      "estimatedTourMinutes": 228.92645018534625,
+      "requestedDuration": 240
+    }
+  },
+  "places": [
+    {
+      "id": "fixture-1",
+      "tourId": "fixture-candidate",
+      "name": "Pantheon",
+      "description": "Guarda le imponenti colonne di granito che sorreggono questo portico; sembrano quasi sospese sopra la strada. Siamo alla prima delle tredici tappe del nostro percorso, un viaggio di circa 240 minuti attraverso i secoli. Davanti a te sorge il Pantheon, un tempio dedicato a ogni divinità passata, presente e futura. Mentre osservi questa struttura, chiediti come Roma riesca a reinventare la vita pubblica mantenendo intatte le tracce di ogni epoca precedente.\n\nMarco Vipsanio Agrippa fondò questo luogo dedicandolo alla dea Cibele e a tutte le divinità. Nota come il tempo abbia segnato queste mura: gli incendi dell'ottanta e del centodieci d.C. distrussero la struttura originaria, spingendo l'imperatore Adriano a una ricostruzione tra il centododici e il centoventotto d.C. circa. Osserva la cupola in calcestruzzo che ancora oggi resiste. La sua trasformazione in basilica cristiana, avvenuta grazie al dono dell'imperatore Foca, ne ha salvato l'integrità dalle spoliazioni.\n\nOsserva come questa struttura non sia solo un monumento, ma un palinsesto di sopravvivenza. La trasformazione in basilica cristiana, permessa dal dono dell'imperatore Foca, ha agito da scudo contro le spoliazioni che hanno invece svuotato altri siti. In questo modo, il tempio dedicato a ogni divinità conserva la sua integrità fisica mentre cambia funzione sociale. Attraverso queste mura, comprendi come Roma non cancelli il passato, ma lo riutilizzi per dare nuova vita alla propria dimensione pubblica.\n\nQuesta capacità di riutilizzare le antiche funzioni per nuovi scopi ti guida verso il nostro prossimo punto. Lascia che la riflessione sulla sopravvivenza del tempio accompagni i tuoi passi mentre ci dirigiamo verso piazza Venezia, dove un altro strato della storia romana attende solo di essere letto.",
+      "descriptionSections": {
+        "arrival": "Guarda le imponenti colonne di granito che sorreggono questo portico; sembrano quasi sospese sopra la strada. Siamo alla prima delle tredici tappe del nostro percorso, un viaggio di circa 240 minuti attraverso i secoli. Davanti a te sorge il Pantheon, un tempio dedicato a ogni divinità passata, presente e futura. Mentre osservi questa struttura, chiediti come Roma riesca a reinventare la vita pubblica mantenendo intatte le tracce di ogni epoca precedente.",
+        "history": "Marco Vipsanio Agrippa fondò questo luogo dedicandolo alla dea Cibele e a tutte le divinità. Nota come il tempo abbia segnato queste mura: gli incendi dell'ottanta e del centodieci d.C. distrussero la struttura originaria, spingendo l'imperatore Adriano a una ricostruzione tra il centododici e il centoventotto d.C. circa. Osserva la cupola in calcestruzzo che ancora oggi resiste. La sua trasformazione in basilica cristiana, avvenuta grazie al dono dell'imperatore Foca, ne ha salvato l'integrità dalle spoliazioni.",
+        "significance": "Osserva come questa struttura non sia solo un monumento, ma un palinsesto di sopravvivenza. La trasformazione in basilica cristiana, permessa dal dono dell'imperatore Foca, ha agito da scudo contro le spoliazioni che hanno invece svuotato altri siti. In questo modo, il tempio dedicato a ogni divinità conserva la sua integrità fisica mentre cambia funzione sociale. Attraverso queste mura, comprendi come Roma non cancelli il passato, ma lo riutilizzi per dare nuova vita alla propria dimensione pubblica.",
+        "transition": "Questa capacità di riutilizzare le antiche funzioni per nuovi scopi ti guida verso il nostro prossimo punto. Lascia che la riflessione sulla sopravvivenza del tempio accompagni i tuoi passi mentre ci dirigiamo verso piazza Venezia, dove un altro strato della storia romana attende solo di essere letto."
+      },
+      "latitude": 41.8986261,
+      "longitude": 12.4768335,
+      "position": 0,
+      "importanceScore": 59.16134224453131,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3374342,
+          "wikidata": "Q99309",
+          "wikipedia": "it:Pantheon (Roma)",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 34.16134224453131,
+          "osmTags": {
+            "name": "Pantheon",
+            "wikidata": "Q99309",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "78",
+            "canonical:instance_of": "minor basilica|tourist attraction|Roman temple|Italian national museum|ancient Roman structure|Roman archaeological site|religious museum|secularized religious building|historical civil building museum|archaeological artifact museum|Museum of the Italian Ministry of Culture",
+            "tourism": "attraction",
+            "historic": "archaeological_site",
+            "addr:city": "Roma",
+            "addr:postcode": "00186",
+            "addr:street": "Piazza della Rotonda",
+            "alt_name": "Santa Maria ad Martyres",
+            "amenity": "place_of_worship",
+            "basilica": "minor",
+            "building": "temple",
+            "contact:website": "https://pantheonroma.org/",
+            "denomination": "roman_catholic",
+            "fee": "yes",
+            "heritage": "1",
+            "heritage:since": "1980",
+            "heritage:url": "https://whc.unesco.org/en/list/91",
+            "loc_name": "Santa Maria ad Martyres",
+            "name:en": "Pantheon",
+            "name:es": "Panteón",
+            "name:et": "Rooma Panteon",
+            "name:fr": "Panthéon",
+            "name:it": "Pantheon",
+            "name:ko": "판테온",
+            "name:pl": "Panteon",
+            "name:pt": "Panteão",
+            "name:ru": "Пантеон",
+            "name:zh": "万神殿",
+            "official_name": "Basilica Collegiata di Santa Maria ad Martyres",
+            "opening_hours": "Mo-Sa 08:30-19:15; Su 09:00-17:45",
+            "ref:whc": "91",
+            "religion": "christian",
+            "service_times": "Sa 17:00; Su 10:30",
+            "type": "multipolygon",
+            "wheelchair": "yes",
+            "wikimedia_commons": "Category:Pantheon (Rome)",
+            "wikipedia": "it:Pantheon (Roma)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "0b3f5603-b04a-4866-b51e-75aaf67b319a",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2742,
+          "totalDurationMs": 14874,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 0.5,
+            "contradictedRate": 0,
+            "unverifiedRate": 0.5,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 1,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "style",
+                "value": "roman",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " un altro strato della storia romana attende solo di essere letto"
+              },
+              {
+                "type": "material",
+                "value": "granito",
+                "status": "unverified",
+                "severity": "info",
+                "source": "none",
+                "context": "uarda le imponenti colonne di granito che sorreggono questo portico"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-2",
+      "tourId": "fixture-candidate",
+      "name": "piazza Venezia",
+      "description": "Lascia alle tue spalle la quiete del Pantheon per immergerti nel cuore pulsante della città. Osserva come il silenzio antico svanisce mentre ti trovi davanti all'imponente massa bianca di Piazza Venezia. Nota la vastità di questo spazio aperto, dove i grandi blocchi di marmo si stagliano contro il cielo. Qui la struttura urbana cambia volto, preparando lo sguardo a scoprire ciò che resta in piedi poco distante.\n\nSenti il peso dei cambiamenti che hanno ridisegnato questo spazio. Nota come la città abbia scelto di abbattere vecchi isolati per far posto a questa enorme apertura monumentale. Questa trasformazione ha creato una tensione tra la memoria delle antiche strade e la necessità di nuovi percorsi urbani. Mentre cammini, percepisci il contrasto tra le stratificazioni che si sovrappongono, aprendo la strada verso ciò che sorge poco più avanti.\n\nOsserva come la vastità di questo spazio modifichi la tua percezione del tempo urbano. Se guardi intorno, percepisci una tensione tra le vecchie trame stradali e questa enorme apertura monumentale. Questa piazza non è solo un punto di passaggio, ma il luogo dove la città ha deciso di cancellare interi isolati per creare nuovi flussi. Mentre procediamo, senti come questo vuoto prepari lo sguardo alla verticalità che troverai poco distante.",
+      "descriptionSections": {
+        "arrival": "Lascia alle tue spalle la quiete del Pantheon per immergerti nel cuore pulsante della città. Osserva come il silenzio antico svanisce mentre ti trovi davanti all'imponente massa bianca di Piazza Venezia. Nota la vastità di questo spazio aperto, dove i grandi blocchi di marmo si stagliano contro il cielo. Qui la struttura urbana cambia volto, preparando lo sguardo a scoprire ciò che resta in piedi poco distante.",
+        "history": "Senti il peso dei cambiamenti che hanno ridisegnato questo spazio. Nota come la città abbia scelto di abbattere vecchi isolati per far posto a questa enorme apertura monumentale. Questa trasformazione ha creato una tensione tra la memoria delle antiche strade e la necessità di nuovi percorsi urbani. Mentre cammini, percepisci il contrasto tra le stratificazioni che si sovrappongono, aprendo la strada verso ciò che sorge poco più avanti.",
+        "significance": "Osserva come la vastità di questo spazio modifichi la tua percezione del tempo urbano. Se guardi intorno, percepisci una tensione tra le vecchie trame stradali e questa enorme apertura monumentale. Questa piazza non è solo un punto di passaggio, ma il luogo dove la città ha deciso di cancellare interi isolati per creare nuovi flussi. Mentre procediamo, senti come questo vuoto prepari lo sguardo alla verticalità che troverai poco distante."
+      },
+      "latitude": 41.89639,
+      "longitude": 12.4825,
+      "position": 1,
+      "importanceScore": 52.35620665658675,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -874832,
+          "wikidata": "Q874832",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 29.356206656586746,
+          "osmTags": {
+            "name": "piazza Venezia",
+            "wikidata": "Q874832",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "38",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "80e0b091-9242-4fdb-a2e9-e6e94f75dc95",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 85,
+          "totalDurationMs": 9797,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-3",
+      "tourId": "fixture-candidate",
+      "name": "Colonna Traiana",
+      "description": "Ti sei mai chiesto come un singolo pilastro possa raccontare l'intera genesi di un impero? Fermati proprio qui, dove la pietra si erge solida sopra il selciato. Osserva la superficie avvolta da bassorilievi che sembrano scorrere verso l'alto. Nota come ogni dettaglio scolpito prepari lo sguardo a ciò che vedrai poco più avanti, nel Foro di Traiano.\n\nOsserva la tensione che si sprigiona da questo monumento, nato per celebrare una vittoria e trasformare il paesaggio urbano. Nota come la scelta di erigere un tale segno abbia cambiato per sempre l'equilibrio della zona. Questo pilastro funge da ponte visivo, preparando la tua mente a scoprire i resti del Foro di Traiano.\n\nLascia che il tuo sguardo si perda tra le spirali di marmo. Nota come la narrazione scolpita non sia solo decorazione, ma un vero e proprio racconto continuo che guida l'occhio verso il cielo. Questa struttura agisce come un perno visivo, trasformando lo spazio circostante in una testimonianza tangibile del passato. Osserva la sua posizione strategica: essa funge da soglia necessaria prima di addentrarci nei resti del Foro di Traiano.",
+      "descriptionSections": {
+        "arrival": "Ti sei mai chiesto come un singolo pilastro possa raccontare l'intera genesi di un impero? Fermati proprio qui, dove la pietra si erge solida sopra il selciato. Osserva la superficie avvolta da bassorilievi che sembrano scorrere verso l'alto. Nota come ogni dettaglio scolpito prepari lo sguardo a ciò che vedrai poco più avanti, nel Foro di Traiano.",
+        "history": "Osserva la tensione che si sprigiona da questo monumento, nato per celebrare una vittoria e trasformare il paesaggio urbano. Nota come la scelta di erigere un tale segno abbia cambiato per sempre l'equilibrio della zona. Questo pilastro funge da ponte visivo, preparando la tua mente a scoprire i resti del Foro di Traiano.",
+        "significance": "Lascia che il tuo sguardo si perda tra le spirali di marmo. Nota come la narrazione scolpita non sia solo decorazione, ma un vero e proprio racconto continuo che guida l'occhio verso il cielo. Questa struttura agisce come un perno visivo, trasformando lo spazio circostante in una testimonianza tangibile del passato. Osserva la sua posizione strategica: essa funge da soglia necessaria prima di addentrarci nei resti del Foro di Traiano."
+      },
+      "latitude": 41.895833333,
+      "longitude": 12.484166666,
+      "position": 2,
+      "importanceScore": 48.498670042494226,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -192784,
+          "wikidata": "Q192784",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 28.498670042494226,
+          "osmTags": {
+            "name": "Trajan's Column",
+            "wikidata": "Q192784",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "56",
+            "canonical:instance_of": "archaeological site|victory column",
+            "tourism": "attraction",
+            "historic": "archaeological_site"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "6f2f1ea8-0b47-47a8-9381-1e7e81bdaed8",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 114,
+          "totalDurationMs": 10484,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-4",
+      "tourId": "fixture-candidate",
+      "name": "Foro di Traiano",
+      "description": "Osserva il confine dove le pietre antiche incontrano la modernità urbana di Roma. Se posi lo sguardo sulla base delle strutture che delimitano questo spazio, noti come l'archeologia non sia solo un reperto isolato, ma una parte integrante del tessuto cittadino attuale. Questo sito rappresenta l'ultimo dei Fori Imperiali costruiti nell'antica Roma. Mentre la Colonna di Traiano narra eventi specifici, qui la struttura si espande in un complesso monumentale che Apollodorus of Damascus coordinò con maestria.\n\nApollodorus of Damascus coordinò un'opera di trasformazione radicale del paesaggio urbano. Per far posto a questo complesso, gli operai rimossero una vera e propria cresta che collegava il Quirinale al Campidoglio. Nota come la rimozione di oltre trecentomila metri cubi di terra abbia cambiato per sempre la topografia della città. Questo sforzo monumentale, finanziato con il bottino delle guerre daciche, preparò il terreno per lo sviluppo dei mercati concentrici. Ora, però, resta da scoprire cosa accadde poco distante nel Foro di Augusto.\n\nOsserva come lo spazio si trasforma da monumento verticale a vastità orizzontale. Se cammini tra queste rovine, percepisci la funzione commerciale che animava l'antico cuore pulsante di Roma. Non siamo più davanti a un semplice racconto di vittorie, ma dinanzi a una struttura pensata per il commercio e l'amministrazione quotidiana. Questa espansione urbana dimostra come l'Impero cercasse di integrare nuovi servizi nel tessuto cittadino. Ora, sposta lo sguardo verso il Foro di Augusto per scoprire un altro capitolo.\n\nOsserva come l'orizzontalità di questo spazio commerciale si distacchi dalla verticalità della colonna precedente. Se cammini tra queste rovine, percepisci la funzione amministrativa che animava il cuore pulsante di Roma. Proseguiamo ora verso il Foro di Augusto per scoprire un altro capitolo della storia imperiale.",
+      "descriptionSections": {
+        "arrival": "Osserva il confine dove le pietre antiche incontrano la modernità urbana di Roma. Se posi lo sguardo sulla base delle strutture che delimitano questo spazio, noti come l'archeologia non sia solo un reperto isolato, ma una parte integrante del tessuto cittadino attuale. Questo sito rappresenta l'ultimo dei Fori Imperiali costruiti nell'antica Roma. Mentre la Colonna di Traiano narra eventi specifici, qui la struttura si espande in un complesso monumentale che Apollodorus of Damascus coordinò con maestria.",
+        "history": "Apollodorus of Damascus coordinò un'opera di trasformazione radicale del paesaggio urbano. Per far posto a questo complesso, gli operai rimossero una vera e propria cresta che collegava il Quirinale al Campidoglio. Nota come la rimozione di oltre trecentomila metri cubi di terra abbia cambiato per sempre la topografia della città. Questo sforzo monumentale, finanziato con il bottino delle guerre daciche, preparò il terreno per lo sviluppo dei mercati concentrici. Ora, però, resta da scoprire cosa accadde poco distante nel Foro di Augusto.",
+        "significance": "Osserva come lo spazio si trasforma da monumento verticale a vastità orizzontale. Se cammini tra queste rovine, percepisci la funzione commerciale che animava l'antico cuore pulsante di Roma. Non siamo più davanti a un semplice racconto di vittorie, ma dinanzi a una struttura pensata per il commercio e l'amministrazione quotidiana. Questa espansione urbana dimostra come l'Impero cercasse di integrare nuovi servizi nel tessuto cittadino. Ora, sposta lo sguardo verso il Foro di Augusto per scoprire un altro capitolo.",
+        "transition": "Osserva come l'orizzontalità di questo spazio commerciale si distacchi dalla verticalità della colonna precedente. Se cammini tra queste rovine, percepisci la funzione amministrativa che animava il cuore pulsante di Roma. Proseguiamo ora verso il Foro di Augusto per scoprire un altro capitolo della storia imperiale."
+      },
+      "latitude": 41.8951582,
+      "longitude": 12.4851731,
+      "position": 3,
+      "importanceScore": 51.50488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 1754380,
+          "wikidata": "Q211295",
+          "wikipedia": "en:Trajan's Forum",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 29.50488750216347,
+          "osmTags": {
+            "name": "Foro di Traiano",
+            "wikidata": "Q211295",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "47",
+            "canonical:instance_of": "square|forum|Roman archaeological site",
+            "tourism": "attraction",
+            "historic": "archaeological_site",
+            "architect": "Apollodorus of Damascus",
+            "historic:civilization": "ancient_roman",
+            "name:de": "Trajansforum",
+            "name:el": "Φόρουμ του Τραϊανού",
+            "name:en": "Forum of Trajan",
+            "name:la": "Forum Traianii",
+            "name:pl": "Forum Trajana",
+            "name:ru": "Форум Траяна",
+            "name:uk": "Форум Траяна",
+            "opening_hours": "09:30-19:30",
+            "ruins": "yes",
+            "start_date": "143",
+            "type": "multipolygon",
+            "website": "https://www.mercatiditraiano.it/",
+            "wikimedia_commons": "Category:Trajan's Forum (Rome)",
+            "wikipedia": "en:Trajan's Forum"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "2631c4c8-b239-4262-a4ff-804063ac41fd",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2329,
+          "totalDurationMs": 15369,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "Foro di Augusto",
+      "description": "Dicono che le pietre qui conservino ancora il peso delle promesse non mantenute per decenni. Fermati proprio davanti a questo spazio aperto, dove i resti archeologici emergono dal tessuto urbano di Roma. Nota come la struttura si distacchi dalla densità del Foro di Traiano, rivelando un'area che sembra attendere una conclusione. Osserva le fondamenta che affiorano dal suolo: sono i frammenti di un progetto iniziato molto prima della sua inaugurazione definitiva.\n\nOsserva la tensione tra ambizione e rispetto che ha plasmato questo luogo. Ottaviano giurò di erigere il Tempio di Marte Ultore durante la battaglia di Filippi, ma la costruzione si trascinò per decenni. Nota come l'asimmetria dell'area riveli una scelta umana: Augusto preferì modificare i piani piuttosto che espropriare le case dei vicini con la forza. Questo progetto, iniziato molto prima della sua inaugurazione nel 2 a.C., lega indissolubilmente il principe alla memoria di Giulio Cesare.\n\nGuarda come questo spazio incarna la trasformazione della vita pubblica romana. Se osservi il Tempio di Marte Ultore, comprendi che l'area non era solo un monumento, ma un centro funzionale per la memoria politica. La sua presenza altera la percezione del potere imperiale, spostando l'attenzione dalla celebrazione militare alla stabilità istituzionale. Mentre ci avviciniamo al cuore pulsante della città, preparati a scoprire come il Forum Romanum custodisca i segreti più antichi.\n\nLascia che il ricordo del Tempio di Marte Ultore ti accompagni mentre procediamo. Questa tensione tra memoria politica e stabilità istituzionale trova la sua radice più profonda proprio lì dove tutto ebbe inizio. Cammina con me, perché il Forum Romanum custodisce i segreti ancora più antichi della città.",
+      "descriptionSections": {
+        "arrival": "Dicono che le pietre qui conservino ancora il peso delle promesse non mantenute per decenni. Fermati proprio davanti a questo spazio aperto, dove i resti archeologici emergono dal tessuto urbano di Roma. Nota come la struttura si distacchi dalla densità del Foro di Traiano, rivelando un'area che sembra attendere una conclusione. Osserva le fondamenta che affiorano dal suolo: sono i frammenti di un progetto iniziato molto prima della sua inaugurazione definitiva.",
+        "history": "Osserva la tensione tra ambizione e rispetto che ha plasmato questo luogo. Ottaviano giurò di erigere il Tempio di Marte Ultore durante la battaglia di Filippi, ma la costruzione si trascinò per decenni. Nota come l'asimmetria dell'area riveli una scelta umana: Augusto preferì modificare i piani piuttosto che espropriare le case dei vicini con la forza. Questo progetto, iniziato molto prima della sua inaugurazione nel 2 a.C., lega indissolubilmente il principe alla memoria di Giulio Cesare.",
+        "significance": "Guarda come questo spazio incarna la trasformazione della vita pubblica romana. Se osservi il Tempio di Marte Ultore, comprendi che l'area non era solo un monumento, ma un centro funzionale per la memoria politica. La sua presenza altera la percezione del potere imperiale, spostando l'attenzione dalla celebrazione militare alla stabilità istituzionale. Mentre ci avviciniamo al cuore pulsante della città, preparati a scoprire come il Forum Romanum custodisca i segreti più antichi.",
+        "transition": "Lascia che il ricordo del Tempio di Marte Ultore ti accompagni mentre procediamo. Questa tensione tra memoria politica e stabilità istituzionale trova la sua radice più profonda proprio lì dove tutto ebbe inizio. Cammina con me, perché il Forum Romanum custodisce i segreti ancora più antichi della città."
+      },
+      "latitude": 41.8942559,
+      "longitude": 12.4866576,
+      "position": 4,
+      "importanceScore": 47.88318235807536,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 1899638,
+          "wikidata": "Q770797",
+          "wikipedia": "en:Forum of Augustus",
+          "category": "other",
+          "landmarkTier": "major",
+          "fameScore": 27.88318235807536,
+          "osmTags": {
+            "name": "Foro di Augusto",
+            "wikidata": "Q770797",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "32",
+            "canonical:instance_of": "archaeological site|real property",
+            "tourism": "attraction",
+            "historic": "archaeological_site",
+            "historic:civilization": "ancient_roman",
+            "name:de": "Augustusforum",
+            "name:en": "Forum of Augustus",
+            "name:he": "פורום אוגוסטוס",
+            "name:it": "Foro di Augusto",
+            "name:la": "Forum Augustum",
+            "name:pl": "Forum Augusta",
+            "name:ru": "Форум Августа",
+            "name:uk": "Форум Августа",
+            "type": "multipolygon",
+            "wikimedia_commons": "Category:Forum Augusti",
+            "wikipedia": "en:Forum of Augustus"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "99c69436-f4a9-4b44-adb7-4fa4fa44b144",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2389,
+          "totalDurationMs": 14695,
+          "claimCheck": {
+            "totalExtracted": 1,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 1,
+            "claims": [
+              {
+                "type": "style",
+                "value": "roman",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ormazione della vita pubblica romana. Se osservi il Tempio di Mar"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "Foro Romano",
+      "description": "Ti trovi ora immerso in una distesa di rovine che occupa il cuore pulsante della città. Osserva come le strutture frammentate si estendano in una vasta area rettangolare, circondata da resti di antichi edifici governativi. Se guardi lo spazio circostante, noterai come questo luogo sia nato originariamente come un mercato, noto allora come Forum Magnum. Qui la vita pubblica cambiava forma, passando dalla semplice attività commerciale a un centro nevralgico per processi e discorsi.\n\nOsserva la trasformazione di questo spazio: ciò che era un semplice mercato divenne il cuore della Repubblica. Nota come i santuari arcaici del Comitium si siano evoluti in un'area di assemblee formali. Se sposti lo sguardo verso sud, vedrai le tracce della Regia e del Tempio di Vesta, antichi luoghi legati alla monarchia. Qui la vita politica si è stratificata, sostituendo i vecchi altari con basiliche e tribunali, preparando il terreno per l'ascesa del potere imperiale.\n\nLascia che il silenzio delle rovine ti parli della complessità romana. Se osservi i resti dei tribunali e delle basiliche, comprendi come la funzione di questo spazio sia mutata profondamente. Non è più solo un luogo di scambi commerciali, ma una platea dove si svolgevano processi criminali e celebrazioni trionfali. Nota il contrasto tra l'antico mercato e questa arena di potere politico. Questa stratificazione prepara lo sguardo alla maestosità che troverai salendo verso il Campidoglio.\n\nRifletti su questa stratificazione di potere e funzioni che ha plasmato il cuore della città. Mentre i resti delle basiliche testimoniano l'evoluzione del diritto romano, la tua attenzione si sposta verso l'alto. Lascia che lo sguardo cerchi il Campidoglio, dove la storia troverà una nuova dimensione.",
+      "descriptionSections": {
+        "arrival": "Ti trovi ora immerso in una distesa di rovine che occupa il cuore pulsante della città. Osserva come le strutture frammentate si estendano in una vasta area rettangolare, circondata da resti di antichi edifici governativi. Se guardi lo spazio circostante, noterai come questo luogo sia nato originariamente come un mercato, noto allora come Forum Magnum. Qui la vita pubblica cambiava forma, passando dalla semplice attività commerciale a un centro nevralgico per processi e discorsi.",
+        "history": "Osserva la trasformazione di questo spazio: ciò che era un semplice mercato divenne il cuore della Repubblica. Nota come i santuari arcaici del Comitium si siano evoluti in un'area di assemblee formali. Se sposti lo sguardo verso sud, vedrai le tracce della Regia e del Tempio di Vesta, antichi luoghi legati alla monarchia. Qui la vita politica si è stratificata, sostituendo i vecchi altari con basiliche e tribunali, preparando il terreno per l'ascesa del potere imperiale.",
+        "significance": "Lascia che il silenzio delle rovine ti parli della complessità romana. Se osservi i resti dei tribunali e delle basiliche, comprendi come la funzione di questo spazio sia mutata profondamente. Non è più solo un luogo di scambi commerciali, ma una platea dove si svolgevano processi criminali e celebrazioni trionfali. Nota il contrasto tra l'antico mercato e questa arena di potere politico. Questa stratificazione prepara lo sguardo alla maestosità che troverai salendo verso il Campidoglio.",
+        "transition": "Rifletti su questa stratificazione di potere e funzioni che ha plasmato il cuore della città. Mentre i resti delle basiliche testimoniano l'evoluzione del diritto romano, la tua attenzione si sposta verso l'alto. Lascia che lo sguardo cerchi il Campidoglio, dove la storia troverà una nuova dimensione."
+      },
+      "latitude": 41.8916837,
+      "longitude": 12.4870791,
+      "position": 5,
+      "importanceScore": 55.75977500432694,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 1841080,
+          "wikidata": "Q180212",
+          "wikipedia": "en:Roman Forum",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 32.75977500432694,
+          "osmTags": {
+            "name": "Forum Romanum",
+            "wikidata": "Q180212",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "71",
+            "canonical:instance_of": "square|archaeological site|tourist attraction|real property|tourist destination|forum|roman ruins",
+            "tourism": "attraction",
+            "historic": "archaeological_site",
+            "heritage": "1",
+            "heritage:since": "1980",
+            "heritage:url": "https://whc.unesco.org/en/list/91",
+            "historic:civilization": "ancient_roman",
+            "importance": "national",
+            "name:ar": "المنتدى الروماني",
+            "name:cs": "Forum Romanum",
+            "name:da": "Forum Romanum",
+            "name:de": "Forum Romanum",
+            "name:en": "Roman Forum",
+            "name:es": "Foro Romano",
+            "name:et": "Rooma foorum",
+            "name:it": "Foro Romano",
+            "name:lt": "Forum Romanum",
+            "name:nl": "Forum Romanum",
+            "name:ru": "Римский форум",
+            "name:zh": "古羅馬廣場",
+            "ref:whc": "91",
+            "type": "multipolygon",
+            "wikimedia_commons": "Category:Forum Romanum",
+            "wikipedia": "en:Roman Forum"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "596171ff-361e-43f8-9933-486226a28756",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2679,
+          "totalDurationMs": 13054,
+          "claimCheck": {
+            "totalExtracted": 1,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 1,
+            "claims": [
+              {
+                "type": "style",
+                "value": "roman",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ne ti parli della complessità romana. Se osservi i resti dei trib"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "Campidoglio",
+      "description": "Guarda come il terreno si alza bruscamente sotto i tuoi piedi, lasciandoti alle spalle le rovine aperte che hai appena attraversato. Davanti a te la pietra si fa solida e l'ascesa verso questa sommità segna un distacco netto dal piano della valle. Nota la presenza di questi edifici governativi che dominano lo spazio, pronti a guidare il tuo sguardo verso una nuova forma di potere.\n\nOsserva come la funzione di questo luogo si sia trasformata, passando dal caos delle antiche assemblee alla stabilità del comando civile. Qui, la tensione tra il vecchio mondo e le nuove necessità di governo ha plasmato lo spazio che ora occupi. Mentre sotto di te la valle conservava i resti della vita quotidiana, questa sommità è stata scelta per stabilire un nuovo ordine, preparando il terreno per l'autorità che presto troverai nel palazzo successivo.\n\nSenti il peso della decisione che grava su questa cima. Se osservi la disposizione degli edifici, comprendi come l'autorità abbia cercato di dare una forma definitiva al comando civile. Mentre la valle sottostante esponeva le cicatrici del tempo, qui la pietra serve a stabilire un nuovo ordine. Questa ascesa trasforma il tuo percorso da una passeggiata tra i resti a un incontro con la gestione della città, aprendo la strada verso il palazzo che ti attende.",
+      "descriptionSections": {
+        "arrival": "Guarda come il terreno si alza bruscamente sotto i tuoi piedi, lasciandoti alle spalle le rovine aperte che hai appena attraversato. Davanti a te la pietra si fa solida e l'ascesa verso questa sommità segna un distacco netto dal piano della valle. Nota la presenza di questi edifici governativi che dominano lo spazio, pronti a guidare il tuo sguardo verso una nuova forma di potere.",
+        "history": "Osserva come la funzione di questo luogo si sia trasformata, passando dal caos delle antiche assemblee alla stabilità del comando civile. Qui, la tensione tra il vecchio mondo e le nuove necessità di governo ha plasmato lo spazio che ora occupi. Mentre sotto di te la valle conservava i resti della vita quotidiana, questa sommità è stata scelta per stabilire un nuovo ordine, preparando il terreno per l'autorità che presto troverai nel palazzo successivo.",
+        "significance": "Senti il peso della decisione che grava su questa cima. Se osservi la disposizione degli edifici, comprendi come l'autorità abbia cercato di dare una forma definitiva al comando civile. Mentre la valle sottostante esponeva le cicatrici del tempo, qui la pietra serve a stabilire un nuovo ordine. Questa ascesa trasforma il tuo percorso da una passeggiata tra i resti a un incontro con la gestione della città, aprendo la strada verso il palazzo che ti attende."
+      },
+      "latitude": 41.893333333,
+      "longitude": 12.483055555,
+      "position": 6,
+      "importanceScore": 49.43038852375101,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -34925,
+          "wikidata": "Q34925",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 28.890388523751017,
+          "osmTags": {
+            "name": "Capitoline Hill",
+            "wikidata": "Q34925",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "67",
+            "canonical:instance_of": "hill",
+            "tourism": "attraction",
+            "building": "government"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "c4c202f5-a7ca-4a35-9c8c-ddff816fda2f",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 50,
+          "totalDurationMs": 9026,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "palazzo del Quirinale",
+      "description": "Lascia alle tue spalle la solennità del Campidoglio per scoprire un luogo dove il potere cambia volto. Osserva la mole imponente di questo palazzo che sovrasta la città con la sua presenza massiccia. Nota come le sue mura si ergono distinte rispetto alle rovine sottostanti, segnando una trasformazione profonda nell'uso degli spazi pubblici. Qui l'architettura non è solo pietra, ma un simbolo di autorità che attende il tuo prossimo passo verso la scalinata spagnola.\n\nLascia che lo sguardo scivoli lungo le sue facciate per percepire il peso delle decisioni prese tra queste mura. Nota come la funzione di questo luogo sia mutata, passando da una dimensione privata a un centro di comando che governa la vita pubblica. Osserva questa tensione silenziosa: un passaggio di responsabilità che ha ridefinito l'autorità stessa della città, preparando il terreno per lo sfarzo che troverai più avanti verso la scalinata spagnola.\n\nMentre il Campidoglio celebrava l'identità civica, questo palazzo incarna un comando che sovrasta il tessuto cittadino con autorità diretta. Nota la transizione da spazi di partecipazione a centri di gestione del potere. Questa trasformazione prepara lo sguardo al cambiamento di ritmo che incontrerai scendendo verso la vivace scalinata spagnola.",
+      "descriptionSections": {
+        "arrival": "Lascia alle tue spalle la solennità del Campidoglio per scoprire un luogo dove il potere cambia volto. Osserva la mole imponente di questo palazzo che sovrasta la città con la sua presenza massiccia. Nota come le sue mura si ergono distinte rispetto alle rovine sottostanti, segnando una trasformazione profonda nell'uso degli spazi pubblici. Qui l'architettura non è solo pietra, ma un simbolo di autorità che attende il tuo prossimo passo verso la scalinata spagnola.",
+        "history": "Lascia che lo sguardo scivoli lungo le sue facciate per percepire il peso delle decisioni prese tra queste mura. Nota come la funzione di questo luogo sia mutata, passando da una dimensione privata a un centro di comando che governa la vita pubblica. Osserva questa tensione silenziosa: un passaggio di responsabilità che ha ridefinito l'autorità stessa della città, preparando il terreno per lo sfarzo che troverai più avanti verso la scalinata spagnola.",
+        "significance": "Mentre il Campidoglio celebrava l'identità civica, questo palazzo incarna un comando che sovrasta il tessuto cittadino con autorità diretta. Nota la transizione da spazi di partecipazione a centri di gestione del potere. Questa trasformazione prepara lo sguardo al cambiamento di ritmo che incontrerai scendendo verso la vivace scalinata spagnola."
+      },
+      "latitude": 41.9,
+      "longitude": 12.4875,
+      "position": 7,
+      "importanceScore": 51.2646625064904,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -223079,
+          "wikidata": "Q223079",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 29.264662506490403,
+          "osmTags": {
+            "name": "Quirinal Palace",
+            "wikidata": "Q223079",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "53",
+            "canonical:instance_of": "official residence|Palazzo|city palace",
+            "tourism": "attraction",
+            "historic": "palace",
+            "building": "palace"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "0c5b3946-4f59-4235-b930-0f4c53502b0c",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 148,
+          "totalDurationMs": 9494,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "piazza di Spagna",
+      "description": "Ti sei mai chiesto come uno spazio possa cambiare forma sotto i tuoi occhi? Nota come la piazza sembri quasi un organismo vivente, con due ali triangolari che si incontrano in un unico vertice, simile alle ali di una farfalla. Se guardi verso l'alto, la scalinata di Trinità dei Monti domina la scena, collegando questo spazio alla parte superiore della città.\n\nOsserva come l'identità di questo luogo si sia stratificata nel tempo. Dal 1622, la presenza dell'ambasciata dello Stato iberico ha impresso il nome del Palazzo di Spagna alla piazza. Se abbassi lo sguardo verso la Barcaccia, noterai l'opera di Pietro e Gian Lorenzo Bernini. Nota inoltre la Colonna dell'Immacolata, inaugurata l'8 settembre 1857 da Papa Pio IX. Questa trasformazione urbana si muove ora verso il fiume, dove Castel Sant’Angelo attende di svelare il suo segreto.\n\nLascia che la prospettiva cambi radicalmente rispetto alla solennità del Quirinale. Qui la storia non si manifesta solo attraverso monumenti, ma tramite l'influenza diplomatica che ha ridefinito lo spazio pubblico. Osserva come il nome stesso della piazza testimoni la presenza dell'ambasciata iberica presso la Santa Sede. Questa trasformazione urbana crea un punto di incontro unico tra potere politico e vita cittadina. Mentre ci spostiamo verso il Tevere, preparati a scoprire nuovi segreti vicino a Castel Sant’Angelo.\n\nLascia che l'influenza diplomatica di questo spazio ti accompagni verso il fiume. Mentre la città si trasforma e abbandona i contorni della piazza, il tuo sguardo cercherà nuovi segreti. Preparati a scoprire cosa attende la tua curiosità proprio accanto alle mura di Castel Sant’Angelo.",
+      "descriptionSections": {
+        "arrival": "Ti sei mai chiesto come uno spazio possa cambiare forma sotto i tuoi occhi? Nota come la piazza sembri quasi un organismo vivente, con due ali triangolari che si incontrano in un unico vertice, simile alle ali di una farfalla. Se guardi verso l'alto, la scalinata di Trinità dei Monti domina la scena, collegando questo spazio alla parte superiore della città.",
+        "history": "Osserva come l'identità di questo luogo si sia stratificata nel tempo. Dal 1622, la presenza dell'ambasciata dello Stato iberico ha impresso il nome del Palazzo di Spagna alla piazza. Se abbassi lo sguardo verso la Barcaccia, noterai l'opera di Pietro e Gian Lorenzo Bernini. Nota inoltre la Colonna dell'Immacolata, inaugurata l'8 settembre 1857 da Papa Pio IX. Questa trasformazione urbana si muove ora verso il fiume, dove Castel Sant’Angelo attende di svelare il suo segreto.",
+        "significance": "Lascia che la prospettiva cambi radicalmente rispetto alla solennità del Quirinale. Qui la storia non si manifesta solo attraverso monumenti, ma tramite l'influenza diplomatica che ha ridefinito lo spazio pubblico. Osserva come il nome stesso della piazza testimoni la presenza dell'ambasciata iberica presso la Santa Sede. Questa trasformazione urbana crea un punto di incontro unico tra potere politico e vita cittadina. Mentre ci spostiamo verso il Tevere, preparati a scoprire nuovi segreti vicino a Castel Sant’Angelo.",
+        "transition": "Lascia che l'influenza diplomatica di questo spazio ti accompagni verso il fiume. Mentre la città si trasforma e abbandona i contorni della piazza, il tuo sguardo cercherà nuovi segreti. Preparati a scoprire cosa attende la tua curiosità proprio accanto alle mura di Castel Sant’Angelo."
+      },
+      "latitude": 41.9056657,
+      "longitude": 12.4822771,
+      "position": 8,
+      "importanceScore": 58.82265601385425,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 13474926,
+          "wikidata": "Q15124814",
+          "wikipedia": "it:Piazza di Spagna",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 32.82265601385425,
+          "osmTags": {
+            "name": "Piazza di Spagna",
+            "wikidata": "Q15124814",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "40",
+            "canonical:instance_of": "square|tourist attraction",
+            "tourism": "attraction",
+            "place": "square",
+            "heritage": "1",
+            "heritage:since": "1980",
+            "heritage:url": "https://whc.unesco.org/en/list/91",
+            "lit": "yes",
+            "name:cs": "Španělské náměstí",
+            "name:de": "Spanischer Platz",
+            "name:en": "Spanish Square",
+            "name:es": "Plaza de España",
+            "name:fr": "Place d'Espagne",
+            "name:ko": "스페인 광장",
+            "name:la": "Platea Hispanica",
+            "name:pt": "Praça da Espanha",
+            "note": "this is the square object, there is also a relation for only the pedestrian space",
+            "ref:whc": "91",
+            "type": "multipolygon",
+            "wikipedia": "it:Piazza di Spagna"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "01cde544-3cd2-4349-b16c-475eb52e8ba7",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2470,
+          "totalDurationMs": 14336,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1622",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "a stratificata nel tempo. Dal 1622, la presenza dell'ambasciata "
+              },
+              {
+                "type": "date",
+                "value": "1857",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ata, inaugurata l'8 settembre 1857 da Papa Pio IX. Questa trasfo"
+              },
+              {
+                "type": "architect",
+                "value": "Pietro",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Barcaccia, noterai l'opera di Pietro e Gian Lorenzo Bernini. Nota "
+              },
+              {
+                "type": "location",
+                "value": "Palazzo di Spagna",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "erico ha impresso il nome del Palazzo di Spagna alla piazza. Se abbassi lo sg"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "Castel Sant'Angelo",
+      "description": "Osserva la base massiccia di questo bastione che sorge sulla sponda destra del Tevere. Se posi lo sguardo sul Ponte Sant'Angelo, noterai come la struttura si stagli proprio di fronte al passaggio che conduce verso il Vaticano. Questo edificio, noto anche come Mausoleo di Adriano, funge da perno tra le antiche mura e il fiume.\n\nNel 135 d. C. , l'imperatore Adriano decise di trasformare questo luogo in un mausoleo per la sua famiglia. Nota come la struttura sia mutata nel tempo: da monumento funebre a fortezza medievale e rinascimentale. Se segui con lo sguardo il percorso verso il Vaticano, vedrai il passaggio del Passetto che collega questa rocca alla zona papale.\n\nQuesta fortezza segna il punto in cui la città cambia funzione, passando dai monumenti celebrativi alla difesa attiva del potere. Nota come il Passetto di Borgo crei un legame fisico diretto con lo Stato del Vaticano, trasformando una struttura difensiva in un corridoio strategico. Mentre cammini lungo le sponde del Tevere, percepisci la transizione verso l'area papale.\n\nLascia che il peso di questa fortezza ti accompagni mentre ci spostiamo. Se segui la traccia del Passetto, senti come l'attenzione si sposta dalla difesa verso lo spazio sacro.",
+      "descriptionSections": {
+        "arrival": "Osserva la base massiccia di questo bastione che sorge sulla sponda destra del Tevere. Se posi lo sguardo sul Ponte Sant'Angelo, noterai come la struttura si stagli proprio di fronte al passaggio che conduce verso il Vaticano. Questo edificio, noto anche come Mausoleo di Adriano, funge da perno tra le antiche mura e il fiume.",
+        "history": "Nel 135 d. C. , l'imperatore Adriano decise di trasformare questo luogo in un mausoleo per la sua famiglia. Nota come la struttura sia mutata nel tempo: da monumento funebre a fortezza medievale e rinascimentale. Se segui con lo sguardo il percorso verso il Vaticano, vedrai il passaggio del Passetto che collega questa rocca alla zona papale.",
+        "significance": "Questa fortezza segna il punto in cui la città cambia funzione, passando dai monumenti celebrativi alla difesa attiva del potere. Nota come il Passetto di Borgo crei un legame fisico diretto con lo Stato del Vaticano, trasformando una struttura difensiva in un corridoio strategico. Mentre cammini lungo le sponde del Tevere, percepisci la transizione verso l'area papale.",
+        "transition": "Lascia che il peso di questa fortezza ti accompagni mentre ci spostiamo. Se segui la traccia del Passetto, senti come l'attenzione si sposta dalla difesa verso lo spazio sacro."
+      },
+      "latitude": 41.9030762,
+      "longitude": 12.4663312,
+      "position": 9,
+      "importanceScore": 57.897929148085524,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 8035487,
+          "wikidata": "Q486382",
+          "wikipedia": "it:Castel Sant'Angelo",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 32.897929148085524,
+          "osmTags": {
+            "name": "Castel Sant’Angelo",
+            "wikidata": "Q486382",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "58",
+            "canonical:instance_of": "museum|quadrangular castle|mausoleum|roman mausoleum",
+            "tourism": "attraction",
+            "historic": "castle",
+            "building": "castle",
+            "alt_name": "Mausoleo di Adriano",
+            "alt_name:cs": "Hadriánovo mauzoleum",
+            "alt_name:de": "Mausoleum des Hadrian",
+            "alt_name:en": "Mausoleum of Hadrian",
+            "alt_name:es": "Mausoleo de Adriano",
+            "alt_name:it": "Mausoleo di Adriano",
+            "building:part": "no",
+            "castle_type": "fortress",
+            "charge": "16 EUR",
+            "fee": "yes",
+            "heritage": "1",
+            "heritage:since": "1980",
+            "heritage:url": "https://whc.unesco.org/en/list/91",
+            "name:ar": "قلعة سانت أنجلو",
+            "name:cs": "Andělský hrad",
+            "name:de": "Engelsburg",
+            "name:en": "Castle of the Holy Angel",
+            "name:es": "Castillo de Sant'Angelo",
+            "name:etymology:wikidata": "Q45581",
+            "name:fr": "Château Saint-Ange",
+            "name:hi": "पवित्र परी का महल",
+            "name:hu": "Angyalvár",
+            "name:it": "Castel Sant’Angelo",
+            "name:ja": "サンタンジェロ城",
+            "name:ko": "성천사성",
+            "name:nl": "Engelenburcht",
+            "name:pt": "Castelo de Santo Ângelo",
+            "name:ro": "Castelul Sant'Angelo",
+            "name:ru": "Замок Святого Ангела",
+            "name:sl": "Angelski grad",
+            "name:tr": "Sant'Angelo Kalesi",
+            "opening_hours": "Mo-Su 09:00-19:30",
+            "ref:whc": "91",
+            "source": "Bing Aerial",
+            "start_date": "139",
+            "wheelchair": "yes",
+            "wikimedia_commons": "Category:Castel Sant'Angelo (Rome)",
+            "wikipedia": "it:Castel Sant'Angelo"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "596e674c-aa1b-4f89-9ec4-b8e78feb3ed9",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2882,
+          "totalDurationMs": 19272,
+          "claimCheck": {
+            "totalExtracted": 1,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 1,
+            "claims": [
+              {
+                "type": "location",
+                "value": "Ponte Sant'Angelo",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "evere. Se posi lo sguardo sul Ponte Sant'Angelo, noterai come la struttura si"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "piazza San Pietro",
+      "description": "Dicono che l'aria qui cambi improvvisamente quando lasci le mura di Castel Sant’Angelo. Osserva come lo spazio si apre davanti a te, trasformandosi in un enorme vuoto circondato da strutture massicce. Nota la pietra chiara che cattura ogni riflesso e il modo in cui i colonnati sembrano abbracciare l'area. Questa piazza non è solo un punto d'arrivo, ma il palcoscenico dove la città ha ridefinito lo spazio comune.\n\nOsserva come la tensione tra il vuoto centrale e le strutture che lo circondano racconti una scelta precisa di trasformazione urbana. Un tempo questo spazio non possedeva questa ampiezza, ma è stato modellato per accogliere flussi di persone sempre più vasti. Nota il passaggio da un nucleo ristretto a un palcoscenico progettato per la collettività. Questa evoluzione prepara lo sguardo alla maestosità che si cela proprio dietro le mura dell'Apostolic Palace.\n\nGuarda come l'ampiezza di questo vuoto centrale altera la tua percezione del peso urbano. Se osservi le strutture che circondano lo spazio, comprendi come la città abbia saputo reinventare il concetto di raduno collettivo. Questa piazza non si limita a ospitare folle, ma agisce come un connettore tra l'antico e il nuovo. Il passaggio dai bastioni di Castel Sant’Angelo a questo palcoscenico aperto segna il culmine della nostra ricerca sulla trasformazione sociale.",
+      "descriptionSections": {
+        "arrival": "Dicono che l'aria qui cambi improvvisamente quando lasci le mura di Castel Sant’Angelo. Osserva come lo spazio si apre davanti a te, trasformandosi in un enorme vuoto circondato da strutture massicce. Nota la pietra chiara che cattura ogni riflesso e il modo in cui i colonnati sembrano abbracciare l'area. Questa piazza non è solo un punto d'arrivo, ma il palcoscenico dove la città ha ridefinito lo spazio comune.",
+        "history": "Osserva come la tensione tra il vuoto centrale e le strutture che lo circondano racconti una scelta precisa di trasformazione urbana. Un tempo questo spazio non possedeva questa ampiezza, ma è stato modellato per accogliere flussi di persone sempre più vasti. Nota il passaggio da un nucleo ristretto a un palcoscenico progettato per la collettività. Questa evoluzione prepara lo sguardo alla maestosità che si cela proprio dietro le mura dell'Apostolic Palace.",
+        "significance": "Guarda come l'ampiezza di questo vuoto centrale altera la tua percezione del peso urbano. Se osservi le strutture che circondano lo spazio, comprendi come la città abbia saputo reinventare il concetto di raduno collettivo. Questa piazza non si limita a ospitare folle, ma agisce come un connettore tra l'antico e il nuovo. Il passaggio dai bastioni di Castel Sant’Angelo a questo palcoscenico aperto segna il culmine della nostra ricerca sulla trasformazione sociale."
+      },
+      "latitude": 41.902183055,
+      "longitude": 12.457238888,
+      "position": 10,
+      "importanceScore": 54.698267571373314,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -83425,
+          "wikidata": "Q83425",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 31.698267571373314,
+          "osmTags": {
+            "name": "Saint Peter's Square",
+            "wikidata": "Q83425",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "66",
+            "canonical:instance_of": "square|boundary point",
+            "tourism": "attraction",
+            "place": "square"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "caaab012-b565-451e-8f61-bc0efe2de4bb",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 132,
+          "totalDurationMs": 13169,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-12",
+      "tourId": "fixture-candidate",
+      "name": "Palazzo Apostolico",
+      "description": "Ti trovi ora di fronte a una struttura che chiude il cerchio della tua passeggiata, svettando con la sua massa imponente proprio accanto alla vastità della piazza precedente. Osserva come le pareti solide si ergono pesanti e silenziose, definendo un confine netto tra lo spazio aperto e l'intimità del potere. Questa presenza massiccia segna il passaggio verso una dimensione più raccolta, dove la storia si prepara a rivelarsi in dettagli ancora più preziosi.\n\nSposta lo sguardo verso le ali di questo complesso per percepire il cambiamento di scala. Nota come l'ampiezza della piazza lasci spazio a una concentrazione di volumi che suggerisce una gestione più riservata del comando. Qui, la necessità di proteggere i segreti del governo si scontra con l'esigenza di comunicare autorità. Questa tensione tra apertura e chiusura prepara il tuo spirito all'incontro imminente con le pareti della Cappella Sistina.\n\nLascia che l'imponenza di queste mura ti faccia riflettere sulla trasformazione del potere urbano. Se osservi la transizione tra la piazza e questo complesso, comprendi come la città abbia saputo raggruppare funzioni diverse in spazi sempre più protetti. Questa struttura non è solo un confine fisico, ma il punto dove l'autorità si fa intima. Preparati ora, perché proprio dietro queste soglie, la storia attende di essere svelata nelle pareti della Cappella Sistina.",
+      "descriptionSections": {
+        "arrival": "Ti trovi ora di fronte a una struttura che chiude il cerchio della tua passeggiata, svettando con la sua massa imponente proprio accanto alla vastità della piazza precedente. Osserva come le pareti solide si ergono pesanti e silenziose, definendo un confine netto tra lo spazio aperto e l'intimità del potere. Questa presenza massiccia segna il passaggio verso una dimensione più raccolta, dove la storia si prepara a rivelarsi in dettagli ancora più preziosi.",
+        "history": "Sposta lo sguardo verso le ali di questo complesso per percepire il cambiamento di scala. Nota come l'ampiezza della piazza lasci spazio a una concentrazione di volumi che suggerisce una gestione più riservata del comando. Qui, la necessità di proteggere i segreti del governo si scontra con l'esigenza di comunicare autorità. Questa tensione tra apertura e chiusura prepara il tuo spirito all'incontro imminente con le pareti della Cappella Sistina.",
+        "significance": "Lascia che l'imponenza di queste mura ti faccia riflettere sulla trasformazione del potere urbano. Se osservi la transizione tra la piazza e questo complesso, comprendi come la città abbia saputo raggruppare funzioni diverse in spazi sempre più protetti. Questa struttura non è solo un confine fisico, ma il punto dove l'autorità si fa intima. Preparati ora, perché proprio dietro queste soglie, la storia attende di essere svelata nelle pareti della Cappella Sistina."
+      },
+      "latitude": 41.903611111,
+      "longitude": 12.456388888,
+      "position": 11,
+      "importanceScore": 51.720671786825555,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -145093,
+          "wikidata": "Q145093",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 29.720671786825555,
+          "osmTags": {
+            "name": "Apostolic Palace",
+            "wikidata": "Q145093",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "59",
+            "canonical:instance_of": "palace|official residence|Palazzo|palace of the Popes",
+            "tourism": "attraction",
+            "historic": "palace",
+            "building": "palace"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "5731bff2-d537-4566-a186-23f5c2d139c5",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 131,
+          "totalDurationMs": 10672,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "cappella Sistina",
+      "description": "Questa struttura, nota originariamente come Cappella Magna, occupa uno spazio centrale nella residenza ufficiale del Papa. Il nome deriva da Papa Sisto IV, che ne curò la costruzione tra il 1473 e il 1481. Qui la funzione religiosa si intreccia con l'attività papale, chiudendo il percorso attraverso una continuità di spazi che hanno ospitato secoli di decisioni istituzionali.\n\nOsserva come la funzione di questo luogo si sia trasformata nel tempo. Se guardi le pareti, noterai che tra il 1473 e il 1481 Sisto IV commissionò cicli decorativi con artisti come Botticelli e Perugino. Anni dopo, sotto Giulio II, Michelangelo aggiunse il soffitto tra il 1508 e il 1512. Questa stratificazione di interventi dimostra come Roma reinventi la propria vita pubblica, mantenendo intatte le tracce del passato attraverso l'arte che ancora oggi definisce lo spazio del conclave.\n\nEntra in questo spazio per comprendere la risposta definitiva al nostro viaggio. Nota come la Cappella Sistina non sia solo un monumento, ma il punto in cui la vita pubblica si cristallizza in rito e funzione ufficiale. Qui, l'eredità di Sisto IV incontra le decisioni del conclave, trasformando la storia in una presenza viva. Osserva questa continuità: Roma non cancella i suoi strati, ma li usa per sostenere il peso delle istituzioni che ancora oggi abitano questi luoghi.\n\nGrazie per aver camminato con me attraverso la storia di Roma. Nota come ogni strato che abbiamo attraversato sia ancora vivo in questa cappella. Qui, l'eredità di Sisto IV si fonde con le decisioni del conclave, dimostrando che la città non cancella il passato, ma lo abita costantemente. Ti auguro di portare con te queste tracce millenarie. Buon proseguimento nel tuo viaggio.",
+      "descriptionSections": {
+        "arrival": "Questa struttura, nota originariamente come Cappella Magna, occupa uno spazio centrale nella residenza ufficiale del Papa. Il nome deriva da Papa Sisto IV, che ne curò la costruzione tra il 1473 e il 1481. Qui la funzione religiosa si intreccia con l'attività papale, chiudendo il percorso attraverso una continuità di spazi che hanno ospitato secoli di decisioni istituzionali.",
+        "history": "Osserva come la funzione di questo luogo si sia trasformata nel tempo. Se guardi le pareti, noterai che tra il 1473 e il 1481 Sisto IV commissionò cicli decorativi con artisti come Botticelli e Perugino. Anni dopo, sotto Giulio II, Michelangelo aggiunse il soffitto tra il 1508 e il 1512. Questa stratificazione di interventi dimostra come Roma reinventi la propria vita pubblica, mantenendo intatte le tracce del passato attraverso l'arte che ancora oggi definisce lo spazio del conclave.",
+        "significance": "Entra in questo spazio per comprendere la risposta definitiva al nostro viaggio. Nota come la Cappella Sistina non sia solo un monumento, ma il punto in cui la vita pubblica si cristallizza in rito e funzione ufficiale. Qui, l'eredità di Sisto IV incontra le decisioni del conclave, trasformando la storia in una presenza viva. Osserva questa continuità: Roma non cancella i suoi strati, ma li usa per sostenere il peso delle istituzioni che ancora oggi abitano questi luoghi.",
+        "transition": "Grazie per aver camminato con me attraverso la storia di Roma. Nota come ogni strato che abbiamo attraversato sia ancora vivo in questa cappella. Qui, l'eredità di Sisto IV si fonde con le decisioni del conclave, dimostrando che la città non cancella il passato, ma lo abita costantemente. Ti auguro di portare con te queste tracce millenarie. Buon proseguimento nel tuo viaggio."
+      },
+      "latitude": 41.9029338,
+      "longitude": 12.4544042,
+      "position": 12,
+      "importanceScore": 50.2272002928992,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 215289671,
+          "wikidata": "Q2943",
+          "wikipedia": "en:Sistine Chapel",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 29.727200292899195,
+          "osmTags": {
+            "amenity": "place_of_worship",
+            "building": "chapel",
+            "denomination": "roman_catholic",
+            "historic": "church",
+            "image": "https://photos.app.goo.gl/fBrk8fLQKgKpCRow6",
+            "importance": "international",
+            "level": "3",
+            "name": "Cappella Sistina",
+            "name:ar": "كنيسة سيستينا",
+            "name:ca": "Capella Sixtina",
+            "name:cs": "Sixtinská kaple",
+            "name:de": "Sixtinische Kapelle",
+            "name:el": "Καπέλλα Σιξτίνα",
+            "name:en": "Sistine Chapel",
+            "name:es": "Capilla Sixtina",
+            "name:et": "Sixtuse kabel",
+            "name:fr": "Chapelle Sixtine",
+            "name:hi": "सिस्टिन चैपल",
+            "name:hr": "Sikstinska kapela",
+            "name:hu": "Sixtus kápolna",
+            "name:it": "Cappella Sistina",
+            "name:ko": "시스티나 성당",
+            "name:la": "Sacellum Sixtinum",
+            "name:mk": "Систинска капела",
+            "name:ml": "സിസ്റ്റിൻ ചാപ്പൽ",
+            "name:nl": "Sixtijnse Kapel",
+            "name:pl": "Kaplica Sykstyńska",
+            "name:pt": "Capela Sistina",
+            "name:ru": "Сикстинская капелла",
+            "name:sk": "Sixtínska kaplnka",
+            "name:sl": "Sikstinska kapela",
+            "name:sv": "Sixtinska kapellet",
+            "name:uk": "Сікстинська капела",
+            "name:zh": "西斯汀小堂",
+            "name:zh-Hans": "西斯汀小堂",
+            "name:zh-Hant": "西斯汀小堂",
+            "opening_hours": "Mo-Sa 09:00-18:00",
+            "religion": "christian",
+            "tourism": "attraction",
+            "wheelchair": "yes",
+            "wikidata": "Q2943",
+            "wikimedia_commons": "Category:Sistine Chapel",
+            "wikipedia": "en:Sistine Chapel"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "8c762fd8-1cd9-45ea-9b5c-c520b1890a48",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2559,
+          "totalDurationMs": 12545,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1473",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ne curò la costruzione tra il 1473 e il 1481. Qui la funzione re"
+              },
+              {
+                "type": "date",
+                "value": "1481",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " costruzione tra il 1473 e il 1481. Qui la funzione religiosa si"
+              },
+              {
+                "type": "date",
+                "value": "1508",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "o aggiunse il soffitto tra il 1508 e il 1512. Questa stratificaz"
+              },
+              {
+                "type": "date",
+                "value": "1512",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " il soffitto tra il 1508 e il 1512. Questa stratificazione di in"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "createdAt": "2026-06-24T11:00:43.969Z",
+  "updatedAt": "2026-06-24T11:00:43.969Z"
+}

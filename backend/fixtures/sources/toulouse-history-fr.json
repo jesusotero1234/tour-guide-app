@@ -1,0 +1,1176 @@
+{
+  "schemaVersion": 1,
+  "city": "Toulouse",
+  "theme": "history",
+  "language": "fr",
+  "capturedAt": "2026-06-24T10:28:45.990Z",
+  "wikidata": {
+    "Q2351013": {
+      "wikidataId": "Q2351013",
+      "nameTranslations": {
+        "zh-hans": "图卢兹市政厅",
+        "zh-hant": "圖盧茲市政廳",
+        "zh-hk": "圖盧茲市政廳",
+        "zh-tw": "土魯斯市政廳",
+        "id": "Capitole de Toulouse",
+        "eu": "Tolosako kapitolioa",
+        "vi": "Capitole de Toulouse",
+        "fr": "capitole de Toulouse",
+        "ru": "Тулузская ратуша",
+        "en": "Capitole de Toulouse",
+        "es": "Capitolio de Toulouse",
+        "oc": "Capitòli de Tolosa",
+        "nl": "Capitool van Toulouse",
+        "nb": "Kapitolen i Toulouse",
+        "it": "Campidoglio di Tolosa",
+        "zh": "图卢兹市政厅",
+        "ca": "Capitoli de Tolosa",
+        "be": "Тулузская ратуша",
+        "eo": "Kapitolo de Tuluzo",
+        "ko": "capitole toulouse",
+        "de": "Kapitol",
+        "uk": "Тулузький капітолій",
+        "sl": "Toulouški Kapitol",
+        "ja": "キャピトール・ド・トゥールーズ",
+        "el": "Καπιτώλιο της Τουλούζης",
+        "fa": "کاپیتول تولوز",
+        "ar": "كابيتول دي تولوز",
+        "sq": "Kapitoli i Tuluzës",
+        "he": "קפיטול דה טולוז"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2351013",
+      "wikidataClaims": {
+        "instanceOf": "capitole",
+        "inception": "1205-00-00",
+        "architect": "Guillaume Cammas",
+        "architecturalStyle": "architecture classique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3390578": {
+      "wikidataId": "Q3390578",
+      "nameTranslations": {
+        "fr": "place du Capitole",
+        "oc": "plaça del Capitòli",
+        "it": "plazza del capitolio in tolosa",
+        "en": "place du Capitole",
+        "ca": "la place du capitale",
+        "es": "place du Capitole",
+        "nl": "place du Capitole de Toulouse",
+        "ja": "キャピトル広場",
+        "zh": "市政厅广场 (图卢兹)",
+        "tr": "Capitole Meydanı",
+        "eu": "Kapitolioaren plaza (Tolosa)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3390578",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2737833": {
+      "wikidataId": "Q2737833",
+      "nameTranslations": {
+        "zh-hans": "图卢兹主教座堂",
+        "zh-hant": "圖盧茲主教座堂",
+        "zh-hk": "圖盧茲主教座堂",
+        "zh-tw": "土魯斯主教座堂",
+        "pt": "Catedral de Toulouse",
+        "cs": "Katedrála svatého Štěpána",
+        "eu": "Tolosako katedrala",
+        "fr": "cathédrale Saint-Étienne de Toulouse",
+        "es": "Catedral de Toulouse",
+        "en": "Toulouse Cathedral",
+        "oc": "Catedrala de Sent Estève de Tolosa",
+        "ca": "catedral de Sant Esteve de Tolosa",
+        "it": "Cattedrale di Santo Stefano",
+        "th": "มหาวิหารตูลูซ",
+        "zh": "图卢兹主教座堂",
+        "eo": "Katedralo de Tuluzo",
+        "nl": "Toulouse Cathedral",
+        "de": "Kathedrale von Toulouse",
+        "sl": "toulouška stolnica",
+        "pl": "Katedra św. Szczepana w Tuluzie",
+        "arz": "كاتدرائية تولوز",
+        "ja": "トゥールーズ大聖堂",
+        "ru": "Тулузский кафедральный собор",
+        "id": "Katedral Toulouse",
+        "el": "Καθεδρικός Ναός Αγίου Στεφάνου της Τουλούζης",
+        "mul": "Cathédrale Saint-Étienne",
+        "tr": "Toulouse Katedrali"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2737833",
+      "wikidataClaims": {
+        "instanceOf": "cathédrale catholique",
+        "architecturalStyle": "architecture romane",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Étienne"
+      }
+    },
+    "Q1010268": {
+      "wikidataId": "Q1010268",
+      "nameTranslations": {
+        "pt": "Basílica Saint-Sernin de Toulouse",
+        "zh-hans": "圣塞宁教堂",
+        "zh-hant": "聖塞寧教堂",
+        "zh-hk": "聖塞寧教堂",
+        "fr": "basilique Saint-Sernin de Toulouse",
+        "es": "basílica de San Sernín",
+        "en": "Basilica of St. Sernin",
+        "oc": "Basilica de Sant Sarnin",
+        "ca": "Basílica de Sant Serni de Tolosa",
+        "it": "basilica di Saint-Sernin",
+        "de": "St-Sernin",
+        "cs": "Bazilika svatého Saturnina z Toulouse",
+        "sh": "Bazilika Saint-Sernina u Toulouseu",
+        "hr": "Bazilika Saint-Sernina u Toulouseu",
+        "sv": "Saint-Sernin",
+        "nl": "Basilique Saint-Sernin de Toulouse",
+        "zh": "圣塞宁教堂",
+        "sk": "Bazilika svätého Saturnina",
+        "eo": "Baziliko Sankta Sernino",
+        "br": "Penniliz Sant Sarnin",
+        "ja": "トゥールーズ大聖堂",
+        "nb": "Saint-Sernin",
+        "eu": "Done Saturdi basilika",
+        "sl": "bazilika sv. Saturnina",
+        "id": "Basilika Santo Saturnin, Toulouse",
+        "pl": "Bazylika św. Saturnina w Tuluzie",
+        "uk": "Базиліка Сен-Сернен, Тулуза",
+        "ru": "Базилика Святого Сатурнина",
+        "tr": "Saint-Sernin Bazilikası",
+        "he": "כנסיית סן סרנין"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1010268",
+      "wikidataClaims": {
+        "instanceOf": "basilique mineure",
+        "architecturalStyle": "art roman",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3390113": {
+      "wikidataId": "Q3390113",
+      "nameTranslations": {
+        "fr": "place Saint-Pierre",
+        "oc": "plaça Sant Pèire",
+        "en": "place Saint-Pierre",
+        "de": "Place Saint-Pierre",
+        "nl": "place Saint-Pierre",
+        "zh": "圣伯多禄广场 (图卢兹)",
+        "tr": "Saint-Pierre Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3390113",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q590201": {
+      "wikidataId": "Q590201",
+      "nameTranslations": {
+        "fr": "université Toulouse-Capitole",
+        "de": "Universität Toulouse Capitole",
+        "en": "Toulouse Capitole University",
+        "es": "Universidad de Toulouse Capitole",
+        "oc": "Universitat de Tolosa I Capitòli",
+        "pl": "Uniwersytet Tuluza I - Capitole",
+        "ru": "Университет Тулуза 1",
+        "vi": "Đại học Toulouse 1",
+        "ca": "Universitat de Tolosa I Capitòli",
+        "io": "Universitato di Toulouse 1 Capitole",
+        "mk": "Универзитет Тулуза 1",
+        "cs": "Univerzita Toulouse-Capitole",
+        "hy": "Տուլուզա 1 համալսարան",
+        "nb": "Université Toulouse-I-Capitole",
+        "nn": "Université Toulouse 1 Capitole",
+        "nl": "Toulouse 1 University Capitole",
+        "ja": "トゥールーズ第一大学",
+        "ko": "툴루즈 제1대학교",
+        "cy": "Prifysgol Toulouse-I-Capitole",
+        "uk": "Університет Тулуза 1",
+        "tt": "Тулуза 1 университеты",
+        "lb": "Universitéit Toulouse I",
+        "zh": "图卢兹第一大学",
+        "tl": "Unibersidad ng Toulouse 1 Capitole",
+        "sv": "université Toulouse I - Capitole",
+        "el": "Πανεπιστήμιο Τουλούζ 1 - Καπιτόλ",
+        "pt": "Université Toulouse-I-Capitole",
+        "da": "Université Toulouse-I-Capitole",
+        "eu": "Toulouse-I-Capitole Unibertsitatea",
+        "it": "Université Toulouse-I-Capitole",
+        "ro": "Université Toulouse-I-Capitole",
+        "lv": "Université Toulouse-I-Capitole",
+        "eo": "Université Toulouse-I-Capitole",
+        "be": "Тулузскі капіталійскі ўніверсітэт",
+        "zh-hant": "圖盧茲第一大學",
+        "nds": "Universität Toulouse I",
+        "sl": "Univerza Toulouse Capitol"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q590201",
+      "wikidataClaims": {
+        "instanceOf": "université en France",
+        "inception": "1969-00-00"
+      }
+    },
+    "Q2844425": {
+      "wikidataId": "Q2844425",
+      "nameTranslations": {
+        "fr": "amphithéâtre romain de Purpan-Ancely",
+        "oc": "Anfiteatre Roman de Tolosa",
+        "en": "Roman amphitheatre of Purpan-Ancely",
+        "nl": "Roman amphitheatre of Purpan-Ancely",
+        "ca": "Amfiteatre gal·loromà de Blagnac"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2844425",
+      "wikidataClaims": {
+        "instanceOf": "amphithéâtre romain",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3585905": {
+      "wikidataId": "Q3585905",
+      "nameTranslations": {
+        "fr": "église des Cordeliers de Toulouse",
+        "en": "église des Cordeliers de Toulouse",
+        "ca": "Ruïnes de l'església dels Cordeliers",
+        "zh": "科德利埃教堂 (图卢兹)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3585905",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "inception": "1400-00-00",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q22938580": {
+      "wikidataId": "Q22938580",
+      "nameTranslations": {
+        "fr": "château de La Cépière",
+        "en": "Château de la Cépière",
+        "ca": "Château de la Cépière"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q22938580",
+      "wikidataClaims": {
+        "instanceOf": "château",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2408159": {
+      "wikidataId": "Q2408159",
+      "nameTranslations": {
+        "fr": "château du Mirail",
+        "en": "Château du Mirail (Toulouse)",
+        "ca": "Château du Mirail",
+        "ga": "château du Mirail"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2408159",
+      "wikidataClaims": {
+        "instanceOf": "château",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3145737": {
+      "wikidataId": "Q3145737",
+      "nameTranslations": {
+        "fr": "hôtel de Bagis",
+        "oc": "Ostal de Bagis",
+        "es": "Hotel de Bagis",
+        "nl": "hôtel de Bagis",
+        "en": "Hôtel de Bagis",
+        "ca": "Hôtel de Pierre",
+        "zh": "巴吉斯府",
+        "de": "Hôtel de Bagis"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3145737",
+      "wikidataClaims": {
+        "instanceOf": "hôtel particulier",
+        "inception": "1537-00-00",
+        "architect": "Nicolas Bachelier",
+        "architecturalStyle": "architecture de la Renaissance",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3390181": {
+      "wikidataId": "Q3390181",
+      "nameTranslations": {
+        "fr": "place Wilson",
+        "oc": "plaça del President Thomas Woodrow Wilson",
+        "en": "place Wilson",
+        "nl": "place Wilson",
+        "ca": "Place Wilson",
+        "zh": "威尔逊广场 (图卢兹)",
+        "de": "place Wilson",
+        "tr": "Wilson Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3390181",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2887166": {
+      "wikidataId": "Q2887166",
+      "nameTranslations": {
+        "fr": "basilique de la Daurade de Toulouse",
+        "en": "Notre-Dame de la Daurade",
+        "zh": "多拉德圣母圣殿",
+        "ast": "Basílica de la Dorada de Toulouse",
+        "ca": "Basílica de la Daurada",
+        "oc": "Basilica de la Daurada",
+        "es": "basílica de la Dorada de Toulouse",
+        "it": "basilica di Notre-Dame de la Daurade",
+        "nl": "Notre-Dame de la Daurade",
+        "ru": "Базилика Нотр-Дам де ла Дорад",
+        "uk": "Базиліка Нотр-Дам де ла Дорад",
+        "de": "Notre-Dame de la Daurade",
+        "arz": "كنيسه سيده البحر",
+        "tr": "Daurade Bazilikası",
+        "ja": "ドラード教会",
+        "id": "Basilika Bunda dari Daurade, Toulouse",
+        "eu": "Andre Maria Daurade basilika",
+        "sl": "bazilika Notre-Dame de la Daurade"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2887166",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "inception": "1883-00-00",
+        "architecturalStyle": "architecture néoclassique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q719314": {
+      "wikidataId": "Q719314",
+      "nameTranslations": {
+        "af": "Claude Nougaro",
+        "an": "Claude Nougaro",
+        "arz": "كلود نوجارو",
+        "ast": "Claude Nougaro",
+        "bar": "Claude Nougaro",
+        "bg": "Клод Нугаро",
+        "br": "Claude Nougaro",
+        "bs": "Claude Nougaro",
+        "ca": "Claude Nougaro",
+        "co": "Claude Nougaro",
+        "cs": "Claude Nougaro",
+        "cy": "Claude Nougaro",
+        "da": "Claude Nougaro",
+        "dag": "Claude Nougaro",
+        "de": "Claude Nougaro",
+        "en": "Claude Nougaro",
+        "eo": "Claude Nougaro",
+        "es": "Claude Nougaro",
+        "et": "Claude Nougaro",
+        "eu": "Claude Nougaro",
+        "fi": "Claude Nougaro",
+        "fo": "Claude Nougaro",
+        "fr": "Claude Nougaro",
+        "ga": "Claude Nougaro",
+        "gd": "Claude Nougaro",
+        "gl": "Claude Nougaro",
+        "gv": "Claude Nougaro",
+        "he": "קלוד נוגארו",
+        "hr": "Claude Nougaro",
+        "hu": "Claude Nougaro",
+        "id": "Claude Nougaro",
+        "io": "Claude Nougaro",
+        "is": "Claude Nougaro",
+        "it": "Claude Nougaro",
+        "ja": "クロード・ヌガロ",
+        "kw": "Claude Nougaro",
+        "lb": "Claude Nougaro",
+        "lt": "Claude Nougaro",
+        "lv": "Claude Nougaro",
+        "ms": "Claude Nougaro",
+        "mt": "Claude Nougaro",
+        "nb": "Claude Nougaro",
+        "nl": "Claude Nougaro",
+        "nn": "Claude Nougaro",
+        "nrm": "Claude Nougaro",
+        "oc": "Claudi Nogaròu",
+        "pap": "Claude Nougaro",
+        "pl": "Claude Nougaro",
+        "pms": "Claude Nougaro",
+        "pt": "Claude Nougaro",
+        "pt-br": "Claude Nougaro",
+        "rm": "Claude Nougaro",
+        "ro": "Claude Nougaro",
+        "ru": "Клод Нугаро",
+        "sh": "Claude Nougaro",
+        "sk": "Claude Nougaro",
+        "sl": "Claude Nougaro",
+        "sq": "Claude Nougaro",
+        "sv": "Claude Nougaro",
+        "tr": "Claude Nougaro",
+        "ty": "Claude Nougaro",
+        "wa": "Claude Nougaro",
+        "zh": "克洛德·努加罗",
+        "zh-cn": "克洛德·努加罗",
+        "zu": "Claude Nougaro",
+        "mul": "Claude Nougaro",
+        "hy": "Կլոդ Նուգարո",
+        "ko": "클로드 누가로"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q719314",
+      "wikidataClaims": {
+        "instanceOf": "être humain"
+      }
+    },
+    "Q2970369": {
+      "wikidataId": "Q2970369",
+      "nameTranslations": {
+        "fr": "château de Reynerie",
+        "nl": "Kasteel van Reynerie",
+        "en": "Château de Reynerie",
+        "ca": "Château de Reynerie",
+        "tr": "Reynerie Kalesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2970369",
+      "wikidataClaims": {
+        "instanceOf": "château fort",
+        "architecturalStyle": "palladianisme",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q1460090": {
+      "wikidataId": "Q1460090",
+      "nameTranslations": {
+        "de": "Pont Neuf",
+        "en": "Pont-Neuf",
+        "es": "Puente Nuevo",
+        "fr": "Pont-Neuf",
+        "oc": "Pont Nòu de Tolosa",
+        "zh": "新桥",
+        "nl": "Pont Neuf, Toulouse",
+        "ja": "ポンヌフ",
+        "co": "Ponte novu",
+        "sl": "Pont Neuf, Toulouse",
+        "ca": "Pont Nou de Tolosa de Llenguadoc",
+        "eu": "Pont Neuf (Tolosa)",
+        "tr": "Yeni KÖprü, Toulouse"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1460090",
+      "wikidataClaims": {
+        "instanceOf": "pont en arc par-dessous",
+        "inception": "1632-00-00",
+        "architect": "Nicolas Bachelier",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3390089": {
+      "wikidataId": "Q3390089",
+      "nameTranslations": {
+        "fr": "place Saint-Georges",
+        "oc": "plaça de Sant Jòrdi",
+        "en": "place Saint-Georges",
+        "nl": "place Saint-Georges",
+        "tr": "Saint-Georges Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3390089",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3580780": {
+      "wikidataId": "Q3580780",
+      "nameTranslations": {
+        "fr": "église Notre-Dame du Taur",
+        "oc": "glèisa de Nòstra Dòna del Taur",
+        "it": "chiesa di Notre-Dame du Taur",
+        "nl": "église Notre-Dame du Taur",
+        "en": "Notre-Dame du Taur",
+        "zh": "聖母教堂",
+        "de": "Notre-Dame du Taur",
+        "ca": "Església de Nostra Senyora del Taur",
+        "arz": "كنيسه سيده طور",
+        "ja": "ノートルダム・デュ・トゥール教会",
+        "es": "Iglesia de Nuestra Señora de Taur",
+        "tr": "Notre-Dame du Taur Kilisesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3580780",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "inception": "1400-00-00",
+        "architecturalStyle": "gothique méridional",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2968376": {
+      "wikidataId": "Q2968376",
+      "nameTranslations": {
+        "fr": "Le Château d'eau",
+        "en": "Château d'eau",
+        "oc": "Castèl d'aiga de Tolosa",
+        "da": "Toulouse Vandtårn",
+        "hr": "Le château d’eau",
+        "zh": "土魯斯水塔",
+        "nl": "Galerie du Château d'eau",
+        "ca": "Torre d'aigües i estació de bombeig",
+        "arz": "لى شاتو دو، عمود التصوير الفوتوغرافى فى تولوز"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2968376",
+      "wikidataClaims": {
+        "instanceOf": "château d'eau",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q1005479": {
+      "wikidataId": "Q1005479",
+      "nameTranslations": {
+        "arz": "چيان چاك لافونت",
+        "ast": "Jean-Jacques Laffont",
+        "ca": "Jean-Jacques Laffont",
+        "cs": "Jean-Jacques Laffont",
+        "cy": "Jean-Jacques Laffont",
+        "da": "Jean-Jacques Laffont",
+        "de": "Jean-Jacques Laffont",
+        "en": "Jean-Jacques Laffont",
+        "es": "Jean-Jacques Laffont",
+        "fi": "Jean-Jacques Laffont",
+        "fr": "Jean-Jacques Laffont",
+        "ga": "Jean-Jacques Laffont",
+        "hr": "Jean-Jacques Laffont",
+        "hu": "Jean-Jacques Laffont",
+        "it": "Jean-Jacques Laffont",
+        "ja": "ジャン＝ジャック・ラフォン",
+        "ko": "장자크 라퐁",
+        "nb": "Jean-Jacques Laffont",
+        "nl": "Jean-Jacques Laffont",
+        "nn": "Jean-Jacques Laffont",
+        "pl": "Jean-Jacques Laffont",
+        "pt": "Jean-Jacques Laffont",
+        "pt-br": "Jean-Jacques Laffont",
+        "ru": "Жан-Жак Лаффон",
+        "sk": "Jean-Jacques Laffont",
+        "sl": "Jean-Jacques Laffont",
+        "sq": "Jean-Jacques Laffont",
+        "sv": "Jean-Jacques Laffont",
+        "tr": "Jean-Jacques Laffont",
+        "zh": "让-雅克·拉丰",
+        "zh-hans": "让-雅克·拉丰",
+        "zh-hant": "讓-雅克·拉豐",
+        "zh-hk": "讓-雅克·拉豐",
+        "mul": "Jean-Jacques Laffont",
+        "ur": "ژاں-جاک لافون"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1005479",
+      "wikidataClaims": {
+        "instanceOf": "être humain"
+      }
+    },
+    "Q3146303": {
+      "wikidataId": "Q3146303",
+      "nameTranslations": {
+        "fr": "hôtel du Vieux-Raisin",
+        "en": "Hôtel du Vieux-Raisin",
+        "ca": "Hôtel de Lasbordes",
+        "oc": "Ostal del Vièlh Rasim"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3146303",
+      "wikidataClaims": {
+        "instanceOf": "hôtel particulier",
+        "inception": "1600-00-00",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3360899": {
+      "wikidataId": "Q3360899",
+      "nameTranslations": {
+        "fr": "palais Niel",
+        "oc": "Palais Niel",
+        "nl": "palais Niel",
+        "en": "Palais Niel"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3360899",
+      "wikidataClaims": {
+        "instanceOf": "palais",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q16670295": {
+      "wikidataId": "Q16670295",
+      "nameTranslations": {
+        "fr": "place de la Trinité",
+        "en": "place de la Trinité",
+        "oc": "plaça de la Trinitat",
+        "tr": "Trinité Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q16670295",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Trinité"
+      }
+    },
+    "Q3580740": {
+      "wikidataId": "Q3580740",
+      "nameTranslations": {
+        "fr": "église Notre-Dame de la Dalbade",
+        "oc": "glèisa de Nòstra Dòna de la Dalbada",
+        "it": "chiesa di Notre-Dame de la Dalbade",
+        "nl": "église Notre-Dame de la Dalbade",
+        "en": "Notre-Dame de la Dalbade",
+        "ca": "Església de Nostra Senyora de la Dalbada",
+        "es": "Iglesia de Nuestra Señora de la Dalbade",
+        "zh": "达尔巴德圣母堂",
+        "ja": "ダルバード教会",
+        "tr": "Notre-Dame de la Dalbade Kilisesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3580740",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3584182": {
+      "wikidataId": "Q3584182",
+      "nameTranslations": {
+        "fr": "église Saint-Pierre-des-Cuisines",
+        "oc": "glèisa de Sant Pèire de las Cosinas",
+        "eo": "Preĝejo Sankta Petro de la Kuirejoj",
+        "nl": "église Saint-Pierre des Cuisines",
+        "ca": "Església Sant Pere de les Cosinas",
+        "en": "église Saint-Pierre des Cuisines",
+        "zh": "屈西纳圣伯多禄堂"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3584182",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "architecturalStyle": "architecture romane",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Pierre"
+      }
+    },
+    "Q22938008": {
+      "wikidataId": "Q22938008",
+      "nameTranslations": {
+        "fr": "château de Thégra",
+        "ca": "Castell de Thégra"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q22938008",
+      "wikidataClaims": {
+        "instanceOf": "château",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Balma"
+      }
+    },
+    "Q3145772": {
+      "wikidataId": "Q3145772",
+      "nameTranslations": {
+        "fr": "hôtel d'Arnaud de Brucelles",
+        "en": "Hôtel de Brucelles",
+        "ca": "Hôtel d'Arnaud de Brucelles"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3145772",
+      "wikidataClaims": {
+        "instanceOf": "hôtel particulier",
+        "inception": "1600-00-00",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique inscrit",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3584181": {
+      "wikidataId": "Q3584181",
+      "nameTranslations": {
+        "fr": "église Saint-Pierre des Chartreux de Toulouse",
+        "oc": "glèisa de Sant Pèire dels Chartroses de Tolosa",
+        "de": "St-Pierre-des-Chartreux",
+        "nl": "St-Pierre-des-Chartreux",
+        "en": "Église Saint-Pierre des Chartreux de Toulouse",
+        "ca": "Antiga cartoixa Saint-Pierre",
+        "zh": "加尔都西会圣伯多禄堂"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3584181",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "inception": "1602-00-00",
+        "architecturalStyle": "architecture baroque",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Pierre"
+      }
+    },
+    "Q30443012": {
+      "wikidataId": "Q30443012",
+      "nameTranslations": {
+        "fr": "place Charles-Laganne",
+        "nl": "place Laganne",
+        "en": "place Charles-Laganne",
+        "oc": "plaça Carles Lagana",
+        "tr": "Charles-Laganne Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q30443012",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Charles Laganne"
+      }
+    },
+    "Q22938605": {
+      "wikidataId": "Q22938605",
+      "nameTranslations": {
+        "fr": "hôtel de Jean Bernuy",
+        "en": "Hôtel de Bernuy",
+        "ca": "Hôtel Bernuy"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q22938605",
+      "wikidataClaims": {
+        "instanceOf": "hôtel particulier",
+        "inception": "1600-00-00",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q24933925": {
+      "wikidataId": "Q24933925",
+      "nameTranslations": {
+        "fr": "place des Hauts-Murats",
+        "en": "place des Hauts-Murats",
+        "oc": "plaça dels Auts Murats",
+        "tr": "Hauts-Murats Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q24933925",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2957369": {
+      "wikidataId": "Q2957369",
+      "nameTranslations": {
+        "fr": "chapelle des Carmélites de Toulouse",
+        "en": "Chapelle des Carmélites",
+        "ca": "Antic seminari major"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2957369",
+      "wikidataClaims": {
+        "instanceOf": "chapelle",
+        "inception": "1751-00-00",
+        "architecturalStyle": "architecture baroque",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q105687937": {
+      "wikidataId": "Q105687937",
+      "nameTranslations": {
+        "fr": "place Jeanne-d'Arc",
+        "en": "Place Jeanne d'Arc",
+        "oc": "plaça Joana d'Arc",
+        "tr": "Jeanne-d'Arc Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q105687937",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Jeanne d'Arc"
+      }
+    },
+    "Q21294385": {
+      "wikidataId": "Q21294385",
+      "nameTranslations": {
+        "fr": "hôtel de Felzins",
+        "en": "Hôtel de Felzins",
+        "ca": "Hôtel Felzins",
+        "zh": "费尔赞府",
+        "zh-hans": "费尔赞府",
+        "zh-cn": "费尔赞府"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q21294385",
+      "wikidataClaims": {
+        "instanceOf": "hôtel particulier",
+        "inception": "1600-00-00",
+        "architecturalStyle": "architecture de la Renaissance",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q3494530": {
+      "wikidataId": "Q3494530",
+      "nameTranslations": {
+        "fr": "square Charles-de-Gaulle",
+        "en": "square Charles-de-Gaulle"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3494530",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Charles de Gaulle"
+      }
+    },
+    "Q25397571": {
+      "wikidataId": "Q25397571",
+      "nameTranslations": {
+        "fr": "place de la Bourse",
+        "en": "place de la Bourse",
+        "eo": "Placo de la Borso",
+        "oc": "plaça de la Borsa",
+        "tr": "Bourse Meydanı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q25397571",
+      "wikidataClaims": {
+        "instanceOf": "place",
+        "locatedIn": "Toulouse"
+      }
+    },
+    "Q2935989": {
+      "wikidataId": "Q2935989",
+      "nameTranslations": {
+        "ca": "Canal de Brienne",
+        "en": "Canal de Brienne",
+        "oc": "Canal de Brienne",
+        "fr": "canal de Brienne",
+        "es": "Canal de Brienne",
+        "nl": "Canal de Brienne",
+        "de": "Canal de Brienne",
+        "ceb": "Canal de Brienne",
+        "eu": "Canal de Brienne",
+        "arz": "قناة برين",
+        "ja": "ブリエンヌ運河",
+        "fi": "Canal de Brienne"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2935989",
+      "wikidataClaims": {
+        "instanceOf": "canal",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Étienne-Charles de Loménie de Brienne"
+      }
+    },
+    "Q3582238": {
+      "wikidataId": "Q3582238",
+      "nameTranslations": {
+        "fr": "église Saint-Jérôme de Toulouse",
+        "en": "Saint Jerome church of Toulouse",
+        "oc": "Glèisa de Sant Jiròni de Tolosa",
+        "ca": "Antiga capella dels Pénitents Bleus",
+        "zh": "圣热罗尼莫堂 (图卢兹)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3582238",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "inception": "1629-00-00",
+        "architect": "Pierre Levesville",
+        "architecturalStyle": "architecture baroque",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Jérôme de Stridon"
+      }
+    },
+    "Q3583425": {
+      "wikidataId": "Q3583425",
+      "nameTranslations": {
+        "fr": "église Saint-Nicolas de Toulouse",
+        "en": "Saint Nicolas' Church, Toulouse",
+        "zh": "圣尼各老堂",
+        "ca": "Església de Sant Nicolau de Tolosa"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3583425",
+      "wikidataClaims": {
+        "instanceOf": "église",
+        "architecturalStyle": "architecture gothique",
+        "heritageDesignation": "monument historique classé",
+        "locatedIn": "Toulouse",
+        "namedAfter": "Nicolas de Myre"
+      }
+    },
+    "Q202494": {
+      "wikidataId": "Q202494",
+      "nameTranslations": {
+        "zh-hans": "米迪运河",
+        "zh-hant": "米迪運河",
+        "zh-hk": "米迪運河",
+        "zh-cn": "米迪运河",
+        "zh-sg": "米迪运河",
+        "zh-tw": "米迪運河",
+        "eu": "Canal du Midi",
+        "pl": "Kanał Południowy",
+        "he": "תעלת מידי",
+        "ko": "미디 운하",
+        "fr": "canal du Midi",
+        "es": "Canal del Mediodía",
+        "oc": "Canal del Miègjorn",
+        "hu": "Canal du Midi",
+        "it": "Canal du Midi",
+        "et": "Canal du Midi",
+        "de": "Canal du Midi",
+        "id": "Canal du Midi",
+        "ja": "ミディ運河",
+        "vi": "Canal du Midi",
+        "el": "Κανάλι του Midi",
+        "nl": "Canal du Midi",
+        "sv": "Canal du Midi",
+        "pt": "Canal do Midi",
+        "eo": "Sudfranca Kanalo",
+        "sk": "Canal du Midi",
+        "ru": "Южный канал",
+        "en": "Canal du Midi",
+        "ro": "Canal du Midi",
+        "ca": "canal del Migdia",
+        "fi": "Canal du Midi",
+        "cy": "Canal du Midi",
+        "nn": "Canal du Midi",
+        "sl": "Canal du Midi",
+        "cs": "Canal du Midi",
+        "ka": "სამხრეთის არხი",
+        "hr": "Canal du Midi",
+        "lt": "Midi kanalas",
+        "lmo": "Canaal dal mezz·dí",
+        "da": "Canal du Midi",
+        "jv": "Canal du Midi",
+        "sh": "Canal du Midi",
+        "zh": "米迪运河",
+        "uk": "Південний канал",
+        "th": "กานาลดูว์มีดี",
+        "nb": "Canal du Midi",
+        "ar": "قناة دو ميدي",
+        "be": "Паўднёвы канал",
+        "sr": "Канал ди Миди",
+        "hy": "Հարավային ջրանցք",
+        "hi": "कैनाल दु मिडी",
+        "tr": "Canal du Midi",
+        "ceb": "Canal du Midi",
+        "de-ch": "Canal du Midi",
+        "en-ca": "Canal du Midi",
+        "en-gb": "Canal du Midi",
+        "lb": "Canal du Midi",
+        "pt-br": "Canal do Midi",
+        "mk": "Јужен Канал",
+        "lv": "Dienvidu kanāls",
+        "gl": "Canle do Midi",
+        "fa": "آبراهه دو میدی",
+        "mt": "Canal du Midi",
+        "sq": "Canal du Midi",
+        "mul": "Canal du Midi",
+        "bn": "ক্যানাল দু মিদি"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q202494",
+      "wikidataClaims": {
+        "instanceOf": "canal à bief de partage",
+        "heritageDesignation": "patrimoine mondial",
+        "locatedIn": "Toulouse"
+      }
+    }
+  },
+  "wikipedia": {
+    "fr:Capitole de Toulouse": {
+      "description": "Le Capitole est un monument de la ville française de Toulouse, qui abrite aujourd’hui l'hôtel de ville et le théâtre du Capitole. Sa construction a été décidée par les Capitouls en 1190, afin d’y établir le siège du pouvoir municipal. Il est l’emblème de la ville et l’emplacement du pouvoir municipal depuis plus de huit siècles.",
+      "body": "Le Capitole est un monument de la ville française de Toulouse, qui abrite aujourd’hui l'hôtel de ville et le théâtre du Capitole. Sa construction a été décidée par les Capitouls en 1190, afin d’y établir le siège du pouvoir municipal. Il est l’emblème de la ville et l’emplacement du pouvoir municipal depuis plus de huit siècles. Le Capitole est entouré par la place du Capitole à l'ouest, la rue de la Pomme et la rue du Poids de l'Huile au sud, le square Charles-de-Gaulle et la rue Ernest Roschach à l'est et la rue Lafayette au nord.\n\n\nHistoire\n\n\nConstruction de l'ensemble\nL'histoire de cet édifice commence en 1190 lorsque les consuls de Toulouse recherchent un bâtiment pour héberger la maison commune. Ils ont ambition de construire une cité administrative entourée par des remparts au XIIIe siècle. Mais ce n'est qu'au XVIIe siècle que le palais actuel est construit par les capitouls. Le nom de cette maison commune est initialement Capitulum (Chapitre), Capítol en occitan : la maison des capitouls, qui votaient par tête, comme les chapitres ecclésiastiques. En 1522, Pierre Salmon, greffier à l'hôtel de ville, latinise le nom en Capitolium, en référence au Capitole romain.\nL'emplacement n'est pas choisi au hasard. Il est situé loin du château comtal à la limite de la cité et du bourg de Saint-Sernin contre une tour désaffectée de l'ancien rempart gallo-romain. Les capitouls font l'acquisition de nombreux bâtiments et terrains autour de la maison commune afin de regrouper les services administratifs, les archives, la prison, les salles de réunion et de réception. Au XIVe siècle, la maison commune forme un ensemble fortifié percé de portes correspondant à la superficie de l'actuel Capitole et de l'actuel square Charles-De-Gaulle.\nAu XVIIe siècle, les capitouls veulent construire un palais municipal unique en France. Sa construction va durer près de deux cents ans. La façade du Capitolium a été bâtie en 1750 pendant dix ans sur les plans de Guillaume Cammas. En 1771, elle",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Capitole%20de%20Toulouse"
+    },
+    "fr:Cathédrale Saint-Étienne de Toulouse": {
+      "description": "La cathédrale Saint-Étienne de Toulouse est une cathédrale catholique romaine du centre historique de Toulouse, dans le département de la Haute-Garonne en France. Elle a donné son nom au quartier qui l'entoure.\nOn ne connaît pas les origines de la cathédrale.",
+      "body": "La cathédrale Saint-Étienne de Toulouse est une cathédrale catholique romaine du centre historique de Toulouse, dans le département de la Haute-Garonne en France. Elle a donné son nom au quartier qui l'entoure.\nOn ne connaît pas les origines de la cathédrale. Ses premières traces datent de 1071, quand l'évêque Isarn de Lavaur décida de reconstruire l'édifice alors en ruine. Son architecture est particulière car elle est composée d'éléments architecturaux de diverses époques. La cathédrale jouxte l'ancien palais épiscopal, aujourd'hui occupé par la préfecture.\n\n\nHistoire\n\nLa cathédrale a été bâtie sur les fondations d'une chapelle construite par saint Saturnin au IIIe siècle, et reconstruite par saint Exupère 150 ans plus tard. Il est difficile de juger aujourd'hui en l'absence de fouilles. L'histoire de cette église est tellement émaillée de modifications, de rénovations et de reconstructions qu'on pourrait la surnommer la « cathédrale inachevée ».\nJusqu'au XIIIe siècle, les plans de l'église romane furent sans cesse modifiés. Ainsi, une révision de la hauteur prévue de l'édifice est visible par la coupe des fenêtres sur le mur sud, tandis que le mur nord, construit plus tard, ne présente pas cette anomalie. On reconnaîtra sur le mur occidental une rosace, directement inspirée de celle Notre-Dame de Paris.\nLa principale originalité de l'édifice est de présenter deux parties très distinctes : une partie en style gothique méridional à l'arrière du vaisseau, la nef raimondine, et une partie en style gothique d'Île-de-France, ou gothique rayonnant, le chœur. Ces deux églises ont été reliées au XVIe siècle par le futur cardinal Jean d'Orléans. Le chœur est deux fois plus large que la nef, si bien que l'allée centrale est en ligne brisée. Le mur roman sud a été prolongé par l'église gothique. Ce projet gigantesque a débuté en 1272, sous l'égide de l'évêque Bertrand-de-L'Isle (en). À l'instar de sa petite jumelle, l'église gothique a subi de nombreux ajouts, et a donné lie",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Cath%C3%A9drale%20Saint-%C3%89tienne%20de%20Toulouse"
+    },
+    "fr:Place du Capitole (Toulouse)": {
+      "description": "La place du Capitole (en occitan : plaça del Capitòli) est une place de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\nFruit de l'urbanisme classique et de la volonté de doter la ville d'une vaste place, les premiers projets de « place royale » voient le jour à la fin du XVIIe siècle. Le dégagement progressif de la place ne commence cependant qu'au début du XVIIIe siècle.",
+      "body": "La place du Capitole (en occitan : plaça del Capitòli) est une place de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\nFruit de l'urbanisme classique et de la volonté de doter la ville d'une vaste place, les premiers projets de « place royale » voient le jour à la fin du XVIIe siècle. Le dégagement progressif de la place ne commence cependant qu'au début du XVIIIe siècle. Il s'agit également pour les consuls de la ville, les capitouls, de magnifier leur pouvoir par la mise en valeur de leur « Maison commune », le Capitole, dont la façade monumentale, qui fait intervenir les meilleurs artistes toulousains de l'époque, est élevée au même moment. La place du Capitole devient alors le cœur de la cité : place de marché, place de fêtes, mais aussi place de la guillotine pendant la Révolution française. C'est dans la première moitié du XIXe siècle que la place prend enfin son aspect actuel : les côtés sud, nord et ouest sont successivement construits dans le style néo-classique entre 1809 et 1852 sur les plans de l'architecte de la ville, Jacques-Pascal Virebent. À cette époque, la place du Capitole est bordée de grands cafés, de restaurants et d'hôtels, tels le Bibent ou le Florida, qui étalent leurs terrasses.\nDans la deuxième moitié du XXe siècle, la place du Capitole connaît le développement de la voiture. Les vestiges de la porte romaine, redécouverts lors du creusement du parking souterrain, sont irrémédiablement détruits. L'arrivée du métro, en 1993, change la donne : la place, rénovée, est rendue aux piétons. La place, pavée de granit rose, est ornée en 1995 d'une grande croix de Toulouse par l'artiste Raymond Moretti. Il complète deux ans plus tard la série des tableaux qui décorent les arcades. La place du Capitole, dont le sol et les façades sont protégés comme site inscrit depuis 1943, est incluse en 1986 dans le site patrimonial remarquable de la ville.\nAu début du XXIe siècle, si on voit disparaître certaines des enseignes les plus pre",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20du%20Capitole%20(Toulouse)"
+    },
+    "fr:Basilique Saint-Sernin de Toulouse": {
+      "description": "La basilique Saint-Sernin est le plus important édifice religieux catholique de Toulouse, chef-lieu de la région Occitanie. Elle se situe au cœur de la place du même nom. C'est une des plus grandes églises romanes conservées en Europe, avec la cathédrale de Spire, en Allemagne, et la cathédrale de Saint-Jacques-de-Compostelle, en Espagne.",
+      "body": "La basilique Saint-Sernin est le plus important édifice religieux catholique de Toulouse, chef-lieu de la région Occitanie. Elle se situe au cœur de la place du même nom. C'est une des plus grandes églises romanes conservées en Europe, avec la cathédrale de Spire, en Allemagne, et la cathédrale de Saint-Jacques-de-Compostelle, en Espagne.\nElle est bâtie à la fin du XIe siècle pour abriter les reliques du premier évêque de Toulouse, saint Saturnin (Sarnin ou Sernin en occitan), l'un des premiers et plus vénérés martyrs chrétiens gallo-romains. Au milieu du IIIe siècle, Saturnin aurait été à la tête de la première communauté chrétienne de la Tolosa antique. Le 29 novembre 250, il aurait été pris à partie par des païens au pied du Capitolium (emplacement de l'actuelle place Étienne-Esquirol) : ayant refusé de sacrifier à Jupiter, il aurait été attaché à un taureau et traîné le long du cardo jusqu'à l'emplacement actuel de l'église Notre-Dame du Taur. Deux jeunes filles, les « saintes Puelles », auraient enterré le saint sur place. La « découverte » du corps du saint par l'évêque Hilaire au IVe siècle, puis la construction d'un sanctuaire par les évêques Silve et Exupère au début du siècle suivant, participent d'une première dévotion pour le martyr. Au cours du Moyen Âge, avec le développement du culte des saints, le sanctuaire devient l'un des plus importants centres de pèlerinage de l'Occident médiéval, alors même que la ville devient une étape importante pour les pèlerins sur le chemin de Saint-Jacques-de-Compostelle.\nL'importance de Saint-Sernin se ressent, dès le Moyen Âge, dans la place qu'elle occupe dans les luttes de pouvoir qui traversent la ville, mais aussi dans son influence considérable sur la croissance et l'urbanisme de Toulouse, et encore sur la floraison des arts. La communauté de chanoines, constituée au plus tard au IXe siècle, forme le cœur vivant d'une puissante abbaye qui accumule les richesses grâce aux donations des Toulousains et des pèlerins, ",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Basilique%20Saint-Sernin%20de%20Toulouse"
+    },
+    "fr:Place Saint-Pierre (Toulouse)": {
+      "description": "La place Saint-Pierre (en occitan : plaça Sant Pèire) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\nProche des berges de la Garonne, elle appartient au site patrimonial remarquable : on y trouve l'église Saint-Pierre-des-Cuisines, reconvertie en auditorium pour le conservatoire de la ville, ainsi que plusieurs bars. On y accède par le pont Saint-Pierre, par le quai du même nom ; on en repart par le quai Lucien Lombard, la rue Valade ou par la rue Pargaminières menant au Capitole.",
+      "body": "La place Saint-Pierre (en occitan : plaça Sant Pèire) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\nProche des berges de la Garonne, elle appartient au site patrimonial remarquable : on y trouve l'église Saint-Pierre-des-Cuisines, reconvertie en auditorium pour le conservatoire de la ville, ainsi que plusieurs bars. On y accède par le pont Saint-Pierre, par le quai du même nom ; on en repart par le quai Lucien Lombard, la rue Valade ou par la rue Pargaminières menant au Capitole.\n\n\nSituation et accès\n\n\nDescription\nLa place Saint-Pierre est une voie publique. Elle se situe à la limite des quartiers Capitole, au sud, et Arnaud-Bernard, au nord.\nLa place est traversée par le sentier de grande randonnée 86 (GR 86), qui va de Toulouse à Bagnères-de-Luchon. Elle est prolongée, à l'est, par la promenade Henri-Martin et, à l'ouest, par le quai Saint-Pierre.\n\n\nVoies rencontrées\nLa place Saint-Pierre rencontre les voies suivantes, dans l'ordre des numéros croissants :\n\nQuai Lucien-Lombard\nRue des Blanchers\nPlace de Bologne\nRue Pargaminières\nRue Valade\nEsplanade Bertrand-de-Montaigut\nRue de la Boule\nQuai Saint-Pierre\nPromenade Henri-Martin\n\n\nTransports\nLa place Saint-Pierre est traversée et desservie directement par la navette Ville. Les stations de métro les plus proches sont, à l'est, la station Capitole et, à l'ouest, la station Saint-Cyprien – République, toutes deux sur la ligne de métro . Le long de la place Saint-Cyprien et des allées Charles-de-Fitte se trouvent également les arrêts des lignes de bus 134566. Au nord, le long du boulevard Armand-Duportal se trouvent également les arrêts de la navette Ville et de la ligne de bus 63. Il permet de rejoindre le boulevard Lascrosses, où débouche la station Compans-Caffarelli sur la ligne de métro  et où marquent l'arrêt la ligne de Linéo L1L14 et les bus 45.\nIl existe une station de vélos en libre-service VélôToulouse, la station no 28 (2 place Saint-Pierre).\n\n\nOdonymie\nLa place Saint",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20Saint-Pierre%20(Toulouse)"
+    },
+    "fr:Église des Cordeliers de Toulouse": {
+      "description": "L'église des Cordeliers de Toulouse est l'ancienne église du couvent des Cordeliers à Toulouse. Elle ferme après un incendie en 1798, puis est occupée par l'administration militaire jusqu'en 1871 où elle est ravagée par un nouvel incendie. Les ruines de cette église sont classées monument historique depuis 1862.",
+      "body": "L'église des Cordeliers de Toulouse est l'ancienne église du couvent des Cordeliers à Toulouse. Elle ferme après un incendie en 1798, puis est occupée par l'administration militaire jusqu'en 1871 où elle est ravagée par un nouvel incendie. Les ruines de cette église sont classées monument historique depuis 1862.\n\n\nHistoire\n\n\nFondation\n\nLes frères mineurs de l’ordre de Saint-François, appelés Franciscains ou Cordeliers, s’installent à Toulouse en 1222. Du XIIIe au XVe siècle, ils édifient leur couvent dans l’espace compris entre les actuelles rues des Lois, du Collège de Foix, Albert-Lautmann et Deville. Leur église veut ouvertement rivaliser avec celle des Jacobins des frères prêcheurs de Saint-Dominique. C’est après la basilique Saint-Sernin l’église la plus vaste de Toulouse, et qui a la voûte la plus élevée (25 m).\n\n\nÉglise\nL’église, dédiée à la Vierge, avec comme patrons secondaires saint François d’Assise et saint Louis d’Anjou, évêque de Toulouse, est construite au début du XIVe siècle. Elle mesure 86 mètres de long, sur 26 m de large. La hauteur du sol au pignon est de 30 m. La nef à l’intérieur a une décoration peinte en façon de pierre de taille, tracées avec des filets brun-rouge sur fond jaune clair. Des scènes peintes occupent les murs des chapelles.\nLa façade, sur la rue des Cordeliers (rue Deville actuelle) est une haute muraille de brique de 26 m de large sur 30 m de haut, percée d’une rosace. Le portail, tout en pierre, forme une saillie d’environ un mètre. Il est surmonté d’un grand fronton triangulaire, flanqué de deux frontons latéraux plus petits et étroits. On pouvait lire au-dessus de la porte principale cette devise quelque peu présomptueuse : Durabit donec fluctus formica marinos / Ebibat, et totum testudo perambulet orbem (« elle durera jusqu’à ce que la fourmi ait bu la mer, et que la tortue aura fait le tour de la terre »).\n\n\nCaveau\nC’est sous la chapelle de Rieux, ou du moins à proximité, que se trouve une crypte destinée à servir de sépu",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20des%20Cordeliers%20de%20Toulouse"
+    },
+    "fr:Amphithéâtre romain de Purpan-Ancely": {
+      "description": "L'amphithéâtre romain de Purpan-Ancely est un site archéologique qui conserve les ruines d'un amphithéâtre romain, construit au milieu du Ier siècle, à proximité d'une petite agglomération rurale proche de l'importante cité gallo-romaine de Tolosa. Il se trouve aujourd'hui au carrefour de l'avenue du Professeur-Guy-Espagno et de l'avenue des Arènes-Romaines, entre les quartiers de Purpan et d'Ancely, à l'ouest de Toulouse. Il est classé monument historique depuis le 23 octobre 1974 et placé sous la responsabilité du musée Saint-Raymond de Toulouse.",
+      "body": "L'amphithéâtre romain de Purpan-Ancely est un site archéologique qui conserve les ruines d'un amphithéâtre romain, construit au milieu du Ier siècle, à proximité d'une petite agglomération rurale proche de l'importante cité gallo-romaine de Tolosa. Il se trouve aujourd'hui au carrefour de l'avenue du Professeur-Guy-Espagno et de l'avenue des Arènes-Romaines, entre les quartiers de Purpan et d'Ancely, à l'ouest de Toulouse. Il est classé monument historique depuis le 23 octobre 1974 et placé sous la responsabilité du musée Saint-Raymond de Toulouse. C'est l'un des seuls édifices romains pratiquement entiers de Toulouse.\n\n\nHistoire\n\n\nConstruction et agrandissement\nLa date de la construction de l'édifice ne peut être connue que par le biais du matériel archéologique, en l'absence de sources textuelles. Plusieurs objets sont ainsi datés de la moitié du Ier siècle de notre ère, et indiquent une construction probable entre l'an 40 et l'an 50 sous le règne de l'empereur Claude.  \nLa cavea est agrandie au IIIe siècle, et des murs rayonnants longs de 7 mètres sont élevés dans l'axe des vomitoires. Cet agrandissement permet d'augmenter la capacité d'accueil de 7 000 à 12 000 spectateurs.\nLes agrandissements du IIIe siècle sont supprimés avant le deuxième quart du IVe siècle, peut-être en raison d'un écroulement ayant entraîné la suppression totale de la structure récente.\n\n\nL'amphithéâtre après l'Antiquité\nL'amphithéâtre est abandonné dès le Ve siècle. Au XVIe siècle, il est désigné sur le cadastre comme « aire de la tuilerie contentieuse », ce qui indique que les briques étaient pillées par les habitants du voisinage. Il sert également de zone agricole.  \nPropriété du prieuré de la Daurade depuis au moins le XIIIe siècle, il est vendu à un acheteur inconnu à la suite de la Révolution française. Acheté par la ville de Toulouse en 1962, il est classé aux monuments historiques en 1974. Au cours du XXe siècle, l'amphithéâtre sert de décharge sauvage avant son nettoyage au début ",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Amphith%C3%A9%C3%A2tre%20romain%20de%20Purpan-Ancely"
+    },
+    "fr:Château de La Cépière": {
+      "description": "Le château de la Cépière est un château situé à Toulouse, en France. Héritier d'un ancien domaine agricole, appartenant au XIIIe siècle aux comtes de Toulouse, il est construit à partir du XVe siècle pour la famille de Goirans. S'il appartient, au milieu du XVIe siècle, au marchand toulousain Auger de Lacipière – qui lui laisse son nom –, c'est surtout à Pierre de Vignaux que sont dus d'importants travaux de construction menés à partir de 1589.",
+      "body": "Le château de la Cépière est un château situé à Toulouse, en France. Héritier d'un ancien domaine agricole, appartenant au XIIIe siècle aux comtes de Toulouse, il est construit à partir du XVe siècle pour la famille de Goirans. S'il appartient, au milieu du XVIe siècle, au marchand toulousain Auger de Lacipière – qui lui laisse son nom –, c'est surtout à Pierre de Vignaux que sont dus d'importants travaux de construction menés à partir de 1589. Le château est agrandi et réaménagé au cours du XVIIe siècle pour la famille de Bayard, puis au XVIIIe siècle pour le séminaire diocésain, tandis que les travaux d'aménagement se sont poursuivis au XIXe siècle pour les barons de Sabatié-Garat. Il reste un témoin de l'évolution de l'architecture toulousaine, de l'influence de la Renaissance au classicisme.\n\n\nSituation et accès\n\n\nSituation\nLe château de la Cépière se situe au 22 chemin de la Cépière. Il se trouve à l'est du micro-quartier des Pradettes, dans le quartier no 18 Lardenne / Pradettes / Basso-Cambo. Il est remarquable que le micro-quartier de la Cépière, qui tient naturellement son nom du château, se trouve dans un quartier différent, le quartier no 19 Casselardit / Fontaine-Bayonne / Cartoucherie.\n\n\nAccès\nLe château de la Cépière se trouve à proximité du rond-point de la Cépière, où se trouvent les arrêts des lignes du Linéo L14 et des bus 18 et 87. Plus à l'ouest, le chemin du Ramelet-Moundi et l'allée des Vitarelles sont desservis par la ligne de bus 67.\nLes stations de vélos en libre-service VélôToulouse les plus proches sont les stations no 263 (87 avenue Jean-Baylet) et no 385 (21 chemin de la Fronde).\n\n\nHistoire\n\n\nLes origines\nAu début du XIIIe siècle, le comte de Toulouse possède un vaste domaine agricole à la limite entre la première et la deuxième terrasse de la Garonne, sur le territoire de Lardenne. C'est cette ferme comtale – la boaria del comte en occitan – qui est le lieu d'un épisode marquant de la croisade des albigeois : en 1216, Simon de Montfort,",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau%20de%20La%20C%C3%A9pi%C3%A8re"
+    },
+    "fr:Château du Mirail (Toulouse)": {
+      "description": "Le château du Mirail est un château situé à Toulouse, en France. Il se trouve au cœur du campus de l'université Toulouse-Jean-Jaurès, 3 impasse du Recteur-Paul-Lapie, dans le quartier du Mirail, auquel il a donné son nom.",
+      "body": "Le château du Mirail est un château situé à Toulouse, en France. Il se trouve au cœur du campus de l'université Toulouse-Jean-Jaurès, 3 impasse du Recteur-Paul-Lapie, dans le quartier du Mirail, auquel il a donné son nom.\n\n\nSituation et accès\n\n\nSituation\nLe château du Mirail se situe au cœur du campus du Mirail de l'université Toulouse-Jean-Jaurès, 3 impasse du Recteur-Paul-Lapie. Il se trouve dans le secteur de Mirail-Université, un des trois secteurs de la zone d'urbanisation prioritaire du Mirail, dans le quartier no 17 Mirail-Université / Reynerie / Bellefontaine.\n\n\nAccès\nLa station de métro la plus proche est la station Mirail - Université, sur la ligne de métro A. Près de la station se trouvent également, le long de l'avenue de Tabar, les arrêts de la ligne de Linéo L14. Enfin, à l'ouest, l'avenue Louis-Bazerque est parcourue et desservie par la ligne de Linéo L14, ainsi que les lignes de bus 18 et 87.\nLes stations de vélos en libre-service VélôToulouse les plus proches sont les stations no 220 (3 rue de l'Université-du-Mirail) et no 273 (rond-point Louis-Izar).\n\n\nHistoire\n\n\nUn domaine agricole\nEn 1478, Jean de Forges, licencié en droit habitant la rue du Pont-Vieux (partie de l'actuelle rue Peyrolières), possède une ferme et un domaine agricole sur le terroir de l'Ardenne, dans le gardiage de la ville de Toulouse. À la fin du XVe siècle, il passe à Guillaume de Cosmans, surnommé lo Miralh, un bourgeois qui tient en ville une hôtellerie à l'enseigne du Miroir (lo miralh en occitan).\nEn 1571, le domaine, qui est passé à son fils Antoine de Cosmans, comprend une ferme, un jardin, des vignes, des bois, des prés et un canal, pour une superficie de 40 hectares environ. C'est l'un de ses trois fils, Antoine-Pierre de Cosmans, qui hérite du domaine, mais, en 1589, il est passé à Antoine d'Espie, bourgeois et capitoul en 1586-1587, puis à l'un de ses fils, Pierre d'Espie, qui le cède presque immédiatement à son frère, François d'Espie, bourgeois et capitoul en 1619-16",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau%20du%20Mirail%20(Toulouse)"
+    },
+    "fr:Hôtel de Bagis": {
+      "description": "L'hôtel de Bagis, de Clary ou Daguin, est un hôtel particulier situé au no 25 rue de la Dalbade, dans le centre historique de Toulouse. Les Toulousains l'appellent l’« hôtel de pierre », car sa façade est toute en pierre, ce qui était unique à Toulouse au XVIIe siècle. Il constitue un ensemble exceptionnel de la Renaissance toulousaine.",
+      "body": "L'hôtel de Bagis, de Clary ou Daguin, est un hôtel particulier situé au no 25 rue de la Dalbade, dans le centre historique de Toulouse. Les Toulousains l'appellent l’« hôtel de pierre », car sa façade est toute en pierre, ce qui était unique à Toulouse au XVIIe siècle. Il constitue un ensemble exceptionnel de la Renaissance toulousaine.\nLa construction d'un premier hôtel débute en 1537 sous la direction du célèbre architecte toulousain Nicolas Bachelier : la façade sur cour aux Atlantes en est le plus beau témoin. L'hôtel est modifié en 1611 par l'architecte Pierre Souffron, qui fait construire la nouvelle façade sur rue, entièrement en pierre. Le décor sculpté n'en est cependant achevé qu'au milieu du XIXe siècle. L'hôtel est classé monument historique en 1889.\n\n\nHistoire\nEn 1533, Jean de Bagis, conseiller au parlement de Bordeaux, rachète cinq immeubles qui appartenaient pour certains à l'avocat Raimond de Saint-Félix. En 1537, il passe commande au célèbre architecte Nicolas Bachelier pour un nouvel hôtel particulier. Jean de Bagis, personnalité importante, devient conseiller au Grand conseil entre 1538 et 1540, puis président aux requêtes du parlement de Toulouse en 1544. Il est par ailleurs l'époux d'Anne de Gondi, sœur d'Albert de Gondi, duc de Retz et proche de la reine Catherine de Médicis. À la mort de Jean de Bagis, l'hôtel passe à sa fille, Marguerite. Celle-ci épouse Jean de Paulo, président au Parlement, qui loue l'hôtel aux procureurs Jean Maynier, Raymond Vortin et Jean Boyer, et au référendaire de la chancellerie Saint-Simon. En 1588, le fils de Jean de Paulo, Philippe, hérite de l'hôtel. Après en avoir cédé plusieurs parts à Jean Boyer et à Françoise de Cathelan dès 1600 et probablement pressé par des ennuis financiers, il le vend complètement en 1601 à Nicolas de Guerrier.\nNicolas de Guerrier, apothicaire, a fait fortune grâce à sa boutique de la rue des Pélégantiers (emplacement des actuels no 3 et 5 rue du May) et a déjà accédé au capitoulat en 15",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/H%C3%B4tel%20de%20Bagis"
+    },
+    "fr:Place Wilson (Toulouse)": {
+      "description": "La place du Président-Thomas-Woodrow-Wilson (en occitan : plaça del President Thomas Woodrow Wilson), ou simplement Wilson, est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.",
+      "body": "La place du Président-Thomas-Woodrow-Wilson (en occitan : plaça del President Thomas Woodrow Wilson), ou simplement Wilson, est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\n\n\nSituation et accès\n\n\nDescription\nLa place du Président-Thomas-Woodrow-Wilson est une voie publique. Elle se trouve au cœur du quartier Saint-Georges.\nElle prolonge les allées Jean-Jaurès, reliant le cœur de la cité au canal du Midi. Construits autour de la place, des cafés et des cinémas concentrent l'activité nocturne estudiantine. C'est avec la place Saint-Pierre un des lieux animés de Toulouse.\n\n\nVoies rencontrées\nLa place du Président-Thomas-Woodrow-Wilson rencontre les voies suivantes, dans l'ordre des numéros croissants :\n\nAllées du Président-Franklin-Roosevelt\nRue d'Austerlitz\nRue Lafayette\nRue Lapeyrouse\nRue Saint-Antoine-du-T.\nRue des Trois-Journées\n\n\nTransports\nLa place du Président-Thomas-Woodrow-Wilson est parcourue et desservie, entre la rue Saint-Antoine-du-T et la rue des Trois-Journées, par la navette Ville. Les stations de métro les plus proches sont la station Capitole, sur la ligne , et la station Jean-Jaurès, sur les lignes de métro  . On trouve à proximité les arrêts des lignes de Linéo L1L8L9L14 et de bus 1523.\nLes stations de vélo en libre service VélôToulouse les plus proches se trouvent dans les rues voisines : ce sont les stations no 1 (12 rue du Poids-de-l'Huile), no 2 (21 rue Lafayette), no 3 (62 rue de la Pomme), no 7 (6 rue du Rempart-Villeneuve), no 19 (62 boulevard Lazare-Carnot) et no 20 (60 boulevard Lazare-Carnot).\n\n\nOdonymie\n\nLa place porte le nom de Thomas Woodrow Wilson (1856-1924), 28e président des États-Unis de 1912 à 1920. En avril 1917, il engagea son pays dans la Première Guerre mondiale aux côtés des Alliés. Le 4 juillet 1918, la municipalité toulousaine, dirigée par Jean Rieux, nomma Thomas Woodrow Wilson citoyen d'honneur de la ville et donna son nom à la place.\nLa place, lors de son aménagement au début du XIX",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20Wilson%20(Toulouse)"
+    },
+    "fr:Basilique de la Daurade": {
+      "description": "La basilique Notre-Dame de la Daurade, dite aussi Sainte-Marie de la Daurade, est une église toulousaine ayant titre de basilique mineure. Elle se situe le long des quais de la Garonne, près de la place et du port du même nom. Elle jouxte l'école des Beaux-Arts.",
+      "body": "La basilique Notre-Dame de la Daurade, dite aussi Sainte-Marie de la Daurade, est une église toulousaine ayant titre de basilique mineure. Elle se situe le long des quais de la Garonne, près de la place et du port du même nom. Elle jouxte l'école des Beaux-Arts.\n\n\nDescription\nC'est une église apparemment sans clocher, à la façade classique, dont on peut mieux apprécier l'architecture de l'autre côté du fleuve : on aperçoit alors un petit clocher sous-dimensionné, visible sur la peinture d'Henri Rachou reproduite ci-dessous.\nElle a été totalement reconstruite à la fin du XVIIIe siècle sur le site de l'une des plus anciennes églises de Toulouse, qui fut probablement la chapelle des rois wisigoths et dont l'abside était couverte de mosaïques dorées paléochrétiennes (d'où le nom daurada, dorée). Siège d'une abbaye bénédictine dont le prieur était l'un des principaux personnages de la Toulouse médiévale, elle était bordée de moulins jusqu'à la fin du XIVe siècle et donnait sur le principal pont de Toulouse du XIIe au XVIIe siècle, le pont de la Daurade.\nElle fait l’objet d’un classement au titre des monuments historiques depuis le 1er février 1963.\n\n\nHistoire\n\nSon histoire commence au Ve siècle. Elle est bâtie sur les vestiges d'un temple romain dodécagonal, sans doute dédié à Apollon, et surmonté d'une coupole. Ce sont les empereurs romains qui confient ce temple aux chrétiens.\nLe culte de la Vierge reçoit de nouvelles définitions dogmatiques à Éphèse, en 431. C'est peut-être l'une des raisons de la construction de l'église de la Daurade, dédiée à la Vierge Marie représentée sous la forme d'une vierge noire. En effet, connue aujourd'hui sous le nom de « basilique de la Daurade » à cause de ses mosaïques à fonds dorés, l'église est d'abord appelée « basilique Sainte-Marie de Toulouse ». \nLes noms successifs de l'édifice sont Sancta Maria, puis Sancta Maria Fabricata telle qu'il apparaît dans le testament d'Hugues, évêque de Toulouse, en 960 puis Sancta Maria Deaurata. Ce",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Basilique%20de%20la%20Daurade"
+    },
+    "fr:Château de Reynerie": {
+      "description": "Le château de Reynerie, son orangerie et ses jardins font partie d'un ancien domaine du XVIIIe siècle situé sur la commune de Toulouse. Il est construit par Guillaume Dubarry de 1781 à 1783. \nL'édifice est classé au titre des monuments historiques en 1963.",
+      "body": "Le château de Reynerie, son orangerie et ses jardins font partie d'un ancien domaine du XVIIIe siècle situé sur la commune de Toulouse. Il est construit par Guillaume Dubarry de 1781 à 1783. \nL'édifice est classé au titre des monuments historiques en 1963.\n\n\nHistorique\nLe domaine se situe à cheval sur la terrasse haute et la terrasse basse de Lardenne, autrefois dans le capitoulat de St-Simon. Il est au XVIe siècle propriété des familles Deymier et Labatut, il passe au XVIIe siècle entre les mains des Reynier qui lui laissent leur nom. Le domaine échoit à la fin du XVIIIe siècle au conseiller en parlement de Toulouse Pierre Marie Emmanuel de Reversac de Célès de Marsac. Celui-ci l’échange en 1781 avec Guillaume Dubarry (1732-1811) contre les terres démembrées de l'ancien duché de Roquelaure et le château du Rieutort. Le nouveau propriétaire va transformer le lieu et en faire une folie qui est l’une des plus belles réalisations de la fin du XVIIIe siècle à Toulouse.\nEn remerciement de sa complaisance dans son mariage avec Jeanne Bécu en 1768, Louis XV verse à Guillaume une généreuse pension, le titre de Colonel d'infanterie, et le don (en fait une vente fictive) des terres qui constituaient le duché de Roquelaure. Sa fortune est désormais faite, il peut alors planifier la rénovation de ce domaine. Entre 1781 et 1783, il fait bâtir un nouveau château et s'attache tout particulièrement à la décoration du bâtiment et à l’aménagement des jardins. \nVendu en 1812 au décès de Guillaume, le domaine change plusieurs fois de mains au cours du XIXe siècle. Son aspect est modifié. La partie supérieure du parc est réaménagée à l'anglaise, les communs et la chapelle sont détruits, la ferme et l’orangerie sont reconstruits.\nEn 1961, le projet de ZUP du Mirail provoque le classement du château, du parc et l’inscription à l’Inventaire supplémentaire de la façade de l’orangerie. Le domaine est amputé de 55 hectares de terres et de parc, plusieurs corps de bâtiments de la ferme sont dé",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau%20de%20Reynerie"
+    },
+    "fr:Pont-Neuf (Toulouse)": {
+      "description": "Le Pont-Neuf est un pont de Toulouse sur la Garonne, il relie la place du Pont-Neuf à la rue de la République. Construit aux XVIe et  XVIIe siècles il est, en dépit de son nom, le plus vieux pont de la ville franchissant la Garonne. Le Pont-Neuf constituait autrefois une entrée de la cité, symbolisée sur la rive gauche par un arc de triomphe (détruit en 1860) portant une statue équestre du roi Louis XIII.\nEnvisagée par les capitouls dès la fin du XVe siècle, la décision de construire un grand pont sur la Garonne à Toulouse fut poussée par le roi François Ier qui y voyait un intérêt stratégique face à l'Espagne alors menaçante de Charles Quint.",
+      "body": "Le Pont-Neuf est un pont de Toulouse sur la Garonne, il relie la place du Pont-Neuf à la rue de la République. Construit aux XVIe et  XVIIe siècles il est, en dépit de son nom, le plus vieux pont de la ville franchissant la Garonne. Le Pont-Neuf constituait autrefois une entrée de la cité, symbolisée sur la rive gauche par un arc de triomphe (détruit en 1860) portant une statue équestre du roi Louis XIII.\nEnvisagée par les capitouls dès la fin du XVe siècle, la décision de construire un grand pont sur la Garonne à Toulouse fut poussée par le roi François Ier qui y voyait un intérêt stratégique face à l'Espagne alors menaçante de Charles Quint. En 1541, François Ier autorisa à cet effet la levée d'un impôt spécial sur la région, des études furent menées dès 1542 et les travaux commencèrent l'année suivante.\nPar l'ampleur du chantier et les techniques novatrices mises en oeuvre pour surmonter les difficultés de sa construction, qui dura près d'un siècle (mise en service en 1632, inauguration par le roi Louis XIV en 1659), le Pont-Neuf de Toulouse est considéré comme un chef-d'œuvre de la Renaissance et du début du XVIIe siècle. Commencé au XVIe siècle par des hommes de l'art toulousains, il fut terminé par l'architecte parisien Jacques Lemercier. Avec le Pont Neuf de Paris et le pont Henri-IV de Châtellerault, le pont de Toulouse appartient à une nouvelle génération d’ouvrages novateurs débarrassés des habitations et boutiques qui encombraient le tablier des ponts médiévaux. De plus, Lemercier fit la synthèse entre des ponts de l'Antiquité romaine, pour l'emploi des becs superposés destinés à écarter le courant et pour les ouvertures sur les piles, et des ouvrages de la Renaissance italienne tels le pont Sisto de Rome pour ses oculus ou le pont Santa Trinita de Florence pour le surbaissement des arches permettant de modérer le dénivellement.\n\n\nSituation géographique\nLe Pont-Neuf se situe en aval du  Pont Saint-Michel  et en amont du Pont Saint-Pierre.\nSon cheminement ",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Pont-Neuf%20(Toulouse)"
+    },
+    "fr:Église Notre-Dame du Taur": {
+      "description": "L'église Notre-Dame du Taur est un édifice religieux catholique, qui se trouve au no 12 bis rue du Taur, entre la place du Capitole et la basilique Saint-Sernin, dans le centre-ville de Toulouse.\nSelon la tradition paléochrétienne, l'église aurait été édifiée à l'endroit où le corps martyrisé de l'évêque Saturnin se serait détaché du taureau qui le traînait derrière lui : elle tient son nom – du Taur, « taureau » en occitan – de cet événement. Un martyrium y aurait été construit par les évêques Hilaire et Silve, à la fin du IVe siècle.",
+      "body": "L'église Notre-Dame du Taur est un édifice religieux catholique, qui se trouve au no 12 bis rue du Taur, entre la place du Capitole et la basilique Saint-Sernin, dans le centre-ville de Toulouse.\nSelon la tradition paléochrétienne, l'église aurait été édifiée à l'endroit où le corps martyrisé de l'évêque Saturnin se serait détaché du taureau qui le traînait derrière lui : elle tient son nom – du Taur, « taureau » en occitan – de cet événement. Un martyrium y aurait été construit par les évêques Hilaire et Silve, à la fin du IVe siècle.\nL'église, construite entre les XIVe et XVIe siècles, est un des principaux monuments de l'art gothique méridional. Elle est célèbre pour sa haute façade, un clocher-mur qui s'insère dans les constructions de la rue. Elle fait l'objet d’un classement au titre des monuments historiques par la liste de 1840.\n\n\nHistoire\n\n\nUne origine antique ?\nC'est dans l'importante cité gallo-romaine de Tolosa (Toulouse) que Saturnin crée, dans la première moitié du IIIe siècle, une première communauté de chrétiens. Il est martyrisé en 250, à la suite des persécutions ordonnées par l'empereur romain Dèce : d'après le texte de la Passion de saint Saturnin, probablement écrit au Ve siècle, il aurait été arrêté sur la place du forum (emplacement de l'actuelle place Étienne-Esquirol), face au temple principal de la ville, et attaché à un taureau. L'animal aurait traîné son corps le long du cardo maximus, puis se serait détaché à la sortie de la ville, le long de la route de Divona Cadurcorum (Cahors) (emplacement de l'actuelle rue du Taur). C'est à la fin du IVe siècle que l'évêque de Toulouse, Hilaire, aurait commencé la construction d'un sanctuaire dédié au culte du martyr – un martyrium – : il s'agirait d'une voûte en brique surmontée d'un petit oratoire construit avec du matériel ordinaire. Une ancienne tradition indique que cet oratoire se situerait justement à l'emplacement de l'actuelle église Notre-Dame du Taur. Les reliques du saint ont été gardées",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Notre-Dame%20du%20Taur"
+    },
+    "fr:Château d'eau de Toulouse": {
+      "description": "Le Château d’eau est une tour en briques située à la jonction du cours Dillon et du Pont-Neuf, à Toulouse. Comme son nom le suggère le bâtiment servait initialement à la distribution d'eau dans le centre de la ville mais n'était pas à proprement parler un château d'eau puisqu'il ne comportait pas de réservoir de stockage. Il a été reconverti en 1974 en espace d'exposition consacré à la photographie et est désormais un lieu très apprécié des Toulousains, en même temps qu'un haut lieu de culture.",
+      "body": "Le Château d’eau est une tour en briques située à la jonction du cours Dillon et du Pont-Neuf, à Toulouse. Comme son nom le suggère le bâtiment servait initialement à la distribution d'eau dans le centre de la ville mais n'était pas à proprement parler un château d'eau puisqu'il ne comportait pas de réservoir de stockage. Il a été reconverti en 1974 en espace d'exposition consacré à la photographie et est désormais un lieu très apprécié des Toulousains, en même temps qu'un haut lieu de culture.\nLe bâtiment et sa station de pompage font l’objet d’une inscription au titre des monuments historiques depuis le 28 septembre 1987.\n\n\nHistorique\n\nLa première fonction de ce château d'eau était de distribuer l'eau de la Garonne, captée et filtrée à quelques mètres de là, sur la prairie des filtres.\nÀ sa mort en 1789, le capitoul Charles Laganne légua cinquante mille francs-or à la ville dans le but de « distribuer des eaux de la Garonne, pures, claires et agréables à boire ». Charles Laganne précise dans son testament que cette somme devra être utilisée au plus tard dix ans après la mort de sa veuve. Les aléas politiques retarderont l'utilisation de cette enveloppe providentielle mais la mort de Mme Laganne en 1817 va inciter la ville à trouver une solution, tâche à laquelle Jean-François d'Aubuisson de Voisins (1762-1841), ingénieur des Mines en poste à Toulouse et conseiller municipal s'attelle la même année et sur laquelle il travaillera près de dix ans, étudiant et définissant les principes et systèmes de circulation d'eau nécessaires (filtrage, canaux et canalisations). Un concours est lancé pour concevoir la machinerie hydraulique d'élévation des eaux et sera remporté trois ans plus tard par Jean Abadie (directeur de la fonderie à canons de Toulouse), tandis que l'architecte Jean-Antoine Raynaud est chargé de concevoir le bâtiment.\nLes travaux sont lancés en 1821 pour être terminés en 1825 et alimenter un vaste réseau de fontaines opérationnel à partir de 1829 et dévelop",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau%20d'eau%20de%20Toulouse"
+    },
+    "fr:Hôtel du Vieux-Raisin": {
+      "description": "L'hôtel du Vieux-Raisin, appelé aussi hôtel Maynier et hôtel de Lasbordes est un hôtel particulier Renaissance de Toulouse, entre le quartier du Parlement et celui de Saint-Étienne. Son nom provient d'une taverne de la rue qui possédait une enseigne avec une grappe de raisin.",
+      "body": "L'hôtel du Vieux-Raisin, appelé aussi hôtel Maynier et hôtel de Lasbordes est un hôtel particulier Renaissance de Toulouse, entre le quartier du Parlement et celui de Saint-Étienne. Son nom provient d'une taverne de la rue qui possédait une enseigne avec une grappe de raisin.\n\n\nHistoire\nCet hôtel date de 1518, et constitue sûrement un des plus beaux hôtels particuliers de l'époque. Il fut édifié pour Béringuier Maynier, professeur de droit, seigneur de Canac et de Gallice et capitoul de 1515 à 1516 ; le style choisi fut donc celui de cette période, fortement influencé par la Renaissance italienne. \nOn a longtemps pensé que c'est Jean Brunet, greffier civil au Parlement de Toulouse, qui avait complété l'hôtel quelques années plus tard (1547) selon les plans du célèbre architecte de l'époque de l'âge d'or toulousain : Nicolas Bachelier (auteur entre autres du Pont Neuf, de l'hôtel d'Assézat). Mais des actes notariés récemment découverts montrent que ces travaux sont plutôt dus au propriétaire suivant : Pierre de Lancrau, évêque de Lombez.\nLe bâtiment a été classé au titres des monuments historiques en 1889.\n\n\nDescription\nLe premier propriétaire, Béringuier Maynier, fait édifier à partir de 1515 un logis pour séparer cour et jardin, encadré de deux tours d'escalier et de la première travée des ailes. Il fait décorer la grande tour de bustes en médaillon, et fait placer sur les corps de bâtiment de nombreuses fenêtres richement ornées dans le style de la première Renaissance. Le magistrat Jean Burnet, propriétaire de 1547 à 1577, donne à la cour d'honneur une forme carrée en prolongeant les ailes et en la fermant par un portique inspiré de la loggia de l'hôtel d'Assézat (colonnes doriques, appareil brique et pierre). Les armes de Burnet et de sa femme s'observent encore sur les caissons du portique. L'évêque Pierre de Lancrau, propriétaire de 1580 à 1591, fait surélever la grande tour d'escalier et orner la cour de plusieurs spectaculaires fenêtres à atlantes.\n\n\nLes fen",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/H%C3%B4tel%20du%20Vieux-Raisin"
+    },
+    "fr:Palais Niel": {
+      "description": "Le palais Niel est la plus prestigieuse demeure construite à Toulouse au cours du XIXe siècle. Elle fut construite pour le maréchal de France Adolphe Niel entre 1863 et 1868. Il est situé rue Montoulieu-Saint-Jacques, en bordure des allées Forain-François-Verdier et du square Boulingrin (le Grand-Rond).",
+      "body": "Le palais Niel est la plus prestigieuse demeure construite à Toulouse au cours du XIXe siècle. Elle fut construite pour le maréchal de France Adolphe Niel entre 1863 et 1868. Il est situé rue Montoulieu-Saint-Jacques, en bordure des allées Forain-François-Verdier et du square Boulingrin (le Grand-Rond).\n\n\nHistoire\nLorsque, sous le Second Empire, on décida d'organiser les grands commandements et de placer à leur tête un maréchal de France, Toulouse fut désignée pour recevoir le chef de l'armée régionale du sud (sixième grand commandement militaire). Le maréchal Adolphe Niel inaugura ce commandement en 1859, au retour de la campagne d'Italie. L'hôtel Duranti était alors le siège du quartier général et le maréchal Niel s'y installa. Très vite, on admit la nécessité de lui trouver une installation plus en rapport avec sa fonction et son prestige. La décision de lui construire un palais fut alors prise. \nDans le quartier des Jardins, conçu par Louis de Mondran au XVIIIe siècle, une longue bande de terre dénommée le Foirail s'étendait entre le jardin Royal et la porte Saint-Étienne. Le 13 mars 1860, le maire céda à l'État les deux tiers de ce Foirail, soit 10 000 m2, pour la construction du palais. L'État acheta par ailleurs les terrains et immeubles bordant la rue Montoulieu Saint-Jacques et la rue Escoussières-Montoulieu, ces derniers s'appuyant sur l'ancienne muraille romaine. Le palais Niel a donc été construit sur les anciennes fortifications de Toulouse. Une partie des habitations classées insalubres ont été détruites pour la construction du palais et l'aménagement de la place Saint-Jacques. \nLes travaux furent exécutés de 1863 à 1868, et le 1er janvier 1868, le comte de Goyon, nouveau commandant du 6e corps d'armée, prit possession de la demeure car, ironie du sort, le maréchal Niel, devenu entretemps ministre de la Guerre en 1867, ne résidera jamais dans le palais qui porte son nom et mourra un an plus tard en 1869.\nSur les plans de la ville de Toulouse, le palais",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Palais%20Niel"
+    },
+    "fr:Église Notre-Dame de la Dalbade": {
+      "description": "L’église Notre-Dame de la Dalbade est un lieu de culte catholique qui se situe rue de la Dalbade dans le quartier des Carmes à Toulouse en France. Il ne faut pas la confondre avec la basilique de la Daurade sur le quai du même nom. Son nom actuel provient de l'ancienne église qui la précéda et qui était couverte d'un enduit blanc (de la chaux), lui conférant le nom de Santa Maria dealbata (Sainte-Marie la blanche).",
+      "body": "L’église Notre-Dame de la Dalbade est un lieu de culte catholique qui se situe rue de la Dalbade dans le quartier des Carmes à Toulouse en France. Il ne faut pas la confondre avec la basilique de la Daurade sur le quai du même nom. Son nom actuel provient de l'ancienne église qui la précéda et qui était couverte d'un enduit blanc (de la chaux), lui conférant le nom de Santa Maria dealbata (Sainte-Marie la blanche). L'édifice actuel, assez austère de l'extérieur, est typique de l'architecture gothique méridionale.\n\n\nHistoire\nLa première église tint place de 541 à la fin du XVe siècle à l'emplacement d'un premier oratoire. Elle finit ravagée par un incendie le 27 octobre 1442 en même temps que le reste du quartier. Malgré sa disparition, le nom actuel de la dalbade (qui dérive de la dealbata) est conservé.\nLa construction de l'église actuelle daterait de la fin du XVe siècle, vers 1480. Son clocher signé Nicolas Bachelier (auteur de l'Hôtel d'Assézat et du Pont Neuf) est édifié en 1551. Une trentaine de bustes en bossage sculptés par Bachelier et ses élèves sont exposés au musée des Augustins de Toulouse.\nSymbole du pouvoir ecclésiastique, sa flèche qui culminait à 87 m est démontée en 1795, puis reconstruite en 1881 à une hauteur de 81 m (selon la plaque mémorielle sur le site). Marquant alors le point plus haut de la ville, ce clocher était comparable à celui de la cathédrale Sainte-Cécile d'Albi. Il s'écroule brutalement le 12 avril 1926 à 3h15 du matin, tuant notamment un couple de boulangers, estropiant leur fils  et entraînant d'importants dégâts sur les maisons avoisinantes.\n\n\nDescription\n\n\nExtérieur\nL'église aux allures de forteresse médiévale avec des murs épais, des ouvertures étroites et une tour nord avec créneaux présente en façade, un tympan de type Renaissance italienne, fait de céramique qui représente une copie du Couronnement de la Vierge de Fra Angelico. Ce décor flamboyant a été réalisé par Gaston Virebent en 1874. Le portail Renaissance date quant",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Notre-Dame%20de%20la%20Dalbade"
+    },
+    "fr:Église Saint-Pierre-des-Cuisines": {
+      "description": "L'église Saint-Pierre-des-Cuisines, située rue de la Boule, à côté de la place Saint-Pierre à Toulouse, est la plus vieille église du sud-ouest de la France. Elle est construite sur une ancienne nécropole gallo-romaine du IVe siècle. Elle est classée monument historique depuis 1977 et placée sous la responsabilité du musée Saint-Raymond de Toulouse.",
+      "body": "L'église Saint-Pierre-des-Cuisines, située rue de la Boule, à côté de la place Saint-Pierre à Toulouse, est la plus vieille église du sud-ouest de la France. Elle est construite sur une ancienne nécropole gallo-romaine du IVe siècle. Elle est classée monument historique depuis 1977 et placée sous la responsabilité du musée Saint-Raymond de Toulouse. Aujourd'hui, elle abrite un auditorium de 400 places pour le conservatoire à rayonnement régional de Toulouse.\n\n\nHistoire\nComme la basilique Saint-Sernin, l'église est bâtie au Ve siècle sur une nécropole. Au Xe siècle, le comte Guillaume IV permet aux Bénédictins de l'abbaye de Moissac d'en prendre possession.\nCe n'est qu'un prieuré dont l'abbé de Moissac, Bernard de Montaigut, en fait un collège qui est confié cinq siècles plus tard aux Chartreux de Toulouse. Entre-temps, l'église s'est parée d'une nouvelle nef et d'un nouveau chœur.\nLe nom Saint-Pierre-des-Cuisines provient d'une version francisée de Coquinis, désignant de petits artisans. L'histoire raconte que des pêcheurs de la région avaient jadis honoré saint Pierre en lui dédiant un prieuré. Le nom de ces Coquins de l'époque gallo-romaine a donc été attribué par Guilhem IV à l'édifice lorsqu'il le confia à l'abbaye de Moissac.\nL'église renferme une crypte archéologique présentant les vestiges d'une basilique paléochrétienne du IVe siècle et d'une église pré-romane. Au XIe siècle, l'église est donnée à l'abbaye de Moissac par le comte de Toulouse. À partir du XIIe siècle, l'église est un haut lieu public. En 1189, le comte Raymond V y reconnaît les privilèges de la commune de Toulouse dirigée par des capitouls. Ce geste est renouvelé par Raymond VI en 1195, et par Raymond VII en 1222.\nC'est à cet endroit que Simon de Montfort signe la reddition toulousaine. C'est aussi dans ces murs que les comtes prennent l'habitude de rassembler le peuple toulousain.\nEn 1286, les Coutumes de la ville y sont officiellement promulguées.\nEn 1569, les religieux chassés de la chartr",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Saint-Pierre-des-Cuisines"
+    },
+    "fr:Château de Thégra (Haute-Garonne)": {
+      "description": "Le château de Thégra est un château situé à Balma, en France.\nIl est inscrit au titre des monuments historiques depuis 1984.",
+      "body": "Le château de Thégra est un château situé à Balma, en France.\nIl est inscrit au titre des monuments historiques depuis 1984.\n\n\nLocalisation\nLe château est situé sur la commune de Balma, dans le département français de la Haute-Garonne.\n\n\nNotes et références\n\n\nVoir aussi\n\n\nArticles connexes\nListe des monuments historiques de la Haute-Garonne\n\n\nLiens externes\n\nRessources relatives à l'architecture : Inventaire Occitanie Mérimée  \n\n Portail des châteaux de France   Portail de la Haute-Garonne   Portail des monuments historiques français   Portail de l'époque moderne",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau%20de%20Th%C3%A9gra%20(Haute-Garonne)"
+    },
+    "fr:Hôtel de Brucelles": {
+      "description": "L'hôtel de Brucelles se situe au 19 rue des Changes, dans le centre historique de Toulouse et fut construit de 1527 à 1535 pour le capitoul Arnaud de Brucelles. L'hôtel à façade en corondage est orné de filetages de style gothique. Dans la cour, dans un style Renaissance, on trouve une des plus belles tours d'escalier octogonales de la ville, très richement ornée.",
+      "body": "L'hôtel de Brucelles se situe au 19 rue des Changes, dans le centre historique de Toulouse et fut construit de 1527 à 1535 pour le capitoul Arnaud de Brucelles. L'hôtel à façade en corondage est orné de filetages de style gothique. Dans la cour, dans un style Renaissance, on trouve une des plus belles tours d'escalier octogonales de la ville, très richement ornée.\nCet hôtel particulier est inscrit monument historique le 18 septembre 1925.\n\n\nRéférences\n\n\nVoir aussi\n\n\nBibliographie\nJules Chalande, « Histoire des rues de Toulouse », Mémoires de l'Académie des Sciences et Belles-Lettres de Toulouse, 11e série, tome IX, Toulouse, 1921, p. 160-163.\n\n\nArticles connexes\nHôtels particuliers de Toulouse\nArchitecture Renaissance de Toulouse\n\n\nLiens externes\n\nRessource relative à l'architecture : Mérimée  \n\n Portail de la Haute-Garonne   Portail de Toulouse   Portail de la région Occitanie   Portail des monuments historiques français",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/H%C3%B4tel%20de%20Brucelles"
+    },
+    "fr:Église Saint-Pierre des Chartreux de Toulouse": {
+      "description": "L'église Saint-Pierre des Chartreux est une église toulousaine située rue Valade, près de la place Saint-Pierre. Elle doit son nom à la communauté monastique des Chartreux qui l'édifia au début du XVIIe siècle.",
+      "body": "L'église Saint-Pierre des Chartreux est une église toulousaine située rue Valade, près de la place Saint-Pierre. Elle doit son nom à la communauté monastique des Chartreux qui l'édifia au début du XVIIe siècle.\n\n\nHistoire\n\nLa chartreuse de Toulouse est un cas particulier car cet ordre monastique ne s'installait généralement pas dans les villes et n'ouvrait pas ses portes aux laïcs. \nChassés de la chartreuse Notre-Dame de Bellevue de Saïx (près de Castres) par les protestants, les Chartreux se réfugient dans Toulouse à la toute fin du XVIe siècle. Dans ce contexte des guerres de Religion, Toulouse est en effet une place forte catholique dans un environnement régional globalement acquis au protestantisme.\nComplètement démunis, les Chartreux doivent demander l'asile aux capitouls et un soutien financier aux Toulousains pour la construction des bâtiments. Les mécènes obtiennent en échange un droit d'accès à l'église pour y célébrer des offices.\nLa construction de l'église des frères Chartreux débute en 1602, ils décident de construire un monastère à l'abri des murs de Toulouse. Après la chute du premier dôme en 1609, l'édifice est surélevé. L'église est consacrée par le cardinal François de Sourdis le 20 mai 1612. \nEn 1780 les Chartreux renouvellent le décor du transept qui présentait jusque là un plafond peint à fresque. Un nouveau maître-autel est également commandé.\nAprès la Révolution, les moines sont chassés et le couvent est transformé en arsenal. Il n'en subsiste plus aujourd'hui que l'église, l'ancienne pharmacie, des éléments de l'hôtellerie (dont un remarquable corridor extérieur en brique) et une partie du cloître.\nEn 2001, l'onde de choc causée par l'explosion de l'usine AZF, dans le sud de l'agglomération, ébranle les murs de l'église, ce qui oblige à la réalisation de travaux de renforcement. Quelques fissures superficielles dues à cet épisode sont encore visibles.\nEn septembre 2007, la paroisse Saint-Pierre est englobée dans l'ensemble paroissial de Saint",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Saint-Pierre%20des%20Chartreux%20de%20Toulouse"
+    },
+    "fr:Place Charles-Laganne": {
+      "description": "La place Charles-Laganne (en occitan : plaça Carles Lagana) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France. Depuis 2004, le cœur de la place est l'esplanade Jean-Dieuzaide.",
+      "body": "La place Charles-Laganne (en occitan : plaça Carles Lagana) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France. Depuis 2004, le cœur de la place est l'esplanade Jean-Dieuzaide.\n\n\nSituation et accès\n\n\nDescription\nLa place Charles-Laganne et l'esplanade Jean-Dieuzaide sont deux voies publiques. Elles se trouvent dans le quartier Saint-Cyprien.\nLa place Charles-Laganne est une place d'une superficie d'environ 4 000 mètres carrés, qui forme un triangle irrégulier et allongé, dont la base, à l'ouest, fait 131 mètres, et la hauteur, d'est en ouest, 44 mètres. Elle se forme au débouché de la rue Charles-Laganne et elle est limitée, à l'est, par le mur de la digue du cours Dillon. Elle reçoit, à l'ouest la rue du Pont-Vieux et la rue de la Laque. La place est limitée au nord par la voie qui relie le Pont-Neuf et la rue de la République. Elle est prolongée, au-delà, par la rue Charles-Viguerie.\nLa chaussée compte une voie de circulation automobile dans chaque sens. Elle est définie comme une zone de rencontre et la circulation est limitée à 20 km/h. En revanche, il n'existe pas de piste, ni de bande cyclable.\n\n\nVoies rencontrées\nLa place Charles-Laganne rencontre les voies suivantes, dans l'ordre des numéros croissants :\n\nPont-Neuf\nRue Charles-Viguerie\nRue de la République\nRue de la Laque\nRue du Pont-Vieux\nRue Charles-Laganne\n\n\nTransports\nLa place Charles-Laganne est traversée et desservie par la navette Ville. La station de métro la plus proche est la station Saint-Cyprien - République sur la ligne de métro .\nIl existe une station de vélos en libre-service VélôToulouse sur la place Charles-Laganne, la station no 75 (12 place Laganne).\n\n\nOdonymie\n\nCe n'est qu'en 1824 qu'on se préoccupa de donner un nom à la petite place qui s'ouvrait au bas du cours Dillon et du Pont-Neuf. Comme on venait d'y bâtir le Château d'eau, ce fut naturellement la place du Château-d'Eau. En 1842, on lui donna le nom de Laganne, pour honorer la mémoire de Charles La",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20Charles-Laganne"
+    },
+    "fr:Chapelle des Carmélites": {
+      "description": "Chapelle des Carmélites peut désigner :\n\nla chapelle des Carmélites de Dijon ;\nla chapelle des Carmélites de Lectoure ;\nla chapelle des Carmélites de Toulouse.",
+      "body": "Chapelle des Carmélites peut désigner :\n\nla chapelle des Carmélites de Dijon ;\nla chapelle des Carmélites de Lectoure ;\nla chapelle des Carmélites de Toulouse.\n\n\nVoir aussi\nCouvent des Carmélites",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Chapelle%20des%20Carm%C3%A9lites"
+    },
+    "fr:Place des Hauts-Murats": {
+      "description": "La place des Hauts-Murats (en occitan : plaça dels Auts Murats) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.",
+      "body": "La place des Hauts-Murats (en occitan : plaça dels Auts Murats) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\n\n\nSituation et accès\n\n\nDescription\nLa place des Hauts-Murats est une voie publique. Elle se trouve dans le quartier Saint-Étienne, dans le secteur 1 - Centre.\nLa place des Hauts-Murats est une petite place de 900 mètres carrés, presque régulière, d'environ 32 mètres de long sur 27 mètres de large. Elle est en grande partie dévolue au stationnement des voitures. Elle est bordée au nord par la rue Furgole et l'ancien hôtel Furgole, à l'ouest par l'église du Gésu et au sud par les anciens bâtiments de l'ancienne prison des Hauts-Murats. La rue des Coffres aboutit à l'angle nord-est de la place.\nLa chaussée compte une seule voie de circulation automobile. Elle appartient à une zone de rencontre et la vitesse y est limitée à 20 km/h. Il n'existe pas d'aménagement cyclable.\n\n\nVoies rencontrées\nLa place des Hauts-Murats rencontre les voies suivantes, dans l'ordre des numéros croissants :\n\nRue Furgole\nRue des Coffres\nRue Furgole\n\n\nOdonymie\n\nAvant l'actuelle place des Hauts-Murats existait déjà une impasse du même nom. L'origine en est ancienne mais n'a jamais fait l'objet d'un consensus. D'après Guillaume Catel, qui écrit dans la première moitié du XVIIe siècle, il viendrait des hautes murailles de la prison de la sénéchaussée. Selon l'historien Alexandre Du Mège, il s'agirait plutôt de la déformation de l'occitan médiéval en murats (« emmurés » en français), qui rappellerait le souvenir des prisonniers enfermés à vie dans la prison, particulièrement les hérétiques cathares. Au XVe siècle se trouvent les formes latines « immuratorum » et « armuratorum » et les formes occitanes « aumurats » et « armurats ». La forme française « hauts murats » n'apparaît qu'au XVIe siècle, sans effacer d'ailleurs les autres graphies. En 1794, pendant la Révolution française, la rue fut ironiquement renommée rue les Affranchis, mais ce nom ne su",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20des%20Hauts-Murats"
+    },
+    "fr:Hôtel de Bernuy": {
+      "description": "L'hôtel de Bernuy est un hôtel particulier qui se situe à l'angle de la rue Léon-Gambetta et de la rue Joseph-Lakanal, dans le centre historique de Toulouse.\nIl est élevé entre 1503 et 1536, en plusieurs campagnes de construction, pour le compte de Jean de Bernuy, riche marchand pastellier qui accède au capitoulat en 1534-1535. En 1567, dans un contexte réforme catholique et de profonde rénovation de l'enseignement, l'hôtel est dévolu aux Jésuites qui y ouvrent un collège.",
+      "body": "L'hôtel de Bernuy est un hôtel particulier qui se situe à l'angle de la rue Léon-Gambetta et de la rue Joseph-Lakanal, dans le centre historique de Toulouse.\nIl est élevé entre 1503 et 1536, en plusieurs campagnes de construction, pour le compte de Jean de Bernuy, riche marchand pastellier qui accède au capitoulat en 1534-1535. En 1567, dans un contexte réforme catholique et de profonde rénovation de l'enseignement, l'hôtel est dévolu aux Jésuites qui y ouvrent un collège. La vocation de l'édifice ne s'est pas démentie : il abrite depuis 1957 le collège public Pierre-de-Fermat.\nMalgré les transformations successives et les nouvelles constructions, l'hôtel de Bernuy, dont le style témoigne de la transition du gothique au goût de la Renaissance, est remarquable pour sa cour d'entrée. L'hôtel est classé monument historique en 1889.\n\n\nHistoire\n\n\nL'hôtel de Jean de Bernuy\n\nJean de Bernuy naît vers 1475, probablement à Burgos, ville du royaume de Castille où son père, Juan de Bernuy (ou Bernui), est marchand. Il appartient à une famille de juifs convertis, engagés dans le commerce régional, mais aussi dans le commerce international. Elle s'inscrit dans le cadre des échanges commerciaux qui relient la Castille, le Midi de la France, la Flandre et l'Angleterre. Jean de Bernuy s'établit à Toulouse à la fin du XVe siècle, avant 1499. Il se consacre en particulier au commerce du pastel, dont une partie est vendue en Castille, et il en tire une fortune considérable. En 1501, il obtient des lettres de naturalité et de bourgeoisie. Signe de son insertion dans les réseaux de l'élite urbaine toulousaine, il épouse Marguerite Du Faur, fille d'Arnaud Du Faur (1460-1509), procureur général au parlement et seigneur de Saint-Jory.\nEn 1502 et 1503, Jean de Bernuy achète plusieurs immeubles à Jean de Belbèze dans la petite rue des Cordières-Vieilles (actuelle allée Maurice-Prin), dont celui où était établie l'hôtellerie à l'enseigne des Balances. En 1503, il fait élever par les maîtres ma",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/H%C3%B4tel%20de%20Bernuy"
+    },
+    "fr:Place Jeanne-d'Arc (Toulouse)": {
+      "description": "La place Jeanne-d'Arc (en occitan : plaça Joana d'Arc) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.",
+      "body": "La place Jeanne-d'Arc (en occitan : plaça Joana d'Arc) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France.\n\n\nSituation et accès\n\n\nDescription\nLa place Jeanne-d'Arc est une voie publique. Elle se trouve au sud des quartiers Matabiau et Les Chalets, et à la limite des quartiers Arnaud-Bernard et Capitole.\nLa chaussée compte une voie de circulation automobile à sens unique, de la rue Léon-Gambetta vers la place de la Bourse. Elle appartient à une zone 30 et la vitesse y est limitée à 30 km/h.\n\n\nVoies rencontrées\nLa place Jeanne-d'Arc rencontre les voies suivantes, dans l'ordre des numéros croissants (« g » indique que la rue se situe à gauche, « d » à droite) :\n\nBoulevard de Strasbourg\nPetite-rue Saint-Lazare\nRue Matabiau\nRue Raymond-IV\nRue des Moutons\n\n\nTransports\nLa place Jeanne-d'Arc est un important pôle d'échanges du réseau de transports urbains Tisséo, depuis la création en 1970 de la gare de bus, qui en occupe l'espace central. La place sert effectivement de terminus pour les lignes de bus 1523. Par ailleurs, d'autres lignes de bus, particulièrement les Linéo L1L9L14 et les bus 2939VilleAéroport, marquent l'arrêt sur la place ou à proximité, particulièrement sur le boulevard de Strasbourg. Depuis l'ouverture de la ligne B du métro en 2007, la place est de plus desservie par la station Jeanne d'Arc, renforçant le pôle d'échanges existant.\nIl existe plusieurs stations de vélos en libre-service VélôToulouse à proximité de la place Jeanne-d'Arc : les stations no 16 (32 boulevard de Strasbourg), no 34 (15 rue Joseph-Bosc) et no 35 (1 rue Raymond-IV).\n\n\nOdonymie\nLa place porte le nom de Jeanne d'Arc (vers 1412-1431), héroïne de l'histoire de France, chef de guerre et sainte de l'Église catholique.\nDepuis son aménagement, au début du XIXe siècle, la place portait le nom de Matabiau, qui s'appliquait à ce quartier depuis le XIe siècle. C'est en 1942 que la municipalité vichyste décida de lui donner le nom de Jeanne d'Arc, dont le monum",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Place%20Jeanne-d'Arc%20(Toulouse)"
+    },
+    "fr:Square Charles-de-Gaulle": {
+      "description": "Le square Charles-de-Gaulle est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France. Le côté nord du square, le long de la rue Lafayette, est plus spécifiquement l'espace de la Laïcité.",
+      "body": "Le square Charles-de-Gaulle est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France. Le côté nord du square, le long de la rue Lafayette, est plus spécifiquement l'espace de la Laïcité.\n\n\nSituation et accès\n\n\nDescription\nLe square Charles-de-Gaulle est une voie publique. Elle se situe au cœur du quartier du Capitole.\nC'est une place d'environ 5 000 m2, qui forme trapèze irrégulier. Elle est limitée à l'ouest, par la rue Ernest-Roschach, dominée par la façade est du Capitole et par la tour des Archives. Elle est, au nord, longée par la rue Lafayette. À l'est, elle est en partie séparée de la rue d'Alsace-Lorraine par l'accès à la station de métro Capitole. Enfin, au sud, elle est bordée par la rue du Poids-de-l'Huile.\n\n\nVoies rencontrées\nLe square Charles-de-Gaulle rencontre les voies suivantes, dans l'ordre des numéros croissants :\n\nRue du Poids-de-l'Huile\nRue Ernest-Roschach\nRue Lafayette\nRue d'Alsace-Lorraine\n\n\nTransports\nLe square Charles-de-Gaulle abrite l'entrée principale de la station Capitole, sur la ligne de métro . À l'est, au carrefour des allées Jean-Jaurès et des boulevards de Strasbourg et Lazare-Carnot, se trouve la station Jean-Jaurès, au croisement des lignes de métro  , ainsi que les arrêts des lignes de Linéo L1L8L9L14 et de bus 152329Aéroport, et de la navette Ville.\nIl existe également plusieurs stations de vélos en libre-service VélôToulouse dans les rues les plus proches du square Charles-de-Gaulle : les stations no 1 (12 rue du Poids-de-l'Huile) et no 2 (2 rue Lafayette).\n\n\nOdonymie\nLe square, aménagé entre 1875 et 1884 à l'emplacement des bâtiments de l'ancien Capitole – la Maison commune, siège de l'autorité municipale, capitouls, puis maires de Toulouse –, avait d'abord été désigné comme le square du Capitole. En 1944, à la suite de la Libération de la ville, les nouvelles autorités municipales, largement issues des rangs de la Résistance et dirigées par Raymond Badiou, décidèrent de renommer le square en l'ho",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Square%20Charles-de-Gaulle"
+    },
+    "fr:Canal de Brienne": {
+      "description": "Le canal de Brienne est un canal français qui relie la Garonne avec le canal du Midi et le canal de Garonne, à Toulouse. Le canal de Brienne est inscrit avec le canal du Midi au patrimoine mondial de l'Unesco depuis 1996.",
+      "body": "Le canal de Brienne est un canal français qui relie la Garonne avec le canal du Midi et le canal de Garonne, à Toulouse. Le canal de Brienne est inscrit avec le canal du Midi au patrimoine mondial de l'Unesco depuis 1996.\n\n\nGéographie\nSitué à Toulouse, dans la région Occitanie, il court sur 1 560 mètres. Il naît au niveau de la Garonne à l'amont du Bazacle par l'écluse Saint-Pierre, et rejoint et le port de l'Embouchure, point de rencontre avec le canal du Midi et le canal latéral à la Garonne marqué par les Ponts-Jumeaux.\n\n\nHistoire\n\nLa construction du canal de Brienne fut décidée par les États de Languedoc en 1760 : le canal du Midi passait au-delà des murs de la ville et rejoignait la Garonne en aval de la chaussée du Bazacle. La création du canal rendait ainsi le centre de la ville accessible par voie d'eau.\nLes travaux débutèrent en 1765 et conduisirent au creusement du canal et d'un port à l'embouchure des deux canaux (aux Ponts-Jumeaux) ; il fut inauguré le 14 avril 1776.\nAu départ nommé canal Saint-Pierre, il prendra le nom de canal de Brienne, en l'honneur d'Étienne-Charles de Loménie de Brienne (1727-1794), archevêque de Toulouse.\nEn 2017, les platanes qui bordent le canal sont protégés par le label « arbres remarquables de France ».\n\n\nNotes et références\n\n\nVoir aussi\n\n\nArticles connexes\nCanal du Midi – Port de l'Embouchure\nQuartier des Amidonniers – Ponts-Jumeaux\nManufacture des tabacs de Toulouse\n\n\nLiens externes\n\nRessource relative à l'architecture : Structurae  \n\nle canal et les Ponts jumeaux\n\n Portail du bâtiment et des travaux publics   Portail des lacs et cours d'eau   Portail des transports   Portail de Toulouse",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Canal%20de%20Brienne"
+    },
+    "fr:Église Saint-Jérôme de Toulouse": {
+      "description": "L'église du Sanctuaire Saint-Jérôme (ancienne chapelle des Pénitents bleus), rue du Lieutenant-Colonel-Pélissier (ancienne rue des Pénitents bleus), est une église construite par la Compagnie royale des Pénitents bleus de Toulouse. Elle a été édifiée au XVIIe siècle par l'architecte Pierre Levesville sous Louis XIII, premier roi de France membre de la confrérie. Les Pénitents bleus firent appel aux meilleurs artistes de Toulouse pour décorer leur chapelle, qui n'eut pas trop à souffrir de la Révolution française.",
+      "body": "L'église du Sanctuaire Saint-Jérôme (ancienne chapelle des Pénitents bleus), rue du Lieutenant-Colonel-Pélissier (ancienne rue des Pénitents bleus), est une église construite par la Compagnie royale des Pénitents bleus de Toulouse. Elle a été édifiée au XVIIe siècle par l'architecte Pierre Levesville sous Louis XIII, premier roi de France membre de la confrérie. Les Pénitents bleus firent appel aux meilleurs artistes de Toulouse pour décorer leur chapelle, qui n'eut pas trop à souffrir de la Révolution française.\n\n\nHistoire\n\nLa première assemblée de la confrérie se tient le 29 septembre 1575 dans la chapelle du collège Saint-Martial de Toulouse (à l'emplacement actuel du Grand Hôtel de l'Opéra). Elle s'installe dans l'année de sa fondation au pré Montardy (dont l'actuelle rue Montardy perpétue le souvenir), dans une église inoccupée appartenant aux religieux de Saint-Antoine de Vienne (actuelle salle Osète, à l'angle de la rue Saint-Antoine-du-T, contre la bibliothèque Duranti) et qu'ils dédient à saint Jérôme. Mais les propriétaires réclament leur bien : il faut donc songer à déménager. Ils entreprennent la construction d'une nouvelle église en 1614 dont la construction dure jusqu'en 1617. Pierre Hurault, architecte du roi, prête 3 000 livres à la confrérie pour financer la nouvelle église. Parmi les signataires des contrats on trouve le nom de Jacques Lemercier qui avait été envoyé à Toulouse en 1613 pour prendre des mesures pour l'achèvement du Pont-Neuf. Un arrêt du conseil du roi du 11 septembre 1620 oblige les pénitents bleus à rendre le bâtiment aux précédents propriétaires, ce qu'ils font en 1626 après avoir fait construire l'église Saint-Jérôme.\nLa nouvelle chapelle est édifiée à partir de 1622 par l'architecte Pierre Levesville. La première pierre est posée par l'évêque de Pamiers, Mgr d'Esparbès de Lussan, au nom du roi Louis XIII. Le gros œuvre de la chapelle est terminé en 1626. Il ne reste plus qu'à en réaliser les ornements. La décoration de la voûte ",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Saint-J%C3%A9r%C3%B4me%20de%20Toulouse"
+    },
+    "fr:Église Saint-Nicolas de Toulouse": {
+      "description": "L'église Saint-Nicolas se situe au no 36 grande-rue Saint-Nicolas, au cœur du quartier Saint-Cyprien, sur la rive gauche de la Garonne, à Toulouse.\nL'église fait l'objet d’un classement au titre des monuments historiques depuis le 24 juillet 1986.",
+      "body": "L'église Saint-Nicolas se situe au no 36 grande-rue Saint-Nicolas, au cœur du quartier Saint-Cyprien, sur la rive gauche de la Garonne, à Toulouse.\nL'église fait l'objet d’un classement au titre des monuments historiques depuis le 24 juillet 1986.\n\n\nDescription\n\n\nExtérieur\nCette église, à l'origine du nom du quartier éponyme, est dédiée, d'après l'historien toulousain du XVIIe siècle Guillaume Catel, au saint patron « de tous ceux qui vont par eaux et craignent naufrage ». Un saint qui a dû être bien souvent sollicité dans un quartier tel que Saint-Cyprien, victime des crues annuelles de la Garonne, comme celle, tragique, de 1875.\nReconstruit en 1300 dans un style typique du gothique méridional, son clocher octogonal de style toulousain imite ceux de la basilique Saint-Sernin et de l'église des Jacobins : comme eux, il présente des baies géminées couvertes d'arcs en mitre. À noter, les mirandes visibles sous la couverture de la nef qui indiquent la présence d'un chemin de ronde couvert.\nLe portail s'ouvre, à la base du clocher, sur la grande-rue Saint-Nicolas. Sur le tympan, un haut-relief (classé comme groupe sculpté au titre des monuments historiques) représente l'adoration des mages. Il est attribué à l'atelier de Pierre Viguier, actif dans la deuxième moitié du XVe siècle et le début du XVIe siècle. Stylistiquement, la Vierge à l'enfant du tympan a été rapprochée de la statue dite Notre Dame de Grasse.\n\n\nIntérieur\n\n\nLa nef\nLa nef de style gothique méridional, dont la construction est attribuée à Jean Constantin, est datée du milieu de XVe siècle et est divisée en cinq travées. Elle est décorée de peintures du dernier tiers du XIXe siècle et notamment de six fresques de Bernard Bénézet, peintes de 1891 à 1894, présentant des scènes de la vie de saint Nicolas.\n\n\nLe chœur et son retable\nLe chœur accueille un riche décor du XVIIIe siècle. Le retable en particulier, réalisé par le sculpteur Etienne Rossat et le peintre Jean-Baptiste Despax, est constitué de colonnes ",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/%C3%89glise%20Saint-Nicolas%20de%20Toulouse"
+    },
+    "fr:Canal du Midi": {
+      "description": "Le canal du Midi est un canal de navigation français à bief de partage qui relie Toulouse à la mer Méditerranée depuis le xviie siècle. D'abord appelé « canal royal de Languedoc », il est renommé « canal du Midi » par les révolutionnaires en 1789. À partir de 1856, le canal latéral à la Garonne, qui double la Garonne de Bordeaux à Toulouse, prolonge le canal du Midi pour fournir une voie navigable de l'océan Atlantique à la mer Méditerranée : l'ensemble des deux canaux est dénommé « canal des Deux-Mers ».",
+      "body": "Le canal du Midi est un canal de navigation français à bief de partage qui relie Toulouse à la mer Méditerranée depuis le xviie siècle. D'abord appelé « canal royal de Languedoc », il est renommé « canal du Midi » par les révolutionnaires en 1789. À partir de 1856, le canal latéral à la Garonne, qui double la Garonne de Bordeaux à Toulouse, prolonge le canal du Midi pour fournir une voie navigable de l'océan Atlantique à la mer Méditerranée : l'ensemble des deux canaux est dénommé « canal des Deux-Mers ».\nOuvrage d'art exceptionnel, considéré par ses contemporains comme le plus grand chantier du XVIIe siècle, le canal du Midi révolutionne le transport fluvial et la circulation dans le Midi de la France de l'Ancien Régime. Le défi, relevé par Pierre-Paul Riquet, son concepteur, est d'acheminer l'eau de la montagne Noire jusqu'au seuil de Naurouze, le point le plus élevé du canal. Louis XIV autorise le début des travaux par un édit royal d'octobre 1666. Supervisé par Pierre-Paul Riquet, le chantier dure de 1666 à 1681, sous le contrôle de Jean-Baptiste Colbert.\nLongtemps utilisé pour le transport de marchandises, le canal du Midi est aujourd’hui reconverti au tourisme fluvial.\nLe canal du Midi est l'un des plus anciens canaux d'Europe toujours en fonctionnement. Depuis 1996, il est inscrit sur la liste du patrimoine mondial de l'UNESCO.\n\n\nPrésentation\n\n\nLocalisation et profil du canal\n\nLe canal du Midi se situe dans le sud de la France, en région Occitanie, dans les départements de l'Hérault, de l'Aude et de la Haute-Garonne, ainsi que du Tarn pour un bout de son système d'alimentation. Le bien inscrit au patrimoine mondial de l'UNESCO est composé de plusieurs tronçons :\n\nle tronçon principal qui relie Toulouse (Haute-Garonne), au niveau du port de l'Embouchure (Ponts-Jumeaux), à l'étang de Thau à Marseillan (Hérault) au lieu-dit Les Onglous sur une longueur de 241 kilomètres. Le canal est relié au port de Sète par l'étang de Thau ;\nle tronçon de 36,6 km entre Moussan",
+      "language": "fr",
+      "wikipediaUrl": "https://fr.wikipedia.org/wiki/Canal%20du%20Midi"
+    }
+  }
+}

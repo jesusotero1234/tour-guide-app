@@ -2,7 +2,7 @@ import { EnrichedPoi } from '../../domain/poi/EnrichedPoi';
 import { RawPoi } from '../../domain/poi/RawPoi';
 import { enrichFromWikidataBatch } from '../../infrastructure/enrichment/WikidataEnricher';
 import { enrichFromWikipedia } from '../../infrastructure/enrichment/WikipediaEnricher';
-import { PostgresPoiEnrichmentCacheRepository } from '../../infrastructure/postgres/PostgresPoiEnrichmentCacheRepository';
+import { PoiEnrichmentCache } from './PoiEnrichmentCache';
 
 function buildOsmSeedTags(poi: RawPoi): Record<string, string> {
   return Object.fromEntries(
@@ -15,7 +15,7 @@ function buildOsmSeedTags(poi: RawPoi): Record<string, string> {
 export async function enrichShortlistedPois(
   pois: RawPoi[],
   language: string,
-  cacheRepository: PostgresPoiEnrichmentCacheRepository | null,
+  cacheRepository: PoiEnrichmentCache | null,
   batchSize = 4
 ): Promise<EnrichedPoi[]> {
   const enriched: EnrichedPoi[] = [];
@@ -30,8 +30,12 @@ export async function enrichShortlistedPois(
       ? await Promise.all(wikidataIds.map(async (wikidataId) => [wikidataId, await cacheRepository.getWikidata(wikidataId, language)] as const))
       : [];
     const cachedWikidata = Object.fromEntries(cachedWikidataEntries);
-    const missingWikidataIds = wikidataIds.filter((wikidataId) => !cachedWikidata[wikidataId]);
-    const fetchedWikidata = await enrichFromWikidataBatch(missingWikidataIds, language);
+    const missingWikidataIds = cacheRepository?.isCompleteSnapshot
+      ? []
+      : wikidataIds.filter((wikidataId) => !cachedWikidata[wikidataId]);
+    const fetchedWikidata = missingWikidataIds.length > 0
+      ? await enrichFromWikidataBatch(missingWikidataIds, language)
+      : {};
 
     if (cacheRepository) {
       await Promise.all(Object.entries(fetchedWikidata).map(async ([wikidataId, payload]) => {
@@ -62,7 +66,8 @@ export async function enrichShortlistedPois(
         const cachedWikipedia = cacheRepository
           ? await cacheRepository.getWikipedia(poi.tags.wikipedia, language)
           : null;
-        const wikipediaEnrichment = cachedWikipedia ?? await enrichFromWikipedia(poi.tags.wikipedia, language);
+        const wikipediaEnrichment = cachedWikipedia
+          ?? (cacheRepository?.isCompleteSnapshot ? null : await enrichFromWikipedia(poi.tags.wikipedia, language));
 
         if (wikipediaEnrichment) {
           if (!cachedWikipedia && cacheRepository) {

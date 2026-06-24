@@ -14,6 +14,7 @@ import { LocalFileAudioStorage } from '../infrastructure/local-storage/LocalFile
 import { AudioStorage } from '../domain/storage/AudioStorage';
 import { geocodeCity } from '../infrastructure/geocoder/NominatimGeocoder';
 import { fetchPoisForTheme } from '../infrastructure/poi/OverpassPoiFetcher';
+import { fetchCanonicalWikidataPois, mergeCanonicalWikidataPois } from '../infrastructure/poi/WikidataCanonicalPoiFetcher';
 import { rankPois } from './poi/PoiRanker';
 import { PostgresPoiCacheRepository } from '../infrastructure/postgres/PostgresPoiCacheRepository';
 import { PostgresPoiEnrichmentCacheRepository } from '../infrastructure/postgres/PostgresPoiEnrichmentCacheRepository';
@@ -32,6 +33,7 @@ import { composeWalkingRoute, estimateRouteMetrics, buildDiversePrefix, orderRou
 import { getDurationPlan } from './poi/DurationPlanning';
 import { fetchWikidataLandmarkMetadata, tierPoisByLandmarkFame } from './poi/LandmarkTiering';
 import { enrichShortlistedPois } from './poi/PoiEnrichmentPipeline';
+import { getHistoryPlaceProfile } from './poi/HistoryPlaceScoring';
 import { TourQualityStatus } from '../types/tourQuality';
 import { getQualityStatusForRequest } from './tourQuality/VerifiedCities';
 import { computeTourConfidence, ComputeTourConfidenceInput, getTourConfidenceGateMode } from './tourQuality/TourConfidenceGate';
@@ -48,6 +50,10 @@ interface StructuralTourPlace {
   fameScore?: number;
   landmarkTier?: string;
   category: string;
+  historyPlaceScore?: number;
+  historyPlaceKinds?: string[];
+  historyIsEventSiteLike?: boolean;
+  historyIsMuseumLike?: boolean;
   estimatedDuration: number;
 }
 
@@ -875,6 +881,7 @@ export class OrchestrationService {
         imageUrl: p.imageUrl,
         audioUrl: p.audioUrl,
         metadata: {
+          narrationMeta: p.narrationMeta,
           sourcePoi: p.poi ? {
             osmType: p.poi.osmType,
             osmId: p.poi.osmId,
@@ -1060,6 +1067,7 @@ export class OrchestrationService {
         imageUrl: p.imageUrl,
         audioUrl: p.audioUrl,
         metadata: {
+          narrationMeta: p.narrationMeta,
           sourcePoi: p.poi ? {
             osmType: p.poi.osmType,
             osmId: p.poi.osmId,
@@ -1568,6 +1576,9 @@ export class OrchestrationService {
       if (rawPois.length > 0) {
         await poiCache.set(city, theme, rawPois);
       }
+    } else if (osmTheme === 'history') {
+      const canonicalPois = await fetchCanonicalWikidataPois(geocoded, osmTheme);
+      rawPois = mergeCanonicalWikidataPois(rawPois, canonicalPois);
     }
     fetchTimer.end();
     console.log('[OSM] Raw POIs:', rawPois.length);
@@ -1615,7 +1626,7 @@ export class OrchestrationService {
 
     // Rank
     const rankTimer = this.startStageTimer('Rank POIs');
-    const allRanked = rankPois(enriched, geocoded.lat, geocoded.lng);
+    const allRanked = rankPois(enriched, geocoded.lat, geocoded.lng, osmTheme);
     const ranked = allRanked.slice(0, topN);
     const summarizePoi = (poi: typeof allRanked[number]) => ({
       name: poi.name || poi.tags.name || 'unknown',
@@ -1645,6 +1656,7 @@ export class OrchestrationService {
     const routeCandidates = ranked.map((poi) => {
       const localName = poi.name || poi.tags.name || '';
       const translatedName = poi.enriched.nameTranslations[language] || localName;
+      const historyProfile = osmTheme === 'history' ? getHistoryPlaceProfile(poi) : null;
       return {
         poi,
         name: localName,
@@ -1654,6 +1666,12 @@ export class OrchestrationService {
         fameScore: (poi as any).fameScore,
         landmarkTier: (poi as any).landmarkTier,
         category: this.inferPoiCategory(poi),
+        ...(historyProfile ? {
+          historyPlaceScore: historyProfile.score,
+          historyPlaceKinds: historyProfile.kinds,
+          historyIsEventSiteLike: historyProfile.isEventSiteLike,
+          historyIsMuseumLike: historyProfile.isMuseumLike,
+        } : {}),
         estimatedDuration: 20,
       };
     });
@@ -1710,6 +1728,7 @@ export class OrchestrationService {
     requestedDuration: number
   ): Promise<any[]> {
     const narrationTimer = this.startStageTimer(`Generate narration for ${structuralPlaces.length} stops`);
+    const tourStopNames = structuralPlaces.map((place) => place.name);
     const narratedPlaces = await Promise.all(structuralPlaces.map(async (place, index) => {
       const position = index === 0 ? 'first' : index === structuralPlaces.length - 1 ? 'last' : 'middle';
       const nextStopName = structuralPlaces[index + 1]?.name;
@@ -1724,6 +1743,9 @@ export class OrchestrationService {
           cityName: city,
           totalStops: structuralPlaces.length,
           tourDurationMinutes: requestedDuration,
+          stopIndex: index,
+          previousStopName: structuralPlaces[index - 1]?.name,
+          tourStopNames,
         }
       );
 
@@ -1737,11 +1759,11 @@ export class OrchestrationService {
         meta: builtNarration.meta,
       }));
 
-      const { poi: _poi, ...rest } = place;
       return {
-        ...rest,
+        ...place,
         description: builtNarration.narration,
         descriptionSections: builtNarration.sections || undefined,
+        narrationMeta: builtNarration.meta,
       };
     }));
     narrationTimer.end();

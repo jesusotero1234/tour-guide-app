@@ -2,227 +2,102 @@
   "city": "Berlin",
   "theme": "history",
   "requestedDuration": 240,
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "stopBounds": {
     "minStops": 6,
     "maxStops": 10
   },
   "candidates": [
     {
-      "name": "Berliner Dom",
-      "wikidataId": "Q154563",
+      "name": "Bundesrat",
+      "wikidataId": "Q146138",
       "coordinates": {
-        "lat": 52.5190862,
-        "lng": 13.4010278
+        "lat": 52.5092852,
+        "lng": 13.3812586
       },
-      "importance_score": 49.35131915442328,
-      "fameScore": 25.351319154423276,
+      "importance_score": 58.248670042494226,
+      "fameScore": 32.748670042494226,
       "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "civic_power",
+      "historyPlaceScore": 13.92,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "St. Hedwigs-Kathedrale Berlin",
-      "wikidataId": "Q170123",
+      "name": "Potsdamer Platz",
+      "wikidataId": "Q152252",
       "coordinates": {
-        "lat": 52.5157591,
-        "lng": 13.3948424
+        "lat": 52.508944444,
+        "lng": 13.376333333
       },
-      "importance_score": 47.75977500432694,
-      "fameScore": 23.759775004326936,
+      "importance_score": 53.517276025914484,
+      "fameScore": 30.517276025914484,
       "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "square_civic",
+      "historyPlaceScore": 16.84,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Neue Synagoge",
-      "wikidataId": "Q246474",
+      "name": "Alexanderplatz",
+      "wikidataId": "Q152783",
       "coordinates": {
-        "lat": 52.5249867,
-        "lng": 13.3943198
+        "lat": 52.521666666,
+        "lng": 13.413611111
       },
-      "importance_score": 46.25,
-      "fameScore": 23.25,
+      "importance_score": 53.43156856932417,
+      "fameScore": 30.431568569324174,
       "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "square_civic",
+      "historyPlaceScore": 13.82,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Deutscher Dom",
-      "wikidataId": "Q315644",
+      "name": "Reichstag",
+      "wikidataId": "Q151897",
       "coordinates": {
-        "lat": 52.5127454,
-        "lng": 13.3927048
+        "lat": 52.518611111,
+        "lng": 13.376111111
       },
-      "importance_score": 45.5146625064904,
-      "fameScore": 22.514662506490403,
+      "importance_score": 53.18645607148764,
+      "fameScore": 30.68645607148764,
       "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Pergamonmuseum",
-      "wikidataId": "Q157298",
-      "coordinates": {
-        "lat": 52.5209122,
-        "lng": 13.3964686
-      },
-      "importance_score": 45.36258893116062,
-      "fameScore": 25.362588931160623,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Neues Museum",
-      "wikidataId": "Q157316",
-      "coordinates": {
-        "lat": 52.520184,
-        "lng": 13.3977404
-      },
-      "importance_score": 44.163766555032915,
-      "fameScore": 24.163766555032915,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Nikolaikirche",
-      "wikidataId": "Q679052",
-      "coordinates": {
-        "lat": 52.516815,
-        "lng": 13.407513
-      },
-      "importance_score": 44.073942985382715,
-      "fameScore": 22.073942985382715,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Museumsinsel",
-      "wikidataId": "Q151963",
-      "coordinates": {
-        "lat": 52.5199984,
-        "lng": 13.397183
-      },
-      "importance_score": 43.823942985382715,
-      "fameScore": 24.823942985382715,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Neue Kaiser-Wilhelm-Gedächtniskirche",
-      "wikidataId": "Q153951",
-      "coordinates": {
-        "lat": 52.504907,
-        "lng": 13.3346162
-      },
-      "importance_score": 43.62829485591189,
-      "fameScore": 22.628294855911893,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Zitadelle Spandau",
-      "wikidataId": "Q206211",
-      "coordinates": {
-        "lat": 52.541052,
-        "lng": 13.2127948
-      },
-      "importance_score": 43.62829485591189,
-      "fameScore": 21.628294855911893,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Schloss Babelsberg",
-      "wikidataId": "Q702477",
-      "coordinates": {
-        "lat": 52.4076605,
-        "lng": 13.0931358
-      },
-      "importance_score": 43.42695226833628,
-      "fameScore": 21.426952268336283,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Glienicker Brücke",
-      "wikidataId": "Q694708",
-      "coordinates": {
-        "lat": 52.4134597,
-        "lng": 13.0902272
-      },
-      "importance_score": 42.970671786825555,
-      "fameScore": 21.970671786825555,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Konzerthaus Berlin",
-      "wikidataId": "Q702548",
-      "coordinates": {
-        "lat": 52.5135807,
-        "lng": 13.3918548
-      },
-      "importance_score": 42.823942985382715,
-      "fameScore": 21.823942985382715,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Alte Nationalgalerie",
-      "wikidataId": "Q162111",
-      "coordinates": {
-        "lat": 52.5208337,
-        "lng": 13.3983173
-      },
-      "importance_score": 42.35620665658675,
-      "fameScore": 23.356206656586746,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Neue Wache",
-      "wikidataId": "Q152341",
-      "coordinates": {
-        "lat": 52.5178894,
-        "lng": 13.395536
-      },
-      "importance_score": 41.5146625064904,
-      "fameScore": 21.514662506490403,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Portikus des zerstörten Anhalter Bahnhofs",
-      "wikidataId": "Q695244",
-      "coordinates": {
-        "lat": 52.5036777,
-        "lng": 13.3825217
-      },
-      "importance_score": 41.42695226833628,
-      "fameScore": 20.426952268336283,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Schloss Schönhausen",
-      "wikidataId": "Q681355",
-      "coordinates": {
-        "lat": 52.5783452,
-        "lng": 13.4056919
-      },
-      "importance_score": 41.243782540330756,
-      "fameScore": 20.243782540330756,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Hackesche Höfe",
-      "wikidataId": "Q736425",
-      "coordinates": {
-        "lat": 52.524536,
-        "lng": 13.4016361
-      },
-      "importance_score": 41.21578428466209,
-      "fameScore": 20.21578428466209,
-      "landmarkTier": "flagship",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 18.11,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Denkmal für die ermordeten Juden Europas",
@@ -231,10 +106,23 @@
         "lat": 52.5138996,
         "lng": 13.378714
       },
-      "importance_score": 41.028794264106295,
-      "fameScore": 22.028794264106295,
+      "importance_score": 51.028794264106295,
+      "fameScore": 29.028794264106295,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 19.71,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Sowjetisches Ehrenmal Tiergarten",
@@ -243,178 +131,291 @@
         "lat": 52.5166394,
         "lng": 13.3719488
       },
-      "importance_score": 41.00488750216347,
-      "fameScore": 21.00488750216347,
+      "importance_score": 51.00488750216347,
+      "fameScore": 28.00488750216347,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Reststück der Berliner Mauer",
-      "wikidataId": "Q5086",
+      "name": "St. Hedwigs-Kathedrale Berlin",
+      "wikidataId": "Q170123",
       "coordinates": {
-        "lat": 52.39856,
-        "lng": 13.1349828
+        "lat": 52.5157591,
+        "lng": 13.3948424
       },
-      "importance_score": 40.41865405719638,
-      "fameScore": 24.41865405719638,
+      "importance_score": 50.80977500432694,
+      "fameScore": 28.309775004326937,
       "landmarkTier": "flagship",
-      "category": "memorial"
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Jüdisches Museum Berlin",
-      "wikidataId": "Q157003",
+      "name": "Berlin Palace",
+      "wikidataId": "Q170119",
       "coordinates": {
-        "lat": 52.5022844,
-        "lng": 13.395421
+        "lat": 52.5175,
+        "lng": 13.402777777
       },
-      "importance_score": 40.21578428466209,
-      "fameScore": 21.21578428466209,
+      "importance_score": 50.57068586817104,
+      "fameScore": 28.57068586817104,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "palace_castle",
+      "historyPlaceScore": 18.76,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Oberbaumbrücke",
-      "wikidataId": "Q695082",
+      "name": "Bellevue Palace",
+      "wikidataId": "Q317091",
       "coordinates": {
-        "lat": 52.5017334,
-        "lng": 13.4456613
+        "lat": 52.5175,
+        "lng": 13.353333333
       },
-      "importance_score": 40.17206476617281,
-      "fameScore": 20.17206476617281,
+      "importance_score": 49.62836009688685,
+      "fameScore": 27.62836009688685,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "palace_castle",
+      "historyPlaceScore": 18.6,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Bundesrat",
-      "wikidataId": "Q146138",
+      "name": "Neue Wache",
+      "wikidataId": "Q152341",
       "coordinates": {
-        "lat": 52.5092852,
-        "lng": 13.3812586
+        "lat": 52.5178894,
+        "lng": 13.395536
       },
-      "importance_score": 39.748670042494226,
-      "fameScore": 22.748670042494226,
+      "importance_score": 48.0146625064904,
+      "fameScore": 27.014662506490403,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "memorial",
+      "historyPlaceScore": 16.38,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Nikolaiviertel",
-      "wikidataId": "Q703927",
+      "name": "Siegessäule",
+      "wikidataId": "Q154987",
       "coordinates": {
-        "lat": 52.5168781,
-        "lng": 13.4065136
+        "lat": 52.51451,
+        "lng": 13.350111
       },
-      "importance_score": 39.62829485591189,
-      "fameScore": 20.628294855911893,
+      "importance_score": 43.975559288989025,
+      "fameScore": 25.975559288989025,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "memorial",
+      "historyPlaceScore": 16.75,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Staatsoper Unter den Linden",
-      "wikidataId": "Q312576",
+      "name": "Berliner Dom",
+      "wikidataId": "Q154563",
       "coordinates": {
-        "lat": 52.5166928,
-        "lng": 13.3947663
+        "lat": 52.5190862,
+        "lng": 13.4010278
       },
-      "importance_score": 38.993782540330756,
-      "fameScore": 20.993782540330756,
+      "importance_score": 43.90131915442328,
+      "fameScore": 26.401319154423277,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Neue Nationalgalerie",
-      "wikidataId": "Q32659772",
+      "name": "Pariser Platz",
+      "wikidataId": "Q156716",
       "coordinates": {
-        "lat": 52.5069809,
-        "lng": 13.3675768
+        "lat": 52.516388888,
+        "lng": 13.378888888
       },
-      "importance_score": 38.92206476617281,
-      "fameScore": 21.92206476617281,
+      "importance_score": 51.8878490508349,
+      "fameScore": 28.887849050834898,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "square_civic",
+      "historyPlaceScore": 16.56,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Schloss Glienicke",
-      "wikidataId": "Q301684",
+      "name": "Brandenburg Gate",
+      "wikidataId": "Q82425",
       "coordinates": {
-        "lat": 52.4139456,
-        "lng": 13.0953145
+        "lat": 52.516272222,
+        "lng": 13.377722222
       },
-      "importance_score": 38.71578428466209,
-      "fameScore": 19.71578428466209,
-      "landmarkTier": "major",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Museum für Naturkunde",
-      "wikidataId": "Q233098",
-      "coordinates": {
-        "lat": 52.5304903,
-        "lng": 13.3791152
-      },
-      "importance_score": 38.512388523751014,
-      "fameScore": 20.512388523751017,
+      "importance_score": 50.278794264106295,
+      "fameScore": 30.278794264106295,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "other",
+      "historyPlaceScore": 21.21,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Friedrichswerdersche Kirche",
-      "wikidataId": "Q833817",
+      "name": "Palace of the Republic",
+      "wikidataId": "Q161156",
       "coordinates": {
-        "lat": 52.5158844,
-        "lng": 13.3975222
+        "lat": 52.5175,
+        "lng": 13.4025
       },
-      "importance_score": 38.42695226833628,
-      "fameScore": 19.426952268336283,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Schloss Köpenick",
-      "wikidataId": "Q563805",
-      "coordinates": {
-        "lat": 52.4438607,
-        "lng": 13.5728876
-      },
-      "importance_score": 38.012388523751014,
-      "fameScore": 19.012388523751017,
-      "landmarkTier": "major",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Deutsches Technikmuseum",
-      "wikidataId": "Q706530",
-      "coordinates": {
-        "lat": 52.4972059,
-        "lng": 13.376498
-      },
-      "importance_score": 37.573942985382715,
-      "fameScore": 20.573942985382715,
+      "importance_score": 48.720671786825555,
+      "fameScore": 26.720671786825555,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "palace_castle",
+      "historyPlaceScore": 18.45,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Bahnhof Alexanderplatz",
-      "wikidataId": "Q698497",
+      "name": "Gendarmenmarkt",
+      "wikidataId": "Q170103",
       "coordinates": {
-        "lat": 52.5214995,
-        "lng": 13.4112263
+        "lat": 52.513611111,
+        "lng": 13.392777777
       },
-      "importance_score": 36.18156856932417,
-      "fameScore": 19.181568569324174,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 51.5,
+      "fameScore": 28.5,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 13.5,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Deutsches Historisches Museum",
-      "wikidataId": "Q688335",
+      "name": "Fernsehturm Berlin",
+      "wikidataId": "Q151356",
       "coordinates": {
-        "lat": 52.5177477,
-        "lng": 13.3970225
+        "lat": 52.520833333,
+        "lng": 13.409444444
       },
-      "importance_score": 35.823942985382715,
-      "fameScore": 19.823942985382715,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 48.54592914808552,
+      "fameScore": 28.605929148085522,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 9.94,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Neue Synagoge",
+      "wikidataId": "Q246474",
+      "coordinates": {
+        "lat": 52.5249867,
+        "lng": 13.3943198
+      },
+      "importance_score": 40.8,
+      "fameScore": 24.3,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Zeughaus",
@@ -423,70 +424,479 @@
         "lat": 52.5180977,
         "lng": 13.3969618
       },
-      "importance_score": 35.62829485591189,
-      "fameScore": 18.628294855911893,
+      "importance_score": 39.62829485591189,
+      "fameScore": 23.128294855911893,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Berlinische Galerie",
-      "wikidataId": "Q700222",
+      "name": "Soviet War Memorial",
+      "wikidataId": "Q48441",
       "coordinates": {
-        "lat": 52.5039018,
-        "lng": 13.3982269
+        "lat": 52.486111,
+        "lng": 13.471667
       },
-      "importance_score": 35.17695226833628,
-      "fameScore": 19.176952268336283,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 38.601625550384476,
+      "fameScore": 24.63318235807536,
+      "landmarkTier": "flagship",
+      "category": "memorial",
+      "historyPlaceScore": 19.52,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "AVUS-Tribüne",
-      "wikidataId": "Q155810",
+      "name": "Lustgarten",
+      "wikidataId": "Q702512",
       "coordinates": {
-        "lat": 52.4994618,
-        "lng": 13.2732723
+        "lat": 52.518611111,
+        "lng": 13.399722222
       },
-      "importance_score": 34.11258893116062,
-      "fameScore": 20.112588931160623,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 50.7646625064904,
+      "fameScore": 27.764662506490403,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 13.38,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Schwules Museum *",
-      "wikidataId": "Q685162",
+      "name": "Altes Palais",
+      "wikidataId": "Q439297",
       "coordinates": {
-        "lat": 52.5042512,
-        "lng": 13.3582193
+        "lat": 52.5168925,
+        "lng": 13.3928008
       },
-      "importance_score": 33.82068586817104,
-      "fameScore": 18.82068586817104,
+      "importance_score": 42.30488750216347,
+      "fameScore": 23.30488750216347,
       "landmarkTier": "major",
-      "category": "museum"
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "DDR-Museum",
-      "wikidataId": "Q573322",
+      "name": "Checkpoint Charlie",
+      "wikidataId": "Q68689",
       "coordinates": {
-        "lat": 52.5194214,
-        "lng": 13.4022558
+        "lat": 52.5075,
+        "lng": 13.390277777
       },
-      "importance_score": 33.50977500432694,
-      "fameScore": 18.509775004326936,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 46.04527602591449,
+      "fameScore": 27.205276025914483,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 8.84,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-name",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Museum Berggruen",
-      "wikidataId": "Q641630",
+      "name": "Deutscher Dom",
+      "wikidataId": "Q315644",
       "coordinates": {
-        "lat": 52.5191024,
-        "lng": 13.2949985
+        "lat": 52.5127454,
+        "lng": 13.3927048
       },
-      "importance_score": 33.50977500432694,
-      "fameScore": 18.509775004326936,
+      "importance_score": 38.06466250649041,
+      "fameScore": 23.564662506490404,
       "landmarkTier": "major",
-      "category": "museum"
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Sowjetisches Ehrenmal Schönholzer Heide",
+      "wikidataId": "Q49745",
+      "coordinates": {
+        "lat": 52.5811174,
+        "lng": 13.3733044
+      },
+      "importance_score": 35.14159592782877,
+      "fameScore": 22.970671786825555,
+      "landmarkTier": "major",
+      "category": "memorial",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Charlottenburg Palace",
+      "wikidataId": "Q154996",
+      "coordinates": {
+        "lat": 52.521111,
+        "lng": 13.295833
+      },
+      "importance_score": 40.01507241253998,
+      "fameScore": 25.931568569324174,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 10.82,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "museum-container",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Hotel Adlon",
+      "wikidataId": "Q698095",
+      "coordinates": {
+        "lat": 52.5160431,
+        "lng": 13.3799442
+      },
+      "importance_score": 44.78567178682556,
+      "fameScore": 25.335671786825554,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 9.45,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Pergamonmuseum",
+      "wikidataId": "Q157298",
+      "coordinates": {
+        "lat": 52.5209122,
+        "lng": 13.3964686
+      },
+      "importance_score": 33.56258893116062,
+      "fameScore": 23.062588931160622,
+      "landmarkTier": "major",
+      "category": "civic_power",
+      "historyPlaceScore": 1,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "museum-container",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Neue Kaiser-Wilhelm-Gedächtniskirche",
+      "wikidataId": "Q153951",
+      "coordinates": {
+        "lat": 52.504907,
+        "lng": 13.3346162
+      },
+      "importance_score": 37.594992495729954,
+      "fameScore": 23.678294855911894,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Oberbaumbrücke",
+      "wikidataId": "Q695082",
+      "coordinates": {
+        "lat": 52.5017334,
+        "lng": 13.4456613
+      },
+      "importance_score": 38.67206476617281,
+      "fameScore": 23.67206476617281,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Schloss Friedrichsfelde",
+      "wikidataId": "Q883381",
+      "coordinates": {
+        "lat": 52.5046916,
+        "lng": 13.5235845
+      },
+      "importance_score": 33.2758876673524,
+      "fameScore": 22.928294855911894,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Museumsinsel",
+      "wikidataId": "Q151963",
+      "coordinates": {
+        "lat": 52.5199984,
+        "lng": 13.397183
+      },
+      "importance_score": 37.823942985382715,
+      "fameScore": 24.823942985382715,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 0,
+      "historyPlaceKinds": [
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Zitadelle Spandau",
+      "wikidataId": "Q206211",
+      "coordinates": {
+        "lat": 52.541052,
+        "lng": 13.2127948
+      },
+      "importance_score": 31.770291432191982,
+      "fameScore": 27.928294855911894,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Schloss Köpenick",
+      "wikidataId": "Q563805",
+      "coordinates": {
+        "lat": 52.4438607,
+        "lng": 13.5728876
+      },
+      "importance_score": 23.646549738892553,
+      "fameScore": 26.012388523751017,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Humboldt-Schloss",
+      "wikidataId": "Q651833",
+      "coordinates": {
+        "lat": 52.5950874,
+        "lng": 13.276302
+      },
+      "importance_score": 23.59947298361914,
+      "fameScore": 22.151319154423277,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Reststück der Berliner Mauer",
+      "wikidataId": "Q5086",
+      "coordinates": {
+        "lat": 52.39856,
+        "lng": 13.1349828
+      },
+      "importance_score": 5.125526982312664,
+      "fameScore": 33.41865405719638,
+      "landmarkTier": "flagship",
+      "category": "memorial",
+      "historyPlaceScore": 18.57,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-name",
+        "event-description",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Schloss Babelsberg",
+      "wikidataId": "Q702477",
+      "coordinates": {
+        "lat": 52.4076605,
+        "lng": 13.0931358
+      },
+      "importance_score": -2.602414857903767,
+      "fameScore": 28.426952268336283,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Schloss Glienicke",
+      "wikidataId": "Q301684",
+      "coordinates": {
+        "lat": 52.4139456,
+        "lng": 13.0953145
+      },
+      "importance_score": -3.7772932983908873,
+      "fameScore": 26.71578428466209,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Schloss Sacrow",
+      "wikidataId": "Q320968",
+      "coordinates": {
+        "lat": 52.4276316,
+        "lng": 13.0948343
+      },
+      "importance_score": -5.629710021487924,
+      "fameScore": 23.672064766172813,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Glienicker Brücke",
+      "wikidataId": "Q694708",
+      "coordinates": {
+        "lat": 52.4134597,
+        "lng": 13.0902272
+      },
+      "importance_score": -11.068569848266229,
+      "fameScore": 25.470671786825555,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     }
   ]
 }

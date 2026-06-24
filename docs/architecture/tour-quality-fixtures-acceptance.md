@@ -1,6 +1,6 @@
 # Tour Quality — Fixtures & Acceptance Oracle
 
-Status: **design brief, not yet implemented**
+Status: **implemented for route fixtures; source snapshots added 2026-06-22**
 Date: `2026-05-30`
 Audience: another LLM / engineer implementing the regression harness for tour quality.
 
@@ -47,7 +47,7 @@ This is a good product result (real anchors present), with **two known defects**
 
 ---
 
-## 2. Freeze at two levels
+## 2. Freeze at three levels
 
 The pipeline has two distinct failure surfaces. Freeze a fixture for each so tests are deterministic and fast.
 
@@ -93,13 +93,26 @@ Captures the exact array passed to `composeWalkingRoute`. This is the **highest-
 
 > Note: Level 2 capture requires running enrichment once (slow, networked) to populate `importance_score`. That is a **one-time capture cost**; the test replays the frozen snapshot offline. Re-capture only when ranker inputs change materially.
 
+### Level 3 — Source snapshot (replays Wikipedia/Wikidata enrichment)
+
+Captures every Wikipedia and Wikidata payload used by the shortlisted POIs,
+including values already served by PostgreSQL. The snapshot is written to:
+
+`fixtures/sources/<city>-<theme>-<language>.json`
+
+`SnapshotPoiEnrichmentCache` treats this file as authoritative. Missing entries
+remain missing instead of falling through to an external API. This makes prompt
+and narration comparisons reproducible against identical source material.
+
 ---
 
 ## 3. Capture tooling
 
-Extend `diagnose-shortlist.ts` (or add a sibling `capture-fixture.ts`) with a `--write` mode that dumps both levels to `backend/fixtures/`. It already runs geocode → raw pool → sitelinks → tiering; add:
+`backend/scripts/validation/capture-tour-fixtures.ts` writes all three levels to
+`backend/fixtures/` in one explicit capture run:
 - write Level 1 after tiering;
-- run enrichment + rank + build route candidates, then write Level 2.
+- run enrichment + rank + build route candidates, then write Level 2;
+- record the enrichment cache reads/writes and write Level 3.
 
 Keep capture **explicit and manual** (never in CI) — fixtures are committed artifacts, refreshed deliberately.
 

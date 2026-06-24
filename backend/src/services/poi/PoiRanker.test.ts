@@ -162,6 +162,66 @@ describe('rankPois', () => {
     expect(ranked.map((poi) => poi.name)).toEqual(['Palacio Real', 'Secondary Central Building']);
   });
 
+  it('prefers lived history sites over museum containers for history tours', () => {
+    const famousMuseum = {
+      ...buildPoi({
+        osmId: 6,
+        name: 'National History Museum',
+        tags: {
+          tourism: 'museum',
+          wikidata: 'Q6',
+          wikipedia: 'en:National_History_Museum',
+        },
+        enriched: {
+          nameTranslations: { en: 'National History Museum' },
+          description: 'Large museum collection',
+          wikipediaLead: 'Large museum collection',
+          wikipediaBody: 'x'.repeat(2500),
+          wikidataClaims: { inception: '1900', heritageDesignation: 'Monument' },
+          osmTags: {},
+          wikivoyage: null,
+          descriptionLanguage: 'en',
+          attribution: {},
+        },
+      }),
+      fameScore: 18,
+      landmarkTier: 'flagship' as const,
+      fame: { sitelinks: 80 },
+    };
+
+    const parliamentSite = {
+      ...buildPoi({
+        osmId: 7,
+        name: 'Old Parliament Gate',
+        tags: {
+          tourism: 'attraction',
+          building: 'government',
+          wikidata: 'Q7',
+          wikipedia: 'en:Old_Parliament_Gate',
+          'canonical:instance_of': 'government building|parliament building',
+        },
+        enriched: {
+          nameTranslations: { en: 'Old Parliament Gate' },
+          description: 'Site of public political events',
+          wikipediaLead: 'Site of public political events',
+          wikipediaBody: 'x'.repeat(1200),
+          wikidataClaims: { inception: '1850' },
+          osmTags: {},
+          wikivoyage: null,
+          descriptionLanguage: 'en',
+          attribution: {},
+        },
+      }),
+      fameScore: 13,
+      landmarkTier: 'major' as const,
+      fame: { sitelinks: 35 },
+    };
+
+    const ranked = rankPois([famousMuseum, parliamentSite], 40.4168, -3.7038, 'history');
+
+    expect(ranked.map((poi) => poi.name)).toEqual(['Old Parliament Gate', 'National History Museum']);
+  });
+
   it('breaks synthetic memorial monopoly when viable alternatives exist', () => {
     const memorials = Array.from({ length: 10 }, (_, index) => ({
       ...buildPoi({

@@ -4,6 +4,7 @@ export interface RouteCoordinates {
 }
 
 export interface RouteCandidate {
+  name?: string;
   coordinates?: RouteCoordinates;
   latitude?: number;
   longitude?: number;
@@ -12,6 +13,10 @@ export interface RouteCandidate {
   category?: string;
   landmarkTier?: string;
   fameScore?: number;
+  historyPlaceScore?: number;
+  historyPlaceKinds?: string[];
+  historyIsEventSiteLike?: boolean;
+  historyIsMuseumLike?: boolean;
   [key: string]: unknown;
 }
 
@@ -49,6 +54,7 @@ interface DiversePrefixOptions {
   requestedDuration?: number;
   requiredFlagships?: number;
   categoryPenaltyMultiplier?: number;
+  theme?: string;
 }
 
 interface EvaluatedRouteCandidate<T extends RouteCandidate> {
@@ -59,6 +65,7 @@ interface EvaluatedRouteCandidate<T extends RouteCandidate> {
   importanceSum: number;
   flagshipDeficit: number;
   coverageScore: number;
+  historyExperienceScore: number;
   categoryBalancePenalty: number;
   plausibilityPenalty: number;
 }
@@ -72,6 +79,7 @@ interface RouteEvaluationContext {
   upperBound: number;
   maxCategoryRatio: number;
   categoryBalanceWeight: number;
+  theme: string;
 }
 
 interface RouteSearchOptions {
@@ -94,20 +102,115 @@ function getImportanceScore(place: RouteCandidate): number {
   return place.importanceScore ?? place.importance_score ?? 0;
 }
 
-function getRoutePriorityScore(place: RouteCandidate): number {
+function isHistoryMuseumContainer(place: RouteCandidate): boolean {
+  return (place.historyIsMuseumLike === true && place.historyIsEventSiteLike !== true)
+    || (Array.isArray(place.historyPlaceKinds) && place.historyPlaceKinds.includes('museum-container'));
+}
+
+function getHistoryCompositionCandidates<T extends RouteCandidate>(candidates: T[], theme: string, minStops: number): T[] {
+  if (theme !== 'history') {
+    return candidates;
+  }
+
+  const withoutMuseumContainers = candidates.filter((candidate) => !isHistoryMuseumContainer(candidate));
+  return withoutMuseumContainers.length >= Math.max(2, minStops)
+    ? withoutMuseumContainers
+    : candidates;
+}
+
+function getHistoryRouteExperienceScore(place: RouteCandidate, theme?: string): number {
+  if (theme !== 'history') {
+    return 0;
+  }
+
+  const explicitScore = typeof place.historyPlaceScore === 'number' ? place.historyPlaceScore : null;
+  if (explicitScore !== null) {
+    if (isHistoryMuseumContainer(place)) {
+      return Math.min(-30, explicitScore - 40);
+    }
+
+    return explicitScore;
+  }
+
+  return 0;
+}
+
+function getHistoryAnchorScore(place: RouteCandidate, theme?: string): number {
+  if (theme !== 'history') {
+    return 0;
+  }
+
+  const category = getCategory(place);
+  let score = getHistoryRouteExperienceScore(place, theme);
+  if (category === 'civic_power') score += 2;
+  if (category === 'memorial') score += 1;
+  if (Array.isArray(place.historyPlaceKinds) && place.historyPlaceKinds.includes('event-place')) score += 2;
+  if (Array.isArray(place.historyPlaceKinds) && place.historyPlaceKinds.includes('museum-container')) score -= 4;
+  return score;
+}
+
+function getRequiredHistoryAnchorCount(stopCount: number, requestedDuration: number | undefined, candidates: RouteCandidate[]): number {
+  const availableAnchors = candidates.filter((candidate) => getHistoryAnchorScore(candidate, 'history') >= 16).length;
+  if (availableAnchors === 0) {
+    return 0;
+  }
+
+  const desired = (requestedDuration ?? 0) >= 180
+    ? 3
+    : (requestedDuration ?? 0) >= 90
+      ? 2
+      : 1;
+
+  return Math.min(stopCount, availableAnchors, desired);
+}
+
+function selectBestHistoryAnchor<T extends RouteCandidate>(
+  remaining: T[],
+  selected: T[],
+  categoryCounts: Map<string, number>,
+  maxCategoryRatio: number,
+  categoryPenaltyMultiplier: number,
+  requestedDuration: number
+): T | null {
+  const scored = remaining
+    .filter((place) => getHistoryAnchorScore(place, 'history') >= 16)
+    .map((place) => {
+      const category = getCategory(place);
+      return {
+        place,
+        adjustedScore: getHistoryAnchorScore(place, 'history')
+          + (getLandmarkTier(place) === 'flagship' ? 1 : 0)
+          - getCategorySelectionPenalty(
+            category,
+            categoryCounts,
+            selected.length,
+            maxCategoryRatio,
+            categoryPenaltyMultiplier
+          )
+          - (getSpatialOutlierPenalty(place, selected, requestedDuration) * 2)
+          - getLocalOverlapPenalty(place, selected),
+      };
+    })
+    .sort((a, b) => b.adjustedScore - a.adjustedScore);
+
+  return scored[0]?.place ?? null;
+}
+
+function getRoutePriorityScore(place: RouteCandidate, theme?: string): number {
   const importance = getImportanceScore(place);
   const fameScore = typeof place.fameScore === 'number' ? place.fameScore : null;
   const tier = getLandmarkTier(place);
+  const historyExperienceScore = getHistoryRouteExperienceScore(place, theme);
 
   if (fameScore === null) {
-    return importance;
+    return importance + historyExperienceScore;
   }
 
   if (tier === 'flagship' || tier === 'major') {
-    return fameScore;
+    return fameScore + historyExperienceScore;
   }
 
-  return importance;
+  return importance + historyExperienceScore;
 }
 
 function getCategory(place: RouteCandidate): string {
@@ -412,7 +515,33 @@ export function buildDiversePrefix<T extends RouteCandidate>(
   const remaining = [...candidates];
   const requiredFlagships = Math.min(stopCount, options.requiredFlagships ?? 0);
   const categoryPenaltyMultiplier = options.categoryPenaltyMultiplier ?? 2.0;
-  const strongCategoryControl = categoryPenaltyMultiplier > 2;
+  const strongCategoryControl = categoryPenaltyMultiplier > 2 || options.theme === 'history';
+  const spatialPenaltyWeight = options.theme === 'history' ? 2.5 : 1;
+  const requiredHistoryAnchors = options.theme === 'history'
+    ? getRequiredHistoryAnchorCount(stopCount, options.requestedDuration, candidates)
+    : 0;
+
+  while (selected.length < requiredHistoryAnchors && remaining.length > 0) {
+    const nextAnchor = selectBestHistoryAnchor(
+      remaining,
+      selected,
+      categoryCounts,
+      maxCategoryRatio,
+      categoryPenaltyMultiplier,
+      options.requestedDuration ?? 120
+    );
+    if (!nextAnchor) {
+      break;
+    }
+
+    selected.push(nextAnchor);
+    const category = getCategory(nextAnchor);
+    categoryCounts.set(category, (categoryCounts.get(category) ?? 0) + 1);
+    const pickedIndex = remaining.indexOf(nextAnchor);
+    if (pickedIndex >= 0) {
+      remaining.splice(pickedIndex, 1);
+    }
+  }
 
   if (requiredFlagships > 0) {
     while (selected.length < requiredFlagships) {
@@ -420,7 +549,7 @@ export function buildDiversePrefix<T extends RouteCandidate>(
         .filter((place) => getLandmarkTier(place) === 'flagship')
         .map((place) => ({
           place,
-          adjustedScore: getRoutePriorityScore(place)
+          adjustedScore: getRoutePriorityScore(place, options.theme)
             - (strongCategoryControl
               ? getCategorySelectionPenalty(
                 getCategory(place),
@@ -430,7 +559,7 @@ export function buildDiversePrefix<T extends RouteCandidate>(
                 categoryPenaltyMultiplier
               )
               : 0)
-            - (getSpatialOutlierPenalty(place, selected, options.requestedDuration ?? 120) * 2.5)
+            - (getSpatialOutlierPenalty(place, selected, options.requestedDuration ?? 120) * 2.5 * spatialPenaltyWeight)
             - getLocalOverlapPenalty(place, selected),
         }))
         .sort((a, b) => b.adjustedScore - a.adjustedScore);
@@ -461,11 +590,11 @@ export function buildDiversePrefix<T extends RouteCandidate>(
         maxCategoryRatio,
         categoryPenaltyMultiplier
       );
-      const spatialOutlierPenalty = getSpatialOutlierPenalty(place, selected, options.requestedDuration ?? 120);
+      const spatialOutlierPenalty = getSpatialOutlierPenalty(place, selected, options.requestedDuration ?? 120) * spatialPenaltyWeight;
       const localOverlapPenalty = getLocalOverlapPenalty(place, selected);
       return {
         place,
-        adjustedScore: getRoutePriorityScore(place) - categoryOverusePenalty - spatialOutlierPenalty - localOverlapPenalty,
+        adjustedScore: getRoutePriorityScore(place, options.theme) - categoryOverusePenalty - spatialOutlierPenalty - localOverlapPenalty,
       };
     });
 
@@ -492,7 +621,7 @@ export function buildDiversePrefix<T extends RouteCandidate>(
   return selected.map((place, index) => ({ ...place, position: index } as T));
 }
 
-export function orderRouteCandidates<T extends RouteCandidate>(candidates: T[], strategy: OrderingStrategy = 'centroid_anchor'): T[] {
+export function orderRouteCandidates<T extends RouteCandidate>(candidates: T[], strategy: OrderingStrategy = 'centroid_anchor', theme?: string): T[] {
   if (candidates.length <= 1) {
     return candidates.map((place, index) => ({ ...place, position: index } as T));
   }
@@ -513,7 +642,7 @@ export function orderRouteCandidates<T extends RouteCandidate>(candidates: T[], 
   centroid.lng /= candidates.length;
 
   const startAnchor = strategy === 'importance_anchor'
-    ? [...candidates].sort((a, b) => getRoutePriorityScore(b) - getRoutePriorityScore(a))[0]
+    ? [...candidates].sort((a, b) => getRoutePriorityScore(b, theme) - getRoutePriorityScore(a, theme))[0]
     : [...candidates]
       .sort((a, b) => {
         const aCoord = getCoordinates(a)!;
@@ -521,7 +650,7 @@ export function orderRouteCandidates<T extends RouteCandidate>(candidates: T[], 
         return haversineMeters(aCoord, centroid) - haversineMeters(bCoord, centroid);
       })
       .slice(0, Math.min(3, candidates.length))
-      .sort((a, b) => getRoutePriorityScore(b) - getRoutePriorityScore(a))[0];
+      .sort((a, b) => getRoutePriorityScore(b, theme) - getRoutePriorityScore(a, theme))[0];
 
   const remaining = candidates.filter((place) => place !== startAnchor);
   const ordered = [startAnchor];
@@ -579,6 +708,18 @@ function getMaxSegmentMeters(requestedDuration: number, extended = false): numbe
   return maxSegmentMeters;
 }
 
+function getQualityExtensionMaxStops(requestedDuration: number, stopBounds: StopBounds, candidateCount: number): number {
+  const extraStops = requestedDuration >= 240
+    ? 3
+    : requestedDuration >= 180
+      ? 2
+      : requestedDuration >= 120
+        ? 1
+        : 0;
+
+  return Math.min(candidateCount, stopBounds.maxStops + extraStops);
+}
+
 function rankSelectionCandidates<T extends RouteCandidate>(a: EvaluatedRouteCandidate<T>, b: EvaluatedRouteCandidate<T>): number {
   if (a.flagshipDeficit !== b.flagshipDeficit) {
     return a.flagshipDeficit - b.flagshipDeficit;
@@ -591,6 +732,9 @@ function rankSelectionCandidates<T extends RouteCandidate>(a: EvaluatedRouteCand
   }
   if (a.coverageScore !== b.coverageScore) {
     return b.coverageScore - a.coverageScore;
+  }
+  if (a.historyExperienceScore !== b.historyExperienceScore) {
+    return b.historyExperienceScore - a.historyExperienceScore;
   }
   if (a.importanceSum !== b.importanceSum) {
     return b.importanceSum - a.importanceSum;
@@ -607,11 +751,30 @@ function rankSelectionCandidates<T extends RouteCandidate>(a: EvaluatedRouteCand
   return 0;
 }
 
+function rankOverlongRepairCandidates<T extends RouteCandidate>(a: EvaluatedRouteCandidate<T>, b: EvaluatedRouteCandidate<T>): number {
+  if (a.metrics.hasOverMaxSegment !== b.metrics.hasOverMaxSegment) {
+    return a.metrics.hasOverMaxSegment ? 1 : -1;
+  }
+  if (a.durationRangePenalty !== b.durationRangePenalty) {
+    return a.durationRangePenalty - b.durationRangePenalty;
+  }
+  if (a.plausibilityPenalty !== b.plausibilityPenalty) {
+    return a.plausibilityPenalty - b.plausibilityPenalty;
+  }
+  if (a.metrics.outOfIdealSegments !== b.metrics.outOfIdealSegments) {
+    return a.metrics.outOfIdealSegments - b.metrics.outOfIdealSegments;
+  }
+  if (a.historyExperienceScore !== b.historyExperienceScore) {
+    return b.historyExperienceScore - a.historyExperienceScore;
+  }
+  return b.importanceSum - a.importanceSum;
+}
+
 function evaluatePrefix<T extends RouteCandidate>(
   prefix: T[],
   context: RouteEvaluationContext
 ): EvaluatedRouteCandidate<T> {
-  const orderedPrefix = orderRouteCandidates(prefix, context.strategy);
+  const orderedPrefix = orderRouteCandidates(prefix, context.strategy, context.theme);
   const metrics = estimateRouteMetrics(orderedPrefix, context.maxSegmentMeters);
   const spatialSpreadMeters = calculateSpatialSpreadMeters(orderedPrefix);
   const flagshipCount = orderedPrefix.filter((place) => getLandmarkTier(place) === 'flagship').length;
@@ -622,9 +785,10 @@ function evaluatePrefix<T extends RouteCandidate>(
     metrics,
     durationGap: Math.abs(metrics.estimatedTourMinutes - context.requestedDuration),
     durationRangePenalty: getDurationRangePenalty(metrics.estimatedTourMinutes, context.lowerBound, context.upperBound),
-    importanceSum: orderedPrefix.reduce((sum, place) => sum + getRoutePriorityScore(place), 0),
+    importanceSum: orderedPrefix.reduce((sum, place) => sum + getRoutePriorityScore(place, context.theme), 0),
     flagshipDeficit: Math.max(0, context.requiredFlagships - flagshipCount),
     coverageScore: (flagshipCount * 3) + majorCount,
+    historyExperienceScore: orderedPrefix.reduce((sum, place) => sum + getHistoryRouteExperienceScore(place, context.theme), 0),
     categoryBalancePenalty: getCategoryBalancePenalty(orderedPrefix, context.maxCategoryRatio) * context.categoryBalanceWeight,
     plausibilityPenalty: getRoutePlausibilityPenalty(metrics, context.requestedDuration, context.maxSegmentMeters, spatialSpreadMeters),
   };
@@ -670,6 +834,53 @@ function improvePrefixBySwapping<T extends RouteCandidate>(
   return bestEvaluation;
 }
 
+function repairOverlongPrefix<T extends RouteCandidate>(
+  candidates: T[],
+  selectedSet: T[],
+  context: RouteEvaluationContext,
+  minStops: number
+): EvaluatedRouteCandidate<T> {
+  let bestSelection = [...selectedSet];
+  let bestEvaluation = evaluatePrefix(bestSelection, context);
+
+  for (let iteration = 0; iteration < 5; iteration++) {
+    const selectedLookup = new Set(bestSelection.map((candidate) => getCandidateKey(candidate)));
+    const remaining = candidates.filter((candidate) => !selectedLookup.has(getCandidateKey(candidate)));
+    const repairCandidates: EvaluatedRouteCandidate<T>[] = [];
+
+    if (bestSelection.length > minStops) {
+      for (let removeIndex = 0; removeIndex < bestSelection.length; removeIndex++) {
+        repairCandidates.push(evaluatePrefix(
+          bestSelection.filter((_, index) => index !== removeIndex),
+          context
+        ));
+      }
+    }
+
+    for (let selectedIndex = 0; selectedIndex < bestSelection.length; selectedIndex++) {
+      for (const replacement of remaining) {
+        const nextSelection = [...bestSelection];
+        nextSelection[selectedIndex] = replacement;
+        repairCandidates.push(evaluatePrefix(nextSelection, context));
+      }
+    }
+
+    const nextBest = repairCandidates.sort(rankOverlongRepairCandidates)[0];
+    if (!nextBest || rankOverlongRepairCandidates(nextBest, bestEvaluation) >= 0) {
+      break;
+    }
+
+    bestSelection = nextBest.prefix;
+    bestEvaluation = nextBest;
+
+    if (!bestEvaluation.metrics.hasOverMaxSegment && bestEvaluation.durationRangePenalty === 0) {
+      break;
+    }
+  }
+
+  return bestEvaluation;
+}
+
 function evaluateRouteCandidates<T extends RouteCandidate>(
   candidates: T[],
   requestedDuration: number,
@@ -677,6 +888,7 @@ function evaluateRouteCandidates<T extends RouteCandidate>(
   maxCategoryRatio: number,
   strategy: OrderingStrategy,
   maxSegmentMeters: number,
+  theme: string,
   options: RouteSearchOptions = {}
 ): EvaluatedRouteCandidate<T>[] {
   const cappedMaxStops = Math.min(stopBounds.maxStops, candidates.length);
@@ -693,6 +905,7 @@ function evaluateRouteCandidates<T extends RouteCandidate>(
     upperBound,
     maxCategoryRatio,
     categoryBalanceWeight: options.categoryBalanceWeight ?? 0,
+    theme,
   };
   const evaluated: EvaluatedRouteCandidate<T>[] = [];
 
@@ -700,7 +913,8 @@ function evaluateRouteCandidates<T extends RouteCandidate>(
     const selectedSet = buildDiversePrefix(candidates, stopCount, maxCategoryRatio, {
       requestedDuration,
       requiredFlagships,
-      categoryPenaltyMultiplier: options.categoryPenaltyMultiplier ?? 2.0,
+      categoryPenaltyMultiplier: options.categoryPenaltyMultiplier ?? (theme === 'history' ? 3.0 : 2.0),
+      theme,
     });
     evaluated.push(evaluatePrefix(selectedSet, context));
     evaluated.push(improvePrefixBySwapping(candidates, selectedSet, context));
@@ -715,7 +929,8 @@ export function composeWalkingRoute<T extends RouteCandidate>(
   theme: string,
   stopBounds: StopBounds
 ): RouteSelectionResult<T> {
-  const routeCandidates = verifiedPlaces.filter((place) => getCoordinates(place)) as T[];
+  const verifiedRouteCandidates = verifiedPlaces.filter((place) => getCoordinates(place)) as T[];
+  const routeCandidates = getHistoryCompositionCandidates(verifiedRouteCandidates, theme, stopBounds.minStops);
 
   if (routeCandidates.length < 2) {
     throw new Error('No places could be verified');
@@ -728,12 +943,14 @@ export function composeWalkingRoute<T extends RouteCandidate>(
     stopBounds,
     maxCategoryRatio,
     'centroid_anchor',
-    getMaxSegmentMeters(requestedDuration)
+    getMaxSegmentMeters(requestedDuration),
+    theme
   );
 
   const emergencyPrefix = orderRouteCandidates(
     routeCandidates.slice(0, Math.max(2, stopBounds.minStops)),
-    'importance_anchor'
+    'importance_anchor',
+    theme
   ).map((place, index) => ({ ...place, position: index } as T));
   const emergencyMetrics = estimateRouteMetrics(emergencyPrefix, getMaxSegmentMeters(requestedDuration, true));
 
@@ -743,9 +960,10 @@ export function composeWalkingRoute<T extends RouteCandidate>(
       metrics: emergencyMetrics,
       durationGap: Math.abs(emergencyMetrics.estimatedTourMinutes - requestedDuration),
       durationRangePenalty: Math.abs(emergencyMetrics.estimatedTourMinutes - requestedDuration),
-      importanceSum: emergencyPrefix.reduce((sum, place) => sum + getImportanceScore(place), 0),
+      importanceSum: emergencyPrefix.reduce((sum, place) => sum + getRoutePriorityScore(place, theme), 0),
       flagshipDeficit: 0,
       coverageScore: emergencyPrefix.reduce((sum, place) => sum + getCoverageWeight(place), 0),
+      historyExperienceScore: emergencyPrefix.reduce((sum, place) => sum + getHistoryRouteExperienceScore(place, theme), 0),
       categoryBalancePenalty: getCategoryBalancePenalty(emergencyPrefix, maxCategoryRatio),
       plausibilityPenalty: 0,
     };
@@ -762,6 +980,7 @@ export function composeWalkingRoute<T extends RouteCandidate>(
       maxCategoryRatio,
       'centroid_anchor',
       getMaxSegmentMeters(requestedDuration),
+      theme,
       {
         categoryPenaltyMultiplier: maxCategoryRatio <= 0.6 ? 6.0 : 3.0,
         categoryBalanceWeight: 1,
@@ -777,45 +996,92 @@ export function composeWalkingRoute<T extends RouteCandidate>(
       selected.importanceSum = diversified.importanceSum;
       selected.flagshipDeficit = diversified.flagshipDeficit;
       selected.coverageScore = diversified.coverageScore;
+      selected.historyExperienceScore = diversified.historyExperienceScore;
       selected.categoryBalancePenalty = diversified.categoryBalancePenalty;
       selected.plausibilityPenalty = diversified.plausibilityPenalty;
     }
   }
 
-  const lowerBound = requestedDuration * 0.75;
-
-  if (selected.metrics.estimatedTourMinutes < lowerBound && routeCandidates.length > selected.prefix.length) {
-    const retryStopBounds = {
-      minStops: Math.min(routeCandidates.length, Math.max(stopBounds.minStops, selected.prefix.length + 1)),
-      maxStops: Math.min(routeCandidates.length, stopBounds.maxStops + 3),
-    };
-    const retryMaxCategoryRatio = Math.min(0.8, maxCategoryRatio + 0.1);
-    const retriedCandidates = evaluateRouteCandidates(
-      routeCandidates,
+  const upperQualityBound = requestedDuration * 1.15;
+  if (selected.metrics.estimatedTourMinutes > upperQualityBound || selected.metrics.hasOverMaxSegment) {
+    const repairContext: RouteEvaluationContext = {
       requestedDuration,
-      retryStopBounds,
-      retryMaxCategoryRatio,
-      'importance_anchor',
-      getMaxSegmentMeters(requestedDuration, true),
-      {
-        categoryPenaltyMultiplier: retryMaxCategoryRatio <= 0.6 ? 6.0 : 3.0,
-        categoryBalanceWeight: 1,
-      }
-    );
-    const repaired = retriedCandidates.sort(rankSelectionCandidates)[0];
-
-    if (repaired && repaired.durationGap < selected.durationGap) {
+      strategy: 'centroid_anchor',
+      maxSegmentMeters: getMaxSegmentMeters(requestedDuration),
+      requiredFlagships: getRequiredFlagshipCount(routeCandidates, requestedDuration),
+      lowerBound: requestedDuration * 0.75,
+      upperBound: upperQualityBound,
+      maxCategoryRatio,
+      categoryBalanceWeight: 1,
+      theme,
+    };
+    const repaired = repairOverlongPrefix(routeCandidates, selected.prefix, repairContext, stopBounds.minStops);
+    if (rankOverlongRepairCandidates(repaired, selected) < 0) {
       selected.prefix = repaired.prefix;
       selected.metrics = repaired.metrics;
       selected.durationGap = repaired.durationGap;
+      selected.durationRangePenalty = repaired.durationRangePenalty;
       selected.importanceSum = repaired.importanceSum;
+      selected.flagshipDeficit = repaired.flagshipDeficit;
+      selected.coverageScore = repaired.coverageScore;
+      selected.historyExperienceScore = repaired.historyExperienceScore;
+      selected.categoryBalancePenalty = repaired.categoryBalancePenalty;
+      selected.plausibilityPenalty = repaired.plausibilityPenalty;
     }
   }
 
+  const qualityLowerBound = requestedDuration * 0.9;
+
+  if (selected.metrics.estimatedTourMinutes < qualityLowerBound && routeCandidates.length > selected.prefix.length) {
+    const extensionContext: RouteEvaluationContext = {
+      requestedDuration,
+      strategy: 'centroid_anchor',
+      maxSegmentMeters: getMaxSegmentMeters(requestedDuration, true),
+      requiredFlagships: getRequiredFlagshipCount(routeCandidates, requestedDuration),
+      lowerBound: qualityLowerBound,
+      upperBound: requestedDuration * 1.15,
+      maxCategoryRatio: Math.min(0.8, maxCategoryRatio + 0.1),
+      categoryBalanceWeight: 1,
+      theme,
+    };
+    const maxExtendedStops = getQualityExtensionMaxStops(requestedDuration, stopBounds, routeCandidates.length);
+
+    while (selected.metrics.estimatedTourMinutes < qualityLowerBound && selected.prefix.length < maxExtendedStops) {
+      const selectedKeys = new Set(selected.prefix.map((candidate) => getCandidateKey(candidate)));
+      const additions = routeCandidates
+        .filter((candidate) => !selectedKeys.has(getCandidateKey(candidate)))
+        .map((candidate) => evaluatePrefix([...selected.prefix, candidate], extensionContext))
+        .filter((evaluation) => !evaluation.metrics.hasOverMaxSegment)
+        .sort((a, b) => {
+          if (a.metrics.outOfIdealSegments !== b.metrics.outOfIdealSegments) {
+            return a.metrics.outOfIdealSegments - b.metrics.outOfIdealSegments;
+          }
+          if (a.plausibilityPenalty !== b.plausibilityPenalty) {
+            return a.plausibilityPenalty - b.plausibilityPenalty;
+          }
+          return rankSelectionCandidates(a, b);
+        });
+      const extended = additions[0];
+      if (!extended) break;
+
+      selected.prefix = extended.prefix;
+      selected.metrics = extended.metrics;
+      selected.durationGap = extended.durationGap;
+      selected.durationRangePenalty = extended.durationRangePenalty;
+      selected.importanceSum = extended.importanceSum;
+      selected.flagshipDeficit = extended.flagshipDeficit;
+      selected.coverageScore = extended.coverageScore;
+      selected.historyExperienceScore = extended.historyExperienceScore;
+      selected.categoryBalancePenalty = extended.categoryBalancePenalty;
+      selected.plausibilityPenalty = extended.plausibilityPenalty;
+    }
+  }
+
+  const calibratedEstimatedTourMinutes = selected.metrics.estimatedTourMinutes + (selected.prefix.length * 0.5);
   const coverageRatio = requestedDuration > 0
-    ? selected.metrics.estimatedTourMinutes / requestedDuration
+    ? calibratedEstimatedTourMinutes / requestedDuration
     : 1;
-  const degraded = selected.metrics.estimatedTourMinutes < lowerBound;
+  const degraded = calibratedEstimatedTourMinutes < requestedDuration * 0.75;
 
   return {
     route: selected.prefix,
@@ -823,7 +1089,7 @@ export function composeWalkingRoute<T extends RouteCandidate>(
       degraded,
       degradationReason: degraded ? 'duration_below_requested' : null,
       coverageRatio,
-      estimatedTourMinutes: selected.metrics.estimatedTourMinutes,
+      estimatedTourMinutes: calibratedEstimatedTourMinutes,
       requestedDuration,
     },
   };

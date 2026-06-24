@@ -2,23 +2,35 @@
   "city": "Roma",
   "theme": "history",
   "requestedDuration": 240,
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "stopBounds": {
     "minStops": 6,
     "maxStops": 10
   },
   "candidates": [
     {
-      "name": "Basilica di San Pietro",
-      "wikidataId": "Q12512",
+      "name": "Piazza Navona",
+      "wikidataId": "Q463400",
       "coordinates": {
-        "lat": 41.9021616,
-        "lng": 12.4537132
+        "lat": 41.8989256,
+        "lng": 12.4730991
       },
-      "importance_score": 52.317103439085365,
-      "fameScore": 29.317103439085365,
+      "importance_score": 59.50488750216347,
+      "fameScore": 33.50488750216347,
       "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "square_civic",
+      "historyPlaceScore": 16.79,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Pantheon",
@@ -27,46 +39,24 @@
         "lat": 41.8986261,
         "lng": 12.4768335
       },
-      "importance_score": 50.16134224453131,
-      "fameScore": 27.16134224453131,
+      "importance_score": 59.16134224453131,
+      "fameScore": 34.16134224453131,
       "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Colosseo",
-      "wikidataId": "Q10285",
-      "coordinates": {
-        "lat": 41.8902602,
-        "lng": 12.4923737
-      },
-      "importance_score": 49.81947367664005,
-      "fameScore": 28.81947367664005,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Piazza Navona",
-      "wikidataId": "Q463400",
-      "coordinates": {
-        "lat": 41.8989256,
-        "lng": 12.4730991
-      },
-      "importance_score": 49.50488750216347,
-      "fameScore": 26.50488750216347,
-      "landmarkTier": "flagship",
-      "category": "square_civic"
-    },
-    {
-      "name": "Basilica di San Paolo fuori le mura",
-      "wikidataId": "Q231699",
-      "coordinates": {
-        "lat": 41.8586828,
-        "lng": 12.4768291
-      },
-      "importance_score": 48.897929148085524,
-      "fameScore": 25.897929148085524,
-      "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "religious",
+      "historyPlaceScore": 18.65,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "heritage-religious",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
     },
     {
       "name": "Piazza di Spagna",
@@ -75,10 +65,70 @@
         "lat": 41.9056657,
         "lng": 12.4822771
       },
-      "importance_score": 48.82265601385425,
-      "fameScore": 25.82265601385425,
+      "importance_score": 58.82265601385425,
+      "fameScore": 32.82265601385425,
       "landmarkTier": "flagship",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 16.68,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Colosseo",
+      "wikidataId": "Q10285",
+      "coordinates": {
+        "lat": 41.8902602,
+        "lng": 12.4923737
+      },
+      "importance_score": 58.81947367664005,
+      "fameScore": 35.81947367664005,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17.59,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Basilica di San Paolo fuori le mura",
+      "wikidataId": "Q231699",
+      "coordinates": {
+        "lat": 41.8586828,
+        "lng": 12.4768291
+      },
+      "importance_score": 57.897929148085524,
+      "fameScore": 32.897929148085524,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 11.44,
+      "historyPlaceKinds": [
+        "walkable-landmark",
+        "event-type",
+        "heritage-religious",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Castel Sant’Angelo",
@@ -87,34 +137,23 @@
         "lat": 41.9030762,
         "lng": 12.4663312
       },
-      "importance_score": 47.897929148085524,
-      "fameScore": 25.897929148085524,
+      "importance_score": 57.897929148085524,
+      "fameScore": 32.897929148085524,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Civitas Vaticana - Città del Vaticano",
-      "wikidataId": "Q237",
-      "coordinates": {
-        "lat": 41.903411,
-        "lng": 12.4528527
-      },
-      "importance_score": 47.70263830884655,
-      "fameScore": 29.702638308846552,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Cappella Sistina",
-      "wikidataId": "Q2943",
-      "coordinates": {
-        "lat": 41.9029338,
-        "lng": 12.4544042
-      },
-      "importance_score": 47.177200292899194,
-      "fameScore": 25.177200292899194,
-      "landmarkTier": "flagship",
-      "category": "religious"
+      "category": "palace_castle",
+      "historyPlaceScore": 14.94,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
     },
     {
       "name": "Forum Romanum",
@@ -123,70 +162,22 @@
         "lat": 41.8916837,
         "lng": 12.4870791
       },
-      "importance_score": 45.75977500432694,
-      "fameScore": 25.759775004326936,
+      "importance_score": 55.75977500432694,
+      "fameScore": 32.75977500432694,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Villa d'Este",
-      "wikidataId": "Q746063",
-      "coordinates": {
-        "lat": 41.9628981,
-        "lng": 12.7958359
-      },
-      "importance_score": 45.00488750216347,
-      "fameScore": 24.00488750216347,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Palazzo Farnese",
-      "wikidataId": "Q848386",
-      "coordinates": {
-        "lat": 41.8946528,
-        "lng": 12.4706818
-      },
-      "importance_score": 43.60620665658675,
-      "fameScore": 22.606206656586746,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
-    },
-    {
-      "name": "Villa Adriana",
-      "wikidataId": "Q272777",
-      "coordinates": {
-        "lat": 41.9408162,
-        "lng": 12.7760646
-      },
-      "importance_score": 43.35131915442328,
-      "fameScore": 24.351319154423276,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Ostia Antica",
-      "wikidataId": "Q1012797",
-      "coordinates": {
-        "lat": 41.7534696,
-        "lng": 12.2885567
-      },
-      "importance_score": 43.18156856932417,
-      "fameScore": 24.181568569324174,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Villa Medici",
-      "wikidataId": "Q1362663",
-      "coordinates": {
-        "lat": 41.9082741,
-        "lng": 12.4826743
-      },
-      "importance_score": 42.25977500432694,
-      "fameScore": 22.259775004326936,
-      "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "other",
+      "historyPlaceScore": 18.08,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Altare della Patria",
@@ -195,130 +186,66 @@
         "lat": 41.8947045,
         "lng": 12.4831835
       },
-      "importance_score": 42.12829485591189,
-      "fameScore": 22.128294855911893,
+      "importance_score": 54.62829485591189,
+      "fameScore": 30.128294855911893,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 15,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "civic-power-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Musei Capitolini",
-      "wikidataId": "Q333906",
+      "name": "Palazzo Farnese",
+      "wikidataId": "Q848386",
       "coordinates": {
-        "lat": 41.892888,
-        "lng": 12.4827602
+        "lat": 41.8946528,
+        "lng": 12.4706818
       },
-      "importance_score": 41.663766555032915,
-      "fameScore": 22.663766555032915,
+      "importance_score": 52.60620665658675,
+      "fameScore": 29.606206656586746,
       "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "palace_castle",
+      "historyPlaceScore": 18.64,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Foro di Traiano",
-      "wikidataId": "Q211295",
+      "name": "Capitoline Hill",
+      "wikidataId": "Q34925",
       "coordinates": {
-        "lat": 41.8951582,
-        "lng": 12.4851731
+        "lat": 41.893333333,
+        "lng": 12.483055555
       },
-      "importance_score": 41.50488750216347,
-      "fameScore": 22.50488750216347,
+      "importance_score": 49.43038852375101,
+      "fameScore": 28.890388523751017,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Terme di Caracalla",
-      "wikidataId": "Q502098",
-      "coordinates": {
-        "lat": 41.878907,
-        "lng": 12.4923938
-      },
-      "importance_score": 41.12829485591189,
-      "fameScore": 22.128294855911893,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Musei Vaticani",
-      "wikidataId": "Q182955",
-      "coordinates": {
-        "lat": 41.9049275,
-        "lng": 12.4546217
-      },
-      "importance_score": 41.067103439085365,
-      "fameScore": 24.067103439085365,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Galleria Borghese",
-      "wikidataId": "Q841506",
-      "coordinates": {
-        "lat": 41.9141133,
-        "lng": 12.4921053
-      },
-      "importance_score": 40.913766555032915,
-      "fameScore": 21.913766555032915,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Ara Pacis Augustae",
-      "wikidataId": "Q623612",
-      "coordinates": {
-        "lat": 41.9061511,
-        "lng": 12.4755017
-      },
-      "importance_score": 40.82265601385425,
-      "fameScore": 21.82265601385425,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Arco di Costantino",
-      "wikidataId": "Q5786",
-      "coordinates": {
-        "lat": 41.8897623,
-        "lng": 12.4906668
-      },
-      "importance_score": 40.68156856932417,
-      "fameScore": 22.681568569324174,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Basilica di San Clemente al Laterano",
-      "wikidataId": "Q385910",
-      "coordinates": {
-        "lat": 41.8893219,
-        "lng": 12.4976195
-      },
-      "importance_score": 40.323942985382715,
-      "fameScore": 20.323942985382715,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Piramide di Caio Cestio",
-      "wikidataId": "Q725404",
-      "coordinates": {
-        "lat": 41.8764486,
-        "lng": 12.480854
-      },
-      "importance_score": 40.1378490508349,
-      "fameScore": 21.137849050834898,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Arco di Tito",
-      "wikidataId": "Q723887",
-      "coordinates": {
-        "lat": 41.8906722,
-        "lng": 12.4885842
-      },
-      "importance_score": 40.028794264106295,
-      "fameScore": 22.028794264106295,
-      "landmarkTier": "flagship",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 8.04,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Campo de' Fiori",
@@ -327,22 +254,373 @@
         "lat": 41.8955725,
         "lng": 12.4721223
       },
-      "importance_score": 39.87836009688685,
-      "fameScore": 21.87836009688685,
+      "importance_score": 55.87836009688685,
+      "fameScore": 30.87836009688685,
       "landmarkTier": "flagship",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 13.6,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Tempio di Portuno",
-      "wikidataId": "Q849241",
+      "name": "Basilica di San Pietro",
+      "wikidataId": "Q12512",
       "coordinates": {
-        "lat": 41.8892481,
-        "lng": 12.4809078
+        "lat": 41.9021616,
+        "lng": 12.4537132
       },
-      "importance_score": 39.012388523751014,
-      "fameScore": 21.012388523751017,
+      "importance_score": 55.36710343908536,
+      "fameScore": 33.86710343908536,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Apostolic Palace",
+      "wikidataId": "Q145093",
+      "coordinates": {
+        "lat": 41.903611111,
+        "lng": 12.456388888
+      },
+      "importance_score": 51.720671786825555,
+      "fameScore": 29.720671786825555,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 18.95,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Arco di Costantino",
+      "wikidataId": "Q5786",
+      "coordinates": {
+        "lat": 41.8897623,
+        "lng": 12.4906668
+      },
+      "importance_score": 51.68156856932417,
+      "fameScore": 29.681568569324174,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.82,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Saint Peter's Square",
+      "wikidataId": "Q83425",
+      "coordinates": {
+        "lat": 41.902183055,
+        "lng": 12.457238888
+      },
+      "importance_score": 54.698267571373314,
+      "fameScore": 31.698267571373314,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 17.03,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Foro di Traiano",
+      "wikidataId": "Q211295",
+      "coordinates": {
+        "lat": 41.8951582,
+        "lng": 12.4851731
+      },
+      "importance_score": 51.50488750216347,
+      "fameScore": 29.50488750216347,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17.79,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Quirinal Palace",
+      "wikidataId": "Q223079",
+      "coordinates": {
+        "lat": 41.9,
+        "lng": 12.4875
+      },
+      "importance_score": 51.2646625064904,
+      "fameScore": 29.264662506490403,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 18.88,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Cappella Sistina",
+      "wikidataId": "Q2943",
+      "coordinates": {
+        "lat": 41.9029338,
+        "lng": 12.4544042
+      },
+      "importance_score": 50.2272002928992,
+      "fameScore": 29.727200292899195,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "piazza del Popolo",
+      "wikidataId": "Q824997",
+      "coordinates": {
+        "lat": 41.910714,
+        "lng": 12.476317
+      },
+      "importance_score": 52.46578428466209,
+      "fameScore": 29.46578428466209,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 16.66,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Terme di Caracalla",
+      "wikidataId": "Q502098",
+      "coordinates": {
+        "lat": 41.878907,
+        "lng": 12.4923938
+      },
+      "importance_score": 51.12829485591189,
+      "fameScore": 29.128294855911893,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.73,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Villa Medici",
+      "wikidataId": "Q1362663",
+      "coordinates": {
+        "lat": 41.9082741,
+        "lng": 12.4826743
+      },
+      "importance_score": 50.55977500432694,
+      "fameScore": 28.559775004326937,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "piazza Venezia",
+      "wikidataId": "Q874832",
+      "coordinates": {
+        "lat": 41.89639,
+        "lng": 12.4825
+      },
+      "importance_score": 52.35620665658675,
+      "fameScore": 29.356206656586746,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 16.64,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Arco di Tito",
+      "wikidataId": "Q723887",
+      "coordinates": {
+        "lat": 41.8906722,
+        "lng": 12.4885842
+      },
+      "importance_score": 51.028794264106295,
+      "fameScore": 29.028794264106295,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 16.71,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Lateran Palace",
+      "wikidataId": "Q848394",
+      "coordinates": {
+        "lat": 41.886666666,
+        "lng": 12.505277777
+      },
+      "importance_score": 47.85620665658675,
+      "fameScore": 27.856206656586746,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 18.64,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-name",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Mura Serviane",
+      "wikidataId": "Q281330",
+      "coordinates": {
+        "lat": 41.9063705,
+        "lng": 12.4943134
+      },
+      "importance_score": 50.493782540330756,
+      "fameScore": 28.493782540330756,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17.62,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Domus Aurea",
+      "wikidataId": "Q622438",
+      "coordinates": {
+        "lat": 41.891388888,
+        "lng": 12.495277777
+      },
+      "importance_score": 47.743782540330756,
+      "fameScore": 27.743782540330756,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 14.62,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "walkable-landmark",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
     },
     {
       "name": "Teatro di Marcello",
@@ -351,58 +629,114 @@
         "lat": 41.8919515,
         "lng": 12.4796761
       },
-      "importance_score": 38.25977500432694,
-      "fameScore": 21.259775004326936,
+      "importance_score": 50.25977500432694,
+      "fameScore": 28.259775004326936,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 11.58,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Foro di Cesare",
-      "wikidataId": "Q856968",
+      "name": "Palatine Hill",
+      "wikidataId": "Q200642",
       "coordinates": {
-        "lat": 41.8936887,
-        "lng": 12.4852983
+        "lat": 41.888333333,
+        "lng": 12.486944444
       },
-      "importance_score": 37.75,
-      "fameScore": 20.75,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 49,
+      "fameScore": 29,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "museum-with-site-context",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": true
     },
     {
-      "name": "Mercati di Traiano",
-      "wikidataId": "Q478642",
+      "name": "Trajan's Column",
+      "wikidataId": "Q192784",
       "coordinates": {
-        "lat": 41.8955588,
-        "lng": 12.4860417
+        "lat": 41.895833333,
+        "lng": 12.484166666
       },
-      "importance_score": 37.470671786825555,
-      "fameScore": 20.470671786825555,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 48.498670042494226,
+      "fameScore": 28.498670042494226,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17.92,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Galleria Nazionale d'Arte Moderna e Contemporanea",
-      "wikidataId": "Q1492387",
+      "name": "Circus Maximus",
+      "wikidataId": "Q207808",
       "coordinates": {
-        "lat": 41.9172357,
-        "lng": 12.4823242
+        "lat": 41.8859,
+        "lng": 12.4857
       },
-      "importance_score": 37.42206476617281,
-      "fameScore": 20.42206476617281,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 48.1837613636896,
+      "fameScore": 28.183761363689598,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 17.86,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "MAXXI Museo nazionale delle arti del XXI secolo",
-      "wikidataId": "Q1881229",
+      "name": "Tempio di Portuno",
+      "wikidataId": "Q849241",
       "coordinates": {
-        "lat": 41.9288353,
-        "lng": 12.4656869
+        "lat": 41.8892481,
+        "lng": 12.4809078
       },
-      "importance_score": 37.10131915442328,
-      "fameScore": 20.101319154423276,
+      "importance_score": 48.012388523751014,
+      "fameScore": 28.012388523751017,
       "landmarkTier": "major",
-      "category": "museum"
+      "category": "other",
+      "historyPlaceScore": 11.54,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Foro di Augusto",
@@ -411,10 +745,22 @@
         "lat": 41.8942559,
         "lng": 12.4866576
       },
-      "importance_score": 36.88318235807536,
-      "fameScore": 20.88318235807536,
+      "importance_score": 47.88318235807536,
+      "fameScore": 27.88318235807536,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 17.52,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Terme di Diocleziano",
@@ -423,58 +769,106 @@
         "lat": 41.9036818,
         "lng": 12.4979766
       },
-      "importance_score": 36.88318235807536,
-      "fameScore": 20.88318235807536,
+      "importance_score": 47.88318235807536,
+      "fameScore": 27.88318235807536,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Colonna di Foca",
-      "wikidataId": "Q369075",
+      "name": "Foro di Cesare",
+      "wikidataId": "Q856968",
       "coordinates": {
-        "lat": 41.8924452,
-        "lng": 12.4848486
+        "lat": 41.8936887,
+        "lng": 12.4852983
       },
-      "importance_score": 35.87836009688685,
-      "fameScore": 20.87836009688685,
+      "importance_score": 47.75,
+      "fameScore": 27.75,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Basilica Iulia",
-      "wikidataId": "Q616271",
+      "name": "Mercati di Traiano",
+      "wikidataId": "Q478642",
       "coordinates": {
-        "lat": 41.8919543,
-        "lng": 12.4847813
+        "lat": 41.8955588,
+        "lng": 12.4860417
       },
-      "importance_score": 35.323942985382715,
-      "fameScore": 20.323942985382715,
+      "importance_score": 47.470671786825555,
+      "fameScore": 27.470671786825555,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Tempio di Ercole Vincitore",
-      "wikidataId": "Q576929",
+      "name": "Aurelian Walls",
+      "wikidataId": "Q625149",
       "coordinates": {
-        "lat": 41.8887407,
-        "lng": 12.4807681
+        "lat": 41.873292,
+        "lng": 12.498955
       },
-      "importance_score": 35.323942985382715,
-      "fameScore": 20.323942985382715,
+      "importance_score": 45.75488750216347,
+      "fameScore": 27.75488750216347,
       "landmarkTier": "major",
-      "category": "other"
+      "category": "other",
+      "historyPlaceScore": 17.79,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Carcere Mamertino",
-      "wikidataId": "Q1035634",
+      "name": "Civitas Vaticana - Città del Vaticano",
+      "wikidataId": "Q237",
       "coordinates": {
-        "lat": 41.8931425,
-        "lng": 12.484585
+        "lat": 41.903411,
+        "lng": 12.4528527
       },
-      "importance_score": 35.10131915442328,
-      "fameScore": 20.101319154423276,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 40.70263830884655,
+      "fameScore": 29.702638308846552,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 0,
+      "historyPlaceKinds": [
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Palazzo Orsini",
@@ -483,10 +877,64 @@
         "lat": 42.0517044,
         "lng": 12.6166465
       },
-      "importance_score": 31.68183977049975,
-      "fameScore": 21.68183977049975,
+      "importance_score": 2.3434990509484805,
+      "fameScore": 28.68183977049975,
       "landmarkTier": "flagship",
-      "category": "palace_castle"
+      "category": "palace_castle",
+      "historyPlaceScore": 14,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "civic-power-site",
+        "event-name",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Ostia Antica",
+      "wikidataId": "Q1012797",
+      "coordinates": {
+        "lat": 41.7534696,
+        "lng": 12.2885567
+      },
+      "importance_score": 3.738515667884144,
+      "fameScore": 31.181568569324174,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Villa Adriana",
+      "wikidataId": "Q272777",
+      "coordinates": {
+        "lat": 41.9408162,
+        "lng": 12.7760646
+      },
+      "importance_score": -3.880867286498784,
+      "fameScore": 31.351319154423276,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     }
   ]
 }

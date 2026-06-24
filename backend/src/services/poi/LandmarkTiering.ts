@@ -2,6 +2,7 @@ import { RawPoi } from '../../domain/poi/RawPoi';
 import { classifyPoiTags, hasPoiNotabilityTag } from '../../domain/poi/PoiClassification';
 import { Theme } from '../../domain/poi/themeTags';
 import { wikidataGet } from '../../infrastructure/enrichment/wikidataClient';
+import { getHistoryPlaceProfile } from './HistoryPlaceScoring';
 
 export type LandmarkTier = 'flagship' | 'major' | 'supporting' | 'filler';
 
@@ -253,7 +254,7 @@ function shouldExcludePoiForTheme(
   return hasHistoryExcludedType(instanceOfLabels);
 }
 
-export function scoreLandmarkFame(poi: RawPoi, sitelinks: number): number {
+export function scoreLandmarkFame(poi: RawPoi, sitelinks: number, theme?: Theme): number {
   const category = classifyPoiTags(poi.tags);
   let score = Math.log2(sitelinks + 1) * 3;
 
@@ -267,7 +268,7 @@ export function scoreLandmarkFame(poi: RawPoi, sitelinks: number): number {
   if (poi.tags.amenity === 'marketplace') score += 1.25;
   if (poi.tags.heritage) score += 1.5;
 
-  if (category === 'palace_castle' || category === 'square_civic' || category === 'museum') {
+  if (category === 'palace_castle' || category === 'square_civic' || category === 'civic_power' || category === 'museum') {
     score += 1;
   }
 
@@ -277,6 +278,14 @@ export function scoreLandmarkFame(poi: RawPoi, sitelinks: number): number {
 
   if (category === 'memorial') score -= 1.5;
   if (category === 'artwork') score -= 1;
+
+  if (theme === 'history') {
+    const historyProfile = getHistoryPlaceProfile(poi);
+    score += Math.min(7, historyProfile.score * 0.7);
+    if (historyProfile.isMuseumLike && !historyProfile.isEventSiteLike) {
+      score -= 3;
+    }
+  }
 
   return score;
 }
@@ -315,7 +324,7 @@ export function tierPoisByLandmarkFame(
     return [{
       ...poi,
       fame: { sitelinks },
-      fameScore: scoreLandmarkFame(poi, effectiveSitelinks),
+      fameScore: scoreLandmarkFame(poi, effectiveSitelinks, theme),
       landmarkTier: 'filler' as LandmarkTier,
       _fameAttribution: fameAttribution,
     }];

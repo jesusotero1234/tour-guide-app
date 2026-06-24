@@ -1,0 +1,1387 @@
+{
+  "id": "fixture-candidate",
+  "city": "Malaga",
+  "country": "Spain",
+  "countryCode": "ES",
+  "theme": "history",
+  "language": "es",
+  "durationMinutes": 240,
+  "metadata": {
+    "generationMode": "frozen-fixture-replay",
+    "sourceSnapshot": "malaga-history-es.json",
+    "routeDiagnostics": {
+      "degraded": false,
+      "degradationReason": null,
+      "coverageRatio": 0.9388275985256969,
+      "estimatedTourMinutes": 225.31862364616725,
+      "requestedDuration": 240
+    }
+  },
+  "places": [
+    {
+      "id": "fixture-1",
+      "tourId": "fixture-candidate",
+      "name": "Palacio de los Condes de Buenavista",
+      "description": "Imagina que caminas junto a Diego de Cazalla hacia este edificio de la calle San Agustín. Detente frente al Palacio de los Condes de Buenavista, donde el siglo XVI aún se siente en su estructura civil. Este es apenas el primer paso de las trece paradas que nos esperan durante estos 240 minutos de recorrido. Al observar sus muros, pregúntate cómo Málaga logra reinventar su vida pública manteniendo intactos los rastros de cada era pasada.\n\nObserva la fachada plateresca que Diego de Cazalla levantó entre 1530 y 1540 para los Condes de Buenavista de la Victoria. Este edificio residencial experimentó una transformación profunda cuando, tras el Real Decreto de 1913, pasó a albergar el Museo de Bellas Artes. La estructura cambió su propósito privado por uno público, culminando en 1996 como sede del Museo Picasso Málaga. Fíjate cómo los elementos mudéjares y la torre con arcas bajo alfiz sobreviven al paso de los siglos.\n\nFíjate cómo la esencia de este edificio revela el alma de nuestra ciudad. Al observar su torre con arcas bajo alfiz, comprendes que Málaga no solo conserva muros, sino que transforma sus funciones. Lo que antaño fue un refugio privado para los Condes de Buenavista, hoy late como un espacio de encuentro cultural al albergar el Museo Picasso. Esta transición de lo residencial a lo público es la clave para entender cómo reinventamos nuestra vida cotidiana sin borrar las huellas del pasado.\n\nSi comprendes cómo este espacio privado se volvió cultural, entenderás nuestra ciudad. Esa capacidad de transformar lo antiguo en algo vivo nos acompaña mientras avanzamos. Deja que esa idea te guíe hacia la Catedral de Málaga, donde la historia adquiere una dimensión mucho más monumental.",
+      "descriptionSections": {
+        "arrival": "Imagina que caminas junto a Diego de Cazalla hacia este edificio de la calle San Agustín. Detente frente al Palacio de los Condes de Buenavista, donde el siglo XVI aún se siente en su estructura civil. Este es apenas el primer paso de las trece paradas que nos esperan durante estos 240 minutos de recorrido. Al observar sus muros, pregúntate cómo Málaga logra reinventar su vida pública manteniendo intactos los rastros de cada era pasada.",
+        "history": "Observa la fachada plateresca que Diego de Cazalla levantó entre 1530 y 1540 para los Condes de Buenavista de la Victoria. Este edificio residencial experimentó una transformación profunda cuando, tras el Real Decreto de 1913, pasó a albergar el Museo de Bellas Artes. La estructura cambió su propósito privado por uno público, culminando en 1996 como sede del Museo Picasso Málaga. Fíjate cómo los elementos mudéjares y la torre con arcas bajo alfiz sobreviven al paso de los siglos.",
+        "significance": "Fíjate cómo la esencia de este edificio revela el alma de nuestra ciudad. Al observar su torre con arcas bajo alfiz, comprendes que Málaga no solo conserva muros, sino que transforma sus funciones. Lo que antaño fue un refugio privado para los Condes de Buenavista, hoy late como un espacio de encuentro cultural al albergar el Museo Picasso. Esta transición de lo residencial a lo público es la clave para entender cómo reinventamos nuestra vida cotidiana sin borrar las huellas del pasado.",
+        "transition": "Si comprendes cómo este espacio privado se volvió cultural, entenderás nuestra ciudad. Esa capacidad de transformar lo antiguo en algo vivo nos acompaña mientras avanzamos. Deja que esa idea te guíe hacia la Catedral de Málaga, donde la historia adquiere una dimensión mucho más monumental."
+      },
+      "latitude": 36.721559,
+      "longitude": -4.4182724,
+      "position": 0,
+      "importanceScore": 46.23903972474731,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 12121786,
+          "wikidata": "Q969308",
+          "wikipedia": "es:Palacio de los Condes de Buenavista",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 23.00488750216347,
+          "osmTags": {
+            "name": "Palacio de los Condes de Buenavista",
+            "type": "multipolygon",
+            "ref:bic": "RI-51-0001103",
+            "tourism": "attraction",
+            "building": "public",
+            "heritage": "2",
+            "historic": "building",
+            "loc_name": "Palacio de Buenavista",
+            "wikidata": "Q969308",
+            "wikipedia": "es:Palacio de los Condes de Buenavista",
+            "start_date": "~1530s",
+            "wheelchair": "yes",
+            "building:levels": "4",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Palacio de los Condes de Buenavista, Málaga",
+            "bic:inscription_date": "28-12-1939",
+            "building:architecture": "renaissance",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "4d515665-d9b9-49b4-b45f-82d5feef8530",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2542,
+          "totalDurationMs": 22425,
+          "claimCheck": {
+            "totalExtracted": 10,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 10,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 10,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1530",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "iego de Cazalla levantó entre 1530 y 1540 para los Condes de Bue"
+              },
+              {
+                "type": "date",
+                "value": "1540",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " Cazalla levantó entre 1530 y 1540 para los Condes de Buenavista"
+              },
+              {
+                "type": "date",
+                "value": "1913",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ando, tras el Real Decreto de 1913, pasó a albergar el Museo de "
+              },
+              {
+                "type": "date",
+                "value": "1996",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "or uno público, culminando en 1996 como sede del Museo Picasso M"
+              },
+              {
+                "type": "date",
+                "value": "siglo XVI",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ondes de Buenavista, donde el siglo XVI aún se siente en su estructur"
+              },
+              {
+                "type": "style",
+                "value": "mudéjar",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ga. Fíjate cómo los elementos mudéjares y la torre con arcas bajo a"
+              },
+              {
+                "type": "style",
+                "value": "mudéjares",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ga. Fíjate cómo los elementos mudéjares y la torre con arcas bajo alf"
+              },
+              {
+                "type": "style",
+                "value": "plateresca",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "a pasada.  Observa la fachada plateresca que Diego de Cazalla levantó "
+              },
+              {
+                "type": "location",
+                "value": "Museo de Bellas Artes",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "o de 1913, pasó a albergar el Museo de Bellas Artes. La estructura cambió su prop"
+              },
+              {
+                "type": "location",
+                "value": "Museo Picasso",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "minando en 1996 como sede del Museo Picasso Málaga. Fíjate cómo los eleme"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-2",
+      "tourId": "fixture-candidate",
+      "name": "Iglesia Catedral de la Encarnación",
+      "description": "Fíjate cómo la Catedral de la Encarnación se impone frente a la plaza del Obispo, ocupando el solar donde antes se alzaba la primitiva mezquita aljama. Si observas su presencia, notarás que sus muros respetan los límites de la antigua muralla árabe desaparecida. Este espacio marca el inicio de una transformación profunda, preparando tu mirada para descubrir qué secretos guarda el Palacio de la Aduana.\n\nTras la conquista de 1487, los Reyes Católicos ordenaron levantar un templo cristiano sobre la antigua mezquita aljama. Si miras su estructura, notarás una transición de estilos que tardó siglos en consolidarse. Las trazas góticas originales, influenciadas por Diego de Siloé, se transformaron en un proyecto renacentista desde 1528. Observa cómo las naves alcanzan alturas que solo la Catedral de Palma supera en España. Esta construcción, que se prolongó hasta 1782, dejó una obra inconclusa pero llena de capas históricas.\n\nSi te fijas en la altura de sus naves, comprendes la escala de este proyecto que buscaba superar otros templos españoles. La estructura mantiene el trazado de la antigua muralla árabe, lo que permite ver cómo la ciudad se reorganizó sobre su propio pasado. Esta superposición de un templo cristiano sobre la mezquita aljama define la identidad de Málaga. Al dejar atrás este recinto religioso, tu camino se dirige hacia las funciones comerciales del Palacio de la Aduana.\n\nAl contemplar este templo que se asienta sobre la antigua mezquita, comprendes cómo la fe transformó el relieve urbano. Esta superposición de eras nos invita a buscar ahora otro tipo de movimiento, uno vinculado al intercambio y al comercio que verás reflejado en el Palacio de la Aduana.",
+      "descriptionSections": {
+        "arrival": "Fíjate cómo la Catedral de la Encarnación se impone frente a la plaza del Obispo, ocupando el solar donde antes se alzaba la primitiva mezquita aljama. Si observas su presencia, notarás que sus muros respetan los límites de la antigua muralla árabe desaparecida. Este espacio marca el inicio de una transformación profunda, preparando tu mirada para descubrir qué secretos guarda el Palacio de la Aduana.",
+        "history": "Tras la conquista de 1487, los Reyes Católicos ordenaron levantar un templo cristiano sobre la antigua mezquita aljama. Si miras su estructura, notarás una transición de estilos que tardó siglos en consolidarse. Las trazas góticas originales, influenciadas por Diego de Siloé, se transformaron en un proyecto renacentista desde 1528. Observa cómo las naves alcanzan alturas que solo la Catedral de Palma supera en España. Esta construcción, que se prolongó hasta 1782, dejó una obra inconclusa pero llena de capas históricas.",
+        "significance": "Si te fijas en la altura de sus naves, comprendes la escala de este proyecto que buscaba superar otros templos españoles. La estructura mantiene el trazado de la antigua muralla árabe, lo que permite ver cómo la ciudad se reorganizó sobre su propio pasado. Esta superposición de un templo cristiano sobre la mezquita aljama define la identidad de Málaga. Al dejar atrás este recinto religioso, tu camino se dirige hacia las funciones comerciales del Palacio de la Aduana.",
+        "transition": "Al contemplar este templo que se asienta sobre la antigua mezquita, comprendes cómo la fe transformó el relieve urbano. Esta superposición de eras nos invita a buscar ahora otro tipo de movimiento, uno vinculado al intercambio y al comercio que verás reflejado en el Palacio de la Aduana."
+      },
+      "latitude": 36.7201789,
+      "longitude": -4.41941,
+      "position": 1,
+      "importanceScore": 50.022248294699715,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 1015333951,
+          "wikidata": "Q1582758",
+          "wikipedia": "es:Catedral de Málaga",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 27.470671786825555,
+          "osmTags": {
+            "name": "Catedral de Málaga",
+            "wikidata": "Q1582758",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "29",
+            "canonical:instance_of": "minor basilica|monument|Catholic cathedral",
+            "tourism": "attraction",
+            "historic": "monument",
+            "url": "https://www.youtube.com/watch?v=BJmOdodPGyA",
+            "email": "catedral@diocesismalaga.es",
+            "image": "https://photos.app.goo.gl/7YfaQSVgHFnD9qzc7",
+            "phone": "+34 952 22 03 45",
+            "url:0": "https://youtu.be/cTHkwqzDFik?si=pqrDeKLUppyTh_lS",
+            "amenity": "place_of_worship",
+            "website": "https://malagacatedral.com/",
+            "building": "cathedral",
+            "loc_name": "La Manquita",
+            "religion": "christian",
+            "addr:city": "Malaga",
+            "architect": "Diego de Siloé",
+            "wikipedia": "es:Catedral de Málaga",
+            "wheelchair": "yes",
+            "addr:street": "Calle Molina Lario",
+            "denomination": "roman_catholic",
+            "addr:postcode": "29015",
+            "official_name": "Santa Iglesia Catedral Basílica de la Encarnación",
+            "addr:housenumber": "9",
+            "architect:wikidata": "Q940671",
+            "architect:wikipedia": "es:Diego de Siloé"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "b7f5f6fb-7e0f-4c85-8741-805188ab5059",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2650,
+          "totalDurationMs": 29770,
+          "claimCheck": {
+            "totalExtracted": 8,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 8,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 8,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1487",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "Aduana.  Tras la conquista de 1487, los Reyes Católicos ordenaro"
+              },
+              {
+                "type": "date",
+                "value": "1528",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "n proyecto renacentista desde 1528. Observa cómo las naves alcan"
+              },
+              {
+                "type": "date",
+                "value": "1782",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ucción, que se prolongó hasta 1782, dejó una obra inconclusa per"
+              },
+              {
+                "type": "historical_person",
+                "value": "Diego de Siloé",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "originales, influenciadas por Diego de Siloé, se transformaron en un proye"
+              },
+              {
+                "type": "style",
+                "value": "gótica",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s en consolidarse. Las trazas góticas originales, influenciadas po"
+              },
+              {
+                "type": "style",
+                "value": "góticas",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s en consolidarse. Las trazas góticas originales, influenciadas por"
+              },
+              {
+                "type": "style",
+                "value": "renacentista",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " transformaron en un proyecto renacentista desde 1528. Observa cómo las "
+              },
+              {
+                "type": "location",
+                "value": "Catedral de Palma",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " alcanzan alturas que solo la Catedral de Palma supera en España. Esta constr"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-3",
+      "tourId": "fixture-candidate",
+      "name": "Palacio de la Aduana",
+      "description": "¿Te has preguntado alguna vez qué fuerzas movían el comercio antes de que los puertos modernos existieran? Al dejar atrás la Catedral, te encuentras frente a este edificio que marca un cambio en nuestra historia urbana. Fíjate cómo su presencia junto al parque de Málaga impone una escala distinta a la de las iglesias. Este espacio fue proyectado en 1788 para atender el tráfico del puerto, sirviendo como puerta de entrada para lo que llegaba por mar.\n\nObserva cómo la expansión del puerto dejó a la antigua aduana de las Atarazanas aislada del mar. Por eso, bajo el mandato de Luis de Unzaga, el rey Carlos III aprobó en 1787 un nuevo edificio para gestionar el comercio con América. La construcción, que inició su primera piedra en 1791, sufrió la interrupción de la invasión francesa en 1810, cuando las tropas saquearon materiales por dos millones de reales. Tras reanudarse en 1826 bajo un estilo neoclásico, este espacio finalmente abrió sus puertas en 1829.\n\nAl alejarnos de la espiritualidad de la Catedral, este edificio nos revela el pulso económico que definió nuestra ciudad. Fíjate cómo su estructura marca la transición hacia una Málaga volcada al comercio marítimo. Si observas su ubicación junto al parque, comprendes que aquí la vida pública ya no solo giraba en torno a lo sagrado, sino al flujo de mercancías con América. Este cambio de enfoque nos prepara para entender las defensas que protegían aquello que tanto costó construir.\n\nTras comprender cómo el comercio transformó nuestra identidad urbana, camina conmigo hacia las estructuras de defensa. Si reflexionas sobre ese flujo constante de mercancías que este edificio gestionaba, entenderás por qué la ciudad necesitaba proteger su riqueza. Busquemos ahora los vestigios de la Muralla Nazarí y Muro Portuario.",
+      "descriptionSections": {
+        "arrival": "¿Te has preguntado alguna vez qué fuerzas movían el comercio antes de que los puertos modernos existieran? Al dejar atrás la Catedral, te encuentras frente a este edificio que marca un cambio en nuestra historia urbana. Fíjate cómo su presencia junto al parque de Málaga impone una escala distinta a la de las iglesias. Este espacio fue proyectado en 1788 para atender el tráfico del puerto, sirviendo como puerta de entrada para lo que llegaba por mar.",
+        "history": "Observa cómo la expansión del puerto dejó a la antigua aduana de las Atarazanas aislada del mar. Por eso, bajo el mandato de Luis de Unzaga, el rey Carlos III aprobó en 1787 un nuevo edificio para gestionar el comercio con América. La construcción, que inició su primera piedra en 1791, sufrió la interrupción de la invasión francesa en 1810, cuando las tropas saquearon materiales por dos millones de reales. Tras reanudarse en 1826 bajo un estilo neoclásico, este espacio finalmente abrió sus puertas en 1829.",
+        "significance": "Al alejarnos de la espiritualidad de la Catedral, este edificio nos revela el pulso económico que definió nuestra ciudad. Fíjate cómo su estructura marca la transición hacia una Málaga volcada al comercio marítimo. Si observas su ubicación junto al parque, comprendes que aquí la vida pública ya no solo giraba en torno a lo sagrado, sino al flujo de mercancías con América. Este cambio de enfoque nos prepara para entender las defensas que protegían aquello que tanto costó construir.",
+        "transition": "Tras comprender cómo el comercio transformó nuestra identidad urbana, camina conmigo hacia las estructuras de defensa. Si reflexionas sobre ese flujo constante de mercancías que este edificio gestionaba, entenderás por qué la ciudad necesitaba proteger su riqueza. Busquemos ahora los vestigios de la Muralla Nazarí y Muro Portuario."
+      },
+      "latitude": 36.7199694,
+      "longitude": -4.4171575,
+      "position": 2,
+      "importanceScore": 41.08652427052373,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3285335,
+          "wikidata": "Q4155876",
+          "wikipedia": "es:Palacio de la Aduana (Málaga)",
+          "category": "civic_power",
+          "landmarkTier": "flagship",
+          "fameScore": 20.215784284662085,
+          "osmTags": {
+            "name": "Palacio de la Aduana",
+            "type": "multipolygon",
+            "ref:bic": "RI-51-0001386",
+            "building": "public",
+            "heritage": "2",
+            "historic": "building",
+            "wikidata": "Q4155876",
+            "wikipedia": "es:Palacio de la Aduana (Málaga)",
+            "building:levels": "5",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Palacio de la Aduana, Málaga",
+            "bic:inscription_date": "1962-03-01",
+            "protection_title:category": "Monumento",
+            "building:levels:underground": "1"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "a4f8fb52-5f14-49c6-b25d-8d1e9385eb38",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2339,
+          "totalDurationMs": 22878,
+          "claimCheck": {
+            "totalExtracted": 7,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 7,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 7,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1788",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ste espacio fue proyectado en 1788 para atender el tráfico del p"
+              },
+              {
+                "type": "date",
+                "value": "1787",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": ", el rey Carlos III aprobó en 1787 un nuevo edificio para gestio"
+              },
+              {
+                "type": "date",
+                "value": "1791",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "e inició su primera piedra en 1791, sufrió la interrupción de la"
+              },
+              {
+                "type": "date",
+                "value": "1810",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ón de la invasión francesa en 1810, cuando las tropas saquearon "
+              },
+              {
+                "type": "date",
+                "value": "1826",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "de reales. Tras reanudarse en 1826 bajo un estilo neoclásico, es"
+              },
+              {
+                "type": "date",
+                "value": "1829",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "nalmente abrió sus puertas en 1829.  Al alejarnos de la espiritu"
+              },
+              {
+                "type": "style",
+                "value": "neoclásico",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "udarse en 1826 bajo un estilo neoclásico, este espacio finalmente abri"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-4",
+      "tourId": "fixture-candidate",
+      "name": "Muralla nazarí y muro portuario",
+      "description": "Fíjate en el contraste entre los restos de piedra que delimitan la plaza de la Marina. Mientras que la Aduana gestionaba el comercio, este sector conserva la estructura de baluartes adosados al lienzo de la muralla y el muro portuario. La presencia de estos muros, declarados Bien de Interés Cultural en 1995, marca la transición hacia las capas defensivas de la ciudad. Esta base de piedra precede a la transformación urbana que verás más adelante en la Calle Marqués de Larios.\n\nObserva cómo la ciudad se blindó en el siglo XIV con la muralla nazarí, cuya estructura de baluartes es única para entender nuestra evolución urbana. Si te fijas bien, verás que estos bastiones presentan un revestimiento de ladrillo que se une al lienzo mediante trompas. Al otro lado, el muro portuario del siglo XVII permanece como un vestigio tangible del comercio. Ambos elementos fueron declarados Bien de Interés Cultural en 1995, protegiendo este pasado defensivo antes de que la ciudad se abriera hacia la Calle Marqués de Larios.\n\nObserva cómo la ciudad se divide entre la defensa y el comercio. Si miras hacia el sector oeste de la plaza de la Marina, notarás que los baluartes adosados al lienzo nazarí ofrecen una estructura única para comprender nuestra evolución urbana. Al otro lado, en el sector este, el muro portuario del siglo XVII completa este escenario defensivo. Estos vestigios, protegidos como Bien de Interés Cultural desde 1995, nos muestran la base sólida que sostiene la transformación posterior hacia la Calle Marqués de Larios.\n\nDeja que estos antiguos bastiones te acompañen mientras avanzamos. Tras contemplar cómo la piedra defendía el puerto, busca ahora ese cambio hacia una arquitectura más refinada. Caminaremos para descubrir cómo esa base defensiva se transforma completamente cuando entramos en la Calle Marqués de Larios.",
+      "descriptionSections": {
+        "arrival": "Fíjate en el contraste entre los restos de piedra que delimitan la plaza de la Marina. Mientras que la Aduana gestionaba el comercio, este sector conserva la estructura de baluartes adosados al lienzo de la muralla y el muro portuario. La presencia de estos muros, declarados Bien de Interés Cultural en 1995, marca la transición hacia las capas defensivas de la ciudad. Esta base de piedra precede a la transformación urbana que verás más adelante en la Calle Marqués de Larios.",
+        "history": "Observa cómo la ciudad se blindó en el siglo XIV con la muralla nazarí, cuya estructura de baluartes es única para entender nuestra evolución urbana. Si te fijas bien, verás que estos bastiones presentan un revestimiento de ladrillo que se une al lienzo mediante trompas. Al otro lado, el muro portuario del siglo XVII permanece como un vestigio tangible del comercio. Ambos elementos fueron declarados Bien de Interés Cultural en 1995, protegiendo este pasado defensivo antes de que la ciudad se abriera hacia la Calle Marqués de Larios.",
+        "significance": "Observa cómo la ciudad se divide entre la defensa y el comercio. Si miras hacia el sector oeste de la plaza de la Marina, notarás que los baluartes adosados al lienzo nazarí ofrecen una estructura única para comprender nuestra evolución urbana. Al otro lado, en el sector este, el muro portuario del siglo XVII completa este escenario defensivo. Estos vestigios, protegidos como Bien de Interés Cultural desde 1995, nos muestran la base sólida que sostiene la transformación posterior hacia la Calle Marqués de Larios.",
+        "transition": "Deja que estos antiguos bastiones te acompañen mientras avanzamos. Tras contemplar cómo la piedra defendía el puerto, busca ahora ese cambio hacia una arquitectura más refinada. Caminaremos para descubrir cómo esa base defensiva se transforma completamente cuando entramos en la Calle Marqués de Larios."
+      },
+      "latitude": 36.7183224,
+      "longitude": -4.4204727,
+      "position": 3,
+      "importanceScore": 35.27265320273561,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 12275297,
+          "wikidata": "Q6032873",
+          "wikipedia": "es:Muralla nazarí y muro portuario",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 17.00488750216347,
+          "osmTags": {
+            "name": "Muralla Nazarí y Muro Portuario",
+            "type": "multipolygon",
+            "ruins": "citywalls",
+            "ref:bic": "RI-51-0005438",
+            "heritage": "2",
+            "historic": "ruins",
+            "wikidata": "Q6032873",
+            "wikipedia": "es:Muralla nazarí y muro portuario",
+            "ruins:barrier": "city_wall",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Muralla Nazarí y Muro Portuario",
+            "bic:inscription_date": "1995-06-13",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "dd54fa20-0aef-4804-a3ae-a4ca89a36354",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2758,
+          "totalDurationMs": 29368,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1995",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s Bien de Interés Cultural en 1995, marca la transición hacia la"
+              },
+              {
+                "type": "date",
+                "value": "siglo XIV",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ómo la ciudad se blindó en el siglo XIV con la muralla nazarí, cuya e"
+              },
+              {
+                "type": "date",
+                "value": "siglo XVII",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "o lado, el muro portuario del siglo XVII permanece como un vestigio ta"
+              },
+              {
+                "type": "historical_person",
+                "value": "Bien de Interés Cultural",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ia de estos muros, declarados Bien de Interés Cultural en 1995, marca la transición "
+              },
+              {
+                "type": "material",
+                "value": "ladrillo",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "presentan un revestimiento de ladrillo que se une al lienzo mediante"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "calle Marqués de Larios",
+      "description": "Dicen por aquí que, al dejar atrás las antiguas murallas, la ciudad parece querer borrar su pasado defensivo para lucir sus mejores galas. Fíjate cómo el asfalto da paso a una estructura mucho más refinada y ordenada. Al entrar en esta calle, notas de inmediato un cambio de escala; ya no estamos rodeados por piedra antigua, sino ante una de las vías decimonónicas más elegantes de España. Observa la disposición de sus fachadas, que marcan el inicio de una nueva era urbana.\n\nObserva cómo el trazado recto borra la memoria de las antiguas callejuelas como Siete Revueltas o el callejón del Gato. Manuel Domingo Larios y Larios, II Marqués de Larios, impulsó esta transformación para sustituir zonas insalubres por una vía moderna que conectara con la Alameda Principal. Si miras hacia arriba, notarás la elegancia decimonónica que define este espacio comercial tan codiciado. Esta renovación urbana buscaba higiene y orden, dejando atrás el laberinto musulmán para avanzar hacia la estructura que hoy vemos.\n\nAl caminar por aquí, comprendes que la ciudad no solo se expande, sino que decide reinventarse. Fíjate cómo este trazado recto actúa como un espejo de la ambición decimonónica, alejándose del caos medieval para abrazar el orden comercial. Esta vía se convierte en el corazón de una Málaga que busca modernidad y limpieza. Si observas las fachadas, notarás que cada detalle refleja esa búsqueda de elegancia. Este nuevo pulso urbano nos prepara para entender cómo la actividad portuaria transformaría el horizonte.\n\nComprendes así que la ambición por el orden y la limpieza fue el motor de esta transformación urbana. Esa misma necesidad de conectar el comercio con el mundo nos conduce ahora hacia el pulso económico de la ciudad, donde la actividad portuaria comenzó a redefinir todo nuestro horizonte.",
+      "descriptionSections": {
+        "arrival": "Dicen por aquí que, al dejar atrás las antiguas murallas, la ciudad parece querer borrar su pasado defensivo para lucir sus mejores galas. Fíjate cómo el asfalto da paso a una estructura mucho más refinada y ordenada. Al entrar en esta calle, notas de inmediato un cambio de escala; ya no estamos rodeados por piedra antigua, sino ante una de las vías decimonónicas más elegantes de España. Observa la disposición de sus fachadas, que marcan el inicio de una nueva era urbana.",
+        "history": "Observa cómo el trazado recto borra la memoria de las antiguas callejuelas como Siete Revueltas o el callejón del Gato. Manuel Domingo Larios y Larios, II Marqués de Larios, impulsó esta transformación para sustituir zonas insalubres por una vía moderna que conectara con la Alameda Principal. Si miras hacia arriba, notarás la elegancia decimonónica que define este espacio comercial tan codiciado. Esta renovación urbana buscaba higiene y orden, dejando atrás el laberinto musulmán para avanzar hacia la estructura que hoy vemos.",
+        "significance": "Al caminar por aquí, comprendes que la ciudad no solo se expande, sino que decide reinventarse. Fíjate cómo este trazado recto actúa como un espejo de la ambición decimonónica, alejándose del caos medieval para abrazar el orden comercial. Esta vía se convierte en el corazón de una Málaga que busca modernidad y limpieza. Si observas las fachadas, notarás que cada detalle refleja esa búsqueda de elegancia. Este nuevo pulso urbano nos prepara para entender cómo la actividad portuaria transformaría el horizonte.",
+        "transition": "Comprendes así que la ambición por el orden y la limpieza fue el motor de esta transformación urbana. Esa misma necesidad de conectar el comercio con el mundo nos conduce ahora hacia el pulso económico de la ciudad, donde la actividad portuaria comenzó a redefinir todo nuestro horizonte."
+      },
+      "latitude": 36.7196693,
+      "longitude": -4.4215972,
+      "position": 4,
+      "importanceScore": 33.055279590073255,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 98772458,
+          "wikidata": "Q11680432",
+          "wikipedia": "es:Calle Marqués de Larios",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 17.972064766172814,
+          "osmTags": {
+            "lit": "yes",
+            "name": "Calle Marqués de Larios",
+            "image": "https://photos.app.goo.gl/iAn2jHgr1j72gmQf8",
+            "bicycle": "no",
+            "highway": "pedestrian",
+            "name:en": "Marqués de Larios Street",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "loc_name": "Calle Larios",
+            "wikidata": "Q11680432",
+            "mapillary": "916821672225120",
+            "wikipedia": "es:Calle Marqués de Larios",
+            "loc_name:en": "Larios Street"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "af577a1c-1136-42f7-a5e3-e486947f6d74",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2250,
+          "totalDurationMs": 22967,
+          "claimCheck": {
+            "totalExtracted": 1,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 1,
+            "claims": [
+              {
+                "type": "historical_person",
+                "value": "Siete Revueltas",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "las antiguas callejuelas como Siete Revueltas o el callejón del Gato. Manue"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "antigua estación del ferrocarril suburbano de Málaga",
+      "description": "Al dejar atrás el pulso comercial de la calle Marqués de Larios, te encuentras ante la escala de este edificio situado en la entrada al recinto portuario. Fíjate cómo su posición conecta la Plaza de la Marina con la Avenida de Manuel Agustín Heredia. Esta antigua estación de la Compañía de Ferrocarriles Suburbanos de Málaga se erige hoy como sede del Instituto de Estudios Portuarios. Observa su presencia física antes de que exploremos los detalles de su origen y construcción.\n\nSi miras hacia arriba, el reloj en el frontón te revela su antigua función ferroviaria. Todo comenzó el 21 de febrero de 1911, cuando Rafael Gasset y Luis de Armiñán colocaron la primera piedra para conectar la capital con Coín y Fuengirola. Fíjate cómo las columnas dóricas sobre pedestales sostienen este diseño ecléctico. Aunque en la década de 1960 las líneas se clausuraron, su estructura bícroma en blanco y rojo permanece. Este cambio de uso hacia el Instituto de Estudios Portuarios precede nuestro próximo encuentro con el Fuerte de San Lorenzo.\n\nAl dejar atrás el comercio de Larios, este edificio marca la transición hacia la actividad logística del puerto. Su ubicación entre la Plaza de la Marina y la Avenida de Manuel Agustín Heredia delimita el acceso al recinto portuario. La transformación de estación ferroviaria en sede del Instituto de Estudios Portuarios evidencia cómo la ciudad reutiliza sus estructuras para la gestión marítima actual. Esta reconversión funcional prepara el terreno para entender las defensas que verás más adelante en el Fuerte de San Lorenzo.\n\nObserva cómo esta reconversión funcional prepara el terreno para entender las defensas que verás más adelante. Al dejar atrás la actividad logística del puerto, tu mirada se desplaza hacia una historia de vigilancia y resistencia en el Fuerte de San Lorenzo.",
+      "descriptionSections": {
+        "arrival": "Al dejar atrás el pulso comercial de la calle Marqués de Larios, te encuentras ante la escala de este edificio situado en la entrada al recinto portuario. Fíjate cómo su posición conecta la Plaza de la Marina con la Avenida de Manuel Agustín Heredia. Esta antigua estación de la Compañía de Ferrocarriles Suburbanos de Málaga se erige hoy como sede del Instituto de Estudios Portuarios. Observa su presencia física antes de que exploremos los detalles de su origen y construcción.",
+        "history": "Si miras hacia arriba, el reloj en el frontón te revela su antigua función ferroviaria. Todo comenzó el 21 de febrero de 1911, cuando Rafael Gasset y Luis de Armiñán colocaron la primera piedra para conectar la capital con Coín y Fuengirola. Fíjate cómo las columnas dóricas sobre pedestales sostienen este diseño ecléctico. Aunque en la década de 1960 las líneas se clausuraron, su estructura bícroma en blanco y rojo permanece. Este cambio de uso hacia el Instituto de Estudios Portuarios precede nuestro próximo encuentro con el Fuerte de San Lorenzo.",
+        "significance": "Al dejar atrás el comercio de Larios, este edificio marca la transición hacia la actividad logística del puerto. Su ubicación entre la Plaza de la Marina y la Avenida de Manuel Agustín Heredia delimita el acceso al recinto portuario. La transformación de estación ferroviaria en sede del Instituto de Estudios Portuarios evidencia cómo la ciudad reutiliza sus estructuras para la gestión marítima actual. Esta reconversión funcional prepara el terreno para entender las defensas que verás más adelante en el Fuerte de San Lorenzo.",
+        "transition": "Observa cómo esta reconversión funcional prepara el terreno para entender las defensas que verás más adelante. Al dejar atrás la actividad logística del puerto, tu mirada se desplaza hacia una historia de vigilancia y resistencia en el Fuerte de San Lorenzo."
+      },
+      "latitude": 36.7166456,
+      "longitude": -4.4202688,
+      "position": 5,
+      "importanceScore": 31.346519094389212,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 410232860,
+          "wikidata": "Q2889984",
+          "wikipedia": "es:Antigua estación del ferrocarril suburbano de Málaga",
+          "category": "civic_power",
+          "landmarkTier": "major",
+          "fameScore": 15.904887502163469,
+          "osmTags": {
+            "name": "Centro de Estudios Portuarios",
+            "ref:am": "J01",
+            "building": "public",
+            "heritage": "8",
+            "historic": "building",
+            "ref:iaph": "i21324",
+            "wikidata": "Q2889984",
+            "architect": "Enrique Verdú;Leopoldo Werner",
+            "wikipedia": "es:Antigua estación del ferrocarril suburbano de Málaga",
+            "start_date": "1911",
+            "description": "Antigua estación de la Compañía de Ferrocarriles Suburbanos de Málaga",
+            "source:name": "https://www.malaga.eu/recursos/urbanismo/pgou_ap2/Documento%20D.%20Los%20catalogos/1.%20Catalogo%20de%20edificaciones%20protegidas/22.%20Zona%20J%20PUERTO%20pag%20246%20a%20255.pdf#page=2",
+            "listed_status": "Arquitectónica I",
+            "protect_class": "22",
+            "building:levels": "3",
+            "disused:railway": "station",
+            "heritage:am:url": "https://www.malaga.eu/recursos/urbanismo/pgou_ap2/Documento%20D.%20Los%20catalogos/1.%20Catalogo%20de%20edificaciones%20protegidas/22.%20Zona%20J%20PUERTO%20pag%20246%20a%20255.pdf#page=2",
+            "historic:period": "modern",
+            "end_date:railway": "1966",
+            "heritage:operator": "Ayuntamiento de Málaga;Junta de Andalucía",
+            "wikimedia_commons": "Category:Former suburban railways station, Málaga",
+            "heritage:am:website": "https://urbanismo.malaga.eu/plan-general-de-ordenacion/plan-general-de-ordenacion-urbana-vigente-2011",
+            "heritage:description": "Edificio con valor histórico, tipológico y arquitectónico, especialmente en el la configuración de la charnela para unir los dos cuerpos, el lenguaje clasicista empleado y la bicromía obtenida mediante uso combinado de piedra caliza y ladrillo visto.",
+            "building:architecture": "eclectic"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "7959605d-b4aa-423c-ade9-9f6c2f3f8f82",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2515,
+          "totalDurationMs": 34570,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1911",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "o comenzó el 21 de febrero de 1911, cuando Rafael Gasset y Luis "
+              },
+              {
+                "type": "date",
+                "value": "1960",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ctico. Aunque en la década de 1960 las líneas se clausuraron, su"
+              },
+              {
+                "type": "location",
+                "value": "Plaza de la Marina",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "e cómo su posición conecta la Plaza de la Marina con la Avenida de Manuel Agus"
+              },
+              {
+                "type": "location",
+                "value": "Avenida de Manuel Agustín Heredia",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " la Plaza de la Marina con la Avenida de Manuel Agustín Heredia. Esta antigua estación de la "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "Fuerte de San Lorenzo",
+      "description": "Fíjate cómo el paisaje cambia al acercarte a esta estructura de piedra y vigilancia. Tras dejar atrás la actividad del puerto, te encuentras ante muros que parecen vigilar la entrada al mar. Observa la solidez de sus materiales frente a la apertura de las zonas comerciales. Esta presencia defensiva marca un contraste necesario antes de que nuestra ruta se desplace hacia los sonidos del Real Conservatorio de Música María Cristina.\n\nObserva cómo la función de este lugar revela una tensión constante entre la apertura al comercio y la necesidad de protección. Mientras el puerto busca conectar con el mundo, estas estructuras se mantienen como un límite firme para resguardar la costa. Esta transición de lo comercial a lo defensivo nos prepara para entender cómo la ciudad reorganiza sus sentidos, alejándose del bullicio portuario hacia la armonía que encontrarás en el Real Conservatorio de Música María Cristina.\n\nFíjate cómo la presencia de este fuerte altera tu percepción del litoral. Al observar su estructura, comprendes que la ciudad no solo se abre al horizonte para comerciar, sino que también establece límites físicos para protegerse. Esta dualidad entre el intercambio y la resistencia define nuestra historia. Ahora, deja que esa firmeza de piedra te guíe hacia un entorno donde la disciplina se transforma en melodía, cerca del Real Conservatorio de Música María Cristina.",
+      "descriptionSections": {
+        "arrival": "Fíjate cómo el paisaje cambia al acercarte a esta estructura de piedra y vigilancia. Tras dejar atrás la actividad del puerto, te encuentras ante muros que parecen vigilar la entrada al mar. Observa la solidez de sus materiales frente a la apertura de las zonas comerciales. Esta presencia defensiva marca un contraste necesario antes de que nuestra ruta se desplace hacia los sonidos del Real Conservatorio de Música María Cristina.",
+        "history": "Observa cómo la función de este lugar revela una tensión constante entre la apertura al comercio y la necesidad de protección. Mientras el puerto busca conectar con el mundo, estas estructuras se mantienen como un límite firme para resguardar la costa. Esta transición de lo comercial a lo defensivo nos prepara para entender cómo la ciudad reorganiza sus sentidos, alejándose del bullicio portuario hacia la armonía que encontrarás en el Real Conservatorio de Música María Cristina.",
+        "significance": "Fíjate cómo la presencia de este fuerte altera tu percepción del litoral. Al observar su estructura, comprendes que la ciudad no solo se abre al horizonte para comerciar, sino que también establece límites físicos para protegerse. Esta dualidad entre el intercambio y la resistencia define nuestra historia. Ahora, deja que esa firmeza de piedra te guíe hacia un entorno donde la disciplina se transforma en melodía, cerca del Real Conservatorio de Música María Cristina."
+      },
+      "latitude": 36.7172604,
+      "longitude": -4.4248421,
+      "position": 6,
+      "importanceScore": 31.78762529768242,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": 10221019839,
+          "wikidata": "Q108651331",
+          "category": "other",
+          "landmarkTier": "major",
+          "fameScore": 15.5,
+          "osmTags": {
+            "name": "Fuerte de San Lorenzo",
+            "ruins": "fort",
+            "tourism": "attraction",
+            "alt_name": "Castillo de San Lorenzo",
+            "heritage": "2",
+            "historic": "ruins",
+            "location": "underground",
+            "wikidata": "Q108651331",
+            "description": "Restos de la cimentación del baluarte militar (hornabeque) conocido como Fuerte o Castillo de San Lorenzo (1701-1802). Los restos son parcialmente visibles desde el nivel de la calle.",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Fuerte de San Lorenzo, Málaga",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "b9e7e571-2e96-4e5a-b113-1a7383180afd",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 94,
+          "totalDurationMs": 17586,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "Real Conservatorio de Música María Cristina",
+      "description": "Tras dejar atrás la sobriedad defensiva del Fuerte de San Lorenzo, te encuentras ante una transformación distinta en el tejido urbano. Observa cómo este edificio público se asienta entre la calle Marqués de Valdecañas y la plaza de San Francisco. Si fijas la vista en su estructura, notarás que su escala ocupa un espacio significativo en el barrio de La Goleta. Este lugar, con más de 2322 m², marca el paso de lo militar a una nueva función cultural.\n\nImagina este lugar en 1489, cuando los Reyes Católicos fundaron el monasterio franciscano de San Luis el Real. Durante siglos, sus huertas y jardines se extendieron hacia el río Guadalmedina, pero la desamortración de 1836 fragmentó su esencia original. Tras años de abandono y ruina, la Caja de Ahorros de Ronda adquirió el inmueble en 1975 para rescatarlo. Si logras entrar, fíjate cómo la antigua nave central ahora es una sala de música donde aún perduran estucos del siglo XIX.\n\nAl dejar la muralla militar, notas cómo el pulso de Málaga se vuelve más sensible y artístico. Este edificio, catalogado como Bien de Interés Cultural, representa esa metamorfosis donde lo religioso y lo educativo convergen para dar vida a la Sala María Cristina. Fíjate en su enorme superficie de más de 2322 m², un espacio que hoy sostiene la cultura local bajo la gestión de la Fundación Unicaja. Esta transformación nos prepara para el siguiente encuentro, donde la plaza aguarda con sus propios secretos.\n\nTras contemplar cómo la música habita estos antiguos muros, siente cómo el ritmo de nuestra caminata se transforma. Dejamos atrás la armonía del conservatorio para buscar un nuevo pulso urbano. Camina conmigo hacia Plaza de la Merced, donde los secretos de la ciudad aguardan bajo una luz distinta.",
+      "descriptionSections": {
+        "arrival": "Tras dejar atrás la sobriedad defensiva del Fuerte de San Lorenzo, te encuentras ante una transformación distinta en el tejido urbano. Observa cómo este edificio público se asienta entre la calle Marqués de Valdecañas y la plaza de San Francisco. Si fijas la vista en su estructura, notarás que su escala ocupa un espacio significativo en el barrio de La Goleta. Este lugar, con más de 2322 m², marca el paso de lo militar a una nueva función cultural.",
+        "history": "Imagina este lugar en 1489, cuando los Reyes Católicos fundaron el monasterio franciscano de San Luis el Real. Durante siglos, sus huertas y jardines se extendieron hacia el río Guadalmedina, pero la desamortración de 1836 fragmentó su esencia original. Tras años de abandono y ruina, la Caja de Ahorros de Ronda adquirió el inmueble en 1975 para rescatarlo. Si logras entrar, fíjate cómo la antigua nave central ahora es una sala de música donde aún perduran estucos del siglo XIX.",
+        "significance": "Al dejar la muralla militar, notas cómo el pulso de Málaga se vuelve más sensible y artístico. Este edificio, catalogado como Bien de Interés Cultural, representa esa metamorfosis donde lo religioso y lo educativo convergen para dar vida a la Sala María Cristina. Fíjate en su enorme superficie de más de 2322 m², un espacio que hoy sostiene la cultura local bajo la gestión de la Fundación Unicaja. Esta transformación nos prepara para el siguiente encuentro, donde la plaza aguarda con sus propios secretos.",
+        "transition": "Tras contemplar cómo la música habita estos antiguos muros, siente cómo el ritmo de nuestra caminata se transforma. Dejamos atrás la armonía del conservatorio para buscar un nuevo pulso urbano. Camina conmigo hacia Plaza de la Merced, donde los secretos de la ciudad aguardan bajo una luz distinta."
+      },
+      "latitude": 36.7245668,
+      "longitude": -4.4232555,
+      "position": 7,
+      "importanceScore": 32.99964016182023,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 7225220,
+          "wikidata": "Q97633218",
+          "wikipedia": "es:Real Conservatorio de Música María Cristina",
+          "category": "civic_power",
+          "landmarkTier": "major",
+          "fameScore": 15.904887502163469,
+          "osmTags": {
+            "name": "Real Conservatorio de Música María Cristina",
+            "type": "multipolygon",
+            "owner": "Fundación Obra Social Unicaja",
+            "alt_name": "Conservatorio de Música María Cristiana",
+            "building": "public",
+            "heritage": "2",
+            "historic": "building",
+            "wikidata": "Q97633218",
+            "wikipedia": "es:Real Conservatorio de Música María Cristina",
+            "start_date": "1871",
+            "building:levels": "4",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Real Conservatorio de Música María Cristina",
+            "bic:inscription_date": "2010-06-28",
+            "protection_title:category": "Monumento",
+            "building:levels:underground": "1"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "9699313d-782a-4779-b270-865af3f0dedf",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2571,
+          "totalDurationMs": 23780,
+          "claimCheck": {
+            "totalExtracted": 6,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 6,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 6,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1489",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "tural.  Imagina este lugar en 1489, cuando los Reyes Católicos f"
+              },
+              {
+                "type": "date",
+                "value": "1836",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "na, pero la desamortración de 1836 fragmentó su esencia original"
+              },
+              {
+                "type": "date",
+                "value": "1975",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Ronda adquirió el inmueble en 1975 para rescatarlo. Si logras en"
+              },
+              {
+                "type": "date",
+                "value": "siglo XIX",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "onde aún perduran estucos del siglo XIX.  Al dejar la muralla militar"
+              },
+              {
+                "type": "historical_person",
+                "value": "Bien de Interés Cultural",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ste edificio, catalogado como Bien de Interés Cultural, representa esa metamorfosis "
+              },
+              {
+                "type": "location",
+                "value": "barrio de La Goleta",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n espacio significativo en el barrio de La Goleta. Este lugar, con más de 2322 "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "Plaza de la Merced",
+      "description": "¿Alguna vez te has preguntado qué secretos guardan los espacios que parecen simplemente un lugar de paso? Al dejar atrás las notas del Conservatorio, tus pasos te traen ahora al corazón de la Plaza de la Merced. Fíjate cómo el entorno se transforma frente a ti, alejándose de la estructura académica para abrirse en este espacio público tan vital. Observa la disposición de sus alrededores, pues aquí la ciudad parece reorganizar su propia identidad mientras nos preparamos para desentrañar su cronología.\n\nAl caminar por este espacio, notas que la identidad de Málaga se fragmenta y se recrea en distintos puntos. Observa cómo el trazado urbano intenta integrar estas diversas capas históricas. Mientras avanzamos, esta transformación nos prepara para entender la vigilancia que se ejerce desde las alturas del Castillo de Gibralfaro.\n\nAl entrar en este espacio, notas que la ciudad deja de ser una lección de música para convertirse en un escenario de encuentro. Fíjate cómo el trazado aquí rompe la rigidez académica y se expande hacia lo público. Esta plaza funciona como un punto donde la identidad malagueña se reorganiza, integrando diversas capas urbanas en un mismo plano. Observa esta transición, pues entender este núcleo es clave para comprender la vigilancia que nos aguarda desde el Castillo de Gibralfaro.\n\nAl recorrer este núcleo, notas cómo la ciudad abandona su rigor académico para expandirse en lo público. Fíjate que esta reorganización de la identidad malagueña nos sirve de base. Ahora, busca entender esa misma necesidad de control que se manifiesta mediante la vigilancia desde el Castillo de Gibralfaro.",
+      "descriptionSections": {
+        "arrival": "¿Alguna vez te has preguntado qué secretos guardan los espacios que parecen simplemente un lugar de paso? Al dejar atrás las notas del Conservatorio, tus pasos te traen ahora al corazón de la Plaza de la Merced. Fíjate cómo el entorno se transforma frente a ti, alejándose de la estructura académica para abrirse en este espacio público tan vital. Observa la disposición de sus alrededores, pues aquí la ciudad parece reorganizar su propia identidad mientras nos preparamos para desentrañar su cronología.",
+        "history": "Al caminar por este espacio, notas que la identidad de Málaga se fragmenta y se recrea en distintos puntos. Observa cómo el trazado urbano intenta integrar estas diversas capas históricas. Mientras avanzamos, esta transformación nos prepara para entender la vigilancia que se ejerce desde las alturas del Castillo de Gibralfaro.",
+        "significance": "Al entrar en este espacio, notas que la ciudad deja de ser una lección de música para convertirse en un escenario de encuentro. Fíjate cómo el trazado aquí rompe la rigidez académica y se expande hacia lo público. Esta plaza funciona como un punto donde la identidad malagueña se reorganiza, integrando diversas capas urbanas en un mismo plano. Observa esta transición, pues entender este núcleo es clave para comprender la vigilancia que nos aguarda desde el Castillo de Gibralfaro.",
+        "transition": "Al recorrer este núcleo, notas cómo la ciudad abandona su rigor académico para expandirse en lo público. Fíjate que esta reorganización de la identidad malagueña nos sirve de base. Ahora, busca entender esa misma necesidad de control que se manifiesta mediante la vigilancia desde el Castillo de Gibralfaro."
+      },
+      "latitude": 36.723377,
+      "longitude": -4.4176028,
+      "position": 8,
+      "importanceScore": 38.169970064655466,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 890968491,
+          "wikidata": "Q4291147",
+          "wikipedia": "en:Plaza de la Merced",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 20.15,
+          "osmTags": {
+            "name": "Plaza de la Merced",
+            "place": "square",
+            "wikidata": "Q4291147",
+            "wikipedia": "en:Plaza de la Merced",
+            "wikimedia_commons": "Category:Plaza de la Merced, Málaga"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "97ef1056-b7ed-4bdb-9ac8-48694ba67917",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 561,
+          "totalDurationMs": 22654,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "Castillo de Gibralfaro",
+      "description": "Fíjate cómo las piedras de esta fortificación parecen sostener el peso de toda la ciudad sobre sus hombros. Al acercarte al Castillo de Gibralfaro, notas que su presencia física altera por completo la escala del recorrido. Esta estructura se impone como un límite sólido, marcando el punto donde la historia deja de ser paseo para volverse defensa.\n\nObserva cómo la función de este lugar cambió drásticamente en 1340, cuando el rey Yusuf I transformó estas ruinas en un alcázar. Lo que antes era una simple defensa se convirtió en una estructura compleja para proteger la Alcazaba frente a la artillería. Durante el verano de 1487, los Reyes Católicos sitiaron esta cima, provocando una tensión que culminaría cuando Fernando el Católico decidió usarla como residencia. Esta transición de refugio militar a palacio marca el fin de un ciclo defensivo.\n\nAl subir hacia esta fortificación, la perspectiva de Málaga se transforma radicalmente. Ya no recorres calles comerciales o religiosas, sino que habitas un espacio diseñado para la resistencia y el control visual del territorio. Fíjate cómo este alcázar eleva las apuestas de nuestro viaje: aquí la historia se vuelve estratégica, dejando atrás la vida civil para enfrentar la pura necesidad de defensa. Esta cima custodia los restos de cada era, preparándote para entender cómo la ciudad proyecta su fuerza hacia otros escenarios cercanos.\n\nTras contemplar esta fuerza defensiva, deja que tu mirada descienda de las murallas. Si la historia aquí se basó en el control del territorio, pronto descubriremos cómo la ciudad utiliza otros espacios para la expresión de sus tradiciones y su identidad pública, acercándonos a la Plaza de Toros de La Malagueta.",
+      "descriptionSections": {
+        "arrival": "Fíjate cómo las piedras de esta fortificación parecen sostener el peso de toda la ciudad sobre sus hombros. Al acercarte al Castillo de Gibralfaro, notas que su presencia física altera por completo la escala del recorrido. Esta estructura se impone como un límite sólido, marcando el punto donde la historia deja de ser paseo para volverse defensa.",
+        "history": "Observa cómo la función de este lugar cambió drásticamente en 1340, cuando el rey Yusuf I transformó estas ruinas en un alcázar. Lo que antes era una simple defensa se convirtió en una estructura compleja para proteger la Alcazaba frente a la artillería. Durante el verano de 1487, los Reyes Católicos sitiaron esta cima, provocando una tensión que culminaría cuando Fernando el Católico decidió usarla como residencia. Esta transición de refugio militar a palacio marca el fin de un ciclo defensivo.",
+        "significance": "Al subir hacia esta fortificación, la perspectiva de Málaga se transforma radicalmente. Ya no recorres calles comerciales o religiosas, sino que habitas un espacio diseñado para la resistencia y el control visual del territorio. Fíjate cómo este alcázar eleva las apuestas de nuestro viaje: aquí la historia se vuelve estratégica, dejando atrás la vida civil para enfrentar la pura necesidad de defensa. Esta cima custodia los restos de cada era, preparándote para entender cómo la ciudad proyecta su fuerza hacia otros escenarios cercanos.",
+        "transition": "Tras contemplar esta fuerza defensiva, deja que tu mirada descienda de las murallas. Si la historia aquí se basó en el control del territorio, pronto descubriremos cómo la ciudad utiliza otros espacios para la expresión de sus tradiciones y su identidad pública, acercándonos a la Plaza de Toros de La Malagueta."
+      },
+      "latitude": 36.7233684,
+      "longitude": -4.4116294,
+      "position": 9,
+      "importanceScore": 45.73991057695397,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 403541689,
+          "wikidata": "Q1049197",
+          "wikipedia": "es:Castillo de Gibralfaro",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 25.172064766172813,
+          "osmTags": {
+            "url": "https://youtu.be/nxGRFgnw75I",
+            "name": "Castillo de Gibralfaro",
+            "phone": "+34952122020",
+            "ruins": "yes",
+            "url:0": "https://youtu.be/Nat3U99fOn4?si=liAxXath-K3Km0N2",
+            "tourism": "attraction",
+            "historic": "castle",
+            "wikidata": "Q1049197",
+            "wikipedia": "es:Castillo de Gibralfaro",
+            "wheelchair": "no",
+            "wikimedia_commons": "Category:Castillo de Gibralfaro"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "731183e6-6642-4100-bd16-8824a020679c",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2196,
+          "totalDurationMs": 23354,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1340",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "lugar cambió drásticamente en 1340, cuando el rey Yusuf I transf"
+              },
+              {
+                "type": "date",
+                "value": "1487",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "illería. Durante el verano de 1487, los Reyes Católicos sitiaron"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "plaza de toros de La Malagueta",
+      "description": "Dicen los vecinos que este lugar guarda el eco de las multitudes incluso cuando todo parece en calma. Al dejar atrás la fortaleza del Gibralfaro, te encuentras frente a la estructura de La Malagueta, situada junto al paseo de Reding. Fíjate cómo su presencia marca el límite de este distrito este. Esta construcción se erige como un testigo más de cómo Málaga transforma sus espacios para el encuentro público, preparándonos para entender qué capas de tiempo habitan en cada rincón.\n\nLa construcción de este espacio comenzó el 16 de junio de 1874 bajo la mano de Joaquín Rucoba. Si observas su historia, notarás que las obras se detuvieron entre diciembre de 1874 y octubre de 1875, reflejando las tensiones de la época. Tras su inauguración en 1876, el edificio pasó de la lidia a funciones mucho más crudas; en 1939 y 1943, sus muros albergaron prisioneros y refugiados extranjeros. Esta transformación de uso nos conduce ahora hacia un lugar donde el silencio también cuenta historias.\n\nAl contemplar este recinto junto al paseo de Reding, comprendes que la ciudad no solo acumula años, sino que transmuta sus propósitos. Observa cómo un espacio diseñado para el espectáculo público terminó convirtiéndose en refugio para prisioneros y extranjeros durante los años cuarenta. Esta capacidad de mutación define nuestra travesía por Málaga. Tras haber visto la defensa militar en Gibralfaro, aquí presencias la vulnerabilidad humana. Ahora, prepárate para buscar el significado del silencio en nuestro siguiente destino.\n\nSi reflexionas sobre esa vulnerabilidad que habitó estos muros, comprenderás que la memoria de Málaga trasciende lo visible. Deja atrás el eco de las multitudes para acompañarme hacia un lugar donde la historia se guarda en una quietud distinta, buscando entender qué relatos permanecen ocultos en el Cementerio Inglés.",
+      "descriptionSections": {
+        "arrival": "Dicen los vecinos que este lugar guarda el eco de las multitudes incluso cuando todo parece en calma. Al dejar atrás la fortaleza del Gibralfaro, te encuentras frente a la estructura de La Malagueta, situada junto al paseo de Reding. Fíjate cómo su presencia marca el límite de este distrito este. Esta construcción se erige como un testigo más de cómo Málaga transforma sus espacios para el encuentro público, preparándonos para entender qué capas de tiempo habitan en cada rincón.",
+        "history": "La construcción de este espacio comenzó el 16 de junio de 1874 bajo la mano de Joaquín Rucoba. Si observas su historia, notarás que las obras se detuvieron entre diciembre de 1874 y octubre de 1875, reflejando las tensiones de la época. Tras su inauguración en 1876, el edificio pasó de la lidia a funciones mucho más crudas; en 1939 y 1943, sus muros albergaron prisioneros y refugiados extranjeros. Esta transformación de uso nos conduce ahora hacia un lugar donde el silencio también cuenta historias.",
+        "significance": "Al contemplar este recinto junto al paseo de Reding, comprendes que la ciudad no solo acumula años, sino que transmuta sus propósitos. Observa cómo un espacio diseñado para el espectáculo público terminó convirtiéndose en refugio para prisioneros y extranjeros durante los años cuarenta. Esta capacidad de mutación define nuestra travesía por Málaga. Tras haber visto la defensa militar en Gibralfaro, aquí presencias la vulnerabilidad humana. Ahora, prepárate para buscar el significado del silencio en nuestro siguiente destino.",
+        "transition": "Si reflexionas sobre esa vulnerabilidad que habitó estos muros, comprenderás que la memoria de Málaga trasciende lo visible. Deja atrás el eco de las multitudes para acompañarme hacia un lugar donde la historia se guarda en una quietud distinta, buscando entender qué relatos permanecen ocultos en el Cementerio Inglés."
+      },
+      "latitude": 36.7203556,
+      "longitude": -4.410785,
+      "position": 10,
+      "importanceScore": 51.72804422444658,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 34474214,
+          "wikidata": "Q523311",
+          "wikipedia": "en:Plaza de toros de La Malagueta",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 28.75,
+          "osmTags": {
+            "name": "Plaza de Toros de La Malagueta",
+            "wikidata": "Q523311",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "15",
+            "canonical:instance_of": "bullring",
+            "tourism": "attraction",
+            "place": "square",
+            "url": "https://www.youtube.com/watch?v=n4XFscWNn9I",
+            "image": "https://photos.app.goo.gl/bZ6e8rbv4Zbj1Xkh9",
+            "sport": "bullfighting",
+            "leisure": "stadium",
+            "name:en": "Bullring La Malagueta",
+            "name:ko": "투우경기장",
+            "name:ru": "Арена для боя быков Ла малагета",
+            "ref:bic": "RI-51-0004470",
+            "heritage": "2",
+            "historic": "building",
+            "mapillary": "844531902803294",
+            "wikipedia": "en:Plaza de toros de La Malagueta",
+            "addr:street": "Paseo de Reding",
+            "addr:postcode": "29016",
+            "addr:housenumber": "8",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Plaza de toros de la Malagueta",
+            "bic:inscription_date": "20181-02-11",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "dd3e3b1d-890e-49fc-9284-6e53c6ad5b59",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2328,
+          "totalDurationMs": 21428,
+          "claimCheck": {
+            "totalExtracted": 6,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 6,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 6,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1874",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "cio comenzó el 16 de junio de 1874 bajo la mano de Joaquín Rucob"
+              },
+              {
+                "type": "date",
+                "value": "1875",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "iciembre de 1874 y octubre de 1875, reflejando las tensiones de "
+              },
+              {
+                "type": "date",
+                "value": "1876",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "poca. Tras su inauguración en 1876, el edificio pasó de la lidia"
+              },
+              {
+                "type": "date",
+                "value": "1939",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "unciones mucho más crudas; en 1939 y 1943, sus muros albergaron "
+              },
+              {
+                "type": "date",
+                "value": "1943",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s mucho más crudas; en 1939 y 1943, sus muros albergaron prision"
+              },
+              {
+                "type": "historical_person",
+                "value": "Málaga",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e como un testigo más de cómo Málaga transforma sus espacios para "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-12",
+      "tourId": "fixture-candidate",
+      "name": "Cementerio Inglés de Málaga",
+      "description": "Al alejarte del bullicio de la plaza de toros, te encuentras ante la entrada de este recinto situado en la avenida de Príes. Fíjate cómo el límite entre lo urbano y este espacio de descanso se marca con sobriedad. Este lugar, que forma parte de la Cañada de los Ingleses, custodia un legado singular en la ciudad. Si observas su posición, notarás cómo la estructura se integra en el distrito Centro, preparando tu mente para entender las huellas de otras comunidades.\n\nDesde 1831, este espacio resuelve una tensión que marcaba la vida de los comerciantes británicos. Antes de su construcción, quienes no profesaban el catolicismo no podían ser enterrados en suelo sagrado, lo que obligaba a realizar entierros nocturnos en la playa. Fíjate cómo estas tumbas, como la del joven irlandés Robert Boyd, cuentan historias de cambios sociales. Si caminas entre sus bancales, verás elementos clásicos y neogóticos que conviven con especies exóticas, reflejando una identidad cosmopolita.\n\nEste recinto marca un cambio en la gestión de la muerte al ser el primer cementerio protestante de España. Su existencia en la Cañada de los Ingleses rompe con la antigua práctica de realizar entierros nocturnos en la playa para quienes no profesaban el catolicismo. Al recorrer sus bancales, notas cómo la presencia de especies exóticas y elementos neogóticos consolida una identidad cosmopolita. Este espacio de descanso prepara tu mirada para los restos defensivos que aguardan en el Castillo de Santa Catalina.\n\nTras contemplar este refugio de identidades cosmopolitas, tu mirada busca ahora otro tipo de permanencia. Deja atrás la calma de los entierros extranjeros para buscar las piedras que alguna vez vigilaron el horizonte. Camina conmigo hacia el Castillo de Santa Catalina, donde la historia se vuelve defensa.",
+      "descriptionSections": {
+        "arrival": "Al alejarte del bullicio de la plaza de toros, te encuentras ante la entrada de este recinto situado en la avenida de Príes. Fíjate cómo el límite entre lo urbano y este espacio de descanso se marca con sobriedad. Este lugar, que forma parte de la Cañada de los Ingleses, custodia un legado singular en la ciudad. Si observas su posición, notarás cómo la estructura se integra en el distrito Centro, preparando tu mente para entender las huellas de otras comunidades.",
+        "history": "Desde 1831, este espacio resuelve una tensión que marcaba la vida de los comerciantes británicos. Antes de su construcción, quienes no profesaban el catolicismo no podían ser enterrados en suelo sagrado, lo que obligaba a realizar entierros nocturnos en la playa. Fíjate cómo estas tumbas, como la del joven irlandés Robert Boyd, cuentan historias de cambios sociales. Si caminas entre sus bancales, verás elementos clásicos y neogóticos que conviven con especies exóticas, reflejando una identidad cosmopolita.",
+        "significance": "Este recinto marca un cambio en la gestión de la muerte al ser el primer cementerio protestante de España. Su existencia en la Cañada de los Ingleses rompe con la antigua práctica de realizar entierros nocturnos en la playa para quienes no profesaban el catolicismo. Al recorrer sus bancales, notas cómo la presencia de especies exóticas y elementos neogóticos consolida una identidad cosmopolita. Este espacio de descanso prepara tu mirada para los restos defensivos que aguardan en el Castillo de Santa Catalina.",
+        "transition": "Tras contemplar este refugio de identidades cosmopolitas, tu mirada busca ahora otro tipo de permanencia. Deja atrás la calma de los entierros extranjeros para buscar las piedras que alguna vez vigilaron el horizonte. Camina conmigo hacia el Castillo de Santa Catalina, donde la historia se vuelve defensa."
+      },
+      "latitude": 36.7216854,
+      "longitude": -4.4068238,
+      "position": 11,
+      "importanceScore": 34.623806237213536,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 110229892,
+          "wikidata": "Q5378201",
+          "wikipedia": "es:Cementerio Inglés (Málaga)",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 19.75,
+          "osmTags": {
+            "fee": "yes",
+            "name": "Cementerio Inglés de Málaga",
+            "email": "info@cementerioinglesmalaga.org",
+            "owner": "Fundación Cementerio Inglés de Málaga",
+            "phone": "+34 952 223 552",
+            "landuse": "cemetery",
+            "name:en": "The English Cemetery in Málaga",
+            "name:es": "Cementerio Inglés de Málaga",
+            "tourism": "attraction",
+            "website": "https://cementerioinglesmalaga.org/",
+            "alt_name": "Cementerio de San Jorge; Cementerio Anglicano",
+            "heritage": "2",
+            "historic": "cemetery",
+            "operator": "Fundación Cementerio Inglés de Málaga",
+            "owner:en": "The English Cemetery in Malaga Foundation",
+            "religion": "christian",
+            "wikidata": "Q5378201",
+            "wikipedia": "es:Cementerio Inglés (Málaga)",
+            "start_date": "1831",
+            "addr:street": "Avenida de Príes",
+            "alt_name:en": "Saint George's British Cemetery",
+            "operator:en": "The English Cemetery in Malaga Foundation",
+            "denomination": "anglican",
+            "addr:postcode": "29016",
+            "opening_hours": "Sa-Su 10:30-15:00; PH 10:30-15:00",
+            "addr:housenumber": "1",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "wikimedia_commons": "Category:Anglican_Cemetery,_Málaga",
+            "bic:inscription_date": "2012-11-20",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "ba97561b-7303-4eac-98bf-c7910ad2e05c",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2506,
+          "totalDurationMs": 20744,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1831",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " de otras comunidades.  Desde 1831, este espacio resuelve una te"
+              },
+              {
+                "type": "style",
+                "value": "gótico",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "verás elementos clásicos y neogóticos que conviven con especies ex"
+              },
+              {
+                "type": "style",
+                "value": "góticos",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "verás elementos clásicos y neogóticos que conviven con especies exó"
+              },
+              {
+                "type": "location",
+                "value": "distrito Centro",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "a estructura se integra en el distrito Centro, preparando tu mente para ent"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "Castillo y Muralla de Santa Catalina",
+      "description": "Deja atrás la quietud del cementerio y deja que tus ojos busquen este punto elevado. Fíjate cómo la estructura se impone sobre el distrito Este, marcando un límite claro en el paisaje urbano. Si te acercas a su base, notarás la presencia de una fortificación que no solo sirve como residencia palaciega, sino también como un firme testigo de piedra. Esta construcción, catalogada como bien de interés cultural, nos ofrece la respuesta final sobre cómo Málaga integra sus antiguas defensas en la vida actual.\n\nObserva la transformación de este lugar desde 1625, cuando el obispo Francisco de Mendoza ordenó levantar el Fuerte Alto de la Caleta para proteger la costa. Si miras las torres, verás cómo aquel baluarte militar con cuadras y almacenes mutó en algo distinto. Entre 1929 y 1933, Manuel Loring impulsó la creación del palacio residencial dentro de este recinto. Así, lo que nació como defensa se convirtió en vivienda familiar, integrando la piedra antigua con una nueva vida social.\n\nAl contemplar este recinto, comprendes la respuesta a nuestro recorrido: Málaga no borra su pasado, lo habita. Fíjate cómo el antiguo baluarte militar, diseñado originalmente para proteger la costa, dejó de ser una barrera de vigilancia para transformarse en un hogar residencial. Esta transición de fortificación a palacio demuestra que la ciudad reinventa sus espacios sin perder su esencia defensiva. Aquí, la piedra antigua y la vida social se funden, cerrando nuestro viaje con la idea de una historia viva.\n\nGracias por caminar conmigo a través de esta historia compartida. Al observar este recinto, comprendes que Málaga no borra su pasado, sino que lo habita con naturalidad. Has visto cómo cada piedra y cada muro han sabido transformarse para albergar nuevas vidas. Deseo que te lleves contigo la esencia de una ciudad que reinventa su presente sin renunciar a sus raíces. Que tengas un excelente viaje por nuestras calles.",
+      "descriptionSections": {
+        "arrival": "Deja atrás la quietud del cementerio y deja que tus ojos busquen este punto elevado. Fíjate cómo la estructura se impone sobre el distrito Este, marcando un límite claro en el paisaje urbano. Si te acercas a su base, notarás la presencia de una fortificación que no solo sirve como residencia palaciega, sino también como un firme testigo de piedra. Esta construcción, catalogada como bien de interés cultural, nos ofrece la respuesta final sobre cómo Málaga integra sus antiguas defensas en la vida actual.",
+        "history": "Observa la transformación de este lugar desde 1625, cuando el obispo Francisco de Mendoza ordenó levantar el Fuerte Alto de la Caleta para proteger la costa. Si miras las torres, verás cómo aquel baluarte militar con cuadras y almacenes mutó en algo distinto. Entre 1929 y 1933, Manuel Loring impulsó la creación del palacio residencial dentro de este recinto. Así, lo que nació como defensa se convirtió en vivienda familiar, integrando la piedra antigua con una nueva vida social.",
+        "significance": "Al contemplar este recinto, comprendes la respuesta a nuestro recorrido: Málaga no borra su pasado, lo habita. Fíjate cómo el antiguo baluarte militar, diseñado originalmente para proteger la costa, dejó de ser una barrera de vigilancia para transformarse en un hogar residencial. Esta transición de fortificación a palacio demuestra que la ciudad reinventa sus espacios sin perder su esencia defensiva. Aquí, la piedra antigua y la vida social se funden, cerrando nuestro viaje con la idea de una historia viva.",
+        "transition": "Gracias por caminar conmigo a través de esta historia compartida. Al observar este recinto, comprendes que Málaga no borra su pasado, sino que lo habita con naturalidad. Has visto cómo cada piedra y cada muro han sabido transformarse para albergar nuevas vidas. Deseo que te lleves contigo la esencia de una ciudad que reinventa su presente sin renunciar a sus raíces. Que tengas un excelente viaje por nuestras calles."
+      },
+      "latitude": 36.7249215,
+      "longitude": -4.3940404,
+      "position": 12,
+      "importanceScore": 34.0990030922364,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 12490806,
+          "wikidata": "Q5483542",
+          "wikipedia": "es:Castillo de Santa Catalina (Málaga)",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 17.00488750216347,
+          "osmTags": {
+            "name": "Castillo de Santa Catalina",
+            "type": "site",
+            "ref:bic": "RI-51-0005379",
+            "alt_name": "Castillo y Murallas de Santa Catalina",
+            "heritage": "2",
+            "historic": "monument",
+            "wikidata": "Q5483542",
+            "wikipedia": "es:Castillo de Santa Catalina (Málaga)",
+            "heritage:website": "https://ipce.cultura.gob.es",
+            "protection_title": "Bien de Interés Cultural",
+            "heritage:operator": "ipce",
+            "bic:inscription_date": "1989-12-19",
+            "protection_title:category": "Monumento"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "e611f76c-3f25-44e8-ad27-b0c99eb48e87",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2309,
+          "totalDurationMs": 7861,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1625",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "formación de este lugar desde 1625, cuando el obispo Francisco d"
+              },
+              {
+                "type": "date",
+                "value": "1929",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " mutó en algo distinto. Entre 1929 y 1933, Manuel Loring impulsó"
+              },
+              {
+                "type": "date",
+                "value": "1933",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n algo distinto. Entre 1929 y 1933, Manuel Loring impulsó la cre"
+              },
+              {
+                "type": "location",
+                "value": "distrito Este",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "estructura se impone sobre el distrito Este, marcando un límite claro en "
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "createdAt": "2026-06-24T11:05:57.461Z",
+  "updatedAt": "2026-06-24T11:05:57.461Z"
+}

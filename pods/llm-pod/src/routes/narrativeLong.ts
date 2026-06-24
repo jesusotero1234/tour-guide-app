@@ -10,11 +10,12 @@ import { transitionPrompt } from '../prompts/narrative/transition';
 import { LongNarrativePromptInput, LongNarrativeSeeds, SectionPrompt, FactCategory, PROP_TO_CATEGORY, categoryLabel } from '../prompts/narrative/types';
 import { buildNarrativeBrief, formatBriefForPrompt } from '../prompts/narrative/narrativeBrief';
 import { env } from '../config/env';
+import { fallbackSection, NarrativeSectionName } from './narrativeFallback';
 
 const router = express.Router();
 const NARRATIVE_MODEL = env.narrativeModel;
 
-type SectionName = 'arrival' | 'history' | 'significance' | 'transition';
+type SectionName = NarrativeSectionName;
 type SeedQuality = 'rich' | 'thin';
 
 type TraceInput = LongNarrativePromptInput & { traceId?: string };
@@ -210,6 +211,13 @@ function hasLanguageSignal(text: string, language: string): boolean {
   return targetHits >= 2;
 }
 
+function hasSourceLanguageDrift(text: string, language: string): boolean {
+  const code = language.slice(0, 2).toLowerCase();
+  if (code !== 'fr') return false;
+  if (/(?:paleocristienne|\bbisbes\b|\bbishop\b|\bcatedral\b)/i.test(text)) return true;
+  return /(?:basílica gòtica|chaque stop|\bcon su\b|fachada revestida|obra maestr[íi]a|cerámica polícroma|\b(?:paleocristiana|construida|construido|diseñada|arquitectura|edificio|barrio|vidrio)\b)/i.test(text);
+}
+
 function seedText(input: LongNarrativePromptInput): string {
   const seeds = input.seeds || { osmTags: {} };
   return [
@@ -349,6 +357,7 @@ const HARD_CLICHE_BANS = [
   'es significativo para nuestro recorrido', 'es importante para nuestra caminata',
   'refleja como', 'muestra como',
   'must-see destination', 'steeped in history', 'hidden gem',
+  'have you ever wondered', 'rumour has it', 'rumor has it',
   'timeless charm', 'living witness', 'whisper of the past', 'echoes of history',
   'invites you to imagine', 'tells a story of', 'captivates every visitor', 'step back in time',
   'poder y riqueza', 'riqueza del',
@@ -393,8 +402,6 @@ const EVIDENCE_AWARE_VISUAL: Array<{ phrase: string; evidenceKeys: string[] }> =
   { phrase: 'atmosphere',           evidenceKeys: [] },
   { phrase: 'jeu de lumiere',       evidenceKeys: [] },
   { phrase: 'ombres',               evidenceKeys: [] },
-  { phrase: 'majestueux',           evidenceKeys: [] },
-  { phrase: 'imposant',             evidenceKeys: [] },
   { phrase: 'mysterieux',           evidenceKeys: [] },
   { phrase: 'atmosphare',           evidenceKeys: [] },
   { phrase: 'schatten',             evidenceKeys: [] },
@@ -529,9 +536,84 @@ function hasUnverifiedClaim(
   return null;
 }
 
-function validateSection(section: string, input: LongNarrativePromptInput, name?: SectionName, corpus?: TieredCorpus): string | null {
+export function repairSectionSurfaceIssue(
+  section: string,
+  validationError: string,
+  input: LongNarrativePromptInput
+): string {
+  if (validationError === 'source-language-drift' && input.language.slice(0, 2).toLowerCase() === 'fr') {
+    const translated = section
+      .replace(/basílica gòtica/gi, 'basilique gothique')
+      .replace(/paleocristiana/gi, 'paléochrétienne')
+      .replace(/paleocristienne/gi, 'paléochrétienne')
+      .replace(/basílica paléochrétienne/gi, 'basilique paléochrétienne')
+      .replace(/\bbisbes\b/gi, 'évêques')
+      .replace(/\bbishop\b/gi, 'évêque')
+      .replace(/\bcatedral\b/gi, 'cathédrale')
+      .replace(/\bconstruida\b/gi, 'construite')
+      .replace(/\bconstruido\b/gi, 'construit')
+      .replace(/\barquitectura\b/gi, 'architecture')
+      .replace(/\bedificio\b/gi, 'édifice')
+      .replace(/\bbarrio\b/gi, 'quartier')
+      .replace(/chaque stop/gi, 'chaque étape');
+    const sentences = translated.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [translated];
+    return sentences
+      .filter((sentence) => !hasSourceLanguageDrift(sentence, input.language))
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  if (validationError.startsWith('unsupported-visual:')) {
+    const unsupportedTerm = normalizeNFD(validationError.slice('unsupported-visual:'.length));
+    const sentences = section.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [section];
+    return sentences
+      .filter((sentence) => !normalizeNFD(sentence).includes(unsupportedTerm))
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  if (validationError.startsWith('unverified-date:')) {
+    const unsupportedDate = validationError.slice('unverified-date:'.length);
+    const sentences = section.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [section];
+    return sentences
+      .filter((sentence) => !sentence.includes(unsupportedDate))
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  if (/^unverified-(?:architect|style|location):/.test(validationError)) {
+    const unsupportedValue = normalizeNFD(validationError.slice(validationError.indexOf(':') + 1));
+    const sentences = section.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [section];
+    return sentences
+      .filter((sentence) => !normalizeNFD(sentence).includes(unsupportedValue))
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  if (validationError.startsWith('banned-cliche:')) {
+    return section
+      .replace(/raconte une histoire/gi, 'exprime une évolution')
+      .replace(/t[ée]moin vivant/gi, 'repère concret')
+      .replace(/living witness/gi, 'concrete record')
+      .replace(/testimonio vivo/gi, 'referencia concreta');
+  }
+
+  return section;
+}
+
+function hasCoordinatePair(text: string): boolean {
+  return /\b-?\d{1,3}\.\d{4,}\s*,\s*-?\d{1,3}\.\d{4,}\b/.test(text);
+}
+
+export function validateSection(section: string, input: LongNarrativePromptInput, name?: SectionName, corpus?: TieredCorpus): string | null {
   const count = wordCount(section);
-  if (count < 45 || count > 140) return `word-count-${count}`;
+  const minWords = name === 'transition' ? 25 : 45;
+  const maxWords = name === 'transition' ? (input.position === 'last' ? 75 : 70) : 140;
+  if (count < minWords || count > maxWords) return `word-count-${count}`;
   if (/^Visit .*, a notable (location|stop|place) /i.test(section)) return 'generic-shape';
   if (/^¡Hola!|^Hello!|^Bonjour!|^Hallo!/i.test(section)) return 'chatbot-opening';
   const banned = hasBannedPhrase(section, input);
@@ -548,8 +630,20 @@ function validateSection(section: string, input: LongNarrativePromptInput, name?
     const invalidTrans = hasInvalidTransition(section);
     if (invalidTrans) return invalidTrans;
   }
+  if (name === 'transition' && /(?:juste à côté|à quelques pas|tout près|non loin|nearby|next door|a few steps away|justo al lado|a pocos pasos)/i.test(section)) {
+    return 'unsupported-proximity';
+  }
+  if ((name === 'arrival' || name === 'transition') && /(?:vers l['’](?:est|ouest)|vers le (?:nord|sud)|au (?:nord|sud|est|ouest)|to the (?:north|south|east|west)|hacia el (?:norte|sur|este|oeste))/i.test(section)) {
+    return 'unsupported-route-geometry';
+  }
+  if (name === 'arrival' && /(?:sous le soleil|rayons du soleil|brille sous|derniers rayons|at sunset|in the sunlight|bajo el sol|rayos del sol)/i.test(section)) {
+    return 'unstable-observation';
+  }
+  if (hasSourceLanguageDrift(section, input.language)) return 'source-language-drift';
   if (!hasLanguageSignal(section, input.language)) return 'language-drift';
-  if (/\b-?\d{1,3}\.\d{3,}\b/.test(section)) return 'coordinates';
+  const constructionConflict = hasConstructionDateConflict(section, input);
+  if (constructionConflict) return constructionConflict;
+  if (hasCoordinatePair(section)) return 'coordinates';
   const unsupportedDrift = hasUnsupportedDrift(section, input);
   if (unsupportedDrift) return unsupportedDrift;
   if (input.language === 'es' || input.language?.startsWith('es-')) {
@@ -709,6 +803,11 @@ const KNOWN_ARCHITECTURAL_STYLES = [
   'mozárabe', 'mozárabes', 'mozarabe', 'mozarabes',
   'isabelino', 'isabelina', 'isabelinos', 'isabelinas',
   'churrigueresco', 'churrigueresca',
+  'gothique', 'gothiques', 'baroque', 'baroques',
+  'néoclassique', 'néoclassiques', 'neoclassique', 'neoclassiques',
+  'roman', 'romane', 'romans', 'romanes', 'Renaissance',
+  'modernisme', 'moderniste', 'modernistes', 'éclectisme', 'eclectisme',
+  'brutaliste', 'brutalistes', 'Art nouveau', 'Art déco', 'Art deco',
 ];
 
 const KNOWN_MATERIALS = [
@@ -754,7 +853,7 @@ const SEVERITY_MAP: Record<ClaimType, { unverified: ClaimSeverity; contradicted:
   date:              { unverified: 'warning',  contradicted: 'critical' },
   architect:         { unverified: 'warning',  contradicted: 'critical' },
   historical_person: { unverified: 'warning',  contradicted: 'critical' },
-  style:             { unverified: 'warning',  contradicted: 'critical' },
+  style:             { unverified: 'warning',  contradicted: 'warning' },
   material:          { unverified: 'info',     contradicted: 'warning' },
   measurement:       { unverified: 'info',     contradicted: 'warning' },
   location:          { unverified: 'warning',  contradicted: 'critical' },
@@ -774,7 +873,38 @@ function extractDates(text: string): string[] {
   while ((match = centuryRe.exec(text)) !== null) {
     dates.push(match[0]);
   }
+  const localizedCenturyRe = /\b(?:\d{1,2}(?:er|e)?\s+si[èe]cle|\d{1,2}(?:st|nd|rd|th)\s+century|\d{1,2}\.\s+Jahrhundert|secolo\s+[IVXLCDM]+)\b/gi;
+  while ((match = localizedCenturyRe.exec(text)) !== null) {
+    dates.push(match[0]);
+  }
   return [...new Set(dates)];
+}
+
+export function hasConstructionDateConflict(section: string, input: LongNarrativePromptInput): string | null {
+  const claims = input.seeds?.wikidataClaims || {};
+  const inception = claims.inception || claims.P571;
+  const inceptionYear = inception?.match(/\b(\d{4})\b/)?.[1];
+  if (!inceptionYear) return null;
+  const knownYear = Number(inceptionYear);
+  const construction = '(?:construit(?:e|s|es)?|b[aâ]ti(?:e|s|es)?|[ée]difi[ée](?:e|s|es)?|built|erected|erbaut|errichtet|costruit[oa]|edificat[oa])';
+  const yearRe = new RegExp(`${construction}[^.!?]{0,60}?\\b(\\d{4})\\b`, 'giu');
+  let match: RegExpExecArray | null;
+  while ((match = yearRe.exec(section)) !== null) {
+    const generatedYear = Number(match[1]);
+    if (Math.abs(generatedYear - knownYear) > 50) {
+      return `construction-date-conflict:${generatedYear}:expected-${knownYear}`;
+    }
+  }
+  const centuryRe = new RegExp(`${construction}[^.!?]{0,60}?\\b(\\d{1,2})(?:er|e)?\\s+si[èe]cle`, 'giu');
+  while ((match = centuryRe.exec(section)) !== null) {
+    const century = Number(match[1]);
+    const firstYear = (century - 1) * 100 + 1;
+    const lastYear = century * 100;
+    if (knownYear < firstYear || knownYear > lastYear) {
+      return `construction-date-conflict:${century}e-siècle:expected-${knownYear}`;
+    }
+  }
+  return null;
 }
 
 function extractStyles(text: string): string[] {
@@ -809,14 +939,24 @@ function extractMeasurements(text: string): string[] {
   return measurements;
 }
 
-function extractArchitects(text: string): string[] {
+export function extractArchitects(text: string): string[] {
   const architects: string[] = [];
-  const re = /(?:por|obra de|diseñad[oa] por|arquitecto[s]?|del arquitecto)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,4})/g;
-  let match;
-  while ((match = re.exec(text)) !== null) {
-    const name = match[1].trim();
-    if (!/^(el|la|los|las|su|un|una|este|esta|eso|aquel|cuando|donde|primera|segunda)\b/i.test(name)) {
-      architects.push(name);
+  const nameToken = "(?:\\p{Lu}\\.|\\p{Lu}[\\p{L}'’\\-]+)";
+  const name = `(${nameToken}(?:\\s+(?:(?:de|del|di|da|du|von|van|der|la|le)\\s+)?${nameToken}){0,4})`;
+  const patterns = [
+    new RegExp(`(?:obra de|diseñad[oa] por|arquitecto[s]?|del arquitecto)\\s+${name}`, 'gu'),
+    new RegExp(`(?:par l['’]architecte|conçu(?:e)? par|dessiné(?:e)? par|signé(?:e)? par|œuvre de)\\s+${name}`, 'gu'),
+    new RegExp(`(?:designed by|architect(?: was| is)?|a work by)\\s+${name}`, 'giu'),
+    new RegExp(`(?:entworfen von|vom Architekten|Architekt(?: war| ist)?)\\s+${name}`, 'gu'),
+    new RegExp(`(?:progettat[oa] da|dall['’]architetto|opera di)\\s+${name}`, 'gu'),
+  ];
+  for (const re of patterns) {
+    let match;
+    while ((match = re.exec(text)) !== null) {
+      const architect = match[1].trim().replace(/[.,;:!?]+$/, '');
+      if (!/^(el|la|los|las|su|un|una|este|esta|eso|aquel|cuando|donde|primera|segunda)\b/i.test(architect)) {
+        architects.push(architect);
+      }
     }
   }
   return [...new Set(architects)];
@@ -839,6 +979,9 @@ function extractHistoricalPersons(text: string): string[] {
 function extractLocations(text: string, whitelist: string[]): string[] {
   const locations: string[] = [];
   const patterns = [
+    /\b((?:quartier|district)\s+(?:(?:de|du|des|d’|d'|la|le|les)\s+)?[A-ZÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸ][\p{L}'’-]+(?:\s+[A-ZÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸ][\p{L}'’-]+){0,2})\b/gu,
+    /\b((?:barrio|distrito)\s+(?:(?:de|del|la|el)\s+)?[A-ZÁÉÍÓÚÑ][\p{L}'’-]+(?:\s+[A-ZÁÉÍÓÚÑ][\p{L}'’-]+){0,2})\b/gu,
+    /\b((?:neighborhood|district)\s+(?:(?:of|the)\s+)?[A-Z][\p{L}'’-]+(?:\s+[A-Z][\p{L}'’-]+){0,2})\b/gu,
     // ES: "Plaza de Oriente", "Calle Mayor", "Palacio Real".
     /\b((?:Plaza|Calle|Barrio|Puerta|Fuente|Parque|Jard[ií]n|Paseo|Avenida|Glorieta|Ronda|Cuesta|Campo|Teatro|Museo|Palacio|Iglesia|Catedral|Bas[ií]lica|Monasterio|Convento|Torre|Puente|Estaci[oó]n|Mercado)\s+(?:(?:de|del|de\s+la|de\s+las|de\s+los)\s+)?[A-ZÁÉÍÓÚÑ][\p{L}'’-]+(?:\s+(?:(?:de|del|de\s+la|de\s+las|de\s+los)\s+)?[A-ZÁÉÍÓÚÑ][\p{L}'’-]+){0,3})\b/gu,
     // EN: "Royal Palace", "Main Street", "Hyde Park".
@@ -1033,6 +1176,9 @@ function findClaimSource(
   // For styles: use root normalization to match gender/number variants
   // "góticas" and "gótico" should both normalize to the same root
   if (claimType === 'style') {
+    if (corpus.medium.includes(normalizedValue)) {
+      return { found: true, tier: 'wikipedia' };
+    }
     const styleRoot = normalizeSpanishTokenRoot(normalizedValue);
     for (const knownStyle of KNOWN_ARCHITECTURAL_STYLES) {
       if (normalizeSpanishTokenRoot(knownStyle) === styleRoot) {
@@ -1186,7 +1332,7 @@ function isContradicted(
 
 // ── Full narrative claim verification ──────────────────────────────
 
-function validateNarrativeClaims(
+export function validateNarrativeClaims(
   text: string,
   input: LongNarrativePromptInput
 ): ClaimCheckResult {
@@ -1212,11 +1358,12 @@ function validateNarrativeClaims(
       // Check if claim is contradicted
       const contradicted = isContradicted(value, type, corpus);
       if (contradicted) {
+        const contradictedSeverity = SEVERITY_MAP[type]?.contradicted || severity;
         claims.push({
           type,
           value,
           status: 'contradicted',
-          severity,
+          severity: contradictedSeverity,
           source: 'none',
           context: claimContext(text, value),
         });
@@ -1276,6 +1423,30 @@ function validateNarrativeClaims(
   };
 }
 
+const BLOCKING_CLAIM_TYPES = new Set<ClaimType>(['date', 'architect', 'location']);
+
+export function guardSectionsAgainstSources(
+  sections: Record<string, string>,
+  input: LongNarrativePromptInput
+): { sections: Record<string, string>; reasons: string[] } {
+  const guarded = { ...sections };
+  const reasons: string[] = [];
+
+  for (const name of Object.keys(guarded) as SectionName[]) {
+    const claimCheck = validateNarrativeClaims(guarded[name], input);
+    const blockingClaims = claimCheck.claims.filter((claim) => (
+      BLOCKING_CLAIM_TYPES.has(claim.type) && claim.status !== 'verified'
+    ));
+    if (blockingClaims.length === 0) continue;
+
+    const reason = `${name}:post-generation-claim-guard:${blockingClaims.map((claim) => `${claim.type}:${claim.value}`).join('|')}`;
+    guarded[name] = fallbackSection(name, input, reason);
+    reasons.push(reason);
+  }
+
+  return { sections: guarded, reasons };
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // SOFT WEAK-PHRASE SCORING + CONCURRENCY LIMITER + SECTION GENERATION
 // ═══════════════════════════════════════════════════════════════════
@@ -1315,27 +1486,6 @@ function scoreWeakPhrases(section: string): EditorialScoreResult {
   return { score, hits, severity };
 }
 
-/** Limits concurrent async tasks to avoid saturating Ollama with
- *  parallel requests that degrade consistency and latency. */
-async function parallelLimit<T>(
-  tasks: Array<() => Promise<T>>,
-  limit: number
-): Promise<T[]> {
-  const results: T[] = [];
-  let index = 0;
-
-  async function worker(): Promise<void> {
-    while (index < tasks.length) {
-      const i = index++;
-      results[i] = await tasks[i]();
-    }
-  }
-
-  const workers = Array.from({ length: Math.min(limit, tasks.length) }, () => worker());
-  await Promise.all(workers);
-  return results;
-}
-
 function parseSection(raw: string): string | null {
   const trimmed = raw.trim();
 
@@ -1373,66 +1523,17 @@ function parseSection(raw: string): string | null {
     } catch { /* ignore */ }
   }
 
-  return null;
-}
-
-// ── Fallback builders (Fase 9 — narrative-quality fallback) ──────
-
-function buildFallbackEvidence(input: LongNarrativePromptInput): string {
-  const parts: string[] = [];
-  const claims = input.seeds?.wikidataClaims || {};
-
-  if (claims['P571']) parts.push(`construido en ${claims['P571']}`);
-  if (claims['P84']) parts.push(`obra de ${claims['P84']}`);
-  if (claims['P149']) parts.push(`de estilo ${claims['P149']}`);
-  if (claims['P1435']) parts.push(`declarado ${claims['P1435']}`);
-
-  if (parts.length > 0) return parts.join(', ');
-  return '';
-}
-
-function buildFallbackObservation(input: LongNarrativePromptInput): string {
-  const tags = input.seeds?.osmTags || {};
-  const type = tags['historic'] || tags['tourism'] || tags['amenity'] || tags['building'];
-  if (type) return `${input.localName} es un ${type.replace(/_/g, ' ')} en ${input.cityName || 'la ciudad'}.`;
-  return '';
-}
-
-function fallbackSection(name: SectionName, input: LongNarrativePromptInput, reason: string): string {
-  const language = input.language?.slice(0, 2).toLowerCase() || 'en';
-  const evidence = buildFallbackEvidence(input);
-  const observation = buildFallbackObservation(input);
-  const nextStop = input.nextStopName || (language === 'es' ? 'la siguiente parada' : 'the next stop');
-
-  // Build language-aware templates that NEVER emit "classified as" or meta-language
-  switch (name) {
-    case 'arrival': {
-      const base = observation || `${input.localName}, ${input.cityName || 'esta ciudad'}.`;
-      const detail = evidence ? ` ${evidence.charAt(0).toUpperCase() + evidence.slice(1)}.` : '';
-      if (language === 'es') return `Has llegado a ${base}${detail} Observa la estructura y su entorno inmediato.`;
-      return `You've arrived at ${base}${detail} Take in the structure and its immediate surroundings.`;
-    }
-    case 'history': {
-      if (evidence) return evidence.charAt(0).toUpperCase() + evidence.slice(1) + '.';
-      if (observation) return observation;
-      if (language === 'es') return `${input.localName} forma parte de la historia urbana de ${input.cityName || 'la ciudad'}.`;
-      return `${input.localName} is part of ${input.cityName || "the city"}'s urban history.`;
-    }
-    case 'significance': {
-      if (evidence) {
-        if (language === 'es') return `${evidence.charAt(0).toUpperCase() + evidence.slice(1)}. Un punto clave en este recorrido de ${input.theme}.`;
-        return `${evidence.charAt(0).toUpperCase() + evidence.slice(1)}. A key stop on this ${input.theme} tour.`;
-      }
-      if (language === 'es') return `${input.localName} es una parada relevante de este recorrido por ${input.cityName || 'la ciudad'}.`;
-      return `${input.localName} is a relevant stop on this ${input.cityName || 'city'} tour.`;
-    }
-    case 'transition': {
-      if (language === 'es') return `Desde aquí, continúa hacia ${nextStop}. Observa cómo cambia el paisaje urbano a tu alrededor.`;
-      return `From here, continue toward ${nextStop}. Notice how the urban landscape shifts around you.`;
-    }
-    default:
-      return input.localName;
+  // Tolerate a missing closing brace when the JSON field itself is complete.
+  // The extracted prose still passes every normal section validator.
+  const looseField = trimmed.match(/"(?:section|text)"\s*:\s*"([\s\S]+)"\s*\}?\s*$/);
+  if (looseField) {
+    return looseField[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').trim();
   }
+
+  // Some local models ignore JSON mode and return only the requested prose.
+  if (!/[{}]/.test(trimmed) && wordCount(trimmed) >= 30) return trimmed;
+
+  return null;
 }
 
 async function generateSection(
@@ -1446,7 +1547,7 @@ async function generateSection(
   let missingFacts: string[] | undefined;
   // Fase 2: build tiered corpus once per section (cached for retry loop)
   const corpus = buildTieredCorpus(input.seeds);
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     const promptInput = { ...input, retry: attempt > 0, missingFacts };
     // Fase 2.6: per-section temperature calibration (lowered arrival+sig)
     const sectionTemps: Record<SectionName, [number, number]> = {
@@ -1459,8 +1560,8 @@ async function generateSection(
     const prompt = buildPrompt(promptInput);
     const modelOptions = {
       model: NARRATIVE_MODEL,
-      temperature: attempt > 0 ? temp2 : temp1,
-      max_tokens: input.seedQuality === 'thin' ? 180 : 200,
+      temperature: attempt === 0 ? temp1 : attempt === 1 ? temp2 : 0.1,
+      max_tokens: input.seedQuality === 'thin' ? 200 : 260,
       think: false,
       format: 'json' as const,
     };
@@ -1532,13 +1633,25 @@ async function generateSection(
       continue;
     }
 
-    const validationError = validateSection(section, input, name, corpus);
-    attemptTrace.parseResult = section;
+    let acceptedSection = section;
+    let validationError = validateSection(acceptedSection, input, name, corpus);
+    if (validationError) {
+      const repairedSection = repairSectionSurfaceIssue(acceptedSection, validationError, input);
+      if (repairedSection !== acceptedSection) {
+        const repairValidationError = validateSection(repairedSection, input, name, corpus);
+        if (!repairValidationError) {
+          narrativeLog('section-surface-repair', { traceId, section: name, validationError });
+          acceptedSection = repairedSection;
+          validationError = null;
+        }
+      }
+    }
+    attemptTrace.parseResult = acceptedSection;
     attemptTrace.validationFailure = validationError;
-    attemptTrace.wordCount = wordCount(section);
+    attemptTrace.wordCount = wordCount(acceptedSection);
     attemptTrace.success = !validationError;
     // Soft editorial scoring (non-blocking)
-    const editorialScore = scoreWeakPhrases(section);
+    const editorialScore = scoreWeakPhrases(acceptedSection);
     debugTrace?.attempts.push(attemptTrace);
     narrativeLog('section-attempt', {
       traceId,
@@ -1566,7 +1679,7 @@ async function generateSection(
       editorialSeverity: editorialScore.severity,
       fallbackUsed: false,
     });
-    if (!validationError) return { name, section };
+    if (!validationError) return { name, section: acceptedSection };
     lastReason = validationError;
     // Fase 5: targeted retry feedback per error type
     if (validationError.startsWith('fact-coverage:')) {
@@ -1592,6 +1705,19 @@ async function generateSection(
       missingFacts = ['Varía estructura de frases. Evita repetir los mismos trigramas.'];
     } else if (validationError === 'formal-register') {
       missingFacts = ['Usa "tú", no "usted". Lenguaje cercano y directo.'];
+    } else if (validationError === 'language-drift') {
+      missingFacts = [`Escribe exclusivamente en ${input.language}. No mezcles palabras ni plantillas de otros idiomas.`];
+    } else if (validationError === 'source-language-drift') {
+      missingFacts = [`Traduce al ${input.language} los términos descriptivos tomados de la fuente. Conserva sin traducir únicamente los nombres propios oficiales.`];
+    } else if (validationError === 'unsupported-proximity') {
+      missingFacts = ['No afirmes que la siguiente parada está cerca, al lado o visible. Conecta las ideas sin inventar geometría de la ruta.'];
+    } else if (validationError === 'unsupported-route-geometry') {
+      missingFacts = ['Elimina puntos cardinales y direcciones inventadas. Conecta la parada anterior y la siguiente solo por su idea narrativa.'];
+    } else if (validationError === 'unstable-observation') {
+      missingFacts = ['Describe solo rasgos estables del lugar. Elimina referencias al sol, la luz, el clima, la hora o la afluencia actual.'];
+    } else if (validationError.startsWith('construction-date-conflict:')) {
+      const inception = input.seeds?.wikidataClaims?.inception || input.seeds?.wikidataClaims?.P571;
+      missingFacts = [`La fecha de construcción permitida es ${inception}. Elimina cualquier siglo o fecha incompatible.`];
     }
   }
 
@@ -1657,7 +1783,6 @@ router.post('/stop/long', async (req, res) => {
     const brief = env.narrativeBriefEnabled ? buildNarrativeBrief(input) : null;
     const briefText = brief ? formatBriefForPrompt(brief) : undefined;
     if (brief && briefText) {
-      input.narrativeBriefText = briefText;
       narrativeLog('brief-built', {
         traceId,
         seedQuality: brief.seedQuality,
@@ -1665,21 +1790,36 @@ router.post('/stop/long', async (req, res) => {
         tone: brief.tone,
       });
     }
-    const maxConcurrency = env.narrativeMaxConcurrency || 2;
-    const ordered = await parallelLimit(
-      policy.sectionNames.map(sectionName => () =>
-        generateSection(sectionName, promptBuilders[sectionName], input, traceId, debugTrace)
-      ),
-      maxConcurrency
-    );
-    const sections = Object.fromEntries(
+    const ordered: Array<{ name: SectionName; section: string | null; droppedReason?: string }> = [];
+    let previousSectionsText = '';
+    for (const sectionName of policy.sectionNames) {
+      const result = await generateSection(
+        sectionName,
+        promptBuilders[sectionName],
+        {
+          ...input,
+          narrativeBriefText: brief ? formatBriefForPrompt(brief, sectionName) : undefined,
+          previousSectionsText: previousSectionsText || undefined,
+        },
+        traceId,
+        debugTrace
+      );
+      ordered.push(result);
+      if (result.section) {
+        previousSectionsText = [previousSectionsText, result.section].filter(Boolean).join('\n\n');
+      }
+    }
+    const generatedSections = Object.fromEntries(
       ordered.filter(item => item.section).map(item => [item.name, item.section])
     ) as Record<string, string>;
-    const droppedReasons = ordered
+    const generationDroppedReasons = ordered
       .map(item => item.droppedReason)
       .filter((reason): reason is string => Boolean(reason));
-    const narration = ordered
-      .map(item => item.section)
+    const guarded = guardSectionsAgainstSources(generatedSections, input);
+    const sections = guarded.sections;
+    const droppedReasons = [...generationDroppedReasons, ...guarded.reasons];
+    const narration = policy.sectionNames
+      .map((name) => sections[name])
       .filter((section): section is string => Boolean(section))
       .join('\n\n');
     const totalDurationMs = Date.now() - requestStartedAt;

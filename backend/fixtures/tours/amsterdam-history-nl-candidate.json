@@ -1,0 +1,1226 @@
+{
+  "id": "fixture-candidate",
+  "city": "Amsterdam",
+  "country": "Netherlands",
+  "countryCode": "NL",
+  "theme": "history",
+  "language": "nl",
+  "durationMinutes": 240,
+  "metadata": {
+    "generationMode": "frozen-fixture-replay",
+    "sourceSnapshot": "amsterdam-history-nl.json",
+    "routeDiagnostics": {
+      "degraded": false,
+      "degradationReason": null,
+      "coverageRatio": 0.9606045794803433,
+      "estimatedTourMinutes": 230.5450990752824,
+      "requestedDuration": 240
+    }
+  },
+  "places": [
+    {
+      "id": "fixture-1",
+      "tourId": "fixture-candidate",
+      "name": "Museumplein",
+      "description": "Kijk naar de weidse openheid van dit plein waar de paden samenkomen. Terwijl we hier op de Museumplein staan, begint onze ontdekkingsreis door de dertien stops die ik voor jullie heb uitgezet. De komende 240 minuten verkennen we hoe Amsterdam haar publieke leven telkens opnieuw vormgeeft zonder oude sporen te wissen. Dit plein dient als het perfecte startpunt om die vraag te beantwoorden, want hier zie je hoe de stad ruimte creëert voor cultuur en ontmoeting.\n\nKijk naar de manier waarop deze ruimte functioneert als een cultureel hart in Amsterdam-Zuid. Ooit was dit gebied niet zo open als nu, maar de stad koos bewust voor een plek waar musea en publieke ontmoeting samenkomen. De plannen voor een spoorwegstation aan de Schiphollijn bleven uiteindelijk onvervuld, waardoor deze locatie een andere bestemming kreeg. Hierdoor ontstond een unieke balans tussen de noodzaak voor infrastructuur en de wens voor een rustige, culturele enclave.\n\nDeze weidse ruimte laat zien hoe Amsterdam lagen over elkaar heen legt. Waar de plannen voor een spoorwegstation aan de Schiphollijn nooit werden uitgevoerd, ontstond er juist ruimte voor deze culturele enclave. Het plein fungeert als een levend bewijs van stedelijke transformatie; de afwezigheid van rails maakte plaats voor ontmoeting en kunst. Terwijl we straks door de drukkere straten lopen, blijft dit plein het ankerpunt waar de stad haar identiteit als cultuurstad bewust vormgeeft.\n\nDeze culturele rust laat zien hoe de stad ruimte voor kunst koestert. Terwijl we de stilte van dit plein achter ons laten, verplaatsen we onze blik naar een plek waar het stedelijke ritme weer versnelt en de dynamiek van het dagelijks leven direct voelbaar wordt op het Leidseplein.",
+      "descriptionSections": {
+        "arrival": "Kijk naar de weidse openheid van dit plein waar de paden samenkomen. Terwijl we hier op de Museumplein staan, begint onze ontdekkingsreis door de dertien stops die ik voor jullie heb uitgezet. De komende 240 minuten verkennen we hoe Amsterdam haar publieke leven telkens opnieuw vormgeeft zonder oude sporen te wissen. Dit plein dient als het perfecte startpunt om die vraag te beantwoorden, want hier zie je hoe de stad ruimte creëert voor cultuur en ontmoeting.",
+        "history": "Kijk naar de manier waarop deze ruimte functioneert als een cultureel hart in Amsterdam-Zuid. Ooit was dit gebied niet zo open als nu, maar de stad koos bewust voor een plek waar musea en publieke ontmoeting samenkomen. De plannen voor een spoorwegstation aan de Schiphollijn bleven uiteindelijk onvervuld, waardoor deze locatie een andere bestemming kreeg. Hierdoor ontstond een unieke balans tussen de noodzaak voor infrastructuur en de wens voor een rustige, culturele enclave.",
+        "significance": "Deze weidse ruimte laat zien hoe Amsterdam lagen over elkaar heen legt. Waar de plannen voor een spoorwegstation aan de Schiphollijn nooit werden uitgevoerd, ontstond er juist ruimte voor deze culturele enclave. Het plein fungeert als een levend bewijs van stedelijke transformatie; de afwezigheid van rails maakte plaats voor ontmoeting en kunst. Terwijl we straks door de drukkere straten lopen, blijft dit plein het ankerpunt waar de stad haar identiteit als cultuurstad bewust vormgeeft.",
+        "transition": "Deze culturele rust laat zien hoe de stad ruimte voor kunst koestert. Terwijl we de stilte van dit plein achter ons laten, verplaatsen we onze blik naar een plek waar het stedelijke ritme weer versnelt en de dynamiek van het dagelijks leven direct voelbaar wordt op het Leidseplein."
+      },
+      "latitude": 52.3587105,
+      "longitude": 4.8833872,
+      "position": 0,
+      "importanceScore": 54.00488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 446542702,
+          "wikidata": "Q639321",
+          "wikipedia": "nl:Museumplein",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 29.00488750216347,
+          "osmTags": {
+            "name": "Museumplein",
+            "wikidata": "Q639321",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "23",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
+            "name:de": "Museumsplatz",
+            "name:en": "Museum Square",
+            "name:ko": "박물관 광장(뮈세윔플레인)",
+            "name:nl": "Museumplein",
+            "name:zh": "博物館廣場",
+            "wikimedia_commons": "Category:Museumplein",
+            "wikipedia": "nl:Museumplein"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d3dc2bb6-c831-4a70-b5e9-7459e530c83c",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 763,
+          "totalDurationMs": 19799,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-2",
+      "tourId": "fixture-candidate",
+      "name": "Leidseplein",
+      "description": "Waar de rust van het Museumplein eindigt, begint hier een ander ritme. Kijk om je heen naar de Leidsestraat die rechtstreeks op dit plein uitmondt en de weg vervolgt over de Leidsebrug. Je ziet hoe de Marnixstraat en de Leidsekade samenkomen bij dit centrale knooppunt, langs het groen van het Leidsebosje richting de Stadhouderskade. Deze plek vormt een levendig overgangspunt in onze stad, waar de straten zich op een unieke manier ordenen.\n\nIn 1660 werd dit gebied onderdeel van de Vierde Uitleg, toen het plein ontstond als een functionele wagenplein. Reizigers parkeerden hier hun karren voordat zij de stad binnengingen via de Leidsepoort, die tot 1862 standhield. De sfeer veranderde drastisch na 1774, toen de eerste Stadsschouwburg werd gebouwd. Hoewel een brand in 1890 het houten theater vernietigde, herrees er in 1894 een nieuw gebouw. Zo evolueerde deze plek van een praktische parkeerplaats naar een cultureel hart, net voor we richting Rembrandtplein lopen.\n\nDe transformatie van een functionele parkeerplaats naar een cultureel epicentrum bepaalt de ziel van dit plein. Waar vroeger karren wachtten op toegang tot de stad, pulseert nu het theaterleven. Deze verschuiving laat zien hoe Amsterdam haar fundamenten hergebruikt om nieuwe publieke functies te huisvesten. Het Leidseplein fungeert als een levende schakel tussen utilitair gebruik en vermaak. Terwijl we de overgang van rust naar beweging voelen, wacht ons op de volgende stop een andere vorm van stedelijke dynamiek.\n\nDeze verschuiving van praktische parkeerplaats naar cultureel epicentrum vormt de kern van onze ontdekkingstocht. Terwijl het theaterleven hier de toon zet, zoeken we verder naar diezelfde stedelijke dynamiek. Laten we de beweging van dit plein volgen richting de sfeer die ons op het Rembrandtplein verwacht.",
+      "descriptionSections": {
+        "arrival": "Waar de rust van het Museumplein eindigt, begint hier een ander ritme. Kijk om je heen naar de Leidsestraat die rechtstreeks op dit plein uitmondt en de weg vervolgt over de Leidsebrug. Je ziet hoe de Marnixstraat en de Leidsekade samenkomen bij dit centrale knooppunt, langs het groen van het Leidsebosje richting de Stadhouderskade. Deze plek vormt een levendig overgangspunt in onze stad, waar de straten zich op een unieke manier ordenen.",
+        "history": "In 1660 werd dit gebied onderdeel van de Vierde Uitleg, toen het plein ontstond als een functionele wagenplein. Reizigers parkeerden hier hun karren voordat zij de stad binnengingen via de Leidsepoort, die tot 1862 standhield. De sfeer veranderde drastisch na 1774, toen de eerste Stadsschouwburg werd gebouwd. Hoewel een brand in 1890 het houten theater vernietigde, herrees er in 1894 een nieuw gebouw. Zo evolueerde deze plek van een praktische parkeerplaats naar een cultureel hart, net voor we richting Rembrandtplein lopen.",
+        "significance": "De transformatie van een functionele parkeerplaats naar een cultureel epicentrum bepaalt de ziel van dit plein. Waar vroeger karren wachtten op toegang tot de stad, pulseert nu het theaterleven. Deze verschuiving laat zien hoe Amsterdam haar fundamenten hergebruikt om nieuwe publieke functies te huisvesten. Het Leidseplein fungeert als een levende schakel tussen utilitair gebruik en vermaak. Terwijl we de overgang van rust naar beweging voelen, wacht ons op de volgende stop een andere vorm van stedelijke dynamiek.",
+        "transition": "Deze verschuiving van praktische parkeerplaats naar cultureel epicentrum vormt de kern van onze ontdekkingstocht. Terwijl het theaterleven hier de toon zet, zoeken we verder naar diezelfde stedelijke dynamiek. Laten we de beweging van dit plein volgen richting de sfeer die ons op het Rembrandtplein verwacht."
+      },
+      "latitude": 52.3639683,
+      "longitude": 4.8823304,
+      "position": 1,
+      "importanceScore": 41.77067178682556,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 1231991755,
+          "wikidata": "Q1409805",
+          "wikipedia": "nl:Leidseplein (Amsterdam)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 22.770671786825556,
+          "osmTags": {
+            "name": "Leidseplein",
+            "name:ko": "레이체 광장",
+            "name:ru": "Площадь Лейдсеплейн",
+            "place": "square",
+            "tourism": "attraction",
+            "wheelchair": "yes",
+            "wikidata": "Q1409805",
+            "wikimedia_commons": "Category:Leidseplein",
+            "wikipedia": "nl:Leidseplein (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "cb4f7495-a82b-4bd4-8aa1-9b9ba4b35bcd",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2307,
+          "totalDurationMs": 23536,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1660",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "en unieke manier ordenen.  In 1660 werd dit gebied onderdeel van"
+              },
+              {
+                "type": "date",
+                "value": "1862",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n via de Leidsepoort, die tot 1862 standhield. De sfeer verander"
+              },
+              {
+                "type": "date",
+                "value": "1774",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "sfeer veranderde drastisch na 1774, toen de eerste Stadsschouwbu"
+              },
+              {
+                "type": "date",
+                "value": "1890",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " gebouwd. Hoewel een brand in 1890 het houten theater vernietigd"
+              },
+              {
+                "type": "date",
+                "value": "1894",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "er vernietigde, herrees er in 1894 een nieuw gebouw. Zo evolueer"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-3",
+      "tourId": "fixture-candidate",
+      "name": "Rembrandtplein",
+      "description": "Heb je je ooit afgevraagd hoe een plek zo vol leven kan zijn zonder haar eigen karakter te verliezen? Terwijl we het Leidseplein achter ons laten, openen de terrasranden van het Rembrandtplein zich voor ons. De Reguliersbreestraat en de Amstelstraat vormen hier de grenzen van dit uitgaansgebied. Je ziet hoe de horecagelegenheden de randen van het plein bezetten, precies op de plek waar de stad haar commerciële hart laat kloppen. Dit plein vormt een overgang naar de volgende halte.\n\nIn 1655 verscheen de Derde Regulierspoort hier als onderdeel van de stadsomwalling. Toen de stad uitbreidde en de Utrechtsepoort werd gebouwd, verloor deze poort haar militaire functie. In 1668 veranderde het gebouw zelfs in een Boterwaag, waarna de maandagmarkt voor zuivel van de Dam naar dit plein verhuisde. De naam Botermarkt weerspiegelde die handel, totdat de gemeenteraad tijdens een geheime zitting in 1876 besloot de plek definitief naar Rembrandt te vernoemen.\n\nKijk hoe de sfeer hier verschuift van het Leidseplein naar een plek waar handel en vermaak samensmelten. Waar vroeger de geur van boter de markt domineerde, regeren nu de terrasjes en horecagelegenheden de randen tussen de Reguliersbreestraat en de Amstelstraat. De transformatie van een militaire poort naar een levendig uitgaansgebied laat zien hoe Amsterdam haar functies heruitvindt. Terwijl het plein zijn commerciële hart behoudt, wacht ons bij de volgende halte iets wat de stad letterlijk verbindt met haar verleden.\n\nDe transformatie van deze handelsplek naar een bruisend centrum laat zien hoe de stad haar oude fundamenten hergebruikt. Terwijl de geur van boter is verdwenen, blijft de dynamiek bestaan. We lopen nu richting een monument dat de geschiedenis van de Amsterdamse verdedigingswerken nog steeds tastbaar maakt.",
+      "descriptionSections": {
+        "arrival": "Heb je je ooit afgevraagd hoe een plek zo vol leven kan zijn zonder haar eigen karakter te verliezen? Terwijl we het Leidseplein achter ons laten, openen de terrasranden van het Rembrandtplein zich voor ons. De Reguliersbreestraat en de Amstelstraat vormen hier de grenzen van dit uitgaansgebied. Je ziet hoe de horecagelegenheden de randen van het plein bezetten, precies op de plek waar de stad haar commerciële hart laat kloppen. Dit plein vormt een overgang naar de volgende halte.",
+        "history": "In 1655 verscheen de Derde Regulierspoort hier als onderdeel van de stadsomwalling. Toen de stad uitbreidde en de Utrechtsepoort werd gebouwd, verloor deze poort haar militaire functie. In 1668 veranderde het gebouw zelfs in een Boterwaag, waarna de maandagmarkt voor zuivel van de Dam naar dit plein verhuisde. De naam Botermarkt weerspiegelde die handel, totdat de gemeenteraad tijdens een geheime zitting in 1876 besloot de plek definitief naar Rembrandt te vernoemen.",
+        "significance": "Kijk hoe de sfeer hier verschuift van het Leidseplein naar een plek waar handel en vermaak samensmelten. Waar vroeger de geur van boter de markt domineerde, regeren nu de terrasjes en horecagelegenheden de randen tussen de Reguliersbreestraat en de Amstelstraat. De transformatie van een militaire poort naar een levendig uitgaansgebied laat zien hoe Amsterdam haar functies heruitvindt. Terwijl het plein zijn commerciële hart behoudt, wacht ons bij de volgende halte iets wat de stad letterlijk verbindt met haar verleden.",
+        "transition": "De transformatie van deze handelsplek naar een bruisend centrum laat zien hoe de stad haar oude fundamenten hergebruikt. Terwijl de geur van boter is verdwenen, blijft de dynamiek bestaan. We lopen nu richting een monument dat de geschiedenis van de Amsterdamse verdedigingswerken nog steeds tastbaar maakt."
+      },
+      "latitude": 52.3660256,
+      "longitude": 4.8966284,
+      "position": 2,
+      "importanceScore": 52.512388523751014,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 470612445,
+          "wikidata": "Q1579642",
+          "wikipedia": "nl:Rembrandtplein (Amsterdam)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 27.512388523751017,
+          "osmTags": {
+            "name": "Rembrandtplein",
+            "wikidata": "Q1579642",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "16",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
+            "name:de": "Rembrandtplatz",
+            "name:en": "Rembrandt Square",
+            "name:ko": "렘브란트 광장",
+            "name:nl": "Rembrandtplein",
+            "name:ru": "Площадь Рембрандта",
+            "wikimedia_commons": "Category:Rembrandtplein, Amsterdam",
+            "wikipedia": "nl:Rembrandtplein (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "f5b75852-d8b8-48b4-905b-290c19d9f929",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2315,
+          "totalDurationMs": 23405,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1655",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "g naar de volgende halte.  In 1655 verscheen de Derde Reguliersp"
+              },
+              {
+                "type": "date",
+                "value": "1668",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rt haar militaire functie. In 1668 veranderde het gebouw zelfs i"
+              },
+              {
+                "type": "date",
+                "value": "1876",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ijdens een geheime zitting in 1876 besloot de plek definitief na"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-4",
+      "tourId": "fixture-candidate",
+      "name": "Munttoren",
+      "description": "Kijk even naar de massieve stenen basis van deze toren, die stevig verankerd in het asfalt staat. Waar we op het Rembrandtplein nog door een open ruimte liepen, voel je hier direct de aanwezigheid van de oude stadsgrens. Deze structuur vormde ooit de kern van de Regulierspoort, een van de drie belangrijkste toegangswegen tot de middeleeuwse vestingwerken van Amsterdam. Het fundament herinnert ons aan een tijd waarin de stad zichzelf nog beschermde achter dikke muren.\n\nToen de Regulierspoort in 1618 door brand werd getroffen, koos men niet voor een volledige reconstructie van de poort. In plaats daarvan werd enkel de westelijke toren herbouwd, waarbij Hendrick de Keyser tussen 1619 en 1620 een achtkantige bovenbouw met lantaarn ontwierp. De naam veranderde later door de noodzaak in het Rampjaar 1672. Omdat Franse troepen de transportroutes naar Dordrecht blokkeerden, werd hier tijdelijk munt geslagen. Deze nieuwe functie gaf de toren haar huidige identiteit, terwijl we nu richting de geschiedenis van de vrijheid lopen.\n\nTerwijl de muren van de Regulierspoort verdwenen, bleef deze toren als een ankerpunt in het stedelijk weefsel staan. De transformatie van een verdedigingswerk naar een plek waar munt werd geslagen, laat zien hoe Amsterdam haar functies voortdurend aanpast aan de noodzaak van de tijd. Deze overgang van defensie naar economische activiteit markeert de verschuiving van een besloten vesting naar een open handelsstad. Nu we de toren verlaten, zoeken we de sporen van een heel andere vorm van publieke herinnering op.\n\nDeze toren laat zien hoe functies veranderen, van een verdedigingswerk naar een plek voor economische activiteit. Terwijl de Munttoren symbool staat voor deze fysieke transformaties, gaan we nu op zoek naar monumenten die een heel andere vorm van publieke herinnering en sociale vrijheid vieren.",
+      "descriptionSections": {
+        "arrival": "Kijk even naar de massieve stenen basis van deze toren, die stevig verankerd in het asfalt staat. Waar we op het Rembrandtplein nog door een open ruimte liepen, voel je hier direct de aanwezigheid van de oude stadsgrens. Deze structuur vormde ooit de kern van de Regulierspoort, een van de drie belangrijkste toegangswegen tot de middeleeuwse vestingwerken van Amsterdam. Het fundament herinnert ons aan een tijd waarin de stad zichzelf nog beschermde achter dikke muren.",
+        "history": "Toen de Regulierspoort in 1618 door brand werd getroffen, koos men niet voor een volledige reconstructie van de poort. In plaats daarvan werd enkel de westelijke toren herbouwd, waarbij Hendrick de Keyser tussen 1619 en 1620 een achtkantige bovenbouw met lantaarn ontwierp. De naam veranderde later door de noodzaak in het Rampjaar 1672. Omdat Franse troepen de transportroutes naar Dordrecht blokkeerden, werd hier tijdelijk munt geslagen. Deze nieuwe functie gaf de toren haar huidige identiteit, terwijl we nu richting de geschiedenis van de vrijheid lopen.",
+        "significance": "Terwijl de muren van de Regulierspoort verdwenen, bleef deze toren als een ankerpunt in het stedelijk weefsel staan. De transformatie van een verdedigingswerk naar een plek waar munt werd geslagen, laat zien hoe Amsterdam haar functies voortdurend aanpast aan de noodzaak van de tijd. Deze overgang van defensie naar economische activiteit markeert de verschuiving van een besloten vesting naar een open handelsstad. Nu we de toren verlaten, zoeken we de sporen van een heel andere vorm van publieke herinnering op.",
+        "transition": "Deze toren laat zien hoe functies veranderen, van een verdedigingswerk naar een plek voor economische activiteit. Terwijl de Munttoren symbool staat voor deze fysieke transformaties, gaan we nu op zoek naar monumenten die een heel andere vorm van publieke herinnering en sociale vrijheid vieren."
+      },
+      "latitude": 52.3670594,
+      "longitude": 4.8932212,
+      "position": 3,
+      "importanceScore": 50.21578428466209,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 57862728,
+          "wikidata": "Q1429748",
+          "wikipedia": "nl:Munttoren (Amsterdam)",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 27.21578428466209,
+          "osmTags": {
+            "name": "Munttoren",
+            "wikidata": "Q1429748",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "19",
+            "canonical:instance_of": "tower|city gate",
+            "tourism": "attraction",
+            "historic": "city_gate",
+            "building": "yes",
+            "heritage": "2",
+            "heritage:operator": "rce",
+            "name:en": "Mint Tower",
+            "name:nl": "Munttoren",
+            "name:uk": "Мунтторен",
+            "panoramax": "0829c34b-85c9-4c92-83c9-9421c073d8e6",
+            "ref:bag": "0363100012168045",
+            "ref:rce": "3729",
+            "roof:shape": "gabled",
+            "source": "BAG",
+            "source:date": "2021-08-08",
+            "start_date": "1886",
+            "toilets:wheelchair": "no",
+            "wheelchair": "limited",
+            "wikimedia_commons": "Category:Munttoren",
+            "wikipedia": "nl:Munttoren (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "e7804d65-0b8e-41ce-943d-6c115e297fab",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2388,
+          "totalDurationMs": 22123,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1618",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "n.  Toen de Regulierspoort in 1618 door brand werd getroffen, ko"
+              },
+              {
+                "type": "date",
+                "value": "1619",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "bij Hendrick de Keyser tussen 1619 en 1620 een achtkantige boven"
+              },
+              {
+                "type": "date",
+                "value": "1620",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rick de Keyser tussen 1619 en 1620 een achtkantige bovenbouw met"
+              },
+              {
+                "type": "date",
+                "value": "1672",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "r de noodzaak in het Rampjaar 1672. Omdat Franse troepen de tran"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "Homomonument",
+      "description": "Men zegt dat de roze driehoeken op de grond hier altijd een stille getuige zijn van wat onzichtbaar bleef. Terwijl we de Munttoren achter ons laten, staan we nu voor dit monumentale vlak van roze graniet. De drie driehoeken vormen een open ruimte in het hart van de stad. Het materiaal vormt een scherp contrast met de omliggende straatstenen en nodigt uit tot reflectie over wie hier door de jaren heen aanwezig was.\n\nVroeger moesten bepaalde groepen mensen hun identiteit verborgen houden in de schaduwen van deze straten. Nu is die onzichtbaarheid juist omgevormd tot een tastbare aanwezigheid op dit plein. De keuze om deze roze vormen zo prominent in het straatbeeld te verweven, markeert een verschuiving in hoe de stad met haar diversiteit omgaat. Terwijl we verder lopen richting de Joodse geschiedenis, vraagt dit monument ons om stil te staan bij wat er vroeger niet mocht bestaan.\n\nDe roze driehoeken op de grond fungeren als een blijvende herinnering aan identiteiten die voorheen in de anonimiteit leefden. Waar de Munttoren nog de oude stadswallen ademt, dwingt dit plein ons om naar de moderne publieke ruimte te kijken. De aanwezigheid van het roze graniet transformeert een gewone doorgang tot een plek van erkenning. Deze verschuiving in zichtbaarheid bereidt ons voor op de zwaardere verhalen die we straks bij het Anne Frank Huis ontdekken.",
+      "descriptionSections": {
+        "arrival": "Men zegt dat de roze driehoeken op de grond hier altijd een stille getuige zijn van wat onzichtbaar bleef. Terwijl we de Munttoren achter ons laten, staan we nu voor dit monumentale vlak van roze graniet. De drie driehoeken vormen een open ruimte in het hart van de stad. Het materiaal vormt een scherp contrast met de omliggende straatstenen en nodigt uit tot reflectie over wie hier door de jaren heen aanwezig was.",
+        "history": "Vroeger moesten bepaalde groepen mensen hun identiteit verborgen houden in de schaduwen van deze straten. Nu is die onzichtbaarheid juist omgevormd tot een tastbare aanwezigheid op dit plein. De keuze om deze roze vormen zo prominent in het straatbeeld te verweven, markeert een verschuiving in hoe de stad met haar diversiteit omgaat. Terwijl we verder lopen richting de Joodse geschiedenis, vraagt dit monument ons om stil te staan bij wat er vroeger niet mocht bestaan.",
+        "significance": "De roze driehoeken op de grond fungeren als een blijvende herinnering aan identiteiten die voorheen in de anonimiteit leefden. Waar de Munttoren nog de oude stadswallen ademt, dwingt dit plein ons om naar de moderne publieke ruimte te kijken. De aanwezigheid van het roze graniet transformeert een gewone doorgang tot een plek van erkenning. Deze verschuiving in zichtbaarheid bereidt ons voor op de zwaardere verhalen die we straks bij het Anne Frank Huis ontdekken."
+      },
+      "latitude": 52.374444444,
+      "longitude": 4.884722222,
+      "position": 4,
+      "importanceScore": 41.25488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": -51411,
+          "wikidata": "Q51411",
+          "category": "memorial",
+          "landmarkTier": "flagship",
+          "fameScore": 23.25488750216347,
+          "osmTags": {
+            "name": "Homomonument",
+            "wikidata": "Q51411",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "23",
+            "canonical:instance_of": "war memorial|LGBT historic place|LGBT monument or memorial|cautionary memorial",
+            "tourism": "attraction",
+            "historic": "memorial"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "a8e696e0-34f2-4e54-b4a9-e6c578d32376",
+          "seedQuality": "thin",
+          "targetWords": "100-160",
+          "sectionsGenerated": 3,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 83,
+          "totalDurationMs": 17568,
+          "claimCheck": {
+            "totalExtracted": 0,
+            "verifiedRate": 0,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 0,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "Anne Frank Huis",
+      "description": "Kijk hoe de openheid van het Homomonument plaatsmaakt voor deze smalle, diepe gevel aan de Westermarkt. Het museumgebouw staat direct tegenover de gracht en vormt een compacte verbinding met de omliggende stad. Terwijl we hier staan, grenst dit adres aan de Prinsengracht 263, waar het Achterhuis zich verschuilt achter de vertrouwde bakstenen muren. Deze plek markeert een omslag in onze wandeling, van publieke herdenking naar de stille geschiedenis van onderduiken.\n\nIn 1933 vluchtte de familie Frank vanuit nazi-Duitsland naar deze stad om aan het groeiende antisemitisme te ontsnappen. Otto Frank bouwde hier zijn bestaan op met bedrijven als Opekta en Pectacon, die voortkwamen uit eerdere ondernemingen in Keulen. De spanning steeg echter toen de bezetting de veiligheid wegnam. In 1942 begon men de schuilplaats in het Achterhuis in te richten, waarna het gezin op 6 juli onderdook om deportatie te vermijden. Deze verstilde geschiedenis vormt een scherp contrast met de openbare plekken die we zojuist zagen.\n\nDe openheid van de stad verdwijnt hier achter een muur van stilte. Waar we zojuist nog de publieke ruimte vierden, dwingt dit museum ons tot een innerlijke reflectie op hoe de geschiedenis zich letterlijk in de schaduwen van Amsterdam verbergt. Het Achterhuis transformeert het straatbeeld van een gewone woonwijk naar een monument van menselijke veerkracht en kwetsbaarheid. Deze plek laat zien dat de stad niet alleen uit grote pleinen bestaat, maar ook uit verborgen ruimtes die wachten op herontdekking.\n\nDe stilte van deze verborgen schuilplaats laat ons nadenken over wat er achter gesloten deuren gebeurt. Terwijl we deze verstilde herinnering achter ons laten, zoeken we naar een andere vorm van gemeenschapszin. Die zoektocht naar religieuze en sociale ontmoetingsplekken leidt ons richting de Noorderkerk.",
+      "descriptionSections": {
+        "arrival": "Kijk hoe de openheid van het Homomonument plaatsmaakt voor deze smalle, diepe gevel aan de Westermarkt. Het museumgebouw staat direct tegenover de gracht en vormt een compacte verbinding met de omliggende stad. Terwijl we hier staan, grenst dit adres aan de Prinsengracht 263, waar het Achterhuis zich verschuilt achter de vertrouwde bakstenen muren. Deze plek markeert een omslag in onze wandeling, van publieke herdenking naar de stille geschiedenis van onderduiken.",
+        "history": "In 1933 vluchtte de familie Frank vanuit nazi-Duitsland naar deze stad om aan het groeiende antisemitisme te ontsnappen. Otto Frank bouwde hier zijn bestaan op met bedrijven als Opekta en Pectacon, die voortkwamen uit eerdere ondernemingen in Keulen. De spanning steeg echter toen de bezetting de veiligheid wegnam. In 1942 begon men de schuilplaats in het Achterhuis in te richten, waarna het gezin op 6 juli onderdook om deportatie te vermijden. Deze verstilde geschiedenis vormt een scherp contrast met de openbare plekken die we zojuist zagen.",
+        "significance": "De openheid van de stad verdwijnt hier achter een muur van stilte. Waar we zojuist nog de publieke ruimte vierden, dwingt dit museum ons tot een innerlijke reflectie op hoe de geschiedenis zich letterlijk in de schaduwen van Amsterdam verbergt. Het Achterhuis transformeert het straatbeeld van een gewone woonwijk naar een monument van menselijke veerkracht en kwetsbaarheid. Deze plek laat zien dat de stad niet alleen uit grote pleinen bestaat, maar ook uit verborgen ruimtes die wachten op herontdekking.",
+        "transition": "De stilte van deze verborgen schuilplaats laat ons nadenken over wat er achter gesloten deuren gebeurt. Terwijl we deze verstilde herinnering achter ons laten, zoeken we naar een andere vorm van gemeenschapszin. Die zoektocht naar religieuze en sociale ontmoetingsplekken leidt ons richting de Noorderkerk."
+      },
+      "latitude": 52.3751546,
+      "longitude": 4.8840978,
+      "position": 5,
+      "importanceScore": 45.35620665658675,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 601081859,
+          "wikidata": "Q165366",
+          "wikipedia": "nl:Anne Frank Huis",
+          "category": "memorial",
+          "landmarkTier": "flagship",
+          "fameScore": 26.356206656586746,
+          "osmTags": {
+            "name": "Anne Frank Huis",
+            "wikidata": "Q165366",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "38",
+            "canonical:instance_of": "war memorial|historic house museum",
+            "tourism": "museum",
+            "historic": "memorial",
+            "addr:city": "Amsterdam",
+            "addr:country": "NL",
+            "addr:housenumber": "267",
+            "addr:postcode": "1016GV",
+            "addr:street": "Prinsengracht",
+            "check_date": "2025-03-17",
+            "description:en": "Entry only with pre-booked online tickets",
+            "fax": "+31 20 620 7999",
+            "fee": "yes",
+            "name:ca": "Casa d'Anne Frank",
+            "name:cs": "Dům Anny Frankové",
+            "name:cy": "Tŷ Anne Frank",
+            "name:da": "Anne Franks hus",
+            "name:de": "Anne-Frank-Haus",
+            "name:el": "Μουσείο Άννας Φρανκ",
+            "name:en": "Anne Frank House",
+            "name:es": "Casa Anna Frank",
+            "name:eu": "Anne Franken etxea",
+            "name:fi": "Anne Frankin talo",
+            "name:fr": "Maison Anne Frank",
+            "name:he": "בית אנה פרנק",
+            "name:is": "Hús Önnu Frank",
+            "name:it": "Casa di Anna Frank",
+            "name:ja": "アンネ・フランクの家",
+            "name:ko": "안네 프랑크의 집",
+            "name:nl": "Anne Frank Huis",
+            "name:no": "Anne Frank-huset",
+            "name:pl": "Dom Anny Frank",
+            "name:pt": "Casa de Anne Frank",
+            "name:ru": "Дом Анны Франк",
+            "name:sv": "Anne Frank-huset",
+            "name:uk": "Будинок Анни Франк",
+            "name:zh": "安妮·弗兰克之家",
+            "opening_hours": "Mo-Su,PH 09:00-22:00 open \"Online tickets only\"; Jan 01 12:00-22:00; Apr 27 09:00-17:00; May 04 09:00-17:00; 2026 Sep 20 09:00-17:00; 2026 Sep 21 off; 2026 Nov 07 09:00-18:30; Dec 25 09:00-17:00; Dec 31 09:00-17:00",
+            "payment:museumkaart": "yes",
+            "phone": "+31 20 556 7100",
+            "surveillance": "indoor;outdoor",
+            "website": "https://www.annefrank.org/",
+            "wheelchair": "no",
+            "wikimedia_commons": "Category:Wing Anne Frank House",
+            "wikipedia": "nl:Anne Frank Huis"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "a39b4cd6-a427-46d4-b69a-51f2084ee800",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2470,
+          "totalDurationMs": 22579,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1933",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "hiedenis van onderduiken.  In 1933 vluchtte de familie Frank van"
+              },
+              {
+                "type": "date",
+                "value": "1942",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ting de veiligheid wegnam. In 1942 begon men de schuilplaats in "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "Noorderkerk",
+      "description": "Kijk even naar hoe dit stenen volume zich verhoudt tot de levendige Noordermarkt om je heen. Waar we bij het Anne Frank Huis de intimiteit van een verborgen geschiedenis voelden, staat de Noorderkerk hier juist heel open op het plein. De bakstenen muren vormen een stevig ankerpunt tussen de marktkramen en de omliggende huizen. Terwijl de stad om dit gebouw heen voortdurend transformeert, blijft deze kerk een onveranderlijk baken in het straatbeeld van Amsterdam.\n\nTussen 1620 en 1623 ontstond deze kerk als antwoord op de snel groeiende bevolking in de Jordaan. Het ontwerp van Hendrick de Keyser introduceerde een Grieks kruis, waarbij driehoekige woningen zelfs in de oksels werden ingebouwd. Staets het werk over. Deze samenwerking tussen ambachtslieden en het stadsbestuur laat zien hoe Amsterdam destijds prioriteiten stelde, terwijl we nu richting de oudere sporen van de Sint Olofskapel wandelen.\n\nKijk hoe de stad hier haar eigen logica volgt. Waar we net nog de beslotenheid van het verleden ervoeren, dwingt deze kerk de omliggende bebouwing tot een unieke dans. Door woningen letterlijk in de hoeken van het Griekse kruis te plaatsen, ontstond een stedelijke structuur die functionaliteit en religie onlosmakelijk verbond. Deze slimme integratie laat zien hoe Amsterdam ruimte creëerde waar die er nauwelijks was, een transformatie die we straks verder ontdekken bij de sporen van de Sint Olofskapel.\n\nDeze slimme integratie van woningen en religie laat zien hoe Amsterdam ruimte creëerde waar die nauwelijks bestond. Terwijl deze structuren de stad vormgeven, gaan we nu op zoek naar nog oudere sporen van verandering, die we straks ontdekken bij de resten van de Sint Olofskapel.",
+      "descriptionSections": {
+        "arrival": "Kijk even naar hoe dit stenen volume zich verhoudt tot de levendige Noordermarkt om je heen. Waar we bij het Anne Frank Huis de intimiteit van een verborgen geschiedenis voelden, staat de Noorderkerk hier juist heel open op het plein. De bakstenen muren vormen een stevig ankerpunt tussen de marktkramen en de omliggende huizen. Terwijl de stad om dit gebouw heen voortdurend transformeert, blijft deze kerk een onveranderlijk baken in het straatbeeld van Amsterdam.",
+        "history": "Tussen 1620 en 1623 ontstond deze kerk als antwoord op de snel groeiende bevolking in de Jordaan. Het ontwerp van Hendrick de Keyser introduceerde een Grieks kruis, waarbij driehoekige woningen zelfs in de oksels werden ingebouwd. Staets het werk over. Deze samenwerking tussen ambachtslieden en het stadsbestuur laat zien hoe Amsterdam destijds prioriteiten stelde, terwijl we nu richting de oudere sporen van de Sint Olofskapel wandelen.",
+        "significance": "Kijk hoe de stad hier haar eigen logica volgt. Waar we net nog de beslotenheid van het verleden ervoeren, dwingt deze kerk de omliggende bebouwing tot een unieke dans. Door woningen letterlijk in de hoeken van het Griekse kruis te plaatsen, ontstond een stedelijke structuur die functionaliteit en religie onlosmakelijk verbond. Deze slimme integratie laat zien hoe Amsterdam ruimte creëerde waar die er nauwelijks was, een transformatie die we straks verder ontdekken bij de sporen van de Sint Olofskapel.",
+        "transition": "Deze slimme integratie van woningen en religie laat zien hoe Amsterdam ruimte creëerde waar die nauwelijks bestond. Terwijl deze structuren de stad vormgeven, gaan we nu op zoek naar nog oudere sporen van verandering, die we straks ontdekken bij de resten van de Sint Olofskapel."
+      },
+      "latitude": 52.3796377,
+      "longitude": 4.8864279,
+      "position": 6,
+      "importanceScore": 33.52067178682556,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 220961710,
+          "wikidata": "Q613854",
+          "wikipedia": "nl:Noorderkerk (Amsterdam)",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 19.020671786825556,
+          "osmTags": {
+            "amenity": "place_of_worship",
+            "building": "church",
+            "check_date": "2025-06-11",
+            "denomination": "protestant",
+            "heritage": "2",
+            "heritage:operator": "rce",
+            "name": "Noorderkerk",
+            "name:uk": "Нордеркерк",
+            "phone": "+31 20 626 6436",
+            "ref:bag": "0363100012177304",
+            "ref:rce": "3923",
+            "religion": "christian",
+            "source": "BAG",
+            "source:date": "2014-02-11",
+            "start_date": "1622",
+            "website": "https://www.noorderkerk.org/diensten/algemene-informatie-over-de-diensten",
+            "wheelchair": "yes",
+            "wikidata": "Q613854",
+            "wikimedia_commons": "Category:Noorderkerk (Amsterdam)",
+            "wikipedia": "nl:Noorderkerk (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "b37f6e17-6ae5-4ba3-8f5f-611a6ce8460e",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2223,
+          "totalDurationMs": 24444,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1620",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "tbeeld van Amsterdam.  Tussen 1620 en 1623 ontstond deze kerk al"
+              },
+              {
+                "type": "date",
+                "value": "1623",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "an Amsterdam.  Tussen 1620 en 1623 ontstond deze kerk als antwoo"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "Sint-Olofskapel",
+      "description": "Waar we bij de Noorderkerk nog de openheid van een protestantse kerkzaal voelden, dwingt deze plek je blik direct naar beneden. Kijk hoe het gebouw zich klem tussen de Zeedijk en de Nieuwebrugsteeg nestelt, bijna verscholen achter de omliggende bebouwing. De Sint-Olofskapel staat hier niet als een vrijstaand monument, maar lijkt diep geworteld in de smalle structuur van de oude binnenstad. Het vormt een compacte tegenhanger voor de wijde ruimtes die we zojuist doorkruisten.\n\nTussen 1440 en 1450 werd deze kapel gebouwd tegen de Sint Olofspoort, een stadspoort die in 1618 verdween maar waarvan de naam nu nog als straat leeft. De geschiedenis van dit gebouw weerspiegelt de turbulente verschuivingen in Amsterdam. Na de Alteratie in 1578 bleef de kapel tijdelijk leegstaan, waarna kooplieden vanaf 1586 de ruimte gebruikten voor hun beurs. Pas in 1602 namen de gereformeerden het stokje over. Deze transformatie van religieus naar commercieel en weer terug, laat zien hoe de stad haar functies voortdurend heruitvond.\n\nTerwijl de Noorderkerk symbool staat voor protestantse eenvoud, herinnert deze kapel ons aan de gelaagdheid van Amsterdams eigendom. De muren hebben namelijk niet alleen gebeden gehuisvest, maar dienden vanaf 1586 zelfs als beurs voor kooplieden. Deze verschuiving van een heilige naar een commerciële functie laat zien hoe de stad haar publieke ruimtes pragmatisch hergebruikte. Het gebouw vormt zo een tastbare schakel tussen religie en handel, precies op de plek waar de oude stadspoort ooit de toegang bewaakte.\n\nDeze verschuiving van gebed naar handel laat zien hoe Amsterdam haar ruimtes altijd opnieuw vormgeeft. Terwijl de kapel zich hier vastklampt aan het verleden, zoeken we een plek op waar die dynamiek tussen mens en markt nog steeds voelbaar is. Laten we richting de Nieuwmarkt lopen.",
+      "descriptionSections": {
+        "arrival": "Waar we bij de Noorderkerk nog de openheid van een protestantse kerkzaal voelden, dwingt deze plek je blik direct naar beneden. Kijk hoe het gebouw zich klem tussen de Zeedijk en de Nieuwebrugsteeg nestelt, bijna verscholen achter de omliggende bebouwing. De Sint-Olofskapel staat hier niet als een vrijstaand monument, maar lijkt diep geworteld in de smalle structuur van de oude binnenstad. Het vormt een compacte tegenhanger voor de wijde ruimtes die we zojuist doorkruisten.",
+        "history": "Tussen 1440 en 1450 werd deze kapel gebouwd tegen de Sint Olofspoort, een stadspoort die in 1618 verdween maar waarvan de naam nu nog als straat leeft. De geschiedenis van dit gebouw weerspiegelt de turbulente verschuivingen in Amsterdam. Na de Alteratie in 1578 bleef de kapel tijdelijk leegstaan, waarna kooplieden vanaf 1586 de ruimte gebruikten voor hun beurs. Pas in 1602 namen de gereformeerden het stokje over. Deze transformatie van religieus naar commercieel en weer terug, laat zien hoe de stad haar functies voortdurend heruitvond.",
+        "significance": "Terwijl de Noorderkerk symbool staat voor protestantse eenvoud, herinnert deze kapel ons aan de gelaagdheid van Amsterdams eigendom. De muren hebben namelijk niet alleen gebeden gehuisvest, maar dienden vanaf 1586 zelfs als beurs voor kooplieden. Deze verschuiving van een heilige naar een commerciële functie laat zien hoe de stad haar publieke ruimtes pragmatisch hergebruikte. Het gebouw vormt zo een tastbare schakel tussen religie en handel, precies op de plek waar de oude stadspoort ooit de toegang bewaakte.",
+        "transition": "Deze verschuiving van gebed naar handel laat zien hoe Amsterdam haar ruimtes altijd opnieuw vormgeeft. Terwijl de kapel zich hier vastklampt aan het verleden, zoeken we een plek op waar die dynamiek tussen mens en markt nog steeds voelbaar is. Laten we richting de Nieuwmarkt lopen."
+      },
+      "latitude": 52.3761472,
+      "longitude": 4.8999848,
+      "position": 7,
+      "importanceScore": 37.55,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": 4493496259,
+          "wikidata": "Q3128167",
+          "wikipedia": "nl:Sint Olofskapel",
+          "category": "religious",
+          "landmarkTier": "major",
+          "fameScore": 18.05,
+          "osmTags": {
+            "alt_name": "Oudezijds Kapel",
+            "building": "church",
+            "heritage": "2",
+            "heritage:operator": "rce",
+            "historic": "yes",
+            "name": "Sint Olofskapel",
+            "note": "former church",
+            "ref:rce": "6541",
+            "tourism": "attraction",
+            "wikidata": "Q3128167",
+            "wikimedia_commons": "Category:Sint Olofskapel (Amsterdam)",
+            "wikipedia": "nl:Sint Olofskapel"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "77d066af-4efb-4902-bb55-575b9f0ce733",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2399,
+          "totalDurationMs": 22140,
+          "claimCheck": {
+            "totalExtracted": 6,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 6,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 6,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1440",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "zojuist doorkruisten.  Tussen 1440 en 1450 werd deze kapel gebou"
+              },
+              {
+                "type": "date",
+                "value": "1450",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "doorkruisten.  Tussen 1440 en 1450 werd deze kapel gebouwd tegen"
+              },
+              {
+                "type": "date",
+                "value": "1618",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "spoort, een stadspoort die in 1618 verdween maar waarvan de naam"
+              },
+              {
+                "type": "date",
+                "value": "1578",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Amsterdam. Na de Alteratie in 1578 bleef de kapel tijdelijk leeg"
+              },
+              {
+                "type": "date",
+                "value": "1586",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "taan, waarna kooplieden vanaf 1586 de ruimte gebruikten voor hun"
+              },
+              {
+                "type": "date",
+                "value": "1602",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "uikten voor hun beurs. Pas in 1602 namen de gereformeerden het s"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "Nieuwmarkt",
+      "description": "Heb je je ooit afgevraagd hoe een stad haar eigen muren kan vergeten? Terwijl we het spirituele van de Sint Olofskapel achter ons laten, opent de ruimte zich plotseling tot dit brede plein. Kijk naar de Waag die hier zo stevig tussen de Geldersekade en de Kloveniersburgwal staat. Dit massieve gebouw vormt de kern van de Nieuwmarktbuurt en markeert een kantelpunt in onze wandeling. Het is een plek waar de structuur van de oude stad nog steeds zichtbaar is.\n\nDe Sint Anthoniespoort diende tussen 1481 en 1494 als verdedigingswerk binnen de middeleeuwse stadsomwalling. Naarmate de stad uitbreidde richting de Lastage, verdween de militaire noodzaak van deze poort volledig. In 1614 veranderde het landschap definitief toen men besloot het water rondom de structuur over te kluisen, waardoor dit plein ontstond. De voormalige poort transformeerde zo tot een waag waar handelaren hun goederen wogen. Deze verschuiving van defensie naar commercie markeert de constante heruitvinding van onze publieke ruimte.\n\nHier voelt u de stad niet langer als een verdedigingswerk, maar als een levend organisme dat zichzelf voortdurend opnieuw uitvindt. Waar voorheen muren de beweging beperkten, faciliteert dit plein nu de ontmoeting tussen de Geldersekade en de Kloveniersburgwal. De transformatie van poort naar waag laat zien hoe Amsterdam haar militaire verleden inruilde voor commerciële dynamiek. Deze verschuiving vormt het hart van de Nieuwmarktbuurt, waar de oude structuur de basis legt voor een nieuwe publieke functie.\n\nDeze commerciële dynamiek op het plein laat zien hoe de stad haar defensieve karakter losliet. Terwijl de Waag nog steeds getuigt van die oude handelsgeest, zoeken we nu de smalle paden op waar de geschiedenis zich op een heel andere manier door de straten vlecht.",
+      "descriptionSections": {
+        "arrival": "Heb je je ooit afgevraagd hoe een stad haar eigen muren kan vergeten? Terwijl we het spirituele van de Sint Olofskapel achter ons laten, opent de ruimte zich plotseling tot dit brede plein. Kijk naar de Waag die hier zo stevig tussen de Geldersekade en de Kloveniersburgwal staat. Dit massieve gebouw vormt de kern van de Nieuwmarktbuurt en markeert een kantelpunt in onze wandeling. Het is een plek waar de structuur van de oude stad nog steeds zichtbaar is.",
+        "history": "De Sint Anthoniespoort diende tussen 1481 en 1494 als verdedigingswerk binnen de middeleeuwse stadsomwalling. Naarmate de stad uitbreidde richting de Lastage, verdween de militaire noodzaak van deze poort volledig. In 1614 veranderde het landschap definitief toen men besloot het water rondom de structuur over te kluisen, waardoor dit plein ontstond. De voormalige poort transformeerde zo tot een waag waar handelaren hun goederen wogen. Deze verschuiving van defensie naar commercie markeert de constante heruitvinding van onze publieke ruimte.",
+        "significance": "Hier voelt u de stad niet langer als een verdedigingswerk, maar als een levend organisme dat zichzelf voortdurend opnieuw uitvindt. Waar voorheen muren de beweging beperkten, faciliteert dit plein nu de ontmoeting tussen de Geldersekade en de Kloveniersburgwal. De transformatie van poort naar waag laat zien hoe Amsterdam haar militaire verleden inruilde voor commerciële dynamiek. Deze verschuiving vormt het hart van de Nieuwmarktbuurt, waar de oude structuur de basis legt voor een nieuwe publieke functie.",
+        "transition": "Deze commerciële dynamiek op het plein laat zien hoe de stad haar defensieve karakter losliet. Terwijl de Waag nog steeds getuigt van die oude handelsgeest, zoeken we nu de smalle paden op waar de geschiedenis zich op een heel andere manier door de straten vlecht."
+      },
+      "latitude": 52.3725531,
+      "longitude": 4.9000895,
+      "position": 8,
+      "importanceScore": 52.75,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "node",
+          "osmId": 1503919213,
+          "wikidata": "Q1568693",
+          "wikipedia": "nl:Nieuwmarkt (Amsterdam)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 27.75,
+          "osmTags": {
+            "name": "Nieuwmarkt",
+            "wikidata": "Q1568693",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "16",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
+            "amenity": "marketplace",
+            "name:de": "Neumarkt",
+            "name:en": "New Market",
+            "name:nl": "Nieuwmarkt",
+            "opening_hours": "Mo-Fr 10:00-18:30; Sa 09:00-18:30; Su 09:00-17:00",
+            "website": "https://amsterdamnieuwmarkt.nl/markt/",
+            "wheelchair": "yes",
+            "wikimedia_commons": "Category:Nieuwmarkt",
+            "wikipedia": "nl:Nieuwmarkt (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "99c2e501-281e-4cf5-886a-65cb10dc3b64",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2359,
+          "totalDurationMs": 23803,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1481",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " Anthoniespoort diende tussen 1481 en 1494 als verdedigingswerk "
+              },
+              {
+                "type": "date",
+                "value": "1494",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "espoort diende tussen 1481 en 1494 als verdedigingswerk binnen d"
+              },
+              {
+                "type": "date",
+                "value": "1614",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "k van deze poort volledig. In 1614 veranderde het landschap defi"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "Warmoesstraat",
+      "description": "Kijk naar de smalle randen van deze gevels die direct aan het trottoir grenzen. Hier voelt u de dichtheid van de stad terwijl we de open ruimte van de Nieuwmarkt achter ons laten. De Warmoesstraat opent zich als een nauwe ader vol met tientallen rijks- en gemeentelijke monumenten. Deze straat vormt een van de oudste lagen van Amsterdam. Terwijl de architectuur om u heen veranderde, bleef deze fundamentele passage altijd aanwezig in het hart van de stad.\n\nOoit was deze passage gesplitst in twee werelden: de Kerkstraat nabij de Oude Kerk en de Warmoesstraat in het zuiden. De naam herinnert aan de warmoezerijen, waar handelaren vroeger groenten zoals snijbiet verkochten. Terwijl de stad groeide, veranderde zelfs de grens met de Dam in 1957 door de afbraak van panden. Deze smalle ader vormt een levend archief van Amsterdam, waarin elke steen getuigt van de voortdurende transformatie van onze publieke ruimte naar het volgende hoofdstuk bij het Koninklijk Paleis.\n\nStap even dichterbij en voel hoe de sfeer omslaat. Waar we op de Nieuwmarkt nog ruimte hadden voor openheid, dwingt deze straat u tot focus. De aanwezigheid van tientallen rijks- en gemeentelijke monumenten langs dit pad laat zien dat Amsterdam haar fundamenten nooit echt loslaat. Deze nauwe ader fungeert als een fysiek anker voor de stad. Het herinnert ons eraan dat elke nieuwe laag in onze geschiedenis rust op deze oude, onverzettelijke structuren.\n\nDeze onverzettelijke structuren vormen de basis voor alles wat volgt. Terwijl deze smalle ader ons dwingt tot focus, verschuift onze blik langzaam naar een grotere schaal. Laat de dichtheid van de monumenten achter u en bereid u voor op de grandeur die wacht bij het Koninklijk Paleis.",
+      "descriptionSections": {
+        "arrival": "Kijk naar de smalle randen van deze gevels die direct aan het trottoir grenzen. Hier voelt u de dichtheid van de stad terwijl we de open ruimte van de Nieuwmarkt achter ons laten. De Warmoesstraat opent zich als een nauwe ader vol met tientallen rijks- en gemeentelijke monumenten. Deze straat vormt een van de oudste lagen van Amsterdam. Terwijl de architectuur om u heen veranderde, bleef deze fundamentele passage altijd aanwezig in het hart van de stad.",
+        "history": "Ooit was deze passage gesplitst in twee werelden: de Kerkstraat nabij de Oude Kerk en de Warmoesstraat in het zuiden. De naam herinnert aan de warmoezerijen, waar handelaren vroeger groenten zoals snijbiet verkochten. Terwijl de stad groeide, veranderde zelfs de grens met de Dam in 1957 door de afbraak van panden. Deze smalle ader vormt een levend archief van Amsterdam, waarin elke steen getuigt van de voortdurende transformatie van onze publieke ruimte naar het volgende hoofdstuk bij het Koninklijk Paleis.",
+        "significance": "Stap even dichterbij en voel hoe de sfeer omslaat. Waar we op de Nieuwmarkt nog ruimte hadden voor openheid, dwingt deze straat u tot focus. De aanwezigheid van tientallen rijks- en gemeentelijke monumenten langs dit pad laat zien dat Amsterdam haar fundamenten nooit echt loslaat. Deze nauwe ader fungeert als een fysiek anker voor de stad. Het herinnert ons eraan dat elke nieuwe laag in onze geschiedenis rust op deze oude, onverzettelijke structuren.",
+        "transition": "Deze onverzettelijke structuren vormen de basis voor alles wat volgt. Terwijl deze smalle ader ons dwingt tot focus, verschuift onze blik langzaam naar een grotere schaal. Laat de dichtheid van de monumenten achter u en bereid u voor op de grandeur die wacht bij het Koninklijk Paleis."
+      },
+      "latitude": 52.3740716,
+      "longitude": 4.8963005,
+      "position": 9,
+      "importanceScore": 33.472064766172814,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 7371675,
+          "wikidata": "Q389909",
+          "wikipedia": "nl:Warmoesstraat (Amsterdam)",
+          "category": "square_civic",
+          "landmarkTier": "major",
+          "fameScore": 17.972064766172814,
+          "osmTags": {
+            "bicycle": "yes",
+            "emergency": "yes",
+            "highway": "pedestrian",
+            "lit": "yes",
+            "maxwidth": "2",
+            "maxwidth:emergency": "default",
+            "motor_vehicle:conditional": "delivery @ (07:00-12:00)",
+            "name": "Warmoesstraat",
+            "segregated": "no",
+            "smoothness": "intermediate",
+            "surface": "paving_stones",
+            "tourism": "attraction",
+            "traffic_sign": "NL:G7",
+            "wikidata": "Q389909",
+            "wikipedia": "nl:Warmoesstraat (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "fdfb22f9-3f09-4a92-9390-e711b8468101",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2256,
+          "totalDurationMs": 22804,
+          "claimCheck": {
+            "totalExtracted": 1,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 1,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 1,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1957",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " zelfs de grens met de Dam in 1957 door de afbraak van panden. D"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "Paleis op de Dam",
+      "description": "Men zegt dat de fundamenten van deze plek dieper reiken dan de geschiedenis van de stad zelf. Terwijl we de drukte van de Warmoesstraat achter ons laten, opent het plein zich met de enorme gevel van het Paleis op de Dam. Kijk omhoog naar de massieve stenen muren die hier zo stevig verankerd zijn in het hart van Amsterdam. Dit gebouw vormde ooit het centrum van het bestuur en staat nu symbool voor een nieuwe laag in onze stedelijke gelaagdheid.\n\nTussen 1648 en 1665 veranderde deze plek fundamenteel door de bouw van het nieuwe stadhuis. In de kamers achter deze muren werden belangrijke zaken afgehandeld, zoals faillissementen in de boedelkamer of geschillen bij de assurantiekamer. Wat begon als het hart van het stadsbestuur, dient nu als ontvangstpaleis voor het Koninklijk Huis. Dit gebouw vormt de overgang naar een nog recenter hoofdstuk op dit plein.\n\nKijk hoe de sfeer hier plotseling omslaat van de bedrijvige straatjes naar een plek van ceremoniële waardigheid. Waar we eerder de dagelijkse handel zagen, herinnert dit gebouw ons aan de macht die Amsterdam ooit uitoefende op het wereldtoneel. De transformatie van een bestuurscentrum naar een ontvangstpaleis voor het Koninklijk Huis laat zien hoe functies verschuiven zonder de essentie te verliezen. Terwijl deze muren nog steeds getuigen van oude geschillen, bereiden ze ons voor op de herinneringen die vlak daarvoor liggen.\n\nDe verschuiving van bestuurlijke macht naar koninklijke waardigheid markeert een cruciaal punt in onze wandeling. Terwijl de ceremoniële sfeer van dit paleis nog even indruk maakt, trekken de herinneringen aan een veel recenter hoofdstuk ons alweer weg. Laten we die gelaagde geschiedenis verder ontdekken bij het Nationaal Monument.",
+      "descriptionSections": {
+        "arrival": "Men zegt dat de fundamenten van deze plek dieper reiken dan de geschiedenis van de stad zelf. Terwijl we de drukte van de Warmoesstraat achter ons laten, opent het plein zich met de enorme gevel van het Paleis op de Dam. Kijk omhoog naar de massieve stenen muren die hier zo stevig verankerd zijn in het hart van Amsterdam. Dit gebouw vormde ooit het centrum van het bestuur en staat nu symbool voor een nieuwe laag in onze stedelijke gelaagdheid.",
+        "history": "Tussen 1648 en 1665 veranderde deze plek fundamenteel door de bouw van het nieuwe stadhuis. In de kamers achter deze muren werden belangrijke zaken afgehandeld, zoals faillissementen in de boedelkamer of geschillen bij de assurantiekamer. Wat begon als het hart van het stadsbestuur, dient nu als ontvangstpaleis voor het Koninklijk Huis. Dit gebouw vormt de overgang naar een nog recenter hoofdstuk op dit plein.",
+        "significance": "Kijk hoe de sfeer hier plotseling omslaat van de bedrijvige straatjes naar een plek van ceremoniële waardigheid. Waar we eerder de dagelijkse handel zagen, herinnert dit gebouw ons aan de macht die Amsterdam ooit uitoefende op het wereldtoneel. De transformatie van een bestuurscentrum naar een ontvangstpaleis voor het Koninklijk Huis laat zien hoe functies verschuiven zonder de essentie te verliezen. Terwijl deze muren nog steeds getuigen van oude geschillen, bereiden ze ons voor op de herinneringen die vlak daarvoor liggen.",
+        "transition": "De verschuiving van bestuurlijke macht naar koninklijke waardigheid markeert een cruciaal punt in onze wandeling. Terwijl de ceremoniële sfeer van dit paleis nog even indruk maakt, trekken de herinneringen aan een veel recenter hoofdstuk ons alweer weg. Laten we die gelaagde geschiedenis verder ontdekken bij het Nationaal Monument."
+      },
+      "latitude": 52.3731449,
+      "longitude": 4.891336,
+      "position": 10,
+      "importanceScore": 53.37836009688685,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3580875,
+          "wikidata": "Q1056152",
+          "wikipedia": "nl:Paleis op de Dam",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 29.37836009688685,
+          "osmTags": {
+            "name": "Koninklijk Paleis",
+            "wikidata": "Q1056152",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "36",
+            "canonical:instance_of": "museum|city hall|royal palace",
+            "tourism": "attraction",
+            "historic": "castle",
+            "building": "palace",
+            "addr:city": "Amsterdam",
+            "addr:country": "NL",
+            "addr:housenumber": "147",
+            "addr:postcode": "1012RJ",
+            "addr:street": "Nieuwezijds Voorburgwal",
+            "alt_name": "Paleis op de Dam",
+            "building:levels": "5",
+            "castle_type": "palace",
+            "name:de": "Königlicher Palast",
+            "name:en": "Royal Palace",
+            "name:ko": "암스테르담 왕궁",
+            "name:nl": "Koninklijk Paleis",
+            "name:uk": "Королівський палац",
+            "name:zh": "阿姆斯特丹王宫",
+            "old_name": "Stadhuis",
+            "opening_hours": "10:00-17:00",
+            "ref:bag": "0363100012167579",
+            "roof:shape": "flat",
+            "source": "BAG",
+            "source:date": "2014-02-11",
+            "start_date": "1655",
+            "type": "multipolygon",
+            "website": "https://www.paleisamsterdam.nl/",
+            "wikimedia_commons": "Category:Royal Palace of Amsterdam",
+            "wikipedia": "nl:Paleis op de Dam"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d45a67bb-44c8-4ebe-a1cc-aa7fd1c9b9f6",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2534,
+          "totalDurationMs": 23709,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1648",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "edelijke gelaagdheid.  Tussen 1648 en 1665 veranderde deze plek "
+              },
+              {
+                "type": "date",
+                "value": "1665",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " gelaagdheid.  Tussen 1648 en 1665 veranderde deze plek fundamen"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-12",
+      "tourId": "fixture-candidate",
+      "name": "Nationaal Monument op de Dam",
+      "description": "Terwijl het Koninklijk Paleis met zijn statige gevels de macht van vroeger uitstraalt, trekt dit monument direct de aandacht door zijn centrale plek op het plein. De witte steen vormt een scherp contrast met de omliggende bestrating. Het werk van architect J.J.P. Oud herinnert ons aan de diepe sporen van conflict in onze geschiedenis. Dit gedenkteken staat hier sinds 4 mei 1956 om de Nederlandse oorlogsslachtoffers te eren, waarbij de focus verschuift naar collectieve herinnering.\n\nDe focus verschuift hier van koninklijke macht naar een collectieve rouw. Terwijl de stad na 1945 probeerde te helen, werd dit gedenkteken ontworpen door J.J.P. Oud om de slachtoffers van de Tweede Wereldoorlog tussen 1940 en 1945 te eren. De pyloon draagt beelden van John en Jan Willem Rädecker, waarbij aan de voorzijde gekruisigde en geketende mannenfiguren de zware sporen van conflict tonen. Achter de centrale as herinnert een halfronde urnenmuur met nissen aan de provincies en voormalige delen van het Koninkrijk.\n\nKijk naar de urnenmuur achter de centrale as; de nissen herinneren aan de provincies en voormalige delen van het Koninkrijk. Waar we bij het paleis keken naar een symbool van macht, dwingt dit monument ons tot collectieve reflectie op verlies. De geketende figuren aan de voorzijde maken de pijn van de jaren 1940-1945 tastbaar in de publieke ruimte. Nu de focus verschuift van herdenken naar het hart van de stad, bereiken we de Dam.\n\nDeze plekken van collectieve reflectie laten zien hoe diepe wonden in de publieke ruimte verankerd blijven. Terwijl het monument ons dwingt tot stilstand en herdenken, trekt de energie van de stad ons weer richting de beweging op de Dam.",
+      "descriptionSections": {
+        "arrival": "Terwijl het Koninklijk Paleis met zijn statige gevels de macht van vroeger uitstraalt, trekt dit monument direct de aandacht door zijn centrale plek op het plein. De witte steen vormt een scherp contrast met de omliggende bestrating. Het werk van architect J.J.P. Oud herinnert ons aan de diepe sporen van conflict in onze geschiedenis. Dit gedenkteken staat hier sinds 4 mei 1956 om de Nederlandse oorlogsslachtoffers te eren, waarbij de focus verschuift naar collectieve herinnering.",
+        "history": "De focus verschuift hier van koninklijke macht naar een collectieve rouw. Terwijl de stad na 1945 probeerde te helen, werd dit gedenkteken ontworpen door J.J.P. Oud om de slachtoffers van de Tweede Wereldoorlog tussen 1940 en 1945 te eren. De pyloon draagt beelden van John en Jan Willem Rädecker, waarbij aan de voorzijde gekruisigde en geketende mannenfiguren de zware sporen van conflict tonen. Achter de centrale as herinnert een halfronde urnenmuur met nissen aan de provincies en voormalige delen van het Koninkrijk.",
+        "significance": "Kijk naar de urnenmuur achter de centrale as; de nissen herinneren aan de provincies en voormalige delen van het Koninkrijk. Waar we bij het paleis keken naar een symbool van macht, dwingt dit monument ons tot collectieve reflectie op verlies. De geketende figuren aan de voorzijde maken de pijn van de jaren 1940-1945 tastbaar in de publieke ruimte. Nu de focus verschuift van herdenken naar het hart van de stad, bereiken we de Dam.",
+        "transition": "Deze plekken van collectieve reflectie laten zien hoe diepe wonden in de publieke ruimte verankerd blijven. Terwijl het monument ons dwingt tot stilstand en herdenken, trekt de energie van de stad ons weer richting de beweging op de Dam."
+      },
+      "latitude": 52.3728196,
+      "longitude": 4.8936888,
+      "position": 11,
+      "importanceScore": 44.970671786825555,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 168680619,
+          "wikidata": "Q473851",
+          "wikipedia": "nl:Nationaal Monument op de Dam",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 23.970671786825555,
+          "osmTags": {
+            "architect": "Jacobus Johannes Pieter Oud",
+            "artist_name": "Johannes and Paul Grégoire",
+            "heritage": "2",
+            "heritage:operator": "rce",
+            "historic": "monument",
+            "memorial": "war_memorial",
+            "name": "Nationaal Monument",
+            "name:de": "Nationalmonument",
+            "name:en": "National Monument",
+            "name:es": "Monumento Nacional",
+            "name:fr": "Monument National",
+            "name:it": "Monumento Nazionale",
+            "name:ko": "전사자 위령탑",
+            "name:ml": "രാഷ്ട്രീയ സ്മാരകം",
+            "name:nl": "Nationaal Monument",
+            "name:ru": "Национальный монумент",
+            "name:uk": "Національний монумент",
+            "panoramax": "a5feb48f-5e5c-4573-8156-3ee4ab4b8716",
+            "ref:rce": "530906",
+            "start_date": "1956-05-04",
+            "wheelchair": "yes",
+            "wikidata": "Q473851",
+            "wikimedia_commons": "Category:Nationaal Monument (Amsterdam)",
+            "wikipedia": "nl:Nationaal Monument op de Dam"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "1ae5459d-7950-4968-add4-9930e1cd3ce9",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2483,
+          "totalDurationMs": 21919,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1956",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "kteken staat hier sinds 4 mei 1956 om de Nederlandse oorlogsslac"
+              },
+              {
+                "type": "date",
+                "value": "1945",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ieve rouw. Terwijl de stad na 1945 probeerde te helen, werd dit "
+              },
+              {
+                "type": "date",
+                "value": "1940",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "de Tweede Wereldoorlog tussen 1940 en 1945 te eren. De pyloon dr"
+              },
+              {
+                "type": "architect",
+                "value": "J",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "Terwijl het Koninklijk Paleis met zi"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "Dam",
+      "description": "Kijk naar de randen van dit plein, waar de stenen van het Nationaal Monument overgaan in de open ruimte van de Dam. Terwijl we hier staan, omringd door de massieve muren van het Koninklijk Paleis en de Nieuwe Kerk, voelt u de druk van de geschiedenis onder uw voeten. Dit plein vormt het kloppende hart van Amsterdam, een plek die door de eeuwen heen telkens opnieuw is gevormd voor nationale evenementen.\n\nOoit was deze plek geen plein, maar een functionele dam in de Amstel die tussen 1265 en 1275 werd voltooid. Deze constructie verbond de nederzettingen bij de Warmoesstraat met de Nieuwendijk, terwijl een sluis schepen hielp bij het geschutten van water. Wat begon als een noodzakelijke waterkering, groeide uit tot het fundament van de stad. Hier vloeien de oude handelsroutes en de latere koninklijke ambities samen in één enkel, historisch knooppunt.\n\nKijk nu eens naar hoe de lagen van onze stad hier samenkomen op dit centrale punt. Waar we eerder langs vergeten steegjes en monumenten liepen, biedt de Dam een eindpunt waar nationale betekenis tastbaar wordt. Het plein fungeert als het podium voor evenementen die de hele natie verbinden, omringd door de Nieuwe Kerk en het Koninklijk Paleis. Hier ziet u hoe Amsterdam zichzelf telkens opnieuw uitvindt, terwijl de fundamenten van de oude waterkering onveranderd onder de moderne stadsdrukte blijven liggen.\n\nBedankt dat u vandaag met mij door de geschiedenis van Amsterdam heeft gelopen. Vanaf de eerste grachten tot dit centrale plein, heeft u gezien hoe elke laag een nieuw hoofdstuk schreef. De stad blijft zichzelf vernieuwen, maar haar fundamenten blijven staan. Ik wens u een prachtige verdere reis door deze bijzondere stad toe.",
+      "descriptionSections": {
+        "arrival": "Kijk naar de randen van dit plein, waar de stenen van het Nationaal Monument overgaan in de open ruimte van de Dam. Terwijl we hier staan, omringd door de massieve muren van het Koninklijk Paleis en de Nieuwe Kerk, voelt u de druk van de geschiedenis onder uw voeten. Dit plein vormt het kloppende hart van Amsterdam, een plek die door de eeuwen heen telkens opnieuw is gevormd voor nationale evenementen.",
+        "history": "Ooit was deze plek geen plein, maar een functionele dam in de Amstel die tussen 1265 en 1275 werd voltooid. Deze constructie verbond de nederzettingen bij de Warmoesstraat met de Nieuwendijk, terwijl een sluis schepen hielp bij het geschutten van water. Wat begon als een noodzakelijke waterkering, groeide uit tot het fundament van de stad. Hier vloeien de oude handelsroutes en de latere koninklijke ambities samen in één enkel, historisch knooppunt.",
+        "significance": "Kijk nu eens naar hoe de lagen van onze stad hier samenkomen op dit centrale punt. Waar we eerder langs vergeten steegjes en monumenten liepen, biedt de Dam een eindpunt waar nationale betekenis tastbaar wordt. Het plein fungeert als het podium voor evenementen die de hele natie verbinden, omringd door de Nieuwe Kerk en het Koninklijk Paleis. Hier ziet u hoe Amsterdam zichzelf telkens opnieuw uitvindt, terwijl de fundamenten van de oude waterkering onveranderd onder de moderne stadsdrukte blijven liggen.",
+        "transition": "Bedankt dat u vandaag met mij door de geschiedenis van Amsterdam heeft gelopen. Vanaf de eerste grachten tot dit centrale plein, heeft u gezien hoe elke laag een nieuw hoofdstuk schreef. De stad blijft zichzelf vernieuwen, maar haar fundamenten blijven staan. Ik wens u een prachtige verdere reis door deze bijzondere stad toe."
+      },
+      "latitude": 52.3731226,
+      "longitude": 4.8926093,
+      "position": 12,
+      "importanceScore": 55.512388523751014,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 94756489,
+          "wikidata": "Q839050",
+          "wikipedia": "nl:Dam (Amsterdam)",
+          "category": "square_civic",
+          "landmarkTier": "flagship",
+          "fameScore": 30.512388523751017,
+          "osmTags": {
+            "name": "Dam",
+            "wikidata": "Q839050",
+            "canonical:source": "wikidata-sparql",
+            "canonical:sitelinks": "33",
+            "canonical:instance_of": "square",
+            "tourism": "attraction",
+            "place": "square",
+            "name:ar": "سكوير الدام",
+            "name:cs": "Dam (Amsterdam)",
+            "name:de": "Damplatz",
+            "name:en": "Dam Square",
+            "name:it": "Piazza Dam",
+            "name:ja": "ダム広場",
+            "name:ko": "담광장",
+            "name:nl": "Dam",
+            "name:ru": "Площадь Дам",
+            "name:tr": "Dam Meydanı",
+            "name:uk": "Площа Дам",
+            "name:zh": "水壩廣場",
+            "name:zh-Hans": "水坝广场",
+            "old_name": "Vijgendam",
+            "wheelchair": "yes",
+            "wikimedia_commons": "Category:Dam Square",
+            "wikipedia": "nl:Dam (Amsterdam)"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "cbb46ead-d448-4fd6-8e28-8b0430225983",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2368,
+          "totalDurationMs": 20204,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1265",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "e dam in de Amstel die tussen 1265 en 1275 werd voltooid. Deze c"
+              },
+              {
+                "type": "date",
+                "value": "1275",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " de Amstel die tussen 1265 en 1275 werd voltooid. Deze construct"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "createdAt": "2026-06-24T11:05:46.074Z",
+  "updatedAt": "2026-06-24T11:05:46.074Z"
+}

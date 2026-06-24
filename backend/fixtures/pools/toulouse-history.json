@@ -1,7 +1,7 @@
 {
   "city": "Toulouse",
   "theme": "history",
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "geocode": {
     "lat": 43.6044638,
     "lng": 1.4442433,
@@ -903,30 +903,6 @@
       "osmType": "way"
     },
     {
-      "lat": 43.6058084,
-      "lng": 1.4408205,
-      "name": "Salle capitulaire",
-      "tags": {
-        "name": "Salle capitulaire",
-        "ruins": "no",
-        "access": "destination",
-        "ref:mhs": "PA00132945",
-        "tourism": "attraction",
-        "building": "university",
-        "heritage": "2",
-        "historic": "yes",
-        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
-        "short_name": "Salle capitulaire",
-        "description": "Salle capitulaire du Couvent des Cordeliers",
-        "source:heritage": "Ministère de la Culture - 06/2019",
-        "heritage:operator": "mhs",
-        "wikimedia_commons": "File:Toulouse (31) Couvent des Cordeliers Salle capitulaire 01.jpg",
-        "mhs:inscription_date": "1994-07-18"
-      },
-      "osmId": 46711881,
-      "osmType": "way"
-    },
-    {
       "lat": 43.6054975,
       "lng": 1.440695,
       "name": "Ruines de l'église des Cordeliers",
@@ -971,20 +947,6 @@
         "heritage:operator": "mhs"
       },
       "osmId": 48394476,
-      "osmType": "way"
-    },
-    {
-      "lat": 43.5672324,
-      "lng": 1.4754417,
-      "name": "Château de Lespinet",
-      "tags": {
-        "name": "Château de Lespinet",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
-        "building": "university",
-        "historic": "castle",
-        "castle_type": "manor"
-      },
-      "osmId": 50901893,
       "osmType": "way"
     },
     {
@@ -1453,30 +1415,6 @@
       "osmType": "way"
     },
     {
-      "lat": 43.6378573,
-      "lng": 1.464005,
-      "name": "Mairie Annexe de Croix Daurade",
-      "tags": {
-        "name": "Mairie Annexe de Croix Daurade",
-        "source": "GrandToulouse",
-        "amenity": "townhall",
-        "alt_name": "Château Ozenne",
-        "building": "civic",
-        "historic": "castle",
-        "operator": "Mairie de Toulouse",
-        "contact:fax": "+33561610849",
-        "roof:levels": "0",
-        "source:date": "2012-05-30",
-        "contact:phone": "+33561998480",
-        "opening_hours": "Mo-Fr 8:30-12:00,13:30-17:00",
-        "townhall:type": "Mairie annexe",
-        "building:levels": "2",
-        "operator:wikidata": "Q59916588"
-      },
-      "osmId": 67494820,
-      "osmType": "way"
-    },
-    {
       "lat": 43.5976986,
       "lng": 1.4506238,
       "name": "Hôtel de Lestang",
@@ -1822,19 +1760,6 @@
       "osmType": "node"
     },
     {
-      "lat": 43.5938018,
-      "lng": 1.443134,
-      "name": "Hôtel de Bruée",
-      "tags": {
-        "name": "Hôtel de Bruée",
-        "access": "private",
-        "historic": "manor",
-        "survey:date": "2023-08-08"
-      },
-      "osmId": 11099244805,
-      "osmType": "node"
-    },
-    {
       "lat": 43.5911189,
       "lng": 1.458467,
       "name": "Musée Georges Labit",
@@ -2172,20 +2097,6 @@
       "osmType": "way"
     },
     {
-      "lat": 43.5765772,
-      "lng": 1.3991302,
-      "name": "Aqueduc de la reine Pédauque",
-      "tags": {
-        "name": "Aqueduc de la reine Pédauque",
-        "note": "Aqueduc à fleur de sol (quasiment tout enterré)",
-        "source": "Bing",
-        "tourism": "attraction",
-        "historic": "archaeological_site"
-      },
-      "osmId": 374894215,
-      "osmType": "way"
-    },
-    {
       "lat": 43.5993422,
       "lng": 1.4390816,
       "name": "Pont Neuf",
@@ -2202,51 +2113,6 @@
         "bridge:structure": "humpback"
       },
       "osmId": 420826560,
-      "osmType": "way"
-    },
-    {
-      "lat": 43.6057192,
-      "lng": 1.4409667,
-      "name": "Chapelle des Cordeliers",
-      "tags": {
-        "name": "Chapelle des Cordeliers",
-        "ruins": "no",
-        "access": "private",
-        "amenity": "place_of_worship",
-        "ref:mhs": "PA00132945",
-        "tourism": "attraction",
-        "alt_name": "Sacristie des Cordeliers",
-        "heritage": "2",
-        "historic": "yes",
-        "religion": "christian",
-        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
-        "description": "Sacristie de l'ancienne église du Couvent des Cordeliers",
-        "denomination": "catholic",
-        "building:part": "chapel",
-        "source:heritage": "Ministère de la Culture - 06/2019",
-        "heritage:operator": "mhs",
-        "wikimedia_commons": "File:Sacristie-cordeliers-toulouse.jpg",
-        "mhs:inscription_date": "1994-07-18"
-      },
-      "osmId": 784923753,
-      "osmType": "way"
-    },
-    {
-      "lat": 43.5985611,
-      "lng": 1.4463763,
-      "name": "Hôtel de Puivert",
-      "tags": {
-        "name": "Hôtel de Puivert",
-        "ref:mhs": "PA00094566",
-        "tourism": "attraction",
-        "alt_name": "Hôtel de Puyvert",
-        "heritage": "3",
-        "wikipedia": "fr:Hôtel de Puivert",
-        "source:heritage": "Ministère de la Culture - 06/2019",
-        "heritage:operator": "mhs",
-        "mhs:inscription_date": "1998-02-25"
-      },
-      "osmId": 813402585,
       "osmType": "way"
     },
     {
@@ -2450,6 +2316,12 @@
       "name": "Capitole",
       "tags": {
         "name": "Capitole",
+        "wikidata": "Q2351013",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "22",
+        "canonical:instance_of": "capitol building",
+        "tourism": "attraction",
+        "building": "public",
         "type": "multipolygon",
         "image": "http://upload.wikimedia.org/wikipedia/commons/b/ba/CapitoleTOLOSAII.jpg",
         "access": "yes",
@@ -2458,12 +2330,9 @@
         "name:es": "Capitolio",
         "name:oc": "Capitòli",
         "ref:mhs": "PA00094497",
-        "tourism": "attraction",
         "website": "https://metropole.toulouse.fr/annuaire/capitole",
-        "building": "public",
         "heritage": "2",
         "historic": "yes",
-        "wikidata": "Q2351013",
         "wikipedia": "fr:Capitole de Toulouse",
         "addr:street": "Place du Capitole",
         "roof:levels": "1",
@@ -2639,30 +2508,6 @@
       "osmType": "relation"
     },
     {
-      "lat": 43.6031651,
-      "lng": 1.4320012,
-      "name": "Espace EDF Bazacle",
-      "tags": {
-        "name": "Espace EDF Bazacle",
-        "type": "site",
-        "name:en": "EDF Bazacle Complex",
-        "name:es": "Espacio EDF Bazacle",
-        "tourism": "museum",
-        "historic": "yes",
-        "operator": "EDF",
-        "addr:city": "Toulouse",
-        "wikipedia": "fr:Bazacle",
-        "addr:street": "Quai Saint-Pierre",
-        "addr:postcode": "31000",
-        "contact:phone": "+33 5 62301600",
-        "opening_hours": "Jan-Apr, Nov-Dec Tu-Su 11:00-18:00; May-Oct Tu-Su 11:00-19:00",
-        "contact:website": "http://bazacle.edf.com/",
-        "addr:housenumber": "11"
-      },
-      "osmId": 8776305,
-      "osmType": "relation"
-    },
-    {
       "lat": 43.604394,
       "lng": 1.4433789,
       "name": "Place du Capitole",
@@ -2737,19 +2582,6 @@
         "ref:FR:museofile": "M0567"
       },
       "osmId": 247081244,
-      "osmType": "node"
-    },
-    {
-      "lat": 43.5844452,
-      "lng": 1.4276068,
-      "name": "La Croix de Pierre",
-      "tags": {
-        "name": "La Croix de Pierre",
-        "source": "Connaissance locale",
-        "tourism": "attraction",
-        "historic": "wayside_cross"
-      },
-      "osmId": 1419857956,
       "osmType": "node"
     },
     {
@@ -3213,30 +3045,6 @@
       "osmType": "way"
     },
     {
-      "lat": 43.6097947,
-      "lng": 1.4398186,
-      "name": "Rue Gramat",
-      "tags": {
-        "lit": "yes",
-        "name": "Rue Gramat",
-        "oneway": "yes",
-        "bicycle": "yes",
-        "highway": "pedestrian",
-        "name:oc": "Carrièra Gramat",
-        "surface": "asphalt",
-        "tourism": "attraction",
-        "alt_name": "Rue des Graffs",
-        "wheelchair": "yes",
-        "description": "Rue des graffs",
-        "source:name": "http://www.gegeloccitan-photo.com/article-rue-gramat-toulouse-le-bourg-107110810.html",
-        "parking:both": "no",
-        "motor_vehicle": "delivery",
-        "oneway:bicycle": "no"
-      },
-      "osmId": 10235276,
-      "osmType": "way"
-    },
-    {
       "lat": 43.593043,
       "lng": 1.4508484,
       "name": "Jardin des Plantes",
@@ -3518,38 +3326,6 @@
       "osmType": "relation"
     },
     {
-      "lat": 43.5999317,
-      "lng": 1.4491775,
-      "name": "Place Saint-Étienne",
-      "tags": {
-        "name": "Place Saint-Étienne",
-        "type": "multipolygon",
-        "highway": "pedestrian",
-        "surface": "sett",
-        "tourism": "attraction",
-        "wikipedia": "fr:Place Saint-Étienne (Toulouse)"
-      },
-      "osmId": 11017673,
-      "osmType": "relation"
-    },
-    {
-      "lat": 43.610872,
-      "lng": 1.4391311,
-      "name": "Place Arnaud Bernard",
-      "tags": {
-        "lit": "yes",
-        "name": "Place Arnaud Bernard",
-        "type": "multipolygon",
-        "highway": "pedestrian",
-        "name:oc": "Plaça Naut Bernat",
-        "surface": "paved",
-        "wikipedia": "fr:Place Arnaud-Bernard",
-        "source:name:oc": "ieo-bdtopoc"
-      },
-      "osmId": 11017756,
-      "osmType": "relation"
-    },
-    {
       "lat": 43.599298,
       "lng": 1.4454309,
       "name": "Place Rouaix",
@@ -3601,19 +3377,6 @@
       },
       "osmId": 13375433,
       "osmType": "relation"
-    },
-    {
-      "lat": 43.5939382,
-      "lng": 1.4438656,
-      "name": "Vestige de rempart",
-      "tags": {
-        "name": "Vestige de rempart",
-        "tourism": "attraction",
-        "wikipedia": "fr:Rempart gallo-romain de Toulouse",
-        "description": "Vestiges du rempart gallo-romain de Toulouse"
-      },
-      "osmId": 786851741,
-      "osmType": "node"
     },
     {
       "lat": 43.5864072,
@@ -4503,26 +4266,6 @@
       "osmType": "way"
     },
     {
-      "lat": 43.6207168,
-      "lng": 1.4587465,
-      "name": "Eglise de Jesus-Christ des saints des derniers jours",
-      "tags": {
-        "name": "Eglise de Jesus-Christ des saints des derniers jours",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
-        "amenity": "place_of_worship",
-        "building": "church",
-        "religion": "christian",
-        "wikipedia": "fr:Église de Jésus-Christ des Saints des Derniers Jours",
-        "check_date": "2025-10-26",
-        "wheelchair": "yes",
-        "addr:street": "Avenue de Lavaur",
-        "denomination": "latter_day_saints",
-        "addr:housenumber": "10"
-      },
-      "osmId": 76333052,
-      "osmType": "way"
-    },
-    {
       "lat": 43.6106135,
       "lng": 1.4597568,
       "name": "Église Saint-Sylve",
@@ -4555,21 +4298,6 @@
         "denomination": "catholic"
       },
       "osmId": 76495944,
-      "osmType": "way"
-    },
-    {
-      "lat": 43.5999972,
-      "lng": 1.4373835,
-      "name": "Pont de la Daurade",
-      "tags": {
-        "name": "Pont de la Daurade",
-        "source": "local_knowledge",
-        "historic": "ruins",
-        "wikipedia": "fr:Pont de la Daurade",
-        "description": "Ancien pont de la Daurade",
-        "historic:civilization": "medieval"
-      },
-      "osmId": 120362223,
       "osmType": "way"
     },
     {
@@ -5005,19 +4733,6 @@
       "osmType": "node"
     },
     {
-      "lat": 43.5706742,
-      "lng": 1.4798736,
-      "name": "Aérodrome de Montaudran",
-      "tags": {
-        "name": "Aérodrome de Montaudran",
-        "note": "Cet aéroport historique a été définitivement fermé le 31 décembre 2003.",
-        "historic": "runway",
-        "wikipedia": "fr:Montaudran#L.27a.C3.A9rodrome"
-      },
-      "osmId": 1042046664,
-      "osmType": "node"
-    },
-    {
       "lat": 43.6043651,
       "lng": 1.4451877,
       "name": "Statue de Claude Nougaro",
@@ -5068,19 +4783,6 @@
       "osmType": "node"
     },
     {
-      "lat": 43.5680126,
-      "lng": 1.4181965,
-      "name": "Stèle des Martyrs de Bordelongue",
-      "tags": {
-        "name": "Stèle des Martyrs de Bordelongue",
-        "historic": "memorial",
-        "memorial": "war_memorial",
-        "wikipedia": "fr:Bordelongue"
-      },
-      "osmId": 6644388391,
-      "osmType": "node"
-    },
-    {
       "lat": 43.5911128,
       "lng": 1.4456759,
       "name": "Jean-Jacques Laffont 1947-2004",
@@ -5094,6 +4796,323 @@
         "artwork_type": "bust"
       },
       "osmId": 13618376618,
+      "osmType": "node"
+    },
+    {
+      "osmType": "node",
+      "osmId": -590201,
+      "name": "Toulouse Capitole University",
+      "lat": 43.6064,
+      "lng": 1.43667,
+      "tags": {
+        "name": "Toulouse Capitole University",
+        "wikidata": "Q590201",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "25",
+        "canonical:instance_of": "public university|university in France",
+        "tourism": "attraction",
+        "building": "government"
+      }
+    },
+    {
+      "lat": 43.6058084,
+      "lng": 1.4408205,
+      "name": "Salle capitulaire",
+      "tags": {
+        "name": "Salle capitulaire",
+        "ruins": "no",
+        "access": "destination",
+        "ref:mhs": "PA00132945",
+        "tourism": "attraction",
+        "building": "university",
+        "heritage": "2",
+        "historic": "yes",
+        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
+        "short_name": "Salle capitulaire",
+        "description": "Salle capitulaire du Couvent des Cordeliers",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "wikimedia_commons": "File:Toulouse (31) Couvent des Cordeliers Salle capitulaire 01.jpg",
+        "mhs:inscription_date": "1994-07-18"
+      },
+      "osmId": 46711881,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5672324,
+      "lng": 1.4754417,
+      "name": "Château de Lespinet",
+      "tags": {
+        "name": "Château de Lespinet",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "building": "university",
+        "historic": "castle",
+        "castle_type": "manor"
+      },
+      "osmId": 50901893,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6378573,
+      "lng": 1.464005,
+      "name": "Mairie Annexe de Croix Daurade",
+      "tags": {
+        "name": "Mairie Annexe de Croix Daurade",
+        "source": "GrandToulouse",
+        "amenity": "townhall",
+        "alt_name": "Château Ozenne",
+        "building": "civic",
+        "historic": "castle",
+        "operator": "Mairie de Toulouse",
+        "contact:fax": "+33561610849",
+        "roof:levels": "0",
+        "source:date": "2012-05-30",
+        "contact:phone": "+33561998480",
+        "opening_hours": "Mo-Fr 8:30-12:00,13:30-17:00",
+        "townhall:type": "Mairie annexe",
+        "building:levels": "2",
+        "operator:wikidata": "Q59916588"
+      },
+      "osmId": 67494820,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5938018,
+      "lng": 1.443134,
+      "name": "Hôtel de Bruée",
+      "tags": {
+        "name": "Hôtel de Bruée",
+        "access": "private",
+        "historic": "manor",
+        "survey:date": "2023-08-08"
+      },
+      "osmId": 11099244805,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5765772,
+      "lng": 1.3991302,
+      "name": "Aqueduc de la reine Pédauque",
+      "tags": {
+        "name": "Aqueduc de la reine Pédauque",
+        "note": "Aqueduc à fleur de sol (quasiment tout enterré)",
+        "source": "Bing",
+        "tourism": "attraction",
+        "historic": "archaeological_site"
+      },
+      "osmId": 374894215,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6057192,
+      "lng": 1.4409667,
+      "name": "Chapelle des Cordeliers",
+      "tags": {
+        "name": "Chapelle des Cordeliers",
+        "ruins": "no",
+        "access": "private",
+        "amenity": "place_of_worship",
+        "ref:mhs": "PA00132945",
+        "tourism": "attraction",
+        "alt_name": "Sacristie des Cordeliers",
+        "heritage": "2",
+        "historic": "yes",
+        "religion": "christian",
+        "wikipedia": "fr:Couvent des Cordeliers (Toulouse)",
+        "description": "Sacristie de l'ancienne église du Couvent des Cordeliers",
+        "denomination": "catholic",
+        "building:part": "chapel",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "wikimedia_commons": "File:Sacristie-cordeliers-toulouse.jpg",
+        "mhs:inscription_date": "1994-07-18"
+      },
+      "osmId": 784923753,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5985611,
+      "lng": 1.4463763,
+      "name": "Hôtel de Puivert",
+      "tags": {
+        "name": "Hôtel de Puivert",
+        "ref:mhs": "PA00094566",
+        "tourism": "attraction",
+        "alt_name": "Hôtel de Puyvert",
+        "heritage": "3",
+        "wikipedia": "fr:Hôtel de Puivert",
+        "source:heritage": "Ministère de la Culture - 06/2019",
+        "heritage:operator": "mhs",
+        "mhs:inscription_date": "1998-02-25"
+      },
+      "osmId": 813402585,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.6031651,
+      "lng": 1.4320012,
+      "name": "Espace EDF Bazacle",
+      "tags": {
+        "name": "Espace EDF Bazacle",
+        "type": "site",
+        "name:en": "EDF Bazacle Complex",
+        "name:es": "Espacio EDF Bazacle",
+        "tourism": "museum",
+        "historic": "yes",
+        "operator": "EDF",
+        "addr:city": "Toulouse",
+        "wikipedia": "fr:Bazacle",
+        "addr:street": "Quai Saint-Pierre",
+        "addr:postcode": "31000",
+        "contact:phone": "+33 5 62301600",
+        "opening_hours": "Jan-Apr, Nov-Dec Tu-Su 11:00-18:00; May-Oct Tu-Su 11:00-19:00",
+        "contact:website": "http://bazacle.edf.com/",
+        "addr:housenumber": "11"
+      },
+      "osmId": 8776305,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5844452,
+      "lng": 1.4276068,
+      "name": "La Croix de Pierre",
+      "tags": {
+        "name": "La Croix de Pierre",
+        "source": "Connaissance locale",
+        "tourism": "attraction",
+        "historic": "wayside_cross"
+      },
+      "osmId": 1419857956,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6097947,
+      "lng": 1.4398186,
+      "name": "Rue Gramat",
+      "tags": {
+        "lit": "yes",
+        "name": "Rue Gramat",
+        "oneway": "yes",
+        "bicycle": "yes",
+        "highway": "pedestrian",
+        "name:oc": "Carrièra Gramat",
+        "surface": "asphalt",
+        "tourism": "attraction",
+        "alt_name": "Rue des Graffs",
+        "wheelchair": "yes",
+        "description": "Rue des graffs",
+        "source:name": "http://www.gegeloccitan-photo.com/article-rue-gramat-toulouse-le-bourg-107110810.html",
+        "parking:both": "no",
+        "motor_vehicle": "delivery",
+        "oneway:bicycle": "no"
+      },
+      "osmId": 10235276,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5999317,
+      "lng": 1.4491775,
+      "name": "Place Saint-Étienne",
+      "tags": {
+        "name": "Place Saint-Étienne",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "surface": "sett",
+        "tourism": "attraction",
+        "wikipedia": "fr:Place Saint-Étienne (Toulouse)"
+      },
+      "osmId": 11017673,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.610872,
+      "lng": 1.4391311,
+      "name": "Place Arnaud Bernard",
+      "tags": {
+        "lit": "yes",
+        "name": "Place Arnaud Bernard",
+        "type": "multipolygon",
+        "highway": "pedestrian",
+        "name:oc": "Plaça Naut Bernat",
+        "surface": "paved",
+        "wikipedia": "fr:Place Arnaud-Bernard",
+        "source:name:oc": "ieo-bdtopoc"
+      },
+      "osmId": 11017756,
+      "osmType": "relation"
+    },
+    {
+      "lat": 43.5939382,
+      "lng": 1.4438656,
+      "name": "Vestige de rempart",
+      "tags": {
+        "name": "Vestige de rempart",
+        "tourism": "attraction",
+        "wikipedia": "fr:Rempart gallo-romain de Toulouse",
+        "description": "Vestiges du rempart gallo-romain de Toulouse"
+      },
+      "osmId": 786851741,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.6207168,
+      "lng": 1.4587465,
+      "name": "Eglise de Jesus-Christ des saints des derniers jours",
+      "tags": {
+        "name": "Eglise de Jesus-Christ des saints des derniers jours",
+        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "religion": "christian",
+        "wikipedia": "fr:Église de Jésus-Christ des Saints des Derniers Jours",
+        "check_date": "2025-10-26",
+        "wheelchair": "yes",
+        "addr:street": "Avenue de Lavaur",
+        "denomination": "latter_day_saints",
+        "addr:housenumber": "10"
+      },
+      "osmId": 76333052,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5999972,
+      "lng": 1.4373835,
+      "name": "Pont de la Daurade",
+      "tags": {
+        "name": "Pont de la Daurade",
+        "source": "local_knowledge",
+        "historic": "ruins",
+        "wikipedia": "fr:Pont de la Daurade",
+        "description": "Ancien pont de la Daurade",
+        "historic:civilization": "medieval"
+      },
+      "osmId": 120362223,
+      "osmType": "way"
+    },
+    {
+      "lat": 43.5706742,
+      "lng": 1.4798736,
+      "name": "Aérodrome de Montaudran",
+      "tags": {
+        "name": "Aérodrome de Montaudran",
+        "note": "Cet aéroport historique a été définitivement fermé le 31 décembre 2003.",
+        "historic": "runway",
+        "wikipedia": "fr:Montaudran#L.27a.C3.A9rodrome"
+      },
+      "osmId": 1042046664,
+      "osmType": "node"
+    },
+    {
+      "lat": 43.5680126,
+      "lng": 1.4181965,
+      "name": "Stèle des Martyrs de Bordelongue",
+      "tags": {
+        "name": "Stèle des Martyrs de Bordelongue",
+        "historic": "memorial",
+        "memorial": "war_memorial",
+        "wikipedia": "fr:Bordelongue"
+      },
+      "osmId": 6644388391,
       "osmType": "node"
     }
   ],
@@ -5336,7 +5355,8 @@
     "Q719314": 25,
     "Q136097148": 0,
     "Q3041475": 1,
-    "Q1005479": 10
+    "Q1005479": 10,
+    "Q590201": 25
   },
   "wikidataMetadata": {
     "Q2059713": {
@@ -6799,6 +6819,13 @@
       "sitelinks": 10,
       "instanceOfLabels": [
         "human"
+      ]
+    },
+    "Q590201": {
+      "sitelinks": 25,
+      "instanceOfLabels": [
+        "public university",
+        "university in France"
       ]
     }
   }

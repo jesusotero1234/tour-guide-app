@@ -1,0 +1,1628 @@
+{
+  "id": "fixture-candidate",
+  "city": "Paris",
+  "country": "France",
+  "countryCode": "FR",
+  "theme": "history",
+  "language": "en",
+  "durationMinutes": 240,
+  "metadata": {
+    "generationMode": "frozen-fixture-replay",
+    "sourceSnapshot": "paris-history-en.json",
+    "routeDiagnostics": {
+      "degraded": false,
+      "degradationReason": null,
+      "coverageRatio": 0.9567910749202316,
+      "estimatedTourMinutes": 229.6298579808556,
+      "requestedDuration": 240
+    }
+  },
+  "places": [
+    {
+      "id": "fixture-1",
+      "tourId": "fixture-candidate",
+      "name": "Eiffel Tower",
+      "description": "Look closely at the intricate lattice of wrought iron stretching toward the sky. This structure, known locally as 'La dame de fer,' serves as our first of thirteen stops on this 240-minute journey through time. As you stand here on the Champ de Mars, consider how Paris constantly reinvents its public life while preserving traces of every previous era. We begin with this landmark, built for the 1889 World's Fair, to examine our city's evolving historical layers.\n\nBetween 1887 and 1889, Gustave Eiffel's company erected this lattice tower as the centerpiece for the 1889 World's Fair. While it now stands as a global icon, notice how its presence once sparked intense friction; many contemporary artists and intellectuals criticized the design during its construction. This tension between radical innovation and traditional aesthetics marks our starting point. As you observe the ironwork, remember that this structure held the title of world's tallest human-made structure for forty-one years.\n\nObserve how this wrought iron lattice disrupts the skyline, serving as a permanent reminder of how Paris integrates radical change into its urban fabric. By standing here, you witness a structure that once held the title of the world's tallest human-made structure for forty-one years. This feat of engineering forces us to ask our central question: how does a city balance such bold, modern interventions with its older, more traditional layers? We use this iron lady to begin decoding those historical shifts.\n\nAs we move away from this iron lattice, let your mind dwell on that tension between innovation and tradition. We shall carry this inquiry into the Musée du quai Branly, where different layers of global history and culture begin to unfold before us.",
+      "descriptionSections": {
+        "arrival": "Look closely at the intricate lattice of wrought iron stretching toward the sky. This structure, known locally as 'La dame de fer,' serves as our first of thirteen stops on this 240-minute journey through time. As you stand here on the Champ de Mars, consider how Paris constantly reinvents its public life while preserving traces of every previous era. We begin with this landmark, built for the 1889 World's Fair, to examine our city's evolving historical layers.",
+        "history": "Between 1887 and 1889, Gustave Eiffel's company erected this lattice tower as the centerpiece for the 1889 World's Fair. While it now stands as a global icon, notice how its presence once sparked intense friction; many contemporary artists and intellectuals criticized the design during its construction. This tension between radical innovation and traditional aesthetics marks our starting point. As you observe the ironwork, remember that this structure held the title of world's tallest human-made structure for forty-one years.",
+        "significance": "Observe how this wrought iron lattice disrupts the skyline, serving as a permanent reminder of how Paris integrates radical change into its urban fabric. By standing here, you witness a structure that once held the title of the world's tallest human-made structure for forty-one years. This feat of engineering forces us to ask our central question: how does a city balance such bold, modern interventions with its older, more traditional layers? We use this iron lady to begin decoding those historical shifts.",
+        "transition": "As we move away from this iron lattice, let your mind dwell on that tension between innovation and tradition. We shall carry this inquiry into the Musée du quai Branly, where different layers of global history and culture begin to unfold before us."
+      },
+      "latitude": 48.8582603,
+      "longitude": 2.2945008,
+      "position": 0,
+      "importanceScore": 50.95956682499285,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 5013364,
+          "wikidata": "Q243",
+          "wikipedia": "fr:Tour Eiffel",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 29.959566824992844,
+          "osmTags": {
+            "fee": "10-25€",
+            "3dmr": "4",
+            "name": "Tour Eiffel",
+            "image": "https://fr.wikipedia.org/wiki/Fichier:Tour_Eiffel_Wikimedia_Commons.jpg",
+            "layer": "2",
+            "height": "330",
+            "image:0": "https://photos.app.goo.gl/y43gmbzPz7jToV9D7",
+            "name:af": "Eiffel-toring",
+            "name:ar": "برج إيفل",
+            "name:ba": "Эйфель башняһы",
+            "name:be": "Вежа Эйфеля",
+            "name:br": "Tour Eiffel",
+            "name:cs": "Eiffelova věž",
+            "name:da": "Eiffeltårnet",
+            "name:de": "Eiffelturm",
+            "name:el": "Πύργος του Άιφελ",
+            "name:en": "Eiffel Tower",
+            "name:eo": "Eiffel-Turo",
+            "name:es": "Torre Eiffel",
+            "name:et": "Eiffeli torn",
+            "name:eu": "Eiffel dorrea",
+            "name:fa": "برج ایفل",
+            "name:fi": "Eiffel-torni",
+            "name:fr": "Tour Eiffel",
+            "name:he": "מגדל אייפל",
+            "name:hi": "एफ़िल टॉवर",
+            "name:hr": "Eiffelov toranj",
+            "name:hu": "Eiffel-torony",
+            "name:ia": "Turre Eiffel",
+            "name:id": "Menara Eiffel",
+            "name:io": "Turmo Eiffel",
+            "name:it": "Torre Eiffel",
+            "name:ja": "エッフェル塔",
+            "name:kk": "Эйфель мұнарасы",
+            "name:ko": "에펠탑",
+            "name:ku": "Barûya Eyfelê",
+            "name:la": "Turris Eiffelia",
+            "name:lb": "Eiffeltuerm",
+            "name:nl": "Eiffeltoren",
+            "name:pl": "Wieża Eiffla",
+            "name:pt": "Torre Eiffel",
+            "name:ro": "Turnul Eiffel",
+            "name:ru": "Эйфелева башня",
+            "name:sk": "Eiffelova veža",
+            "name:sl": "Eifflov stolp",
+            "name:sr": "Ајфелова кула",
+            "name:sv": "Eiffeltornet",
+            "name:ta": "ஈபெல் கோபுரம்",
+            "name:tr": "Eyfel Kulesi",
+            "name:tt": "Эйфель манарасы",
+            "name:uk": "Ейфелева вежа",
+            "name:vi": "Tháp Eiffel",
+            "name:vo": "Tüm di Eiffel",
+            "name:zh": "艾菲爾鐵塔",
+            "ref:mhs": "PA00088801",
+            "tourism": "attraction",
+            "website": "https://www.toureiffel.paris/",
+            "building": "tower",
+            "engineer": "Gustave Eiffel;Maurice Koechlin;Émile Nouguier",
+            "heritage": "3",
+            "historic": "monument",
+            "landmark": "1",
+            "man_made": "tower",
+            "name:ast": "Torrne Eiffel",
+            "operator": "Société d’Exploitation de la Tour Eiffel",
+            "wikidata": "Q243",
+            "addr:city": "Paris",
+            "architect": "Stephen Sauvestre",
+            "panoramax": "b57848f0-a526-4bab-8cb3-ede3df7b41c3;7e69687f-3956-41f2-bd85-03af73df2b2b;7ca4fd32-0e0a-498f-826c-d106ee360948&xyz=3.20/53.64/30",
+            "wikipedia": "fr:Tour Eiffel",
+            "importance": "international",
+            "min_height": "0",
+            "roof:shape": "pyramidal",
+            "start_date": "1889",
+            "tower:type": "communication;observation",
+            "wheelchair": "no",
+            "addr:street": "Avenue Anatole France",
+            "alt_name:sr": "Ајфелов торањ",
+            "ref:FR:ANFR": "548894",
+            "roof:height": "330",
+            "name:zh-Hans": "埃菲尔铁塔",
+            "name:zh-Hant": "艾菲爾鐵塔",
+            "addr:postcode": "75007",
+            "building:part": "no",
+            "opening_hours": "09:30-23:45; Jun 21-Sep 2: 09:00-00:45; Jul 14,Jul 15 off",
+            "building:shape": "pyramidal",
+            "ref:FR:FANTOIR": "75107P320D",
+            "source:name:br": "proper translation",
+            "building:colour": "#706550",
+            "historic:period": "modern",
+            "source:building": "http://fr.wikipedia.org/wiki/Donn%C3%A9es_techniques_de_la_tour_Eiffel",
+            "source:heritage": "data.gouv.fr, Ministère de la Culture - 2016",
+            "addr:housenumber": "5",
+            "alt_name:zh-Hans": "巴黎铁塔",
+            "alt_name:zh-Hant": "巴黎鐵塔",
+            "tourism:visitors": "7000000",
+            "building:material": "iron",
+            "heritage:operator": "mhs",
+            "wikimedia_commons": "Category:Eiffel Tower",
+            "note:building:part": "no areas of this need to be visibly rendered in 3d except those covered by the other detailed building:parts",
+            "tower:construction": "lattice",
+            "communication:radio": "fm",
+            "mhs:inscription_date": "1964-06-24",
+            "communication:television": "dvb-t"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "89772c84-b2ae-4aac-8739-f30922f3a2f0",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2628,
+          "totalDurationMs": 8650,
+          "claimCheck": {
+            "totalExtracted": 2,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 2,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 2,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1889",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " this landmark, built for the 1889 World's Fair, to examine our "
+              },
+              {
+                "type": "date",
+                "value": "1887",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "g historical layers.  Between 1887 and 1889, Gustave Eiffel's co"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-2",
+      "tourId": "fixture-candidate",
+      "name": "Musée du quai Branly",
+      "description": "While the Eiffel Tower stands as a rigid iron sentinel, the Musée du quai Branly presents a different kind of presence along the Seine. Look at how the structure integrates with its surroundings on quai Jacques-Chirac. You see a complex layering of greenery and architecture that breaks away from traditional museum facades. This site serves as an ethnographic gateway, anchoring our exploration of how Paris reclaims its riverbanks to showcase global legacies through a contemporary lens.\n\nSince 1852, this ground has hosted shifting purposes, from the Garde meuble national to a center for trades during the 1937 World's Fair. Observe how political tension once shaped this landscape; in 1990, a proposed international conference center sparked fierce opposition between the government and local residents. While authorities considered exceptional legal measures to force construction, the 1993 real estate crisis eventually halted the project. This site transitioned from temporary buildings into the museum inaugurated on June 20, 2006.\n\nStep away from the iron geometry of the tower to witness how Paris reshapes its riverbanks into a global crossroads. Notice how this museum functions as an ethnographic gateway, pulling distant legacies directly onto the quai Jacques-Chirac. By housing collections from Africa, Asia, Oceania, and the Americas, the site transforms a local streetscape into a window toward other continents. This shift in perspective prepares you for our next destination, where modernism takes center stage at the Musée d'Art Moderne.\n\nAs these global legacies settle into the riverbank's greenery, your perspective shifts from ethnographic roots toward a different era of expression. We leave this window to other continents behind, moving toward the Musée d'Art Moderne de Paris to see how modernism eventually takes center stage.",
+      "descriptionSections": {
+        "arrival": "While the Eiffel Tower stands as a rigid iron sentinel, the Musée du quai Branly presents a different kind of presence along the Seine. Look at how the structure integrates with its surroundings on quai Jacques-Chirac. You see a complex layering of greenery and architecture that breaks away from traditional museum facades. This site serves as an ethnographic gateway, anchoring our exploration of how Paris reclaims its riverbanks to showcase global legacies through a contemporary lens.",
+        "history": "Since 1852, this ground has hosted shifting purposes, from the Garde meuble national to a center for trades during the 1937 World's Fair. Observe how political tension once shaped this landscape; in 1990, a proposed international conference center sparked fierce opposition between the government and local residents. While authorities considered exceptional legal measures to force construction, the 1993 real estate crisis eventually halted the project. This site transitioned from temporary buildings into the museum inaugurated on June 20, 2006.",
+        "significance": "Step away from the iron geometry of the tower to witness how Paris reshapes its riverbanks into a global crossroads. Notice how this museum functions as an ethnographic gateway, pulling distant legacies directly onto the quai Jacques-Chirac. By housing collections from Africa, Asia, Oceania, and the Americas, the site transforms a local streetscape into a window toward other continents. This shift in perspective prepares you for our next destination, where modernism takes center stage at the Musée d'Art Moderne.",
+        "transition": "As these global legacies settle into the riverbank's greenery, your perspective shifts from ethnographic roots toward a different era of expression. We leave this window to other continents behind, moving toward the Musée d'Art Moderne de Paris to see how modernism eventually takes center stage."
+      },
+      "latitude": 48.8609823,
+      "longitude": 2.2977973,
+      "position": 1,
+      "importanceScore": 38.62836009688685,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 17954721,
+          "wikidata": "Q167863",
+          "wikipedia": "fr:Musée du quai Branly - Jacques-Chirac",
+          "category": "museum",
+          "landmarkTier": "major",
+          "fameScore": 21.62836009688685,
+          "osmTags": {
+            "name": "Musée du quai Branly",
+            "phone": "+33 1 56 61 70 00",
+            "source": "Ministère de la Culture - Muséofile - 09/2019",
+            "name:ar": "متحف برانلي",
+            "name:cs": "Muzeum na nábřeží Branly",
+            "name:en": "Quai Branly Museum",
+            "name:eo": "Muzeo de la kajo Branly",
+            "name:es": "Museo del muelle Branly",
+            "name:he": "מוזיאון קה בראנלי",
+            "name:ja": "ケ・ブランリ美術館",
+            "name:pt": "Museu do Quai Branly",
+            "name:ru": "Музей на набережной Бранли",
+            "name:uk": "Музей на набережній Бранлі",
+            "name:vi": "Bảo tàng Quai Branly",
+            "name:zh": "布朗利河岸博物馆",
+            "tourism": "museum",
+            "website": "https://www.quaibranly.fr/",
+            "alt_name": "Musée des Arts Premiers",
+            "name:mzn": "کوآی برانلی موزه",
+            "name:sah": "Бранли музейа",
+            "wikidata": "Q167863",
+            "addr:city": "Paris",
+            "architect": "Jean Nouvel",
+            "wikipedia": "fr:Musée du quai Branly - Jacques-Chirac",
+            "check_date": "2026-05-19",
+            "wheelchair": "yes",
+            "addr:street": "Quai Branly",
+            "name:simple": "Quai Branly Museum",
+            "addr:postcode": "75007",
+            "official_name": "Musée du quai Branly - Jacques Chirac",
+            "opening_hours": "Tu-We, Fr-Su 10:30-19:00; Th 10:30-22:00",
+            "changing_table": "yes",
+            "addr:housenumber": "37",
+            "contact:mastodon": "quaibranly@reseauculture.fr",
+            "ref:FR:museofile": "M5055",
+            "check_date:opening_hours": "2026-02-27"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "3048d497-d18b-4d40-b2f4-bb5e51c01d7c",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2832,
+          "totalDurationMs": 8627,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1852",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "h a contemporary lens.  Since 1852, this ground has hosted shift"
+              },
+              {
+                "type": "date",
+                "value": "1937",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " center for trades during the 1937 World's Fair. Observe how pol"
+              },
+              {
+                "type": "date",
+                "value": "1990",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "nce shaped this landscape; in 1990, a proposed international con"
+              },
+              {
+                "type": "date",
+                "value": "1993",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "es to force construction, the 1993 real estate crisis eventually"
+              },
+              {
+                "type": "date",
+                "value": "2006",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "useum inaugurated on June 20, 2006.  Step away from the iron geo"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-3",
+      "tourId": "fixture-candidate",
+      "name": "Musée d'art moderne de Paris",
+      "description": "Can you identify the transition from the naturalistic collections of the previous stop to this structured urban space? Standing at 11, Avenue du Président Wilson, the museum occupies a distinct position within the 16th arrondissement. Notice how the building's presence defines the edge of the avenue, acting as a container for twentieth and twenty-first century works. This site marks a shift toward a specific era of municipal curation, setting the stage for the architectural evolution we will encounter near the Grand Palais.\n\nThe eastern wing of the Palais de Tokyo was originally constructed for the 1937 International Exhibition of Arts and Technology. While these walls were built decades earlier, the museum as we know it did not officially open its doors until 1961. This space eventually became a sanctuary for nearly 15,000 works, including monumental murals by Raoul Dufy and Henri Matisse. Observe how the institution continues to evolve, having undergone a significant ten-million-euro redesign that reopened in October 2019.\n\nStep away from the naturalistic wonders of the previous stop and observe how Paris reclaims its urban identity through curated modernity. This institution functions as a municipal anchor, part of the unified Paris Musées network that preserves the city's creative pulse. Look closely at the scale of the internal works; the presence of massive murals by artists like Gaston Suisse transforms these halls into a structured dialogue between space and color. We move now from organic origins toward the grand architectural transitions awaiting us at the Grand Palais.\n\nAs you leave these massive murals behind, consider how the city's curated modernity prepares us for even larger structural shifts. We transition from this organized collection of color toward a space where iron and glass define a different kind of public grandeur at the Grand Palais.",
+      "descriptionSections": {
+        "arrival": "Can you identify the transition from the naturalistic collections of the previous stop to this structured urban space? Standing at 11, Avenue du Président Wilson, the museum occupies a distinct position within the 16th arrondissement. Notice how the building's presence defines the edge of the avenue, acting as a container for twentieth and twenty-first century works. This site marks a shift toward a specific era of municipal curation, setting the stage for the architectural evolution we will encounter near the Grand Palais.",
+        "history": "The eastern wing of the Palais de Tokyo was originally constructed for the 1937 International Exhibition of Arts and Technology. While these walls were built decades earlier, the museum as we know it did not officially open its doors until 1961. This space eventually became a sanctuary for nearly 15,000 works, including monumental murals by Raoul Dufy and Henri Matisse. Observe how the institution continues to evolve, having undergone a significant ten-million-euro redesign that reopened in October 2019.",
+        "significance": "Step away from the naturalistic wonders of the previous stop and observe how Paris reclaims its urban identity through curated modernity. This institution functions as a municipal anchor, part of the unified Paris Musées network that preserves the city's creative pulse. Look closely at the scale of the internal works; the presence of massive murals by artists like Gaston Suisse transforms these halls into a structured dialogue between space and color. We move now from organic origins toward the grand architectural transitions awaiting us at the Grand Palais.",
+        "transition": "As you leave these massive murals behind, consider how the city's curated modernity prepares us for even larger structural shifts. We transition from this organized collection of color toward a space where iron and glass define a different kind of public grandeur at the Grand Palais."
+      },
+      "latitude": 48.8643053,
+      "longitude": 2.297793,
+      "position": 2,
+      "importanceScore": 39.07265601385425,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 79219308,
+          "wikidata": "Q857276",
+          "wikipedia": "fr:Musée d'Art moderne de Paris",
+          "category": "museum",
+          "landmarkTier": "flagship",
+          "fameScore": 22.07265601385425,
+          "osmTags": {
+            "fee": "yes",
+            "name": "Musée d'Art Moderne de Paris",
+            "phone": "+33 1 53 67 40 00",
+            "height": "14",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+            "name:en": "Modern Art Museum of Paris",
+            "name:eo": "Muzeo de Moderna Arto de Parizo",
+            "name:es": "Museo de Arte Moderno de París",
+            "name:fr": "Musée d'Art Moderne de Paris",
+            "name:ja": "パリ市立近代美術館",
+            "name:ko": "파리시립현대미술관",
+            "name:ru": "Музей современного искусства",
+            "name:zh": "巴黎现代艺术博物馆",
+            "tourism": "museum",
+            "website": "https://www.mam.paris.fr/",
+            "building": "yes",
+            "operator": "Ville de Paris",
+            "wikidata": "Q857276",
+            "architect": "André Aubert;Marcel Dastugue",
+            "wikipedia": "fr:Musée d'Art moderne de Paris",
+            "short_name": "MAM",
+            "alt_name:de": "Museum für Moderne Kunst der Stadt Paris",
+            "alt_name:en": "Museum of Modern Art of the City of Paris",
+            "alt_name:fr": "MAM",
+            "alt_name:nl": "Museum voor moderne kunst van de stad Parijs",
+            "addr:postcode": "75116",
+            "opening_hours": "Tu-Su 10:00-18:00",
+            "internet_access": "wlan",
+            "ref:FR:museofile": "M1101",
+            "building:material": "marble",
+            "internet_access:fee": "no",
+            "source:internet_access": "Paris Open Data",
+            "internet_access:operator": "Mairie de Paris"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "aa107db2-fe9e-4fb4-8e59-a3468c5d0d5e",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2719,
+          "totalDurationMs": 10707,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1937",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "riginally constructed for the 1937 International Exhibition of A"
+              },
+              {
+                "type": "date",
+                "value": "1961",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ficially open its doors until 1961. This space eventually became"
+              },
+              {
+                "type": "date",
+                "value": "2019",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "sign that reopened in October 2019.  Step away from the naturali"
+              },
+              {
+                "type": "location",
+                "value": "Avenue du Président Wilson",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " urban space? Standing at 11, Avenue du Président Wilson, the museum occupies a distin"
+              },
+              {
+                "type": "location",
+                "value": "Palais de Tokyo",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ais.  The eastern wing of the Palais de Tokyo was originally constructed fo"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-4",
+      "tourId": "fixture-candidate",
+      "name": "Grand Palais",
+      "description": "Focus your eyes on the intricate ironwork of the glass roof, where metal ribs stretch upward like a skeletal canopy over the avenue. This structure stands as a massive exhibition hall and museum complex situated between the Seine and the Champs-Élysées. As you stand here, notice how the scale shifts from the modern lines of our previous stop toward something far more monumental. The building's very foundation rests upon the site where the Palais de l'Industrie once stood.\n\nIn 1896, a specific decision shaped this site: the Republic chose to award the contract exclusively to French architects. This selection followed intense debates regarding the 1900 Universal Exposition, as critics feared the project would drain provincial resources. Construction began in 1897 after the Palais de l'Industrie was demolished to make way for this new vision. Look up at the pediment to read its purpose: a monument dedicated by the Republic to the glory of French art. This legacy of public utility continues toward our next stop.\n\nObserve how this massive exhibition hall functions as a bridge between eras. While our previous stop showcased modernism, this venue preserves a space for official artistic events that anchors the city's cultural identity. Notice how the presence of the adjacent Petit Palais and Pont Alexandre III completes a trio of structures born from the same 1900 Universal Exposition. This architectural ensemble demonstrates how Paris renovates its landscape by replacing old industry with permanent monuments to art, setting the stage for our upcoming encounter with classical collections.\n\nAs this monumental ensemble anchors our understanding of public art, consider how these grand exhibition spaces paved the way for more intimate displays. We move from this vast glass canopy toward the curated treasures held within the Musée des beaux-arts de la Ville de Paris.",
+      "descriptionSections": {
+        "arrival": "Focus your eyes on the intricate ironwork of the glass roof, where metal ribs stretch upward like a skeletal canopy over the avenue. This structure stands as a massive exhibition hall and museum complex situated between the Seine and the Champs-Élysées. As you stand here, notice how the scale shifts from the modern lines of our previous stop toward something far more monumental. The building's very foundation rests upon the site where the Palais de l'Industrie once stood.",
+        "history": "In 1896, a specific decision shaped this site: the Republic chose to award the contract exclusively to French architects. This selection followed intense debates regarding the 1900 Universal Exposition, as critics feared the project would drain provincial resources. Construction began in 1897 after the Palais de l'Industrie was demolished to make way for this new vision. Look up at the pediment to read its purpose: a monument dedicated by the Republic to the glory of French art. This legacy of public utility continues toward our next stop.",
+        "significance": "Observe how this massive exhibition hall functions as a bridge between eras. While our previous stop showcased modernism, this venue preserves a space for official artistic events that anchors the city's cultural identity. Notice how the presence of the adjacent Petit Palais and Pont Alexandre III completes a trio of structures born from the same 1900 Universal Exposition. This architectural ensemble demonstrates how Paris renovates its landscape by replacing old industry with permanent monuments to art, setting the stage for our upcoming encounter with classical collections.",
+        "transition": "As this monumental ensemble anchors our understanding of public art, consider how these grand exhibition spaces paved the way for more intimate displays. We move from this vast glass canopy toward the curated treasures held within the Musée des beaux-arts de la Ville de Paris."
+      },
+      "latitude": 48.8661514,
+      "longitude": 2.3122667,
+      "position": 3,
+      "importanceScore": 44.60131915442328,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 56185523,
+          "wikidata": "Q457318",
+          "wikipedia": "fr:Grand Palais (Paris)",
+          "category": "museum",
+          "landmarkTier": "flagship",
+          "fameScore": 24.601319154423276,
+          "osmTags": {
+            "fee": "yes",
+            "name": "Grand Palais",
+            "email": "webmaster@rmngp.fr",
+            "phone": "+33 1 44 13 17 17",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2010",
+            "name:ar": "القصر الكبير",
+            "name:en": "Great Palace",
+            "name:es": "Gran Palacio",
+            "name:hi": "भव्य महल",
+            "name:ru": "Большой дворец",
+            "name:uk": "Великий палац",
+            "name:zh": "大皇宫",
+            "ref:mhs": "PA00088877",
+            "tourism": "museum",
+            "website": "https://www.grandpalais.fr/",
+            "building": "yes",
+            "heritage": "2",
+            "wikidata": "Q457318",
+            "wikipedia": "fr:Grand Palais (Paris)",
+            "check_date": "2024-09-01",
+            "wheelchair": "yes",
+            "opening_hours": "Tu-Su 09:30-20:00; Mo 10:00-22:00",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 03/2018",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "2000-11-06"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d7b4a9e7-482f-4176-bd22-c71b78cf2afe",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2829,
+          "totalDurationMs": 8252,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1896",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e l'Industrie once stood.  In 1896, a specific decision shaped t"
+              },
+              {
+                "type": "date",
+                "value": "1900",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "intense debates regarding the 1900 Universal Exposition, as crit"
+              },
+              {
+                "type": "date",
+                "value": "1897",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ources. Construction began in 1897 after the Palais de l'Industr"
+              },
+              {
+                "type": "location",
+                "value": "Pont Alexandre III",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "the adjacent Petit Palais and Pont Alexandre III completes a trio of structure"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-5",
+      "tourId": "fixture-candidate",
+      "name": "Petit Palais",
+      "description": "Locals say the street layout changed forever when this structure appeared. Notice how the building sits directly across from the Grand Palais on Avenue Winston-Churchill. The scale of the stone walls establishes a distinct boundary for the 8th arrondissement. While its neighbor presents a massive profile, this museum maintains a more contained presence along the pavement. This specific placement marks a transition in the urban landscape, setting the stage for the era of the 1900 Exposition Universelle.\n\nIn 1894, a competition stirred the architectural community as officials sought to replace the aging Palais de l'Industrie for the 1900 Exposition Universelle. Charles Girault won this contest, deciding to build something entirely new rather than repurposing the old structure. Construction began on 10 October 1897, and by April 1900, this site had transformed into a museum of fine arts. Observe how its design subtly references the stables at the Château de Chantilly, bridging the gap toward the nearby Palais de l'Élysée.\n\nWhile the Grand Palais commands attention with its scale, this museum offers a more contained presence along the pavement. Notice how the transition from massive ironwork to these stone walls shifts our perspective on urban density. By housing the City of Paris Museum of Fine Arts, the structure transforms a temporary exhibition site into a permanent cultural anchor for the 8th arrondissement.\n\nThe shift from the massive ironwork of our previous stop to these stone walls alters your perception of urban density. As this museum anchors the area with its permanent collection, we move toward a site where the city's administrative functions take center stage.",
+      "descriptionSections": {
+        "arrival": "Locals say the street layout changed forever when this structure appeared. Notice how the building sits directly across from the Grand Palais on Avenue Winston-Churchill. The scale of the stone walls establishes a distinct boundary for the 8th arrondissement. While its neighbor presents a massive profile, this museum maintains a more contained presence along the pavement. This specific placement marks a transition in the urban landscape, setting the stage for the era of the 1900 Exposition Universelle.",
+        "history": "In 1894, a competition stirred the architectural community as officials sought to replace the aging Palais de l'Industrie for the 1900 Exposition Universelle. Charles Girault won this contest, deciding to build something entirely new rather than repurposing the old structure. Construction began on 10 October 1897, and by April 1900, this site had transformed into a museum of fine arts. Observe how its design subtly references the stables at the Château de Chantilly, bridging the gap toward the nearby Palais de l'Élysée.",
+        "significance": "While the Grand Palais commands attention with its scale, this museum offers a more contained presence along the pavement. Notice how the transition from massive ironwork to these stone walls shifts our perspective on urban density. By housing the City of Paris Museum of Fine Arts, the structure transforms a temporary exhibition site into a permanent cultural anchor for the 8th arrondissement.",
+        "transition": "The shift from the massive ironwork of our previous stop to these stone walls alters your perception of urban density. As this museum anchors the area with its permanent collection, we move toward a site where the city's administrative functions take center stage."
+      },
+      "latitude": 48.8660437,
+      "longitude": 2.3149694,
+      "position": 4,
+      "importanceScore": 43.25488750216347,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 2778854,
+          "wikidata": "Q820892",
+          "wikipedia": "fr:Petit Palais",
+          "category": "museum",
+          "landmarkTier": "flagship",
+          "fameScore": 24.25488750216347,
+          "osmTags": {
+            "fee": "no",
+            "name": "Musée des beaux-arts de la Ville de Paris",
+            "type": "multipolygon",
+            "phone": "+33153434000",
+            "source": "Cadastre. Mise à jour : 2010;survey;knowledge",
+            "name:ar": "متحف الفنون الجميلة لمدينة باريس",
+            "name:de": "Museum im Kleinen Palast",
+            "name:en": "Museum of Fine Arts of the City of Paris",
+            "name:hi": "छोटा महल",
+            "name:ru": "Малый дворец",
+            "name:zh": "巴黎小皇宮",
+            "ref:mhs": "PA00088878",
+            "tourism": "museum",
+            "website": "https://www.petitpalais.paris.fr/",
+            "alt_name": "Petit Palais",
+            "building": "yes",
+            "heritage": "3",
+            "wikidata": "Q820892",
+            "addr:city": "Paris",
+            "architect": "Charles Girault",
+            "wikipedia": "fr:Petit Palais",
+            "check_date": "2024-09-01",
+            "ref:FR:RNB": "SQGTP84KTJGE",
+            "start_date": "1900",
+            "wheelchair": "yes",
+            "addr:street": "Avenue Winston Churchill",
+            "payment:cash": "yes",
+            "payment:visa": "yes",
+            "addr:postcode": "75008",
+            "opening_hours": "Tu-Su 10:00-18:00",
+            "internet_access": "wlan",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 03/2018",
+            "source:architect": "data.gouv.fr:Ministère de la culture - 03/2018",
+            "heritage:operator": "mhs",
+            "payment:mastercard": "yes",
+            "internet_access:fee": "no",
+            "mhs:inscription_date": "1975-01-15",
+            "source:internet_access": "Paris Open Data",
+            "internet_access:operator": "Mairie de Paris"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "9c932fef-1bda-41a2-a07e-399f0661e7f4",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2571,
+          "totalDurationMs": 12583,
+          "claimCheck": {
+            "totalExtracted": 6,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 6,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 6,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1900",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " the stage for the era of the 1900 Exposition Universelle.  In 1"
+              },
+              {
+                "type": "date",
+                "value": "1894",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "0 Exposition Universelle.  In 1894, a competition stirred the ar"
+              },
+              {
+                "type": "date",
+                "value": "1897",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "struction began on 10 October 1897, and by April 1900, this site"
+              },
+              {
+                "type": "location",
+                "value": "Avenue Winston-Churchill",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ross from the Grand Palais on Avenue Winston-Churchill. The scale of the stone walls"
+              },
+              {
+                "type": "location",
+                "value": "Museum of Fine Arts",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "s site had transformed into a museum of fine arts. Observe how its design subtl"
+              },
+              {
+                "type": "location",
+                "value": "Château de Chantilly",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "references the stables at the Château de Chantilly, bridging the gap toward the "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-6",
+      "tourId": "fixture-candidate",
+      "name": "Élysée Palace",
+      "description": "Standing before the Rue du Faubourg Saint-Honoré, you encounter a structure that marks a shift from the public art of our previous stop to the guarded seat of power. Notice how the heavy gates separate the street from this historic castle. While the surrounding neighborhood pulses with commerce, this site remains an anchored office for the presidency. Observe the perimeter where the city's private nobility once met the public gaze, before we move toward the sacred echoes of the Madeleine.\n\nIn 1722, this residence reached completion for Louis Henri de La Tour d'Auvergne, a nobleman and army officer. His ability to commission such an estate relied on the massive 2,000,000 livres dowry from his marriage to Marie-Anne Crozat in 1707. While figures like Madame de Pompadour once inhabited these halls, the building's purpose shifted fundamentally on 12 December 1848. A new law transformed this private aristocratic home into the official residence of the French president, cementing its role as a permanent seat of state power.\n\nObserve how the city's rhythm shifts from the shared cultural treasures of our previous museum to this guarded enclave of authority. This site represents a profound transformation where private aristocratic luxury became a permanent instrument of statehood. While the surrounding streets pulse with commerce, these walls hold the weight of executive decision-making. Notice the tension between the noble origins of the estate and its modern function as the president's official residence, an evolution that precedes our approach to the Madeleine.\n\nAs we leave this guarded enclave of executive authority, consider how the city's focus shifts from political power to spiritual devotion. We move away from these walls of statehood toward a space where memory and prayer converge within the monumental presence of the Madeleine.",
+      "descriptionSections": {
+        "arrival": "Standing before the Rue du Faubourg Saint-Honoré, you encounter a structure that marks a shift from the public art of our previous stop to the guarded seat of power. Notice how the heavy gates separate the street from this historic castle. While the surrounding neighborhood pulses with commerce, this site remains an anchored office for the presidency. Observe the perimeter where the city's private nobility once met the public gaze, before we move toward the sacred echoes of the Madeleine.",
+        "history": "In 1722, this residence reached completion for Louis Henri de La Tour d'Auvergne, a nobleman and army officer. His ability to commission such an estate relied on the massive 2,000,000 livres dowry from his marriage to Marie-Anne Crozat in 1707. While figures like Madame de Pompadour once inhabited these halls, the building's purpose shifted fundamentally on 12 December 1848. A new law transformed this private aristocratic home into the official residence of the French president, cementing its role as a permanent seat of state power.",
+        "significance": "Observe how the city's rhythm shifts from the shared cultural treasures of our previous museum to this guarded enclave of authority. This site represents a profound transformation where private aristocratic luxury became a permanent instrument of statehood. While the surrounding streets pulse with commerce, these walls hold the weight of executive decision-making. Notice the tension between the noble origins of the estate and its modern function as the president's official residence, an evolution that precedes our approach to the Madeleine.",
+        "transition": "As we leave this guarded enclave of executive authority, consider how the city's focus shifts from political power to spiritual devotion. We move away from these walls of statehood toward a space where memory and prayer converge within the monumental presence of the Madeleine."
+      },
+      "latitude": 48.8703766,
+      "longitude": 2.3166056,
+      "position": 5,
+      "importanceScore": 45.948267571373314,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 1060803,
+          "wikidata": "Q188190",
+          "wikipedia": "fr:Palais de l'Élysée",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 24.948267571373314,
+          "osmTags": {
+            "name": "Palais de l'Élysée",
+            "type": "multipolygon",
+            "height": "12",
+            "office": "government",
+            "source": "cadastre-dgi-fr source : Direction générale des impôts - Cadastre. Mise à jour : 2010",
+            "name:ar": "قصر الإليزيه",
+            "name:br": "Palez An Élysée",
+            "name:de": "Élysée-Palast",
+            "name:en": "Élysée Palace",
+            "name:fr": "Palais de l'Élysée",
+            "name:hi": "एलिजे महल",
+            "name:it": "Palazzo dell'Eliseo",
+            "name:pt": "Palácio do Eliseu",
+            "name:ru": "Елисейский дворец",
+            "name:zh": "爱丽舍宫",
+            "tourism": "attraction",
+            "website": "https://www.elysee.fr/",
+            "alt_name": "Palais du Président de la République Française",
+            "building": "office",
+            "end_date": "1722",
+            "historic": "castle",
+            "old_name": "Hôtel d'Évreux",
+            "wikidata": "Q188190",
+            "architect": "Armand-Claude Mollet",
+            "wikipedia": "fr:Palais de l'Élysée",
+            "government": "presidency",
+            "ref:FR:RNB": "D8T7TQQ4JHMY",
+            "start_date": "1718",
+            "castle_type": "palace",
+            "description": "Résidence officielle du président de la République française",
+            "ref:FR:SIRET": "10000001700010",
+            "source:architect": "data.gouv.fr:Ministère de la culture - 08/2017",
+            "architect:wikidata": "Q2861805",
+            "architect:wikipedia": "fr:Armand Claude Mollet",
+            "opening_hours:signed": "no"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "27da7c75-d97e-4ec3-8c3f-efe338409528",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2617,
+          "totalDurationMs": 8445,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1722",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " echoes of the Madeleine.  In 1722, this residence reached compl"
+              },
+              {
+                "type": "date",
+                "value": "1707",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "riage to Marie-Anne Crozat in 1707. While figures like Madame de"
+              },
+              {
+                "type": "date",
+                "value": "1848",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " fundamentally on 12 December 1848. A new law transformed this p"
+              },
+              {
+                "type": "location",
+                "value": "Rue du Faubourg Saint-Honor",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Standing before the Rue du Faubourg Saint-Honoré, you encounter a structure t"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-7",
+      "tourId": "fixture-candidate",
+      "name": "La Madeleine",
+      "description": "Step away from the quiet power of the Élysée and find yourself facing a massive stone presence that commands this square. Look at how the heavy columns rise directly from the pavement, anchoring the street with their sheer weight. This structure does not merely sit on the corner; it dominates the surrounding space. Notice the way the facade stands as a solid barrier between the modern sidewalk and the history held within its walls.\n\nIn 1763, Louis XV laid the first stone for a structure intended to anchor the Rue Royale. This project faced profound interruptions; while the King initially envisioned a large dome, the French Revolution halted all progress. Later, Napoleon Bonaparte reimagined the site as a Neoclassical monument celebrating his armies' glory. After his 1814 downfall, the building finally returned to its religious purpose, reaching completion in 1842. As you contemplate this shifting identity, consider how the nearby Opéra Garnier awaits with its own architectural secrets.\n\nObserve how this site embodies the city's habit of repurposing its own scars. While the Élysée represents steady political authority, La Madeleine reveals a fractured identity, shifting from a royal vision for the Rue Royale into a monument for fallen soldiers before finally settling as a Catholic parish church. This instability shows that Parisian landmarks are rarely finished products; they are layers of interrupted dreams. As we move toward the Opéra Garnier, prepare to see how grandeur can also be staged.\n\nReflect on these layers of interrupted dreams and shifting identities. As we leave this site of repurposed scars behind, keep that sense of transformation in mind. We shall soon discover how the city learned to stage its grandeur more intentionally at the Opéra Garnier.",
+      "descriptionSections": {
+        "arrival": "Step away from the quiet power of the Élysée and find yourself facing a massive stone presence that commands this square. Look at how the heavy columns rise directly from the pavement, anchoring the street with their sheer weight. This structure does not merely sit on the corner; it dominates the surrounding space. Notice the way the facade stands as a solid barrier between the modern sidewalk and the history held within its walls.",
+        "history": "In 1763, Louis XV laid the first stone for a structure intended to anchor the Rue Royale. This project faced profound interruptions; while the King initially envisioned a large dome, the French Revolution halted all progress. Later, Napoleon Bonaparte reimagined the site as a Neoclassical monument celebrating his armies' glory. After his 1814 downfall, the building finally returned to its religious purpose, reaching completion in 1842. As you contemplate this shifting identity, consider how the nearby Opéra Garnier awaits with its own architectural secrets.",
+        "significance": "Observe how this site embodies the city's habit of repurposing its own scars. While the Élysée represents steady political authority, La Madeleine reveals a fractured identity, shifting from a royal vision for the Rue Royale into a monument for fallen soldiers before finally settling as a Catholic parish church. This instability shows that Parisian landmarks are rarely finished products; they are layers of interrupted dreams. As we move toward the Opéra Garnier, prepare to see how grandeur can also be staged.",
+        "transition": "Reflect on these layers of interrupted dreams and shifting identities. As we leave this site of repurposed scars behind, keep that sense of transformation in mind. We shall soon discover how the city learned to stage its grandeur more intentionally at the Opéra Garnier."
+      },
+      "latitude": 48.870028,
+      "longitude": 2.3244655,
+      "position": 6,
+      "importanceScore": 45.913766555032915,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 54180046,
+          "wikidata": "Q330564",
+          "wikipedia": "fr:Église de la Madeleine",
+          "category": "religious",
+          "landmarkTier": "flagship",
+          "fameScore": 24.913766555032915,
+          "osmTags": {
+            "name": "Église de la Madeleine",
+            "height": "36",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+            "amenity": "place_of_worship",
+            "name:es": "Iglesia de la Madeleine",
+            "name:fr": "Église de la Madeleine",
+            "name:ja": "マドレーヌ寺院",
+            "name:ko": "생 마들렌 교회",
+            "name:zh": "玛达肋纳教堂",
+            "ref:mhs": "PA00088812",
+            "tourism": "attraction",
+            "alt_name": "La Madeleine",
+            "building": "church",
+            "heritage": "2",
+            "religion": "christian",
+            "wikidata": "Q330564",
+            "architect": "Pierre Vignon",
+            "panoramax": "38b6d262-648f-461e-b9a3-ab05eb22d92a",
+            "wikipedia": "fr:Église de la Madeleine",
+            "check_date": "2025-05-02",
+            "ref:FR:CEF": "75108_06",
+            "wheelchair": "yes",
+            "addr:street": "Place de la Madeleine",
+            "alt_name:zh": "玛德莲娜教堂",
+            "denomination": "catholic",
+            "source:height": "IGN Lidar HD",
+            "building:levels": "4",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+            "source:architect": "data.gouv.fr:Ministère de la culture - 08/2017",
+            "heritage:operator": "mhs",
+            "architect:wikidata": "Q3382784",
+            "architect:wikipedia": "fr:Pierre-Alexandre Vignon",
+            "mhs:inscription_date": "1915-05-20",
+            "wheelchair:description": "Neben dem Eingangstor an der rechten Seitenrand befindet sich der Behindertenaufzug"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "421e8b81-fd75-499b-adfa-f7274a9a5633",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2643,
+          "totalDurationMs": 8164,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1763",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ry held within its walls.  In 1763, Louis XV laid the first ston"
+              },
+              {
+                "type": "date",
+                "value": "1814",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " his armies' glory. After his 1814 downfall, the building finall"
+              },
+              {
+                "type": "date",
+                "value": "1842",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "rpose, reaching completion in 1842. As you contemplate this shif"
+              },
+              {
+                "type": "location",
+                "value": "Rue Royale",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ucture intended to anchor the Rue Royale. This project faced profound "
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-8",
+      "tourId": "fixture-candidate",
+      "name": "Palais Garnier",
+      "description": "While the Madeleine stands as a solemn temple of stone, you now face a structure that pulses with much more exuberant energy. Look at how the facade dominates the Place de l'Opéra, asserting its presence through intricate carvings and layered textures. This building serves as a massive anchor for the 9th arrondissement. Notice the way the heavy masonry meets the street level, preparing you to transition from religious stillness into a world of theatrical grandeur.\n\nBetween 1861 and 1875, Charles Garnier transformed this site into a monument of opulence. While Napoleon III commissioned the project to modernize the city, the sheer scale of the design eventually earned it the name Palais Garnier. This transition from a mere 'new opera' to a palace reflects how architectural ambition can redefine a building's identity. Observe the layered facade, which stands as a protected monument historique since 1923, signaling a shift toward our next destination, the Palais Royal.\n\nObserve how the city's focus shifts from the sacred silence of the Madeleine toward this theater of public spectacle. While Napoleon III sought modernization, the sheer opulence of Charles Garnier’s design transformed a functional venue into a destination that redefined Parisian social life. This building once served as the primary home for the Paris Opera and Ballet until 1989. Notice how such grand architecture complicates our view of urban progress, leading us toward the more intimate complexities found at Palais Royal.\n\nLeave this theater of public spectacle behind as we move away from such theatrical grandeur. If the Opera represents a monument to social display, our journey continues toward the Palais Royal, where you will encounter much more intimate complexities hidden within a different kind of urban sanctuary.",
+      "descriptionSections": {
+        "arrival": "While the Madeleine stands as a solemn temple of stone, you now face a structure that pulses with much more exuberant energy. Look at how the facade dominates the Place de l'Opéra, asserting its presence through intricate carvings and layered textures. This building serves as a massive anchor for the 9th arrondissement. Notice the way the heavy masonry meets the street level, preparing you to transition from religious stillness into a world of theatrical grandeur.",
+        "history": "Between 1861 and 1875, Charles Garnier transformed this site into a monument of opulence. While Napoleon III commissioned the project to modernize the city, the sheer scale of the design eventually earned it the name Palais Garnier. This transition from a mere 'new opera' to a palace reflects how architectural ambition can redefine a building's identity. Observe the layered facade, which stands as a protected monument historique since 1923, signaling a shift toward our next destination, the Palais Royal.",
+        "significance": "Observe how the city's focus shifts from the sacred silence of the Madeleine toward this theater of public spectacle. While Napoleon III sought modernization, the sheer opulence of Charles Garnier’s design transformed a functional venue into a destination that redefined Parisian social life. This building once served as the primary home for the Paris Opera and Ballet until 1989. Notice how such grand architecture complicates our view of urban progress, leading us toward the more intimate complexities found at Palais Royal.",
+        "transition": "Leave this theater of public spectacle behind as we move away from such theatrical grandeur. If the Opera represents a monument to social display, our journey continues toward the Palais Royal, where you will encounter much more intimate complexities hidden within a different kind of urban sanctuary."
+      },
+      "latitude": 48.8720294,
+      "longitude": 2.3317281,
+      "position": 7,
+      "importanceScore": 46.18183977049975,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 54667456,
+          "wikidata": "Q187840",
+          "wikipedia": "fr:Opéra Garnier",
+          "category": "other",
+          "landmarkTier": "flagship",
+          "fameScore": 25.18183977049975,
+          "osmTags": {
+            "name": "Opéra Garnier",
+            "layer": "1",
+            "height": "70",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+            "amenity": "theatre",
+            "name:ja": "オペラ座",
+            "name:ru": "Опера Гарнье",
+            "name:zh": "巴黎歌剧院",
+            "ref:mhs": "PA00089004",
+            "tourism": "attraction",
+            "alt_name": "Théâtre national de l'Opéra, dit opéra Garnier",
+            "building": "yes",
+            "heritage": "2",
+            "wikidata": "Q187840",
+            "architect": "Charles Garnier",
+            "wikipedia": "fr:Opéra Garnier",
+            "wheelchair": "yes",
+            "contact:city": "Paris",
+            "contact:phone": "+33 892 89 90 90",
+            "nohousenumber": "yes",
+            "opening_hours": "10:00-17:00",
+            "theatre:genre": "opera",
+            "contact:street": "Place de l'Opéra",
+            "contact:website": "https://www.operadeparis.fr",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 04/2015",
+            "contact:postcode": "75009",
+            "heritage:operator": "mhs",
+            "mhs:inscription_date": "1923-10-16"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "1a878648-f62e-4071-97ed-8619b32cf8f9",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2968,
+          "totalDurationMs": 8224,
+          "claimCheck": {
+            "totalExtracted": 4,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 4,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 4,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1861",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "theatrical grandeur.  Between 1861 and 1875, Charles Garnier tra"
+              },
+              {
+                "type": "date",
+                "value": "1875",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "l grandeur.  Between 1861 and 1875, Charles Garnier transformed "
+              },
+              {
+                "type": "date",
+                "value": "1923",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ted monument historique since 1923, signaling a shift toward our"
+              },
+              {
+                "type": "date",
+                "value": "1989",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " Paris Opera and Ballet until 1989. Notice how such grand archit"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-9",
+      "tourId": "fixture-candidate",
+      "name": "Palais-Royal",
+      "description": "Can you find the boundary where the street ends and this courtyard begins? The screened entrance court faces the Place du Palais-Royal, positioned directly opposite the Louvre. Notice how the structure occupies a distinct space on Rue Saint-Honoré, separate from the surrounding urban density. This perimeter marks the transition from the public thoroughfare to a site that once served as the Palais-Cardinal. The physical layout establishes a specific relationship between this enclosure and the neighboring streets of the 1st arrondissement.\n\nBetween 1633 and 1639, Jacques Lemercier constructed this site as the Palais-Cardinal for Richelieu. Observe how the building's identity shifted after the Cardinal's death in 1642, when it passed to Louis XIII and eventually became the Palais-Royal. This transition turned a private stronghold into a refuge for displaced figures like Henrietta Maria, who sought shelter here following the English Civil War in 1649. Such layers of ownership reflect a city constantly reshaping its own boundaries, much like the nearby Louvre.\n\nObserve how this enclosure functions as a quiet rupture in the urban fabric. While the Opéra Garnier celebrates public spectacle, these walls reveal a more intimate, shifting power. Notice the screened entrance court facing the Place du Palais-Royal; it creates a deliberate distance from the street. This spatial arrangement demonstrates how Paris complicates its own history by nesting private retreats within public view. As you move forward, prepare to see how this tension between seclusion and visibility intensifies near the Louvre.\n\nAs this enclosure reveals how private retreats nest within public view, consider the tension between seclusion and visibility. We carry this curiosity regarding hidden power forward, moving toward the Musée du Louvre to witness how such spatial complexities expand into a much larger scale.",
+      "descriptionSections": {
+        "arrival": "Can you find the boundary where the street ends and this courtyard begins? The screened entrance court faces the Place du Palais-Royal, positioned directly opposite the Louvre. Notice how the structure occupies a distinct space on Rue Saint-Honoré, separate from the surrounding urban density. This perimeter marks the transition from the public thoroughfare to a site that once served as the Palais-Cardinal. The physical layout establishes a specific relationship between this enclosure and the neighboring streets of the 1st arrondissement.",
+        "history": "Between 1633 and 1639, Jacques Lemercier constructed this site as the Palais-Cardinal for Richelieu. Observe how the building's identity shifted after the Cardinal's death in 1642, when it passed to Louis XIII and eventually became the Palais-Royal. This transition turned a private stronghold into a refuge for displaced figures like Henrietta Maria, who sought shelter here following the English Civil War in 1649. Such layers of ownership reflect a city constantly reshaping its own boundaries, much like the nearby Louvre.",
+        "significance": "Observe how this enclosure functions as a quiet rupture in the urban fabric. While the Opéra Garnier celebrates public spectacle, these walls reveal a more intimate, shifting power. Notice the screened entrance court facing the Place du Palais-Royal; it creates a deliberate distance from the street. This spatial arrangement demonstrates how Paris complicates its own history by nesting private retreats within public view. As you move forward, prepare to see how this tension between seclusion and visibility intensifies near the Louvre.",
+        "transition": "As this enclosure reveals how private retreats nest within public view, consider the tension between seclusion and visibility. We carry this curiosity regarding hidden power forward, moving toward the Musée du Louvre to witness how such spatial complexities expand into a much larger scale."
+      },
+      "latitude": 48.8635185,
+      "longitude": 2.3369196,
+      "position": 8,
+      "importanceScore": 44.767276025914484,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3300400,
+          "wikidata": "Q329948",
+          "wikipedia": "fr:Palais-Royal",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 23.767276025914484,
+          "osmTags": {
+            "name": "Palais Royal",
+            "type": "multipolygon",
+            "height": "30",
+            "name:ar": "القصر الملكي",
+            "name:en": "Royal Palace",
+            "name:ru": "Пале-Рояль",
+            "name:zh": "巴黎皇家宫殿",
+            "tourism": "attraction",
+            "building": "palace",
+            "historic": "manor",
+            "wikidata": "Q329948",
+            "wikipedia": "fr:Palais-Royal"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "307ac628-eabd-456a-825c-669df7616c8a",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2527,
+          "totalDurationMs": 10706,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1633",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " 1st arrondissement.  Between 1633 and 1639, Jacques Lemercier c"
+              },
+              {
+                "type": "date",
+                "value": "1639",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ndissement.  Between 1633 and 1639, Jacques Lemercier constructe"
+              },
+              {
+                "type": "date",
+                "value": "1642",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "after the Cardinal's death in 1642, when it passed to Louis XIII"
+              },
+              {
+                "type": "date",
+                "value": "1649",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "wing the English Civil War in 1649. Such layers of ownership ref"
+              },
+              {
+                "type": "location",
+                "value": "Rue Saint-Honor",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " occupies a distinct space on Rue Saint-Honoré, separate from the surroundi"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-10",
+      "tourId": "fixture-candidate",
+      "name": "Louvre Museum",
+      "description": "Focus your eyes on the heavy stone perimeter that separates the street from this vast institution. Notice how the museum's massive walls act as a boundary between the modern city and an older, more guarded world. This site serves as a threshold where the public enters a space once reserved for kings, setting the stage for our final inquiry.\n\nUnderneath these halls lie the remnants of a medieval fortress built during the reign of Philip II. Observe how the building's purpose shifted when Francis I converted this defensive stronghold into a royal residence in 1546. Later, after Louis XIV moved his household to Versailles in 1682, the space transitioned from a home to a gallery for sculptures and academies. This evolution reached a turning point on 10 August 1793, when the National Assembly decreed that these royal treasures belong to the nation.\n\nStep inside to witness how private royal collections transformed into a shared public inheritance. While we previously walked through gardens designed for leisure, here you encounter a global destination that attracts nine million visitors annually. This scale shifts our perspective from individual history to a collective human experience. As you wander near the Mona Lisa, consider how these once-guarded treasures now belong to everyone, bridging the gap between monarchical prestige and modern civic life.\n\nThe shared ownership of these treasures redefines our understanding of heritage. As you contemplate this transition from royal privacy to public inheritance, follow the path toward the Palais du Louvre. There, we shall examine how the very structure of power shaped the architecture itself.",
+      "descriptionSections": {
+        "arrival": "Focus your eyes on the heavy stone perimeter that separates the street from this vast institution. Notice how the museum's massive walls act as a boundary between the modern city and an older, more guarded world. This site serves as a threshold where the public enters a space once reserved for kings, setting the stage for our final inquiry.",
+        "history": "Underneath these halls lie the remnants of a medieval fortress built during the reign of Philip II. Observe how the building's purpose shifted when Francis I converted this defensive stronghold into a royal residence in 1546. Later, after Louis XIV moved his household to Versailles in 1682, the space transitioned from a home to a gallery for sculptures and academies. This evolution reached a turning point on 10 August 1793, when the National Assembly decreed that these royal treasures belong to the nation.",
+        "significance": "Step inside to witness how private royal collections transformed into a shared public inheritance. While we previously walked through gardens designed for leisure, here you encounter a global destination that attracts nine million visitors annually. This scale shifts our perspective from individual history to a collective human experience. As you wander near the Mona Lisa, consider how these once-guarded treasures now belong to everyone, bridging the gap between monarchical prestige and modern civic life.",
+        "transition": "The shared ownership of these treasures redefines our understanding of heritage. As you contemplate this transition from royal privacy to public inheritance, follow the path toward the Palais du Louvre. There, we shall examine how the very structure of power shaped the architecture itself."
+      },
+      "latitude": 48.8611474,
+      "longitude": 2.3358637,
+      "position": 9,
+      "importanceScore": 46.15111287742216,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 7515426,
+          "wikidata": "Q19675",
+          "wikipedia": "fr:Musée du Louvre",
+          "category": "museum",
+          "landmarkTier": "flagship",
+          "fameScore": 28.151112877422158,
+          "osmTags": {
+            "fee": "yes",
+            "name": "Musée du Louvre",
+            "note": "This is for the LOUVRE MUSEUM and includes some features that are outside the building/underground. DO NOT MIX IT UP WITH THE LOUVRE PALACE!",
+            "type": "multipolygon",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/6/66/Louvre_Museum_Wikimedia_Commons.jpg",
+            "museum": "art",
+            "name:ar": "متحف اللوفر",
+            "name:de": "Museum des Louvre",
+            "name:en": "Louvre Museum",
+            "name:eo": "Luvro",
+            "name:es": "Museo del Louvre",
+            "name:fr": "Musée du Louvre",
+            "name:it": "Museo del Louvre",
+            "name:ja": "ルーブル美術館",
+            "name:pt": "Museu do Louvre",
+            "name:ru": "Лувр",
+            "name:tr": "Louvre Müzesi",
+            "name:zh": "卢浮宫博物馆",
+            "tourism": "museum",
+            "int_name": "Louvre",
+            "landmark": "20",
+            "wikidata": "Q19675",
+            "addr:city": "Paris",
+            "wikipedia": "fr:Musée du Louvre",
+            "check_date": "2025-07-26",
+            "importance": "international",
+            "wheelchair": "yes",
+            "alt_name:zh": "卢浮宫",
+            "surveillance": "indoor",
+            "addr:postcode": "75001",
+            "contact:phone": "+33 1 40 20 52 29",
+            "opening_hours": "Mo,Th,Sa-Su 09:00-18:00; Tu off; We,Fr 09:00-21:00; Jan 01,May 01,Dec 25 off",
+            "short_name:it": "Louvre",
+            "contact:website": "https://www.louvre.fr",
+            "internet_access": "wlan",
+            "tourism:visitors": "9000000",
+            "wikimedia_commons": "Category:Musée du Louvre",
+            "internet_access:fee": "no",
+            "opening_hours:lastcheck": "2015-03"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "d2c3b98a-89aa-4522-b7c1-f7e75a8bc128",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2475,
+          "totalDurationMs": 7842,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1546",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "old into a royal residence in 1546. Later, after Louis XIV moved"
+              },
+              {
+                "type": "date",
+                "value": "1682",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "is household to Versailles in 1682, the space transitioned from "
+              },
+              {
+                "type": "date",
+                "value": "1793",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": " a turning point on 10 August 1793, when the National Assembly d"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-11",
+      "tourId": "fixture-candidate",
+      "name": "Louvre Palace",
+      "description": "rumour: they say the stones here still hold the weight of every crown that ever rested within them. Stand before this massive expanse where the city's edge meets the Seine. Notice how the structure stretches across a vast territory, wedged tightly between the Tuileries Gardens and the church of Saint-Germain l'Auxerrois. You are no longer just viewing art; you are facing the very foundation of French power, a site that transitioned from a defensive castle into a royal residence.\n\nAround 1190, this site functioned as a defensive castle guarding the western edge of Paris. Observe how the architecture shifted from those medieval fortifications toward something more refined. By the late 1540s, Francis I initiated a transformation, replacing the expanding fortress with designs inspired by classical antiquity and the Italian Renaissance. This evolution mirrors the city's own growth, as the palace eventually merged with the Tuileries Palace to form a singular seat of executive power. Now, we move toward the gateway of the Carrousel.\n\nObserve how the very purpose of this ground has shifted from exclusion to inclusion. While the original castle functioned to keep people out, the palace eventually opened its doors to the public through the museum in 1793. This transformation reflects our central question: Paris does not erase its past; it repurposes it. As you step away from these royal halls, look toward the Arc de Triomphe du Carrousel to see how even victory is framed by such transitions.\n\nLeaving these halls behind, consider how the palace transitioned from a fortress of exclusion to a shared public treasure. This spirit of repurposing leads us toward the Arc de Triomphe du Carrousel, where we shall witness how even monuments of victory are shaped by such historical shifts.",
+      "descriptionSections": {
+        "arrival": "rumour: they say the stones here still hold the weight of every crown that ever rested within them. Stand before this massive expanse where the city's edge meets the Seine. Notice how the structure stretches across a vast territory, wedged tightly between the Tuileries Gardens and the church of Saint-Germain l'Auxerrois. You are no longer just viewing art; you are facing the very foundation of French power, a site that transitioned from a defensive castle into a royal residence.",
+        "history": "Around 1190, this site functioned as a defensive castle guarding the western edge of Paris. Observe how the architecture shifted from those medieval fortifications toward something more refined. By the late 1540s, Francis I initiated a transformation, replacing the expanding fortress with designs inspired by classical antiquity and the Italian Renaissance. This evolution mirrors the city's own growth, as the palace eventually merged with the Tuileries Palace to form a singular seat of executive power. Now, we move toward the gateway of the Carrousel.",
+        "significance": "Observe how the very purpose of this ground has shifted from exclusion to inclusion. While the original castle functioned to keep people out, the palace eventually opened its doors to the public through the museum in 1793. This transformation reflects our central question: Paris does not erase its past; it repurposes it. As you step away from these royal halls, look toward the Arc de Triomphe du Carrousel to see how even victory is framed by such transitions.",
+        "transition": "Leaving these halls behind, consider how the palace transitioned from a fortress of exclusion to a shared public treasure. This spirit of repurposing leads us toward the Arc de Triomphe du Carrousel, where we shall witness how even monuments of victory are shaped by such historical shifts."
+      },
+      "latitude": 48.8614768,
+      "longitude": 2.3351677,
+      "position": 10,
+      "importanceScore": 47.10620665658675,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "relation",
+          "osmId": 3262297,
+          "wikidata": "Q1075988",
+          "wikipedia": "fr:Palais du Louvre",
+          "category": "palace_castle",
+          "landmarkTier": "flagship",
+          "fameScore": 24.106206656586746,
+          "osmTags": {
+            "name": "Palais du Louvre",
+            "note": "This is for the LOUVRE PALACE and includes only the building itself. DO NOT MIX IT UP WITH THE LOUVRE MUSEUM!",
+            "type": "multipolygon",
+            "image": "http://upload.wikimedia.org/wikipedia/commons/6/66/Louvre_Museum_Wikimedia_Commons.jpg",
+            "phone": "+33 1 40205050",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+            "image:0": "https://photos.app.goo.gl/nvWhqUJ2HyqyL2jr5",
+            "name:ar": "قصر اللوفر",
+            "name:de": "Louvre",
+            "name:en": "Louvre Palace",
+            "name:eo": "Luvra Palaco",
+            "name:fr": "Palais du Louvre",
+            "name:it": "Palazzo del Louvre",
+            "name:ja": "ルーブル美術館",
+            "name:ko": "루브르 박물관",
+            "name:pl": "Luwr",
+            "name:ru": "Лувр",
+            "name:zh": "卢浮宫博物馆",
+            "tourism": "attraction",
+            "website": "https://www.louvre.fr/",
+            "building": "castle",
+            "heritage": "2",
+            "historic": "castle",
+            "wikidata": "Q1075988",
+            "addr:city": "Paris",
+            "wikipedia": "fr:Palais du Louvre",
+            "importance": "international",
+            "roof:shape": "many",
+            "wheelchair": "yes",
+            "alt_name:zh": "卢浮宫",
+            "castle_type": "stately",
+            "name:zh-Hans": "卢浮宫博物馆",
+            "name:zh-Hant": "羅浮宮博物館",
+            "addr:postcode": "75001",
+            "roof:material": "metal",
+            "image:panorama": "http://upload.wikimedia.org/wikipedia/commons/d/d2/Jardin_du_Carrousel.jpg",
+            "building:levels": "3",
+            "toilets:wheelchair": "yes"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "80a3c7d3-ba94-4e18-92a9-5d526892a625",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2689,
+          "totalDurationMs": 8335,
+          "claimCheck": {
+            "totalExtracted": 3,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 3,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 3,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1190",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "to a royal residence.  Around 1190, this site functioned as a de"
+              },
+              {
+                "type": "date",
+                "value": "1793",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": " public through the museum in 1793. This transformation reflects"
+              },
+              {
+                "type": "style",
+                "value": "Renaissance",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "cal antiquity and the Italian Renaissance. This evolution mirrors the c"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-12",
+      "tourId": "fixture-candidate",
+      "name": "arc de triomphe du Carrousel",
+      "description": "Standing at the edge of Place du Carrousel, you find yourself before a structure that bridges the gap between the Louvre's vastness and the open square. Notice how this triumphal arch anchors the western exit of the palace grounds. Its stone silhouette marks a transition point in the city fabric, acting as a gateway that directs your gaze toward the next chapter of our journey. Observe its position, nestled precisely where the museum's influence meets the wider urban landscape.\n\nInaugurated on August 15, 1808, this monument commemorates the military victories of 1805. Look closely at its design, a three-quarter scale copy of Rome's Arch of Constantine, which once served as an honorable entrance to the Tuileries Palace. The landscape shifted forever after the palace burned in 1871 and was later destroyed by 1883, leaving this arch standing alone in an open esplanade. As we move forward, consider how these stone layers prepare us for the industrial transformations awaiting at the Musée d'Orsay.\n\nObserve how this stone gateway functions as a permanent scar of lost grandeur. While the Tuileries Palace vanished from the skyline, this arch remains, preserving a sense of entrance where none exists physically anymore. It stands as a silent witness to the city's ability to retain its imperial echoes even after destruction. This tension between what remains and what has disappeared prepares you for our next destination, where iron and steam once reshaped the very essence of Paris.\n\nReflect on this stone gateway as a silent witness to lost grandeur. This tension between what remains and what has disappeared prepares you for our next destination, where iron and steam once reshaped the very essence of Paris at the Musée d'Orsay.",
+      "descriptionSections": {
+        "arrival": "Standing at the edge of Place du Carrousel, you find yourself before a structure that bridges the gap between the Louvre's vastness and the open square. Notice how this triumphal arch anchors the western exit of the palace grounds. Its stone silhouette marks a transition point in the city fabric, acting as a gateway that directs your gaze toward the next chapter of our journey. Observe its position, nestled precisely where the museum's influence meets the wider urban landscape.",
+        "history": "Inaugurated on August 15, 1808, this monument commemorates the military victories of 1805. Look closely at its design, a three-quarter scale copy of Rome's Arch of Constantine, which once served as an honorable entrance to the Tuileries Palace. The landscape shifted forever after the palace burned in 1871 and was later destroyed by 1883, leaving this arch standing alone in an open esplanade. As we move forward, consider how these stone layers prepare us for the industrial transformations awaiting at the Musée d'Orsay.",
+        "significance": "Observe how this stone gateway functions as a permanent scar of lost grandeur. While the Tuileries Palace vanished from the skyline, this arch remains, preserving a sense of entrance where none exists physically anymore. It stands as a silent witness to the city's ability to retain its imperial echoes even after destruction. This tension between what remains and what has disappeared prepares you for our next destination, where iron and steam once reshaped the very essence of Paris.",
+        "transition": "Reflect on this stone gateway as a silent witness to lost grandeur. This tension between what remains and what has disappeared prepares you for our next destination, where iron and steam once reshaped the very essence of Paris at the Musée d'Orsay."
+      },
+      "latitude": 48.8617276,
+      "longitude": 2.3329082,
+      "position": 11,
+      "importanceScore": 39.71578428466209,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 227483542,
+          "wikidata": "Q631104",
+          "wikipedia": "fr:Arc de triomphe du Carrousel",
+          "category": "other",
+          "landmarkTier": "major",
+          "fameScore": 21.71578428466209,
+          "osmTags": {
+            "name": "Arc de Triomphe du Carrousel",
+            "height": "18",
+            "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010",
+            "name:ar": "قوس النصر في الكاروسيل",
+            "name:en": "Triumphal Arch of the Carousel",
+            "name:he": "שער הניצחון של קרוסל",
+            "name:ru": "Триумфальная арка на площади Каррузель",
+            "name:zh": "卡鲁塞尔凯旋门",
+            "tourism": "attraction",
+            "building": "triumphal_arch",
+            "historic": "monument",
+            "wikidata": "Q631104",
+            "wikipedia": "fr:Arc de triomphe du Carrousel",
+            "ref:FR:RNB": "M1ZXXB7SB6N4;YERZVN78V6VY",
+            "wheelchair": "yes",
+            "diff:ref:FR:RNB": "multiple"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "9e1a6722-f051-4e26-b638-134d4ba1536e",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2530,
+          "totalDurationMs": 8373,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1808",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "e.  Inaugurated on August 15, 1808, this monument commemorates t"
+              },
+              {
+                "type": "date",
+                "value": "1805",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "tes the military victories of 1805. Look closely at its design, "
+              },
+              {
+                "type": "date",
+                "value": "1871",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "er after the palace burned in 1871 and was later destroyed by 18"
+              },
+              {
+                "type": "date",
+                "value": "1883",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "71 and was later destroyed by 1883, leaving this arch standing a"
+              },
+              {
+                "type": "location",
+                "value": "Place du Carrousel",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "Standing at the edge of Place du Carrousel, you find yourself before a s"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "fixture-13",
+      "tourId": "fixture-candidate",
+      "name": "Musée d'Orsay",
+      "description": "As you stand before the Musée d'Orsay, focus your eyes on the massive stone facade that anchors this stretch of the Left Bank. Notice how the heavy masonry seems to anchor the riverfront, a stark contrast to the lighter triumphal structures we just passed. This structure serves as our final answer to how Paris reclaims its past. It does not erase what came before; instead, it repurposes the very bones of the city's industrial era.\n\nBetween 1898 and 1900, architects Lucien Magne, Émile Bénard, and Victor Laloux transformed this site into the Gare d'Orsay for the Exposition Universelle. While some critics dismissed the station as an anachronism, its design successfully integrated nineteenth-century aesthetics with modern transit needs. This transition from a bustling railway hub to a museum in 1986 demonstrates how Paris preserves its industrial bones. Today, these halls house the world's largest collection of Impressionist masterpieces, bridging the gap between old infrastructure and new cultural life.\n\nObserve how the museum's very walls bridge disparate eras of human experience. While our journey began with monuments of victory and power, we conclude within a space that celebrates movement and light. By housing sculptures and photography alongside paintings from 1848 to 1914, this site proves that urban evolution requires no destruction. Instead, Paris breathes new life into old transit hubs, transforming a former railway station into a sanctuary where industrial utility meets artistic permanence.\n\nAs we conclude, reflect on the layers of time you have traversed today. You have witnessed how Paris avoids erasure, choosing instead to breathe new life into its old bones. Thank you for walking through these eras with me. May your journey through this city's enduring spirit stay with you. Safe travels.",
+      "descriptionSections": {
+        "arrival": "As you stand before the Musée d'Orsay, focus your eyes on the massive stone facade that anchors this stretch of the Left Bank. Notice how the heavy masonry seems to anchor the riverfront, a stark contrast to the lighter triumphal structures we just passed. This structure serves as our final answer to how Paris reclaims its past. It does not erase what came before; instead, it repurposes the very bones of the city's industrial era.",
+        "history": "Between 1898 and 1900, architects Lucien Magne, Émile Bénard, and Victor Laloux transformed this site into the Gare d'Orsay for the Exposition Universelle. While some critics dismissed the station as an anachronism, its design successfully integrated nineteenth-century aesthetics with modern transit needs. This transition from a bustling railway hub to a museum in 1986 demonstrates how Paris preserves its industrial bones. Today, these halls house the world's largest collection of Impressionist masterpieces, bridging the gap between old infrastructure and new cultural life.",
+        "significance": "Observe how the museum's very walls bridge disparate eras of human experience. While our journey began with monuments of victory and power, we conclude within a space that celebrates movement and light. By housing sculptures and photography alongside paintings from 1848 to 1914, this site proves that urban evolution requires no destruction. Instead, Paris breathes new life into old transit hubs, transforming a former railway station into a sanctuary where industrial utility meets artistic permanence.",
+        "transition": "As we conclude, reflect on the layers of time you have traversed today. You have witnessed how Paris avoids erasure, choosing instead to breathe new life into its old bones. Thank you for walking through these eras with me. May your journey through this city's enduring spirit stay with you. Safe travels."
+      },
+      "latitude": 48.8599188,
+      "longitude": 2.3265259,
+      "position": 12,
+      "importanceScore": 47.32754351601772,
+      "metadata": {
+        "sourcePoi": {
+          "osmType": "way",
+          "osmId": 63178753,
+          "wikidata": "Q23402",
+          "wikipedia": "fr:Musée d'Orsay",
+          "category": "museum",
+          "landmarkTier": "flagship",
+          "fameScore": 28.32754351601772,
+          "osmTags": {
+            "fee": "yes",
+            "name": "Musée d'Orsay",
+            "phone": "+33140494814",
+            "height": "35",
+            "name:en": "Museum of Orsay",
+            "name:es": "Museo de Orsay",
+            "name:fr": "Musée d'Orsay",
+            "name:it": "Museo d'Orsay",
+            "name:ja": "オルセー美術館",
+            "name:ko": "오르세 미술관",
+            "name:pl": "Muzeum Orsay",
+            "name:pt": "Museu de Orsay",
+            "name:ru": "Музей Орсе",
+            "name:zh": "奧賽博物館",
+            "ref:mhs": "PA00088689",
+            "tourism": "museum",
+            "website": "https://www.musee-orsay.fr/",
+            "building": "museum",
+            "heritage": "2",
+            "old_name": "Gare d'Orsay",
+            "wikidata": "Q23402",
+            "architect": "Victor Laloux",
+            "wikipedia": "fr:Musée d'Orsay",
+            "check_date": "2024-03-16",
+            "importance": "international",
+            "roof:shape": "many",
+            "start_date": "1900",
+            "wheelchair": "yes",
+            "addr:street": "Rue de la Légion d'Honneur",
+            "building:use": "museum",
+            "name:zh-Hans": "奥赛博物馆",
+            "name:zh-Hant": "奧賽博物館",
+            "payment:cash": "yes",
+            "payment:visa": "yes",
+            "addr:postcode": "75007",
+            "official_name": "Musée d'Orsay - Valéry Giscard d'Estaing",
+            "opening_hours": "Tu-Su 09:30-18:00; Th 09:30-21:45",
+            "description:fr": "Collections : Art français et européen de 1848 à 1914",
+            "ref:FR:FANTOIR": "75107B011Z",
+            "building:levels": "5",
+            "source:heritage": "data.gouv.fr:Ministère de la Culture - 2022-01",
+            "addr:housenumber": "1",
+            "source:architect": "data.gouv.fr:Ministère de la Culture - 2022-01",
+            "tourism:visitors": "3500000",
+            "heritage:operator": "mhs",
+            "architect:wikidata": "Q924704",
+            "payment:mastercard": "yes",
+            "architect:wikipedia": "fr:Victor Laloux",
+            "mhs:inscription_date": "1978-03-15"
+          }
+        },
+        "narrationMeta": {
+          "traceId": "12bca5ab-2c49-4caa-a5a0-2274d24fd2ed",
+          "seedQuality": "rich",
+          "targetWords": "280-360",
+          "sectionsGenerated": 4,
+          "sectionsFallbacked": 0,
+          "totalSeedChars": 2559,
+          "totalDurationMs": 8462,
+          "claimCheck": {
+            "totalExtracted": 5,
+            "verifiedRate": 1,
+            "contradictedRate": 0,
+            "unverifiedRate": 0,
+            "verifiedCount": 5,
+            "contradictedCount": 0,
+            "unverifiedCount": 0,
+            "criticalFailCount": 0,
+            "warningCount": 0,
+            "infoCount": 5,
+            "claims": [
+              {
+                "type": "date",
+                "value": "1898",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ty's industrial era.  Between 1898 and 1900, architects Lucien M"
+              },
+              {
+                "type": "date",
+                "value": "1900",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "strial era.  Between 1898 and 1900, architects Lucien Magne, Émi"
+              },
+              {
+                "type": "date",
+                "value": "1986",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "ng railway hub to a museum in 1986 demonstrates how Paris preser"
+              },
+              {
+                "type": "date",
+                "value": "1848",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikidata",
+                "context": "aphy alongside paintings from 1848 to 1914, this site proves tha"
+              },
+              {
+                "type": "date",
+                "value": "1914",
+                "status": "verified",
+                "severity": "info",
+                "source": "wikipedia",
+                "context": "ngside paintings from 1848 to 1914, this site proves that urban "
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "createdAt": "2026-06-23T23:03:58.592Z",
+  "updatedAt": "2026-06-23T23:03:58.592Z"
+}

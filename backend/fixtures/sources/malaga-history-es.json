@@ -1,0 +1,1017 @@
+{
+  "schemaVersion": 1,
+  "city": "Malaga",
+  "theme": "history",
+  "language": "es",
+  "capturedAt": "2026-06-24T10:28:46.074Z",
+  "wikidata": {
+    "Q523311": {
+      "wikidataId": "Q523311",
+      "nameTranslations": {
+        "nl": "La Malagueta",
+        "es": "plaza de toros de La Malagueta",
+        "ru": "Ла-Малагета",
+        "pt": "Praça de Toiros da Malagueta",
+        "hy": "Լա Մալագետա",
+        "ja": "マラガ闘牛場",
+        "ceb": "La Malagueta",
+        "sv": "La Malagueta",
+        "en": "Plaza de toros de la Malagueta",
+        "fr": "arènes de Malaga",
+        "it": "La Malagueta",
+        "gl": "Praza de touros de La Malagueta",
+        "zh": "马拉加斗牛场",
+        "ig": "Ogige ịnyịnya ibu nke La Malagueta"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q523311",
+      "wikidataClaims": {
+        "instanceOf": "plaza de toros",
+        "inception": "1876-06-11",
+        "architect": "Joaquín Rucoba",
+        "architecturalStyle": "neomudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q1582758": {
+      "wikidataId": "Q1582758",
+      "nameTranslations": {
+        "gl": "Catedral da Encarnación de Málaga",
+        "zh-hans": "马拉加主教座堂",
+        "zh-hant": "馬拉加主教座堂",
+        "zh-hk": "馬拉加主教座堂",
+        "eo": "Katedralo de Malago",
+        "de": "Iglesia Catedral de la Encarnación",
+        "eu": "Málagako katedrala",
+        "pl": "Katedra w Maladze",
+        "fr": "Iglesia Catedral de la Encarnación",
+        "en": "Cathedral Basilica of the Virgin of Incarnation",
+        "es": "Iglesia Catedral de la Encarnación",
+        "ca": "Iglesia Catedral de la Encarnación",
+        "it": "cattedrale di Málaga",
+        "ru": "Малагский собор",
+        "zh": "马拉加主教座堂",
+        "da": "Málaga Katedral",
+        "sv": "Katedralen i Malaga",
+        "vi": "Nhà thờ chính tòa Málaga",
+        "hi": "मलागा गिरजाघर",
+        "pa": "ਮਲਾਗਾ ਗਿਰਜਾਘਰ",
+        "ta": "மாலகா பெருங்கோவில்",
+        "ur": "ملاگا گرجاگھر",
+        "sl": "stolnica v Málagi",
+        "nl": "Málaga Cathedral",
+        "ja": "マラガ大聖堂",
+        "tr": "Málaga Katedrali",
+        "hy": "Մալագայի տաճար",
+        "fa": "کلیسای جامع مالاگا",
+        "id": "Katedral Málaga",
+        "arz": "كنيسه كاتدرائيه التجسد",
+        "hu": "Málagai székesegyház",
+        "cs": "Katedrála v Malaze",
+        "az": "Malaqa kafedralı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1582758",
+      "wikidataClaims": {
+        "instanceOf": "catedral católica",
+        "inception": "1528-00-00",
+        "architect": "Diego de Siloé",
+        "architecturalStyle": "Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q3127243": {
+      "wikidataId": "Q3127243",
+      "nameTranslations": {
+        "eo": "Alkazabo de Malago",
+        "de": "Alcazaba",
+        "ru": "Крепость Малага",
+        "fr": "Alcazaba",
+        "en": "Alcazaba of Málaga",
+        "es": "Alcazaba de Málaga",
+        "ca": "Alcazaba",
+        "da": "Alcazaba",
+        "it": "Alcazaba di Málaga",
+        "nl": "Alcazaba",
+        "sl": "Alcazaba",
+        "pa": "ਅਲਕਸਬਾ ਮਾਲਾਗਾ",
+        "ur": "قصبہ مالقہ",
+        "ar": "قصبة مالقة",
+        "hy": "Մալագայի ալկասաբա",
+        "tr": "Alkazaba",
+        "sv": "Alcazaba",
+        "ceb": "Alcazaba",
+        "ja": "アルカサバ",
+        "pl": "Alcazaba w Maladze",
+        "uk": "Фортеця Малага",
+        "gl": "Alcazaba",
+        "id": "Alcazaba Málaga",
+        "zh": "马拉加城堡",
+        "eu": "Málagako Alcazaba"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3127243",
+      "wikidataClaims": {
+        "instanceOf": "fortaleza",
+        "inception": "1057-00-00",
+        "architecturalStyle": "arquitectura morisca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q969308": {
+      "wikidataId": "Q969308",
+      "nameTranslations": {
+        "es": "Palacio de los Condes de Buenavista",
+        "en": "Palacio de los Condes de Buenavista",
+        "ru": "Дворец Буэнависта",
+        "uk": "Палац Буенавіста",
+        "de": "Palacio de los Condes de Buenavista",
+        "gl": "Palacio de los Condes de Buenavista",
+        "fr": "Palacio de los Condes de Buenavista",
+        "ca": "Palacio de los Condes de Buenavista",
+        "zh": "布維納維斯塔城堡"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q969308",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q1049197": {
+      "wikidataId": "Q1049197",
+      "nameTranslations": {
+        "ru": "Хибральфаро",
+        "fr": "château du Gibralfaro",
+        "pl": "Zamek Gibralfaro",
+        "ca": "Castillo de Gibralfaro",
+        "de": "Burg von Gibralpharo",
+        "eo": "Kastelo de Gibralfaro",
+        "es": "Castillo de Gibralfaro",
+        "nl": "Castillo de Gibralfaro",
+        "hy": "Խիբրալֆարոյի ամրոց",
+        "ja": "ヒブラルファロ城",
+        "it": "Castello di Gibralfaro",
+        "en": "Castle of Gibralfaro",
+        "ceb": "Ruine Gibralfaro",
+        "sv": "Ruine Gibralfaro",
+        "gl": "Castillo de Gibralfaro",
+        "eu": "Gibralfaroko gaztelua",
+        "tr": "Gibralfaro Kalesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1049197",
+      "wikidataClaims": {
+        "instanceOf": "castillo",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q3849447": {
+      "wikidataId": "Q3849447",
+      "nameTranslations": {
+        "eo": "Romia teatro de Malago",
+        "es": "Teatro romano",
+        "ca": "Teatro romano",
+        "de": "Teatro romano",
+        "nl": "Teatro Romano",
+        "it": "teatro romano di malaga",
+        "he": "התאטרון הרומי במאלאגה",
+        "ceb": "Teatro Romano",
+        "sv": "Teatro Romano",
+        "en": "Roman Theatre of Malaca",
+        "gl": "Teatro romano",
+        "fr": "Teatro romano",
+        "pl": "teatr rzymski w Maladze",
+        "eu": "Málagako erromatar antzokia",
+        "tr": "Roma Tiyatrosu, Malaca"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3849447",
+      "wikidataClaims": {
+        "instanceOf": "teatro romano",
+        "inception": "-0050-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q4155876": {
+      "wikidataId": "Q4155876",
+      "nameTranslations": {
+        "ru": "Дворец Адуана",
+        "en": "Palacio de la Aduana",
+        "es": "Palacio de la Aduana",
+        "ca": "Palau de la Duana"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4155876",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "architect": "Manuel Martín Rodríguez",
+        "architecturalStyle": "arquitectura neoclásica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q97633210": {
+      "wikidataId": "Q97633210",
+      "nameTranslations": {
+        "gl": "Palacio Episcopal",
+        "en": "Palacio Episcopal",
+        "es": "Palacio Episcopal",
+        "ca": "Palacio Episcopal",
+        "de": "Palacio Episcopal",
+        "fr": "palais épiscopal de Malaga",
+        "ru": "Епископский дворец в Малаге"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97633210",
+      "wikidataClaims": {
+        "instanceOf": "palacio arzobispal",
+        "architecturalStyle": "arquitectura barroca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q4291147": {
+      "wikidataId": "Q4291147",
+      "nameTranslations": {
+        "ru": "Мерсед",
+        "es": "Plaza de la Merced",
+        "de": "Plaza de la Merced",
+        "ca": "Plaza de la Merced",
+        "hy": "Մերսեդ (հրապարակ)",
+        "nb": "Plaza de la Merced",
+        "sl": "Plaza de la Merced",
+        "uk": "Площа Мерсед",
+        "en": "Plaza de la Merced",
+        "arz": "بلازا دى لا ميرسيد",
+        "zh": "圣母赎虏广场 (马拉加)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4291147",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q2843563": {
+      "wikidataId": "Q2843563",
+      "nameTranslations": {
+        "es": "Mercado de Salamanca",
+        "de": "Mercado de Salamanca",
+        "gl": "Mercado de Salamanca",
+        "en": "Mercado de Salamanca",
+        "fr": "marché de Salamanque",
+        "ca": "Mercado de Salamanca"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2843563",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "inception": "1925-00-00",
+        "architect": "Daniel Rubio Sánchez",
+        "architecturalStyle": "arquitectura neoárabe",
+        "heritageDesignation": "Catalogación General",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6058241": {
+      "wikidataId": "Q6058241",
+      "nameTranslations": {
+        "es": "Palacio del Conde de Villalcázar",
+        "de": "Palacio del Conde de Villalcázar",
+        "gl": "Palacio del Conde de Villalcázar",
+        "en": "Palacio del Conde de Villalcázar",
+        "fr": "Palacio del Conde de Villalcázar",
+        "ca": "Palacio del Conde de Villalcázar"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6058241",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q9060974": {
+      "wikidataId": "Q9060974",
+      "nameTranslations": {
+        "eu": "Konstituzio Plaza (Málaga)",
+        "es": "Plaza de la Constitución (Málaga)",
+        "ru": "Площадь Конституции в Малаге",
+        "en": "Plaza de la Constitución (Málaga)",
+        "arz": "ميدان الدستور"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9060974",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q6032873": {
+      "wikidataId": "Q6032873",
+      "nameTranslations": {
+        "es": "Muralla nazarí y muro portuario",
+        "en": "Muralla nazarí y muro portuario",
+        "de": "Muralla nazarí y muro portuario",
+        "gl": "Muralla nazarí y muro portuario",
+        "fr": "Muralla nazarí y muro portuario",
+        "ca": "Muralla nazarí y muro portuario"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6032873",
+      "wikidataClaims": {
+        "instanceOf": "monumento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q9054580": {
+      "wikidataId": "Q9054580",
+      "nameTranslations": {
+        "ca": "Palau de Zea-Salvatierra",
+        "es": "Palacio de Zea-Salvatierra",
+        "en": "Palacio de Zea-Salvatierra",
+        "gl": "Palacio de Zea-Salvatierra"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9054580",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architecturalStyle": "arquitectura barroca",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q18170768": {
+      "wikidataId": "Q18170768",
+      "nameTranslations": {
+        "es": "Mercado de Mayoristas",
+        "en": "Mercado de Mayoristas",
+        "de": "Mercado de Mayoristas",
+        "gl": "Mercado de Mayoristas",
+        "fr": "Mercado de Mayoristas",
+        "ca": "Mercado de Mayoristas"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q18170768",
+      "wikidataClaims": {
+        "instanceOf": "edificio de museo",
+        "inception": "1939-00-00",
+        "architect": "Luis Gutiérrez Soto",
+        "architecturalStyle": "racionalismo",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q11680432": {
+      "wikidataId": "Q11680432",
+      "nameTranslations": {
+        "eu": "Marqués de Larios kalea",
+        "es": "calle Marqués de Larios",
+        "en": "Calle Marqués de Larios",
+        "it": "Calle Marqués de Larios",
+        "nl": "Calle Marqués de Larios",
+        "pl": "Calle Marqués de Larios",
+        "hu": "Calle Larios"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q11680432",
+      "wikidataClaims": {
+        "instanceOf": "calle",
+        "inception": "1891-00-00",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q5378201": {
+      "wikidataId": "Q5378201",
+      "nameTranslations": {
+        "en": "English Cemetery in Malaga",
+        "es": "Cementerio Inglés de Málaga",
+        "ru": "Английское кладбище в Малаге",
+        "ca": "Cementiri Anglés de Màlaga",
+        "cs": "Anglický hřbitov",
+        "de": "Cementerio Inglés",
+        "pl": "Cementerio Inglés (Málaga)",
+        "fr": "cimetière anglais de Malaga",
+        "eu": "Málagako hilerri ingelesa",
+        "uk": "Англійський цвинтар у Малазі",
+        "sv": "Engelska kyrkogården, Malaga",
+        "gl": "Cementerio de los Ingleses",
+        "zh": "英国人墓园",
+        "it": "Cimitero Anglicano"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5378201",
+      "wikidataClaims": {
+        "instanceOf": "cementerio",
+        "inception": "1831-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q97633218": {
+      "wikidataId": "Q97633218",
+      "nameTranslations": {
+        "gl": "Real Conservatorio de Música María Cristina",
+        "en": "Real Conservatorio de Música María Cristina",
+        "es": "Real Conservatorio de Música María Cristina",
+        "ca": "Real Conservatorio de Música María Cristina",
+        "de": "Real Conservatorio de Música María Cristina",
+        "fr": "Real Conservatorio de Música María Cristina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97633218",
+      "wikidataClaims": {
+        "instanceOf": "edificio público",
+        "inception": "1871-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q97633188": {
+      "wikidataId": "Q97633188",
+      "nameTranslations": {
+        "gl": "Plaza de San Francisco",
+        "en": "Plaza de San Francisco",
+        "es": "Plaza de San Francisco",
+        "ca": "Plaza de San Francisco",
+        "de": "Plaza de San Francisco",
+        "fr": "Plaza de San Francisco"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97633188",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q5483542": {
+      "wikidataId": "Q5483542",
+      "nameTranslations": {
+        "es": "Castillo y Muralla de Santa Catalina",
+        "gl": "Castillo y Muralla de Santa Catalina",
+        "en": "Castillo y Muralla de Santa Catalina",
+        "ca": "Castillo y Muralla de Santa Catalina",
+        "de": "Castillo y Muralla de Santa Catalina",
+        "fr": "Castillo y Muralla de Santa Catalina",
+        "tr": "Santa Catalina Kalesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5483542",
+      "wikidataClaims": {
+        "instanceOf": "castillo",
+        "inception": "1625-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6011555": {
+      "wikidataId": "Q6011555",
+      "nameTranslations": {
+        "es": "Mesón de la Victoria",
+        "en": "Mesón de la Victoria",
+        "de": "Mesón de la Victoria",
+        "gl": "Mesón de la Victoria",
+        "fr": "Mesón de la Victoria",
+        "ca": "Mesón de la Victoria"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6011555",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "inception": "1632-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6080138": {
+      "wikidataId": "Q6080138",
+      "nameTranslations": {
+        "es": "Plaza de Uncibay",
+        "en": "Plaza Uncibay"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6080138",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q1683458": {
+      "wikidataId": "Q1683458",
+      "nameTranslations": {
+        "de": "Jardín Botánico-Histórico La Concepción",
+        "es": "Jardín Botánico La Concepción",
+        "en": "Jardín Botánico La Concepción",
+        "gl": "Parque de la Concepción",
+        "ca": "Parque de la Concepción",
+        "fr": "Parque de la Concepción",
+        "pl": "Jardín Botánico La Concepción"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1683458",
+      "wikidataClaims": {
+        "instanceOf": "jardín botánico",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q9082136": {
+      "wikidataId": "Q9082136",
+      "nameTranslations": {
+        "es": "Teatro Echegaray",
+        "br": "Teatro Echegaray",
+        "co": "Teatro Echegaray",
+        "da": "Teatro Echegaray",
+        "de": "Teatro Echegaray",
+        "en": "Teatro Echegaray",
+        "fr": "Teatro Echegaray",
+        "id": "Teatro Echegaray",
+        "it": "Teatro Echegaray",
+        "nds": "Teatro Echegaray",
+        "nl": "Teatro Echegaray",
+        "pt": "Teatro Echegaray",
+        "ro": "Teatro Echegaray",
+        "sv": "Teatro Echegaray",
+        "ty": "Teatro Echegaray"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9082136",
+      "wikidataClaims": {
+        "instanceOf": "teatro",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q2884109": {
+      "wikidataId": "Q2884109",
+      "nameTranslations": {
+        "es": "Plaza del Obispo",
+        "en": "Plaza del Obispo, Málaga"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2884109",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q5657061": {
+      "wikidataId": "Q5657061",
+      "nameTranslations": {
+        "es": "Acueducto de San Telmo",
+        "en": "Acueducto de San Telmo",
+        "de": "Acueducto de San Telmo",
+        "gl": "Acueducto de San Telmo",
+        "fr": "Acueducto de San Telmo",
+        "ca": "Acueducto de San Telmo",
+        "tr": "San Telmo Su Kemeri"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5657061",
+      "wikidataClaims": {
+        "instanceOf": "acueducto",
+        "inception": "1782-00-00",
+        "architect": "Martín de Aldehuela",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6079979": {
+      "wikidataId": "Q6079979",
+      "nameTranslations": {
+        "es": "Plaza de Félix Sáenz",
+        "de": "Plaza de Félix Sáenz",
+        "en": "Plaza de Félix Sáenz",
+        "fr": "Plaza de Félix Sáenz"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6079979",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q2889984": {
+      "wikidataId": "Q2889984",
+      "nameTranslations": {
+        "es": "antigua estación del ferrocarril suburbano de Málaga",
+        "en": "Former suburban railways station, Málaga",
+        "gl": "Centro de Estudios Portuarios",
+        "ca": "Centro de Estudios Portuarios",
+        "de": "Centro de Estudios Portuarios",
+        "fr": "Centro de Estudios Portuarios"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2889984",
+      "wikidataClaims": {
+        "instanceOf": "estación de ferrocarril antigua",
+        "inception": "1911-00-00",
+        "architecturalStyle": "ecléctico",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q108651331": {
+      "wikidataId": "Q108651331",
+      "nameTranslations": {
+        "es": "Fuerte de San Lorenzo",
+        "en": "Fuerte de San Lorenzo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q108651331",
+      "wikidataClaims": {
+        "instanceOf": "fuerte",
+        "inception": "1701-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q97633197": {
+      "wikidataId": "Q97633197",
+      "nameTranslations": {
+        "gl": "Antiguo Convento de San Andrés",
+        "en": "Antiguo Convento de San Andrés",
+        "es": "Antiguo Convento de San Andrés",
+        "ca": "Antiguo Convento de San Andrés",
+        "de": "Antiguo Convento de San Andrés",
+        "fr": "Antiguo Convento de San Andrés"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97633197",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6080206": {
+      "wikidataId": "Q6080206",
+      "nameTranslations": {
+        "es": "Plaza de la Marina",
+        "en": "Plaza de la Marina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6080206",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Distrito Centro"
+      }
+    },
+    "Q5760368": {
+      "wikidataId": "Q5760368",
+      "nameTranslations": {
+        "es": "Cementerio de San Miguel",
+        "en": "San Miguel Cemetery",
+        "ca": "Cementiri de San Miguel",
+        "gl": "Cementerio de San Miguel",
+        "de": "Cementerio de San Miguel",
+        "fr": "Cementerio de San Miguel",
+        "it": "Cimitero di San Miguel",
+        "da": "Cementerio de San Miguel"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5760368",
+      "wikidataClaims": {
+        "instanceOf": "cementerio",
+        "inception": "1810-07-01",
+        "heritageDesignation": "Catalogación General",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q1668721": {
+      "wikidataId": "Q1668721",
+      "nameTranslations": {
+        "de": "Palacio de Deportes José María Martín Carpena",
+        "en": "Palacio Deportes José María Martín Carpena",
+        "es": "Palacio Deportes José María Martín Carpena",
+        "fr": "Palacio de Deportes José María Martín Carpena",
+        "gl": "Palacio Deportes José María Martín Carpena",
+        "he": "חוסה מריה מרטין קאפרנה ארנה",
+        "hr": "Jose Maria Martin Carpena Arena",
+        "it": "Palacio de Deportes José María Martín Carpena",
+        "nl": "Palacio de Deportes José María Martín Carpena",
+        "ca": "Palau d'Esports José María Martín Carpena",
+        "an": "Palacio d'Esportes José María Martín Carpena",
+        "ar": "بلاسيو دي ديبورتس خوسية ماريا",
+        "pt": "Palacio de Deportes José María Martín Carpena",
+        "sr": "Палата спортова Хосе Марија Мартин Карпена",
+        "ja": "パラシオ・デ・デポルテス・ホセ・マリア・マルティン・カルペナ",
+        "eu": "José María Martín Carpena kirol-jauregia",
+        "zh": "何塞·玛丽亚·马丁·卡佩纳宫",
+        "cs": "Palacio de Deportes José María Martín Carpena",
+        "sk": "Palacio de Deportes José María Martín Carpena",
+        "pl": "Palacio de Deportes José María Martín Carpena",
+        "sl": "Palacio de Deportes José María Martín Carpena"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1668721",
+      "wikidataClaims": {
+        "instanceOf": "estadio cubierto",
+        "inception": "1999-00-00",
+        "locatedIn": "Distrito Carretera de Cádiz",
+        "namedAfter": "José María Martín Carpena"
+      }
+    },
+    "Q12184921": {
+      "wikidataId": "Q12184921",
+      "nameTranslations": {
+        "es": "Museum Jorge Rando",
+        "de": "Museum Jorge Rando",
+        "it": "Museum Jorge Rando",
+        "ru": "Музей Хорхе Рандо",
+        "en": "Museum Jorge Rando",
+        "cs": "Museum Jorge Rando",
+        "da": "Museum Jorge Rando",
+        "ko": "호르헤 란도 미술관",
+        "pt": "Museu Jorge Rando",
+        "uk": "Музей Хорхе Рандо",
+        "fr": "Museum Jorge Rando",
+        "hy": "Խորխե Ռանդոյի թանգարան",
+        "hyw": "Խորխէ Ռանտօ թանգարանը"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q12184921",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "2014-00-00",
+        "locatedIn": "Málaga",
+        "namedAfter": "Jorge Rando"
+      }
+    },
+    "Q5669119": {
+      "wikidataId": "Q5669119",
+      "nameTranslations": {
+        "es": "La Farola de Málaga",
+        "en": "La Farola, Málaga",
+        "fr": "phare de Malaga",
+        "gl": "La Farola",
+        "ca": "La Farola",
+        "de": "La Farola"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5669119",
+      "wikidataClaims": {
+        "instanceOf": "faro",
+        "inception": "1816-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q5664304": {
+      "wikidataId": "Q5664304",
+      "nameTranslations": {
+        "es": "Mesón de San Rafael",
+        "de": "Mesón de San Rafael",
+        "gl": "Mesón de San Rafael",
+        "en": "Mesón de San Rafael",
+        "fr": "Mesón de San Rafael",
+        "ca": "Mesón de San Rafael"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5664304",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q5763446": {
+      "wikidataId": "Q5763446",
+      "nameTranslations": {
+        "es": "Cerro del Villar",
+        "fr": "Cerro del Villar",
+        "en": "Cerro del Villar",
+        "gl": "Cerro del Villar",
+        "ca": "Cerro del Villar",
+        "de": "Cerro del Villar",
+        "he": "קרו דל ווילאר"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5763446",
+      "wikidataClaims": {
+        "instanceOf": "yacimiento arqueológico",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q43137744": {
+      "wikidataId": "Q43137744",
+      "nameTranslations": {
+        "es": "Castillo de Almogía",
+        "en": "Castle of Almogía",
+        "fr": "Castle of Almogía",
+        "tr": "Almogía Kalesi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q43137744",
+      "wikidataClaims": {
+        "instanceOf": "castillo",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Almogía"
+      }
+    },
+    "Q56723622": {
+      "wikidataId": "Q56723622",
+      "nameTranslations": {
+        "es": "Fuente del Rey y conducción de aguas",
+        "de": "Fuente del Rey y conducción de aguas (Málaga)",
+        "gl": "Fuente del Rey y conducción de aguas (Málaga)",
+        "en": "Fuente del Rey y conducción de aguas",
+        "fr": "Fuente del Rey y conducción de aguas",
+        "ca": "Fuente del Rey y conducción de aguas (Málaga)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q56723622",
+      "wikidataClaims": {
+        "instanceOf": "acueducto",
+        "inception": "1727-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Málaga"
+      }
+    },
+    "Q6062471": {
+      "wikidataId": "Q6062471",
+      "nameTranslations": {
+        "es": "Yacimientos arqueológicos de la Araña",
+        "sv": "Cueva del Humo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6062471",
+      "wikidataClaims": {
+        "instanceOf": "yacimiento arqueológico"
+      }
+    }
+  },
+  "wikipedia": {
+    "en:Plaza de toros de La Malagueta": {
+      "description": "La Malagueta es la plaza de toros de Málaga (Andalucía, España). Se encuentra situada en la zona que le da su nombre, La Malagueta, en el Distrito Este de Málaga, junto al paseo de Reding.",
+      "body": "La Malagueta es la plaza de toros de Málaga (Andalucía, España). Se encuentra situada en la zona que le da su nombre, La Malagueta, en el Distrito Este de Málaga, junto al paseo de Reding.\n\n\nHistoria\nLa plaza de toros de La Malagueta es obra de Joaquín Rucoba, también autor del Mercado de Atarazanas.\nSe comenzó a construir el 16 de junio de 1874, las obras sufrieron una paralización del 23 de diciembre de 1874 hasta el 10 de octubre de 1875.​ Finalmente, fue inaugurada el 11 de junio de 1876 con una corrida de toros de la ganadería de Murube que fueron lidiados por Rafael Molina Lagartijo, Antonio Carmona y Luque, El Gordito, y Manuel Domínguez, Desperdicios.​​ Parte de los planos de construcción creados para el proyecto, del arquitecto Rucoba, se encuentran en la Real Cátedra Gaudí de la Escuela Técnica Superior de Arquitectura de Barcelona; en concreto, los que corresponden a la estructura del edificio, pilares y balconadas, sin que se conozca la razón por la cual los planos se encuentran en la ciudad condal. El resto de documentación del proyecto se encuentra en el archivo de la Diputación de Málaga.​\nEn 1939, durante los últimos meses de la Guerra Civil, la saturación del campo de concentración de prisioneros de Málaga, situado en la fábrica y cuartel de La Aurora, hizo que los militares sublevados usaran la plaza de toros con este fin; en 1943 volvió a albergar detenidos, esta vez refugiados extranjeros huidos de Francia durante la Segunda Guerra Mundial.​\nEn 1976 fue declarada conjunto histórico-artístico, coincidiendo con el centenario de su inauguración, y, en 1981, bien de interés cultural.​​​\n\nLa plaza de toros pertenece a la Diputación Provincial de Málaga tras la cesión de los derechos en posesión del Ayuntamiento de Málaga (50%) como pago de las deudas contraídas con la Diputación.​ La entidad provincial es la subarrendataria del coso por concurso público.\nLa plaza de toros sufrió una restauración que comenzó en el año 2017 y tuvo una demora de dos años",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20toros%20de%20La%20Malagueta"
+    },
+    "es:Palacio de los Condes de Buenavista": {
+      "description": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga. Originalmente, fue el palacio residencial de los Condes de Buenavista de la Victoria, de ahí su denominación. Se encuentra situado en la calle San Agustín de la ciudad de Málaga (Andalucía, España).",
+      "body": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga. Originalmente, fue el palacio residencial de los Condes de Buenavista de la Victoria, de ahí su denominación. Se encuentra situado en la calle San Agustín de la ciudad de Málaga (Andalucía, España).\nFue declarado Monumento Histórico-Artístico en 1939.​\nPor tanto, es bien de interés cultural con categoría de monumento.​​\n\n\nDescripción\nEs el más importante ejemplo de arquitectura civil realizada tras la conquista de Málaga por los Reyes Católicos. Su arquitectura es renacentista, con fachada plateresca y soluciones mudéjares.\nConsta de sótano, baja y primera planta, con una fachada plateresca maciza de aparejo de sillares, donde se trabajan con sencillez pero de forma rotunda los elementos decorativos que enmarcan los huecos, de grandes dimensiones y asimétricos. La puerta principal de acceso fue diseñada junto con el balcón superior y el interior se organiza en torno a un patio con  doble galería. A través de la escalera, al fondo a la derecha se accede a la planta primera que repite el esquema de planta baja. La torre del edificio posee guardapolvo y arcas bajo alfiz en su parte superior, con aparejo de sillares de grandes dimensiones. \nEl Palacio se convirtió, durante el siglo XX, en la sede del Museo de Bellas Artes de Málaga, a raíz del Real Decreto de 1913 que reorganizaba este tipo de museos. Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusión de la Fundación Picasso y la \"Fundación Paul, Christine y Bernard Ruiz-Picasso\".​ \n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Palacio de los Condes de ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20los%20Condes%20de%20Buenavista"
+    },
+    "es:Catedral de Málaga": {
+      "description": "La Santa Iglesia Catedral Basílica de la Encarnación es la catedral de Málaga, en España. Situada enfrente de la plaza del Obispo, el templo es considerado una de las joyas renacentistas más valiosas de Andalucía. Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487.",
+      "body": "La Santa Iglesia Catedral Basílica de la Encarnación es la catedral de Málaga, en España. Situada enfrente de la plaza del Obispo, el templo es considerado una de las joyas renacentistas más valiosas de Andalucía. Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487.\nSu proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé. La catedral es una síntesis de estilos arquitectónicos, entre los que prevalece el renacimiento sobre el primer gótico de la antigua fábrica y los elementos barrocos añadidos desde principios del siglo XVIII.\nHasta el año 2012, fue el segundo edificio más alto de Andalucía, solo superado en su torre por la Giralda.​ La altura de sus bóvedas a nivel español solo es superada por la Catedral de Palma, siendo el templo catedralicio de Málaga, uno de los quince templos europeos con mayor altura en sus naves.\n\n\nHistoria\n\nLa iglesia catedral de la Encarnación de Málaga se comienza a construir en el año 1528 sobre el solar de la antigua mezquita mayor o mezquita aljama. Parece ser que el afamado arquitecto Enrique Egas, venido desde Toledo, en compañía del maestro cantero Pedro López, ya emite un primer informe en el año 1528 sobre sus trazas, tres años después de que el cabildo decidiera erigir un nuevo templo, siendo el mismo Pedro López, el encargado de dirigir las obras de la cabecera, diseñada por uno de los grandes maestros de la época, Diego de Siloé.\nDespués de un período de inactividad, el cabildo hace venir en 1549 a Andrés de Vandelvira, pasando el encargo al año siguiente a manos de Hernán Ruiz II, grandes exponentes ambos de la arquitectura renacentista en Andalucía; y luego a Diego ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Catedral%20de%20M%C3%A1laga"
+    },
+    "es:Alcazaba de Málaga": {
+      "description": "La alcazaba de Málaga (del árabe al-qaṣbah, قصبة, al qasbah, 'ciudadela') es una fortificación palaciega de la época islámica, construida sobre una anterior fortificación de origen fenicio-púnico.​ Se encuentra en las faldas del monte Gibralfaro, en una posición elevada pero contigua y unida al centro histórico de la ciudad, lo que constituía la antigua madina de Mālaqa, y en cuya cumbre se halla el Castillo de Gibralfaro.​\nOcupaba el extremo oriental del desaparecido recinto amurallado de la ciudad, de manera que los frentes de mediodía, poniente y norte quedaban a intramuros. Su superficie actual de 15 000 metros cuadrados no alcanza ni siquiera la mitad del tamaño que poseía en su época de esplendor, como demuestran los planos históricos conservados.\nSegún el arquitecto restaurador, Leopoldo Torres Balbás, la Alcazaba de Málaga es el prototipo de la arquitectura militar del periodo taifa, siglo XI, con su doble recinto amurallado y gran cantidad de fortificaciones, siendo su único paralelo el castillo del Crac de los Caballeros, fortaleza levantada en Siria por los Cruzados entre los siglos XII y XIII.​\nEste palacio-fortaleza es uno de los monumentos históricos de la ciudad, un espacio muy visitado por conjugar historia y belleza en un mismo recinto.",
+      "body": "La alcazaba de Málaga (del árabe al-qaṣbah, قصبة, al qasbah, 'ciudadela') es una fortificación palaciega de la época islámica, construida sobre una anterior fortificación de origen fenicio-púnico.​ Se encuentra en las faldas del monte Gibralfaro, en una posición elevada pero contigua y unida al centro histórico de la ciudad, lo que constituía la antigua madina de Mālaqa, y en cuya cumbre se halla el Castillo de Gibralfaro.​\nOcupaba el extremo oriental del desaparecido recinto amurallado de la ciudad, de manera que los frentes de mediodía, poniente y norte quedaban a intramuros. Su superficie actual de 15 000 metros cuadrados no alcanza ni siquiera la mitad del tamaño que poseía en su época de esplendor, como demuestran los planos históricos conservados.\nSegún el arquitecto restaurador, Leopoldo Torres Balbás, la Alcazaba de Málaga es el prototipo de la arquitectura militar del periodo taifa, siglo XI, con su doble recinto amurallado y gran cantidad de fortificaciones, siendo su único paralelo el castillo del Crac de los Caballeros, fortaleza levantada en Siria por los Cruzados entre los siglos XII y XIII.​\nEste palacio-fortaleza es uno de los monumentos históricos de la ciudad, un espacio muy visitado por conjugar historia y belleza en un mismo recinto.\nDe época musulmana, está situada a los pies del monte Gibralfaro, donde se encuentra el castillo defensivo andalusí al que estaba unido por un pasillo resguardado por murallas llamado La Coracha; junto al Teatro romano de Málaga y frente al Palacio de la Aduana, es una oportunidad para ver en solo unos metros la unión de las culturas romana, andalusí y renacentista, lo que convierte a este rincón en un lugar muy especial.\nEn 1931, la Alcazaba fue declarada Monumento histórico-artístico,​\npor lo que es bien de interés cultural con categoría de monumento.​​\n\n\nHistoria\n\nLa Alcazaba que se puede contemplar actualmente es el resultado de un largo proceso histórico que podría dividirse en cuatro etapas: el periodo andalusí",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Alcazaba%20de%20M%C3%A1laga"
+    },
+    "es:Castillo de Gibralfaro": {
+      "description": "El castillo de Gibralfaro o alcázar de Gibralfaro es una fortificación situada en la ciudad española de Málaga.",
+      "body": "El castillo de Gibralfaro o alcázar de Gibralfaro es una fortificación situada en la ciudad española de Málaga.\n\n\nHistoria\n\nEl antiguo recinto fenicio contenía un faro que da nombre al cerro Gibralfaro (Jbel-Faro, o monte del faro). Fue Abderramán III quién transformó en fortaleza las antiguas ruinas existentes desde antes de la llegada de los romanos. La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340. El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487. Tras el asedio, Fernando el Católico lo tomó como residencia, mientras que Isabel I de Castilla optó por vivir en la ciudad.\nSe construyó para albergar a las tropas y proteger la Alcazaba en los asedios, debido al uso generalizado de la cima del cerro por la artillería.\nFue una de las fortalezas más inexpugnables de la península ibérica.​ Se compone de dos líneas de murallas y ocho torreones. La muralla del exterior se une con la coracha, muros dispuestos con formas zigzagueantes que mantienen unido el castillo con la Alcazaba. Por su parte, la muralla interior permite hacer el camino de ronda por todo el perímetro de la fortaleza.\nEl castillo se divide en dos partes. La parte superior recibe el nombre de patio principal y en ella se encuentra el centro de interpretación. En la misma zona se encuentra la torre Mayor, con 17 metros de altura, el pozo fenicio y los baños. El pozo de Airón está excavado en roca viva y tiene una profundidad de 40 metros.\nEn la parte inferior, o patio de armas, estaban los barracones de la tropa y las caballerizas. La torre albarrana o torre Blanca, orientada hacia el noreste, es una de las más visibles, y en su interior conserva un aljibe, dependencias y almacenes\nActualmente el castillo es visitable, y desde su torre del homenaje se pueden observar unas magníficas vistas de la ciudad de Málaga, y en días claros es posible divisar algunos montes de la cordillera del Rif (en África) y el est",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Castillo%20de%20Gibralfaro"
+    },
+    "es:Palacio Episcopal de Málaga": {
+      "description": "El palacio episcopal de Málaga se encuentra en la plaza del Obispo, muy próximo a la catedral de Málaga. Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762.\nSus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero.",
+      "body": "El palacio episcopal de Málaga se encuentra en la plaza del Obispo, muy próximo a la catedral de Málaga. Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762.\nSus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero. \n\n\nDescripción\n\nLas realización de este palacio supone la obra más importante de su autor y uno de los mejores ejemplos de la arquitectura civil malagueña, y en ella Ramos distribuye los espacios alrededor de dos patios sucesivos, agrupando en torno al primero de ellos la zona pública del conjunto y levantando un cuerpo bajo con arquerías, mientras que en el segundo dispone sus frentes abiertos con balcones, ubicando sobre un costado una escalera de tipo imperial de doble tiro que comunica con la zona alta del palacio. Alrededor del segundo patio también organizado en dos plantas de altura con una ligera estructura de arquería, se distribuyen las dependencias privadas que se destinan al prelado.\nMuy importante por su alta calidad compositiva es el diseño de su fachada principal, de tres plantas de altura, que se articula a través de pilastras pareadas y simples de bajo resalte entre las que se disponen grandes huecos a modo de balcones en las plantas superiores y de ventanales en la inferior. De un barroco clasicista donde destacan los frontones rectos y curvos de los huecos superiores, sobresale en esta fachada su magnífica portada-retablo que se le superpone en el centro, en tres cuerpos de altura, combinando mármoles en colores gris para el fondo y rosa en las columnas, cuyo número decrece progresivamente en cada planta superior. \nEn ella destaca el gran balcón de movido diseño sobre la puerta de acceso, los elegantes remates con que se coronan pilastras y columnas, y los escudos que se muestran sobre la puerta de ingreso. Asim",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20Episcopal%20de%20M%C3%A1laga"
+    },
+    "es:Palacio de la Aduana (Málaga)": {
+      "description": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto. Situado junto al parque de Málaga, actualmente es la sede del Museo de Málaga.",
+      "body": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto. Situado junto al parque de Málaga, actualmente es la sede del Museo de Málaga.\n\n\nHistoria\n\n\nAntecedentes\nLa ciudad de Málaga siempre contó con una aduana en la que registrar las mercancías que llegaban por mar y cobrar los derechos de arancel. La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio.\n\n\nPalacio de la Aduana\nEn la etapa del ilustrado malagueño Luis de Unzaga y Amézaga como presidente de la Junta de Reales Obras del Puerto de Málaga y como gobernador de la Comandancia general de las costas del Reino de Granada que incluía a la provincia marítima de Málaga (1786-1793), el monarca Carlos III aprobó, por Real Orden de 16 de agosto de 1787, la construcción de la nueva aduana, debido especialmente a la intensa actividad marítima tras liberar el comercio con América. El arquitecto encargado fue Pedro Nolasco Ventura, a pesar de que el proyecto original fue obra de Manuel Martín Rodríguez. Miguel del Castillo y Nieva e Ildefonso Varcárcel llevaron la dirección de la obra durante la primera etapa de construcción hasta la invasión francesa. El 20 de octubre de 1791, aún en la etapa del gobernador Unzaga, se colocó la primera piedra.​\nLas obras se suspendieron en 1810 debido a la Guerra de Independencia. Los franceses saquearon la construcción y se llevaron materiales por valor de dos millones de reales.​ Las obras se reanudaron en 1826 en un estilo neoclásico a la manera de los palacios renacentistas italianos: con cuatro crujías en torno a un patio central porticado. \n\nAunque estaba pensado para ser aduana, se inauguró en 1829 como Real Fábrica de Tabaco, en 1839 se ocupó como dependencias de la Hacienda Pública y más tarde fue Diputación Provincial y S",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20la%20Aduana%20(M%C3%A1laga)"
+    },
+    "es:Teatro romano de Málaga": {
+      "description": "El teatro romano de Málaga son los restos arqueológicos del teatro de la Malaka antigua y el principal vestigio conservado de la presencia romana en Málaga. Está situado en el centro histórico de la ciudad, a los pies de la colina de la Alcazaba. Obra de los primeros años del Imperio, su diseño corresponde a una construcción mixta que combina el aprovechamiento de la ladera del cerro para el graderío —al modo de los teatros griegos— con una importante construcción allí donde la roca es inexistente, creando el espacio necesario para las gradas.",
+      "body": "El teatro romano de Málaga son los restos arqueológicos del teatro de la Malaka antigua y el principal vestigio conservado de la presencia romana en Málaga. Está situado en el centro histórico de la ciudad, a los pies de la colina de la Alcazaba. Obra de los primeros años del Imperio, su diseño corresponde a una construcción mixta que combina el aprovechamiento de la ladera del cerro para el graderío —al modo de los teatros griegos— con una importante construcción allí donde la roca es inexistente, creando el espacio necesario para las gradas. \nSe trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de uso. El aparato escénico cerraría al fondo con una fachada ornamental decorada con vanos, columnas y esculturas, de las que se han recuperado varios ejemplares. \nEl Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado. En un principio los restos aparecidos se identificaron con una de las puertas de la muralla. Poco después se vio que en realidad se trataba del Aditus Maximus de un edificio teatral de época romana. Dicho edificio se continuaba por debajo del edificio moderno de Archivos, Bibliotecas y Museos, conocido como Casa de la Cultura.\nTras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor. \nEn la actualidad, es un enclave arqueológico cuya titularidad y gestión corresponde a la Junta de Andalucía. Está abierto al público de martes a domingo, y su visita se articula entre un centro de interpretación que se localiza anexo al teatro, y el yacimiento en cuestión cuyo recorrido es posible a través de unas pasarelas ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Teatro%20romano%20de%20M%C3%A1laga"
+    },
+    "en:Plaza de la Merced": {
+      "description": "Por «plaza de la Merced» pueden conocerse los siguientes espacios públicos:\n\nla plaza de la Merced de la ciudad española de Jerez de la Frontera;\nla plaza de la Merced de la ciudad española de Málaga; y\nla plaza de la Merced de la ciudad española de Segovia.",
+      "body": "Por «plaza de la Merced» pueden conocerse los siguientes espacios públicos:\n\nla plaza de la Merced de la ciudad española de Jerez de la Frontera;\nla plaza de la Merced de la ciudad española de Málaga; y\nla plaza de la Merced de la ciudad española de Segovia.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20la%20Merced"
+    },
+    "es:Palacio de Villalcázar": {
+      "description": "El palacio de Villalcázar es un edificio del siglo XVIII situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga.",
+      "body": "El palacio de Villalcázar es un edificio del siglo XVIII situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga.\n\n\nHistoria\nEl Palacio toma su nombre del octavo Conde de Villalcázar de Sirga, José María Echevarri y Chacón, que también era tercer Conde de Buenavista por haber sucedido a su tío, el segundo Conde, al no tener éste descendientes. Es en este palacio de Villalcázar, donde residieron los primeros Condes de Buenavista, que fue la primera residencia mandada construir por el primer Conde de Buenavista.\nPosteriormente los condes de Buenavista residieron en el Palacio de Buenavista, actualmente Museo Picasso de esta ciudad. (la denominación de \"condes de Buenavista\" es correcta hasta que en 1915 fue cambiada por la de \"condes de Buenavista de la Victoria\", al ser rehabilitado este título por María Josefa de Guillamas y Caro que pasó a ser, con esta nueva denominación, VII Condesa de Buenavista de la Victoria.)\n\n\nCaracterísticas\nSe trata de una edificación residencial levantada en el siglo XVIII, aunque ha sufrido importantes modificaciones, ubicada en el centro histórico y que alberga la sede de la Cámara de Comercio de Málaga.\nDel interior son destacables las columnas de mármol del patio. En el exterior figura una portada de piedra sobre un balcón corrido, una torre mirador y restos de pinturas de tipo geométrico. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Palacio de Villalcázar.\nPalacio de Villalcázar BIC\nAyuntamiento de Málaga: Palacio de Villalcázar.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Villalc%C3%A1zar"
+    },
+    "es:Mercado de Salamanca (Málaga)": {
+      "description": "El Mercado de Salamanca es un mercado municipal de la ciudad andaluza de Málaga (España) ubicado en el barrio de El Molinillo, en el distrito Centro.\nSe trata de un edificio de estilo neomudéjar de una sola nave con portadas idénticas a ambos lados y cubierta por una estructura metálica. En las portadas se encuentra casi toda la decoración, de inspiración exótica.",
+      "body": "El Mercado de Salamanca es un mercado municipal de la ciudad andaluza de Málaga (España) ubicado en el barrio de El Molinillo, en el distrito Centro.\nSe trata de un edificio de estilo neomudéjar de una sola nave con portadas idénticas a ambos lados y cubierta por una estructura metálica. En las portadas se encuentra casi toda la decoración, de inspiración exótica. Consisten en un arco de herradura formado por bandas de ladrillo en distintas disposiciones y rejas modernistas. El interior está cubierto de azulejos.\nFue construido entre 1922 y 1925 y diseñado por el arquitecto Daniel Rubio Sánchez. \n\n\nAnécdotas\nEl Mercado de Salamanca se puede apreciar en el largometraje franco-estadounidense de 1966 Lost Command.​\n\n\nVéase también\nMercado de Atarazanas\nArquitectura del siglo XX en Málaga\nMapa del Mercado de Salamanca\n\n\nBibliografía\nMª Eugenia Candau, José Ignacio Díaz Pardo, Francisco Rodríguez Marín: Málaga Guía de Arquitectura. Ed. bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mercado%20de%20Salamanca%20(M%C3%A1laga)"
+    },
+    "es:Plaza de la Constitución (Málaga)": {
+      "description": "La plaza de la Constitución es una vía pública del centro de la ciudad de Málaga, España. Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia.",
+      "body": "La plaza de la Constitución es una vía pública del centro de la ciudad de Málaga, España. Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia.\n\n\nHistoria\nDurante el Reino nazarí ya era una plaza principal, conocida como la plaza de las Cuatro Calles o plaza Pública. Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cárcel, la Audiencia o las carnicerías. Posteriormente se construyó el convento de las Agustinas descalzas​ y la sede de la Sociedad Económica de Amigos del País. \nPasó a llamarse plaza de la Constitución en 1812, con la promulgación de la Constitución de la Pepa, aunque con el devenir histórico cambió de nombre constantemente: de la Libertad, de la República Federal, y de José Antonio Primo de Rivera, hasta la democracia, que retoma su nombre original de la Constitución. \n\nEn el siglo XIX, con la desamortización, sufrió algunas modificaciones. Se demolieron varios inmuebles como la capilla de Santa Lucía y la Cárcel Pública, lugar donde en diciembre de 1831 habían sido encerrados los acompañantes del general Torrijos. Con la influencia de los pasajes comerciales parisinos y londinenses, Manuel Agustín Heredia promueve para el disfrute de la burguesía malagueña el Pasaje Heredia en 1837, primer pasaje comercial de España.​ De la misma época data el Pasaje Chinitas, denominado así por el café-teatro Chinitas, donde se congregó gran parte de la vida bohemia de la época. \nEn 2004 se inauguraron una serie de planchas de acero inoxidable en el pavimento que muestran las portadas de varios periódicos tras la aprobación de la Constitución de 1978.​ En 2011 se remodeló el Pasaje Heredia, perdiendo su relación con ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20la%20Constituci%C3%B3n%20(M%C3%A1laga)"
+    },
+    "es:Muralla nazarí y muro portuario": {
+      "description": "La muralla nazarí y el muro portuario son un bien de interés cultural de la ciudad de Málaga, Andalucía, España.\nEl muro portuario del siglo XVII y la muralla nazarí del siglo XIV están considerados como de excepcional importancia para la investigación de la evolución urbana de la ciudad, motivo por el cual fueron declarados BIC el 13 de junio de 1995 como Monumento.​ \nLa Muralla Nazarí está situada en el sector oeste de la plaza de la Marina y el Muro Portuario en el sector este. La Muralla Nazarí es el resto más claro y enriquecedor para el conocimiento de la ciudad de esta época cuya estructura de baluartes adosados al lienzo de la Muralla es único en su género.",
+      "body": "La muralla nazarí y el muro portuario son un bien de interés cultural de la ciudad de Málaga, Andalucía, España.\nEl muro portuario del siglo XVII y la muralla nazarí del siglo XIV están considerados como de excepcional importancia para la investigación de la evolución urbana de la ciudad, motivo por el cual fueron declarados BIC el 13 de junio de 1995 como Monumento.​ \nLa Muralla Nazarí está situada en el sector oeste de la plaza de la Marina y el Muro Portuario en el sector este. La Muralla Nazarí es el resto más claro y enriquecedor para el conocimiento de la ciudad de esta época cuya estructura de baluartes adosados al lienzo de la Muralla es único en su género. El Muro Portuario es un vestigio tangible de la actividad portuaria y comercial de la ciudad.\n\n\nMuralla Nazarí\n\nSu estructura es la de un paramento recto en la cara interna con un pequeño talud en la cara externa. A este lienzo están adosados dos baluartes de planta semicircular en su parte superior revestidos de una rosca de ladrillo, que en su posición interior adopta planta hexagonal, haciéndose la transición mediante una especie de trompas de ladrillo, fábrica que cubre todo el revestimiento de los baluartes. Aunque la porción poligonal hay que considerarla como cimentación del bastión, sin embargo, ésta descansa en una doble estructura construida, por una parte, por la consolidación de bloques de escollera mediante un fuerte mortero, y por otra, por un entramado de vigas de madera en sentido horizontal bajo el bloque de mampostería vertical hincadas en la arena, lo que constituye un auténtico anclaje.\n\n\nMuro Portuario\nSe trata de un gran lienzo de muralla de 26,80 m de largo y unos 2,5 m de alto, localizado en el sector Este. Realizado en mampostería de bloques de gran tamaño con su cara externa formada por grandes sillares de cantería; descansa sobre una gran escollera, presenta una zarpa en su parte inferior externa. En su remate hacia el interior se ha realizado un rebaje.\n\n\nRestauraciones\nEn 2016",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Muralla%20nazar%C3%AD%20y%20muro%20portuario"
+    },
+    "es:Palacio de Zea-Salvatierra": {
+      "description": "El Palacio de Zea-Salvatierra es un edificio barroco situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga.\nSe trata de una edificación residencial de finales del siglo XVII y principios del XVIII, ubicada en el centro histórico, en la calle Císter. Fue propiedad del presbítero Francisco de Zea Salvatierra, a quien corresponde el escudo de la puerta.",
+      "body": "El Palacio de Zea-Salvatierra es un edificio barroco situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga.\nSe trata de una edificación residencial de finales del siglo XVII y principios del XVIII, ubicada en el centro histórico, en la calle Císter. Fue propiedad del presbítero Francisco de Zea Salvatierra, a quien corresponde el escudo de la puerta. Después pasó a ser sede del Cabildo Municipal​ y más tarde de Correos. Hoy es propiedad de los herederos de José Gálvez Ginachero.\nEl interior está organizado alrededor de un patio de alquerías y capiteles corintios y ha sufrido alteraciones significativas a lo largo de los años.\nDel exterior destaca la portada de dos plantas, decorada con los escudos de los fundadores de la casa sobre un frontón curvo y el balcón enmarcado en estilo barroco está soportado por un friso de triglifos.\n\n\nBibliografía\nAyuntamiento de Málaga: Palacio de Zea-Salvatierra.\nSobreMálaga.com: Palacio de Zea Salvatierra Archivado el 10 de abril de 2009 en Wayback Machine.\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Zea-Salvatierra"
+    },
+    "es:Calle Marqués de Larios": {
+      "description": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España.",
+      "body": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España. En el año 2018 se posicionó como la tercera calle más cara de España en rentas de alquiler,​​ convirtiéndola en una de las vías comerciales más deseadas de Europa.​​​ El 14 de diciembre de 2002 fue inaugurada su peatonalización,​​ dando comienzo el profundo plan de rehabilitación y revitalización del Centro Histórico de Málaga.​​ \n\n\nOdonimia\nDebe su nombre en honor al principal promotor de la calle, Manuel Domingo Larios y Larios, II Marqués de Larios, cuya familia, que era natural de Laguna de Cameros (La Rioja), se estableció en Málaga para hacer fortuna. El marqués preside el inicio de la calle con un conjunto escultórico obra de Mariano Benlliure situado en la intersección con la Alameda Principal.​\nDurante la Segunda República, la calle fue denominada calle 14 de abril. \n\n\nHistoria\n\n\nOrígenes\nLa calle Marqués de Larios fue concebida como parte de un ambicioso proyecto de renovación urbana que transformó el antiguo trazado musulmán del centro histórico de Málaga. Su construcción supuso la sustitución de un laberinto de callejuelas estrechas, muchas de ellas carentes de condiciones higiénicas adecuadas, por una vía amplia, rectilínea y moderna que conectara el corazón de la ciudad con las nuevas arterias urbanas de la Alameda Principal y el Parque.\nEl objetivo principal de esta intervención era mejorar la salubridad y funcionalidad del casco urbano, eliminando zonas consideradas insalubres y desordenadas. Entre las calles desaparecidas por la construcción de calle Larios destacan la de Siete Revueltas —cuyo nombre hacía alusión a su sinuoso trazado—, el callejón del Perro y el callejón del Gato, entre otras. La apertura de la calle Larios se enmarca en una serie de operaciones urbanísticas que, desde finales del siglo XIX, buscaban modernizar el centro de Málaga. Estas actuacio",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Calle%20Marqu%C3%A9s%20de%20Larios"
+    },
+    "es:Mercado de Mayoristas de Málaga": {
+      "description": "El antiguo Mercado de Mayoristas de Málaga, declarado Bien de Interés Cultural en 1987,​ y obra del arquitecto español Luis Gutiérrez Soto, alberga desde 2003 el Centro de Arte Contemporáneo de Málaga (CAC Málaga). \nEl edificio histórico está situado en el margen izquierdo de la desembocadura del río Guadalmedina. Se trata de uno de los límites de lo que antiguamente fue la medina musulmana, ganada a la desembocadura del río durante las obras de reordenación urbana de la ciudad de Málaga hacia el siglo XVIII, donde se encontraba el Puerto de Poniente.",
+      "body": "El antiguo Mercado de Mayoristas de Málaga, declarado Bien de Interés Cultural en 1987,​ y obra del arquitecto español Luis Gutiérrez Soto, alberga desde 2003 el Centro de Arte Contemporáneo de Málaga (CAC Málaga). \nEl edificio histórico está situado en el margen izquierdo de la desembocadura del río Guadalmedina. Se trata de uno de los límites de lo que antiguamente fue la medina musulmana, ganada a la desembocadura del río durante las obras de reordenación urbana de la ciudad de Málaga hacia el siglo XVIII, donde se encontraba el Puerto de Poniente. En la actualidad, la zona está integrada en pleno centro histórico, aunque se trata de un área conformada urbanísticamente a mediados del siglo XIX, en la entonces periferia inmediata de la ciudad.\n\n\nEdificio\n\n\nHistoria\nEn 1937, en plena Guerra Civil, se encargó al arquitecto racionalista Luis Gutiérrez Soto, miembro de la llamada generación del 25 y autor de obras tan señaladas dentro del modernismo español como los cines Europa y Barceló o el bar Chicote de Madrid, el proyecto de un edificio para albergar el mercado de mayoristas de la ciudad de Málaga.\nSe concibió originalmente como un edificio exento, de planta trapezoidal casi triangular, adaptado a la singularidad del lugar en el que se ubica. Las obras, que comenzaron a ejecutarse en 1939, estuvieron supervisadas por el arquitecto municipal Eduardo Estévez Monasterio. Finalmente, en 1944 el edificio abrió sus puertas hasta la década de los 1980 en que, a causa de las nuevas necesidades de la ciudad, se construyó un nuevo mercado. Desde entonces, el edificio de Gutiérrez Soto fue usado para diferentes fines que lo sumergieron en un proceso de abandono y deterioro.\n\n\nEstructura\nEl edificio, siguiendo el proyecto original, se construye mediante una estructura de pilares, vigas y forjado de hormigón. Presenta una planta sótano, planta baja, dos plantas y una terraza que ocupa prácticamente la totalidad de la cubierta. La horizontalidad que caracteriza al edificio qu",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mercado%20de%20Mayoristas%20de%20M%C3%A1laga"
+    },
+    "es:Cementerio Inglés (Málaga)": {
+      "description": "El Cementerio Anglicano, Cementerio de San Jorge o Cementerio Inglés es un camposanto levantado en el siglo XIX en la ciudad de Málaga, en la comunidad autónoma de Andalucía, al sur de España. Está situado en la Cañada de los Ingleses en el distrito Centro, concretamente en el número 1 de la avenida de Príes. Se trata del primer cementerio protestante de España,​ construido a partir de 1831.",
+      "body": "El Cementerio Anglicano, Cementerio de San Jorge o Cementerio Inglés es un camposanto levantado en el siglo XIX en la ciudad de Málaga, en la comunidad autónoma de Andalucía, al sur de España. Está situado en la Cañada de los Ingleses en el distrito Centro, concretamente en el número 1 de la avenida de Príes. Se trata del primer cementerio protestante de España,​ construido a partir de 1831. \nConcebido como un jardín botánico dispuesto en bancales mirando al mar, contiene especies exóticas que han ido creciendo a su aire, y monumentos sepulcrales y tumbas con elementos clásicos, neogóticos y modernistas. En el recinto se ubica desde 1850 la capilla de San Jorge, para atender las necesidades espirituales de los comerciantes británicos.​ \nUna de las primeras tumbas que albergó el cementerio fue la Robert Boyd, un joven irlandés liberal que financió la expedición​ y acompañó al general Torrijos, resultando fusilado junto a él en 1831 en las playas de San Andrés.​ Además, en él descansan Jorge Guillén, el británico Gerald Brenan y su esposa, la escritora estadounidense Gamel Woolsey, así como las víctimas alemanas del naufragio de la fragata SMS Gneisenau.\nFue declarado bien de interés cultural en 2012.​\n\n\nHistoria\nLos antecedentes históricos del inmueble hunden sus raíces en una colonia de extranjeros que procedía de las islas británicas, fenómeno que se vio acrecentado durante el siglo XIX debido a la impronta comercial y emergencia industrial de Málaga, pudiéndose constatar en 1877 la presencia de cerca de 300 personas de origen británico en la ciudad. No obstante, la cuestión religiosa y de enterramiento no estaba solucionada, ya que los que profesaban un credo diferente al católico no podían ser enterrados en sagrado, es decir, en iglesias, conventos y cementerios parroquiales malagueños. Al serles negada la inhumación en suelo sagrado, los entierros se realizaban en la playa, durante la noche, provocando estos rituales importantes focos de insalubridad para la pob",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Cementerio%20Ingl%C3%A9s%20(M%C3%A1laga)"
+    },
+    "es:Real Conservatorio de Música María Cristina": {
+      "description": "El Real Conservatorio de Música María Cristiana es un edificio público catalogado como Bien de Interés Cultural situado en Málaga, antiguo conservatorio de música de Málaga. Actualmente aloja la Sala María Cristina, gestionada por la Fundación Unicaja. El edificio se encuentra entre la calle Marqués de Valdecañas y la plaza de San Francisco del barrio de La Goleta en el Distrito Centro y cuenta con una superficie total de más de 2322 m².",
+      "body": "El Real Conservatorio de Música María Cristiana es un edificio público catalogado como Bien de Interés Cultural situado en Málaga, antiguo conservatorio de música de Málaga. Actualmente aloja la Sala María Cristina, gestionada por la Fundación Unicaja. El edificio se encuentra entre la calle Marqués de Valdecañas y la plaza de San Francisco del barrio de La Goleta en el Distrito Centro y cuenta con una superficie total de más de 2322 m². Tras el traslado del conservatorio a la zona de El Ejido el edificio quedó abandonado y en ruinas hasta que en 1975 fue adquirido por la Caja de Ahorros de Ronda (hoy Unicaja) para ser restaurado y abierto al público en 2009 como sala de música.​\nDel edificio, además de la sala de conciertos actual situada en la que fuera la nave central de la iglesia del convento, destaca el Salón de los Espejos y el Salón Mudéjar donde se han recuperado el artesonado de madera y las pinturas murales del techo de artistas del siglo XIX como Joaquín Martínez De La Vega, José Denis Belgrano o José Nogales. Durante los trabajos, se descubrieron en las paredes del salón de conciertos estucos del siglo XIX.​\n\n\nHistoria\nEl origen del antiguo conservatorio de música de Málaga fue un monasterio de la orden franciscana de San Luis el Real, fundado por los Reyes Católicos en 1489, construido a extramuros, cuya superficie en el siglo XVIII se extendía por el oeste hasta el cauce del río Guadalmedina, por el este hasta la calle Ollerías, por el norte hasta las calles Don Rodrigo y Los Cristos, y por el sur hasta la plaza de San Francisco. Un complejo conventual estructurado en torno a varios patios y con una extensa zona de huertas y jardines. Tras su desamortización, en 1836, tanto el inmueble como las huertas sufrieron una profunda transformación que conllevaría a la secularización, desmembramiento y parcelación de sus propiedades, conservándose solo algunos elementos del primitivo cenobio masculino, como una parte de la primera crujía, la capilla y la torre",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Real%20Conservatorio%20de%20M%C3%BAsica%20Mar%C3%ADa%20Cristina"
+    },
+    "es:Plaza de San Francisco (Málaga)": {
+      "description": "La plaza de San Francisco es una plaza del distrito Centro de la ciudad de Málaga, España. Está situada en la confluencia de la calle Marqués de Valdecañas con la calle de Eduardo Ocón, en el barrio de La Goleta.\nSe trata de un espacio público surgido a raíz de la desamortización de Mendizábal, con la clausura del convento de San Luis el Real, de la orden de los Franciscanos, hoy sede de la Sala María Cristina.",
+      "body": "La plaza de San Francisco es una plaza del distrito Centro de la ciudad de Málaga, España. Está situada en la confluencia de la calle Marqués de Valdecañas con la calle de Eduardo Ocón, en el barrio de La Goleta.\nSe trata de un espacio público surgido a raíz de la desamortización de Mendizábal, con la clausura del convento de San Luis el Real, de la orden de los Franciscanos, hoy sede de la Sala María Cristina. La plaza acogió algunas instituciones culturales que la convirtieron en un lugar de reunión de artistas.\nEntre los edificios que la rodean destacan los números 3, 4 y 5, que corresponden a una actuación conjunta realizada tras el derribo del convento por el arquitecto Rafael Mitjana. En el centro de la plaza se encuentra la fuente de la diosa romana Pomona, obra de Juan Bautista Bado datada en 1864 y construida en mármol de Carrara.\nEn la plaza se encuentra la Capilla de la Hermandad de la Paloma. \n\n\nReferencias\n\n\nBibliografía\nMª Eugenia Candau, José Ignacio Díaz Pardo, Francisco Rodríguez Marín: Málaga Guía de Arquitectura. Ed. bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20San%20Francisco%20(M%C3%A1laga)"
+    },
+    "es:Castillo de Santa Catalina (Málaga)": {
+      "description": "El castillo de Santa Catalina es una fortificación y residencia palaciega situada en el distrito Este de la ciudad de Málaga, España. Está catalogado como bien de interés cultural por la Junta de Andalucía.",
+      "body": "El castillo de Santa Catalina es una fortificación y residencia palaciega situada en el distrito Este de la ciudad de Málaga, España. Está catalogado como bien de interés cultural por la Junta de Andalucía. \n\n\nHistoria\nLa fortaleza original, conocida como Fuerte Alto de la Caleta, bautizada después durante el Siglo de las Luces como Santa Catalina,​ fue ordenada construir en 1625 como defensa de La Caleta a instancias del obispo Francisco de Mendoza según traza de Sebastián de Arriba.​​\nLa planta original del baluarte constaba de dos torres circulares en su parte norte y, en dirección a la playa, dos baluartes en forma de puntas de diamante. El patio interior se usaba para albergar las cuadras mientras que en las torres se encontraban las habitaciones de la guardia y los almacenes. En 1849, el Estado decidió venderlo dado su mal estado de conservación y pasó a sucesivos particulares.​\nEl palacio fue levantado en el recinto entre 1929 y 1933 a instancias de Manuel Loring como vivienda familiar, obra de los arquitectos franceses Lahalle y Levard..​​\nDurante un corto periodo de tiempo, el palacio fue sede de la oficina del Patronato Nacional de Turismo, tras finalizar la guerra civil en Málaga. Sirvió como alojamiento del general Francisco Franco en dos visitas a Málaga, en 1943 y 1956, y del rey Saúd bin Abdulaziz de Arabia Saudí en 1962.​\nEn 1989 fue declarado bien de interés cultural. Durante un tiempo se usó para celebración de eventos sociales, hasta que fue adquirido por la cadena hotelera malagueña Soho Boutique para su explotación como hotel de cinco estrellas.​\n\n\nDescripción\nEl conjunto actual consta de dos inmuebles: por un lado, los restos de la fortaleza original, una batería construida a base de piedra y cal, baluarte muy reconstruido del que se conservan dos torres y parte de las murallas integradas en los jardines del conjunto; por otro lado, el palacio levantado en el recinto entre 1929 y 1933, vivienda inspirada en la arquitectura norteafricana y andal",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Castillo%20de%20Santa%20Catalina%20(M%C3%A1laga)"
+    },
+    "es:Mesón de la Victoria": {
+      "description": "El antiguo Mesón de la Victoria es un edificio ubicado en el Pasillo de Santa Isabel del centro histórico de la ciudad andaluza de Málaga, España. Hoy en día es un museo etnográfico de la fundación Unicaja. Este edificio fue declarado Bien de Interés Cultural en 1964.​\nFue construido en 1632 como mesón regentado por los frailes franciscanos del Convento de la Victoria.",
+      "body": "El antiguo Mesón de la Victoria es un edificio ubicado en el Pasillo de Santa Isabel del centro histórico de la ciudad andaluza de Málaga, España. Hoy en día es un museo etnográfico de la fundación Unicaja. Este edificio fue declarado Bien de Interés Cultural en 1964.​\nFue construido en 1632 como mesón regentado por los frailes franciscanos del Convento de la Victoria. Es obra de Diego Delgado y hasta el siglo XX ha sufrido pocas transformaciones.\nEn la década de 1970 fue adquirido por la Caja de Ahorros de Málaga (hoy Unicaja) para albergar el Museo de Artes y Costumbres Populares.\nConsta de tres plantas organizadas alrededor de un patio. La primera planta acogía las caballerizas y almacenes, la segunda los aposentos y la tercera es una galería con fachada a la Calle Camas.\nSe puede apreciar una reproducción de este edificio en la obra pictórica Después de la Corrida del pintor José Denis Belgrano que se conserva en el Museo de Bellas Artes.\n\n\nVéase también\nMuseo de Artes y Costumbres Populares (Málaga)\n\n\nReferencias\n\n\nBibliografía\nCamacho, Rosario (1992). Guía Histórico-Artística de Málaga. Málaga: Arguval. ISBN 84-96435-44-X. \n«Edificio del Museo de Artes Populares». Archivado desde el original el 21 de noviembre de 2008. Consultado el 27 de agosto de 2009. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Mesón de la Victoria.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mes%C3%B3n%20de%20la%20Victoria"
+    },
+    "es:Plaza del Obispo (Málaga)": {
+      "description": "La plaza del Obispo se ubica en la ciudad andaluza de Málaga, España. Se encuentra frente a la fachada principal de la catedral de Málaga y el palacio Episcopal de Málaga, en la confluencia entre las calles Molina Lario y Salinas del centro histórico del distrito 1.",
+      "body": "La plaza del Obispo se ubica en la ciudad andaluza de Málaga, España. Se encuentra frente a la fachada principal de la catedral de Málaga y el palacio Episcopal de Málaga, en la confluencia entre las calles Molina Lario y Salinas del centro histórico del distrito 1.\n\n\nHistoria\nEl origen de esta plaza se remonta posiblemente a la época musulmana, pero adquirió su aspecto con la finalización de la fachada principal de la catedral y del palacio episcopal en el siglo XVIII. \nEn la última década del siglo XX, la plaza fue reformada y algunos de sus edificios renovados, sustituyendo a los antiguos edificios de Diego Clavero y Gerónimo Cuervo. Las obras permitieron la cata de restos de la antigua muralla tardo-romana y bizantina.​\n\n\nFuente de la Plaza del Obispo\nLa plaza presenta en el centro una fuente de 1785,​ cuya agua había sido traída a través del acueducto de San Telmo.​​ Está construida con piedra de mármol gris, al igual que la portada del Palacio Episcopal, y consta de dos tazas y una piña en la parte superior desde donde mana el agua.​ Con la reforma de la plaza en 1998, se eliminó la jardinera que la rodeaba y se sustituyó por un basamento a modo de escalón.\n\n\nCuriosidades\nLa plaza del Obispo, el palacio episcopal y la catedral de Málaga aparecen en el largometraje de El puente de San Luis Rey (2004) como escenario de una ciudad del Perú colonial del siglo XVIII.​\n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Plaza del Obispo.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20del%20Obispo%20(M%C3%A1laga)"
+    },
+    "es:Antigua estación del ferrocarril suburbano de Málaga": {
+      "description": "La antigua estación de la Compañía de Ferrocarriles Suburbanos de Málaga se localizaba en un edificio en la entrada al recinto portuario, entre la Plaza de la Marina y la Avenida de Manuel Agustín Heredia del Ensanche del Distrito Centro de la ciudad andaluza de Málaga, España.\nEste edificio sirve como sede del Instituto de Estudios Portuarios.",
+      "body": "La antigua estación de la Compañía de Ferrocarriles Suburbanos de Málaga se localizaba en un edificio en la entrada al recinto portuario, entre la Plaza de la Marina y la Avenida de Manuel Agustín Heredia del Ensanche del Distrito Centro de la ciudad andaluza de Málaga, España.\nEste edificio sirve como sede del Instituto de Estudios Portuarios.\n\n\nArquitectura\nSe trata de un edificio ecléctico de inspiración neoclásica, como muestran las columnas dóricas sobre pedestales de la fachada principal semicircular, rematada con un frontón con reloj que delata su antigua función de estación ferroviaria.\nDestaca el tratamiento bícromo del exterior en blanco y rojo, que le aporta uniformidad con los restantes edificios de la plaza de la Marina.\n\n\nHistoria\nLa primera piedra del edificio fue puesta el 21 de febrero de 1911 por parte del ministro de Fomento, Rafael Gasset y el director general de Obras Públicas, Luis de Armiñán y bendecida por el Obispo, Juan Muñoz de Herrera. El edificio es obra de los arquitectos Enrique Verdú y Leopoldo Werner. Entró en funcionamiento tras el traslado de la cabecera desde La Malagueta hasta la entrada del puerto. Daba cobertura a la red de Ferrocarriles Suburbanos de Málaga que unía a la capital malagueña con Coín, con Ventas de Zafarraya a través de Vélez-Málaga y con Fuengirola. En 1995, fue sometida a una restauración por Juan Pablo Gómez de la Fuente. \nDe las líneas que partían de allí, todas fueron clausuradas en la década de 1960. Sólo la línea de Fuengirola, construida por la empresa Ferrocarriles de Málaga a Algeciras y Cádiz, explotada por FSM hasta 1934 y pasando después a manos de FEVE, se mantuvo activa.\n\n\nVéase también\nFerrocarriles Suburbanos de Málaga\n\n\nReferencias\nMª Eugenia Candau, José Ignacio Díaz Pardo, Francisco Rodríguez Marín: Málaga Guía de Arquitectura. Ed. bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005\nAyuntamiento de Málaga, PGOU Edificios protegidos\n\n\nE",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Antigua%20estaci%C3%B3n%20del%20ferrocarril%20suburbano%20de%20M%C3%A1laga"
+    },
+    "es:Acueducto de San Telmo": {
+      "description": "El acueducto de San Telmo es una obra de ingeniería situada en el distrito Ciudad Jardín de Málaga (Andalucía, España). Está considerada como una de las obras de ingeniería hidráulica más importantes del siglo XVIII en España. Permitía llevar agua del Guadalmedina hasta la ciudad a través de sus 10,8 km de longitud, con 33 puentes, 30 acueductos y varias arcas.",
+      "body": "El acueducto de San Telmo es una obra de ingeniería situada en el distrito Ciudad Jardín de Málaga (Andalucía, España). Está considerada como una de las obras de ingeniería hidráulica más importantes del siglo XVIII en España. Permitía llevar agua del Guadalmedina hasta la ciudad a través de sus 10,8 km de longitud, con 33 puentes, 30 acueductos y varias arcas. Fue diseñado por el arquitecto Martín de Aldehuela, llevándose a cabo su construcción entre octubre de 1782 y septiembre de 1784.​\nEn 2009 fue inscrito como Bien de Interés Cultural, con categoría de Sitio Histórico.​\nEl promotor del proyecto fue José de Molina Lario y Navarro, obispo de la diócesis de Málaga. Las razones por las que se realizó la obra fueron la extensa y creciente población de Málaga y el auge comercial que estaba tomando la ciudad. Carlos III, por mediación del conde de Floridablanca, aprobó el proyecto mediante Real Orden de 21/9/1782.\nEl acueducto de arroyo Quintana es el más largo del total, con 170 metros de longitud, 15 metros de altura y 13 vanos con arcos de medio punto, habiendo finalizado las obras de restauración en diciembre de 2009.​\nEl actual propietario del acueducto es la Fundación Benéfica Caudal y Acueducto de San Telmo, presidida por el obispo.\n\n\nHistoria\nEn la Málaga próspera y en expansión demográfica del último cuarto del siglo XVIII, acreció el problema histórico del abastecimiento de agua que se hizo acuciante tras un período de sequía. Para solventarlo, el entonces obispo de la ciudad, el ilustrado don José Molina Lario y Navarro, financió e impulsó la construcción de un acueducto que tomando agua del río Guadalmedina la acercó a la población en un recorrido de casi 11 kilómetros, a través de los cuales también aportaba el elemento para riego agrícola y fuerza motriz en los molinos. El patrón de los navegantes, San Telmo, presta uno de los nombres por el que se conoce la obra de ingeniería que nos ocupa, porque los beneficios económicos que el acueducto generaba se a",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Acueducto%20de%20San%20Telmo"
+    },
+    "es:Plaza de Félix Sáenz": {
+      "description": "La plaza de Félix Sáenz es una plaza del centro histórico de la ciudad de Málaga, España. Está situada en la confluencia de las calles Nueva, San Juan, Sagasta, de los Esparteros y Puerta del Mar.\nConocida anteriormente como la Alhóndiga, la plaza recibe su nombre en honor a Félix Sáenz Calvo, comerciante de origen riojano que llegó a ser teniente de alcalde del ayuntamiento y senador Vitalicio del Reino.",
+      "body": "La plaza de Félix Sáenz es una plaza del centro histórico de la ciudad de Málaga, España. Está situada en la confluencia de las calles Nueva, San Juan, Sagasta, de los Esparteros y Puerta del Mar.\nConocida anteriormente como la Alhóndiga, la plaza recibe su nombre en honor a Félix Sáenz Calvo, comerciante de origen riojano que llegó a ser teniente de alcalde del ayuntamiento y senador Vitalicio del Reino. Entre los edificios que la rodean, destacan el edificio de los antiguos Almacenes Félix Sáenz, una de las obras modernistas más notorias de la ciudad. En el año 2000, en el centro de la plaza se instaló la obra Casa dorada para pájaros, del escultor catalán Jaume Plensa.\n\n\nReferencias\n\n\nBibliografía\nMª Eugenia Candau, José Ignacio Díaz Pardo, Francisco Rodríguez Marín: Málaga Guía de Arquitectura. Ed. bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20F%C3%A9lix%20S%C3%A1enz"
+    },
+    "es:Convento de San Andrés (Málaga)": {
+      "description": "El antiguo convento de San Andrés es un edificio situado en el barrio de El Perchel de Málaga, Andalucía, España. Se encontraba en un grave estado de abandono, por ello su rehabilitación comenzó al finalizar el verano de 2016 con técnicas antiguas para intentar asemejarse a su forma primigenia.",
+      "body": "El antiguo convento de San Andrés es un edificio situado en el barrio de El Perchel de Málaga, Andalucía, España. Se encontraba en un grave estado de abandono, por ello su rehabilitación comenzó al finalizar el verano de 2016 con técnicas antiguas para intentar asemejarse a su forma primigenia. La primera fase de restauración terminó en enero de 2018,​ mientras que la segunda concluyó en abril de 2022.​\n\n\nHistoria\nSe trata de un antiguo convento fundado por la Orden de los Carmelitas Descalzos en el siglo XVI sobre una ermita existente consagrada a San Andrés. Este convento tiene una iglesia parroquial aneja llamada Iglesia de Nuestra Señora del Carmen también construida por los carmelitas.​\nAdemás de como convento de clausura, el Convento de San Andrés ha servido como hospital y como cuartel de tropas propias y enemigas. En 1831 el convento sirvió como prisión del general liberal José María Torrijos y sus 49 compañeros, la noche antes de ser fusilado por orden del rey Fernando VII el 11 de diciembre de ese año.\nDurante la Desamortización de Mendizábal los bienes de los carmelitas y del convento fueron requisados y sus miembros expulsados de Málaga en 1836; el convento fue vendido. La Orden Carmelita abandonó España hasta su regreso en 1868 y no volvió a Málaga hasta 1943.​ Mientras tanto, el convento ha sufrido un notable deterioro al cual se debe su actual estado de ruinas a pesar de haber sido declarado bien de interés cultural en 2001.​\n\n\nRestauración\nAlgunas organizaciones culturales han reclamado a las autoridades la restauración y consolidación de este edificio. Así, en 2009 se iniciaron trabajos de desescombro para una posterior rehabilitación parcial del edificio.​ En un principio, se previó que el edificio albergara un centro de interpretación de Torrijos gestionado por la Fundación Torrijos, así como el Museo de la Arquitectura y el Diseño Moderno.​​​ Sin embargo, en 2013 el Ayuntamiento de Málaga firmó un acuerdo con el Ayuntamiento de Marbella para llev",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20de%20San%20Andr%C3%A9s%20(M%C3%A1laga)"
+    },
+    "es:Plaza de la Marina": {
+      "description": "La plaza de la Marina es una céntrica plaza de la ciudad de Málaga, España. Se encuentra situado en el Ensanche Heredia, en la zona conocida como El Soho, dentro del distrito Centro. Constituye uno de los puntos neurálgicos de la ciudad, ya que aquí se cruzan dos importantes ejes: la Alameda Principal y el paseo del Parque con el Muelle Heredia y el paseo de los Curas y con algunas de las calles más concurridas del centro histórico, como la calle Molina Lario, y con el acceso principal al Puerto de Málaga.",
+      "body": "La plaza de la Marina es una céntrica plaza de la ciudad de Málaga, España. Se encuentra situado en el Ensanche Heredia, en la zona conocida como El Soho, dentro del distrito Centro. Constituye uno de los puntos neurálgicos de la ciudad, ya que aquí se cruzan dos importantes ejes: la Alameda Principal y el paseo del Parque con el Muelle Heredia y el paseo de los Curas y con algunas de las calles más concurridas del centro histórico, como la calle Molina Lario, y con el acceso principal al Puerto de Málaga.\nEl lugar donde se encuentra la plaza fue conocida como la Acera de la Marina. El espacio actual surge en torno al siglo XIX, cuando comenzaron a derribarse las murallas nazaríes y se ganaron nuevos terrenos al mar, con el proyecto del ensanche. Desde entonces ha sufrido varias remodelaciones, tras las que han aparecido restos arqueológicos como el muro portuario. La última de ellas fue en 1984. \nEn la plaza de la Marina se ubica actualmente la escultura de El Cenachero, tras varios traslados. También se ubica en la plaza la oficina de turismo de la ciudad, un parking subterráneo y un parque de skate. Muchas de las manifestaciones o eventos culturales municipales se llevan a cabo en este espacio. Durante la temporada navideña se coloca un árbol de luces, justo encima de la fuente.​ Desde 2019 también forma parte del Recorrido Oficial de la Semana Santa de Málaga. \n\n\nEtimología\nLa plaza se denomina \"de la Marina\" por su proximidad al mar, pues al igual que el Parque, ambos se construyeron en terrenos ganados al mar durante el siglo XIX.​ A lo largo de su historia también ha tenido otros nombres como plaza de Suárez de Figueroa y del General Quiepo de Llano, durante los primeros años del franquismo. La zona norte de la plaza, donde se encuentra el palacio provincial, se denominó históricamente Acera de la Marina, nombre que aún se usa para referirse a esa parte de la plaza. \n\n\nHistoria\n\n\nAntecedentes\nEl lugar donde se encuentra en la actualidad la plaza de la Marina ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20la%20Marina"
+    },
+    "es:Cementerio de San Miguel": {
+      "description": "El Cementerio Histórico de San Miguel de Málaga está considerado como uno de los principales camposantos histórico-monumentales de España.​ Este cementerio se ha utilizado como lugar de entierro desde principios del siglo XIX, y es una de las pocas necrópolis decimonónicas que han llegado prácticamente íntegras hasta nuestros días: la portada, la capilla, la mayoría de los panteones, y las salas de pésame o de velatorios se han conservado tal y como se construyeron en el siglo XIX y principios del siglo XX.",
+      "body": "El Cementerio Histórico de San Miguel de Málaga está considerado como uno de los principales camposantos histórico-monumentales de España.​ Este cementerio se ha utilizado como lugar de entierro desde principios del siglo XIX, y es una de las pocas necrópolis decimonónicas que han llegado prácticamente íntegras hasta nuestros días: la portada, la capilla, la mayoría de los panteones, y las salas de pésame o de velatorios se han conservado tal y como se construyeron en el siglo XIX y principios del siglo XX.\n\n\nHistoria\n\n\nAntecedentes\nSe construye como consecuencia de la Real Cédula que en 1787 dicta el rey Carlos III, en la que por razones sanitarias se prohíbe enterrar en las iglesias y conventos y se ordena a los ayuntamientos la construcción de cementerios fuera de las poblaciones, en sitios ventilados y alejados de las casas de los vecinos. Esta normativa de Carlos III no se cumplió en Málaga hasta que a comienzos del Siglo XIX hubo una epidemia de fiebre amarilla o vómito negro que asoló la ciudad en 1804. Fue cuando el Ayuntamiento adquirió en 1806 la finca de Haza Cabello o del Capitán para construir extramuros el Cementerio General de Málaga.\n\n\nInauguración\nDe estilo neoclásico, fue inaugurado el 1 de julio de 1810 y se bendijeron los terrenos bajo la advocación del arcángel San Miguel. Aun así el cementerio estuvo durante bastante tiempo sin cercar, hasta que en 1821 el Ayuntamiento, siempre con problemas de liquidez, recurrió a las cofradías y hermandades de la ciudad para lograr el cerramiento del camposanto. Para ello levantaron cuatro hiladas superpuestas de nichos que conformaron los muros de protección y finalmente, en 1829, el cementerio completó su cercado. En total fueron 28 hermandades, pasionistas y de ánimas, las que construyeron sus grupos de nichos. En 1837 se concluye la construcción de la capilla.\nEn 1847 el arquitecto municipal Rafael Mitjana diseña un plan de reordenación y ampliación, y en 1848 comenzó la venta de parcelas a las grandes fa",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Cementerio%20de%20San%20Miguel"
+    },
+    "es:La Farola de Málaga": {
+      "description": "La Farola es un faro situado en la ciudad española de Málaga, en la comunidad autónoma de Andalucía. Obra del ingeniero Joaquín María Pery y Guzmán, su construcción comenzó en 1813 y finalizó en 1817, estando entonces situado en la entrada del Puerto de Málaga. La Farola de Málaga constituye un símbolo de la ciudad y da nombre al paseo marítimo donde se encuentra.",
+      "body": "La Farola es un faro situado en la ciudad española de Málaga, en la comunidad autónoma de Andalucía. Obra del ingeniero Joaquín María Pery y Guzmán, su construcción comenzó en 1813 y finalizó en 1817, estando entonces situado en la entrada del Puerto de Málaga. La Farola de Málaga constituye un símbolo de la ciudad y da nombre al paseo marítimo donde se encuentra.\nEn 2023, el faro fue declarado bien de interés cultural, con la categoría de monumento.​​\n\n\nHistoria\n\nDurante un siglo entero existió en el mismo espacio urbano una linterna de madera que cumplía con las funciones de un faro y que diseñó en 1717 el ingeniero francés Bartolomé Thurus.​\nEl terremoto de Andalucía de 1884, que afectó a la ciudad de Málaga, dejó inoperativos los mecanismos luminosos del faro, reparándose en 1885 los destrozos técnicos sufridos. Entre 1853 y 1858 se le añadió en la base un módulo de una planta de altura destinado a vivienda del farero. Entre 1913 y 1915 se amplió la vivienda del farero y se reformó la base añadiéndole un piso más que le da la fachada original actual. En 1913 se reformaron los mecanismos de la óptica de nuevo. En estos trabajos participaron el ingeniero Mauro Serret en los cálculos y la casa Julius Pintsch AG antes Bauklempnerei fundada por Carl Friedrich Julius Pintsch (1815-1884) de Alemania en los mecanizados,​ quedando la característica de 31 destellos, que se conserva en la actualidad. En mayo de 1916, se instaló un basamento de flotador bañado en mercurio fabricado en Madrid por la Sociedad Española de Construcciones Metálicas. \nDurante la guerra civil española, el 28 de agosto de 1936, la Farola de Málaga se apagó por orden de la Comandancia de Marina, todavía a las órdenes de la República, pues su silueta servía de referencia a la artillería naval y a la aviación del Ejército sublevado. El Comité Central de la Flota Republicana ordenó que se pintara de color tierra, con manchones oscuros y claros para camuflarla. Pese a ello, sufrió serios daños durante e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/La%20Farola%20de%20M%C3%A1laga"
+    },
+    "es:Mesón de San Rafael": {
+      "description": "El antiguo mesón de San Rafael es un inmueble de la ciudad de Málaga (España), situado en calle Compañía. El conjunto se ubica en las proximidades de las antiguas puertas de acceso a Málaga, en una zona que históricamente estuvo dedicada a la hostelería, con probable origen en los funduq musulmanes, habiéndose mantenido, tanto la actividad como la trama urbana, hasta la Edad Moderna y Contemporánea, contribuyendo a configurar, en gran medida, el paisaje de esta parte de la ciudad. Resulta muy característico como mesón-tipo de estilo neoclásico, cuyas formas remiten a un lenguaje clasicista, con pequeñas concesiones ornamentales, ocupando el inmueble el interior de la manzana.",
+      "body": "El antiguo mesón de San Rafael es un inmueble de la ciudad de Málaga (España), situado en calle Compañía. El conjunto se ubica en las proximidades de las antiguas puertas de acceso a Málaga, en una zona que históricamente estuvo dedicada a la hostelería, con probable origen en los funduq musulmanes, habiéndose mantenido, tanto la actividad como la trama urbana, hasta la Edad Moderna y Contemporánea, contribuyendo a configurar, en gran medida, el paisaje de esta parte de la ciudad. Resulta muy característico como mesón-tipo de estilo neoclásico, cuyas formas remiten a un lenguaje clasicista, con pequeñas concesiones ornamentales, ocupando el inmueble el interior de la manzana.\nEste edificio alberga la sede de la Empresa Pública Turismo Andaluz.\n\n\nDescripción\nEl acceso al antiguo mesón de San Rafael se realiza a través de un pasaje abovedado de 18 metros de longitud ubicado en el número 38 de la calle Compañía, configurándose mediante una amplia fachada con una sola crujía que fue construida a mediados del siglo XIX, según proyecto del arquitecto municipal Cirilo Salinas, manteniéndose dentro de este ámbito la dilatación que se producía previa a la puerta.\nEn el año 2000 se llevó a cabo la rehabilitación del inmueble, siendo en la actualidad la sede de la sociedad mercantil del sector público andaluz Turismo Andaluz, S.A., dependiente de la Consejería de Turismo, Comercio y Deporte. La intervención se centró en la totalidad del inmueble destacando las cuatro partes que lo identifican con claridad que son: el cuerpo exterior con fachada a la calle Compañía, el gran patio central, el corralón situado al este y el patio alargado que se desarrolla hacia el norte.\n\n\nFachada\nLa fachada de la vivienda número 38 queda descentrada, y tanto la planta baja como la entreplanta se articulan mediante la disposición de pilastras resaltadas y fajadas en módulos. El paso a la primera planta se realiza mediante la disposición de un friso con roleos y palmas, e inmediatamente se dispone",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mes%C3%B3n%20de%20San%20Rafael"
+    },
+    "es:Cerro del Villar": {
+      "description": "El yacimiento arqueológico correspondiente a la ciudad fenicia del Cerro del Villar está situado en la desembocadura del río Guadalhorce en el término municipal de Málaga (España).",
+      "body": "El yacimiento arqueológico correspondiente a la ciudad fenicia del Cerro del Villar está situado en la desembocadura del río Guadalhorce en el término municipal de Málaga (España). \n\n\nHistoria\nEl yacimiento fue descubierto en los años 60 y ha sido objeto de excavaciones arqueológicas desde 1987. Los trabajos han puesto al descubierto una ciudad fenicia de grandes proporciones situada en una antigua isla en el delta del río Guadalhorce. \nLa ciudad fenicia, fundada en el siglo IX a. C.​ y abandonada posiblemente en el año 584 a. C.​ según la tesis de Enrique del Pino, apoyada por Juan Manuel Muñoz Gambero, descubridor del yacimiento del Cerro del Villar. Más tarde, a raíz de las violentas inundaciones provocadas por la intensa desforestación llevada a cabo en el territorio, como consecuencia de la transformación del bosque en zona de cultivo y la utilización de grandes cantidades de madera como combustible para la producción de cerámica y de metales, así como para la construcción naval y urbanística. \nLas excavaciones arqueológicas han revelado que se trata de un asentamiento fenicio, con una trama urbana compleja, con una estructura formada por grandes viviendas, con calles porticadas con posibles áreas de mercado, restos de edificaciones portuarias, una posible muralla y un cinturón industrial. Todos ellos rasgos urbanísticos más propios de una ciudad que de una simple colonia. \nEl buen estado de conservación de los restos arquitectónicos y urbanísticos de la ciudad, no sólo en lo que se refiere a elementos constructivos, sino también a enseres domésticos, constituye un aporte de información de gran valor para la reconstrucción de la vida diaria de la ciudad.\nNo se han producido nuevas excavaciones desde el año 2003, las cuales fueron dirigidas por María Eugenia Aubet.​ Sin embargo, la Universidad de Málaga ha llevado a cabo varias iniciativas en dicho asentamiento, entre ellas un estudio del terreno llevado a cabo por el profesor de historia antigua Manuel Álvarez ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Cerro%20del%20Villar"
+    },
+    "es:Castillo de Almogía": {
+      "description": "El castillo de Almogía es una fortificación situada en el casco urbano de la localidad malagueña de Almogía, España. Cuentan con la protección de la Declaración genérica del Decreto de 22 de abril de 1949, y la Ley 16/1985 sobre el Patrimonio Histórico Español.",
+      "body": "El castillo de Almogía es una fortificación situada en el casco urbano de la localidad malagueña de Almogía, España. Cuentan con la protección de la Declaración genérica del Decreto de 22 de abril de 1949, y la Ley 16/1985 sobre el Patrimonio Histórico Español.\n\n\nDescripción\nDominando el casco urbano de Almogía, se eleva esta fortaleza de planta irregular, tendente a ovalada, de la que se conservan distintos lienzos de muro y la torre principal, conocida por el nombre de Torre de la Vela. La obra es de mampostería, respondiendo a una fortaleza de posible cronología nazarí.\nPosee algunas vinculaciones tipológicas con todas las fortalezas medievales pertenecientes al último período de ocupación musulmana, como Alozaina, Casarabonela, Almayate, Tolox, Yunquera... Sin embargo, por su proximidad geográfica estaría vinculada con Cártama. \nDe las estructuras conservadas habría que citar la torre principal adosada al ángulo noreste del recinto. Está realizada en mampostería con las piedras algo trabajadas en los ángulos. El relleno del interior de los muros se realiza con argamasa con presencia de algunos guijarros. Esta torre principal presenta algunos añadidos, como pequeñas chabolas que contienen algunos materiales. También permanece en pie una torre escalonada de mampostería en la zona este. Además, se conservan algunos fragmentos de los muros que formaban el conjunto del recinto. No resulta visible el aljibe, aunque se tiene constancia de su existencia, por lo que debe de encontrarse soterrado.\n\n\nHistoria\nLos autores árabes no mencionan este castillo en relación con Almogía, aunque cabría la posibilidad que figurase con otra denominación. En cualquier caso, cabría esperar que una excavación definiese con algo más de claridad una cronología más aproximada, aunque por los materiales y técnicas empleadas se podría datar en el período nazarí.\n\n\nVéase también\nAnexo:Bienes de interés cultural de la provincia de Málaga\nAnexo:Fortificaciones de la provincia de Málaga\n\n\nReferen",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Castillo%20de%20Almog%C3%ADa"
+    },
+    "es:Yacimientos arqueológicos de la Araña": {
+      "description": "Sitio web oficial]\nLos yacimientos arqueológicos de la Araña son un complejo kárstico situado en el sector oriental de la bahía de Málaga, en la zona de La Araña. Cuenta con una de las mayores concentraciones de yacimientos arqueológicos del Pleistoceno Superior de la costa de Andalucía, donde han aparecido restos preneandertales, neandertales, cromañones y grupos del neolítico y calcolítico.\nEncuadrado dentro de las iniciativas de apoyo a la candidatura de la ciudad de Málaga a Capital Europea de la Cultura en 2016, se acondicionó el museo abierto Parque Prehistórico de Málaga.",
+      "body": "Sitio web oficial]\nLos yacimientos arqueológicos de la Araña son un complejo kárstico situado en el sector oriental de la bahía de Málaga, en la zona de La Araña. Cuenta con una de las mayores concentraciones de yacimientos arqueológicos del Pleistoceno Superior de la costa de Andalucía, donde han aparecido restos preneandertales, neandertales, cromañones y grupos del neolítico y calcolítico.\nEncuadrado dentro de las iniciativas de apoyo a la candidatura de la ciudad de Málaga a Capital Europea de la Cultura en 2016, se acondicionó el museo abierto Parque Prehistórico de Málaga. El parque alberga siete yacimientos arqueológicos y un centro de visitantes y su construcción consistió en dos fases: en la primera se acondicionó la zona dedicada al Paleolítico Medio y a los neandertales, que incluía los abrigos 1, 2 y 3 y la cueva del Humo. La zona dedicada al Paleolítico Superior comprende los abrigos 4 y 5 mientras que los Abrigos 6 y 7 estarán incluidos en la zona dedicada a la Prehistoria Reciente (Neolítico y Calcolítico), que se acondicionarán durante la segunda fase.\nEl centro de interpretación se abrió a los visitantes el 28 de enero de 2014 con la visita usual de diferentes colegios de la ciudad.​\n\n\nComplejo kárstico de cueva Navarro IV\nEn 2013 la zona arqueológica denominada complejo kárstico de cueva Navarro IV fue declarada bien de interés cultural. Este está formado por la cueva de dicho nombre, así como por una serie de cuevas directamente relacionadas con la anterior. Los materiales carbonáticos que afloran en este complejo constituyen un acuífero de tipo kárstico. En los rellenos del paleokarst, en concreto en los depósitos mixtos (marinos y continentales), es donde principalmente se ha detectado la presencia de materiales arqueológicos que abarcan desde el Pleistoceno Superior al Holoceno Antiguo, aunque también en los depósitos continentales en cavidades que no cuentan en su base con depósitos marinos se han podido documentar numerosos materiales arqueol",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Yacimientos%20arqueol%C3%B3gicos%20de%20la%20Ara%C3%B1a"
+    },
+    "es:Acueducto de la Fuente del Rey": {
+      "description": "El acueducto de la Fuente del Rey es un acueducto y cañería que transcurre entre los municipios españoles de Málaga y Alhaurín de la Torre con una longitud actual aproximada de 3.500 metros sobre los 5.500 metros que se construyeron en el siglo XVIII.​",
+      "body": "El acueducto de la Fuente del Rey es un acueducto y cañería que transcurre entre los municipios españoles de Málaga y Alhaurín de la Torre con una longitud actual aproximada de 3.500 metros sobre los 5.500 metros que se construyeron en el siglo XVIII.​\n\n\nHistoria\nTras la ocupación cristiana a finales del siglo XV de los territorios de Al-Ándalus donde se encuentra la actual ciudad y provincia de Málaga, la zona se abastecía de agua a través de pozos y de las aguas del río Guadalmedina. Con el incremento de la población se realizaron algunas pequeñas obras para la recogida y transporte de agua, la principal de ellas la toma de aguas subterráneas de la fuente del Almendral del Rey,​​ situada al oeste-noroeste del actual núcleo urbano de Málaga, al norte de la Hacienda Cabello y al sur de la Universidad Laboral. Las obras se llevaron a cabo en el segundo cuarto del siglo XVI y mantuvieron, junto a otros suministros menores, el agua en la zona. La fuente del Almendral llegó a ofrecer hasta 20 litros de agua por segundo y estuvo en servicio para abastecer las fuentes públicas durante casi trescientos años, y todavía permaneció activa hasta el siglo XX.​\nNo obstante las mejoras de recursos hídricos, a principios del siglo XVIII el incremento de población y las incipientes nuevas actividades productivas evidenciaron que se precisaba un mayor aporte de agua.​\nLas nuevas autoridades borbónicas mostraron interés por realizar una obra que solventase el problema. Esto se pone de manifiesto a través de los numerosos proyectos que se redactaron para tal fin y que están conservados en su mayoría en el Servicio Geográfico del Ejército.​ Así en 1725 se encargó el proyecto definitivo a Toribio Martínez de la Vega. El proyecto diseñado por Martínez de la Vega junto con sus hijos constaba de tres partes fundamentales: unas obras para una acequia que saliera desde la fuente del Rey en el actual barrio de Churriana para permitir el abastecimiento y riego para toda esa zona y varios molin",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Acueducto%20de%20la%20Fuente%20del%20Rey"
+    }
+  }
+}

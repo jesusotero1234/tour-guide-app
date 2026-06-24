@@ -9,6 +9,19 @@ describe('contentReadiness', () => {
     expect(result.reasons).toContain('fallback_like');
   });
 
+  it('rejects multilingual template fragments inside otherwise long narration', () => {
+    const description = [
+      "You've arrived at Sagrada Família es un heritage en Barcelona. Take in the structure and its immediate surroundings.",
+      Array(180).fill('histoire').join(' '),
+      'From here, continue toward Hospital de Sant Pau. Notice how the urban landscape shifts around you.',
+    ].join('\n\n');
+
+    const result = evaluateStopContentReadiness({ name: 'Sagrada Família', description });
+
+    expect(result.fallbackLike).toBe(true);
+    expect(result.reasons).toContain('fallback_like');
+  });
+
   it('accepts a rich multi-paragraph narration', () => {
     const description = [
       'Llegamos a la Plaza Mayor, una de esas escenas urbanas donde la ciudad parece reunirse en capas: soportales, balcones, piedra y un flujo constante de gente cruzando el espacio con ritmos muy distintos según la hora del dia.',

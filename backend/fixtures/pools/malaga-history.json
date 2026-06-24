@@ -1,7 +1,7 @@
 {
   "city": "Malaga",
   "theme": "history",
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "geocode": {
     "lat": 36.7647913,
     "lng": -4.4422005,
@@ -18,8 +18,14 @@
       "lng": -4.410785,
       "name": "Plaza de Toros de La Malagueta",
       "tags": {
-        "url": "https://www.youtube.com/watch?v=n4XFscWNn9I",
         "name": "Plaza de Toros de La Malagueta",
+        "wikidata": "Q523311",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "15",
+        "canonical:instance_of": "bullring",
+        "tourism": "attraction",
+        "place": "square",
+        "url": "https://www.youtube.com/watch?v=n4XFscWNn9I",
         "image": "https://photos.app.goo.gl/bZ6e8rbv4Zbj1Xkh9",
         "sport": "bullfighting",
         "leisure": "stadium",
@@ -27,10 +33,8 @@
         "name:ko": "투우경기장",
         "name:ru": "Арена для боя быков Ла малагета",
         "ref:bic": "RI-51-0004470",
-        "tourism": "attraction",
         "heritage": "2",
         "historic": "building",
-        "wikidata": "Q523311",
         "mapillary": "844531902803294",
         "wikipedia": "en:Plaza de toros de La Malagueta",
         "addr:street": "Paseo de Reding",
@@ -102,21 +106,6 @@
         "protection_title:category": "Conjunto histórico"
       },
       "osmId": 35773299,
-      "osmType": "way"
-    },
-    {
-      "lat": 36.7626432,
-      "lng": -4.4262608,
-      "name": "Casa-Palacio de los Marqueses de Casa Loring",
-      "tags": {
-        "name": "Casa-Palacio de los Marqueses de Casa Loring",
-        "name:en": "Marquis of Casa Loring Mansion",
-        "name:es": "Casa-Palacio de los Marqueses de Casa Loring",
-        "historic": "castle",
-        "castle_type": "palace",
-        "wikimedia_commons": "Category:Casa-palacio_de_la_Concepción"
-      },
-      "osmId": 68349662,
       "osmType": "way"
     },
     {
@@ -515,14 +504,17 @@
       "lng": -4.4159336,
       "name": "Alcazaba de Málaga",
       "tags": {
-        "url": "https://www.youtube.com/watch?v=YRQf7hqZALQ",
         "name": "Alcazaba de Málaga",
+        "wikidata": "Q3127243",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "24",
+        "canonical:instance_of": "alcazaba|fortress|monument|tourist attraction",
+        "tourism": "attraction",
+        "historic": "castle",
+        "url": "https://www.youtube.com/watch?v=YRQf7hqZALQ",
         "image": "https://photos.app.goo.gl/ZRxR1Ek6Gh94Hen17",
         "phone": "+34952227230",
         "name:es": "Alcazaba de Málaga",
-        "tourism": "attraction",
-        "historic": "castle",
-        "wikidata": "Q3127243",
         "mapillary": "2387389108063943",
         "wikipedia": "es:Alcazaba de Málaga",
         "wheelchair": "no",
@@ -530,22 +522,6 @@
         "wikimedia_commons": "Category:Alcazaba of Málaga"
       },
       "osmId": 436786724,
-      "osmType": "way"
-    },
-    {
-      "lat": 36.7251009,
-      "lng": -4.3940317,
-      "name": "Castillo de Santa Catalina",
-      "tags": {
-        "name": "Castillo de Santa Catalina",
-        "building": "hotel",
-        "historic": "castle",
-        "start_date": "1929",
-        "addr:street": "Calle Ramos Carrión",
-        "castle_type": "manor",
-        "building:levels": "6"
-      },
-      "osmId": 437029869,
       "osmType": "way"
     },
     {
@@ -909,32 +885,6 @@
       "osmType": "way"
     },
     {
-      "lat": 36.6576195,
-      "lng": -4.5856215,
-      "name": "Cortijo Peralta",
-      "tags": {
-        "name": "Cortijo Peralta",
-        "building": "yes",
-        "historic": "manor"
-      },
-      "osmId": 810538351,
-      "osmType": "way"
-    },
-    {
-      "lat": 36.7247673,
-      "lng": -4.3940207,
-      "name": "Antiguo Baluarte de Santa Catalina",
-      "tags": {
-        "name": "Antiguo Baluarte de Santa Catalina",
-        "building": "ruins",
-        "historic": "castle",
-        "start_date": "1625",
-        "castle_type": "fortress"
-      },
-      "osmId": 922057824,
-      "osmType": "way"
-    },
-    {
       "lat": 36.6718581,
       "lng": -4.4637643,
       "name": "Cerro del Villar",
@@ -963,20 +913,23 @@
       "lng": -4.41941,
       "name": "Catedral de Málaga",
       "tags": {
-        "url": "https://www.youtube.com/watch?v=BJmOdodPGyA",
         "name": "Catedral de Málaga",
+        "wikidata": "Q1582758",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "29",
+        "canonical:instance_of": "minor basilica|monument|Catholic cathedral",
+        "tourism": "attraction",
+        "historic": "monument",
+        "url": "https://www.youtube.com/watch?v=BJmOdodPGyA",
         "email": "catedral@diocesismalaga.es",
         "image": "https://photos.app.goo.gl/7YfaQSVgHFnD9qzc7",
         "phone": "+34 952 22 03 45",
         "url:0": "https://youtu.be/cTHkwqzDFik?si=pqrDeKLUppyTh_lS",
         "amenity": "place_of_worship",
-        "tourism": "attraction",
         "website": "https://malagacatedral.com/",
         "building": "cathedral",
-        "historic": "yes",
         "loc_name": "La Manquita",
         "religion": "christian",
-        "wikidata": "Q1582758",
         "addr:city": "Malaga",
         "architect": "Diego de Siloé",
         "wikipedia": "es:Catedral de Málaga",
@@ -1108,23 +1061,6 @@
         "protection_title:category": "Monumento"
       },
       "osmId": 7277075,
-      "osmType": "relation"
-    },
-    {
-      "lat": 36.7587058,
-      "lng": -4.4251735,
-      "name": "Hacienda Nadales",
-      "tags": {
-        "name": "Hacienda Nadales",
-        "type": "multipolygon",
-        "building": "public",
-        "historic": "castle",
-        "start_date": "C19",
-        "castle_type": "palace",
-        "building:levels": "3",
-        "wikimedia_commons": "File:Hacienda Nadales 01.jpg"
-      },
-      "osmId": 8233050,
       "osmType": "relation"
     },
     {
@@ -2165,22 +2101,6 @@
       "osmType": "relation"
     },
     {
-      "lat": 36.7632873,
-      "lng": -4.3040181,
-      "name": "Dolmen Cerro de la Corona",
-      "tags": {
-        "name": "Dolmen Cerro de la Corona",
-        "source": "www.megalitos.es",
-        "tourism": "attraction",
-        "alt_name": "Tumba del Moro",
-        "historic": "archaeological_site",
-        "megalith_type": "dolmen",
-        "archaeological_site": "megalith"
-      },
-      "osmId": 3371346270,
-      "osmType": "node"
-    },
-    {
       "lat": 36.7239231,
       "lng": -4.4228771,
       "name": "Museo de Historia Militar de Málaga",
@@ -3202,22 +3122,6 @@
       "osmType": "way"
     },
     {
-      "lat": 36.7183096,
-      "lng": -4.4213911,
-      "name": "Calle Marqués de Larios",
-      "tags": {
-        "name": "Calle Marqués de Larios",
-        "bicycle": "no",
-        "highway": "pedestrian",
-        "name:en": "Marqués de Larios Street",
-        "tourism": "attraction",
-        "loc_name": "Calle Larios",
-        "loc_name:en": "Larios Street"
-      },
-      "osmId": 532211894,
-      "osmType": "way"
-    },
-    {
       "lat": 36.7060424,
       "lng": -4.460069,
       "name": "Palacio de Ferias y Congresos de Málaga",
@@ -3592,24 +3496,6 @@
         "wikimedia_commons": "File:Huerta Godino Waterwheel.jpg"
       },
       "osmId": 468749029,
-      "osmType": "way"
-    },
-    {
-      "lat": 36.7188852,
-      "lng": -4.4102768,
-      "name": "Parroquia San Gabriel",
-      "tags": {
-        "name": "Parroquia San Gabriel",
-        "amenity": "place_of_worship",
-        "building": "church",
-        "historic": "building",
-        "religion": "christian",
-        "check_date": "2023-09-02",
-        "denomination": "roman_catholic",
-        "building:levels": "2",
-        "historic:period": "modern"
-      },
-      "osmId": 516647599,
       "osmType": "way"
     },
     {
@@ -5224,6 +5110,145 @@
       },
       "osmId": 9774312215,
       "osmType": "node"
+    },
+    {
+      "osmType": "node",
+      "osmId": -1668721,
+      "name": "Palacio Deportes José María Martín Carpena",
+      "lat": 36.682467,
+      "lng": -4.460628,
+      "tags": {
+        "name": "Palacio Deportes José María Martín Carpena",
+        "wikidata": "Q1668721",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "19",
+        "canonical:instance_of": "indoor arena",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "lat": 36.7626432,
+      "lng": -4.4262608,
+      "name": "Casa-Palacio de los Marqueses de Casa Loring",
+      "tags": {
+        "name": "Casa-Palacio de los Marqueses de Casa Loring",
+        "name:en": "Marquis of Casa Loring Mansion",
+        "name:es": "Casa-Palacio de los Marqueses de Casa Loring",
+        "historic": "castle",
+        "castle_type": "palace",
+        "wikimedia_commons": "Category:Casa-palacio_de_la_Concepción"
+      },
+      "osmId": 68349662,
+      "osmType": "way"
+    },
+    {
+      "lat": 36.7251009,
+      "lng": -4.3940317,
+      "name": "Castillo de Santa Catalina",
+      "tags": {
+        "name": "Castillo de Santa Catalina",
+        "building": "hotel",
+        "historic": "castle",
+        "start_date": "1929",
+        "addr:street": "Calle Ramos Carrión",
+        "castle_type": "manor",
+        "building:levels": "6"
+      },
+      "osmId": 437029869,
+      "osmType": "way"
+    },
+    {
+      "lat": 36.6576195,
+      "lng": -4.5856215,
+      "name": "Cortijo Peralta",
+      "tags": {
+        "name": "Cortijo Peralta",
+        "building": "yes",
+        "historic": "manor"
+      },
+      "osmId": 810538351,
+      "osmType": "way"
+    },
+    {
+      "lat": 36.7247673,
+      "lng": -4.3940207,
+      "name": "Antiguo Baluarte de Santa Catalina",
+      "tags": {
+        "name": "Antiguo Baluarte de Santa Catalina",
+        "building": "ruins",
+        "historic": "castle",
+        "start_date": "1625",
+        "castle_type": "fortress"
+      },
+      "osmId": 922057824,
+      "osmType": "way"
+    },
+    {
+      "lat": 36.7587058,
+      "lng": -4.4251735,
+      "name": "Hacienda Nadales",
+      "tags": {
+        "name": "Hacienda Nadales",
+        "type": "multipolygon",
+        "building": "public",
+        "historic": "castle",
+        "start_date": "C19",
+        "castle_type": "palace",
+        "building:levels": "3",
+        "wikimedia_commons": "File:Hacienda Nadales 01.jpg"
+      },
+      "osmId": 8233050,
+      "osmType": "relation"
+    },
+    {
+      "lat": 36.7632873,
+      "lng": -4.3040181,
+      "name": "Dolmen Cerro de la Corona",
+      "tags": {
+        "name": "Dolmen Cerro de la Corona",
+        "source": "www.megalitos.es",
+        "tourism": "attraction",
+        "alt_name": "Tumba del Moro",
+        "historic": "archaeological_site",
+        "megalith_type": "dolmen",
+        "archaeological_site": "megalith"
+      },
+      "osmId": 3371346270,
+      "osmType": "node"
+    },
+    {
+      "lat": 36.7183096,
+      "lng": -4.4213911,
+      "name": "Calle Marqués de Larios",
+      "tags": {
+        "name": "Calle Marqués de Larios",
+        "bicycle": "no",
+        "highway": "pedestrian",
+        "name:en": "Marqués de Larios Street",
+        "tourism": "attraction",
+        "loc_name": "Calle Larios",
+        "loc_name:en": "Larios Street"
+      },
+      "osmId": 532211894,
+      "osmType": "way"
+    },
+    {
+      "lat": 36.7188852,
+      "lng": -4.4102768,
+      "name": "Parroquia San Gabriel",
+      "tags": {
+        "name": "Parroquia San Gabriel",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "historic": "building",
+        "religion": "christian",
+        "check_date": "2023-09-02",
+        "denomination": "roman_catholic",
+        "building:levels": "2",
+        "historic:period": "modern"
+      },
+      "osmId": 516647599,
+      "osmType": "way"
     }
   ],
   "sitelinks": {
@@ -5468,7 +5493,8 @@
     "Q115497855": 1,
     "Q110302054": 1,
     "Q112392676": 1,
-    "Q113334216": 1
+    "Q113334216": 1,
+    "Q1668721": 19
   },
   "wikidataMetadata": {
     "Q523311": {
@@ -7069,6 +7095,12 @@
       "instanceOfLabels": [
         "memorial",
         "bust"
+      ]
+    },
+    "Q1668721": {
+      "sitelinks": 19,
+      "instanceOfLabels": [
+        "indoor arena"
       ]
     }
   }
