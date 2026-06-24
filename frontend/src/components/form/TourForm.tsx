@@ -7,6 +7,7 @@ import { Button } from '../common/Button';
 import { Select } from '../common/Select';
 import { CityConceptDiscoveryResult, Theme, TourConcept, TourRequest, Language, LocationData } from '@/types/api';
 import { generateTour, generateTourFromConcept, getCityConcepts } from '@/lib/api';
+import type { ApiRequestError } from '@/lib/api';
 import { LocationPicker } from './LocationPicker';
 import { ConceptPicker } from './ConceptPicker';
 
@@ -40,6 +41,36 @@ const durationOptions = [
   { value: '480', label: '8 hours (Full day)' }
 ];
 
+interface DurationRecommendationDetails {
+  city: string;
+  theme: string;
+  requestedDurationMinutes: number;
+  recommendedDurationMinutes: number;
+  draftTourId: string;
+}
+
+function isDurationRecommendationDetails(details: unknown): details is DurationRecommendationDetails {
+  return Boolean(
+    details
+    && typeof details === 'object'
+    && 'requestedDurationMinutes' in details
+    && 'recommendedDurationMinutes' in details
+    && 'draftTourId' in details
+    && typeof (details as DurationRecommendationDetails).requestedDurationMinutes === 'number'
+    && typeof (details as DurationRecommendationDetails).recommendedDurationMinutes === 'number'
+    && typeof (details as DurationRecommendationDetails).draftTourId === 'string'
+  );
+}
+
+function formatDuration(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes} min`;
+  }
+
+  const hours = minutes / 60;
+  return Number.isInteger(hours) ? `${hours}h` : `${hours.toFixed(1)}h`;
+}
+
 export const TourForm = () => {
   const router = useRouter();
   const [location, setLocation] = useState<LocationData>();
@@ -53,6 +84,7 @@ export const TourForm = () => {
   const [selectedConcept, setSelectedConcept] = useState<TourConcept | null>(null);
   const [conceptError, setConceptError] = useState<string | null>(null);
   const [useManualThemeMode, setUseManualThemeMode] = useState(false);
+  const [durationRecommendation, setDurationRecommendation] = useState<DurationRecommendationDetails | null>(null);
   
   const { isLoading, error, setLoading, setError } = useTourStore();
 
@@ -75,6 +107,7 @@ export const TourForm = () => {
       setConceptDiscovery(null);
       setSelectedConcept(null);
       setUseManualThemeMode(false);
+      setDurationRecommendation(null);
     }
   }, [location?.city, location?.countryCode]);
 
@@ -135,6 +168,7 @@ export const TourForm = () => {
       // Single atomic update so isLoading:true and error:null land in the same
       // render — prevents setError's previous side-effect from resetting the flag.
       useTourStore.setState({ isLoading: true, error: null });
+      setDurationRecommendation(null);
 
       const parsedDuration = parseInt(duration, 10);
       const tour = selectedConcept
@@ -158,7 +192,13 @@ export const TourForm = () => {
 
       router.push(`/tours/${tour.id}`);
     } catch (err) {
-      if (err instanceof Error && 'code' in err && err.code === 'CITY_NOT_AVAILABLE') {
+      const apiError = err as ApiRequestError;
+
+      if (apiError.code === 'TOUR_DURATION_NOT_RECOMMENDED' && isDurationRecommendationDetails(apiError.details)) {
+        setDurationRecommendation(apiError.details);
+        setDuration(String(apiError.details.recommendedDurationMinutes));
+        setError(null);
+      } else if (apiError.code === 'CITY_NOT_AVAILABLE') {
         setError(
           `We don't have enough points of interest for "${location.city}" yet. Try a larger city or a different theme.`
         );
@@ -240,7 +280,10 @@ export const TourForm = () => {
           label="Language"
           options={languageOptions}
           value={language}
-          onChange={(e) => setLanguage(e.target.value as Language)}
+          onChange={(e) => {
+            setLanguage(e.target.value as Language);
+            setDurationRecommendation(null);
+          }}
         />
 
         {useManualThemeMode ? (
@@ -248,7 +291,10 @@ export const TourForm = () => {
             label="Theme"
             options={themeOptions}
             value={theme}
-            onChange={(e) => setTheme(e.target.value as Theme)}
+            onChange={(e) => {
+              setTheme(e.target.value as Theme);
+              setDurationRecommendation(null);
+            }}
             error={errors.theme}
             required
           />
@@ -264,8 +310,45 @@ export const TourForm = () => {
         label="Tour Duration"
         options={durationOptions}
         value={duration}
-        onChange={(e) => setDuration(e.target.value)}
+        onChange={(e) => {
+          setDuration(e.target.value);
+          setDurationRecommendation(null);
+        }}
       />
+
+      {durationRecommendation && !isLoading && (
+        <div className="relative overflow-hidden rounded-2xl border border-mutedGold/45 bg-surface-elevated p-5 text-darkBrown shadow-sm" role="status" aria-live="polite">
+          <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-mutedGold/15" />
+          <div className="relative">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">
+              Better tour length found
+            </p>
+            <h3 className="mt-2 font-serif text-2xl font-semibold text-darkBrown">
+              {formatDuration(durationRecommendation.requestedDurationMinutes)} would feel stretched here.
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-darkBrown/75">
+              For {durationRecommendation.city}, we found enough strong history for a natural {formatDuration(durationRecommendation.recommendedDurationMinutes)} walk. We already prepared that draft so the route can stay focused instead of padded.
+            </p>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <Button
+                type="button"
+                onClick={() => router.push(`/tours/${durationRecommendation.draftTourId}`)}
+                className="sm:w-auto"
+              >
+                Open recommended tour
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setDurationRecommendation(null)}
+                className="sm:w-auto"
+              >
+                Adjust options
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {isLoading && (
         <div className="rounded-xl border border-darkBrown/15 bg-surface-elevated p-4 text-sm text-darkBrown shadow-sm" role="status" aria-live="polite">

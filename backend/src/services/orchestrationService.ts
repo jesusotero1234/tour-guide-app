@@ -1258,6 +1258,9 @@ export class OrchestrationService {
         qualityStatus: tour.metadata?.qualityStatus,
         confidence: tour.metadata?.confidence,
         repair: tour.metadata?.repair,
+        requestedDurationMinutes: tour.metadata?.requestedDurationMinutes,
+        recommendedDurationMinutes: tour.metadata?.recommendedDurationMinutes,
+        durationAdapted: tour.metadata?.durationAdapted,
         createdAt: tour.createdAt,
         updatedAt: tour.updatedAt
       };

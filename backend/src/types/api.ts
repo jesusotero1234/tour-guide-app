@@ -62,6 +62,9 @@ export interface TourResponse {
   qualityStatus?: TourQualityStatus;
   confidence?: TourConfidence;
   repair?: TourQualityRepairMetadata;
+  requestedDurationMinutes?: number;
+  recommendedDurationMinutes?: number;
+  durationAdapted?: boolean;
   createdAt: string;
   updatedAt?: string;
 }

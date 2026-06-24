@@ -4,6 +4,18 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/a
 
 export type { TourListParams } from '@/types/api';
 
+export type ApiRequestError = Error & {
+  code?: string;
+  details?: unknown;
+};
+
+function createApiRequestError(errorData: any, fallbackMessage: string): ApiRequestError {
+  const err = new Error(errorData.error?.message || fallbackMessage) as ApiRequestError;
+  err.code = errorData.error?.code;
+  err.details = errorData.error?.details;
+  return err;
+}
+
 export async function generateTour(request: TourRequest): Promise<Tour> {
   try {
     console.log(`Generating tour for ${request.city}, theme: ${request.theme}, duration: ${request.duration || 'default'}`);
@@ -21,9 +33,7 @@ export async function generateTour(request: TourRequest): Promise<Tour> {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Tour generation error:', errorData);
-      const err = new Error(errorData.error?.message || 'Failed to generate tour') as Error & { code?: string };
-      err.code = errorData.error?.code;
-      throw err;
+      throw createApiRequestError(errorData, 'Failed to generate tour');
     }
     
     const tourData = await response.json();
@@ -76,9 +86,7 @@ export async function generateTourFromConcept(request: ConceptTourRequest): Prom
 
     if (!response.ok) {
       const errorData = await response.json();
-      const err = new Error(errorData.error?.message || 'Failed to generate concept tour') as Error & { code?: string };
-      err.code = errorData.error?.code;
-      throw err;
+      throw createApiRequestError(errorData, 'Failed to generate concept tour');
     }
 
     return await response.json();

@@ -22,6 +22,15 @@ function getTourProgressKey(tourId: string) {
   return `tour-progress:${tourId}`;
 }
 
+function formatTourDuration(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes} min`;
+  }
+
+  const hours = minutes / 60;
+  return Number.isInteger(hours) ? `${hours}h` : `${hours.toFixed(1)}h`;
+}
+
 type LocationStatus = 'idle' | 'loading' | 'ready' | 'denied' | 'unavailable';
 type PlaybackStatus = {
   isPlaying: boolean;
@@ -302,6 +311,23 @@ export default function TourDetailPage() {
                   </div>
                 </div>
               </div>
+
+              {tour.durationAdapted && tour.requestedDurationMinutes && tour.recommendedDurationMinutes && (
+                <div className="relative overflow-hidden rounded-2xl border border-mutedGold/40 bg-surface-elevated p-5 shadow-sm sm:p-6">
+                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-mutedGold/15" />
+                  <div className="relative">
+                    <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">
+                      Curated length
+                    </p>
+                    <h2 className="mt-2 font-serif text-2xl font-semibold text-darkBrown">
+                      We shaped this as a {formatTourDuration(tour.recommendedDurationMinutes)} walk.
+                    </h2>
+                    <p className="mt-2 max-w-3xl text-sm leading-6 text-darkBrown/75 sm:text-base">
+                      You asked for {formatTourDuration(tour.requestedDurationMinutes)}, but this city had a stronger, more natural route at {formatTourDuration(tour.recommendedDurationMinutes)}. This version keeps the story dense instead of padding the walk with weaker stops.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {tour.places.length > 0 && currentPlace ? (
                 <div className="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,1fr)] lg:items-start">

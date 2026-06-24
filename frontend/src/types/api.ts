@@ -124,6 +124,9 @@ export interface Tour {
    previewStopNames?: string[];
   language: Language;
   durationMinutes: number;
+  requestedDurationMinutes?: number;
+  recommendedDurationMinutes?: number;
+  durationAdapted?: boolean;
   places: Place[];
   createdAt: string;
   updatedAt?: string;
