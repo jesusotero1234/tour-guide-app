@@ -3,6 +3,7 @@ import { ConceptTourRequest, TourRequest, TourResponse } from '../../types/api';
 import { orchestrationService } from '../../services/orchestrationService';
 import { CityNotAvailableError, CITY_NOT_AVAILABLE_CODE } from '../../domain/errors/CityNotAvailableError';
 import { CityQualityNotAvailableError, CITY_QUALITY_NOT_AVAILABLE_CODE } from '../../domain/errors/CityQualityNotAvailableError';
+import { TourDurationNotRecommendedError, TOUR_DURATION_NOT_RECOMMENDED_CODE } from '../../domain/errors/TourDurationNotRecommendedError';
 
 export async function generateTour(req: Request, res: Response) {
   try {
@@ -28,6 +29,15 @@ export async function generateTour(req: Request, res: Response) {
       return res.status(422).json({
         error: {
           code: CITY_QUALITY_NOT_AVAILABLE_CODE,
+          message: error.message,
+          details: error.details,
+        }
+      });
+    }
+    if (error instanceof TourDurationNotRecommendedError) {
+      return res.status(422).json({
+        error: {
+          code: TOUR_DURATION_NOT_RECOMMENDED_CODE,
           message: error.message,
           details: error.details,
         }
@@ -64,6 +74,15 @@ export async function generateTourFromConcept(req: Request, res: Response) {
       return res.status(422).json({
         error: {
           code: CITY_QUALITY_NOT_AVAILABLE_CODE,
+          message: error.message,
+          details: error.details,
+        }
+      });
+    }
+    if (error instanceof TourDurationNotRecommendedError) {
+      return res.status(422).json({
+        error: {
+          code: TOUR_DURATION_NOT_RECOMMENDED_CODE,
           message: error.message,
           details: error.details,
         }

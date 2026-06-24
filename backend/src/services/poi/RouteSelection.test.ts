@@ -184,6 +184,46 @@ describe('composeWalkingRoute', () => {
     expect(names.filter((name) => name.includes('Museum')).length).toBeLessThanOrEqual(1);
   });
 
+  it('protects four strong history anchors before adding secondary long-tour filler', () => {
+    const result = composeWalkingRoute([
+      {
+        ...tieredCandidate('Alcazaba', 36.7211, -4.4162, 'palace_castle', 12, 'major', 18),
+        historyPlaceScore: 19,
+        historyPlaceKinds: ['event-place', 'power-site'],
+        historyIsEventSiteLike: true,
+      },
+      {
+        ...tieredCandidate('Roman Theatre', 36.7213, -4.4168, 'other', 11.8, 'major', 17),
+        historyPlaceScore: 18,
+        historyPlaceKinds: ['event-place'],
+        historyIsEventSiteLike: true,
+      },
+      {
+        ...tieredCandidate('Gibralfaro', 36.7238, -4.4104, 'palace_castle', 11.6, 'major', 16),
+        historyPlaceScore: 18,
+        historyPlaceKinds: ['event-place', 'power-site'],
+        historyIsEventSiteLike: true,
+      },
+      {
+        ...tieredCandidate('Nazarí Wall', 36.7204, -4.4190, 'memorial', 11.4, 'major', 15),
+        historyPlaceScore: 17,
+        historyPlaceKinds: ['event-place', 'memory-site'],
+        historyIsEventSiteLike: true,
+      },
+      tieredCandidate('Old Suburban Station', 36.7170, -4.4210, 'other', 12.5, 'flagship', 20),
+      tieredCandidate('Music Conservatory', 36.7192, -4.4230, 'other', 12.2, 'flagship', 19),
+      tieredCandidate('Port Office', 36.7155, -4.4185, 'other', 12.1, 'flagship', 18),
+      tieredCandidate('Commercial Street', 36.7182, -4.4212, 'other', 11.9, 'major', 17),
+    ], 240, 'history', { minStops: 6, maxStops: 8 });
+
+    expect(result.route.map((place) => place.name)).toEqual(expect.arrayContaining([
+      'Alcazaba',
+      'Roman Theatre',
+      'Gibralfaro',
+      'Nazarí Wall',
+    ]));
+  });
+
   it('keeps a separated flagship instead of replacing it with compact filler', () => {
     const result = composeWalkingRoute([
       tieredCandidate('Royal Palace', 40.4168, -3.7038, 'palace_castle', 11, 'flagship'),

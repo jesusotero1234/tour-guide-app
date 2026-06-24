@@ -28,9 +28,11 @@ import { Theme } from '../domain/poi/themeTags';
 import { classifyPoiTags } from '../domain/poi/PoiClassification';
 import { CityNotAvailableError } from '../domain/errors/CityNotAvailableError';
 import { CityQualityNotAvailableError } from '../domain/errors/CityQualityNotAvailableError';
+import { TourDurationNotRecommendedError } from '../domain/errors/TourDurationNotRecommendedError';
 import { buildNarration } from './narrative/NarrativeBuilder';
 import { composeWalkingRoute, estimateRouteMetrics, buildDiversePrefix, orderRouteCandidates, RouteDiagnostics, RouteSelectionResult } from './poi/RouteSelection';
 import { getDurationPlan } from './poi/DurationPlanning';
+import { assessHistoryTourCapacity, HistoryTourCapacity } from './poi/HistoryTourCapacity';
 import { fetchWikidataLandmarkMetadata, tierPoisByLandmarkFame } from './poi/LandmarkTiering';
 import { enrichShortlistedPois } from './poi/PoiEnrichmentPipeline';
 import { getHistoryPlaceProfile } from './poi/HistoryPlaceScoring';
@@ -82,6 +84,14 @@ interface StoredTourConcept {
 
 interface StageTimer {
   end: () => number;
+}
+
+interface GenerateFullTourOptions {
+  skipAudio?: boolean;
+  bypassDurationRecommendation?: boolean;
+  requestedDurationOverride?: number;
+  generationMode?: NonNullable<Tour['metadata']>['generationMode'];
+  durationCapacity?: HistoryTourCapacity;
 }
 
 const FLEXIBLE_PASS_TOURS_REQUIRED = 3;
@@ -814,6 +824,9 @@ export class OrchestrationService {
       if (error instanceof CityQualityNotAvailableError) {
         throw error;
       }
+      if (error instanceof TourDurationNotRecommendedError) {
+        throw error;
+      }
       throw new Error(`Failed to generate tour: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -937,7 +950,7 @@ export class OrchestrationService {
     };
   }
 
-  private async generateFullTour(request: TourRequest): Promise<TourResponse> {
+  private async generateFullTour(request: TourRequest, options: GenerateFullTourOptions = {}): Promise<TourResponse> {
     const requestedDuration = request.durationMinutes || request.duration || 240;
     const gateMode = getTourConfidenceGateMode();
     const repairMode = getTourQualityRepairMode();
@@ -952,6 +965,36 @@ export class OrchestrationService {
       request.language || 'en',
       requestedDuration
     );
+    const durationCapacity = options.durationCapacity
+      ?? (this.normalizeMatchValue(request.theme) === 'history'
+        ? assessHistoryTourCapacity(structuralTour.routeCandidates, requestedDuration)
+        : undefined);
+
+    if (
+      durationCapacity?.reason === 'history_capacity_below_requested'
+      && !options.bypassDurationRecommendation
+    ) {
+      const recommendedRequest: TourRequest = {
+        ...request,
+        durationMinutes: durationCapacity.recommendedDuration,
+        duration: durationCapacity.recommendedDuration,
+      };
+      const draftTour = await this.generateFullTour(recommendedRequest, {
+        skipAudio: true,
+        bypassDurationRecommendation: true,
+        requestedDurationOverride: requestedDuration,
+        generationMode: 'duration-recommendation-draft',
+        durationCapacity,
+      });
+
+      throw new TourDurationNotRecommendedError({
+        city: request.city,
+        theme: request.theme,
+        requestedDurationMinutes: requestedDuration,
+        recommendedDurationMinutes: durationCapacity.recommendedDuration,
+        draftTourId: draftTour.id,
+      });
+    }
     const confidence = shouldEvaluateConfidence
       ? computeTourConfidence(structuralTour.confidenceInput)
       : undefined;
@@ -1052,7 +1095,10 @@ export class OrchestrationService {
         confidence: gateMode === 'shadow' ? confidence : finalConfidence,
         repair: repairMetadata,
         itineraryKey: this.buildItineraryKey(request),
-        generationMode: 'full',
+        generationMode: options.generationMode ?? 'full',
+        requestedDurationMinutes: options.requestedDurationOverride,
+        recommendedDurationMinutes: options.durationCapacity?.recommendedDuration,
+        durationAdapted: options.generationMode === 'duration-recommendation-draft',
       },
       places: placesWithImages.map((p: any, idx: number) => ({
         id: p.id || '',
@@ -1094,11 +1140,13 @@ export class OrchestrationService {
       descriptionSections: placesWithImages[index]?.descriptionSections,
     }));
 
-    const placesWithAudio = await this.generateAudio(
-      savedPlacesWithSections,
-      request.language || 'en'
-    );
-    console.log('Generated audio');
+    const placesWithAudio = options.skipAudio
+      ? savedPlacesWithSections
+      : await this.generateAudio(
+        savedPlacesWithSections,
+        request.language || 'en'
+      );
+    console.log(options.skipAudio ? 'Skipped audio for duration recommendation draft' : 'Generated audio');
 
     return {
       id: savedTour.id,

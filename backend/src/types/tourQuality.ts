@@ -33,5 +33,8 @@ export interface TourMetadata {
   routeType?: string;
   localizedFromTourId?: string;
   localizedFromLanguage?: string;
-  generationMode?: 'full' | 'exact-reuse' | 'cross-language-localization' | 'audio-repair' | 'from-concept';
+  generationMode?: 'full' | 'exact-reuse' | 'cross-language-localization' | 'audio-repair' | 'from-concept' | 'duration-recommendation-draft';
+  requestedDurationMinutes?: number;
+  recommendedDurationMinutes?: number;
+  durationAdapted?: boolean;
 }
