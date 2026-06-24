@@ -47,9 +47,34 @@ const EVENT_SITE_LABEL_PATTERNS = [
   /ruin/i,
 ];
 
+const STRONG_MUSEUM_SITE_CONTEXT_LABEL_PATTERNS = [
+  /archaeological site/i,
+  /battlefield/i,
+  /city gate|gate/i,
+  /city wall|wall/i,
+  /checkpoint/i,
+  /fortification|fortress|citadel|fort\b/i,
+  /government building|parliament|legislative building|senate|capitol|congress|assembly/i,
+  /historic house/i,
+  /historic site|historic district/i,
+  /palace|castle/i,
+  /public square|plaza|square/i,
+  /prison/i,
+  /ruin/i,
+  /war memorial|cautionary memorial/i,
+];
+
 const MUSEUM_LABEL_PATTERNS = [
   /museum/i,
   /art gallery/i,
+];
+
+const MUSEUM_NAME_PATTERNS = [
+  /\bmuseum\b/i,
+  /\bmuseo\b/i,
+  /\bmusée\b/i,
+  /\bmuseu\b/i,
+  /\bmuseo\b/i,
 ];
 
 export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): HistoryPlaceProfile {
@@ -69,8 +94,10 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
   let score = 0;
 
   const isMuseumLike = tourism === 'museum' || hasAny(instanceLabels, MUSEUM_LABEL_PATTERNS);
+  const hasMuseumName = hasAny(name, MUSEUM_NAME_PATTERNS);
   const hasEventName = hasAny(name, EVENT_SITE_NAME_PATTERNS);
   const hasEventLabel = hasAny(instanceLabels, EVENT_SITE_LABEL_PATTERNS);
+  const hasStrongMuseumSiteContextLabel = hasAny(instanceLabels, STRONG_MUSEUM_SITE_CONTEXT_LABEL_PATTERNS);
   const hasEventDescription = hasAny(description, [
     /war|battle|revolution|uprising|dictatorship|occupation|independence|reunification|border|wall|checkpoint/i,
     /guerra|batalla|revoluci[oó]n|levantamiento|dictadura|ocupaci[oó]n|independencia|frontera|muro/i,
@@ -132,8 +159,16 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
     kinds.add('heritage-religious');
   }
 
-  if (isMuseumLike && !hasEventLabel && !hasEventDescription && historic !== 'memorial') {
-    score -= 4;
+  const hasStrongMuseumSiteContext = kinds.has('event-place')
+    || kinds.has('power-site')
+    || kinds.has('civic-power-site')
+    || kinds.has('public-square')
+    || kinds.has('event-description')
+    || hasStrongMuseumSiteContextLabel
+    || (hasEventName && !hasMuseumName);
+
+  if (isMuseumLike && !hasStrongMuseumSiteContext) {
+    score -= 6;
     kinds.add('museum-container');
   } else if (isMuseumLike) {
     score -= 1;
@@ -149,7 +184,9 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
   addKind(kinds, Boolean(tags.wikidata), 'wikidata');
   addKind(kinds, Boolean(tags.wikipedia), 'wikipedia');
 
-  const isEventSiteLike = score >= 5 && !kinds.has('museum-container');
+  const isEventSiteLike = score >= 5
+    && !kinds.has('museum-container')
+    && (!isMuseumLike || hasStrongMuseumSiteContext);
   return {
     score: Number(score.toFixed(2)),
     kinds: Array.from(kinds),

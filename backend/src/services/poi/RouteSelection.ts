@@ -102,6 +102,22 @@ function getImportanceScore(place: RouteCandidate): number {
   return place.importanceScore ?? place.importance_score ?? 0;
 }
 
+function isHistoryMuseumContainer(place: RouteCandidate): boolean {
+  return (place.historyIsMuseumLike === true && place.historyIsEventSiteLike !== true)
+    || (Array.isArray(place.historyPlaceKinds) && place.historyPlaceKinds.includes('museum-container'));
+}
+
+function getHistoryCompositionCandidates<T extends RouteCandidate>(candidates: T[], theme: string, minStops: number): T[] {
+  if (theme !== 'history') {
+    return candidates;
+  }
+
+  const withoutMuseumContainers = candidates.filter((candidate) => !isHistoryMuseumContainer(candidate));
+  return withoutMuseumContainers.length >= Math.max(2, minStops)
+    ? withoutMuseumContainers
+    : candidates;
+}
+
 function getHistoryRouteExperienceScore(place: RouteCandidate, theme?: string): number {
   if (theme !== 'history') {
     return 0;
@@ -109,6 +125,10 @@ function getHistoryRouteExperienceScore(place: RouteCandidate, theme?: string): 
 
   const explicitScore = typeof place.historyPlaceScore === 'number' ? place.historyPlaceScore : null;
   if (explicitScore !== null) {
+    if (isHistoryMuseumContainer(place)) {
+      return Math.min(-30, explicitScore - 40);
+    }
+
     return explicitScore;
   }
 
@@ -909,7 +929,8 @@ export function composeWalkingRoute<T extends RouteCandidate>(
   theme: string,
   stopBounds: StopBounds
 ): RouteSelectionResult<T> {
-  const routeCandidates = verifiedPlaces.filter((place) => getCoordinates(place)) as T[];
+  const verifiedRouteCandidates = verifiedPlaces.filter((place) => getCoordinates(place)) as T[];
+  const routeCandidates = getHistoryCompositionCandidates(verifiedRouteCandidates, theme, stopBounds.minStops);
 
   if (routeCandidates.length < 2) {
     throw new Error('No places could be verified');

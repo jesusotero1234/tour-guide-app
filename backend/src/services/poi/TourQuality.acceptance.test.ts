@@ -39,6 +39,10 @@ interface CandidateFixture {
     fameScore: number;
     landmarkTier: string;
     category: string;
+    historyPlaceScore?: number;
+    historyPlaceKinds?: string[];
+    historyIsEventSiteLike?: boolean;
+    historyIsMuseumLike?: boolean;
   }>;
 }
 
@@ -187,8 +191,38 @@ describe('Tour quality acceptance', () => {
           expect(maxShare).toBeLessThanOrEqual(0.7);
         });
 
+        it('uses lived-history places instead of museum containers when history evidence is available', () => {
+          if (theme !== 'history') {
+            expect(true).toBe(true);
+            return;
+          }
+
+          const routeWithHistoryEvidence = (route as any[]).filter((stop) => (
+            typeof stop.historyPlaceScore === 'number'
+            || typeof stop.historyIsEventSiteLike === 'boolean'
+            || typeof stop.historyIsMuseumLike === 'boolean'
+          ));
+
+          // Legacy candidate fixtures do not yet carry history scoring metadata.
+          // Those cities are still covered by the anchor oracle until refreshed.
+          if (routeWithHistoryEvidence.length === 0) {
+            expect(true).toBe(true);
+            return;
+          }
+
+          const livedHistoryStops = routeWithHistoryEvidence.filter((stop) => (
+            stop.historyIsEventSiteLike === true || (stop.historyPlaceScore ?? 0) >= 8
+          ));
+          const museumContainers = routeWithHistoryEvidence
+            .filter((stop) => stop.historyIsMuseumLike === true && stop.historyIsEventSiteLike !== true)
+            .map((stop) => stop.name);
+
+          expect(livedHistoryStops.length / routeWithHistoryEvidence.length).toBeGreaterThanOrEqual(0.6);
+          expect(museumContainers).toEqual([]);
+        });
+
         it(key === 'Madrid/history'
-          ? 'includes Templo de Debod and Puerta de Alcalá'
+          ? 'includes Puerta de Alcalá as a lived-history city gate'
           : 'keeps city-specific flagship regression coverage city-local', () => {
           if (key !== 'Madrid/history') {
             expect(true).toBe(true);
@@ -196,7 +230,6 @@ describe('Tour quality acceptance', () => {
           }
 
           const routeQids = new Set(route.map((s: any) => s.wikidataId));
-          expect(routeQids.has('Q1140249')).toBe(true);
           expect(routeQids.has('Q1140634')).toBe(true);
         });
       });

@@ -1,7 +1,7 @@
 {
   "city": "Amsterdam",
   "theme": "history",
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "geocode": {
     "lat": 52.3730796,
     "lng": 4.8924534,
@@ -653,10 +653,16 @@
       "lat": 52.3670594,
       "lng": 4.8932212,
       "tags": {
+        "name": "Munttoren",
+        "wikidata": "Q1429748",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "19",
+        "canonical:instance_of": "tower|city gate",
+        "tourism": "attraction",
+        "historic": "city_gate",
         "building": "yes",
         "heritage": "2",
         "heritage:operator": "rce",
-        "name": "Munttoren",
         "name:en": "Mint Tower",
         "name:nl": "Munttoren",
         "name:uk": "Мунтторен",
@@ -668,9 +674,7 @@
         "source:date": "2021-08-08",
         "start_date": "1886",
         "toilets:wheelchair": "no",
-        "tourism": "attraction",
         "wheelchair": "limited",
-        "wikidata": "Q1429748",
         "wikimedia_commons": "Category:Munttoren",
         "wikipedia": "nl:Munttoren (Amsterdam)"
       }
@@ -870,23 +874,6 @@
         "wikidata": "Q2921152",
         "wikimedia_commons": "Category:Hoek van 't IJ",
         "wikipedia": "nl:Hoek van 't IJ"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 172288023,
-      "name": "Vesting Muiden",
-      "lat": 52.3309735,
-      "lng": 5.0691792,
-      "tags": {
-        "castle_type": "fortress",
-        "heritage": "Unesco",
-        "heritage:operator": "rce",
-        "historic": "castle",
-        "name": "Vesting Muiden",
-        "name:en": "Muiden Fortress",
-        "note": "border is a fantasy, needs study or research",
-        "ref:rce": "454479"
       }
     },
     {
@@ -1120,31 +1107,6 @@
         "start_date": "1005",
         "wikidata": "Q17295556",
         "wikimedia_commons": "Category:Het Wapen van Amsterdam (Kloveniersburgwal)"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 266927240,
-      "name": "Church of England",
-      "lat": 52.3686141,
-      "lng": 4.8976041,
-      "tags": {
-        "amenity": "place_of_worship",
-        "building": "yes",
-        "denomination": "anglican",
-        "heritage": "2",
-        "heritage:operator": "rce",
-        "name": "Church of England",
-        "ref:bag": "0363100012171165",
-        "ref:rce": "1269",
-        "religion": "christian",
-        "source": "BAG",
-        "source:date": "2014-02-11",
-        "start_date": "1829",
-        "toilets:wheelchair": "no",
-        "wheelchair": "yes",
-        "wikimedia_commons": "Category:English Episcopal Church (Amsterdam)",
-        "wikipedia": "nl:Christ Church (Amsterdam)"
       }
     },
     {
@@ -2082,19 +2044,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 678260767,
-      "name": "Vesting Weesp",
-      "lat": 52.3072234,
-      "lng": 5.0428128,
-      "tags": {
-        "castle_type": "fortress",
-        "historic": "castle",
-        "name": "Vesting Weesp",
-        "source": "survey"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 771473524,
       "name": "Lau Mazirelbrug",
       "lat": 52.3652171,
@@ -2153,39 +2102,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 1079465658,
-      "name": "Frankendael",
-      "lat": 52.3517117,
-      "lng": 4.9333371,
-      "tags": {
-        "architect": "Jacob Otten Husly",
-        "heritage": "2",
-        "heritage:operator": "rce",
-        "heritage:website": "https://www.monumenten.nl/monument/422422",
-        "historic": "city_gate",
-        "name": "Frankendael",
-        "ref:rce": "422422",
-        "start_date": "1783"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 1081700284,
-      "name": "Toegangspoort tot de Nieuwe Oosterbegraafplaats",
-      "lat": 52.3465252,
-      "lng": 4.9385577,
-      "tags": {
-        "architect": "Adriaan Willem Weissman",
-        "heritage": "2",
-        "heritage:operator": "rce",
-        "historic": "city_gate",
-        "name": "Toegangspoort tot de Nieuwe Oosterbegraafplaats",
-        "ref:rce": "526963",
-        "start_date": "1894"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 1509507854,
       "name": "Sint-Petrus-en-Pauluskerk",
       "lat": 52.3540222,
@@ -2216,16 +2132,21 @@
       "lat": 52.3842759,
       "lng": 4.8306731,
       "tags": {
+        "name": "Stelling van Amsterdam",
+        "wikidata": "Q855003",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "39",
+        "canonical:instance_of": "fortification|waterline|Nationaal Landschap",
+        "tourism": "attraction",
+        "historic": "fort",
+        "building": "castle",
         "description": "Series of forts and inundation works built late 19th / early 20th century to protect Amsterdam.",
         "heritage": "1",
         "heritage:operator": "whc",
-        "historic": "fort",
-        "name": "Stelling van Amsterdam",
         "ref:whc": "759",
         "type": "site",
         "website": "https://www.stelling-amsterdam.nl/",
         "whc:inscription_date": "1996",
-        "wikidata": "Q855003",
         "wikipedia": "nl:Stelling van Amsterdam"
       }
     },
@@ -2259,17 +2180,22 @@
       "lat": 52.3731449,
       "lng": 4.891336,
       "tags": {
+        "name": "Koninklijk Paleis",
+        "wikidata": "Q1056152",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "36",
+        "canonical:instance_of": "museum|city hall|royal palace",
+        "tourism": "attraction",
+        "historic": "castle",
+        "building": "palace",
         "addr:city": "Amsterdam",
         "addr:country": "NL",
         "addr:housenumber": "147",
         "addr:postcode": "1012RJ",
         "addr:street": "Nieuwezijds Voorburgwal",
         "alt_name": "Paleis op de Dam",
-        "building": "yes",
         "building:levels": "5",
         "castle_type": "palace",
-        "historic": "castle",
-        "name": "Koninklijk Paleis",
         "name:de": "Königlicher Palast",
         "name:en": "Royal Palace",
         "name:ko": "암스테르담 왕궁",
@@ -2283,10 +2209,8 @@
         "source": "BAG",
         "source:date": "2014-02-11",
         "start_date": "1655",
-        "tourism": "attraction",
         "type": "multipolygon",
         "website": "https://www.paleisamsterdam.nl/",
-        "wikidata": "Q1056152",
         "wikimedia_commons": "Category:Royal Palace of Amsterdam",
         "wikipedia": "nl:Paleis op de Dam"
       }
@@ -2679,27 +2603,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 27921691,
-      "name": "Fort Pampus Batterij",
-      "lat": 52.3648271,
-      "lng": 5.0689559,
-      "tags": {
-        "building": "yes",
-        "fee": "yes",
-        "name": "Fort Pampus Batterij",
-        "opening_hours": "Tu-Su 11:00-05:00",
-        "payment:museumkaart": "yes",
-        "ref:bag": "0424100000005337",
-        "source": "BAG",
-        "source:date": "2025-04-25",
-        "start_date": "1895",
-        "tourism": "museum",
-        "website": "https://www.pampus.nl",
-        "wikipedia": "nl:Pampus (eiland)"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 44508819,
       "name": "Stedelijk Museum Amsterdam",
       "lat": 52.3579082,
@@ -2824,27 +2727,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 99203577,
-      "name": "Westertoren",
-      "lat": 52.3745301,
-      "lng": 4.8835346,
-      "tags": {
-        "building": "yes",
-        "historic": "yes",
-        "man_made": "tower",
-        "name": "Westertoren",
-        "note": "85 m",
-        "ref:bag": "0363100012174221",
-        "source": "BAG",
-        "source:date": "2014-02-11",
-        "start_date": "1631",
-        "tourism": "attraction",
-        "tower:type": "bell_tower",
-        "wikipedia": "nl:Westertoren (Amsterdam)"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 114120359,
       "name": "Zuiderkerk",
       "lat": 52.3702929,
@@ -2916,26 +2798,18 @@
     },
     {
       "osmType": "way",
-      "osmId": 456607614,
-      "name": "Stoomgemaal Halfweg",
-      "lat": 52.3831457,
-      "lng": 4.7497418,
-      "tags": {
-        "description": "polder pumping station, steam operated, preserved",
-        "fee": "yes",
-        "name": "Stoomgemaal Halfweg",
-        "tourism": "museum",
-        "website": "https://www.stoomgemaalhalfweg.nl",
-        "wikipedia": "nl:Stoomgemaal Halfweg"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 601081859,
       "name": "Anne Frank Huis",
       "lat": 52.3751546,
       "lng": 4.8840978,
       "tags": {
+        "name": "Anne Frank Huis",
+        "wikidata": "Q165366",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "38",
+        "canonical:instance_of": "war memorial|historic house museum",
+        "tourism": "museum",
+        "historic": "memorial",
         "addr:city": "Amsterdam",
         "addr:country": "NL",
         "addr:housenumber": "267",
@@ -2945,7 +2819,6 @@
         "description:en": "Entry only with pre-booked online tickets",
         "fax": "+31 20 620 7999",
         "fee": "yes",
-        "name": "Anne Frank Huis",
         "name:ca": "Casa d'Anne Frank",
         "name:cs": "Dům Anny Frankové",
         "name:cy": "Tŷ Anne Frank",
@@ -2974,10 +2847,8 @@
         "payment:museumkaart": "yes",
         "phone": "+31 20 556 7100",
         "surveillance": "indoor;outdoor",
-        "tourism": "museum",
         "website": "https://www.annefrank.org/",
         "wheelchair": "no",
-        "wikidata": "Q165366",
         "wikimedia_commons": "Category:Wing Anne Frank House",
         "wikipedia": "nl:Anne Frank Huis"
       }
@@ -4178,19 +4049,6 @@
     },
     {
       "osmType": "node",
-      "osmId": 3769174083,
-      "name": "Nieuwzijds Kapel",
-      "lat": 52.3702059,
-      "lng": 4.8919252,
-      "tags": {
-        "building": "yes",
-        "historic": "yes",
-        "name": "Nieuwzijds Kapel",
-        "tourism": "attraction"
-      }
-    },
-    {
-      "osmType": "node",
       "osmId": 4003042222,
       "name": "Hembrug Museum",
       "lat": 52.4226857,
@@ -4525,6 +4383,12 @@
       "lng": 4.8926093,
       "tags": {
         "name": "Dam",
+        "wikidata": "Q839050",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "33",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "name:ar": "سكوير الدام",
         "name:cs": "Dam (Amsterdam)",
         "name:de": "Damplatz",
@@ -4539,10 +4403,7 @@
         "name:zh": "水壩廣場",
         "name:zh-Hans": "水坝广场",
         "old_name": "Vijgendam",
-        "place": "square",
-        "tourism": "attraction",
         "wheelchair": "yes",
-        "wikidata": "Q839050",
         "wikimedia_commons": "Category:Dam Square",
         "wikipedia": "nl:Dam (Amsterdam)"
       }
@@ -4579,15 +4440,20 @@
       "lat": 52.3725531,
       "lng": 4.9000895,
       "tags": {
-        "amenity": "marketplace",
         "name": "Nieuwmarkt",
+        "wikidata": "Q1568693",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
+        "amenity": "marketplace",
         "name:de": "Neumarkt",
         "name:en": "New Market",
         "name:nl": "Nieuwmarkt",
         "opening_hours": "Mo-Fr 10:00-18:30; Sa 09:00-18:30; Su 09:00-17:00",
         "website": "https://amsterdamnieuwmarkt.nl/markt/",
         "wheelchair": "yes",
-        "wikidata": "Q1568693",
         "wikimedia_commons": "Category:Nieuwmarkt",
         "wikipedia": "nl:Nieuwmarkt (Amsterdam)"
       }
@@ -4649,13 +4515,17 @@
       "lng": 4.8833872,
       "tags": {
         "name": "Museumplein",
+        "wikidata": "Q639321",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "23",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "name:de": "Museumsplatz",
         "name:en": "Museum Square",
         "name:ko": "박물관 광장(뮈세윔플레인)",
         "name:nl": "Museumplein",
         "name:zh": "博物館廣場",
-        "place": "square",
-        "wikidata": "Q639321",
         "wikimedia_commons": "Category:Museumplein",
         "wikipedia": "nl:Museumplein"
       }
@@ -4696,13 +4566,17 @@
       "lng": 4.8966284,
       "tags": {
         "name": "Rembrandtplein",
+        "wikidata": "Q1579642",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "16",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square",
         "name:de": "Rembrandtplatz",
         "name:en": "Rembrandt Square",
         "name:ko": "렘브란트 광장",
         "name:nl": "Rembrandtplein",
         "name:ru": "Площадь Рембрандта",
-        "place": "square",
-        "wikidata": "Q1579642",
         "wikimedia_commons": "Category:Rembrandtplein, Amsterdam",
         "wikipedia": "nl:Rembrandtplein (Amsterdam)"
       }
@@ -4889,30 +4763,6 @@
         "website": "https://amsterdam.kunstwacht.nl/kunstwerken/bekijk/9910-groeiend-monument-bijlmerramp",
         "wikidata": "Q130303491",
         "wikipedia": "nl:Het groeiend monument"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 4729659,
-      "name": "Brettenpad",
-      "lat": 52.38626,
-      "lng": 4.8495099,
-      "tags": {
-        "bicycle": "yes",
-        "foot": "yes",
-        "highway": "pedestrian",
-        "historic": "railway",
-        "lit": "yes",
-        "name": "Brettenpad",
-        "oneway": "no",
-        "railway": "abandoned",
-        "ref": "G200",
-        "segregated": "no",
-        "smoothness": "excellent",
-        "solitary": "yes",
-        "surface": "asphalt",
-        "surface:colour": "black",
-        "width": "3.50"
       }
     },
     {
@@ -5444,31 +5294,6 @@
     },
     {
       "osmType": "way",
-      "osmId": 61848365,
-      "name": "Brettenpad",
-      "lat": 52.3859128,
-      "lng": 4.8576046,
-      "tags": {
-        "bicycle": "yes",
-        "foot": "yes",
-        "highway": "pedestrian",
-        "historic": "railway",
-        "lit": "yes",
-        "mofa": "no",
-        "moped": "no",
-        "name": "Brettenpad",
-        "oneway": "no",
-        "railway": "abandoned",
-        "ref": "G200",
-        "smoothness": "excellent",
-        "solitary": "yes",
-        "surface": "asphalt",
-        "surface:colour": "black",
-        "width": "3.50"
-      }
-    },
-    {
-      "osmType": "way",
       "osmId": 92036866,
       "name": "Walenpleintje",
       "lat": 52.3711297,
@@ -5582,31 +5407,6 @@
         "smoothness": "good",
         "surface": "paving_stones",
         "wikidata": "Q682020"
-      }
-    },
-    {
-      "osmType": "way",
-      "osmId": 118449004,
-      "name": "Brettenpad",
-      "lat": 52.386567,
-      "lng": 4.8656364,
-      "tags": {
-        "bicycle": "yes",
-        "foot": "yes",
-        "highway": "pedestrian",
-        "historic": "railway",
-        "lit": "yes",
-        "mofa": "no",
-        "moped": "no",
-        "name": "Brettenpad",
-        "oneway": "no",
-        "railway": "abandoned",
-        "segregated": "yes",
-        "smoothness": "excellent",
-        "solitary": "yes",
-        "surface": "asphalt",
-        "surface:colour": "black",
-        "width": "3.50"
       }
     },
     {
@@ -6207,6 +6007,254 @@
         "surface": "paving_stones",
         "wikidata": "Q19292740"
       }
+    },
+    {
+      "osmType": "node",
+      "osmId": -51411,
+      "name": "Homomonument",
+      "lat": 52.374444444,
+      "lng": 4.884722222,
+      "tags": {
+        "name": "Homomonument",
+        "wikidata": "Q51411",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "23",
+        "canonical:instance_of": "war memorial|LGBT historic place|LGBT monument or memorial|cautionary memorial",
+        "tourism": "attraction",
+        "historic": "memorial"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 172288023,
+      "name": "Vesting Muiden",
+      "lat": 52.3309735,
+      "lng": 5.0691792,
+      "tags": {
+        "castle_type": "fortress",
+        "heritage": "Unesco",
+        "heritage:operator": "rce",
+        "historic": "castle",
+        "name": "Vesting Muiden",
+        "name:en": "Muiden Fortress",
+        "note": "border is a fantasy, needs study or research",
+        "ref:rce": "454479"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 266927240,
+      "name": "Church of England",
+      "lat": 52.3686141,
+      "lng": 4.8976041,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "denomination": "anglican",
+        "heritage": "2",
+        "heritage:operator": "rce",
+        "name": "Church of England",
+        "ref:bag": "0363100012171165",
+        "ref:rce": "1269",
+        "religion": "christian",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "start_date": "1829",
+        "toilets:wheelchair": "no",
+        "wheelchair": "yes",
+        "wikimedia_commons": "Category:English Episcopal Church (Amsterdam)",
+        "wikipedia": "nl:Christ Church (Amsterdam)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 678260767,
+      "name": "Vesting Weesp",
+      "lat": 52.3072234,
+      "lng": 5.0428128,
+      "tags": {
+        "castle_type": "fortress",
+        "historic": "castle",
+        "name": "Vesting Weesp",
+        "source": "survey"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1079465658,
+      "name": "Frankendael",
+      "lat": 52.3517117,
+      "lng": 4.9333371,
+      "tags": {
+        "architect": "Jacob Otten Husly",
+        "heritage": "2",
+        "heritage:operator": "rce",
+        "heritage:website": "https://www.monumenten.nl/monument/422422",
+        "historic": "city_gate",
+        "name": "Frankendael",
+        "ref:rce": "422422",
+        "start_date": "1783"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1081700284,
+      "name": "Toegangspoort tot de Nieuwe Oosterbegraafplaats",
+      "lat": 52.3465252,
+      "lng": 4.9385577,
+      "tags": {
+        "architect": "Adriaan Willem Weissman",
+        "heritage": "2",
+        "heritage:operator": "rce",
+        "historic": "city_gate",
+        "name": "Toegangspoort tot de Nieuwe Oosterbegraafplaats",
+        "ref:rce": "526963",
+        "start_date": "1894"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 27921691,
+      "name": "Fort Pampus Batterij",
+      "lat": 52.3648271,
+      "lng": 5.0689559,
+      "tags": {
+        "building": "yes",
+        "fee": "yes",
+        "name": "Fort Pampus Batterij",
+        "opening_hours": "Tu-Su 11:00-05:00",
+        "payment:museumkaart": "yes",
+        "ref:bag": "0424100000005337",
+        "source": "BAG",
+        "source:date": "2025-04-25",
+        "start_date": "1895",
+        "tourism": "museum",
+        "website": "https://www.pampus.nl",
+        "wikipedia": "nl:Pampus (eiland)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 99203577,
+      "name": "Westertoren",
+      "lat": 52.3745301,
+      "lng": 4.8835346,
+      "tags": {
+        "building": "yes",
+        "historic": "yes",
+        "man_made": "tower",
+        "name": "Westertoren",
+        "note": "85 m",
+        "ref:bag": "0363100012174221",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "start_date": "1631",
+        "tourism": "attraction",
+        "tower:type": "bell_tower",
+        "wikipedia": "nl:Westertoren (Amsterdam)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 456607614,
+      "name": "Stoomgemaal Halfweg",
+      "lat": 52.3831457,
+      "lng": 4.7497418,
+      "tags": {
+        "description": "polder pumping station, steam operated, preserved",
+        "fee": "yes",
+        "name": "Stoomgemaal Halfweg",
+        "tourism": "museum",
+        "website": "https://www.stoomgemaalhalfweg.nl",
+        "wikipedia": "nl:Stoomgemaal Halfweg"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 3769174083,
+      "name": "Nieuwzijds Kapel",
+      "lat": 52.3702059,
+      "lng": 4.8919252,
+      "tags": {
+        "building": "yes",
+        "historic": "yes",
+        "name": "Nieuwzijds Kapel",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 4729659,
+      "name": "Brettenpad",
+      "lat": 52.38626,
+      "lng": 4.8495099,
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "pedestrian",
+        "historic": "railway",
+        "lit": "yes",
+        "name": "Brettenpad",
+        "oneway": "no",
+        "railway": "abandoned",
+        "ref": "G200",
+        "segregated": "no",
+        "smoothness": "excellent",
+        "solitary": "yes",
+        "surface": "asphalt",
+        "surface:colour": "black",
+        "width": "3.50"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 61848365,
+      "name": "Brettenpad",
+      "lat": 52.3859128,
+      "lng": 4.8576046,
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "pedestrian",
+        "historic": "railway",
+        "lit": "yes",
+        "mofa": "no",
+        "moped": "no",
+        "name": "Brettenpad",
+        "oneway": "no",
+        "railway": "abandoned",
+        "ref": "G200",
+        "smoothness": "excellent",
+        "solitary": "yes",
+        "surface": "asphalt",
+        "surface:colour": "black",
+        "width": "3.50"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 118449004,
+      "name": "Brettenpad",
+      "lat": 52.386567,
+      "lng": 4.8656364,
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "pedestrian",
+        "historic": "railway",
+        "lit": "yes",
+        "mofa": "no",
+        "moped": "no",
+        "name": "Brettenpad",
+        "oneway": "no",
+        "railway": "abandoned",
+        "segregated": "yes",
+        "smoothness": "excellent",
+        "solitary": "yes",
+        "surface": "asphalt",
+        "surface:colour": "black",
+        "width": "3.50"
+      }
     }
   ],
   "sitelinks": {
@@ -6475,7 +6523,8 @@
     "Q2789151": 2,
     "Q5276492": 5,
     "Q17298467": 1,
-    "Q19292740": 0
+    "Q19292740": 0,
+    "Q51411": 23
   },
   "wikidataMetadata": {
     "Q17302647": {
@@ -8179,6 +8228,15 @@
       "sitelinks": 0,
       "instanceOfLabels": [
         "street"
+      ]
+    },
+    "Q51411": {
+      "sitelinks": 23,
+      "instanceOfLabels": [
+        "war memorial",
+        "LGBT historic place",
+        "LGBT monument or memorial",
+        "cautionary memorial"
       ]
     }
   }

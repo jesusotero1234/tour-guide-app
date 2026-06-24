@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { RawPoi } from '../../src/domain/poi/RawPoi';
 import { classifyPoiTags } from '../../src/domain/poi/PoiClassification';
@@ -13,6 +13,9 @@ import {
 } from '../../src/infrastructure/poi/WikidataCanonicalPoiFetcher';
 
 interface PoolFixture {
+  city?: string;
+  theme?: string;
+  capturedAt?: string;
   geocode: {
     lat: number;
     lng: number;
@@ -56,9 +59,12 @@ async function main(): Promise<void> {
   const city = process.argv[2] || 'Berlin';
   const theme = process.argv[3] || 'history';
   const requestedDuration = Number(process.argv[4] || 240);
+  const shouldWriteFixtures = process.argv.includes('--write-fixtures');
   const slug = `${city.toLowerCase()}-${theme}`;
   const fixturesDir = join(__dirname, '..', '..', 'fixtures');
-  const pool = readJson<PoolFixture>(join(fixturesDir, 'pools', `${slug}.json`));
+  const poolPath = join(fixturesDir, 'pools', `${slug}.json`);
+  const candidatePath = join(fixturesDir, 'candidates', `${slug}.json`);
+  const pool = readJson<PoolFixture>(poolPath);
   const plan = getDurationPlan(requestedDuration);
 
   const geocoded = {
@@ -124,9 +130,40 @@ async function main(): Promise<void> {
     maxStops: plan.maxStops,
   });
 
+  const capturedAt = new Date().toISOString().slice(0, 10);
+  if (shouldWriteFixtures) {
+    writeFileSync(
+      poolPath,
+      JSON.stringify({
+        city,
+        theme,
+        capturedAt,
+        geocode: pool.geocode,
+        rawPois,
+        sitelinks,
+        wikidataMetadata,
+      }, null, 2)
+    );
+    writeFileSync(
+      candidatePath,
+      JSON.stringify({
+        city,
+        theme,
+        requestedDuration,
+        capturedAt,
+        stopBounds: { minStops: plan.minStops, maxStops: plan.maxStops },
+        candidates: routeCandidates,
+      }, null, 2)
+    );
+  }
+
   console.log(JSON.stringify({
     city,
     requestedDuration,
+    wroteFixtures: shouldWriteFixtures ? {
+      pool: poolPath,
+      candidates: candidatePath,
+    } : null,
     canonicalFound: canonicalPois.slice(0, 20).map((poi) => ({
       name: poi.name,
       qid: poi.tags.wikidata,

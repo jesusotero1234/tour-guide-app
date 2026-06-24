@@ -200,6 +200,23 @@ export function mergeCanonicalWikidataPois(rawPois: RawPoi[], canonicalPois: Raw
   const byWikidata = new Map<string, RawPoi>();
   const withoutWikidata: RawPoi[] = [];
 
+  const mergeSpecificTag = (
+    key: keyof RawPoi['tags'],
+    existingTags: RawPoi['tags'],
+    canonicalTags: RawPoi['tags'],
+    mergedTags: RawPoi['tags']
+  ): void => {
+    const existingValue = existingTags[key];
+    const canonicalValue = canonicalTags[key];
+    if (
+      canonicalValue
+      && canonicalValue !== 'yes'
+      && (!existingValue || existingValue === 'yes')
+    ) {
+      mergedTags[key] = canonicalValue;
+    }
+  };
+
   for (const poi of rawPois) {
     const wikidataId = poi.tags.wikidata;
     if (wikidataId) {
@@ -222,15 +239,22 @@ export function mergeCanonicalWikidataPois(rawPois: RawPoi[], canonicalPois: Raw
       continue;
     }
 
+    const mergedTags = {
+      ...canonicalPoi.tags,
+      ...existing.tags,
+      'canonical:source': canonicalPoi.tags['canonical:source'],
+      'canonical:sitelinks': canonicalPoi.tags['canonical:sitelinks'],
+      'canonical:instance_of': canonicalPoi.tags['canonical:instance_of'],
+    };
+    mergeSpecificTag('historic', existing.tags, canonicalPoi.tags, mergedTags);
+    mergeSpecificTag('building', existing.tags, canonicalPoi.tags, mergedTags);
+    mergeSpecificTag('tourism', existing.tags, canonicalPoi.tags, mergedTags);
+    mergeSpecificTag('memorial', existing.tags, canonicalPoi.tags, mergedTags);
+    mergeSpecificTag('place', existing.tags, canonicalPoi.tags, mergedTags);
+
     byWikidata.set(wikidataId, {
       ...existing,
-      tags: {
-        ...canonicalPoi.tags,
-        ...existing.tags,
-        'canonical:source': canonicalPoi.tags['canonical:source'],
-        'canonical:sitelinks': canonicalPoi.tags['canonical:sitelinks'],
-        'canonical:instance_of': canonicalPoi.tags['canonical:instance_of'],
-      },
+      tags: mergedTags,
     });
   }
 

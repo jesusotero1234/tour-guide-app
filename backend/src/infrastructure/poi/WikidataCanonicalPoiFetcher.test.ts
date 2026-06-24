@@ -67,6 +67,7 @@ describe('WikidataCanonicalPoiFetcher', () => {
       tags: {
         name: 'Existing Gate',
         wikidata: 'Q82425',
+        historic: 'yes',
         tourism: 'attraction',
       },
     };
@@ -91,6 +92,7 @@ describe('WikidataCanonicalPoiFetcher', () => {
     expect(merged).toHaveLength(1);
     expect(merged[0].osmType).toBe('way');
     expect(merged[0].tags.name).toBe('Existing Gate');
+    expect(merged[0].tags.historic).toBe('city_gate');
     expect(merged[0].tags['canonical:sitelinks']).toBe('145');
   });
 });

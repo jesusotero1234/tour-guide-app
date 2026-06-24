@@ -2,60 +2,12 @@
   "city": "Toulouse",
   "theme": "history",
   "requestedDuration": 240,
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "stopBounds": {
     "minStops": 6,
     "maxStops": 10
   },
   "candidates": [
-    {
-      "name": "Cathédrale Saint-Étienne",
-      "wikidataId": "Q2737833",
-      "coordinates": {
-        "lat": 43.5998893,
-        "lng": 1.4504439
-      },
-      "importance_score": 44.42695226833628,
-      "fameScore": 21.426952268336283,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Basilique Saint-Sernin",
-      "wikidataId": "Q1010268",
-      "coordinates": {
-        "lat": 43.6083805,
-        "lng": 1.441884
-      },
-      "importance_score": 44.35131915442328,
-      "fameScore": 22.351319154423276,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Canal du Midi",
-      "wikidataId": "Q202494",
-      "coordinates": {
-        "lat": 43.4050497,
-        "lng": 2.478324
-      },
-      "importance_score": 43.748670042494226,
-      "fameScore": 24.748670042494226,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Basilique Notre-Dame de la Daurade",
-      "wikidataId": "Q2887166",
-      "coordinates": {
-        "lat": 43.6009363,
-        "lng": 1.4398504
-      },
-      "importance_score": 43.512388523751014,
-      "fameScore": 20.512388523751017,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
     {
       "name": "Capitole",
       "wikidataId": "Q2351013",
@@ -63,130 +15,22 @@
         "lat": 43.6044439,
         "lng": 1.4442552
       },
-      "importance_score": 41.82068586817104,
-      "fameScore": 20.82068586817104,
+      "importance_score": 54.32068586817104,
+      "fameScore": 28.82068586817104,
       "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Église Notre-Dame-du-Taur",
-      "wikidataId": "Q3580780",
-      "coordinates": {
-        "lat": 43.6056359,
-        "lng": 1.4430484
-      },
-      "importance_score": 41.62829485591189,
-      "fameScore": 18.628294855911893,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Église Notre-Dame de la Dalbade",
-      "wikidataId": "Q3580740",
-      "coordinates": {
-        "lat": 43.5976691,
-        "lng": 1.4425836
-      },
-      "importance_score": 39.25,
-      "fameScore": 17.25,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Église Saint-Jérôme",
-      "wikidataId": "Q3582238",
-      "coordinates": {
-        "lat": 43.6032622,
-        "lng": 1.4462192
-      },
-      "importance_score": 39.00488750216347,
-      "fameScore": 16.00488750216347,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Église Saint-Pierre des Chartreux",
-      "wikidataId": "Q3584181",
-      "coordinates": {
-        "lat": 43.604662,
-        "lng": 1.4363035
-      },
-      "importance_score": 39.00488750216347,
-      "fameScore": 16.00488750216347,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Auditorium Saint-Pierre des Cuisines",
-      "wikidataId": "Q3584182",
-      "coordinates": {
-        "lat": 43.6042843,
-        "lng": 1.4356331
-      },
-      "importance_score": 38.67206476617281,
-      "fameScore": 16.672064766172813,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Ruines de l'église des Cordeliers",
-      "wikidataId": "Q3585905",
-      "coordinates": {
-        "lat": 43.6054975,
-        "lng": 1.440695
-      },
-      "importance_score": 38.215784284662085,
-      "fameScore": 15.215784284662087,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Église Saint-Nicolas",
-      "wikidataId": "Q3583425",
-      "coordinates": {
-        "lat": 43.5991837,
-        "lng": 1.4342159
-      },
-      "importance_score": 38.00488750216347,
-      "fameScore": 16.00488750216347,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Hôtel d'Assézat",
-      "wikidataId": "Q3145715",
-      "coordinates": {
-        "lat": 43.6003813,
-        "lng": 1.4420217
-      },
-      "importance_score": 37.465784284662085,
-      "fameScore": 17.465784284662085,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Église des Jacobins",
-      "wikidataId": "Q2759640",
-      "coordinates": {
-        "lat": 43.6034853,
-        "lng": 1.4402341
-      },
-      "importance_score": 37.42206476617281,
-      "fameScore": 16.422064766172813,
-      "landmarkTier": "flagship",
-      "category": "religious"
-    },
-    {
-      "name": "Musée Saint-Raymond",
-      "wikidataId": "Q1376",
-      "coordinates": {
-        "lat": 43.6078306,
-        "lng": 1.4411185
-      },
-      "importance_score": 36.92206476617281,
-      "fameScore": 18.922064766172813,
-      "landmarkTier": "flagship",
-      "category": "museum"
+      "category": "civic_power",
+      "historyPlaceScore": 16.26,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "civic-power-site",
+        "walkable-landmark",
+        "event-type",
+        "wikidata-canonical",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Place du Capitole",
@@ -195,34 +39,65 @@
         "lat": 43.604394,
         "lng": 1.4433789
       },
-      "importance_score": 36.67206476617281,
-      "fameScore": 16.672064766172813,
+      "importance_score": 48.67206476617281,
+      "fameScore": 23.672064766172813,
       "landmarkTier": "flagship",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 12,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Hôtel de Bagis",
-      "wikidataId": "Q3145737",
+      "name": "Cathédrale Saint-Étienne",
+      "wikidataId": "Q2737833",
       "coordinates": {
-        "lat": 43.5969496,
-        "lng": 1.4420821
+        "lat": 43.5998893,
+        "lng": 1.4504439
       },
-      "importance_score": 36.67206476617281,
-      "fameScore": 15.672064766172813,
+      "importance_score": 48.476952268336284,
+      "fameScore": 25.976952268336284,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Pont Neuf",
-      "wikidataId": "Q1460090",
+      "name": "Basilique Saint-Sernin",
+      "wikidataId": "Q1010268",
       "coordinates": {
-        "lat": 43.5993422,
-        "lng": 1.4390816
+        "lat": 43.6083805,
+        "lng": 1.441884
       },
-      "importance_score": 36.12829485591189,
-      "fameScore": 16.128294855911893,
+      "importance_score": 48.40131915442328,
+      "fameScore": 26.901319154423277,
       "landmarkTier": "flagship",
-      "category": "other"
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Place Saint-Pierre",
@@ -231,154 +106,40 @@
         "lat": 43.6034897,
         "lng": 1.4356999
       },
-      "importance_score": 36.00488750216347,
-      "fameScore": 16.00488750216347,
+      "importance_score": 48.00488750216347,
+      "fameScore": 23.00488750216347,
       "landmarkTier": "flagship",
-      "category": "square_civic"
+      "category": "square_civic",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Musée des Augustins",
-      "wikidataId": "Q3001664",
+      "name": "Toulouse Capitole University",
+      "wikidataId": "Q590201",
       "coordinates": {
-        "lat": 43.6010357,
-        "lng": 1.4463424
+        "lat": 43.6064,
+        "lng": 1.43667
       },
-      "importance_score": 35.25488750216347,
-      "fameScore": 15.254887502163468,
+      "importance_score": 44.09631915442328,
+      "fameScore": 24.246319154423276,
       "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Muséum d'Histoire Naturelle",
-      "wikidataId": "Q422",
-      "coordinates": {
-        "lat": 43.5933609,
-        "lng": 1.4495786
-      },
-      "importance_score": 35.17695226833628,
-      "fameScore": 19.176952268336283,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Galerie Le Château d'eau",
-      "wikidataId": "Q2968376",
-      "coordinates": {
-        "lat": 43.5986973,
-        "lng": 1.4369307
-      },
-      "importance_score": 35.00977500432694,
-      "fameScore": 17.009775004326936,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Maison Seilhan",
-      "wikidataId": "Q3278998",
-      "coordinates": {
-        "lat": 43.5941343,
-        "lng": 1.443522
-      },
-      "importance_score": 35.00488750216347,
-      "fameScore": 15.004887502163468,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Hôtel du Vieux-Raisin",
-      "wikidataId": "Q3146303",
-      "coordinates": {
-        "lat": 43.5972033,
-        "lng": 1.4459213
-      },
-      "importance_score": 33.215784284662085,
-      "fameScore": 14.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Place du Président Wilson",
-      "wikidataId": "Q3390181",
-      "coordinates": {
-        "lat": 43.6048543,
-        "lng": 1.4473785
-      },
-      "importance_score": 32.715784284662085,
-      "fameScore": 14.715784284662087,
-      "landmarkTier": "major",
-      "category": "square_civic"
-    },
-    {
-      "name": "Musée Georges Labit",
-      "wikidataId": "Q167182",
-      "coordinates": {
-        "lat": 43.5911189,
-        "lng": 1.458467
-      },
-      "importance_score": 32.50977500432694,
-      "fameScore": 15.509775004326936,
-      "landmarkTier": "flagship",
-      "category": "museum"
-    },
-    {
-      "name": "Hôtel de Bernuy",
-      "wikidataId": "Q22938605",
-      "coordinates": {
-        "lat": 43.6027369,
-        "lng": 1.4406652
-      },
-      "importance_score": 32.25,
-      "fameScore": 13.25,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Hôtel de la Mamye",
-      "wikidataId": "Q3146033",
-      "coordinates": {
-        "lat": 43.5973772,
-        "lng": 1.4419869
-      },
-      "importance_score": 32.25,
-      "fameScore": 13.25,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Chapelle des Carmélites",
-      "wikidataId": "Q2957369",
-      "coordinates": {
-        "lat": 43.607543,
-        "lng": 1.4432849
-      },
-      "importance_score": 32.00488750216347,
-      "fameScore": 13.004887502163468,
-      "landmarkTier": "major",
-      "category": "religious"
-    },
-    {
-      "name": "Canal de Brienne",
-      "wikidataId": "Q2935989",
-      "coordinates": {
-        "lat": 43.6075192,
-        "lng": 1.4265322
-      },
-      "importance_score": 31.851319154423276,
-      "fameScore": 16.851319154423276,
-      "landmarkTier": "flagship",
-      "category": "other"
-    },
-    {
-      "name": "Jardin des Plantes",
-      "wikidataId": "Q3162572",
-      "coordinates": {
-        "lat": 43.593043,
-        "lng": 1.4508484
-      },
-      "importance_score": 30.75,
-      "fameScore": 14.75,
-      "landmarkTier": "major",
-      "category": "other"
+      "category": "civic_power",
+      "historyPlaceScore": 7.35,
+      "historyPlaceKinds": [
+        "civic-power-site",
+        "wikidata-canonical",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Amphithéâtre et Termes Romains de Purpan-Ancely",
@@ -387,94 +148,151 @@
         "lat": 43.6148796,
         "lng": 1.3977253
       },
-      "importance_score": 30.25,
-      "fameScore": 13.25,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 43.25,
+      "fameScore": 20.25,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 11,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Hôtel d'Arnaud de Brucelles",
-      "wikidataId": "Q3145772",
+      "name": "Ruines de l'église des Cordeliers",
+      "wikidataId": "Q3585905",
       "coordinates": {
-        "lat": 43.6007922,
-        "lng": 1.4435567
+        "lat": 43.6054975,
+        "lng": 1.440695
       },
-      "importance_score": 30.25,
-      "fameScore": 13.25,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 47.215784284662085,
+      "fameScore": 22.215784284662085,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 12.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-place",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Les Abattoirs",
-      "wikidataId": "Q3230368",
+      "name": "Château de La Cépière",
+      "wikidataId": "Q22938580",
       "coordinates": {
-        "lat": 43.6009176,
-        "lng": 1.429599
+        "lat": 43.5868347,
+        "lng": 1.4004945
       },
-      "importance_score": 29.25,
-      "fameScore": 14.25,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 38.24777688346121,
+      "fameScore": 17.304887502163467,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Musée du Vieux-Toulouse",
-      "wikidataId": "Q3330403",
+      "name": "Château du Mirail",
+      "wikidataId": "Q2408159",
       "coordinates": {
-        "lat": 43.6023148,
-        "lng": 1.4431296
+        "lat": 43.5768468,
+        "lng": 1.3982961
       },
-      "importance_score": 27.00488750216347,
-      "fameScore": 13.004887502163468,
-      "landmarkTier": "major",
-      "category": "museum"
+      "importance_score": 38.09436108845373,
+      "fameScore": 18.55,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Hôtel Boysson",
-      "wikidataId": "Q15950571",
+      "name": "Hôtel de Bagis",
+      "wikidataId": "Q3145737",
       "coordinates": {
-        "lat": 43.6008289,
-        "lng": 1.4431475
+        "lat": 43.5969496,
+        "lng": 1.4420821
       },
-      "importance_score": 26.215784284662085,
-      "fameScore": 13.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 37.17206476617281,
+      "fameScore": 19.172064766172813,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Hôtel de Cheverry",
-      "wikidataId": "Q22938611",
+      "name": "Place du Président Wilson",
+      "wikidataId": "Q3390181",
       "coordinates": {
-        "lat": 43.6004606,
-        "lng": 1.4431092
+        "lat": 43.6048543,
+        "lng": 1.4473785
       },
-      "importance_score": 26.215784284662085,
-      "fameScore": 13.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 40.615784284662084,
+      "fameScore": 19.615784284662087,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
-      "name": "Hôtel de Felzins",
-      "wikidataId": "Q21294385",
+      "name": "Basilique Notre-Dame de la Daurade",
+      "wikidataId": "Q2887166",
       "coordinates": {
-        "lat": 43.5966137,
-        "lng": 1.4426165
+        "lat": 43.6009363,
+        "lng": 1.4398504
       },
-      "importance_score": 26.215784284662085,
-      "fameScore": 13.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
-    },
-    {
-      "name": "Hôtel Magnier et Jean-Burnet",
-      "wikidataId": "Q22938631",
-      "coordinates": {
-        "lat": 43.5963467,
-        "lng": 1.446069
-      },
-      "importance_score": 26.215784284662085,
-      "fameScore": 13.215784284662087,
-      "landmarkTier": "major",
-      "category": "other"
+      "importance_score": 46.56238852375102,
+      "fameScore": 25.062388523751018,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
     },
     {
       "name": "Statue de Claude Nougaro",
@@ -483,10 +301,564 @@
         "lat": 43.6043651,
         "lng": 1.4451877
       },
-      "importance_score": 19.601319154423276,
-      "fameScore": 14.601319154423276,
+      "importance_score": 32.50131915442327,
+      "fameScore": 19.501319154423275,
+      "landmarkTier": "flagship",
+      "category": "memorial",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Château de la Reynerie",
+      "wikidataId": "Q2970369",
+      "coordinates": {
+        "lat": 43.5725492,
+        "lng": 1.3979206
+      },
+      "importance_score": 37.481742914451665,
+      "fameScore": 18.55,
+      "landmarkTier": "flagship",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Pont Neuf",
+      "wikidataId": "Q1460090",
+      "coordinates": {
+        "lat": 43.5993422,
+        "lng": 1.4390816
+      },
+      "importance_score": 36.62829485591189,
+      "fameScore": 19.628294855911893,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place Saint-Georges",
+      "wikidataId": "Q3390089",
+      "coordinates": {
+        "lat": 43.6020049,
+        "lng": 1.4476696
+      },
+      "importance_score": 40.25,
+      "fameScore": 18.75,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Église Notre-Dame-du-Taur",
+      "wikidataId": "Q3580780",
+      "coordinates": {
+        "lat": 43.6056359,
+        "lng": 1.4430484
+      },
+      "importance_score": 44.67829485591189,
+      "fameScore": 23.178294855911894,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Galerie Le Château d'eau",
+      "wikidataId": "Q2968376",
+      "coordinates": {
+        "lat": 43.5986973,
+        "lng": 1.4369307
+      },
+      "importance_score": 27.809775004326937,
+      "fameScore": 16.809775004326937,
       "landmarkTier": "major",
-      "category": "memorial"
+      "category": "museum",
+      "historyPlaceScore": 4,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "event-name",
+        "museum-with-site-context",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": true
+    },
+    {
+      "name": "Jean-Jacques Laffont 1947-2004",
+      "wikidataId": "Q1005479",
+      "coordinates": {
+        "lat": 43.5911128,
+        "lng": 1.4456759
+      },
+      "importance_score": 26.77829485591189,
+      "fameScore": 15.778294855911891,
+      "landmarkTier": "major",
+      "category": "memorial",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "memory-site",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Hôtel du Vieux-Raisin",
+      "wikidataId": "Q3146303",
+      "coordinates": {
+        "lat": 43.5972033,
+        "lng": 1.4459213
+      },
+      "importance_score": 35.715784284662085,
+      "fameScore": 17.715784284662085,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Palais Niel",
+      "wikidataId": "Q3360899",
+      "coordinates": {
+        "lat": 43.5970255,
+        "lng": 1.4512373
+      },
+      "importance_score": 35.05,
+      "fameScore": 17.05,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place de la Trinité",
+      "wikidataId": "Q16670295",
+      "coordinates": {
+        "lat": 43.5997361,
+        "lng": 1.4441911
+      },
+      "importance_score": 39.00488750216347,
+      "fameScore": 17.50488750216347,
+      "landmarkTier": "flagship",
+      "category": "square_civic",
+      "historyPlaceScore": 10,
+      "historyPlaceKinds": [
+        "public-square",
+        "walkable-landmark",
+        "event-name",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Église Notre-Dame de la Dalbade",
+      "wikidataId": "Q3580740",
+      "coordinates": {
+        "lat": 43.5976691,
+        "lng": 1.4425836
+      },
+      "importance_score": 43.3,
+      "fameScore": 21.8,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Auditorium Saint-Pierre des Cuisines",
+      "wikidataId": "Q3584182",
+      "coordinates": {
+        "lat": 43.6042843,
+        "lng": 1.4356331
+      },
+      "importance_score": 42.722064766172814,
+      "fameScore": 21.222064766172814,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Château de Thegra",
+      "wikidataId": "Q22938008",
+      "coordinates": {
+        "lat": 43.6317238,
+        "lng": 1.5006741
+      },
+      "importance_score": 33.674850907102794,
+      "fameScore": 17.304887502163467,
+      "landmarkTier": "major",
+      "category": "palace_castle",
+      "historyPlaceScore": 9,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "power-site",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Hôtel d'Arnaud de Brucelles",
+      "wikidataId": "Q3145772",
+      "coordinates": {
+        "lat": 43.6007922,
+        "lng": 1.4435567
+      },
+      "importance_score": 32.75,
+      "fameScore": 16.75,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Église Saint-Pierre des Chartreux",
+      "wikidataId": "Q3584181",
+      "coordinates": {
+        "lat": 43.604662,
+        "lng": 1.4363035
+      },
+      "importance_score": 42.05488750216347,
+      "fameScore": 20.55488750216347,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place Charles Laganne",
+      "wikidataId": "Q30443012",
+      "coordinates": {
+        "lat": 43.5981724,
+        "lng": 1.4367144
+      },
+      "importance_score": 33.90488750216347,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Hôtel de Bernuy",
+      "wikidataId": "Q22938605",
+      "coordinates": {
+        "lat": 43.6027369,
+        "lng": 1.4406652
+      },
+      "importance_score": 32.75,
+      "fameScore": 16.75,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place des Hauts-Murats",
+      "wikidataId": "Q24933925",
+      "coordinates": {
+        "lat": 43.5946267,
+        "lng": 1.4471654
+      },
+      "importance_score": 33.90488750216347,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Chapelle des Carmélites",
+      "wikidataId": "Q2957369",
+      "coordinates": {
+        "lat": 43.607543,
+        "lng": 1.4432849
+      },
+      "importance_score": 39.05488750216347,
+      "fameScore": 17.554887502163467,
+      "landmarkTier": "flagship",
+      "category": "religious",
+      "historyPlaceScore": 6.5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place Jeanne d'Arc",
+      "wikidataId": "Q105687937",
+      "coordinates": {
+        "lat": 43.609074,
+        "lng": 1.4462411
+      },
+      "importance_score": 33.90488750216347,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Hôtel de Felzins",
+      "wikidataId": "Q21294385",
+      "coordinates": {
+        "lat": 43.5966137,
+        "lng": 1.4426165
+      },
+      "importance_score": 30.715784284662085,
+      "fameScore": 16.715784284662085,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 5,
+      "historyPlaceKinds": [
+        "historic-tagged",
+        "walkable-landmark",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Square du Général de Gaulle",
+      "wikidataId": "Q3494530",
+      "coordinates": {
+        "lat": 43.6044871,
+        "lng": 1.4451045
+      },
+      "importance_score": 33.90488750216347,
+      "fameScore": 15.904887502163469,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Place de la Bourse",
+      "wikidataId": "Q25397571",
+      "coordinates": {
+        "lat": 43.6013246,
+        "lng": 1.4421402
+      },
+      "importance_score": 32.15,
+      "fameScore": 16.15,
+      "landmarkTier": "major",
+      "category": "square_civic",
+      "historyPlaceScore": 7,
+      "historyPlaceKinds": [
+        "public-square",
+        "event-name",
+        "wikidata"
+      ],
+      "historyIsEventSiteLike": true,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Canal de Brienne",
+      "wikidataId": "Q2935989",
+      "coordinates": {
+        "lat": 43.6075192,
+        "lng": 1.4265322
+      },
+      "importance_score": 26.851319154423276,
+      "fameScore": 16.851319154423276,
+      "landmarkTier": "major",
+      "category": "other",
+      "historyPlaceScore": 0,
+      "historyPlaceKinds": [
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Église Saint-Jérôme",
+      "wikidataId": "Q3582238",
+      "coordinates": {
+        "lat": 43.6032622,
+        "lng": 1.4462192
+      },
+      "importance_score": 31.55488750216347,
+      "fameScore": 17.05488750216347,
+      "landmarkTier": "major",
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Église Saint-Nicolas",
+      "wikidataId": "Q3583425",
+      "coordinates": {
+        "lat": 43.5991837,
+        "lng": 1.4342159
+      },
+      "importance_score": 31.55488750216347,
+      "fameScore": 17.05488750216347,
+      "landmarkTier": "major",
+      "category": "religious",
+      "historyPlaceScore": 1.5,
+      "historyPlaceKinds": [
+        "heritage-religious",
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
+    },
+    {
+      "name": "Canal du Midi",
+      "wikidataId": "Q202494",
+      "coordinates": {
+        "lat": 43.4050497,
+        "lng": 2.478324
+      },
+      "importance_score": -217.2016253226957,
+      "fameScore": 24.748670042494226,
+      "landmarkTier": "flagship",
+      "category": "other",
+      "historyPlaceScore": 0,
+      "historyPlaceKinds": [
+        "wikidata",
+        "wikipedia"
+      ],
+      "historyIsEventSiteLike": false,
+      "historyIsMuseumLike": false
     }
   ]
 }

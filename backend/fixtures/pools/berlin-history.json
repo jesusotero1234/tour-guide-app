@@ -1,7 +1,7 @@
 {
   "city": "Berlin",
   "theme": "history",
-  "capturedAt": "2026-05-30",
+  "capturedAt": "2026-06-24",
   "geocode": {
     "lat": 52.5173885,
     "lng": 13.3951309,
@@ -318,6 +318,11 @@
       "name": "Bundesrat",
       "tags": {
         "name": "Bundesrat",
+        "wikidata": "Q146138",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "56",
+        "canonical:instance_of": "upper house|constitutional institution",
+        "tourism": "attraction",
         "office": "government",
         "name:da": "Forbundsrådet",
         "name:de": "Bundesrat",
@@ -330,7 +335,6 @@
         "building": "government",
         "heritage": "4",
         "old_name": "Preußisches Herrenhaus",
-        "wikidata": "Q146138",
         "addr:city": "Berlin",
         "wikipedia": "de:Bundesrat (Deutschland)",
         "government": "legislative",
@@ -1524,38 +1528,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.4837419,
-      "lng": 13.2888549,
-      "name": "Residenz des Botschafters",
-      "tags": {
-        "name": "Residenz des Botschafters",
-        "image": "File:SchmargendorfAugusteViktoriaStraßeEmbassyIsrael.JPG",
-        "office": "diplomatic",
-        "source": "Geoportal Berlin / Hauskoordinaten",
-        "country": "IL",
-        "embassy": "residence",
-        "ref:lda": "09070267",
-        "building": "embassy",
-        "heritage": "4",
-        "historic": "manor",
-        "old_name": "Villa des Kommerzienrats Hermann Schöndorff",
-        "addr:city": "Berlin",
-        "diplomatic": "embassy",
-        "start_date": "1929..1930",
-        "addr:street": "Auguste-Viktoria-Straße",
-        "addr:suburb": "Grunewald",
-        "addr:country": "DE",
-        "lda:criteria": "Baudenkmal",
-        "addr:postcode": "14193",
-        "addr:inclusion": "actual",
-        "contact:website": "http://www.stadtentwicklung.berlin.de/cgi-bin/hidaweb/getdoc.pl?DOK_TPL=lda_doc.tpl&KEY=obj%2009070267",
-        "addr:housenumber": "75",
-        "heritage:operator": "lda"
-      },
-      "osmId": 23547938,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5215088,
       "lng": 13.4123623,
       "name": "Berolinahaus",
@@ -1878,40 +1850,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.4378946,
-      "lng": 13.5511356,
-      "name": "Evangelische Verklärungskirche",
-      "tags": {
-        "name": "Evangelische Verklärungskirche",
-        "phone": "+49 30 6775268",
-        "amenity": "place_of_worship",
-        "ref:lda": "09045264",
-        "website": "https://www.evkia.de/",
-        "building": "church",
-        "heritage": "4",
-        "religion": "christian",
-        "addr:city": "Berlin",
-        "wikipedia": "de:Verklärungskirche (Adlershof)",
-        "check_date": "2025-04-08",
-        "start_date": "1900",
-        "wheelchair": "yes",
-        "addr:street": "Arndtstraße",
-        "addr:suburb": "Adlershof",
-        "addr:country": "DE",
-        "denomination": "protestant",
-        "lda:criteria": "Baudenkmal",
-        "addr:postcode": "12489",
-        "service_times": "Gottesdienst am Sonntag um 10 Uhr",
-        "internet_access": "wlan",
-        "addr:housenumber": "12",
-        "building:material": "stone",
-        "heritage:operator": "lda",
-        "internet_access:fee": "no"
-      },
-      "osmId": 24154733,
-      "osmType": "way"
-    },
-    {
       "lat": 52.375505,
       "lng": 13.6499064,
       "name": "Dorfkirche Schmöckwitz",
@@ -2021,6 +1959,12 @@
       "name": "Neue Wache",
       "tags": {
         "name": "Neue Wache",
+        "wikidata": "Q152341",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "26",
+        "canonical:instance_of": "guardhouse|memorial",
+        "tourism": "attraction",
+        "historic": "memorial",
         "image": "https://commons.wikimedia.org/wiki/File:Neue_Wache.JPG",
         "name:de": "Neue Wache",
         "name:en": "New Guard House",
@@ -2035,11 +1979,9 @@
         "name:ru": "Новая караульня",
         "name:zh": "新崗哨",
         "ref:lda": "09095950",
-        "tourism": "attraction",
         "building": "yes",
         "heritage": "4",
         "old_name": "Haupt- und Königswache",
-        "wikidata": "Q152341",
         "addr:city": "Berlin",
         "architect": "Karl Friedrich Schinkel",
         "wikipedia": "de:Neue Wache",
@@ -2930,33 +2872,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.5124566,
-      "lng": 13.4027258,
-      "name": "Gertraudenbrücke",
-      "tags": {
-        "lit": "yes",
-        "name": "Gertraudenbrücke",
-        "image": "File:Berlin,_Mitte,_Gertraudenstrasse,_Gertraudenbruecke.jpg",
-        "layer": "1",
-        "width": "22",
-        "bridge": "yes",
-        "bicycle": "yes",
-        "highway": "footway",
-        "surface": "paving_stones",
-        "website": "https://www.stadtentwicklung.berlin.de/cgi-bin/hidaweb/getdoc.pl?DOK_TPL=lda_doc.tpl&KEY=obj%2009030070",
-        "heritage": "yes",
-        "historic": "bridge",
-        "wikipedia": "de:Gertraudenbrücke",
-        "start_date": "1894..1895",
-        "description": "Alte Steinbrücke, jetzt nur für Fußgänger",
-        "source:width": "Luftbild 2025",
-        "name:etymology:wikidata": "Q235619",
-        "name:etymology:wikipedia": "de:Gertrud von Nivelles"
-      },
-      "osmId": 25945727,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5438554,
       "lng": 13.3626918,
       "name": "St. Joseph",
@@ -3726,10 +3641,14 @@
       "name": "Reststück der Berliner Mauer",
       "tags": {
         "name": "Reststück der Berliner Mauer",
+        "wikidata": "Q5086",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "140",
+        "canonical:instance_of": "tourist attraction|cordon|defense line|destroyed building or structure|separation barrier",
+        "tourism": "attraction",
+        "historic": "memorial",
         "image": "https://commons.wikimedia.org/wiki/File:Gedenkstaette_Griebnitzsee.jpg",
         "heritage": "yes",
-        "historic": "memorial",
-        "wikidata": "Q5086",
         "ref:bldam": "09156804",
         "wikipedia": "de:Berliner Mauer",
         "wheelchair": "limited",
@@ -3740,26 +3659,6 @@
         "year_of_construction": "1970..1980"
       },
       "osmId": 283156938,
-      "osmType": "node"
-    },
-    {
-      "lat": 52.458559,
-      "lng": 13.4015822,
-      "name": "Vaubeka-Kran",
-      "tags": {
-        "name": "Vaubeka-Kran",
-        "image": "http://commons.wikimedia.org/wiki/File:Portalkran_Vaubeka_Berlin-Tempelhof_1.JPG",
-        "note:de": "Industriedenkmal Portalkran der VAUBEKA von 1935",
-        "ref:lda": "09055118",
-        "heritage": "4",
-        "historic": "yes",
-        "man_made": "crane",
-        "wikipedia": "de:Teilestraße#Portalkran von 1935",
-        "start_date": "1935",
-        "description": "technical_monument",
-        "lda:criteria": "Baudenkmal"
-      },
-      "osmId": 323346529,
       "osmType": "node"
     },
     {
@@ -4363,25 +4262,6 @@
       "osmType": "node"
     },
     {
-      "lat": 52.4820953,
-      "lng": 13.2857624,
-      "name": "ehemalige Synagoge Grunewald",
-      "tags": {
-        "name": "ehemalige Synagoge Grunewald",
-        "year": "1988",
-        "heritage": "yes",
-        "historic": "memorial",
-        "memorial": "plaque",
-        "wikipedia": "de:Synagoge Grunewald",
-        "start_date": "1923",
-        "inscription": "An dieser Stelle stand einst die Synagoge Grunewald umgebaut von B. u. O. Neubauer 1923 eingeweiht am 8. September 1923 angezündet und zerstört von Nationalsozialisten am 9. November 1938",
-        "subject:wikidata": "Q992051",
-        "wikimedia_commons": "File:Gedenktafel Synagoge Grunewald.jpg"
-      },
-      "osmId": 3190985261,
-      "osmType": "node"
-    },
-    {
       "lat": 52.5130495,
       "lng": 13.4153741,
       "name": "Herkules im Kampf mit dem Nemeischen Löwen",
@@ -4641,37 +4521,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.4973651,
-      "lng": 13.2411579,
-      "name": "Field Station Berlin",
-      "tags": {
-        "fee": "yes",
-        "name": "Field Station Berlin",
-        "charge": "5€",
-        "tourism": "attraction",
-        "alt_name": "Radarstation Teufelsberg",
-        "historic": "ruins",
-        "addr:city": "Berlin",
-        "wheelchair": "limited",
-        "addr:street": "Teufelsseechaussee",
-        "addr:suburb": "Grunewald",
-        "addr:country": "DE",
-        "contact:yelp": "http://www.yelp.de/biz/teufelsberg-berlin",
-        "addr:postcode": "14193",
-        "contact:email": "teufel@teufelsberg-berlin.eu",
-        "opening_hours": "We-Su 12:00-20:00",
-        "contact:mobile": "+49 163 8585096",
-        "contact:website": "https://teufelsberg-berlin.de/",
-        "addr:housenumber": "10",
-        "contact:facebook": "https://www.facebook.com/TeufelsbergBerlin/",
-        "abandoned:military": "yes",
-        "contact:foursquare": "https://foursquare.com/v/_/4adcda7df964a520804721e3",
-        "wheelchair:description": "Bei Bedarf kann auf dem Gelände geparkt werden. Das Gelände (Hof, Wege) sowie die Erfinderwerkstatt im Ergeschoß des Hauptgebäudes sind barrierefrei zugänglich. Alle anderen Gebäudeteile (Plattform, Turm) sind nicht zugänglich."
-      },
-      "osmId": 15700566,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5104857,
       "lng": 13.3708405,
       "name": "Musikinstrumenten-Museum",
@@ -4724,32 +4573,6 @@
         "wikimedia_commons": "Category:Kupferstichkabinett (Berlin)"
       },
       "osmId": 22990276,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4957163,
-      "lng": 13.4506529,
-      "name": "Wachturm Schlesischer Busch",
-      "tags": {
-        "name": "Wachturm Schlesischer Busch",
-        "height": "10",
-        "ref:lda": "09040272,T,001",
-        "tourism": "attraction",
-        "building": "tower",
-        "heritage": "4",
-        "historic": "yes",
-        "operator": "Museum der verbotenen Kunst",
-        "start_date": "1963",
-        "tower:type": "watchtower",
-        "wheelchair": "no",
-        "description": "Wachturm der ehemaligen Berliner Mauer",
-        "lda:criteria": "Teilobjekt",
-        "heritage:website": "https://denkmaldatenbank.berlin.de/daobj.php?obj_dok_nr=09040272",
-        "building:material": "concrete",
-        "heritage:operator": "lda",
-        "wikimedia_commons": "File:09040272 Wachturm SchlesischerBusch Berlin.jpg"
-      },
-      "osmId": 24036371,
       "osmType": "way"
     },
     {
@@ -4845,22 +4668,6 @@
         "wheelchair": "yes"
       },
       "osmId": 25775881,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4565335,
-      "lng": 13.3073982,
-      "name": "Großes Tropenhaus",
-      "tags": {
-        "ref": "Haus A",
-        "name": "Großes Tropenhaus",
-        "image": "https://commons.wikimedia.org/wiki/File:2006-07-07_Botanischer_Garten_Italienischer_Garten.jpg",
-        "tourism": "attraction",
-        "website": "https://www.berlin.de/sehenswuerdigkeiten/3561850-3558930-grosses-tropenhaus.html",
-        "building": "greenhouse",
-        "heritage": "yes"
-      },
-      "osmId": 26131643,
       "osmType": "way"
     },
     {
@@ -5233,20 +5040,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.5028688,
-      "lng": 13.384375,
-      "name": "Akzisemauer",
-      "tags": {
-        "name": "Akzisemauer",
-        "tourism": "attraction",
-        "historic": "citywalls",
-        "wikipedia": "de:Akzisemauer#Reste nach dem Abriss",
-        "wheelchair": "yes"
-      },
-      "osmId": 31418047,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5431533,
       "lng": 13.561013,
       "name": "Bezirksmuseum Marzahn-Hellersdorf, Haus 1",
@@ -5386,37 +5179,6 @@
         "wheelchair:description": "Die Berlinische Galerie ist für Besucher*innen mit eingeschränkter Mobilität zugänglich. Grundsätzlich sind das Museumsgebäude, sämtliche Ausstellungs- und Veranstaltungsräume sowie das Café Dix mit einem Rollstuhl barrierefrei zu erreichen. Der Eingang d"
       },
       "osmId": 33743630,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4126005,
-      "lng": 13.6095015,
-      "name": "Schmetterlingshorst",
-      "tags": {
-        "fee": "no",
-        "name": "Schmetterlingshorst",
-        "email": "schmetterlingshorst@berlin.de",
-        "image": "File:Schmetterlingshorst Berlin 04.jpg",
-        "phone": "+49 30 61674861",
-        "tourism": "museum",
-        "website": "https://www.schmetterlingshorst.de/",
-        "building": "civic",
-        "operator": "Bezirkssportbund Treptow-Köpenick e.V.",
-        "addr:city": "Berlin",
-        "wikipedia": "de:Schmetterlingshorst",
-        "check_date": "2025-06-21",
-        "roof:shape": "gabled",
-        "wheelchair": "yes",
-        "addr:street": "Zum Schmetterlingshorst",
-        "addr:suburb": "Köpenick",
-        "roof:levels": "1",
-        "addr:country": "DE",
-        "addr:postcode": "12559",
-        "opening_hours": "Oct-Mar: Mo-Fr 11:00-16:00; Sa-Su 11:00-17:00; Apr-Sep: Mo-Fr 10:00-17:00; Sa-Su 10:00-19:00",
-        "building:levels": "1",
-        "addr:housenumber": "2"
-      },
-      "osmId": 33910270,
       "osmType": "way"
     },
     {
@@ -5917,22 +5679,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.4731107,
-      "lng": 13.4058835,
-      "name": "VORTAC",
-      "tags": {
-        "name": "VORTAC",
-        "tourism": "attraction",
-        "website": "https://www.mil-airfields.de/deutschland/flughafen-berlin-tempelhof-thf.htm",
-        "historic": "yes",
-        "wheelchair": "yes",
-        "abandoned:airmark": "beacon",
-        "abandoned:beacon:type": "VORTAC"
-      },
-      "osmId": 59033975,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5099067,
       "lng": 13.2547814,
       "name": "Georg-Kolbe-Museum",
@@ -5981,32 +5727,6 @@
         "opening_hours": "closed \"temporary closed\""
       },
       "osmId": 73427143,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4030469,
-      "lng": 13.0926974,
-      "name": "Feldherrenbank",
-      "tags": {
-        "name": "Feldherrenbank",
-        "amenity": "bench",
-        "tourism": "attraction",
-        "backrest": "yes",
-        "heritage": "4",
-        "historic": "yes",
-        "material": "sandstone",
-        "old_name": "Generalsbank",
-        "architect": "Reinhold Persius",
-        "ref:bldam": "09157459",
-        "start_date": "1882",
-        "description": "Gartenbank, ursprünglich mit Porträtbüsten der preußischen Feldherren der Reichseinigungskriege (1864, 1866 und 1870/71) auf der Rückbank besetzt.",
-        "bldam:criteria": "Baudenkmal",
-        "heritage:website": "https://ns.gis-bldam-brandenburg.de/hida4web/view?docId=obj09156104.xml",
-        "heritage:operator": "bldam",
-        "architect:wikidata": "Q2141496",
-        "architect:wikipedia": "de:Reinhold Persius"
-      },
-      "osmId": 74887558,
       "osmType": "way"
     },
     {
@@ -6065,31 +5785,6 @@
         "architect:wikidata": "Q110768667"
       },
       "osmId": 78140038,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.5161777,
-      "lng": 13.2980054,
-      "name": "Museum Charlottenburg-Wilmersdorf in der Villa Oppenheim",
-      "tags": {
-        "name": "Museum Charlottenburg-Wilmersdorf in der Villa Oppenheim",
-        "tourism": "museum",
-        "building": "yes",
-        "addr:city": "Berlin",
-        "wikipedia": "de:Villa Oppenheim (Berlin)",
-        "wheelchair": "yes",
-        "addr:street": "Schloßstraße",
-        "addr:suburb": "Charlottenburg",
-        "contact:fax": "+49 30 9029-24160",
-        "addr:country": "DE",
-        "addr:postcode": "14059",
-        "contact:phone": "+49 30 9029-24101",
-        "opening_hours": "Mo off; Tu-Fr 10:00-17:00; Sa-Su 11:00-17:00",
-        "contact:website": "http://www.villa-oppenheim-berlin.de/",
-        "addr:housenumber": "55",
-        "toilets:wheelchair": "yes"
-      },
-      "osmId": 79611278,
       "osmType": "way"
     },
     {
@@ -6275,34 +5970,6 @@
         "toilets:wheelchair": "no"
       },
       "osmId": 104051069,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4073635,
-      "lng": 13.1919283,
-      "name": "Checkpoint Bravo",
-      "tags": {
-        "name": "Checkpoint Bravo",
-        "note": "Kommandantenturm Checkpoint Bravo e. V.",
-        "image": "http://commons.wikimedia.org/wiki/File:Kleinmachnow_Checkpoint_Bravo.JPG",
-        "tourism": "museum",
-        "website": "https://www.checkpoint-bravo.de/",
-        "building": "yes",
-        "historic": "yes",
-        "operator": "Checkpoint Bravo e. V.",
-        "addr:city": "Kleinmachnow",
-        "wikipedia": "de:Checkpoint Bravo",
-        "tower:type": "watchtower",
-        "addr:street": "Albert-Einstein-Ring",
-        "description": "Checkpoint Bravo, Erinnerungs- und Begegnungsstätte Drewitz-Dreilinden",
-        "addr:country": "DE",
-        "addr:postcode": "14532",
-        "opening_hours": "May-Oct Su 11:00-16:00",
-        "building:levels": "2",
-        "addr:housenumber": "45a",
-        "name:etymology:wikidata": "Q660016"
-      },
-      "osmId": 106050244,
       "osmType": "way"
     },
     {
@@ -6655,8 +6322,14 @@
       "lng": 13.378714,
       "name": "Denkmal für die ermordeten Juden Europas",
       "tags": {
-        "fee": "no",
         "name": "Denkmal für die ermordeten Juden Europas",
+        "wikidata": "Q160700",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "42",
+        "canonical:instance_of": "Holocaust memorial",
+        "tourism": "attraction",
+        "historic": "monument",
+        "fee": "no",
         "image": "https://photos.app.goo.gl/YrmLr5gdXHPr7NS79",
         "name:af": "Monument vir die vermoorde Jode van Europa",
         "name:be": "Мемарыял забітым жыдам Еўропы",
@@ -6682,10 +6355,7 @@
         "name:sv": "Monument över Europas mördade judar",
         "name:tr": "Katledilen Avrupalı Yahudiler Anıtı",
         "name:zh": "歐洲被害猶太人紀念碑",
-        "tourism": "attraction",
         "alt_name": "Holocaust-Mahnmal",
-        "historic": "monument",
-        "wikidata": "Q160700",
         "addr:city": "Berlin",
         "architect": "Peter Eisenman",
         "wikipedia": "de:Denkmal für die ermordeten Juden Europas",
@@ -6903,26 +6573,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.5035297,
-      "lng": 13.6500971,
-      "name": "Schloss Dahlwitz",
-      "tags": {
-        "name": "Schloss Dahlwitz",
-        "tourism": "attraction",
-        "building": "yes",
-        "historic": "castle",
-        "addr:city": "Hoppegarten",
-        "wheelchair": "yes",
-        "addr:street": "Rudolf-Breitscheid-Straße",
-        "addr:suburb": "Dahlwitz-Hoppegarten",
-        "addr:country": "DE",
-        "addr:postcode": "15366",
-        "addr:housenumber": "39"
-      },
-      "osmId": 215399625,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5135807,
       "lng": 13.3918548,
       "name": "Konzerthaus Berlin",
@@ -7113,24 +6763,6 @@
         "bridge:structure": "arch"
       },
       "osmId": 288514442,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.4558956,
-      "lng": 13.2989862,
-      "name": "Schaugärten der TU Berlin",
-      "tags": {
-        "name": "Schaugärten der TU Berlin",
-        "image": "https://commons.wikimedia.org/wiki/File:Ehemalig_Koenigliche_Gartenlehranstalt.jpg",
-        "leisure": "garden",
-        "tourism": "attraction",
-        "website": "https://www.tu.berlin/news/portraets/bewahrte-pracht",
-        "historic": "yes",
-        "wheelchair": "limited",
-        "garden:type": "botanical",
-        "toilets:wheelchair": "yes"
-      },
-      "osmId": 289704960,
       "osmType": "way"
     },
     {
@@ -7391,19 +7023,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.5026796,
-      "lng": 13.3846276,
-      "name": "Akzisemauer",
-      "tags": {
-        "name": "Akzisemauer",
-        "tourism": "attraction",
-        "historic": "citywalls",
-        "wikipedia": "de:Akzisemauer#Reste nach dem Abriss"
-      },
-      "osmId": 339477343,
-      "osmType": "way"
-    },
-    {
       "lat": 52.5417698,
       "lng": 13.501318,
       "name": "Gedenkstätte Berlin-Hohenschönhausen",
@@ -7454,45 +7073,6 @@
       "osmType": "way"
     },
     {
-      "lat": 52.5510501,
-      "lng": 13.3801314,
-      "name": "Mitte Museum",
-      "tags": {
-        "fee": "no",
-        "name": "Mitte Museum",
-        "museum": "local_history",
-        "tourism": "museum",
-        "website": "https://www.mittemuseum.de/",
-        "operator": "Bezirksamt Mitte",
-        "addr:city": "Berlin",
-        "wikipedia": "de:Mitte Museum",
-        "wheelchair": "yes",
-        "addr:street": "Pankstraße",
-        "addr:suburb": "Gesundbrunnen",
-        "addr:country": "DE",
-        "addr:postcode": "13357",
-        "contact:phone": "+49 30 4606019 10",
-        "opening_hours": "Su-Fr 10:00-18:00",
-        "addr:housenumber": "47",
-        "toilets:wheelchair": "yes",
-        "check_date:opening_hours": "2024-04-21"
-      },
-      "osmId": 420053341,
-      "osmType": "way"
-    },
-    {
-      "lat": 52.6550495,
-      "lng": 13.7198461,
-      "name": "Gedenkstätte Internierungslager Weesow",
-      "tags": {
-        "name": "Gedenkstätte Internierungslager Weesow",
-        "tourism": "attraction",
-        "historic": "memorial"
-      },
-      "osmId": 51501652,
-      "osmType": "node"
-    },
-    {
       "lat": 52.5076051,
       "lng": 13.3629858,
       "name": "Gedenkstätte Deutscher Widerstand",
@@ -7516,30 +7096,6 @@
         "wikimedia_commons": "Category:Gedenkstätte Deutscher Widerstand"
       },
       "osmId": 73696610,
-      "osmType": "node"
-    },
-    {
-      "lat": 52.5048708,
-      "lng": 13.3822143,
-      "name": "Dokumentationszentrum Flucht, Vertreibung, Versöhnung",
-      "tags": {
-        "fee": "no",
-        "name": "Dokumentationszentrum Flucht, Vertreibung, Versöhnung",
-        "phone": "+49 30 20629980",
-        "tourism": "museum",
-        "website": "https://www.flucht-vertreibung-versoehnung.de/",
-        "addr:city": "Berlin",
-        "wikipedia": "de:Stiftung Flucht, Vertreibung, Versöhnung",
-        "wheelchair": "yes",
-        "addr:street": "Stresemannstraße",
-        "addr:suburb": "Kreuzberg",
-        "addr:postcode": "10963",
-        "opening_hours": "Tu-Su 10:00-19:00; Mo off",
-        "addr:housenumber": "90",
-        "wikimedia_commons": "File:Stiftung Flucht, Vertreibung, Versöhnung.jpg",
-        "toilets:wheelchair": "yes"
-      },
-      "osmId": 84644782,
       "osmType": "node"
     },
     {
@@ -7826,22 +7382,6 @@
         "contact:instagram": "antikriegsmuseum_berlin"
       },
       "osmId": 369037135,
-      "osmType": "node"
-    },
-    {
-      "lat": 52.3954019,
-      "lng": 13.2084043,
-      "name": "Historische Straßenbahn",
-      "tags": {
-        "name": "Historische Straßenbahn",
-        "image": "https://commons.wikimedia.org/wiki/File:Strassenbahn_96.jpg",
-        "tourism": "attraction",
-        "website": "https://www.historische-strassenbahn-potsdam.de/",
-        "historic": "yes",
-        "description": "technical_monument",
-        "opening_hours": "Sa-Su 13:00-18:00"
-      },
-      "osmId": 422669870,
       "osmType": "node"
     },
     {
@@ -8143,22 +7683,6 @@
       "osmType": "node"
     },
     {
-      "lat": 52.4307575,
-      "lng": 13.3117928,
-      "name": "Treidellokomotive",
-      "tags": {
-        "name": "Treidellokomotive",
-        "image": "http://commons.wikimedia.org/wiki/File:Treidellok2.jpg",
-        "tourism": "attraction",
-        "historic": "locomotive",
-        "operator": "Technikmuseum",
-        "wheelchair": "yes",
-        "description": "Historische Treidellokomotive"
-      },
-      "osmId": 1166456006,
-      "osmType": "node"
-    },
-    {
       "lat": 52.517579,
       "lng": 13.4419522,
       "name": "Computerspielemuseum",
@@ -8277,22 +7801,6 @@
       "osmType": "node"
     },
     {
-      "lat": 52.4789437,
-      "lng": 13.3446144,
-      "name": "Preußischer Meilenstein",
-      "tags": {
-        "name": "Preußischer Meilenstein",
-        "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Jt_germany_berlin_meilenstein.JPG/80px-Jt_germany_berlin_meilenstein.JPG",
-        "format": "conus",
-        "tourism": "attraction",
-        "historic": "milestone",
-        "inscription": "I Meile von Berlin",
-        "description:de": "Preußischer Ganzmeilenstein, 1 Berliner Meile (7,532484 km) vom Berliner Schloßplatz entfernt"
-      },
-      "osmId": 1589171931,
-      "osmType": "node"
-    },
-    {
       "lat": 52.526136,
       "lng": 13.3745186,
       "name": "Berliner Medizinhistorisches Museum der Charité",
@@ -8404,19 +7912,6 @@
       "osmType": "node"
     },
     {
-      "lat": 52.4085121,
-      "lng": 13.3021284,
-      "name": "TV-Asahi-Kirschblütenweg",
-      "tags": {
-        "name": "TV-Asahi-Kirschblütenweg",
-        "tourism": "attraction",
-        "historic": "memorial",
-        "memorial": "plaque"
-      },
-      "osmId": 2787929162,
-      "osmType": "node"
-    },
-    {
       "lat": 52.4869923,
       "lng": 13.3586756,
       "name": "Museum der Unerhörten Dinge",
@@ -8512,44 +8007,6 @@
         "wheelchair:description": "Schwerbehinderte (mindestens 50 v. H. MdE) zahlen den ermäßigten Eintrittspreis, Begleitpersonen erhalten freien Eintritt."
       },
       "osmId": 2959465154,
-      "osmType": "node"
-    },
-    {
-      "lat": 52.5085256,
-      "lng": 13.3796834,
-      "name": "Wachturm",
-      "tags": {
-        "ref": "BT-6",
-        "name": "Wachturm",
-        "image": "http://commons.wikimedia.org/wiki/File:Berlin_Wall_Watch-Tower_Typ_BT-11_2_apel.JPG",
-        "access": "no",
-        "height": "6",
-        "name:en": "GDR Watchtower",
-        "name:fr": "Mirador du mur de Berlin",
-        "ref:lda": "09040270,T,013",
-        "tourism": "attraction",
-        "website": "https://www.berlinwallexpo.de/",
-        "heritage": "4",
-        "historic": "yes",
-        "man_made": "tower",
-        "name:lda": "Teilobjekt Wachturm & Leuchtmast",
-        "old_name": "Berliner Mauer Grenzwachturm",
-        "addr:city": "Berlin",
-        "start_date": "1966",
-        "tower:type": "watchtower",
-        "wheelchair": "no",
-        "addr:street": "Erna-Berger-Straße",
-        "addr:suburb": "Mitte",
-        "description": "Beobachtungsturm",
-        "addr:country": "DE",
-        "construction": "yes",
-        "lda:criteria": "Baudenkmal",
-        "addr:postcode": "10117",
-        "addr:housenumber": "7",
-        "heritage:operator": "lda",
-        "tower:construction": "concealed"
-      },
-      "osmId": 2966005919,
       "osmType": "node"
     },
     {
@@ -8747,6 +8204,821 @@
         "addr:housenumber": "64a"
       },
       "osmId": 3917330120,
+      "osmType": "node"
+    },
+    {
+      "osmType": "node",
+      "osmId": -82425,
+      "name": "Brandenburg Gate",
+      "lat": 52.516272222,
+      "lng": 13.377722222,
+      "tags": {
+        "name": "Brandenburg Gate",
+        "wikidata": "Q82425",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "85",
+        "canonical:instance_of": "city gate|triumphal arch|tourist attraction|border checkpoint|national symbol|architectural landmark",
+        "tourism": "attraction",
+        "historic": "city_gate"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -151897,
+      "name": "Reichstag",
+      "lat": 52.518611111,
+      "lng": 13.376111111,
+      "tags": {
+        "name": "Reichstag",
+        "wikidata": "Q151897",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "74",
+        "canonical:instance_of": "tourist attraction|parliament building|government building",
+        "tourism": "attraction",
+        "building": "government"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -151356,
+      "name": "Fernsehturm Berlin",
+      "lat": 52.520833333,
+      "lng": 13.409444444,
+      "tags": {
+        "name": "Fernsehturm Berlin",
+        "wikidata": "Q151356",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "58",
+        "canonical:instance_of": "tourist attraction|historic site|observation tower|television tower",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -152252,
+      "name": "Potsdamer Platz",
+      "lat": 52.508944444,
+      "lng": 13.376333333,
+      "tags": {
+        "name": "Potsdamer Platz",
+        "wikidata": "Q152252",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "50",
+        "canonical:instance_of": "square|architectural ensemble",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -68689,
+      "name": "Checkpoint Charlie",
+      "lat": 52.5075,
+      "lng": 13.390277777,
+      "tags": {
+        "name": "Checkpoint Charlie",
+        "wikidata": "Q68689",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "50",
+        "canonical:instance_of": "Berlin border crossing|tourist attraction",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -154996,
+      "name": "Charlottenburg Palace",
+      "lat": 52.521111,
+      "lng": 13.295833,
+      "tags": {
+        "name": "Charlottenburg Palace",
+        "wikidata": "Q154996",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "49",
+        "canonical:instance_of": "museum|château|summer residence",
+        "tourism": "attraction",
+        "historic": "palace",
+        "building": "palace"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -152783,
+      "name": "Alexanderplatz",
+      "lat": 52.521666666,
+      "lng": 13.413611111,
+      "tags": {
+        "name": "Alexanderplatz",
+        "wikidata": "Q152783",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "49",
+        "canonical:instance_of": "square|tourist attraction",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -170119,
+      "name": "Berlin Palace",
+      "lat": 52.5175,
+      "lng": 13.402777777,
+      "tags": {
+        "name": "Berlin Palace",
+        "wikidata": "Q170119",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "45",
+        "canonical:instance_of": "château|city palace|administrative building|destroyed building or structure",
+        "tourism": "attraction",
+        "historic": "palace",
+        "building": "palace"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -154987,
+      "name": "Siegessäule",
+      "lat": 52.51451,
+      "lng": 13.350111,
+      "tags": {
+        "name": "Siegessäule",
+        "wikidata": "Q154987",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "44",
+        "canonical:instance_of": "war memorial|victory column",
+        "tourism": "attraction",
+        "historic": "memorial"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -317091,
+      "name": "Bellevue Palace",
+      "lat": 52.5175,
+      "lng": 13.353333333,
+      "tags": {
+        "name": "Bellevue Palace",
+        "wikidata": "Q317091",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "36",
+        "canonical:instance_of": "palace|château|official residence",
+        "tourism": "attraction",
+        "historic": "palace",
+        "building": "palace"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -156716,
+      "name": "Pariser Platz",
+      "lat": 52.516388888,
+      "lng": 13.378888888,
+      "tags": {
+        "name": "Pariser Platz",
+        "wikidata": "Q156716",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "34",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -48441,
+      "name": "Soviet War Memorial",
+      "lat": 52.486111,
+      "lng": 13.471667,
+      "tags": {
+        "name": "Soviet War Memorial",
+        "wikidata": "Q48441",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "32",
+        "canonical:instance_of": "war cemetery|Soviet war cemeteries in Germany|monumental sculpture|memorial",
+        "tourism": "attraction",
+        "historic": "memorial"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -170103,
+      "name": "Gendarmenmarkt",
+      "lat": 52.513611111,
+      "lng": 13.392777777,
+      "tags": {
+        "name": "Gendarmenmarkt",
+        "wikidata": "Q170103",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "31",
+        "canonical:instance_of": "square",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -161156,
+      "name": "Palace of the Republic",
+      "lat": 52.5175,
+      "lng": 13.4025,
+      "tags": {
+        "name": "Palace of the Republic",
+        "wikidata": "Q161156",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "29",
+        "canonical:instance_of": "convention center|performing arts center|house of culture|parliament building|destroyed building or structure",
+        "tourism": "attraction",
+        "historic": "palace",
+        "building": "palace"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -698095,
+      "name": "Hotel Adlon",
+      "lat": 52.5160431,
+      "lng": 13.3799442,
+      "tags": {
+        "name": "Hotel Adlon",
+        "wikidata": "Q698095",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "29",
+        "canonical:instance_of": "palace hotel",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": -702512,
+      "name": "Lustgarten",
+      "lat": 52.518611111,
+      "lng": 13.399722222,
+      "tags": {
+        "name": "Lustgarten",
+        "wikidata": "Q702512",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "26",
+        "canonical:instance_of": "park|square",
+        "tourism": "attraction",
+        "place": "square"
+      }
+    },
+    {
+      "lat": 52.4837419,
+      "lng": 13.2888549,
+      "name": "Residenz des Botschafters",
+      "tags": {
+        "name": "Residenz des Botschafters",
+        "image": "File:SchmargendorfAugusteViktoriaStraßeEmbassyIsrael.JPG",
+        "office": "diplomatic",
+        "source": "Geoportal Berlin / Hauskoordinaten",
+        "country": "IL",
+        "embassy": "residence",
+        "ref:lda": "09070267",
+        "building": "embassy",
+        "heritage": "4",
+        "historic": "manor",
+        "old_name": "Villa des Kommerzienrats Hermann Schöndorff",
+        "addr:city": "Berlin",
+        "diplomatic": "embassy",
+        "start_date": "1929..1930",
+        "addr:street": "Auguste-Viktoria-Straße",
+        "addr:suburb": "Grunewald",
+        "addr:country": "DE",
+        "lda:criteria": "Baudenkmal",
+        "addr:postcode": "14193",
+        "addr:inclusion": "actual",
+        "contact:website": "http://www.stadtentwicklung.berlin.de/cgi-bin/hidaweb/getdoc.pl?DOK_TPL=lda_doc.tpl&KEY=obj%2009070267",
+        "addr:housenumber": "75",
+        "heritage:operator": "lda"
+      },
+      "osmId": 23547938,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4378946,
+      "lng": 13.5511356,
+      "name": "Evangelische Verklärungskirche",
+      "tags": {
+        "name": "Evangelische Verklärungskirche",
+        "phone": "+49 30 6775268",
+        "amenity": "place_of_worship",
+        "ref:lda": "09045264",
+        "website": "https://www.evkia.de/",
+        "building": "church",
+        "heritage": "4",
+        "religion": "christian",
+        "addr:city": "Berlin",
+        "wikipedia": "de:Verklärungskirche (Adlershof)",
+        "check_date": "2025-04-08",
+        "start_date": "1900",
+        "wheelchair": "yes",
+        "addr:street": "Arndtstraße",
+        "addr:suburb": "Adlershof",
+        "addr:country": "DE",
+        "denomination": "protestant",
+        "lda:criteria": "Baudenkmal",
+        "addr:postcode": "12489",
+        "service_times": "Gottesdienst am Sonntag um 10 Uhr",
+        "internet_access": "wlan",
+        "addr:housenumber": "12",
+        "building:material": "stone",
+        "heritage:operator": "lda",
+        "internet_access:fee": "no"
+      },
+      "osmId": 24154733,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5124566,
+      "lng": 13.4027258,
+      "name": "Gertraudenbrücke",
+      "tags": {
+        "lit": "yes",
+        "name": "Gertraudenbrücke",
+        "image": "File:Berlin,_Mitte,_Gertraudenstrasse,_Gertraudenbruecke.jpg",
+        "layer": "1",
+        "width": "22",
+        "bridge": "yes",
+        "bicycle": "yes",
+        "highway": "footway",
+        "surface": "paving_stones",
+        "website": "https://www.stadtentwicklung.berlin.de/cgi-bin/hidaweb/getdoc.pl?DOK_TPL=lda_doc.tpl&KEY=obj%2009030070",
+        "heritage": "yes",
+        "historic": "bridge",
+        "wikipedia": "de:Gertraudenbrücke",
+        "start_date": "1894..1895",
+        "description": "Alte Steinbrücke, jetzt nur für Fußgänger",
+        "source:width": "Luftbild 2025",
+        "name:etymology:wikidata": "Q235619",
+        "name:etymology:wikipedia": "de:Gertrud von Nivelles"
+      },
+      "osmId": 25945727,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.458559,
+      "lng": 13.4015822,
+      "name": "Vaubeka-Kran",
+      "tags": {
+        "name": "Vaubeka-Kran",
+        "image": "http://commons.wikimedia.org/wiki/File:Portalkran_Vaubeka_Berlin-Tempelhof_1.JPG",
+        "note:de": "Industriedenkmal Portalkran der VAUBEKA von 1935",
+        "ref:lda": "09055118",
+        "heritage": "4",
+        "historic": "yes",
+        "man_made": "crane",
+        "wikipedia": "de:Teilestraße#Portalkran von 1935",
+        "start_date": "1935",
+        "description": "technical_monument",
+        "lda:criteria": "Baudenkmal"
+      },
+      "osmId": 323346529,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.4820953,
+      "lng": 13.2857624,
+      "name": "ehemalige Synagoge Grunewald",
+      "tags": {
+        "name": "ehemalige Synagoge Grunewald",
+        "year": "1988",
+        "heritage": "yes",
+        "historic": "memorial",
+        "memorial": "plaque",
+        "wikipedia": "de:Synagoge Grunewald",
+        "start_date": "1923",
+        "inscription": "An dieser Stelle stand einst die Synagoge Grunewald umgebaut von B. u. O. Neubauer 1923 eingeweiht am 8. September 1923 angezündet und zerstört von Nationalsozialisten am 9. November 1938",
+        "subject:wikidata": "Q992051",
+        "wikimedia_commons": "File:Gedenktafel Synagoge Grunewald.jpg"
+      },
+      "osmId": 3190985261,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.4973651,
+      "lng": 13.2411579,
+      "name": "Field Station Berlin",
+      "tags": {
+        "fee": "yes",
+        "name": "Field Station Berlin",
+        "charge": "5€",
+        "tourism": "attraction",
+        "alt_name": "Radarstation Teufelsberg",
+        "historic": "ruins",
+        "addr:city": "Berlin",
+        "wheelchair": "limited",
+        "addr:street": "Teufelsseechaussee",
+        "addr:suburb": "Grunewald",
+        "addr:country": "DE",
+        "contact:yelp": "http://www.yelp.de/biz/teufelsberg-berlin",
+        "addr:postcode": "14193",
+        "contact:email": "teufel@teufelsberg-berlin.eu",
+        "opening_hours": "We-Su 12:00-20:00",
+        "contact:mobile": "+49 163 8585096",
+        "contact:website": "https://teufelsberg-berlin.de/",
+        "addr:housenumber": "10",
+        "contact:facebook": "https://www.facebook.com/TeufelsbergBerlin/",
+        "abandoned:military": "yes",
+        "contact:foursquare": "https://foursquare.com/v/_/4adcda7df964a520804721e3",
+        "wheelchair:description": "Bei Bedarf kann auf dem Gelände geparkt werden. Das Gelände (Hof, Wege) sowie die Erfinderwerkstatt im Ergeschoß des Hauptgebäudes sind barrierefrei zugänglich. Alle anderen Gebäudeteile (Plattform, Turm) sind nicht zugänglich."
+      },
+      "osmId": 15700566,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4957163,
+      "lng": 13.4506529,
+      "name": "Wachturm Schlesischer Busch",
+      "tags": {
+        "name": "Wachturm Schlesischer Busch",
+        "height": "10",
+        "ref:lda": "09040272,T,001",
+        "tourism": "attraction",
+        "building": "tower",
+        "heritage": "4",
+        "historic": "yes",
+        "operator": "Museum der verbotenen Kunst",
+        "start_date": "1963",
+        "tower:type": "watchtower",
+        "wheelchair": "no",
+        "description": "Wachturm der ehemaligen Berliner Mauer",
+        "lda:criteria": "Teilobjekt",
+        "heritage:website": "https://denkmaldatenbank.berlin.de/daobj.php?obj_dok_nr=09040272",
+        "building:material": "concrete",
+        "heritage:operator": "lda",
+        "wikimedia_commons": "File:09040272 Wachturm SchlesischerBusch Berlin.jpg"
+      },
+      "osmId": 24036371,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4565335,
+      "lng": 13.3073982,
+      "name": "Großes Tropenhaus",
+      "tags": {
+        "ref": "Haus A",
+        "name": "Großes Tropenhaus",
+        "image": "https://commons.wikimedia.org/wiki/File:2006-07-07_Botanischer_Garten_Italienischer_Garten.jpg",
+        "tourism": "attraction",
+        "website": "https://www.berlin.de/sehenswuerdigkeiten/3561850-3558930-grosses-tropenhaus.html",
+        "building": "greenhouse",
+        "heritage": "yes"
+      },
+      "osmId": 26131643,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5028688,
+      "lng": 13.384375,
+      "name": "Akzisemauer",
+      "tags": {
+        "name": "Akzisemauer",
+        "tourism": "attraction",
+        "historic": "citywalls",
+        "wikipedia": "de:Akzisemauer#Reste nach dem Abriss",
+        "wheelchair": "yes"
+      },
+      "osmId": 31418047,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4126005,
+      "lng": 13.6095015,
+      "name": "Schmetterlingshorst",
+      "tags": {
+        "fee": "no",
+        "name": "Schmetterlingshorst",
+        "email": "schmetterlingshorst@berlin.de",
+        "image": "File:Schmetterlingshorst Berlin 04.jpg",
+        "phone": "+49 30 61674861",
+        "tourism": "museum",
+        "website": "https://www.schmetterlingshorst.de/",
+        "building": "civic",
+        "operator": "Bezirkssportbund Treptow-Köpenick e.V.",
+        "addr:city": "Berlin",
+        "wikipedia": "de:Schmetterlingshorst",
+        "check_date": "2025-06-21",
+        "roof:shape": "gabled",
+        "wheelchair": "yes",
+        "addr:street": "Zum Schmetterlingshorst",
+        "addr:suburb": "Köpenick",
+        "roof:levels": "1",
+        "addr:country": "DE",
+        "addr:postcode": "12559",
+        "opening_hours": "Oct-Mar: Mo-Fr 11:00-16:00; Sa-Su 11:00-17:00; Apr-Sep: Mo-Fr 10:00-17:00; Sa-Su 10:00-19:00",
+        "building:levels": "1",
+        "addr:housenumber": "2"
+      },
+      "osmId": 33910270,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4731107,
+      "lng": 13.4058835,
+      "name": "VORTAC",
+      "tags": {
+        "name": "VORTAC",
+        "tourism": "attraction",
+        "website": "https://www.mil-airfields.de/deutschland/flughafen-berlin-tempelhof-thf.htm",
+        "historic": "yes",
+        "wheelchair": "yes",
+        "abandoned:airmark": "beacon",
+        "abandoned:beacon:type": "VORTAC"
+      },
+      "osmId": 59033975,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4030469,
+      "lng": 13.0926974,
+      "name": "Feldherrenbank",
+      "tags": {
+        "name": "Feldherrenbank",
+        "amenity": "bench",
+        "tourism": "attraction",
+        "backrest": "yes",
+        "heritage": "4",
+        "historic": "yes",
+        "material": "sandstone",
+        "old_name": "Generalsbank",
+        "architect": "Reinhold Persius",
+        "ref:bldam": "09157459",
+        "start_date": "1882",
+        "description": "Gartenbank, ursprünglich mit Porträtbüsten der preußischen Feldherren der Reichseinigungskriege (1864, 1866 und 1870/71) auf der Rückbank besetzt.",
+        "bldam:criteria": "Baudenkmal",
+        "heritage:website": "https://ns.gis-bldam-brandenburg.de/hida4web/view?docId=obj09156104.xml",
+        "heritage:operator": "bldam",
+        "architect:wikidata": "Q2141496",
+        "architect:wikipedia": "de:Reinhold Persius"
+      },
+      "osmId": 74887558,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5161777,
+      "lng": 13.2980054,
+      "name": "Museum Charlottenburg-Wilmersdorf in der Villa Oppenheim",
+      "tags": {
+        "name": "Museum Charlottenburg-Wilmersdorf in der Villa Oppenheim",
+        "tourism": "museum",
+        "building": "yes",
+        "addr:city": "Berlin",
+        "wikipedia": "de:Villa Oppenheim (Berlin)",
+        "wheelchair": "yes",
+        "addr:street": "Schloßstraße",
+        "addr:suburb": "Charlottenburg",
+        "contact:fax": "+49 30 9029-24160",
+        "addr:country": "DE",
+        "addr:postcode": "14059",
+        "contact:phone": "+49 30 9029-24101",
+        "opening_hours": "Mo off; Tu-Fr 10:00-17:00; Sa-Su 11:00-17:00",
+        "contact:website": "http://www.villa-oppenheim-berlin.de/",
+        "addr:housenumber": "55",
+        "toilets:wheelchair": "yes"
+      },
+      "osmId": 79611278,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4073635,
+      "lng": 13.1919283,
+      "name": "Checkpoint Bravo",
+      "tags": {
+        "name": "Checkpoint Bravo",
+        "note": "Kommandantenturm Checkpoint Bravo e. V.",
+        "image": "http://commons.wikimedia.org/wiki/File:Kleinmachnow_Checkpoint_Bravo.JPG",
+        "tourism": "museum",
+        "website": "https://www.checkpoint-bravo.de/",
+        "building": "yes",
+        "historic": "yes",
+        "operator": "Checkpoint Bravo e. V.",
+        "addr:city": "Kleinmachnow",
+        "wikipedia": "de:Checkpoint Bravo",
+        "tower:type": "watchtower",
+        "addr:street": "Albert-Einstein-Ring",
+        "description": "Checkpoint Bravo, Erinnerungs- und Begegnungsstätte Drewitz-Dreilinden",
+        "addr:country": "DE",
+        "addr:postcode": "14532",
+        "opening_hours": "May-Oct Su 11:00-16:00",
+        "building:levels": "2",
+        "addr:housenumber": "45a",
+        "name:etymology:wikidata": "Q660016"
+      },
+      "osmId": 106050244,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5035297,
+      "lng": 13.6500971,
+      "name": "Schloss Dahlwitz",
+      "tags": {
+        "name": "Schloss Dahlwitz",
+        "tourism": "attraction",
+        "building": "yes",
+        "historic": "castle",
+        "addr:city": "Hoppegarten",
+        "wheelchair": "yes",
+        "addr:street": "Rudolf-Breitscheid-Straße",
+        "addr:suburb": "Dahlwitz-Hoppegarten",
+        "addr:country": "DE",
+        "addr:postcode": "15366",
+        "addr:housenumber": "39"
+      },
+      "osmId": 215399625,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.4558956,
+      "lng": 13.2989862,
+      "name": "Schaugärten der TU Berlin",
+      "tags": {
+        "name": "Schaugärten der TU Berlin",
+        "image": "https://commons.wikimedia.org/wiki/File:Ehemalig_Koenigliche_Gartenlehranstalt.jpg",
+        "leisure": "garden",
+        "tourism": "attraction",
+        "website": "https://www.tu.berlin/news/portraets/bewahrte-pracht",
+        "historic": "yes",
+        "wheelchair": "limited",
+        "garden:type": "botanical",
+        "toilets:wheelchair": "yes"
+      },
+      "osmId": 289704960,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5026796,
+      "lng": 13.3846276,
+      "name": "Akzisemauer",
+      "tags": {
+        "name": "Akzisemauer",
+        "tourism": "attraction",
+        "historic": "citywalls",
+        "wikipedia": "de:Akzisemauer#Reste nach dem Abriss"
+      },
+      "osmId": 339477343,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.5510501,
+      "lng": 13.3801314,
+      "name": "Mitte Museum",
+      "tags": {
+        "fee": "no",
+        "name": "Mitte Museum",
+        "museum": "local_history",
+        "tourism": "museum",
+        "website": "https://www.mittemuseum.de/",
+        "operator": "Bezirksamt Mitte",
+        "addr:city": "Berlin",
+        "wikipedia": "de:Mitte Museum",
+        "wheelchair": "yes",
+        "addr:street": "Pankstraße",
+        "addr:suburb": "Gesundbrunnen",
+        "addr:country": "DE",
+        "addr:postcode": "13357",
+        "contact:phone": "+49 30 4606019 10",
+        "opening_hours": "Su-Fr 10:00-18:00",
+        "addr:housenumber": "47",
+        "toilets:wheelchair": "yes",
+        "check_date:opening_hours": "2024-04-21"
+      },
+      "osmId": 420053341,
+      "osmType": "way"
+    },
+    {
+      "lat": 52.6550495,
+      "lng": 13.7198461,
+      "name": "Gedenkstätte Internierungslager Weesow",
+      "tags": {
+        "name": "Gedenkstätte Internierungslager Weesow",
+        "tourism": "attraction",
+        "historic": "memorial"
+      },
+      "osmId": 51501652,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.5048708,
+      "lng": 13.3822143,
+      "name": "Dokumentationszentrum Flucht, Vertreibung, Versöhnung",
+      "tags": {
+        "fee": "no",
+        "name": "Dokumentationszentrum Flucht, Vertreibung, Versöhnung",
+        "phone": "+49 30 20629980",
+        "tourism": "museum",
+        "website": "https://www.flucht-vertreibung-versoehnung.de/",
+        "addr:city": "Berlin",
+        "wikipedia": "de:Stiftung Flucht, Vertreibung, Versöhnung",
+        "wheelchair": "yes",
+        "addr:street": "Stresemannstraße",
+        "addr:suburb": "Kreuzberg",
+        "addr:postcode": "10963",
+        "opening_hours": "Tu-Su 10:00-19:00; Mo off",
+        "addr:housenumber": "90",
+        "wikimedia_commons": "File:Stiftung Flucht, Vertreibung, Versöhnung.jpg",
+        "toilets:wheelchair": "yes"
+      },
+      "osmId": 84644782,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.3954019,
+      "lng": 13.2084043,
+      "name": "Historische Straßenbahn",
+      "tags": {
+        "name": "Historische Straßenbahn",
+        "image": "https://commons.wikimedia.org/wiki/File:Strassenbahn_96.jpg",
+        "tourism": "attraction",
+        "website": "https://www.historische-strassenbahn-potsdam.de/",
+        "historic": "yes",
+        "description": "technical_monument",
+        "opening_hours": "Sa-Su 13:00-18:00"
+      },
+      "osmId": 422669870,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.4307575,
+      "lng": 13.3117928,
+      "name": "Treidellokomotive",
+      "tags": {
+        "name": "Treidellokomotive",
+        "image": "http://commons.wikimedia.org/wiki/File:Treidellok2.jpg",
+        "tourism": "attraction",
+        "historic": "locomotive",
+        "operator": "Technikmuseum",
+        "wheelchair": "yes",
+        "description": "Historische Treidellokomotive"
+      },
+      "osmId": 1166456006,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.4789437,
+      "lng": 13.3446144,
+      "name": "Preußischer Meilenstein",
+      "tags": {
+        "name": "Preußischer Meilenstein",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Jt_germany_berlin_meilenstein.JPG/80px-Jt_germany_berlin_meilenstein.JPG",
+        "format": "conus",
+        "tourism": "attraction",
+        "historic": "milestone",
+        "inscription": "I Meile von Berlin",
+        "description:de": "Preußischer Ganzmeilenstein, 1 Berliner Meile (7,532484 km) vom Berliner Schloßplatz entfernt"
+      },
+      "osmId": 1589171931,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.4085121,
+      "lng": 13.3021284,
+      "name": "TV-Asahi-Kirschblütenweg",
+      "tags": {
+        "name": "TV-Asahi-Kirschblütenweg",
+        "tourism": "attraction",
+        "historic": "memorial",
+        "memorial": "plaque"
+      },
+      "osmId": 2787929162,
+      "osmType": "node"
+    },
+    {
+      "lat": 52.5085256,
+      "lng": 13.3796834,
+      "name": "Wachturm",
+      "tags": {
+        "ref": "BT-6",
+        "name": "Wachturm",
+        "image": "http://commons.wikimedia.org/wiki/File:Berlin_Wall_Watch-Tower_Typ_BT-11_2_apel.JPG",
+        "access": "no",
+        "height": "6",
+        "name:en": "GDR Watchtower",
+        "name:fr": "Mirador du mur de Berlin",
+        "ref:lda": "09040270,T,013",
+        "tourism": "attraction",
+        "website": "https://www.berlinwallexpo.de/",
+        "heritage": "4",
+        "historic": "yes",
+        "man_made": "tower",
+        "name:lda": "Teilobjekt Wachturm & Leuchtmast",
+        "old_name": "Berliner Mauer Grenzwachturm",
+        "addr:city": "Berlin",
+        "start_date": "1966",
+        "tower:type": "watchtower",
+        "wheelchair": "no",
+        "addr:street": "Erna-Berger-Straße",
+        "addr:suburb": "Mitte",
+        "description": "Beobachtungsturm",
+        "addr:country": "DE",
+        "construction": "yes",
+        "lda:criteria": "Baudenkmal",
+        "addr:postcode": "10117",
+        "addr:housenumber": "7",
+        "heritage:operator": "lda",
+        "tower:construction": "concealed"
+      },
+      "osmId": 2966005919,
       "osmType": "node"
     }
   ],
@@ -9022,7 +9294,23 @@
     "Q2168818": 1,
     "Q20971579": 10,
     "Q318174": 9,
-    "Q76632567": 2
+    "Q76632567": 2,
+    "Q82425": 85,
+    "Q151897": 74,
+    "Q151356": 58,
+    "Q152252": 50,
+    "Q68689": 50,
+    "Q154996": 49,
+    "Q152783": 49,
+    "Q170119": 45,
+    "Q154987": 44,
+    "Q317091": 36,
+    "Q156716": 34,
+    "Q48441": 32,
+    "Q170103": 31,
+    "Q161156": 29,
+    "Q698095": 29,
+    "Q702512": 26
   },
   "wikidataMetadata": {
     "Q566495": {
@@ -10826,6 +11114,131 @@
       "sitelinks": 2,
       "instanceOfLabels": [
         "museum"
+      ]
+    },
+    "Q82425": {
+      "sitelinks": 85,
+      "instanceOfLabels": [
+        "city gate",
+        "triumphal arch",
+        "tourist attraction",
+        "border checkpoint",
+        "national symbol",
+        "architectural landmark"
+      ]
+    },
+    "Q151897": {
+      "sitelinks": 74,
+      "instanceOfLabels": [
+        "tourist attraction",
+        "parliament building",
+        "government building"
+      ]
+    },
+    "Q151356": {
+      "sitelinks": 58,
+      "instanceOfLabels": [
+        "tourist attraction",
+        "historic site",
+        "observation tower",
+        "television tower"
+      ]
+    },
+    "Q152252": {
+      "sitelinks": 50,
+      "instanceOfLabels": [
+        "square",
+        "architectural ensemble"
+      ]
+    },
+    "Q68689": {
+      "sitelinks": 50,
+      "instanceOfLabels": [
+        "Berlin border crossing",
+        "tourist attraction"
+      ]
+    },
+    "Q154996": {
+      "sitelinks": 49,
+      "instanceOfLabels": [
+        "museum",
+        "château",
+        "summer residence"
+      ]
+    },
+    "Q152783": {
+      "sitelinks": 49,
+      "instanceOfLabels": [
+        "square",
+        "tourist attraction"
+      ]
+    },
+    "Q170119": {
+      "sitelinks": 45,
+      "instanceOfLabels": [
+        "château",
+        "city palace",
+        "administrative building",
+        "destroyed building or structure"
+      ]
+    },
+    "Q154987": {
+      "sitelinks": 44,
+      "instanceOfLabels": [
+        "war memorial",
+        "victory column"
+      ]
+    },
+    "Q317091": {
+      "sitelinks": 36,
+      "instanceOfLabels": [
+        "palace",
+        "château",
+        "official residence"
+      ]
+    },
+    "Q156716": {
+      "sitelinks": 34,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q48441": {
+      "sitelinks": 32,
+      "instanceOfLabels": [
+        "war cemetery",
+        "Soviet war cemeteries in Germany",
+        "monumental sculpture",
+        "memorial"
+      ]
+    },
+    "Q170103": {
+      "sitelinks": 31,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q161156": {
+      "sitelinks": 29,
+      "instanceOfLabels": [
+        "convention center",
+        "performing arts center",
+        "house of culture",
+        "parliament building",
+        "destroyed building or structure"
+      ]
+    },
+    "Q698095": {
+      "sitelinks": 29,
+      "instanceOfLabels": [
+        "palace hotel"
+      ]
+    },
+    "Q702512": {
+      "sitelinks": 26,
+      "instanceOfLabels": [
+        "park",
+        "square"
       ]
     }
   }
