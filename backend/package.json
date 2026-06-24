@@ -14,6 +14,7 @@
     "quality:capture:sources": "node -r ts-node/register scripts/validation/capture-source-snapshot-from-fixtures.ts",
     "quality:audit": "tsx scripts/validation/audit-tour-quality.ts",
     "quality:regenerate": "tsx scripts/validation/regenerate-tour-from-fixtures.ts",
+    "quality:preflight:history": "tsx scripts/validation/run-history-preflight-canary.ts",
     "quality:test": "jest src/services/poi/TourQuality.acceptance.test.ts src/services/poi/PoiEnrichmentSnapshot.test.ts src/services/tourQuality/TourQualityEvaluator.test.ts --runInBand",
     "inventory:seed-flexible-pass": "tsx scripts/admin/seed-flexible-pass-inventory.ts",
     "audit:multi-route-overlap": "tsx scripts/audit/multi-route-overlap.ts",

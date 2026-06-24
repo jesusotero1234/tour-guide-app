@@ -24,10 +24,29 @@ export interface TourQualityRepairMetadata {
   afterReasons: string[];
 }
 
+export interface TourHistoryPreflightMetadata {
+  decision: 'generate' | 'recommend_shorter_duration' | 'needs_review' | 'block';
+  tier: 'strong_history_city' | 'solid_history_city' | 'compact_history_city' | 'weak_history_city' | 'insufficient_data';
+  reasons: string[];
+  requestedDurationMinutes: number;
+  recommendedDurationMinutes: number;
+  protectedAnchorCount: number;
+  strongHistoryPlaceCount: number;
+  secondaryPlaceShare: number;
+  topAnchors: Array<{
+    name: string;
+    wikidataId: string | null;
+    score: number;
+    fameScore: number | null;
+    category: string | null;
+  }>;
+}
+
 export interface TourMetadata {
   qualityStatus?: TourQualityStatus;
   confidence?: TourConfidence;
   repair?: TourQualityRepairMetadata;
+  historyPreflight?: TourHistoryPreflightMetadata;
   itineraryKey?: string;
   conceptSlug?: string;
   routeType?: string;

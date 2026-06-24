@@ -56,4 +56,23 @@ describe('HistoryPlaceScoring', () => {
     expect(profile.kinds).toContain('museum-with-site-context');
     expect(profile.kinds).not.toContain('museum-container');
   });
+
+  it('treats historic bridges as lived-history anchors', () => {
+    const profile = getHistoryPlaceProfile({
+      name: 'Karlův most',
+      tags: {
+        name: 'Karlův most',
+        tourism: 'attraction',
+        historic: 'yes',
+        bridge: 'yes',
+        'canonical:instance_of': 'stone bridge|tourist attraction',
+        'canonical:sitelinks': '52',
+        wikidata: 'Q204871',
+      },
+    });
+
+    expect(profile.score).toBeGreaterThanOrEqual(15);
+    expect(profile.isEventSiteLike).toBe(true);
+    expect(profile.kinds).toContain('event-place');
+  });
 });

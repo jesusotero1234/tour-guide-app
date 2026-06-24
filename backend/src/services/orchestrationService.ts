@@ -32,7 +32,7 @@ import { TourDurationNotRecommendedError } from '../domain/errors/TourDurationNo
 import { buildNarration } from './narrative/NarrativeBuilder';
 import { composeWalkingRoute, estimateRouteMetrics, buildDiversePrefix, orderRouteCandidates, RouteDiagnostics, RouteSelectionResult } from './poi/RouteSelection';
 import { getDurationPlan } from './poi/DurationPlanning';
-import { assessHistoryTourCapacity, HistoryTourCapacity } from './poi/HistoryTourCapacity';
+import { assessHistoryTourPreflight, HistoryTourPreflight } from './poi/HistoryTourCapacity';
 import { fetchWikidataLandmarkMetadata, tierPoisByLandmarkFame } from './poi/LandmarkTiering';
 import { enrichShortlistedPois } from './poi/PoiEnrichmentPipeline';
 import { getHistoryPlaceProfile } from './poi/HistoryPlaceScoring';
@@ -91,7 +91,7 @@ interface GenerateFullTourOptions {
   bypassDurationRecommendation?: boolean;
   requestedDurationOverride?: number;
   generationMode?: NonNullable<Tour['metadata']>['generationMode'];
-  durationCapacity?: HistoryTourCapacity;
+  historyPreflight?: HistoryTourPreflight;
 }
 
 const FLEXIBLE_PASS_TOURS_REQUIRED = 3;
@@ -965,34 +965,53 @@ export class OrchestrationService {
       request.language || 'en',
       requestedDuration
     );
-    const durationCapacity = options.durationCapacity
+    const historyPreflight = options.historyPreflight
       ?? (this.normalizeMatchValue(request.theme) === 'history'
-        ? assessHistoryTourCapacity(structuralTour.routeCandidates, requestedDuration)
+        ? assessHistoryTourPreflight(structuralTour.routeCandidates, requestedDuration, {
+          degraded: structuralTour.routeDiagnostics.degraded,
+          coverageRatio: structuralTour.routeDiagnostics.coverageRatio,
+        })
         : undefined);
 
     if (
-      durationCapacity?.reason === 'history_capacity_below_requested'
+      historyPreflight?.decision === 'recommend_shorter_duration'
       && !options.bypassDurationRecommendation
     ) {
       const recommendedRequest: TourRequest = {
         ...request,
-        durationMinutes: durationCapacity.recommendedDuration,
-        duration: durationCapacity.recommendedDuration,
+        durationMinutes: historyPreflight.recommendedDurationMinutes,
+        duration: historyPreflight.recommendedDurationMinutes,
       };
       const draftTour = await this.generateFullTour(recommendedRequest, {
         skipAudio: true,
         bypassDurationRecommendation: true,
         requestedDurationOverride: requestedDuration,
         generationMode: 'duration-recommendation-draft',
-        durationCapacity,
+        historyPreflight,
       });
 
       throw new TourDurationNotRecommendedError({
         city: request.city,
         theme: request.theme,
         requestedDurationMinutes: requestedDuration,
-        recommendedDurationMinutes: durationCapacity.recommendedDuration,
+        recommendedDurationMinutes: historyPreflight.recommendedDurationMinutes,
         draftTourId: draftTour.id,
+      });
+    }
+
+    if (historyPreflight?.decision === 'block' && !options.bypassDurationRecommendation) {
+      throw new CityQualityNotAvailableError(request.city, request.theme, {
+        passed: false,
+        stage: 'input',
+        score: 0,
+        reasons: historyPreflight.reasons,
+        signals: {
+          requestedDurationMinutes: historyPreflight.requestedDurationMinutes,
+          recommendedDurationMinutes: historyPreflight.recommendedDurationMinutes,
+          protectedAnchorCount: historyPreflight.protectedAnchorCount,
+          strongHistoryPlaceCount: historyPreflight.strongHistoryPlaceCount,
+          secondaryPlaceShare: historyPreflight.secondaryPlaceShare,
+        },
       });
     }
     const confidence = shouldEvaluateConfidence
@@ -1094,10 +1113,11 @@ export class OrchestrationService {
         qualityStatus,
         confidence: gateMode === 'shadow' ? confidence : finalConfidence,
         repair: repairMetadata,
+        historyPreflight,
         itineraryKey: this.buildItineraryKey(request),
         generationMode: options.generationMode ?? 'full',
         requestedDurationMinutes: options.requestedDurationOverride,
-        recommendedDurationMinutes: options.durationCapacity?.recommendedDuration,
+        recommendedDurationMinutes: options.historyPreflight?.recommendedDurationMinutes,
         durationAdapted: options.generationMode === 'duration-recommendation-draft',
       },
       places: placesWithImages.map((p: any, idx: number) => ({

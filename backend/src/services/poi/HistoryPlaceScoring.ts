@@ -23,22 +23,25 @@ function hasAny(text: string, patterns: RegExp[]): boolean {
 }
 
 const EVENT_SITE_NAME_PATTERNS = [
-  /\b(gate|city gate|wall|checkpoint|memorial|monument|parliament|senate|congress|assembly|capitol|citadel|fortress|fort|castle|palace|square|plaza|battlefield|prison|ruins?)\b/i,
+  /\b(gate|city gate|wall|bridge|old town hall|town hall|checkpoint|memorial|monument|parliament|senate|congress|assembly|capitol|citadel|fortress|fort|castle|palace|square|plaza|battlefield|prison|ruins?)\b/i,
   /\b(reichstag|bundestag|bundesrat|parlement|parlamento|parlamento|senado|senat|assembl[eé]e|cortes|corte|congreso)\b/i,
-  /\b(muro|puerta|memorial|monumento|palacio|castillo|plaza|fortaleza|parlamento|congreso|senado)\b/i,
-  /\b(mur|porte|m[ée]morial|monument|palais|ch[âa]teau|place|forteresse|parlement|s[ée]nat)\b/i,
-  /\b(mauer|tor|gedenk|denkmal|schloss|burg|platz|festung|parlament|reichstag|bundestag)\b/i,
-  /\b(muro|porta|memoriale|monumento|palazzo|castello|piazza|fortezza|parlamento|senato)\b/i,
+  /\b(muro|puerta|puente|memorial|monumento|palacio|castillo|plaza|fortaleza|parlamento|congreso|senado)\b/i,
+  /\b(mur|porte|pont|m[ée]morial|monument|palais|ch[âa]teau|place|forteresse|parlement|s[ée]nat)\b/i,
+  /\b(mauer|tor|br[üu]cke|gedenk|denkmal|schloss|burg|platz|festung|parlament|reichstag|bundestag)\b/i,
+  /\b(muro|porta|ponte|memoriale|monumento|palazzo|castello|piazza|fortezza|parlamento|senato)\b/i,
+  /\b(most|radnice|orloj)\b/i,
 ];
 
 const EVENT_SITE_LABEL_PATTERNS = [
   /archaeological site/i,
   /battlefield/i,
+  /bridge/i,
   /city gate|gate/i,
   /city wall|wall/i,
   /checkpoint/i,
   /fortification|fortress|citadel|fort\b/i,
   /government building|parliament|legislative building|senate|capitol|congress|assembly/i,
+  /town hall|city hall|clock tower|astronomical clock/i,
   /historic site|historic district/i,
   /memorial|monument|war memorial/i,
   /palace|castle/i,
@@ -50,11 +53,13 @@ const EVENT_SITE_LABEL_PATTERNS = [
 const STRONG_MUSEUM_SITE_CONTEXT_LABEL_PATTERNS = [
   /archaeological site/i,
   /battlefield/i,
+  /bridge/i,
   /city gate|gate/i,
   /city wall|wall/i,
   /checkpoint/i,
   /fortification|fortress|citadel|fort\b/i,
   /government building|parliament|legislative building|senate|capitol|congress|assembly/i,
+  /town hall|city hall|clock tower|astronomical clock/i,
   /historic house/i,
   /historic site|historic district/i,
   /palace|castle/i,
@@ -86,10 +91,12 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
   const tourism = normalizeText(tags.tourism);
   const amenity = normalizeText(tags.amenity);
   const place = normalizeText(tags.place);
+  const bridge = normalizeText(tags.bridge);
+  const manMade = normalizeText(tags.man_made);
   const memorial = normalizeText(tags.memorial);
   const instanceLabels = normalizeText(tags['canonical:instance_of']);
   const description = normalizeText(tags.description || tags['description:en'] || tags['description:de'] || tags['description:es']);
-  const combinedText = [name, historic, building, tourism, amenity, place, memorial, instanceLabels, description].join(' ');
+  const combinedText = [name, historic, building, tourism, amenity, place, bridge, manMade, memorial, instanceLabels, description].join(' ');
   const kinds = new Set<string>();
   let score = 0;
 
@@ -110,6 +117,11 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
   }
 
   if (['city_gate', 'citywalls', 'battlefield', 'archaeological_site', 'fort', 'fortress', 'ruins'].includes(historic)) {
+    score += 6;
+    kinds.add('event-place');
+  }
+
+  if (bridge || manMade === 'bridge' || hasAny(combinedText, [/\bbridge\b/i, /\bpuente\b/i, /\bpont\b/i, /\bbr[üu]cke\b/i, /\bponte\b/i, /\bmost\b/i])) {
     score += 6;
     kinds.add('event-place');
   }
