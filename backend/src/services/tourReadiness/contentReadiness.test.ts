@@ -22,6 +22,36 @@ describe('contentReadiness', () => {
     expect(result.reasons).toContain('fallback_like');
   });
 
+  it('rejects technical OSM tag fragments inside otherwise long narration', () => {
+    const description = [
+      'Los datos disponibles lo describen con detalles como tourism=attraction.',
+      Array(180).fill('historia').join(' '),
+    ].join('\n\n');
+
+    const result = evaluateStopContentReadiness({ name: 'Alexanderplatz', description });
+
+    expect(result.fallbackLike).toBe(true);
+    expect(result.reasons).toContain('fallback_like');
+  });
+
+  it('rejects narration marked as generated fallback in metadata', () => {
+    const description = [
+      'Esta parada mantiene una narracion suficientemente larga y podria parecer aceptable si solo miraramos el numero de palabras.',
+      Array(180).fill('historia').join(' '),
+    ].join('\n\n');
+
+    const result = evaluateStopContentReadiness({
+      name: 'Checkpoint Charlie',
+      description,
+      metadata: {
+        narrationMeta: { fallback: 'grounded-template' },
+      },
+    });
+
+    expect(result.fallbackLike).toBe(true);
+    expect(result.reasons).toContain('fallback_like');
+  });
+
   it('accepts a rich multi-paragraph narration', () => {
     const description = [
       'Llegamos a la Plaza Mayor, una de esas escenas urbanas donde la ciudad parece reunirse en capas: soportales, balcones, piedra y un flujo constante de gente cruzando el espacio con ritmos muy distintos según la hora del dia.',

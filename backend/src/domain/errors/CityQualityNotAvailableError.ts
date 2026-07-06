@@ -10,6 +10,7 @@ export class CityQualityNotAvailableError extends Error {
     reasons: string[];
     stage: TourConfidence['stage'];
     score: number;
+    signals?: TourConfidence['signals'];
   };
 
   constructor(city: string, theme: string, confidence: TourConfidence) {
@@ -21,6 +22,7 @@ export class CityQualityNotAvailableError extends Error {
       reasons: confidence.reasons,
       stage: confidence.stage,
       score: confidence.score,
+      signals: confidence.signals,
     };
   }
 }

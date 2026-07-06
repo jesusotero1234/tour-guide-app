@@ -229,6 +229,46 @@ export class OrchestrationService {
     }));
   }
 
+  private assertTourContentReadyForPersistence(tour: Tour): void {
+    const contentReadiness = evaluateTourContentReadiness(tour.places);
+    if (contentReadiness.ready) {
+      return;
+    }
+
+    console.warn('[tour_content_guard]', JSON.stringify({
+      event: 'reject-generated-tour-content',
+      city: tour.city,
+      countryCode: tour.countryCode || null,
+      theme: tour.theme,
+      language: tour.language,
+      reasons: contentReadiness.reasons,
+      averageWords: contentReadiness.averageWords,
+      fallbackStopCount: contentReadiness.fallbackStopCount,
+      shortStopCount: contentReadiness.shortStopCount,
+      stops: contentReadiness.stops
+        .filter((stop) => stop.reasons.length > 0)
+        .map((stop) => ({
+          name: stop.name,
+          wordCount: stop.wordCount,
+          fallbackLike: stop.fallbackLike,
+          reasons: stop.reasons,
+        })),
+    }));
+
+    throw new CityQualityNotAvailableError(tour.city, tour.theme, {
+      passed: false,
+      stage: 'output',
+      score: 0,
+      reasons: contentReadiness.reasons,
+      signals: {
+        fallbackStopCount: contentReadiness.fallbackStopCount,
+        shortStopCount: contentReadiness.shortStopCount,
+        averageWords: contentReadiness.averageWords,
+        stopCount: contentReadiness.stopCount,
+      },
+    });
+  }
+
   private startStageTimer(label: string): StageTimer {
     const startedAt = Date.now();
     console.log(`[Timing] ${label} started`);
@@ -743,6 +783,7 @@ export class OrchestrationService {
       updatedAt: now,
     };
 
+    this.assertTourContentReadyForPersistence(tourToSave);
     const savedTour = await this.tourRepository.save(tourToSave);
     const savedPlacesWithSections = savedTour.places.map((place, index) => ({
       ...place,
@@ -779,6 +820,7 @@ export class OrchestrationService {
         nameInTourLanguage: place.nameInTourLanguage,
         description: place.description,
         descriptionSections: place.descriptionSections,
+        metadata: place.metadata,
         position: place.position || 0,
         latitude: place.latitude ?? place.coordinates?.lat,
         longitude: place.longitude ?? place.coordinates?.lng,
@@ -913,6 +955,7 @@ export class OrchestrationService {
       updatedAt: now,
     };
 
+    this.assertTourContentReadyForPersistence(tourToSave);
     const savedTour = await this.tourRepository.save(tourToSave);
     const savedPlacesWithSections = savedTour.places.map((place, index) => ({
       ...place,
@@ -1152,6 +1195,7 @@ export class OrchestrationService {
       updatedAt: now
     };
 
+    this.assertTourContentReadyForPersistence(tourToSave);
     const savedTour = await this.tourRepository.save(tourToSave);
     console.log('Saved tour with ID:', savedTour.id);
     const savedPlacesWithSections = savedTour.places.map((place, index) => ({
@@ -1247,6 +1291,7 @@ export class OrchestrationService {
           nameInTourLanguage: place.nameInTourLanguage,
           description: place.description,
           descriptionSections: place.descriptionSections,
+          metadata: place.metadata,
           position: place.position || 0,
           latitude: place.latitude,
           longitude: place.longitude,
@@ -1342,6 +1387,7 @@ export class OrchestrationService {
               nameInTourLanguage: place.nameInTourLanguage,
               description: place.description,
               descriptionSections: place.descriptionSections,
+              metadata: place.metadata,
               position: place.position,
               latitude: place.latitude,
               longitude: place.longitude,

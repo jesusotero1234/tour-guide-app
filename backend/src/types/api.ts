@@ -1,4 +1,5 @@
 import { TourConfidence, TourQualityRepairMetadata, TourQualityStatus } from './tourQuality';
+import type { PlaceMetadata } from '../domain/entities/Place';
 
 export interface Coordinates {
   lat: number;
@@ -19,6 +20,7 @@ export interface Place {
   importanceScore?: number;
   audioUrl?: string;
   imageUrl?: string;
+  metadata?: PlaceMetadata;
   createdAt?: string;
   updatedAt?: string;
 }

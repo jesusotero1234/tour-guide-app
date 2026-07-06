@@ -57,6 +57,55 @@ function richPlaces(tourId: string, count = 5) {
   }));
 }
 
+function structuralPlaces(count = 5) {
+  const names = [
+    'Museo del Prado',
+    'Puerta del Sol',
+    'Plaza Mayor',
+    'Fuente de Cibeles',
+    'Real Jardin Botanico',
+    'Templo de Debod',
+    'Palacio Real',
+    'Puerta de Alcala',
+  ];
+  const categories = ['square_civic', 'square_civic', 'square_civic', 'memorial', 'civic_power', 'memorial', 'civic_power', 'memorial'];
+
+  return names.slice(0, count).map((name, index) => ({
+    poi: {
+      osmType: 'relation',
+      osmId: index + 1,
+      name,
+      lat: 40.4138 + index * 0.001,
+      lng: -3.6921 - index * 0.001,
+      tags: { wikidata: `Q${index + 1}`, wikipedia: `es:${name.replace(/\s+/g, '_')}`, name },
+      enriched: {
+        nameTranslations: { es: name, en: name },
+        description: 'Desc',
+        wikipediaLead: 'Lead',
+        wikipediaBody: 'Body',
+        wikidataClaims: { inception: '1819' },
+        osmTags: {},
+        wikivoyage: null,
+        descriptionLanguage: 'es',
+        attribution: {},
+      },
+    },
+    name,
+    nameInTourLanguage: name,
+    coordinates: { lat: 40.4138 + index * 0.001, lng: -3.6921 - index * 0.001 },
+    importance_score: 10 - index,
+    wikidataId: `Q${index + 1}`,
+    fameScore: 40 - index,
+    landmarkTier: index === 0 ? 'flagship' : 'major',
+    category: categories[index] || 'monument',
+    historyPlaceScore: 18 - (index * 0.2),
+    historyPlaceKinds: ['event-place'],
+    historyIsEventSiteLike: true,
+    historyIsMuseumLike: false,
+    estimatedDuration: 20,
+  }));
+}
+
 describe('OrchestrationService confidence gate', () => {
   const originalEnv = process.env;
 
@@ -77,7 +126,7 @@ describe('OrchestrationService confidence gate', () => {
       return places.map((place: any, index: number) => ({
       ...place,
       id: `place-${index + 1}`,
-      description: `Description ${index + 1}`,
+      description: richNarration(place.name || `Parada ${index + 1}`),
       descriptionSections: undefined,
       }));
     });
@@ -262,7 +311,7 @@ describe('OrchestrationService confidence gate', () => {
           estimatedDuration: 20,
         },
       ],
-      routeCandidates: [],
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: { degraded: false, degradationReason: null, coverageRatio: 1 },
       confidenceInput: { input: { rawPoolSize: 10, wikidataTaggedCount: 10, sitelinksResolvedRatio: 1, maxSitelinks: 10 }, output: { shortlistSize: 1, routeDuplicateWikidataCount: 0, routeMaxCategoryShare: 1, routeFlagshipCount: 1, degraded: false, coverageRatio: 1, stopCount: 1 } },
     });
@@ -502,7 +551,7 @@ describe('OrchestrationService confidence gate', () => {
       const [places] = args;
       return places.map((place: any, index: number) => ({
         ...place,
-        description: `Narración ${index + 1}`,
+        description: richNarration(place.name || `Parada ${index + 1}`),
         descriptionSections: { intro: `Intro ${index + 1}` },
       }));
     });
@@ -702,9 +751,10 @@ describe('OrchestrationService confidence gate', () => {
 
     const service = createService();
     const tourRepository = (service as any).tourRepository;
+    mockSuccessfulTail(service);
     const structuralSpy = jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
-      places: [],
-      routeCandidates: [],
+      places: structuralPlaces(),
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: {
         degraded: false,
         degradationReason: null,
@@ -720,31 +770,15 @@ describe('OrchestrationService confidence gate', () => {
           maxSitelinks: 10,
         },
         output: {
-          shortlistSize: 0,
+          shortlistSize: 5,
           routeDuplicateWikidataCount: 0,
-          routeMaxCategoryShare: 0,
-          routeFlagshipCount: 0,
+          routeMaxCategoryShare: 0.4,
+          routeFlagshipCount: 1,
           degraded: false,
           coverageRatio: 1,
-          stopCount: 0,
+          stopCount: 5,
         },
       },
-    });
-    jest.spyOn(service as any, 'buildNarratedPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'fetchImagesForPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'generateAudio').mockResolvedValue([]);
-    jest.spyOn(tourRepository, 'save').mockResolvedValue({
-      id: 'tour-full',
-      city: 'Madrid',
-      country: 'Spain',
-      countryCode: 'ES',
-      theme: 'history',
-      language: 'es',
-      durationMinutes: 240,
-      metadata: { generationMode: 'full' },
-      places: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     });
     jest.spyOn(tourRepository, 'list').mockResolvedValue([
       {
@@ -783,7 +817,7 @@ describe('OrchestrationService confidence gate', () => {
       durationMinutes: 240,
     });
 
-    expect(result.id).toBe('tour-full');
+    expect(result.id).toBe('tour-1');
     expect(structuralSpy).toHaveBeenCalled();
     expect(tourRepository.save).toHaveBeenCalledWith(expect.objectContaining({
       metadata: expect.objectContaining({ generationMode: 'full' }),
@@ -797,6 +831,7 @@ describe('OrchestrationService confidence gate', () => {
     const service = createService();
     const structuralSpy = jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
       places: [],
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: {
         degraded: true,
         degradationReason: 'duration_below_requested',
@@ -841,15 +876,84 @@ describe('OrchestrationService confidence gate', () => {
     expect(audioSpy).not.toHaveBeenCalled();
   });
 
+  it('rejects fallback-heavy generated narration before DB and audio', async () => {
+    process.env.NODE_ENV = 'development';
+
+    const service = createService();
+    const tourRepository = (service as any).tourRepository;
+    const structural = structuralPlaces(5);
+    jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
+      places: structural,
+      routeCandidates: structuralPlaces(8),
+      routeDiagnostics: {
+        degraded: false,
+        degradationReason: null,
+        coverageRatio: 1,
+        estimatedTourMinutes: 240,
+        requestedDuration: 240,
+      },
+      confidenceInput: {
+        input: {
+          rawPoolSize: 50,
+          wikidataTaggedCount: 20,
+          sitelinksResolvedRatio: 0.8,
+          maxSitelinks: 12,
+        },
+        output: {
+          shortlistSize: 5,
+          routeDuplicateWikidataCount: 0,
+          routeMaxCategoryShare: 0.4,
+          routeFlagshipCount: 1,
+          degraded: false,
+          coverageRatio: 1,
+          stopCount: 5,
+        },
+      },
+    });
+    jest.spyOn(service as any, 'buildNarratedPlaces').mockResolvedValue(
+      structural.map((place) => ({
+        ...place,
+        description: [
+          'Los datos disponibles lo describen con detalles como tourism=attraction.',
+          Array(180).fill('historia').join(' '),
+        ].join('\n\n'),
+        narrationMeta: { fallback: 'grounded-template' },
+      }))
+    );
+    jest.spyOn(service as any, 'fetchImagesForPlaces').mockImplementation(async (...args: any[]) => args[0]);
+    const audioSpy = jest.spyOn(service as any, 'generateAudio');
+    const saveSpy = jest.spyOn(tourRepository, 'save');
+
+    await expect(service.generateCompleteTour({
+      city: 'Madrid',
+      country: 'Spain',
+      countryCode: 'ES',
+      theme: 'history',
+      language: 'es',
+      durationMinutes: 240,
+    })).rejects.toMatchObject({
+      details: expect.objectContaining({
+        stage: 'output',
+        reasons: expect.arrayContaining(['fallback_stop_present']),
+        signals: expect.objectContaining({ fallbackStopCount: 5 }),
+      }),
+    });
+
+    expect(saveSpy).not.toHaveBeenCalled();
+    expect(audioSpy).not.toHaveBeenCalled();
+  });
+
   it('persists shadow review queue events for unverified cities', async () => {
     process.env.NODE_ENV = 'development';
     process.env.TOUR_CONFIDENCE_GATE_MODE = 'shadow';
 
     const reviewQueueRepository = { enqueue: jest.fn().mockResolvedValue(undefined) };
     const service = createService(reviewQueueRepository);
+    mockSuccessfulTail(service);
 
     jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
-      places: [],
+      places: structuralPlaces(6),
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: {
         degraded: false,
         degradationReason: null,
@@ -874,22 +978,6 @@ describe('OrchestrationService confidence gate', () => {
           stopCount: 6,
         },
       },
-    });
-    jest.spyOn(service as any, 'buildNarratedPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'fetchImagesForPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'generateAudio').mockResolvedValue([]);
-    jest.spyOn((service as any).tourRepository, 'save').mockResolvedValue({
-      id: 'tour-1',
-      city: 'Kyoto',
-      country: 'Japan',
-      countryCode: 'JP',
-      theme: 'history',
-      language: 'en',
-      durationMinutes: 240,
-      metadata: { qualityStatus: 'shadow_evaluated' },
-      places: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     });
 
     const result = await service.generateCompleteTour({
@@ -919,8 +1007,10 @@ describe('OrchestrationService confidence gate', () => {
 
     const reviewQueueRepository = { enqueue: jest.fn().mockResolvedValue(undefined) };
     const service = createService(reviewQueueRepository);
+    mockSuccessfulTail(service);
     jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
-      places: [],
+      places: structuralPlaces(6),
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: {
         degraded: false,
         degradationReason: null,
@@ -946,23 +1036,8 @@ describe('OrchestrationService confidence gate', () => {
         },
       },
     });
-    jest.spyOn(service as any, 'buildNarratedPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'fetchImagesForPlaces').mockResolvedValue([]);
-    jest.spyOn(service as any, 'generateAudio').mockResolvedValue([]);
 
-    const saveSpy = jest.spyOn((service as any).tourRepository, 'save').mockResolvedValue({
-      id: 'tour-1',
-      city: 'Kyoto',
-      country: 'Japan',
-      countryCode: 'JP',
-      theme: 'history',
-      language: 'en',
-      durationMinutes: 240,
-      metadata: { qualityStatus: 'auto_approved' },
-      places: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+    const saveSpy = jest.spyOn((service as any).tourRepository, 'save');
 
     const result = await service.generateCompleteTour({
       city: 'Kyoto',
@@ -994,6 +1069,7 @@ describe('OrchestrationService confidence gate', () => {
 
     jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
       places: [],
+      routeCandidates: structuralPlaces(8),
       routeDiagnostics: {
         degraded: true,
         degradationReason: 'duration_below_requested',
@@ -1054,7 +1130,14 @@ describe('OrchestrationService confidence gate', () => {
       { name: 'Market', coordinates: { lat: 40.4193, lng: -3.7048 }, category: 'market', importance_score: 9.4, landmarkTier: 'major', poi: { tags: { wikidata: 'Q6' } } },
       { name: 'Museum', coordinates: { lat: 40.4198, lng: -3.7050 }, category: 'museum', importance_score: 9.3, landmarkTier: 'major', poi: { tags: { wikidata: 'Q7' } } },
       { name: 'Cathedral', coordinates: { lat: 40.4203, lng: -3.7052 }, category: 'religious', importance_score: 9.2, landmarkTier: 'major', poi: { tags: { wikidata: 'Q8' } } },
-    ];
+    ].map((place, index) => ({
+      ...place,
+      wikidataId: place.poi.tags.wikidata,
+      historyPlaceScore: 18 - (index * 0.2),
+      historyPlaceKinds: ['event-place'],
+      historyIsEventSiteLike: true,
+      historyIsMuseumLike: false,
+    }));
 
     jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
       places: routeCandidates.slice(0, 5),
@@ -1130,7 +1213,14 @@ describe('OrchestrationService confidence gate', () => {
       { name: 'Palace 3', coordinates: { lat: 40.4178, lng: -3.7042 }, category: 'palace_castle', importance_score: 9.7, landmarkTier: 'major', poi: { tags: { wikidata: 'Q3' } } },
       { name: 'Palace 4', coordinates: { lat: 40.4183, lng: -3.7044 }, category: 'palace_castle', importance_score: 9.6, landmarkTier: 'major', poi: { tags: { wikidata: 'Q4' } } },
       { name: 'Palace 5', coordinates: { lat: 40.4188, lng: -3.7046 }, category: 'palace_castle', importance_score: 9.5, landmarkTier: 'major', poi: { tags: { wikidata: 'Q5' } } },
-    ];
+    ].map((place, index) => ({
+      ...place,
+      wikidataId: place.poi.tags.wikidata,
+      historyPlaceScore: 18 - (index * 0.2),
+      historyPlaceKinds: ['event-place'],
+      historyIsEventSiteLike: true,
+      historyIsMuseumLike: false,
+    }));
 
     jest.spyOn(service as any, 'generateStructuralTourData').mockResolvedValue({
       places: routeCandidates,

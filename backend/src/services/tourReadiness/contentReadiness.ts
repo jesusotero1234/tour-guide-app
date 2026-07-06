@@ -10,6 +10,8 @@ const FALLBACK_PATTERNS = [
   /^Llegamos a\s+.+\.$/i,
   /^You've arrived at\b/i,
   /\bes un (?:attraction|museum|heritage) en\b/i,
+  /\bLos datos disponibles lo describen con detalles como\b/i,
+  /\b(?:tourism|building|historic|amenity|leisure|shop|office|heritage|wikidata|wikipedia|addr:[a-z0-9_:-]+)=[a-z0-9_:-]+\b/i,
   /^From here, continue toward\b/im,
 ];
 
@@ -40,6 +42,15 @@ export interface TourContentReadiness {
   stops: TourContentReadinessStop[];
 }
 
+interface ReadinessPlace {
+  id?: string;
+  name: string;
+  description?: string | null;
+  metadata?: {
+    narrationMeta?: Record<string, unknown> | null;
+  } | null;
+}
+
 function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
@@ -53,11 +64,34 @@ function isFallbackLike(text: string): boolean {
   return FALLBACK_PATTERNS.some((pattern) => pattern.test(trimmed));
 }
 
-export function evaluateStopContentReadiness(place: {
-  id?: string;
-  name: string;
-  description?: string | null;
-}): StopContentReadiness {
+function hasFallbackNarrationMeta(place: ReadinessPlace): boolean {
+  const meta = place.metadata?.narrationMeta;
+  if (!meta || typeof meta !== 'object') {
+    return false;
+  }
+
+  if (meta.fallback === 'grounded-template' || meta.replacedWeakNarration === true) {
+    return true;
+  }
+
+  const sectionsFallbacked = meta.sectionsFallbacked;
+  if (typeof sectionsFallbacked === 'number' && sectionsFallbacked > 0) {
+    return true;
+  }
+
+  const sectionsGenerated = meta.sectionsGenerated;
+  const droppedReasons = Array.isArray(meta.droppedReasons) ? meta.droppedReasons : [];
+  if (sectionsGenerated === 0 && droppedReasons.length > 0) {
+    return true;
+  }
+
+  return droppedReasons.some((reason) => (
+    typeof reason === 'string'
+    && (reason.includes(':fallback') || reason === 'handler-error')
+  ));
+}
+
+export function evaluateStopContentReadiness(place: ReadinessPlace): StopContentReadiness {
   const description = (place.description || '').trim();
   const reasons: string[] = [];
 
@@ -73,7 +107,7 @@ export function evaluateStopContentReadiness(place: {
 
   const words = wordCount(description);
   const paragraphs = paragraphCount(description);
-  const fallbackLike = isFallbackLike(description);
+  const fallbackLike = isFallbackLike(description) || hasFallbackNarrationMeta(place);
 
   if (fallbackLike) {
     reasons.push('fallback_like');
@@ -96,11 +130,7 @@ export function evaluateStopContentReadiness(place: {
   };
 }
 
-export function evaluateTourContentReadiness(places: Array<{
-  id?: string;
-  name: string;
-  description?: string | null;
-}>): TourContentReadiness {
+export function evaluateTourContentReadiness(places: ReadinessPlace[]): TourContentReadiness {
   if (places.length === 0) {
     return {
       ready: false,
