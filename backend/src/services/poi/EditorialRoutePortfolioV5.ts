@@ -286,7 +286,8 @@ function searchAtCeiling(
   minStops: number,
   maxStops: number,
   beamWidth: number,
-  labelsPerBoundary: number
+  labelsPerBoundary: number,
+  protectedSlots: string[]
 ): SearchResult {
   const limits = editorialSegmentLimitsV5(requestedDuration);
   let current = candidates.map((_, index): SearchState => ({
@@ -338,7 +339,24 @@ function searchAtCeiling(
     let nextLevel = [...boundaries.values()].flat().sort(compareState);
     if (nextLevel.length > beamWidth) {
       truncatedDepths.push(size + 1);
-      nextLevel = nextLevel.slice(0, beamWidth);
+      const protectedSet = new Set(protectedSlots);
+      const reserved = new Map<string, SearchState>();
+      for (const state of nextLevel) {
+        for (const index of state.path) {
+          const slot = candidates[index].slot;
+          if (protectedSet.has(slot) && !reserved.has(slot)) reserved.set(slot, state);
+        }
+      }
+      const retained = new Map<string, SearchState>();
+      for (const state of reserved.values()) {
+        if (retained.size >= beamWidth) break;
+        retained.set(state.path.join('>'), state);
+      }
+      for (const state of nextLevel) {
+        if (retained.size >= beamWidth) break;
+        retained.set(state.path.join('>'), state);
+      }
+      nextLevel = [...retained.values()].sort(compareState);
     }
     current = nextLevel;
     retainedStateCount += current.length;
@@ -354,17 +372,30 @@ function protectedCandidateSlots(candidates: EditorialPortfolioCandidateV5[]): s
   const protectedSlots = new Set([...candidates].sort((left, right) => (
     right.entity.recognitionScore - left.entity.recognitionScore || left.slot.localeCompare(right.slot)
   )).slice(0, 10).map((candidate) => candidate.slot));
+  for (const candidate of [...candidates].sort((left, right) => (
+    (right.entity.firstVisitScore ?? right.entity.recognitionScore)
+      - (left.entity.firstVisitScore ?? left.entity.recognitionScore)
+      || left.slot.localeCompare(right.slot)
+  )).slice(0, 10)) protectedSlots.add(candidate.slot);
   const categories = new Map<PoiCategory, EditorialPortfolioCandidateV5[]>();
   const eras = new Map<EraBucketV5, EditorialPortfolioCandidateV5[]>();
+  const eraCategories = new Map<string, EditorialPortfolioCandidateV5[]>();
   for (const candidate of candidates) {
     categories.set(candidate.entity.category, [...(categories.get(candidate.entity.category) ?? []), candidate]);
-    for (const era of candidate.eraBuckets) eras.set(era, [...(eras.get(era) ?? []), candidate]);
+    for (const era of candidate.eraBuckets) {
+      eras.set(era, [...(eras.get(era) ?? []), candidate]);
+      const key = `${era}:${candidate.entity.category}`;
+      eraCategories.set(key, [...(eraCategories.get(key) ?? []), candidate]);
+    }
   }
   for (const [category, carriers] of categories) {
     if (category !== 'other' && carriers.length === 1) protectedSlots.add(carriers[0].slot);
   }
   for (const [era, carriers] of eras) {
     if (era !== 'unknown' && carriers.length === 1) protectedSlots.add(carriers[0].slot);
+  }
+  for (const [key, carriers] of eraCategories) {
+    if (!key.startsWith('unknown:') && carriers.length === 1) protectedSlots.add(carriers[0].slot);
   }
   return [...protectedSlots].sort();
 }
@@ -422,17 +453,30 @@ function choosePortfolioStates(
   }
 
   const protectedSet = new Set(protectedSlots);
+  const protectedPairs = (state: SearchState): string[] => {
+    const slots = state.path.map((index) => candidates[index].slot)
+      .filter((slot) => protectedSet.has(slot)).sort();
+    const pairs: string[] = [];
+    for (let left = 0; left < slots.length; left += 1) {
+      for (let right = left + 1; right < slots.length; right += 1) {
+        pairs.push(`${slots[left]}:${slots[right]}`);
+      }
+    }
+    return pairs;
+  };
   while (selected.length < limit) {
     const covered = new Set(selected.flatMap((state) => state.path.map((index) => candidates[index].slot)));
+    const coveredPairs = new Set(selected.flatMap(protectedPairs));
     const uncovered = new Set([...protectedSet].filter((slot) => !covered.has(slot)));
-    if (uncovered.size === 0) break;
     const options = unique.filter((state) => !selectedSignatures.has(stateSignature(state, candidates)))
       .map((state) => ({
         state,
         newProtected: state.path.filter((index) => uncovered.has(candidates[index].slot)).length,
+        newProtectedPairs: protectedPairs(state).filter((pair) => !coveredPairs.has(pair)).length,
         maxSimilarity: Math.max(...selected.map((chosen) => jaccard(state, chosen))),
-      })).filter((option) => option.newProtected > 0)
-      .sort((left, right) => right.newProtected - left.newProtected
+      })).filter((option) => option.newProtected > 0 || option.newProtectedPairs > 0)
+      .sort((left, right) => right.newProtectedPairs - left.newProtectedPairs
+        || right.newProtected - left.newProtected
         || Number(left.maxSimilarity > 0.75) - Number(right.maxSimilarity > 0.75)
         || left.maxSimilarity - right.maxSimilarity
         || compareRouteState(left.state, right.state, candidates));
@@ -520,7 +564,8 @@ export function optimizeEditorialRoutePortfolioV5(
     const searched = searchAtCeiling(
       candidates, matrix, ceiling, requestedDuration, minStops, maxStops,
       options.beamWidth ?? EDITORIAL_BEAM_WIDTH_V5,
-      options.labelsPerBoundary ?? EDITORIAL_LABELS_PER_BOUNDARY_V5
+      options.labelsPerBoundary ?? EDITORIAL_LABELS_PER_BOUNDARY_V5,
+      protectedSlots
     );
     accumulatedDiagnostics.exploredStateCount += searched.exploredStateCount;
     accumulatedDiagnostics.retainedStateCount += searched.retainedStateCount;

@@ -15,6 +15,7 @@ function entity(
   index: number,
   options: {
     recognition?: number;
+    firstVisit?: number;
     category?: PoiCategory;
     year?: number;
     conflict?: string | null;
@@ -41,6 +42,7 @@ function entity(
     coordinates: { lat: 40.4 + (index * 0.001), lng: -3.7 },
     fameScore: (options.recognition ?? 50) / 2,
     recognitionScore: options.recognition ?? 50,
+    firstVisitScore: options.firstVisit ?? options.recognition ?? 50,
     evidenceFacts: facts, visitConflictGroup: options.conflict ?? null,
     readiness: {
       ready: true, observableCount: 1, contextCount: 1,
@@ -83,6 +85,26 @@ describe('editorial route portfolio v5', () => {
     expect(result.candidates).toHaveLength(30);
     expect(result.protectedCandidateSlots).toContain('c30');
     expect(result.routes.some((route) => route.candidateSlots.includes('c30'))).toBe(true);
+  });
+
+  it('protects first-visit landmarks and rare era-category carriers before beam truncation', () => {
+    const entities = Array.from({ length: 12 }, (_, index) => entity(
+      `Q${String(index + 1).padStart(2, '0')}`,
+      index,
+      {
+        recognition: index === 11 ? 1 : 100 - index,
+        firstVisit: index === 11 ? 100 : 50 - index,
+        category: index === 10 || index === 11 ? 'square_civic' : 'other',
+        year: index === 9 || index === 11 ? 1400 : 1800,
+      }
+    ));
+    const result = optimizeEditorialRoutePortfolioV5(entities, matrix(entities), 120, {
+      minStops: 4, maxStops: 4, beamWidth: 24, labelsPerBoundary: 2,
+    });
+
+    expect(result.protectedCandidateSlots).toContain('c12');
+    expect(result.routes.some((route) => route.candidateSlots.includes('c12'))).toBe(true);
+    expect(result.uncoveredProtectedCandidateSlots).not.toContain('c12');
   });
 
   it('returns the same deterministic portfolio when candidate input order changes', () => {
