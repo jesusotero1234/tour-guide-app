@@ -48,6 +48,53 @@ const defaultGet: WikimediaGetV6 = async (url, options) => {
   return { data: response.data };
 };
 
+function httpStatus(error: unknown): number | null {
+  if (!error || typeof error !== 'object') return null;
+  const response = (error as { response?: unknown }).response;
+  if (!response || typeof response !== 'object') return null;
+  const status = (response as { status?: unknown }).status;
+  return typeof status === 'number' ? status : null;
+}
+
+function retryAfterMilliseconds(error: unknown, attempt: number): number {
+  if (!error || typeof error !== 'object') return attempt * 1_000;
+  const response = (error as { response?: { headers?: unknown } }).response;
+  const rawHeaders = response?.headers;
+  let retryAfter: unknown;
+  if (rawHeaders && typeof rawHeaders === 'object') {
+    const headers = rawHeaders as { get?: (name: string) => unknown; 'retry-after'?: unknown };
+    retryAfter = typeof headers.get === 'function'
+      ? headers.get('retry-after')
+      : headers['retry-after'];
+  }
+  const seconds = Number(retryAfter);
+  return Number.isFinite(seconds) && seconds >= 0
+    ? Math.min(60_000, seconds * 1_000)
+    : attempt * 1_000;
+}
+
+function retryingGet(rawGet: WikimediaGetV6): WikimediaGetV6 {
+  return async (url, options) => {
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        return await rawGet(url, options);
+      } catch (error) {
+        const status = httpStatus(error);
+        if (attempt < 3 && (status === 429 || status === 503)) {
+          await new Promise((resolve) => setTimeout(resolve, retryAfterMilliseconds(error, attempt)));
+          continue;
+        }
+        const endpoint = new URL(url);
+        const detail = status === null
+          ? (error instanceof Error ? error.message : String(error))
+          : `HTTP ${status}`;
+        throw new Error(`${endpoint.hostname}${endpoint.pathname} failed: ${detail}`);
+      }
+    }
+    throw new Error('Wikimedia request exhausted retries unexpectedly');
+  };
+}
+
 function objectValue(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error(`${label} must be an object`);
@@ -120,7 +167,7 @@ async function requestWikidataEntities(
     // Wikibase entity lookup: https://www.mediawiki.org/wiki/Wikibase/API#A_simple_query
     const response = await get('https://www.wikidata.org/w/api.php', {
       params: {
-        action: 'wbgetentities', format: 'json', props: 'sitelinks',
+        action: 'wbgetentities', format: 'json', props: 'info|sitelinks',
         ids: qids.slice(offset, offset + 50).join('|'),
       },
       headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
@@ -323,7 +370,7 @@ export async function captureWikimediaProminenceV6(
   if (new Set(options.entities.map((entity) => entity.canonicalId)).size !== options.entities.length) {
     throw new Error('Wikimedia prominence capture requires unique canonical identities');
   }
-  const get = options.get ?? defaultGet;
+  const get = retryingGet(options.get ?? defaultGet);
   const capturedAt = options.capturedAt ?? new Date().toISOString();
   const end = new Date(new Date(capturedAt).getTime() - 86_400_000);
   const start = new Date(end.getTime() - (364 * 86_400_000));
@@ -360,6 +407,9 @@ export async function captureWikimediaProminenceV6(
     pageviews.push(title
       ? await requestPageviews(get, wikipediaProject, title, pageviewWindow)
       : null);
+    if (!options.get && title) {
+      await new Promise((resolve) => setTimeout(resolve, 1_000));
+    }
   }
   const percentiles = pageviewPercentiles(pageviews);
   const labelsById = uniqueCandidateLabels(options.entities, wikipediaTitles);

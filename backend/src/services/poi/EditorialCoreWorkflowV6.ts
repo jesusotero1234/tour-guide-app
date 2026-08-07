@@ -106,8 +106,11 @@ export async function runCanonicalCoreResolutionV6(
     throw new Error('Core resolution requires exactly three distinct permutation seeds');
   }
   const requestOptions: EditorialRequestOptionsV6 = {
-    apiKey: options.apiKey, ollamaHost: options.ollamaHost,
-    deepseekBaseUrl: options.deepseekBaseUrl, maxTokens: options.maxTokens,
+    apiKey: options.apiKey, oneProviderApiKey: options.oneProviderApiKey,
+    ollamaHost: options.ollamaHost,
+    deepseekBaseUrl: options.deepseekBaseUrl,
+    oneProviderBaseUrl: options.oneProviderBaseUrl,
+    maxTokens: options.maxTokens,
     post: options.post,
   };
   const runs: Array<EditorialCallResultV6<CoreAuditV6>> = [];

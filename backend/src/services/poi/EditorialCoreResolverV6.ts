@@ -1,9 +1,6 @@
 import { createHash } from 'crypto';
 import { EditorialEntityCandidateV5 } from './EditorialEvidenceV5';
-import {
-  WikimediaProminenceSnapshotV6,
-  WikimediaProminenceSupportV6,
-} from './EditorialProminenceV6';
+import { WikimediaProminenceSnapshotV6 } from './EditorialProminenceV6';
 
 export const CORE_AUDIT_SCHEMA_VERSION_V6 = 'core-audit-v1' as const;
 export const CANONICAL_TOUR_CORE_SCHEMA_VERSION_V6 = 'canonical-tour-core-v1' as const;
@@ -23,14 +20,13 @@ export interface CoreAuditCandidateV6 {
   localName: string;
   category: string;
   signals: {
-    cityWikipediaLinked: boolean;
-    wikivoyageSeeMentioned: boolean;
+    cityPageLink: boolean;
+    wikivoyageSee: boolean;
     sitelinks: number;
-    pageviews365: number | null;
     pageviewPercentile: number | null;
-    heritageDesignation: boolean;
+    heritage: boolean;
   };
-  support: WikimediaProminenceSupportV6[];
+  support: Array<{ supportId: string; value: string }>;
 }
 
 export interface CoreAuditRequestV6 {
@@ -131,6 +127,34 @@ function permuteCandidates(candidates: CoreAuditCandidateV6[], seed: string): Co
   });
 }
 
+function compactCandidateSupport(
+  source: WikimediaProminenceSnapshotV6['candidates'][number]
+): CoreAuditCandidateV6['support'] {
+  const priority = new Map([
+    ['city_wikipedia_link', 0], ['wikivoyage_see_mention', 1],
+    ['wikipedia_pageviews', 2], ['wikidata_sitelinks', 3],
+    ['heritage_designation', 4], ['historical_evidence', 5],
+  ]);
+  const ranked = [...source.support].sort((left, right) => (
+    (priority.get(left.type) ?? 99) - (priority.get(right.type) ?? 99)
+      || left.supportId.localeCompare(right.supportId)
+  ));
+  const historical = ranked.find((support) => support.type === 'historical_evidence');
+  const prominence = ranked.find((support) => support.type !== 'historical_evidence');
+  const selected = [prominence, historical].filter((support): support is NonNullable<typeof support> => (
+    Boolean(support)
+  ));
+  if (selected.length < 2) {
+    selected.push(...ranked.filter((support) => (
+      !selected.some((item) => item.supportId === support.supportId)
+    )).slice(0, 2 - selected.length));
+  }
+  return selected.slice(0, 2).map((support) => ({
+    supportId: support.supportId,
+    value: support.value.replace(/\s+/g, ' ').trim().slice(0, 80),
+  }));
+}
+
 export function buildCoreAuditRequestV6(
   context: { cityKey: string; theme: string; durationMinutes: number },
   entities: EditorialEntityCandidateV5[],
@@ -146,22 +170,18 @@ export function buildCoreAuditRequestV6(
   }
   const candidates = entities.map((entity): CoreAuditCandidateV6 => {
     const source = prominenceById.get(entity.canonicalId) as WikimediaProminenceSnapshotV6['candidates'][number];
-    const support = source.support.slice(0, 6).map((item) => ({
-      ...item,
-      value: item.value.replace(/\s+/g, ' ').trim().slice(0, 180),
-    }));
+    const support = compactCandidateSupport(source);
     if (support.length === 0) throw new Error(`Candidate ${entity.canonicalId} has no prominence support`);
     return {
       canonicalId: entity.canonicalId,
       localName: entity.localName.replace(/\s+/g, ' ').trim().slice(0, 100),
       category: entity.category,
       signals: {
-        cityWikipediaLinked: source.cityWikipediaLinked,
-        wikivoyageSeeMentioned: source.wikivoyageSeeMentioned,
+        cityPageLink: source.cityWikipediaLinked,
+        wikivoyageSee: source.wikivoyageSeeMentioned,
         sitelinks: source.sitelinks,
-        pageviews365: source.pageviews365,
         pageviewPercentile: source.pageviewPercentile,
-        heritageDesignation: source.heritageDesignation,
+        heritage: source.heritageDesignation,
       },
       support,
     };
@@ -226,13 +246,19 @@ export function validateCoreAuditV6(value: unknown, request: CoreAuditRequestV6)
     if ((raw.supportIds as string[]).some((supportId) => !ownedSupportIds.has(supportId))) {
       throw new Error(`classifications[${index}] must cite only candidate-owned support IDs`);
     }
+    const omissionReason = nonEmptyString(
+      raw.omissionReason, `classifications[${index}].omissionReason`
+    );
+    if (omissionReason.length > 320) {
+      throw new Error(`classifications[${index}].omissionReason exceeds 320 characters`);
+    }
     return {
       canonicalId,
       classification,
       reasonCode: classification === 'required'
         ? raw.reasonCode as CanonicalCoreReasonCodeV6
         : null,
-      omissionReason: nonEmptyString(raw.omissionReason, `classifications[${index}].omissionReason`),
+      omissionReason,
       supportIds: raw.supportIds as string[],
     };
   });

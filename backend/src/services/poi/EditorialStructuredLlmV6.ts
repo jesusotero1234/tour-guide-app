@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createHash } from 'crypto';
 
 export interface EditorialProviderV6 {
-  kind: 'deepseek' | 'ollama';
+  kind: 'deepseek' | 'ollama' | 'oneprovider';
   model: string;
 }
 
@@ -36,8 +36,10 @@ export type EditorialPostV6 = (
 
 export interface EditorialRequestOptionsV6 {
   apiKey?: string;
+  oneProviderApiKey?: string;
   ollamaHost?: string;
   deepseekBaseUrl?: string;
+  oneProviderBaseUrl?: string;
   maxTokens?: number;
   post?: EditorialPostV6;
 }
@@ -59,17 +61,17 @@ function extractProviderOutput(value: unknown, provider: EditorialProviderV6, to
     return message.content.trim();
   }
   if (!Array.isArray(root.choices) || root.choices.length === 0) {
-    throw new Error('DeepSeek returned no choices');
+    throw new Error(`${provider.kind} returned no choices`);
   }
-  const choice = objectValue(root.choices[0], 'DeepSeek choice');
-  const message = objectValue(choice.message, 'DeepSeek message');
+  const choice = objectValue(root.choices[0], `${provider.kind} choice`);
+  const message = objectValue(choice.message, `${provider.kind} message`);
   if (!Array.isArray(message.tool_calls) || message.tool_calls.length !== 1) {
-    throw new Error('DeepSeek returned no single tool call');
+    throw new Error(`${provider.kind} returned no single tool call`);
   }
-  const toolCall = objectValue(message.tool_calls[0], 'DeepSeek tool call');
-  const fn = objectValue(toolCall.function, 'DeepSeek tool function');
+  const toolCall = objectValue(message.tool_calls[0], `${provider.kind} tool call`);
+  const fn = objectValue(toolCall.function, `${provider.kind} tool function`);
   if (fn.name !== toolName || typeof fn.arguments !== 'string' || !fn.arguments.trim()) {
-    throw new Error('DeepSeek returned invalid tool arguments');
+    throw new Error(`${provider.kind} returned invalid tool arguments`);
   }
   return fn.arguments.trim();
 }
@@ -133,6 +135,9 @@ export async function requestEditorialStructuredV6<T>(config: {
     config.systemPrompt, config.toolName, config.schema
   );
   const post = options.post ?? defaultPost;
+  const activeApiKey = config.provider.kind === 'oneprovider'
+    ? options.oneProviderApiKey
+    : options.apiKey;
   const attempts: EditorialAttemptV6[] = [];
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     const startedAt = Date.now();
@@ -151,7 +156,7 @@ export async function requestEditorialStructuredV6<T>(config: {
             num_predict: options.maxTokens ?? 8_000, num_ctx: 65_536,
           },
         }, { 'Content-Type': 'application/json' });
-      } else {
+      } else if (config.provider.kind === 'deepseek') {
         if (!options.apiKey) throw new Error('DEEPSEEK_API_KEY is required');
         response = await post(`${(options.deepseekBaseUrl ?? 'https://api.deepseek.com/beta').replace(/\/$/, '')}/chat/completions`, {
           model: config.provider.model, messages,
@@ -168,11 +173,26 @@ export async function requestEditorialStructuredV6<T>(config: {
           Authorization: `Bearer ${options.apiKey}`,
           'Content-Type': 'application/json',
         });
+      } else {
+        if (!options.oneProviderApiKey) throw new Error('ONEPROVIDER_API_KEY is required');
+        response = await post(`${(options.oneProviderBaseUrl ?? 'https://api.oneprovider.dev/v1').replace(/\/$/, '')}/chat/completions`, {
+          model: config.provider.model, messages,
+          max_tokens: options.maxTokens ?? 8_000, temperature: 0,
+          tools: [{ type: 'function', function: {
+            name: config.toolName,
+            description: config.toolDescription,
+            parameters: config.schema,
+          } }],
+          tool_choice: { type: 'function', function: { name: config.toolName } },
+        }, {
+          Authorization: `Bearer ${options.oneProviderApiKey}`,
+          'Content-Type': 'application/json',
+        });
       }
     } catch (error) {
       attempts.push({
         attempt, status: 'transport_error', latencyMs: Date.now() - startedAt,
-        rawOutput: null, error: safeTransportError(error, options.apiKey),
+        rawOutput: null, error: safeTransportError(error, activeApiKey),
       });
       if (attempt === 1) continue;
       return {

@@ -114,6 +114,7 @@ export function validateWikimediaProminenceSnapshotV6(
   }
   if (!Array.isArray(root.candidates)) throw new Error('prominence candidates must be an array');
   const expectedIds = entities.map((entity) => entity.canonicalId).sort();
+  const expectedById = new Map(entities.map((entity) => [entity.canonicalId, entity]));
   const candidateRows = root.candidates.map((item, index) => (
     objectValue(item, `candidates[${index}]`)
   ));
@@ -135,6 +136,9 @@ export function validateWikimediaProminenceSnapshotV6(
       'pageviewPercentile', 'heritageDesignation', 'support',
     ], `candidates[${index}]`);
     const canonicalId = candidate.canonicalId as string;
+    if (candidate.localName !== expectedById.get(canonicalId)?.localName) {
+      throw new Error(`candidates[${index}] identity name does not match ${canonicalId}`);
+    }
     if (typeof candidate.localName !== 'string' || !candidate.localName.trim()
       || (candidate.wikipediaTitle !== null && typeof candidate.wikipediaTitle !== 'string')
       || typeof candidate.cityWikipediaLinked !== 'boolean'

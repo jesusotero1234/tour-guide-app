@@ -37,9 +37,11 @@ describe('Wikimedia prominence capture v6', () => {
   const entities = [entity(1), entity(2)];
 
   it('captures candidate-owned mult-source signals, source revisions, and pageview percentiles', async () => {
+    let rateLimited = false;
     const get: jest.MockedFunction<WikimediaGetV6> = jest.fn(async (url, options) => {
       const params = options.params as Record<string, string>;
       if (url.includes('wikidata.org')) {
+        expect(params.props).toBe('info|sitelinks');
         return { data: { success: 1, entities: {
           Q1: {
             id: 'Q1', lastrevid: 101, modified: '2026-08-05T00:00:00Z',
@@ -52,6 +54,10 @@ describe('Wikimedia prominence capture v6', () => {
         } } };
       }
       if (url.includes('wikimedia.org/api/rest_v1')) {
+        if (url.includes('Candidate_1') && !rateLimited) {
+          rateLimited = true;
+          throw { response: { status: 429, headers: { 'retry-after': '0' } } };
+        }
         return { data: { items: url.includes('Candidate_1')
           ? [{ views: 40 }, { views: 60 }]
           : [{ views: 100 }, { views: 200 }] } };
@@ -115,16 +121,19 @@ describe('Wikimedia prominence capture v6', () => {
       cityKey: 'madrid', language: 'es',
     })).toEqual(snapshot);
     expect(get.mock.calls.filter(([url]) => url.includes('wikimedia.org/api/rest_v1')))
-      .toHaveLength(2);
+      .toHaveLength(3);
   });
 
   it('rejects changed fingerprints and support IDs assigned to another identity', async () => {
     const get: WikimediaGetV6 = async (url, options) => {
       const params = options.params as Record<string, string>;
-      if (url.includes('wikidata.org')) return { data: { success: 1, entities: {
-        Q1: { id: 'Q1', lastrevid: 1, modified: '2026-08-05T00:00:00Z', sitelinks: {} },
-        Q2: { id: 'Q2', lastrevid: 2, modified: '2026-08-05T00:00:00Z', sitelinks: {} },
-      } } };
+      if (url.includes('wikidata.org')) {
+        expect(params.props).toBe('info|sitelinks');
+        return { data: { success: 1, entities: {
+          Q1: { id: 'Q1', lastrevid: 1, modified: '2026-08-05T00:00:00Z', sitelinks: {} },
+          Q2: { id: 'Q2', lastrevid: 2, modified: '2026-08-05T00:00:00Z', sitelinks: {} },
+        } } };
+      }
       if (url.includes('es.wikipedia.org')) {
         return params.generator === 'links'
           ? { data: { batchcomplete: true, query: { pages: [] } } }
@@ -152,5 +161,11 @@ describe('Wikimedia prominence capture v6', () => {
     expect(() => validateWikimediaProminenceSnapshotV6(
       contaminated, entities, { cityKey: 'madrid', language: 'es' }
     )).toThrow(/owned/i);
+
+    const relabelled = structuredClone(snapshot);
+    relabelled.candidates[0].localName = entities[1].localName;
+    expect(() => validateWikimediaProminenceSnapshotV6(
+      relabelled, entities, { cityKey: 'madrid', language: 'es' }
+    )).toThrow(/identity/i);
   });
 });

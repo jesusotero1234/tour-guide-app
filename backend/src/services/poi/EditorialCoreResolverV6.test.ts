@@ -49,12 +49,15 @@ function prominence(entities: EditorialEntityCandidateV5[]): WikimediaProminence
     pageviews365: 100_000 - (index * 1_000),
     pageviewPercentile: Number((1 - (index / entities.length)).toFixed(4)),
     heritageDesignation: index % 3 === 0,
-    support: [{
-      supportId: `${candidate.canonicalId}:wikidata-sitelinks`,
-      type: 'wikidata_sitelinks' as const,
-      value: `${200 - index} Wikimedia sitelinks`,
-      sourceRef: 'wikidata:batch-1',
-    }],
+    support: [
+      'city_wikipedia_link', 'wikivoyage_see_mention', 'wikidata_sitelinks',
+      'wikipedia_pageviews', 'heritage_designation', 'historical_evidence',
+    ].map((type, supportIndex) => ({
+      supportId: `${candidate.canonicalId}:support-${supportIndex + 1}`,
+      type: type as WikimediaProminenceSnapshotV6['candidates'][number]['support'][number]['type'],
+      value: `${type} ${'x'.repeat(180)}`,
+      sourceRef: `source:${supportIndex + 1}`,
+    })),
   }));
   return {
     schemaVersion: WIKIMEDIA_PROMINENCE_SCHEMA_VERSION_V6,
@@ -125,6 +128,10 @@ describe('canonical tour core v6', () => {
       ))!.support[0].supportId,
     ];
     expect(() => validateCoreAuditV6(contaminated, request)).toThrow(/owned/i);
+
+    const verbose = structuredClone(valid);
+    verbose.classifications[0].omissionReason = 'x'.repeat(321);
+    expect(() => validateCoreAuditV6(verbose, request)).toThrow(/omissionReason/i);
   });
 
   it('approves only exact three-run consensus with one to eight requirements', () => {

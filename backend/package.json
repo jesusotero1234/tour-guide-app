@@ -21,6 +21,8 @@
     "quality:route:v4:holdout": "node -r ts-node/register scripts/validation/route-editorial-v4-holdout.ts",
     "quality:route:v4:capture-holdout": "node -r ts-node/register scripts/validation/capture-editorial-holdout-sources-v4.ts",
     "quality:route:v5": "node -r ts-node/register scripts/validation/route-editorial-v5.ts",
+    "quality:core:v6": "node -r ts-node/register scripts/validation/resolve-editorial-core-v6.ts",
+    "quality:core:v6:evaluate": "node -r ts-node/register scripts/validation/evaluate-editorial-core-v6.ts",
     "quality:benchmark:editorial": "node -r ts-node/register scripts/validation/benchmark-editorial-curators.ts",
     "quality:preflight:history": "tsx scripts/validation/run-history-preflight-canary.ts",
     "quality:test": "jest src/services/poi/TourQuality.acceptance.test.ts src/services/poi/PoiEnrichmentSnapshot.test.ts src/services/tourQuality/TourQualityEvaluator.test.ts --runInBand",
