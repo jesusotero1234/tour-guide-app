@@ -130,13 +130,13 @@ function buildCandidates(entities: EditorialEntityCandidateV5[]): EditorialPortf
   }));
 }
 
-function segmentLimits(duration: number): { meters: number; seconds: number } {
+export function editorialSegmentLimitsV5(duration: number): { meters: number; seconds: number } {
   if (duration <= 120) return { meters: 1500, seconds: 20 * 60 };
   if (duration <= 180) return { meters: 1700, seconds: 23 * 60 };
   return { meters: 1800, seconds: 25 * 60 };
 }
 
-function interpretationMinutes(stopCount: number): number {
+export function editorialInterpretationMinutesV5(stopCount: number): number {
   if (stopCount < 2) return 3 + (stopCount * 7);
   return 3 + 7 + 7 + ((stopCount - 2) * 6);
 }
@@ -162,6 +162,61 @@ function routeVector(path: number[], candidates: EditorialPortfolioCandidateV5[]
     categoryCount: categories.size,
     evidenceFloor: Math.min(...route.map((candidate) => candidate.entity.evidenceFacts.length)),
     distinctiveness: pairCount === 0 ? 0 : Number((pairScore / (pairCount * 2)).toFixed(4)),
+  };
+}
+
+export function evaluateEditorialRouteOrderV5(
+  slot: string,
+  candidateSlots: string[],
+  candidates: EditorialPortfolioCandidateV5[],
+  matrix: WalkingMatrixSnapshotV4,
+  durationCeiling: number,
+  segmentLimitDuration: number,
+  protectedSlots: string[] = []
+): EditorialRouteV5 | null {
+  if (candidateSlots.length < 4 || candidateSlots.length > 8
+    || new Set(candidateSlots).size !== candidateSlots.length) return null;
+  const indexBySlot = new Map(candidates.map((candidate, index) => [candidate.slot, index]));
+  const path = candidateSlots.map((candidateSlot) => indexBySlot.get(candidateSlot));
+  if (path.some((index) => index === undefined)) return null;
+  const indexes = path as number[];
+  const conflictGroups = indexes.map((index) => candidates[index].entity.visitConflictGroup)
+    .filter((group): group is string => Boolean(group));
+  if (new Set(conflictGroups).size !== conflictGroups.length) return null;
+  const limits = editorialSegmentLimitsV5(segmentLimitDuration);
+  let walkingSeconds = 0;
+  let walkingMeters = 0;
+  let maxSegmentSeconds = 0;
+  let maxSegmentMeters = 0;
+  for (let index = 1; index < indexes.length; index += 1) {
+    const leg = walkingLegV4(
+      matrix, candidates[indexes[index - 1]].entity.siteId, candidates[indexes[index]].entity.siteId
+    );
+    if (!leg.reachable || leg.meters === null || leg.seconds === null
+      || leg.meters > limits.meters || leg.seconds > limits.seconds) return null;
+    walkingSeconds += leg.seconds;
+    walkingMeters += leg.meters;
+    maxSegmentSeconds = Math.max(maxSegmentSeconds, leg.seconds);
+    maxSegmentMeters = Math.max(maxSegmentMeters, leg.meters);
+  }
+  const interpretation = editorialInterpretationMinutesV5(indexes.length);
+  if (walkingSeconds + (interpretation * 60) > durationCeiling * 60) return null;
+  const protectedSet = new Set(protectedSlots);
+  return {
+    slot,
+    candidateSlots: [...candidateSlots],
+    entities: indexes.map((index) => candidates[index].entity),
+    metrics: {
+      walkingMeters: Number(walkingMeters.toFixed(2)),
+      walkingMinutes: Number((walkingSeconds / 60).toFixed(2)),
+      interpretationMinutes: interpretation,
+      estimatedTourMinutes: Number((walkingSeconds / 60 + interpretation).toFixed(2)),
+      maxSegmentMeters: Number(maxSegmentMeters.toFixed(2)),
+      maxSegmentMinutes: Number((maxSegmentSeconds / 60).toFixed(2)),
+    },
+    vector: routeVector(indexes, candidates),
+    protectedCandidateSlots: candidateSlots.filter((candidateSlot) => protectedSet.has(candidateSlot)),
+    paretoOptimal: false,
   };
 }
 
@@ -233,7 +288,7 @@ function searchAtCeiling(
   beamWidth: number,
   labelsPerBoundary: number
 ): SearchResult {
-  const limits = segmentLimits(requestedDuration);
+  const limits = editorialSegmentLimitsV5(requestedDuration);
   let current = candidates.map((_, index): SearchState => ({
     visited: 1n << BigInt(index), path: [index], start: index, end: index,
     walkingSeconds: 0, walkingMeters: 0, maxSegmentSeconds: 0, maxSegmentMeters: 0,
@@ -247,7 +302,7 @@ function searchAtCeiling(
   for (let size = 1; size <= maxStops; size += 1) {
     if (size >= minStops) {
       completed.push(...current.filter((state) => (
-        state.walkingSeconds + (interpretationMinutes(state.path.length) * 60) <= durationCeiling * 60
+        state.walkingSeconds + (editorialInterpretationMinutesV5(state.path.length) * 60) <= durationCeiling * 60
       )));
     }
     if (size === maxStops) break;
@@ -264,7 +319,7 @@ function searchAtCeiling(
           || leg.meters > limits.meters || leg.seconds > limits.seconds) continue;
         const walkingSeconds = state.walkingSeconds + leg.seconds;
         const nextPath = [...state.path, next];
-        if (walkingSeconds + (interpretationMinutes(nextPath.length) * 60) > durationCeiling * 60) {
+        if (walkingSeconds + (editorialInterpretationMinutesV5(nextPath.length) * 60) > durationCeiling * 60) {
           continue;
         }
         const nextState: SearchState = {
@@ -419,7 +474,7 @@ function materializeRoutes(
   const protectedSet = new Set(protectedSlots);
   return selected.map((state, index) => {
     const candidateSlots = state.path.map((candidateIndex) => candidates[candidateIndex].slot);
-    const minutes = interpretationMinutes(state.path.length);
+    const minutes = editorialInterpretationMinutesV5(state.path.length);
     return {
       slot: `r${String(index + 1).padStart(2, '0')}`,
       candidateSlots,
