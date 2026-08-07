@@ -419,8 +419,9 @@ export function routeJuryResponseSchemaV5(request: RouteJuryRequestV5): Record<s
         properties: Object.fromEntries(routeSlots.map((routeSlot) => [routeSlot, assessment])),
       },
       routePlans: {
-        type: 'object', minProperties: 3, maxProperties: 3,
-        propertyNames: { enum: routeSlots }, additionalProperties: plan,
+        type: 'object', additionalProperties: false,
+        minProperties: 3, maxProperties: 3,
+        properties: Object.fromEntries(routeSlots.map((routeSlot) => [routeSlot, plan])),
       },
     },
   };

@@ -106,6 +106,20 @@ function consumeSharedRetry(budget: EditorialCallBudgetV5): boolean {
   return true;
 }
 
+function safeTransportError(error: unknown, apiKey?: string): string {
+  let message = error instanceof Error ? error.message : String(error);
+  if (axios.isAxiosError(error) && error.response?.data !== undefined) {
+    let detail: string;
+    try {
+      detail = JSON.stringify(error.response.data);
+    } catch {
+      detail = String(error.response.data);
+    }
+    message = `${message}: ${detail.slice(0, 2000)}`;
+  }
+  return apiKey ? message.split(apiKey).join('[REDACTED]') : message;
+}
+
 export async function requestEditorialStructuredV5<T>(config: {
   phase: EditorialCallPhaseV5;
   budget: EditorialCallBudgetV5;
@@ -152,7 +166,7 @@ export async function requestEditorialStructuredV5<T>(config: {
           tools: [{ type: 'function', function: {
             name: config.toolName,
             description: config.toolDescription,
-            strict: true,
+            strict: false,
             parameters: config.schema,
           } }],
           tool_choice: { type: 'function', function: { name: config.toolName } },
@@ -162,11 +176,10 @@ export async function requestEditorialStructuredV5<T>(config: {
         });
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
+      const message = safeTransportError(error, options.apiKey);
       attempts.push({
         attempt, actualCall, status: 'transport_error', latencyMs: Date.now() - startedAt,
-        rawOutput: null,
-        error: options.apiKey ? message.split(options.apiKey).join('[REDACTED]') : message,
+        rawOutput: null, error: message,
       });
       if (consumeSharedRetry(config.budget)) continue;
       return {
