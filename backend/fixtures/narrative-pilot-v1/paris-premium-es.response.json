@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "narrative-script-response-v1",
+  "scripts": [
+    {
+      "sceneId": "notre-dame",
+      "openingType": "rescue_decision",
+      "blocks": [
+        {
+          "blockId": "notre-dame-opening",
+          "kind": "opening",
+          "text": "Mira Notre-Dame desde el parvis y piensa en una decisión, no en una reliquia inmóvil. En el siglo XII, París crecía, la isla recibía cada vez más fieles y Maurice de Sully impulsó una catedral capaz de acogerlos. Su escala nació de una ciudad que ya desbordaba el edificio anterior.",
+          "evidenceFactIds": [
+            "notre-dame-growth"
+          ]
+        },
+        {
+          "blockId": "notre-dame-look",
+          "kind": "look",
+          "text": "Levanta la vista hacia la aguja y el tejado. El incendio del 15 de abril de 2019 destruyó la armadura medieval y la aguja; la reapertura del 8 de diciembre de 2024 demuestra que lo visible hoy depende de una obra reciente de reparación, además de una larga historia.",
+          "evidenceFactIds": [
+            "notre-dame-fire-reopening"
+          ]
+        },
+        {
+          "blockId": "notre-dame-human-conflict",
+          "kind": "human_conflict",
+          "text": "La amenaza más silenciosa llegó antes. Dañada por el tiempo y por la Revolución, Notre-Dame amenazaba ruina y se llegó a considerar su demolición. Entonces una obra literaria alteró el destino del edificio: el éxito de Victor Hugo en 1831 despertó una movilización nacional y precedió a la restauración promovida por el Estado.",
+          "evidenceFactIds": [
+            "notre-dame-demolition-risk",
+            "notre-dame-hugo"
+          ]
+        },
+        {
+          "blockId": "notre-dame-interpretation",
+          "kind": "interpretation",
+          "text": "Esa secuencia cambia la forma de mirar la fachada. La catedral no representa una supervivencia automática, sino varias elecciones colectivas sobre qué conservar, cuánto esfuerzo dedicarle y qué lugar debía ocupar en el París de cada época. Incluso su primer tamaño respondió a una necesidad pública concreta.",
+          "evidenceFactIds": [
+            "notre-dame-growth",
+            "notre-dame-demolition-risk"
+          ]
+        },
+        {
+          "blockId": "notre-dame-closing",
+          "kind": "closing",
+          "text": "Así comienza nuestra pregunta: ¿cómo hace suyos París los símbolos heredados del poder? Notre-Dame propone una primera respuesta. Un monumento sagrado entra en la vida común cuando la ciudad discute su pérdida, decide sostenerlo y vuelve a reunirse ante él.",
+          "evidenceFactIds": [
+            "notre-dame-hugo",
+            "notre-dame-fire-reopening"
+          ]
+        }
+      ],
+      "transition": {
+        "kind": "walk_to_next",
+        "targetSceneId": "sainte-chapelle",
+        "text": "Deja ahora el parvis y continúa hacia Sainte-Chapelle. Allí veremos una relación distinta entre devoción y autoridad real."
+      },
+      "wordCount": 257
+    },
+    {
+      "sceneId": "louvre",
+      "openingType": "architectural_reversal",
+      "blocks": [
+        {
+          "blockId": "louvre-opening",
+          "kind": "opening",
+          "text": "Antes de ser un museo abierto, este lugar fue una máquina para mantener a otros fuera. Philippe Auguste inició en 1190 una fortaleza con foso en el borde de París, pensada contra la amenaza anglonormanda. El giro del Louvre empieza con una frontera de piedra.",
+          "evidenceFactIds": [
+            "louvre-fortress"
+          ]
+        },
+        {
+          "blockId": "louvre-look",
+          "kind": "look",
+          "text": "Observa la amplitud de la Cour Carrée y la continuidad de sus fachadas. Ese espacio ordenado no pertenece a un solo momento. Cuando la ciudad envolvió la antigua fortaleza, el edificio perdió su función defensiva y, desde 1364, fue convertido en residencia real.",
+          "evidenceFactIds": [
+            "louvre-royal-residence"
+          ]
+        },
+        {
+          "blockId": "louvre-human-conflict",
+          "kind": "human_conflict",
+          "text": "François I tomó después una decisión radical: hizo desaparecer el gran torreón medieval y en 1546 ordenó un palacio renacentista. Henri II ejecutó aquel proyecto. No se trataba de abrir el poder, sino de sustituir la fortaleza por la arquitectura de un palacio real.",
+          "evidenceFactIds": [
+            "louvre-renaissance"
+          ]
+        },
+        {
+          "blockId": "louvre-interpretation",
+          "kind": "interpretation",
+          "text": "La inversión decisiva llegó con la Revolución. Un decreto de 1791 dedicó el Louvre a las artes y en 1793 abrió el Muséum central des Arts. Estancias ligadas a la residencia monárquica comenzaron a recibir público. La misma arquitectura que había marcado distancia pasó a organizar acceso y contemplación compartida.",
+          "evidenceFactIds": [
+            "louvre-public-museum"
+          ]
+        },
+        {
+          "blockId": "louvre-closing",
+          "kind": "closing",
+          "text": "Por eso el Louvre ocupa el centro de este recorrido. No borra su origen defensivo ni su vida palaciega; los vuelve legibles desde una institución pública. París no hizo desaparecer el símbolo del poder: cambió quién podía cruzar sus puertas y para qué podía usarlo.",
+          "evidenceFactIds": [
+            "louvre-fortress",
+            "louvre-public-museum"
+          ]
+        }
+      ],
+      "transition": {
+        "kind": "walk_to_next",
+        "targetSceneId": "carrousel",
+        "text": "Sal por el lado occidental hacia el Arc du Carrousel. Su posición prolonga el eje del palacio y nos permitirá seguir leyendo cómo el poder ordenó también el espacio exterior."
+      },
+      "wordCount": 257
+    },
+    {
+      "sceneId": "palais-royal",
+      "openingType": "dated_public_action",
+      "blocks": [
+        {
+          "blockId": "palais-royal-opening",
+          "kind": "opening",
+          "text": "El 12 de julio de 1789, Camille Desmoulins subió a una mesa en el Palais-Royal y exhortó a la multitud a tomar las armas. Dos días después cayó la Bastilla. Nuestro recorrido termina donde una intervención convirtió la conversación política en impulso para la calle.",
+          "evidenceFactIds": [
+            "palais-royal-desmoulins"
+          ]
+        },
+        {
+          "blockId": "palais-royal-look",
+          "kind": "look",
+          "text": "Mira el jardín y las arcadas que lo rodean. Desde 1781 se construyeron edificios con locales alquilables y galerías. Tiendas y cafés atrajeron a los parisinos: el entorno de una residencia privilegiada adquirió el ritmo de un lugar de encuentro.",
+          "evidenceFactIds": [
+            "palais-royal-arcades"
+          ]
+        },
+        {
+          "blockId": "palais-royal-human-conflict",
+          "kind": "human_conflict",
+          "text": "El origen había sido distinto. Richelieu compró el Hôtel de Rambouillet en 1624 y levantó una residencia suntuosa cerca del Louvre, adecuada a su poder junto a Luis XIII. Más tarde, la hostilidad de Louis-Philippe de Orléans hacia Luis XVI favoreció aquí un ambiente que la fuente oficial llama anti-Versalles.",
+          "evidenceFactIds": [
+            "palais-royal-richelieu",
+            "palais-royal-anti-versailles"
+          ]
+        },
+        {
+          "blockId": "palais-royal-interpretation",
+          "kind": "interpretation",
+          "text": "La arquitectura ofreció algo políticamente decisivo: proximidad. Bajo las galerías circulaban ideas; las tiendas, los cafés y el jardín reunían la vida pública parisina. Desmoulins no habló desde un salón cerrado. Aprovechó una audiencia ya reunida y un espacio donde debatir se había vuelto una costumbre pública.",
+          "evidenceFactIds": [
+            "palais-royal-arcades",
+            "palais-royal-desmoulins"
+          ]
+        },
+        {
+          "blockId": "palais-royal-closing",
+          "kind": "closing",
+          "text": "El desenlace no consiste en borrar un símbolo de autoridad. Este palacio nacido para Richelieu conservó sus fachadas, pero el jardín y las galerías alteraron quién podía reunirse junto a ellas. Un recinto privilegiado terminó dando alcance urbano a una llamada revolucionaria.",
+          "evidenceFactIds": [
+            "palais-royal-richelieu",
+            "palais-royal-anti-versailles"
+          ]
+        }
+      ],
+      "transition": {
+        "kind": "tour_end",
+        "targetSceneId": null,
+        "text": "Cierra el tour paseando bajo las arcadas o entrando en el jardín. La pregunta queda a tu alrededor: una ciudad siente propios estos lugares cuando puede mirarlos, ocuparlos y discutir qué significan."
+      },
+      "wordCount": 256
+    }
+  ]
+}
