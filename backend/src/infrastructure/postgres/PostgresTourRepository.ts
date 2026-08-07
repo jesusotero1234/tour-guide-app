@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { ListToursOptions, TourRepository } from '../../domain/repositories/TourRepository';
-import { Tour } from '../../domain/entities/Tour';
+import { Tour, TourStatus } from '../../domain/entities/Tour';
 import { Place, PlaceMetadata } from '../../domain/entities/Place';
 import { TourMetadata } from '../../types/tourQuality';
 
@@ -27,6 +27,8 @@ type PrismaTour = {
   theme: string;
   language: string;
   durationMinutes: number;
+  status: string;
+  introduction: string | null;
   metadata: unknown;
   createdAt: Date;
   updatedAt: Date;
@@ -79,6 +81,8 @@ function mapTour(t: PrismaTour): Tour {
     theme: t.theme,
     language: t.language,
     durationMinutes: t.durationMinutes,
+    status: (t.status || 'draft') as TourStatus,
+    introduction: t.introduction ?? undefined,
     metadata: mapTourMetadata(t.metadata),
     places: t.places.map(p => mapPlace(p, t.id)),
     createdAt: t.createdAt.toISOString(),
@@ -100,6 +104,8 @@ export class PostgresTourRepository implements TourRepository {
         theme: tour.theme,
         language: tour.language,
         durationMinutes: tour.durationMinutes,
+        status: tour.status ?? 'draft',
+        introduction: tour.introduction ?? null,
         metadata: tour.metadata ?? {}
       };
       if (tour.id) {
@@ -172,6 +178,7 @@ export class PostgresTourRepository implements TourRepository {
       theme?: string;
       language?: string;
       durationMinutes?: number;
+      status?: string;
     } = {};
 
     if (options.city) {
@@ -189,6 +196,9 @@ export class PostgresTourRepository implements TourRepository {
     if (options.durationMinutes) {
       where.durationMinutes = options.durationMinutes;
     }
+    if (options.status) {
+      where.status = options.status;
+    }
 
     const dbTours = await this.client.tour.findMany({
       where,
@@ -199,5 +209,15 @@ export class PostgresTourRepository implements TourRepository {
     });
 
     return dbTours.map(t => mapTour(t as unknown as PrismaTour));
+  }
+
+  async updateStatus(id: string, status: TourStatus): Promise<Tour> {
+    const tour = await this.client.tour.update({
+      where: { id },
+      data: { status },
+      include: { places: PLACE_ORDER },
+    });
+
+    return mapTour(tour as unknown as PrismaTour);
   }
 }

@@ -1,0 +1,816 @@
+{
+  "schemaVersion": "route-editorial-workbench-v3",
+  "createdAt": "2026-08-06T16:38:38.591Z",
+  "mode": "live",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "holdoutLoaded": false,
+  "results": [
+    {
+      "case": {
+        "id": "madrid-history-es-120",
+        "mode": "live",
+        "city": "Madrid",
+        "requestedDuration": 120
+      },
+      "reproducibility": {
+        "provider": {
+          "kind": "deepseek",
+          "model": "deepseek-v4-flash"
+        },
+        "selectorFingerprint": "4293df453f3ca8bbec8ec1a53ad9e22d88814608685626bf41f188837c7ab97b",
+        "signalPromptFingerprint": "90b0cd474d909a2b320b7a02380c78eb3fc0c5a63737a687ead4fc887cb5c811",
+        "juryPromptFingerprint": "0a198fe849d256745b63426343d629b50d3bc8128707f55a9b836db8815c060b",
+        "artifact": "/mnt/c/users/jesus/desktop/coding/tour-guide-app/backend/fixtures/editorial-v3/editorial-v3-final-code-madrid/madrid-history-es-120.json"
+      },
+      "candidateSet": {
+        "prefiltered": 60,
+        "acceptedSites": 31,
+        "readySites": 18,
+        "evidenceGaps": [
+          {
+            "siteId": "site:Q1326261",
+            "name": "plaza de España",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "siteId": "site:Q211250",
+            "name": "Teatro Real",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "siteId": "site:Q2628455",
+            "name": "Palacio de Linares",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "siteId": "site:Q3321632",
+            "name": "Teatro de la Zarzuela",
+            "missing": [
+              "context"
+            ]
+          }
+        ],
+        "oracleCoverage": "7/7"
+      },
+      "signals": [
+        {
+          "slot": "c00",
+          "canonicalId": "Q1123493",
+          "siteId": "site:Q1123493",
+          "entityIds": [
+            "Q1123493"
+          ],
+          "evidenceIds": [
+            "Q1123493:wikipedia:0",
+            "Q1123493:wikipedia:1",
+            "Q1123493:wikidata:architect",
+            "Q1123493:wikidata:heritageDesignation",
+            "Q1123493:wikipedia:3",
+            "Q1123493:osm:place",
+            "Q1123493:wikipedia:2",
+            "Q1123493:wikidata:instanceOf"
+          ],
+          "name": "Plaza Mayor de Madrid",
+          "assessment": {
+            "visitValueScore": 85,
+            "omissionCost": 80,
+            "primaryEvidence": "e01"
+          }
+        },
+        {
+          "slot": "c01",
+          "canonicalId": "Q427163",
+          "siteId": "site:Q427163",
+          "entityIds": [
+            "Q427163"
+          ],
+          "evidenceIds": [
+            "Q427163:wikipedia:0",
+            "Q427163:wikipedia:1",
+            "Q427163:wikipedia:3",
+            "Q427163:wikipedia:2",
+            "Q427163:wikipedia:8",
+            "Q427163:wikidata:instanceOf",
+            "Q427163:wikipedia:6",
+            "Q427163:wikipedia:10"
+          ],
+          "name": "Puerta del Sol",
+          "assessment": {
+            "visitValueScore": 90,
+            "omissionCost": 85,
+            "primaryEvidence": "e03"
+          }
+        },
+        {
+          "slot": "c02",
+          "canonicalId": "Q171517",
+          "siteId": "site:Q171517",
+          "entityIds": [
+            "Q15845124",
+            "Q171517"
+          ],
+          "evidenceIds": [
+            "Q171517:osm:historic",
+            "Q171517:wikipedia:0",
+            "Q171517:wikidata:inception",
+            "Q171517:wikidata:architect",
+            "Q171517:wikipedia:3",
+            "Q171517:osm:building",
+            "Q171517:wikipedia:1",
+            "Q171517:wikidata:instanceOf"
+          ],
+          "name": "Palacio Real de Madrid",
+          "assessment": {
+            "visitValueScore": 95,
+            "omissionCost": 90,
+            "primaryEvidence": "e04"
+          }
+        },
+        {
+          "slot": "c03",
+          "canonicalId": "Q1537446",
+          "siteId": "site:Q1537446",
+          "entityIds": [
+            "Q1537446",
+            "Q1849031",
+            "Q2736564",
+            "way:1346140195"
+          ],
+          "evidenceIds": [
+            "Q1537446:osm:place",
+            "Q2736564:wikipedia:1",
+            "Q1537446:wikidata:namedAfter",
+            "Q1849031:wikidata:inception",
+            "Q2736564:wikipedia:5",
+            "way:1346140195:osm:historic",
+            "Q2736564:wikipedia:3",
+            "Q1537446:wikidata:instanceOf"
+          ],
+          "name": "plaza de Cibeles",
+          "assessment": {
+            "visitValueScore": 75,
+            "omissionCost": 65,
+            "primaryEvidence": "e01"
+          }
+        },
+        {
+          "slot": "c04",
+          "canonicalId": "Q1140634",
+          "siteId": "site:Q1140634",
+          "entityIds": [
+            "Q1140634"
+          ],
+          "evidenceIds": [
+            "Q1140634:wikipedia:0",
+            "Q1140634:wikipedia:4",
+            "Q1140634:wikidata:inception",
+            "Q1140634:wikidata:architecturalStyle",
+            "Q1140634:wikipedia:5",
+            "Q1140634:wikipedia:1",
+            "Q1140634:wikipedia:8",
+            "Q1140634:wikidata:instanceOf"
+          ],
+          "name": "Puerta de Alcalá",
+          "assessment": {
+            "visitValueScore": 80,
+            "omissionCost": 70,
+            "primaryEvidence": "e00"
+          }
+        },
+        {
+          "slot": "c05",
+          "canonicalId": "Q970525",
+          "siteId": "site:Q970525",
+          "entityIds": [
+            "Q970525"
+          ],
+          "evidenceIds": [
+            "Q970525:wikipedia:4",
+            "Q970525:wikipedia:3",
+            "Q970525:wikidata:namedAfter",
+            "Q970525:wikipedia:6",
+            "Q970525:osm:place",
+            "Q970525:wikipedia:0",
+            "Q970525:wikidata:instanceOf",
+            "Q970525:wikipedia:8"
+          ],
+          "name": "plaza de Colón",
+          "assessment": {
+            "visitValueScore": 55,
+            "omissionCost": 45,
+            "primaryEvidence": "e01"
+          }
+        },
+        {
+          "slot": "c06",
+          "canonicalId": "Q2193218",
+          "siteId": "site:Q2193218",
+          "entityIds": [
+            "Q2193218"
+          ],
+          "evidenceIds": [
+            "Q2193218:osm:place",
+            "Q2193218:wikipedia:1",
+            "Q2193218:wikidata:inception",
+            "Q2193218:wikipedia:2",
+            "Q2193218:osm:highway",
+            "Q2193218:wikipedia:0",
+            "Q2193218:wikidata:instanceOf",
+            "Q2193218:wikipedia:3"
+          ],
+          "name": "plaza de Oriente",
+          "assessment": {
+            "visitValueScore": 70,
+            "omissionCost": 60,
+            "primaryEvidence": "e07"
+          }
+        },
+        {
+          "slot": "c07",
+          "canonicalId": "Q855343",
+          "siteId": "site:Q855343",
+          "entityIds": [
+            "Q10343739",
+            "Q855343"
+          ],
+          "evidenceIds": [
+            "Q10343739:osm:building",
+            "Q10343739:wikipedia:3",
+            "Q855343:wikidata:inception",
+            "Q10343739:wikidata:architecturalStyle",
+            "Q10343739:wikipedia:4",
+            "Q10343739:osm:historic",
+            "Q10343739:wikipedia:0",
+            "Q855343:wikidata:instanceOf"
+          ],
+          "name": "Senado de España",
+          "assessment": {
+            "visitValueScore": 60,
+            "omissionCost": 50,
+            "primaryEvidence": "e04"
+          }
+        },
+        {
+          "slot": "c08",
+          "canonicalId": "Q539149",
+          "siteId": "site:Q539149",
+          "entityIds": [
+            "Q539149",
+            "Q9054619"
+          ],
+          "evidenceIds": [
+            "Q9054619:osm:building",
+            "Q9054619:wikipedia:2",
+            "Q9054619:wikidata:inception",
+            "Q9054619:wikidata:architect",
+            "Q9054619:wikipedia:3",
+            "Q9054619:osm:architect",
+            "Q9054619:wikipedia:0",
+            "Q539149:wikidata:instanceOf"
+          ],
+          "name": "Congreso de los Diputados",
+          "assessment": {
+            "visitValueScore": 65,
+            "omissionCost": 55,
+            "primaryEvidence": "e06"
+          }
+        },
+        {
+          "slot": "c09",
+          "canonicalId": "Q2657591",
+          "siteId": "site:Q2657591",
+          "entityIds": [
+            "Q2657591"
+          ],
+          "evidenceIds": [
+            "Q2657591:wikipedia:0",
+            "Q2657591:wikipedia:2",
+            "Q2657591:wikidata:inception",
+            "Q2657591:wikidata:heritageDesignation",
+            "Q2657591:wikipedia:4",
+            "Q2657591:wikipedia:1",
+            "Q2657591:wikipedia:3",
+            "Q2657591:wikidata:instanceOf"
+          ],
+          "name": "Puerta de Toledo",
+          "assessment": {
+            "visitValueScore": 55,
+            "omissionCost": 45,
+            "primaryEvidence": "e05"
+          }
+        },
+        {
+          "slot": "c10",
+          "canonicalId": "Q849711",
+          "siteId": "site:Q849711",
+          "entityIds": [
+            "Q849711"
+          ],
+          "evidenceIds": [
+            "Q849711:wikipedia:3",
+            "Q849711:wikipedia:6",
+            "Q849711:wikidata:inception",
+            "Q849711:wikidata:architect",
+            "Q849711:wikipedia:7",
+            "Q849711:osm:amenity",
+            "Q849711:wikipedia:0",
+            "Q849711:wikidata:instanceOf"
+          ],
+          "name": "catedral de la Almudena",
+          "assessment": {
+            "visitValueScore": 75,
+            "omissionCost": 65,
+            "primaryEvidence": "e04"
+          }
+        },
+        {
+          "slot": "c11",
+          "canonicalId": "Q2711992",
+          "siteId": "site:Q2711992",
+          "entityIds": [
+            "Q2711992"
+          ],
+          "evidenceIds": [
+            "Q2711992:wikipedia:3",
+            "Q2711992:wikipedia:1",
+            "Q2711992:wikipedia:4",
+            "Q2711992:wikipedia:5",
+            "Q2711992:wikipedia:0",
+            "Q2711992:wikidata:instanceOf",
+            "Q2711992:wikipedia:9",
+            "Q2711992:wikipedia:7"
+          ],
+          "name": "plaza de la Villa",
+          "assessment": {
+            "visitValueScore": 65,
+            "omissionCost": 55,
+            "primaryEvidence": "e03"
+          }
+        },
+        {
+          "slot": "c12",
+          "canonicalId": "Q2982559",
+          "siteId": "site:Q2982559",
+          "entityIds": [
+            "Q2982559",
+            "Q6080086"
+          ],
+          "evidenceIds": [
+            "Q2982559:wikipedia:2",
+            "Q2982559:wikipedia:0",
+            "Q2982559:wikidata:architect",
+            "Q2982559:wikidata:architecturalStyle",
+            "Q2982559:wikipedia:1",
+            "Q2982559:osm:building",
+            "Q2982559:wikipedia:3",
+            "Q2982559:wikidata:instanceOf"
+          ],
+          "name": "Palacio de Santa Cruz",
+          "assessment": {
+            "visitValueScore": 50,
+            "omissionCost": 40,
+            "primaryEvidence": "e01"
+          }
+        },
+        {
+          "slot": "c13",
+          "canonicalId": "Q3288223",
+          "siteId": "site:Q3288223",
+          "entityIds": [
+            "Q3288223"
+          ],
+          "evidenceIds": [
+            "Q3288223:osm:building",
+            "Q3288223:wikipedia:0",
+            "Q3288223:wikidata:inception",
+            "Q3288223:wikidata:architecturalStyle",
+            "Q3288223:wikipedia:1",
+            "Q3288223:osm:historic",
+            "Q3288223:wikipedia:2",
+            "Q3288223:wikidata:instanceOf"
+          ],
+          "name": "Palacio de Liria",
+          "assessment": {
+            "visitValueScore": 55,
+            "omissionCost": 45,
+            "primaryEvidence": "e04"
+          }
+        },
+        {
+          "slot": "c14",
+          "canonicalId": "Q2838423",
+          "siteId": "site:Q2838423",
+          "entityIds": [
+            "Q2838423"
+          ],
+          "evidenceIds": [
+            "Q2838423:wikipedia:3",
+            "Q2838423:wikipedia:2",
+            "Q2838423:wikidata:inception",
+            "Q2838423:wikidata:architect",
+            "Q2838423:wikipedia:4",
+            "Q2838423:wikipedia:6",
+            "Q2838423:wikipedia:0",
+            "Q2838423:wikidata:instanceOf"
+          ],
+          "name": "Puente de Segovia",
+          "assessment": {
+            "visitValueScore": 60,
+            "omissionCost": 50,
+            "primaryEvidence": "e00"
+          }
+        },
+        {
+          "slot": "c15",
+          "canonicalId": "Q1472798",
+          "siteId": "site:Q1472798",
+          "entityIds": [
+            "Q1472798"
+          ],
+          "evidenceIds": [
+            "Q1472798:wikipedia:0",
+            "Q1472798:wikipedia:4",
+            "Q1472798:wikidata:inception",
+            "Q1472798:wikidata:architect",
+            "Q1472798:wikipedia:7",
+            "Q1472798:wikipedia:1",
+            "Q1472798:wikipedia:6",
+            "Q1472798:wikidata:instanceOf"
+          ],
+          "name": "Neptuno",
+          "assessment": {
+            "visitValueScore": 60,
+            "omissionCost": 50,
+            "primaryEvidence": "e06"
+          }
+        },
+        {
+          "slot": "c16",
+          "canonicalId": "Q2420025",
+          "siteId": "site:Q2420025",
+          "entityIds": [
+            "Q2420025"
+          ],
+          "evidenceIds": [
+            "Q2420025:wikipedia:4",
+            "Q2420025:wikipedia:1",
+            "Q2420025:wikidata:inception",
+            "Q2420025:wikidata:architect",
+            "Q2420025:wikipedia:2",
+            "Q2420025:osm:amenity",
+            "Q2420025:wikipedia:0",
+            "Q2420025:wikidata:instanceOf"
+          ],
+          "name": "Palacio de Cristal del Retiro",
+          "assessment": {
+            "visitValueScore": 65,
+            "omissionCost": 55,
+            "primaryEvidence": "e01"
+          }
+        },
+        {
+          "slot": "c17",
+          "canonicalId": "Q24944157",
+          "siteId": "site:Q24944157",
+          "entityIds": [
+            "Q24944157"
+          ],
+          "evidenceIds": [
+            "Q24944157:osm:highway",
+            "Q24944157:wikipedia:1",
+            "Q24944157:wikidata:namedAfter",
+            "Q24944157:wikipedia:2",
+            "Q24944157:osm:place",
+            "Q24944157:wikipedia:0",
+            "Q24944157:wikidata:instanceOf",
+            "Q24944157:wikipedia:3"
+          ],
+          "name": "plaza de Chueca",
+          "assessment": {
+            "visitValueScore": 40,
+            "omissionCost": 30,
+            "primaryEvidence": "e03"
+          }
+        }
+      ],
+      "portfolio": {
+        "status": "selected",
+        "priority": "3/3",
+        "exploredStateCount": 151797,
+        "finalists": [
+          {
+            "slot": "r00",
+            "stops": [
+              "Palacio Real de Madrid",
+              "catedral de la Almudena",
+              "Plaza Mayor de Madrid",
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "plaza de Cibeles",
+              "Puerta de Alcalá"
+            ],
+            "metrics": {
+              "walkingMeters": 3386.91,
+              "walkingMinutes": 48.38,
+              "estimatedTourMinutes": 111.38,
+              "maxSegmentMeters": 784.92,
+              "overMaxSegments": 0
+            },
+            "scores": {
+              "priorityCovered": 3,
+              "averageVisitValue": 80.71,
+              "omissionCoverage": 49.28,
+              "evidence": 99.43,
+              "diversity": 71.43,
+              "walkability": 71.78,
+              "portfolioUtility": 73.84
+            },
+            "jury": {
+              "paidTourScore": 88,
+              "historicalArcScore": 82,
+              "omissionSafetyScore": 85,
+              "distinctivenessScore": 78
+            }
+          },
+          {
+            "slot": "r01",
+            "stops": [
+              "Puerta del Sol",
+              "Plaza Mayor de Madrid",
+              "plaza de la Villa",
+              "catedral de la Almudena",
+              "Palacio Real de Madrid",
+              "plaza de Oriente",
+              "Senado de España"
+            ],
+            "metrics": {
+              "walkingMeters": 2126.9,
+              "walkingMinutes": 30.38,
+              "estimatedTourMinutes": 93.38,
+              "maxSegmentMeters": 476.41,
+              "overMaxSegments": 0
+            },
+            "scores": {
+              "priorityCovered": 3,
+              "averageVisitValue": 77.14,
+              "omissionCoverage": 46.86,
+              "evidence": 100,
+              "diversity": 57.14,
+              "walkability": 82.28,
+              "portfolioUtility": 71.51
+            },
+            "jury": {
+              "paidTourScore": 75,
+              "historicalArcScore": 80,
+              "omissionSafetyScore": 90,
+              "distinctivenessScore": 70
+            }
+          },
+          {
+            "slot": "r02",
+            "stops": [
+              "catedral de la Almudena",
+              "Palacio Real de Madrid",
+              "plaza de Oriente",
+              "Plaza Mayor de Madrid",
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "Neptuno"
+            ],
+            "metrics": {
+              "walkingMeters": 2781.53,
+              "walkingMinutes": 39.74,
+              "estimatedTourMinutes": 102.74,
+              "maxSegmentMeters": 759.38,
+              "overMaxSegments": 0
+            },
+            "scores": {
+              "priorityCovered": 3,
+              "averageVisitValue": 77.14,
+              "omissionCoverage": 46.86,
+              "evidence": 100,
+              "diversity": 71.43,
+              "walkability": 76.82,
+              "portfolioUtility": 72.4
+            },
+            "jury": {
+              "paidTourScore": 78,
+              "historicalArcScore": 76,
+              "omissionSafetyScore": 82,
+              "distinctivenessScore": 72
+            }
+          },
+          {
+            "slot": "r03",
+            "stops": [
+              "Palacio Real de Madrid",
+              "plaza de Oriente",
+              "plaza de la Villa",
+              "Plaza Mayor de Madrid",
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "Puerta de Alcalá"
+            ],
+            "metrics": {
+              "walkingMeters": 3321.24,
+              "walkingMinutes": 47.45,
+              "estimatedTourMinutes": 110.45,
+              "maxSegmentMeters": 1018.07,
+              "overMaxSegments": 0
+            },
+            "scores": {
+              "priorityCovered": 3,
+              "averageVisitValue": 78.57,
+              "omissionCoverage": 47.83,
+              "evidence": 100,
+              "diversity": 57.14,
+              "walkability": 72.32,
+              "portfolioUtility": 71.33
+            },
+            "jury": {
+              "paidTourScore": 82,
+              "historicalArcScore": 84,
+              "omissionSafetyScore": 80,
+              "distinctivenessScore": 75
+            }
+          },
+          {
+            "slot": "r04",
+            "stops": [
+              "plaza de Cibeles",
+              "Neptuno",
+              "Congreso de los Diputados",
+              "Puerta del Sol",
+              "Plaza Mayor de Madrid",
+              "plaza de la Villa",
+              "catedral de la Almudena",
+              "Palacio Real de Madrid"
+            ],
+            "metrics": {
+              "walkingMeters": 3225.28,
+              "walkingMinutes": 46.08,
+              "estimatedTourMinutes": 118.08,
+              "maxSegmentMeters": 759.38,
+              "overMaxSegments": 0
+            },
+            "scores": {
+              "priorityCovered": 3,
+              "averageVisitValue": 76.25,
+              "omissionCoverage": 52.66,
+              "evidence": 99.5,
+              "diversity": 62.5,
+              "walkability": 76.96,
+              "portfolioUtility": 72.54
+            },
+            "jury": {
+              "paidTourScore": 85,
+              "historicalArcScore": 88,
+              "omissionSafetyScore": 78,
+              "distinctivenessScore": 82
+            }
+          }
+        ]
+      },
+      "selectedRoute": {
+        "slot": "r00",
+        "juryScore": 84.75,
+        "actualDuration": 111.38,
+        "walkingMeters": 3386.91,
+        "stops": [
+          {
+            "position": 1,
+            "name": "Palacio Real de Madrid",
+            "canonicalId": "Q171517",
+            "entityIds": [
+              "Q15845124",
+              "Q171517"
+            ]
+          },
+          {
+            "position": 2,
+            "name": "catedral de la Almudena",
+            "canonicalId": "Q849711",
+            "entityIds": [
+              "Q849711"
+            ]
+          },
+          {
+            "position": 3,
+            "name": "Plaza Mayor de Madrid",
+            "canonicalId": "Q1123493",
+            "entityIds": [
+              "Q1123493"
+            ]
+          },
+          {
+            "position": 4,
+            "name": "Puerta del Sol",
+            "canonicalId": "Q427163",
+            "entityIds": [
+              "Q427163"
+            ]
+          },
+          {
+            "position": 5,
+            "name": "Congreso de los Diputados",
+            "canonicalId": "Q539149",
+            "entityIds": [
+              "Q539149",
+              "Q9054619"
+            ]
+          },
+          {
+            "position": 6,
+            "name": "plaza de Cibeles",
+            "canonicalId": "Q1537446",
+            "entityIds": [
+              "Q1537446",
+              "Q1849031",
+              "Q2736564",
+              "way:1346140195"
+            ]
+          },
+          {
+            "position": 7,
+            "name": "Puerta de Alcalá",
+            "canonicalId": "Q1140634",
+            "entityIds": [
+              "Q1140634"
+            ]
+          }
+        ],
+        "arc": {
+          "arc": [
+            "opening",
+            "belief",
+            "public-life",
+            "power",
+            "resolution"
+          ],
+          "assignments": [
+            {
+              "candidateSlot": "c02",
+              "role": "opening"
+            },
+            {
+              "candidateSlot": "c10",
+              "role": "belief"
+            },
+            {
+              "candidateSlot": "c00",
+              "role": "public-life"
+            },
+            {
+              "candidateSlot": "c01",
+              "role": "public-life"
+            },
+            {
+              "candidateSlot": "c08",
+              "role": "power"
+            },
+            {
+              "candidateSlot": "c03",
+              "role": "public-life"
+            },
+            {
+              "candidateSlot": "c04",
+              "role": "resolution"
+            }
+          ]
+        }
+      },
+      "coverage": {
+        "oracle": "6/7",
+        "required": 7,
+        "missingOracle": [
+          "Plaza de la Villa"
+        ],
+        "greedyOracle": "2/7"
+      },
+      "gates": {
+        "allSentSitesReady": true,
+        "candidateOracleCoverage": true,
+        "candidateLimit": true,
+        "fiveFinalists": true,
+        "noPhysicallyViableNoRoute": true,
+        "withinRequestedDuration": true,
+        "priorityCoverageMaximal": true,
+        "noDuplicateSites": true,
+        "noOverlongSegments": true,
+        "requiredRouteOracleCoverage": false,
+        "oracleNotBelowGreedy": true,
+        "arcCovered": true,
+        "passed": false
+      }
+    }
+  ]
+}

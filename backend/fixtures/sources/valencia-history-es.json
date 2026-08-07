@@ -1,0 +1,1214 @@
+{
+  "schemaVersion": 1,
+  "city": "Valencia",
+  "theme": "history",
+  "language": "es",
+  "capturedAt": "2026-08-06T13:13:34.064Z",
+  "wikidata": {
+    "Q588009": {
+      "wikidataId": "Q588009",
+      "nameTranslations": {
+        "hu": "Selyembörze",
+        "ca": "Llotja de la Seda",
+        "cs": "Llotja de la Seda",
+        "de": "Seidenbörse von Valencia",
+        "en": "Llotja de la Seda",
+        "eo": "Varborso de la Silko",
+        "es": "Lonja de la Seda",
+        "eu": "Llotja de la Seda",
+        "fi": "Lonja de la Seda",
+        "fr": "Lonja de la seda",
+        "gl": "Llotja de la Seda",
+        "hr": "Llotja de la Seda",
+        "it": "Lonja de la Seda",
+        "ja": "ラ・ロンハ・デ・ラ・セダ",
+        "ka": "ლონხა-დე-ლა-სედა",
+        "nl": "La Lonja de la Seda",
+        "pt": "Lonja de la Seda",
+        "ru": "Лонха-де-ла-Седа",
+        "sv": "La Lonja de la Seda",
+        "sh": "Llotja de la Seda",
+        "da": "Llotja de la Seda",
+        "de-ch": "Lonja de la Seda",
+        "el": "Ανταλλακτήριο Μεταξιού της Βαλένθιας",
+        "en-ca": "Llotja de la Seda",
+        "en-gb": "Llotja de la Seda",
+        "hi": "ल्लोत्ज़ा दे ला सीदा",
+        "pa": "ਲਲੋਤਜ਼ਾ ਦੇ ਲਾ ਸੀਦਾ",
+        "pt-br": "Lonja de la Seda",
+        "vi": "Llotja de la Seda",
+        "zh": "巴倫西亞絲綢交易所",
+        "su": "Llotja de la Seda",
+        "sl": "La Llotja de la Seda",
+        "ar": "سوق الحرير",
+        "ko": "라 론하 데 라 세다",
+        "uk": "Лонха-де-ла-Седа",
+        "he": "בורסת המשי בוולנסיה",
+        "pl": "Lonja de la Seda",
+        "ml": "ലോദ്ജ ദ ലാ സെദ",
+        "ast": "Rula de la Seda",
+        "hy": "Լոնխա դե լա Սեդա",
+        "tr": "Llotja de la Seda",
+        "pnb": "لوتزا دے لا سیدا",
+        "bg": "Лонха де ла Седа",
+        "id": "Llotja de la Seda",
+        "mt": "Loġġa tal-Ħarir",
+        "fa": "لونجا د لا سودا"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q588009",
+      "wikidataClaims": {
+        "instanceOf": "lonja",
+        "architect": "Pere Compte",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q239935": {
+      "wikidataId": "Q239935",
+      "nameTranslations": {
+        "zh-hans": "艺术科学城",
+        "zh-hant": "藝術科學城",
+        "zh-hk": "藝術科學城",
+        "zh-cn": "艺术科学城",
+        "zh-sg": "艺术科学城",
+        "zh-tw": "藝術科學城",
+        "eu": "Arte eta Zientzien Hiria",
+        "pl": "Ciudad de las Artes y las Ciencias",
+        "be": "Горад мастацтваў і навук",
+        "he": "עיר האמנויות והמדעים",
+        "fr": "cité des arts et des sciences",
+        "es": "Ciudad de las Artes y las Ciencias",
+        "ms": "Ciutat de les Arts i les Ciències",
+        "hu": "Művészetek Városa",
+        "it": "Ciutat de les Arts i les Ciències",
+        "gl": "Cidade das Artes e as Ciencias de Valencia",
+        "et": "Ciutat de les Arts i les Ciències",
+        "id": "Kota Seni dan Sains",
+        "de": "Stadt der Künste und Wissenschaften",
+        "ja": "芸術科学都市",
+        "el": "Πόλη των Τεχνών και των Επιστημών",
+        "sv": "Ciutat de les Arts i les Ciències",
+        "nl": "Ciutat de les Arts i les Ciències",
+        "ar": "مدينة الفنون والعلوم",
+        "pt": "Cidade das Artes e das Ciências",
+        "sk": "Ciudad de las Artes y las Ciencias",
+        "ru": "Город искусств и наук",
+        "en": "City of Arts and Sciences",
+        "sr-el": "Grad umetnosti i nauke",
+        "sr-ec": "Град уметности и науке",
+        "ro": "Orașul Artelor și Științei",
+        "ca": "Ciutat de les Arts i les Ciències",
+        "uk": "Місто мистецтв та наук",
+        "cs": "Město umění a věd",
+        "fa": "شهر هنرها و علوم",
+        "ka": "ხელოვნებისა და მეცნიერების ქალაქი",
+        "lt": "Menų ir mokslų miestas",
+        "sr": "Град уметности и науке",
+        "zh": "藝術科學城",
+        "ta": "அறிவியலுக்கும் கலைகளுக்குமான நகரம்",
+        "sl": "Mesto umetnosti in znanosti",
+        "az": "İncəsənət və elm şəhəri",
+        "sq": "Qyteti i Arteve dhe Shkencave",
+        "hy": "Արվեստների և գիտության քաղաք",
+        "de-ch": "Ciutat de les Arts i les Ciències",
+        "en-ca": "City of Arts and Sciences",
+        "en-gb": "City of Arts and Sciences",
+        "pt-br": "Cidade das Artes e das Ciências",
+        "lv": "Mākslas un zinātnes pilsēta",
+        "ko": "예술 과학 도시",
+        "eo": "Urbo de la artoj kaj sciencoj",
+        "arz": "مدينة الفنون والعلوم فى فلنسيا"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q239935",
+      "wikidataClaims": {
+        "instanceOf": "destino turístico",
+        "inception": "1998-00-00",
+        "architect": "Santiago Calatrava",
+        "architecturalStyle": "Arquitectura high-tech",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q2197068": {
+      "wikidataId": "Q2197068",
+      "nameTranslations": {
+        "nl": "Mercado Central",
+        "ca": "Mercat Central",
+        "en": "Mercat Central",
+        "es": "Mercado Central de Valencia",
+        "fr": "Marché Central de Valence",
+        "gl": "Mercado Central de Valencia",
+        "de": "Zentralmarkt",
+        "cs": "Mercado Central de Valencia",
+        "pl": "Mercado Central",
+        "ru": "Центральный рынок",
+        "it": "Mercado Central",
+        "zh-tw": "瓦倫西亞中央市場",
+        "he": "השוק המרכזי של ולנסיה",
+        "zh": "中央市场 (瓦伦西亚)",
+        "sl": "Mercado Central, Valencija"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2197068",
+      "wikidataClaims": {
+        "instanceOf": "mercado cubierto",
+        "inception": "1914-00-00",
+        "architect": "Francesc Guàrdia i Vial",
+        "architecturalStyle": "Modernismo valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q1466926": {
+      "wikidataId": "Q1466926",
+      "nameTranslations": {
+        "zh-hans": "巴伦西亚主教座堂",
+        "zh-hant": "巴倫西亞主教座堂",
+        "zh-hk": "華倫西亞主教座堂",
+        "zh-tw": "瓦倫西亞主教座堂",
+        "pt": "Catedral de Valência",
+        "eo": "Katedralo de Valencio",
+        "pl": "Katedra w Walencji",
+        "fr": "cathédrale Sainte-Marie de Valence",
+        "en": "Valencia Cathedral",
+        "es": "Catedral de Santa María de Valencia",
+        "ca": "catedral de València",
+        "it": "cattedrale di Valencia",
+        "gl": "Catedral de Valencia",
+        "de": "Kathedrale von Valencia",
+        "nl": "Kathedraal van Valencia",
+        "ar": "كاتدرائية بلنسية",
+        "zh": "巴伦西亚主教座堂",
+        "ko": "발렌시아 대성당",
+        "vi": "Nhà thờ chính tòa Valencia",
+        "hi": "वालेंसिया बड़ा गिरजाघर",
+        "ur": "بالنسیا بڑا گرجاگھر",
+        "pa": "ਬਾਲੈਂਸੀਆ ਵੱਡਾ ਗਿਰਜਾਘਰ",
+        "ta": "வலன்சியா பெருங்கோவில்",
+        "sl": "stolnica v Valenciji",
+        "ja": "バレンシア大聖堂",
+        "eu": "Valentziako katedrala",
+        "id": "Katedral Valencia",
+        "el": "Καθεδρικός Ναός της Βαλένθιας",
+        "arz": "كاتدرائيه بلنسيه",
+        "he": "קתדרלת ולנסיה",
+        "ru": "Валенсийский собор",
+        "cs": "Valencijská katedrála",
+        "bg": "Катедралата на Валенсия",
+        "tr": "Valensiya Katedrali"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1466926",
+      "wikidataClaims": {
+        "instanceOf": "catedral católica",
+        "inception": "1262-06-23",
+        "architect": "Andreu Julià",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Ciudad Vieja",
+        "namedAfter": "Asunción de María"
+      }
+    },
+    "Q1748404": {
+      "wikidataId": "Q1748404",
+      "nameTranslations": {
+        "es": "Museo de Bellas Artes de Valencia",
+        "en": "Museu de Belles Arts de València",
+        "ca": "Museu de Belles Arts de València",
+        "it": "Museo di Belle Arti di Valencia",
+        "fr": "musée des beaux-arts de Valence",
+        "nl": "Museo de Bellas Artes de Valencia",
+        "pl": "Muzeum Sztuk Pięknych w Walencji",
+        "ru": "Музей изящных искусств Валенсии",
+        "zh": "瓦倫西亞美術館",
+        "de": "Museum der Schönen Künste von Valencia",
+        "ja": "ピウス5世現代美術館",
+        "eu": "Valentziako Arte Ederretako Meseoa",
+        "az": "İncəsənət Muzeyi",
+        "hy": "Վալենսիայի գեղարվեստի թանգարան",
+        "pt-br": "Museu de Belles Arts de València",
+        "pt": "Museu de Belles Arts de València",
+        "cy": "Museu de Belles Arts de València",
+        "eo": "Muzeo de Belartoj de Valencio",
+        "zh-hant": "瓦倫西亞美術館",
+        "tt": "Валенсия нәфис сәнгать музее",
+        "sl": "Muzej likovnih umetnosti Valencie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1748404",
+      "wikidataClaims": {
+        "instanceOf": "museo de arte",
+        "inception": "1913-07-24",
+        "architect": "Juan Pérez Castiel",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia",
+        "namedAfter": "Pío V"
+      }
+    },
+    "Q1779244": {
+      "wikidataId": "Q1779244",
+      "nameTranslations": {
+        "gl": "Plaça de la Mare de Déu",
+        "es": "Plaza de la Virgen",
+        "ca": "Plaça de la Mare de Déu",
+        "it": "plaza de la Virgen",
+        "nl": "Plaza de la Virgen",
+        "en": "Plaça de la Mare de Déu",
+        "zh": "圣母广场 (巴伦西亚)",
+        "de": "Plaça de la Mare de Déu"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1779244",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "La Seu"
+      }
+    },
+    "Q3393246": {
+      "wikidataId": "Q3393246",
+      "nameTranslations": {
+        "gl": "Mercado de Colom",
+        "es": "Mercado de Colón",
+        "ca": "Mercat de Colom",
+        "en": "Mercado de Colón",
+        "fr": "Marché de Colón",
+        "it": "Mercado de Colón",
+        "zh": "哥伦布市场",
+        "de": "Kolumbusmarkt",
+        "eu": "Kolon merkatua",
+        "ast": "Mercáu de Colón",
+        "nl": "Mercado de Colón"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3393246",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "inception": "1914-00-00",
+        "architect": "Francisco Mora Berenguer",
+        "architecturalStyle": "Modernismo valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "El Pla del Remei",
+        "namedAfter": "Cristóbal Colón"
+      }
+    },
+    "Q2402329": {
+      "wikidataId": "Q2402329",
+      "nameTranslations": {
+        "fr": "Mariano Benlliure",
+        "ca": "Marià Benlliure i Gil",
+        "en": "Mariano Benlliure",
+        "eo": "Mariano Benlliure",
+        "es": "Mariano Benlliure",
+        "pl": "Mariano Benlliure",
+        "nl": "Mariano Benlliure",
+        "de": "Mariano Benlliure",
+        "it": "Mariano Benlliure",
+        "pt": "Mariano Benlliure",
+        "eu": "Mariano Benlliure",
+        "hy": "Մարիանո Բենլիուրե",
+        "ru": "Мариано Бенлиуре",
+        "sl": "Mariano Benlliure",
+        "sv": "Mariano Benlliure y Gil",
+        "da": "Mariano Benlliure y Gil",
+        "ar": "ماريانو بينلوري",
+        "sq": "Mariano Benlliure",
+        "ga": "Mariano Benlliure",
+        "pt-br": "Mariano Benlliure",
+        "ja": "マリアーノ・ベンリウレ",
+        "zh": "马里亚诺·本利乌雷",
+        "gl": "Mariano Benlliure",
+        "ro": "Mariano Benlliure",
+        "hu": "Mariano Benlliure"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2402329",
+      "wikidataClaims": {
+        "instanceOf": "ser humano"
+      }
+    },
+    "Q1102684": {
+      "wikidataId": "Q1102684",
+      "nameTranslations": {
+        "gl": "Estació del Nord",
+        "pl": "València Norte",
+        "fr": "València-nord",
+        "en": "Estació del Nord",
+        "es": "estación del Norte",
+        "ca": "Estació del Nord",
+        "nl": "Station València-Nord",
+        "it": "stazione del Nord",
+        "hu": "Valencia Estación del Norte",
+        "de": "Bahnhof Valencia Nord",
+        "zh": "瓦倫西亞北站",
+        "arz": "محطة استاسيو ديل نورد",
+        "eu": "Valentzia–Iparraldea",
+        "ru": "Северный вокзал (Валенсия)",
+        "eo": "València Estació del Nord",
+        "zh-hant": "瓦倫西亞北站",
+        "vec": "stasion del Norte"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1102684",
+      "wikidataClaims": {
+        "instanceOf": "estación de ferrocarril",
+        "inception": "1917-00-00",
+        "architect": "Demetrio Ribes Marco",
+        "architecturalStyle": "Modernismo valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia",
+        "namedAfter": "Compañía de los Caminos de Hierro del Norte de España"
+      }
+    },
+    "Q1031982": {
+      "wikidataId": "Q1031982",
+      "nameTranslations": {
+        "gl": "Plaça de l'Ajuntament de Valencia",
+        "fr": "place de la Mairie",
+        "es": "Plaza del Ayuntamiento",
+        "ca": "Plaça de l'Ajuntament",
+        "it": "plaça de l'Ajuntament",
+        "en": "Plaça de l'Ajuntament",
+        "nl": "place de la Mairie",
+        "arz": "ميدان دار البلديه",
+        "zh": "瓦倫西亞政府廣場"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1031982",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q2455550": {
+      "wikidataId": "Q2455550",
+      "nameTranslations": {
+        "gl": "Torres de Serrans",
+        "en": "Torres dels Serrans",
+        "es": "Torres de Serranos",
+        "ca": "Porta de Serrans",
+        "it": "Torres de Serrans",
+        "eo": "Turoj de Serranos",
+        "su": "Torres de Serranos",
+        "ta": "தொரசு தே செரானோசு",
+        "nl": "Torres de Serranos",
+        "ru": "Тор­рес-де-Сер­ра­нос",
+        "de": "Serrano-Türme",
+        "he": "טורס דה סרנוס",
+        "zh": "塞拉诺塔",
+        "fr": "tours de Serranos",
+        "eu": "Serranos dorreak",
+        "pl": "Torres de Serranos",
+        "cs": "Torres de Serranos"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2455550",
+      "wikidataClaims": {
+        "instanceOf": "torre fortificada",
+        "inception": "1400-00-00",
+        "architect": "Pere Balaguer",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q1993940": {
+      "wikidataId": "Q1993940",
+      "nameTranslations": {
+        "pt": "Palácio do Marquês de Duas Águas",
+        "es": "Palacio del Marqués de Dos Aguas",
+        "ca": "Palau del Marqués de Dos Aigües",
+        "it": "Palacio del Marqués de Dos Aguas",
+        "nl": "Palacio del Marqués de Dos Aguas",
+        "en": "Palau del Marqués de Dos Aigües",
+        "ru": "дво­рец Агу­ас",
+        "ja": "ドス・アグアス侯爵宮殿",
+        "zh": "亚古斯爵府",
+        "pl": "Pałac Marqués de Dos Aguas",
+        "de": "Palau del Marqués de Dos Aigües",
+        "eu": "Dos Aguasko markesaren jauregia",
+        "zh-hant": "亞古斯爵府"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1993940",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1500-00-00",
+        "architect": "Hipólito Rovira",
+        "architecturalStyle": "Rococó",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "La Xerea"
+      }
+    },
+    "Q5801391": {
+      "wikidataId": "Q5801391",
+      "nameTranslations": {
+        "es": "Plaza de la Reina",
+        "ca": "Plaça de la Reina",
+        "ko": "레이나 광장",
+        "cs": "Madridské náměstí",
+        "en": "Plaça de la Reina (València)",
+        "ru": "Площадь Королевы",
+        "zh": "王后广场",
+        "de": "Plaza de la Reina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5801391",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "La Seu"
+      }
+    },
+    "Q1577723": {
+      "wikidataId": "Q1577723",
+      "nameTranslations": {
+        "de": "Valencianisches Museum für Ethnologie",
+        "fr": "musée valencien d'ethnologie",
+        "en": "Valencian Museum of Ethnology",
+        "es": "L'ETNO, Museu Valencià d'Etnologia",
+        "ca": "L'ETNO, Museu Valencià d'Etnologia",
+        "ja": "バレンシア民族学博物館",
+        "zh": "瓦倫西亞民族學博物館",
+        "zh-hant": "巴倫西亞民族博物館",
+        "zh-hans": "巴伦西亚民族博物馆",
+        "nl": "L'Etno",
+        "sv": "Museu Valencià d'Etnologia",
+        "eo": "Valencia Muzeo de Etnologio",
+        "nb": "Museo Valenciano de Etnología",
+        "an": "Museu Valenciano d'Etnolochía"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1577723",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "1982-00-00",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q2343754": {
+      "wikidataId": "Q2343754",
+      "nameTranslations": {
+        "gl": "Torres de Quart",
+        "fr": "tours de Quart",
+        "es": "Torres de Quart",
+        "ca": "Porta de Quart",
+        "it": "Torres de Quart",
+        "su": "Torres de Quart",
+        "uk": "Торрес де Кварт",
+        "nl": "Tours de Quart",
+        "he": "מגדל קוארט",
+        "en": "Torres de Quart",
+        "zh": "夸特塔",
+        "de": "Quart-Türme",
+        "hu": "Torres de Quart",
+        "eu": "Quart dorreak"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2343754",
+      "wikidataClaims": {
+        "instanceOf": "torre fortificada",
+        "architect": "Pere Compte",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Ciudad Vieja"
+      }
+    },
+    "Q9046886": {
+      "wikidataId": "Q9046886",
+      "nameTranslations": {
+        "ca": "Museu Nacional de Ceràmica i de les Arts Sumptuàries González Martí",
+        "es": "Museo Nacional de Cerámica y de las Artes Suntuarias González Martí",
+        "ru": "Музей керамики (Валенсия)",
+        "en": "National Museum of Ceramics and Sumptuary Arts González Martí",
+        "ja": "ゴンサーレス・マルティ国立陶器・装飾芸術博物館",
+        "hy": "Կերամիկայի և դեկորատիվ արվեստի ազգային թանգարան",
+        "zh": "西班牙國立陶瓷博物館",
+        "de": "Nationalmuseum für Keramik und Prunkkunst González Martí."
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9046886",
+      "wikidataClaims": {
+        "instanceOf": "museo de arte",
+        "inception": "1947-02-07",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Ciudad Vieja"
+      }
+    },
+    "Q2701512": {
+      "wikidataId": "Q2701512",
+      "nameTranslations": {
+        "pl": "Muzeum Prehistorii w Walencji",
+        "fr": "Musée de la Préhistoire de Valence",
+        "es": "Museo de Prehistoria de Valencia",
+        "en": "Museu de Prehistòria de València",
+        "ca": "Museu de Prehistòria de València",
+        "it": "Museo di Preistoria di Valencia",
+        "de": "Museum für Prähistorik in Valencia",
+        "nl": "Prehistory Museum of Valencia",
+        "ro": "Muzeul de preistorie din Valencia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2701512",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "1927-01-01",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q1600831": {
+      "wikidataId": "Q1600831",
+      "nameTranslations": {
+        "de": "Institut für moderne Kunst Valencia",
+        "ca": "Institut Valencià d'Art Modern",
+        "en": "Institut Valencià d'Art Modern",
+        "es": "Instituto Valenciano de Arte Moderno",
+        "fr": "Institut valencien d'art moderne",
+        "it": "Instituto Valenciano de Arte Moderno",
+        "nl": "Instituto Valenciano de Arte Moderno",
+        "pt": "Institut Valencià d'Art Modern",
+        "zh": "瓦倫西亞現代美術館",
+        "ja": "バレンシア現代芸術院",
+        "arz": "معهد بلنسيه للفن الحديث",
+        "sl": "Inštitut moderne umetnosti v Valencii"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1600831",
+      "wikidataClaims": {
+        "instanceOf": "museo de arte",
+        "inception": "1986-12-30",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q3393221": {
+      "wikidataId": "Q3393221",
+      "nameTranslations": {
+        "gl": "Palau de la Generalitat Valenciana",
+        "es": "Palacio de la Generalidad Valenciana",
+        "ca": "Palau de la Generalitat Valenciana",
+        "ru": "Дво­рец Хе­не­ра­ли­дад",
+        "nl": "Palau de la Generalitat",
+        "fr": "palais de la Généralité valencienne",
+        "en": "Palau de la Generalitat Valenciana",
+        "he": "ארמון ממשלת ולנסיה",
+        "zh": "巴伦西亚自治区政府宫",
+        "it": "Palau de la Generalitat Valenciana",
+        "eu": "Valentziako Generalitatearen jauregia",
+        "sl": "Palača valencijskega generalitata"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3393221",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1953-00-00",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q978306": {
+      "wikidataId": "Q978306",
+      "nameTranslations": {
+        "es": "basílica de la Virgen de los Desamparados",
+        "ca": "Basílica de la Mare de Déu dels Desemparats",
+        "gl": "Basílica da Mare de Déu dels Desemparats",
+        "pt": "Basílica de Nossa Senhora dos Desamparados",
+        "zh": "无助者之圣母圣殿",
+        "en": "Basilica of Our Lady of the Forsaken",
+        "de": "Basilika der Heiligen Jungfrau der Hilflosen",
+        "it": "Basilica della Vergine degli Abbandonati",
+        "id": "Basilika Bunda Kesedihan, Valencia",
+        "nb": "Basílica de la Virgen de los Desamparados"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q978306",
+      "wikidataClaims": {
+        "instanceOf": "basílica menor",
+        "inception": "1700-00-00",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Ciudad Vieja",
+        "namedAfter": "Virgen de los Desamparados"
+      }
+    },
+    "Q4891102": {
+      "wikidataId": "Q4891102",
+      "nameTranslations": {
+        "pt": "Mosteiro de Sant Miquel dels Reis",
+        "es": "Monasterio de San Miguel de los Reyes",
+        "ca": "Monestir de Sant Miquel dels Reis",
+        "en": "Monestir de Sant Miquel dels Reis",
+        "it": "Monastero di San Miguel de los Reyes",
+        "de": "Kloster San Miguel de los Reyes",
+        "ru": "монастырь Сан-Мигель-де-Лос-Рейес",
+        "pl": "Monasterio de San Miguel de los Reyes",
+        "cs": "klášter sv. Michala de los Reyes ve Valencii"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4891102",
+      "wikidataClaims": {
+        "instanceOf": "monasterio",
+        "inception": "1545-00-00",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q9007046": {
+      "wikidataId": "Q9007046",
+      "nameTranslations": {
+        "ca": "església de Sant Esteve",
+        "es": "iglesia de San Esteban",
+        "en": "church of Saint Stephen",
+        "arz": "كنيسه سان استيبان",
+        "de": "Iglesia de San Esteban, Valencia",
+        "zh": "圣斯德望堂 (巴伦西亚)",
+        "eu": "San Esteban eliza (Valentzia)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9007046",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1201-01-17",
+        "architecturalStyle": "barroco",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia",
+        "namedAfter": "Esteban"
+      }
+    },
+    "Q11942014": {
+      "wikidataId": "Q11942014",
+      "nameTranslations": {
+        "ca": "plaça Redona",
+        "es": "Plaza Redonda",
+        "en": "Plaça Redona",
+        "it": "Plaça Redonda"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q11942014",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "inception": "1900-00-00",
+        "heritageDesignation": "Bien de Relevancia Local",
+        "locatedIn": "El Mercat"
+      }
+    },
+    "Q9007252": {
+      "wikidataId": "Q9007252",
+      "nameTranslations": {
+        "ca": "Església de Sant Nicolau",
+        "es": "iglesia de San Nicolás de Bari y San Pedro Mártir",
+        "en": "Church of San Nicolás",
+        "fr": "église de Saint Nicolas",
+        "pl": "Kościół św. Mikołaja",
+        "de": "St. Nikolaus und Petrus",
+        "it": "chiesa di San Nicola di Bari e San Pietro Martire",
+        "zh": "圣尼各老堂 (巴伦西亚)",
+        "eu": "San Nikolas eliza (Valentzia)",
+        "id": "Gereja Santo Nikolaus, Valencia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9007252",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Ciudad Vieja",
+        "namedAfter": "Pedro"
+      }
+    },
+    "Q2839013": {
+      "wikidataId": "Q2839013",
+      "nameTranslations": {
+        "es": "iglesia de Santa Catalina, Valencia",
+        "ca": "església de Santa Caterina",
+        "fr": "église Sainte-Catherine de Valence",
+        "en": "Church of Santa Catalina, Valencia",
+        "pt": "Igreja de Santa Catarina (Valência)",
+        "arz": "كنيسه سانتا كاتالينا",
+        "de": "Katharinenkirche",
+        "zh": "圣加大肋纳堂 (巴伦西亚)",
+        "it": "chiesa di Santa Caterina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2839013",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1201-01-17",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "La Seu",
+        "namedAfter": "Catalina de Alejandría"
+      }
+    },
+    "Q48975834": {
+      "wikidataId": "Q48975834",
+      "nameTranslations": {
+        "es": "Palacio de la Exposición de Valencia",
+        "ca": "Palau de l'Exposició",
+        "en": "Palau de l'Exposició"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q48975834",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1909-00-00",
+        "architect": "Francisco Mora Berenguer",
+        "architecturalStyle": "Modernismo valenciano",
+        "heritageDesignation": "Bien de Relevancia Local",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q3393224": {
+      "wikidataId": "Q3393224",
+      "nameTranslations": {
+        "gl": "Igrexa de Sant Joan del Mercat",
+        "es": "Iglesia de los Santos Juanes",
+        "ca": "Sant Joan del Mercat",
+        "en": "Church of Sant Joan del Mercat",
+        "de": "Kirche Sant Joan del Mercat",
+        "zh": "圣若望堂 (巴伦西亚)",
+        "fr": "église Saint-Jean de Valence (Espagne)",
+        "it": "chiesa dei Santi Giovanni"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3393224",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q9010986": {
+      "wikidataId": "Q9010986",
+      "nameTranslations": {
+        "ca": "Jardí Botànic de València",
+        "es": "Jardín Botánico de la Universidad de Valencia",
+        "fr": "Jardin botanique de Valence",
+        "en": "Jardín Botánico de la Universidad de Valencia",
+        "ja": "バレンシア植物園",
+        "ast": "Xardín Botánicu de la Universidá de Valencia",
+        "de": "Botanischer Garten der Universität Valencia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9010986",
+      "wikidataClaims": {
+        "instanceOf": "jardín botánico",
+        "inception": "1802-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Extramurs"
+      }
+    },
+    "Q6080287": {
+      "wikidataId": "Q6080287",
+      "nameTranslations": {
+        "es": "plaza de toros de Alicante",
+        "ca": "Plaça de bous d'Alacant",
+        "ceb": "Plaza de Toros de Alicante",
+        "de": "Plaza de toros de Alicante",
+        "fr": "Arènes d'Alicante",
+        "en": "plaza de toros de Alicante"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6080287",
+      "wikidataClaims": {
+        "instanceOf": "plaza de toros",
+        "inception": "1847-01-01",
+        "heritageDesignation": "Bien inmueble de Etnología",
+        "locatedIn": "Alicante"
+      }
+    },
+    "Q2894773": {
+      "wikidataId": "Q2894773",
+      "nameTranslations": {
+        "es": "Torre de la Plaza",
+        "ca": "Torre de la Plaça",
+        "en": "Benifaió Plaça Tower"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2894773",
+      "wikidataClaims": {
+        "instanceOf": "torre fortificada",
+        "inception": "2000-00-00",
+        "architecturalStyle": "arquitectura islámica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Benifayó"
+      }
+    },
+    "Q9047012": {
+      "wikidataId": "Q9047012",
+      "nameTranslations": {
+        "ca": "Museu de Ciències Naturals de València",
+        "es": "Museo de Ciencias Naturales de Valencia",
+        "nl": "Museo de Ciencias Naturales de Valencia",
+        "en": "Museu de Ciències Naturals de València"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9047012",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "1999-00-00",
+        "architecturalStyle": "Racionalismo valenciano",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q10836": {
+      "wikidataId": "Q10836",
+      "nameTranslations": {
+        "es": "Torre musulmana de Silla",
+        "en": "Muslim Tower of Silla",
+        "de": "Turm in Silla",
+        "fr": "tour musulmane de Silla",
+        "ca": "Torre musulmana de Silla",
+        "it": "torre musulmana di Silla"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q10836",
+      "wikidataClaims": {
+        "instanceOf": "torre fortificada",
+        "heritageDesignation": "Monumento",
+        "locatedIn": "Silla"
+      }
+    },
+    "Q9047049": {
+      "wikidataId": "Q9047049",
+      "nameTranslations": {
+        "ca": "Museu d'Història de València",
+        "es": "Museo de Historia de Valencia",
+        "en": "Museu d'Història de València",
+        "ru": "Museo de historia de Valencia",
+        "ja": "バレンシア歴史博物館",
+        "de": "Geschichtsmuseum Valencia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9047049",
+      "wikidataClaims": {
+        "instanceOf": "museo de historia",
+        "inception": "2003-05-07",
+        "locatedIn": "Mislata"
+      }
+    },
+    "Q4984364": {
+      "wikidataId": "Q4984364",
+      "nameTranslations": {
+        "en": "Reial Col·legi Seminari de Corpus Christi",
+        "es": "Real Colegio Seminario del Corpus Christi",
+        "ca": "Reial Col·legi Seminari de Corpus Christi",
+        "nl": "Real Colegio Seminario del Corpus Christi",
+        "arz": "كنيسه الكليه الملكيه للمدرسه فى كوربوس كريستى",
+        "de": "Real Colegio del Corpus Christi",
+        "ga": "Reial Col·legi Seminari de Corpus Christi",
+        "sl": "Kraljevi kolegij in semenišče Corpus Christi"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4984364",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1586-00-00",
+        "architect": "Guillem del Rey",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "La Xerea"
+      }
+    },
+    "Q3068088": {
+      "wikidataId": "Q3068088",
+      "nameTranslations": {
+        "gl": "Palau de Benicarló",
+        "fr": "palais de Benicarló",
+        "es": "Palacio de Benicarló",
+        "ca": "Palau de Benicarló",
+        "en": "Palace of the Borgias",
+        "zh": "波吉亞家族官邸",
+        "sl": "palača Borgijcev",
+        "eu": "Benicarló jauregia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3068088",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1500-00-00",
+        "architecturalStyle": "Gótico valenciano",
+        "heritageDesignation": "Bien de Relevancia Local",
+        "locatedIn": "Ciudad Vieja"
+      }
+    },
+    "Q2743957": {
+      "wikidataId": "Q2743957",
+      "nameTranslations": {
+        "nl": "Jardín de Monforte",
+        "ca": "Jardí de Montfort",
+        "es": "Jardín de Monforte",
+        "en": "Jardín de Monforte",
+        "cs": "Jardín de Monforte"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2743957",
+      "wikidataClaims": {
+        "instanceOf": "parque",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Exposición (Valencia)"
+      }
+    },
+    "Q4846088": {
+      "wikidataId": "Q4846088",
+      "nameTranslations": {
+        "gl": "Plaça del Mercat",
+        "ca": "plaça del Mercat",
+        "en": "Plaça del Mercat",
+        "es": "Plaza del Mercado"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4846088",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Ciudad Vieja"
+      }
+    },
+    "Q27924428": {
+      "wikidataId": "Q27924428",
+      "nameTranslations": {
+        "es": "Museo Fallero de Valencia",
+        "en": "Museu Faller de València",
+        "ca": "Museu Faller de València",
+        "zh": "法雅博物館"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q27924428",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "1971-00-00",
+        "locatedIn": "Valencia"
+      }
+    },
+    "Q3392928": {
+      "wikidataId": "Q3392928",
+      "nameTranslations": {
+        "gl": "Plaça de l'Almoina",
+        "es": "Plaza de la Almoina",
+        "ca": "Plaça de l'Almoina",
+        "en": "Plaça de l'Almoina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3392928",
+      "wikidataClaims": {
+        "instanceOf": "plaza"
+      }
+    },
+    "Q3867999": {
+      "wikidataId": "Q3867999",
+      "nameTranslations": {
+        "ca": "Centre Arqueològic de l'Almoina",
+        "it": "Museo dell'Almoina",
+        "es": "Museo de la Almoina",
+        "nl": "Museo dell'Almoina",
+        "en": "Centre Arqueològic de l'Almoina"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3867999",
+      "wikidataClaims": {
+        "instanceOf": "museo arqueológico",
+        "inception": "2007-12-20",
+        "heritageDesignation": "Bien de Relevancia Local",
+        "locatedIn": "Ciudad Vieja"
+      }
+    }
+  },
+  "wikipedia": {
+    "en:Lonja de la Seda": {
+      "description": "La Lonja de la Seda de Valencia, también conocida como Lonja de los Mercaderes (en valenciano Llotja de la Seda o Llotja de Mercaders),​ es una obra representativa del gótico civil valenciano situada en el centro histórico de Valencia (España). Fue declarada Monumento Nacional en 1931​ y, en 1996, inscrita en la lista de Patrimonio de la Humanidad por la UNESCO. El edificio se encuentra en la plaza del Mercado, número 31, frente a la iglesia de los Santos Juanes y el Mercado Central de Valencia.\nFrancesc Baldomar fue el autor del proyecto original de la Lonja de Valencia,​ lo comenzó a elaborar entre los años 1470-1471.",
+      "body": "La Lonja de la Seda de Valencia, también conocida como Lonja de los Mercaderes (en valenciano Llotja de la Seda o Llotja de Mercaders),​ es una obra representativa del gótico civil valenciano situada en el centro histórico de Valencia (España). Fue declarada Monumento Nacional en 1931​ y, en 1996, inscrita en la lista de Patrimonio de la Humanidad por la UNESCO. El edificio se encuentra en la plaza del Mercado, número 31, frente a la iglesia de los Santos Juanes y el Mercado Central de Valencia.\nFrancesc Baldomar fue el autor del proyecto original de la Lonja de Valencia,​ lo comenzó a elaborar entre los años 1470-1471. En 1481, cinco años después de su muerte (1476), sus discípulos Joan Ivarra y Pere Compte recibieron el  encargo de terminar de construirla según los magníficos planos originales que había dibujado en sus últimos años de vida. Los documentos apuntaban a un plano de igualdad entre ambos: \"que un mestre no sia subordinat al altre nil altre al altre\", es decir, que ninguno fuera más importante que el otro, así como también que la Lonja se debía hacer: \"qual es feta en mostra molt ben divuissada o en altra manera segons millor\", es decir, como en un plano muy bien dibujado que existía o de otra forma mejor.\nSu planteamiento siguió el modelo de la Lonja de Palma de Mallorca, constituyéndose en un edificio emblemático de la riqueza del Siglo de Oro valenciano (siglo XV) y muestra de la revolución comercial durante la Baja Edad Media, del desarrollo social y del prestigio conseguido por la burguesía valenciana.​​\n\n\nHistoria\nLa construcción de la Lonja, en valenciano «llotja» (denominada tradicionalmente como «llonja»), en la Comunidad Valenciana y las islas Baleares,​​ se ha interpretado como el resultado de la prosperidad comercial conseguida por Valencia en el siglo XV, y como un símbolo del poder de la ciudad para atraer a los comerciantes, en un momento en que ya se vislumbraban tiempos difíciles para la economía local agravados por el descubrimiento de",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Lonja%20de%20la%20Seda"
+    },
+    "ca:Ciutat de les Arts i les Ciències": {
+      "description": "La Ciudad de las Artes y las Ciencias (en valenciano: Ciutat de les Arts i les Ciències) es un complejo arquitectónico, cultural y de entretenimiento de la ciudad de Valencia, capital de la Comunidad Valenciana, España.​​\nEl complejo, de estilo neofuturista, fue diseñado por Santiago Calatrava y Félix Candela.​ Fue inaugurado el 9 de junio de 1998 con la apertura del Hemisfèric. El último gran componente de la Ciudad es el Ágora, situado entre el puente del Assut de l'Or y el Oceanogràfic.​\nLa Ciudad de las Artes y las Ciencias está situada al final del viejo cauce del río Turia (jardín del Turia), cauce que se convirtió en jardín en los años 1980, tras el desvío del río por la gran riada de Valencia en 1957.",
+      "body": "La Ciudad de las Artes y las Ciencias (en valenciano: Ciutat de les Arts i les Ciències) es un complejo arquitectónico, cultural y de entretenimiento de la ciudad de Valencia, capital de la Comunidad Valenciana, España.​​\nEl complejo, de estilo neofuturista, fue diseñado por Santiago Calatrava y Félix Candela.​ Fue inaugurado el 9 de junio de 1998 con la apertura del Hemisfèric. El último gran componente de la Ciudad es el Ágora, situado entre el puente del Assut de l'Or y el Oceanogràfic.​\nLa Ciudad de las Artes y las Ciencias está situada al final del viejo cauce del río Turia (jardín del Turia), cauce que se convirtió en jardín en los años 1980, tras el desvío del río por la gran riada de Valencia en 1957. En 2007, fue uno de los ganadores del concurso 12 Tesoros de España.​\n\n\nHistoria\n\n\nOrígenes del proyecto\n\nEn 1989 el entonces presidente de la Generalidad Valenciana, Joan Lerma, tras una visita a la Cité des sciences et de l'industrie, de París, y a través del entonces director general de planificación y estudios de la Presidencia de la Generalidad Valenciana, José María Bernabé, encargó oficialmente al científico Antonio Ten Ros, la redacción de una primera propuesta de una Ciudad de la Ciencia y la Tecnología para Valencia.​ \nTen Ros elaboró un primer anteproyecto, titulado Vilanova, Una Ciudad de las Ciencias para Valencia, que fue presentado oficialmente a la Generalidad en mayo de 1989. Tras él, se le encargó formalmente, en 1990, la dirección de la redacción de un anteproyecto general, por importe de 92 650 000 pesetas (556 000 euros), a gestionar por la Universidad de Valencia. Antonio Ten Ros constituyó un equipo de 56 científicos, museólogos y diseñadores, entre los que incluyó al prof. José María López Piñero como responsable del espacio Un paseo por la historia, que presentó el anteproyecto, en 32 volúmenes, al presidente Lerma, en el Palacio de la Generalidad, el 21 de diciembre de 1991.​\nEl museo iba a ser el centro a partir del cual giraría un co",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Ciutat%20de%20les%20Arts%20i%20les%20Ci%C3%A8ncies"
+    },
+    "es:Mercado Central de Valencia": {
+      "description": "El Mercado Central de la ciudad de Valencia (en valenciano Mercat Central de València) se encuentra ubicado en la plaza Ciudad de Brujas sin número de la ciudad de Valencia (España).",
+      "body": "El Mercado Central de la ciudad de Valencia (en valenciano Mercat Central de València) se encuentra ubicado en la plaza Ciudad de Brujas sin número de la ciudad de Valencia (España). Está considerado como una de las obras maestras del modernismo valenciano.​\n\n\nEdificio\nEs una construcción de estilo modernista valenciano que se empezó a construir en 1914 por Francesc Guàrdia i Vial y Alexandre Soler i March, ambos formados en la Escuela de Arquitectura de Valencia y habiendo trabajado en el equipo de colaboradores de Domènech i Montaner, arquitecto que se caracterizó por un estilo propio dentro de las líneas del modernismo.\nDespués de algunas desavenencias y de algunas modificaciones en el proyecto inicial la dirección de las obras las ejecutarán los arquitectos valencianos Enrique Viedma Vidal y Ángel Romaní Verdeguer, finalizándose en enero de 1928.​​\nDesde 2004, la Rehabilitación Integral del Mercado Central está a cargo del estudio madrileño Fernández del Castillo Arquitectos, dirigido por Alberto García Lopéz Su intervención ha consistido en una restauración completa del edificio; y una puesta al día de la función comercial como mercado y de sus instalaciones.\nEstá situado en la plaza ciudad de brujas, al lado de la Lonja de la Seda patrimonio cultural y la plaza de la ciudad de Brujas. La calle vieja de la Paja separa el Mercado Central de la iglesia de los Santos Juanes. En el lado opuesto, el Mercado Central da a las feas calles Palafox, plaza En Gall y calle de las Calabazas.\nEste espectacular bazar, cuenta con  más de 200 puestos en los que se vende todo tipo de alimentos como pescado, mariscos, frutas, especias, carnes y embutidos entre otros, tanto para consumo doméstico como para abastecer a importantes restaurantes de Valencia, con lo que se corona como el mercado de productos frescos más grande de Europa. La compra en este lugar está cargada de gran encanto por la belleza de su arquitectura y la tradición e historia del mercado.\nDesde una perspectiva c",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mercado%20Central%20de%20Valencia"
+    },
+    "es:Catedral de Santa María (Valencia)": {
+      "description": "La iglesia catedral-basílica metropolitana de la Asunción de Nuestra Señora de Valencia, llamada popularmente la Seu en valenciano, es sede del arzobispado de Valencia y está dedicada por deseo de Jaime I —siguiendo la tradición del siglo XIII— a la Asunción de María. Fue consagrada el año 1238 por el primer obispo de Valencia posterior a la Reconquista, fray Andrés de Albalat.\nEl gótico valenciano es el estilo constructivo predominante de esta catedral, aunque también contiene elementos del románico, del gótico francés, del renacimiento, del barroco y neoclásico.",
+      "body": "La iglesia catedral-basílica metropolitana de la Asunción de Nuestra Señora de Valencia, llamada popularmente la Seu en valenciano, es sede del arzobispado de Valencia y está dedicada por deseo de Jaime I —siguiendo la tradición del siglo XIII— a la Asunción de María. Fue consagrada el año 1238 por el primer obispo de Valencia posterior a la Reconquista, fray Andrés de Albalat.\nEl gótico valenciano es el estilo constructivo predominante de esta catedral, aunque también contiene elementos del románico, del gótico francés, del renacimiento, del barroco y neoclásico.\nEn su interior se venera el Santo Cáliz, fechado del siglo I, y dado a la catedral por el rey Alfonso el Magnánimo en 1437.\nContiene algunas de las primeras y mejores pinturas del Quattrocento de toda la península ibérica, que llegaron de Roma a través de artistas contratados por Alejandro VI. Este último Papa valenciano, cuando aún era el cardenal Rodrigo de Borja, hizo la petición para elevar la sede valentina al rango de Metropolitana, categoría que le fue otorgada por el papa Inocencio VIII en 1492.\n\n\nHistoria\n\nEl emplazamiento de la catedral ha sido lugar de culto desde la época romana, ya que allí se encontraba un templo dedicado a Júpiter o Diana, del que aún hoy se pueden ver en pie las columnas, en el Museo de la Almoina, junto a la catedral.​ Sobre ese templo se erigió la catedral valenciana, durante la época visigoda. Con la conquista árabe, el lugar se volvió sede de la mezquita de Balansiya (Valencia en árabe); hasta que en el siglo XIII, volvió a ser iglesia cristiana, tras la conquista de la ciudad por Jaime I.\nLa estructura principal de la catedral de Valencia se alzó entre los siglos XIII y XV, por lo que es principalmente de estilo gótico. Sin embargo, su construcción se prolongó durante siglos,​ razón por la cual hay una mezcla de estilos artísticos —que van desde el temprano románico, hasta el sutil renacimiento, el barroco recargado y el más contenido neoclasicismo— que es la caracterí",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Catedral%20de%20Santa%20Mar%C3%ADa%20(Valencia)"
+    },
+    "es:Museo de Bellas Artes de Valencia": {
+      "description": "El Museo de Bellas Artes de Valencia (en valenciano, Museu de Belles Arts de València) es un museo de titularidad estatal, gestionado por la Generalidad Valenciana. Por la importancia de sus colecciones, es uno de los primeros museos de pintura de España, siendo un claro referente en cuanto a maestros valencianos antiguos. Es de relevancia internacional su colección de tablas góticas valencianas de los siglos XIV y XV, si bien algunas de sus joyas más conocidas son el Autorretrato de Velázquez  y dos obras de maestros italianos: un retablo completo de Gherardo Starnina y una Virgen con el Niño y donante de Pinturicchio.",
+      "body": "El Museo de Bellas Artes de Valencia (en valenciano, Museu de Belles Arts de València) es un museo de titularidad estatal, gestionado por la Generalidad Valenciana. Por la importancia de sus colecciones, es uno de los primeros museos de pintura de España, siendo un claro referente en cuanto a maestros valencianos antiguos. Es de relevancia internacional su colección de tablas góticas valencianas de los siglos XIV y XV, si bien algunas de sus joyas más conocidas son el Autorretrato de Velázquez  y dos obras de maestros italianos: un retablo completo de Gherardo Starnina y una Virgen con el Niño y donante de Pinturicchio.\n\n\nHistoria\nEn 1913, mediante un real decreto de 24 de julio, el Museo queda desligado oficialmente de la Real Academia de Bellas Artes de San Carlos, convirtiéndose desde entonces en una institución autónoma dependiente del Estado y regida por un Patronato.\nDurante la Guerra Civil el Museo, por aquel entonces situado en el antiguo convento del Carmen Calzado, fue desmontado y usado como almacén del Tesoro Artístico, y se trasladaron parte de sus fondos a Madrid y fueron depositados en el Museo del Prado.\nD. Manuel González Martí, director del Museo, una vez acabada la Guerra Civil gestionó la recuperación de estos fondos y encargó un informe el 5 de septiembre de 1939, que evaluase los daños sufridos por el edificio conventual durante la contienda con la intención de rehabilitarlo, no se llevó a cabo tomándose la decisión de trasladarlo entonces al Colegio Seminario de San Pío V\n\n\nEl edificio\n\nEl Colegio de San Pío V, actual sede del Museo de Bellas Artes de Valencia, fue fundado por el Arzobispo Juan Tomás de Rocabertí para formación de sacerdotes. Proyectado por Juan Pérez Castiel en 1683, su ejecución se demoró hasta bien entrado el siglo XVIII. Está compuesto por dos partes: el colegio y el templo. \nEl colegio es de planta cuadrangular dispuesto alrededor de un claustro, sus dos torres en la fachada que se asoma al antiguo cauce del Turia le dan ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20de%20Bellas%20Artes%20de%20Valencia"
+    },
+    "es:Mariano Benlliure": {
+      "description": "Mariano Benlliure Gil (Valencia, 8 de septiembre de 1862-Madrid, 9 de noviembre de 1947) fue un escultor español, considerado como el último gran maestro del realismo decimonónico.",
+      "body": "Mariano Benlliure Gil (Valencia, 8 de septiembre de 1862-Madrid, 9 de noviembre de 1947) fue un escultor español, considerado como el último gran maestro del realismo decimonónico.\n\n\nBiografía\nNació en el barrio del Carmen, de Valencia, concretamente en el nº 16 de la calle Baja, en el seno de una familia de amplia tradición artística, aunque humilde. Su madre fue Ángela Gil Campos y su padre fue Juan Antonio Benlliure y Tomás (1832-1907). Realizaba trabajos de decoración de viviendas dibujando falsas perspectivas, elementos de jardín, jarrones, guirnaldas..., una pintura ornamental muy del gusto de la alta sociedad de la época. Entre sus hermanos mayores destacaron los pintores de caballete Juan Antonio y José, y Blas, pintor de decoración.\n\nMariano fue un creador muy precoz, pues desde muy niño dejó muestra de su don para la escultura. No empezó a hablar hasta la edad de siete años; dijo de él mismo: \"He sido mudo hasta los siete años en que comencé a decir algunas palabras. Luego tartamudeé mucho tiempo y tengo dificultad para hablar, incluso cuando me enfado soy más torpe de expresión [...]\". Con apenas cinco años acudía junto a su hermano Pepe al estudio de Francisco Domingo Marqués, joven pintor que por aquellos años descollaba apartándose de la tradicional tendencia clasicista y academicista a favor de la corriente realista. A los nueve años Mariano se inició como tallista bajo la tutela de su hermano Pepe, en Madrid. Sus primeros concursos y exposiciones tuvieron lugar antes de cumplir los diez años. Hizo su primera obra importante en Zamora, a la temprana edad de quince años, en 1878. Allí, la misma persona para la que trabajaba temporalmente su padre le encargó un paso procesional, \"El Descendido\", para la Real Cofradía del Santo Entierro de esa ciudad.\n\nEl que sería uno de los más famosos escultores españoles de todos los tiempos comenzó a cultivar en su juventud una materia en la que ocupa un lugar destacado: la tauromaquia, con representaciones en bronc",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Mariano%20Benlliure"
+    },
+    "ca:Mercat de Colom": {
+      "description": "El Mercat de Colom és un edifici d'estil modernista de la ciutat de València situat al barri del Pla del Remei, rehabilitat el 2003 i hui dotat de botigues i restaurants de luxe.\nEs bastí per tal de satisfer la demanda de l'Eixample burgès de València, en ple apogeu el 1914, quan el concebé l'arquitecte Francesc Mora i Berenguer i el 1916, quan fou inaugurat. És un extraordinari exemple d'arquitectura modernista i historicista dins la tradició constructiva valenciana, el més gaudinià de la ciutat, i monument historicoartístic des de 1983.",
+      "body": "El Mercat de Colom és un edifici d'estil modernista de la ciutat de València situat al barri del Pla del Remei, rehabilitat el 2003 i hui dotat de botigues i restaurants de luxe.\nEs bastí per tal de satisfer la demanda de l'Eixample burgès de València, en ple apogeu el 1914, quan el concebé l'arquitecte Francesc Mora i Berenguer i el 1916, quan fou inaugurat. És un extraordinari exemple d'arquitectura modernista i historicista dins la tradició constructiva valenciana, el més gaudinià de la ciutat, i monument historicoartístic des de 1983.\n\n\nEmplaçament\nEl Mercat de Colom es troba al districte de l'Eixample de València, dins el barri del Pla del Remei, entre el carrer de Colom i la Gran Via del Marqués de Túria. S'ubica a l'antiga fàbrica de gas del Marqués de Campo. Ocupa una illa de cases entre els carrers del Comte de Salvatierra, Jorge Juan, Martínez Ferrando i Ciril Amorós del Cap i Casal.\n\n\nHistòria\nEls antecedents del Mercat de Colom es troben a les contínues peticions, des de 1890, de veïns de l'Eixample a l'Ajuntament per implantar-hi un mercat provisional o definitiu i evitar la venda ambulant que generava la demanda d'aliments o el desplaçament als allunyats mercats Central o de Russafa.\nLa gestació del projecte començà el 1910, amb la proposta de Francesc Mora per al Mercat Central, finalment adjudicada a Alexandre Soler i March i Francesc Guàrdia i Vial, on se suggerien moltes de les formes que posteriorment empraria en el projecte del Mercat de l'Eixample, el projecte definitiu del qual va ser presentat per Francesc Mora el 1913.\nEs va inaugurar el 1916 i, amb el pas dels temps i l'obertura de modernes superfícies de venda d'aliments, el mercat entrà en decadència a les darreries del segle xx; els comerciants es jubilaven o simplement tancaven pel deteriorament, i la manca de manteniment espantava els clients.\nDesprés de la restauració del 2003, el Mercat de Colom ha esdevingut una galeria comercial de luxe. Actualment compta amb un restaurant d'arquite",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Mercat%20de%20Colom"
+    },
+    "ca:Plaça de la Mare de Déu": {
+      "description": "La plaça de la Mare de Déu, plaça de la Verge o plaça de la Seu (com es deia antigament) és la plaça més singular de la ciutat de València pel seu simbolisme. Durant la Segona República (1931-39) es deia plaça Vinatea. Ha estat el fòrum en temps de la Valentia romana; la plaça de la catedral en la Valentia visigoda; la plaça de la mesquita major en temps de la Balànsiya musulmana, i la plaça de la Seu o catedral en la València cristiana.",
+      "body": "La plaça de la Mare de Déu, plaça de la Verge o plaça de la Seu (com es deia antigament) és la plaça més singular de la ciutat de València pel seu simbolisme. Durant la Segona República (1931-39) es deia plaça Vinatea. Ha estat el fòrum en temps de la Valentia romana; la plaça de la catedral en la Valentia visigoda; la plaça de la mesquita major en temps de la Balànsiya musulmana, i la plaça de la Seu o catedral en la València cristiana. Avui en dia continua sent el centre espiritual i administratiu més important de la ciutat i del País Valencià i n'alberga tres dels principals monuments:\n\nEl Palau de la Generalitat\nLa Seu\nLa basílica de la Mare de Déu dels Desemparats\nFins al segle xix també albergava l'ajuntament o Casa de la Ciutat, fins que fou traslladada a la seua actual ubicació a la plaça de l'Ajuntament.\n\n\nHistòria\n\nL'origen de la plaça de la Mare de Déu es remunta al fòrum de l'època romana, situat a la confluència de les dues grans vies pròpies de tota ciutat romana: el cardo, que es correspondria aproximadament amb l'actual carrer de Sant Vicent Màrtir, i el decumanus, corresponent al carrer dels Cavallers.\n\n\nUrbanisme\nLa plaça de la Mare de Déu es troba al districte de Ciutat Vella, al barri de la Seu. La plaça té una forma irregular, encara que tendeix a ser un quadrilàter. La plaça és totalment lliure de trànsit, i el centre es troba uns centímetres més baix que la rodalia, i entre tots dos nivells hi ha esglaons. Està limitada, a l'est, per la basílica de la Mare de Déu dels Desemparats, a l'oest, pels jardins del Palau de la Generalitat i per un edifici d'habitatges particulars, al nord, també per edificis d'habitatges particulars, al sud, per la catedral i per l'anomenada Casa Vestuari, que serveix de lloc de reunió als membres del Tribunal de les Aigües abans i després de les seues sessions davant la porta dels Apòstols de la catedral. A la façana de la Casa Vestuari es troba una placa commemorativa de la visita a la plaça del papa Joan Pau II, el",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20de%20la%20Mare%20de%20D%C3%A9u"
+    },
+    "ca:Estació del Nord (València)": {
+      "description": "L'Estació del Nord (oficialment, València-nord, i antigament també coneguda com a València-terme) és la principal estació de ferrocarril de la ciutat de València i un dels monuments més emblemàtics de la seua arquitectura civil.\nEstà previst que el trànsit ferroviari que ara acull es trasllade a la nova estació de València-Parc Central, mig quilòmetre al sud de l'actual, quan el Tren d'Alta Velocitat arribe a la ciutat en ample de via internacional (1435 mm), i es considera la possibilitat que l'edifici actual es convertisca en espai d'oci, cultural o museístic. En el seu centenari, el 8 d'agost de 2017 el Ministeri de Foment anuncià una inversió de sis milions i mig d'euros per a renovar l'estació.",
+      "body": "L'Estació del Nord (oficialment, València-nord, i antigament també coneguda com a València-terme) és la principal estació de ferrocarril de la ciutat de València i un dels monuments més emblemàtics de la seua arquitectura civil.\nEstà previst que el trànsit ferroviari que ara acull es trasllade a la nova estació de València-Parc Central, mig quilòmetre al sud de l'actual, quan el Tren d'Alta Velocitat arribe a la ciutat en ample de via internacional (1435 mm), i es considera la possibilitat que l'edifici actual es convertisca en espai d'oci, cultural o museístic. En el seu centenari, el 8 d'agost de 2017 el Ministeri de Foment anuncià una inversió de sis milions i mig d'euros per a renovar l'estació.\n\n\nLínia\nLínia 300 (es) (Madrid - València)\nLínia 314 (es) (València - Liria)\nLínia 600 (Sant Vicenç de Calders - València)\n\n\nUbicació\nConstruïda entre 1906 i 1917 per Ferrocarrils del Nord sobre un enorme solar que havia restat lliure enmig d'una ciutat en plena transformació urbanística, l'Estació del Nord se situa en el centre de la capital valenciana, al costat de la plaça de bous i a només 250 m de l'ajuntament.\nL'estació s'ubica al carrer de Xàtiva, junt a l'estació de Xàtiva, i molt pròxima a les de Bailén, Plaça d'Espanya i Alacant (encara en construcció).\n\n\nArquitectura\nL'edifici, dissenyat per l'arquitecte Demetri Ribes, es relaciona amb l'estil modernista vienés anomenat Sezession, i especialment amb Otto Wagner, caracteritzat per les línies rectes en contraposició a les formes sinuoses més pròpies de l'Art Nouveau, el modernisme predominant a França, Bèlgica, Catalunya i resta de València. A la influència vienesa s'afegirien, per un costat reminiscències del gòtic perpendicular anglés junt amb alguns trets del que més tard seria el racionalisme.\nL'edifici és de planta rectangular i compta amb dues zones clarament diferenciades: el gran hangar, de planta igualment rectangular i tancat amb estructura d'arcs articulats d'acer laminat, i l'edifici de viatgers pròp",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Estaci%C3%B3%20del%20Nord%20(Val%C3%A8ncia)"
+    },
+    "es:Torres de Serranos": {
+      "description": "Las Torres de Serranos o Puerta de Serranos son uno de los dos pórticos fortificados de la muralla medieval de Valencia (España) que aún permanecen en pie. El conjunto está formado por dos torres poligonales unidas por un cuerpo central, donde se abre la puerta propiamente dicha, rematada en arco de medio punto.",
+      "body": "Las Torres de Serranos o Puerta de Serranos son uno de los dos pórticos fortificados de la muralla medieval de Valencia (España) que aún permanecen en pie. El conjunto está formado por dos torres poligonales unidas por un cuerpo central, donde se abre la puerta propiamente dicha, rematada en arco de medio punto. Es bien de interés cultural desde 1931.​\n\n\nNombre\nExisten diversas teorías sobre el origen del nombre de la puerta. Una de ellas sostiene que provendría de su situación, al noreste del casco antiguo, como entrada natural que comunicaba con los caminos que iban a la comarca de Los Serranos (el camino real de Zaragoza, que confluía en este punto también con el camino real de Barcelona). Otra supone que lo pudo tomar de la principal familia que habitaba la calle homónima.​ Según Serra Desfilis, el nombre procedería de los primeros repobladores cristianos originarios de la serranía aragonesa que se asentaron en ese sector de la ciudad, una explicación que también justificaría la denominación de la calle.​\n\n\nHistoria\n\n\nContexto histórico\nAntes de la construcción de los muros medievales, durante el reinado de Abd al-Aziz (1021-1061) en la taifa de Valencia se inició la edificación de la hoy conocida como muralla árabe,​ cuya traza no respondió a un plan unitario, sino que se desarrolló mediante diversas intervenciones que se prolongaron hasta las primeras décadas del siglo XIII, motivadas por razones defensivas y urbanísticas. Este cerco se construyó en tapial de hormigón sobre cimientos de distinta profundidad —desde apenas un metro a casi cinco—, con trazado rectilíneo y con torres de al menos 14 m de altura cada 30 o 33 m. Las fuentes históricas a partir del siglo XIII narran la existencia de siete puertas:​ el posterior portal de Serranos sustituyó a la Bab al-Qantara («del puente»), que se ubicaba al inicio de la calle de Serranos, en la misma plaza de los Fueros y algo retraída respecto a las torres actuales.​​ La puerta de época taifal probablemente sería s",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Torres%20de%20Serranos"
+    },
+    "ca:Plaça de l'Ajuntament": {
+      "description": "La Plaça de l'Ajuntament és la plaça més gran i cèntrica de la ciutat de València. Ocupa els solars resultants de l'enderrocament del convent de Sant Francesc. Durant el franquisme rebia el nom de Plaza del Caudillo i després de la Transició democràtica espanyola, es va anomenar Plaça del País Valencià fins a l'any 1987.",
+      "body": "La Plaça de l'Ajuntament és la plaça més gran i cèntrica de la ciutat de València. Ocupa els solars resultants de l'enderrocament del convent de Sant Francesc. Durant el franquisme rebia el nom de Plaza del Caudillo i després de la Transició democràtica espanyola, es va anomenar Plaça del País Valencià fins a l'any 1987. Entre 1936 i 1939, s'anomenava Plaça Emili Castelar. Hi ha una proposta per part del Consell Valencià de Cultura que reba el nom de Jaume I, el fundador del Regne de València. Després de les revoltes del 15 de Maig, els manifestants rebatejaren simbòlicament la plaça com a Plaça del Quinze de Maig, modificant les plaques per a mostrar aquest nou nom. Està declarada Conjunt Històric Artístic.\nTé una forma triangular, amb la Plaça del Mercat al nord i la replaça de l'Estació del Nord (València) al sud. A la vora de l'oest hi trobem l'Ajuntament de València, i a l'est l'edifici de Correus. Al nord de la plaça hi ha una gran font, i al sud, un gran espai obert envoltat d'aparadors de flors. La seua fesomia actual procedeix de la reforma realitzada per l'arquitecte Javier Goerlich entre 1931 i 1935, tot i que ha desaparegut el mercat neobarroc de flors subterrani que va rebre el nom popular de La Escupidera.\n\n\nEdificis destacables\nPalau consistorial, projecte de Carlos Carbonell construït entre 1905 i 1950.\nCasa Barrachina, de Goerlich, construïda entre els anys 1929 i 1930.\nEdifici \"Assicurazioni Generali\" projectat per Lluís Bonet i alçat entre el 1928 i el 1930.\nEdifici de Correus de Miguel Angel Navarro Pérez iniciat el 1915 i que s'acabà el 1922.\nCasa Ernest Ferrer, construït el 1913 per Francisco Almenar Quinzá\nEdifici Noguera de Francisco Mora Berenguer, 1909\nEdifici Suay o Edifici de l'Equitativa de Francisco Mora Berenguer, 1909\nEdifici Gil de l'arquitecte Joaquín Rieta Síster en 1931\nEdifici Cervera també de Joaquín Rieta, construït entre 1931 i 1932\nEdifici Sànchez Garcia de Luis Albert Ballesteros, 1930\nEdifici Martí Alegre de Goerlich (1934-",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20de%20l'Ajuntament"
+    },
+    "ca:Palau del Marqués de Dosaigües": {
+      "description": "El Palau del Marqués de Dosaigües és un dels edificis civils d'estil barroc i rococó més significatius de la ciutat de València, declarat bé d'interès cultural. És la seu del Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí».",
+      "body": "El Palau del Marqués de Dosaigües és un dels edificis civils d'estil barroc i rococó més significatius de la ciutat de València, declarat bé d'interès cultural. És la seu del Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí».\n\n\nHistòria i descripció\nVa ser construït en el segle xv per la família Rabassa de Perellós, barons de Dosaigües des del 1496. Segons el plànol de València del Pare Tosca del 1704, es tractava d'una construcció gòtica amb tres cossos disposats al voltant d'un pati amb una torre emmerletada en el cantó nord-est. La façana es coronava amb una galeria correguda.\nEl 1740, Giner Rabassa de Perellós, primer marqués de Dosaigües, va encarregar-ne la reforma al gravador i pintor Hipòlit Rovira, que substituí el gòtic auster de l'antiga casa pairal per una gran abundància decorativa. La portada principal realitzada en alabastre per Ignasi Vergara, segons el disseny de Rovira, d'estil purament barroc, conté una al·legoria dels rius Túria i Xúquer, al·lusiva al marquesat. Rematada per una fornícula amb la Mare de Déu del Roser, la portada es protegia per un balcó corregut del qual es conserven gravats i fotografies.\nEl 1853, en esgotar-se la successió directa, heretà el títol en Vicent Dasí Lluesma, qui decidí dur a terme una àmplia reforma de l'edifici, iniciada el 1854, de caràcter bàsicament ornamental en un clar eclecticisme que combina rococó, neoimperi i motius xinesos. En la façana, les finestres van ser decorades amb motius de rocalla i figures realitzades en estuc, i els balcons amb balustrades van substituir els anterior de reixeria. En el pati interior es van substituir les finestres gòtiques per balcons amb relleus de figures al·legòriques al·lusives a les arts (arquitectura i escultura), a l'agricultura i al comerç, base de la riquesa del marqués. En l'interior, es van eliminar les pintures de Rovira i es van realitzar estucs a planxa calenta imitant marbres i pintures per Salustiano Asenjo, Josep Maria Brell, Plàcido Franc",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Palau%20del%20Marqu%C3%A9s%20de%20Dosaig%C3%BCes"
+    },
+    "ca:Plaça de la Reina": {
+      "description": "Plaça de la Reina és una plaça de la Ciutat Vella de València, situada entre el carrer de la Pau, el carrer de Sant Vicent i la Seu, que hi té la seua entrada principal. Hi fita també el carrer de la Corretgeria.",
+      "body": "Plaça de la Reina és una plaça de la Ciutat Vella de València, situada entre el carrer de la Pau, el carrer de Sant Vicent i la Seu, que hi té la seua entrada principal. Hi fita també el carrer de la Corretgeria.\n\n\nNom\nLa Plaça de la Reina està dedicada a la reina Maria de la Mercè d'Orleans, breu esposa del rei Alfons XII. Durant la Segona República (1931-1939), aquesta plaça rebé el nom de Francesc de Vinatea.\n\n\nCaracterístiques\nFins a la seua reforma, la plaça estava formada per un passeig central per a vianants, amb uns bancs i zones de gespa, envoltat per una carretera que feien de cercle. Desde la reforma la major part de la plaça és peatonal i l'entrada al garatge s'ha traslladat a un costat amb entrada des del carrer de la Pau i eixida cap al carrer del Mar. L'espai que ocupaven els caragols d'entrada al garatge són ara una zona ajardinada amb estructures metal·liques amb aspersors d'aigua. A la plaça hi han escultures homenatjant les víctimes del terrorisme i a Rafael Guastavino. A més hi han jocs interactius. Al fons de la plaça hi ha la catedral.\nA la plaça hi ha una sèrie de comerços, en general d'aliments, entre els quals destaca la Xocolateria Valor. Molt a prop de la plaça es troba l'església de Santa Caterina. Hi ha un aparcament públic soterrani.\nA més, la plaça constitueix la referència per numerar els edificis de la ciutat de València, i no la Plaça de l'Ajuntament. S'hi troba, a més, el quilòmetre zero de les carreteres radials de València, competència de la Generalitat Valenciana.\n\n\nHistòria\nAmb la idea de disposar d'una plaça Major en la ciutat, la plaça es va crear l'any 1878 a conseqüència de l'enderrocament del grup de cases que tenia forma triangular, i que formaven l'antic carrer Saragossa. El 23 de gener de 1878, dia de les noces dels reis, l'Ajuntament de València, entre altres actes, va començar l'enderrocament d'aquestes illes de cases. Ho va fer l'alcalde accidental, el Marqués del Tremolar, empunyant una piqueta de plata i col·locant",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20de%20la%20Reina"
+    },
+    "ca:Porta de Quart": {
+      "description": "La Porta de Quart o Torres de Quart (o també «portal» o «portes») és un portal que formava part de la muralla medieval que envoltava la Ciutat Vella de València, per tal de defensar-la. Estan situades a l'encreuament del carrer de Guillem de Castro amb el carrer de Quart.\nLa Porta de Quart deu el seu nom al fet que es troba en el camí que des del centre de la ciutat (plaça de la Mare de Déu, on hi ha la Catedral de València) va cap a Quart de Poblet.",
+      "body": "La Porta de Quart o Torres de Quart (o també «portal» o «portes») és un portal que formava part de la muralla medieval que envoltava la Ciutat Vella de València, per tal de defensar-la. Estan situades a l'encreuament del carrer de Guillem de Castro amb el carrer de Quart.\nLa Porta de Quart deu el seu nom al fet que es troba en el camí que des del centre de la ciutat (plaça de la Mare de Déu, on hi ha la Catedral de València) va cap a Quart de Poblet. Aquesta porta era l'accés ponentí a la ciutat, el que provenia de l'oest i Castella. Després de ser enderrocada la murada durant la segona meitat del segle xix, la porta o portal de Quart quedà exempta, i passà a ser coneguda com les torres de Quart, que és el nom més emprat hui dia per designar-la. Les torres van ser utilitzades per a envoltar l'antiga ciutat de València.\n\n\nHistòria\nVa ser ordenada construir el 1356 per Pere el Cerimoniós després de l'inici de la guerra entre les corones de Castella i Aragó, però les obres es van anar endarrerint per les pestes i caresties. La Porta de Quart fou construïda entre 1441 i 1460 per l'arquitecte Pere Bonfill, juntament amb Tomàs Oller, Francesc Baldomar, Jaume Pérez i Pere Compte. Aquesta porta, oberta cap a ponent, feia part de la muralla del segle xiv de València, junt amb les Torres de Serrans, obertes cap al nord, i moltes altres portes que, a diferència de les dues esmentades en primer lloc, van ser assolades durant la segona meitat del segle xix, amb l'objectiu d'evitar l'encorsetament de la ciutat i facilitar-ne el creixement.\nA partir del 1626 i fins al segle xviii es va allotjar al seu interior la presó de dones. Fins al 1874, moment en què la murada fou enderrocada, havien rebut també el nom de porta de la Calç perquè la calç amb què s'emblanquinaven les cases de València hi entrava per aquest accés.\nLa porta serví per defendre la ciutat en diversos episodis bèl·lics, com ara la Guerra de Successió, la Guerra del Francés i les revolucions cantonals. Sobre els seus",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Porta%20de%20Quart"
+    },
+    "ca:Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí»": {
+      "description": "El Museu de Ceràmica de València o Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí» alberga diverses col·leccions de peces ceràmiques d'arreu de València, Espanya, Europa i Xina, a banda d'altres col·leccions d'arts sumptuàries, tot això dins el marc excepcional del Palau del Marqués de Dosaigües. Aquest palau fou declarat monument historicoartístic el 1941 i adquirit el 1949 pel Ministeri d'Educació per a ubicar la important col·lecció de ceràmica donada a l'estat el 1947 per Manuel González Martí i la seua dona Amèlia Cunyat. Durant set anys la col·lecció va tindre la seua seu al domicili del fundador, però després de la rehabilitació del Palau de Dosaigües, duta a terme entre 1950 i 1954, s'hi instal·là el Museu Nacional de Ceràmica.",
+      "body": "El Museu de Ceràmica de València o Museu Nacional de Ceràmica i de les Arts Sumptuàries «González Martí» alberga diverses col·leccions de peces ceràmiques d'arreu de València, Espanya, Europa i Xina, a banda d'altres col·leccions d'arts sumptuàries, tot això dins el marc excepcional del Palau del Marqués de Dosaigües. Aquest palau fou declarat monument historicoartístic el 1941 i adquirit el 1949 pel Ministeri d'Educació per a ubicar la important col·lecció de ceràmica donada a l'estat el 1947 per Manuel González Martí i la seua dona Amèlia Cunyat. Durant set anys la col·lecció va tindre la seua seu al domicili del fundador, però després de la rehabilitació del Palau de Dosaigües, duta a terme entre 1950 i 1954, s'hi instal·là el Museu Nacional de Ceràmica.\nEntre 1967 o 1969 i 1972 s'amplià en iniciar-se la construcció d'una nova ala que en el seu exterior reprodueix fidelment l'estil de la façana del Palau del segle xix. Al 1969 passà a denominar-se tal hui en dia s'anomena. En els anys 1980 el Museu necessitava millorar la seua infraestructura i instal·lacions així com mamprendre la restauració de l'immoble i la renovació de les peces. El 1990 es tancà al públic per rehabilitar-ho i després d'anys de romandre tancat, durant la dècada següent s'obrí novament.\n\n\nLes col·leccions\nEl fons constitucional del museu és la col·lecció de ceràmica, part del mobiliari i altres béns del fundador més altres fons afegits de l'Ajuntament de València, aportacions particulars i de la Diputació de València. Durant els anys que en Manuel González Martí va estar al capdavant del Museu va iniciar una àmplia labor de captació d'obra mitjançant donacions, llegats o depòsits. No es va limitar a recopilar obres ceràmiques i va comprendre també camps com ara la indumentària, la pintura, la bibliofília, les arts gràfiques, l'escultura i el moble. Per aquest motiu el 9 d'octubre de 1969 segons el Decret 2.517/1969 se va adoptar el nom de Museu Nacional de Ceràmica i de les Arts Sumptuàries.\n",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Museu%20Nacional%20de%20Cer%C3%A0mica%20i%20de%20les%20Arts%20Sumptu%C3%A0ries%20%C2%ABGonz%C3%A1lez%20Mart%C3%AD%C2%BB"
+    },
+    "ca:Museu Valencià d'Etnologia": {
+      "description": "El Museo Valenciano de Etnología (en valenciano y oficialmente Museu Valencià d'Etnologia) se encuentra ubicado en la calle Corona número 36 de la ciudad de Valencia (España). Desde el año 2020 y tras una renovación de la exposición permanente el museo reabrió sus puertas con una nueva marca L'ETNO, que es su nombre oficial.​ \nFue creado en 1982 y abrió sus puertas al público en 1983.​ Sus objetivos son la investigación y difusión en el campo de la Etnología y la Antropología, poniendo al alcance del público un espacio dinámico de conocimiento y reflexión sobre la diversidad cultural que caracteriza a los humanos en dos ámbitos complementarios:​\n\nPor una parte, el propiamente valenciano, centrándose en las pautas culturales de la sociedad tradicional valenciana y su proceso de tránsito a la sociedad industrializada, sin dejar de lado las nuevas formas culturales de la contemporaneidad.\nPor otra parte, el ámbito general de las culturas, desde las mediterráneas, más próximas a nosotros y que nos enmarcan directamente, hasta las propias de ámbitos geográficos más lejanos.",
+      "body": "El Museo Valenciano de Etnología (en valenciano y oficialmente Museu Valencià d'Etnologia) se encuentra ubicado en la calle Corona número 36 de la ciudad de Valencia (España). Desde el año 2020 y tras una renovación de la exposición permanente el museo reabrió sus puertas con una nueva marca L'ETNO, que es su nombre oficial.​ \nFue creado en 1982 y abrió sus puertas al público en 1983.​ Sus objetivos son la investigación y difusión en el campo de la Etnología y la Antropología, poniendo al alcance del público un espacio dinámico de conocimiento y reflexión sobre la diversidad cultural que caracteriza a los humanos en dos ámbitos complementarios:​\n\nPor una parte, el propiamente valenciano, centrándose en las pautas culturales de la sociedad tradicional valenciana y su proceso de tránsito a la sociedad industrializada, sin dejar de lado las nuevas formas culturales de la contemporaneidad.\nPor otra parte, el ámbito general de las culturas, desde las mediterráneas, más próximas a nosotros y que nos enmarcan directamente, hasta las propias de ámbitos geográficos más lejanos.\nEste centro está administrado por la Diputación de Valencia,​ y tiene como sede el Centro Cultural la Beneficencia. En 2007 contaba con 15.000 piezas en su colección,​ siendo el museo de referencia en lo que a cultura tradicional valenciana se refiere.​\n\n\nHistoria\n\nEl museo fue creado por Joan Francesc Mira en 1982,​ en un contexto de recuperación de la identidad valenciana ​ propio de la transición política española y que es común a otros museos de España.​ Este Museo concreta un proyecto que históricamente había sido propuesto pero jamás realizado de disponer de un museo que estudiara, recopilara y difundiera la cultura tradicional valenciana.​\nLa apertura del museo se hizo efectiva en 1983,​ con un personal de entre tres y cuatro personas.​ El museo se situó en el Centro Cultural la Beneficencia, dónde también se había ubicado al Servicio de Investigación Prehistórica de la Diputación de Valencia.​",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museu%20Valenci%C3%A0%20d'Etnologia"
+    },
+    "ca:Museu de Prehistòria de València": {
+      "description": "El Museo de Prehistoria de Valencia, de nombre oficial Museu de Prehistòria de València, es un museo ubicado en la calle Corona número 36 de la ciudad de Valencia (España). \nEn el museo se exponen materiales arqueológicos que cubren desde el período paleolítico hasta época visigoda. Ocupa desde 1982 una parte de la antigua Casa de la Beneficencia, edificio construido en 1841 del que destaca la iglesia, de estilo bizantino en 1881.",
+      "body": "El Museo de Prehistoria de Valencia, de nombre oficial Museu de Prehistòria de València, es un museo ubicado en la calle Corona número 36 de la ciudad de Valencia (España). \nEn el museo se exponen materiales arqueológicos que cubren desde el período paleolítico hasta época visigoda. Ocupa desde 1982 una parte de la antigua Casa de la Beneficencia, edificio construido en 1841 del que destaca la iglesia, de estilo bizantino en 1881.\nEn el año 1995 se inaugura la restauración completa del edificio, llevada a cabo por el arquitecto Rafael Rivera. La Casa de la Beneficencia, actual Museo de Prehistoria consta de planta baja y dos pisos dispuestos en torno a cinco patios. En la planta baja se encuentran la tienda, la cafetería, dos Salas de Exposiciones Temporales, Talleres Didácticos, Almacenes y Laboratorios de Restauración y Fauna Cuaternaria, así como los despachos y dependencias del Servicio de Investigación Prehistórica, mientras que la iglesia se convierte en salón de actos. En la primera planta se encuentran la biblioteca y las Salas Permanentes dedicadas al Paleolítico, Neolítico y Edad del Bronce. En la segunda planta las salas permanentes dedicadas a la cultura ibérica y al mundo romano.\n\n\nEl Servicio de Investigación Prehistórica\n\nEl Servicio de Investigación Prehistórica de la Diputación de Valencia y su Museo de Prehistoria son fundados en el año 1927 a instancias de Isidro Ballester Tormo como una institución científica dedicada a investigar, conservar y difundir el patrimonio arqueológico valenciano. En él han trabajado algunos de los más notables arqueólogos de España: Lluís Pericot, Domingo Fletcher o Enrique Pla, que dirigieron el SIP, o Miquel Tarradell, Milagro Gil-Mascarell o Carmen Aranegui, que colaboraron estrechamente con este servicio. Desde sus inicios, el SIP desarrolla una intensa labor de campo en yacimientos arqueológicos como la Bastida de les Alcusses de Mogente, la Cova Negra de Játiva, la cueva del Parpalló de Gandía o el Tossal de Sant",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museu%20de%20Prehist%C3%B2ria%20de%20Val%C3%A8ncia"
+    },
+    "es:Instituto Valenciano de Arte Moderno": {
+      "description": "El IVAM (oficialmente en valenciano Institut Valencià d'Art Modern; en castellano: Instituto Valenciano de Arte Moderno​) es una institución creada por la Ley 9/1986, de 30 de diciembre,​ cuyo objeto principal es «el desarrollo de la política cultural de la Generalidad Valenciana en cuanto concierne al conocimiento, tutela, fomento y difusión del arte moderno».",
+      "body": "El IVAM (oficialmente en valenciano Institut Valencià d'Art Modern; en castellano: Instituto Valenciano de Arte Moderno​) es una institución creada por la Ley 9/1986, de 30 de diciembre,​ cuyo objeto principal es «el desarrollo de la política cultural de la Generalidad Valenciana en cuanto concierne al conocimiento, tutela, fomento y difusión del arte moderno». \n\n\nHistoria\nLa Generalidad Valenciana trabajó en el proyecto desde mediados de la década de 1980, incluso antes de la construcción del edificio.​ A partir de 1986, el IVAM tomó forma con la designación de Tomás Llorens como primer director de la institución.​ El IVAM era en aquel momento el primer museo de arte moderno en España, y contaría con dos edificios: el principal en la calle Guillem de Castro y el Centre del Carme, activo hasta 2002.​ La base de la colección sería el fondo de Julio González, de 118 piezas, adquirido en ₧ 416 millones antes de la creación del museo.​​\nEn 1988 Carmen Alborch sustituye a Tomás Llorens, y se encargaría de inaugurar el Centro Julio González en febrero de 1989,​​​ siendo Vicente Todolí el director artístico de esta etapa.​ Las actividades se inician en 1989 en un marco cultural, social y político de gran significado para la historia de España, por el entusiasmo de la Transición Española a la Democracia y las nuevas formas de pensar. Las exposiciones se orientaban en dos ejes. El diálogo con los grandes artistas norteamericanos y europeos y las grandes figuras del arte español, y las líneas de la colección del IVAM donde la exposición sólo es una muestra del trabajo interpersonal.​\nPosteriormente fue director José Francisco Yvars, que se mantuvo desde 1993 hasta 1995.​ Ese año tomó el relevo como director gerente Juan Manuel Bonet, quien se hizo cargo hasta 2000.​ Kosme de Barañano tomó el relevo durante cuatro años para ser sustituido por Consuelo Ciscar en 2004.​ La Generalidad Valenciana destituyó a Ciscar tras su largo mandato en 2014,​ para luego ser imputada por los d",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Instituto%20Valenciano%20de%20Arte%20Moderno"
+    },
+    "ca:Palau de la Generalitat Valenciana": {
+      "description": "El palacio de la Generalidad (Palau de la Generalitat en valenciano) de Valencia (España) es un edificio civil de estilo gótico valenciano con posteriores aportaciones renacentistas, cuya construcción se inició a finales del siglo XV. Está declarado bien de interés cultural desde 1931.​\nEl palacio de la Generalidad Valenciana está situado en el barrio de la Seu, distrito de Ciutat Vella de Valencia, ubicado entre las calles Caballeros (antes calle de Les Corts y antes calle Major de Sant Nicolau), la calle Bailia y la plaza de Manises (antes plaza de San Bartolomé),​ donde se encuentran otros edificios muy representativos de la ciudad, como son la catedral de Valencia, la basílica de la Virgen de los Desamparados o el palacio de Fuentehermosa, sede de la presidencia de la Generalidad Valenciana.\nActualmente es la sede de la Generalidad Valenciana, el gobierno de la Comunidad Valenciana, aunque a lo largo de la historia de Valencia el edificio ha sido sede de las siguientes instituciones, de las que ha tomado nombre: \n\nCasa de la Diputación del General del Reino de Valencia (1421-1705).\nReal Audiencia (1750-1923).",
+      "body": "El palacio de la Generalidad (Palau de la Generalitat en valenciano) de Valencia (España) es un edificio civil de estilo gótico valenciano con posteriores aportaciones renacentistas, cuya construcción se inició a finales del siglo XV. Está declarado bien de interés cultural desde 1931.​\nEl palacio de la Generalidad Valenciana está situado en el barrio de la Seu, distrito de Ciutat Vella de Valencia, ubicado entre las calles Caballeros (antes calle de Les Corts y antes calle Major de Sant Nicolau), la calle Bailia y la plaza de Manises (antes plaza de San Bartolomé),​ donde se encuentran otros edificios muy representativos de la ciudad, como son la catedral de Valencia, la basílica de la Virgen de los Desamparados o el palacio de Fuentehermosa, sede de la presidencia de la Generalidad Valenciana.\nActualmente es la sede de la Generalidad Valenciana, el gobierno de la Comunidad Valenciana, aunque a lo largo de la historia de Valencia el edificio ha sido sede de las siguientes instituciones, de las que ha tomado nombre: \n\nCasa de la Diputación del General del Reino de Valencia (1421-1705).\nReal Audiencia (1750-1923).\nDiputación Provincial (1923-1982).\nComité Ejecutivo Popular (1936-1937).\nGeneralidad Valenciana (1982-actualidad).\nAdemás de su simbolismo político, constituye uno de los mejores exponentes de la arquitectura civil valenciana del período foral, interviniendo en ella los principales maestros de su tiempo.\n\n\nEl edificio\n\nEl palacio inició su construcción en 1421.\nLa arquitectura de este edificio representa una compleja mezcla de estilos artísticos que van desde el gótico al herreriano, pasando por el renacentista de varias épocas. El primitivo caserón es gótico mediterráneo con el patio descubierto y con su escalera volada, con puerta ojival en el entresuelo, al igual que en la fachada, con ventanales adintelados en el entresuelo y trilobulados en la altura principal, al igual que en las ventanas situadas debajo del alero. Las puertas halconeras y las esquina",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palau%20de%20la%20Generalitat%20Valenciana"
+    },
+    "ca:Basílica de la Mare de Déu dels Desemparats": {
+      "description": "La Basílica de la Mare de Déu dels Desemparats de la ciutat de València alberga la imatge de la Mare de Déu del mateix nom, la més venerada pels valencians.\nEl 1652 va començar la construcció de la capella adequada al creixent culte tributat a la imatge de la confraria de «Nostra Dona Sancta Maria dels Ignocents», projecte que fou encarregat a l'arquitecte de Requena Diego Martínez Ponce de Urrana. S'acabà el 1667.",
+      "body": "La Basílica de la Mare de Déu dels Desemparats de la ciutat de València alberga la imatge de la Mare de Déu del mateix nom, la més venerada pels valencians.\nEl 1652 va començar la construcció de la capella adequada al creixent culte tributat a la imatge de la confraria de «Nostra Dona Sancta Maria dels Ignocents», projecte que fou encarregat a l'arquitecte de Requena Diego Martínez Ponce de Urrana. S'acabà el 1667. Fou declarada monument historicoartístic el juny del 1981.\nLa Basílica de la Mare de Déu dels Desemparats té un gran significat entre els valencians, perquè s'hi troba la imatge d'aquesta marededeu, que és la patrona de la ciutat, coneguda afectuosament com la geperudeta, pel fet que està lleugerament inclinada cap avant, la qual cosa ha sigut interpretat per alguns com a signe que la imatge pertany a una estàtua jacent.\n\n\nHistòria\nL'origen de la imatge de la Mare de Déu dels Desemparats està unit a la fundació de l'Hospital de «Santa Maria dels Ignocents» en 1409 i a la de la seua confraria cinc anys després. Fins a l'any 1489 la imatge i la seua confraria tenien el seu centre en una xicoteta capella coneguda com «El Capitulet» instal·lada als actuals Jardins de l'Hospital General (hui biblioteca pública, carrer de l'Hospital amb carrer de Guillem de Castro). El 1489 la imatge fou traslladada a una de les capelles situades en la Catedral, concretament a l'espai conegut com a Balcó dels Canonges, Llotja dels Canonges, Obra Nova o Arcada Nova, davant mateix de l'actual basílica; concretament davant d'una de les seues tres portes (la que no mira a la plaça de la Mare de Déu), en una capella que hui alberga una imatge de sant Vicent Ferrer, de factura moderna. Com a curiositat, just a l'esquerra d'aquesta capella hi ha una capelleta, protegida per una reixa, on es diu que Jaume I va realitzar la primera missa després que conquistara la ciutat en 1238 (vegeu la Conquesta de la ciutat de València).\nLa devoció cada vegada major per la imatge de la Mare de Déu d",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Bas%C3%ADlica%20de%20la%20Mare%20de%20D%C3%A9u%20dels%20Desemparats"
+    },
+    "ca:Monestir de Sant Miquel dels Reis": {
+      "description": "El monestir de Sant Miquel dels Reis és un monestir situat als afores de la ciutat de València, al barri dels Orriols, districte de Rascanya, a pocs metres de la fita amb Tavernes Blanques. És l'actual seu de la Biblioteca Valenciana.\nFundat al segle xvi pel duc de Calàbria sobre un antic monestir de l'orde del Cister, Sant Bernat de Rascanya, és una de les principals construccions del renaixement valencià.",
+      "body": "El monestir de Sant Miquel dels Reis és un monestir situat als afores de la ciutat de València, al barri dels Orriols, districte de Rascanya, a pocs metres de la fita amb Tavernes Blanques. És l'actual seu de la Biblioteca Valenciana.\nFundat al segle xvi pel duc de Calàbria sobre un antic monestir de l'orde del Cister, Sant Bernat de Rascanya, és una de les principals construccions del renaixement valencià. Segons alguns autors es considera antecedent del monestir d'El Escorial, sent com aquest, monestir jerònim, focus cultural i església commemorativa de la memòria del seu fundador.\n\n\nHistòria\n\n\nOrígens\n\nEl seu origen cal situar-lo en el monestir cistercenc de Sant Bernat de Rascanya. El 1371, Arnau d'Aranyó, abat de la Valldigna, comprà l'alqueria de Rascanya (d'origen islàmic); l'any 1383, Pere el Cerimoniós dona llicència per a la construcció. Les obres s'iniciaran l'any següent i s'acabaran el 1401.\nEl monestir seguia l'esquema bàsic dels monestirs de l'orde del Cister, una església amb una claustre adossat al qual s'adossaven la resta de les dependències monacals. Posteriorment les seues edificacions s'integraren al monestir jerònim, amb la desamortització desapareixeran les seues restes. Avui dia després de la restauració s'ha musealitzat una part del claustre primitiu.\nSant Bernat de Rascanya no va ser un gran monestir, construït amb materials modestos i sense problemes econòmics. A això es sumava que els monjos no seguien la regla cistercenca, arribant al punt que quan es decidí reconstruir-lo com a Sant Miquel dels Reis, només quedaven tres monjos.\n\n\nDe Sant Miquel dels Reis fins a la Desamortització\nÉs degut al testament de Germana de Foix pel qual es construí el nou monestir de Sant Miquel. Quan mor en 1536, disposa que volia ser soterrada a Sant Bernat de Rascanya, però que passés a mans de l'orde dels Jerònims. El seu marit, el duc de Calàbria, inicia les gestions oportunes per a complir amb el testament.\nEn 1545 aconsegueix de Pau III una butlla per l",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Monestir%20de%20Sant%20Miquel%20dels%20Reis"
+    },
+    "ca:Església de Sant Nicolau (València)": {
+      "description": "L'església de Sant Nicolau, de Sant Nicolau de Bari i Sant Pere Màrtir, ja apareix al Llibre del Repartiment el 1239. A pesar de les modificacions, conserva un gran patrimoni (arquitectònic i moble) de diferents estils que mostren la seua evolució al llarg dels segles. Es troba a la plaça de Sant Nicolau al barri de la Seu de la ciutat de València.",
+      "body": "L'església de Sant Nicolau, de Sant Nicolau de Bari i Sant Pere Màrtir, ja apareix al Llibre del Repartiment el 1239. A pesar de les modificacions, conserva un gran patrimoni (arquitectònic i moble) de diferents estils que mostren la seua evolució al llarg dels segles. Es troba a la plaça de Sant Nicolau al barri de la Seu de la ciutat de València.\n\n\nEvolució historicoartística\nÉs una de les esglésies més antigues de València, com ja s'ha dit, apareix al Llibre del Repartiment, però hi ha certa polèmica pel que fa al seu origen. Diago i Escolano citen una ermita dedicada a sant Pere màrtir, cosa que Esclapés criticà perquè pensava que aquest origen es trobava en una ermita dedicada a sant Nicolau i no a sant Pere màrtir que havia mort el 1252, ermita que Jaume I donà a l'orde dels Predicadors per a la fundació d'un convent. Aquesta ermita va ser mesquita i després s'erigí en parròquia, l'any 1245 un Raimondo signava com a rector de Sant Nicolau, per tant l'advocació a sant Pere seria posterior.\n\nL'any 1419 es refà la primera església i el 1455 s'allarga cap als peus, ocupant el lloc on estava el fossar, que desaparegué convertint-se en una placeta. Així, el temple es configurà com quasi tots els de la ciutat, ampla nau central amb sis capelles entre els contraforts a cada costat, capçalera poligonal i coberta amb volta de creueria simple. La portada dels peus és de la segona meitat del segle xv, d'un gòtic estilitzat i sense ornamentació. Està formada per arquivoltes agrupades a tres trams, i té quatre mènsules que sostenien imatges de sants, ara desaparegudes. Al timpà s'hi col·locà posteriorment un relleu barroc amb la imatge de la Verge amb el Nen envoltada de núvols i querubins. La portada es corona amb una escultura d'un plat de carn, al·ludint a un miracle atribuït a sant Nicolau, recollit per Jaume Roig. Damunt de la portada se situa una rosassa amb una estrella de sis puntes semblant a la de la Catedral. Finalment, a la dreta de la porta existeix una capella",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Esgl%C3%A9sia%20de%20Sant%20Nicolau%20(Val%C3%A8ncia)"
+    },
+    "ca:Plaça Redona": {
+      "description": "La plaça Redona, també anomenada plaça del Clot, és una plaça situada al barri del Mercat, a la Ciutat Vella de València, al bell mig del triangle format per la plaça del Mercat, la plaça de la Reina i la plaça de l'Ajuntament.",
+      "body": "La plaça Redona, també anomenada plaça del Clot, és una plaça situada al barri del Mercat, a la Ciutat Vella de València, al bell mig del triangle format per la plaça del Mercat, la plaça de la Reina i la plaça de l'Ajuntament.\n\n\nForma\nTé forma redona, amb quatre entrades al punts cardinals. No s'hi permet la circulació motoritzada, i de fet les dimensions reduïdes de la plaça la fan impossible: és una de les places més petites de la ciutat. Té un accés principal des del carrer de Sant Vicent, on aquest desemboca en la plaça de la Reina; les altres entrades donen als carrers estrets que l'envolten a tots costats. En efecte, la plaça és tancada a totes bandes per cases i, per tant, es fa invisible fins que hom hi siga dins. Les cases formen una paret ininterrompuda, de color groc, que fa tota la volta a la plaça i produeix un cilindre allargat de quatre plantes d'alçària. Malgrat la mala comunicació que açò podria suposar per a la plaça, cal dir que es troba a poques passes del Mercat Central i, per tant, hi ha un important moviment de persones entre aquest primer i la plaça de la Reina, i aquest moviment passa justament per l'entrada de la plaça.\n\nEl mobiliari de la plaça consta d'una pica elevada al centre de la qual hi ha un fanal que és gairebé l'única il·luminació de la plaça. Al voltant d'aquesta pica, resta un espai obert i després, un anell de parades de venda, amb una coberta també en forma d'anell. Tant les parades com la coberta són de fusta pintada i fan de separador entre el centre, amb el fanal, i els extrems de la plaça, on, situada als baixos de les cases que envolten el conjunt, hi ha una sèrie de botigues menudes. Des del cel, doncs, es pot contemplar com la plaça forma una sèrie d'anells concèntrics.\n\n\nUsos de la plaça\n\nLa mida, la dificultat en trobar-la, la llunyania de les artèries principals i l'absència de trànsit, significa que la plaça resta desconeguda pels que no coneixen la ciutat bé. Altrament, la plaça constitueix un nexe històric per a",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20Redona"
+    },
+    "ca:Església de Sant Esteve (València)": {
+      "description": "L'església de Sant Esteve és una de les més antigues de la ciutat, ja present en la immediata conquesta de Jaume I. Es troba al barri de la Xerea, a la plaça de Sant Esteve, cantonada amb el carrer dels Venerables, a la ciutat de València, l'Horta, País Valencià.",
+      "body": "L'església de Sant Esteve és una de les més antigues de la ciutat, ja present en la immediata conquesta de Jaume I. Es troba al barri de la Xerea, a la plaça de Sant Esteve, cantonada amb el carrer dels Venerables, a la ciutat de València, l'Horta, País Valencià.\n\n\nEvolució historicoartística\nSant Esteve fou una de les deu esglésies consagrades per Pere d'Albalat, arquebisbe de Tarragona el 1238, i ocupa el solar d'una mesquita. El 1276, ja existiria una nova església, ja que en aquesta data totes les esglésies, menys la de Sant Tomàs, que encara era mesquita, s'havien fet de nova planta.\nFins a l'any 1472, no s'hi realitzà cap obra; ara es renova la capçalera, començant així una sèrie d'intervencions que s'allargaren fins a la meitat del segle xvi. El 1504, consta que el mestre Joan Corbera cobria novament el presbiteri. Aquestes obres continuades sembla que només afectaren la capçalera i, el 1514, es decidí la reconstrucció de tot de l'edifici, decisió impulsada per la confraria de Noatris establerta a la parròquia i alguns nobles. El dos de maig del mateix any, es col·locava la primera pedra del primer tram de la nova nau (el presbiteri es conservà, però la nau s'hi feu des dels fonaments); el dos de març de l'any següent, s'allargà la construcció amb l'obra dels trams següents. Les capitulacions es contractaren amb el mestre picapedrer Fernando de León, potser parent d'Alfonso de León, que treballava aleshores a la Llotja; els dos constaven des del 1495 com a membres del gremi de picapedrers de la ciutat. Aquest es va comprometre a la reconstrucció dels dos trams següents seguint el sistema del primer que s'havia fet, amb nau única i capelles laterals, continuant la renovació fins a reconstruir tot el temple.\nSant Esteve, com la majoria d'esglésies valencianes, es configurava com un temple amb nau única, de sis trams, capelles entre els contraforts, sense creuer, presbiteri poligonal i coberta amb volta de creueria.\nA començaments del segle següent, l'església e",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Esgl%C3%A9sia%20de%20Sant%20Esteve%20(Val%C3%A8ncia)"
+    },
+    "ca:Església de Santa Caterina (València)": {
+      "description": "Santa Caterina és una de les esglésies gòtiques de la ciutat de València. És en l'entramat tortuós de la València medieval, al districte de Ciutat Vella i al barri de la Seu, sobre el solar on hi hagué una mesquita, sent únicament visible la façana que mira a l'antiga plaça de les herbes (en l'actualitat Lope de Vega), i la seua famosa torre campanar.\nLa capçalera i el costat dret de la nau de l'església estan completament envoltades per les cases circumdants, mentre que el costat esquerre resulta parcialment visible des del carrer de la Tapineria, el traçat desigual del qual queda tancat per un dels accessos laterals del temple.",
+      "body": "Santa Caterina és una de les esglésies gòtiques de la ciutat de València. És en l'entramat tortuós de la València medieval, al districte de Ciutat Vella i al barri de la Seu, sobre el solar on hi hagué una mesquita, sent únicament visible la façana que mira a l'antiga plaça de les herbes (en l'actualitat Lope de Vega), i la seua famosa torre campanar.\nLa capçalera i el costat dret de la nau de l'església estan completament envoltades per les cases circumdants, mentre que el costat esquerre resulta parcialment visible des del carrer de la Tapineria, el traçat desigual del qual queda tancat per un dels accessos laterals del temple.\n\n\nHistòria\nL'antiga església parroquial de Santa Caterina Màrtir de València, igual que succeeix en la major part dels temples parroquials valencians, fou l'escenari d'una successió de múltiples experiències artístiques, superposades en un desig renovador; provocat tant per les calamitats, com per l'ímpetu i orgull col·lectiu dels parroquians que veien en la fàbrica del temple el reflex de la fama del seu espai territorial, capitanejat aquest cas pel gremi d'Argenters i Tapiners. En la seua fàbrica, pràcticament envoltada per cases de veïns, se succeïren experiències gòtiques, renaixentistes, barroques i neoclàssiques, moltes de les quals han desaparegut, tant per la incúria, com per les mal enteses restauracions. No obstant part d'aquestes expressions artístiques, encara que malmeses, encara romanen, com és el cas de la traça de la capçalera o el magnífic campanar, peça clau del barroc valencià.\nVa rebre el nom de Santa Caterina en honor de la infanta Caterina, filla de Jaume I, qui després de la conquesta de la ciutat de València (1238) tractà d'estructurar l'espai urbà de València en parròquies, i per això va concedir la propietat de totes les mesquites i cementeris musulmans a l'arquebisbe de Tarragona, Pere d'Albalat, qui distribuí l'espai urbà en deu parròquies o demarcacions, entre les quals la de Santa Caterina. Aquesta demarcació n",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Esgl%C3%A9sia%20de%20Santa%20Caterina%20(Val%C3%A8ncia)"
+    },
+    "es:Jardín Botánico de la Universidad de Valencia": {
+      "description": "El Jardín Botánico de la Universidad de Valencia (en valenciano: Jardí Botànic de la Universitat de València), es un jardín botánico ubicado en la ciudad de Valencia, dentro de la Comunidad Valenciana, España.\nEste jardín botánico depende administrativamente de la Universidad de Valencia. Es miembro del Botanic Gardens Conservation International (BGCI), de la Asociación Ibero-Macaronésica de Jardines Botánicos y presenta trabajos para la Agenda Internacional para la Conservación en los Jardines Botánicos.",
+      "body": "El Jardín Botánico de la Universidad de Valencia (en valenciano: Jardí Botànic de la Universitat de València), es un jardín botánico ubicado en la ciudad de Valencia, dentro de la Comunidad Valenciana, España.\nEste jardín botánico depende administrativamente de la Universidad de Valencia. Es miembro del Botanic Gardens Conservation International (BGCI), de la Asociación Ibero-Macaronésica de Jardines Botánicos y presenta trabajos para la Agenda Internacional para la Conservación en los Jardines Botánicos.\nEl código de reconocimiento internacional del \"Jardí Botànic de la Universitat de València\" como institución botánica (en el Botanical Gardens Conservation International BGCI), así como las siglas de su herbario es VAL.​ \n\n\nLocalización\n\nSe encuentra situado en la calle Quart, junto al antiguo cauce del río Turia. Situado en el interior del casco urbano de la ciudad de Valencia.\nJardín Botánico de la Universidad de Valencia barrio del Botánico, distrito de Extramuros 46008 Valencia, España.\nPlanos y vistas satelitales. 39°28′37.32″N 0°23′12.08″O\nVisitas: abre todos los días, excepto el 25 de diciembre y el 1 de enero. Abre a las 10:00AM y cierra a la puesta del sol, entre las 18:00 y las 21:00, según la época del año.\n\n\nHistoria\nSe tiene noticia de huertos de plantas medicinales que se remontan al siglo XVI, primero en estrecha dependencia con la enseñanza de la medicina en la Universidad que se practicaba desde 1462. La referencia más antigua es del año 1499, cuando se planificó la estructura de la cátedra de \"simples\" o \"herbes\" nombrándose profesores para ella en 1501. Estuvo siempre ligada a la medicina tratándose las \"hierbas\" en su vertiente medicinal. En 1548 se crea una cátedra de \"prácticas\" y poco después (en 1560) se separan definitivamente las enseñanzas de anatomía y la de \"simples o Herbes\" con cátedras independientes. Posteriormente, en 1631, se tiene noticia de varios episodios y localizaciones de los huertos de hierbas medicinales y sus doctores y ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Jard%C3%ADn%20Bot%C3%A1nico%20de%20la%20Universidad%20de%20Valencia"
+    },
+    "ca:Església de Sant Joan del Mercat": {
+      "description": "L'església de Sant Joan del Mercat o església dels Sants Joans és una de les esglésies més antigues de la ciutat de València, situada enfront de la Llotja de la Seda i al costat del Mercat Central. Monument historicoartístic des de 1942, es bastí a partir del 1240 sobre el solar on hi hagué primer una mesquita. A causa dels incendis, es reedificà durant el segle xiv en estil gòtic, i es reformà completament durant el segle xvii i xviii, fet que li conferí l'aspecte barroc actual.",
+      "body": "L'església de Sant Joan del Mercat o església dels Sants Joans és una de les esglésies més antigues de la ciutat de València, situada enfront de la Llotja de la Seda i al costat del Mercat Central. Monument historicoartístic des de 1942, es bastí a partir del 1240 sobre el solar on hi hagué primer una mesquita. A causa dels incendis, es reedificà durant el segle xiv en estil gòtic, i es reformà completament durant el segle xvii i xviii, fet que li conferí l'aspecte barroc actual. El 1936 patí un nou incendi. En la primera meitat de la dècada dels 2020 ha estat objecte d'un exhaustiu procés de restauració.\n\n\nEmplaçament i denominació\n\nLa façana de davant de Sant Joan del Mercat mira a la plaça de la Ciutat de Bruges, i la de darrere a la plaça del Mercat, just davant de l'extraordinària Llotja de la Seda. El costat sud del temple mira al carrer Vell de la Palla i al Mercat Central. Segons Joan Francesc Mira, tots tres edificis —Sant Joan del Mercat, Llotja de la Seda i Mercat Central— formen un dels conjunts artístics més excepcionals de la ciutat. El costat nord-est de l'església ix al carreronet de Llutxent i el nord-oest a la placeta de la Comunió de Sant Joan.\nEs diu oficialment església dels Sants Joans, per trobar-se sota l'advocació dels sants Joan Evangelista i Joan Baptista. Tanmateix, popularment se la coneix com Sant Joan del Mercat. L'afegitó del Mercat deriva del fet que a València ciutat hi ha una altra església homònima, la de Sant Joan de l'Hospital, també bastida durant el segle xiii sobre el solar d'una antiga mesquita.\n\n\nÈpoca gòtica, 1311-1592\n\nDesprés d'haver estat mesquita en temps dels musulmans, cap al 1240, ja en temps de Jaume I el Conqueridor començà el bastiment d'una modesta ermita extramurs, al raval de la Boatella. En 1311, s'incendià i es refeu de nou, fins a prendre l'estructura gòtica que hui encara conserva, tot i que molt amagada pels afegiments barrocs posteriors. Després de la construcció de la muralla el 1365 per Pere el Cerimon",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Esgl%C3%A9sia%20de%20Sant%20Joan%20del%20Mercat"
+    },
+    "ca:Palau de l'Exposició": {
+      "description": "El Palau de l'Exposició és un edifici municipal de la ciutat de València, situat en el carrer de Galícia núm. 1. Va ser construït l'any 1908 per l'arquitecte Francesc Mora i Berenguer seguint l'estil modernista valencià i el neogòtic.",
+      "body": "El Palau de l'Exposició és un edifici municipal de la ciutat de València, situat en el carrer de Galícia núm. 1. Va ser construït l'any 1908 per l'arquitecte Francesc Mora i Berenguer seguint l'estil modernista valencià i el neogòtic.\n\n\nL'Edifici\nVa ser construït dins el conjunt d'edificis fets per a l'Exposició Regional Valenciana de 1909. L'estil de l'edifici te reminiscències de l'arquitectura històrica valenciana. Tot i que el caràcter de l'edifici anava a ser efímer, posteriorment es decidí la seua conservació degut al seu valor històric i arquitectònic.\nL'edifici compta amb dos sectors ben diferenciats: l'ala noble i l'ala del pati. A l'interior destaca el Saló de Recepció o Sala Noble, amb vitralls modernistes, rajoleria i sol de Mosaic Nolla.\nLes obres de rehabilitació de l'edifici van començar l'any 1995, a càrrec del propietari de l'edifici, l'Ajuntament de València. Aquestes obres van ser dirigides per l'arquitecte Luis López Silgo i van durar set anys. L'edifici és ara un edifici multiús que acull diferents actes i esdeveniments, tant públics com privats.\n\n\nVegeu també\nExposició Regional Valenciana de 1909\n\n\nReferències",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Palau%20de%20l'Exposici%C3%B3"
+    },
+    "es:Plaza de Toros de Valencia": {
+      "description": "La plaza de toros de Valencia es una plaza de toros en Valencia, en la Comunidad Valenciana en España donde se celebra la feria taurina de Fallas.​",
+      "body": "La plaza de toros de Valencia es una plaza de toros en Valencia, en la Comunidad Valenciana en España donde se celebra la feria taurina de Fallas.​\n\n\nCaracterísticas\n\nLa Plaza de Toros de Valencia se encuentra situada en la calle Játiva, en el distrito Ensanche de la ciudad, junto a la Estación del Norte de Valencia y muy próxima a la plaza del Ayuntamiento. \nSe trata de una de las mayores plazas de toros de España, con ruedo de un diámetro de 47,5 metros y 108 metros de diámetro exterior. Cuenta con capacidad para 12 884 localidades.​\nLa obra original de 1859 de Sebastián Monleón Estellés consta de un exterior de cuatro galerías porticadas de ladrillo visto, de arcos escarzados en su planta baja y de medio punto en las tres galerías superiores, coronadas por una balaustrada de piedra, en una disposición clásica. Se edificó en estilo neoclásico, concretamente dórico sencillo, inspirado en la arquitectura civil romana, en el anfiteatro Flavio (Coliseo), o el anfiteatro de Nimes (Francia).​ Se trata de un inmueble de cuerpo poligonal de cuarenta y ocho lados, de 17,50 m de altura y 52 m de diámetro interior, de estructura portante y acabados de ladrillo visto en estilo neomudéjar.​ En la obra predomina el uso generalizado del ladrillo de esmerada factura y la madera, pero es de destacar la temprana utilización de columnas de hierro fundido que dotan de una funcional transparencia a la zona de los palcos.\nEn los años 60 el arquitecto Luis Albert acometió una reforma para reducir el ruedo para ganar barreras, cambiar los asientos de madera por cemento, ampliar los vomitorios y reformar los baños. Además, se construyeron las taquillas y se retiró la valla que separaba la plaza de las calles Játiva y Alicante, liberando un espacio diáfano que realzaba la monumentalidad del edificio. Las localidades se redujeron de los aproximadamente 16 800 espectadores iniciales a los 12 884 actuales.​\nEn 1995 se inauguró el monumento a Manolo Montoliu en la puerta principal se encuentra",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20Toros%20de%20Valencia"
+    },
+    "es:Torre musulmana de Silla": {
+      "description": "La torre musulmana de Silla es una edificación defensiva musulmana situada en Silla (Valencia), esta edificación es el único signo testimonial que queda en pie del antiguo castillo de la localidad, el cual está edificado sobre la base de sillares romanos situado junto al patio del ayuntamiento, en la plaza del pueblo. En el momento de su creación, su función era defender a la población de los posibles ataques enemigos y, por otro lado, también servia como refugió para la población. Aunque posteriormente también ha presentado otras funciones como es el caso de prisión y como almacén donde guardavan las semillas de las cosechas, además de objetos de valor o viandas.",
+      "body": "La torre musulmana de Silla es una edificación defensiva musulmana situada en Silla (Valencia), esta edificación es el único signo testimonial que queda en pie del antiguo castillo de la localidad, el cual está edificado sobre la base de sillares romanos situado junto al patio del ayuntamiento, en la plaza del pueblo. En el momento de su creación, su función era defender a la población de los posibles ataques enemigos y, por otro lado, también servia como refugió para la población. Aunque posteriormente también ha presentado otras funciones como es el caso de prisión y como almacén donde guardavan las semillas de las cosechas, además de objetos de valor o viandas. \nEs un bien de interés cultural con número de registro ministerial R-I-51-0004662 de fecha 18 de junio de 1982.​\n\n\nContexto histórico\nAlrededor del siglo VIII las tierras valencianas experimentaron un fenómeno peculiar, ligado a una gran transformación que se dio en la mayor parte de las tierras de la península ibérica. Podemos ver entonces un amplio proceso de islamización el cual fue el resultado de la conquista musulmana, proceso el cual se estableció y se arraigó en amplias zonas de la región, proceso que no fue eliminado del todo ni siquiera después de las conquistas cristianas. A diferencia de lo que se suele pensar, la conquista de la región de Valencia se realizó más que por tratados y pactos de rendiciones que por acciones violentas, asumiéndose así de manera pacífica los valores del Islam, de la misma manera que también lo hicieron la mayoría de las ciudades hispánicas mediterráneas dejando así huellas y rastros imborrables del pasado. \nSin duda alguna, una de estas huellas de la presencia musulmana en la región valenciana puede ser la reconocible torre de Silla, aunque esta no fue la única construcción que se realizó pudiendo destacar así también las edificaciones pertenecientes a Torrente o Paterna. Estas torres se caracterizan por su base cuadrada con alturas proporcionales entre los 3 y 26 me",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Torre%20musulmana%20de%20Silla"
+    },
+    "es:Museo de Ciencias Naturales de Valencia": {
+      "description": "El Museo de Ciencias Naturales de Valencia está ubicado en los Jardines del Real (Viveros municipales).",
+      "body": "El Museo de Ciencias Naturales de Valencia está ubicado en los Jardines del Real (Viveros municipales).\n\n\nHistoria\nEl actual Museo de Ciencias Naturales de Valencia tiene su origen en el antiguo Museo Municipal de Paleontología, fundado en 1889 y ubicado en el desaparecido Convento de San Gregorio de la calle de San Vicente, en el emplazamiento del actual Teatro Olympia.​\nEste museo surgió gracias a la generosa donación de la colección privada del ingeniero José Rodrigo Botet. Nacido en Manises en 1842, Botet emigró a Argentina en 1875, donde dirigió diferentes obras de ingeniería civil, además de participar como ingeniero militar en proyectos hidráulicos de Brasil, los Andes y la Patagonia. También estuvo involucrado en el diseño y planificación de la ciudad de La Plata y el puerto de Campana, del que fue constructor y concesionario. El 14 de julio de 1889, partió de Argentina, con su enorme colección paleontológica, a bordo del barco Mateo Bruzzo, llegando al puerto de Barcelona en medio de una gran expectación. Se fletó un tren especialmente para transportar la valiosa colección hasta Valencia, llegando una tarde del 9 de agosto.​\nLa colección consta de numerosos fósiles de mamíferos del Cuaternario sudamericano, entre los que se encontraba el Hombre de Samborombón, un esqueleto humano considerado como la perla de la colección y que fue el centro de numerosas discusiones científicas a principios del siglo XX debido al postulado de la antigüedad terciaria del origen de la humanidad.​\nLe acompañó en el viaje el catalán Enrique De Carles, principal recolector de los fósiles y técnico naturalista del Museo de Buenos Aires. De Carles fue el principal responsable del montaje de los esqueletos hasta su marcha precipitada, en junio de 1890, debido al último brote de cólera que sufrió la ciudad de Valencia durante ese año.​\nFue durante el mismo año de la marcha de Enrique De Carles cuando la colección se trasladó del Convento de San Gregorio a un local municipal situado e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20de%20Ciencias%20Naturales%20de%20Valencia"
+    },
+    "ca:Torre de la Plaça de Benifaió": {
+      "description": "La torre de la Plaça de Benifaió (comarca valenciana de la Ribera) és una construcció dels segles xi i xiii d'arquitectura islàmica que se situa en el centre de la població.\nAquesta torre formaria part del cinturó defensiu de la ciutat de València, al costat de les torres d'Espioca, Silla, Almussafes, Mussa, etc., i seria també usada per a refugi dels habitants de les alqueries dels voltants. També ha tingut usos com a graner i presó.",
+      "body": "La torre de la Plaça de Benifaió (comarca valenciana de la Ribera) és una construcció dels segles xi i xiii d'arquitectura islàmica que se situa en el centre de la població.\nAquesta torre formaria part del cinturó defensiu de la ciutat de València, al costat de les torres d'Espioca, Silla, Almussafes, Mussa, etc., i seria també usada per a refugi dels habitants de les alqueries dels voltants. També ha tingut usos com a graner i presó.\nL'amplada de la torre a la part inferior és d'uns onze metres en cadascun dels quatre costats. Té un total de quatre plantes amb una alçada total aproximada de 23 metres. La part superior està coronada per set merlets a cada costat. Les seves dimensions la situen entre les torres conservades més grans existents al País Valencià.\nEls murs d'1,30 metres d'amplada van ser realitzats amb el sistema conegut com a «tapial de morter de calç i pedra», una tècnica constructiva mil·lenària. Els murs exteriors contenen espilleres i finestres per a il·luminar les tres plantes superiors. La llinda i els muntants de l'entrada van ser fets amb blocs monolítics de pedra calcària.\nA la primera planta s'obre un balcó amb matacà amb la funció de defensar verticalment la porta d'entrada. A l'interior, al centre, s'aixequen quatre murs paral·lels entre els quals hi ha l'escala d'alts esglaons. Les voltes interiors de les diferents plantes van ser construïdes amb cintres de canya i fang, de les quals encara queden restes. La planta primera té volta de canó i als murs no hi ha cap finestra. La planta segona té una volta de canó dividida en quatre trams, resolts amb arcades fetes de maó que giren amb la volta. La tercera planta és similar a la segona quant a disposició i dimensions, però les voltes i els corresponents arcs giren en sentit contrari.\nLa quarta planta està formada per arcs que arrenquen de les cantonades del nucli central, però amb la particularitat de tenir altres quatre arcs més, vuit en total, cobrint cadascú amb una diferent volta de canó. L",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Torre%20de%20la%20Pla%C3%A7a%20de%20Benifai%C3%B3"
+    },
+    "es:Palacio de Benicarló": {
+      "description": "El palacio de Benicarló (oficialmente y en valenciano, Palau de Benicarló), también conocido como palacio de los Borja, es una mansión aristocrática de estilo gótico valenciano y renacentista ubicado en la plaza de San Lorenzo, en la ciudad de Valencia, España. Actualmente es la sede de las Cortes Valencianas.\nEl palacio fue construido en el siglo XV para residencia de la familia Borja en la capital del antiguo reino de Valencia.",
+      "body": "El palacio de Benicarló (oficialmente y en valenciano, Palau de Benicarló), también conocido como palacio de los Borja, es una mansión aristocrática de estilo gótico valenciano y renacentista ubicado en la plaza de San Lorenzo, en la ciudad de Valencia, España. Actualmente es la sede de las Cortes Valencianas.\nEl palacio fue construido en el siglo XV para residencia de la familia Borja en la capital del antiguo reino de Valencia. Está catalogado como bien de relevancia local con identificador número 46.15.250-132.​\n\n\nHistoria del palacio\nEl palacio fue propiedad de distintas e importantes familias a lo largo de su historia, primero perteneció a la casa de Borja desde 1485, fue abandonado a mediados del siglo XVIII por los duques de Gandía, quedando en estado ruinoso. Después perteneció a la casa de Benavente y, finalmente, a la casa de Osuna, hasta mediados del siglo XIX, momento en que se vendió el palacio a la familia Pujals, que lo adquirió para establecer una fábrica de seda. \nA finales del siglo XIX, y finalizada la actividad industrial, el palacio pasó a manos de la heredera de la familia Pujals, Emilia Fontanals y Pujals, que se casó con el ingeniero civil Juan Pérez Sanmillán y Miquel. Fueron ellos quienes pusieron el máximo interés en recuperar el antiguo esplendor del edificio, y dedicaron una auténtica fortuna en hacer del desvencijado edificio un palacio digno de la nobleza. Nobleza que consiguieron cuando, en 1905, el rey Alfonso XIII otorgó a don Juan Pérez Sanmillán el título de marqués de Benicarló, por la relación familiar que tenía el mentado personaje con esta población castellonense, vía materna, al ser los Miquel una familia principal de esta población. Hasta mediados los años treinta del siglo XX, el ya conocido como palacio de los marqueses de Benicarló, o más abreviadamente palacio de Benicarló, pasó a ser uno de los principales y más activos centros de la vida social de la capital valenciana. Durante la guerra civil española fue sede de la p",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Benicarl%C3%B3"
+    },
+    "ca:Jardí de Monforte": {
+      "description": "Els Jardins de Monfort, també coneguts com a l'hort de Romero, es troben a la ciutat de València, concretament al barri de l'Exposició, entre el carrer de Monfort, la plaça de la Legió Espanyola i la clínica Quirón.",
+      "body": "Els Jardins de Monfort, també coneguts com a l'hort de Romero, es troben a la ciutat de València, concretament al barri de l'Exposició, entre el carrer de Monfort, la plaça de la Legió Espanyola i la clínica Quirón.\n\n\nForma\n\nEl jardí és de reduïdes dimensions (12.000 metres quadrats), i de forma triangular i encerclat per una paret alta. Es divideix en tres parts. La primera, on se situa l'única entrada, és una zona enjardinada. Ací hi ha un gran laberint d'arbusts de poca alçada, amb una sèrie de fonts ornamentals, estàtues de marbre (el jardí en té 33 en total) i alguns tarongers entremig. Al fons, porta a la segona part situada a desnivell i envoltada amb paret. A través d'una porta reixada, i baixant uns esgraons, s'accedeix a un jardí molt menut i un palauet al fons.\nFinalment, la tercera part i la més gran se situa al costat de la primera i es constitueix per arbres alts i ombrívols, i hi destaca una estàtua d'estil grec i un estany amb peixos. Al bell mig, hi ha un monticle on es puja amb un camí de caragol, i d'on brolla una fonteta.\nAl llarg de la paret, entre l'entrada i el palauet, hi ha un passeig cobert amb flors enfiladisses, amb alguns bancs.\n\n\nHistòria\nAquest jardí fou un dels molts horts presents a la riba esquerra del riu Túria, aleshores una zona poc o gens urbanitzada. El seu propietari fou Josep Vich, baró de Llaurí, qui li'l vengué el 1849 a Juan Bautista Romero Almenar, marqués de San Juan, per 80.000 reals. Així doncs, rep també el nom d'Hort de Romero. Aquest senyor decidí de construir l'actual jardí, realitzat per l'arquitecte Monleón Estellés. A la mort de Romero, passà a la seua esposa, després a Josefa Sancho Cortés, neboda seua, i en casar-se aquesta amb Joaquim Montfort Parrés fou quan passà a anomenar-se Jardí de Montfort.\nEls jardins foren restaurats en els anys 1940 per Javier Winthuysen Losada i les obres foren executades pel jardiner municipal Ramon Peris. Fou declarat Jardí Artístic Nacional per l'Estat el 1941. El 1970, passà a ",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Jard%C3%AD%20de%20Monforte"
+    },
+    "ca:Museu d'història de València": {
+      "description": "El Museo de historia de Valencia (en valenciano y oficialmente, Museu d'història de València), conocido como MhV, inaugurado el 7 de mayo de 2003, es un museo dedicado al desarrollo de la historia de la ciudad de Valencia (España). El objetivo de su exposición permanente es presentar los procesos históricos de forma accesible y didáctica, partiendo de los conceptos generales para expresarlo a través de datos cotidianos, y enseñando a interpretar los hechos cotidianos del pasado para entender los procesos generales. Hace uso para ello de los fondos arqueológicos, artísticos y culturales municipales.​\nSu actual director es el arqueólogo valenciano Javier Martí Oltra.",
+      "body": "El Museo de historia de Valencia (en valenciano y oficialmente, Museu d'història de València), conocido como MhV, inaugurado el 7 de mayo de 2003, es un museo dedicado al desarrollo de la historia de la ciudad de Valencia (España). El objetivo de su exposición permanente es presentar los procesos históricos de forma accesible y didáctica, partiendo de los conceptos generales para expresarlo a través de datos cotidianos, y enseñando a interpretar los hechos cotidianos del pasado para entender los procesos generales. Hace uso para ello de los fondos arqueológicos, artísticos y culturales municipales.​\nSu actual director es el arqueólogo valenciano Javier Martí Oltra.\n\n\nHistoria\n\n\nAntecedentes\nLa idea de formar un museo de estas características en la ciudad de Valencia viene dada por la custodia, desde época foral, de un conjunto archivístico documental que, con el tiempo, fue adquiriendo objetos de una importancia singular para la historia de la ciudad por su carga simbólica como son el Penó de la Conquesta, la espada de Jaime I o las llaves de la ciudad, entre otros. A estos se añaden los bienes recuperados de la destrucción y el expolio de la antigua casa de la ciudad a mediados del siglo XIX. Se trató, por aquel entonces, de otorgarle a estos documentos, y objetos que forman parte de la cultura y, del patrimonio cultural de la ciudad, una forma museística, pero esta idea no fraguó.​\nEl escaso apoyo con el que contó este proyecto, tal vez se debiera a la existencia de un dibujo previo de otro proyecto de creación del Museo de Etnografía y Folklore de Valencia, promovido por Vicente Blasco Ibáñez en 1921 (Catalá, 1988). La base sobre la que Vicente Blasco Ibáñez cimentó la concepción de este museo era la de reunir “las glorias de nuestra raza, todo nuestro pasado y todo nuestro presente” (Blasco Ibáñez, 1931 cit. por Gregori, 1997: 464) ante lo que para él era la desaparición de las formas de vida tradicionales valencianas. Con esta idea consiguió implicar al ayuntam",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museu%20d'hist%C3%B2ria%20de%20Val%C3%A8ncia"
+    },
+    "ca:Reial Col·legi Seminari de Corpus Christi": {
+      "description": "El Reial Col·legi Seminari de Corpus Christi, també conegut com a Col·legi del Patriarca, és un seminari fundat en 1583 per Joan de Ribera, arquebisbe i virrei de València i patriarca d'Antioquia, qui tres anys després posà la primera pedra. Se situa a la plaça del Col·legi del Patriarca, al barri de la Xerea de la ciutat de València.\nEl diumenge 8 de febrer de 1604, encara que l'edifici no estava completament acabat, però aprofitant l'estada en València del rei Felip III, inaugurà la fundació.",
+      "body": "El Reial Col·legi Seminari de Corpus Christi, també conegut com a Col·legi del Patriarca, és un seminari fundat en 1583 per Joan de Ribera, arquebisbe i virrei de València i patriarca d'Antioquia, qui tres anys després posà la primera pedra. Se situa a la plaça del Col·legi del Patriarca, al barri de la Xerea de la ciutat de València.\nEl diumenge 8 de febrer de 1604, encara que l'edifici no estava completament acabat, però aprofitant l'estada en València del rei Felip III, inaugurà la fundació.\n\n\nHistòria\nEl Reial Col·legi Seminari de Corpus Christi té l'origen en la intenció de l'arquebisbe d'aleshores, Joan de Ribera per crear un col·legi-seminari dedicat a formar sacerdots dins dels corrents contrareformistes. La construcció de l'edifici va estar supervisada pel mateix arquebisbe o bé per mitjà del seu auxiliar, Miquel de Espinosa, mantenint un contacte pròxim als mestres que hi van treballar. L'any 1583 en redactà la carta de fundació.\nS'ha conservat perfectament fins als nostres dies, degut en part a les indicacions del Patriarca Ribera deixades en les Constituciones perquè la capella (i tot el col·legi) es conservara: «perpetuamente en la misa forma y fabrica que la dexamos sin que se pueda acrecentar ni disminuir en ella». Expressió doctrinal dels ideals contrareformistes, dels quals Ribera en fou un estricte seguidor, el Col·legi del Patriarca consolida, amb un marcat caràcter d'unitat, els dictats religiosos i artístics extrets de Trento. La mateixa advocació del Col·legi, dedicat al sagrament eucarístic, com el destacat culte a les relíquies que conté o el rigor reformista adjudicat a les imatges (d'una legible, distanciada i didàctica escriptura sacra) desenvolupades als frescos del temple, troben la seua expressió en els ideals tridentins.\nS'aprecia el coneixement de les Instructiones fabricae et supellectilis ecclesiasticae (Milà, 1577) de Carles Borromeo, obra caracteritzada per aplicar a l'arquitectura els decrets del concili de Trento, i que figurava",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Reial%20Col%C2%B7legi%20Seminari%20de%20Corpus%20Christi"
+    },
+    "ca:Plaça del Mercat (València)": {
+      "description": "El pla o plaça del Mercat és una de les places més singulars i conegudes de València, per tal com aplega tres dels monuments més reeixits de la ciutat: el Mercat Central, la Llotja de la Seda, i l'església de Sant Joan del Mercat. Abans de la construcció del Mercat Central (1914-28), el pla o la plaça del Mercat s'havia fet servir com a espai de mercat a l'aire lliure per a la ciutat de València.",
+      "body": "El pla o plaça del Mercat és una de les places més singulars i conegudes de València, per tal com aplega tres dels monuments més reeixits de la ciutat: el Mercat Central, la Llotja de la Seda, i l'església de Sant Joan del Mercat. Abans de la construcció del Mercat Central (1914-28), el pla o la plaça del Mercat s'havia fet servir com a espai de mercat a l'aire lliure per a la ciutat de València.\n\n\nHistòria\n\n\nAbans de Jaume I\nEn temps dels romans l'actual espai de la plaça del Mercat era un dels braços del riu Túria que envoltaven la ciutat, fundada l'any 138 aC en una illa fluvial.\nEn temps dels musulmans, la muralla (s. XI) separava la ciutat (medina) del pla del mercat (extramurs), on s'eixamplava el braç mort del Túria ja dessecat, només inundable amb fortes avingudes per pluges intenses. Immediatament intramurs del pla del Mercat hi havia l'Alcaisseria, el mercat de productes tèxtils de luxe, com ara la seda. La porta d'accés al pla del mercat s'anomenava Bab al-Qaisseria. Allí es trobava un ravalet que en temps dels cristians s'anomenava la Boatella (descampat –braç mort del riu- on pasturen els bous).\n\n\nEdat mitjana\nEn temps de Jaume I (s. XIII) aquest rei concedí llicència a la ciutat de València, concretament el 1266, per celebrar mercat setmanal el dijous en aquest pla de la Boatella. En aquest mateix lloc disposà que se celebrara fira cada any en la primera quinzena d'agost, segons consta als Furs de València: \"Les fires sien feites per tostemps al loc on lo mercat és feit, e comencen e duren de les Kalendes d'agost entrò a la festa de Sancta Maria d'agost\" (Sanchis Guarner, p. 103). De llavors ençà, aquest ha estat el cor comercial de la ciutat.\nEn temps de Pere el Cerimoniós es construí la nova muralla (1365), de manera que el pla del Mercat i tota la Boatella quedaven intramurs. Des d'aquell moment, el Pla del Mercat –l'antic braç mort del riu- passà a ser l'esplanada central de la ciutat, ja que quedava justament al bell mig de la nova ciutat, de l'ac",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20del%20Mercat%20(Val%C3%A8ncia)"
+    },
+    "ca:Museu Faller de València": {
+      "description": "L'actual Museu Faller de València està instal·lat des de 1971 a l'antic Convent de la Casa Missió de Sant Vicenç de Paül, que va ser acabat en 1831, raó per la qual conserva part d'una estructura de corredors i antigues cel·les. Amb posterioritat va tenir múltiples usos, com a presó, caserna o magatzem. El Museu Faller va ser rehabilitat i reestructurat a principis dels anys noranta del segle xx, sent reinaugurat el 1995.",
+      "body": "L'actual Museu Faller de València està instal·lat des de 1971 a l'antic Convent de la Casa Missió de Sant Vicenç de Paül, que va ser acabat en 1831, raó per la qual conserva part d'una estructura de corredors i antigues cel·les. Amb posterioritat va tenir múltiples usos, com a presó, caserna o magatzem. El Museu Faller va ser rehabilitat i reestructurat a principis dels anys noranta del segle xx, sent reinaugurat el 1995. En 2016 el Museu Faller va ser homologat com Museu oficial de la Generalitat Valenciana, sent novament reestructurat en els seus plantejaments museològics i museogràfics. Una de les novetats d'aquesta reestructuració va ser la posada en marxa de la sala d'exposicions temporals Josep Alarte, dedicada a exposicions antològiques de l'obra d'artistes fallers.\n\n\nHistòria\nLes Falles són una festa popular que ja se celebrava a mitjans del segle xviii, quan comissions informals de veïns s'erigien als carrers de València cadafals efímers en els quals es representava una escena satírica amb ninots o figures, tot realitzat amb fusta, teles, cartró. Uns versos adherits a la falla explicaven el seu argument. La falla es cremava amb gran alegria col·lectiva i acompanyament pirotècnic la vigília del dia de Sant Josep, donant la benvinguda a la primavera.\nDes de començaments del segle XX les falles es van fer més complexes, monumentals i artístiques, tant en la seva composició tècnica com en l'execució dels ninots. Paral·lelament la festa de les Falles va multiplicar les seves celebracions i rituals, mentre les comissions es feien més nombroses, estables i dinàmiques. Aviat les Falles es van convertir en expressió de la identitat valenciana i en un important atractiu turístic, i van passar a cremar la nit del dia de Sant Josep.\nLes falles infantils es remunten, com a mínim, a finals del XIX, i estaven fetes pels nens de cada barri o carrer. Amb el temps van passar a estar confeccionades per artistes fallers professionals, el que va fer que adquirissin una major qu",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Museu%20Faller%20de%20Val%C3%A8ncia"
+    },
+    "ca:Plaça de l'Almoina": {
+      "description": "La Plaça de l'Almoina és una plaça situada al barri de la Seu a la ciutat de València. Es troba al cor de la ciutat vella, i és considerada la més antiga de la capital. Rep el nom d'Almoina per l'edifici homònim avui en dia desaparegut i convertit en el Centre Arqueològic de l'Almoina.",
+      "body": "La Plaça de l'Almoina és una plaça situada al barri de la Seu a la ciutat de València. Es troba al cor de la ciutat vella, i és considerada la més antiga de la capital. Rep el nom d'Almoina per l'edifici homònim avui en dia desaparegut i convertit en el Centre Arqueològic de l'Almoina. La plaça ostenta el Palau arquebisbal, la basílica i la catedral.\nFou plaça major de la ciutat romana, on se situava el fòrum. Allí es construí la primera basílica visigòtica, convertida després en mesquita i posteriorment renovat com a temple cristià.\nDesprés de la Reconquesta rebé el nom de plaça de la Fruita i plaça de la Llenya, pels mercats que s'hi celebraven.\n\n\nVegeu també\nPlaça de la Mare de Déu\nCentre Arqueològic de l'Almoina\n\n\nEnllaços externs\n\nRecorregut per la plaça Arxivat 2007-09-29 a Wayback Machine.",
+      "language": "ca",
+      "wikipediaUrl": "https://ca.wikipedia.org/wiki/Pla%C3%A7a%20de%20l'Almoina"
+    }
+  }
+}

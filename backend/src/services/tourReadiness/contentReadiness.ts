@@ -13,6 +13,16 @@ const FALLBACK_PATTERNS = [
   /\bLos datos disponibles lo describen con detalles como\b/i,
   /\b(?:tourism|building|historic|amenity|leisure|shop|office|heritage|wikidata|wikipedia|addr:[a-z0-9_:-]+)=[a-z0-9_:-]+\b/i,
   /^From here, continue toward\b/im,
+  /\burban fabric\b/i,
+  /\btransition point\b/i,
+  /\bformal boundary\b/i,
+  /\brelationship with (?:the )?(?:immediate )?surroundings\b/i,
+  /\bpublic life\b/i,
+  /\bpivot point\b/i,
+  /\bthis space\b/i,
+  /\bconnects movement, scale, and urban life\b/i,
+  /\bnot only what it is, but how it helps\b/i,
+  /\bstands in [A-Z][A-Za-z\s]+\. Notice the building\b/i,
 ];
 
 export interface StopContentReadiness {

@@ -124,6 +124,8 @@ export interface Tour {
    previewStopNames?: string[];
   language: Language;
   durationMinutes: number;
+  status: 'draft' | 'review' | 'published' | 'archived';
+  introduction?: string;
   requestedDurationMinutes?: number;
   recommendedDurationMinutes?: number;
   durationAdapted?: boolean;
@@ -131,6 +133,30 @@ export interface Tour {
   createdAt: string;
   updatedAt?: string;
   created_at?: string; // Deprecated compatibility alias
+}
+
+export interface GenerationJob {
+  id: string;
+  status: 'queued' | 'running' | 'completed' | 'failed';
+  step: 'queued' | 'sourcing' | 'routing' | 'planning_narrative' | 'narrating' | 'validating' | 'repairing' | 'publishing' | 'completed' | 'failed';
+  progress: {
+    completedStops: number;
+    totalStops: number;
+    message?: string;
+  };
+  result?: {
+    tourId: string;
+    durationAdapted?: boolean;
+    requestedDurationMinutes?: number;
+    recommendedDurationMinutes?: number;
+  };
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Place {

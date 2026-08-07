@@ -8,6 +8,7 @@ import { validateApiKey } from './middleware/auth';
 import { apiLimiter } from './middleware/rate-limit';
 import { errorHandler, notFoundHandler } from './middleware/error-handler';
 import logger from './utils/logger';
+import { generationJobService } from './services/generationJobServiceInstance';
 
 
 const app = express();
@@ -63,6 +64,9 @@ app.use(notFoundHandler);
 // Start server
 app.listen(config.port, () => {
   logger.info(`Server running on port ${config.port} in ${config.env} mode`);
+  void generationJobService.resumePending().catch((error) => {
+    logger.error('Failed to resume pending generation jobs', { error });
+  });
 });
 
 export default app;

@@ -1,0 +1,48 @@
+{
+  "benchmarkVersion": "benchmark-editorial-v1",
+  "createdAt": "2026-08-06T14:29:35.579Z",
+  "stage": "pilot",
+  "repetitions": 3,
+  "providers": [
+    {
+      "id": "ollama-qwen",
+      "kind": "ollama",
+      "model": "qwen2.5:14b",
+      "thinking": false
+    },
+    {
+      "id": "ollama-gemma",
+      "kind": "ollama",
+      "model": "gemma4:26b",
+      "thinking": false
+    },
+    {
+      "id": "deepseek-flash-nonthinking",
+      "kind": "deepseek",
+      "model": "deepseek-v4-flash",
+      "thinking": false
+    },
+    {
+      "id": "deepseek-flash-thinking-high",
+      "kind": "deepseek",
+      "model": "deepseek-v4-flash",
+      "thinking": true,
+      "reasoningEffort": "high"
+    }
+  ],
+  "promptFingerprint": "38e2068a9ecefa59692066ee601386e04b295edad1f4d8c4bee78198f09bf76d",
+  "selectorFingerprint": "3d6caee74af60d7d08e37b847dffa1710d7fc8ce49d72abe9ea0c618c596ce89",
+  "externalSpendCapUsd": 0.25,
+  "calibrationCaseIds": [
+    "madrid-history-es-120",
+    "malaga-history-es-120",
+    "amsterdam-history-nl-120",
+    "toledo-history-es-120",
+    "berlin-history-de-120",
+    "barcelona-history-fr-120",
+    "paris-history-en-120",
+    "roma-history-it-150",
+    "toulouse-history-fr-120"
+  ],
+  "holdoutLoaded": false
+}

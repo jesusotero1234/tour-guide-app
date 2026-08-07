@@ -10,7 +10,7 @@ export function getDurationPlan(durationMinutes: number): DurationPlan {
   }
 
   if (durationMinutes <= 120) {
-    return { candidateCount: 12, minStops: 5, maxStops: 7 };
+    return { candidateCount: 30, minStops: 5, maxStops: 7 };
   }
 
   if (durationMinutes <= 180) {

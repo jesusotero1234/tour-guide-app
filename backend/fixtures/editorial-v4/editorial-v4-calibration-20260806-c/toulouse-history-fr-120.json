@@ -1,0 +1,1512 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "failed",
+  "createdAt": "2026-08-06T18:07:10.903Z",
+  "caseId": "toulouse-history-fr-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "55f8d3fba29cb485e4ed53ff2d5b034fb0ecbfc1e81620789a9a7cb48f6525a4",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q2351013",
+      "siteId": "site:Q2351013",
+      "coordinates": {
+        "lat": 43.6044439,
+        "lng": 1.4442552
+      },
+      "evidenceIds": [
+        "Q2351013:osm:building",
+        "Q2351013:wikidata:architect",
+        "Q2351013:wikidata:architecturalStyle",
+        "Q2351013:wikipedia:1",
+        "Q2351013:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q1010268",
+      "siteId": "site:Q1010268",
+      "coordinates": {
+        "lat": 43.6083805,
+        "lng": 1.441884
+      },
+      "evidenceIds": [
+        "Q1010268:osm:amenity",
+        "Q1010268:wikidata:architecturalStyle",
+        "Q1010268:wikidata:heritageDesignation",
+        "Q1010268:wikipedia:10",
+        "Q1010268:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q2737833",
+      "siteId": "site:Q2737833",
+      "coordinates": {
+        "lat": 43.5998893,
+        "lng": 1.4504439
+      },
+      "evidenceIds": [
+        "Q2737833:osm:amenity",
+        "Q2737833:wikidata:architecturalStyle",
+        "Q2737833:wikidata:heritageDesignation",
+        "Q2737833:wikipedia:3",
+        "Q2737833:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q2887166",
+      "siteId": "site:Q2887166",
+      "coordinates": {
+        "lat": 43.6009363,
+        "lng": 1.4398504
+      },
+      "evidenceIds": [
+        "Q2887166:osm:amenity",
+        "Q2887166:wikidata:architecturalStyle",
+        "Q2887166:wikidata:heritageDesignation",
+        "Q2887166:wikipedia:4",
+        "Q2887166:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q3390578",
+      "siteId": "site:Q3390578",
+      "coordinates": {
+        "lat": 43.604394,
+        "lng": 1.4433789
+      },
+      "evidenceIds": [
+        "Q3390578:osm:place",
+        "Q3390578:wikidata:instanceOf",
+        "Q3390578:wikidata:locatedIn",
+        "Q3390578:wikipedia:1",
+        "Q3390578:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q3580780",
+      "siteId": "site:Q3580780",
+      "coordinates": {
+        "lat": 43.6056359,
+        "lng": 1.4430484
+      },
+      "evidenceIds": [
+        "Q3580780:osm:amenity",
+        "Q3580780:wikidata:architecturalStyle",
+        "Q3580780:wikidata:heritageDesignation",
+        "Q3580780:wikipedia:10",
+        "Q3580780:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q1460090",
+      "siteId": "site:Q1460090",
+      "coordinates": {
+        "lat": 43.5993422,
+        "lng": 1.4390816
+      },
+      "evidenceIds": [
+        "Q1460090:wikipedia:8",
+        "Q1460090:wikidata:architect",
+        "Q1460090:wikidata:heritageDesignation",
+        "Q1460090:wikipedia:2",
+        "Q1460090:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q3585905",
+      "siteId": "site:Q3585905",
+      "coordinates": {
+        "lat": 43.6054975,
+        "lng": 1.440695
+      },
+      "evidenceIds": [
+        "Q3585905:osm:building",
+        "Q3585905:wikidata:architecturalStyle",
+        "Q3585905:wikidata:heritageDesignation",
+        "Q3585905:wikipedia:1",
+        "Q3585905:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q3580740",
+      "siteId": "site:Q3580740",
+      "coordinates": {
+        "lat": 43.5976691,
+        "lng": 1.4425836
+      },
+      "evidenceIds": [
+        "Q3580740:osm:amenity",
+        "Q3580740:wikidata:architecturalStyle",
+        "Q3580740:wikidata:heritageDesignation",
+        "Q3580740:wikipedia:10",
+        "Q3580740:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q3584182",
+      "siteId": "site:Q3584182",
+      "coordinates": {
+        "lat": 43.6042843,
+        "lng": 1.4356331
+      },
+      "evidenceIds": [
+        "Q3584182:osm:amenity",
+        "Q3584182:wikidata:architecturalStyle",
+        "Q3584182:wikidata:heritageDesignation",
+        "Q3584182:wikipedia:1",
+        "Q3584182:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q3584181",
+      "siteId": "site:Q3584181",
+      "coordinates": {
+        "lat": 43.604662,
+        "lng": 1.4363035
+      },
+      "evidenceIds": [
+        "Q3584181:osm:amenity",
+        "Q3584181:wikidata:architecturalStyle",
+        "Q3584181:wikidata:heritageDesignation",
+        "Q3584181:wikipedia:1",
+        "Q3584181:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q3390181",
+      "siteId": "site:Q3390181",
+      "coordinates": {
+        "lat": 43.6048543,
+        "lng": 1.4473785
+      },
+      "evidenceIds": [
+        "Q3390181:osm:place",
+        "Q3390181:wikidata:heritageDesignation",
+        "Q3390181:wikidata:instanceOf",
+        "Q3390181:wikipedia:11",
+        "Q3390181:wikipedia:9"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q719314",
+      "siteId": "site:Q719314",
+      "coordinates": {
+        "lat": 43.6043651,
+        "lng": 1.4451877
+      },
+      "evidenceIds": [
+        "Q30449623:osm:height",
+        "Q3494530:wikidata:namedAfter",
+        "Q3494530:wikidata:instanceOf",
+        "Q30449623:wikipedia:1",
+        "Q30449623:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q3145737",
+      "siteId": "site:Q3145737",
+      "coordinates": {
+        "lat": 43.5969496,
+        "lng": 1.4420821
+      },
+      "evidenceIds": [
+        "Q3145737:osm:building",
+        "Q3145737:wikidata:architect",
+        "Q3145737:wikidata:architecturalStyle",
+        "Q3145737:wikipedia:1",
+        "Q3145737:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q3146303",
+      "siteId": "site:Q3146303",
+      "coordinates": {
+        "lat": 43.5972033,
+        "lng": 1.4459213
+      },
+      "evidenceIds": [
+        "Q22938572:osm:amenity",
+        "Q3146303:wikidata:architecturalStyle",
+        "Q3146303:wikidata:heritageDesignation",
+        "Q3146303:wikipedia:11",
+        "Q3146303:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q2957369",
+      "siteId": "site:Q2957369",
+      "coordinates": {
+        "lat": 43.607543,
+        "lng": 1.4432849
+      },
+      "evidenceIds": [
+        "Q2957369:osm:amenity",
+        "Q2957369:wikidata:architecturalStyle",
+        "Q2957369:wikidata:heritageDesignation",
+        "Q2957369:wikipedia:0",
+        "Q2957369:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q3582238",
+      "siteId": "site:Q3582238",
+      "coordinates": {
+        "lat": 43.6032622,
+        "lng": 1.4462192
+      },
+      "evidenceIds": [
+        "Q22938609:osm:building",
+        "Q3582238:wikidata:architect",
+        "Q3582238:wikidata:architecturalStyle",
+        "Q3582238:wikipedia:1",
+        "Q3582238:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q3583425",
+      "siteId": "site:Q3583425",
+      "coordinates": {
+        "lat": 43.5991837,
+        "lng": 1.4342159
+      },
+      "evidenceIds": [
+        "Q3583425:osm:amenity",
+        "Q3583425:wikidata:architecturalStyle",
+        "Q3583425:wikidata:heritageDesignation",
+        "Q3583425:wikipedia:1",
+        "Q3583425:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q3360899",
+      "siteId": "site:Q3360899",
+      "coordinates": {
+        "lat": 43.5970255,
+        "lng": 1.4512373
+      },
+      "evidenceIds": [
+        "Q3360899:osm:building",
+        "Q3360899:wikidata:instanceOf",
+        "Q3360899:wikidata:locatedIn",
+        "Q3360899:wikipedia:0",
+        "Q3360899:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q2968376",
+      "siteId": "site:Q2968376",
+      "coordinates": {
+        "lat": 43.5986973,
+        "lng": 1.4369307
+      },
+      "evidenceIds": [
+        "Q2968376:osm:building",
+        "Q2968376:wikidata:heritageDesignation",
+        "Q2968376:wikidata:instanceOf",
+        "Q2968376:wikipedia:2",
+        "Q2968376:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q22938605",
+      "siteId": "site:Q22938605",
+      "coordinates": {
+        "lat": 43.6027369,
+        "lng": 1.4406652
+      },
+      "evidenceIds": [
+        "Q22938605:osm:building",
+        "Q22938605:wikidata:architecturalStyle",
+        "Q22938605:wikidata:heritageDesignation",
+        "Q22938605:wikipedia:1",
+        "Q22938605:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q3145772",
+      "siteId": "site:Q3145772",
+      "coordinates": {
+        "lat": 43.6007922,
+        "lng": 1.4435567
+      },
+      "evidenceIds": [
+        "Q3145772:osm:building",
+        "Q3145772:wikidata:architecturalStyle",
+        "Q3145772:wikidata:heritageDesignation",
+        "Q3145772:wikipedia:0",
+        "Q3145772:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q3494530",
+      "siteId": "site:Q3494530",
+      "coordinates": {
+        "lat": 43.6044871,
+        "lng": 1.4451045
+      },
+      "evidenceIds": [
+        "Q30449623:osm:height",
+        "Q3494530:wikidata:namedAfter",
+        "Q3494530:wikidata:instanceOf",
+        "Q30449623:wikipedia:1",
+        "Q30449623:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q105687937",
+      "siteId": "site:Q105687937",
+      "coordinates": {
+        "lat": 43.609074,
+        "lng": 1.4462411
+      },
+      "evidenceIds": [
+        "Q105687937:osm:place",
+        "Q105687937:wikidata:namedAfter",
+        "Q105687937:wikidata:instanceOf",
+        "Q105687937:wikipedia:10",
+        "Q105687937:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q30443012",
+      "siteId": "site:Q30443012",
+      "coordinates": {
+        "lat": 43.5981724,
+        "lng": 1.4367144
+      },
+      "evidenceIds": [
+        "Q30443012:osm:place",
+        "Q30443012:wikidata:namedAfter",
+        "Q30443012:wikidata:instanceOf",
+        "Q30443012:wikipedia:1",
+        "Q30443012:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q24933925",
+      "siteId": "site:Q24933925",
+      "coordinates": {
+        "lat": 43.5946267,
+        "lng": 1.4471654
+      },
+      "evidenceIds": [
+        "Q24933925:osm:place",
+        "Q24933925:wikidata:instanceOf",
+        "Q24933925:wikidata:locatedIn",
+        "Q24933925:wikipedia:5",
+        "Q24933925:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q29398619",
+      "siteId": "site:Q29398619",
+      "coordinates": {
+        "lat": 43.608314,
+        "lng": 1.4418724
+      },
+      "evidenceIds": [
+        "Q1010268:osm:amenity",
+        "Q1010268:wikidata:architecturalStyle",
+        "Q1010268:wikidata:heritageDesignation",
+        "Q1010268:wikipedia:10",
+        "Q1010268:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q3585959",
+      "siteId": "site:Q3585959",
+      "coordinates": {
+        "lat": 43.5944587,
+        "lng": 1.4469544
+      },
+      "evidenceIds": [
+        "Q24933925:osm:place",
+        "Q24933925:wikidata:instanceOf",
+        "Q24933925:wikidata:locatedIn",
+        "Q24933925:wikipedia:5",
+        "Q24933925:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q15950571",
+      "siteId": "site:Q15950571",
+      "coordinates": {
+        "lat": 43.6008289,
+        "lng": 1.4431475
+      },
+      "evidenceIds": [
+        "Q3145772:osm:building",
+        "Q3145772:wikidata:architecturalStyle",
+        "Q3145772:wikidata:heritageDesignation",
+        "Q3145772:wikipedia:0",
+        "Q3145772:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q22938631",
+      "siteId": "site:Q22938631",
+      "coordinates": {
+        "lat": 43.5963467,
+        "lng": 1.446069
+      },
+      "evidenceIds": [
+        "Q22938572:osm:amenity",
+        "Q3146303:wikidata:architecturalStyle",
+        "Q3146303:wikidata:heritageDesignation",
+        "Q3146303:wikipedia:11",
+        "Q3146303:wikipedia:2"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "semantic_error",
+    "value": null,
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "semantic_error",
+        "latencyMs": 21509,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"Comment Toulouse, ville de brique rose née entre le fleuve et les remparts gallo-romains, a-t-elle construit son identité civique et religieuse à travers les siècles, entre pouvoir municipal, foi des pèlerins et ambitions royales ?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"ancient\",\"focus\":\"Les racines gallo-romaines de Toulouse : la ville antique, ses remparts, ses martyrs chrétiens et ses premières basiliques qui fixent le cadre urbain et spirituel de la cité médiévale.\",\"evidenceRefs\":[\"c02:e05\",\"c06:e04\",\"c06:e05\",\"c10:e04\",\"c10:e05\",\"c01:e05\"]},{\"beatId\":\"b02\",\"contributionCode\":\"religious_identity\",\"era\":\"medieval\",\"focus\":\"La puissance religieuse médiévale : l'abbaye Saint-Sernin et ses reliques attirent pèlerins et donations, tandis que la cathédrale et les églises paroissiales structurent la vie spirituelle de la ville.\",\"evidenceRefs\":[\"c02:e04\",\"c02:e05\",\"c03:e04\",\"c04:e04\",\"c04:e05\",\"c09:e04\",\"c09:e05\"]},{\"beatId\":\"b03\",\"contributionCode\":\"civic_government\",\"era\":\"medieval\",\"focus\":\"L'émergence du pouvoir municipal des Capitouls : la construction du Capitole en 1190 affirme une autorité civique indépendante du château comtal, à la limite de la cité et du bourg.\",\"evidenceRefs\":[\"c01:e04\",\"c01:e05\",\"c05:e04\"]},{\"beatId\":\"b04\",\"contributionCode\":\"trade_economic_life\",\"era\":\"early_modern\",\"focus\":\"La richesse marchande de la Renaissance : les hôtels particuliers des capitouls et marchands pastelliers, comme Jean de Bernuy et Arnaud de Brucelles, témoignent de la prospérité économique qui finance l'architecture urbaine.\",\"evidenceRefs\":[\"c21:e04\",\"c21:e05\",\"c22:e04\",\"c14:e04\",\"c14:e05\",\"c15:e04\",\"c15:e05\"]},{\"beatId\":\"b05\",\"contributionCode\":\"royal_state_power\",\"era\":\"early_modern\",\"focus\":\"L'ambition royale et l'ingénierie : le Pont-Neuf, poussé par François Ier face à l'Espagne, et les églises baroques construites sous Louis XIII marquent l'emprise croissante de l'État royal sur la ville.\",\"evidenceRefs\":[\"c07:e04\",\"c07:e05\",\"c17:e04\",\"c17:e05\",\"c11:e04\"]},{\"beatId\":\"b06\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"nineteenth_century\",\"focus\":\"La transformation urbaine du XIXe siècle : la place royale devient place du Capitole, les places modernes (Wilson, Jeanne-d'Arc) redessinent la ville, et le palais Niel incarne la nouvelle élite impériale.\",\"evidenceRefs\":[\"c05:e04\",\"c05:e05\",\"c12:e04\",\"c24:e04\",\"c24:e05\",\"c19:e04\",\"c19:e05\"]},{\"beatId\":\"b07\",\"contributionCode\":\"memory_rights\",\"era\":\"contemporary\",\"focus\":\"La mémoire et la patrimonialisation : monuments historiques classés, reconversions (Château d'eau, églises), et commémorations contemporaines qui font de la ville un musée vivant de son propre passé.\",\"evidenceRefs\":[\"c20:e04\",\"c20:e05\",\"c08:e04\",\"c08:e05\",\"c09:e04\",\"c10:e05\"]}], \"candidates\": {\"c01\":{\"relativePriorityRank\":1,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"c01:e04\",\"c01:e05\"]},{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c05:e04\"]}]},\"c02\":{\"relativePriorityRank\":2,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"c02:e05\"]},{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"c02:e04\",\"c02:e05\"]}]},\"c03\":{\"relativePriorityRank\":6,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c03:e04\",\"c03:e05\"]}]},\"c04\":{\"relativePriorityRank\":7,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"early_modern\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"c04:e04\"]},{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c04:e04\",\"c04:e05\"]}]},\"c05\":{\"relativePriorityRank\":3,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"c05:e04\"]},{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"c05:e04\",\"c05:e05\"]}]},\"c06\":{\"relativePriorityRank\":8,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":0,\"eraBuckets\":[\"ancient\",\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"c06:e04\",\"c06:e05\"]}]},\"c07\":{\"relativePriorityRank\":4,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"c07:e04\",\"c07:e05\"]}]},\"c08\":{\"relativePriorityRank\":18,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"c08:e04\",\"c08:e05\"]}]},\"c09\":{\"relativePriorityRank\":12,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c09:e04\",\"c09:e05\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"c09:e04\"]}]},\"c10\":{\"relativePriorityRank\":10,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":2,\"resolutionFit\":0,\"eraBuckets\":[\"ancient\",\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"c10:e04\",\"c10:e05\"]}]},\"c11\":{\"relativePriorityRank\":16,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"c11:e04\"]}]},\"c12\":{\"relativePriorityRank\":14,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c12:e04\"]}]},\"c13\":{\"relativePriorityRank\":30,\"salienceLevel\":0,\"observableStrength\":0,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"c13:e04\"]}]},\"c14\":{\"relativePriorityRank\":9,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"c14:e04\",\"c14:e05\"]}]},\"c15\":{\"relativePriorityRank\":11,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"c15:e04\",\"c15:e05\"]}]},\"c16\":{\"relativePriorityRank\":25,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"c16:e04\"]}]},\"c17\":{\"relativePriorityRank\":15,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"c17:e04\",\"c17:e05\"]}]},\"c18\":{\"relativePriorityRank\":20,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"c18:e05\"]}]},\"c19\":{\"relativePriorityRank\":13,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c19:e04\",\"c19:e05\"]}]},\"c20\":{\"relativePriorityRank\":17,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"c20:e04\",\"c20:e05\"]}]},\"c21\":{\"relativePriorityRank\":5,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"c21:e04\",\"c21:e05\"]}]},\"c22\":{\"relativePriorityRank\":19,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"c22:e04\"]}]},\"c23\":{\"relativePriorityRank\":29,\"salienceLevel\":0,\"observableStrength\":0,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"c23:e04\"]}]},\"c24\":{\"relativePriorityRank\":21,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c24:e04\",\"c24:e05\"]}]},\"c25\":{\"relativePriorityRank\":26,\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"c25:e04\"]}]},\"c26\":{\"relativePriorityRank\":24,\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"c26:e04\"]}]},\"c27\":{\"relativePriorityRank\":22,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c27:e04\",\"c27:e05\"]}]},\"c28\":{\"relativePriorityRank\":27,\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"c28:e04\"]}]},\"c29\":{\"relativePriorityRank\":28,\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"c29:e04\"]}]},\"c30\":{\"relativePriorityRank\":23,\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"c30:e04\"]}]}}}",
+        "error": "candidates.c01.evidenceRefs contains invalid values"
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "ce0a215e48ae0501b99a3a51454b4268a8f936d3fb55e3e2d3d1957ce3938f39",
+    "input": {
+      "city": "Toulouse",
+      "theme": "history",
+      "language": "fr",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "capitole de Toulouse",
+          "category": "civic_power",
+          "fameScore": 28.82068586817104,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: public"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Guillaume Cammas"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture classique"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Sa construction a été décidée par les Capitouls en 1190, afin d’y établir le siège du pouvoir municipal."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Il est situé loin du château comtal à la limite de la cité et du bourg de Saint-Sernin contre une tour désaffectée de l'ancien rempart gallo-romain."
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "basilique Saint-Sernin de Toulouse",
+          "category": "religious",
+          "fameScore": 26.901319154423277,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: art roman"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La communauté de chanoines, constituée au plus tard au IXe siècle, forme le cœur vivant d'une puissante abbaye qui accumule les richesses grâce aux donations des Toulousains et des pèlerins,"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Elle est bâtie à la fin du XIe siècle pour abriter les reliques du premier évêque de Toulouse, saint Saturnin (Sarnin ou Sernin en occitan), l'un des premiers et plus vénérés martyrs chrétiens gallo-romains."
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "cathédrale Saint-Étienne de Toulouse",
+          "category": "religious",
+          "fameScore": 25.976952268336284,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture romane"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Ses premières traces datent de 1071, quand l'évêque Isarn de Lavaur décida de reconstruire l'édifice alors en ruine."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La cathédrale jouxte l'ancien palais épiscopal, aujourd'hui occupé par la préfecture."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "basilique de la Daurade de Toulouse",
+          "category": "religious",
+          "fameScore": 25.062388523751018,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture néoclassique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle a été totalement reconstruite à la fin du XVIIIe siècle sur le site de l'une des plus anciennes églises de Toulouse, qui fut probablement la chapelle des rois wisigoths et dont l'abside était couverte de mosaïques dorées paléochrétiennes (d'où le nom daurada, dorée)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Siège d'une abbaye bénédictine dont le prieur était l'un des principaux personnages de la Toulouse médiévale, elle était bordée de moulins jusqu'à la fin du XIVe siècle et donnait sur le principal pont de Toulouse du XIIe au XVIIe siècle, le pont de la Daurade."
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "place du Capitole",
+          "category": "square_civic",
+          "fameScore": 23.672064766172813,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Toulouse"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fruit de l'urbanisme classique et de la volonté de doter la ville d'une vaste place, les premiers projets de « place royale » voient le jour à la fin du XVIIe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La place, pavée de granit rose, est ornée en 1995 d'une grande croix de Toulouse par l'artiste Raymond Moretti."
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "église Notre-Dame du Taur",
+          "category": "religious",
+          "fameScore": 23.178294855911894,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: gothique méridional"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "C'est à la fin du IVe siècle que l'évêque de Toulouse, Hilaire, aurait commencé la construction d'un sanctuaire dédié au culte du martyr – un martyrium – : il s'agirait d'une voûte en brique surmontée d'un petit oratoire construit avec du matériel ordinaire."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Un martyrium y aurait été construit par les évêques Hilaire et Silve, à la fin du IVe siècle."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "Pont-Neuf",
+          "category": "other",
+          "fameScore": 23.128294855911893,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "De plus, Lemercier fit la synthèse entre des ponts de l'Antiquité romaine, pour l'emploi des becs superposés destinés à écarter le courant et pour les ouvertures sur les piles, et des ouvrages de la Renaissance italienne tels le pont Sisto de Rome pour ses oculus ou le pont Santa"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Nicolas Bachelier"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le Pont-Neuf constituait autrefois une entrée de la cité, symbolisée sur la rive gauche par un arc de triomphe (détruit en 1860) portant une statue équestre du roi Louis XIII."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Envisagée par les capitouls dès la fin du XVe siècle, la décision de construire un grand pont sur la Garonne à Toulouse fut poussée par le roi François Ier qui y voyait un intérêt stratégique face à l'Espagne alors menaçante de Charles Quint."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "église des Cordeliers de Toulouse",
+          "category": "religious",
+          "fameScore": 22.215784284662085,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: church"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle ferme après un incendie en 1798, puis est occupée par l'administration militaire jusqu'en 1871 où elle est ravagée par un nouvel incendie."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Les ruines de cette église sont classées monument historique depuis 1862."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "église Notre-Dame de la Dalbade",
+          "category": "religious",
+          "fameScore": 21.8,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Symbole du pouvoir ecclésiastique, sa flèche qui culminait à 87 m est démontée en 1795, puis reconstruite en 1881 à une hauteur de 81 m (selon la plaque mémorielle sur le site)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire La première église tint place de 541 à la fin du XVe siècle à l'emplacement d'un premier oratoire."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "église Saint-Pierre-des-Cuisines",
+          "category": "religious",
+          "fameScore": 21.222064766172814,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture romane"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle est construite sur une ancienne nécropole gallo-romaine du IVe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "L'église renferme une crypte archéologique présentant les vestiges d'une basilique paléochrétienne du IVe siècle et d'une église pré-romane."
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "église Saint-Pierre des Chartreux de Toulouse",
+          "category": "religious",
+          "fameScore": 20.55488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture baroque"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle doit son nom à la communauté monastique des Chartreux qui l'édifia au début du XVIIe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1780 les Chartreux renouvellent le décor du transept qui présentait jusque là un plafond peint à fresque."
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "place Wilson",
+          "category": "square_civic",
+          "fameScore": 19.615784284662087,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique inscrit"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Odonymie La place porte le nom de Thomas Woodrow Wilson (1856-1924), 28e président des États-Unis de 1912 à 1920."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "On trouve à proximité les arrêts des lignes de Linéo L1L8L9L14 et de bus 1523."
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Claude Nougaro",
+          "category": "memorial",
+          "fameScore": 19.501319154423275,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 30"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Charles de Gaulle"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Sa construction a été décidée par les Capitouls en 1190, afin d’y établir le siège du pouvoir municipal."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Il est situé loin du château comtal à la limite de la cité et du bourg de Saint-Sernin contre une tour désaffectée de l'ancien rempart gallo-romain."
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "hôtel de Bagis",
+          "category": "other",
+          "fameScore": 19.172064766172813,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Nicolas Bachelier"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture de la Renaissance"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Les Toulousains l'appellent l’« hôtel de pierre », car sa façade est toute en pierre, ce qui était unique à Toulouse au XVIIe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La construction d'un premier hôtel débute en 1537 sous la direction du célèbre architecte toulousain Nicolas Bachelier : la façade sur cour aux Atlantes en est le plus beau témoin."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "hôtel du Vieux-Raisin",
+          "category": "other",
+          "fameScore": 17.715784284662085,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'évêque Pierre de Lancrau, propriétaire de 1580 à 1591, fait surélever la grande tour d'escalier et orner la cour de plusieurs spectaculaires fenêtres à atlantes."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire Cet hôtel date de 1518, et constitue sûrement un des plus beaux hôtels particuliers de l'époque."
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "chapelle des Carmélites de Toulouse",
+          "category": "religious",
+          "fameScore": 17.554887502163467,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture baroque"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Chapelle des Carmélites peut désigner : la chapelle des Carmélites de Dijon ; la chapelle des Carmélites de Lectoure ; la chapelle des Carmélites de Toulouse."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Voir aussi Couvent des Carmélites"
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "église Saint-Jérôme de Toulouse",
+          "category": "religious",
+          "fameScore": 17.05488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Pierre Levesville"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture baroque"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle a été édifiée au XVIIe siècle par l'architecte Pierre Levesville sous Louis XIII, premier roi de France membre de la confrérie."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La nouvelle chapelle est édifiée à partir de 1622 par l'architecte Pierre Levesville."
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "église Saint-Nicolas de Toulouse",
+          "category": "religious",
+          "fameScore": 17.05488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'église fait l'objet d’un classement au titre des monuments historiques depuis le 24 juillet 1986."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Intérieur La nef La nef de style gothique méridional, dont la construction est attribuée à Jean Constantin, est datée du milieu de XVe siècle et est divisée en cinq travées."
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "palais Niel",
+          "category": "palace_castle",
+          "fameScore": 17.05,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: palais"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Toulouse"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le palais Niel est la plus prestigieuse demeure construite à Toulouse au cours du XIXe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Elle fut construite pour le maréchal de France Adolphe Niel entre 1863 et 1868."
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "Le Château d'eau",
+          "category": "museum",
+          "fameScore": 16.809775004326937,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: water_tower"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique inscrit"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: château d'eau"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Il a été reconverti en 1974 en espace d'exposition consacré à la photographie et est désormais un lieu très apprécié des Toulousains, en même temps qu'un haut lieu de culture."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Le bâtiment et sa station de pompage font l’objet d’une inscription au titre des monuments historiques depuis le 28 septembre 1987."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "hôtel de Jean Bernuy",
+          "category": "other",
+          "fameScore": 16.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Il est élevé entre 1503 et 1536, en plusieurs campagnes de construction, pour le compte de Jean de Bernuy, riche marchand pastellier qui accède au capitoulat en 1534-1535."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1501, il obtient des lettres de naturalité et de bourgeoisie."
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "hôtel d'Arnaud de Brucelles",
+          "category": "other",
+          "fameScore": 16.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique inscrit"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'hôtel de Brucelles se situe au 19 rue des Changes, dans le centre historique de Toulouse et fut construit de 1527 à 1535 pour le capitoul Arnaud de Brucelles."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Cet hôtel particulier est inscrit monument historique le 18 septembre 1925."
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "square Charles-de-Gaulle",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 30"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Charles de Gaulle"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Sa construction a été décidée par les Capitouls en 1190, afin d’y établir le siège du pouvoir municipal."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Il est situé loin du château comtal à la limite de la cité et du bourg de Saint-Sernin contre une tour désaffectée de l'ancien rempart gallo-romain."
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "place Jeanne-d'Arc",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Jeanne d'Arc"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Odonymie La place porte le nom de Jeanne d'Arc (vers 1412-1431), héroïne de l'histoire de France, chef de guerre et sainte de l'Église catholique."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Depuis son aménagement, au début du XIXe siècle, la place portait le nom de Matabiau, qui s'appliquait à ce quartier depuis le XIe siècle."
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "place Charles-Laganne",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Charles Laganne"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Depuis 2004, le cœur de la place est l'esplanade Jean-Dieuzaide."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La place Charles-Laganne (en occitan : plaça Carles Lagana) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "place des Hauts-Murats",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Toulouse"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle est bordée au nord par la rue Furgole et l'ancien hôtel Furgole, à l'ouest par l'église du Gésu et au sud par les anciens bâtiments de l'ancienne prison des Hauts-Murats."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La place des Hauts-Murats (en occitan : plaça dels Auts Murats) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "Place Saint-Sernin",
+          "category": "square_civic",
+          "fameScore": 14.649999999999999,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: art roman"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La communauté de chanoines, constituée au plus tard au IXe siècle, forme le cœur vivant d'une puissante abbaye qui accumule les richesses grâce aux donations des Toulousains et des pèlerins,"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Elle est bâtie à la fin du XIe siècle pour abriter les reliques du premier évêque de Toulouse, saint Saturnin (Sarnin ou Sernin en occitan), l'un des premiers et plus vénérés martyrs chrétiens gallo-romains."
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Église du Gésu",
+          "category": "religious",
+          "fameScore": 13.3,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Toulouse"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Elle est bordée au nord par la rue Furgole et l'ancien hôtel Furgole, à l'ouest par l'église du Gésu et au sud par les anciens bâtiments de l'ancienne prison des Hauts-Murats."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La place des Hauts-Murats (en occitan : plaça dels Auts Murats) est une voie de Toulouse, chef-lieu de la région Occitanie, dans le Midi de la France."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Hôtel Boysson",
+          "category": "other",
+          "fameScore": 13.215784284662087,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique inscrit"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'hôtel de Brucelles se situe au 19 rue des Changes, dans le centre historique de Toulouse et fut construit de 1527 à 1535 pour le capitoul Arnaud de Brucelles."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Cet hôtel particulier est inscrit monument historique le 18 septembre 1925."
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "Hôtel Magnier et Jean-Burnet",
+          "category": "other",
+          "fameScore": 13.215784284662087,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: monument historique classé"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'évêque Pierre de Lancrau, propriétaire de 1580 à 1591, fait surélever la grande tour d'escalier et orner la cour de plusieurs spectaculaires fenêtres à atlantes."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire Cet hôtel date de 1518, et constitue sûrement un des plus beaux hôtels particuliers de l'époque."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": null,
+  "routeCriticCall": null,
+  "failure": {
+    "stage": "story_map",
+    "message": "candidates.c01.evidenceRefs contains invalid values"
+  }
+}

@@ -1,0 +1,1438 @@
+{
+  "schemaVersion": 1,
+  "city": "Segovia",
+  "theme": "history",
+  "language": "es",
+  "capturedAt": "2026-08-06T18:46:41.783Z",
+  "wikidata": {
+    "Q244947": {
+      "wikidataId": "Q244947",
+      "nameTranslations": {
+        "zh-hans": "塞哥维亚输水道",
+        "zh-hant": "塞哥維亞輸水道",
+        "zh-hk": "塞哥維亞輸水道",
+        "zh-cn": "塞哥维亚输水道",
+        "zh-sg": "塞哥维亚输水道",
+        "zh-tw": "塞哥維亞輸水道",
+        "eu": "Segoviako akueduktua",
+        "pl": "Akwedukt w Segowii",
+        "fr": "aqueduc de Ségovie",
+        "he": "אמת המים של סגוביה",
+        "es": "Acueducto de Segovia",
+        "hu": "Segovia római vízvezetéke",
+        "it": "acquedotto di Segovia",
+        "gl": "Acueduto de Segovia",
+        "de": "Aquädukt von Segovia",
+        "vi": "Cầu máng ở Segovia",
+        "sv": "Segoviaakvedukten",
+        "nl": "aquaduct van Segovia",
+        "pt": "Aqueduto de Segóvia",
+        "eo": "Akvedukto de Segovio",
+        "xmf": "სეგოვიაშ აკვედუკი",
+        "sk": "Akvadukt v Segovii",
+        "ru": "Акведук в Сеговии",
+        "hy": "Ջրանցույց",
+        "en": "Aqueduct of Segovia",
+        "ca": "Aqüeducte de Segòvia",
+        "fi": "Segovian akvedukti",
+        "uk": "Акведук в Сеговії",
+        "cs": "Akvadukt v Segovii",
+        "bg": "Акведукт в Сеговия",
+        "fa": "آب‌گذر سگوبیا",
+        "ka": "სეგოვიის აკვედუკი",
+        "hr": "Akvedukt u Segoviji",
+        "lt": "Segovijos akvedukas",
+        "ar": "قناة شقوبية",
+        "zh": "塞哥维亚输水道",
+        "sh": "Akvedukt u Segoviji",
+        "nb": "Akvedukten i Segovia",
+        "de-ch": "Aquädukt von Segovia",
+        "en-ca": "Aqueduct of Segovia",
+        "en-gb": "Aqueduct of Segovia",
+        "lb": "Aquaeduc vu Segovia",
+        "pt-br": "Aqueduto de Segóvia",
+        "id": "Akuaduk Segovia",
+        "la": "Aquae Ductus Segoviensis",
+        "az": "Seqoviya akveduku",
+        "el": "Υδραγωγείο της Σεγόβια",
+        "gn": "Ymboguataha Segovia",
+        "hi": "सेगोविया का जल-मार्ग",
+        "pa": "ਸੇਗੋਵੀਆ ਦਾ ਜਲ-ਮਾਰਗ",
+        "sl": "Akvadukt",
+        "io": "Aquedukto di Segovia",
+        "ja": "セゴビアの水道橋",
+        "sco": "Aqueduct o Segovia",
+        "ceb": "Aqueduct of Segovia",
+        "ms": "Akueduk Segovia",
+        "lv": "Segovijas akvedukts",
+        "bho": "सेगोविया के एक्वाडक्ट",
+        "tr": "Segovia Su Kemeri",
+        "ml": "സെഗോവിയയിലെ അക്വിഡറ്റ്",
+        "lfn": "Acuaduto de Segovia",
+        "mk": "Сеговиски аквадукт",
+        "sr": "Аквадукт у Сеговији",
+        "yue": "塞哥維亞水道",
+        "my": "ဆေဂိုဗီယာ ရေသယ်တံတားများ",
+        "war": "Acueducto han Segovia",
+        "ko": "세고비아 수도교"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q244947",
+      "wikidataClaims": {
+        "instanceOf": "puente de fábrica",
+        "inception": "0200-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Acueducto de Segovia"
+    },
+    "Q1499912": {
+      "wikidataId": "Q1499912",
+      "nameTranslations": {
+        "hi": "केथेड्रल डि सेगोविआ",
+        "pt": "Catedral de Segóvia",
+        "zh-hans": "塞哥维亚主教座堂",
+        "zh-hant": "塞哥維亞主教座堂",
+        "zh-hk": "塞哥維亞主教座堂",
+        "eo": "Katedralo de Segovio",
+        "pl": "Katedra w Segowii",
+        "fr": "cathédrale de Ségovie",
+        "he": "קתדרלת סגוביה",
+        "es": "Catedral de Santa María de Segovia",
+        "en": "Segovia Cathedral",
+        "uk": "Сеговійський собор",
+        "it": "cattedrale di Segovia",
+        "de": "Kathedrale von Segovia",
+        "nl": "Kathedraal van Segovia",
+        "zh": "塞哥维亚主教座堂",
+        "ko": "세고비아 대성당",
+        "de-ch": "Kathedrale von Segovia",
+        "el": "Καθεδρικός της Σεγόβια",
+        "en-ca": "Segovia Cathedral",
+        "en-gb": "Segovia Cathedral",
+        "pa": "ਸੇਗੋਵੀਆ ਗਿਰਜਾਘਰ",
+        "pt-br": "Catedral de Segóvia",
+        "vi": "Nhà thờ chính tòa Segovia",
+        "ru": "Сеговийский собор",
+        "sl": "stolnica v Segovii",
+        "ca": "Catedral de Segòvia",
+        "ja": "セゴビア大聖堂",
+        "eu": "Segoviako katedrala",
+        "hy": "Սեգովիայի տաճար",
+        "id": "Katedral Segovia",
+        "fa": "کلیسای جامع سگوبیا",
+        "ar": "كاتدرائية سيغوفيا",
+        "arz": "كاتدرائيه سيجوفيا",
+        "fy": "Katedraal fan Segovia",
+        "cs": "Katedrála v Segovii",
+        "az": "Seqoviya kafedralı",
+        "tr": "Segovia Katedrali"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1499912",
+      "wikidataClaims": {
+        "instanceOf": "catedral católica",
+        "inception": "1525-00-00",
+        "architect": "Rodrigo Gil de Hontañón",
+        "architecturalStyle": "arquitectura gótica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Asunción de María"
+      },
+      "wikipediaTag": "es:Catedral de Segovia"
+    },
+    "Q1972987": {
+      "wikidataId": "Q1972987",
+      "nameTranslations": {
+        "pt": "Palácio Real de Riofrio",
+        "de": "Palacio Real",
+        "bg": "Риофрио",
+        "fr": "palais royal de Riofrío",
+        "es": "Palacio Real de Riofrío",
+        "en": "Royal Palace of Riofrío",
+        "ca": "Palau Reial de Riofrío",
+        "it": "palazzo reale di Riofrío",
+        "eu": "Riofríoko Errege Jauregia",
+        "zh": "里奧弗里奧王宮",
+        "zh-hant": "里奧弗里奧王宮",
+        "sco": "Ryal Pailace o Riofrío",
+        "hu": "Riofríói királyi palota"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1972987",
+      "wikidataClaims": {
+        "instanceOf": "residencia real",
+        "inception": "1751-00-00",
+        "architect": "Virgilio Rabaglio",
+        "architecturalStyle": "arquitectura barroca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Real Sitio de San Ildefonso"
+      },
+      "wikipediaTag": "es:Palacio Real de Riofrío"
+    },
+    "Q113573245": {
+      "wikidataId": "Q113573245",
+      "nameTranslations": {
+        "en": "Casa de los Marqueses de Moya",
+        "es": "Casa de las Cadenas",
+        "fr": "Casa de las Cadenas"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q113573245",
+      "wikidataClaims": {
+        "instanceOf": "casa",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Casa de las Cadenas (Segovia)"
+    },
+    "Q1046543": {
+      "wikidataId": "Q1046543",
+      "nameTranslations": {
+        "de": "Casa de los Picos",
+        "es": "Casa de los Picos",
+        "fr": "Casa de los Picos",
+        "en": "Casa de los Picos",
+        "ca": "Casa de los Picos",
+        "gl": "Casa de los Picos"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1046543",
+      "wikidataClaims": {
+        "instanceOf": "mansión",
+        "inception": "1500-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Casa de los Picos"
+    },
+    "Q24023788": {
+      "wikidataId": "Q24023788",
+      "nameTranslations": {
+        "ceb": "Plaza de Toros (ampitiyatro sa Espanya, Castilla y León, Provincia de Segovia)",
+        "sv": "Plaza de Toros (amfiteater i Spanien, Kastilien och Leon, Provincia de Segovia)",
+        "es": "plaza de toros de Segovia",
+        "de": "plaza de toros de Segovia",
+        "en": "plaza de toros de Segovia",
+        "fr": "plaza de toros de Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q24023788",
+      "wikidataClaims": {
+        "instanceOf": "plaza de toros",
+        "inception": "1805-01-01",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza de toros de Segovia"
+    },
+    "Q18194102": {
+      "wikidataId": "Q18194102",
+      "nameTranslations": {
+        "es": "puerta de San Andrés",
+        "en": "Puerta de San Andrés",
+        "arz": "بويرتا دى سان اندريس"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q18194102",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "heritageDesignation": "monumento histórico-artístico",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Puerta de San Andrés"
+    },
+    "Q63872631": {
+      "wikidataId": "Q63872631",
+      "nameTranslations": {
+        "es": "Alhóndiga de Segovia",
+        "br": "Alhóndiga de Segovia",
+        "co": "Alhóndiga de Segovia",
+        "da": "Alhóndiga de Segovia",
+        "de": "Alhóndiga de Segovia",
+        "en": "Alhóndiga de Segovia",
+        "fr": "Alhóndiga de Segovia",
+        "id": "Alhóndiga de Segovia",
+        "it": "Alhóndiga de Segovia",
+        "nds": "Alhóndiga de Segovia",
+        "nl": "Alhóndiga de Segovia",
+        "pt": "Alhóndiga de Segovia",
+        "ro": "Alhóndiga de Segovia",
+        "sv": "Alhóndiga de Segovia",
+        "ty": "Alhóndiga de Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q63872631",
+      "wikidataClaims": {
+        "instanceOf": "alhóndiga",
+        "inception": "1600-00-00",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Alhóndiga de Segovia"
+    },
+    "Q56670038": {
+      "wikidataId": "Q56670038",
+      "nameTranslations": {
+        "en": "Palace of Quintanar",
+        "es": "Palacio de los Marqueses de Quintanar"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q56670038",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "locatedIn": "Segovia",
+        "namedAfter": "Marquesado de Quintanar"
+      },
+      "wikipediaTag": "es:Palacio de los Marqueses de Quintanar (Segovia)"
+    },
+    "Q110809652": {
+      "wikidataId": "Q110809652",
+      "nameTranslations": {
+        "es": "Casa de la Tierra",
+        "en": "Casa de la Tierra",
+        "ca": "Casa de la Tierra"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q110809652",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1746-00-00",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Casa de la Tierra (Segovia)"
+    },
+    "Q21006939": {
+      "wikidataId": "Q21006939",
+      "nameTranslations": {
+        "es": "Palacio de Enrique IV",
+        "en": "Palacio de Enrique IV, Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q21006939",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Palacio de Enrique IV"
+    },
+    "Q42912722": {
+      "wikidataId": "Q42912722",
+      "nameTranslations": {
+        "es": "Torreón de Lozoya",
+        "en": "Torreón de Lozoya",
+        "fr": "Torreón de Lozoya"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q42912722",
+      "wikidataClaims": {
+        "instanceOf": "torre",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Torreón de Lozoya"
+    },
+    "Q5692199": {
+      "wikidataId": "Q5692199",
+      "nameTranslations": {
+        "es": "Real Casa de la Moneda",
+        "gl": "Real Casa da Moeda de Segovia",
+        "en": "The Coining House, Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5692199",
+      "wikidataClaims": {
+        "instanceOf": "fábrica",
+        "inception": "1583-00-00",
+        "architect": "Juan de Herrera",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Real Casa de la Moneda (Segovia)"
+    },
+    "Q109337792": {
+      "wikidataId": "Q109337792",
+      "nameTranslations": {
+        "en": "Puerta de la Claustra",
+        "es": "Puerta de la Claustra"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q109337792",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Puerta de la Claustra (Segovia)"
+    },
+    "Q104621586": {
+      "wikidataId": "Q104621586",
+      "nameTranslations": {
+        "en": "Monastery of Santa María de los Huertos",
+        "es": "Monasterio de Santa María de los Huertos"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q104621586",
+      "wikidataClaims": {
+        "instanceOf": "monasterio",
+        "inception": "1180-00-00",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Monasterio de Nuestra Señora de los Huertos (Segovia)"
+    },
+    "Q557337": {
+      "wikidataId": "Q557337",
+      "nameTranslations": {
+        "pt": "Alcázar Real de Segóvia",
+        "zh-hans": "塞哥维亚皇家城堡",
+        "zh-hant": "塞哥維亞皇家城堡",
+        "zh-hk": "塞哥維亞皇家城堡",
+        "eo": "Reĝa Alkazaro de Segovio",
+        "pl": "Królewski Alkazar w Segowii",
+        "eu": "Segoviako Errege Alkazarra",
+        "he": "האלקסר המלכותי של סגוביה",
+        "fr": "Alcázar royal de Ségovie",
+        "ru": "Королевский Алькасар в Сеговии",
+        "es": "Real Alcázar de Segovia",
+        "en": "Royal Alcázar of Segovia",
+        "ca": "Reial Alcàsser de Segòvia",
+        "uk": "Королівський Алькасар у Сеговії",
+        "it": "Alcázar Reale di Segovia",
+        "de": "Königlicher Alcázar von Segovia",
+        "ja": "セゴビア王立アルカサル",
+        "bg": "Кралският Алкасар в Сеговия",
+        "pnb": "سیگوویا دا شاہی الکازار",
+        "ar": "قصر شقوبية الملكي",
+        "sco": "Royal Alcázar o Segovia",
+        "nb": "Det kongelige Alcázar i Segovia",
+        "de-ch": "Königlicher Alcázar von Segovia",
+        "en-ca": "Royal Alcázar of Segovia",
+        "pt-br": "Alcázar Real de Segóvia",
+        "vi": "Alcázar Hoàng gia Segovia",
+        "zh": "塞哥维亚皇家城堡",
+        "ko": "세고비아 왕립 알카사르",
+        "az": "Seqoviya Əlqasarı",
+        "nl": "Koninklijk Alcázar van Segovia",
+        "el": "Βασιλικό Αλκάθαρ της Σεγόβια",
+        "pa": "ਸੇਗੋਵੀਆ ਦਾ ਸ਼ਾਹੀ ਅਲਕਾਜ਼ਾਰ",
+        "hi": "सेगोविया का शाही अल्काज़ार",
+        "ur": "شاہی الکازارِ سیگوویہ",
+        "sl": "Kraljevi Alcázar v Segovii",
+        "hy": "Սեգովիայի Թագավորական Ալկասար",
+        "cs": "Královský Alcázar v Segovii",
+        "hr": "Kraljevski Alcázar u Segoviji",
+        "gl": "Alcázar Real de Segovia",
+        "fa": "آلکازار سلطنتی سگوبیا",
+        "id": "Alcázar Kerajaan Segovia",
+        "uz": "Segoviya Qirollik Alkazari",
+        "mul": "Real Alcázar de Segovia",
+        "lt": "Segovijos Karališkasis Alkazaras",
+        "en-us": "Royal Alcázar of Segovia",
+        "tr": "Segovia Alkazarı",
+        "ro": "Alcazarul din Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q557337",
+      "wikidataClaims": {
+        "instanceOf": "alcázar",
+        "inception": "1200-00-00",
+        "architect": "Francisco de Mora",
+        "architecturalStyle": "arquitectura herreriana",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Alcázar de Segovia"
+    },
+    "Q41532894": {
+      "wikidataId": "Q41532894",
+      "nameTranslations": {
+        "es": "Plaza Mayor",
+        "fr": "Plaza Mayor",
+        "en": "Plaza Mayor"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q41532894",
+      "wikidataClaims": {
+        "instanceOf": "plaza mayor",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza Mayor de Segovia"
+    },
+    "Q1799223": {
+      "wikidataId": "Q1799223",
+      "nameTranslations": {
+        "de": "La Vera Cruz in Segovia",
+        "pt": "Igreja de Vera Cruz de Segóvia",
+        "es": "iglesia de la Vera Cruz",
+        "en": "La Vera Cruz Church",
+        "fr": "église de la Vera Cruz"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1799223",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Vera Cruz"
+      },
+      "wikipediaTag": "es:Iglesia de la Vera Cruz (Segovia)"
+    },
+    "Q16615259": {
+      "wikidataId": "Q16615259",
+      "nameTranslations": {
+        "es": "Palacio de Xifré",
+        "br": "Palacio de Xifré",
+        "co": "Palacio de Xifré",
+        "da": "Palacio de Xifré",
+        "de": "Palacio de Xifré",
+        "en": "Palacio de Xifré",
+        "fr": "Palacio de Xifré",
+        "id": "Palacio de Xifré",
+        "it": "Palacio de Xifré",
+        "nds": "Palacio de Xifré",
+        "nl": "Palacio de Xifré",
+        "pt": "Palacio de Xifré",
+        "ro": "Palacio de Xifré",
+        "sv": "Palacio de Xifré",
+        "ty": "Palacio de Xifré"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q16615259",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "inception": "1858-00-00",
+        "architect": "Émile Boeswillwald",
+        "architecturalStyle": "neomudéjar",
+        "locatedIn": "Madrid"
+      },
+      "wikipediaTag": "es:Palacio de Xifré"
+    },
+    "Q32037230": {
+      "wikidataId": "Q32037230",
+      "nameTranslations": {
+        "en": "Casa del Mayorazgo de los Cáceres",
+        "es": "Casa del Mayorazgo de los Cáceres"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q32037230",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Casa del Mayorazgo de los Cáceres"
+    },
+    "Q85689848": {
+      "wikidataId": "Q85689848",
+      "nameTranslations": {
+        "es": "Biblioteca Pública Municipal - Casa de la Lectura",
+        "en": "House of Reading-Municipal Library of Segovia",
+        "mul": "Biblioteca Pública Municipal - Casa de la Lectura",
+        "fr": "Bibliothèque municipale de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q85689848",
+      "wikidataClaims": {
+        "instanceOf": "biblioteca pública",
+        "inception": "2017-01-01",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Casa de la Lectura-Biblioteca Municipal de Segovia"
+    },
+    "Q97058479": {
+      "wikidataId": "Q97058479",
+      "nameTranslations": {
+        "en": "Palace of the Marqués del Arco",
+        "es": "Palacio del Marqués del Arco"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97058479",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1560-00-00",
+        "architect": "Rodrigo Gil de Hontañón",
+        "architecturalStyle": "plateresco",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Palacio del Marqués del Arco"
+    },
+    "Q118189645": {
+      "wikidataId": "Q118189645",
+      "nameTranslations": {
+        "es": "plaza de Adolfo Suárez"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118189645",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia",
+        "namedAfter": "Adolfo Suárez"
+      },
+      "wikipediaTag": "es:Plaza de Adolfo Suárez"
+    },
+    "Q56698012": {
+      "wikidataId": "Q56698012",
+      "nameTranslations": {
+        "es": "Casa de los Solier",
+        "en": "Casa de los Solier"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q56698012",
+      "wikidataClaims": {
+        "instanceOf": "casa",
+        "architecturalStyle": "plateresco",
+        "locatedIn": "Segovia"
+      }
+    },
+    "Q56697769": {
+      "wikidataId": "Q56697769",
+      "nameTranslations": {
+        "es": "Palacio de Azpiroz",
+        "en": "Palacio Azpiroz"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q56697769",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1500-00-00",
+        "locatedIn": "Segovia"
+      }
+    },
+    "Q105405842": {
+      "wikidataId": "Q105405842",
+      "nameTranslations": {
+        "en": "Palace del Conde de Cheste",
+        "es": "Palace of Juan Contreras"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q105405842",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1500-00-00",
+        "locatedIn": "Segovia"
+      }
+    },
+    "Q6139765": {
+      "wikidataId": "Q6139765",
+      "nameTranslations": {
+        "es": "Teatro Juan Bravo",
+        "en": "Teatro Juan Bravo",
+        "fr": "théâtre Juan Bravo",
+        "ca": "Teatro Juan Bravo",
+        "gl": "Teatro Juan Bravo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6139765",
+      "wikidataClaims": {
+        "instanceOf": "teatro",
+        "inception": "1918-10-26",
+        "architect": "Francisco Javier Cabello y Rodero",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Juan Bravo"
+      },
+      "wikipediaTag": "es:Teatro Juan Bravo"
+    },
+    "Q1997245": {
+      "wikidataId": "Q1997245",
+      "nameTranslations": {
+        "pt": "Mosteiro de Santa Maria del Parral",
+        "ru": "Эль-Парраль",
+        "en": "Monastery of Santa María del Parral",
+        "es": "Monasterio de Santa María del Parral",
+        "el": "Μοναστήρι του Ελ Παρράλ",
+        "en-ca": "Santa Maria del Parral",
+        "en-gb": "Santa Maria del Parral",
+        "pt-br": "Mosteiro de Santa Maria del Parral",
+        "gl": "Mosteiro de Santa Maria del Parral",
+        "it": "Monastero di Santa Maria del Parral"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1997245",
+      "wikidataClaims": {
+        "instanceOf": "monasterio católico latino",
+        "inception": "1447-00-00",
+        "architecturalStyle": "arquitectura gótica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Monasterio de Santa María del Parral"
+    },
+    "Q8350468": {
+      "wikidataId": "Q8350468",
+      "nameTranslations": {
+        "es": "Convento de Santa Cruz la Real",
+        "la": "Conventus Sanctae Crucis Segobiensis",
+        "ru": "Санта-Крус-ла-Реал",
+        "en": "Monastery of Santa Cruz la Real, Segovia",
+        "fa": "صومعه سانتا کروز لا رئال"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q8350468",
+      "wikidataClaims": {
+        "instanceOf": "convento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Convento de Santa Cruz la Real"
+    },
+    "Q16620289": {
+      "wikidataId": "Q16620289",
+      "nameTranslations": {
+        "es": "Plaza del Azoguejo",
+        "en": "Plaza del Azoguejo",
+        "eu": "Azoguejo enparantza",
+        "gl": "Praza del Azoguejo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q16620289",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia",
+        "namedAfter": "mercadotecnia"
+      },
+      "wikipediaTag": "es:Plaza del Azoguejo"
+    },
+    "Q97059099": {
+      "wikidataId": "Q97059099",
+      "nameTranslations": {
+        "en": "Episcopal palace of Segovia",
+        "es": "Palacio episcopal de Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q97059099",
+      "wikidataClaims": {
+        "instanceOf": "palacio episcopal",
+        "inception": "1550-00-00",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Palacio Episcopal de Segovia"
+    },
+    "Q131927127": {
+      "wikidataId": "Q131927127",
+      "nameTranslations": {
+        "es": "El Berrocal",
+        "en": "El Berrocal",
+        "ca": "El Berrocal",
+        "gl": "El Berrocal"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q131927127",
+      "wikidataClaims": {
+        "instanceOf": "formación geológica",
+        "locatedIn": "Ortigosa del Monte"
+      }
+    },
+    "Q7085486": {
+      "wikidataId": "Q7085486",
+      "nameTranslations": {
+        "lad": "Antika Sinagoga Mayor",
+        "en": "old main synagogue",
+        "hu": "régi főzsinagóga",
+        "es": "Convento del Corpus Christi",
+        "de": "Convento del Corpus Cristi",
+        "it": "Antigua Sinagoga Mayor",
+        "zh": "舊主猶太會堂",
+        "fr": "ancienne synagogue de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q7085486",
+      "wikidataClaims": {
+        "instanceOf": "monasterio",
+        "architecturalStyle": "mudéjar",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Convento del Corpus Christi (Segovia)"
+    },
+    "Q32154604": {
+      "wikidataId": "Q32154604",
+      "nameTranslations": {
+        "en": "Church of San Lorenzo",
+        "es": "iglesia de San Lorenzo",
+        "fr": "église Saint-Laurent de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q32154604",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Lorenzo de Roma"
+      },
+      "wikipediaTag": "es:Iglesia de San Lorenzo (Segovia)"
+    },
+    "Q118286985": {
+      "wikidataId": "Q118286985",
+      "nameTranslations": {
+        "es": "plaza de San Lorenzo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118286985",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia",
+        "namedAfter": "iglesia de San Lorenzo"
+      },
+      "wikipediaTag": "es:Plaza de San Lorenzo (Segovia)"
+    },
+    "Q29323795": {
+      "wikidataId": "Q29323795",
+      "nameTranslations": {
+        "es": "plaza de Santa Eulalia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q29323795",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza de Santa Eulalia (Segovia)"
+    },
+    "Q19950092": {
+      "wikidataId": "Q19950092",
+      "nameTranslations": {
+        "es": "iglesia de San Esteban",
+        "en": "Church of San Esteban",
+        "fr": "église Saint-Étienne de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q19950092",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "locatedIn": "Segovia",
+        "namedAfter": "Esteban"
+      },
+      "wikipediaTag": "es:Iglesia de San Esteban (Segovia)"
+    },
+    "Q30001710": {
+      "wikidataId": "Q30001710",
+      "nameTranslations": {
+        "en": "Church of San Juan de los Caballeros",
+        "es": "iglesia de San Juan de los Caballeros",
+        "fr": "église de San Juan de los Caballeros",
+        "eu": "San Juan de los Caballeros eliza"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q30001710",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Iglesia de San Juan de los Caballeros (Segovia)"
+    },
+    "Q118230893": {
+      "wikidataId": "Q118230893",
+      "nameTranslations": {
+        "es": "plaza de la Rubia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118230893",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza de la Rubia"
+    },
+    "Q118146453": {
+      "wikidataId": "Q118146453",
+      "nameTranslations": {
+        "es": "plaza de San Facundo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118146453",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia",
+        "namedAfter": "iglesia de San Facundo"
+      },
+      "wikipediaTag": "es:Plaza de San Facundo"
+    },
+    "Q5754826": {
+      "wikidataId": "Q5754826",
+      "nameTranslations": {
+        "es": "Casa de Esquileo de Santillana",
+        "en": "Casa de Esquileo de Santillana",
+        "ca": "Casa de Esquileo de Santillana",
+        "gl": "Casa de Esquileo de Santillana"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5754826",
+      "wikidataClaims": {
+        "instanceOf": "edificio",
+        "inception": "1744-00-00",
+        "locatedIn": "provincia de Segovia"
+      },
+      "wikipediaTag": "es:Casa de Esquileo de Santillana"
+    },
+    "Q131310373": {
+      "wikidataId": "Q131310373",
+      "nameTranslations": {
+        "es": "Estación de Hontoria",
+        "en": "Hontoria railway station",
+        "ca": "Estació d' Hontòria",
+        "gl": "Estación de Hontoria",
+        "vec": "stasion de Hontoria",
+        "fr": "Hontoria"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q131310373",
+      "wikidataClaims": {
+        "instanceOf": "estación de ferrocarril",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Estación de Hontoria"
+    },
+    "Q5872094": {
+      "wikidataId": "Q5872094",
+      "nameTranslations": {
+        "es": "Fábrica de loza La Segoviana",
+        "en": "La Segoviana earthenware factory"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5872094",
+      "wikidataClaims": {
+        "instanceOf": "fábrica",
+        "inception": "1861-00-00",
+        "heritageDesignation": "elemento de la Lista Roja del Patrimonio",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Fábrica de loza La Segoviana"
+    },
+    "Q118179476": {
+      "wikidataId": "Q118179476",
+      "nameTranslations": {
+        "es": "plaza del Socorro",
+        "en": "Plaza del Socorro, Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118179476",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza del Socorro"
+    },
+    "Q108381069": {
+      "wikidataId": "Q108381069",
+      "nameTranslations": {
+        "en": "Casa del Secretario",
+        "es": "Casa del Secretario"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q108381069",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "inception": "1500-00-00",
+        "architecturalStyle": "plateresco",
+        "locatedIn": "Segovia"
+      }
+    },
+    "Q66821340": {
+      "wikidataId": "Q66821340",
+      "nameTranslations": {
+        "en": "Royal Tenure of Quitapesares",
+        "es": "Real Quinta de Quitapesares"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q66821340",
+      "wikidataClaims": {
+        "instanceOf": "residencia real",
+        "inception": "1832-00-00",
+        "architecturalStyle": "estilo fernandino",
+        "locatedIn": "Palazuelos de Eresma"
+      },
+      "wikipediaTag": "es:Real quinta de Quitapesares"
+    },
+    "Q124644754": {
+      "wikidataId": "Q124644754",
+      "nameTranslations": {
+        "es": "Puerta de Madrid",
+        "en": "Puerta de Madrid",
+        "ca": "Puerta de Madrid",
+        "gl": "Puerta de Madrid"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q124644754",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "inception": "1705-00-00",
+        "locatedIn": "Segovia",
+        "namedAfter": "Madrid"
+      }
+    },
+    "Q5912556": {
+      "wikidataId": "Q5912556",
+      "nameTranslations": {
+        "es": "iglesia de la Santísima Trinidad",
+        "en": "Church of the Santísima Trinidad",
+        "fr": "église de la Santísima Trinidad"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5912556",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Santísima Trinidad"
+      },
+      "wikipediaTag": "es:Iglesia de la Santísima Trinidad (Segovia)"
+    },
+    "Q5910761": {
+      "wikidataId": "Q5910761",
+      "nameTranslations": {
+        "es": "iglesia de San Martín",
+        "en": "Church of San Martín",
+        "fr": "église Saint-Martin de Ségovie",
+        "pt": "iglesia de San Martín"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5910761",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura románica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia",
+        "namedAfter": "Martín de Tours"
+      },
+      "wikipediaTag": "es:Iglesia de San Martín (Segovia)"
+    },
+    "Q5910969": {
+      "wikidataId": "Q5910969",
+      "nameTranslations": {
+        "es": "iglesia de San Millán",
+        "en": "Church of San Millán",
+        "fr": "église Saint-Émilien de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5910969",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Iglesia de San Millán (Segovia)"
+    },
+    "Q6021309": {
+      "wikidataId": "Q6021309",
+      "nameTranslations": {
+        "es": "monasterio de San Antonio el Real",
+        "en": "Monastery of San Antonio el Real",
+        "eu": "San Antonio el Real monasterioa (Segovia)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6021309",
+      "wikidataClaims": {
+        "instanceOf": "monasterio",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Monasterio de San Antonio el Real"
+    },
+    "Q6021377": {
+      "wikidataId": "Q6021377",
+      "nameTranslations": {
+        "es": "monasterio de San Vicente el Real",
+        "de": "Zisterzienserinnenkloster San Vicente",
+        "en": "Monastery of San Vicente el Real"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6021377",
+      "wikidataClaims": {
+        "instanceOf": "monasterio cisterciense",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Monasterio de San Vicente el Real"
+    },
+    "Q126077358": {
+      "wikidataId": "Q126077358",
+      "nameTranslations": {
+        "es": "Molino de los Señores",
+        "en": "Señores's Watermill"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q126077358",
+      "wikidataClaims": {
+        "instanceOf": "molino",
+        "inception": "1200-00-00",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Molino de los Señores"
+    },
+    "Q55329789": {
+      "wikidataId": "Q55329789",
+      "nameTranslations": {
+        "en": "city walls of Segovia",
+        "es": "murallas de Segovia",
+        "fr": "murailles de Ségovie"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q55329789",
+      "wikidataClaims": {
+        "instanceOf": "muralla urbana",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Murallas de Segovia"
+    },
+    "Q117191118": {
+      "wikidataId": "Q117191118",
+      "nameTranslations": {
+        "en": "Villa Estrella",
+        "es": "Villa Estrella",
+        "ca": "Villa Estrella",
+        "gl": "Villa Estrella"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q117191118",
+      "wikidataClaims": {
+        "instanceOf": "chalé",
+        "inception": "1925-00-00",
+        "architect": "Silvestre Manuel Pagola",
+        "architecturalStyle": "arquitectura regionalista",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Villa Estrella"
+    },
+    "Q118234702": {
+      "wikidataId": "Q118234702",
+      "nameTranslations": {
+        "es": "plaza de los Espejos"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118234702",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Segovia"
+      },
+      "wikipediaTag": "es:Plaza de los Espejos"
+    },
+    "Q84050101": {
+      "wikidataId": "Q84050101",
+      "nameTranslations": {
+        "en": "Calle de Cervantes, Segovia",
+        "es": "calle de Cervantes",
+        "nl": "Calle de Cervantes, Segovia"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q84050101",
+      "wikidataClaims": {
+        "instanceOf": "calle",
+        "locatedIn": "Segovia",
+        "namedAfter": "Miguel de Cervantes"
+      },
+      "wikipediaTag": "es:Calle de Cervantes (Segovia)"
+    },
+    "Q118482317": {
+      "wikidataId": "Q118482317",
+      "nameTranslations": {
+        "es": "calle de Fernán García"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118482317",
+      "wikidataClaims": {
+        "instanceOf": "calle",
+        "locatedIn": "Segovia",
+        "namedAfter": "Fernán García"
+      },
+      "wikipediaTag": "es:Calle de Fernán García"
+    },
+    "Q32193859": {
+      "wikidataId": "Q32193859",
+      "nameTranslations": {
+        "es": "calle de Juan Bravo",
+        "en": "calle de Juan Bravo",
+        "nl": "calle de Juan Bravo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q32193859",
+      "wikidataClaims": {
+        "instanceOf": "calle",
+        "locatedIn": "Segovia",
+        "namedAfter": "Juan Bravo"
+      },
+      "wikipediaTag": "es:Calle de Juan Bravo (Segovia)"
+    },
+    "Q118218593": {
+      "wikidataId": "Q118218593",
+      "nameTranslations": {
+        "es": "calle de Ochoa Ondátegui"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q118218593",
+      "wikidataClaims": {
+        "instanceOf": "calle",
+        "locatedIn": "Segovia",
+        "namedAfter": "Diego Ochoa de Ondátegui"
+      },
+      "wikipediaTag": "es:Calle de Ochoa Ondátegui"
+    }
+  },
+  "wikipedia": {
+    "es:Acueducto de Segovia": {
+      "description": "El Acueducto de Segovia es un acueducto que llevaba agua a la ciudad española de Segovia hasta 1973.​ Su construcción data de principios del siglo II d. C., a finales del reinado del emperador Trajano o principios del de Adriano, durante el imperio romano. La parte más visible, y por lo tanto famosa, es la arquería que cruza la plaza del Azoguejo.",
+      "body": "El Acueducto de Segovia es un acueducto que llevaba agua a la ciudad española de Segovia hasta 1973.​ Su construcción data de principios del siglo II d. C., a finales del reinado del emperador Trajano o principios del de Adriano, durante el imperio romano. La parte más visible, y por lo tanto famosa, es la arquería que cruza la plaza del Azoguejo.\nEn 1884 fue declarado monumento nacional,​\npor lo que es bien de interés cultural con categoría de Monumento.​​\nEn 1985 fue declarado patrimonio de la humanidad junto con la ciudad antigua.​\n\n\nDescripción\n\nEl acueducto de Segovia conduce las aguas del manantial de la Fuenfría, situado en la sierra cercana a 17 kilómetros de la ciudad, en un paraje denominado La Acebeda. Recorre más de 15 km antes de llegar a la ciudad. El agua se recoge primeramente en una cisterna conocida con el nombre de \"El Caserón\", para ser conducida a continuación por un canal de sillares hasta una segunda torre (llamada Casa de Aguas), donde se decanta y desarena, para continuar su camino. Después recorre 813 m (con una pendiente de un 1 %)​ hasta lo alto del Postigo (el espolón rocoso sobre el que se asentaba la ciudad en torno al Alcázar). Antes, en la plaza de Día Sanz, hace un brusco giro y se dirige hacia la plaza del Azoguejo, donde salva la depresión con una arquería, que presenta todo el esplendor del monumento. En la parte más elevada mide 28 m (con cerca de 6 m de cimientos) y tiene dos órdenes de arcos sobre pilares. En total, tiene 167 arcos.​\n\n\nLa arquería\n\nDesde la llegada a la ciudad hasta la plaza de Día Sanz hay 75 arcos sencillos y a continuación 44 arcadas de orden doble (esto es, 88 arcos), siguiendo después otros cuatro arcos sencillos. En el primer sector del acueducto aparecen 36 arcos apuntados, reconstruidos en el siglo XV para restaurar la parte destruida por los musulmanes en el año 1072. En el piso superior, los arcos tienen una luz de 5,10 m, con los pilares de menor altura y grosor que los del piso inferior. El remate ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Acueducto%20de%20Segovia"
+    },
+    "es:Casa de las Cadenas (Segovia)": {
+      "description": "La casa de las Cadenas es un inmueble de la ciudad española de Segovia. Cuenta con el estatus de bien de interés cultural.",
+      "body": "La casa de las Cadenas es un inmueble de la ciudad española de Segovia. Cuenta con el estatus de bien de interés cultural.\n\n\nDescripción\nSe trata de una edificación de carácter defensivo con unos orígenes tan antiguos como el de las murallas a las que se encuentra adosado.​ El edificio formaba parte de uno de los estribos de la desaparecida puerta de San Juan que servía de entrada a la ciudad, como baluarte defensivo que protegía el flanco nororiental de la ciudad.​ Se encuentra en el número 6 de la plaza del Conde de Cheste.​\nLa Dirección General de Bellas Artes, Archivos y Bibliotecas, por Resolución de 26 de octubre de 1982, acordó incoar procedimiento de declaración del palacio como monumento histórico-artístico.​ Retomado más adelante el expediente para su resolución, se procedió a continuar la tramitación del expediente como bien de interés cultural con categoría de Monumento.​ El proceso culminó el 23 de junio de 2022, con la publicación del acuerdo el día 27 de ese mismo mes en el Boletín Oficial de Castilla y León.​\n\n\nReferencias\n\nEste artículo incluye contenido derivado de una disposición relativa al proceso de protección, incoación o declaración de un bien cultural o natural publicada en el Boletín Oficial de Castilla y León n.º 122 el 27 de junio de 2022 (texto), el cual está libre de restricciones conocidas en virtud del derecho de autor de conformidad con lo dispuesto en el artículo 13 de la Ley de Propiedad Intelectual española.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20de%20las%20Cadenas%20(Segovia)"
+    },
+    "es:Catedral de Segovia": {
+      "description": "La Santa Iglesia Catedral de Nuestra Señora de la Asunción y de San Frutos de Segovia, conocida como la Dama de las Catedrales por sus dimensiones y su elegancia,[cita requerida] es una catedral construida entre los siglos XVI y XVIII, de estilo gótico con algunos rasgos renacentistas. La catedral de Segovia es una de las catedrales góticas más tardías de España y de Europa, erigida en pleno siglo XVI (1525-1577), cuando en la mayor parte de Europa se difundía la arquitectura renacentista. \nLa catedral de Segovia es un monumento eclesiástico cuya función principal es el culto y, también, está abierto a la visita turística.",
+      "body": "La Santa Iglesia Catedral de Nuestra Señora de la Asunción y de San Frutos de Segovia, conocida como la Dama de las Catedrales por sus dimensiones y su elegancia,[cita requerida] es una catedral construida entre los siglos XVI y XVIII, de estilo gótico con algunos rasgos renacentistas. La catedral de Segovia es una de las catedrales góticas más tardías de España y de Europa, erigida en pleno siglo XVI (1525-1577), cuando en la mayor parte de Europa se difundía la arquitectura renacentista. \nLa catedral de Segovia es un monumento eclesiástico cuya función principal es el culto y, también, está abierto a la visita turística. El Cabildo de la Catedral es el administrador del templo. En marzo de 2023, el Palacio Episcopal de Segovia fue reabierto y, actualmente, se puede visitar la Catedral y el Palacio Episcopal con entrada única. \n\n\nHistoria\n\nDestruida la antigua Catedral de Santa María de Segovia en 1521​ durante la Guerra de las Comunidades, por su cercanía al Alcázar, Carlos I manda construir una nueva catedral. Esta sería erigida en uno de los puntos más elevados de la ciudad, sobre el antiguo convento de Santa Clara y parte del barrio judío. El área de la aljama judía quedó en parte habitada por conversos y era mucho mayor que la necesaria para levantar la catedral, y por ello aún se puede ver alrededor del templo cristiano, por sus flancos oriental y meridional, unas callejuelas donde todavía quedan bastantes casas medievales y, en distinto grado de conservación, al menos dos sinagogas.​\nEl arquitecto elegido fue Juan Gil de Hontañón, el contrato fue firmado el 7 de mayo de 1524 y la primera piedra fue colocada el 8 de junio de 1525.[cita requerida] Para reducir algunos costes, se reutilizarán varios elementos de la antigua catedral como el claustro al completo, el coro, rejas y otros elementos tanto decorativos como arquitectónicos. La peculiaridad de la construcción de este templo es que su construcción se inició por la fachada occidental, es decir, por los pi",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Catedral%20de%20Segovia"
+    },
+    "es:Casa de los Picos": {
+      "description": "La Casa de los Picos es un edificio de la ciudad española de Segovia, sede de la Escuela de Arte y Superior de Diseño de Segovia. Se encuentra situada en la calle de Juan Bravo, en pleno casco histórico de la capital segoviana.",
+      "body": "La Casa de los Picos es un edificio de la ciudad española de Segovia, sede de la Escuela de Arte y Superior de Diseño de Segovia. Se encuentra situada en la calle de Juan Bravo, en pleno casco histórico de la capital segoviana.\n\n\nDescripción\nFue construida en el último tercio del siglo XV como casa-fuerte por don Pedro López de Ayala, con el fin de defender la Puerta de San Martín, derribada en 1883. La casa fue más tarde adquirida por Alonso González de la Hoz, Contador Mayor del Reino, y pasó por herencia a su hijo Juan de la Hoz, Regidor de Segovia.\nEs conocida por su fachada, con 617 picos de granito, y por su patio renacentista. Se puede distinguir en los dinteles de los cinco balcones y en la puerta de acceso la heráldica de la familia de la Hoz. El zaguán y el patio están decorados con azulejos de Talavera que tienen pintados diferentes edificios de Segovia. \nA lo largo de su historia, el edificio pasó por diversos propietarios, cediéndose en los años 1970 al Ministerio de Educación, que lo rehabilitó y adaptó para instalar en él la sede de la Escuela de Arte y Superior de Diseño de Segovia, que comenzó a funcionar en 1977.\nGuarda parecidos decorativos con la Casa de las Conchas de Salamanca, el Palazzo dei Diamanti de Ferrara y la Casa dos Bicos de Lisboa.\n\n\nReferencias\nEscuela de Arte y Superior de Diseño de Segovia\n\n\nEnlaces externos\n\n Wikimedia Commons alberga una categoría multimedia sobre Casa de los Picos.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20de%20los%20Picos"
+    },
+    "es:Puerta de San Andrés": {
+      "description": "La puerta de San Andrés es una puerta monumental de la ciudad española de Segovia, catalogada como Bien de Interés Cultural.",
+      "body": "La puerta de San Andrés es una puerta monumental de la ciudad española de Segovia, catalogada como Bien de Interés Cultural.\n\n\nDescripción\n\nSe ubica en la ciudad de Segovia, en Castilla y León. La puerta, que también ha sido conocida con los nombres «puerta de la Judería»​ y «puerta del Socorro»,​ se encuentra en el lado sur de la muralla.​ Cuenta con dos torres, una cuadrada y otra poligonal, arco peraltado, galería de irregulares ventanas, saeteras en cruz, cornisas de bolas, almenas piramidales y escudos heráldicos.​ Tiene una situación estratégica que domina el valle del Clamores.​ Se ha especulado con que su construcción pudiera haber corrido al cargo del maestro cantero Juan Guas.​\nHacia finales del siglo XIX la torre de planta poligonal estaba muy deteriorada, sin embargo en siglos posteriores sería restaurada para recuperar su aspecto original.​​\nEl 3 de junio de 1931 fue declarada «Monumento Histórico-Artístico», mediante un decreto publicado en la Gaceta de Madrid, firmado por el presidente del Gobierno provisional de la República, Niceto Alcalá-Zamora, y el ministro de Instrucción Pública y Bellas Artes, Marcelino Domingo.​ En la actualidad está catalogada como Bien de Interés Cultural.​\n\n\nNotas\n\n\nReferencias\n\n\nBibliografía\nAsenjo González, María (1986). Segovia: la ciudad y su tierra a fines del medievo. Diputación Provincial de Segovia. \nCabello y Dodero, Francisco Javier (1949). Guía de Segovia. Segovia: Junta Provincial del Turismo. pp. 64-67. \nCooper, Edward (1991). Castillos señoriales en la corona de Castilla 1. Universidad de Salamanca. ISBN 9788478461127. \nGila y Fidalgo, Félix (2010) [​1906​]. Guía y plano de Segovia. (texto original en dominio público). Valladolid: Maxtor. ISBN 84-9761-820-3. \nOliver Copons, Eduardo (2002) [​1916​]. El Alcázar de Segovia: monografía histórica. Valladolid: Maxtor. ISBN 84-95636-87-5. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Puerta de San Andrés.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Puerta%20de%20San%20Andr%C3%A9s"
+    },
+    "es:Plaza de toros de Segovia": {
+      "description": "La plaza de toros de Segovia está catalogada como plaza de segunda categoría.",
+      "body": "La plaza de toros de Segovia está catalogada como plaza de segunda categoría. Fue uno de los edificios monumentales de importancia y representatividad de la ciudad, como indican numerosos grabados y estampas.​\n\n\nHistoria\nAnteriormente a la creación del coso los festejos taurinos se celebraban en la plaza mayor de la localidad. Se obtuvo la licencia para la construcción de la plaza en 1801 celebrándose la primera corrida de toros en 1803 sin que el edificio llegara a finalizarse completamente. La plaza se inauguró en el año 1805, pero se desconoce fecha exacta, y se consideró en ruina ya en 1814 y en 1840. Fue rehabilitada entre 1990 y 1995, después de diversos intentos por parte de los sucesivos arquitectos municipales Miguel Arévalo (1856), Joaquín Odriozola (fin del siglo XIX) y Francisco Javier Cabello  Dodero (1916).​​\nEn los últimos años ha sido usada en la fecha tradicional del día grande de las fiestas de Segovia el 29 de junio,​ llegando a pasar en los últimos años figuras de la talla de Alejandro Talavante, Morante de la Puebla o José María Manzanares.[cita requerida]\n\n\nCaracterísticas\nLa plaza de toros de Segovia fue construida de ladrillo y mampostería, todavía se sigue manteniendo el diseño de la construcción a pesar de la antigüedad de la plaza y de los años que estuvo en dejadez.​ En varias ocasiones se ha replanteado hacer una remodelación en la plaza para poder albergar otros tipos de eventos aparte de los festejos taurinos.​ Cuenta con un aforo de 7000 espectadores.\n\n\nFeria taurina\nLos festejos taurinos se vienen celebrando tradicionalmente con motivo de la feria de san Pedro a finales de junio.​\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20toros%20de%20Segovia"
+    },
+    "es:Alhóndiga de Segovia": {
+      "description": "La Alhóndiga  es un edificio de la ciudad española de Segovia, construido a comienzos del siglo XVI cuando estaban reinando los Reyes Católicos. Es un edificio que pertenece al estilo gótico industrial y es uno de los pocos ejemplares de arquitectura industrial que se realizó mientras Isabel y Fernando aún reinaban.",
+      "body": "La Alhóndiga  es un edificio de la ciudad española de Segovia, construido a comienzos del siglo XVI cuando estaban reinando los Reyes Católicos. Es un edificio que pertenece al estilo gótico industrial y es uno de los pocos ejemplares de arquitectura industrial que se realizó mientras Isabel y Fernando aún reinaban. \n\n\nFunciones\nLa función que llevaba a cabo era la de servir como almacén de grano de Segovia. La palabra alhóndiga es un nombre de origen árabe que se refería a un lugar en el que se vendía, compraba e incluso se almacenaba grano, con el fin de ayudar a los vecinos y principalmente a los agricultores en épocas de escasa comida.\n\n\nAnálisis\nLa fachada principal cuenta con una portada perteneciente al estilo isabelino formada por dos escudos repetidos de la ciudad de Segovia a cada lado de la misma. En otros tiempos, en su interior había tres paneras distribuidas para guardar el trigo que se llamaban de la Gloria, del Purgatorio y del Infierno. En el año 1925 también se convirtió en sede del Archivo Histórico Municipal, el depósito principal tiene una extensión de 1500 metros lineales de estantería convencional y también cuenta con una sala de exposiciones. \n\n\nUso actual\nActualmente también funciona como sala de exposiciones, exponiendo tanto cuadros y esculturas como fotografía. En algunas ocasiones se ha utilizado como casa de la cultura, llevando a cabo actividades culturales para niños y también para gente mayor. La Alhóndiga como edificio histórico es considerada también un Bien de Interés Cultural y es a la vez la sede del Archivo Municipal de Segovia. De este modo la institución y la propia sala de exposiciones de la Alhóndiga (exposiciones temporales, charlas y conferencias), se pueden considerar como elementos que realizan funciones propias de un museo.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Alh%C3%B3ndiga%20de%20Segovia"
+    },
+    "es:Palacio de los Marqueses de Quintanar (Segovia)": {
+      "description": "El palacio de los Marqueses de Quintanar es un inmueble de la ciudad española de Segovia.",
+      "body": "El palacio de los Marqueses de Quintanar es un inmueble de la ciudad española de Segovia.\n\n\nDescripción\n\nEl edificio se ubica en la ciudad de Segovia, capital de la provincia homónima y situada en la comunidad autónoma de Castilla y León. La construcción del inmueble, levantado en la denominada plaza del Conde de Cheste,​ se remonta a los siglos XV y XVI.​ Cuenta con esgrafiado típico segoviano y pinturas murales en su interior.​\nLa Junta de Castilla y León, que gestiona los usos del edificio, organiza diversas actividades de carácter cultural en su interior,​ tras una serie de obras de rehabilitación llevadas a cabo entre 2007 y 2011,​ año en que se inauguraron las nuevas instalaciones.​\n\n\nReferencias\n\n\nBibliografía\nGómez Robles, Lucía (2011). «Las pinturas murales del Palacio de los Marqueses de Quintanar en Segovia». Quintana: revista de estudios do Departamento de Historia da Arte 10 (10): 171-177. ISSN 1579-7414. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Palacio de los Marqueses de Quintanar.\nPágina web del Palacio Quintanar",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20los%20Marqueses%20de%20Quintanar%20(Segovia)"
+    },
+    "es:Palacio de Enrique IV": {
+      "description": "El Palacio de Enrique IV, también denominado palacio de San Martín, casa de los Mercado-Peñalosa o palacio de la Reina Doña Juana forma parte del palacio mandado construir por Enrique IV de Castilla en el barrio de San Martín de la ciudad de Segovia, España.",
+      "body": "El Palacio de Enrique IV, también denominado palacio de San Martín, casa de los Mercado-Peñalosa o palacio de la Reina Doña Juana forma parte del palacio mandado construir por Enrique IV de Castilla en el barrio de San Martín de la ciudad de Segovia, España.\n\n\nDescripción\nLa construcción responde al tipo de palacio urbano del siglo XV. Con un carácter típicamente mudéjar se organiza de forma bastante anárquica en varios palacios comunicados e independientes entre sí, principalmente el del Rey y el de la Reina.\nEl palacio ocupaba la actual manzana de edificación comprendida entre las calles del Gobernador Llasera-plaza de la Reina Doña Juana- calle de Ildefonso Rodríguez y calle de Arias Dávila. El total de superficie ocupada por el conjunto palaciego sería de unos 6000 m². \nAunque según la crónica de Enrique IV de Diego Enríquez del Castillo, capellán y cronista de Enrique IV, el rey y su esposa Doña Juana vivían ya en él 1467, su residencia oficial y centro de gobierno se mantuvo en el Alcázar de Segovia, donde la corte castellana estaba establecida. Según estudios recientes,​ el palacio de San Martín tuvo un uso más privado y marginal, sin llegar a convertirse en sede principal de la corte. Tras la muerte de Enrique IV en 1474, Isabel I de Castilla fijó también su residencia en el Alcázar de Segovia, desde donde ejerció sus funciones de gobierno. La historiografía académica,​ no documenta que Isabel utilizara el palacio urbano como residencia política relevante, situando en cambio los actos más significativos de su gobierno, como la firma de la Concordia de Segovia en 1475, en el Alcázar.\nDe hecho, en 1510 se divide la propiedad entre tres familias: la parte oriental pasa a ser propiedad de los Mercado con entrada por la plaza de la Reina Doña Juana; la central de los Barros con entrada por la plaza de los Espejos y la occidental, en origen los cuartos del rey, a la familia de los Porras y Bracamonte con entrada a la plaza de San Martín y a la calle de Arias-Dávil",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Enrique%20IV"
+    },
+    "es:Casa de la Tierra (Segovia)": {
+      "description": "La Casa de la Tierra es un palacio situado en la ciudad de Segovia, Castilla y León, España. \nUbicada extramuros del recinto amurallado de la ciudad de Segovia, constituye un relevante monumento por su interés arquitectónico como palacio segoviano, destacado por la pintura mural de su fachada y los esgrafiados de fachada e interior, que lo convierten en único en la ciudad y, especialmente por su valor histórico, como sede tradicional de la Comunidad de Ciudad y Tierra de Segovia, uso que ha venido manteniendo desde sus orígenes en el siglo XV cuando era conocida como la Casa de los Pueblos hasta la actualidad.",
+      "body": "La Casa de la Tierra es un palacio situado en la ciudad de Segovia, Castilla y León, España. \nUbicada extramuros del recinto amurallado de la ciudad de Segovia, constituye un relevante monumento por su interés arquitectónico como palacio segoviano, destacado por la pintura mural de su fachada y los esgrafiados de fachada e interior, que lo convierten en único en la ciudad y, especialmente por su valor histórico, como sede tradicional de la Comunidad de Ciudad y Tierra de Segovia, uso que ha venido manteniendo desde sus orígenes en el siglo XV cuando era conocida como la Casa de los Pueblos hasta la actualidad. Fue declarada bien de interés cultural el 8 de noviembre de 2021.​\n\n\nHistoria\nLos antecedentes históricos de la Casa de la Tierra de Segovia se remontan al siglo XV cuando era conocida como la Casa de los Pueblos. La comunidad de Ciudad y Tierra de Segovia era una agrupación integrada por la ciudad de Segovia y numerosos pueblos, con la finalidad de llevar a cabo la administración y disfrute de los extensos territorios y heredades que poseían en común. La organización de esta comunidad exigió para la celebración de sus reuniones y juntas, un edificio propio, por lo que se construye la que será la Casa de los Pueblos, sede y lugar de reunión y alojamiento de los procuradores sexmeros de la Comunidad de Ciudad y Tierra. La casa fue también utilizada en numerosas ocasiones como residencia temporal de personajes de los séquitos de los reyes de Castilla en sus distintos desplazamientos a la ciudad, hasta que ante las numerosas protestas que provocaba esta ocupación, Enrique IV decidió liberar a la casa de su condición de hospedaje. Esta decisión fue posteriormente confirmada por los Reyes Católicos y Felipe II.\nEn este mismo lugar que ocupara la Casa de los Pueblos, extramuros del recinto amurallado de la ciudad de Segovia al sur en el borde este del barrio de San Millán, se levanta entre los años 1746 a 1748 la Casa de la Tierra, con arreglo a las trazas de José d",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20de%20la%20Tierra%20(Segovia)"
+    },
+    "es:Torreón de Lozoya": {
+      "description": "El Torreón de Lozoya es uno de los edificios más emblemáticos de la arquitectura civil de la ciudad de Segovia.\nSe trata de un complejo palacial de dos torres, patio y jardín con galería porticada. Una casa fuerte torreada muy frecuente en Segovia entre los siglos XIII y XV.\nDispone de una gran torre que le da nombre y entrada, así como otra torre menor, alineada con la primera a una cierta distancia, de modo que el complejo inicial contaba con una cuidada defensa que evidencia los conflictos vividos en Segovia en su Baja Edad Media.",
+      "body": "El Torreón de Lozoya es uno de los edificios más emblemáticos de la arquitectura civil de la ciudad de Segovia.\nSe trata de un complejo palacial de dos torres, patio y jardín con galería porticada. Una casa fuerte torreada muy frecuente en Segovia entre los siglos XIII y XV.\nDispone de una gran torre que le da nombre y entrada, así como otra torre menor, alineada con la primera a una cierta distancia, de modo que el complejo inicial contaba con una cuidada defensa que evidencia los conflictos vividos en Segovia en su Baja Edad Media.\n\n\nArquitectura e historia\nLa gran torre, con sus 8 por 9 metros de planta y 25 metros de altura, antecede a todo el complejo y exterioriza la idiosincrasia señorial de sus dueños. Desde ella se puede contemplar una panorámica de la ciudad y su entorno en 360 grados al resguardo de la intemperie gracias a sus ventanales. Estos se pueden retirar para realizar fotografías y videos con total nitidez.\nLa puerta principal cuenta con una alargada saetera que permite observar lo que ocurre en el exterior y hostigar a posibles asaltantes. Como ocurre en el interior de varias torres-puerta desde época emiral, la circulación en el zaguán está sujeta a quiebros, dado que su planta rectangular adopta un acceso en recodo; un préstamo de la arquitectura militar que dificultaba la entrada directa del enemigo.\n\nLa convergencia de las dos corrientes europeas del esgrafiado -una de raigambre mudéjar y otra renacentista- hacen del Torreón de Lozoya un edificio único en el mundo.​\nSe le llama «de Lozoya» por el nombre de la última familia solariega segoviana que lo habitó.\nEn la penúltima planta de la torre se conservan numerosos grafitos pintados con tizones de carbón que atestiguan que los vigilantes del inmueble se calentarían con braseros. Los motivos dibujados son de muy variada índole, desde barcos y castillos, a inscripciones, signos fálicos y dragones; quizá estos últimos –muy detallados- sean plasmación de la desaparecida Tarasca que procesionaba e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Torre%C3%B3n%20de%20Lozoya"
+    },
+    "es:Real Casa de la Moneda (Segovia)": {
+      "description": "La Real Casa de la Moneda o Real Ingenio de Segovia es un edificio construido en el siglo XVI en Segovia por Felipe II para ser sede de la primera ceca mecanizada en España.",
+      "body": "La Real Casa de la Moneda o Real Ingenio de Segovia es un edificio construido en el siglo XVI en Segovia por Felipe II para ser sede de la primera ceca mecanizada en España. Está reconocida como uno de los edificios de arquitectura industrial más antiguos de Europa\n\n\nHistoria\nLos primeros indicios de moneda acuñada en Segovia se remontan a la época romana, aproximadamente entre 30 y 20 a. C.,​ siendo un as de bronce con la inscripción \"SEGOVIA\". En el siglo XII se sabe que se seguía acuñando moneda en Segovia, gracias al documento que ilustra la donación del rey Alfonso VII de \"la cuarta parte de la moneda que en Segovia se labrara\" para la construcción de la antigua catedral de Santa María.​ \nEn mayo de 1455,​ Enrique IV inauguró la Casa de Moneda de Segovia, ceca en la que se fabricaba moneda con medios artesanales (martillo, tijeras y troqueles). Esta se encontraba en las inmediaciones de la iglesia de San Sebastián y funcionaría hasta 1681, haciendo de Segovia la única ciudad española en las que convivían dos casas de la moneda simultáneamente. \nEn 1583 Felipe II ordenó la construcción de una ceca que introdujera en España la técnica de acuñación en España mediante rodillo.  \n\nEsta tecnología renacentista consistía en un sistema de laminación y acuñación mediante ingenios movidos por ruedas hidráulicas. Esta técnica fue inventada en Augsburgo en 1550 y antes de su implantación en Segovia se utilizaba en otras ciudades europeas. La máquina construida en Burg Hasegg, Hall in Tirol (Austria), se trajo a España con el mayor convoy industrial que se conoce hasta el momento. El diseño de esta fábrica fue encargado a Juan de Herrera, quien lo llevó a cabo junto con los arquitectos austriacos. La primera moneda del Real Ingenio de Segovia fue acuñada en 1586, siendo estas reales de plata.​\nLa primera moneda de oro acuñada en la Casa de la Moneda data de 1607, correspondiendo a una serie de escudos bajo el mandato de Felipe III.​\nFelipe V con el objetivo de sanear las cu",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Real%20Casa%20de%20la%20Moneda%20(Segovia)"
+    },
+    "es:Monasterio de Nuestra Señora de los Huertos (Segovia)": {
+      "description": "El monasterio de Nuestra Señora de los Huertos era un antiguo cenobio premonstratense situado en Segovia.​",
+      "body": "El monasterio de Nuestra Señora de los Huertos era un antiguo cenobio premonstratense situado en Segovia.​\n\n\nHistoria\nLos orígenes del monasterio no son muy claros, pudiendo tratarse en un primer momento de un cenobio cisterciense. Se instaló en la ribera norte del valle del Eresma, a los pies de la ciudad de Segovia.\nEn 1176 pertenecía ya a la orden de los Premonstratenses y dependía del Monasterio de la Vid (en la actual provincia de Burgos). Alfonso VIII de Castilla le hizo donación de una presa junto al Eresma en 1186. Inocencio III puso el monasterio bajo su protección en 1198.​\nA finales del siglo XIII el monasterio contaba con bienes en diversos pueblos cercanos del ámbito segoviano, incluyéndose tierras de labor.\nEn 1637, según cuenta Diego de Colmenares, el monasterio se trasladó primero a las cercanías de la iglesia de Santa Eulalia, y después, intramuros de la ciudad en las cercanías de la parroquia de San Facundo. El origen de este traslado a la parte alta de la ciudad se encuentra en las frecuentes inundaciones sufridas en el monasterio por las crecidas del Eresma. En el antiguo monasterio se mantuvo como parroquia una parte de su iglesia, como parroquia de Santa Ana con su anejo de San Pedro de Allás.\nEn 1835 el monasterio sería desamortizado finalmente. En 1888 se derribarían sus edificios, dando lugar a la actual plaza de los Huertos.\nEn la década de 2000 se realizaron excavaciones arqueológicas en el lugar de la primera sede del monasterio.​\n\n\nDescripción\nLa primera de sus sedes se encontraba en el margen norte de la Alameda del Parral, a orillas del río Eresma.\nLa primera de sus ubicaciones contaba con una iglesia de planta románica, de tres naves rematadas con ábsides semicirculares orientados a oriente. A los pies de la iglesia (al oeste de esta) se situaba un claustro cuadrangular de estilo gótico.\nLas iglesias de sus sucesivas sedes albergaron una imagen en marfil de la Virgen y el Niño de pequeño formato y de estilo gótico conocida como Nuestr",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20Nuestra%20Se%C3%B1ora%20de%20los%20Huertos%20(Segovia)"
+    },
+    "es:Puerta de la Claustra (Segovia)": {
+      "description": "La puerta de la Claustra o arco de la Claustra es una antigua puerta ubicada en la ciudad española de Segovia.​",
+      "body": "La puerta de la Claustra o arco de la Claustra es una antigua puerta ubicada en la ciudad española de Segovia.​\n\n\nDescripción\n\nLa puerta está situada en la calle de Velarde y servía de acceso al rabal segoviano de la Claustra o de las Canonjías, residencia de los canónigos catedralicios hasta 1570. Es la única que queda de las tres puertas que cerraron el rabal, ocupando la parte entre la antigua catedral y el alcázar de Segovia.\nMuy dañada en el sitio de la ciudad comunera por parte de las tropas reales en 1520, se construyó en el mismo lugar una nueva puerta donde hoy está. Conserva restos de esgrafiado renacentista. Hoy en día consta de dos puertas. La de derecha fue abierta a principios del siglo XX en estilo neorrománico.​\n\n\nVéase también\ntravesía de las Canonjías\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Puerta%20de%20la%20Claustra%20(Segovia)"
+    },
+    "es:Alcázar de Segovia": {
+      "description": "El Real Alcázar de Segovia, que data de principios del siglo XII, es uno de los castillos medievales más famosos del mundo​ y uno de los monumentos más visitados de España.​ En su milenaria existencia, el Alcázar ha sido castro romano, fortaleza medieval, palacio real, custodio del tesoro real, prisión de estado,​ colegio de artillería y archivo general militar. Su imponente perfil se levanta, majestuoso, sobre el valle del Eresma y es símbolo de la ciudad vieja de Segovia, declarada Patrimonio Mundial de la Unesco en 1985.​\nDurante más de cinco siglos, el Real Alcázar de Segovia fue una de las residencias habituales de los reyes de Castilla y un escenario político de primer orden. Ninguna otra fortaleza del antiguo reino reunió la presencia de tantos monarcas a lo largo del tiempo.",
+      "body": "El Real Alcázar de Segovia, que data de principios del siglo XII, es uno de los castillos medievales más famosos del mundo​ y uno de los monumentos más visitados de España.​ En su milenaria existencia, el Alcázar ha sido castro romano, fortaleza medieval, palacio real, custodio del tesoro real, prisión de estado,​ colegio de artillería y archivo general militar. Su imponente perfil se levanta, majestuoso, sobre el valle del Eresma y es símbolo de la ciudad vieja de Segovia, declarada Patrimonio Mundial de la Unesco en 1985.​\nDurante más de cinco siglos, el Real Alcázar de Segovia fue una de las residencias habituales de los reyes de Castilla y un escenario político de primer orden. Ninguna otra fortaleza del antiguo reino reunió la presencia de tantos monarcas a lo largo del tiempo. Desde la Alta Edad Media hasta la actualidad —durante casi un milenio de historia—, 31 reyes de todas las dinastías​ han recorrido sus estancias, además de algunos de los personajes más destacados de la historia. Por esta continuidad, la fortaleza segoviana se consagra, junto con el castillo de Windsor, como uno de los espacios europeos con mayor proyección y permanencia regia.\nFue la primera residencia de los reyes de Castilla.​ Al menos desde 1135, dos siglos antes del Palacio Real de Tordesillas o el Alcázar de Sevilla, la familia real castellana tenía aposentos en el Alcázar, conocidos como el «Palacio Mayor». Su traza refleja el esplendor de la corte durante el medievo, y sus muros han sido testigos de batallas, intrigas palaciegas, bodas reales y sucesos asombrosos.\nEn la torre vieja, la del Homenaje, se custodiaba el tesoro de la Corona,​ de donde salieron los fondos para financiar, entre otras empresas, el primer viaje de Cristóbal Colón y el descubrimiento de América. En 1437, los libros de la administración real llegaron al Alcázar, creando uno de los primeros archivos reales,​ de Castilla,​ que luego fueron el germen de lo que es hoy el archivo de Simancas. El Alcázar también ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Alc%C3%A1zar%20de%20Segovia"
+    },
+    "es:Plaza Mayor de Segovia": {
+      "description": "La Plaza Mayor de Segovia está situada en el casco antiguo de la ciudad de Segovia, Castilla y León, España, en un espacio urbano que reúne las características de una típica plaza mayor y en el que se encuentran algunos monumentos como el ábside de la catedral, el Teatro Juan Bravo o la casa consistorial.",
+      "body": "La Plaza Mayor de Segovia está situada en el casco antiguo de la ciudad de Segovia, Castilla y León, España, en un espacio urbano que reúne las características de una típica plaza mayor y en el que se encuentran algunos monumentos como el ábside de la catedral, el Teatro Juan Bravo o la casa consistorial. \n\n\nHistoria\nFue conocida históricamente como plaza de San Miguel, en referencia a la primitiva iglesia de San Miguel que ocupaba originalmente parte del espacio de la actual plaza. Fue en esta plaza de San Miguel donde se celebraba el mercado en la ciudad de Segovia y fue también el lugar en el que Isabel la Católica fue proclamada reina de Castilla el 13 de diciembre de 1474. El templo fue demolido en 1532 y se reconstruyó a unos metros de distancia para permitir el ensanche de la actual Plaza Mayor. A partir de finales del siglo XIX comienza a recibir el nombre de plaza de la Constitución, aunque siempre mantuvo el apelativo de \"plaza mayor\".\n\n\nCaracterísticas\nTiene forma casi rectangular. La numeración de los edificios comienza en la casa consistorial, siguiendo el sentido de las agujas del reloj, para terminar en el edificio contiguo a la izquierda del consistorio. Preside el centro de la plaza un templete para actuaciones musicales.\n\n\nReferencias\nSáez y Romero, Mariano (1918).  Antonio San Martín, ed. Las calles de Segovia: noticias, tradiciones y curiosidades. p. 45-49. \n\n\nEnlaces externos\n\n Wikimedia Commons alberga una categoría multimedia sobre Plaza Mayor de Segovia.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20Mayor%20de%20Segovia"
+    },
+    "es:Palacio de Xifré": {
+      "description": "El palacio de Xifré fue un palacio madrileño que estuvo en el paseo del Prado, esquina a la calle de Lope de Vega, frente al Museo del Prado. Representante de la  arquitectura neomudéjar madrileña, fue uno de los palacios que la élite financiera española de la segunda mitad del siglo XIX hizo construir a lo largo de los paseos del Prado, Recoletos y la Castellana.​ Parte del inmueble fue trasladada a una finca en la provincia de Segovia tras su demolición.",
+      "body": "El palacio de Xifré fue un palacio madrileño que estuvo en el paseo del Prado, esquina a la calle de Lope de Vega, frente al Museo del Prado. Representante de la  arquitectura neomudéjar madrileña, fue uno de los palacios que la élite financiera española de la segunda mitad del siglo XIX hizo construir a lo largo de los paseos del Prado, Recoletos y la Castellana.​ Parte del inmueble fue trasladada a una finca en la provincia de Segovia tras su demolición.\n\n\nHistoria\nEl dueño y promotor del palacio fue el financiero José Xifré Downing, hijo de José Xifré Casas, un industrial catalán que había hecho su fortuna en Cuba. Xifré encargó un palacio dentro de la corriente orientalista, derivada del romanticismo, que imperaba en la época entre las clases acomodadas del continente.​\nXifré Downing tomó la decisión de construir un palacio «árabe» a mediados de la década de 1850. En esa época, alternaba temporadas en París, Barcelona y Madrid. En 1855, por sugerencia de Prosper Mérimée, Xifré encargó el proyecto a Émile Boeswillwald,​ arquitecto francés del círculo de Viollet-le-Duc ya muy conocido como restaurador de monumentos medievales franceses, que poco después sería nombrado inspector general de Monumentos Históricos. En 1857, el financiero compró nueve solares situados entre la calle de Lope de Vega y Trajineros (actual Paseo del Prado) al duque de Medinaceli. En la zona se habían comenzado a instalar miembros de las élites madrileñas. Las obras constructivas discurrieron entre 1858 y 1862.\nEl cronista Mariano Rodríguez de Rivas relató una curiosa anécdota: «Después de tantos estudios directos sobre la arquitectura árabe y tanta probidad en los detalles, el marqués de la Vega de Armijo felicitó así al Sr. Xifré: «Ha tenido usted una idea original, le ha quedado precioso su palacio chino». Según Fernández de los Ríos era una «joya más linda que cómoda». A finales del siglo XIX el palacio se convirtió en legación de México siendo su propietario el embajador Manuel de Ytur",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Xifr%C3%A9"
+    },
+    "es:Iglesia de la Vera Cruz (Segovia)": {
+      "description": "La iglesia de la Vera Cruz, anteriormente conocida como del Santo Sepulcro, es un templo católico situado en el barrio de San Marcos de la ciudad de Segovia, en la comunidad autónoma de Castilla y León, en España. Está situada al norte de la ciudad, muy cerca del convento de San Juan de la Cruz, en la ladera que asciende hasta Zamarramala, localidad de la que fue, durante siglos, iglesia parroquial.\nEs una singular  edificación de estilo románico declarada monumento nacional en 1919.",
+      "body": "La iglesia de la Vera Cruz, anteriormente conocida como del Santo Sepulcro, es un templo católico situado en el barrio de San Marcos de la ciudad de Segovia, en la comunidad autónoma de Castilla y León, en España. Está situada al norte de la ciudad, muy cerca del convento de San Juan de la Cruz, en la ladera que asciende hasta Zamarramala, localidad de la que fue, durante siglos, iglesia parroquial.\nEs una singular  edificación de estilo románico declarada monumento nacional en 1919.  Consta de una nave con planta dodecagonal que circunda a un pequeño templete (edículo) central de dos plantas, a la cual se le añadieron los ábsides y la torre. Es uno de los templos de este estilo mejor conservados de Europa. \n\n\nHistoria\n\nLa construcción de este templo ha sido tradicionalmente atribuida a los Templarios, pero actualmente se cree que fue la Orden del Santo Sepulcro de Jerusalén la que realizó su construcción y que dependió, como encomienda, de la colegiata de Toro (Zamora).\nEl templo fue dedicado el 13 de abril de 1208, tal y como atestigua la lápida que se halla frente a la puerta lateral en el templete que narra \n\n \n \nEn 1216 el papa Honorio III concedió como reliquia una trozo de la cruz de Cristo, el lignum crucis,  al templo. Dicha reliquia se llevó en 1692 a la nueva iglesia parroquial de Zamarramala donde aún se conserva.\nEn el año 1531 y como resultado de la unificación de la Orden del Santo Sepulcro con la Orden de San Juan de Jerusalén pasó a depender de la Soberana Orden Militar y Hospitalaria de San Juan de Jerusalén, de Rodas y de Malta.​\nAl edificio original se le añadió un ábside que en la actualidad se utiliza como sacristía, posteriormente se le añadió la torre, que en un primer momento estuvo separada del templo, y más tarde los tres ábsides que conforman la cabecera de la iglesia actual.\nEn 1692, cuando se levantó la iglesia parroquial en la localidad, dejó de ser parroquia de Zamarramala pasando a estar bajo la titularidad de la Virgen de la Paz, cu",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20la%20Vera%20Cruz%20(Segovia)"
+    },
+    "es:Casa del Mayorazgo de los Cáceres": {
+      "description": "La casa del Mayorazgo de los Cáceres, o del Marqués de Lozoya, es un inmueble ubicado en la ciudad española de Segovia, en Castilla y León.",
+      "body": "La casa del Mayorazgo de los Cáceres, o del Marqués de Lozoya, es un inmueble ubicado en la ciudad española de Segovia, en Castilla y León.\n\n\nDescripción\n\nEl edificio se encuentra en la plaza del Conde de Cheste n.º 5 de la ciudad castellanoleonesa de Segovia, capital de la provincia homónima. Es conocido con las denominaciones de «casa del Mayorazgo de los Cáceres» y «casa del Marqués de Lozoya».​\nSe trata de una de las antiguas torres fortaleza que defendían las murallas de la ciudad. El inmueble, ejemplar notable del románico civil, contaba en las paredes de sus salones con una colección de papeles pintados de la Real Fábrica de la Moncloa, colocados durante la reforma de que fue objeto en el siglo XIX.​\nFue declarada monumento histórico-artístico, de carácter nacional, el 18 de noviembre de 1979, mediante un real decreto publicado el 18 de enero de 1980 en el Boletín Oficial del Estado.​ En la actualidad cuenta con el estatus de Bien de Interés Cultural.\n\n\nReferencias\n\nEste artículo incluye contenido derivado de una disposición relativa al proceso de protección, incoación o declaración de un bien cultural o natural publicada en el Boletín Oficial del Estado n.º 16 (texto), el cual está libre de restricciones conocidas en virtud del derecho de autor de conformidad con lo dispuesto en el artículo 13 de la Ley de Propiedad Intelectual española.\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Casa del Mayorazgo de los Cáceres.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20del%20Mayorazgo%20de%20los%20C%C3%A1ceres"
+    },
+    "es:Casa de la Lectura-Biblioteca Municipal de Segovia": {
+      "description": "La Casa de la Lectura-Biblioteca Municipal de Segovia es una biblioteca pública situada en la calle Juan Bravo de la ciudad española de Segovia.",
+      "body": "La Casa de la Lectura-Biblioteca Municipal de Segovia es una biblioteca pública situada en la calle Juan Bravo de la ciudad española de Segovia.\n\n\nEdificio\n\nEl edificio, de 600 metros cuadrados, consta de tres plantas que se remata con una espadaña. Su decoración es muy austera, es de planta cuadrada con dependencias organizadas en torno a un pequeño patio interior, destacando el escudo de los Austrias que aparece en la portada.  \nEn la parte izquierda de la fachada en piedra de granito y mampostería, se abre una hornacina, rematada en forma de concha en la parte superior, y cerrada por un cristal cuarteado que alberga una imagen de la Virgen de los Remedios con el Niño en brazos. En la fachada destaca también la rejería de las ventanas, un testimonio del pasado uso como cárcel.\nEl edificio conserva la portada adintelada en piedra caliza acabada en cornisa del siglo XVII, y tras el zaguán, el arco románico que procede de la antigua iglesia parroquial del despoblado de San Medel (entre Valseca y Bernuy de Porreros) y un techo artesonado que es copia del de la Iglesia de San Millán. En la actual sala de lectura, una lápida recuerda la estancia en la cárcel de Lope de Vega.\n\n\nHistoria\nEl edificio ocupa un espacio donde estuvo a finales del siglo XI, después de la repoblación de Segovia, un monasterio de monjas cistercienses.​ También estuvo en el solar la desaparecida iglesia de San Briz. Más tarde, se ubicó en este lugar la Cárcel Real.​ Durante su uso como cárcel fue presidio de varios personajes conocidos, entre ellos el escritor Lope de Vega en 1577 o el bandolero El Tuerto de Pirón en 1881, quien logró huir por un tejado.​\nEn 1842 la Biblioteca Pública fue fundada con los fondos procedentes de la desamortización de Mendizábal (1835), que afectó a todos los bienes de la Iglesia, entre ellos, las bibliotecas de los conventos.​ Los escritos pasaron a control del Estado que hizo que se concentraran estos libros en bibliotecas provinciales, convirtiéndose en la primera",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20de%20la%20Lectura-Biblioteca%20Municipal%20de%20Segovia"
+    },
+    "es:Plaza de Adolfo Suárez": {
+      "description": "La plaza de Adolfo Suárez​ es un espacio público de la ciudad española de Segovia.​​",
+      "body": "La plaza de Adolfo Suárez​ es un espacio público de la ciudad española de Segovia.​​\n\n\nDescripción\nEl espacio, al que llegan las calles de Domingo de Soto, de Eulogio Martín Higuera y del Conde Gazzola Di Ceretto, se conoció en el pasado como «plazuela del Seminario» y «plaza del Seminario», por albergar el Seminario Conciliar de Segovia.​​ También se encuentra en él la Subdelegación del Gobierno,​ en lo que fue sede del Gobierno Civil.​ En 2014, a raíz del fallecimiento de Adolfo Suárez González (1932-2014), presidente del Gobierno de España entre 1976 y 1981, se le concedió el título actual en su honor.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Seminario (Plazuela de)». Las calles de Segovia. Segovia: Antonio San Martín. p. 182. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20Adolfo%20Su%C3%A1rez"
+    },
+    "es:Palacio del Marqués del Arco": {
+      "description": "El palacio del Marqués del Arco es un edificio del siglo XVI situado en la ciudad de Segovia.",
+      "body": "El palacio del Marqués del Arco es un edificio del siglo XVI situado en la ciudad de Segovia.\n\n\nHistoria\nLa historiografía no ha llegado a un acuerdo acerca de la fecha de construcción del palacio, oscilando desde mediados de la década de 1530 hasta 1550. La autoría ha sido atribuida en ocasiones a Rodrigo Gil de Hontañón. Se conoce que el palacio fue expropiado por Felipe II y regalado al cardenal Espinosa en 1567. En 1572 este vende el palacio a los Márquez de Prado. En 1687 le fue concedido el título de marqués del Arco a don Gaspar José Márquez de Prado y Bracamonte​ pasando a denominarse el palacio como palacio del Marqués del Arco.​\n\n\nDescripción\nSe trata de un edificio que corresponde a la tipología de los palacios renacentistas segovianos. El palacio cuenta con un piso bajo y uno principal, así como dos plantas de sótano.\nCuenta con una importante fachada a la calle del Marqués del Arco, de granito. La portada de la misma es una importante muestra del  estilo plateresco. La fachada cuenta con tres ventanas correspondientes a la planta baja, así como la puerta de entrada y tres balcones en la planta alta, además del balcón correspondiente a la portada.\n\nEl edificio posee un importantísimo patio del mismo estilo plateresco, porticado en tres de sus lados. Las galerías porticadas están decoradas con dieceséis medallones representando hombres ilustres de la antigüedad.​​\nEs destacable su escalera.\n\n\nBibliografía\nRODRÍGUEZ DE ANTONIO, Francisco de Paula (Marzo de 2011). «El palacio del Marqués del Arco: la plenitud del plateresco segoviano.». EGA: Expresión Gráfica Arquitectónica (17): 230-241. ISSN 2254-6103. \nCANTALEJO SAN FRUTOS, Rafael (2000). «Palacio del Marqués del Arco». Patios porticados de Segovia. Segovia al paso (n.º 9). Segovia: Real Academia de Historia y Arte de San Quirce. pp. 55-63. Archivado desde el original el 2 de septiembre de 2021. \nCONTRERAS Y LÓPEZ DE AYALA, Juan, marqués de Lozoya (Junio de 1921). «La casa segoviana. La casa del renacimi",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20del%20Marqu%C3%A9s%20del%20Arco"
+    },
+    "es:Teatro Juan Bravo": {
+      "description": "El teatro Juan Bravo es el teatro principal de la ciudad de Segovia, comunidad autónoma de Castilla y León, España.\nSu construcción data de 1917, obra del arquitecto Francisco Javier Cabello Dodero, siendo inaugurado el 26 de octubre de 1918. El inmueble fue adquirido por la Diputación Provincial de Segovia en 1982, entidad que lo rehabilitó y abrió de nuevo al público en 1989​ con el proyecto de los arquitectos Gloria Alcázar, Miguel Ángel García y Carlos Lavesa, financiado por el Programa de Rehabilitación de 52 Teatros del siglo XIX (1985) del Ministerio de Obras Públicas y Urbanismo y del Ministerio de Cultura.",
+      "body": "El teatro Juan Bravo es el teatro principal de la ciudad de Segovia, comunidad autónoma de Castilla y León, España.\nSu construcción data de 1917, obra del arquitecto Francisco Javier Cabello Dodero, siendo inaugurado el 26 de octubre de 1918. El inmueble fue adquirido por la Diputación Provincial de Segovia en 1982, entidad que lo rehabilitó y abrió de nuevo al público en 1989​ con el proyecto de los arquitectos Gloria Alcázar, Miguel Ángel García y Carlos Lavesa, financiado por el Programa de Rehabilitación de 52 Teatros del siglo XIX (1985) del Ministerio de Obras Públicas y Urbanismo y del Ministerio de Cultura.\nDeclarado bien de interés cultural, con la categoría de monumento, el 29 de septiembre de 2022,​​​​ se sitúa en la Plaza Mayor segoviana, en el mismo lugar que anteriormente habían ocupado el teatro de La Zarzuela y el cine Reina Victoria. Recibe su nombre del líder comunero local Juan Bravo.\nEl inmueble fue adquirido por la Diputación Provincial de Segovia en 1982, entidad que lo rehabilitó y abrió de nuevo al público en 1989.​\n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Teatro Juan Bravo.\nSitio oficial",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Teatro%20Juan%20Bravo"
+    },
+    "es:Monasterio de Santa María del Parral": {
+      "description": "El monasterio de Santa María del Parral, o simplemente monasterio de El Parral, es un monasterio de clausura de la Orden de San Jerónimo ubicado en la ciudad de Segovia, en la comunidad autónoma de Castilla y León en España.\nEl monasterio de El Parral se encuentra a extramuros de la ciudad, en el barrio de San Lorenzo, junto a la iglesia de la Vera Cruz y muy cercano al convento de San Juan de la Cruz y a la antigua fábrica o casa de la moneda, en la orilla derecha del río Eresma en el paraje conocido como \"La alameda\". Mantiene el uso para el que fue creado, perteneciendo desde su origen a la actualidad a los monjes de clausura de la Orden de San Jerónimo.",
+      "body": "El monasterio de Santa María del Parral, o simplemente monasterio de El Parral, es un monasterio de clausura de la Orden de San Jerónimo ubicado en la ciudad de Segovia, en la comunidad autónoma de Castilla y León en España.\nEl monasterio de El Parral se encuentra a extramuros de la ciudad, en el barrio de San Lorenzo, junto a la iglesia de la Vera Cruz y muy cercano al convento de San Juan de la Cruz y a la antigua fábrica o casa de la moneda, en la orilla derecha del río Eresma en el paraje conocido como \"La alameda\". Mantiene el uso para el que fue creado, perteneciendo desde su origen a la actualidad a los monjes de clausura de la Orden de San Jerónimo.\nLos diferentes edificios que componen el conjunto monacal están distribuidos en torno a varios claustros de estilos gótico, mudéjar y plateresco. Lo mandó construir el rey Enrique IV de Castilla en el año 1447. En 1454 el rey emprende a sus expensas la construcción de las dependencias monacales incluso antes que la iglesia. De esta relación entre el monarca y el monasterio da testimonio las representaciones heráldicas con las armas del monarca y las ramas de granado que se ven en varios sitios del edificio.\nEl monasterio de Santa María del Parral, junto con el convento de dominicos de Santa Cruz y con el convento franciscano de San Francisco, del que resta el claustro, conforma la trilogía de la arquitectura de primera calidad de la Segovia del siglo XV.​\nEn su interior destaca el retablo mayor de la iglesia, realizado en el siglo XVI, obra de Juan Rodríguez y de un conjunto de escultores abulenses de estilo renacentista. El nombre se debe a que en él se venera a la virgen del Parral, escultura románica procedente de un templo anterior.\n\n\nHistoria\n\n\nLa fundación\n\nLo mandó construir Enrique IV en 1447 siendo todavía príncipe. Por ello lo hizo bajo el nombre de Juan Pacheco (marqués de Villena desde 1445), su camarero mayor, ya que no estaba bien que no siendo rey levantara edificios.​ Lo ubicó en un paraje que él ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20Santa%20Mar%C3%ADa%20del%20Parral"
+    },
+    "es:Convento de Santa Cruz la Real": {
+      "description": "El convento de Santa Cruz la Real es un inmueble de la ciudad española de Segovia, ubicado al norte del casco urbano, en el barrio de San Lorenzo.",
+      "body": "El convento de Santa Cruz la Real es un inmueble de la ciudad española de Segovia, ubicado al norte del casco urbano, en el barrio de San Lorenzo.\n\n\nDescripción\n\nFue el primer monasterio dominico fundado en el país. Fue llevada a cabo por el propio santo Domingo de Guzmán en 1218 sobre unas casas que le donó la ciudad, y fue simultánea con la del monasterio de Santo Domingo el Real de Madrid.\nErigido en fábrica románica, fue remodelado en tiempo de los Reyes Católicos, quienes entregaron al convento una reliquia del lignum crucis, que les había donado Boabdil, último rey de Granada; su iglesia fue obra de Juan Guas. Obtuvo entonces el título de real, y en su fachada aún se conserva el lema de los monarcas, el conocido «Tanto monta». El rey Felipe II de España continuó con el patrocinio real, y donó al convento un retablo mayor, con trazas de Juan de Herrera y pinturas de Diego de Urbina.\nEl convento fue desamortizado en el siglo XIX, por lo que muchos de sus bienes muebles se hallan dispersos por diferentes museos. El Museo del Prado custodia varios lienzos del flamenco Ambrosius Benson que pasaron inicialmente al Museo de la Trinidad, así como un lienzo que representa a Cristo en la Cruz, atribuido a Pedro Berruguete, que aún se hallaba en el convento en 1977. Albergó también obras de Pedro de Bolduque, Felipe de Aragón o Alonso de Herrera. También la Diputación Provincial de Segovia conserva buen número de obras de arte procedentes del convento.\nEn la actualidad, sus dependencias conforman el campus que la IE University tiene en la ciudad.\n\n\nBibliografía\nLarrañaga, Miguel. «El convento dominico de Santa Cruz la Real de Segovia en las épocas medieval y moderna». Academia. \nRuiz Hernando, José Antonio (2006). El convento de Santo Domingo el Real. Segovia al paso 12. Segovia: Real Academia de Historia y Arte de San Quirce. Consultado el 30 de diciembre de 2020. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Convento de Santa Cruz la Rea",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20de%20Santa%20Cruz%20la%20Real"
+    },
+    "es:Plaza del Azoguejo": {
+      "description": "La plaza del Azoguejo se  encuentra en la ciudad de Segovia (Castilla y León, España). Fue antaño plaza del mercado de la ciudad y está situada en la parte donde el acueducto de Segovia tiene mayor altura.​ \n\nLa plaza suele ser el arranque de toda visita a la ciudad. En otros años fue el lugar de encuentro no sólo de los propios segovianos sino de habitantes de pueblos cercanos.",
+      "body": "La plaza del Azoguejo se  encuentra en la ciudad de Segovia (Castilla y León, España). Fue antaño plaza del mercado de la ciudad y está situada en la parte donde el acueducto de Segovia tiene mayor altura.​ \n\nLa plaza suele ser el arranque de toda visita a la ciudad. En otros años fue el lugar de encuentro no sólo de los propios segovianos sino de habitantes de pueblos cercanos. Allí se reunían los labradores, ganaderos y tratantes. Su urbanismo conserva todavía un cierto aire de arquitectura popular con casas no muy altas bien diferenciadas y aportaladas, lo que hace resaltar aún más la monumentalidad del acueducto. Una de las citas más antiguas que se tiene sobre el Azoguejo es un códice de las Cantigas de Alfonso X el Sabio del siglo XIII.  En el siglo XVII el pintor Antonio Alberti \"Barbalunga\" plasmó la plaza en una de sus obras; existen numerosos grabados del siglo XVIII en que se puede apreciar sin derribar la iglesia románica de Santa Columba y también las casas medievales que estaban construidas  adosadas al acueducto.​\nEn Segovia existen dos fuentes monumentales del siglo XVII, una se llama del Caño Seco y la otra del Azoguejo por estar ubicada en esta plaza.​\nAl Azoguejo desemboca la calle Real, arteria relevante dedicada desde tiempos remotos al comercio.\nLa palabra «azoguejo» probablemente proviene del término «azogue». Mariano Sáez y Romero, en 1918, indica que la plaza del Azoguejo «Se llama así del origen o significado de la palabra derivada de azogue, plaza de algún pueblo donde se tiene el trato y comercio público. Puede proceder también de la palabra árabe zoco, lugar de reunión y comercio, nombrándose azoguejo o zoquejo o zoco pequeño, a diferencia del zoco grande, que era el sitio actual de la plaza Mayor».​ Miguel de Cervantes hace referencia a la plaza en el Quijote.\n\n\nVéase también\nCalle de Cervantes (Segovia)\n\n\nReferencias\n\n\nEnlaces externos\n\n Wikimedia Commons alberga una categoría multimedia sobre Plaza del Azoguejo.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20del%20Azoguejo"
+    },
+    "es:Palacio Episcopal de Segovia": {
+      "description": "El Palacio Episcopal de Segovia es un edificio ubicado en el centro histórico de la ciudad española de Segovia. Fue residencia de los sucesivos obispos hasta 1969.",
+      "body": "El Palacio Episcopal de Segovia es un edificio ubicado en el centro histórico de la ciudad española de Segovia. Fue residencia de los sucesivos obispos hasta 1969.\n\n\nDescripción\nEl edificio, situado en la plaza de San Esteban, se construyó en tiempos de Felipe II con el propósito expreso de albergar el palacio episcopal.​ Aparece descrito en el decimocuarto volumen del Diccionario geográfico-estadístico-histórico de España y sus posesiones de Ultramar, dentro del capítulo dedicado a la ciudad, con las siguientes palabras:​\n\n \n\nEn el epígrafe de Las calles de Segovia (1918) que versa sobre la plaza, Mariano Sáez y Romero dice lo siguiente:​\n\n \n\nEn 1635, se vendió a la familia Salcedo, por lo que también es conocido como palacio de los Salcedo, del que se conserva la fachada y portada renacentista.[cita requerida]\nEn 1755 Manuel Murillo Argáiz, obispo de Segovia, adquirió el palacio mediante censo perpetuo de Josefa de Salcedo y Lasso de la Vega, Figueroa, Córdoba y Ladrón de Guevara, para convertirlo en palacio episcopal. Desde su adquisición, se utilizó como residencia de los sucesivos obispos hasta 1969 y sirvió de centro administrativo, pastoral y cultural de la Diócesis de Segovia hasta principios de los siglos XXI.[cita requerida]\nEn 2021, el Cabildo de la Catedral de Segovia asume su gestión y la incorporación de herramientas divulgativas.[cita requerida]\n\n\nReferencias\n\n Partes de este artículo incluyen texto de Diccionario geográfico-estadístico-histórico de España y sus posesiones de Ultramar (1845-1850), una obra en dominio público.\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nBibliografía\nMadoz, Pascual (1849). «Segovia». Diccionario geográfico-estadístico-histórico de España y sus posesiones de Ultramar XIV. Madrid. Wikidata Q115624375. }\nSáez y Romero, Mariano (1918). «San Esteban (Plazuela de)». Las calles de Segovia. Segovia: Antonio San Martín. p. 157. Wikid",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20Episcopal%20de%20Segovia"
+    },
+    "es:Convento del Corpus Christi (Segovia)": {
+      "description": "La Antigua Sinagoga Mayor de Segovia fue un edificio religioso de Segovia, España. La construcción de la antigua sinagoga principal tuvo lugar a mediados del siglo XIV. A partir del siglo XV, fue confiscado por las autoridades y convertido en un convento de monjas de la orden de Santa Clara en 1419. El edificio fue completamente destruido por el fuego en 1899, y luego reconstruido.",
+      "body": "La Antigua Sinagoga Mayor de Segovia fue un edificio religioso de Segovia, España. La construcción de la antigua sinagoga principal tuvo lugar a mediados del siglo XIV. A partir del siglo XV, fue confiscado por las autoridades y convertido en un convento de monjas de la orden de Santa Clara en 1419. El edificio fue completamente destruido por el fuego en 1899, y luego reconstruido.\nEn su interior se exponen cuadros de pintores como El milagro de la Eucaristía de Vicente Cutanda.\n\nEl Convento del Corpus Christi​ es un convento de clausura de hermanas Clarisas Franciscanas que se encuentra en la ciudad española de Segovia, en la comunidad autónoma de Castilla y León, España.\n\n\nReferencias\n\n\nVéase también\nOrden de las hermanas pobres de Santa Clara\nClausura monástica\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Convento del Corpus Christi.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20del%20Corpus%20Christi%20(Segovia)"
+    },
+    "es:Iglesia de San Lorenzo (Segovia)": {
+      "description": "La iglesia de San Lorenzo es un templo católico de la ciudad española de Segovia, en Castilla y León. Está situado en el barrio homónimo.",
+      "body": "La iglesia de San Lorenzo es un templo católico de la ciudad española de Segovia, en Castilla y León. Está situado en el barrio homónimo.\n\n\nDescripción\n\nSe ubica en la plaza de San Lorenzo​ —se trata de un edificio totalmente exento— de la ciudad de Segovia, capital de la provincia homónima, en Castilla y León. La iglesia, que ha experimentado diversas reformas a lo largo de su historia, fue erigida en estilo románico y los inicios de su construcción se datarían en el siglo XII.​\nLa iglesia es de estilo románico-mudéjar, del siglo XIII, asentada sobre una anterior mozárabe. La torre se va estrechando conforme gana altura, a la vez que gana en huecos de ventanas, pasando de uno a cuatro en cada uno de sus lados.\nEl testero guarda una magnífica armonía entre los tres ábsides, en los que destacan los capiteles, ricamente decorados con escenas bíblicas, en la que destaca una muy expresiva del martirio de San Lorenzo.\nFue declarada monumento histórico-artístico perteneciente al Tesoro Artístico Nacional el 3 de junio de 1931, durante la Segunda República, mediante un decreto publicado el día 4 de ese mismo mes en la Gaceta de Madrid, con la rúbrica del presidente del Gobierno provisional de la República Niceto Alcalá-Zamora y el ministro de Educación Pública y Bellas Artes Marcelino Domingo y Sanjuán.​\nEn la actualidad cuenta con el estatus de Bien de Interés Cultural.\n\n\nReferencias\n\n\nBibliografía\nArroba Fernández, Margarita; Alañón Olmedo, Patricio; Díez Pastor, Concepción; García Muñoz, Julián; Grau Enguix, Joaquín (2007). «La implantación de las instalaciones en la iglesia de San Lorenzo de Segovia». Oppidum (Segovia: Universidad SEK) (3): 265-280. ISSN 1885-6292. \nGarcía Hernández, Francisca Azucena (2001). «Un tríptico de la piedad en la Iglesia de San Lorenzo de Segovia». Boletín del Seminario de Estudios de Arte y Arqueología: BSAA (Universidad de Valladolid) (67): 195-207. ISSN 0210-9573. \nSáez y Romero, Mariano (1918). Las calles de Segovia. Segovia: Antonio San",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Lorenzo%20(Segovia)"
+    },
+    "es:Plaza de San Lorenzo (Segovia)": {
+      "description": "La plaza de San Lorenzo​ es un espacio público de la ciudad española de Segovia, centro neurálgico del barrio homónimo.",
+      "body": "La plaza de San Lorenzo​ es un espacio público de la ciudad española de Segovia, centro neurálgico del barrio homónimo.\n\n\nDescripción\nLa plaza se encuentra encerrada por la calle de Antonio Coronel y la del Cardenal Zúñiga, y se llega a ella también por la de los Vargas, la de la Iglesia y la del Puente de San Lorenzo.​ Debe su título a la iglesia del mismo nombre que se alza en el centro del espacio.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «San Lorenzo (Plazuela de)». Las calles de Segovia. Segovia: Antonio San Martín. p. 165. Wikidata Q32192602. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Plaza de San Lorenzo.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20San%20Lorenzo%20(Segovia)"
+    },
+    "es:Plaza de Santa Eulalia": {
+      "description": "La plaza de Santa Eulalia está situada en la ciudad de Segovia, Castilla y León, España.",
+      "body": "La plaza de Santa Eulalia está situada en la ciudad de Segovia, Castilla y León, España. Constituye el centro del barrio de Santa Eulalia, y fue declarada bien de interés cultural el 16 de febrero de 2017.​ El principal monumento de la plaza es la iglesia de Santa Eulalia.​\n\n\nHistoria\n\nLa plaza de Santa Eulalia era el foco del barrio de los tejedores de paños segovianos. En ella se encontraba el conjunto más homogéneo de arquitectura civil del siglo XVI de la ciudad, caracterizado por casas construidas con ladrillo y armazón de madera, con frentes de fachadas con soportales. Singular ejemplo de arrabal de mercado, conserva y mantiene en gran medida la huella y memoria histórica de este tipo de asentamientos. En la actualidad, el carácter de la plaza permanece prácticamente inalterado en cuanto a la trama originaria se refiere. Conserva, a pesar de las transformaciones sufridas, edificaciones de interés, por lo que este espacio se configura como único testigo y huella del ámbito extramuros de la ciudad de Segovia, declarada Patrimonio de la Humanidad por la Unesco en 1985.\nNo era habitual que la nobleza construyera sus casas extramuros, por lo que en el arrabal fueron escasas las casonas y construcciones señoriales. En la actualidad, como testigo de este tipo de construcciones, en la esquina entre la plaza de Santa Eulalia y la calle San Antón, se encuentra la Casa de los Comuneros Hermanos Buitrago de finales del siglo XV principios del siglo XVI. Su fachada a la plaza de Santa Eulalia presenta portal enmarcado mediante arco de medio punto, ejecutado con grandes sillares de jambas y dovelas de arco, enmarcado con un alfiz.\nAsimismo el conjunto conserva, entre los edificios que formaron parte de las edificaciones agregadas sobre los muros que delimitaban hacia el oeste del antiguo convento de San Francisco, interesantes ejemplos de arquitectura civil residencial del siglo XIX, que han ofrecido un paisaje urbano peculiar durante más de un siglo. De esta misma época, p",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20Santa%20Eulalia"
+    },
+    "es:Iglesia de San Esteban (Segovia)": {
+      "description": "La iglesia de San Esteban es un templo románico de la ciudad española de Segovia, construido originalmente en el siglo XII. Destaca por su esbelta torre, que antes de perder el alto chapitel barroco que la coronaba, con el que se levantaba hasta los 56 metros de alto, era el campanario románico más alto en la península ibérica.​\nSin embargo, con el tejado que la cubre actualmente, obra de hace unas décadas, solo alcanza unos 50 metros en su cúspide, formada por un popular gallo metálico y veleta. Por ello, muestra a una altura similar a la torre de la iglesia de Santa María la Antigua de Valladolid y pueden considerarse ambas, \"reinas de las torres románicas de Castilla\", las más altas de este estilo en España y la Península ibérica.\nLa iglesia, situada en la plaza del mismo nombre de la ciudad, posee un pórtico en la fachada meridional con diez arcos y capiteles adornados con grabados medievales.",
+      "body": "La iglesia de San Esteban es un templo románico de la ciudad española de Segovia, construido originalmente en el siglo XII. Destaca por su esbelta torre, que antes de perder el alto chapitel barroco que la coronaba, con el que se levantaba hasta los 56 metros de alto, era el campanario románico más alto en la península ibérica.​\nSin embargo, con el tejado que la cubre actualmente, obra de hace unas décadas, solo alcanza unos 50 metros en su cúspide, formada por un popular gallo metálico y veleta. Por ello, muestra a una altura similar a la torre de la iglesia de Santa María la Antigua de Valladolid y pueden considerarse ambas, \"reinas de las torres románicas de Castilla\", las más altas de este estilo en España y la Península ibérica.\nLa iglesia, situada en la plaza del mismo nombre de la ciudad, posee un pórtico en la fachada meridional con diez arcos y capiteles adornados con grabados medievales. El interior, reconstruido en el siglo XVIII tras un incendio, es de estilo barroco.​\nLa galería porticada es otro de los elementos más característicos de la construcción. Ocupa los flancos occidental y meridional de la iglesia. Todo está construido con la caliza rosada local, menos los fustes de las columnas geminadas que son de granito, aspecto que puede proceder de la restauración acometida a principios del siglo XX. Los capiteles son originales y se aprecia el fuerte desgaste causado por las lluvias y la contaminación que han creado un efecto similar al derretido.\n\n\nReferencias\n\n\nEnlaces externos\n\n Wikimedia Commons alberga una categoría multimedia sobre Iglesia de San Esteban.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Esteban%20(Segovia)"
+    },
+    "es:Iglesia de San Juan de los Caballeros (Segovia)": {
+      "description": "La iglesia de San Juan de los Caballeros es un edificio de la ciudad española de Segovia. Antaño un templo católico, en la actualidad es sede del Museo Zuloaga.",
+      "body": "La iglesia de San Juan de los Caballeros es un edificio de la ciudad española de Segovia. Antaño un templo católico, en la actualidad es sede del Museo Zuloaga.\n\n\nDescripción\n\nLa iglesia de San Juan de los Caballeros, de estilo románico, se ubica en la plaza de Colmenares​ de la ciudad de Segovia. Fue propiedad de Daniel Zuloaga, que la usó como taller artístico.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\nFue declarada monumento histórico-artístico perteneciente al Tesoro Artístico Nacional el 3 de junio de 1931, durante la Segunda República, mediante un decreto publicado el día 4 de ese mismo mes en la Gaceta de Madrid, con la rúbrica del presidente del Gobierno provisional de la República Niceto Alcalá-Zamora y el ministro de Educación Pública y Bellas Artes Marcelino Domingo y Sanjuán.​\nEn la actualidad, el edificio, sede del Museo Zuloaga, cuenta con el estatus de Bien de Interés Cultural.\n\n\nReferencias\n\n\nBibliografía\nRubio Celada, Abraham (1999). «Innovaciones técnicas, estilísticas y temáticas en la cerámica de los Zuloaga». Boletín de la Sociedad Española de Cerámica y Vidrio (Sociedad Española de Cerámica y Vidrio) 38 (4): 345-352. ISSN 0366-3175. \nSáez y Romero, Mariano (1918). «Colmenares». Las calles de Segovia. Segovia: Antonio San Martín. pp. 38-40. Wikidata Q32192602. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Iglesia de San Juan de los Caballeros.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Juan%20de%20los%20Caballeros%20(Segovia)"
+    },
+    "es:Plaza de San Facundo": {
+      "description": "La plaza de San Facundo​ es un espacio público de la ciudad española de Segovia.​​",
+      "body": "La plaza de San Facundo​ es un espacio público de la ciudad española de Segovia.​​\n\n\nDescripción\nLa plaza, que debe su nombre a una iglesia ya desaparecida, está encerrada entre la calle homónima, la de la Catorcena y la de San Agustín.​​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «San Facundo (Plazuela de)». Las calles de Segovia. Segovia: Antonio San Martín. pp. 157-158. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20San%20Facundo"
+    },
+    "es:Plaza de la Rubia": {
+      "description": "La plaza de la Rubia​ es un espacio público de la ciudad española de Segovia.​",
+      "body": "La plaza de la Rubia​ es un espacio público de la ciudad española de Segovia.​\n\n\nDescripción\nEn la plaza desembocan las calles del Cronista Lecea, de Colón y de Serafín.​ Conecta con la plaza de Guevara a través de la travesía de su mismo nombre.​ En su momento, además, un «callejón de la Rubia» llevaba desde aquel lugar hasta la calle de la Herrería.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Rubia (Plazuela de la)». Las calles de Segovia. Segovia: Antonio San Martín. pp. 147-148. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20la%20Rubia"
+    },
+    "es:Casa de Esquileo de Santillana": {
+      "description": "La Casa de Esquileo de Santillana, es un conjunto de edificaciones de carácter ganadero ubicado en las estribaciones de la sierra de Guadarrama, en la entidad local menor de Revenga, perteneciente al municipio de Segovia,  en la provincia homónima (España).",
+      "body": "La Casa de Esquileo de Santillana, es un conjunto de edificaciones de carácter ganadero ubicado en las estribaciones de la sierra de Guadarrama, en la entidad local menor de Revenga, perteneciente al municipio de Segovia,  en la provincia homónima (España).\n\nFue mandada edificar por Ignacio de Arizcun, tras obtener Ignacio de Arizcun licencia en 1744 del rey Felipe V fue mandada edifica por este junto a la Venta de Santillana en el cruce entre el cordel homónimo (Segovia-Puerto de la Fuenfría) y la Cañada de la Vera de la Sierra (provincia de Soria-Valverde de Leganés, provincia de Badajoz).​​​\n\nFue incluida en la Lista roja de patrimonio en peligro el 13 de febrero de 2025 por su estado crítico de conservación a pesar de su gran valor patrimonial, siendo asediada por vándalos, acceso de ganado, extracción de material de construcción y vertido de residuos, además del abandono institucional continuado.​\n\n\nHistoria\nEl lugar donde se asienta el Esquileo es atravesado por la Calzada romana de la Fuenfría sobre la que se edificaría en el tiempo medieval el Cordel de Santillana, tanto el trazado romano como la vía pecuaria fueron un punto conexión clave entre ambas mesetas desde tiempo inmemorial.\nSabemos que antes de la edificación del complejo, sabemos que en el entorno existió el despoblado medieval de Santillana, en tiempos de esquileo solo quedaba en pie, ya muy trasformada, su antiquísima venta propiedad más tarde del Marquesado de Herrara.​\nEl término de Revenga, rico en pastos y atravesado por la Cañada de la Vera de la Sierra, hizo de sus tierras un lugar eminentemente ganadero. A mediados del siglo XVIII existían tres ranchos de esquileo además, el Rancho de Burgos y el Rancho del Tío Marianín, ambos también en ruinas y con una capacidad ente todos para esquilar anualmente a 77.000 ovejas.​ En este siglo el viajero Antonio Ponz lo describiría como el más adornado del entorno de Segovia por su buena construcción y hermosura.​\nLa Casa de Esquileo de Santillana, el",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Casa%20de%20Esquileo%20de%20Santillana"
+    },
+    "es:Plaza del Socorro": {
+      "description": "La plaza del Socorro​ es un espacio público de la ciudad española de Segovia.​",
+      "body": "La plaza del Socorro​ es un espacio público de la ciudad española de Segovia.​\n\n\nDescripción\nLa plaza está encerrada por la calle con la que comparte nombre, la de la Judería Nueva, la de Martínez Campos y la de San Valentín.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Socorro (Plazuela del)». Las calles de Segovia. Segovia: Antonio San Martín. p. 183. Wikidata Q32192602. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Plaza del Socorro.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20del%20Socorro"
+    },
+    "es:Estación de Hontoria": {
+      "description": "Hontoria es una estación de ferrocarril situada en la localidad española de Hontoria, parte municipio de Segovia, en la provincia homónima. La estación, pertenece a la línea Villalba-Segovia, en la actualidad carece de servicio de viajeros.",
+      "body": "Hontoria es una estación de ferrocarril situada en la localidad española de Hontoria, parte municipio de Segovia, en la provincia homónima. La estación, pertenece a la línea Villalba-Segovia, en la actualidad carece de servicio de viajeros.\n\n\nSituación ferroviaria\nLa estación pertenece a la línea férrea de ancho ibérico Villalba-Segovia, situada en su punto kilométrico 59,4.​ Se halla entre las estaciones de La Losa-Navas de Riofrío y Segovia. El tramo es de vía única y está electrificado.\n\n\nHistoria\nLa línea fue puesta en funcionamiento el 1 de julio de 1888 con la apertura del tramo Villalba-Segovia de la línea Villalba-Segovia-Medina del Campo.​ El apeadero de Hontoria fue construido posteriormente, en 1950, por la demanda de la población de la localidad, entonces municipio independiente. La compañía Norte, constructora de la línea, no tenía especial interés en este trazado dado que ya contaba con la línea Madrid-Hendaya que hacía un recorrido similar alcanzando Medina del Campo vía Ávila.​​ Aun así, motivos estratégicos la llevaron a hacerse con la misma para evitar que algún competidor pudiera aprovechar que la conexión por Segovia era la más corta para alcanzar Madrid desde Valladolid, León o Asturias.​ En 1928 se elaboró el proyecto de electrificación de la línea, pero debido a la Guerra Civil no se puso en marcha hasta 1946, cuando los viejos vagones de madera fueron renovados. Norte mantuvo la gestión de la línea hasta la nacionalización del ferrocarril en España y la creación de RENFE en 1941. \nDesde el 31 de diciembre de 2004 Renfe Operadora explota la línea mientras que Adif es la titular de las instalaciones ferroviarias. \nLa infraestructura rápidamente quedaría relegada a almacén sin servicio de pasajeros, aunque por las vías circulan con normalidad trenes de la línea 53 de Media Distancia con servicios Regionales cadenciados gestionados por Renfe Media Distancia que dan continuidad a la línea ferroviaria desde Cercedilla hasta Segovia, enlazando con l",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Estaci%C3%B3n%20de%20Hontoria"
+    },
+    "es:Fábrica de loza La Segoviana": {
+      "description": "La Fábrica de loza La Segoviana, o fábrica de Los Vargas, es un conjunto de edificios industriales históricos ubicados junto al río Eresma en el barrio de San Lorenzo de la ciudad de Segovia.\nLa primera industria dedicada a loza en ese lugar fue fundada por el segoviano Melitón Martín y Arranz en el año 1861, quien levantó el edificio sobre las antiguas ruinas de una fábrica textil que había sido destrozada por un incendio en el primer cuarto del siglo XIX. Después de pasar a la familia Vargas durante tres generaciones la manufactura de cerámica cesó su producción en 1992.",
+      "body": "La Fábrica de loza La Segoviana, o fábrica de Los Vargas, es un conjunto de edificios industriales históricos ubicados junto al río Eresma en el barrio de San Lorenzo de la ciudad de Segovia.\nLa primera industria dedicada a loza en ese lugar fue fundada por el segoviano Melitón Martín y Arranz en el año 1861, quien levantó el edificio sobre las antiguas ruinas de una fábrica textil que había sido destrozada por un incendio en el primer cuarto del siglo XIX. Después de pasar a la familia Vargas durante tres generaciones la manufactura de cerámica cesó su producción en 1992.\nEstá incluida en la Lista roja de patrimonio en peligro desde el 23 de octubre de 2025.​\n\n\nHistoria\n\nA la fábrica de loza, y contratados por su fundador, llegaron en 1862 para trabajar en ella obreros de la industria lucense de Sargadelos, a pesar de ello la fábrica no dio el rendimiento esperado y fue vendida en 1875 a Marcos Vargas Mayorga, quien consiguió gracias a sus dotes directivas y su capital económico hacer de la factoría una de las mejores de España.​\nComo era habitual, en aquella época, se dedicó principalmente a la elaboración de piezas de loza decoradas con impresión calcográfica, como las que se realizaban, entre otras, en la fábrica Pickman de Sevilla. Otras vajillas destacaban por su decoración con dorado realizado con pan de oro, también se dedicaron a la fabricación de objetos decorativos y azulejos. El caolín junto con el cuarzo para la composición de la porcelana se extrajo de Otero de Herreros. La manufactura disponía de seis hornos de leña y cuatro de mufla para la última cochura de la decoración. Entre los vecinos de Segovia y alrededores se contabilizan 170 obreros empleados en la fábrica.​\nA partir del fallecimiento de Manuel Vargas, heredó la dirección de la misma, su hija, pasando a llamarse la fábrica «Hija de M. Vargas», nombre que se cambió a «Gil Vargas», cuando pasó la dirección a Concepción Gil Vargas y su marido Juan Gil Escorial entre los años 1936 y 1969. Con e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/F%C3%A1brica%20de%20loza%20La%20Segoviana"
+    },
+    "es:Real quinta de Quitapesares": {
+      "description": "La real quinta (o posesión) de Quitapesares es una antigua finca de propiedad real,​ que se sitúa en la localidad homónima en el actual término municipal de Palazuelos de Eresma, en la provincia de Segovia.",
+      "body": "La real quinta (o posesión) de Quitapesares es una antigua finca de propiedad real,​ que se sitúa en la localidad homónima en el actual término municipal de Palazuelos de Eresma, en la provincia de Segovia.\n\n\nHistoria\nLa finca inicia su vinculación con la monarquía en el reinado de Carlos IV al venir este monarca a cazar a la finca entonces propiedad de Frutos de Álvaro.​\nEl 7 de septiembre de 1832 la finca es comprada por el rey Fernando VII a los herederos de don Frutos de Álvaro, por 14.000 duros. Este rey la regala a su esposa la reina María Cristina de Borbón.​​ El 15 de marzo de 1833 se agregaron a la finca dos terrenos comprados por la reina para mejorar su forma.​ El principal motivo de la compra de la finca es servir de  sitio de recreo en las cercanías del Real Sitio de San Ildefonso, donde el matrimonio pasaba parte del verano.​ Durante sus estancias en el palacio de La Granja de San Ildefonso, los monarcas utilizaban la misma para pasear y recorrer la posesión, volviendo al palacio de La Granja por la noche. Muerto  Fernando VII, la ya conocida como reina gobernadora María Cristina continuó utilizando la finca para su recreo. La posesión viene siendo tradicionalmente recogida por la historiografía como el lugar elegido por la misma para declarar su amor a su futuro marido, y entonces sargento de su guardia de corps, Agustín Muñoz el 18 de diciembre de 1833, contrayendo matrimonio secreto en el palacio real de Madrid, 11 días después, el 28 de diciembre.​​​​​​​​​​ A finales de ese mes de diciembre de 1833 la casa-palacio se incendió, siendo mandada reconstruir inmediatamente por María Cristina. La finca contaba como empleados por entonces un conserje, un portero y un guarda, aunque solamente residían de forma regular en la quinta, los dos últimos.​​​\nAntes de 1845, la reina María Cristina dona la propiedad a su hija segundogénita, la infanta Luisa Fernanda.​​ En 1846, la infanta aportó la finca, junto a otros bienes,​ como dote en el momento de su matrimo",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Real%20quinta%20de%20Quitapesares"
+    },
+    "es:Iglesia de la Santísima Trinidad (Segovia)": {
+      "description": "La iglesia de la Santísima Trinidad en Segovia (España) es un templo de una sola nave cubierta con bóveda de medio cañón y cabecera con ábside curvo precedida de tramo recto. Al sur se abre el atrio, como es común en el románico segoviano. Al norte, una capilla gótica y dos sacristías barrocas.",
+      "body": "La iglesia de la Santísima Trinidad en Segovia (España) es un templo de una sola nave cubierta con bóveda de medio cañón y cabecera con ábside curvo precedida de tramo recto. Al sur se abre el atrio, como es común en el románico segoviano. Al norte, una capilla gótica y dos sacristías barrocas.\nAl exterior, el ábside aparece semioculto en un estrecho callejón, se divide mediante dos medias columnas en tres paños, en los que se abren sendas ventanas con columnas acodadas con capiteles decorados y en sentido horizontal por tres líneas de imposta una a la altura del vierteaguas, otra como prolongación del cimacio de los capiteles y otra por encima del arco. Una cornisa volada sobre canes representando figuras fantásticas o reales, remata el conjunto. En su interior sorprende sus dos pisos de arquerías superpuestas, con capiteles historiados, vegetales, bichas fantásticas, de gran valor escultórico e iconográfico, con algunos restos de su antigua policromía.\nAl sur como es usual en el románico segoviano se abre una galería porticada, mediante arcos de medio punto sobre dobles columnas que soportan capitales muy sobrios, con una sencilla y elegante decoración vegetal, muy plana.\nEl templo tiene dos portadas, la occidental de sencilla factura, presenta arquivoltas aboceladas que descansan en bellos capiteles con bichas y flora. Sobre la portada se abre una ventana que sirve de iluminación a la nave principal y la portada lateral con acceso desde el atrio, de gran belleza en la decoración de sus capiteles.\nEn su interior el templo presenta una sola nave cubierta con bóveda de cañón sobre tres arcos fajones, que apoyan en medias columnas adosadas a los muros laterales. A continuación de la nave se encuentra la torre, que forma interiormente una especie de cimborrio de forma rectangular cubierto con bóveda de aristas.\nEl actual templo obra del siglo XII sucedió a otro más primitivo de finales del siglo XI, cuyos restos fueron descubiertos tras el derribo en 1984 de una capil",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20la%20Sant%C3%ADsima%20Trinidad%20(Segovia)"
+    },
+    "es:Iglesia de San Martín (Segovia)": {
+      "description": "La iglesia de San Martín es un templo católico sito en los intramuros de la ciudad española de Segovia.",
+      "body": "La iglesia de San Martín es un templo católico sito en los intramuros de la ciudad española de Segovia.\n\n\nDescripción\nLevantada en el XII, ya existía en 1117, pues en el testamento de Domingo Petit aparece como testigo su abad.​\n\nEstá situada en la actual calle de Juan Bravo, a mitad de camino entre la catedral de Santa María y el acueducto romano. Se trata de un templo de origen mozárabe con estilo románico.\nEl templo difiere en parte del original, ya que algunas partes han sido reconstruidas o eliminadas, como es el caso del ábside central, que fue sustituido. Posee tres naves, crucero con cimborrio de ladrillo y cabecera tripartita. \nDel templo son destacables la torre del campanario, que es de estilo románico-mudéjar, y posee arcos de ladrillo sobre columnas de piedra. También es recalcable su galería porticada, que rodea toda la iglesia menos la cabecera. Este pórtico posee arcos de medio punto que descansan sobre columnas con capiteles románicos.\nLa portada de la fachada occidental es una de las puertas más grandes del románico español. Se trata de una portada de cinco arquivoltas, decoradas con motivos vegetales. Está cobijada por un pórtico, a modo de nártex, cuya abertura es un gran conjunto de arquivoltas soportadas por estatuas humanas que representan personajes del Antiguo Testamento.\n\n\nBibliografía\nMerino de Cáceres, José Miguel; Reynolds Álvarez, María (2005). «La iglesia de San Martín de Segovia. Análisis morfológico y evolutivo». Estudios segovianos 48 (105): 219-262. ISSN 0210-7260. Consultado el 28 de diciembre de 2020. \n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Iglesia de San Martín.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Mart%C3%ADn%20(Segovia)"
+    },
+    "es:Monasterio de San Vicente el Real": {
+      "description": "El Monasterio de Santa María y San Vicente el Real es un monasterio de clausura de las monjas de la Orden del Císter que está situado en el barrio de San Lorenzo, extramuros de la ciudad de Segovia, en la comunidad autónoma de Castilla y León, en España, a orillas del río Eresma, en un paisaje de gran belleza, en pronunciada pendiente lo que condiciona una acusada diferencia de niveles entre las distintas dependencias monásticas.\nDe orígenes inciertos sumidos en la leyenda, su filiación a la Orden del Císter en el año 1156 no tiene otro apoyo que la inscripción que recorre el templo a modo de friso, bajo las líneas de las ventanas y que, renovada en 1676, sin duda reproduce otra anterior, probablemente de los últimos decenios del siglo XV.\nEl conjunto monacal es hoy el resultado de al menos tres etapas constructivas: \n\nDe la primera fábrica tardo-románica sólo se conserva el ábside de la primitiva iglesia y parte de la nave.\nLa segunda etapa constructiva se desarrolla en la Baja Edad Media prolongándose hasta el siglo XVI. Es el siglo XV el período de renovación más importante del conjunto monástico, que afectó al menos a la iglesia, al claustro y edificios conventuales.",
+      "body": "El Monasterio de Santa María y San Vicente el Real es un monasterio de clausura de las monjas de la Orden del Císter que está situado en el barrio de San Lorenzo, extramuros de la ciudad de Segovia, en la comunidad autónoma de Castilla y León, en España, a orillas del río Eresma, en un paisaje de gran belleza, en pronunciada pendiente lo que condiciona una acusada diferencia de niveles entre las distintas dependencias monásticas.\nDe orígenes inciertos sumidos en la leyenda, su filiación a la Orden del Císter en el año 1156 no tiene otro apoyo que la inscripción que recorre el templo a modo de friso, bajo las líneas de las ventanas y que, renovada en 1676, sin duda reproduce otra anterior, probablemente de los últimos decenios del siglo XV.\nEl conjunto monacal es hoy el resultado de al menos tres etapas constructivas: \n\nDe la primera fábrica tardo-románica sólo se conserva el ábside de la primitiva iglesia y parte de la nave.\nLa segunda etapa constructiva se desarrolla en la Baja Edad Media prolongándose hasta el siglo XVI. Es el siglo XV el período de renovación más importante del conjunto monástico, que afectó al menos a la iglesia, al claustro y edificios conventuales.\nLa tercera etapa se corresponde con la reconstrucción que se inicia tras los incendios de la segunda década del siglo XVII, en la que es fundamental la intervención de Pedro de Brizuela.\nA partir de los siglos XVIII y XIX las actuaciones en el monasterio no han cesado, hasta llegar a la imagen actual del conjunto, resultado de la superposición de distintas fábricas a lo largo de toda la vida del monasterio.\nEl monasterio estuvo habitado por monjas cistercienses de clausura que vivían de su huerta y de la venta de flores.\nEn verano de 2022 el Monasterio cerró sus puertas tras más de diez siglos de presencia en Segovia de la Orden del Císter, y las cinco monjas que quedaban fueron trasladas al Santuario de Nuestra Señora de los Peligros, ubicado muy cerca del Paseo de la Castellana en Madrid. Sor Pres",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20San%20Vicente%20el%20Real"
+    },
+    "es:Iglesia de San Millán (Segovia)": {
+      "description": "La iglesia de San Millán es un edificio de culto católico situado junto a la avenida del Acueducto, en el barrio de San Millán de la ciudad de Segovia, en la comunidad autónoma de Castilla y León.​  Está situado en el barrio homónimo.\nLa torre prerrománica conforma los restos más antiguos del templo, pues corresponde al siglo XI siendo de estilo mudéjar, aspecto que confiere al edificio un carácter distintivo dentro del importante número de iglesias románicas de la ciudad, que junto con Zamora son el grupo más numeroso de España. El resto del edificio es producto de la reforma realizada entre 1111 y 1126 por Alfonso I el Batallador durante su gobierno en Castilla por su matrimonio con doña Urraca, por lo que se trata de una de las iglesias más antiguas de la ciudad.​\n\nSu fábrica refleja influencia de la arquitectura aragonesa, pues reproduce la planta de la catedral de Jaca a menor escala.",
+      "body": "La iglesia de San Millán es un edificio de culto católico situado junto a la avenida del Acueducto, en el barrio de San Millán de la ciudad de Segovia, en la comunidad autónoma de Castilla y León.​  Está situado en el barrio homónimo.\nLa torre prerrománica conforma los restos más antiguos del templo, pues corresponde al siglo XI siendo de estilo mudéjar, aspecto que confiere al edificio un carácter distintivo dentro del importante número de iglesias románicas de la ciudad, que junto con Zamora son el grupo más numeroso de España. El resto del edificio es producto de la reforma realizada entre 1111 y 1126 por Alfonso I el Batallador durante su gobierno en Castilla por su matrimonio con doña Urraca, por lo que se trata de una de las iglesias más antiguas de la ciudad.​\n\nSu fábrica refleja influencia de la arquitectura aragonesa, pues reproduce la planta de la catedral de Jaca a menor escala. Está compuesta de cuatro ábsides, de los que tres corresponden a las naves y el cuarto, un añadido posterior, a la sacristía. Cuenta con tres portadas, una en cada costado, y dos galerías de arcos porticados, tan comunes en el románico segoviano. En el interior podemos encontrar tres naves amplias con una cubierta sencilla en el techo, en sustitución de la techumbre mudéjar inicial. Las columnas y capiteles son de gran dimensión en comparación con el tamaño del templo. Entre los capiteles más destacables encontramos uno que tiene como temática los Magos camino de Belén y otro que tiene como temática la Huida a Egipto.\nDentro de los ornamentos destinados al culto destaca su altar mayor de estilo románico, compuesto por un crucificado rodeado por diez arcadas cegadas, así como varias piezas de la imaginería procesional que participa en la Semana Santa segoviana, como son las tallas de Nuestra Señora de la Soledad al pie de la Cruz y del Santísimo Cristo en su última Palabra, que fueron donadas por el escultor segoviano Aniceto Marinas y corresponden a su cofradía homónima, que tiene",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Mill%C3%A1n%20(Segovia)"
+    },
+    "es:Monasterio de San Antonio el Real": {
+      "description": "El monasterio de San Antonio el Real es un complejo monacal situado en la ciudad española de Segovia, capital de la provincia del mismo nombre, perteneciente a la comunidad autónoma de Castilla y León.\nDe estilo gótico es uno de los edificios religiosos más relevantes de Segovia. En su interior se guardan numerosas obras de arte.",
+      "body": "El monasterio de San Antonio el Real es un complejo monacal situado en la ciudad española de Segovia, capital de la provincia del mismo nombre, perteneciente a la comunidad autónoma de Castilla y León.\nDe estilo gótico es uno de los edificios religiosos más relevantes de Segovia. En su interior se guardan numerosas obras de arte. Ha sido convertido en museo en el que destacan un relicario de plata de San Antonio de Padua y varios trípticos flamencos de la escuela de Utrecht.​\n\n\nHistoria\nEn 1455 Enrique IV mandó construir en la finca \"El Campillo\" un palacio de recreo. Poco después lo donó a los franciscanos convirtiéndolo en convento. El 12 de abril de 1468, ya con los Reyes Católicos, se cede a las Clarisas franciscanas convirtiéndolo en un convento de clausura que se ha mantenido hasta la actualidad. En una inscripción que existe en el cora de las monjas se puede leer \"hizo este monasterio el Rey Don Enrique IV y dotolo la Reina Doña Isabel\".​\n\n\nDescripción\n\nLa portada de la iglesia es de estilo gótico isabelino. En ella destacan los escudos del rey Enrique IV, que lo mandó construir. \nPredomina el estilo mudéjar en la capilla mayor. Su bóveda está recubierta por curioso artesonado de estilo mudéjar que se apoya en un friso de yeserías policromadas. La decoración está basada en estrellas y lazos, colgando del centro racimos de piñas mozárabes.\nEl lado de la Epístola está cubierto por un retablo con un calvario flamenco con esculturas policromadas. Este retablo es del siglo XV.​\n\n\nLa casa de campo\nEl actual edificio monacal fue en origen casa de recreo del rey. En su fachada hubo un gran arco adovelado y trece huecos en la planta alta. En cada planta había dos estancias, una de forma cuadrada y otra rectangular, esta última estaba presidida de una chimenea.\nLa salas de la planta baja no tienen decoración, las de la planta alta solo están decoradas las limas mozárabes la sala cuadrada con motivos florares y heráldicos de Castilla, León y Portugal, las de la sala rec",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20San%20Antonio%20el%20Real"
+    },
+    "es:Molino de los Señores": {
+      "description": "El Molino de los Señores es un molino hidráulico situado a orillas del río Eresma, en el barrio de Zamarramala, en Segovia (Castilla y León, España), cerca del Santuario de la Fuencisla. La construcción ocupa el solar de un antiguo molino medieval desaparecido, mencionado en un documento fechado en 1136 conservado en el archivo de la Catedral de Segovia, lo que lo convierte en el primer edificio civil para uso industrial documentado de la ciudad.\nFue declarado bien de interés cultural con categoría de monumento por la Junta de Castilla y León el 22 de septiembre de 2022.​ Ya en 1983, la entonces Dirección General de Bellas Artes y Archivos había incoado expediente de declaración como monumento histórico-artístico.",
+      "body": "El Molino de los Señores es un molino hidráulico situado a orillas del río Eresma, en el barrio de Zamarramala, en Segovia (Castilla y León, España), cerca del Santuario de la Fuencisla. La construcción ocupa el solar de un antiguo molino medieval desaparecido, mencionado en un documento fechado en 1136 conservado en el archivo de la Catedral de Segovia, lo que lo convierte en el primer edificio civil para uso industrial documentado de la ciudad.\nFue declarado bien de interés cultural con categoría de monumento por la Junta de Castilla y León el 22 de septiembre de 2022.​ Ya en 1983, la entonces Dirección General de Bellas Artes y Archivos había incoado expediente de declaración como monumento histórico-artístico.\n\n\nHistoria\nEl molino perteneció originalmente a los señores del Cabildo Catedralicio de Segovia, circunstancia que le dio nombre. Más tarde fue explotado por las Siervas de María, pasando posteriormente a propiedad particular.\nSu historia se encuentra estrechamente ligada a la del río Eresma, a lo largo de cuyo curso se construyeron numerosos molinos y fábricas impulsados por la energía hidráulica. El uso del agua como fuente de energía en la tecnología tradicional explica la ubicación de estos ingenios junto a los principales ríos, arroyos y manantiales de la zona; en el caso de Segovia, el Eresma actúa como hilo conductor que enlaza los restos del importante patrimonio hidráulico de la ciudad.\nPerdida su función productiva, el conjunto sufrió un proceso de abandono y deterioro desde mediados del siglo XX, y ha sido objeto de un proceso de rehabilitación.\n\n\nDescripción\nEl Molino de los Señores constituye un relevante ejemplo de patrimonio industrial relacionado con el agua como fuente de energía. Ubicado en un entorno de elevado valor natural, al interés arquitectónico e histórico del edificio se suma la vertiente paisajística que la propia existencia del molino ha contribuido a preservar.\nEn torno al molino se agruparon una serie de edificios industriale",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Molino%20de%20los%20Se%C3%B1ores"
+    },
+    "es:Murallas de Segovia": {
+      "description": "La muralla de Segovia es una fortificación medieval que rodea el casco histórico de la ciudad española de Segovia. Forma parte del conjunto monumental de la ciudad vieja, declarado Patrimonio de la Humanidad por la Unesco en 1985.",
+      "body": "La muralla de Segovia es una fortificación medieval que rodea el casco histórico de la ciudad española de Segovia. Forma parte del conjunto monumental de la ciudad vieja, declarado Patrimonio de la Humanidad por la Unesco en 1985.\n\n\nDescripción\n\nLas murallas de la ciudad de Segovia completarían un circuito de unos 3400 m de longitud,​​ 9 m de altura media y 2,50 m de espesor. Están construidas en toda clase de materiales, con algunas partes de gran antigüedad, si bien según Gila y Fidalgo la mayor parte de su fábrica correspondería a los siglos XI y XII, con remodelaciones importantes en los siglos posteriores. Desde el alcázar hasta la puerta de Santiago, Gila y Fidalgo contabilizaba dos torreones circulares y un cubo. La puerta de Santiago, de planta rectangular, tiene un arco en herradura y otro almohadillado. La muralla continúa por el norte del casco histórico, dominando el río Eresma, hasta la puerta de San Cebrián, que tiene a su entrada un crucero.​\nDesde este punto la muralla, levantada sobre la roca, sigue en dirección este hasta llegar a donde se encontraba la puerta de San Juan, derribada en 1888 por necesidades urbanísticas; era un arco ornamental del siglo XVI. En dirección sur y luego oeste continúa la muralla, en un tramo en el que figuraban el Postigo del Consuelo, el Portillo de la Canaleja y las puertas de San Martín, de la Luna y del Sol, contándose en este numerosos cubos, de los cuales la mayoría sirvieron de cimientos a las casas de la ciudad. Continuando hacia el oeste se llega a la puerta de San Andrés, que cuenta con dos torres, una cuadrada y otra poligonal. Desde ahí la muralla continúa para cerrar su perímetro en el alcázar.​\n\n\nNotas\n\n Partes de este artículo incluyen texto de Guía y plano de Segovia (1906), una obra de Félix Gila y Fidalgo (1861-1912) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nGila y Fidalgo, Félix (1906). Guía y plano de Segovia. Segovia: Imp. del Diario de Avisos. Wikidata Q116992975. \n\n\nEnlaces externos\n Wikime",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Murallas%20de%20Segovia"
+    },
+    "es:Plaza de los Espejos": {
+      "description": "La plaza de los Espejos​ es un espacio público de la ciudad española de Segovia.​",
+      "body": "La plaza de los Espejos​ es un espacio público de la ciudad española de Segovia.​\n\n\nDescripción\nLa plaza está junto a la de la Reina Doña Juana y tiene entrada tanto por la calle del Seminario como por la del Gobernador Llasera.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Espejos (Plazuela de los)». Las calles de Segovia. Segovia: Antonio San Martín. p. 72. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20los%20Espejos"
+    },
+    "es:Villa Estrella": {
+      "description": "La Villa Estrella o chalé de los Rueda​​​ fue un edificio de 1925 situado en la ciudad de Segovia, exponente del estilo regionalista de montaña, obra de Silvestre Manuel Pagola.​​​​​",
+      "body": "La Villa Estrella o chalé de los Rueda​​​ fue un edificio de 1925 situado en la ciudad de Segovia, exponente del estilo regionalista de montaña, obra de Silvestre Manuel Pagola.​​​​​\nEl 16 de marzo de 2023 el Ayuntamiento de Segovia autorizó su demolición a fin de construir varios bloques de pisos, esto desató gran polémica y críticas,​​ la Real Academia de San Quirce se opuso​ y la Consejería de Cultura y Turismo de la Junta de Castilla y León admitió a trámite declarar el conjunto como Bien de Interés Cultural tras la solicitud de un particular.​​ Sin esperar a la resolución de esta petición de declaración, el edificio se demolió el 21 de abril de ese mismo año, un mes y cinco días tras su anuncio.​​\n\n\nDescripción\nSe trataba de un edificio correspondiente a la tipología de los palacios regionalistas de montaña más típicos de zonas del norte de España. El palacio contaba con tres pisos, así como una planta de sótano.​\nDestacaba su fachada en el Paseo de Ezequiel González.​ Se trató una obra que ejemplificaba el trayecto hacia una arquitectura cada vez más limpia, desornamentada y funcional por parte del su autor Silvestre Manuel Pagola Bireben, tendiendo a veces a una mayor fuerza expresiva en la combinación y el uso de los elementos arquitectónicos, como sucede en el bloque de viviendas en esquina Francisco Gálvez en la plaza de la Rubia también en Segovia y que se edificará en 1935.​​ Estaba rodeado de un jardín donde todavía encuentran varios ejemplares de árboles centenarios.​\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Villa%20Estrella"
+    },
+    "es:Calle de Cervantes (Segovia)": {
+      "description": "La calle de Cervantes es una vía urbana de la ciudad española de Segovia.",
+      "body": "La calle de Cervantes es una vía urbana de la ciudad española de Segovia.\n\n\nDescripción\nLa calle comienza a la conclusión de la calle de Juan Bravo y termina en el Azoguejo.​ Anteriormente se habría llamado «calle Real del Carmen».​ Lo de «Real» habría venido por llamarse así todo el espacio de la Plaza Mayor al Azoguejo y la parte de «Carmen» por el suprimido convento de carmelitas descalzos, trasladados desde la casa del Sol en 1603, con su capilla, tributando culto a la Virgen del Carmelo.​ El nombre de Cervantes lo llevaba la travesía 2.ª de San Agustín, más adelante «calle de los Zuloaga».​ Cuando se cumplió el tercer centenario de la publicación de la primera parte del Quijote, se mandó nombrar una calle de cada localidad en honor a Cervantes.​ En Segovia, que ya la había, tuvo lugar el cambio de nombre ya citado.​ A comienzos del siglo XX, Mariano Sáez y Romero decía de ella lo siguiente:\n\n \n\n\nReferencias\n\n Partes de este artículo incluyen texto de Las calles de Segovia : noticias, tradiciones y curiosidades (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Cervantes». Las calles de Segovia : noticias, tradiciones y curiosidades. Segovia: Antonio San Martín. Wikidata Q32192602. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Calle de Cervantes.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Calle%20de%20Cervantes%20(Segovia)"
+    },
+    "es:Calle de Ochoa Ondátegui": {
+      "description": "La calle de Ochoa Ondátegui​ es una vía pública de la ciudad española de Segovia.​",
+      "body": "La calle de Ochoa Ondátegui​ es una vía pública de la ciudad española de Segovia.​\n\n\nDescripción\n\nLa vía, que se conoció como «calle de San Antolín» porque albergó la iglesia de ese nombre, honra con el título actual a Diego Ochoa de Ondátegui (1682-1751), industrial y filántropo natural de la ciudad.​ Discurre desde la calle de Fernán García hasta la plaza del Salvador.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Ochoa Ondátegui». Las calles de Segovia. Segovia: Antonio San Martín. pp. 123-124. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Calle%20de%20Ochoa%20Ond%C3%A1tegui"
+    },
+    "es:Calle de Juan Bravo (Segovia)": {
+      "description": "La calle de Juan Bravo es una vía urbana de la ciudad española de Segovia.",
+      "body": "La calle de Juan Bravo es una vía urbana de la ciudad española de Segovia.\n\n\nDescripción\nTiene su entrada por la plazuela del Corpus y salida a la calle de Cervantes.​ Antaño se denominaba solo «calle Real», pero más adelante tomó el nombre del comunero Juan Bravo.​ Ha llegado a ser considerada la calle más importante de Segovia.​ A comienzos del siglo XX, Mariano Sáez y Romero contaba de ella lo siguiente:\n\n \n\nEn ella se encuentran la iglesia de San Martín, la Cárcel Real y la Casa de los Picos, entre otros inmuebles.​\n\n\nReferencias\n\n Partes de este artículo incluyen texto de Las calles de Segovia : noticias, tradiciones y curiosidades (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Juan Bravo». Las calles de Segovia: noticias, tradiciones y curiosidades. Segovia: Antonio San Martín. Wikidata Q32192602. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Calle de Juan Bravo.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Calle%20de%20Juan%20Bravo%20(Segovia)"
+    },
+    "es:Calle de Fernán García": {
+      "description": "La calle de Fernán García​ es una vía pública de la ciudad española de Segovia.​",
+      "body": "La calle de Fernán García​ es una vía pública de la ciudad española de Segovia.​\n\n\nDescripción\nLa calle discurre desde la plaza de Artillería hasta la de Día Sanz, en todo momento paralela a la calle de Teodosio el Grande, de la que apenas la separa el acueducto.​ Aunque se conoció en el pasado como «calle Nueva», honra con el título actual al caballero segoviano Fernán García, que, junto a Día Sanz, participó en la toma de Madrid de las tropas cristianas en el marco de la Reconquista.​ Aparece descrita en Las calles de Segovia (1918) de Mariano Sáez y Romero con las siguientes palabras:​\n\n \n\n\nNotas\n\n Partes de este artículo incluyen texto de Las calles de Segovia (1918), una obra de Mariano Sáez y Romero (1868-1939) en dominio público.\n\n\nReferencias\n\n\nBibliografía\nSáez y Romero, Mariano (1918). «Fernán García». Las calles de Segovia. Segovia: Antonio San Martín. pp. 76-77. Wikidata Q32192602.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Calle%20de%20Fern%C3%A1n%20Garc%C3%ADa"
+    }
+  }
+}

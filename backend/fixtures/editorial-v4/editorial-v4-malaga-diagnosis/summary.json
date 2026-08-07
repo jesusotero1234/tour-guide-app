@@ -1,0 +1,3319 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "createdAt": "2026-08-06T18:00:19.221Z",
+  "mode": "snapshot",
+  "scope": "calibration",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "a5b1ea90789cdaceb8e458ec4d92dbd4eecb7a64fcacb18d0b474cfa4a4244ad",
+  "results": [
+    {
+      "case": {
+        "id": "malaga-history-es-120",
+        "mode": "snapshot",
+        "city": "Malaga",
+        "requestedDuration": 120
+      },
+      "reproducibility": {
+        "provider": {
+          "kind": "deepseek",
+          "model": "deepseek-v4-flash"
+        },
+        "selectorFingerprint": "a5b1ea90789cdaceb8e458ec4d92dbd4eecb7a64fcacb18d0b474cfa4a4244ad",
+        "storyPromptFingerprint": "9319f9d8085c407195f211687396b2bda2e066204b1208d7db50f988c2c734b3",
+        "criticPromptFingerprint": "0072d49da17572cb9dcc9727de471cdc1c6ace8d4c74a5b8048ef375557d3add",
+        "artifact": "/mnt/c/users/jesus/desktop/coding/tour-guide-app/backend/fixtures/editorial-v4/editorial-v4-calibration-20260806-b/malaga-history-es-120.json",
+        "walkingMatrixFingerprint": "f726c84e9a666905dc5fbd86d53e0006f1474b48379ad679751498f5452a5965"
+      },
+      "candidateSet": {
+        "prefiltered": 60,
+        "ready": 30,
+        "reduced": 18,
+        "poolOracleCoverage": "5/5",
+        "reducedOracleCoverage": "5/5",
+        "evidenceGaps": [
+          {
+            "canonicalId": "osm:way:516647599",
+            "name": "Parroquia San Gabriel",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:532211894",
+            "name": "Calle Marqués de Larios",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q101417782",
+            "name": "Monumento a Teodoro Reding",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q105646138",
+            "name": "Muralla Medieval de Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106874802",
+            "name": "Paseo Marítimo Pablo Ruiz Picasso",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106877540",
+            "name": "Plaza Capuchinos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106877634",
+            "name": "Plaza de Doña Trinidad",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106877849",
+            "name": "Plaza Cruz de Humilladero",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106877965",
+            "name": "Plaza Legión Española",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106877985",
+            "name": "Plaza Marqués de Vado del Maestre",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106878003",
+            "name": "Plaza Montaño",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106878068",
+            "name": "Plaza Olletas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106878077",
+            "name": "Plaza Pío XII",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q106878115",
+            "name": "Plaza San Ignacio",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q107062570",
+            "name": "Monumento a Santa María de la Victoria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q107108808",
+            "name": "Monumento a Picasso",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q107456390",
+            "name": "Museo del Vidrio y Cristal",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q108651331",
+            "name": "Fuerte de San Lorenzo",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q108732160",
+            "name": "Alcubilla de Aguas de la Trinidad",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q10894370",
+            "name": "Mercado de Atarazanas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q109919884",
+            "name": "Panteón de José Agustín Gómez García",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q109922216",
+            "name": "Plaza Patrocinio",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q111916212",
+            "name": "Hacienda Quintana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q112042398",
+            "name": "Monumento a Félix Rodríguez de la Fuente",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q112389119",
+            "name": "Monumento a José Moreno Carbonero",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q112392676",
+            "name": "Monumento a José María Martín Carpena",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q112750375",
+            "name": "Monumento a Jorge Guillén",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q113015765",
+            "name": "Monumento a Rockberto",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q113026271",
+            "name": "Monumento al Cardenal Herrera Oria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q113146314",
+            "name": "Cantarera de Olletas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q113536554",
+            "name": "Chimenea de la Antigua Fábrica de Electricidad Fiat Lux",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q113950495",
+            "name": "Noria de Huerta de Ortega",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q114401779",
+            "name": "Monumento a Santa Ángela de la Cruz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115270351",
+            "name": "Monumento a Alfonso Canales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115326032",
+            "name": "Fuente de la Plaza de las Flores",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115326084",
+            "name": "Plaza de las Flores",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115327576",
+            "name": "Monumento a Juan Temboury Álvarez",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115399452",
+            "name": "Monumento a Rosario Pino",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115407694",
+            "name": "Monumento a Francisco García Grana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115408145",
+            "name": "Monumento a San Marcelino Champagnat",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115409645",
+            "name": "Monumento a Miguel de los Reyes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115472399",
+            "name": "Monumento a Madre Petra de San José",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115497855",
+            "name": "Monumento a Juan Estrada Castro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115521626",
+            "name": "Monumento a Cánovas del Castillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115522439",
+            "name": "Monumento a Blas Infante",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115523442",
+            "name": "Monumento a Tiburcio Arnaiz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115559777",
+            "name": "Monumento a los Donantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115674702",
+            "name": "Monumento a Miguel Molina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115675543",
+            "name": "Plaza Bailén",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115679047",
+            "name": "Monumento a Enrique Navarro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115857956",
+            "name": "Monumento a Manuel Agustín Heredia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115868403",
+            "name": "Plaza Poeta Alfonso Canales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115929950",
+            "name": "Plazuela San Juan de Dios",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115930133",
+            "name": "Plazuela Jesús Castellanos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115930394",
+            "name": "Plaza Guerrero Strachan",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116019607",
+            "name": "Plaza Cooperación y Ahorro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116059410",
+            "name": "Monumento a Pedro de Mena",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116136833",
+            "name": "Plaza de John F. Kennedy",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116150834",
+            "name": "Plaza San Pedro Alcántara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116183474",
+            "name": "Plaza Nuestra Señora de la Soledad",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116447389",
+            "name": "Lápida de San Ciriaco y Paula Conmemorativa de las Obras del Puerto de Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116459822",
+            "name": "Calle Granados",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116750350",
+            "name": "OXO Museo del Videojuego",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116764598",
+            "name": "Plaza de la Biznaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116770952",
+            "name": "Monumento a los Migrantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116785029",
+            "name": "Paseo de la Fama",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q11681997",
+            "name": "Fundación Picasso Museo Casa Natal",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116828475",
+            "name": "Plaza de la Judería",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116864786",
+            "name": "Monumento a Juan Bosco",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116894493",
+            "name": "Plaza Jerónimo Cuervo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116914321",
+            "name": "Monumento a Salomón Ben Gabirol",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q116927583",
+            "name": "Plaza Antonio Ordoñez",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q117113336",
+            "name": "Plaza de la Aurora",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q117477770",
+            "name": "Muelle Uno",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q117478127",
+            "name": "Plaza de la Solidaridad",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q117491232",
+            "name": "Fuente de los Cristos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q118139342",
+            "name": "Plaza Lex Flavia Malacitana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q118182313",
+            "name": "Plaza Imagen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q118182588",
+            "name": "Plaza Enrique Navarro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q120538787",
+            "name": "Monumento a los Caídos en la Guerra de Melilla",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q121029815",
+            "name": "Monumento a los Caídos del General Torrijos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q12184921",
+            "name": "Museum Jorge Rando",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q124542501",
+            "name": "Museo de Arte Flamenco Juan Breva",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q126095571",
+            "name": "Parroquia de Cristo Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q127821889",
+            "name": "Casa de las Palmeras",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q128414922",
+            "name": "Plaza Nuestra Señora del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q128465698",
+            "name": "Plaza de Manuel Azaña",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q128466197",
+            "name": "Plaza José Bergamín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q129311078",
+            "name": "Mausoleo de José Mensales y Aparicio",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q129490831",
+            "name": "Familia Clemens",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q136527277",
+            "name": "Museo del Transporte Urbano de Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16545730",
+            "name": "Centro Pompidou Málaga",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q20016787",
+            "name": "Colección del Museo Ruso San Petersburgo Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2834928",
+            "name": "Iglesia de Stella Maris",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2836410",
+            "name": "Iglesia de San Felipe Neri",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3826922",
+            "name": "Teatro Cervantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q4291147",
+            "name": "Plaza de la Merced",
+            "missing": [
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q45227805",
+            "name": "Villa Cele-María",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5043601",
+            "name": "Museo Carmen Thyssen Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5654652",
+            "name": "Abadía de Santa Ana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5713145",
+            "name": "Ave Quiromántica",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5723875",
+            "name": "Parque Balneario Nuestra Señora del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5761603",
+            "name": "Centro de Ciencia Principia",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5836459",
+            "name": "Ermita de Zamarrilla",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5840254",
+            "name": "Monumento al Espetero",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5848876",
+            "name": "Monumento a Pablo Picasso",
+            "missing": [
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5870202",
+            "name": "Fuente de Olletas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5909345",
+            "name": "Iglesia de Nuestra Señora de Fátima",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5910398",
+            "name": "Iglesia de San Juan",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5910694",
+            "name": "Iglesia San Lázaro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5912389",
+            "name": "Iglesia de la Concepción",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5912864",
+            "name": "Iglesia del Santo Cristo de la Salud",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5926309",
+            "name": "Jardines de Puerta Oscura",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010543",
+            "name": "Mercado Municipal Ciudad Jardín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6022952",
+            "name": "Monumento a Muñoz Degrain",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6022964",
+            "name": "Monumento a Arturo Reyes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6022968",
+            "name": "Monumento a Bernardo Ferrándiz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023009",
+            "name": "Monumento a Eduardo Ocón Rivas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023075",
+            "name": "Monumento a Narciso Díaz de Escovar",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023089",
+            "name": "Monumento a Rubén Darío",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023096",
+            "name": "Monumento a Salvador Rueda",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023113",
+            "name": "Monumento a Torrijos",
+            "missing": [
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6023240",
+            "name": "Monumento al Marqués de Guadiaro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6033164",
+            "name": "Museo Automovilístico de Málaga",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6033449",
+            "name": "Museo Interactivo de la Música",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6033729",
+            "name": "Museo Félix Revello de Toro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6034294",
+            "name": "Museo de la Semana Santa",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6034512",
+            "name": "Museo del Vino",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6062671",
+            "name": "Parque de Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6065592",
+            "name": "Paseo Marítimo Ciudad de Melilla",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080111",
+            "name": "Plaza de Spínola",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080138",
+            "name": "Plaza de Uncibay",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080468",
+            "name": "Plaza del Siglo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6121578",
+            "name": "Basílica y Santuario de Santa María de la Victoria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6123401",
+            "name": "Edificio del Banco de España",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q8343401",
+            "name": "Panteón de la Memoria Histórica",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9007571",
+            "name": "Iglesia de Santa María del Sagrario",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9075927",
+            "name": "Seminario de Málaga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9082136",
+            "name": "Teatro Echegaray",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q96656916",
+            "name": "Fuente de Reding",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97632339",
+            "name": "Ermita del Calvario y Vía Crucis",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97633028",
+            "name": "Iglesia de San Pedro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97633031",
+            "name": "Hospital de Santo Tomás",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97633205",
+            "name": "Iglesia de Santiago",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97633233",
+            "name": "Casa del Consulado",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97633576",
+            "name": "Panteón de Félix Sáenz Calvo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q97763924",
+            "name": "Chimenea de la Antigua Fábrica de Energía Eléctrica",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q98059223",
+            "name": "Villa Onieva",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q98059227",
+            "name": "Villa Chelo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q98059599",
+            "name": "Chimenea de la Antigua Fundición Ramírez y Pedrosa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q98059648",
+            "name": "Chimenea de la Fábrica de la Cros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          }
+        ]
+      },
+      "storyMap": {
+        "schemaVersion": "editorial-story-map-v4",
+        "centralQuestion": "¿Cómo se fue transformando Málaga desde su núcleo medieval amurallado hasta la ciudad moderna abierta al mar, y qué huellas de ese proceso de conquista, poder, comercio y memoria siguen visibles hoy en su centro histórico?",
+        "beats": [
+          {
+            "beatId": "b01",
+            "contributionCode": "origins_urban_form",
+            "era": "ancient",
+            "focus": "Los cimientos romanos y la ciudad amurallada medieval: el teatro romano, la Alcazaba y el Castillo de Gibralfaro como estratos fundacionales del paisaje urbano malagueño.",
+            "evidenceRefs": [
+              "c06:e01",
+              "c06:e03",
+              "c06:e04",
+              "c02:e04",
+              "c02:e05",
+              "c04:e04",
+              "c04:e05"
+            ]
+          },
+          {
+            "beatId": "b02",
+            "contributionCode": "royal_state_power",
+            "era": "medieval",
+            "focus": "La conquista cristiana de 1487 y la imposición del poder real: el asedio de Gibralfaro, la catedral sobre la mezquita aljama y la muralla nazarí como frontera entre el pasado musulmán y el nuevo orden.",
+            "evidenceRefs": [
+              "c04:e05",
+              "c03:e04",
+              "c16:e04",
+              "c16:e05"
+            ]
+          },
+          {
+            "beatId": "b03",
+            "contributionCode": "religious_identity",
+            "era": "early_modern",
+            "focus": "La construcción de la identidad religiosa y episcopal: la catedral renacentista inconclusa, el Palacio Episcopal barroco y la Plaza del Obispo como escenario del poder eclesiástico.",
+            "evidenceRefs": [
+              "c03:e01",
+              "c03:e02",
+              "c03:e05",
+              "c07:e02",
+              "c07:e04",
+              "c22:e01"
+            ]
+          },
+          {
+            "beatId": "b04",
+            "contributionCode": "trade_economic_life",
+            "era": "early_modern",
+            "focus": "El comercio portuario y la vida económica: la Aduana neoclásica, la Farola, los mesones y mercados como infraestructuras del intercambio que conectaban Málaga con el mundo.",
+            "evidenceRefs": [
+              "c08:e04",
+              "c08:e05",
+              "c17:e04",
+              "c19:e05",
+              "c28:e01",
+              "c28:e04"
+            ]
+          },
+          {
+            "beatId": "b05",
+            "contributionCode": "public_life_ceremony",
+            "era": "early_modern",
+            "focus": "La plaza Mayor y el espacio público cívico: la Plaza de la Constitución como corazón político y social desde el siglo XV, y los palacios nobiliarios que la rodeaban.",
+            "evidenceRefs": [
+              "c10:e04",
+              "c10:e05",
+              "c05:e04",
+              "c11:e04"
+            ]
+          },
+          {
+            "beatId": "b06",
+            "contributionCode": "urban_expansion_reform",
+            "era": "nineteenth_century",
+            "focus": "La modernización decimonónica: derribo de murallas, terrenos ganados al mar, la calle Larios, la Plaza de la Marina y el ensanche que abrió la ciudad hacia el puerto.",
+            "evidenceRefs": [
+              "c13:e04",
+              "c13:e05",
+              "c23:e04",
+              "c23:e05",
+              "c05:e04"
+            ]
+          },
+          {
+            "beatId": "b07",
+            "contributionCode": "memory_rights",
+            "era": "cross_era",
+            "focus": "La memoria, la muerte y la recuperación patrimonial: cementerios, restauraciones y la puesta en valor de monumentos como actos de construcción de identidad colectiva.",
+            "evidenceRefs": [
+              "c09:e05",
+              "c27:e04",
+              "c27:e05",
+              "c06:e05",
+              "c02:e04",
+              "c21:e04"
+            ]
+          }
+        ],
+        "candidates": {
+          "c01": {
+            "relativePriorityRank": 24,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c01:e02",
+                  "c01:e03"
+                ]
+              }
+            ]
+          },
+          "c02": {
+            "relativePriorityRank": 2,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c02:e02",
+                  "c02:e04",
+                  "c02:e05"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              }
+            ]
+          },
+          "c03": {
+            "relativePriorityRank": 3,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c03:e04"
+                ]
+              },
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c03:e01",
+                  "c03:e02",
+                  "c03:e05"
+                ]
+              }
+            ]
+          },
+          "c04": {
+            "relativePriorityRank": 4,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e04"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e05"
+                ]
+              }
+            ]
+          },
+          "c05": {
+            "relativePriorityRank": 8,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c05:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c05:e05"
+                ]
+              }
+            ]
+          },
+          "c06": {
+            "relativePriorityRank": 5,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 3,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "ancient",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c06:e01",
+                  "c06:e03"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c06:e04",
+                  "c06:e05"
+                ]
+              }
+            ]
+          },
+          "c07": {
+            "relativePriorityRank": 9,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c07:e02",
+                  "c07:e04"
+                ]
+              }
+            ]
+          },
+          "c08": {
+            "relativePriorityRank": 10,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c08:e04",
+                  "c08:e05"
+                ]
+              }
+            ]
+          },
+          "c09": {
+            "relativePriorityRank": 14,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c09:e05"
+                ]
+              }
+            ]
+          },
+          "c10": {
+            "relativePriorityRank": 6,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c10:e04",
+                  "c10:e05"
+                ]
+              }
+            ]
+          },
+          "c11": {
+            "relativePriorityRank": 18,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c11:e04"
+                ]
+              }
+            ]
+          },
+          "c12": {
+            "relativePriorityRank": 25,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c12:e04"
+                ]
+              }
+            ]
+          },
+          "c13": {
+            "relativePriorityRank": 7,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c13:e04",
+                  "c13:e05"
+                ]
+              }
+            ]
+          },
+          "c14": {
+            "relativePriorityRank": 22,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c14:e04"
+                ]
+              }
+            ]
+          },
+          "c15": {
+            "relativePriorityRank": 26,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c15:e04"
+                ]
+              }
+            ]
+          },
+          "c16": {
+            "relativePriorityRank": 12,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c16:e04",
+                  "c16:e05"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c16:e04"
+                ]
+              }
+            ]
+          },
+          "c17": {
+            "relativePriorityRank": 13,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c17:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c17:e04"
+                ]
+              }
+            ]
+          },
+          "c18": {
+            "relativePriorityRank": 27,
+            "salienceLevel": 1,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c18:e05"
+                ]
+              }
+            ]
+          },
+          "c19": {
+            "relativePriorityRank": 20,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c19:e05"
+                ]
+              }
+            ]
+          },
+          "c20": {
+            "relativePriorityRank": 19,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "twentieth_century",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c20:e05"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c20:e05"
+                ]
+              }
+            ]
+          },
+          "c21": {
+            "relativePriorityRank": 23,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c21:e05"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c21:e04"
+                ]
+              }
+            ]
+          },
+          "c22": {
+            "relativePriorityRank": 15,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c22:e01"
+                ]
+              }
+            ]
+          },
+          "c23": {
+            "relativePriorityRank": 11,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c23:e04",
+                  "c23:e05"
+                ]
+              }
+            ]
+          },
+          "c24": {
+            "relativePriorityRank": 28,
+            "salienceLevel": 1,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c24:e04"
+                ]
+              }
+            ]
+          },
+          "c25": {
+            "relativePriorityRank": 21,
+            "salienceLevel": 2,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c25:e01"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c25:e01"
+                ]
+              }
+            ]
+          },
+          "c26": {
+            "relativePriorityRank": 30,
+            "salienceLevel": 1,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c26:e05"
+                ]
+              }
+            ]
+          },
+          "c27": {
+            "relativePriorityRank": 16,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c27:e04",
+                  "c27:e05"
+                ]
+              }
+            ]
+          },
+          "c28": {
+            "relativePriorityRank": 17,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c28:e01",
+                  "c28:e04"
+                ]
+              }
+            ]
+          },
+          "c29": {
+            "relativePriorityRank": 29,
+            "salienceLevel": 1,
+            "observableStrength": 1,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c29:e04"
+                ]
+              }
+            ]
+          },
+          "c30": {
+            "relativePriorityRank": 1,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c30:e04",
+                  "c30:e05"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "assessments": [
+        {
+          "slot": "c02",
+          "canonicalId": "Q3127243",
+          "name": "Alcazaba de Málaga",
+          "assessment": {
+            "relativePriorityRank": 2,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c02:e02",
+                  "c02:e04",
+                  "c02:e05"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c03",
+          "canonicalId": "Q1582758",
+          "name": "Iglesia Catedral de la Encarnación",
+          "assessment": {
+            "relativePriorityRank": 3,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c03:e04"
+                ]
+              },
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c03:e01",
+                  "c03:e02",
+                  "c03:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c04",
+          "canonicalId": "Q1049197",
+          "name": "Castillo de Gibralfaro",
+          "assessment": {
+            "relativePriorityRank": 4,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e04"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c05",
+          "canonicalId": "Q969308",
+          "name": "Palacio de los Condes de Buenavista",
+          "assessment": {
+            "relativePriorityRank": 8,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c05:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c05:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c06",
+          "canonicalId": "Q3849447",
+          "name": "Teatro romano",
+          "assessment": {
+            "relativePriorityRank": 5,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 3,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "ancient",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c06:e01",
+                  "c06:e03"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c06:e04",
+                  "c06:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c07",
+          "canonicalId": "Q97633210",
+          "name": "Palacio Episcopal",
+          "assessment": {
+            "relativePriorityRank": 9,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c07:e02",
+                  "c07:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c08",
+          "canonicalId": "Q4155876",
+          "name": "Palacio de la Aduana",
+          "assessment": {
+            "relativePriorityRank": 10,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c08:e04",
+                  "c08:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c09",
+          "canonicalId": "Q5378201",
+          "name": "Cementerio Inglés de Málaga",
+          "assessment": {
+            "relativePriorityRank": 14,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c09:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c10",
+          "canonicalId": "Q9060974",
+          "name": "Plaza de la Constitución (Málaga)",
+          "assessment": {
+            "relativePriorityRank": 6,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c10:e04",
+                  "c10:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c13",
+          "canonicalId": "Q11680432",
+          "name": "calle Marqués de Larios",
+          "assessment": {
+            "relativePriorityRank": 7,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c13:e04",
+                  "c13:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c16",
+          "canonicalId": "Q6032873",
+          "name": "Muralla nazarí y muro portuario",
+          "assessment": {
+            "relativePriorityRank": 12,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c16:e04",
+                  "c16:e05"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c16:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c17",
+          "canonicalId": "Q5669119",
+          "name": "La Farola de Málaga",
+          "assessment": {
+            "relativePriorityRank": 13,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c17:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c17:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c20",
+          "canonicalId": "Q18170768",
+          "name": "Mercado de Mayoristas",
+          "assessment": {
+            "relativePriorityRank": 19,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "twentieth_century",
+              "cross_era"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c20:e05"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c20:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c22",
+          "canonicalId": "Q2884109",
+          "name": "Plaza del Obispo",
+          "assessment": {
+            "relativePriorityRank": 15,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c22:e01"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c23",
+          "canonicalId": "Q6080206",
+          "name": "Plaza de la Marina",
+          "assessment": {
+            "relativePriorityRank": 11,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c23:e04",
+                  "c23:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c27",
+          "canonicalId": "Q5760368",
+          "name": "Cementerio de San Miguel",
+          "assessment": {
+            "relativePriorityRank": 16,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c27:e04",
+                  "c27:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c28",
+          "canonicalId": "Q5664304",
+          "name": "Mesón de San Rafael",
+          "assessment": {
+            "relativePriorityRank": 17,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c28:e01",
+                  "c28:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c30",
+          "canonicalId": "Q115929385",
+          "name": "Plaza de la Higuera",
+          "assessment": {
+            "relativePriorityRank": 1,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c30:e04",
+                  "c30:e05"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "portfolio": {
+        "status": "selected",
+        "searchedDuration": 120,
+        "exploredStateCount": 368151,
+        "finalists": [
+          {
+            "slot": "r01",
+            "stops": [
+              "Alcazaba de Málaga",
+              "calle Marqués de Larios",
+              "Plaza de la Constitución (Málaga)",
+              "Palacio Episcopal",
+              "Iglesia Catedral de la Encarnación",
+              "Plaza de la Higuera",
+              "Teatro romano",
+              "Castillo de Gibralfaro"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c04",
+                "strength": 3
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c10",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c13",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c06",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c02": [
+                "carries:b01",
+                "deepens:b02",
+                "salience:4",
+                "opening"
+              ],
+              "c13": [
+                "carries:b06",
+                "adds-era:nineteenth_century",
+                "salience:3"
+              ],
+              "c10": [
+                "carries:b05",
+                "salience:3"
+              ],
+              "c07": [
+                "deepens:b03",
+                "salience:3"
+              ],
+              "c03": [
+                "carries:b03",
+                "deepens:b02",
+                "salience:4"
+              ],
+              "c30": [
+                "deepens:b05",
+                "salience:3"
+              ],
+              "c06": [
+                "carries:b07",
+                "deepens:b01",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:3"
+              ],
+              "c04": [
+                "carries:b02",
+                "deepens:b01",
+                "salience:4"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 2527.6,
+              "walkingMinutes": 34.34,
+              "dwellMinutes": 62,
+              "estimatedTourMinutes": 96.34,
+              "maxSegmentMeters": 897.9,
+              "maxSegmentMinutes": 12.61
+            },
+            "scores": {
+              "beatCoverage": 6,
+              "beatStrength": 17,
+              "priorityCoverage": 115,
+              "salienceTotal": 27,
+              "observableFloor": 2,
+              "observableAverage": 2.63,
+              "eraCount": 6,
+              "boundaryFit": 2
+            },
+            "critic": {
+              "coherence": "adequate",
+              "avoidableRedundancy": false,
+              "omissionRisk": "moderate",
+              "reasonCodes": [
+                "strong_opening",
+                "clear_progression",
+                "misses_high_value"
+              ],
+              "evidenceRefs": [
+                "c02:e02",
+                "c02:e04",
+                "c02:e05",
+                "c04:e05",
+                "c03:e04",
+                "c03:e01",
+                "c03:e05",
+                "c10:e04",
+                "c10:e05",
+                "c13:e04",
+                "c13:e05",
+                "c06:e04",
+                "c06:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r02",
+            "stops": [
+              "Alcazaba de Málaga",
+              "Palacio de la Aduana",
+              "calle Marqués de Larios",
+              "Plaza de la Constitución (Málaga)",
+              "Iglesia Catedral de la Encarnación",
+              "Plaza de la Higuera",
+              "Castillo de Gibralfaro",
+              "Cementerio Inglés de Málaga"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c04",
+                "strength": 3
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c10",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c13",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c09",
+                "strength": 3
+              }
+            ],
+            "marginalContributions": {
+              "c02": [
+                "carries:b01",
+                "deepens:b02",
+                "salience:4",
+                "opening"
+              ],
+              "c08": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c13": [
+                "carries:b06",
+                "salience:3"
+              ],
+              "c10": [
+                "carries:b05",
+                "salience:3"
+              ],
+              "c03": [
+                "carries:b03",
+                "deepens:b02",
+                "salience:4"
+              ],
+              "c30": [
+                "deepens:b05",
+                "salience:3"
+              ],
+              "c04": [
+                "carries:b02",
+                "deepens:b01",
+                "salience:4"
+              ],
+              "c09": [
+                "carries:b07",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 3802.7,
+              "walkingMinutes": 52.19,
+              "dwellMinutes": 62,
+              "estimatedTourMinutes": 114.19,
+              "maxSegmentMeters": 1286.6,
+              "maxSegmentMinutes": 18
+            },
+            "scores": {
+              "beatCoverage": 7,
+              "beatStrength": 21,
+              "priorityCoverage": 105,
+              "salienceTotal": 26,
+              "observableFloor": 2,
+              "observableAverage": 2.5,
+              "eraCount": 4,
+              "boundaryFit": 4
+            },
+            "critic": {
+              "coherence": "strong",
+              "avoidableRedundancy": false,
+              "omissionRisk": "moderate",
+              "reasonCodes": [
+                "strong_opening",
+                "clear_progression",
+                "strong_resolution"
+              ],
+              "evidenceRefs": [
+                "c02:e02",
+                "c02:e04",
+                "c02:e05",
+                "c08:e04",
+                "c08:e05",
+                "c13:e04",
+                "c13:e05",
+                "c10:e04",
+                "c10:e05",
+                "c03:e04",
+                "c03:e01",
+                "c03:e05",
+                "c04:e05",
+                "c09:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r03",
+            "stops": [
+              "Palacio de la Aduana",
+              "Teatro romano",
+              "Plaza de la Higuera",
+              "Iglesia Catedral de la Encarnación"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 2
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c30",
+                "strength": 2
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c06",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c08": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c06": [
+                "carries:b01",
+                "carries:b07",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:3"
+              ],
+              "c30": [
+                "carries:b05",
+                "salience:3"
+              ],
+              "c03": [
+                "carries:b02",
+                "carries:b03",
+                "salience:4"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 448.8,
+              "walkingMinutes": 5.99,
+              "dwellMinutes": 32,
+              "estimatedTourMinutes": 37.99,
+              "maxSegmentMeters": 227.7,
+              "maxSegmentMinutes": 3.04
+            },
+            "scores": {
+              "beatCoverage": 6,
+              "beatStrength": 15,
+              "priorityCoverage": 57,
+              "salienceTotal": 13,
+              "observableFloor": 2,
+              "observableAverage": 2.5,
+              "eraCount": 3,
+              "boundaryFit": 1
+            },
+            "critic": {
+              "coherence": "weak",
+              "avoidableRedundancy": true,
+              "omissionRisk": "high",
+              "reasonCodes": [
+                "weak_transition",
+                "redundant_stop",
+                "misses_high_value"
+              ],
+              "evidenceRefs": [
+                "c08:e04",
+                "c08:e05",
+                "c06:e01",
+                "c06:e04",
+                "c06:e05",
+                "c30:e04",
+                "c30:e05",
+                "c03:e04",
+                "c03:e01",
+                "c03:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r04",
+            "stops": [
+              "Alcazaba de Málaga",
+              "Iglesia Catedral de la Encarnación",
+              "Plaza de la Higuera",
+              "Castillo de Gibralfaro"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c04",
+                "strength": 3
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c30",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c02": [
+                "carries:b01",
+                "deepens:b02",
+                "adds-era:cross_era",
+                "salience:4",
+                "opening"
+              ],
+              "c03": [
+                "carries:b03",
+                "deepens:b02",
+                "salience:4"
+              ],
+              "c30": [
+                "carries:b05",
+                "salience:3"
+              ],
+              "c04": [
+                "carries:b02",
+                "deepens:b01",
+                "salience:4"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 1762.3,
+              "walkingMinutes": 24.14,
+              "dwellMinutes": 34,
+              "estimatedTourMinutes": 58.14,
+              "maxSegmentMeters": 958.6,
+              "maxSegmentMinutes": 13.42
+            },
+            "scores": {
+              "beatCoverage": 4,
+              "beatStrength": 11,
+              "priorityCoverage": 66,
+              "salienceTotal": 15,
+              "observableFloor": 2,
+              "observableAverage": 2.75,
+              "eraCount": 3,
+              "boundaryFit": 2
+            },
+            "critic": {
+              "coherence": "weak",
+              "avoidableRedundancy": false,
+              "omissionRisk": "high",
+              "reasonCodes": [
+                "weak_transition",
+                "misses_high_value"
+              ],
+              "evidenceRefs": [
+                "c02:e02",
+                "c02:e04",
+                "c02:e05",
+                "c03:e04",
+                "c03:e01",
+                "c03:e05",
+                "c30:e04",
+                "c30:e05",
+                "c04:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r05",
+            "stops": [
+              "Teatro romano",
+              "Palacio de la Aduana",
+              "Iglesia Catedral de la Encarnación",
+              "Palacio Episcopal",
+              "Plaza de la Constitución (Málaga)",
+              "calle Marqués de Larios",
+              "Muralla nazarí y muro portuario",
+              "Plaza de la Marina"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 2
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c10",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c13",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c06",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c06": [
+                "carries:b01",
+                "carries:b07",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:3",
+                "opening"
+              ],
+              "c08": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c03": [
+                "carries:b02",
+                "carries:b03",
+                "salience:4"
+              ],
+              "c07": [
+                "deepens:b03",
+                "salience:3"
+              ],
+              "c10": [
+                "carries:b05",
+                "adds-era:cross_era",
+                "salience:3"
+              ],
+              "c13": [
+                "carries:b06",
+                "salience:3"
+              ],
+              "c16": [
+                "deepens:b02",
+                "adds-era:medieval"
+              ],
+              "c23": [
+                "deepens:b06",
+                "adds-era:contemporary",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 1321.9,
+              "walkingMinutes": 17.62,
+              "dwellMinutes": 60,
+              "estimatedTourMinutes": 77.62,
+              "maxSegmentMeters": 264.4,
+              "maxSegmentMinutes": 3.53
+            },
+            "scores": {
+              "beatCoverage": 7,
+              "beatStrength": 19,
+              "priorityCoverage": 89,
+              "salienceTotal": 23,
+              "observableFloor": 2,
+              "observableAverage": 2.38,
+              "eraCount": 7,
+              "boundaryFit": 5
+            },
+            "critic": {
+              "coherence": "strong",
+              "avoidableRedundancy": false,
+              "omissionRisk": "none",
+              "reasonCodes": [
+                "strong_opening",
+                "clear_progression",
+                "strong_resolution",
+                "better_observability",
+                "lower_walking_cost"
+              ],
+              "evidenceRefs": [
+                "c06:e01",
+                "c06:e04",
+                "c06:e05",
+                "c08:e04",
+                "c08:e05",
+                "c03:e04",
+                "c03:e01",
+                "c03:e05",
+                "c07:e02",
+                "c07:e04",
+                "c10:e04",
+                "c10:e05",
+                "c13:e04",
+                "c13:e05",
+                "c16:e04",
+                "c16:e05",
+                "c23:e04",
+                "c23:e05"
+              ]
+            }
+          }
+        ]
+      },
+      "selectedRoute": {
+        "slot": "r05",
+        "actualDuration": 77.62,
+        "walkingMeters": 1321.9,
+        "stops": [
+          {
+            "position": 1,
+            "name": "Teatro romano",
+            "canonicalId": "Q3849447",
+            "assignedBeats": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c06",
+                "strength": 2
+              }
+            ],
+            "marginalReasons": [
+              "carries:b01",
+              "carries:b07",
+              "adds-era:ancient",
+              "adds-era:twentieth_century",
+              "salience:3",
+              "opening"
+            ]
+          },
+          {
+            "position": 2,
+            "name": "Palacio de la Aduana",
+            "canonicalId": "Q4155876",
+            "assignedBeats": [
+              {
+                "beatId": "b04",
+                "candidateSlot": "c08",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b04",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 3,
+            "name": "Iglesia Catedral de la Encarnación",
+            "canonicalId": "Q1582758",
+            "assignedBeats": [
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 2
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c03",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b02",
+              "carries:b03",
+              "salience:4"
+            ]
+          },
+          {
+            "position": 4,
+            "name": "Palacio Episcopal",
+            "canonicalId": "Q97633210",
+            "assignedBeats": [],
+            "marginalReasons": [
+              "deepens:b03",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 5,
+            "name": "Plaza de la Constitución (Málaga)",
+            "canonicalId": "Q9060974",
+            "assignedBeats": [
+              {
+                "beatId": "b05",
+                "candidateSlot": "c10",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b05",
+              "adds-era:cross_era",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 6,
+            "name": "calle Marqués de Larios",
+            "canonicalId": "Q11680432",
+            "assignedBeats": [
+              {
+                "beatId": "b06",
+                "candidateSlot": "c13",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b06",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 7,
+            "name": "Muralla nazarí y muro portuario",
+            "canonicalId": "Q6032873",
+            "assignedBeats": [],
+            "marginalReasons": [
+              "deepens:b02",
+              "adds-era:medieval"
+            ]
+          },
+          {
+            "position": 8,
+            "name": "Plaza de la Marina",
+            "canonicalId": "Q6080206",
+            "assignedBeats": [],
+            "marginalReasons": [
+              "deepens:b06",
+              "adds-era:contemporary",
+              "resolution"
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "oracle": "3/5",
+        "required": 4,
+        "missingOracle": [
+          "Alcazaba de Málaga",
+          "Castillo de Gibralfaro"
+        ],
+        "greedyOracle": "4/5",
+        "storyBeats": "7/7"
+      },
+      "gates": {
+        "allSentEntitiesReady": true,
+        "candidateOracleCoverage": true,
+        "candidateLimit": true,
+        "reducedOracleCoverage": true,
+        "noPhysicallyViableNoRoute": true,
+        "withinRequestedDuration": true,
+        "requiredRouteOracleCoverage": false,
+        "oracleNotBelowGreedy": false,
+        "noDuplicateEntities": true,
+        "noVisitConflicts": true,
+        "noOverlongSegments": true,
+        "narrativeCoreCovered": true,
+        "criticAccepted": true,
+        "noZeroMarginalStops": true,
+        "passed": false
+      }
+    }
+  ]
+}

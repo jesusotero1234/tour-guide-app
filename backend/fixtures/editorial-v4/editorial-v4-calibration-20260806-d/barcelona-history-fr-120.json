@@ -1,0 +1,1512 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "failed",
+  "createdAt": "2026-08-06T18:17:20.223Z",
+  "caseId": "barcelona-history-fr-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "6ef0f951d64bd63d730e7d12c3cc9f72c4a6046603f458c42bb1cd7ffdf7c259",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q48435",
+      "siteId": "site:Q48435",
+      "coordinates": {
+        "lat": 41.4035047,
+        "lng": 2.1742801
+      },
+      "evidenceIds": [
+        "Q48435:osm:amenity",
+        "Q48435:wikidata:architect",
+        "Q48435:wikidata:architecturalStyle",
+        "Q48435:wikipedia:0",
+        "Q48435:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q597051",
+      "siteId": "site:Q597051",
+      "coordinates": {
+        "lat": 41.3788127,
+        "lng": 2.1742337
+      },
+      "evidenceIds": [
+        "Q597051:osm:architect",
+        "Q597051:wikidata:architect",
+        "Q597051:wikidata:architecturalStyle",
+        "Q597051:wikipedia:0",
+        "Q597051:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q807915",
+      "siteId": "site:Q807915",
+      "coordinates": {
+        "lat": 41.3705518,
+        "lng": 2.1499635
+      },
+      "evidenceIds": [
+        "Q807915:osm:architect",
+        "Q807915:wikidata:architect",
+        "Q807915:wikidata:architecturalStyle",
+        "Q807915:wikipedia:0",
+        "Q807915:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q2288815",
+      "siteId": "site:Q2288815",
+      "coordinates": {
+        "lat": 41.3758015,
+        "lng": 2.1777736
+      },
+      "evidenceIds": [
+        "Q2288815:osm:building",
+        "Q2288815:wikidata:architecturalStyle",
+        "Q2288815:wikidata:heritageDesignation",
+        "Q2288815:wikipedia:2",
+        "Q2288815:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q507282",
+      "siteId": "site:Q507282",
+      "coordinates": {
+        "lat": 41.413977,
+        "lng": 2.1742203
+      },
+      "evidenceIds": [
+        "Q507282:osm:amenity",
+        "Q507282:wikidata:architect",
+        "Q507282:wikidata:architecturalStyle",
+        "Q507282:wikipedia:0",
+        "Q507282:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q207870",
+      "siteId": "site:Q207870",
+      "coordinates": {
+        "lat": 41.3953994,
+        "lng": 2.1618775
+      },
+      "evidenceIds": [
+        "Q207870:osm:architect",
+        "Q207870:wikidata:architect",
+        "Q207870:wikidata:architecturalStyle",
+        "Q207870:wikipedia:0",
+        "Q207870:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q746333",
+      "siteId": "site:Q746333",
+      "coordinates": {
+        "lat": 41.4034992,
+        "lng": 2.1506266
+      },
+      "evidenceIds": [
+        "Q746333:osm:architect",
+        "Q746333:wikidata:architect",
+        "Q746333:wikidata:architecturalStyle",
+        "Q746333:wikipedia:10",
+        "Q746333:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q17155",
+      "siteId": "site:Q17155",
+      "coordinates": {
+        "lat": 41.3839273,
+        "lng": 2.1763464
+      },
+      "evidenceIds": [
+        "Q17155:osm:amenity",
+        "Q17155:wikidata:architect",
+        "Q17155:wikidata:architecturalStyle",
+        "Q17155:wikipedia:0",
+        "Q17155:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q2500125",
+      "siteId": "site:Q2500125",
+      "coordinates": {
+        "lat": 41.3627047,
+        "lng": 2.1647847
+      },
+      "evidenceIds": [
+        "Q2500125:osm:height",
+        "Q2500125:wikidata:heritageDesignation",
+        "Q2500125:wikidata:inception",
+        "Q2500125:wikipedia:10",
+        "Q2500125:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q850593",
+      "siteId": "site:Q850593",
+      "coordinates": {
+        "lat": 41.3790982,
+        "lng": 2.1750788
+      },
+      "evidenceIds": [
+        "Q850593:osm:surface",
+        "Q850593:wikidata:heritageDesignation",
+        "Q850593:wikidata:instanceOf",
+        "Q850593:wikipedia:11",
+        "Q850593:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q822881",
+      "siteId": "site:Q822881",
+      "coordinates": {
+        "lat": 41.3868743,
+        "lng": 2.1699402
+      },
+      "evidenceIds": [
+        "Q822881:osm:place",
+        "Q822881:wikidata:namedAfter",
+        "Q822881:wikidata:instanceOf",
+        "Q822881:wikipedia:1",
+        "Q822881:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q599118",
+      "siteId": "site:Q599118",
+      "coordinates": {
+        "lat": 41.3831095,
+        "lng": 2.1763183
+      },
+      "evidenceIds": [
+        "Q599118:osm:building",
+        "Q599118:wikidata:architect",
+        "Q599118:wikidata:architecturalStyle",
+        "Q599118:wikipedia:2",
+        "Q599118:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q1130050",
+      "siteId": "site:Q1130050",
+      "coordinates": {
+        "lat": 41.3801319,
+        "lng": 2.1734126
+      },
+      "evidenceIds": [
+        "Q1130050:osm:amenity",
+        "Q1130050:wikidata:architect",
+        "Q1130050:wikidata:architecturalStyle",
+        "Q1130050:wikipedia:0",
+        "Q1130050:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q908802",
+      "siteId": "site:Q908802",
+      "coordinates": {
+        "lat": 41.3838035,
+        "lng": 2.1820034
+      },
+      "evidenceIds": [
+        "Q2749521:osm:place",
+        "Q2749521:wikidata:heritageDesignation",
+        "Q2749521:wikidata:namedAfter",
+        "Q2749521:wikipedia:0",
+        "Q2749521:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q327940",
+      "siteId": "site:Q327940",
+      "coordinates": {
+        "lat": 41.3875838,
+        "lng": 2.1752198
+      },
+      "evidenceIds": [
+        "Q327940:osm:amenity",
+        "Q327940:wikidata:architect",
+        "Q327940:wikidata:architecturalStyle",
+        "Q327940:wikipedia:10",
+        "Q327940:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q1519964",
+      "siteId": "site:Q1519964",
+      "coordinates": {
+        "lat": 41.3800897,
+        "lng": 2.175274
+      },
+      "evidenceIds": [
+        "Q1519964:osm:place",
+        "Q1519964:wikidata:architect",
+        "Q1519964:wikidata:architecturalStyle",
+        "Q1519964:wikipedia:10",
+        "Q1519964:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q2067174",
+      "siteId": "site:Q2067174",
+      "coordinates": {
+        "lat": 41.3841291,
+        "lng": 2.1774066
+      },
+      "evidenceIds": [
+        "Q126089230:osm:amenity",
+        "Q2067174:wikidata:architecturalStyle",
+        "Q2067174:wikidata:namedAfter",
+        "Q2067174:wikipedia:0",
+        "Q2067174:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q461371",
+      "siteId": "site:Q461371",
+      "coordinates": {
+        "lat": 41.3915411,
+        "lng": 2.1647614
+      },
+      "evidenceIds": [
+        "Q461371:osm:architect",
+        "Q461371:wikidata:architect",
+        "Q461371:wikidata:architecturalStyle",
+        "Q461371:wikipedia:0",
+        "Q461371:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q1334899",
+      "siteId": "site:Q1334899",
+      "coordinates": {
+        "lat": 41.3817347,
+        "lng": 2.1715777
+      },
+      "evidenceIds": [
+        "Q1334899:osm:amenity",
+        "Q1334899:wikidata:architecturalStyle",
+        "Q1334899:wikidata:heritageDesignation",
+        "Q1334899:wikipedia:1",
+        "Q1334899:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q2082605",
+      "siteId": "site:Q2082605",
+      "coordinates": {
+        "lat": 41.3826595,
+        "lng": 2.1770228
+      },
+      "evidenceIds": [
+        "Q2082605:osm:place",
+        "Q2082605:wikidata:heritageDesignation",
+        "Q2082605:wikidata:namedAfter",
+        "Q2082605:wikipedia:10",
+        "Q2082605:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q1067140",
+      "siteId": "site:Q1067140",
+      "coordinates": {
+        "lat": 41.3830995,
+        "lng": 2.166748
+      },
+      "evidenceIds": [
+        "Q1067140:osm:building",
+        "Q1067140:wikidata:heritageDesignation",
+        "Q1067140:wikidata:inception",
+        "Q1067140:wikipedia:0",
+        "Q1067140:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q2749521",
+      "siteId": "site:Q2749521",
+      "coordinates": {
+        "lat": 41.3837017,
+        "lng": 2.1824267
+      },
+      "evidenceIds": [
+        "Q2749521:osm:place",
+        "Q2749521:wikidata:heritageDesignation",
+        "Q2749521:wikidata:namedAfter",
+        "Q2749521:wikipedia:0",
+        "Q2749521:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q1414600",
+      "siteId": "site:Q1414600",
+      "coordinates": {
+        "lat": 41.3711573,
+        "lng": 2.151738
+      },
+      "evidenceIds": [
+        "Q1414600:osm:amenity",
+        "Q1414600:wikidata:architect",
+        "Q1414600:wikidata:architecturalStyle",
+        "Q1414600:wikipedia:2",
+        "Q1414600:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q9060949",
+      "siteId": "site:Q9060949",
+      "coordinates": {
+        "lat": 41.3833836,
+        "lng": 2.1750774
+      },
+      "evidenceIds": [
+        "Q9060949:osm:place",
+        "Q9060949:wikidata:namedAfter",
+        "Q9060949:wikidata:instanceOf",
+        "Q9060949:wikipedia:10",
+        "Q9060949:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q202530",
+      "siteId": "site:Q202530",
+      "coordinates": {
+        "lat": 41.3642794,
+        "lng": 2.1506071
+      },
+      "evidenceIds": [
+        "Q202530:wikipedia:0",
+        "Q202530:wikidata:architect",
+        "Q202530:wikidata:architecturalStyle",
+        "Q202530:wikipedia:3",
+        "Q202530:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q126089230",
+      "siteId": "site:Q126089230",
+      "coordinates": {
+        "lat": 41.3840373,
+        "lng": 2.1771789
+      },
+      "evidenceIds": [
+        "Q126089230:osm:amenity",
+        "Q2067174:wikidata:architecturalStyle",
+        "Q2067174:wikidata:namedAfter",
+        "Q2067174:wikipedia:0",
+        "Q2067174:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q1048705",
+      "siteId": "site:Q1048705",
+      "coordinates": {
+        "lat": 41.3880765,
+        "lng": 2.1833083
+      },
+      "evidenceIds": [
+        "Q1048705:osm:architect",
+        "Q1048705:wikidata:architect",
+        "Q1048705:wikidata:architecturalStyle",
+        "Q1048705:wikipedia:0",
+        "Q1048705:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q14924660",
+      "siteId": "site:Q14924660",
+      "coordinates": {
+        "lat": 41.3839897,
+        "lng": 2.1777594
+      },
+      "evidenceIds": [
+        "Q14924660:osm:building",
+        "Q2067174:wikidata:architecturalStyle",
+        "Q2067174:wikidata:namedAfter",
+        "Q2067174:wikipedia:0",
+        "Q2067174:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q9073184",
+      "siteId": "site:Q9073184",
+      "coordinates": {
+        "lat": 41.3843126,
+        "lng": 2.1771148
+      },
+      "evidenceIds": [
+        "Q126089230:osm:amenity",
+        "Q2067174:wikidata:architecturalStyle",
+        "Q2067174:wikidata:namedAfter",
+        "Q2067174:wikipedia:0",
+        "Q2067174:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q861252",
+      "siteId": "site:Q861252",
+      "coordinates": {
+        "lat": 41.3683887,
+        "lng": 2.153478
+      },
+      "evidenceIds": [
+        "Q861252:osm:building",
+        "Q861252:wikidata:architect",
+        "Q861252:wikidata:heritageDesignation",
+        "Q861252:wikipedia:10",
+        "Q861252:wikipedia:3"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "semantic_error",
+    "value": null,
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "semantic_error",
+        "latencyMs": 22631,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"Comment Barcelone a-t-elle construit son identité à travers les siècles, entre pouvoir royal et civique, foi religieuse, résistance et affirmation moderniste, jusqu'à devenir la métropole créative et olympique d'aujourd'hui ?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"medieval\",\"focus\":\"Les fondations médiévales de la ville : la cathédrale gothique, le Palau Reial Major et la place du Roi comme cœur du pouvoir religieux et royal, et la Rambla comme ancien cours d'eau transformé en artère urbaine.\",\"evidenceRefs\":[\"c08:e04\",\"c08:e05\",\"c17:e04\",\"c26:e04\",\"c10:e04\",\"c10:e05\"]},{\"beatId\":\"b02\",\"contributionCode\":\"royal_state_power\",\"era\":\"medieval\",\"focus\":\"Le pouvoir royal et la naissance de la Generalitat : le Palau de la Generalitat et ses origines dans les Corts Catalanes de 1289, la commission des impôts qui deviendra le gouvernement de Catalogne.\",\"evidenceRefs\":[\"c12:e04\",\"c12:e05\"]},{\"beatId\":\"b03\",\"contributionCode\":\"conflict_resistance\",\"era\":\"early_modern\",\"focus\":\"La résistance et la mémoire : le siège de Barcelone de 1713-1714, le Fossar de les Moreres comme monument aux morts, et le château de Montjuïc dont le nom évoque le cimetière juif médiéval détruit en 1391.\",\"evidenceRefs\":[\"c22:e04\",\"c22:e05\",\"c14:e04\",\"c09:e04\",\"c09:e05\"]},{\"beatId\":\"b04\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"nineteenth_century\",\"focus\":\"La transformation urbaine du XIXe siècle : l'endommagement des murailles en 1854, la place de Catalogne comme esplanade de marchés, la colonne Christophe Colomb et l'Exposition universelle de 1888.\",\"evidenceRefs\":[\"c11:e05\",\"c04:e04\",\"c04:e05\",\"c10:e05\"]},{\"beatId\":\"b05\",\"contributionCode\":\"art_intellectual_life\",\"era\":\"nineteenth_century\",\"focus\":\"L'épanouissement du modernisme catalan : Gaudí et Domènech i Montaner, la Casa Milà, la Casa Batlló, la Casa Vicens, le palais Güell, l'hôpital de Sant Pau et le palais de la musique catalane comme expression de la bourgeoisie et de l'identité catalane.\",\"evidenceRefs\":[\"c06:e04\",\"c06:e05\",\"c18:e04\",\"c18:e05\",\"c02:e05\",\"c05:e05\",\"c15:e05\"]},{\"beatId\":\"b06\",\"contributionCode\":\"public_life_ceremony\",\"era\":\"early_modern\",\"focus\":\"La vie publique et la culture : le Liceu comme théâtre d'opéra prestigieux, la place Royale et son projet avorté de théâtre, la Boqueria comme marché historique depuis 1217, et la place Saint-Jacques comme lieu de castells.\",\"evidenceRefs\":[\"c13:e04\",\"c13:e05\",\"c16:e04\",\"c16:e05\",\"c19:e04\",\"c19:e05\",\"c20:e04\"]},{\"beatId\":\"b07\",\"contributionCode\":\"modern_national_identity\",\"era\":\"twentieth_century\",\"focus\":\"La Barcelone moderne et internationale : l'Exposition internationale de 1929, le pavillon Mies van der Rohe, la fontaine magique, le MACBA, la tour Calatrava et les Jeux olympiques de 1992 comme affirmation de la modernité catalane.\",\"evidenceRefs\":[\"c03:e04\",\"c03:e05\",\"c23:e04\",\"c23:e05\",\"c21:e04\",\"c25:e01\",\"c25:e04\"]}], \"candidates\": {\"c01\":{\"relativePriorityRank\":1,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c02\":{\"relativePriorityRank\":6,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e05\"]}]},\"c03\":{\"relativePriorityRank\":12,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e01\",\"e04\",\"e05\"]}]},\"c04\":{\"relativePriorityRank\":9,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c05\":{\"relativePriorityRank\":8,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e05\"]}]},\"c06\":{\"relativePriorityRank\":3,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\",\"e05\"]}]},\"c07\":{\"relativePriorityRank\":10,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\"]}]},\"c08\":{\"relativePriorityRank\":4,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\",\"e05\"]}]},\"c09\":{\"relativePriorityRank\":13,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c10\":{\"relativePriorityRank\":7,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"early_modern\",\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c11\":{\"relativePriorityRank\":11,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c12\":{\"relativePriorityRank\":5,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c13\":{\"relativePriorityRank\":14,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c14\":{\"relativePriorityRank\":16,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c15\":{\"relativePriorityRank\":7,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e05\"]}]},\"c16\":{\"relativePriorityRank\":18,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c17\":{\"relativePriorityRank\":15,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c18\":{\"relativePriorityRank\":2,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\",\"e05\"]}]},\"c19\":{\"relativePriorityRank\":17,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c20\":{\"relativePriorityRank\":19,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c21\":{\"relativePriorityRank\":20,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c22\":{\"relativePriorityRank\":15,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c23\":{\"relativePriorityRank\":21,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c24\":{\"relativePriorityRank\":22,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c25\":{\"relativePriorityRank\":23,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e01\",\"e04\",\"e05\"]}]},\"c26\":{\"relativePriorityRank\":24,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e03\",\"e04\"]}]},\"c27\":{\"relativePriorityRank\":25,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"e03\",\"e04\"]}]},\"c28\":{\"relativePriorityRank\":26,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e03\",\"e04\"]}]},\"c29\":{\"relativePriorityRank\":27,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e03\",\"e04\"]}]},\"c30\":{\"relativePriorityRank\":28,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]}}}",
+        "error": "Candidate priority ranks must be a complete permutation"
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "167988c7bfd6472f1a77ef258246560d92be0b3ffd432d6824eabc5556ba778a",
+    "input": {
+      "city": "Barcelona",
+      "theme": "history",
+      "language": "fr",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "Sagrada Família",
+          "category": "religious",
+          "fameScore": 67.41,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La Sagrada Família (nom complet en catalan : Temple Expiatori de la Sagrada Família ; en espagnol : Templo Expiatorio de la Sagrada Familia ; en français : « temple expiatoire de la Sainte Famille ») est une basilique de Barcelone dont la construction a commencé en 1882."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire Projet initial Le 31 décembre 1881, Josep Maria Bocabella, mandaté par « l’association des dévots de Saint-Joseph », acquiert avec de l’argent collecté par l’aumône l’îlot de maisons compris entr"
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "palais Güell",
+          "category": "palace_castle",
+          "fameScore": 59.62,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Palau Güell és un edifici situat al carrer Nou de la Rambla, 3-5 del Raval de Barcelona, declarat Monument historicoartístic el 1969 per l'Estat espanyol i Patrimoni de la Humanitat per la UNESCO el 1984 per la seva contribució i influències en les tècniques i les formes en la"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Fou encarregat a l'arquitecte Antoni Gaudí per l'empresari i mecenes barceloni Eusebi Güell com a residència familiar entre 1886 i 1890, i pertany a l'etapa orientalista de l'arquitecte (1883-1888), inspirada en l'art del Pròxim i Extrem Orient (Índia, Pèrsia, Japó), i l'art islà"
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "pavillon allemand de Barcelone",
+          "category": "other",
+          "fameScore": 55.23,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Ludwig Mies van der Rohe"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Ludwig Mies van der Rohe"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: rationalisme"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Pavelló Mies van der Rohe (conegut internacionalment com a Pavelló de Barcelona) és un edifici de l'Exposició Internacional de 1929 a la muntanya de Montjuïc, catalogat com a bé cultural d'interès nacional."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Destruït a la cloenda de l'Exposició, va ser reconstruït el 1986 al mateix emplaçament, utilitzant en la mesura del possible els mateixos materials i tècniques que l'original."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "colonne Christophe Colomb de Barcelone",
+          "category": "other",
+          "fameScore": 53.01,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture historiciste"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien culturel d'intérêt local"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Història Va ser construït per iniciativa de l'alcalde de Barcelona, Francesc Rius i Taulet, com a punt culminant de la urbanització de l'espai alliberat per l'enderrocament de la Muralla de Mar, amb motiu de l'Exposició Universal de Barcelona de 1888."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El finançament del monument va causar una gran polèmica en el seu moment, ja que al principi es va obrir una subscripció popular perquè pogués ser construït gràcies a les donacions dels particulars, però més tard l'Ajuntament de Barcelona se'n va fer càrrec, vist que les aportaci"
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "hôpital de Sant Pau",
+          "category": "other",
+          "fameScore": 52.76,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: hospital"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Lluís Domènech i Montaner"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'hôpital de Sant Pau (en catalan : Hospital de la Santa Creu i Sant Pau) est un ancien hôpital de Barcelone, en Espagne."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Situé dans le quartier de El Guinardó, il est depuis 1997 inscrit au Patrimoine mondial de l'Unesco, conjointement avec le palais de la musique catalane."
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "Casa Milà",
+          "category": "artwork",
+          "fameScore": 57.28,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Antoni Gaudi"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La Casa Milà (en catalan, « maison Milà » ), surnommée ironiquement « La Pedrera » (en catalan et en espagnol, « la carrière de pierre »), est un édifice de Barcelone, érigé entre 1906 et 1910 par l'architecte catalan Antoni Gaudí."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La Casa Milà, conçue comme un hôtel particulier, est généralement classée comme œuvre monumentale du modernisme catalan de la première décennie du XXe siècle, dont Gaudí était le chef de file."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "Casa Vicens",
+          "category": "other",
+          "fameScore": 52.02,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Antoni Gaudí i Cornet"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture néo-mauresque"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Afin d’optimiser l’espace, Gaudí conçoit un projet à trois façades, adossé contre un ancien couvent par un mur mitoyen."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1925, la maison fait l’objet d’un projet d’agrandissement proposé à Gaudí, mais celui-ci refuse et soumet le nom de l’un de ses disciples, Joan Baptista Serra, pour le remplacer."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "cathédrale Sainte-Eulalie de Barcelone",
+          "category": "religious",
+          "fameScore": 54.92,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Jaime Fabre"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La catedral de la Santa Creu i Santa Eulàlia és una basílica gòtica seu de l'arquebisbat de Barcelona, declarada bé cultural d'interès nacional."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Es va construir durant els segles xiii al xv, al mateix lloc on hi havia hagut una catedral romànica, i encara abans una de paleocristiana."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "château de Montjuïc",
+          "category": "palace_castle",
+          "fameScore": 51.12,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 9"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien d'intérêt culturel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1641-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El nom de Montjuïc deriva de mons judeiqus, expressió que fa referència a la presència a la muntanya del cementiri de la comunitat jueva medieval de Barcelona, documentat com a mínim des del segle ix fins al segle xiv."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La destrucció del Call de la ciutat el 1391 va comportar l'abandonament del cementiri."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "La Rambla",
+          "category": "square_civic",
+          "fameScore": 53.22,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "surface: paving_stones"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien culturel d'intérêt local"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: rue"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "L'ancien cours d'eau fut alors pourvu d'un égout de grande taille."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La Rambla, les Ramblas ou les Rambles (prononcé en catalan : [lə(s) ˈram.bɫə(s)]) est une avenue emblématique de Barcelone qui relie la place de Catalogne, centre névralgique de la ville, au Port Vell où se dresse la colonne Christophe Colomb."
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "place de Catalogne",
+          "category": "square_civic",
+          "fameScore": 52.48,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Catalogne"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "És un centre comercial i de serveis de primer ordre, i hi tenen la seu hotels, bancs i caixes, les oficines de Telefónica, bars i restaurants d'anomenada (com el Zurich, reformat recentment) i diverses botigues i centres comercials com els d'El Corte Inglés i El Triangle, amb la "
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Història Fins a l'enderrocament de les muralles el 1854, en aquest indret (just al davant d'una de les portes principals) hi havia una esplanada des d'on sortien camins cap a les poblacions dels voltants, ideal per a situar-hi mercats a l'aire lliure."
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "palais de la Generalitat",
+          "category": "palace_castle",
+          "fameScore": 49.54,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: palace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Pere Blai"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Gothique catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Bona part dels cent trenta presidents s'han succeït en aquesta casa, des d'Alfons de Tous (1396) fins a l'actual president, Salvador Illa i Roca (2024)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Orígens El 1289, les Corts Catalanes -considerades des de l'any 1300 com una representació de la totalitat o «generalitat» de Catalunya- van establir una comissió delegada per la recaptació dels impostos (també anomenats generalitats) que les Corts atorgaven al rei."
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Grand théâtre du Liceu",
+          "category": "civic_power",
+          "fameScore": 49.03,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Josep Oriol Mestres"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: éclectisme"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le grand théâtre du Liceu (en catalan : Gran Teatre del Liceu), connu comme el Liceu, est le théâtre le plus ancien et prestigieux de Barcelone, spécialement comme théâtre d'opéra, considéré comme un des plus prestigieux du monde."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire En 1837, un bataillon de la Milice nationale, avec Manuel Gibert i Sans à sa tête, créa, dans le couvent de Montsió, qui se trouve dans les environs de l'actuel Portal del Àngel, le Liceo Filodramático de Montesión."
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "église Sainte-Marie-de-la-Mer de Barcelone",
+          "category": "religious",
+          "fameScore": 49.54,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien d'intérêt culturel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: mûrier"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le Fossar de les Moreres est une place de Barcelone sur laquelle se situe un monument aux morts du siège de Barcelone en 1713-1714, dernière bataille de la Guerre de Succession d'Espagne."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire Protection Le Fossar de les Moreres fait l’objet d’un classement en Espagne en tant que site historique au titre de bien d'intérêt culturel depuis le 9 mars 1999."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "palais de la musique catalane",
+          "category": "other",
+          "fameScore": 54.59,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Lluís Domènech i Montaner"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Ce projet avait précédemment été validé par l'assemblée du 31 mai 1904 et par son président Joaquim Cabot."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Les travaux se déroulent de 1905 à 1908, et font appel à des structures avancées telles que l'utilisation de nouveaux profils laminaires : il s'agit d'une structure métallique centrale stabilisée par des contreforts et des voûtes d'inspiration gothique."
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "place Royale",
+          "category": "square_civic",
+          "fameScore": 47.12,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Francesc Daniel Molina i Casamajó"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture néoclassique"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Durant ces formalités et préparatifs, la mairie vend cet espace pour la construction du Nouveau théâtre de 1842 à 1848."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "L'inauguration du grand théâtre du Liceu en 1847 de l'autre côté de la Rambla fait perdre tout intérêt au projet."
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "plaça del Rei",
+          "category": "square_civic",
+          "fameScore": 46.1,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: library"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Palau Reial Major"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La place du Roi (catalan : plaça del Rei ; espagnol : plaza del Rey) est une place historique du Quartier gothique de Barcelone, dans le District de Ciutat Vella."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Au XIXe siècle la Mairie de Barcelone a chargé l'architecte municipal Francisco Daniel Molina de transformer la place, qui souffrait du déclin de ses bâtiments, ayant perdu leur usage noble."
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "Casa Batlló",
+          "category": "artwork",
+          "fameScore": 57,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Antoni Gaudi"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antoni Gaudí"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La Casa Batlló (prononcé en catalan : [ˌka.zə bəʎˈʎo] « maison Batlló ») est un édifice moderniste conçu par l'architecte Antoni Gaudí, chef de file de ce mouvement, de 1904 à 1906."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Contexte Économie et bourgeoisie Au début du XXe siècle, la situation économique de l'Espagne est marquée par la perte des colonies espagnoles, et particulièrement celle de Cuba en 1898, qui impliqua dans un premier temps une contraction de l'économie espagnole et surtout catalan"
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "La Boqueria",
+          "category": "market",
+          "fameScore": 47.55,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: marketplace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture métallique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: Bien avec protection urbanistique"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Histoire La première mention du marché de Barcelone date de 1217 : des tables sont installées à proximité de l’ancienne porte de la ville nommée Boqueria pour vendre de la viande."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1911, le nouveau marché aux poissons voit le jour, et, en 1914, le toit métallique que l'on peut voir encore de nos jours est mis en place."
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "place Saint-Jacques",
+          "category": "square_civic",
+          "fameScore": 42.1,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Bien avec protection urbanistique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Jacques de Zébédée"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Tot i fer-se castells al segle xix, la plaça va rebre un fort impuls a partir del naixement de la colla de la ciutat el 1969."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Ja existia l'any 1261, quan hi donava al davant l'església de Sant Jaume, establerta el 1057."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "musée d'art contemporain de Barcelone",
+          "category": "civic_power",
+          "fameScore": 48.07,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: public"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Bien recensé dans l'inventaire du patrimoine culturel de Catalogne"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1995-11-28"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le musée d'Art contemporain de Barcelone (Museu d'Art Contemporani de Barcelona), ou MACBA, est un musée consacré principalement à l'exposition d'œuvres réalisées pendant la seconde moitié du XXe siècle."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Historique L'idée de créer à Barcelone un musée d'art contemporain est due à l'historien et critique d'art Alexandre Cirici-Pellicer qui, en 1959, a commencé à réunir une collection."
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "Fossar de les Moreres",
+          "category": "square_civic",
+          "fameScore": 40.3,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien d'intérêt culturel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: mûrier"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le Fossar de les Moreres est une place de Barcelone sur laquelle se situe un monument aux morts du siège de Barcelone en 1713-1714, dernière bataille de la Guerre de Succession d'Espagne."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire Protection Le Fossar de les Moreres fait l’objet d’un classement en Espagne en tant que site historique au titre de bien d'intérêt culturel depuis le 9 mars 1999."
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "fontaine magique de Montjuïc",
+          "category": "other",
+          "fameScore": 46.44,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: fountain"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Carles Buïgas"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Art déco"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Història Va ser construïda amb motiu de l'Exposició Internacional de 1929 per l'enginyer Carles Buïgas i Sans al lloc on eren situades les Quatre Columnes de Josep Puig i Cadafalch, enderrocades el 1928."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El 1923 es produí el cop d'estat del general Primo de Rivera, que afectà la direcció de l'exposició i n'aturà les obres."
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "place de Saint-Philippe-Néri",
+          "category": "square_civic",
+          "fameScore": 38.86,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: église Saint-Philippe-Néri de Barcelone"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: place"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La façade est encore marquée par les traces du bombardement de 1938."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Histoire La place est établie sur l'emplacement de l'ancien cimetière de la cathédrale."
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "tour de télécommunications de Montjuïc",
+          "category": "other",
+          "fameScore": 43.92,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La torre de comunicacions de Montjuïc, coneguda popularment com a torre Calatrava, és obra de l'arquitecte i enginyer valencià Santiago Calatrava, i va ser construïda entre 1989 i 1992 a l'Anella Olímpica de Montjuïc a Barcelona (Catalunya) amb motiu dels jocs Olímpics del 92."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Santiago Calatrava Valls"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: néo-futurisme"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Té la base recoberta de trencadís en clara referència a una de les característiques constructives de Gaudí i el seu col·laborador Jujol."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "A més, presenta la novetat tècnica d'incloure una plataforma circular amb els plats de transmissió de dades."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "Palau del Lloctinent",
+          "category": "palace_castle",
+          "fameScore": 35.61,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: library"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Palau Reial Major"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La place du Roi (catalan : plaça del Rei ; espagnol : plaza del Rey) est une place historique du Quartier gothique de Barcelone, dans le District de Ciutat Vella."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Au XIXe siècle la Mairie de Barcelone a chargé l'architecte municipal Francisco Daniel Molina de transformer la place, qui souffrait du déclin de ses bâtiments, ayant perdu leur usage noble."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "château des trois dragons",
+          "category": "other",
+          "fameScore": 40.87,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Lluís Domènech i Montaner"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Lluís Domènech i Montaner"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme catalan"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le Château des Trois Dragons (en catalan, Castell dels Tres Dragons) est le nom populaire du bâtiment moderniste construit par Lluís Domènech i Montaner en 1887-1888 pour accueillir un café-restaurant pour l'Exposition universelle de 1888."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Ce nom fut probablement adopté en référence à un roman homonyme publié en 1865 par Serafí Pitarra."
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Casa Padellàs",
+          "category": "palace_castle",
+          "fameScore": 34.74,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: palace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Palau Reial Major"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La place du Roi (catalan : plaça del Rei ; espagnol : plaza del Rey) est une place historique du Quartier gothique de Barcelone, dans le District de Ciutat Vella."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Au XIXe siècle la Mairie de Barcelone a chargé l'architecte municipal Francisco Daniel Molina de transformer la place, qui souffrait du déclin de ses bâtiments, ayant perdu leur usage noble."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Saló del Tinell",
+          "category": "palace_castle",
+          "fameScore": 34.51,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: library"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: architecture gothique"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Palau Reial Major"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La place du Roi (catalan : plaça del Rei ; espagnol : plaza del Rey) est une place historique du Quartier gothique de Barcelone, dans le District de Ciutat Vella."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Au XIXe siècle la Mairie de Barcelone a chargé l'architecte municipal Francisco Daniel Molina de transformer la place, qui souffrait du déclin de ses bâtiments, ayant perdu leur usage noble."
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "musée national d'Art de Catalogne",
+          "category": "museum",
+          "fameScore": 50,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: museum"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Eugenio Cendoya"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien d'intérêt culturel"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Le siège principal se trouve au Palau Nacional, situé sur la montagne de Montjuïc, édifice noucentiste des architectes Eugenio Cendoya, Enric Catà et Pere Domènech i Roura, inauguré en 1929 lors de l'Exposition Internationale tenue dans la Cité comtale."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Historique L'actuel musée a été constitué en 1990 par la réunion des collections du musée d'Art moderne (Museu d'Art Modern), créé en 1945, et du musée d'Art de Catalogne (Museu d'Art de Catalunya), inauguré en 1934."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": null,
+  "routeCriticCall": null,
+  "failure": {
+    "stage": "story_map",
+    "message": "Candidate priority ranks must be a complete permutation"
+  }
+}

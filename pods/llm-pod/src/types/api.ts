@@ -53,6 +53,8 @@ export interface LLMResponse {
     model?: string;
     temperature?: number;
     num_predict?: number;
+    num_ctx?: number;
+    seed?: number;
     format?: string;
     think?: boolean;
     durationMs?: number;

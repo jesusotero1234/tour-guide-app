@@ -1,0 +1,12 @@
+{
+  "city": "Toledo", "theme": "history", "language": "es", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q1123180", "name": "Catedral de Santa María", "narrativeRole": "Explicar poder e identidad cristiana", "contributionCode": "religious_identity" },
+    { "qid": "Q1326589", "name": "Alcázar de Toledo", "narrativeRole": "Mostrar la continuidad del poder estatal", "contributionCode": "royal_state_power" },
+    { "qid": "Q1324080", "name": "Mezquita del Cristo de la Luz", "narrativeRole": "Presentar la herencia islámica", "contributionCode": "multicultural_exchange" },
+    { "qid": "Q1289106", "name": "Monasterio de San Juan de los Reyes", "narrativeRole": "Conectar monarquía, religión y memoria", "contributionCode": "royal_state_power" },
+    { "qid": "Q1568115", "name": "Santa María la Blanca", "narrativeRole": "Hacer visible la historia judía y mudéjar", "contributionCode": "multicultural_exchange" },
+    { "qid": "Q581532", "name": "Puente de Alcántara", "narrativeRole": "Resolver acceso, defensa y forma urbana", "contributionCode": "infrastructure_engineering" }
+  ]
+}

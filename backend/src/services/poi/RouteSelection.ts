@@ -535,6 +535,10 @@ function getDurationRangePenalty(estimatedTourMinutes: number, lowerBound: numbe
   return 0;
 }
 
+function calibrateEstimatedTourMinutes(estimatedTourMinutes: number, stopCount: number): number {
+  return estimatedTourMinutes + (stopCount * 0.5);
+}
+
 function getRoutePlausibilityPenalty(metrics: RouteMetrics, requestedDuration: number, maxSegmentMeters: number, spatialSpreadMeters: number): number {
   const spreadLimit = getPreferredClusterRadiusMeters(requestedDuration) + 700;
   const spreadPenalty = Math.max(0, spatialSpreadMeters - spreadLimit) / 180;
@@ -825,6 +829,7 @@ function evaluatePrefix<T extends RouteCandidate>(
 ): EvaluatedRouteCandidate<T> {
   const orderedPrefix = orderRouteCandidates(prefix, context.strategy, context.theme);
   const metrics = estimateRouteMetrics(orderedPrefix, context.maxSegmentMeters);
+  const calibratedMinutes = calibrateEstimatedTourMinutes(metrics.estimatedTourMinutes, orderedPrefix.length);
   const spatialSpreadMeters = calculateSpatialSpreadMeters(orderedPrefix);
   const flagshipCount = orderedPrefix.filter((place) => getLandmarkTier(place) === 'flagship').length;
   const selectedKeys = new Set(orderedPrefix.map(getCandidateKey));
@@ -835,8 +840,8 @@ function evaluatePrefix<T extends RouteCandidate>(
   return {
     prefix: orderedPrefix,
     metrics,
-    durationGap: Math.abs(metrics.estimatedTourMinutes - context.requestedDuration),
-    durationRangePenalty: getDurationRangePenalty(metrics.estimatedTourMinutes, context.lowerBound, context.upperBound),
+    durationGap: Math.abs(calibratedMinutes - context.requestedDuration),
+    durationRangePenalty: getDurationRangePenalty(calibratedMinutes, context.lowerBound, context.upperBound),
     importanceSum: orderedPrefix.reduce((sum, place) => sum + getRoutePriorityScore(place, context.theme), 0),
     flagshipDeficit: Math.max(0, context.requiredFlagships - flagshipCount),
     historyAnchorDeficit: Math.max(0, missingHistoryAnchors),
@@ -1004,20 +1009,24 @@ export function composeWalkingRoute<T extends RouteCandidate>(
     getMaxSegmentMeters(requestedDuration),
     theme
   );
-
   const emergencyPrefix = orderRouteCandidates(
     routeCandidates.slice(0, Math.max(2, stopBounds.minStops)),
     'importance_anchor',
     theme
   ).map((place, index) => ({ ...place, position: index } as T));
   const emergencyMetrics = estimateRouteMetrics(emergencyPrefix, getMaxSegmentMeters(requestedDuration, true));
+  const emergencyCalibratedMinutes = calibrateEstimatedTourMinutes(emergencyMetrics.estimatedTourMinutes, emergencyPrefix.length);
 
   const selected = primaryCandidates.sort(rankSelectionCandidates)[0]
     || {
       prefix: emergencyPrefix,
       metrics: emergencyMetrics,
-      durationGap: Math.abs(emergencyMetrics.estimatedTourMinutes - requestedDuration),
-      durationRangePenalty: Math.abs(emergencyMetrics.estimatedTourMinutes - requestedDuration),
+      durationGap: Math.abs(emergencyCalibratedMinutes - requestedDuration),
+      durationRangePenalty: getDurationRangePenalty(
+        emergencyCalibratedMinutes,
+        requestedDuration * 0.75,
+        requestedDuration * 1.15
+      ),
       importanceSum: emergencyPrefix.reduce((sum, place) => sum + getRoutePriorityScore(place, theme), 0),
       flagshipDeficit: 0,
       historyAnchorDeficit: 0,
@@ -1047,7 +1056,11 @@ export function composeWalkingRoute<T extends RouteCandidate>(
     );
     const diversified = diversityCandidates.sort(rankSelectionCandidates)[0];
 
-    if (diversified && getRouteMaxCategoryShare(diversified.prefix) < getRouteMaxCategoryShare(selected.prefix)) {
+    if (
+      diversified
+      && diversified.durationRangePenalty <= selected.durationRangePenalty
+      && getRouteMaxCategoryShare(diversified.prefix) < getRouteMaxCategoryShare(selected.prefix)
+    ) {
       selected.prefix = diversified.prefix;
       selected.metrics = diversified.metrics;
       selected.durationGap = diversified.durationGap;
@@ -1063,7 +1076,10 @@ export function composeWalkingRoute<T extends RouteCandidate>(
   }
 
   const upperQualityBound = requestedDuration * 1.15;
-  if (selected.metrics.estimatedTourMinutes > upperQualityBound || selected.metrics.hasOverMaxSegment) {
+  if (
+    calibrateEstimatedTourMinutes(selected.metrics.estimatedTourMinutes, selected.prefix.length) > upperQualityBound
+    || selected.metrics.hasOverMaxSegment
+  ) {
     const repairContext: RouteEvaluationContext = {
       requestedDuration,
       strategy: 'centroid_anchor',
@@ -1151,7 +1167,10 @@ export function composeWalkingRoute<T extends RouteCandidate>(
     }
   }
 
-  const calibratedEstimatedTourMinutes = selected.metrics.estimatedTourMinutes + (selected.prefix.length * 0.5);
+  const calibratedEstimatedTourMinutes = calibrateEstimatedTourMinutes(
+    selected.metrics.estimatedTourMinutes,
+    selected.prefix.length
+  );
   const coverageRatio = requestedDuration > 0
     ? calibratedEstimatedTourMinutes / requestedDuration
     : 1;

@@ -96,6 +96,7 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
   const memorial = normalizeText(tags.memorial);
   const instanceLabels = normalizeText(tags['canonical:instance_of']);
   const description = normalizeText(tags.description || tags['description:en'] || tags['description:de'] || tags['description:es']);
+  const oldName = normalizeText(tags.old_name);
   const combinedText = [name, historic, building, tourism, amenity, place, bridge, manMade, memorial, instanceLabels, description].join(' ');
   const kinds = new Set<string>();
   let score = 0;
@@ -110,6 +111,8 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
     /guerra|batalla|revoluci[oó]n|levantamiento|dictadura|ocupaci[oó]n|independencia|frontera|muro/i,
     /krieg|schlacht|revolution|aufstand|diktatur|besatzung|wiedervereinigung|grenze|mauer/i,
   ]);
+  const isRepurposedHistoricBuilding = isMuseumLike
+    && Boolean(oldName && tags.start_date && tags.heritage);
 
   if (historic) {
     score += 2;
@@ -166,6 +169,11 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
     kinds.add('event-description');
   }
 
+  if (isRepurposedHistoricBuilding) {
+    score += 6;
+    kinds.add('repurposed-historic-building');
+  }
+
   if (category === 'religious' && (tags.heritage || historic || hasEventLabel)) {
     score += 1.5;
     kinds.add('heritage-religious');
@@ -176,6 +184,7 @@ export function getHistoryPlaceProfile(poi: Pick<RawPoi, 'name' | 'tags'>): Hist
     || kinds.has('civic-power-site')
     || kinds.has('public-square')
     || kinds.has('event-description')
+    || kinds.has('repurposed-historic-building')
     || hasStrongMuseumSiteContextLabel
     || (hasEventName && !hasMuseumName);
 

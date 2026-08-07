@@ -1,0 +1,121 @@
+{
+  "benchmarkVersion": "benchmark-editorial-v1",
+  "runId": "editorial-benchmark-v1-final-pilot",
+  "stage": "pilot",
+  "externalSpendUsd": 0.00992108,
+  "spendCapUsd": 0.25,
+  "holdoutLoaded": false,
+  "survivors": [],
+  "providers": [
+    {
+      "provider": {
+        "id": "ollama-qwen",
+        "kind": "ollama",
+        "model": "qwen2.5:14b",
+        "thinking": false
+      },
+      "pilot": {
+        "calls": 3,
+        "valid": 0,
+        "allRoutesPassed": false,
+        "minimumEssentialJaccard": 0,
+        "stableAnchorCoverage": false,
+        "passed": false
+      },
+      "calibration": {
+        "calls": 0,
+        "valid": 0,
+        "gatesPassed": 0,
+        "oracleCovered": 0,
+        "oracleAvailable": 0,
+        "passed": false
+      },
+      "totalLatencyMs": 77017,
+      "totalCostUsd": 0,
+      "selected": false
+    },
+    {
+      "provider": {
+        "id": "ollama-gemma",
+        "kind": "ollama",
+        "model": "gemma4:26b",
+        "thinking": false
+      },
+      "pilot": {
+        "calls": 3,
+        "valid": 0,
+        "allRoutesPassed": false,
+        "minimumEssentialJaccard": 0,
+        "stableAnchorCoverage": false,
+        "passed": false
+      },
+      "calibration": {
+        "calls": 0,
+        "valid": 0,
+        "gatesPassed": 0,
+        "oracleCovered": 0,
+        "oracleAvailable": 0,
+        "passed": false
+      },
+      "totalLatencyMs": 97392,
+      "totalCostUsd": 0,
+      "selected": false
+    },
+    {
+      "provider": {
+        "id": "deepseek-flash-nonthinking",
+        "kind": "deepseek",
+        "model": "deepseek-v4-flash",
+        "thinking": false
+      },
+      "pilot": {
+        "calls": 3,
+        "valid": 0,
+        "allRoutesPassed": false,
+        "minimumEssentialJaccard": 0,
+        "stableAnchorCoverage": false,
+        "passed": false
+      },
+      "calibration": {
+        "calls": 0,
+        "valid": 0,
+        "gatesPassed": 0,
+        "oracleCovered": 0,
+        "oracleAvailable": 0,
+        "passed": false
+      },
+      "totalLatencyMs": 28420,
+      "totalCostUsd": 0.00131324,
+      "selected": false
+    },
+    {
+      "provider": {
+        "id": "deepseek-flash-thinking-high",
+        "kind": "deepseek",
+        "model": "deepseek-v4-flash",
+        "thinking": true,
+        "reasoningEffort": "high"
+      },
+      "pilot": {
+        "calls": 3,
+        "valid": 0,
+        "allRoutesPassed": false,
+        "minimumEssentialJaccard": 0,
+        "stableAnchorCoverage": false,
+        "passed": false
+      },
+      "calibration": {
+        "calls": 0,
+        "valid": 0,
+        "gatesPassed": 0,
+        "oracleCovered": 0,
+        "oracleAvailable": 0,
+        "passed": false
+      },
+      "totalLatencyMs": 306799,
+      "totalCostUsd": 0.00860784,
+      "selected": false
+    }
+  ],
+  "conclusion": "No provider passed Madrid; changing models alone is insufficient"
+}

@@ -32,28 +32,14 @@ function formatTourDuration(minutes: number): string {
 }
 
 type LocationStatus = 'idle' | 'loading' | 'ready' | 'denied' | 'unavailable';
-type PlaybackStatus = {
-  isPlaying: boolean;
-  isLoading: boolean;
-  currentTime: number;
-  duration: number;
-};
-
 export default function TourDetailPage() {
   const params = useParams();
   const { setTour, isLoading, setLoading, error, setError } = useTourStore();
   const [tour, setLocalTour] = useState<Tour | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<LocationStatus>('idle');
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
-  const [playbackStatus, setPlaybackStatus] = useState<PlaybackStatus>({
-    isPlaying: false,
-    isLoading: false,
-    currentTime: 0,
-    duration: 0,
-  });
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -134,7 +120,6 @@ export default function TourDetailPage() {
             ? savedIndex
             : 0
         );
-        setAudioUnlocked(false);
         setTour(tourData); // Also update the global store
       } catch (err) {
         console.error('Error fetching tour:', err);
@@ -223,17 +208,6 @@ export default function TourDetailPage() {
   const currentStopMapUrl = currentPlace
     ? getMapsUrl({ latitude: currentPlace.latitude, longitude: currentPlace.longitude }, currentPlace.name)
     : null;
-  const playbackProgress = playbackStatus.duration > 0
-    ? Math.min((playbackStatus.currentTime / playbackStatus.duration) * 100, 100)
-    : 0;
-  const stickyStatusLabel = playbackStatus.isLoading
-    ? 'Loading audio…'
-    : playbackStatus.isPlaying
-      ? 'Now playing'
-      : audioUnlocked
-        ? 'Ready to resume'
-        : 'Tap listen to start';
-
   useEffect(() => {
     if (!shareFeedback) return;
 
@@ -299,15 +273,6 @@ export default function TourDetailPage() {
                     >
                       Share tour
                     </button>
-                    {!audioUnlocked && (
-                      <button
-                        type="button"
-                        onClick={() => setAudioUnlocked(true)}
-                        className="rounded-lg border border-darkBrown/15 bg-surface px-4 py-3 text-sm font-medium text-darkBrown transition-colors hover:bg-darkBrown hover:text-surface"
-                      >
-                        Start tour mode
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
@@ -329,6 +294,13 @@ export default function TourDetailPage() {
                 </div>
               )}
 
+              {tour.introduction && currentIndex === 0 && (
+                <section className="rounded-2xl border border-mutedGold/35 bg-surface-elevated p-5 shadow-sm sm:p-6">
+                  <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">Welcome</p>
+                  <p className="mt-3 font-serif text-lg leading-8 text-darkBrown">{tour.introduction}</p>
+                </section>
+              )}
+
               {tour.places.length > 0 && currentPlace ? (
                 <div className="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,1fr)] lg:items-start">
                   <section id="current-stop" className="order-1 space-y-4 lg:order-1">
@@ -339,7 +311,7 @@ export default function TourDetailPage() {
                             Tour mode
                           </p>
                           <p className="mt-2 text-base font-medium sm:text-lg">
-                            {audioUnlocked ? 'Listen here, then keep walking to the next stop.' : 'Start audio when you arrive, then continue at your own pace.'}
+                            Read this stop when you arrive, then continue at your own pace.
                           </p>
                         </div>
                         <span className="rounded-full border border-surface/15 bg-surface/10 px-3 py-1 text-xs font-medium text-surface">
@@ -350,12 +322,11 @@ export default function TourDetailPage() {
                         <button
                           type="button"
                           onClick={() => {
-                            setAudioUnlocked(true);
-                            scrollToSection('audio-panel');
+                            scrollToSection('current-stop');
                           }}
                           className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-darkBrown"
                         >
-                          Listen now
+                          Read this stop
                         </button>
                         <button
                           type="button"
@@ -384,7 +355,7 @@ export default function TourDetailPage() {
                             {currentPlace.name}
                           </h2>
                           <p className="mt-1 text-sm text-darkBrown/70">
-                            {isFinalStop ? 'Final stop of the route' : 'Listen here, then continue to the next stop.'}
+                            {isFinalStop ? 'Final stop of the route' : 'Read here, then continue to the next stop.'}
                           </p>
                           {(currentStopDistance || nextStopDistance || locationMessage) && (
                             <div className="mt-3 flex flex-wrap gap-2 text-xs text-darkBrown/70">
@@ -424,8 +395,8 @@ export default function TourDetailPage() {
                       </div>
                     </div>
 
-                    <div id="audio-panel">
-                      <PlaceCard place={currentPlace} language={tour.language} onPlaybackStateChange={setPlaybackStatus} />
+                    <div id="guide-text">
+                      <PlaceCard place={currentPlace} language={tour.language} />
                     </div>
                     <div className="rounded-2xl border border-darkBrown/12 bg-surface-elevated p-4 shadow-sm">
                       {isFinalStop ? (
@@ -466,45 +437,21 @@ export default function TourDetailPage() {
 
       {!isLoading && !error && tour && currentPlace && (
         <div className="fixed inset-x-0 bottom-0 z-20 border-t border-darkBrown/12 bg-surface/95 px-4 py-3 shadow-[0_-10px_30px_rgba(74,63,53,0.08)] backdrop-blur lg:hidden">
-          <div className="mx-auto max-w-6xl space-y-3">
+          <div className="mx-auto max-w-6xl">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-mutedGold">
-                  {stickyStatusLabel}
+                  Text guide
                 </p>
                 <p className="truncate text-sm font-medium text-darkBrown">
                   Stop {currentIndex + 1}: {currentPlace.name}
                 </p>
                 <p className="truncate text-xs text-darkBrown/65">
-                  {playbackStatus.isPlaying
-                    ? `${Math.round(playbackProgress)}% listened`
-                    : currentStopDistance ?? (isFinalStop ? 'Last stop ready to listen.' : 'Listen here, then continue walking.')}
+                  {currentStopDistance ?? (isFinalStop ? 'Final stop.' : 'Read here, then continue walking.')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 rounded-full border border-darkBrown/12 bg-surface-elevated px-2.5 py-1.5 text-[11px] font-medium text-darkBrown">
-                <span className={`h-2 w-2 rounded-full ${playbackStatus.isPlaying ? 'animate-pulse bg-mutedGold' : playbackStatus.isLoading ? 'animate-pulse bg-darkBrown/45' : 'bg-darkBrown/25'}`} />
-                <span>{playbackStatus.isPlaying ? 'Playing' : playbackStatus.isLoading ? 'Loading' : 'Paused'}</span>
-              </div>
             </div>
-
-            <div className="h-1 overflow-hidden rounded-full bg-darkBrown/10">
-              <div
-                className="h-full rounded-full bg-mutedGold transition-[width] duration-300"
-                style={{ width: `${playbackProgress}%` }}
-              />
-            </div>
-
-            <div className="grid grid-cols-4 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setAudioUnlocked(true);
-                  scrollToSection('audio-panel');
-                }}
-                className="rounded-xl bg-darkBrown px-3 py-3 text-xs font-medium text-surface"
-              >
-                {playbackStatus.isPlaying ? 'Player' : 'Listen'}
-              </button>
+            <div className="mt-3 grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => scrollToSection('map-panel')}

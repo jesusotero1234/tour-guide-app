@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ListToursOptions, TourRepository } from '../../domain/repositories/TourRepository';
-import { Tour } from '../../domain/entities/Tour';
+import { Tour, TourStatus } from '../../domain/entities/Tour';
 import { Place } from '../../domain/entities/Place';
 
 export class SupabaseTourRepository implements TourRepository {
@@ -15,6 +15,8 @@ export class SupabaseTourRepository implements TourRepository {
         theme: tour.theme,
         language: tour.language,
         duration_minutes: tour.durationMinutes,
+        status: tour.status ?? 'draft',
+        introduction: tour.introduction,
         metadata: {
           ...(tour.metadata ?? {}),
           placeCount: tour.places.length
@@ -118,6 +120,8 @@ export class SupabaseTourRepository implements TourRepository {
         theme: d.theme,
         language: d.language,
         durationMinutes: d.duration_minutes ?? d.durationMinutes ?? 240,
+        status: (d.status || 'draft') as TourStatus,
+        introduction: d.introduction,
         metadata: d.metadata,
         places,
         createdAt: d.created_at || d.createdAt,
@@ -149,6 +153,8 @@ export class SupabaseTourRepository implements TourRepository {
       theme: d.theme,
       language: d.language,
       durationMinutes: d.duration_minutes ?? d.durationMinutes ?? 240,
+      status: (d.status || 'draft') as TourStatus,
+      introduction: d.introduction,
       places: (d.places || []).map((p: any, idx: number) => ({
         id: p.id,
         tourId: d.id,
@@ -178,6 +184,7 @@ export class SupabaseTourRepository implements TourRepository {
           theme: options.theme,
           language: options.language,
           durationMinutes: options.durationMinutes,
+          status: options.status,
           limit: options.limit,
           offset: options.offset
         }
@@ -196,6 +203,8 @@ export class SupabaseTourRepository implements TourRepository {
       theme: d.theme,
       language: d.language,
       durationMinutes: d.duration_minutes ?? d.durationMinutes ?? 240,
+      status: (d.status || 'draft') as TourStatus,
+      introduction: d.introduction,
       metadata: d.metadata,
       places: (d.places || []).map((p: any, idx: number) => ({
         id: p.id,
@@ -215,5 +224,12 @@ export class SupabaseTourRepository implements TourRepository {
       createdAt: d.created_at || d.createdAt,
       updatedAt: d.updated_at || d.updatedAt || d.created_at || d.createdAt
     }));
+  }
+
+  async updateStatus(id: string, status: TourStatus): Promise<Tour> {
+    await axios.patch(`${this.baseUrl}/tours/${id}`, { status });
+    const tour = await this.findById(id);
+    if (!tour) throw new Error(`Tour not found after status update: ${id}`);
+    return tour;
   }
 }

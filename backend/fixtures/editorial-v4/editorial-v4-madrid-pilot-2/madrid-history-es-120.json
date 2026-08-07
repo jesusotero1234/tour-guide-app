@@ -1,0 +1,1512 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "failed",
+  "createdAt": "2026-08-06T17:44:47.010Z",
+  "caseId": "madrid-history-es-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "cd001e4ace9a8f2665f932ad7f0bc1d95a2ebf8fb47e7568420bccafb142b3fc",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q1123493",
+      "siteId": "site:Q1123493",
+      "coordinates": {
+        "lat": 40.4154007,
+        "lng": -3.7073747
+      },
+      "evidenceIds": [
+        "Q1123493:wikipedia:0",
+        "Q1123493:wikidata:architect",
+        "Q1123493:wikidata:heritageDesignation",
+        "Q1123493:wikipedia:1",
+        "Q1123493:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q427163",
+      "siteId": "site:Q427163",
+      "coordinates": {
+        "lat": 40.4168622,
+        "lng": -3.7034948
+      },
+      "evidenceIds": [
+        "Q427163:wikipedia:0",
+        "Q427163:wikidata:instanceOf",
+        "Q427163:wikidata:locatedIn",
+        "Q427163:wikipedia:1",
+        "Q427163:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q171517",
+      "siteId": "site:Q171517",
+      "coordinates": {
+        "lat": 40.417828,
+        "lng": -3.714361
+      },
+      "evidenceIds": [
+        "Q171517:osm:historic",
+        "Q171517:wikidata:architect",
+        "Q171517:wikidata:architecturalStyle",
+        "Q171517:wikipedia:0",
+        "Q171517:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q970525",
+      "siteId": "site:Q970525",
+      "coordinates": {
+        "lat": 40.4252776,
+        "lng": -3.6904471
+      },
+      "evidenceIds": [
+        "Q970525:wikipedia:4",
+        "Q970525:wikidata:namedAfter",
+        "Q970525:wikidata:instanceOf",
+        "Q970525:wikipedia:11",
+        "Q970525:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q539149",
+      "siteId": "site:Q539149",
+      "coordinates": {
+        "lat": 40.41632997,
+        "lng": -3.696630383
+      },
+      "evidenceIds": [
+        "Q539149:osm:building",
+        "Q9054619:wikidata:architect",
+        "Q9054619:wikidata:architecturalStyle",
+        "Q9054619:wikipedia:10",
+        "Q9054619:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q1537446",
+      "siteId": "site:Q1537446",
+      "coordinates": {
+        "lat": 40.41917,
+        "lng": -3.69306
+      },
+      "evidenceIds": [
+        "osm:way:1346140195:osm:height",
+        "Q1537446:wikidata:namedAfter",
+        "Q2736564:wikidata:architect",
+        "Q2736564:wikipedia:1",
+        "Q2736564:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q2193218",
+      "siteId": "site:Q2193218",
+      "coordinates": {
+        "lat": 40.4183363,
+        "lng": -3.7123832
+      },
+      "evidenceIds": [
+        "Q2193218:osm:place",
+        "Q2193218:wikidata:inception",
+        "Q2193218:wikidata:instanceOf",
+        "Q2193218:wikipedia:1",
+        "Q2193218:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q1140634",
+      "siteId": "site:Q1140634",
+      "coordinates": {
+        "lat": 40.4199868,
+        "lng": -3.6887244
+      },
+      "evidenceIds": [
+        "Q1140634:wikipedia:0",
+        "Q1140634:wikidata:architecturalStyle",
+        "Q1140634:wikidata:heritageDesignation",
+        "Q1140634:wikipedia:4",
+        "Q1140634:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q2657591",
+      "siteId": "site:Q2657591",
+      "coordinates": {
+        "lat": 40.4067374,
+        "lng": -3.7116239
+      },
+      "evidenceIds": [
+        "Q2657591:wikipedia:0",
+        "Q2657591:wikidata:heritageDesignation",
+        "Q2657591:wikidata:inception",
+        "Q2657591:wikipedia:2",
+        "Q2657591:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q460889",
+      "siteId": "site:Q460889",
+      "coordinates": {
+        "lat": 40.4080445,
+        "lng": -3.694595
+      },
+      "evidenceIds": [
+        "Q460889:osm:historic",
+        "Q460889:wikidata:architect",
+        "Q460889:wikidata:heritageDesignation",
+        "Q460889:wikipedia:0",
+        "Q460889:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q2838423",
+      "siteId": "site:Q2838423",
+      "coordinates": {
+        "lat": 40.4140005,
+        "lng": -3.7228529
+      },
+      "evidenceIds": [
+        "Q2838423:wikipedia:3",
+        "Q2838423:wikidata:architect",
+        "Q2838423:wikidata:heritageDesignation",
+        "Q2838423:wikipedia:11",
+        "Q2838423:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q9054619",
+      "siteId": "site:Q9054619",
+      "coordinates": {
+        "lat": 40.416413,
+        "lng": -3.6965788
+      },
+      "evidenceIds": [
+        "Q539149:osm:building",
+        "Q9054619:wikidata:architect",
+        "Q9054619:wikidata:architecturalStyle",
+        "Q9054619:wikipedia:10",
+        "Q9054619:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q3288223",
+      "siteId": "site:Q3288223",
+      "coordinates": {
+        "lat": 40.4277259,
+        "lng": -3.7124004
+      },
+      "evidenceIds": [
+        "Q3288223:osm:building",
+        "Q3288223:wikidata:architecturalStyle",
+        "Q3288223:wikidata:heritageDesignation",
+        "Q3288223:wikipedia:0",
+        "Q3288223:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q1472798",
+      "siteId": "site:Q1472798",
+      "coordinates": {
+        "lat": 40.4152553,
+        "lng": -3.6941511
+      },
+      "evidenceIds": [
+        "Q1472798:wikipedia:0",
+        "Q1472798:wikidata:architect",
+        "Q1472798:wikidata:inception",
+        "Q1472798:wikipedia:4",
+        "Q1472798:wikipedia:7"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q2982559",
+      "siteId": "site:Q2982559",
+      "coordinates": {
+        "lat": 40.4143707,
+        "lng": -3.7059757
+      },
+      "evidenceIds": [
+        "Q2982559:wikipedia:2",
+        "Q2982559:wikidata:architect",
+        "Q2982559:wikidata:architecturalStyle",
+        "Q2982559:wikipedia:0",
+        "Q2982559:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q2420025",
+      "siteId": "site:Q2420025",
+      "coordinates": {
+        "lat": 40.4135924,
+        "lng": -3.682057
+      },
+      "evidenceIds": [
+        "Q2420025:wikipedia:4",
+        "Q2420025:wikidata:architect",
+        "Q2420025:wikidata:architecturalStyle",
+        "Q2420025:wikipedia:1",
+        "Q2420025:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q1352282",
+      "siteId": "site:Q1352282",
+      "coordinates": {
+        "lat": 40.4234289,
+        "lng": -3.6888894
+      },
+      "evidenceIds": [
+        "Q1352282:osm:historic",
+        "Q1352282:wikidata:heritageDesignation",
+        "Q1352282:wikidata:inception",
+        "Q1352282:wikipedia:0",
+        "Q1352282:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q2099125",
+      "siteId": "site:Q2099125",
+      "coordinates": {
+        "lat": 40.4198647,
+        "lng": -3.7057983
+      },
+      "evidenceIds": [
+        "Q2099125:wikipedia:6",
+        "Q2099125:wikidata:namedAfter",
+        "Q2099125:wikidata:instanceOf",
+        "Q2099125:wikipedia:10",
+        "Q2099125:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q10343739",
+      "siteId": "site:Q10343739",
+      "coordinates": {
+        "lat": 40.4214548,
+        "lng": -3.7119825
+      },
+      "evidenceIds": [
+        "Q10343739:osm:building",
+        "Q10343739:wikidata:architecturalStyle",
+        "Q10343739:wikidata:instanceOf",
+        "Q10343739:wikipedia:3",
+        "Q10343739:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q2268271",
+      "siteId": "site:Q2268271",
+      "coordinates": {
+        "lat": 40.4186773,
+        "lng": -3.7061361
+      },
+      "evidenceIds": [
+        "Q2268271:wikipedia:1",
+        "Q2268271:wikidata:architect",
+        "Q2268271:wikidata:architecturalStyle",
+        "Q2268271:wikipedia:0",
+        "Q2268271:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q24944157",
+      "siteId": "site:Q24944157",
+      "coordinates": {
+        "lat": 40.4227124,
+        "lng": -3.6976271
+      },
+      "evidenceIds": [
+        "Q24944157:osm:place",
+        "Q24944157:wikidata:namedAfter",
+        "Q24944157:wikidata:instanceOf",
+        "Q24944157:wikipedia:1",
+        "Q24944157:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q3889284",
+      "siteId": "site:Q3889284",
+      "coordinates": {
+        "lat": 40.4209668,
+        "lng": -3.6946012
+      },
+      "evidenceIds": [
+        "Q3889284:wikipedia:8",
+        "Q3889284:wikidata:architect",
+        "Q3889284:wikidata:heritageDesignation",
+        "Q3889284:wikipedia:2",
+        "Q3889284:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q740210",
+      "siteId": "site:Q740210",
+      "coordinates": {
+        "lat": 40.4147072,
+        "lng": -3.700779
+      },
+      "evidenceIds": [
+        "Q740210:osm:place",
+        "Q740210:wikidata:instanceOf",
+        "Q740210:wikidata:locatedIn",
+        "Q740210:wikipedia:1",
+        "Q740210:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q1647048",
+      "siteId": "site:Q1647048",
+      "coordinates": {
+        "lat": 40.4172106,
+        "lng": -3.6938985
+      },
+      "evidenceIds": [
+        "Q1647048:wikipedia:0",
+        "Q1647048:wikidata:inception",
+        "Q1647048:wikidata:instanceOf",
+        "Q1647048:wikipedia:11",
+        "Q1647048:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q2711992",
+      "siteId": "site:Q2711992",
+      "coordinates": {
+        "lat": 40.4152086,
+        "lng": -3.710424
+      },
+      "evidenceIds": [
+        "Q2711992:wikipedia:3",
+        "Q2711992:wikidata:instanceOf",
+        "Q2711992:wikidata:locatedIn",
+        "Q2711992:wikipedia:1",
+        "Q2711992:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q2473884",
+      "siteId": "site:Q2473884",
+      "coordinates": {
+        "lat": 40.4104314,
+        "lng": -3.7145624
+      },
+      "evidenceIds": [
+        "Q2473884:wikipedia:4",
+        "Q2473884:wikidata:architect",
+        "Q2473884:wikidata:architecturalStyle",
+        "Q2473884:wikipedia:0",
+        "Q2473884:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q23093",
+      "siteId": "site:Q23093",
+      "coordinates": {
+        "lat": 40.4051856,
+        "lng": -3.6891258
+      },
+      "evidenceIds": [
+        "Q23093:wikipedia:7",
+        "Q23093:wikidata:architect",
+        "Q23093:wikidata:architecturalStyle",
+        "Q23093:wikipedia:2",
+        "Q23093:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q205524",
+      "siteId": "site:Q205524",
+      "coordinates": {
+        "lat": 40.4200211,
+        "lng": -3.7116805
+      },
+      "evidenceIds": [
+        "Q205524:wikipedia:7",
+        "Q205524:wikidata:architect",
+        "Q205524:wikidata:architecturalStyle",
+        "Q205524:wikipedia:1",
+        "Q205524:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q2859883",
+      "siteId": "site:Q2859883",
+      "coordinates": {
+        "lat": 40.4359063,
+        "lng": -3.7201974
+      },
+      "evidenceIds": [
+        "Q2859883:wikipedia:0",
+        "Q2859883:wikidata:architect",
+        "Q2859883:wikidata:inception",
+        "Q2859883:wikipedia:1",
+        "Q2859883:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q849711",
+      "siteId": "site:Q849711",
+      "coordinates": {
+        "lat": 40.4157109,
+        "lng": -3.714495
+      },
+      "evidenceIds": [
+        "Q849711:wikipedia:3",
+        "Q849711:wikidata:architect",
+        "Q849711:wikidata:architecturalStyle",
+        "Q849711:wikipedia:6",
+        "Q849711:wikipedia:7"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "semantic_error",
+    "value": null,
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "semantic_error",
+        "latencyMs": 20364,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"¿Cómo se transformó Madrid de villa medieval amurallada a capital imperial y, después, a metrópoli moderna, y cómo se refleja esa evolución en sus plazas, palacios, puertas y monumentos?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"medieval\",\"focus\":\"Los orígenes medievales de Madrid: la villa amurallada, sus puertas de acceso controlado y el trazado urbano primitivo que aún se percibe en las plazas y calles del casco histórico.\",\"evidenceRefs\":[\"c09:e05\",\"c25:e04\",\"c25:e01\",\"c01:e04\"]},{\"beatId\":\"b02\",\"contributionCode\":\"royal_state_power\",\"era\":\"early_modern\",\"focus\":\"La conversión de Madrid en capital permanente bajo los Austrias y Borbones: el traslado de la corte, la construcción de palacios reales y la remodelación urbana patrocinada por los monarcas.\",\"evidenceRefs\":[\"c22:e05\",\"c03:e05\",\"c06:e04\",\"c14:e04\",\"c24:e05\"]},{\"beatId\":\"b03\",\"contributionCode\":\"religious_identity\",\"era\":\"early_modern\",\"focus\":\"La piedad y el patronazgo religioso de la corte: monasterios y conventos fundados por la realeza y la alta nobleza, que definieron la identidad espiritual de la capital.\",\"evidenceRefs\":[\"c20:e04\",\"c28:e04\",\"c19:e04\",\"c26:e05\"]},{\"beatId\":\"b04\",\"contributionCode\":\"civic_government\",\"era\":\"nineteenth_century\",\"focus\":\"El Madrid decimonónico como sede de las instituciones del Estado liberal: el Congreso, el Senado y el Ayuntamiento, y la arquitectura neoclásica que expresó el nuevo poder constitucional.\",\"evidenceRefs\":[\"c05:e05\",\"c12:e05\",\"c19:e05\",\"c25:e05\"]},{\"beatId\":\"b05\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"nineteenth_century\",\"focus\":\"El ensanche y la modernización urbana del siglo XIX: las antiguas puertas reales quedaron insertadas en la ciudad en expansión, y nuevas plazas y avenidas remodelaron el paisaje madrileño.\",\"evidenceRefs\":[\"c08:e04\",\"c08:e05\",\"c09:e01\",\"c07:e04\",\"c18:e05\"]},{\"beatId\":\"b06\",\"contributionCode\":\"art_intellectual_life\",\"era\":\"nineteenth_century\",\"focus\":\"El Madrid de la cultura y las artes: museos, palacios de cristal, el barrio de las Letras y las instituciones que consolidaron la capital como centro intelectual y artístico de España.\",\"evidenceRefs\":[\"c17:e04\",\"c16:e04\",\"c23:e05\",\"c10:e05\"]},{\"beatId\":\"b07\",\"contributionCode\":\"memory_rights\",\"era\":\"twentieth_century\",\"focus\":\"La memoria y la identidad en el Madrid contemporáneo: monumentos conmemorativos, símbolos nacionales y espacios que recuerdan la guerra civil y la construcción de la identidad moderna.\",\"evidenceRefs\":[\"c29:e04\",\"c04:e04\",\"c02:e04\",\"c21:e05\"]}], \"candidates\": {\"c01\":{\"relativePriorityRank\":1,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"early_modern\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"c01:e04\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"c01:e02\"]}]},\"c02\":{\"relativePriorityRank\":2,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"c02:e04\"]},{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c02:e05\"]}]},\"c03\":{\"relativePriorityRank\":3,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"c03:e05\",\"c03:e04\"]}]},\"c04\":{\"relativePriorityRank\":9,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"c04:e04\",\"c04:e05\"]}]},\"c05\":{\"relativePriorityRank\":6,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"c05:e05\",\"c05:e03\"]}]},\"c06\":{\"relativePriorityRank\":8,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c06:e04\"]}]},\"c07\":{\"relativePriorityRank\":10,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"c07:e04\",\"c07:e05\"]}]},\"c08\":{\"relativePriorityRank\":5,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"c08:e04\",\"c08:e05\",\"c08:e01\"]}]},\"c09\":{\"relativePriorityRank\":7,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"c09:e05\",\"c09:e01\"]},{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"c09:e04\"]}]},\"c10\":{\"relativePriorityRank\":14,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c10:e05\",\"c10:e04\"]}]},\"c11\":{\"relativePriorityRank\":12,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"early_modern\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"c11:e05\"]},{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c11:e01\"]}]},\"c12\":{\"relativePriorityRank\":13,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"c12:e05\",\"c12:e03\"]}]},\"c13\":{\"relativePriorityRank\":20,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"c13:e04\",\"c13:e05\"]}]},\"c14\":{\"relativePriorityRank\":11,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c14:e04\",\"c14:e05\"]}]},\"c15\":{\"relativePriorityRank\":15,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"c15:e04\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"c15:e04\"]}]},\"c16\":{\"relativePriorityRank\":17,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c16:e04\",\"c16:e05\"]}]},\"c17\":{\"relativePriorityRank\":16,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"c17:e04\",\"c17:e03\"]}]},\"c18\":{\"relativePriorityRank\":19,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"c18:e05\",\"c18:e04\"]}]},\"c19\":{\"relativePriorityRank\":18,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"c19:e04\"]},{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"c19:e05\"]}]},\"c20\":{\"relativePriorityRank\":21,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"c20:e04\",\"c20:e05\"]}]},\"c21\":{\"relativePriorityRank\":24,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"c21:e05\",\"c21:e04\"]}]},\"c22\":{\"relativePriorityRank\":22,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"c22:e05\",\"c22:e04\"]}]},\"c23\":{\"relativePriorityRank\":23,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"c23:e05\"]}]},\"c24\":{\"relativePriorityRank\":25,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"c24:e05\",\"c24:e04\"]}]},\"c25\":{\"relativePriorityRank\":4,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"early_modern\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"c25:e04\",\"c25:e01\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"c25:e05\"]}]},\"c26\":{\"relativePriorityRank\":26,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"c26:e05\",\"c26:e04\"]}]},\"c27\":{\"relativePriorityRank\":27,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"c27:e05\"]}]},\"c28\":{\"relativePriorityRank\":28,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"c28:e04\",\"c28:e05\"]}]},\"c29\":{\"relativePriorityRank\":29,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"c29:e04\",\"c29:e01\"]}]},\"c30\":{\"relativePriorityRank\":30,\"salienceLevel\":2,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"c30:e04\",\"c30:e05\"]}]}}}",
+        "error": "beats[0].focus is invalid"
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "44a5f7f97d7b47daf0c62d37ff6f4ad3eeda3207495388afbe796e33256bfada",
+    "input": {
+      "city": "Madrid",
+      "theme": "history",
+      "language": "es",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "Plaza Mayor de Madrid",
+          "category": "square_civic",
+          "fameScore": 30.993782540330756,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La plaza Mayor está situada en el centro de Madrid, en el barrio de Sol, junto a la calle Mayor y a 300 metros de la Puerta del Sol."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan de Herrera"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia Los inicios de la plaza se remontan al siglo XVI, cuando en la confluencia de los caminos (hoy en día calles) de Toledo y Atocha, a las afueras de la villa medieval, se celebraba en este sitio, conocido como «plaza del Arrabal», el mercado principal de la villa."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El último incendio, que arrasó un tercio de la plaza, tuvo lugar en 1790."
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "Puerta del Sol",
+          "category": "square_civic",
+          "fameScore": 30.637849050834898,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La Puerta del Sol es una plaza de la ciudad española de Madrid."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Sol"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En ella se encuentra desde 1950 el denominado kilómetro cero de las carreteras radiales del país."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La Casa de Correos fue construida por el arquitecto francés Jaime Marquet entre 1766 y 1768; la misma fue posteriormente Ministerio de la Gobernación (Interior) y Dirección General de Seguridad del Estado durante la época franquista y, actualmente, es sede de la Presidencia de la"
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "Palacio Real de Madrid",
+          "category": "palace_castle",
+          "fameScore": 30.32068586817104,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Filippo Juvara"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Palacio Real de Madrid es la residencia oficial del rey de España; no obstante, la familia real no habita en él, sino en el Palacio de la Zarzuela, por lo que es utilizado para ceremonias de Estado y actos solemnes.​ Con una extensión de 135 000 m² y 3418 habitaciones (casi el"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "A eje con el palacio, y enfrentado, se encuentra al otro extremo de la plaza el Teatro Real.​ El palacio fue construido por orden del rey Felipe V, sobre el solar dejado por el Real Alcázar, destruido casi del todo por un incendio en 1734."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "plaza de Colón",
+          "category": "square_civic",
+          "fameScore": 28.21578428466209,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Este consta de una base cuadrada con relieves y un pilar octogonal tallados en piedra por Arturo Mélida, y una estatua de tres metros de altura esculpida en mármol blanco de Italia por Jerónimo Suñol."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Cristóbal Colón"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Desde el día de la fiesta nacional de España de 2001, en la plaza de Colón ondea la bandera de España más grande del mundo, de 14 m x 21 m (294 m²), en un mástil de 50 m de altura.​ En el cruce de la plaza con la calle de Génova se erigen las llamadas Torres de Colón, proyectadas"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En ella se encuentra monumento a Cristóbal Colón de estilo neogótico, erigido entre 1881 y 1885."
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "Congreso de los Diputados",
+          "category": "civic_power",
+          "fameScore": 27.743782540330756,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Narciso Pascual Colomer"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Más tarde, en 1994, fue realizada una nueva reforma y ampliación fruto de un concurso donde se presentaron 287 trabajos."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Es uno de los edificios emblemáticos del Madrid del siglo xix, de estilo neoclásico."
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "plaza de Cibeles",
+          "category": "square_civic",
+          "fameScore": 27.601319154423276,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 8"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Cibeles"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Ventura Rodríguez"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fue concebida dentro de un plan de remodelación urbana en el siglo XVIII, por iniciativa del rey Carlos III, quien planeaba embellecer la capital del reino según la estética del neoclasicismo."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La actual plaza se llamó al principio plaza de Madrid y en el año 1900 tomó el nombre plaza de Castelar."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "plaza de Oriente",
+          "category": "square_civic",
+          "fameScore": 27.512388523751017,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1844-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se trata de una plaza rectangular de cabecera curvada, de carácter monumental, cuyo trazado definitivo responde a un diseño de 1844 de Narciso Pascual Colomer, heredero de varios proyectos anteriores."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Otra hipótesis hace referencia al rey José I —que recibió el apelativo popular de Pepe Botella—, uno de los principales impulsores de la plaza, ya que fue él quien ordenó el derribo del caserío existente en los aledaños del Palacio Real."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "Puerta de Alcalá",
+          "category": "other",
+          "fameScore": 26.851319154423276,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La Puerta de Alcalá es una de las cinco antiguas puertas reales que daban acceso a la ciudad de Madrid (España).​ Se encuentra situada en el centro de la rotonda de la plaza de la Independencia."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Ha sufrido desde sus comienzos diversas transformaciones urbanísticas en su entorno, pasando de ser la frontera exterior de Madrid a un centro turístico de obligado paso que aparece insertada casi en el medio de la misma ciudad."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Este cambio se ha debido al ensanche del siglo XIX a lo largo del barrio de Serrano y la prolongación de la calle de Alcalá."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "Puerta de Toledo",
+          "category": "other",
+          "fameScore": 25.259775004326936,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La puerta de Toledo era una de las puertas de acceso a la ciudad de Madrid.​ Existieron con anterioridad otras tres puertas denominadas de Toledo en las cercanías, la actual data del primer tercio del siglo xix y fue diseñada por el arquitecto español Antonio Aguado, que se encue"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1827-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se construyó en el periodo que va desde los años 1813 y 1827, y fue restaurada por el Ayuntamiento de Madrid en 1995."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Historia El Madrid medieval era una ciudad amurallada con accesos controlados a la misma."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "Museo Nacional Centro de Arte Reina Sofía",
+          "category": "museum",
+          "fameScore": 25.00268586817104,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: monument"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Francesco Sabatini"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Museo Nacional Centro de Arte Reina Sofía (MNCARS), conocido comúnmente como Museo Reina Sofía, es un museo español de arte del siglo XX y contemporáneo, con sede en la ciudad de Madrid."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Tomó como sede el antiguo Hospital General de Madrid, gran edificio neoclásico del siglo XVIII situado en la zona de Atocha, cerca de la estación homónima de tren y de la Estación del Arte de Metro."
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "Puente de Segovia",
+          "category": "other",
+          "fameScore": 23.851319154423276,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "En los primeros dibujos y pinturas de la ciudad, fechados en el siglo XVI, el puente aparecía bien con nueve arcos, bien con trece.​ Historia Su construcción fue ordenada por Felipe II a su arquitecto preferido, Juan de Herrera, autor del Monasterio de El Escorial y del Palacio R"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan de Herrera"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En la década de 1960, fue nuevamente reformado para facilitar la construcción de la autopista M-30."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1996 fue declarado bien de interés cultural con categoría de monumento.​​ Conocido antiguamente como «puente segoviana», las primeras referencias de esta construcción datan del siglo XIV, cuando el rey Alfonso XI de Castilla autorizó su edificación mediante dos cartas escritas"
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "Palacio de las Cortes",
+          "category": "palace_castle",
+          "fameScore": 23.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Narciso Pascual Colomer"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Más tarde, en 1994, fue realizada una nueva reforma y ampliación fruto de un concurso donde se presentaron 287 trabajos."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Es uno de los edificios emblemáticos del Madrid del siglo xix, de estilo neoclásico."
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Palacio de Liria",
+          "category": "palace_castle",
+          "fameScore": 23.6,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El palacio de Liria es una gran mansión urbana en Madrid, construida en el siglo XVIII."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Desde principios del XIX es la residencia oficial de la Casa de Alba en la capital de España y principal sede de su valiosa colección de arte y archivo histórico.​ Se ubica en los números 20-22 de la actual calle de la Princesa, en una zona conocida antaño como barrio de los Afli"
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "Neptuno",
+          "category": "other",
+          "fameScore": 23.50488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La fuente de Neptuno en Madrid es una fuente de estilo neoclásico que representa al dios Neptuno y ocupa el centro de la glorieta a la que popularmente da nombre, dentro de la Plaza de Cánovas del Castillo."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Ventura Rodríguez"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1780-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia En la segunda mitad del siglo XVIII Carlos III emprendió una serie de reformas, entre las que se encontraba la modernización de la capital para ponerla a la altura de las grandes urbes como San Petersburgo o París."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Diseñada por el arquitecto Ventura Rodríguez, el proyecto se inició en 1777, usándose de modelo unos bocetos de madera realizados por Miguel Ximénez."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "Palacio de Santa Cruz",
+          "category": "palace_castle",
+          "fameScore": 23.470671786825555,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Se sitúa muy cerca de la Plaza Mayor, en la plaza de la Provincia, presidida junto con el palacio por la reconstruida fuente de Orfeo."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan Gómez de Mora"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Palacio de Santa Cruz, también denominado Cárcel de Corte, hoy es una de las sedes del Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Se encuentra en la ciudad de Madrid, capital de España."
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "Palacio de Cristal del Retiro",
+          "category": "other",
+          "fameScore": 23.35,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La disposición de sus espacios internos y la gran cúpula central facilitaban la visualización y el cuidado de las plantas acuáticas y vegetación tropical, resaltando su función primordial como invernadero."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Ricardo Velázquez Bosco"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Arquitectura victoriana"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fue construido en 1887 con motivo de la Exposición General de las Islas Filipinas, y es un ejemplo destacado de la arquitectura de cristal y hierro en Madrid."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En la actualidad es una de las sedes del Museo Reina Sofía.​ Este Palacio fue diseñado para ofrecer un ambiente ideal para la exhibición de plantas tropicales durante la Exposición General de las Islas Filipinas de 1887."
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "Museo Arqueológico Nacional",
+          "category": "museum",
+          "fameScore": 22.64718235807536,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: monument"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1867-03-20"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Museo Arqueológico Nacional (MAN) es un museo nacional español con sede en el Palacio de Biblioteca y Museos Nacionales de Madrid, un edificio del siglo XIX, iniciado por el arquitecto Francisco Jareño y Alarcón y finalizado por Antonio Ruiz de Salces, que comparte con la Bibl"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1962, el museo fue declarado monumento histórico-artístico,​ por lo que es Bien de Interés Cultural con categoría de Monumento,​​ Historia Fundación."
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "plaza del Callao",
+          "category": "square_civic",
+          "fameScore": 22.57206476617281,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Los primeros proyectos de reforma interior consideraban un ensanche de la calle Preciados («Reforma de la Prolongación de la calle Preciados») permitiendo así una mayor capacidad viaria a la Puerta del Sol."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: combate del Callao"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En la reforma que sufrió posteriormente, tras la inauguración del 1 de julio de 1960, la plaza cobró el aspecto actual.​ A finales de 2009 y principios de 2010 se peatonaliza toda la plaza y la vecina calle de Jacometrezo se acomoda para el tráfico de autobuses que anteriormente "
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La plaza del Callao, al igual que el segundo tramo de la Gran Vía, fue construida entre 1917 y 1922, aunque la entrega definitiva de obras no se haría hasta 1927."
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "Palacio del Senado",
+          "category": "palace_castle",
+          "fameScore": 22.50488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura herreriana"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: palacio"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Es un edificio del siglo XVI, antiguo Colegio de la Encarnación, de religiosos agustinos calzados también llamado Colegio de doña María de Aragón (parte del complejo del Real Monasterio de la Encarnación)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El colegio fue una de las instituciones más destacadas de la corte madrileña, y su iglesia contenía varias obras maestras de El Greco, hoy en el Museo del Prado.​ Entre 1820 y 1823, durante el Trienio Liberal fue el lugar de reunión de las Cortes previstas en la Constitución de 1"
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "Monasterio de las Descalzas Reales",
+          "category": "other",
+          "fameScore": 22.259775004326936,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Se encuentra situado en pleno centro de Madrid: en la actual plaza de las Descalzas, zona cercana a la Puerta del Sol, plaza de Celenque y calle de Preciados."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Antonio Sillero"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura del Renacimiento"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El monasterio de Nuestra Señora de la Visitación, ubicado en la ciudad española de Madrid y más conocido como las Descalzas Reales, es un monasterio de monjas de clausura, clarisas coletinas, fundado en 1559 por Juana de Austria, viuda del príncipe Juan Manuel de Portugal, herman"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Es un edificio clasicista del siglo XVI que alberga en su interior importantes obras de arte."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "plaza de Chueca",
+          "category": "square_civic",
+          "fameScore": 22.215784284662085,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Federico Chueca"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Dedicada desde 1943 al compositor madrileño Federico Chueca,​ da nombre a todo el barrio."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En el inicio del siglo XXI aparecía en las guías turísticas como corazón de la comunidad gay en la capital de España,​ aunque el dato aún no figuraba en la obra de algunos cronistas, estudios callejeros y enciclopedias sobre Madrid.​​ Historia Todavía inexistente en 1861,​ cuando"
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "Palacio de Buenavista",
+          "category": "palace_castle",
+          "fameScore": 22.128294855911893,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "El arquitecto ideó un conjunto que sintetiza esquemas italianos y franceses, con fachada urbana hacia el norte."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan Pedro Arnal"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Primer palacio El palacio original se edificó en el siglo XVI en la Real finca conocida como Altillo de Buenavista (de ahí el nombre)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El entonces arzobispo de Toledo, Gaspar de Quiroga, regala la finca a Felipe II, cuando el rey decide trasladar la corte y hacer de Madrid la capital permanente."
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "plaza de Santa Ana",
+          "category": "square_civic",
+          "fameScore": 21.90488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Cortes"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Data de 1810 y a lo largo de su historia ha sufrido numerosos procesos de urbanización que han modificado su aspecto con diversa fortuna."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Situada en el corazón del llamado barrio de las Letras, su espacio queda delimitado por la calle del Príncipe, al este, la calle del Prado, al sur, dando solo numeración a sus flancos oeste y norte, donde confluyen la plaza del Ángel y la calle Núñez de Arce.​​ Historia La plaza "
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "Fuente de Apolo",
+          "category": "other",
+          "fameScore": 21.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La fuente de Apolo, también llamada de las Cuatro Estaciones, es una fuente monumental de Madrid (España), situada en el Paseo del Prado, obra de Manuel Álvarez.​ Ocupa el centro de lo que se denominó Salón del Prado, dentro de la reforma urbana patrocinada por el rey Carlos III "
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1777-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: fuente"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Remata el monumento una efigie del dios Apolo, divinidad de la luz y las artes, con los rasgos del rey Carlos III."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Historia En la segunda mitad del siglo XVIII Carlos III emprendió una serie de reformas, entre las que se encontraba la modernización de la capital para ponerla a la altura de las grandes urbes como San Petersburgo o París."
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "plaza de la Villa",
+          "category": "square_civic",
+          "fameScore": 21.370671786825554,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "El más antiguo es la Casa y Torre de los Lujanes (siglo XV), construido en estilo gótico-mudéjar, que se emplaza en la cara oriental de la plaza."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Madrid"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En ella tienen su origen tres pequeñas calles, correspondientes al primitivo trazado medieval de la ciudad: la del Codo aparece por el este, la del Cordón por el sur y la de Madrid por el oeste."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Le siguen en antigüedad la Casa de Cisneros (siglo XVI), un palacio plateresco que cierra la parte meridional del recinto, y la Casa de la Villa (siglo XVII), de estilo barroco, una de las sedes del Ayuntamiento de Madrid, ubicada en la zona occidental de la plaza."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "basílica de San Francisco el Grande",
+          "category": "religious",
+          "fameScore": 21.3,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "El edificio destaca por su cúpula, considerada como la tercera de planta circular de mayor diámetro de la cristiandad; por su suntuosa decoración interior, realizada en estilo ecléctico a finales del siglo XIX; y por su pinacoteca, representativa de la pintura española de los sig"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Francisco Cabezas"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La Real Basílica de San Francisco el Grande, oficialmente Basílica de Nuestra Señora de los Ángeles, es una iglesia católica en Madrid, en el barrio de Palacio, dentro del casco histórico de la capital de España."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Forma parte del convento franciscano de Jesús y María, fundado a principios del siglo XIII, sobre una desaparecida ermita dedicada a santa María."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "estación de Atocha",
+          "category": "other",
+          "fameScore": 20.88318235807536,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Con el objeto de adaptarse a las nuevas velocidades y caudales de tráfico, se realizó una profunda transformación, y desde el año 1992 la estación se escinde en dos estaciones ferroviarias diferenciadas: La estación de Puerta de Atocha, en fondo de saco, que acoge a los trenes de"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Alberto de Palacio y Elissague"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura modernista"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Registró en 2015 un tráfico de 108 millones de pasajeros; correspondiendo 87 millones al servicio de Cercanías, 17 millones a la larga distancia y AVE y 2,6 millones a los servicios regionales de Media Distancia.​ El complejo ferroviario es un conjunto de estaciones y de edificio"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La estación surge como un simple apeadero (inaugurado en 1851), que se amplía hasta convertirse en la estación del Mediodía (inaugurada en 1892), propiedad inicialmente de la Compañía de los Ferrocarriles de Madrid a Zaragoza y Alicante (abreviada como MZA).​ El constante crecimi"
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Real Monasterio de la Encarnación",
+          "category": "other",
+          "fameScore": 20.672064766172813,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La fachada, que responde a un modelo de inspiración de estilo herreriano, de gran austeridad, creó escuela y fue imitada por otros templos españoles."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Alberto de la Madre de Dios"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La institución, a la que pertenecieron damas de la alta nobleza, fue fundada por la reina Margarita de Austria, esposa de Felipe III, a comienzos del siglo XVII."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El edificio fue construido entre 1611 y 1616."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Arco de Moncloa",
+          "category": "other",
+          "fameScore": 20.672064766172813,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "El arco de la Victoria —conocido popularmente también como Puerta de la Moncloa, por su similitud con las puertas de Alcalá y Toledo, o como arco del Triunfo— es un arco de triunfo situado en Madrid, construido entre 1950 y 1956."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Modesto López Otero"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1942-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se trata de una obra conmemorativa de la victoria del bando sublevado sobre el bando republicano en la guerra civil.​​ Está situado en una de las entradas principales de la capital de España, la de la autovía del Noroeste, en el centro de la denominada avenida de la Memoria del d"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Es obra de los arquitectos Modesto López Otero y Pascual Bravo Sanfeliú y los ornamentos que lo rodean, de los escultores Moisés de Huerta (frisos alegóricos), algunos en colaboración con su hijo Rafael Huerta,​​ Ramón Arregui (Cuadriga de Minerva) y José Ortells."
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "catedral de la Almudena",
+          "category": "religious",
+          "fameScore": 20.128294855911893,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "La catedral está ubicada en el centro histórico de la ciudad de Madrid; la fachada principal se encuentra frente al Palacio Real, mientras que la fachada del crucero mira hacia la calle de Bailén y el acceso a la cripta se realiza por la cuesta de la Vega, al final de la calle Ma"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Francisco de Cubas"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: neorrománico"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se trata de un edificio de 102 metros de longitud y 73 de altura máxima construido desde finales del siglo XIX a finales del XX, en diferentes estilos arquitectónicos: neoclásico en el exterior, neogótico en el interior y neorrománico en la cripta."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Fue consagrada el 15 de junio de 1993 por el papa San Juan Pablo II,​ en el transcurso de su cuarto viaje a España."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": null,
+  "routeCriticCall": null,
+  "failure": {
+    "stage": "story_map",
+    "message": "beats[0].focus is invalid"
+  }
+}

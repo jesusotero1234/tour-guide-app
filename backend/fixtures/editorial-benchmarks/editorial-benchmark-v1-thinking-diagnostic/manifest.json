@@ -1,0 +1,30 @@
+{
+  "benchmarkVersion": "benchmark-editorial-v1",
+  "createdAt": "2026-08-06T14:34:26.960Z",
+  "stage": "pilot",
+  "repetitions": 1,
+  "providers": [
+    {
+      "id": "deepseek-flash-thinking-high",
+      "kind": "deepseek",
+      "model": "deepseek-v4-flash",
+      "thinking": true,
+      "reasoningEffort": "high"
+    }
+  ],
+  "promptFingerprint": "38e2068a9ecefa59692066ee601386e04b295edad1f4d8c4bee78198f09bf76d",
+  "selectorFingerprint": "0bf3647e6ddfb858314a34db6e1b1bae93745762eeb8660490e54fb30da8873e",
+  "externalSpendCapUsd": 0.25,
+  "calibrationCaseIds": [
+    "madrid-history-es-120",
+    "malaga-history-es-120",
+    "amsterdam-history-nl-120",
+    "toledo-history-es-120",
+    "berlin-history-de-120",
+    "barcelona-history-fr-120",
+    "paris-history-en-120",
+    "roma-history-it-150",
+    "toulouse-history-fr-120"
+  ],
+  "holdoutLoaded": false
+}

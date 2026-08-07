@@ -1,0 +1,52 @@
+{
+  "city": "Madrid",
+  "countryCode": "ES",
+  "theme": "history",
+  "language": "es",
+  "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by the production route algorithm.",
+  "stops": [
+    {
+      "qid": "Q171517",
+      "name": "Palacio Real",
+      "narrativeRole": "Presentar la corte y el poder real",
+      "contributionCode": "royal_state_power"
+    },
+    {
+      "qid": "Q849711",
+      "name": "Catedral de la Almudena",
+      "narrativeRole": "Relacionar capital, religión e identidad",
+      "contributionCode": "religious_identity"
+    },
+    {
+      "qid": "Q2711992",
+      "name": "Plaza de la Villa",
+      "narrativeRole": "Recuperar el origen municipal",
+      "contributionCode": "origins_urban_form"
+    },
+    {
+      "qid": "Q1123493",
+      "name": "Plaza Mayor",
+      "narrativeRole": "Mostrar comercio, ceremonia y vida pública",
+      "contributionCode": "public_life_ceremony"
+    },
+    {
+      "qid": "Q427163",
+      "name": "Puerta del Sol",
+      "narrativeRole": "Explicar el centro cívico y nacional",
+      "contributionCode": "modern_national_identity"
+    },
+    {
+      "qid": "Q1537446",
+      "name": "Plaza de Cibeles",
+      "narrativeRole": "Introducir expansión y capital moderna",
+      "contributionCode": "urban_expansion_reform"
+    },
+    {
+      "qid": "Q1140634",
+      "name": "Puerta de Alcalá",
+      "narrativeRole": "Resolver la transformación de ciudad a capital",
+      "contributionCode": "urban_expansion_reform"
+    }
+  ]
+}

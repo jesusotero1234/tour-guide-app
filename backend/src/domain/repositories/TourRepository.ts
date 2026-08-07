@@ -1,4 +1,4 @@
-import { Tour } from '../entities/Tour';
+import { Tour, TourStatus } from '../entities/Tour';
 
 export type ListToursOptions = {
   city?: string;
@@ -6,6 +6,7 @@ export type ListToursOptions = {
   theme?: string;
   language?: string;
   durationMinutes?: number;
+  status?: TourStatus;
   readyOnly?: boolean;
   limit?: number;
   offset?: number;
@@ -16,4 +17,5 @@ export interface TourRepository {
   findById(id: string): Promise<Tour | null>;
   listRecent(limit: number): Promise<Tour[]>;
   list(options: ListToursOptions): Promise<Tour[]>;
+  updateStatus(id: string, status: TourStatus): Promise<Tour>;
 }

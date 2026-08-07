@@ -1,0 +1,10 @@
+{
+  "city": "Toulouse", "theme": "history", "language": "fr", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; excludes the remote Canal du Midi point.",
+  "stops": [
+    { "qid": "Q1010268", "name": "Basilique Saint-Sernin", "narrativeRole": "Ouvrir avec pèlerinage et ville médiévale", "contributionCode": "religious_identity" },
+    { "qid": "Q2737833", "name": "Cathédrale Saint-Étienne", "narrativeRole": "Montrer les transformations religieuses et urbaines", "contributionCode": "urban_expansion_reform" },
+    { "qid": "Q2351013", "name": "Capitole", "narrativeRole": "Expliquer le pouvoir civique", "contributionCode": "civic_government" },
+    { "qid": "Q2887166", "name": "Basilique Notre-Dame de la Daurade", "narrativeRole": "Résoudre le rapport entre fleuve, culte et vie publique", "contributionCode": "public_life_ceremony" }
+  ]
+}

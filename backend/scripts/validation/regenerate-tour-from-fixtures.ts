@@ -1,12 +1,13 @@
 import 'dotenv/config';
 import axios from 'axios';
 import crypto from 'crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { RawPoi } from '../../src/domain/poi/RawPoi';
 import { enrichShortlistedPois } from '../../src/services/poi/PoiEnrichmentPipeline';
 import { PoiEnrichmentSnapshot, SnapshotPoiEnrichmentCache } from '../../src/services/poi/PoiEnrichmentSnapshot';
 import { composeWalkingRoute } from '../../src/services/poi/RouteSelection';
+import { auditTourText, buildTourIntroduction, buildTourNarrativePlan } from '../../src/services/narrative/TourTextQuality';
 
 interface PoolFixture {
   rawPois: RawPoi[];
@@ -39,14 +40,24 @@ function readJson<T>(path: string): T {
 }
 
 async function main(): Promise<void> {
-  const city = process.argv[2] || 'Barcelona';
-  const theme = process.argv[3] || 'history';
-  const language = process.argv[4] || 'fr';
-  const llmServiceUrl = process.argv[5] || process.env.LLM_SERVICE_URL || 'http://localhost:3002';
-  const country = process.argv[6];
-  const countryCode = process.argv[7];
+  const args = process.argv.slice(2);
+  const positional = args.filter((arg) => !arg.startsWith('--'));
+  const city = positional[0] || 'Barcelona';
+  const theme = positional[1] || 'history';
+  const language = positional[2] || 'fr';
+  const llmServiceUrl = positional[3] || process.env.LLM_SERVICE_URL || 'http://localhost:3002';
+  const country = positional[4];
+  const countryCode = positional[5];
+  const selectedPositions = new Set(
+    (args.find((arg) => arg.startsWith('--stops='))?.split('=')[1] || '')
+      .split(',')
+      .filter(Boolean)
+      .map((value) => Number(value) - 1)
+      .filter((value) => Number.isInteger(value) && value >= 0)
+  );
   const slug = `${city.toLowerCase()}-${theme}`;
   const fixtures = join(__dirname, '..', '..', 'fixtures');
+  const output = join(fixtures, 'tours', `${slug}-${language}-candidate.json`);
 
   const pool = readJson<PoolFixture>(join(fixtures, 'pools', `${slug}.json`));
   const candidateFixture = readJson<CandidateFixture>(join(fixtures, 'candidates', `${slug}.json`));
@@ -78,10 +89,29 @@ async function main(): Promise<void> {
   const enrichedByQid = new Map(
     enriched.map((poi) => [poi.tags.wikidata as string, poi])
   );
+  const narrativePlan = buildTourNarrativePlan({
+    city,
+    theme,
+    language,
+    placeNames: routeSelection.route.map((routeStop) => routeStop.name),
+  });
+  const previousTour = selectedPositions.size > 0 && existsSync(output)
+    ? readJson<{ places?: Array<Record<string, unknown>> }>(output)
+    : undefined;
+  if (selectedPositions.size > 0 && !previousTour?.places) {
+    throw new Error(`Cannot regenerate selected stops without an existing artifact: ${output}`);
+  }
 
-  const places = [];
+  const places: Array<Record<string, unknown>> = [];
   for (let index = 0; index < routeSelection.route.length; index++) {
     const stop = routeSelection.route[index];
+    if (selectedPositions.size > 0 && !selectedPositions.has(index)) {
+      const existingPlace = previousTour?.places?.[index];
+      if (!existingPlace) throw new Error(`Existing artifact is missing stop ${index + 1}`);
+      places.push(existingPlace);
+      console.log(`[fixture-replay] reused ${index + 1}/${routeSelection.route.length}: ${stop.name}`);
+      continue;
+    }
     const poi = enrichedByQid.get(stop.wikidataId as string);
     if (!poi) throw new Error(`Frozen enrichment missing for ${stop.name}`);
     const position = index === 0 ? 'first' : index === routeSelection.route.length - 1 ? 'last' : 'middle';
@@ -106,6 +136,14 @@ async function main(): Promise<void> {
       totalStops: routeSelection.route.length,
       stopIndex: index,
       tourDurationMinutes: candidateFixture.requestedDuration,
+      tourPromise: narrativePlan.promise,
+      centralQuestion: narrativePlan.centralQuestion,
+      narrativeRole: narrativePlan.stopRoles[index]?.role,
+      openingArchetype: narrativePlan.stopRoles[index]?.openingArchetype,
+      transitionPurpose: narrativePlan.stopRoles[index]?.transitionPurpose,
+      editorialRepairInstructions: selectedPositions.size > 0
+        ? ['Rewrite only this stop with a distinct opening, main idea, and closing. Do not repeat formulas used by other stops.']
+        : undefined,
     }, { timeout: 180000 });
     const narration = response.data;
     if (!narration?.narration || !narration?.sections) {
@@ -140,6 +178,25 @@ async function main(): Promise<void> {
   }
 
   const now = new Date().toISOString();
+  const introduction = buildTourIntroduction({
+    city,
+    theme,
+    language,
+    durationMinutes: candidateFixture.requestedDuration,
+    firstStopName: routeSelection.route[0]?.name || city,
+    plan: narrativePlan,
+  });
+  const textAudit = auditTourText({
+    introduction,
+    language,
+    places: places.map((place, position) => ({
+      id: String(place.id || `fixture-${position + 1}`),
+      position,
+      name: String(place.name || routeSelection.route[position]?.name || ''),
+      description: String(place.description || ''),
+      metadata: place.metadata as never,
+    })),
+  });
   const tour = {
     id: 'fixture-candidate',
     city,
@@ -148,10 +205,14 @@ async function main(): Promise<void> {
     theme,
     language,
     durationMinutes: candidateFixture.requestedDuration,
+    status: 'draft',
+    introduction,
     metadata: {
       generationMode: 'frozen-fixture-replay',
       sourceSnapshot: `${slug}-${language}.json`,
       routeDiagnostics: routeSelection.diagnostics,
+      narrativePlan,
+      textAudit,
     },
     places,
     createdAt: now,
@@ -159,9 +220,9 @@ async function main(): Promise<void> {
   };
 
   mkdirSync(join(fixtures, 'tours'), { recursive: true });
-  const output = join(fixtures, 'tours', `${slug}-${language}-candidate.json`);
   writeFileSync(output, JSON.stringify(tour, null, 2));
   console.log(`[fixture-replay] wrote ${output}`);
+  console.log(`[fixture-replay] text audit ${textAudit.passed ? 'PASS' : 'FAIL'} (${textAudit.score}): ${textAudit.reasons.join(', ') || 'no issues'}`);
 }
 
 main().catch((error) => {

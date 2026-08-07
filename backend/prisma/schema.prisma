@@ -15,7 +15,8 @@ model Tour {
   theme           String
   language        String
   durationMinutes Int             @map("duration_minutes")
-  status          String          @default("created")
+  status          String          @default("draft")
+  introduction    String?
   metadata        Json            @default("{}")
   createdAt       DateTime        @default(now()) @map("created_at")
   updatedAt       DateTime        @default(now()) @updatedAt @map("updated_at")
@@ -81,8 +82,12 @@ model VoiceReferenceAudio {
 model GenerationJob {
   id           String    @id @default(uuid()) @db.Uuid
   tourId       String?   @map("tour_id") @db.Uuid
+  idempotencyKey String  @unique @map("idempotency_key")
   status       String
   step         String?
+  request      Json      @default("{}")
+  progress     Json      @default("{}")
+  result       Json?
   errorCode    String?   @map("error_code")
   errorMessage String?   @map("error_message")
   errorDetails Json?     @map("error_details")

@@ -1,0 +1,3935 @@
+{
+  "city": "Segovia",
+  "theme": "history",
+  "capturedAt": "2026-08-06",
+  "geocode": {
+    "lat": 40.9481192,
+    "lng": -4.1172101,
+    "boundingBox": {
+      "minLat": 40.8347208,
+      "maxLat": 40.9879858,
+      "minLng": -4.3367483,
+      "maxLng": -4.0524543
+    }
+  },
+  "rawPois": [
+    {
+      "osmType": "way",
+      "osmId": 48275271,
+      "name": "Iglesia de San Millán",
+      "lat": 40.9456568,
+      "lng": -4.1208,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:postcode": "40002",
+        "addr:street": "Avenida del Acueducto",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de San Millán",
+        "religion": "christian",
+        "wheelchair": "yes",
+        "wikidata": "Q5910969",
+        "wikipedia": "es:Iglesia de San Millán (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 48275872,
+      "name": "Iglesia de San Martín",
+      "lat": 40.9489876,
+      "lng": -4.1218563,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "church",
+        "check_date": "2025-08-22",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de San Martín",
+        "name:en": "Church of San Martín",
+        "name:es": "Iglesia de San Martín",
+        "name:ko": "산 마르틴 성당",
+        "name:pl": "Kościół św. Marcina",
+        "religion": "christian",
+        "wheelchair": "limited",
+        "wikidata": "Q5910761",
+        "wikipedia": "es:Iglesia de San Martín (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 53212752,
+      "name": "Iglesia de San Esteban",
+      "lat": 40.9520052,
+      "lng": -4.1248358,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "church",
+        "check_date": "2026-03-22",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de San Esteban",
+        "polling_station": "no",
+        "religion": "christian",
+        "wikidata": "Q19950092",
+        "wikipedia": "es:Iglesia de San Esteban (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 241834854,
+      "name": "Iglesia de San Justo",
+      "lat": 40.9478594,
+      "lng": -4.1155292,
+      "tags": {
+        "alt_name": "Iglesia de los Santos Justo y Pastor",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "check_date": "2025-08-15",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de San Justo",
+        "religion": "christian",
+        "wikidata": "Q5910626",
+        "wikipedia": "es:Iglesia de los Santos Justo y Pastor (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 241989026,
+      "name": "Iglesia de la Santísima Trinidad",
+      "lat": 40.9512647,
+      "lng": -4.1223955,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "church",
+        "check_date": "2025-03-01",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de la Santísima Trinidad",
+        "religion": "christian",
+        "wikidata": "Q5912556",
+        "wikipedia": "es:Iglesia de la Santísima Trinidad (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 242290796,
+      "name": "Iglesia de San Juan de los Caballeros",
+      "lat": 40.9509812,
+      "lng": -4.1171768,
+      "tags": {
+        "building": "church",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "image": "https://commons.wikimedia.org/wiki/File:SanJuanDeLosCaballeros-rectangular.jpg",
+        "name": "Iglesia de San Juan de los Caballeros",
+        "phone": "+34 921 46 33 48",
+        "ref:bic": "RI-51-0000866-00000",
+        "wikidata": "Q30001710",
+        "wikimedia_commons": "File:SanJuanDeLosCaballeros-rectangular.jpg",
+        "wikipedia": "es:Iglesia de San Juan de los Caballeros (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 260037660,
+      "name": "Iglesia de la Veracruz",
+      "lat": 40.9556884,
+      "lng": -4.1322391,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:postcode": "40003",
+        "addr:street": "Carretera de Zamarramala",
+        "air_conditioning": "no",
+        "alt_name": "Iglesia de la Vera Cruz",
+        "amenity": "place_of_worship",
+        "baby_feeding": "no",
+        "building": "church",
+        "check_date": "2025-10-09",
+        "denomination": "catholic",
+        "email": "info@ordendemalta.es",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Iglesia de la Veracruz",
+        "old_name": "Iglesia del Santo Sepulcro",
+        "phone": "+34 921 43 14 75",
+        "polling_station": "no",
+        "religion": "christian",
+        "tourism": "attraction",
+        "website": "https://www.ordendemalta.es/esp/cultura/delegacion-castilla/#iglesia",
+        "wheelchair": "limited",
+        "wikidata": "Q1799223",
+        "wikipedia": "es:Iglesia de la Vera Cruz (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 262881373,
+      "name": "Iglesia de San Lorenzo",
+      "lat": 40.952792,
+      "lng": -4.1140399,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:postcode": "40003",
+        "addr:street": "Plaza de San Lorenzo",
+        "amenity": "place_of_worship",
+        "building": "church",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "church",
+        "name": "Iglesia de San Lorenzo",
+        "phone": "+34 636 05 08 56",
+        "religion": "christian",
+        "wikidata": "Q32154604",
+        "wikipedia": "es:Iglesia de San Lorenzo (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 368806516,
+      "name": "Palacio del Conde de Alpuente",
+      "lat": 40.9479931,
+      "lng": -4.1212293,
+      "tags": {
+        "access": "yes",
+        "alt_name": "Palacio del Conde Alpiroz;Palacio de Alpiroz;Palacio de Cascales",
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio del Conde de Alpuente",
+        "noaddress": "yes",
+        "short_name": "Palacio del Conde Alpuente",
+        "source": "https://www.turismodesegovia.com/es/monumentos/arquitectura-civil/palacios/4-palacio-del-conde-de-alpuente",
+        "tourism": "attraction",
+        "wikidata": "Q56697769"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 403892352,
+      "name": "Palacio del Marqués del Arco",
+      "lat": 40.950597,
+      "lng": -4.1251143,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio del Marqués del Arco",
+        "wikidata": "Q97058479",
+        "wikipedia": "es:Palacio del Marqués del Arco"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 403893178,
+      "name": "Teatro Juan Bravo",
+      "lat": 40.9505664,
+      "lng": -4.12333,
+      "tags": {
+        "amenity": "theatre",
+        "building": "civic",
+        "check_date": "2026-04-05",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Teatro Juan Bravo",
+        "wheelchair": "yes",
+        "wikidata": "Q6139765",
+        "wikipedia": "es:Teatro Juan Bravo"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 429093255,
+      "name": "Casa de la Tierra",
+      "lat": 40.9468491,
+      "lng": -4.1196772,
+      "tags": {
+        "access": "yes",
+        "building": "yes",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "name": "Casa de la Tierra",
+        "not:brand:wikidata": "Q1991755",
+        "old_name": "Casa de Los Pueblos",
+        "opening_hours": "Fr 12:00-13:30",
+        "tourism": "attraction",
+        "wheelchair": "yes",
+        "wikidata": "Q110809652",
+        "wikipedia": "es:Casa de la Tierra (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 451150192,
+      "name": "Palacio del Conde de Cheste",
+      "lat": 40.9500248,
+      "lng": -4.1172701,
+      "tags": {
+        "access": "private",
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio del Conde de Cheste",
+        "tourism": "attraction",
+        "wikidata": "Q105405842"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 503134835,
+      "name": "Arcada del Acueducto de Segovia",
+      "lat": 40.9466453,
+      "lng": -4.1147524,
+      "tags": {
+        "name": "Arcada del Acueducto de Segovia",
+        "wikidata": "Q244947",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "57",
+        "canonical:instance_of": "architectural heritage monument|stone bridge|arch bridge|Roman aqueduct",
+        "tourism": "attraction",
+        "historic": "monument",
+        "addr:city": "Segovia",
+        "building": "yes",
+        "check_date": "2024-10-07",
+        "heritage": "1",
+        "heritage:operator": "whc",
+        "historic:civilization": "ancient_roman",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Acueducto_de_SegoviaArturoFranciscoBarbero.jpg",
+        "layer": "1",
+        "name:de": "Arkade des Aquädukt von Segovia",
+        "name:en": "Arcade of the Aqueduct of Segovia",
+        "name:es": "Arcada del Acueducto de Segovia",
+        "name:ja": "セゴビア水道橋のアーケード",
+        "name:ko": "세고비아 수로 아케이드",
+        "name:lt": "Segovijos akveduko arkada",
+        "name:pl": "Arkada Akweduktu w Segowii",
+        "name:pt": "Arcada do Aqueduto de Segóvia",
+        "name:ru": "Аркада акведука Сеговии",
+        "name:uk": "Аркада Акведук в Сеговії",
+        "name:zh": "塞戈维亚渡槽拱廊",
+        "old_name": "La Puente;El Puente",
+        "operator": "Ayuntamiento de Segovia",
+        "operator:type": "government",
+        "wheelchair": "yes",
+        "wikimedia_commons": "Category:Aqueduct of Segovia",
+        "wikipedia": "es:Acueducto de Segovia"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 852518116,
+      "name": "Palacio de Xifré",
+      "lat": 40.8574912,
+      "lng": -4.1336739,
+      "tags": {
+        "access": "private",
+        "building": "yes",
+        "castle_type": "palace",
+        "historic": "castle",
+        "name": "Palacio de Xifré",
+        "wikidata": "Q16615259",
+        "wikipedia": "es:Palacio de Xifré"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1107202312,
+      "name": "Real Quinta de Quitapesares",
+      "lat": 40.9170168,
+      "lng": -4.0603586,
+      "tags": {
+        "access": "yes",
+        "building": "yes",
+        "castle_type": "palace",
+        "fee": "no",
+        "historic": "castle",
+        "name": "Real Quinta de Quitapesares",
+        "wheelchair": "yes",
+        "wikidata": "Q66821340",
+        "wikipedia": "es:Real quinta de Quitapesares"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1120988852,
+      "name": "Puerta de La Claustra",
+      "lat": 40.9523699,
+      "lng": -4.1286533,
+      "tags": {
+        "building": "yes",
+        "historic": "city_gate",
+        "historic:civilization": "medieval",
+        "layer": "1",
+        "name": "Puerta de La Claustra",
+        "tourism": "attraction",
+        "wikidata": "Q109337792",
+        "wikipedia": "es:Puerta de la Claustra (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1149391859,
+      "name": "Real Casa de Moneda",
+      "lat": 40.9543599,
+      "lng": -4.1286224,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:postcode": "40003",
+        "addr:street": "Calle la Moneda",
+        "air_conditioning": "yes",
+        "alt_name": "Antigua Casa de la Moneda;Real Ingenio de la Casa de la Moneda",
+        "description": "Visita gratuita los miércoles no festivos.",
+        "fee": "yes",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "watermill",
+        "landuse": "industrial",
+        "loc_name": "Casa de la Moneda",
+        "man_made": "watermill",
+        "name": "Real Casa de Moneda",
+        "phone": "+34 921 47 51 09",
+        "toilets": "yes",
+        "tourism": "attraction",
+        "website": "https://www.casamonedasegovia.es/",
+        "wheelchair": "yes",
+        "wikidata": "Q5692199",
+        "wikipedia": "es:Real Casa de la Moneda (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1174562823,
+      "name": "Puerta de San Andrés",
+      "lat": 40.9498631,
+      "lng": -4.1271528,
+      "tags": {
+        "alt_name": "Arco del Socorro",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "city_gate",
+        "name": "Puerta de San Andrés",
+        "name:ko": "산 안드레스 문",
+        "wikidata": "Q18194102",
+        "wikipedia": "es:Puerta de San Andrés"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1243980115,
+      "name": "Torreón de Lozoya",
+      "lat": 40.9486117,
+      "lng": -4.121083,
+      "tags": {
+        "access": "customers",
+        "building": "civic",
+        "castle_type": "defensive",
+        "check_date": "2023-11-26",
+        "historic": "castle",
+        "historic:civilization": "middle-ages",
+        "name": "Torreón de Lozoya",
+        "name:en": "Medieval tower of Lozoya",
+        "name:es": "Torreón de Lozoya",
+        "name:zh": "洛索亞塔",
+        "operator": "Fundación Caja Segovia",
+        "operator:type": "association",
+        "start_date": "before C16",
+        "wikidata": "Q42912722",
+        "wikipedia": "es:Torreón de Lozoya"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 2519928,
+      "name": "Monasterio de Santa Cruz la Real",
+      "lat": 40.952894,
+      "lng": -4.1194038,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:street": "Calle Escalinata del Hospicio",
+        "alt_name": "Monasterio de Santa Cruz la Real",
+        "building": "university",
+        "fee": "no",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Monasterio de Santa Cruz la Real",
+        "old_name": "Hospicio de Segovia",
+        "operator": "IE Universidad",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wheelchair": "yes",
+        "wikidata": "Q8350468",
+        "wikipedia": "es:Convento de Santa Cruz la Real"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 2520106,
+      "name": "Monasterio de San Antonio El Real",
+      "lat": 40.942537,
+      "lng": -4.1106966,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "religious",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "image": "https://commons.wikimedia.org/wiki/File:Segovia_-_Monasterio_de_San_Antonio_el_Real_03.jpg",
+        "name": "Monasterio de San Antonio El Real",
+        "ref:bic": "RI-51-0000869",
+        "religion": "christian",
+        "type": "multipolygon",
+        "wikidata": "Q6021309",
+        "wikimedia_commons": "File:Segovia_-_Monasterio_de_San_Antonio_el_Real_03.jpg",
+        "wikipedia": "es:Monasterio de San Antonio el Real"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 2520117,
+      "name": "Palacio Episcopal",
+      "lat": 40.9515016,
+      "lng": -4.1242814,
+      "tags": {
+        "access": "yes",
+        "alt_name": "Palacio de los Salcedo",
+        "building": "religious",
+        "check_date": "2026-03-22",
+        "historic": "manor",
+        "name": "Palacio Episcopal",
+        "old_name": "Palacio del Obispo",
+        "start_date": "1550",
+        "type": "multipolygon",
+        "wikidata": "Q97059099",
+        "wikipedia": "es:Palacio Episcopal de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 3512412,
+      "name": "Monasterio Jerónimo Santa María del Parral",
+      "lat": 40.9557482,
+      "lng": -4.1260745,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "2",
+        "addr:postcode": "40003",
+        "addr:street": "Calle el Parral",
+        "air_conditioning": "no",
+        "amenity": "place_of_worship",
+        "baby_feeding": "no",
+        "building": "yes",
+        "check_date": "2024-03-10",
+        "denomination": "catholic",
+        "email": "oshsmparral@monjesjeronimos.org",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla Y León",
+        "name": "Monasterio Jerónimo Santa María del Parral",
+        "phone": "+34 921 43 12 98",
+        "polling_station": "no",
+        "religion": "christian",
+        "type": "multipolygon",
+        "website": "https://monjesjeronimos.es/",
+        "wheelchair": "limited",
+        "wikidata": "Q1997245",
+        "wikipedia": "es:Monasterio de Santa María del Parral"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 3517088,
+      "name": "Antigua Cárcel Real",
+      "lat": 40.9491659,
+      "lng": -4.1223236,
+      "tags": {
+        "access": "yes",
+        "building": "civic",
+        "check_date": "2026-06-04",
+        "historic": "manor",
+        "name": "Antigua Cárcel Real",
+        "name:en": "Royal Jail",
+        "name:es": "Antigua Cárcel Real",
+        "name:ko": "세고비아 공립 도서관",
+        "note": "Cárcel medieval de Segovia reconvertida en biblioteca",
+        "opening_hours": "\"Closed library\"",
+        "type": "multipolygon",
+        "wikidata": "Q85689848",
+        "wikipedia": "es:Casa de la Lectura-Biblioteca Municipal de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583496,
+      "name": "Casa del Secretario",
+      "lat": 40.9512201,
+      "lng": -4.123589,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa del Secretario",
+        "not:brand:wikidata": "Q1991755",
+        "type": "multipolygon",
+        "wikidata": "Q108381069"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583522,
+      "name": "Casa de los Solier",
+      "lat": 40.9490004,
+      "lng": -4.1211843,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa de los Solier",
+        "not:brand:wikidata": "Q1991755",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q56698012"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583532,
+      "name": "Palacio de Quintanar",
+      "lat": 40.9496,
+      "lng": -4.1178708,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio de Quintanar",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q56670038",
+        "wikipedia": "es:Palacio de los Marqueses de Quintanar (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583540,
+      "name": "Casa de las Cadenas",
+      "lat": 40.9494044,
+      "lng": -4.117386,
+      "tags": {
+        "alt_name": "Palacio del Marqués de Moya",
+        "building": "civic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "name": "Casa de las Cadenas",
+        "not:brand:wikidata": "Q1991755",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q113573245",
+        "wikipedia": "es:Casa de las Cadenas (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583547,
+      "name": "Casa del Marqués de Lozoya",
+      "lat": 40.949613,
+      "lng": -4.1169568,
+      "tags": {
+        "alt_name": "Casa de los Marqueses de Lozoya",
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa del Marqués de Lozoya",
+        "not:brand:wikidata": "Q1991755",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q32037230",
+        "wikipedia": "es:Casa del Mayorazgo de los Cáceres"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 6689657,
+      "name": "Monasterio de Santa María y San Vicente el Real",
+      "lat": 40.9571342,
+      "lng": -4.1161826,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "44",
+        "addr:postcode": "40003",
+        "addr:street": "Calle San Vicente El Real",
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "denomination": "roman_catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Monasterio de Santa María y San Vicente el Real",
+        "religion": "christian",
+        "type": "multipolygon",
+        "wikidata": "Q6021377",
+        "wikipedia": "es:Monasterio de San Vicente el Real"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 6708094,
+      "name": "Alcázar de Segovia",
+      "lat": 40.9524761,
+      "lng": -4.1325829,
+      "tags": {
+        "access": "yes",
+        "building": "yes",
+        "castle_type": "fortress",
+        "description": "El Alcázar de Segovia, que data de principios del siglo XII, es uno de los castillos medievales más famosos del mundo​ y uno de los monumentos más visitados de España. Por sus estancias han pasado veintidós reyes,​ además de algunos de los personajes más",
+        "heritage": "3",
+        "heritage:operator": "Patronato del Alcázar de Segovia",
+        "historic": "yes",
+        "loc_name": "El Alcázar;Real Alcázar de Segovia",
+        "name": "Alcázar de Segovia",
+        "name:en": "Alcázar of Segovia",
+        "name:es": "Alcázar de Segovia",
+        "name:ko": "백설공주 성",
+        "name:pl": "Alcázar w Segowii",
+        "name:ru": "Алькасара",
+        "name:uk": "Алькасар в Сеговії",
+        "official_name": "Real Alcázar de Segovia",
+        "tourism": "museum",
+        "type": "multipolygon",
+        "website": "https://www.alcazardesegovia.com/",
+        "wikidata": "Q557337",
+        "wikimedia_commons": "File:Panorámica Otoño Alcázar de Segovia.jpg",
+        "wikipedia": "es:Alcázar de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 11279244,
+      "name": "Palacio Real de Riofrío",
+      "lat": 40.8736566,
+      "lng": -4.1510416,
+      "tags": {
+        "access": "customers",
+        "building": "yes",
+        "building:prefabricated": "no",
+        "castle_type": "palace",
+        "heritage": "2",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "yes",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Riofrio_-_Palacio_Real_01.JPG",
+        "name": "Palacio Real de Riofrío",
+        "phone": "+34 921 470020",
+        "protection_title": "Bien de Interés Cultural",
+        "protection_title:category": "Monumento",
+        "ref:bic": "RI-51-0001065-00000",
+        "start_date": "1751",
+        "toilets:wheelchair": "yes",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "website": "https://www.patrimonionacional.es/real-sitio/palacio-real-de-riofrio",
+        "wheelchair": "yes",
+        "wikidata": "Q1972987",
+        "wikimedia_commons": "File:Riofrio_-_Palacio_Real_01.JPG",
+        "wikipedia": "es:Palacio Real (Riofrio)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 15611894,
+      "name": "Villa Estrella",
+      "lat": 40.9429425,
+      "lng": -4.1186575,
+      "tags": {
+        "access": "private",
+        "addr:street": "Paseo de Ezequiel González",
+        "check_date": "2023-03-18",
+        "demolished:building": "detached",
+        "historic": "manor",
+        "name": "Villa Estrella",
+        "start_date": "1925",
+        "type": "multipolygon",
+        "wikidata": "Q117191118",
+        "wikipedia": "es:Villa Estrella"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 16786106,
+      "name": "Catedral de Segovia",
+      "lat": 40.9501149,
+      "lng": -4.1256062,
+      "tags": {
+        "name": "Catedral de Segovia",
+        "wikidata": "Q1499912",
+        "canonical:source": "wikidata-sparql",
+        "canonical:sitelinks": "31",
+        "canonical:instance_of": "monument|Catholic cathedral",
+        "tourism": "attraction",
+        "historic": "monument",
+        "addr:city": "Segovia",
+        "addr:housenumber": "1",
+        "addr:postcode": "40001",
+        "addr:street": "Calle Marques de Arco",
+        "air_conditioning": "yes",
+        "alt_name": "Catedral de Nuestra Señora de la Asunción y San Frutos;La Dama de las Catedrales;Dama de las Catedrales",
+        "amenity": "place_of_worship",
+        "baby_feeding": "no",
+        "building": "cathedral",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name:ar": "كاتدرائية شقوبية",
+        "name:en": "Segovia Cathedral",
+        "name:es": "Catedral de Segovia",
+        "name:gaceria": "Jaima Sierte de Segovia",
+        "name:ko": "세고비아 대성당",
+        "name:pl": "Katedra w Segowii",
+        "name:zh": "塞哥維亞主教座堂",
+        "polling_station": "no",
+        "religion": "christian",
+        "type": "multipolygon",
+        "website": "https://catedralsegovia.es",
+        "wheelchair": "yes",
+        "wikipedia": "es:Catedral de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 17309640,
+      "name": "Casa de los Picos",
+      "lat": 40.9481131,
+      "lng": -4.1203427,
+      "tags": {
+        "building": "civic",
+        "building:levels": "3",
+        "check_date": "2024-03-05",
+        "historic": "manor",
+        "name": "Casa de los Picos",
+        "name:es": "Casa de los Picos",
+        "name:zh": "鳥喙之家",
+        "not:brand:wikidata": "Q1991755",
+        "source:geometry": "Imagen de Catastro de España",
+        "start_date": "Siglo XV",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wheelchair": "limited",
+        "wikidata": "Q1046543",
+        "wikipedia": "es:Casa de los Picos"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 20304514,
+      "name": "Palacio de Enrique IV",
+      "lat": 40.9495051,
+      "lng": -4.120603,
+      "tags": {
+        "abandoned": "yes",
+        "alt_name": "Palacio Real de San Martín;Palacio de la Reina Doña Juana;Casa de los Mercado-Peñalosa;Palacio de San Martín",
+        "building": "civic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "name": "Palacio de Enrique IV",
+        "type": "multipolygon",
+        "wikidata": "Q21006939",
+        "wikipedia": "es:Palacio de Enrique IV"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 29221631,
+      "name": "Puerta de San Cebrián",
+      "lat": 40.9528643,
+      "lng": -4.1217021,
+      "tags": {
+        "barrier": "sally_port",
+        "bicycle": "yes",
+        "foot": "yes",
+        "historic": "city_gate",
+        "horse": "yes",
+        "motorcar": "yes",
+        "motorcycle": "yes",
+        "name": "Puerta de San Cebrián",
+        "wikidata": "Q87254204"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 4479990467,
+      "name": "Arco de la Fuencisla",
+      "lat": 40.9555974,
+      "lng": -4.1365049,
+      "tags": {
+        "access": "yes",
+        "alt_name": "Arco de San Lázaro",
+        "direction": "both",
+        "historic": "city_gate",
+        "name": "Arco de la Fuencisla",
+        "surface": "asphalt",
+        "traffic_calming": "choker",
+        "wikidata": "Q97496462",
+        "wikimedia_commons": "Category:Arco de la Fuencisla"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 241917740,
+      "name": "Alhóndiga",
+      "lat": 40.948047,
+      "lng": -4.1219102,
+      "tags": {
+        "amenity": "exhibition_centre",
+        "building": "civic",
+        "historic": "building",
+        "name": "Alhóndiga",
+        "tourism": "attraction",
+        "wikidata": "Q63872631",
+        "wikipedia": "es:Alhóndiga de Segovia"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1105595697,
+      "name": "Molino de Lobones",
+      "lat": 40.9699039,
+      "lng": -4.2002692,
+      "tags": {
+        "building": "ruins",
+        "historic": "watermill",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/2/24/Lobones.jpg",
+        "man_made": "watermill",
+        "name": "Molino de Lobones",
+        "source": "Segovia Callada volumen II;survey",
+        "tourism": "attraction",
+        "wikidata": "Q120081121",
+        "wikimedia_commons": "File:Lobones.jpg"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1107194983,
+      "name": "Puerta de Madrid",
+      "lat": 40.9363052,
+      "lng": -4.1124609,
+      "tags": {
+        "building": "yes",
+        "historic": "yes",
+        "historic:civilization": "middle-ages",
+        "name": "Puerta de Madrid",
+        "start_date": "1705",
+        "tourism": "attraction",
+        "wheelchair": "no",
+        "wikidata": "Q124644754"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1158222025,
+      "name": "Silo de Segovia",
+      "lat": 40.9538298,
+      "lng": -4.1429357,
+      "tags": {
+        "building": "yes",
+        "historic": "building",
+        "man_made": "silo",
+        "name": "Silo de Segovia",
+        "tourism": "attraction",
+        "wikidata": "Q99921303"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1158222071,
+      "name": "Molino de los Señores",
+      "lat": 40.9528457,
+      "lng": -4.1388415,
+      "tags": {
+        "addr:city": "Las Serillas",
+        "addr:postcode": "40196",
+        "building": "yes",
+        "historic": "building",
+        "long_name": "Molino de los Señores Canónigos del Cabildo de la catedral",
+        "man_made": "watermill",
+        "name": "Molino de los Señores",
+        "source": "Instituto Geográfico Nacional;Catastro",
+        "source:date": "201011",
+        "tourism": "attraction",
+        "wikidata": "Q126077358"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1160650686,
+      "name": "Estación de Hontoria (abandonada)",
+      "lat": 40.9054612,
+      "lng": -4.1278101,
+      "tags": {
+        "abandoned:railway": "halt",
+        "addr:city": "Hontoria",
+        "addr:postcode": "40195",
+        "addr:street": "Camino del Paso",
+        "alt_name": "Antiguo Apeadero de Hontoria;Apeadero de Hontoria;Estación de Hontoria;Antiguao Apartadero de Hontoria",
+        "building": "ruins",
+        "building:use": "railway",
+        "disused:public_transport": "station",
+        "disused:railway": "halt",
+        "historic": "railway_station",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Estaci%C3%B3n_de_Hontoria.jpg",
+        "internet_access": "no",
+        "name": "Estación de Hontoria (abandonada)",
+        "opening_hours": "24/7",
+        "tourism": "attraction",
+        "wikidata": "Q131310373",
+        "wikimedia_commons": "File:Estación_de_Hontoria.jpg",
+        "wikipedia": "es:Estación de Hontoria"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1246284427,
+      "name": "Ruinas del Monasterio de Santa María de los Huertos",
+      "lat": 40.9554869,
+      "lng": -4.1217482,
+      "tags": {
+        "access": "permissive",
+        "amenity": "monastery",
+        "denomination": "catholic",
+        "historic": "ruins",
+        "historic:civilization": "medieval",
+        "landuse": "religious",
+        "name": "Ruinas del Monasterio de Santa María de los Huertos",
+        "religion": "christian",
+        "tourism": "attraction",
+        "wikidata": "Q104621586",
+        "wikipedia": "es:Monasterio de Nuestra Señora de los Huertos (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 8210735,
+      "name": "Plaza de Toros",
+      "lat": 40.9413208,
+      "lng": -4.10727,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "4",
+        "addr:postcode": "40005",
+        "addr:street": "Carretera de La Granja",
+        "building": "civic",
+        "historic": "building",
+        "leisure": "stadium",
+        "name": "Plaza de Toros",
+        "sport": "bullfighting",
+        "start_date": "1805",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q24023788",
+        "wikipedia": "es:Plaza de toros de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18379690,
+      "name": "Esquileo de Santillana",
+      "lat": 40.8875042,
+      "lng": -4.0689232,
+      "tags": {
+        "access": "permissive",
+        "addr:city": "Revenga",
+        "addr:place": "Cordel de Santillana;Cañada Real Soriana Occidental",
+        "addr:postcode": "40195",
+        "alt_name": "Casa de Esquileo de Santillana;Casa del Esquileo de Santillana;Casas de Santillana;Casas de Esquileo de Santillana;Casas del Esquileo de Santillana;Casa de Santillana",
+        "historic": "farm",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Esquileo_de_Santillana.jpg",
+        "landuse": "farmyard",
+        "man_made": "works",
+        "name": "Esquileo de Santillana",
+        "old_name": "Casa de Esquileo de Iturbieta;Casa de Esquileo de Yturbieta;Esquileo de Iturbieta;Esquileo de Yturbieta",
+        "operator": "El Estado",
+        "product": "wool",
+        "ruins": "farm",
+        "source": "Angel Garcia Sanz 2002,bing;http://listarojapatrimonio.org/ficha/casa-de-esquileo-de-santillana/",
+        "start_date": "1744",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q5754826",
+        "wikimedia_commons": "Category:Santillana (Revenga)",
+        "wikipedia": "es:Casa de Esquileo de Santillana"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18582945,
+      "name": "Berrocal de Ortigosa del Monte",
+      "lat": 40.8466555,
+      "lng": -4.1910865,
+      "tags": {
+        "access": "yes",
+        "addr:city": "Ortigosa del Monte",
+        "addr:postcode": "40421",
+        "archaeological_site": "quarry",
+        "area": "yes",
+        "historic": "archaeological_site",
+        "historic:civilization": "ancient_roman",
+        "name": "Berrocal de Ortigosa del Monte",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q131927127",
+        "wikimedia_commons": "File:El Berrocal.jpg"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 19248303,
+      "name": "Fábrica de loza La Segoviana",
+      "lat": 40.9524202,
+      "lng": -4.1110247,
+      "tags": {
+        "access": "private",
+        "addr:city": "Segovia",
+        "addr:postcode": "40003",
+        "building": "yes",
+        "historic": "yes",
+        "man_made": "works",
+        "name": "Fábrica de loza La Segoviana",
+        "product": "ceramics",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q5872094",
+        "wikipedia": "es:Fábrica de loza La Segoviana"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 2672249428,
+      "name": "Museo de Segovia",
+      "lat": 40.950275,
+      "lng": -4.128856,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "11",
+        "addr:postcode": "40003",
+        "addr:street": "Calle Socorro",
+        "air_conditioning": "yes",
+        "charge": "1 EUR",
+        "fee": "yes",
+        "museum": "local",
+        "name": "Museo de Segovia",
+        "toilets": "yes",
+        "tourism": "museum",
+        "website": "http://www.museoscastillayleon.jcyl.es",
+        "wheelchair": "yes",
+        "wikidata": "Q26266052",
+        "wikipedia": "es:Museo de Segovia"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 2675594002,
+      "name": "Casa-Museo de Antonio Machado",
+      "lat": 40.9516696,
+      "lng": -4.1259199,
+      "tags": {
+        "fee": "yes",
+        "name": "Casa-Museo de Antonio Machado",
+        "tourism": "museum",
+        "website": "http://machado.turismodesegovia.com/",
+        "wikidata": "Q16867463",
+        "wikipedia": "es:Casa-Museo de Machado"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 2675594009,
+      "name": "Museo de Arte Contemporáneo - Esteban Vicente",
+      "lat": 40.9493006,
+      "lng": -4.1211058,
+      "tags": {
+        "fee": "yes",
+        "name": "Museo de Arte Contemporáneo - Esteban Vicente",
+        "name:en": "Museum of Contemporary Art - Esteban Vicente",
+        "name:es": "Museo de Arte Contemporáneo - Esteban Vicente",
+        "name:ko": "에스테반 비센테 현대미술관",
+        "opening_hours": "Su 11:00-15:00; Tu-Fr 11:00-14:00,16:00-19:00; Sa 11:00-20:00",
+        "tourism": "museum",
+        "website": "https://www.museoestebanvicente.es/",
+        "wikidata": "Q42311478",
+        "wikipedia": "es:Museo de Arte Contemporáneo Esteban Vicente"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 3726513844,
+      "name": "Centro Didáctico de la Judería",
+      "lat": 40.9494624,
+      "lng": -4.1244492,
+      "tags": {
+        "fee": "yes",
+        "name": "Centro Didáctico de la Judería",
+        "tourism": "museum",
+        "wikidata": "Q5954130",
+        "wikimedia_commons": "File:Centro_Didáctico_de_la_Judería_de_Segovia.jpg",
+        "wikipedia": "es:Judería de Segovia"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540182414,
+      "name": "Museo Zuloaga",
+      "lat": 40.9508408,
+      "lng": -4.1170128,
+      "tags": {
+        "fee": "no",
+        "name": "Museo Zuloaga",
+        "opening_hours": "Tu-Su 10:00-14:00; Tu-Sa 16:00-20:00",
+        "tourism": "museum",
+        "wikidata": "Q28664145",
+        "wikipedia": "es:Museo Zuloaga (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 242166444,
+      "name": "Plaza de San Facundo",
+      "lat": 40.9504028,
+      "lng": -4.120263,
+      "tags": {
+        "name": "Plaza de San Facundo",
+        "place": "square",
+        "surface": "unhewn_cobblestone",
+        "wikidata": "Q118146453",
+        "wikipedia": "es:Plaza de San Facundo"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 350471149,
+      "name": "Plaza de Adolfo Suárez",
+      "lat": 40.9491965,
+      "lng": -4.1197977,
+      "tags": {
+        "alt_name": "Plaza del Seminario",
+        "name": "Plaza de Adolfo Suárez",
+        "old_name": "Plaza del Seminario",
+        "place": "square",
+        "wikidata": "Q118189645",
+        "wikipedia": "es:Plaza de Adolfo Suárez"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 892103386,
+      "name": "Plazuela del Socorro",
+      "lat": 40.9500895,
+      "lng": -4.1273412,
+      "tags": {
+        "name": "Plazuela del Socorro",
+        "place": "square",
+        "wikidata": "Q118179476",
+        "wikipedia": "es:Plaza del Socorro"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1069367520,
+      "name": "Plaza de la Rubia",
+      "lat": 40.9505178,
+      "lng": -4.1223431,
+      "tags": {
+        "name": "Plaza de la Rubia",
+        "place": "square",
+        "wikidata": "Q118230893",
+        "wikipedia": "es:Plaza de la Rubia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18226870,
+      "name": "Plaza Mayor",
+      "lat": 40.9503115,
+      "lng": -4.1240468,
+      "tags": {
+        "foot": "yes",
+        "highway": "pedestrian",
+        "lit": "yes",
+        "motor_vehicle": "no",
+        "name": "Plaza Mayor",
+        "name:de": "Hauptplatz",
+        "name:en": "Main Square",
+        "name:es": "Plaza Mayor",
+        "name:zh": "主廣場",
+        "place": "square",
+        "surface": "sett",
+        "type": "multipolygon",
+        "wikidata": "Q41532894",
+        "wikipedia": "es:Plaza Mayor de Segovia"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 47801275,
+      "name": "Calle Escuderos",
+      "lat": 40.9509616,
+      "lng": -4.1248219,
+      "tags": {
+        "highway": "pedestrian",
+        "lit": "yes",
+        "name": "Calle Escuderos",
+        "surface": "sett",
+        "wikidata": "Q84154441",
+        "wikipedia": "es:Calle de Escuderos"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 48275288,
+      "name": "Calle de Santa Engracia",
+      "lat": 40.9477584,
+      "lng": -4.1193804,
+      "tags": {
+        "alt_name": "Calle Santa Engracia",
+        "covered": "no",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Calle_de_Santa_Engracia.jpg",
+        "incline": "up",
+        "lit": "yes",
+        "maxspeed": "50",
+        "motor_vehicle": "yes",
+        "name": "Calle de Santa Engracia",
+        "smoothness": "bad",
+        "source:maxspeed": "sign",
+        "surface": "sett",
+        "wikidata": "Q118397428",
+        "wikimedia_commons": "File:Calle_de_Santa_Engracia.jpg",
+        "wikipedia": "es:Calle de Santa Engracia (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1333289037,
+      "name": "Calle de los Gremios",
+      "lat": 40.9462812,
+      "lng": -4.1136807,
+      "tags": {
+        "alt_name": "Calle Gremios",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Calle_de_los_Gremios.jpg",
+        "layer": "-1",
+        "lit": "yes",
+        "name": "Calle de los Gremios",
+        "surface": "sett",
+        "tunnel": "yes",
+        "wikidata": "Q118333973",
+        "wikimedia_commons": "File:Calle de los Gremios.jpg",
+        "wikipedia": "es:Calle de los Gremios"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 48305627,
+      "name": "Travesía de las Canonjías",
+      "lat": 40.9521853,
+      "lng": -4.1286397,
+      "tags": {
+        "alt_name": "Travesía de las Canongías",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Traves%C3%ADa_de_las_Canonj%C3%ADas.jpg",
+        "lit": "yes",
+        "name": "Travesía de las Canonjías",
+        "surface": "sett",
+        "wikidata": "Q117009971",
+        "wikimedia_commons": "File:Travesía_de_las_Canonjías.jpg",
+        "wikipedia": "es:Travesía de las Canonjías"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 293845185,
+      "name": "Plaza de Santa Eulalia",
+      "lat": 40.9440362,
+      "lng": -4.1156201,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Plaza_de_Santa_Eulalia.jpg",
+        "lit": "yes",
+        "name": "Plaza de Santa Eulalia",
+        "oneway": "no",
+        "surface": "paving_stones",
+        "wikidata": "Q29323795",
+        "wikimedia_commons": "File:Plaza_de_Santa_Eulalia.jpg",
+        "wikipedia": "es:Plaza de Santa Eulalia"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 217182252,
+      "name": "Calle de las Hilanderas",
+      "lat": 40.9456172,
+      "lng": -4.1188538,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Calle_de_las_Hilanderas.jpg",
+        "lit": "yes",
+        "loc_name": "La Calleja",
+        "name": "Calle de las Hilanderas",
+        "source": "ITACyL",
+        "source:date": "2009",
+        "surface": "sett",
+        "wikidata": "Q118164386",
+        "wikimedia_commons": "File:Calle_de_las_Hilanderas.jpg",
+        "wikipedia": "es:Calle de las Hilanderas"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1149639318,
+      "name": "Calle de Teodosio el Grande",
+      "lat": 40.9467315,
+      "lng": -4.116935,
+      "tags": {
+        "alt_name": "Calle del Pintor Montalvo",
+        "cycleway:both": "shared_lane",
+        "cycleway:both:lane": "pictogram",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Calle_de_Teodosio_el_Grande.jpg",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Calle de Teodosio el Grande",
+        "old_name": "Calle del Angelete",
+        "oneway": "no",
+        "source": "ITACyL",
+        "source:date": "2009",
+        "source:maxspeed": "sign",
+        "surface": "sett",
+        "wikidata": "Q118421851",
+        "wikimedia_commons": "File:Calle_de_Teodosio_el_Grande.jpg",
+        "wikipedia": "es:Calle de Teodosio el Grande"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 241917730,
+      "name": "Calle de Cervantes",
+      "lat": 40.947852,
+      "lng": -4.1193529,
+      "tags": {
+        "cycleway:both": "no",
+        "highway": "pedestrian",
+        "lane_markings": "no",
+        "lit": "yes",
+        "loc_name": "Calle Real",
+        "motor_vehicle": "no",
+        "name": "Calle de Cervantes",
+        "old_name": "Calle Real del Carmen",
+        "surface": "sett",
+        "wikidata": "Q84050101",
+        "wikipedia": "es:Calle de Cervantes (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 241974790,
+      "name": "Plaza de los Espejos",
+      "lat": 40.9492678,
+      "lng": -4.1205096,
+      "tags": {
+        "highway": "pedestrian",
+        "lit": "yes",
+        "name": "Plaza de los Espejos",
+        "surface": "sett",
+        "wikidata": "Q118234702",
+        "wikipedia": "es:Plaza de los Espejos"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 242533390,
+      "name": "Calle de Juan Bravo",
+      "lat": 40.9485434,
+      "lng": -4.1218154,
+      "tags": {
+        "cycleway:both": "no",
+        "highway": "pedestrian",
+        "lane_markings": "no",
+        "lit": "yes",
+        "loc_name": "Calle Real",
+        "motor_vehicle": "no",
+        "name": "Calle de Juan Bravo",
+        "oneway": "no",
+        "source": "ITACyL",
+        "source:date": "2009",
+        "surface": "sett",
+        "wikidata": "Q32193859",
+        "wikipedia": "es:Calle de Juan Bravo (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 313601706,
+      "name": "Calle de Adolfo Sandoval",
+      "lat": 40.9518021,
+      "lng": -4.1276896,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Calle_de_Adolfo_Sandoval.jpg",
+        "lit": "yes",
+        "name": "Calle de Adolfo Sandoval",
+        "surface": "unhewn_cobblestone",
+        "wikidata": "Q118381587",
+        "wikimedia_commons": "File:Calle de Adolfo Sandoval.jpg"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 364219871,
+      "name": "Calle de San Vicente Ferrer",
+      "lat": 40.9413222,
+      "lng": -4.1158466,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/5/51/Calle_de_San_Vicente_Ferrer.jpg",
+        "lit": "yes",
+        "loc_name": "Calle del Agua",
+        "name": "Calle de San Vicente Ferrer",
+        "smoothness": "excellent",
+        "surface": "paving_stones",
+        "wikidata": "Q118395820",
+        "wikimedia_commons": "File:Calle_de_San_Vicente_Ferrer.jpg",
+        "wikipedia": "es:Calle de San Vicente Ferrer (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 364219880,
+      "name": "Iglesia de San Miguel",
+      "lat": 40.9501493,
+      "lng": -4.1232779,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "church",
+        "check_date": "2025-09-13",
+        "denomination": "catholic",
+        "image": "https://commons.wikimedia.org/wiki/File:Old_Segovia_(11)_(28828243474).jpg",
+        "name": "Iglesia de San Miguel",
+        "official_name": "Real Iglesia de San Miguel",
+        "religion": "christian",
+        "tourism": "attraction",
+        "wikidata": "Q19360302",
+        "wikimedia_commons": "File:Old_Segovia_(11)_(28828243474).jpg",
+        "wikipedia": "es:Iglesia de San Miguel (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 364219883,
+      "name": "Plazuela de San Martín",
+      "lat": 40.9488832,
+      "lng": -4.1214772,
+      "tags": {
+        "area": "yes",
+        "highway": "pedestrian",
+        "lit": "yes",
+        "name": "Plazuela de San Martín",
+        "surface": "sett",
+        "wikidata": "Q118236423",
+        "wikipedia": "es:Plaza de San Martín (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 364224023,
+      "name": "Calle de Santa Columba",
+      "lat": 40.9482337,
+      "lng": -4.1183635,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Calle_de_Santa_Columba.jpg",
+        "lit": "yes",
+        "name": "Calle de Santa Columba",
+        "surface": "unhewn_cobblestone",
+        "wikidata": "Q118547531",
+        "wikimedia_commons": "File:Calle_de_Santa_Columba.jpg",
+        "wikipedia": "es:Calle de Santa Columba"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 684819259,
+      "name": "Plaza del Azoguejo",
+      "lat": 40.9477559,
+      "lng": -4.1180834,
+      "tags": {
+        "alt_name": "Cordel de Santillana",
+        "bicycle": "dismount",
+        "covered": "no",
+        "cycleway:both": "no",
+        "foot": "yes",
+        "highway": "pedestrian",
+        "lane_markings": "no",
+        "lit": "yes",
+        "motor_vehicle": "no",
+        "name": "Plaza del Azoguejo",
+        "old_name": "Plaza del Azovejo;Plaza del Azobejo;Plaza del Arzobejo",
+        "oneway": "no",
+        "sidewalk": "no",
+        "surface": "sett",
+        "wikidata": "Q16620289",
+        "wikipedia": "es:Plaza del Azoguejo"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 364224031,
+      "name": "Plazuela de Colmenares",
+      "lat": 40.9505523,
+      "lng": -4.1169609,
+      "tags": {
+        "alt_name": "Plaza de Colmenares;Plaza Colmenares;Plazuela Colmenares",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Plaza_de_Colmenares.jpg",
+        "lit": "yes",
+        "name": "Plazuela de Colmenares",
+        "old_name": "Plaza de San Juan",
+        "surface": "sett",
+        "wikidata": "Q118215275",
+        "wikimedia_commons": "File:Plaza_de_Colmenares.jpg",
+        "wikipedia": "es:Plaza de Colmenares"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 451150195,
+      "name": "Plaza de San Lorenzo",
+      "lat": 40.952747,
+      "lng": -4.1139203,
+      "tags": {
+        "access": "yes",
+        "area": "yes",
+        "highway": "pedestrian",
+        "lit": "yes",
+        "name": "Plaza de San Lorenzo",
+        "old_name": "Plazuela de San Lorenzo",
+        "smoothness": "intermediate",
+        "surface": "sett",
+        "wikidata": "Q118286985",
+        "wikipedia": "es:Plaza de San Lorenzo (Segovia)"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 802549880,
+      "name": "Calle de Ochoa Ondategui",
+      "lat": 40.9475278,
+      "lng": -4.1169692,
+      "tags": {
+        "access": "no",
+        "bicycle": "dismount",
+        "bus": "designated",
+        "foot": "yes",
+        "highway": "pedestrian",
+        "horse": "no",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "50",
+        "motor_vehicle": "no",
+        "name": "Calle de Ochoa Ondategui",
+        "old_name": "Calle San Antolín",
+        "smoothness": "bad",
+        "source": "ITACyL",
+        "source:date": "2009",
+        "source:maxspeed": "sign",
+        "surface": "sett",
+        "wikidata": "Q118218593",
+        "wikimedia_commons": "File:Calle de Ochoa Ondátegui 2.jpg",
+        "wikipedia": "es:Calle de Ochoa Ondátegui"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1377859476,
+      "name": "Calle de los Coches",
+      "lat": 40.9453252,
+      "lng": -4.1201963,
+      "tags": {
+        "cycleway": "shared_lane",
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/1/13/Calle_de_los_Coches.jpg",
+        "lit": "yes",
+        "loc_name": "Calle los Coches",
+        "maxspeed": "50",
+        "motor_vehicle": "permissive",
+        "name": "Calle de los Coches",
+        "source:maxspeed": "sign",
+        "surface": "sett",
+        "wikidata": "Q118433939",
+        "wikimedia_commons": "Calle_de_los_Coches.jpg",
+        "wikipedia": "es:Calle de los Coches"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1422115150,
+      "name": "Rancho del Tío Marianín (ruinas)",
+      "lat": 40.8567853,
+      "lng": -4.0865948,
+      "tags": {
+        "alt_name": "Rancho del Tío Marianín",
+        "landuse": "farmyard",
+        "name": "Rancho del Tío Marianín (ruinas)",
+        "place": "locality",
+        "tourism": "attraction",
+        "wikidata": "Q135753637"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5480135,
+      "name": "Convento de San José",
+      "lat": 40.9515153,
+      "lng": -4.126736,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "convent",
+        "denomination": "catholic",
+        "name": "Convento de San José",
+        "religion": "christian",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q19521962",
+        "wikipedia": "es:Convento de San José (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5480136,
+      "name": "Convento de Santo Domingo el Real",
+      "lat": 40.9514213,
+      "lng": -4.1228993,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "religious",
+        "denomination": "catholic",
+        "name": "Convento de Santo Domingo el Real",
+        "religion": "christian",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q43088445",
+        "wikipedia": "es:Convento de Santo Domingo el Real (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5583493,
+      "name": "Convento del Corpus Christi (Antigua Sinagoga Mayor)",
+      "lat": 40.9492439,
+      "lng": -4.1240146,
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "convent",
+        "denomination": "catholic",
+        "name": "Convento del Corpus Christi (Antigua Sinagoga Mayor)",
+        "religion": "christian",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q7085486",
+        "wikipedia": "es:Convento del Corpus Christi (Segovia)"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 14748923,
+      "name": "Búnker de los Barberos",
+      "lat": 40.9283418,
+      "lng": -4.0656415,
+      "tags": {
+        "building": "bunker",
+        "bunker_type": "casemate",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/B%C3%BAnker_Palazuelos.jpg",
+        "military": "bunker",
+        "name": "Búnker de los Barberos",
+        "start_date": "1936..1939",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikidata": "Q114943573",
+        "wikimedia_commons": "File:Búnker_Palazuelos.jpg",
+        "wikipedia": "es:Búnker de Los Barberos"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18280503,
+      "name": "Calle de Fernán García",
+      "lat": 40.9477946,
+      "lng": -4.117596,
+      "tags": {
+        "highway": "pedestrian",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Calle_de_Fern%C3%A1n_Garc%C3%ADa.jpg",
+        "lit": "yes",
+        "name": "Calle de Fernán García",
+        "old_name": "Calle Nueva",
+        "surface": "sett",
+        "type": "multipolygon",
+        "wikidata": "Q118482317",
+        "wikimedia_commons": "File:Calle_de_Fernán_García.jpg",
+        "wikipedia": "es:Calle de Fernán García"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 19146341,
+      "name": "Murallas de Segovia",
+      "lat": 40.9505484,
+      "lng": -4.1250676,
+      "tags": {
+        "alt_name": "Muralla de Segovia",
+        "barrier": "city_wall",
+        "name": "Murallas de Segovia",
+        "name:en": "City walls of Segovia",
+        "name:es": "Murallas de Segovia",
+        "site": "cultural_heritage_monument",
+        "tourism": "attraction",
+        "type": "site",
+        "wikidata": "Q55329789",
+        "wikipedia": "es:Murallas de Segovia"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 125314092,
+      "name": "Palacio de los Builtrago",
+      "lat": 40.9442044,
+      "lng": -4.1154087,
+      "tags": {
+        "abandoned": "yes",
+        "access": "private",
+        "addr:city": "Segovia",
+        "addr:street": "Plaza de Santa Eulalia",
+        "building": "ruins",
+        "castle_type": "palace",
+        "historic": "castle",
+        "name": "Palacio de los Builtrago",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 260836368,
+      "name": "Palacio de los Condes de Mansilla",
+      "lat": 40.9512451,
+      "lng": -4.1219824,
+      "tags": {
+        "access": "private",
+        "alt_name": "Palacio del Conde de Mansilla",
+        "building": "university",
+        "historic": "manor",
+        "name": "Palacio de los Condes de Mansilla",
+        "short_name": "Palacio de Mansilla",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 294856472,
+      "name": "Pórtico Real",
+      "lat": 40.9358102,
+      "lng": -4.1012617,
+      "tags": {
+        "access": "customers",
+        "building": "hotel",
+        "historic": "castle",
+        "historic:civilization": "modern",
+        "name": "Pórtico Real"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 375207898,
+      "name": "Casa de los Bornos",
+      "lat": 40.9488622,
+      "lng": -4.1212333,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa de los Bornos",
+        "not:brand:wikidata": "Q1991755",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 403892355,
+      "name": "Casa de Diego de Rueda",
+      "lat": 40.9508324,
+      "lng": -4.1250481,
+      "tags": {
+        "access": "customers",
+        "alt_name": "Casa de Álvaro de Luna",
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa de Diego de Rueda"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 404137175,
+      "name": "Palacio de los Castros",
+      "lat": 40.9519028,
+      "lng": -4.1236967,
+      "tags": {
+        "building": "civic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "name": "Palacio de los Castros"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 417374165,
+      "name": "Torreón de los Arias Dávila",
+      "lat": 40.9499148,
+      "lng": -4.1216704,
+      "tags": {
+        "building": "yes",
+        "historic": "castle",
+        "man_made": "tower",
+        "name": "Torreón de los Arias Dávila",
+        "tourism": "attraction",
+        "tower:type": "defensive"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 428741522,
+      "name": "Palacio de Villafañe",
+      "lat": 40.9502395,
+      "lng": -4.1199731,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio de Villafañe"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 428741524,
+      "name": "Casa del Hidalgo",
+      "lat": 40.95047,
+      "lng": -4.1199101,
+      "tags": {
+        "building": "civic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "name": "Casa del Hidalgo",
+        "not:brand:wikidata": "Q1991755"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 429093431,
+      "name": "Palacio de Ayala Berganza",
+      "lat": 40.9463348,
+      "lng": -4.1207548,
+      "tags": {
+        "access": "customers",
+        "alt_name": "Casa del Crimen",
+        "building": "yes",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "manor",
+        "loc_name": "Casa del Crimen",
+        "name": "Palacio de Ayala Berganza"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 494855906,
+      "name": "Palacio de la Floresta de Trifontane",
+      "lat": 40.9501006,
+      "lng": -4.1182028,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Palacio de la Floresta de Trifontane"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 571109082,
+      "name": "Chalet de Pagola",
+      "lat": 40.942675,
+      "lng": -4.1076702,
+      "tags": {
+        "access": "private",
+        "building": "yes",
+        "historic": "manor",
+        "name": "Chalet de Pagola",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 607882062,
+      "name": "Torreón-Puerta de Santiago",
+      "lat": 40.9533409,
+      "lng": -4.1278172,
+      "tags": {
+        "alt_name": "Torreón-Puerta de Rodrigo Ordoñez",
+        "building": "yes",
+        "historic": "city_gate",
+        "historic:civilization": "medieval",
+        "name": "Torreón-Puerta de Santiago"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1051486605,
+      "name": "Castillo del Lago Alonso",
+      "lat": 40.9313427,
+      "lng": -4.1045266,
+      "tags": {
+        "access": "yes",
+        "building": "yes",
+        "castle_type": "hillfort",
+        "description": "Depósito del ayuntamiento conocido por el nombre de \"castillo\" dadas su arquitectura y dimensiones.",
+        "historic": "castle",
+        "historic:civilization": "modern",
+        "name": "Castillo del Lago Alonso"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1066885417,
+      "name": "La Ventilla de Guedán",
+      "lat": 40.9326509,
+      "lng": -4.1508735,
+      "tags": {
+        "area": "yes",
+        "historic": "manor",
+        "name": "La Ventilla de Guedán",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1174797992,
+      "name": "Torre de Hércules",
+      "lat": 40.9514423,
+      "lng": -4.122863,
+      "tags": {
+        "building": "yes",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "historic": "castle",
+        "man_made": "tower",
+        "name": "Torre de Hércules",
+        "tower:type": "defensive"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5480134,
+      "name": "Casa de Los Del Río",
+      "lat": 40.9481905,
+      "lng": -4.1206737,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa de Los Del Río",
+        "not:brand:wikidata": "Q1991755",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 5486978,
+      "name": "Palacio de Uceda-Peralta",
+      "lat": 40.9501078,
+      "lng": -4.1178166,
+      "tags": {
+        "access": "permissive",
+        "building": "yes",
+        "historic": "manor",
+        "name": "Palacio de Uceda-Peralta",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 6377652,
+      "name": "Obispado de Segovia",
+      "lat": 40.9486993,
+      "lng": -4.119789,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:postcode": "40001",
+        "building": "religious",
+        "denomination": "catholic",
+        "heritage": "3",
+        "heritage:operator": "Junta de Castilla y León",
+        "name": "Obispado de Segovia",
+        "office": "religion",
+        "religion": "christian",
+        "type": "multipolygon",
+        "wikipedia": "es:Obispado de Segovia"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 6377705,
+      "name": "Casa del Regidor López Losa",
+      "lat": 40.9509229,
+      "lng": -4.1264877,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa del Regidor López Losa",
+        "not:brand:wikidata": "Q1991755",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 6437035,
+      "name": "Casa de Andrés Laguna",
+      "lat": 40.9493892,
+      "lng": -4.1245071,
+      "tags": {
+        "building": "civic",
+        "historic": "manor",
+        "name": "Casa de Andrés Laguna",
+        "name:en": "House of Andrés Laguna",
+        "name:es": "Casa de Andrés Laguna",
+        "name:ko": "안드레스 라구나의 집",
+        "not:brand:wikidata": "Q1991755",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 20169196,
+      "name": "Casa de Vaquero Turcios",
+      "lat": 40.9526153,
+      "lng": -4.1293929,
+      "tags": {
+        "access": "customers",
+        "alt_name": "Casa Museo de Vaquero Turcios;Casa-Museo de Vaquero Turcios",
+        "building": "yes",
+        "historic": "manor",
+        "name": "Casa de Vaquero Turcios",
+        "old_name": "Casa de la Ronda",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 3883995468,
+      "name": "Puerta del Sol",
+      "lat": 40.9490705,
+      "lng": -4.1243639,
+      "tags": {
+        "barrier": "sally_port",
+        "historic": "city_gate",
+        "name": "Puerta del Sol"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 5264054008,
+      "name": "Postigo de San Juan de los Caballeros",
+      "lat": 40.9511799,
+      "lng": -4.1167395,
+      "tags": {
+        "barrier": "sally_port",
+        "historic": "city_gate",
+        "name": "Postigo de San Juan de los Caballeros",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540182409,
+      "name": "Palacio de Águila",
+      "lat": 40.9495362,
+      "lng": -4.1194898,
+      "tags": {
+        "historic": "manor",
+        "name": "Palacio de Águila"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540182417,
+      "name": "Palacio de Maldonado",
+      "lat": 40.9502359,
+      "lng": -4.1177529,
+      "tags": {
+        "building": "yes",
+        "historic": "manor",
+        "name": "Palacio de Maldonado"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540182435,
+      "name": "Puerta de la Luna",
+      "lat": 40.9485502,
+      "lng": -4.1224407,
+      "tags": {
+        "barrier": "sally_port",
+        "foot": "yes",
+        "historic": "city_gate",
+        "motor_vehicle": "no",
+        "name": "Puerta de la Luna"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540182460,
+      "name": "Casa Falconi",
+      "lat": 40.9525704,
+      "lng": -4.1253822,
+      "tags": {
+        "building": "yes",
+        "historic": "manor",
+        "name": "Casa Falconi",
+        "not:brand:wikidata": "Q1991755"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 6540212412,
+      "name": "Palacio de Ramírez de Arellano",
+      "lat": 40.9510658,
+      "lng": -4.1214626,
+      "tags": {
+        "building": "yes",
+        "historic": "manor",
+        "name": "Palacio de Ramírez de Arellano"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 10261199827,
+      "name": "Póstigo del Consuelo",
+      "lat": 40.9485115,
+      "lng": -4.1183465,
+      "tags": {
+        "barrier": "sally_port",
+        "historic": "city_gate",
+        "name": "Póstigo del Consuelo"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 294542294,
+      "name": "Antiguo Molino de la Aceña",
+      "lat": 40.9553009,
+      "lng": -4.1162483,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "18",
+        "addr:postcode": "40003",
+        "addr:street": "Calle de los Molinos",
+        "building": "watermill",
+        "historic": "watermill",
+        "name": "Antiguo Molino de la Aceña",
+        "old_ref": "Molino de la Aceña",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 544644860,
+      "name": "Antigua Casa del Herrero",
+      "lat": 40.9539144,
+      "lng": -4.0759864,
+      "tags": {
+        "addr:postcode": "40197",
+        "air_conditioning": "no",
+        "building": "house",
+        "check_date": "2026-01-28",
+        "craft": "blacksmith",
+        "historic": "building",
+        "internet_access": "no",
+        "name": "Antigua Casa del Herrero",
+        "operator": "Ayuntamiento de San Cristóbal de Segovia",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 887829936,
+      "name": "Casa de Cabeza Gatos",
+      "lat": 40.8645862,
+      "lng": -4.0729483,
+      "tags": {
+        "access": "yes",
+        "alt_name": "Casa de Cabezagatos;Casa de Guardas de Cabeza Gatos;Casa de Guardas de Cabezagatos",
+        "area": "yes",
+        "historic": "ruins",
+        "long_name": "Casa de Cabeza Gatos (ruinas)",
+        "name": "Casa de Cabeza Gatos",
+        "place": "locality",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1047599404,
+      "name": "Antiguo Molino del Portalejo",
+      "lat": 40.9547391,
+      "lng": -4.1142206,
+      "tags": {
+        "addr:housenumber": "12",
+        "addr:postcode": "40003",
+        "addr:street": "Calle de los Molinos",
+        "building": "watermill",
+        "historic": "watermill",
+        "name": "Antiguo Molino del Portalejo",
+        "old_ref": "Molino del Portalejo",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1047599405,
+      "name": "Antiguo Molino de la Perla",
+      "lat": 40.9544494,
+      "lng": -4.1138658,
+      "tags": {
+        "addr:housenumber": "8",
+        "addr:postcode": "40003",
+        "addr:street": "Calle de los Molinos",
+        "building": "watermill",
+        "historic": "watermill",
+        "name": "Antiguo Molino de la Perla",
+        "old_ref": "Molino de la Perla;Fábrica de Harinas la Perla;Molino de la Presa",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1055518393,
+      "name": "Puente de Perogordo",
+      "lat": 40.9380671,
+      "lng": -4.1414277,
+      "tags": {
+        "abandoned": "yes",
+        "bridge": "yes",
+        "bridge:structure": "humpback",
+        "building": "yes",
+        "historic": "roman_road",
+        "layer": "1",
+        "man_made": "bridge",
+        "name": "Puente de Perogordo",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1095578833,
+      "name": "Chozo del Malangosto",
+      "lat": 40.9346987,
+      "lng": -4.1100783,
+      "tags": {
+        "building": "yes",
+        "historic": "memorial",
+        "material": "stone",
+        "memorial": "sculpture",
+        "name": "Chozo del Malangosto",
+        "tourism": "attraction",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1104374586,
+      "name": "Fábrica de Azasa",
+      "lat": 40.9346094,
+      "lng": -4.112043,
+      "tags": {
+        "abandoned": "yes",
+        "building": "ruins",
+        "historic": "factory",
+        "man_made": "works",
+        "name": "Fábrica de Azasa",
+        "source": "Segovia Callada volumen II",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1105855465,
+      "name": "Esquileo de Burgos",
+      "lat": 40.8692282,
+      "lng": -4.1057149,
+      "tags": {
+        "access": "permissive",
+        "alt_name": "Encerradero de Revenga;Rancho de Burgos",
+        "area": "yes",
+        "historic": "ruins",
+        "historic:civilization": "medieval",
+        "name": "Esquileo de Burgos",
+        "source": "Segovia Callada volumen II;https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176762",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1111861249,
+      "name": "Desarenador Caseta de Piedra",
+      "lat": 40.9405103,
+      "lng": -4.1048141,
+      "tags": {
+        "alt_name": "Desarenador Chamberí; Desarenador de la Dehesa",
+        "building": "yes",
+        "historic": "building",
+        "loc_name": "Desarenador del acueducto",
+        "name": "Desarenador Caseta de Piedra",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1112119360,
+      "name": "Venta de Lobones",
+      "lat": 40.9665813,
+      "lng": -4.2047502,
+      "tags": {
+        "access": "permissive",
+        "building": "ruins",
+        "historic": "ruins",
+        "historic:civilization": "medieval",
+        "name": "Venta de Lobones",
+        "ruins": "yes",
+        "source": "Segovia Callada volumen II",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1119351003,
+      "name": "La Peladera",
+      "lat": 40.9168273,
+      "lng": -4.1231255,
+      "tags": {
+        "area": "yes",
+        "historic": "ruins",
+        "historic:civilization": "visigoth",
+        "name": "La Peladera",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176605",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1148606528,
+      "name": "Puente de Hierro",
+      "lat": 40.9276652,
+      "lng": -4.1193034,
+      "tags": {
+        "bridge": "yes",
+        "bridge:structure": "truss",
+        "historic": "monument",
+        "layer": "1",
+        "man_made": "bridge",
+        "name": "Puente de Hierro",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1158139377,
+      "name": "Ventorro de San Pedro Abanto",
+      "lat": 40.9532893,
+      "lng": -4.147933,
+      "tags": {
+        "addr:city": "Zamarramala",
+        "addr:housenumber": "28",
+        "addr:postcode": "40003",
+        "addr:street": "Carretera de Arévalo",
+        "alt_name": "Venta de San Pedro Abanto",
+        "amenity": "restaurant",
+        "building": "church",
+        "cuisine": "regional",
+        "historic": "church",
+        "historic:civilization": "medieval",
+        "name": "Ventorro de San Pedro Abanto",
+        "old_name": "Ermita de San Juan de Requijada",
+        "outdoor_seating": "yes",
+        "phone": "+34 921 44 62 25",
+        "source": "https://idecyl.jcyl.es/vcig/?service=https://idecyl.jcyl.es/geoserver/ps/wms&layer=pacu_cyl_yac_arqu&type=wms&style=ps%3Apacu_cyl_yac_arqu&srs=EPSG:25830&bbox=",
+        "start_date": "C13",
+        "tourism": "attraction",
+        "website": "https://sanpedroabantosegovia.com/"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1160650694,
+      "name": "Estación de Revenga - Bosque de Riofrío (abandonada)",
+      "lat": 40.8844428,
+      "lng": -4.1263465,
+      "tags": {
+        "abandoned:railway": "halt",
+        "addr:city": "Revenga",
+        "addr:postcode": "40195",
+        "alt_name": "Antiguo Apeadero de Revenga - Bosque de Riofrío;Apeadero de Revenga - Bosque de Riofrío;Estación de Revenga - Bosque de Riofrío;Antiguao Apartadero de Revenga - Bosque de Riofrío",
+        "building": "ruins",
+        "building:use": "railway",
+        "disused:public_transport": "station",
+        "disused:railway": "halt",
+        "historic": "railway_station",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Estaci%C3%B3n_de_Hontoria.jpg",
+        "internet_access": "no",
+        "name": "Estación de Revenga - Bosque de Riofrío (abandonada)",
+        "opening_hours": "24/7",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1168603117,
+      "name": "Puente del Tesoro",
+      "lat": 40.9291807,
+      "lng": -4.1818966,
+      "tags": {
+        "bridge": "abandoned",
+        "bridge:structure": "humpback",
+        "historic": "monument",
+        "layer": "1",
+        "man_made": "bridge",
+        "name": "Puente del Tesoro",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1169290200,
+      "name": "Antiguo Molino de Papel",
+      "lat": 40.9560409,
+      "lng": -4.1162079,
+      "tags": {
+        "access": "permissive",
+        "building": "ruins",
+        "historic": "watermill",
+        "name": "Antiguo Molino de Papel",
+        "old_name": "Molino de Papel",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1184834325,
+      "name": "Interpretación de la Calzada Romana de la Fuenfría",
+      "lat": 40.9309843,
+      "lng": -4.106683,
+      "tags": {
+        "access": "yes",
+        "archaeological_site": "earthwork",
+        "area": "yes",
+        "historic": "archaeological_site",
+        "historic:civilization": "ancient_roman",
+        "name": "Interpretación de la Calzada Romana de la Fuenfría",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1246309388,
+      "name": "Puente Alta",
+      "lat": 40.863617,
+      "lng": -4.1001918,
+      "tags": {
+        "bridge:structure": "arch",
+        "historic": "bridge",
+        "layer": "1",
+        "man_made": "bridge",
+        "material": "stone",
+        "name": "Puente Alta",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1260586613,
+      "name": "Puente Castellana",
+      "lat": 40.954073,
+      "lng": -4.130947,
+      "tags": {
+        "alt_name": "Puente Castellano",
+        "bridge:structure": "arch",
+        "historic": "bridge",
+        "historic:civilization": "medieval",
+        "layer": "1",
+        "man_made": "bridge",
+        "name": "Puente Castellana",
+        "tourism": "attraction",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1366014478,
+      "name": "Antigua Fábrica de Borra",
+      "lat": 40.9552732,
+      "lng": -4.1179675,
+      "tags": {
+        "building": "industrial",
+        "historic": "factory",
+        "name": "Antigua Fábrica de Borra",
+        "old_name": "Fábrica de Borra;Fábrica de Hielo",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1366085094,
+      "name": "Desarenador de San Gabriel",
+      "lat": 40.9454448,
+      "lng": -4.1114317,
+      "tags": {
+        "building": "yes",
+        "historic": "building",
+        "name": "Desarenador de San Gabriel",
+        "tourism": "attraction",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1368134229,
+      "name": "Antiguo Molino de la Peña del Pico",
+      "lat": 40.9550711,
+      "lng": -4.1157628,
+      "tags": {
+        "addr:housenumber": "14",
+        "addr:postcode": "40003",
+        "addr:street": "Calle de los Molinos",
+        "building": "watermill",
+        "historic": "watermill",
+        "name": "Antiguo Molino de la Peña del Pico",
+        "old_ref": "Molino de la Peña del Pico",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1394522653,
+      "name": "Antiguos lavaderos",
+      "lat": 40.8660389,
+      "lng": -4.1345734,
+      "tags": {
+        "access": "yes",
+        "addr:city": "Navas de Riofrío",
+        "addr:postcode": "40420",
+        "amenity": "lavoir",
+        "historic": "lavoir",
+        "intermittent": "no",
+        "name": "Antiguos lavaderos",
+        "natural": "water",
+        "tourism": "attraction",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1410768483,
+      "name": "Venta de Santillana",
+      "lat": 40.8887437,
+      "lng": -4.0679829,
+      "tags": {
+        "access": "permissive",
+        "area": "yes",
+        "historic": "ruins",
+        "historic:civilization": "medieval",
+        "name": "Venta de Santillana",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1468016895,
+      "name": "Villa romana y necrópolis visigoda",
+      "lat": 40.9308181,
+      "lng": -4.061601,
+      "tags": {
+        "access": "yes",
+        "archaeological_site": "roman_villa",
+        "historic": "archaeological_site",
+        "historic:civilization": "roman",
+        "name": "Villa romana y necrópolis visigoda",
+        "official_name": "Villa Romana",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=173581",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1468024886,
+      "name": "Cárcava de La Peladera",
+      "lat": 40.9189309,
+      "lng": -4.1251375,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "visigoth",
+        "name": "Cárcava de La Peladera",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=546996",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1468024889,
+      "name": "Tejera",
+      "lat": 40.9228853,
+      "lng": -4.1279527,
+      "tags": {
+        "addr:postcode": "40195",
+        "area": "yes",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Tejera",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176616",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1473937663,
+      "name": "Primera imprenta de España",
+      "lat": 40.9525946,
+      "lng": -4.1295682,
+      "tags": {
+        "addr:city": "Segovia",
+        "addr:housenumber": "26",
+        "addr:postcode": "40003",
+        "addr:street": "Calle de Velarde",
+        "alt_name": "Antigua imprenta",
+        "building": "yes",
+        "historic": "building",
+        "name": "Primera imprenta de España",
+        "old_name": "Imprenta de Segovia",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1474286126,
+      "name": "Cacera de Regantes de San Lorenzo",
+      "lat": 40.9532957,
+      "lng": -4.1141565,
+      "tags": {
+        "alt_name": "Real Cacera de San Lorenzo",
+        "historic": "canal",
+        "intermittent": "yes",
+        "lock": "no",
+        "name": "Cacera de Regantes de San Lorenzo",
+        "tourism": "attraction",
+        "waterway": "canal"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1474286127,
+      "name": "Cacera de Regantes de San Lorenzo",
+      "lat": 40.9526707,
+      "lng": -4.1144746,
+      "tags": {
+        "alt_name": "Real Cacera de San Lorenzo",
+        "historic": "canal",
+        "intermittent": "yes",
+        "lock": "no",
+        "name": "Cacera de Regantes de San Lorenzo",
+        "tourism": "attraction",
+        "waterway": "canal"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1474286128,
+      "name": "Cacera de Regantes de San Lorenzo",
+      "lat": 40.9528818,
+      "lng": -4.1146403,
+      "tags": {
+        "alt_name": "Real Cacera de San Lorenzo",
+        "historic": "canal",
+        "intermittent": "yes",
+        "layer": "-1",
+        "lock": "no",
+        "name": "Cacera de Regantes de San Lorenzo",
+        "tourism": "attraction",
+        "tunnel": "culvert",
+        "waterway": "canal"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1485146562,
+      "name": "Barranco del Arroyo de la Pellejera",
+      "lat": 40.9580639,
+      "lng": -4.154289,
+      "tags": {
+        "access": "yes",
+        "alt_name": "Barranco del Arroyo de la Pallejera",
+        "archaeological_site": "rock_painting",
+        "area": "yes",
+        "description": "Manifestaciones de arte rupestre prehistórico declaradas Bien de Interés Cultural.",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Barranco del Arroyo de la Pellejera",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=inmueble&numero=547161",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1492024383,
+      "name": "Puente antiguo",
+      "lat": 40.9818365,
+      "lng": -4.2065721,
+      "tags": {
+        "area": "yes",
+        "bridge:support": "yes",
+        "historic": "bridge",
+        "name": "Puente antiguo",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "way",
+      "osmId": 1499538412,
+      "name": "Calzada Tallada",
+      "lat": 40.9586284,
+      "lng": -4.138619,
+      "tags": {
+        "access": "yes",
+        "archaeological_site": "petroglyph",
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "Calzada Tallada",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 15949489,
+      "name": "Casa del Zorroclín",
+      "lat": 40.9541551,
+      "lng": -4.179181,
+      "tags": {
+        "building": "ruins",
+        "historic": "building",
+        "name": "Casa del Zorroclín",
+        "source": "Segovia Callada volumen II",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 18803923,
+      "name": "Puente del Piojo",
+      "lat": 40.9519926,
+      "lng": -4.1331696,
+      "tags": {
+        "bridge": "abandoned",
+        "historic": "bridge",
+        "layer": "1",
+        "man_made": "bridge",
+        "name": "Puente del Piojo",
+        "ruins": "bridge",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 19456936,
+      "name": "Antigua Fábrica de Harinas de Carretero",
+      "lat": 40.9537756,
+      "lng": -4.1110148,
+      "tags": {
+        "building": "yes",
+        "historic": "factory",
+        "name": "Antigua Fábrica de Harinas de Carretero",
+        "old_name": "Fábrica de Harinas de Carretero",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "relation",
+      "osmId": 20970552,
+      "name": "Jardines de La Granjilla",
+      "lat": 40.8617871,
+      "lng": -4.1400406,
+      "tags": {
+        "access": "private",
+        "alt_name": "Finca de la Granjilla;Granjilla de los Jerónimos;Cacería de los Jerónimos;Granja del Parral;Granja de Riofrío",
+        "area": "yes",
+        "garden:type": "monastery",
+        "historic": "park",
+        "leisure": "garden",
+        "name": "Jardines de La Granjilla",
+        "operator": "Familia Bermejo",
+        "operator:type": "private",
+        "short_name": "La Granjilla",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=925746",
+        "start_date": "1723",
+        "tourism": "attraction",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 1243029914,
+      "name": "Santa Cecilia",
+      "lat": 40.9770516,
+      "lng": -4.2204905,
+      "tags": {
+        "access": "private",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Santa Cecilia",
+        "place": "locality",
+        "source": "Instituto Geográfico Nacional",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 1243030090,
+      "name": "Pellejeros",
+      "lat": 40.9180034,
+      "lng": -4.0548682,
+      "tags": {
+        "historic": "archaeological_site",
+        "name": "Pellejeros",
+        "place": "isolated_dwelling",
+        "population": "0",
+        "source": "Instituto Geográfico Nacional",
+        "source:date": "201011",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 4319790343,
+      "name": "Abrigo del Molino",
+      "lat": 40.9517579,
+      "lng": -4.1411503,
+      "tags": {
+        "access": "permit",
+        "archaeological_site": "settlement",
+        "geological": "palaeontological_site",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "historic:era": "paleolithic",
+        "historic:period": "stone-age",
+        "name": "Abrigo del Molino",
+        "natural": "cave_entrance",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 10269281651,
+      "name": "Puerta Tapiada",
+      "lat": 40.8739374,
+      "lng": -4.1596129,
+      "tags": {
+        "access": "no",
+        "barrier": "sally_port",
+        "historic": "sally_port",
+        "locked": "yes",
+        "material": "metal",
+        "name": "Puerta Tapiada",
+        "source": "https://www.acueducto2.com/riofrio-un-rio-un-bosque-y-un-palacio-y-2/30923",
+        "tourism": "attraction",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 12963037287,
+      "name": "Cueva de San Lázaro",
+      "lat": 40.9544781,
+      "lng": -4.1363311,
+      "tags": {
+        "access": "permit",
+        "alt_name": "Abrigo de San Lázaro",
+        "archaeological_site": "settlement",
+        "geological": "palaeontological_site",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "historic:era": "paleolithic",
+        "historic:period": "stone-age",
+        "name": "Cueva de San Lázaro",
+        "natural": "cave_entrance",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 12963037288,
+      "name": "Abrigo del Molino superior",
+      "lat": 40.9512683,
+      "lng": -4.1406784,
+      "tags": {
+        "access": "permit",
+        "archaeological_site": "settlement",
+        "geological": "palaeontological_site",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "historic:era": "paleolithic",
+        "historic:period": "stone-age",
+        "name": "Abrigo del Molino superior",
+        "natural": "cave_entrance",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 12963037289,
+      "name": "Cueva de la Tarascona",
+      "lat": 40.9516913,
+      "lng": -4.1389512,
+      "tags": {
+        "access": "permit",
+        "archaeological_site": "settlement",
+        "geological": "palaeontological_site",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "historic:era": "paleolithic",
+        "historic:period": "stone-age",
+        "name": "Cueva de la Tarascona",
+        "natural": "cave_entrance",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13143506622,
+      "name": "Ruinas de la Ermita de San Andrés",
+      "lat": 40.881309,
+      "lng": -4.1013879,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "Ruinas de la Ermita de San Andrés",
+        "ruins": "church",
+        "short_name": "Ermita de San Andrés",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176772",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735514,
+      "name": "Los Batanes",
+      "lat": 40.9420154,
+      "lng": -4.0893043,
+      "tags": {
+        "historic": "archaeological_site",
+        "name": "Los Batanes",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735702,
+      "name": "El Serón",
+      "lat": 40.946024,
+      "lng": -4.1487516,
+      "tags": {
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "El Serón",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=177048",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735703,
+      "name": "Cazorla",
+      "lat": 40.9408565,
+      "lng": -4.1356848,
+      "tags": {
+        "historic": "archaeological_site",
+        "name": "Cazorla",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735714,
+      "name": "Los Areneros de las Zumaqueras",
+      "lat": 40.9631183,
+      "lng": -4.1023409,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Los Areneros de las Zumaqueras",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735715,
+      "name": "El Mirador",
+      "lat": 40.9641577,
+      "lng": -4.1042311,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "bronze-age",
+        "name": "El Mirador",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735743,
+      "name": "El Calvario",
+      "lat": 40.9857287,
+      "lng": -4.2057915,
+      "tags": {
+        "access": "yes",
+        "historic": "archaeological_site",
+        "historic:civilization": "ancient_roman",
+        "name": "El Calvario",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735834,
+      "name": "Arroyo del Valle II",
+      "lat": 40.9695525,
+      "lng": -4.2062761,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "Arroyo del Valle II",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735835,
+      "name": "Arroyo del Valle I",
+      "lat": 40.9674786,
+      "lng": -4.2069713,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "name": "Arroyo del Valle I",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13436735836,
+      "name": "El Majano",
+      "lat": 40.9459011,
+      "lng": -4.2280791,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "name": "El Majano",
+        "place": "isolated_dwelling",
+        "population": "0",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13449261307,
+      "name": "Tejadilla I",
+      "lat": 40.9434968,
+      "lng": -4.1496616,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Tejadilla I",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176687",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464308667,
+      "name": "El Mojón",
+      "lat": 40.9264054,
+      "lng": -4.0543485,
+      "tags": {
+        "access": "private",
+        "alt_name": "La Mina",
+        "description": "Antigua mina abandonada en 1907 con una pozo cerrado y trincheras de la Guerra Civil.",
+        "historic": "archaeological_site",
+        "name": "El Mojón",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=173563",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464389981,
+      "name": "Ladera del Alto del Estribillo II",
+      "lat": 40.9154566,
+      "lng": -4.1305755,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "name": "Ladera del Alto del Estribillo II",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=546979",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464389982,
+      "name": "Ladera del Alto del Estribillo",
+      "lat": 40.9152085,
+      "lng": -4.1234043,
+      "tags": {
+        "access": "permissive",
+        "alt_name": "Ladera del Alto del Estribillo I",
+        "historic": "archaeological_site",
+        "historic:civilization": "prehistoric",
+        "name": "Ladera del Alto del Estribillo",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=546969",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464389983,
+      "name": "La Peladera",
+      "lat": 40.9165529,
+      "lng": -4.1240393,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "visigoth",
+        "name": "La Peladera",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=546979",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464395534,
+      "name": "Pozos de la Mina",
+      "lat": 40.8806954,
+      "lng": -4.1121353,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "name": "Pozos de la Mina",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=176792",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13464449726,
+      "name": "La Lastra",
+      "lat": 40.928095,
+      "lng": -4.1425696,
+      "tags": {
+        "access": "permissive",
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "La Lastra",
+        "source": "https://servicios.jcyl.es/pweb/datosGIS.do?tipo=Yacimiento&numero=547076",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "osmType": "node",
+      "osmId": 13731750079,
+      "name": "Camino Tallado",
+      "lat": 40.9630958,
+      "lng": -4.137479,
+      "tags": {
+        "access": "permissive",
+        "archaeological_site": "petroglyph",
+        "historic": "archaeological_site",
+        "historic:civilization": "medieval",
+        "name": "Camino Tallado",
+        "tourism": "attraction"
+      }
+    }
+  ],
+  "sitelinks": {
+    "Q5910969": 3,
+    "Q5910761": 3,
+    "Q19950092": 4,
+    "Q5910626": 2,
+    "Q5912556": 3,
+    "Q30001710": 4,
+    "Q1799223": 5,
+    "Q32154604": 3,
+    "Q56697769": 1,
+    "Q97058479": 2,
+    "Q6139765": 3,
+    "Q110809652": 2,
+    "Q105405842": 1,
+    "Q244947": 57,
+    "Q16615259": 3,
+    "Q66821340": 2,
+    "Q109337792": 2,
+    "Q5692199": 4,
+    "Q18194102": 4,
+    "Q42912722": 3,
+    "Q8350468": 6,
+    "Q6021309": 3,
+    "Q97059099": 2,
+    "Q1997245": 6,
+    "Q85689848": 2,
+    "Q108381069": 1,
+    "Q56698012": 1,
+    "Q56670038": 2,
+    "Q113573245": 3,
+    "Q32037230": 1,
+    "Q6021377": 3,
+    "Q557337": 37,
+    "Q1972987": 10,
+    "Q117191118": 2,
+    "Q1499912": 31,
+    "Q1046543": 4,
+    "Q21006939": 2,
+    "Q87254204": 1,
+    "Q97496462": 1,
+    "Q63872631": 2,
+    "Q120081121": 1,
+    "Q124644754": 1,
+    "Q99921303": 1,
+    "Q126077358": 2,
+    "Q131310373": 2,
+    "Q104621586": 2,
+    "Q24023788": 3,
+    "Q5754826": 2,
+    "Q131927127": 1,
+    "Q5872094": 2,
+    "Q26266052": 5,
+    "Q16867463": 3,
+    "Q42311478": 2,
+    "Q5954130": 2,
+    "Q28664145": 4,
+    "Q118146453": 1,
+    "Q118189645": 2,
+    "Q118179476": 2,
+    "Q118230893": 1,
+    "Q41532894": 3,
+    "Q84154441": 2,
+    "Q118397428": 1,
+    "Q118333973": 1,
+    "Q117009971": 2,
+    "Q29323795": 2,
+    "Q118164386": 1,
+    "Q118421851": 2,
+    "Q84050101": 2,
+    "Q118234702": 1,
+    "Q32193859": 2,
+    "Q118381587": 1,
+    "Q118395820": 2,
+    "Q19360302": 1,
+    "Q118236423": 2,
+    "Q118547531": 2,
+    "Q16620289": 3,
+    "Q118215275": 1,
+    "Q118286985": 2,
+    "Q118218593": 2,
+    "Q118433939": 1,
+    "Q135753637": 0,
+    "Q19521962": 2,
+    "Q43088445": 2,
+    "Q7085486": 7,
+    "Q114943573": 2,
+    "Q118482317": 2,
+    "Q55329789": 4
+  },
+  "wikidataMetadata": {
+    "Q5910969": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q5910761": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q19950092": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q5910626": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "church building",
+        "monument"
+      ]
+    },
+    "Q5912556": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q30001710": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q1799223": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q32154604": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q56697769": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q97058479": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q6139765": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "theatre building"
+      ]
+    },
+    "Q110809652": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q105405842": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q244947": {
+      "sitelinks": 57,
+      "instanceOfLabels": [
+        "stone bridge",
+        "arch bridge",
+        "architectural heritage monument",
+        "Roman aqueduct"
+      ]
+    },
+    "Q16615259": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q66821340": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "royal palace"
+      ]
+    },
+    "Q109337792": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q5692199": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "factory",
+        "mint",
+        "collection",
+        "museum"
+      ]
+    },
+    "Q18194102": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q42912722": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "tower",
+        "museum"
+      ]
+    },
+    "Q8350468": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "convent",
+        "secularized convent"
+      ]
+    },
+    "Q6021309": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "monastery",
+        "monument"
+      ]
+    },
+    "Q97059099": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "episcopal palace"
+      ]
+    },
+    "Q1997245": {
+      "sitelinks": 6,
+      "instanceOfLabels": [
+        "Roman Catholic monastery",
+        "monument"
+      ]
+    },
+    "Q85689848": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "public library",
+        "main library",
+        "defunct prison"
+      ]
+    },
+    "Q108381069": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q56698012": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "house"
+      ]
+    },
+    "Q56670038": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q113573245": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "house",
+        "palace"
+      ]
+    },
+    "Q32037230": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "building"
+      ]
+    },
+    "Q6021377": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "Cistercian monastery",
+        "monument",
+        "nunnery"
+      ]
+    },
+    "Q557337": {
+      "sitelinks": 37,
+      "instanceOfLabels": [
+        "alcázar",
+        "castle",
+        "museum building",
+        "tourist attraction",
+        "Monument (Spain)",
+        "palace",
+        "royal palace",
+        "museum",
+        "being"
+      ]
+    },
+    "Q1972987": {
+      "sitelinks": 10,
+      "instanceOfLabels": [
+        "royal palace",
+        "Real Sitio",
+        "museum"
+      ]
+    },
+    "Q117191118": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "chalet"
+      ]
+    },
+    "Q1499912": {
+      "sitelinks": 31,
+      "instanceOfLabels": [
+        "Catholic cathedral",
+        "monument"
+      ]
+    },
+    "Q1046543": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "mansion"
+      ]
+    },
+    "Q21006939": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "palace"
+      ]
+    },
+    "Q87254204": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q97496462": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "arch",
+        "city gate"
+      ]
+    },
+    "Q63872631": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "alhóndiga"
+      ]
+    },
+    "Q120081121": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "abandoned village"
+      ]
+    },
+    "Q124644754": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "city gate"
+      ]
+    },
+    "Q99921303": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "silo"
+      ]
+    },
+    "Q126077358": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "mill"
+      ]
+    },
+    "Q131310373": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "railway station"
+      ]
+    },
+    "Q104621586": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "monastery"
+      ]
+    },
+    "Q24023788": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "bullring",
+        "second-class bullring"
+      ]
+    },
+    "Q5754826": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "building",
+        "monument"
+      ]
+    },
+    "Q131927127": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "geological formation",
+        "geographic location"
+      ]
+    },
+    "Q5872094": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "factory"
+      ]
+    },
+    "Q26266052": {
+      "sitelinks": 5,
+      "instanceOfLabels": [
+        "museum",
+        "monument"
+      ]
+    },
+    "Q16867463": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "historic house museum"
+      ]
+    },
+    "Q42311478": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "art museum"
+      ]
+    },
+    "Q5954130": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "barrio",
+        "Jewish quarter"
+      ]
+    },
+    "Q28664145": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "museum",
+        "monument"
+      ]
+    },
+    "Q118146453": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118189645": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118179476": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118230893": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q41532894": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "plaza mayor"
+      ]
+    },
+    "Q84154441": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118397428": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118333973": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q117009971": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q29323795": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118164386": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118421851": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q84050101": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118234702": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q32193859": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118381587": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118395820": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q19360302": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "church building"
+      ]
+    },
+    "Q118236423": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118547531": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q16620289": {
+      "sitelinks": 3,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118215275": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118286985": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "square"
+      ]
+    },
+    "Q118218593": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q118433939": {
+      "sitelinks": 1,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q135753637": {
+      "sitelinks": 0,
+      "instanceOfLabels": [
+        "building",
+        "monument"
+      ]
+    },
+    "Q19521962": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "convent of Discalced Carmelite nuns"
+      ]
+    },
+    "Q43088445": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "convent",
+        "tower"
+      ]
+    },
+    "Q7085486": {
+      "sitelinks": 7,
+      "instanceOfLabels": [
+        "nunnery",
+        "religious building"
+      ]
+    },
+    "Q114943573": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "building",
+        "bunker"
+      ]
+    },
+    "Q118482317": {
+      "sitelinks": 2,
+      "instanceOfLabels": [
+        "street"
+      ]
+    },
+    "Q55329789": {
+      "sitelinks": 4,
+      "instanceOfLabels": [
+        "city walls"
+      ]
+    }
+  }
+}

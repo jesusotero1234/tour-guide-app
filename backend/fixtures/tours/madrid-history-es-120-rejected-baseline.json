@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "kind": "rejected-route-baseline",
+  "source": {
+    "tourId": "1dd5cf23-ac45-4419-afa5-f67f4377e2e0",
+    "generationJobId": "b53db95a-691c-41e6-8d5a-f83ff0a83714",
+    "createdAt": "2026-08-05T22:43:51.983Z"
+  },
+  "request": {
+    "city": "Madrid",
+    "country": "Spain",
+    "countryCode": "ES",
+    "theme": "history",
+    "language": "es",
+    "durationMinutes": 120
+  },
+  "statusAtCapture": "published",
+  "qualityStatusAtCapture": "verified",
+  "textAuditScoreAtCapture": 100,
+  "v2Decision": "rejected",
+  "rejectionReasons": [
+    "essential_coverage_incomplete",
+    "paid_value_below_threshold"
+  ],
+  "routeDiagnostics": {
+    "degraded": false,
+    "degradationReason": null,
+    "coverageRatio": 0.9424403574538871,
+    "estimatedTourMinutes": 113.0928428944665,
+    "requestedDuration": 120
+  },
+  "stops": [
+    {
+      "position": 0,
+      "name": "Palace of Linares",
+      "wikidataId": "Q2628455",
+      "coordinates": { "lat": 40.4199, "lng": -3.6921 },
+      "importanceScore": 47.26238852375101,
+      "fameScore": 23.26238852375102,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "position": 1,
+      "name": "Puerta de Alcalá",
+      "wikidataId": "Q1140634",
+      "coordinates": { "lat": 40.4199868, "lng": -3.6887244 },
+      "importanceScore": 56.85131915442328,
+      "fameScore": 26.85131915442328,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "position": 2,
+      "name": "Fuente de Apolo",
+      "wikidataId": "Q1647048",
+      "coordinates": { "lat": 40.4172106, "lng": -3.6938985 },
+      "importanceScore": 47.75,
+      "fameScore": 21.75,
+      "landmarkTier": "major",
+      "category": "other"
+    },
+    {
+      "position": 3,
+      "name": "Fuente de Neptuno",
+      "wikidataId": "Q1472798",
+      "coordinates": { "lat": 40.4152553, "lng": -3.6941511 },
+      "importanceScore": 52.50488750216347,
+      "fameScore": 23.50488750216347,
+      "landmarkTier": "flagship",
+      "category": "other"
+    },
+    {
+      "position": 4,
+      "name": "Palacio de Santa Cruz",
+      "wikidataId": "Q2982559",
+      "coordinates": { "lat": 40.4143707, "lng": -3.7059757 },
+      "importanceScore": 52.47067178682556,
+      "fameScore": 23.47067178682556,
+      "landmarkTier": "flagship",
+      "category": "palace_castle"
+    },
+    {
+      "position": 5,
+      "name": "Puerta de Toledo",
+      "wikidataId": "Q2657591",
+      "coordinates": { "lat": 40.4067374, "lng": -3.7116239 },
+      "importanceScore": 54.25977500432694,
+      "fameScore": 25.25977500432694,
+      "landmarkTier": "flagship",
+      "category": "other"
+    }
+  ],
+  "evaluation": {
+    "legacyOraclePath": "oracle/anchors.json#Madrid/history",
+    "legacyCovered": [
+      { "qid": "Q1140634", "name": "Puerta de Alcalá" }
+    ],
+    "legacyMissing": [
+      { "qid": "Q1123493", "name": "Plaza Mayor" },
+      { "qid": "Q427163", "name": "Puerta del Sol" },
+      { "qid": "Q171517", "name": "Palacio Real" }
+    ],
+    "legacyCoverage": 0.25,
+    "v2OraclePath": "oracle/madrid-history-es-120.json",
+    "v2Covered": [
+      "Puerta de Alcalá"
+    ],
+    "v2Missing": [
+      "Palacio Real",
+      "Catedral de la Almudena",
+      "Plaza de la Villa",
+      "Plaza Mayor",
+      "Puerta del Sol",
+      "Plaza de Cibeles"
+    ],
+    "v2Coverage": 0.14285714285714285
+  }
+}

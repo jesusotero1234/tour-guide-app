@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "route-editorial-evaluation-v2",
+  "cases": [
+    { "id": "madrid-history-es-120", "scope": "calibration", "city": "Madrid", "theme": "history", "language": "es", "durationMinutes": 120, "oracleFile": "madrid-history-es-120.json" },
+    { "id": "malaga-history-es-120", "scope": "calibration", "city": "Malaga", "theme": "history", "language": "es", "durationMinutes": 120, "oracleFile": "malaga-history-es-120.json" },
+    { "id": "amsterdam-history-nl-120", "scope": "calibration", "city": "Amsterdam", "theme": "history", "language": "nl", "durationMinutes": 120, "oracleFile": "amsterdam-history-nl-120.json" },
+    { "id": "toledo-history-es-120", "scope": "calibration", "city": "Toledo", "theme": "history", "language": "es", "durationMinutes": 120, "oracleFile": "toledo-history-es-120.json" },
+    { "id": "berlin-history-de-120", "scope": "calibration", "city": "Berlin", "theme": "history", "language": "de", "durationMinutes": 120, "oracleFile": "berlin-history-de-120.json" },
+    { "id": "barcelona-history-fr-120", "scope": "calibration", "city": "Barcelona", "theme": "history", "language": "fr", "durationMinutes": 120, "oracleFile": "barcelona-history-fr-120.json" },
+    { "id": "paris-history-en-120", "scope": "calibration", "city": "Paris", "theme": "history", "language": "en", "durationMinutes": 120, "oracleFile": "paris-history-en-120.json" },
+    { "id": "roma-history-it-150", "scope": "calibration", "city": "Roma", "theme": "history", "language": "it", "durationMinutes": 150, "oracleFile": "roma-history-it-150.json" },
+    { "id": "toulouse-history-fr-120", "scope": "calibration", "city": "Toulouse", "theme": "history", "language": "fr", "durationMinutes": 120, "oracleFile": "toulouse-history-fr-120.json" },
+    { "id": "valencia-history-es-120", "scope": "holdout", "city": "Valencia", "theme": "history", "language": "es", "durationMinutes": 120, "oracleFile": "valencia-history-es-120.json" },
+    { "id": "segovia-history-es-120", "scope": "holdout", "city": "Segovia", "theme": "history", "language": "es", "durationMinutes": 120, "oracleFile": "segovia-history-es-120.json" }
+  ]
+}

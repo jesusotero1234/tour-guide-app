@@ -1,0 +1,12 @@
+{
+  "city": "Valencia", "theme": "history", "language": "es", "durationMinutes": 120,
+  "purpose": "Frozen holdout. Do not load during calibration.",
+  "stops": [
+    { "qid": "Q588009", "name": "Llotja de la Seda", "narrativeRole": "Explicar el poder mercantil de la ciudad", "contributionCode": "trade_economic_life" },
+    { "qid": "Q2197068", "name": "Mercat Central", "narrativeRole": "Mostrar continuidad y modernización del comercio", "contributionCode": "trade_economic_life" },
+    { "qid": "Q1466926", "name": "Catedral de València", "narrativeRole": "Relacionar conquista, religión e identidad", "contributionCode": "religious_identity" },
+    { "qid": "Q1779244", "name": "Plaça de la Mare de Déu", "narrativeRole": "Presentar el centro cívico y ceremonial", "contributionCode": "public_life_ceremony" },
+    { "qid": "Q1102684", "name": "Estació del Nord", "narrativeRole": "Explicar industria, movilidad y expansión", "contributionCode": "infrastructure_engineering" },
+    { "qid": "Q2455550", "name": "Torres dels Serrans", "narrativeRole": "Resolver defensa, acceso y forma urbana", "contributionCode": "origins_urban_form" }
+  ]
+}

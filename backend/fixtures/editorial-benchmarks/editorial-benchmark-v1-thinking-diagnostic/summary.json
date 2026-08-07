@@ -1,0 +1,40 @@
+{
+  "benchmarkVersion": "benchmark-editorial-v1",
+  "runId": "editorial-benchmark-v1-thinking-diagnostic",
+  "stage": "pilot",
+  "externalSpendUsd": 0,
+  "spendCapUsd": 0.25,
+  "holdoutLoaded": false,
+  "survivors": [],
+  "providers": [
+    {
+      "provider": {
+        "id": "deepseek-flash-thinking-high",
+        "kind": "deepseek",
+        "model": "deepseek-v4-flash",
+        "thinking": true,
+        "reasoningEffort": "high"
+      },
+      "pilot": {
+        "calls": 1,
+        "valid": 0,
+        "allRoutesPassed": false,
+        "minimumEssentialJaccard": 0,
+        "stableAnchorCoverage": true,
+        "passed": false
+      },
+      "calibration": {
+        "calls": 0,
+        "valid": 0,
+        "gatesPassed": 0,
+        "oracleCovered": 0,
+        "oracleAvailable": 0,
+        "passed": false
+      },
+      "totalLatencyMs": 1024,
+      "totalCostUsd": 0,
+      "selected": false
+    }
+  ],
+  "conclusion": "No provider passed Madrid; changing models alone is insufficient"
+}

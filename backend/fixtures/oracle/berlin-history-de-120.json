@@ -1,0 +1,11 @@
+{
+  "city": "Berlin", "theme": "history", "language": "de", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; excludes the remote Q5086 representation.",
+  "stops": [
+    { "qid": "Q82425", "name": "Brandenburger Tor", "narrativeRole": "Abrir con los símbolos cambiantes del Estado", "contributionCode": "modern_national_identity" },
+    { "qid": "Q151897", "name": "Reichstag", "narrativeRole": "Explicar democracia, ruptura y reunificación", "contributionCode": "civic_government" },
+    { "qid": "Q68689", "name": "Checkpoint Charlie", "narrativeRole": "Hacer tangible la división de la Guerra Fría", "contributionCode": "conflict_resistance" },
+    { "qid": "Q160700", "name": "Denkmal für die ermordeten Juden Europas", "narrativeRole": "Confrontar memoria y responsabilidad", "contributionCode": "memory_rights" },
+    { "qid": "Q152252", "name": "Potsdamer Platz", "narrativeRole": "Resolver destrucción, división y reconstrucción", "contributionCode": "urban_expansion_reform" }
+  ]
+}

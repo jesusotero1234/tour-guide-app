@@ -1,0 +1,10 @@
+{
+  "city": "Paris", "theme": "history", "language": "en", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q23402", "name": "Musée d'Orsay", "narrativeRole": "Connect industrial modernity and public art", "contributionCode": "art_intellectual_life" },
+    { "qid": "Q19675", "name": "Louvre", "narrativeRole": "Explain the transformation from royal power to public museum", "contributionCode": "royal_state_power" },
+    { "qid": "Q193193", "name": "Sainte-Chapelle", "narrativeRole": "Show medieval kingship through sacred architecture", "contributionCode": "religious_identity" },
+    { "qid": "Q2981", "name": "Notre-Dame", "narrativeRole": "Resolve the relation between city, faith and national memory", "contributionCode": "modern_national_identity" }
+  ]
+}

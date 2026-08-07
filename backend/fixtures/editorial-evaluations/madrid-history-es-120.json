@@ -1,0 +1,309 @@
+{
+  "case": {
+    "id": "madrid-history-es-120",
+    "scope": "calibration",
+    "mode": "snapshot",
+    "city": "Madrid",
+    "theme": "history",
+    "language": "es",
+    "requestedDuration": 120
+  },
+  "elapsedMs": 93,
+  "reproducibility": {
+    "model": "qwen2.5:14b",
+    "promptFingerprint": "c8145fbe9321f7e9c94abe9c3ccb71a582fe4245cc12734444c2374b23f063cf",
+    "snapshot": "/mnt/c/users/jesus/desktop/coding/tour-guide-app/backend/fixtures/editorial-briefs/madrid-history-es-120.json"
+  },
+  "candidateSet": {
+    "prefiltered": 60,
+    "accepted": 31,
+    "sentToCurator": 18,
+    "deterministicTierBaseline": {
+      "essential": 7,
+      "strong": 20,
+      "supporting": 4
+    },
+    "rejected": {
+      "remote": 11,
+      "insufficient_evidence": 12,
+      "off_theme": 3
+    }
+  },
+  "editorialBrief": {
+    "promise": "Descubre la historia de Madrid desde sus inicios hasta hoy.",
+    "centralQuestion": "Cómo se transformó Madrid a lo largo del tiempo?",
+    "arc": [
+      "opening",
+      "origins",
+      "power",
+      "belief",
+      "transformation",
+      "resolution"
+    ],
+    "assessments": [
+      {
+        "canonicalId": "Q1123493",
+        "paidValueScore": 85,
+        "inclusion": "essential",
+        "recommendedRole": "opening",
+        "uniqueContribution": "Centro histórico y turístico.",
+        "reason": "Fama y contexto histórico.",
+        "evidenceIds": [
+          "Q1123493:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q2711992",
+        "paidValueScore": 65,
+        "inclusion": "essential",
+        "recommendedRole": "origins",
+        "uniqueContribution": "Primitivo trazado medieval.",
+        "reason": "Evidencia de origen histórico.",
+        "evidenceIds": [
+          "Q2711992:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q171517",
+        "paidValueScore": 80,
+        "inclusion": "essential",
+        "recommendedRole": "power",
+        "uniqueContribution": "Residencia real.",
+        "reason": "Importancia histórica y arquitectónica.",
+        "evidenceIds": [
+          "Q171517:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q849711",
+        "paidValueScore": 60,
+        "inclusion": "essential",
+        "recommendedRole": "belief",
+        "uniqueContribution": "Catedral católica.",
+        "reason": "Sede episcopal y patrimonio histórico.",
+        "evidenceIds": [
+          "Q849711:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q1140634",
+        "paidValueScore": 75,
+        "inclusion": "essential",
+        "recommendedRole": "transformation",
+        "uniqueContribution": "Entrada histórica.",
+        "reason": "Evolución urbana documentada.",
+        "evidenceIds": [
+          "Q1140634:wikipedia:4"
+        ]
+      },
+      {
+        "canonicalId": "Q2838423",
+        "paidValueScore": 70,
+        "inclusion": "essential",
+        "recommendedRole": "resolution",
+        "uniqueContribution": "Puente renacentista.",
+        "reason": "Simboliza cambio urbano.",
+        "evidenceIds": [
+          "Q2838423:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q427163",
+        "paidValueScore": 55,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Centro moderno.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q427163:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q1537446",
+        "paidValueScore": 60,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Monumento moderno.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q1537446:osm:place"
+        ]
+      },
+      {
+        "canonicalId": "Q970525",
+        "paidValueScore": 58,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Plaza moderna.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q970525:wikipedia:4"
+        ]
+      },
+      {
+        "canonicalId": "Q1326261",
+        "paidValueScore": 58,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Plaza moderna.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q1326261:osm:place"
+        ]
+      },
+      {
+        "canonicalId": "Q2193218",
+        "paidValueScore": 57,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Plaza moderna.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q2193218:osm:place"
+        ]
+      },
+      {
+        "canonicalId": "Q855343",
+        "paidValueScore": 60,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Sede del Senado.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q855343:osm:building"
+        ]
+      },
+      {
+        "canonicalId": "Q539149",
+        "paidValueScore": 60,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Sede del Congreso.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q539149:osm:building"
+        ]
+      },
+      {
+        "canonicalId": "Q2657591",
+        "paidValueScore": 50,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Entrada histórica.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q2657591:wikipedia:0"
+        ]
+      },
+      {
+        "canonicalId": "Q211250",
+        "paidValueScore": 58,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Teatro de ópera.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q211250:osm:historic"
+        ]
+      },
+      {
+        "canonicalId": "Q2982559",
+        "paidValueScore": 56,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Palacio público.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q2982559:osm:building"
+        ]
+      },
+      {
+        "canonicalId": "Q3288223",
+        "paidValueScore": 56,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Palacio histórico.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q3288223:osm:building"
+        ]
+      },
+      {
+        "canonicalId": "Q2628455",
+        "paidValueScore": 55,
+        "inclusion": "reject",
+        "recommendedRole": null,
+        "uniqueContribution": "Palacio histórico.",
+        "reason": "Falta de contexto histórico específico.",
+        "evidenceIds": [
+          "Q2628455:osm:historic"
+        ]
+      }
+    ]
+  },
+  "status": "no_route",
+  "actualDuration": null,
+  "recommendedDuration": null,
+  "selectedRoute": [],
+  "curatorEssentialCoverage": {
+    "covered": "0/6",
+    "missing": [
+      "Q1123493",
+      "Q2711992",
+      "Q171517",
+      "Q849711",
+      "Q1140634",
+      "Q2838423"
+    ]
+  },
+  "oracleCoverage": {
+    "candidateSet": "7/7",
+    "route": "0/7",
+    "required": 7,
+    "missing": [
+      "Palacio Real",
+      "Catedral de la Almudena",
+      "Plaza de la Villa",
+      "Plaza Mayor",
+      "Puerta del Sol",
+      "Plaza de Cibeles",
+      "Puerta de Alcalá"
+    ]
+  },
+  "greedyBaseline": {
+    "stops": [
+      "plaza de Cibeles",
+      "Palacio de Linares",
+      "Puerta de Alcalá",
+      "Teatro de la Zarzuela",
+      "Palacio de Santa Cruz",
+      "Puerta de Toledo"
+    ],
+    "oracleCoverage": "2/7",
+    "estimatedTourMinutes": 112.04194323819894
+  },
+  "finalists": [],
+  "discardSummary": {
+    "curator_reject": 12,
+    "insufficient_evidence": 0,
+    "duplicate_cluster": 0,
+    "segment_too_long": 165,
+    "cannot_complete_essentials": 0,
+    "cannot_complete_arc": 0,
+    "dominated": 54,
+    "outside_duration": 0
+  },
+  "gates": {
+    "candidateOracleCoverage": true,
+    "requiredRouteOracleCoverage": false,
+    "noPhysicallyViableNoRoute": false,
+    "noDuplicateClusters": true,
+    "noOverlongSegments": false,
+    "withinRequestedDuration": false,
+    "curatorEssentialsCovered": false,
+    "arcCovered": false,
+    "noRejectSelected": true,
+    "oracleNotBelowGreedy": false,
+    "passed": false
+  }
+}

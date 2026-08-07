@@ -1,0 +1,3658 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "createdAt": "2026-08-06T17:56:37.048Z",
+  "mode": "snapshot",
+  "scope": "calibration",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "003d6adc753ff8f884f4c3403f9b08af7c4aaea882db1462add11fba51a2eb64",
+  "results": [
+    {
+      "case": {
+        "id": "madrid-history-es-120",
+        "mode": "snapshot",
+        "city": "Madrid",
+        "requestedDuration": 120
+      },
+      "reproducibility": {
+        "provider": {
+          "kind": "deepseek",
+          "model": "deepseek-v4-flash"
+        },
+        "selectorFingerprint": "003d6adc753ff8f884f4c3403f9b08af7c4aaea882db1462add11fba51a2eb64",
+        "storyPromptFingerprint": "44cc15f910c7a3ac2a5f4369a78c9f314c9b7fbbfd1b2359f38e58b090d1a468",
+        "criticPromptFingerprint": "439ad7f70223ce2d0ba350d02934335320b45ef11c81d17ebe349fc006362b1c",
+        "artifact": "/mnt/c/users/jesus/desktop/coding/tour-guide-app/backend/fixtures/editorial-v4/editorial-v4-madrid-final/madrid-history-es-120.json",
+        "walkingMatrixFingerprint": "09bab53efb56e238365f8a92a3a4eb1828b4101a18a0e735871dbafde3f5397d"
+      },
+      "candidateSet": {
+        "prefiltered": 60,
+        "ready": 30,
+        "reduced": 18,
+        "poolOracleCoverage": "7/7",
+        "reducedOracleCoverage": "7/7",
+        "evidenceGaps": [
+          {
+            "canonicalId": "osm:node:6342365545",
+            "name": "Pabellón de los Hexágonos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:12988229",
+            "name": "Palacio del duque de Alba",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:18317102",
+            "name": "Palacio Condesa de Medina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:3993993",
+            "name": "Palacio de Escalona y Bornos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:1338126462",
+            "name": "Cerca de Felipe IV",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:291931539",
+            "name": "NH Palacio de Tepa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:692839978",
+            "name": "Puerta de Murillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1026041",
+            "name": "CaixaForum Madrid",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q105776403",
+            "name": "Puente del Matadero",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q105776648",
+            "name": "Puente del Invernadero",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1070622",
+            "name": "Jardines del Campo del Moro",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q108378742",
+            "name": "Jardines de Cecilio Rodríguez",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q11065011",
+            "name": "Palacio de Santa Bárbara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1149052",
+            "name": "Calle Mayor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115799392",
+            "name": "Plaza de Murillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1164358",
+            "name": "Palacio Longoria - SGAE",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q12344133",
+            "name": "Plaza de la Provincia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q130340447",
+            "name": "Atocha (Histórica)",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1326261",
+            "name": "plaza de España",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q14230837",
+            "name": "Plaza de Salvador Dalí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q15121263",
+            "name": "Museo de Cera",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1531008",
+            "name": "Plaza del Dos de Mayo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q15845124",
+            "name": "Real Armería",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1592523",
+            "name": "Museo Sorolla",
+            "missing": [
+              "observable"
+            ]
+          },
+          {
+            "canonicalId": "Q160112",
+            "name": "Museo del Prado",
+            "missing": [
+              "observable",
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q16538391",
+            "name": "Catedral del Redentor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16606346",
+            "name": "Mercado Guillermo de Osma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16606367",
+            "name": "Mercado de Chamberí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16610970",
+            "name": "Andén 0 - Nave de Motores de Pacífico",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16620311",
+            "name": "Plaza del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q176251",
+            "name": "Museo Nacional Thyssen-Bornemisza",
+            "missing": [
+              "observable"
+            ]
+          },
+          {
+            "canonicalId": "Q1849031",
+            "name": "Palacio de Cibeles",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q18654869",
+            "name": "Palacio de Zurbano",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q211250",
+            "name": "Teatro Real",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q21564330",
+            "name": "Museo ABC",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q22087397",
+            "name": "Palacio del Marqués de Santa Cruz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q22810167",
+            "name": "Centro Cultural La Corrala",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2628455",
+            "name": "Palacio de Linares",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q26707745",
+            "name": "Palacete de Carlos María de Castro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26789351",
+            "name": "Plaza de Chamberí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26833574",
+            "name": "Palacete del duque de Plasencia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26834087",
+            "name": "Embajada de Francia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26882537",
+            "name": "Palacio de Zabálburu",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26960627",
+            "name": "Plaza de Margaret Thatcher",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27186278",
+            "name": "Plaza de los Carros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27213851",
+            "name": "Plaza de San Andrés",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27947826",
+            "name": "Plaza de Olavide",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28007208",
+            "name": "Plaza de Santa Catalina de los Donados",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28047697",
+            "name": "Plaza de la Puerta de Moros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28050982",
+            "name": "Calle Botoneras",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28051520",
+            "name": "Calle de la Bolsa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2839150",
+            "name": "Plaza de Ramales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534583",
+            "name": "Calle de Gerona",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534625",
+            "name": "Plaza del Comandante Las Morenas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534650",
+            "name": "Plaza de Herradores",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28662636",
+            "name": "Plaza de Nelson Mandela",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29001836",
+            "name": "Calle de la Victoria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29004341",
+            "name": "Calle de Carlos III",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29004934",
+            "name": "Calle Gómez de Mora",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29005231",
+            "name": "Plaza del Conde de Barajas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29005538",
+            "name": "Calle del Maestro Villa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29016768",
+            "name": "Palacio del Marqués de Alcañices",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2916187",
+            "name": "El Rastro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29257543",
+            "name": "Palacio de los Condes de Guevara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29581601",
+            "name": "Palacio López-Dóriga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29834891",
+            "name": "Plaza del Rastrillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29838186",
+            "name": "Plaza de los Mostenses",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29840862",
+            "name": "Plaza del Conde de Toreno",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q30578759",
+            "name": "Plaza de San Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3321174",
+            "name": "Casón del Buen Retiro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3321632",
+            "name": "Teatro de la Zarzuela",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q3392158",
+            "name": "Plaza de Canalejas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35673000",
+            "name": "Mercado de Ibiza",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35786865",
+            "name": "Mercado de Pacífico",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35787403",
+            "name": "Mercado de Diego de León",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35787583",
+            "name": "Mercado de la Guindalera",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35788537",
+            "name": "Mercado Jesús del Gran Poder",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35789412",
+            "name": "Centro Comercial Mercado Usera",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3656832",
+            "name": "Capilla de Nuestra Señora y de san Juan de Letrán",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3845616",
+            "name": "Puente de Toledo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q386413",
+            "name": "Faro de Moncloa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q386570",
+            "name": "Museo Lázaro Galdiano",
+            "missing": [
+              "observable"
+            ]
+          },
+          {
+            "canonicalId": "Q39072661",
+            "name": "Museo Casa de la Moneda",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42307209",
+            "name": "Mando Aéreo General",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42720683",
+            "name": "Palacio de la duquesa de Sueca",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42912700",
+            "name": "Espacio Cultural Serrería Belga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q4348433",
+            "name": "Casa de la Panadería",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q465250",
+            "name": "Edificio Metrópolis",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q47495696",
+            "name": "Plaza de los Guardias de Corps",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q47519622",
+            "name": "Casa Palacio Pablo del Puerto",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5117018",
+            "name": "Catedral Castrense de las Fuerzas Armadas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5117141",
+            "name": "Parroquia de Santa Bárbara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5121553",
+            "name": "Circo Price",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5166190",
+            "name": "Iglesia del Monasterio de Benedictinas de San Plácido",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5166200",
+            "name": "Convento de las Trinitarias Descalzas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5191859",
+            "name": "Centro de Cultura Contemporánea Conde Duque",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52063001",
+            "name": "Plaza del Conde de Miranda",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52063495",
+            "name": "Plaza del Cordón",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52665136",
+            "name": "Calle del Cid",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52828167",
+            "name": "Calle de San Ricardo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5361303",
+            "name": "Museo Nacional de Artes Decorativas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54158131",
+            "name": "Plaza Virgen de la Paloma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54165130",
+            "name": "Calle de San Bruno",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54216988",
+            "name": "Palacio del Duque de Granada de Ega",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54234248",
+            "name": "Casa-palacio de Ricardo Augustín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5482884",
+            "name": "Plaza de las Cortes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q55005440",
+            "name": "Plaza de Juan Goytisolo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5535322",
+            "name": "Instituto Geológico y Minero de España",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5556798",
+            "name": "Museo de San Isidro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q56672440",
+            "name": "Plaza de la Corrala",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q56673316",
+            "name": "Plaza de Arturo Barea",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5675401",
+            "name": "Mercado de San Isidro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q570665",
+            "name": "Real Fábrica de Tapices",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740952",
+            "name": "Calle de Carretas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740980",
+            "name": "Calle del Arenal",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740988",
+            "name": "Calle del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5754774",
+            "name": "Casa de Cervantes",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5754790",
+            "name": "Casa de Cisneros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5755116",
+            "name": "Casa de la Carnicería",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5836422",
+            "name": "Carrera de San Jerónimo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5915581",
+            "name": "Casa de las Siete Chimeneas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5962732",
+            "name": "La Casa Encendida",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q59828249",
+            "name": "Embajada de Italia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010534",
+            "name": "Mercado de Barceló",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010567",
+            "name": "Mercado de San Antón",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010571",
+            "name": "Mercado de San Fernando",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010580",
+            "name": "Mercado de Santa María de la Cabeza",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010584",
+            "name": "Mercado Tirso de Molina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010611",
+            "name": "Mercado de la Cebada",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010619",
+            "name": "Mercado de la Paz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010627",
+            "name": "Mercado Municipal los Mostenses",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6033986",
+            "name": "Galería de las Colecciones Reales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6034436",
+            "name": "Museo del Ferrocarril de Madrid",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057839",
+            "name": "Palacio de Abrantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057871",
+            "name": "Palacio de Biblioteca y Museos Nacionales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057992",
+            "name": "Palacio de Fernán Núñez",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058226",
+            "name": "Palacio de Viana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058318",
+            "name": "Palacio de la Música",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058482",
+            "name": "Palacio de los Vargas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058579",
+            "name": "Palacio Gaviria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058593",
+            "name": "Palacio del Marqués de Perales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058638",
+            "name": "Palacio del Príncipe de Anglona",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079880",
+            "name": "Plazuela de Antón Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079936",
+            "name": "Plaza de Cascorro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079939",
+            "name": "Plaza de Celenque",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079993",
+            "name": "Plaza de Isabel II",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080004",
+            "name": "Plaza de Jacinto Benavente",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080017",
+            "name": "Plaza de Lavapiés",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080024",
+            "name": "Plaza de Matute",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080037",
+            "name": "Plaza de Pontejos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080070",
+            "name": "Plaza de San Ildefonso",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080086",
+            "name": "Plaza de Santa Cruz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080095",
+            "name": "Plaza de Santa María Soledad Torres Acosta",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080106",
+            "name": "Plaza de Santo Domingo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080114",
+            "name": "Plaza de Tirso de Molina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080217",
+            "name": "Plaza de la Paja",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080243",
+            "name": "Plaza de las Comendadoras",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080247",
+            "name": "Plaza de las Descalzas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080267",
+            "name": "Plaza de Emilio Jiménez Millas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080388",
+            "name": "Plaza del Alamillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080406",
+            "name": "Plaza del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080424",
+            "name": "Plaza General Vara del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6091341",
+            "name": "Puente Monumental Parque Arganzuela",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6091607",
+            "name": "Puente del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6160850",
+            "name": "Viaducto de Segovia",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q61986887",
+            "name": "Puente del Principado de Andorra",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63341945",
+            "name": "Casa-palacio del Marqués de Viluma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63861531",
+            "name": "Palacio del Duque del Infantado",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63975106",
+            "name": "Palacio de Ustáriz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6770825",
+            "name": "Mercado de San Miguel",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q68986257",
+            "name": "Calle de Martín de Vargas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6940528",
+            "name": "Museo de Arte Contemporáneo",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6974501",
+            "name": "Museo del Romanticismo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126215",
+            "name": "Palacio de Altamira",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126248",
+            "name": "Ministerio de la Presidencia, Justicia y Relaciones con Las Cortes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126253",
+            "name": "Palacio de Santoña",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126259",
+            "name": "Palacio del Marqués de Villamejor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126278",
+            "name": "Palacio del Marqués de Molins",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7131757",
+            "name": "Panteón de España",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7386456",
+            "name": "Instituto Cervantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7414379",
+            "name": "Parroquia San Jerónimo el Real",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q8141010",
+            "name": "Palacio Arzobispal",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q833213",
+            "name": "Bosque del Recuerdo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q8343402",
+            "name": "Cementerio Británico",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q855343",
+            "name": "Senado de España",
+            "missing": [
+              "context"
+            ]
+          },
+          {
+            "canonicalId": "Q860191",
+            "name": "Puerta de San Vicente",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9031626",
+            "name": "Mercado de Antón Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054434",
+            "name": "Palacio de Bermejillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054589",
+            "name": "Fundación Mapfre - Sala de exposiciones Recoletos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054715",
+            "name": "Palacio del Marqués de Salamanca - Fundación BBVA",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9060945",
+            "name": "Plaza de Puerta Cerrada",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9067089",
+            "name": "Real Monasterio de Santa Isabel",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q948580",
+            "name": "Casa Museo Lope de Vega",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          }
+        ]
+      },
+      "storyMap": {
+        "schemaVersion": "editorial-story-map-v4",
+        "centralQuestion": "¿Cómo se transformó Madrid de villa medieval amurallada a capital imperial y, después, a metrópoli moderna, y cómo se refleja esa evolución en las plazas, puertas, palacios y monumentos que hoy definen su centro histórico?",
+        "beats": [
+          {
+            "beatId": "b01",
+            "contributionCode": "origins_urban_form",
+            "era": "medieval",
+            "focus": "Los orígenes medievales de Madrid: la villa amurallada, sus puertas de acceso controlado y el trazado urbano primitivo que aún se percibe en las calles y plazas del casco antiguo.",
+            "evidenceRefs": [
+              "c09:e05",
+              "c25:e04",
+              "c25:e01",
+              "c25:e05",
+              "c11:e05"
+            ]
+          },
+          {
+            "beatId": "b02",
+            "contributionCode": "royal_state_power",
+            "era": "early_modern",
+            "focus": "La consolidación de Madrid como capital de la monarquía hispánica: la corte de Felipe II, los palacios reales, los monasterios fundados por la realeza y la arquitectura herreriana que definió el poder estatal.",
+            "evidenceRefs": [
+              "c22:e05",
+              "c03:e05",
+              "c20:e04",
+              "c28:e04",
+              "c19:e04",
+              "c11:e01"
+            ]
+          },
+          {
+            "beatId": "b03",
+            "contributionCode": "urban_expansion_reform",
+            "era": "early_modern",
+            "focus": "Las reformas ilustradas de Carlos III y el embellecimiento neoclásico de la capital: el Salón del Prado, las fuentes monumentales y la modernización urbana que puso a Madrid a la altura de las grandes capitales europeas.",
+            "evidenceRefs": [
+              "c06:e04",
+              "c14:e04",
+              "c24:e05",
+              "c24:e01",
+              "c14:e01",
+              "c06:e01"
+            ]
+          },
+          {
+            "beatId": "b04",
+            "contributionCode": "civic_government",
+            "era": "nineteenth_century",
+            "focus": "El Madrid liberal del siglo XIX: el Congreso de los Diputados, el Senado, el Ayuntamiento y la nueva arquitectura neoclásica de las instituciones representativas que sustituyeron al poder absoluto.",
+            "evidenceRefs": [
+              "c05:e05",
+              "c12:e05",
+              "c19:e05",
+              "c25:e05",
+              "c05:e03"
+            ]
+          },
+          {
+            "beatId": "b05",
+            "contributionCode": "infrastructure_engineering",
+            "era": "nineteenth_century",
+            "focus": "La expansión urbana y la infraestructura moderna: el ensanche del siglo XIX, las puertas que pasaron de frontera a centro, la llegada del ferrocarril y la transformación de los accesos a la ciudad.",
+            "evidenceRefs": [
+              "c08:e05",
+              "c08:e04",
+              "c27:e05",
+              "c27:e01",
+              "c09:e01",
+              "c11:e04"
+            ]
+          },
+          {
+            "beatId": "b06",
+            "contributionCode": "public_life_ceremony",
+            "era": "cross_era",
+            "focus": "Las plazas como escenario de la vida pública y ceremonial madrileña: desde el mercado medieval del Arrabal hasta la Puerta del Sol como kilómetro cero, pasando por los espacios de celebración cívica y nacional.",
+            "evidenceRefs": [
+              "c01:e04",
+              "c02:e04",
+              "c04:e04",
+              "c07:e04",
+              "c23:e04",
+              "c18:e05"
+            ]
+          },
+          {
+            "beatId": "b07",
+            "contributionCode": "memory_rights",
+            "era": "twentieth_century",
+            "focus": "La memoria y la identidad en el Madrid contemporáneo: monumentos conmemorativos, la bandera nacional, la memoria de la guerra civil, la comunidad LGBTQ y la resignificación de los espacios públicos.",
+            "evidenceRefs": [
+              "c29:e04",
+              "c21:e05",
+              "c04:e04",
+              "c02:e05",
+              "c30:e05"
+            ]
+          }
+        ],
+        "candidates": {
+          "c01": {
+            "relativePriorityRank": 6,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c01:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c01:e04",
+                  "c01:e05"
+                ]
+              }
+            ]
+          },
+          "c02": {
+            "relativePriorityRank": 3,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 3,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c02:e05"
+                ]
+              }
+            ]
+          },
+          "c03": {
+            "relativePriorityRank": 2,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c03:e05",
+                  "c03:e04"
+                ]
+              }
+            ]
+          },
+          "c04": {
+            "relativePriorityRank": 12,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e04",
+                  "c04:e05"
+                ]
+              }
+            ]
+          },
+          "c05": {
+            "relativePriorityRank": 8,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c05:e05",
+                  "c05:e03"
+                ]
+              }
+            ]
+          },
+          "c06": {
+            "relativePriorityRank": 7,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c06:e04",
+                  "c06:e01"
+                ]
+              }
+            ]
+          },
+          "c07": {
+            "relativePriorityRank": 14,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c07:e04",
+                  "c07:e05"
+                ]
+              }
+            ]
+          },
+          "c08": {
+            "relativePriorityRank": 5,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c08:e05",
+                  "c08:e04"
+                ]
+              },
+              {
+                "beatId": "b01",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c08:e01"
+                ]
+              }
+            ]
+          },
+          "c09": {
+            "relativePriorityRank": 10,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c09:e05",
+                  "c09:e01"
+                ]
+              },
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c09:e04"
+                ]
+              }
+            ]
+          },
+          "c10": {
+            "relativePriorityRank": 20,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c10:e05"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c10:e04"
+                ]
+              }
+            ]
+          },
+          "c11": {
+            "relativePriorityRank": 13,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c11:e01"
+                ]
+              },
+              {
+                "beatId": "b01",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c11:e05"
+                ]
+              },
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c11:e04"
+                ]
+              }
+            ]
+          },
+          "c12": {
+            "relativePriorityRank": 17,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c12:e05",
+                  "c12:e03"
+                ]
+              }
+            ]
+          },
+          "c13": {
+            "relativePriorityRank": 24,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c13:e04",
+                  "c13:e05"
+                ]
+              }
+            ]
+          },
+          "c14": {
+            "relativePriorityRank": 11,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c14:e04",
+                  "c14:e01",
+                  "c14:e05"
+                ]
+              }
+            ]
+          },
+          "c15": {
+            "relativePriorityRank": 18,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c15:e04"
+                ]
+              },
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c15:e04"
+                ]
+              }
+            ]
+          },
+          "c16": {
+            "relativePriorityRank": 25,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c16:e04"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c16:e05"
+                ]
+              }
+            ]
+          },
+          "c17": {
+            "relativePriorityRank": 26,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c17:e04"
+                ]
+              }
+            ]
+          },
+          "c18": {
+            "relativePriorityRank": 19,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c18:e05",
+                  "c18:e04"
+                ]
+              }
+            ]
+          },
+          "c19": {
+            "relativePriorityRank": 15,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c19:e05"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c19:e04"
+                ]
+              }
+            ]
+          },
+          "c20": {
+            "relativePriorityRank": 16,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c20:e04",
+                  "c20:e05"
+                ]
+              }
+            ]
+          },
+          "c21": {
+            "relativePriorityRank": 22,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c21:e05",
+                  "c21:e04"
+                ]
+              }
+            ]
+          },
+          "c22": {
+            "relativePriorityRank": 21,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c22:e05",
+                  "c22:e04"
+                ]
+              }
+            ]
+          },
+          "c23": {
+            "relativePriorityRank": 23,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c23:e04",
+                  "c23:e05"
+                ]
+              }
+            ]
+          },
+          "c24": {
+            "relativePriorityRank": 9,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c24:e05",
+                  "c24:e01",
+                  "c24:e04"
+                ]
+              }
+            ]
+          },
+          "c25": {
+            "relativePriorityRank": 4,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c25:e04",
+                  "c25:e01",
+                  "c25:e05"
+                ]
+              },
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c25:e05"
+                ]
+              }
+            ]
+          },
+          "c26": {
+            "relativePriorityRank": 27,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c26:e05"
+                ]
+              },
+              {
+                "beatId": "b03",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c26:e01"
+                ]
+              }
+            ]
+          },
+          "c27": {
+            "relativePriorityRank": 28,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c27:e05",
+                  "c27:e01"
+                ]
+              }
+            ]
+          },
+          "c28": {
+            "relativePriorityRank": 29,
+            "salienceLevel": 1,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c28:e04",
+                  "c28:e05"
+                ]
+              }
+            ]
+          },
+          "c29": {
+            "relativePriorityRank": 30,
+            "salienceLevel": 1,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c29:e04",
+                  "c29:e01"
+                ]
+              }
+            ]
+          },
+          "c30": {
+            "relativePriorityRank": 1,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c30:e05",
+                  "c30:e04"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c30:e01"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "assessments": [
+        {
+          "slot": "c01",
+          "canonicalId": "Q1123493",
+          "name": "Plaza Mayor de Madrid",
+          "assessment": {
+            "relativePriorityRank": 6,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c01:e04"
+                ]
+              },
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c01:e04",
+                  "c01:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c02",
+          "canonicalId": "Q427163",
+          "name": "Puerta del Sol",
+          "assessment": {
+            "relativePriorityRank": 3,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 3,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c02:e04"
+                ]
+              },
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c02:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c03",
+          "canonicalId": "Q171517",
+          "name": "Palacio Real de Madrid",
+          "assessment": {
+            "relativePriorityRank": 2,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c03:e05",
+                  "c03:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c04",
+          "canonicalId": "Q970525",
+          "name": "plaza de Colón",
+          "assessment": {
+            "relativePriorityRank": 12,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c04:e04",
+                  "c04:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c05",
+          "canonicalId": "Q539149",
+          "name": "Congreso de los Diputados",
+          "assessment": {
+            "relativePriorityRank": 8,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c05:e05",
+                  "c05:e03"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c06",
+          "canonicalId": "Q1537446",
+          "name": "plaza de Cibeles",
+          "assessment": {
+            "relativePriorityRank": 7,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c06:e04",
+                  "c06:e01"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c07",
+          "canonicalId": "Q2193218",
+          "name": "plaza de Oriente",
+          "assessment": {
+            "relativePriorityRank": 14,
+            "salienceLevel": 3,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b06",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c07:e04",
+                  "c07:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c08",
+          "canonicalId": "Q1140634",
+          "name": "Puerta de Alcalá",
+          "assessment": {
+            "relativePriorityRank": 5,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 2,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b05",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c08:e05",
+                  "c08:e04"
+                ]
+              },
+              {
+                "beatId": "b01",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c08:e01"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c09",
+          "canonicalId": "Q2657591",
+          "name": "Puerta de Toledo",
+          "assessment": {
+            "relativePriorityRank": 10,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c09:e05",
+                  "c09:e01"
+                ]
+              },
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c09:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c11",
+          "canonicalId": "Q2838423",
+          "name": "Puente de Segovia",
+          "assessment": {
+            "relativePriorityRank": 13,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern",
+              "twentieth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c11:e01"
+                ]
+              },
+              {
+                "beatId": "b01",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c11:e05"
+                ]
+              },
+              {
+                "beatId": "b05",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c11:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c12",
+          "canonicalId": "Q9054619",
+          "name": "Palacio de las Cortes",
+          "assessment": {
+            "relativePriorityRank": 17,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c12:e05",
+                  "c12:e03"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c14",
+          "canonicalId": "Q1472798",
+          "name": "Neptuno",
+          "assessment": {
+            "relativePriorityRank": 11,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 1,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c14:e04",
+                  "c14:e01",
+                  "c14:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c15",
+          "canonicalId": "Q2982559",
+          "name": "Palacio de Santa Cruz",
+          "assessment": {
+            "relativePriorityRank": 18,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c15:e04"
+                ]
+              },
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c15:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c19",
+          "canonicalId": "Q10343739",
+          "name": "Palacio del Senado",
+          "assessment": {
+            "relativePriorityRank": 15,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern",
+              "nineteenth_century"
+            ],
+            "contributions": [
+              {
+                "beatId": "b04",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c19:e05"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c19:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c20",
+          "canonicalId": "Q2268271",
+          "name": "Monasterio de las Descalzas Reales",
+          "assessment": {
+            "relativePriorityRank": 16,
+            "salienceLevel": 2,
+            "observableStrength": 2,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b02",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c20:e04",
+                  "c20:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c24",
+          "canonicalId": "Q1647048",
+          "name": "Fuente de Apolo",
+          "assessment": {
+            "relativePriorityRank": 9,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 0,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b03",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c24:e05",
+                  "c24:e01",
+                  "c24:e04"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c25",
+          "canonicalId": "Q2711992",
+          "name": "plaza de la Villa",
+          "assessment": {
+            "relativePriorityRank": 4,
+            "salienceLevel": 3,
+            "observableStrength": 3,
+            "openingFit": 2,
+            "resolutionFit": 0,
+            "eraBuckets": [
+              "medieval",
+              "early_modern"
+            ],
+            "contributions": [
+              {
+                "beatId": "b01",
+                "strength": 3,
+                "evidenceRefs": [
+                  "c25:e04",
+                  "c25:e01",
+                  "c25:e05"
+                ]
+              },
+              {
+                "beatId": "b04",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c25:e05"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "slot": "c30",
+          "canonicalId": "Q849711",
+          "name": "catedral de la Almudena",
+          "assessment": {
+            "relativePriorityRank": 1,
+            "salienceLevel": 4,
+            "observableStrength": 3,
+            "openingFit": 1,
+            "resolutionFit": 3,
+            "eraBuckets": [
+              "nineteenth_century",
+              "twentieth_century",
+              "contemporary"
+            ],
+            "contributions": [
+              {
+                "beatId": "b07",
+                "strength": 2,
+                "evidenceRefs": [
+                  "c30:e05",
+                  "c30:e04"
+                ]
+              },
+              {
+                "beatId": "b02",
+                "strength": 1,
+                "evidenceRefs": [
+                  "c30:e01"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "portfolio": {
+        "status": "selected",
+        "searchedDuration": 120,
+        "exploredStateCount": 445049,
+        "finalists": [
+          {
+            "slot": "r01",
+            "stops": [
+              "Palacio Real de Madrid",
+              "catedral de la Almudena",
+              "plaza de la Villa",
+              "Plaza Mayor de Madrid",
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "plaza de Cibeles",
+              "Puerta de Alcalá"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c25",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c05",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c30",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c03": [
+                "carries:b02",
+                "salience:4"
+              ],
+              "c30": [
+                "carries:b07",
+                "salience:4"
+              ],
+              "c25": [
+                "carries:b01",
+                "salience:3"
+              ],
+              "c01": [
+                "deepens:b01",
+                "deepens:b06",
+                "salience:4"
+              ],
+              "c02": [
+                "carries:b06",
+                "deepens:b07",
+                "salience:4"
+              ],
+              "c05": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c06": [
+                "carries:b03",
+                "salience:3"
+              ],
+              "c08": [
+                "carries:b05",
+                "salience:4",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 3297.7,
+              "walkingMinutes": 44.43,
+              "dwellMinutes": 64,
+              "estimatedTourMinutes": 108.43,
+              "maxSegmentMeters": 664.6,
+              "maxSegmentMinutes": 8.99
+            },
+            "scores": {
+              "beatCoverage": 7,
+              "beatStrength": 20,
+              "priorityCoverage": 116,
+              "salienceTotal": 29,
+              "observableFloor": 3,
+              "observableAverage": 3,
+              "eraCount": 5,
+              "boundaryFit": 3
+            },
+            "critic": {
+              "coherence": "strong",
+              "avoidableRedundancy": false,
+              "omissionRisk": "moderate",
+              "reasonCodes": [
+                "strong_opening",
+                "clear_progression",
+                "strong_resolution",
+                "better_observability"
+              ],
+              "evidenceRefs": [
+                "c03:e05",
+                "c03:e04",
+                "c25:e04",
+                "c25:e01",
+                "c25:e05",
+                "c01:e04",
+                "c01:e05",
+                "c02:e04",
+                "c02:e05",
+                "c05:e05",
+                "c05:e03",
+                "c06:e04",
+                "c06:e01",
+                "c08:e05",
+                "c08:e04"
+              ]
+            }
+          },
+          {
+            "slot": "r02",
+            "stops": [
+              "Palacio Real de Madrid",
+              "catedral de la Almudena",
+              "plaza de la Villa",
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "plaza de Cibeles",
+              "Puerta de Alcalá",
+              "plaza de Colón"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c25",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b03",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c05",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c04",
+                "strength": 3
+              }
+            ],
+            "marginalContributions": {
+              "c03": [
+                "carries:b02",
+                "salience:4"
+              ],
+              "c30": [
+                "deepens:b07",
+                "salience:4"
+              ],
+              "c25": [
+                "carries:b01",
+                "adds-era:medieval",
+                "salience:3"
+              ],
+              "c02": [
+                "carries:b06",
+                "deepens:b07",
+                "salience:4"
+              ],
+              "c05": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c06": [
+                "carries:b03",
+                "salience:3"
+              ],
+              "c08": [
+                "carries:b05",
+                "salience:4"
+              ],
+              "c04": [
+                "carries:b07",
+                "salience:3",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 3894.3,
+              "walkingMinutes": 52.43,
+              "dwellMinutes": 63,
+              "estimatedTourMinutes": 115.43,
+              "maxSegmentMeters": 771.6,
+              "maxSegmentMinutes": 10.32
+            },
+            "scores": {
+              "beatCoverage": 7,
+              "beatStrength": 21,
+              "priorityCoverage": 110,
+              "salienceTotal": 28,
+              "observableFloor": 3,
+              "observableAverage": 3,
+              "eraCount": 5,
+              "boundaryFit": 4
+            },
+            "critic": {
+              "coherence": "adequate",
+              "avoidableRedundancy": false,
+              "omissionRisk": "moderate",
+              "reasonCodes": [
+                "clear_progression",
+                "strong_resolution",
+                "weak_transition"
+              ],
+              "evidenceRefs": [
+                "c03:e05",
+                "c03:e04",
+                "c25:e04",
+                "c25:e01",
+                "c25:e05",
+                "c02:e04",
+                "c02:e05",
+                "c05:e05",
+                "c05:e03",
+                "c06:e04",
+                "c06:e01",
+                "c08:e05",
+                "c08:e04",
+                "c04:e04",
+                "c04:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r03",
+            "stops": [
+              "plaza de la Villa",
+              "catedral de la Almudena",
+              "Palacio Real de Madrid",
+              "plaza de Oriente"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c25",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c07",
+                "strength": 2
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c30",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c25": [
+                "carries:b01",
+                "adds-era:medieval",
+                "salience:3",
+                "opening"
+              ],
+              "c30": [
+                "carries:b07",
+                "adds-era:twentieth_century",
+                "salience:4"
+              ],
+              "c03": [
+                "carries:b02",
+                "salience:4"
+              ],
+              "c07": [
+                "carries:b06",
+                "salience:3"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 879,
+              "walkingMinutes": 11.78,
+              "dwellMinutes": 33,
+              "estimatedTourMinutes": 44.78,
+              "maxSegmentMeters": 407.2,
+              "maxSegmentMinutes": 5.5
+            },
+            "scores": {
+              "beatCoverage": 4,
+              "beatStrength": 10,
+              "priorityCoverage": 55,
+              "salienceTotal": 14,
+              "observableFloor": 2,
+              "observableAverage": 2.75,
+              "eraCount": 5,
+              "boundaryFit": 3
+            },
+            "critic": {
+              "coherence": "weak",
+              "avoidableRedundancy": false,
+              "omissionRisk": "high",
+              "reasonCodes": [
+                "misses_high_value",
+                "weak_transition"
+              ],
+              "evidenceRefs": [
+                "c25:e04",
+                "c25:e01",
+                "c25:e05",
+                "c30:e05",
+                "c30:e04",
+                "c03:e05",
+                "c03:e04",
+                "c07:e04",
+                "c07:e05"
+              ]
+            }
+          },
+          {
+            "slot": "r04",
+            "stops": [
+              "Puerta del Sol",
+              "plaza de la Villa",
+              "catedral de la Almudena",
+              "Palacio Real de Madrid"
+            ],
+            "assignments": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c25",
+                "strength": 3
+              },
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c30",
+                "strength": 2
+              }
+            ],
+            "marginalContributions": {
+              "c02": [
+                "carries:b06",
+                "deepens:b07",
+                "salience:4",
+                "opening"
+              ],
+              "c25": [
+                "carries:b01",
+                "adds-era:medieval",
+                "salience:3"
+              ],
+              "c30": [
+                "carries:b07",
+                "adds-era:nineteenth_century",
+                "salience:4"
+              ],
+              "c03": [
+                "carries:b02",
+                "salience:4",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 1431.7,
+              "walkingMinutes": 19.32,
+              "dwellMinutes": 34,
+              "estimatedTourMinutes": 53.33,
+              "maxSegmentMeters": 718.4,
+              "maxSegmentMinutes": 9.75
+            },
+            "scores": {
+              "beatCoverage": 4,
+              "beatStrength": 11,
+              "priorityCoverage": 66,
+              "salienceTotal": 15,
+              "observableFloor": 3,
+              "observableAverage": 3,
+              "eraCount": 5,
+              "boundaryFit": 5
+            },
+            "critic": {
+              "coherence": "weak",
+              "avoidableRedundancy": false,
+              "omissionRisk": "high",
+              "reasonCodes": [
+                "misses_high_value",
+                "weak_transition"
+              ],
+              "evidenceRefs": [
+                "c02:e04",
+                "c02:e05",
+                "c25:e04",
+                "c25:e01",
+                "c25:e05",
+                "c30:e05",
+                "c30:e04",
+                "c03:e05",
+                "c03:e04"
+              ]
+            }
+          },
+          {
+            "slot": "r05",
+            "stops": [
+              "Puerta del Sol",
+              "Congreso de los Diputados",
+              "plaza de Cibeles",
+              "Puerta de Alcalá",
+              "plaza de Colón"
+            ],
+            "assignments": [
+              {
+                "beatId": "b03",
+                "candidateSlot": "c06",
+                "strength": 3
+              },
+              {
+                "beatId": "b04",
+                "candidateSlot": "c05",
+                "strength": 3
+              },
+              {
+                "beatId": "b05",
+                "candidateSlot": "c08",
+                "strength": 3
+              },
+              {
+                "beatId": "b06",
+                "candidateSlot": "c02",
+                "strength": 3
+              },
+              {
+                "beatId": "b07",
+                "candidateSlot": "c04",
+                "strength": 3
+              }
+            ],
+            "marginalContributions": {
+              "c02": [
+                "carries:b06",
+                "deepens:b07",
+                "adds-era:twentieth_century",
+                "salience:4",
+                "opening"
+              ],
+              "c05": [
+                "carries:b04",
+                "salience:3"
+              ],
+              "c06": [
+                "carries:b03",
+                "salience:3"
+              ],
+              "c08": [
+                "carries:b05",
+                "salience:4"
+              ],
+              "c04": [
+                "carries:b07",
+                "salience:3",
+                "resolution"
+              ]
+            },
+            "metrics": {
+              "walkingMeters": 2462.6,
+              "walkingMinutes": 33.1,
+              "dwellMinutes": 40,
+              "estimatedTourMinutes": 73.1,
+              "maxSegmentMeters": 771.6,
+              "maxSegmentMinutes": 10.32
+            },
+            "scores": {
+              "beatCoverage": 5,
+              "beatStrength": 15,
+              "priorityCoverage": 60,
+              "salienceTotal": 17,
+              "observableFloor": 3,
+              "observableAverage": 3,
+              "eraCount": 4,
+              "boundaryFit": 6
+            },
+            "critic": {
+              "coherence": "adequate",
+              "avoidableRedundancy": false,
+              "omissionRisk": "high",
+              "reasonCodes": [
+                "strong_opening",
+                "clear_progression",
+                "strong_resolution",
+                "misses_high_value"
+              ],
+              "evidenceRefs": [
+                "c02:e04",
+                "c02:e05",
+                "c05:e05",
+                "c05:e03",
+                "c06:e04",
+                "c06:e01",
+                "c08:e05",
+                "c08:e04",
+                "c04:e04",
+                "c04:e05"
+              ]
+            }
+          }
+        ]
+      },
+      "selectedRoute": {
+        "slot": "r01",
+        "actualDuration": 108.43,
+        "walkingMeters": 3297.7,
+        "stops": [
+          {
+            "position": 1,
+            "name": "Palacio Real de Madrid",
+            "canonicalId": "Q171517",
+            "assignedBeats": [
+              {
+                "beatId": "b02",
+                "candidateSlot": "c03",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b02",
+              "salience:4"
+            ]
+          },
+          {
+            "position": 2,
+            "name": "catedral de la Almudena",
+            "canonicalId": "Q849711",
+            "assignedBeats": [
+              {
+                "beatId": "b07",
+                "candidateSlot": "c30",
+                "strength": 2
+              }
+            ],
+            "marginalReasons": [
+              "carries:b07",
+              "salience:4"
+            ]
+          },
+          {
+            "position": 3,
+            "name": "plaza de la Villa",
+            "canonicalId": "Q2711992",
+            "assignedBeats": [
+              {
+                "beatId": "b01",
+                "candidateSlot": "c25",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b01",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 4,
+            "name": "Plaza Mayor de Madrid",
+            "canonicalId": "Q1123493",
+            "assignedBeats": [],
+            "marginalReasons": [
+              "deepens:b01",
+              "deepens:b06",
+              "salience:4"
+            ]
+          },
+          {
+            "position": 5,
+            "name": "Puerta del Sol",
+            "canonicalId": "Q427163",
+            "assignedBeats": [
+              {
+                "beatId": "b06",
+                "candidateSlot": "c02",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b06",
+              "deepens:b07",
+              "salience:4"
+            ]
+          },
+          {
+            "position": 6,
+            "name": "Congreso de los Diputados",
+            "canonicalId": "Q539149",
+            "assignedBeats": [
+              {
+                "beatId": "b04",
+                "candidateSlot": "c05",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b04",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 7,
+            "name": "plaza de Cibeles",
+            "canonicalId": "Q1537446",
+            "assignedBeats": [
+              {
+                "beatId": "b03",
+                "candidateSlot": "c06",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b03",
+              "salience:3"
+            ]
+          },
+          {
+            "position": 8,
+            "name": "Puerta de Alcalá",
+            "canonicalId": "Q1140634",
+            "assignedBeats": [
+              {
+                "beatId": "b05",
+                "candidateSlot": "c08",
+                "strength": 3
+              }
+            ],
+            "marginalReasons": [
+              "carries:b05",
+              "salience:4",
+              "resolution"
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "oracle": "7/7",
+        "required": 7,
+        "missingOracle": [],
+        "greedyOracle": "2/7",
+        "storyBeats": "7/7"
+      },
+      "gates": {
+        "allSentEntitiesReady": true,
+        "candidateOracleCoverage": true,
+        "candidateLimit": true,
+        "reducedOracleCoverage": true,
+        "noPhysicallyViableNoRoute": true,
+        "withinRequestedDuration": true,
+        "requiredRouteOracleCoverage": true,
+        "oracleNotBelowGreedy": true,
+        "noDuplicateEntities": true,
+        "noVisitConflicts": true,
+        "noOverlongSegments": true,
+        "narrativeCoreCovered": true,
+        "criticAccepted": true,
+        "noZeroMarginalStops": true,
+        "passed": true
+      }
+    }
+  ]
+}

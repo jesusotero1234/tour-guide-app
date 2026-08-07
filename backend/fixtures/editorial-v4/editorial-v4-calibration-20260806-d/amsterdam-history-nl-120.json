@@ -1,0 +1,5634 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "complete",
+  "createdAt": "2026-08-06T18:15:48.967Z",
+  "caseId": "amsterdam-history-nl-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "6ef0f951d64bd63d730e7d12c3cc9f72c4a6046603f458c42bb1cd7ffdf7c259",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q839050",
+      "siteId": "site:Q839050",
+      "coordinates": {
+        "lat": 52.3731226,
+        "lng": 4.8926093
+      },
+      "evidenceIds": [
+        "Q839050:osm:place",
+        "Q839050:wikidata:inception",
+        "Q839050:wikidata:instanceOf",
+        "Q839050:wikipedia:10",
+        "Q839050:wikipedia:8"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q1056152",
+      "siteId": "site:Q1056152",
+      "coordinates": {
+        "lat": 52.3731449,
+        "lng": 4.891336
+      },
+      "evidenceIds": [
+        "Q1056152:osm:historic",
+        "Q1056152:wikidata:architect",
+        "Q1056152:wikidata:architecturalStyle",
+        "Q1056152:wikipedia:2",
+        "Q1056152:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q1568693",
+      "siteId": "site:Q1568693",
+      "coordinates": {
+        "lat": 52.3725531,
+        "lng": 4.9000895
+      },
+      "evidenceIds": [
+        "Q1568693:osm:place",
+        "Q1568693:wikidata:inception",
+        "Q2466999:wikidata:architecturalStyle",
+        "Q1568693:wikipedia:7",
+        "Q1568693:wikipedia:8"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q1579642",
+      "siteId": "site:Q1579642",
+      "coordinates": {
+        "lat": 52.3660256,
+        "lng": 4.8966284
+      },
+      "evidenceIds": [
+        "Q1579642:osm:place",
+        "Q1579642:wikidata:inception",
+        "Q1579642:wikidata:namedAfter",
+        "Q1579642:wikipedia:11",
+        "Q1579642:wikipedia:7"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q1429748",
+      "siteId": "site:Q1429748",
+      "coordinates": {
+        "lat": 52.3670594,
+        "lng": 4.8932212
+      },
+      "evidenceIds": [
+        "Q1429748:osm:historic",
+        "Q1429748:wikidata:architect",
+        "Q1429748:wikidata:architecturalStyle",
+        "Q1429748:wikipedia:10",
+        "Q1429748:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q165366",
+      "siteId": "site:Q165366",
+      "coordinates": {
+        "lat": 52.3751546,
+        "lng": 4.8840978
+      },
+      "evidenceIds": [
+        "Q165366:osm:historic",
+        "Q165366:wikidata:inception",
+        "Q165366:wikidata:namedAfter",
+        "Q165366:wikipedia:10",
+        "Q165366:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q1344400",
+      "siteId": "site:Q1344400",
+      "coordinates": {
+        "lat": 52.3635809,
+        "lng": 4.9023579
+      },
+      "evidenceIds": [
+        "Q1344400:osm:historic",
+        "Q1344400:wikidata:heritageDesignation",
+        "Q1344400:wikidata:instanceOf",
+        "Q1344400:wikipedia:3",
+        "Q1344400:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q473851",
+      "siteId": "site:Q473851",
+      "coordinates": {
+        "lat": 52.3728196,
+        "lng": 4.8936888
+      },
+      "evidenceIds": [
+        "Q473851:osm:architect",
+        "Q473851:wikidata:architect",
+        "Q473851:wikidata:architecturalStyle",
+        "Q473851:wikipedia:0",
+        "Q473851:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q51411",
+      "siteId": "site:Q51411",
+      "coordinates": {
+        "lat": 52.374444444,
+        "lng": 4.884722222
+      },
+      "evidenceIds": [
+        "Q51411:osm:historic",
+        "Q51411:wikidata:inception",
+        "Q51411:wikidata:instanceOf",
+        "Q51411:wikipedia:1",
+        "Q51411:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q1409805",
+      "siteId": "site:Q1409805",
+      "coordinates": {
+        "lat": 52.3639683,
+        "lng": 4.8823304
+      },
+      "evidenceIds": [
+        "Q1409805:osm:place",
+        "Q1409805:wikidata:inception",
+        "Q1409805:wikidata:namedAfter",
+        "Q1409805:wikipedia:11",
+        "Q1409805:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q228629",
+      "siteId": "site:Q228629",
+      "coordinates": {
+        "lat": 52.3702929,
+        "lng": 4.8997483
+      },
+      "evidenceIds": [
+        "Q18957176:osm:place",
+        "Q228629:wikidata:architect",
+        "Q228629:wikidata:architecturalStyle",
+        "Q228629:wikipedia:10",
+        "Q228629:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q883126",
+      "siteId": "site:Q883126",
+      "coordinates": {
+        "lat": 52.366359,
+        "lng": 4.9008808
+      },
+      "evidenceIds": [
+        "Q883126:osm:heritage",
+        "Q883126:wikidata:heritageDesignation",
+        "Q883126:wikidata:inception",
+        "Q883126:wikipedia:4",
+        "Q883126:wikipedia:6"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q849957",
+      "siteId": "site:Q849957",
+      "coordinates": {
+        "lat": 52.3562088,
+        "lng": 4.8790441
+      },
+      "evidenceIds": [
+        "Q849957:osm:amenity",
+        "Q849957:wikidata:architect",
+        "Q849957:wikidata:architecturalStyle",
+        "Q849957:wikipedia:0",
+        "Q849957:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q281703",
+      "siteId": "site:Q281703",
+      "coordinates": {
+        "lat": 52.3687861,
+        "lng": 4.889851
+      },
+      "evidenceIds": [
+        "Q281703:osm:place",
+        "Q281703:wikidata:inception",
+        "Q281703:wikidata:namedAfter",
+        "Q281703:wikipedia:10",
+        "Q281703:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q1946061",
+      "siteId": "site:Q1946061",
+      "coordinates": {
+        "lat": 52.3720391,
+        "lng": 4.9056582
+      },
+      "evidenceIds": [
+        "Q1946061:osm:building",
+        "Q1946061:wikidata:architect",
+        "Q1946061:wikidata:heritageDesignation",
+        "Q1946061:wikipedia:0",
+        "Q1946061:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q1130722",
+      "siteId": "site:Q1130722",
+      "coordinates": {
+        "lat": 52.3745627,
+        "lng": 4.8839192
+      },
+      "evidenceIds": [
+        "Q1130722:osm:amenity",
+        "Q1130722:wikidata:architect",
+        "Q1130722:wikidata:architecturalStyle",
+        "Q1130722:wikipedia:1",
+        "Q1130722:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q643079",
+      "siteId": "site:Q643079",
+      "coordinates": {
+        "lat": 52.3669538,
+        "lng": 4.8914048
+      },
+      "evidenceIds": [
+        "Q643079:osm:amenity",
+        "Q643079:wikidata:instanceOf",
+        "Q643079:wikidata:locatedIn",
+        "Q643079:wikipedia:1",
+        "Q643079:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q1993531",
+      "siteId": "site:Q1993531",
+      "coordinates": {
+        "lat": 52.3691751,
+        "lng": 4.8923071
+      },
+      "evidenceIds": [
+        "Q1993531:osm:historic",
+        "Q1993531:wikidata:instanceOf",
+        "Q1993531:wikidata:locatedIn",
+        "Q1993531:wikipedia:11",
+        "Q1993531:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q478707",
+      "siteId": "site:Q478707",
+      "coordinates": {
+        "lat": 52.371891,
+        "lng": 4.8953936
+      },
+      "evidenceIds": [
+        "Q478707:osm:heritage",
+        "Q478707:wikidata:heritageDesignation",
+        "Q478707:wikidata:instanceOf",
+        "Q478707:wikipedia:10",
+        "Q478707:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q3408888",
+      "siteId": "site:Q3408888",
+      "coordinates": {
+        "lat": 52.3699881,
+        "lng": 4.9193058
+      },
+      "evidenceIds": [
+        "Q3408888:osm:building",
+        "Q3408888:wikidata:architect",
+        "Q3408888:wikidata:architecturalStyle",
+        "Q3408888:wikipedia:10",
+        "Q3408888:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q613854",
+      "siteId": "site:Q613854",
+      "coordinates": {
+        "lat": 52.3796377,
+        "lng": 4.8864279
+      },
+      "evidenceIds": [
+        "Q613854:osm:amenity",
+        "Q613854:wikidata:architect",
+        "Q613854:wikidata:architecturalStyle",
+        "Q613854:wikipedia:0",
+        "Q613854:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q1180056",
+      "siteId": "site:Q1180056",
+      "coordinates": {
+        "lat": 52.3677817,
+        "lng": 4.8880739
+      },
+      "evidenceIds": [
+        "Q1180056:osm:amenity",
+        "Q1180056:wikidata:architect",
+        "Q1180056:wikidata:architecturalStyle",
+        "Q1180056:wikipedia:4",
+        "Q1180056:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q190804",
+      "siteId": "site:Q190804",
+      "coordinates": {
+        "lat": 52.3598609,
+        "lng": 4.8849957
+      },
+      "evidenceIds": [
+        "Q17307050:osm:architect",
+        "Q190804:wikidata:architect",
+        "Q190804:wikidata:inception",
+        "Q190804:wikipedia:10",
+        "Q190804:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q2343931",
+      "siteId": "site:Q2343931",
+      "coordinates": {
+        "lat": 52.384967,
+        "lng": 4.8830798
+      },
+      "evidenceIds": [
+        "Q2343931:osm:building",
+        "Q2343931:wikidata:architect",
+        "Q2343931:wikidata:heritageDesignation",
+        "Q2343931:wikipedia:10",
+        "Q2343931:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q851200",
+      "siteId": "site:Q851200",
+      "coordinates": {
+        "lat": 52.375045,
+        "lng": 4.8962774
+      },
+      "evidenceIds": [
+        "Q851200:osm:building",
+        "Q851200:wikidata:architect",
+        "Q851200:wikidata:architecturalStyle",
+        "Q851200:wikipedia:10",
+        "Q851200:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q3128167",
+      "siteId": "site:Q3128167",
+      "coordinates": {
+        "lat": 52.3761472,
+        "lng": 4.8999848
+      },
+      "evidenceIds": [
+        "Q19516255:osm:surface",
+        "Q3128167:wikidata:heritageDesignation",
+        "Q3128167:wikidata:instanceOf",
+        "Q3128167:wikipedia:10",
+        "Q3128167:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q389909",
+      "siteId": "site:Q389909",
+      "coordinates": {
+        "lat": 52.3740716,
+        "lng": 4.8963005
+      },
+      "evidenceIds": [
+        "Q389909:osm:surface",
+        "Q389909:wikidata:inception",
+        "Q389909:wikidata:instanceOf",
+        "Q389909:wikipedia:10",
+        "Q389909:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q2342892",
+      "siteId": "site:Q2342892",
+      "coordinates": {
+        "lat": 52.356054,
+        "lng": 4.8949678
+      },
+      "evidenceIds": [
+        "Q2342892:osm:amenity",
+        "Q2342892:wikidata:inception",
+        "Q2342892:wikidata:namedAfter",
+        "Q2342892:wikipedia:11",
+        "Q2342892:wikipedia:8"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q1853707",
+      "siteId": "site:Q1853707",
+      "coordinates": {
+        "lat": 52.3675391,
+        "lng": 4.9053431
+      },
+      "evidenceIds": [
+        "Q1853707:osm:amenity",
+        "Q1853707:wikidata:architect",
+        "Q1853707:wikidata:architecturalStyle",
+        "Q1853707:wikipedia:10",
+        "Q1853707:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q610402",
+      "siteId": "site:Q610402",
+      "coordinates": {
+        "lat": 52.3763582,
+        "lng": 4.9022377
+      },
+      "evidenceIds": [
+        "Q610402:osm:building",
+        "Q610402:wikidata:heritageDesignation",
+        "Q610402:wikidata:instanceOf",
+        "Q610402:wikipedia:10",
+        "Q610402:wikipedia:11"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "editorial-story-map-v4",
+      "centralQuestion": "Hoe groeide Amsterdam van een middeleeuwse handelsnederzetting aan de Dam uit tot een wereldstad die haar identiteit vormde door handel, religieuze tolerantie, stedelijke macht en de herinnering aan oorlog en verzet?",
+      "beats": [
+        {
+          "beatId": "b01",
+          "contributionCode": "origins_urban_form",
+          "era": "medieval",
+          "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+          "evidenceRefs": [
+            "c27:e02",
+            "c27:e05",
+            "c30:e02",
+            "c30:e05",
+            "c24:e05",
+            "c26:e04"
+          ]
+        },
+        {
+          "beatId": "b02",
+          "contributionCode": "trade_economic_life",
+          "era": "early_modern",
+          "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+          "evidenceRefs": [
+            "c19:e04",
+            "c19:e05",
+            "c26:e05",
+            "c25:e04",
+            "c17:e04"
+          ]
+        },
+        {
+          "beatId": "b03",
+          "contributionCode": "civic_government",
+          "era": "early_modern",
+          "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.",
+          "evidenceRefs": [
+            "c01:e05",
+            "c02:e04",
+            "c02:e05"
+          ]
+        },
+        {
+          "beatId": "b04",
+          "contributionCode": "religious_identity",
+          "era": "early_modern",
+          "focus": "Religieuze verscheidenheid en tolerantie: van de Alteratie en schuilkerken tot de protestantse kerken en de Portugese synagoge die de religieuze identiteit van de stad vormden.",
+          "evidenceRefs": [
+            "c26:e04",
+            "c22:e04",
+            "c29:e04",
+            "c29:e05",
+            "c16:e04"
+          ]
+        },
+        {
+          "beatId": "b05",
+          "contributionCode": "art_intellectual_life",
+          "era": "nineteenth_century",
+          "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.",
+          "evidenceRefs": [
+            "c23:e04",
+            "c23:e05",
+            "c13:e04",
+            "c04:e03"
+          ]
+        },
+        {
+          "beatId": "b06",
+          "contributionCode": "memory_rights",
+          "era": "twentieth_century",
+          "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+          "evidenceRefs": [
+            "c08:e04",
+            "c08:e05",
+            "c06:e04",
+            "c06:e05",
+            "c09:e04",
+            "c09:e05"
+          ]
+        },
+        {
+          "beatId": "b07",
+          "contributionCode": "urban_expansion_reform",
+          "era": "cross_era",
+          "focus": "Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad.",
+          "evidenceRefs": [
+            "c14:e04",
+            "c12:e04",
+            "c17:e05",
+            "c28:e04",
+            "c25:e05"
+          ]
+        }
+      ],
+      "candidates": {
+        "c01": {
+          "relativePriorityRank": 3,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 3,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "medieval",
+            "early_modern",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c01:e05"
+              ]
+            },
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c01:e04"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c01:e02"
+              ]
+            }
+          ]
+        },
+        "c02": {
+          "relativePriorityRank": 4,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c02:e04",
+                "c02:e05"
+              ]
+            },
+            {
+              "beatId": "b05",
+              "strength": 1,
+              "evidenceRefs": [
+                "c02:e04"
+              ]
+            }
+          ]
+        },
+        "c03": {
+          "relativePriorityRank": 22,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c03:e04",
+                "c03:e05"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 1,
+              "evidenceRefs": [
+                "c03:e02"
+              ]
+            }
+          ]
+        },
+        "c04": {
+          "relativePriorityRank": 20,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "nineteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 2,
+              "evidenceRefs": [
+                "c04:e03"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c04:e05"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 1,
+              "evidenceRefs": [
+                "c04:e04"
+              ]
+            }
+          ]
+        },
+        "c05": {
+          "relativePriorityRank": 15,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c05:e01",
+                "c05:e04"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 1,
+              "evidenceRefs": [
+                "c05:e05"
+              ]
+            }
+          ]
+        },
+        "c06": {
+          "relativePriorityRank": 5,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c06:e04",
+                "c06:e05"
+              ]
+            }
+          ]
+        },
+        "c07": {
+          "relativePriorityRank": 24,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c07:e04",
+                "c07:e05"
+              ]
+            }
+          ]
+        },
+        "c08": {
+          "relativePriorityRank": 6,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c08:e04",
+                "c08:e05"
+              ]
+            }
+          ]
+        },
+        "c09": {
+          "relativePriorityRank": 10,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c09:e04",
+                "c09:e05"
+              ]
+            }
+          ]
+        },
+        "c10": {
+          "relativePriorityRank": 25,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c10:e04"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 1,
+              "evidenceRefs": [
+                "c10:e03"
+              ]
+            }
+          ]
+        },
+        "c11": {
+          "relativePriorityRank": 18,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c11:e04",
+                "c11:e05"
+              ]
+            }
+          ]
+        },
+        "c12": {
+          "relativePriorityRank": 23,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c12:e04",
+                "c12:e05"
+              ]
+            }
+          ]
+        },
+        "c13": {
+          "relativePriorityRank": 12,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c13:e04",
+                "c13:e05"
+              ]
+            }
+          ]
+        },
+        "c14": {
+          "relativePriorityRank": 21,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c14:e04",
+                "c14:e05"
+              ]
+            }
+          ]
+        },
+        "c15": {
+          "relativePriorityRank": 26,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c15:e04",
+                "c15:e05"
+              ]
+            }
+          ]
+        },
+        "c16": {
+          "relativePriorityRank": 13,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 3,
+              "evidenceRefs": [
+                "c16:e04",
+                "c16:e05"
+              ]
+            }
+          ]
+        },
+        "c17": {
+          "relativePriorityRank": 16,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "early_modern",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e05"
+              ]
+            }
+          ]
+        },
+        "c18": {
+          "relativePriorityRank": 29,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 1,
+              "evidenceRefs": [
+                "c18:e05"
+              ]
+            }
+          ]
+        },
+        "c19": {
+          "relativePriorityRank": 2,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 3,
+              "evidenceRefs": [
+                "c19:e04",
+                "c19:e05"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 1,
+              "evidenceRefs": [
+                "c19:e04"
+              ]
+            }
+          ]
+        },
+        "c20": {
+          "relativePriorityRank": 27,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c20:e04",
+                "c20:e05"
+              ]
+            }
+          ]
+        },
+        "c21": {
+          "relativePriorityRank": 19,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c21:e04",
+                "c21:e05"
+              ]
+            }
+          ]
+        },
+        "c22": {
+          "relativePriorityRank": 17,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c22:e04",
+                "c22:e05"
+              ]
+            }
+          ]
+        },
+        "c23": {
+          "relativePriorityRank": 1,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c23:e04",
+                "c23:e05"
+              ]
+            },
+            {
+              "beatId": "b03",
+              "strength": 1,
+              "evidenceRefs": [
+                "c23:e04"
+              ]
+            }
+          ]
+        },
+        "c24": {
+          "relativePriorityRank": 28,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "medieval",
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c24:e05",
+                "c24:e04"
+              ]
+            }
+          ]
+        },
+        "c25": {
+          "relativePriorityRank": 14,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c25:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c25:e05"
+              ]
+            }
+          ]
+        },
+        "c26": {
+          "relativePriorityRank": 11,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c26:e04"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c26:e05"
+              ]
+            }
+          ]
+        },
+        "c27": {
+          "relativePriorityRank": 8,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 3,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "medieval",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c27:e02",
+                "c27:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c27:e04"
+              ]
+            }
+          ]
+        },
+        "c28": {
+          "relativePriorityRank": 30,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c28:e04",
+                "c28:e05"
+              ]
+            }
+          ]
+        },
+        "c29": {
+          "relativePriorityRank": 7,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 3,
+              "evidenceRefs": [
+                "c29:e04",
+                "c29:e05"
+              ]
+            }
+          ]
+        },
+        "c30": {
+          "relativePriorityRank": 9,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 2,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "medieval",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c30:e02",
+                "c30:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c30:e04"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 22373,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"Hoe groeide Amsterdam van een middeleeuwse handelsnederzetting aan de Dam uit tot een wereldstad die haar identiteit vormde door handel, religieuze tolerantie, stedelijke macht en de herinnering aan oorlog en verzet?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"medieval\",\"focus\":\"De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.\",\"evidenceRefs\":[\"c27:e02\",\"c27:e05\",\"c30:e02\",\"c30:e05\",\"c24:e05\",\"c26:e04\"]},{\"beatId\":\"b02\",\"contributionCode\":\"trade_economic_life\",\"era\":\"early_modern\",\"focus\":\"De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.\",\"evidenceRefs\":[\"c19:e04\",\"c19:e05\",\"c26:e05\",\"c25:e04\",\"c17:e04\"]},{\"beatId\":\"b03\",\"contributionCode\":\"civic_government\",\"era\":\"early_modern\",\"focus\":\"De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.\",\"evidenceRefs\":[\"c01:e05\",\"c02:e04\",\"c02:e05\"]},{\"beatId\":\"b04\",\"contributionCode\":\"religious_identity\",\"era\":\"early_modern\",\"focus\":\"Religieuze verscheidenheid en tolerantie: van de Alteratie en schuilkerken tot de protestantse kerken en de Portugese synagoge die de religieuze identiteit van de stad vormden.\",\"evidenceRefs\":[\"c26:e04\",\"c22:e04\",\"c29:e04\",\"c29:e05\",\"c16:e04\"]},{\"beatId\":\"b05\",\"contributionCode\":\"art_intellectual_life\",\"era\":\"nineteenth_century\",\"focus\":\"De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.\",\"evidenceRefs\":[\"c23:e04\",\"c23:e05\",\"c13:e04\",\"c04:e03\"]},{\"beatId\":\"b06\",\"contributionCode\":\"memory_rights\",\"era\":\"twentieth_century\",\"focus\":\"Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.\",\"evidenceRefs\":[\"c08:e04\",\"c08:e05\",\"c06:e04\",\"c06:e05\",\"c09:e04\",\"c09:e05\"]},{\"beatId\":\"b07\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"cross_era\",\"focus\":\"Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad.\",\"evidenceRefs\":[\"c14:e04\",\"c12:e04\",\"c17:e05\",\"c28:e04\",\"c25:e05\"]}], \"candidates\": {\"c01\":{\"relativePriorityRank\":3,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":2,\"eraBuckets\":[\"medieval\",\"early_modern\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e02\"]}]},\"c02\":{\"relativePriorityRank\":4,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c03\":{\"relativePriorityRank\":22,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"e02\"]}]},\"c04\":{\"relativePriorityRank\":20,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"e03\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b01\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c05\":{\"relativePriorityRank\":15,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e01\",\"e04\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c06\":{\"relativePriorityRank\":5,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c07\":{\"relativePriorityRank\":24,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c08\":{\"relativePriorityRank\":6,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c09\":{\"relativePriorityRank\":10,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c10\":{\"relativePriorityRank\":25,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b01\",\"strength\":1,\"evidenceRefs\":[\"e03\"]}]},\"c11\":{\"relativePriorityRank\":18,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c12\":{\"relativePriorityRank\":23,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c13\":{\"relativePriorityRank\":12,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c14\":{\"relativePriorityRank\":21,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c15\":{\"relativePriorityRank\":26,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c16\":{\"relativePriorityRank\":13,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c17\":{\"relativePriorityRank\":16,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c18\":{\"relativePriorityRank\":29,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c19\":{\"relativePriorityRank\":2,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b01\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c20\":{\"relativePriorityRank\":27,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c21\":{\"relativePriorityRank\":19,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c22\":{\"relativePriorityRank\":17,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c23\":{\"relativePriorityRank\":1,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c24\":{\"relativePriorityRank\":28,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e05\",\"e04\"]}]},\"c25\":{\"relativePriorityRank\":14,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c26\":{\"relativePriorityRank\":11,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c27\":{\"relativePriorityRank\":8,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":3,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e05\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c28\":{\"relativePriorityRank\":30,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c29\":{\"relativePriorityRank\":7,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c30\":{\"relativePriorityRank\":9,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":2,\"resolutionFit\":0,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e05\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "167988c7bfd6472f1a77ef258246560d92be0b3ffd432d6824eabc5556ba778a",
+    "input": {
+      "city": "Amsterdam",
+      "theme": "history",
+      "language": "nl",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "Dam",
+          "category": "square_civic",
+          "fameScore": 61.02,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1270-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: plein"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "Paleis op de Dam",
+          "category": "palace_castle",
+          "fameScore": 58.76,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Jacob van Campen"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Hollands classicisme"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "Nieuwmarkt",
+          "category": "square_civic",
+          "fameScore": 55.5,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1585-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: gotische architectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Een bekende horecazaak aan de Nieuwmarkt is jazzcafé Cotton Club, dat in 1940 geopend werd."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In augustus 2020 moest de zaak door een huurverhoging en de gevolgen van de coronacrisis verkocht worden, al is daarbij bedongen dat de naam behouden blijft."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "Rembrandtplein",
+          "category": "square_civic",
+          "fameScore": 55.02,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1876-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Rembrandt van Rijn"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Geschiedenis In 1655 werd bij de Reguliersbreestraat de Derde Regulierspoort gebouwd."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In 2009 werd een rotsfontein op het plein geïnstalleerd, waarbij water over een rotsblok stroomt."
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "Munttoren",
+          "category": "other",
+          "fameScore": 54.43,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: city_gate"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrick de Keyser"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: renaissance"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Nadat de poort in 1618 in vlammen opging, besloot men alleen de westelijke toren te herbouwen."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De stompe toren kreeg daarna in 1619-1620 een achtkantige bovenbouw en een sierlijke open lantaarn naar een ontwerp van Hendrick de Keyser, met daarin een uurwerk met vier wijzerplaten, en in 1668 een beiaard van de Gebroeders Hemony."
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "Anne Frank Huis",
+          "category": "memorial",
+          "fameScore": 52.85,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1960-05-03"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Anne Frank"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "Magere Brug",
+          "category": "other",
+          "fameScore": 52.64,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: bridge"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: basculebrug"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "De brug is sinds 2002 een rijksmonument."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In 2015 kreeg ze een Water & Heritage Awareness-schild van ICOMOS."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "Nationaal Monument op de Dam",
+          "category": "other",
+          "fameScore": 47.94,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Jacobus Johannes Pieter Oud"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Jacobus Johannes Pieter Oud"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: wederopbouwarchitectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "Homomonument",
+          "category": "memorial",
+          "fameScore": 46.51,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1987-09-05"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: LGBT monument or memorial"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Het monument, ontworpen door Karin Daan, werd onthuld op 5 september 1987 en bestaat uit drie roze, granieten driehoeken, die zodanig zijn neergelegd dat ze samen een grote driehoek vormen."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Geschiedenis Voor het eerst werd in 1961 binnen de COC gesproken over de mogelijkheid van het oprichten van een homomonument, maar van concrete stappen kwam het destijds nog niet."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "Leidseplein",
+          "category": "square_civic",
+          "fameScore": 45.54,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1750-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Leidsepoort"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Op een van de takken is in 1989 het beeldje het Boomzagertje geplaatst door De Onbekende Beeldhouwer."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Het Leidseplein is een plein in het centrum van Amsterdam."
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "Zuiderkerk",
+          "category": "religious",
+          "fameScore": 43.44,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrick de Keyser"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: barokarchitectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Toen Hendrick de Keyser in 1621 overleed, werd hij in de Zuiderkerk begraven."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Bouw De heiwerkzaamheden voor de Zuiderkerk (of Janskerk) begonnen in 1603, en op 22 augustus datzelfde jaar werd de eerste steen gelegd door Johan Bicker, zoon van burgemeester Gerrit Bicker."
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "Blauwbrug",
+          "category": "other",
+          "fameScore": 42.9,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 2"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1883-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Naam De naam Blauwbrug is afkomstig van de bijnaam van de oude bruggen die hier voor 1883 lagen; zij hadden blauwe leuningen."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Koning Willem III der Nederlanden wilde de brug in 1839 Sophiabrug noemen naar zijn vrouw Sophie van Württemberg."
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Concertgebouw",
+          "category": "other",
+          "fameScore": 52.85,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Dolf van Gendt"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: neoclassicistische architectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Het Koninklijk Concertgebouw, geopend op 11 april 1888, is een gebouw met diverse concertzalen, gelegen aan de Van Baerlestraat tegenover het Museumplein in Amsterdam."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Er tegenover lag het latere IJsclubterrein, sinds 1903 het Museumplein."
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "Spui",
+          "category": "square_civic",
+          "fameScore": 42.03,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1882-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: spuien"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Ook de Nieuwezijds Voorburgwal werd vervolgens in 1884 gedempt."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De eerste paardentramlijn over het Spui reed in 1877 van de Dam via de Spuistraat naar het Leidseplein."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "Montelbaanstoren",
+          "category": "other",
+          "fameScore": 40.7,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: commercial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrick de Keyser"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "De Montelbaanstoren is een toren uit 1516 aan de Oudeschans in Amsterdam."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De toren werd in 1970 aangewezen als rijksmonument."
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "Westerkerk",
+          "category": "religious",
+          "fameScore": 48.58,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrick de Keyser"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: barokarchitectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "De oorspronkelijk Nederduits Gereformeerde en sinds 1816 Nederlands Hervormde Westerkerkgemeente maakt sinds 2004 deel uit van de Protestantse Kerk in Nederland."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De bovenbouw met de keizerskroon is van 1637 en bevat naast uurslagklokken van Ahasverus Koster een carillon van Hemony."
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "Bloemenmarkt",
+          "category": "market",
+          "fameScore": 41.7,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: marketplace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: markt"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Amsterdam"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "De markt was van 1620 (oudste vermelding) tot 1862 gevestigd aan de Sint-Luciënwal, langs de Nieuwezijds Voorburgwal."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Omdat de bloemenmarkt geen rol meer speelt in de verkoop van bloemen en planten aan Amsterdammers en een 'toeristenfuik' is geworden, werd in 2022 geadviseerd de markt van karakter te veranderen of op te heffen."
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "Ruiterstandbeeld koningin Wilhelmina",
+          "category": "memorial",
+          "fameScore": 39,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: standbeeld"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Amsterdam"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Het beeld werd in 2025 besproken in de rubriek Blikvangers van Het Parool."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Op de eveneens bronzen sokkel - naar een ontwerp van architect Karel Sijmons - staat geschreven: Wilhelmina 1880 - 1962."
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "grachtengordel van Amsterdam",
+          "category": "other",
+          "fameScore": 41.7,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 1"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: werelderfgoed"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: buurt of wijk"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "Oosterkerk",
+          "category": "religious",
+          "fameScore": 38.16,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: church"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Adriaan Dortsman"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: renaissance"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Bouw De Oosterkerk werd gebouwd als Nederlands-hervormde kerk in de periode 1669-1671 naar een ontwerp van architect Adriaan Dortsman met medewerking van Daniël Stalpaert."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In de kerk bevindt zich een Van Oeckelen-orgel uit 1871."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "Noorderkerk",
+          "category": "religious",
+          "fameScore": 39.07,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrick de Keyser"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: barokarchitectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "De Noorderkerk aan de Noordermarkt in Amsterdam is gebouwd naar een ontwerp van Hendrick de Keyser (1565-1621)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Sinds 1999 vinden er elke zaterdagmiddag de Noorderkerkconcerten plaats."
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "De Krijtberg",
+          "category": "religious",
+          "fameScore": 38.07,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Alfred Tepe"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: neogotiek"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Geschiedenis De Krijtberg is de opvolger van een schuilkerk die sinds 1654 was gevestigd in een huis met de naam Crijtberg en werd bediend door jezuïeten."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Met de bouw van de huidige kerk werd in 1881 begonnen."
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "Rijksmuseum Amsterdam",
+          "category": "museum",
+          "fameScore": 61.29,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "architect: Pierre Cuypers"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Pierre Cuypers"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1800-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "Haarlemmerpoort",
+          "category": "other",
+          "fameScore": 37.21,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Cornelis Alewijn"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "In 1837 was deze poort zo bouwvallig geworden dat besloten werd tot afbraak."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Omstreeks 1397 verrees de tweede Haarlemmerpoort, deze stond op de (Oude) Haarlemmersluis in de Nieuwendijk (hier is nu de Martelaarsgracht)."
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "Beurs van Berlage",
+          "category": "other",
+          "fameScore": 37,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Hendrik Petrus Berlage"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: modernisme"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Op 18 oktober 1882 wees de raad het zojuist gedempte Damrak tussen de Dam en de Oudebrug aan als locatie voor de nieuwe beurs."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De Beurs van Berlage behoort tot de 'Top 100 van de Rijksdienst voor de Monumentenzorg' uit 1990."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "Sint-Olofskapel",
+          "category": "religious",
+          "fameScore": 36.1,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "surface: paving_stones"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: kerkgebouw"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Na de Alteratie (omwenteling) van Amsterdam, in 1578, stond het gebouw een tijd leeg."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Vanaf 1586 mochten kooplieden ervan gebruikmaken om beurs te houden."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "Warmoesstraat",
+          "category": "square_civic",
+          "fameScore": 35.94,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "surface: paving_stones"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1200-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: straat"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "In 1957 is het meest zuidelijke straatdeel bij Hotel Krasnapolsky na afbraak van enkele panden bij de Dam gevoegd."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Albert Cuypmarkt",
+          "category": "market",
+          "fameScore": 39.07,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: marketplace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1904-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Albert Cuyp"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Dit ontaardde in het begin van de 20e eeuw in een chaos, waarop het gemeentebestuur in 1905 besloot een vrije markt te vestigen, die in eerste instantie alleen op zaterdagavond gehouden werd."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De toerist op het Damrak geeft maar vier euro uit', aldus de heer Ben Bockstael, voorzitter van de ondernemersvereniging Albert Cuyp in 2011."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Portugees-Israëlietische Synagoge",
+          "category": "religious",
+          "fameScore": 43.22,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Elias Bouman"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: barokarchitectuur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "Schreierstoren",
+          "category": "other",
+          "fameScore": 34.43,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Rijksmonument"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: toren"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "In 1960 verhuisde de havenmeester naar het nieuwe Havengebouw aan de De Ruyterkade."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "In 1966 werd de toren gerestaureerd."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": {
+    "schemaVersion": "walking-matrix-v1",
+    "provider": {
+      "id": "fossgis-osrm-foot",
+      "capturedAt": "2026-08-06T18:15:43.053Z"
+    },
+    "candidateFingerprint": "befef7b187afe560654230ccb1d39892140fe4ba59b9b2b04a9592e323bf860d",
+    "sites": [
+      {
+        "siteId": "site:Q839050",
+        "lat": 52.3731226,
+        "lng": 4.8926093
+      },
+      {
+        "siteId": "site:Q1056152",
+        "lat": 52.3731449,
+        "lng": 4.891336
+      },
+      {
+        "siteId": "site:Q1568693",
+        "lat": 52.3725531,
+        "lng": 4.9000895
+      },
+      {
+        "siteId": "site:Q1579642",
+        "lat": 52.3660256,
+        "lng": 4.8966284
+      },
+      {
+        "siteId": "site:Q1429748",
+        "lat": 52.3670594,
+        "lng": 4.8932212
+      },
+      {
+        "siteId": "site:Q165366",
+        "lat": 52.3751546,
+        "lng": 4.8840978
+      },
+      {
+        "siteId": "site:Q1344400",
+        "lat": 52.3635809,
+        "lng": 4.9023579
+      },
+      {
+        "siteId": "site:Q473851",
+        "lat": 52.3728196,
+        "lng": 4.8936888
+      },
+      {
+        "siteId": "site:Q51411",
+        "lat": 52.374444444,
+        "lng": 4.884722222
+      },
+      {
+        "siteId": "site:Q849957",
+        "lat": 52.3562088,
+        "lng": 4.8790441
+      },
+      {
+        "siteId": "site:Q1130722",
+        "lat": 52.3745627,
+        "lng": 4.8839192
+      },
+      {
+        "siteId": "site:Q643079",
+        "lat": 52.3669538,
+        "lng": 4.8914048
+      },
+      {
+        "siteId": "site:Q478707",
+        "lat": 52.371891,
+        "lng": 4.8953936
+      },
+      {
+        "siteId": "site:Q190804",
+        "lat": 52.3598609,
+        "lng": 4.8849957
+      },
+      {
+        "siteId": "site:Q851200",
+        "lat": 52.375045,
+        "lng": 4.8962774
+      },
+      {
+        "siteId": "site:Q389909",
+        "lat": 52.3740716,
+        "lng": 4.8963005
+      },
+      {
+        "siteId": "site:Q1853707",
+        "lat": 52.3675391,
+        "lng": 4.9053431
+      },
+      {
+        "siteId": "site:Q610402",
+        "lat": 52.3763582,
+        "lng": 4.9022377
+      }
+    ],
+    "legs": [
+      [
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 273,
+          "seconds": 218.4,
+          "reachable": true
+        },
+        {
+          "meters": 755.3,
+          "seconds": 603.9,
+          "reachable": true
+        },
+        {
+          "meters": 1015.1,
+          "seconds": 812,
+          "reachable": true
+        },
+        {
+          "meters": 750.3,
+          "seconds": 600.1,
+          "reachable": true
+        },
+        {
+          "meters": 793.6,
+          "seconds": 636.1,
+          "reachable": true
+        },
+        {
+          "meters": 1621.9,
+          "seconds": 1297.3,
+          "reachable": true
+        },
+        {
+          "meters": 87.5,
+          "seconds": 69.9,
+          "reachable": true
+        },
+        {
+          "meters": 651.8,
+          "seconds": 522.8,
+          "reachable": true
+        },
+        {
+          "meters": 2548.6,
+          "seconds": 2038.4,
+          "reachable": true
+        },
+        {
+          "meters": 732.3,
+          "seconds": 587,
+          "reachable": true
+        },
+        {
+          "meters": 852.4,
+          "seconds": 681.8,
+          "reachable": true
+        },
+        {
+          "meters": 291.1,
+          "seconds": 232.9,
+          "reachable": true
+        },
+        {
+          "meters": 2035,
+          "seconds": 1628.1,
+          "reachable": true
+        },
+        {
+          "meters": 373.8,
+          "seconds": 298.8,
+          "reachable": true
+        },
+        {
+          "meters": 338.5,
+          "seconds": 270.8,
+          "reachable": true
+        },
+        {
+          "meters": 1192.4,
+          "seconds": 958,
+          "reachable": true
+        },
+        {
+          "meters": 906.6,
+          "seconds": 725.5,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 273,
+          "seconds": 218.4,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 906.9,
+          "seconds": 727.9,
+          "reachable": true
+        },
+        {
+          "meters": 1195.7,
+          "seconds": 958.6,
+          "reachable": true
+        },
+        {
+          "meters": 930.9,
+          "seconds": 746.7,
+          "reachable": true
+        },
+        {
+          "meters": 786.9,
+          "seconds": 630.8,
+          "reachable": true
+        },
+        {
+          "meters": 1802.5,
+          "seconds": 1443.9,
+          "reachable": true
+        },
+        {
+          "meters": 313.6,
+          "seconds": 252.9,
+          "reachable": true
+        },
+        {
+          "meters": 645.1,
+          "seconds": 517.5,
+          "reachable": true
+        },
+        {
+          "meters": 2684.1,
+          "seconds": 2146.8,
+          "reachable": true
+        },
+        {
+          "meters": 725.5,
+          "seconds": 581.7,
+          "reachable": true
+        },
+        {
+          "meters": 1033,
+          "seconds": 828.4,
+          "reachable": true
+        },
+        {
+          "meters": 471.7,
+          "seconds": 379.5,
+          "reachable": true
+        },
+        {
+          "meters": 2170.5,
+          "seconds": 1736.5,
+          "reachable": true
+        },
+        {
+          "meters": 641.4,
+          "seconds": 513.3,
+          "reachable": true
+        },
+        {
+          "meters": 606.1,
+          "seconds": 485.3,
+          "reachable": true
+        },
+        {
+          "meters": 1373,
+          "seconds": 1104.6,
+          "reachable": true
+        },
+        {
+          "meters": 1174.3,
+          "seconds": 940,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 755.3,
+          "seconds": 603.9,
+          "reachable": true
+        },
+        {
+          "meters": 906.9,
+          "seconds": 727.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 904,
+          "seconds": 723.1,
+          "reachable": true
+        },
+        {
+          "meters": 840.1,
+          "seconds": 672,
+          "reachable": true
+        },
+        {
+          "meters": 1533,
+          "seconds": 1227.7,
+          "reachable": true
+        },
+        {
+          "meters": 1218.5,
+          "seconds": 975,
+          "reachable": true
+        },
+        {
+          "meters": 643.5,
+          "seconds": 514.9,
+          "reachable": true
+        },
+        {
+          "meters": 1391.2,
+          "seconds": 1114.4,
+          "reachable": true
+        },
+        {
+          "meters": 2564.4,
+          "seconds": 2051.5,
+          "reachable": true
+        },
+        {
+          "meters": 1471.6,
+          "seconds": 1178.6,
+          "reachable": true
+        },
+        {
+          "meters": 940.1,
+          "seconds": 751.9,
+          "reachable": true
+        },
+        {
+          "meters": 435.3,
+          "seconds": 348.4,
+          "reachable": true
+        },
+        {
+          "meters": 1942.9,
+          "seconds": 1554.5,
+          "reachable": true
+        },
+        {
+          "meters": 467.9,
+          "seconds": 374,
+          "reachable": true
+        },
+        {
+          "meters": 432.9,
+          "seconds": 345.9,
+          "reachable": true
+        },
+        {
+          "meters": 767.4,
+          "seconds": 617.9,
+          "reachable": true
+        },
+        {
+          "meters": 517.3,
+          "seconds": 413.7,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1015.1,
+          "seconds": 812,
+          "reachable": true
+        },
+        {
+          "meters": 1195.7,
+          "seconds": 958.6,
+          "reachable": true
+        },
+        {
+          "meters": 904,
+          "seconds": 723.1,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 264.8,
+          "seconds": 211.9,
+          "reachable": true
+        },
+        {
+          "meters": 1691,
+          "seconds": 1354.7,
+          "reachable": true
+        },
+        {
+          "meters": 672.1,
+          "seconds": 537.3,
+          "reachable": true
+        },
+        {
+          "meters": 993,
+          "seconds": 794.2,
+          "reachable": true
+        },
+        {
+          "meters": 1549.3,
+          "seconds": 1241.4,
+          "reachable": true
+        },
+        {
+          "meters": 1891.9,
+          "seconds": 1513.4,
+          "reachable": true
+        },
+        {
+          "meters": 1629.7,
+          "seconds": 1305.6,
+          "reachable": true
+        },
+        {
+          "meters": 395.2,
+          "seconds": 316.2,
+          "reachable": true
+        },
+        {
+          "meters": 879.8,
+          "seconds": 703.6,
+          "reachable": true
+        },
+        {
+          "meters": 1270.4,
+          "seconds": 1016.4,
+          "reachable": true
+        },
+        {
+          "meters": 1340.6,
+          "seconds": 1072.1,
+          "reachable": true
+        },
+        {
+          "meters": 1196.2,
+          "seconds": 957.1,
+          "reachable": true
+        },
+        {
+          "meters": 727,
+          "seconds": 585.8,
+          "reachable": true
+        },
+        {
+          "meters": 1387,
+          "seconds": 1109.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 750.3,
+          "seconds": 600.1,
+          "reachable": true
+        },
+        {
+          "meters": 930.9,
+          "seconds": 746.7,
+          "reachable": true
+        },
+        {
+          "meters": 840.1,
+          "seconds": 672,
+          "reachable": true
+        },
+        {
+          "meters": 264.8,
+          "seconds": 211.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1426.3,
+          "seconds": 1142.8,
+          "reachable": true
+        },
+        {
+          "meters": 890,
+          "seconds": 712,
+          "reachable": true
+        },
+        {
+          "meters": 728.2,
+          "seconds": 582.3,
+          "reachable": true
+        },
+        {
+          "meters": 1284.5,
+          "seconds": 1029.5,
+          "reachable": true
+        },
+        {
+          "meters": 1748.6,
+          "seconds": 1399.2,
+          "reachable": true
+        },
+        {
+          "meters": 1364.9,
+          "seconds": 1093.7,
+          "reachable": true
+        },
+        {
+          "meters": 130.5,
+          "seconds": 104.3,
+          "reachable": true
+        },
+        {
+          "meters": 760.8,
+          "seconds": 608.9,
+          "reachable": true
+        },
+        {
+          "meters": 1127.1,
+          "seconds": 902.2,
+          "reachable": true
+        },
+        {
+          "meters": 1075.8,
+          "seconds": 860.2,
+          "reachable": true
+        },
+        {
+          "meters": 957.5,
+          "seconds": 766.2,
+          "reachable": true
+        },
+        {
+          "meters": 945,
+          "seconds": 760.5,
+          "reachable": true
+        },
+        {
+          "meters": 1318,
+          "seconds": 1054.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 793.6,
+          "seconds": 636.1,
+          "reachable": true
+        },
+        {
+          "meters": 786.9,
+          "seconds": 630.8,
+          "reachable": true
+        },
+        {
+          "meters": 1533,
+          "seconds": 1227.7,
+          "reachable": true
+        },
+        {
+          "meters": 1691,
+          "seconds": 1354.7,
+          "reachable": true
+        },
+        {
+          "meters": 1426.3,
+          "seconds": 1142.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2317.6,
+          "seconds": 1855.7,
+          "reachable": true
+        },
+        {
+          "meters": 866.1,
+          "seconds": 694.2,
+          "reachable": true
+        },
+        {
+          "meters": 141.8,
+          "seconds": 113.3,
+          "reachable": true
+        },
+        {
+          "meters": 2516.1,
+          "seconds": 2012.6,
+          "reachable": true
+        },
+        {
+          "meters": 71.7,
+          "seconds": 57.3,
+          "reachable": true
+        },
+        {
+          "meters": 1347.8,
+          "seconds": 1079.9,
+          "reachable": true
+        },
+        {
+          "meters": 1042.2,
+          "seconds": 835.2,
+          "reachable": true
+        },
+        {
+          "meters": 2002.5,
+          "seconds": 1602.3,
+          "reachable": true
+        },
+        {
+          "meters": 1151.5,
+          "seconds": 922.6,
+          "reachable": true
+        },
+        {
+          "meters": 1116.2,
+          "seconds": 894.6,
+          "reachable": true
+        },
+        {
+          "meters": 1943.4,
+          "seconds": 1560.3,
+          "reachable": true
+        },
+        {
+          "meters": 1611.1,
+          "seconds": 1290.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1621.9,
+          "seconds": 1297.3,
+          "reachable": true
+        },
+        {
+          "meters": 1802.5,
+          "seconds": 1443.9,
+          "reachable": true
+        },
+        {
+          "meters": 1218.5,
+          "seconds": 975,
+          "reachable": true
+        },
+        {
+          "meters": 672.1,
+          "seconds": 537.3,
+          "reachable": true
+        },
+        {
+          "meters": 890,
+          "seconds": 712,
+          "reachable": true
+        },
+        {
+          "meters": 2317.6,
+          "seconds": 1855.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1567.1,
+          "seconds": 1253.7,
+          "reachable": true
+        },
+        {
+          "meters": 2175.8,
+          "seconds": 1742.4,
+          "reachable": true
+        },
+        {
+          "meters": 2068.8,
+          "seconds": 1658.6,
+          "reachable": true
+        },
+        {
+          "meters": 2256.2,
+          "seconds": 1806.6,
+          "reachable": true
+        },
+        {
+          "meters": 1020.4,
+          "seconds": 816.3,
+          "reachable": true
+        },
+        {
+          "meters": 1352.4,
+          "seconds": 1082.2,
+          "reachable": true
+        },
+        {
+          "meters": 1447.3,
+          "seconds": 1161.6,
+          "reachable": true
+        },
+        {
+          "meters": 1686.5,
+          "seconds": 1349,
+          "reachable": true
+        },
+        {
+          "meters": 1651.4,
+          "seconds": 1320.9,
+          "reachable": true
+        },
+        {
+          "meters": 699.1,
+          "seconds": 563.8,
+          "reachable": true
+        },
+        {
+          "meters": 1735.9,
+          "seconds": 1388.7,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 87.5,
+          "seconds": 69.9,
+          "reachable": true
+        },
+        {
+          "meters": 313.6,
+          "seconds": 252.9,
+          "reachable": true
+        },
+        {
+          "meters": 643.5,
+          "seconds": 514.9,
+          "reachable": true
+        },
+        {
+          "meters": 993,
+          "seconds": 794.2,
+          "reachable": true
+        },
+        {
+          "meters": 728.2,
+          "seconds": 582.3,
+          "reachable": true
+        },
+        {
+          "meters": 866.1,
+          "seconds": 694.2,
+          "reachable": true
+        },
+        {
+          "meters": 1567.1,
+          "seconds": 1253.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 724.3,
+          "seconds": 580.9,
+          "reachable": true
+        },
+        {
+          "meters": 2526.4,
+          "seconds": 2020.6,
+          "reachable": true
+        },
+        {
+          "meters": 804.7,
+          "seconds": 645.1,
+          "reachable": true
+        },
+        {
+          "meters": 830.3,
+          "seconds": 664,
+          "reachable": true
+        },
+        {
+          "meters": 208.2,
+          "seconds": 166.5,
+          "reachable": true
+        },
+        {
+          "meters": 2012.9,
+          "seconds": 1610.3,
+          "reachable": true
+        },
+        {
+          "meters": 347.6,
+          "seconds": 277.9,
+          "reachable": true
+        },
+        {
+          "meters": 312.3,
+          "seconds": 249.9,
+          "reachable": true
+        },
+        {
+          "meters": 1109.5,
+          "seconds": 891.6,
+          "reachable": true
+        },
+        {
+          "meters": 880.4,
+          "seconds": 704.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 651.8,
+          "seconds": 522.8,
+          "reachable": true
+        },
+        {
+          "meters": 645.1,
+          "seconds": 517.5,
+          "reachable": true
+        },
+        {
+          "meters": 1391.2,
+          "seconds": 1114.4,
+          "reachable": true
+        },
+        {
+          "meters": 1549.3,
+          "seconds": 1241.4,
+          "reachable": true
+        },
+        {
+          "meters": 1284.5,
+          "seconds": 1029.5,
+          "reachable": true
+        },
+        {
+          "meters": 141.8,
+          "seconds": 113.3,
+          "reachable": true
+        },
+        {
+          "meters": 2175.8,
+          "seconds": 1742.4,
+          "reachable": true
+        },
+        {
+          "meters": 724.3,
+          "seconds": 580.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2456.5,
+          "seconds": 1967.2,
+          "reachable": true
+        },
+        {
+          "meters": 80.4,
+          "seconds": 64.2,
+          "reachable": true
+        },
+        {
+          "meters": 1206,
+          "seconds": 966.6,
+          "reachable": true
+        },
+        {
+          "meters": 900.4,
+          "seconds": 721.9,
+          "reachable": true
+        },
+        {
+          "meters": 1943,
+          "seconds": 1556.9,
+          "reachable": true
+        },
+        {
+          "meters": 1009.7,
+          "seconds": 809.3,
+          "reachable": true
+        },
+        {
+          "meters": 974.4,
+          "seconds": 781.3,
+          "reachable": true
+        },
+        {
+          "meters": 1801.7,
+          "seconds": 1447,
+          "reachable": true
+        },
+        {
+          "meters": 1542.5,
+          "seconds": 1236,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2548.6,
+          "seconds": 2038.5,
+          "reachable": true
+        },
+        {
+          "meters": 2684.1,
+          "seconds": 2146.9,
+          "reachable": true
+        },
+        {
+          "meters": 2564.4,
+          "seconds": 2051.5,
+          "reachable": true
+        },
+        {
+          "meters": 1891.9,
+          "seconds": 1513.4,
+          "reachable": true
+        },
+        {
+          "meters": 1748.6,
+          "seconds": 1399.2,
+          "reachable": true
+        },
+        {
+          "meters": 2516.1,
+          "seconds": 2012.7,
+          "reachable": true
+        },
+        {
+          "meters": 2068.8,
+          "seconds": 1658.6,
+          "reachable": true
+        },
+        {
+          "meters": 2526.5,
+          "seconds": 2020.7,
+          "reachable": true
+        },
+        {
+          "meters": 2456.6,
+          "seconds": 1967.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2533.8,
+          "seconds": 2026.8,
+          "reachable": true
+        },
+        {
+          "meters": 1881.3,
+          "seconds": 1504.7,
+          "reachable": true
+        },
+        {
+          "meters": 2569.4,
+          "seconds": 2055.4,
+          "reachable": true
+        },
+        {
+          "meters": 622.7,
+          "seconds": 498.1,
+          "reachable": true
+        },
+        {
+          "meters": 2874,
+          "seconds": 2298.6,
+          "reachable": true
+        },
+        {
+          "meters": 2766.1,
+          "seconds": 2212.7,
+          "reachable": true
+        },
+        {
+          "meters": 2587.3,
+          "seconds": 2074,
+          "reachable": true
+        },
+        {
+          "meters": 3276.8,
+          "seconds": 2621.7,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 732.3,
+          "seconds": 587,
+          "reachable": true
+        },
+        {
+          "meters": 725.5,
+          "seconds": 581.7,
+          "reachable": true
+        },
+        {
+          "meters": 1471.6,
+          "seconds": 1178.6,
+          "reachable": true
+        },
+        {
+          "meters": 1629.7,
+          "seconds": 1305.6,
+          "reachable": true
+        },
+        {
+          "meters": 1364.9,
+          "seconds": 1093.7,
+          "reachable": true
+        },
+        {
+          "meters": 71.7,
+          "seconds": 57.3,
+          "reachable": true
+        },
+        {
+          "meters": 2256.2,
+          "seconds": 1806.6,
+          "reachable": true
+        },
+        {
+          "meters": 804.7,
+          "seconds": 645.1,
+          "reachable": true
+        },
+        {
+          "meters": 80.4,
+          "seconds": 64.2,
+          "reachable": true
+        },
+        {
+          "meters": 2533.8,
+          "seconds": 2026.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1286.5,
+          "seconds": 1030.8,
+          "reachable": true
+        },
+        {
+          "meters": 980.8,
+          "seconds": 786.1,
+          "reachable": true
+        },
+        {
+          "meters": 2020.2,
+          "seconds": 1616.4,
+          "reachable": true
+        },
+        {
+          "meters": 1090.1,
+          "seconds": 873.5,
+          "reachable": true
+        },
+        {
+          "meters": 1054.8,
+          "seconds": 845.5,
+          "reachable": true
+        },
+        {
+          "meters": 1882.1,
+          "seconds": 1511.2,
+          "reachable": true
+        },
+        {
+          "meters": 1623,
+          "seconds": 1300.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 852.4,
+          "seconds": 681.8,
+          "reachable": true
+        },
+        {
+          "meters": 1033,
+          "seconds": 828.4,
+          "reachable": true
+        },
+        {
+          "meters": 940.1,
+          "seconds": 751.9,
+          "reachable": true
+        },
+        {
+          "meters": 395.2,
+          "seconds": 316.2,
+          "reachable": true
+        },
+        {
+          "meters": 130.5,
+          "seconds": 104.3,
+          "reachable": true
+        },
+        {
+          "meters": 1347.8,
+          "seconds": 1079.9,
+          "reachable": true
+        },
+        {
+          "meters": 1020.4,
+          "seconds": 816.3,
+          "reachable": true
+        },
+        {
+          "meters": 830.3,
+          "seconds": 664,
+          "reachable": true
+        },
+        {
+          "meters": 1206,
+          "seconds": 966.6,
+          "reachable": true
+        },
+        {
+          "meters": 1881.2,
+          "seconds": 1504.6,
+          "reachable": true
+        },
+        {
+          "meters": 1286.5,
+          "seconds": 1030.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 873.3,
+          "seconds": 698.7,
+          "reachable": true
+        },
+        {
+          "meters": 1367.7,
+          "seconds": 1094.3,
+          "reachable": true
+        },
+        {
+          "meters": 1177.9,
+          "seconds": 941.9,
+          "reachable": true
+        },
+        {
+          "meters": 1070,
+          "seconds": 856,
+          "reachable": true
+        },
+        {
+          "meters": 1059.5,
+          "seconds": 852.1,
+          "reachable": true
+        },
+        {
+          "meters": 1418,
+          "seconds": 1134.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 291.1,
+          "seconds": 232.9,
+          "reachable": true
+        },
+        {
+          "meters": 471.7,
+          "seconds": 379.5,
+          "reachable": true
+        },
+        {
+          "meters": 435.3,
+          "seconds": 348.4,
+          "reachable": true
+        },
+        {
+          "meters": 879.8,
+          "seconds": 703.6,
+          "reachable": true
+        },
+        {
+          "meters": 760.8,
+          "seconds": 608.9,
+          "reachable": true
+        },
+        {
+          "meters": 1042.2,
+          "seconds": 835.2,
+          "reachable": true
+        },
+        {
+          "meters": 1352.4,
+          "seconds": 1082.2,
+          "reachable": true
+        },
+        {
+          "meters": 208.2,
+          "seconds": 166.5,
+          "reachable": true
+        },
+        {
+          "meters": 900.4,
+          "seconds": 721.9,
+          "reachable": true
+        },
+        {
+          "meters": 2569.4,
+          "seconds": 2055.3,
+          "reachable": true
+        },
+        {
+          "meters": 980.8,
+          "seconds": 786.1,
+          "reachable": true
+        },
+        {
+          "meters": 873.3,
+          "seconds": 698.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2055.8,
+          "seconds": 1645,
+          "reachable": true
+        },
+        {
+          "meters": 483.2,
+          "seconds": 386.6,
+          "reachable": true
+        },
+        {
+          "meters": 369.8,
+          "seconds": 296.1,
+          "reachable": true
+        },
+        {
+          "meters": 901.3,
+          "seconds": 725.1,
+          "reachable": true
+        },
+        {
+          "meters": 735,
+          "seconds": 588.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2035,
+          "seconds": 1628.1,
+          "reachable": true
+        },
+        {
+          "meters": 2170.5,
+          "seconds": 1736.5,
+          "reachable": true
+        },
+        {
+          "meters": 1942.9,
+          "seconds": 1554.5,
+          "reachable": true
+        },
+        {
+          "meters": 1270.4,
+          "seconds": 1016.4,
+          "reachable": true
+        },
+        {
+          "meters": 1127.1,
+          "seconds": 902.2,
+          "reachable": true
+        },
+        {
+          "meters": 2002.5,
+          "seconds": 1602.3,
+          "reachable": true
+        },
+        {
+          "meters": 1447.3,
+          "seconds": 1161.6,
+          "reachable": true
+        },
+        {
+          "meters": 2012.9,
+          "seconds": 1610.3,
+          "reachable": true
+        },
+        {
+          "meters": 1943,
+          "seconds": 1556.9,
+          "reachable": true
+        },
+        {
+          "meters": 622.7,
+          "seconds": 498.1,
+          "reachable": true
+        },
+        {
+          "meters": 2020.2,
+          "seconds": 1616.4,
+          "reachable": true
+        },
+        {
+          "meters": 1367.7,
+          "seconds": 1094.3,
+          "reachable": true
+        },
+        {
+          "meters": 2055.8,
+          "seconds": 1645,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2360.4,
+          "seconds": 1888.2,
+          "reachable": true
+        },
+        {
+          "meters": 2252.5,
+          "seconds": 1802.3,
+          "reachable": true
+        },
+        {
+          "meters": 1965.8,
+          "seconds": 1577,
+          "reachable": true
+        },
+        {
+          "meters": 2420.8,
+          "seconds": 1936.8,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 373.8,
+          "seconds": 298.8,
+          "reachable": true
+        },
+        {
+          "meters": 641.4,
+          "seconds": 513.3,
+          "reachable": true
+        },
+        {
+          "meters": 467.9,
+          "seconds": 374,
+          "reachable": true
+        },
+        {
+          "meters": 1340.6,
+          "seconds": 1072.1,
+          "reachable": true
+        },
+        {
+          "meters": 1075.8,
+          "seconds": 860.2,
+          "reachable": true
+        },
+        {
+          "meters": 1151.5,
+          "seconds": 922.6,
+          "reachable": true
+        },
+        {
+          "meters": 1686.5,
+          "seconds": 1349,
+          "reachable": true
+        },
+        {
+          "meters": 347.6,
+          "seconds": 277.9,
+          "reachable": true
+        },
+        {
+          "meters": 1009.7,
+          "seconds": 809.3,
+          "reachable": true
+        },
+        {
+          "meters": 2874,
+          "seconds": 2298.5,
+          "reachable": true
+        },
+        {
+          "meters": 1090.1,
+          "seconds": 873.5,
+          "reachable": true
+        },
+        {
+          "meters": 1177.9,
+          "seconds": 941.9,
+          "reachable": true
+        },
+        {
+          "meters": 483.2,
+          "seconds": 386.6,
+          "reachable": true
+        },
+        {
+          "meters": 2360.4,
+          "seconds": 1888.2,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 137.4,
+          "seconds": 109.7,
+          "reachable": true
+        },
+        {
+          "meters": 1235.3,
+          "seconds": 991.9,
+          "reachable": true
+        },
+        {
+          "meters": 537.4,
+          "seconds": 430.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 338.5,
+          "seconds": 270.8,
+          "reachable": true
+        },
+        {
+          "meters": 606.1,
+          "seconds": 485.3,
+          "reachable": true
+        },
+        {
+          "meters": 432.9,
+          "seconds": 345.9,
+          "reachable": true
+        },
+        {
+          "meters": 1196.2,
+          "seconds": 957.1,
+          "reachable": true
+        },
+        {
+          "meters": 957.5,
+          "seconds": 766.2,
+          "reachable": true
+        },
+        {
+          "meters": 1116.2,
+          "seconds": 894.6,
+          "reachable": true
+        },
+        {
+          "meters": 1651.4,
+          "seconds": 1320.9,
+          "reachable": true
+        },
+        {
+          "meters": 312.3,
+          "seconds": 249.9,
+          "reachable": true
+        },
+        {
+          "meters": 974.4,
+          "seconds": 781.3,
+          "reachable": true
+        },
+        {
+          "meters": 2766.1,
+          "seconds": 2212.6,
+          "reachable": true
+        },
+        {
+          "meters": 1054.8,
+          "seconds": 845.5,
+          "reachable": true
+        },
+        {
+          "meters": 1070,
+          "seconds": 856,
+          "reachable": true
+        },
+        {
+          "meters": 369.8,
+          "seconds": 296.1,
+          "reachable": true
+        },
+        {
+          "meters": 2252.5,
+          "seconds": 1802.3,
+          "reachable": true
+        },
+        {
+          "meters": 137.4,
+          "seconds": 109.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1200.3,
+          "seconds": 963.8,
+          "reachable": true
+        },
+        {
+          "meters": 572.5,
+          "seconds": 458.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1192.4,
+          "seconds": 958,
+          "reachable": true
+        },
+        {
+          "meters": 1373,
+          "seconds": 1104.6,
+          "reachable": true
+        },
+        {
+          "meters": 767.4,
+          "seconds": 617.9,
+          "reachable": true
+        },
+        {
+          "meters": 727,
+          "seconds": 585.8,
+          "reachable": true
+        },
+        {
+          "meters": 945,
+          "seconds": 760.5,
+          "reachable": true
+        },
+        {
+          "meters": 1943.4,
+          "seconds": 1560.3,
+          "reachable": true
+        },
+        {
+          "meters": 699.1,
+          "seconds": 563.8,
+          "reachable": true
+        },
+        {
+          "meters": 1109.5,
+          "seconds": 891.6,
+          "reachable": true
+        },
+        {
+          "meters": 1801.7,
+          "seconds": 1447,
+          "reachable": true
+        },
+        {
+          "meters": 2587.3,
+          "seconds": 2074,
+          "reachable": true
+        },
+        {
+          "meters": 1882.1,
+          "seconds": 1511.2,
+          "reachable": true
+        },
+        {
+          "meters": 1059.5,
+          "seconds": 852.1,
+          "reachable": true
+        },
+        {
+          "meters": 901.3,
+          "seconds": 725.1,
+          "reachable": true
+        },
+        {
+          "meters": 1965.8,
+          "seconds": 1577,
+          "reachable": true
+        },
+        {
+          "meters": 1235.3,
+          "seconds": 991.9,
+          "reachable": true
+        },
+        {
+          "meters": 1200.3,
+          "seconds": 963.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1284.8,
+          "seconds": 1031.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 906.6,
+          "seconds": 725.5,
+          "reachable": true
+        },
+        {
+          "meters": 1174.3,
+          "seconds": 940,
+          "reachable": true
+        },
+        {
+          "meters": 517.3,
+          "seconds": 413.7,
+          "reachable": true
+        },
+        {
+          "meters": 1387,
+          "seconds": 1109.2,
+          "reachable": true
+        },
+        {
+          "meters": 1318,
+          "seconds": 1054.3,
+          "reachable": true
+        },
+        {
+          "meters": 1611.1,
+          "seconds": 1290.3,
+          "reachable": true
+        },
+        {
+          "meters": 1735.9,
+          "seconds": 1388.7,
+          "reachable": true
+        },
+        {
+          "meters": 880.4,
+          "seconds": 704.6,
+          "reachable": true
+        },
+        {
+          "meters": 1542.5,
+          "seconds": 1236,
+          "reachable": true
+        },
+        {
+          "meters": 3276.8,
+          "seconds": 2621.6,
+          "reachable": true
+        },
+        {
+          "meters": 1623,
+          "seconds": 1300.2,
+          "reachable": true
+        },
+        {
+          "meters": 1418,
+          "seconds": 1134.2,
+          "reachable": true
+        },
+        {
+          "meters": 735,
+          "seconds": 588.3,
+          "reachable": true
+        },
+        {
+          "meters": 2420.8,
+          "seconds": 1936.8,
+          "reachable": true
+        },
+        {
+          "meters": 537.4,
+          "seconds": 430.3,
+          "reachable": true
+        },
+        {
+          "meters": 572.5,
+          "seconds": 458.2,
+          "reachable": true
+        },
+        {
+          "meters": 1284.8,
+          "seconds": 1031.6,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        }
+      ]
+    ]
+  },
+  "routeCriticCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "route-critic-v4",
+      "ranking": [
+        "r02",
+        "r01",
+        "r05",
+        "r04",
+        "r03"
+      ],
+      "assessments": {
+        "r01": {
+          "coherence": "adequate",
+          "avoidableRedundancy": false,
+          "omissionRisk": "moderate",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c13:e04",
+            "c13:e05",
+            "c23:e04",
+            "c23:e05",
+            "c05:e01",
+            "c05:e04",
+            "c19:e04",
+            "c19:e05",
+            "c27:e02",
+            "c27:e05",
+            "c25:e04",
+            "c25:e05",
+            "c01:e05",
+            "c01:e04",
+            "c01:e02",
+            "c06:e04",
+            "c06:e05"
+          ]
+        },
+        "r02": {
+          "coherence": "strong",
+          "avoidableRedundancy": false,
+          "omissionRisk": "none",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "better_observability"
+          ],
+          "evidenceRefs": [
+            "c23:e04",
+            "c23:e05",
+            "c07:e04",
+            "c07:e05",
+            "c29:e04",
+            "c29:e05",
+            "c19:e04",
+            "c19:e05",
+            "c27:e02",
+            "c27:e05",
+            "c01:e05",
+            "c01:e04",
+            "c01:e02",
+            "c06:e04",
+            "c06:e05"
+          ]
+        },
+        "r03": {
+          "coherence": "weak",
+          "avoidableRedundancy": false,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "weak_transition",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c25:e04",
+            "c25:e05",
+            "c27:e02",
+            "c27:e05",
+            "c08:e04",
+            "c08:e05",
+            "c19:e04",
+            "c19:e05"
+          ]
+        },
+        "r04": {
+          "coherence": "adequate",
+          "avoidableRedundancy": false,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "strong_opening",
+            "strong_resolution",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c23:e04",
+            "c23:e05",
+            "c05:e01",
+            "c05:e04",
+            "c01:e05",
+            "c01:e04",
+            "c01:e02",
+            "c06:e04",
+            "c06:e05"
+          ]
+        },
+        "r05": {
+          "coherence": "adequate",
+          "avoidableRedundancy": false,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c27:e02",
+            "c27:e05",
+            "c19:e04",
+            "c19:e05",
+            "c01:e05",
+            "c01:e04",
+            "c01:e02",
+            "c06:e04",
+            "c06:e05"
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 4567,
+        "rawOutput": "{\"schemaVersion\": \"route-critic-v4\", \"ranking\": [\"r02\", \"r01\", \"r05\", \"r04\", \"r03\"], \"assessments\": {\"r01\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": false, \"omissionRisk\": \"moderate\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"misses_high_value\"], \"evidenceRefs\": [\"c13:e04\", \"c13:e05\", \"c23:e04\", \"c23:e05\", \"c05:e01\", \"c05:e04\", \"c19:e04\", \"c19:e05\", \"c27:e02\", \"c27:e05\", \"c25:e04\", \"c25:e05\", \"c01:e05\", \"c01:e04\", \"c01:e02\", \"c06:e04\", \"c06:e05\"]}, \"r02\": {\"coherence\": \"strong\", \"avoidableRedundancy\": false, \"omissionRisk\": \"none\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"better_observability\"], \"evidenceRefs\": [\"c23:e04\", \"c23:e05\", \"c07:e04\", \"c07:e05\", \"c29:e04\", \"c29:e05\", \"c19:e04\", \"c19:e05\", \"c27:e02\", \"c27:e05\", \"c01:e05\", \"c01:e04\", \"c01:e02\", \"c06:e04\", \"c06:e05\"]}, \"r03\": {\"coherence\": \"weak\", \"avoidableRedundancy\": false, \"omissionRisk\": \"high\", \"reasonCodes\": [\"weak_transition\", \"misses_high_value\"], \"evidenceRefs\": [\"c25:e04\", \"c25:e05\", \"c27:e02\", \"c27:e05\", \"c08:e04\", \"c08:e05\", \"c19:e04\", \"c19:e05\"]}, \"r04\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": false, \"omissionRisk\": \"high\", \"reasonCodes\": [\"strong_opening\", \"strong_resolution\", \"misses_high_value\"], \"evidenceRefs\": [\"c23:e04\", \"c23:e05\", \"c05:e01\", \"c05:e04\", \"c01:e05\", \"c01:e04\", \"c01:e02\", \"c06:e04\", \"c06:e05\"]}, \"r05\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": false, \"omissionRisk\": \"high\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"misses_high_value\"], \"evidenceRefs\": [\"c27:e02\", \"c27:e05\", \"c19:e04\", \"c19:e05\", \"c01:e05\", \"c01:e04\", \"c01:e02\", \"c06:e04\", \"c06:e05\"]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "41c48aaeb623bbb7ccd3a3c6290afc4fe4a3510c257144bb11677fd1bd803c27",
+    "input": {
+      "city": "Amsterdam",
+      "theme": "history",
+      "language": "nl",
+      "requestedDuration": 120,
+      "centralQuestion": "Hoe groeide Amsterdam van een middeleeuwse handelsnederzetting aan de Dam uit tot een wereldstad die haar identiteit vormde door handel, religieuze tolerantie, stedelijke macht en de herinnering aan oorlog en verzet?",
+      "beatInventory": [
+        {
+          "beatId": "b01",
+          "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven."
+        },
+        {
+          "beatId": "b02",
+          "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten."
+        },
+        {
+          "beatId": "b03",
+          "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd."
+        },
+        {
+          "beatId": "b04",
+          "focus": "Religieuze verscheidenheid en tolerantie: van de Alteratie en schuilkerken tot de protestantse kerken en de Portugese synagoge die de religieuze identiteit van de stad vormden."
+        },
+        {
+          "beatId": "b05",
+          "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten."
+        },
+        {
+          "beatId": "b06",
+          "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden."
+        },
+        {
+          "beatId": "b07",
+          "focus": "Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad."
+        }
+      ],
+      "routes": [
+        {
+          "routeSlot": "r01",
+          "estimatedTourMinutes": 118.83,
+          "walkingMinutes": 55.83,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b04"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c13",
+              "name": "Concertgebouw",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c13:e04",
+                      "value": "Het Koninklijk Concertgebouw, geopend op 11 april 1888, is een gebouw met diverse concertzalen, gelegen aan de Van Baerlestraat tegenover het Museumplein in Amsterdam."
+                    },
+                    {
+                      "ref": "c13:e05",
+                      "value": "Er tegenover lag het latere IJsclubterrein, sinds 1903 het Museumplein."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b05",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c23",
+              "name": "Rijksmuseum Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c23:e04",
+                      "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+                    },
+                    {
+                      "ref": "c23:e05",
+                      "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Munttoren",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e01",
+                      "value": "historic: city_gate"
+                    },
+                    {
+                      "ref": "c05:e04",
+                      "value": "Nadat de poort in 1618 in vlammen opging, besloot men alleen de westelijke toren te herbouwen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b01",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "grachtengordel van Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c27",
+              "name": "Warmoesstraat",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c27:e02",
+                      "value": "inception: 1200-00-00"
+                    },
+                    {
+                      "ref": "c27:e05",
+                      "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c25",
+              "name": "Beurs van Berlage",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c25:e04",
+                      "value": "Op 18 oktober 1882 wees de raad het zojuist gedempte Damrak tussen de Dam en de Oudebrug aan als locatie voor de nieuwe beurs."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c25:e05",
+                      "value": "De Beurs van Berlage behoort tot de 'Top 100 van de Rijksdienst voor de Monumentenzorg' uit 1990."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07",
+                "deepens:b02",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Dam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e05",
+                      "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e04",
+                      "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e02",
+                      "value": "inception: 1270-00-00"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "deepens:b06",
+                "deepens:b01",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Anne Frank Huis",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Paleis op de Dam",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Nationaal Monument op de Dam",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c29",
+              "name": "Portugees-Israëlietische Synagoge",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c29:e04",
+                  "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+                },
+                {
+                  "ref": "c29:e05",
+                  "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c30",
+              "name": "Schreierstoren",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c30:e02",
+                  "value": "heritageDesignation: Rijksmonument"
+                },
+                {
+                  "ref": "c30:e05",
+                  "value": "In 1966 werd de toren gerestaureerd."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Homomonument",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c09:e04",
+                  "value": "Het monument, ontworpen door Karin Daan, werd onthuld op 5 september 1987 en bestaat uit drie roze, granieten driehoeken, die zodanig zijn neergelegd dat ze samen een grote driehoek vormen."
+                },
+                {
+                  "ref": "c09:e05",
+                  "value": "Geschiedenis Voor het eerst werd in 1961 binnen de COC gesproken over de mogelijkheid van het oprichten van een homomonument, maar van concrete stappen kwam het destijds nog niet."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r02",
+          "estimatedTourMinutes": 116.89,
+          "walkingMinutes": 60.89,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [],
+          "stops": [
+            {
+              "candidateSlot": "c23",
+              "name": "Rijksmuseum Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c23:e04",
+                      "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+                    },
+                    {
+                      "ref": "c23:e05",
+                      "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "adds-era:nineteenth_century",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c07",
+              "name": "Magere Brug",
+              "narrativeContributions": [
+                {
+                  "beatId": "b07",
+                  "focus": "Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c07:e04",
+                      "value": "De brug is sinds 2002 een rijksmonument."
+                    },
+                    {
+                      "ref": "c07:e05",
+                      "value": "In 2015 kreeg ze een Water & Heritage Awareness-schild van ICOMOS."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07",
+                "adds-era:contemporary"
+              ]
+            },
+            {
+              "candidateSlot": "c29",
+              "name": "Portugees-Israëlietische Synagoge",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "Religieuze verscheidenheid en tolerantie: van de Alteratie en schuilkerken tot de protestantse kerken en de Portugese synagoge die de religieuze identiteit van de stad vormden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c29:e04",
+                      "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+                    },
+                    {
+                      "ref": "c29:e05",
+                      "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "grachtengordel van Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c27",
+              "name": "Warmoesstraat",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c27:e02",
+                      "value": "inception: 1200-00-00"
+                    },
+                    {
+                      "ref": "c27:e05",
+                      "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Dam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e05",
+                      "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e04",
+                      "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e02",
+                      "value": "inception: 1270-00-00"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "deepens:b06",
+                "deepens:b01",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Anne Frank Huis",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Paleis op de Dam",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Nationaal Monument op de Dam",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c30",
+              "name": "Schreierstoren",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c30:e02",
+                  "value": "heritageDesignation: Rijksmonument"
+                },
+                {
+                  "ref": "c30:e05",
+                  "value": "In 1966 werd de toren gerestaureerd."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Homomonument",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c09:e04",
+                  "value": "Het monument, ontworpen door Karin Daan, werd onthuld op 5 september 1987 en bestaat uit drie roze, granieten driehoeken, die zodanig zijn neergelegd dat ze samen een grote driehoek vormen."
+                },
+                {
+                  "ref": "c09:e05",
+                  "value": "Geschiedenis Voor het eerst werd in 1961 binnen de COC gesproken over de mogelijkheid van het oprichten van een homomonument, maar van concrete stappen kwam het destijds nog niet."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c13",
+              "name": "Concertgebouw",
+              "priorityRank": 12,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c13:e04",
+                  "value": "Het Koninklijk Concertgebouw, geopend op 11 april 1888, is een gebouw met diverse concertzalen, gelegen aan de Van Baerlestraat tegenover het Museumplein in Amsterdam."
+                },
+                {
+                  "ref": "c13:e05",
+                  "value": "Er tegenover lag het latere IJsclubterrein, sinds 1903 het Museumplein."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r03",
+          "estimatedTourMinutes": 40.77,
+          "walkingMinutes": 8.77,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b03",
+            "b04",
+            "b05"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c25",
+              "name": "Beurs van Berlage",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c25:e04",
+                      "value": "Op 18 oktober 1882 wees de raad het zojuist gedempte Damrak tussen de Dam en de Oudebrug aan als locatie voor de nieuwe beurs."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "Stedelijke vernieuwing en de spanning tussen erfgoed en modernisering: van dempingen en nieuwe bruggen tot de hedendaagse discussie over toerisme en karakter van de stad.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c25:e05",
+                      "value": "De Beurs van Berlage behoort tot de 'Top 100 van de Rijksdienst voor de Monumentenzorg' uit 1990."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07",
+                "deepens:b02",
+                "adds-era:nineteenth_century",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c27",
+              "name": "Warmoesstraat",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c27:e02",
+                      "value": "inception: 1200-00-00"
+                    },
+                    {
+                      "ref": "c27:e05",
+                      "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "adds-era:medieval",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Nationaal Monument op de Dam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "grachtengordel van Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "adds-era:early_modern",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c23",
+              "name": "Rijksmuseum Amsterdam",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c23:e04",
+                  "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+                },
+                {
+                  "ref": "c23:e05",
+                  "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Dam",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b03",
+                "b06",
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c01:e05",
+                  "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+                },
+                {
+                  "ref": "c01:e04",
+                  "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Paleis op de Dam",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Anne Frank Huis",
+              "priorityRank": 5,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c06:e04",
+                  "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+                },
+                {
+                  "ref": "c06:e05",
+                  "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c29",
+              "name": "Portugees-Israëlietische Synagoge",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c29:e04",
+                  "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+                },
+                {
+                  "ref": "c29:e05",
+                  "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r04",
+          "estimatedTourMinutes": 69.64,
+          "walkingMinutes": 35.64,
+          "coveredBeatIds": [
+            "b01",
+            "b03",
+            "b05",
+            "b06"
+          ],
+          "uncoveredBeatIds": [
+            "b02",
+            "b04",
+            "b07"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c23",
+              "name": "Rijksmuseum Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "De negentiende-eeuwse culturele bloei: musea, concertzalen en de viering van nationale kunstenaars die Amsterdam tot culturele hoofdstad maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c23:e04",
+                      "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+                    },
+                    {
+                      "ref": "c23:e05",
+                      "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "adds-era:nineteenth_century",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Munttoren",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e01",
+                      "value": "historic: city_gate"
+                    },
+                    {
+                      "ref": "c05:e04",
+                      "value": "Nadat de poort in 1618 in vlammen opging, besloot men alleen de westelijke toren te herbouwen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b01",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Dam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e05",
+                      "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e04",
+                      "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e02",
+                      "value": "inception: 1270-00-00"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "carries:b03",
+                "deepens:b06",
+                "adds-era:medieval",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Anne Frank Huis",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c19",
+              "name": "grachtengordel van Amsterdam",
+              "priorityRank": 2,
+              "supportedBeats": [
+                "b02"
+              ],
+              "evidence": [
+                {
+                  "ref": "c19:e04",
+                  "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+                },
+                {
+                  "ref": "c19:e05",
+                  "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Paleis op de Dam",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Nationaal Monument op de Dam",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c29",
+              "name": "Portugees-Israëlietische Synagoge",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c29:e04",
+                  "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+                },
+                {
+                  "ref": "c29:e05",
+                  "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c27",
+              "name": "Warmoesstraat",
+              "priorityRank": 8,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c27:e02",
+                  "value": "inception: 1200-00-00"
+                },
+                {
+                  "ref": "c27:e05",
+                  "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r05",
+          "estimatedTourMinutes": 53.42,
+          "walkingMinutes": 19.42,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b06"
+          ],
+          "uncoveredBeatIds": [
+            "b04",
+            "b05",
+            "b07"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c27",
+              "name": "Warmoesstraat",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c27:e02",
+                      "value": "inception: 1200-00-00"
+                    },
+                    {
+                      "ref": "c27:e05",
+                      "value": "Het noordelijkste deel van de straat, dat de verbinding vormt met de Zeedijk, heeft eveneens een andere naam, Sint Olofspoort, naar de middeleeuwse stadspoort die daar tot 1618 stond."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "salience:3",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "grachtengordel van Amsterdam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "De Gouden Eeuw als economische motor: beurzen, markten en de grachtengordel die Amsterdam tot een wereldhandelscentrum maakten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "Dit leidde tot de uitleg van Amsterdam in vier fasen tussen 1585 en 1665."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "In 1613, tijdens het Twaalfjarig Bestand, begon men vanaf de Brouwersgracht met het uitgraven van de Herengracht, Keizersgracht en Prinsengracht en met de verkoop van de opgehoogde kavels."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Dam",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "De opkomst van het stadsbestuur en de burgerlijke macht, belichaamd in het stadhuis op de Dam dat later een koninklijk paleis werd.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e05",
+                      "value": "Aan de westzijde het Paleis op de Dam, dat aanvankelijk als stadhuis diende (in gebruik genomen in 1655), maar sinds 1808 een koninklijk paleis is."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e04",
+                      "value": "Aan de oostelijke kant van het plein bevindt zich het Nationaal Monument, dat in 1956 werd opgericht ter nagedachtenis van de slachtoffers van de Tweede Wereldoorlog."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "De middeleeuwse oorsprong van Amsterdam als handels- en verdedigingsnederzetting, zichtbaar in de oudste straten, poorten en torens die de stad haar eerste vorm gaven.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c01:e02",
+                      "value": "inception: 1270-00-00"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "deepens:b06",
+                "deepens:b01",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Anne Frank Huis",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Herinnering, verzet en de strijd om rechten in de twintigste eeuw: oorlogsmonumenten, onderduik en de emancipatie van minderheden.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "Onderduik van de familie Frank Op 1 december 1940 verhuisde Otto Frank zijn bedrijven Opekta en Pectacon van Singel 400 naar Prinsengracht 263."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "In de eerste maanden van 1942 werd met behulp van een aantal personeelsleden begonnen met het inrichten van een schuilplaats op de eerste en tweede en derde verdieping van het achterhuis, en op 6 juli dook het gezin Frank er onder."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c23",
+              "name": "Rijksmuseum Amsterdam",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c23:e04",
+                  "value": "Amsterdam (1808) In 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam."
+                },
+                {
+                  "ref": "c23:e05",
+                  "value": "Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Paleis op de Dam",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Het werd tussen 1648 en 1665 gebouwd als stadhuis, naar ontwerp van architect Jacob van Campen, en ingewijd op 29 juli 1655."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Het Koninklijk Paleis Amsterdam (bekend als het Paleis op de Dam en soms als het Stadhuis op de Dam) is een paleis op de Dam in de binnenstad van Amsterdam."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Nationaal Monument op de Dam",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Het Nationaal Monument op de Dam in de Nederlandse hoofdstad Amsterdam is een oorlogsmonument voor de herdenking van Nederlandse oorlogsslachtoffers, oorspronkelijk voor die tijdens de Tweede Wereldoorlog (1940-1945)."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Het monument staat centraal bij de jaarlijkse Nationale Dodenherdenking op 4 mei."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c29",
+              "name": "Portugees-Israëlietische Synagoge",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c29:e04",
+                  "value": "Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond."
+                },
+                {
+                  "ref": "c29:e05",
+                  "value": "De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c30",
+              "name": "Schreierstoren",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c30:e02",
+                  "value": "heritageDesignation: Rijksmonument"
+                },
+                {
+                  "ref": "c30:e05",
+                  "value": "In 1966 werd de toren gerestaureerd."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "failure": null
+}

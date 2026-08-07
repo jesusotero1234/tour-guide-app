@@ -1,0 +1,11 @@
+{
+  "city": "Amsterdam", "theme": "history", "language": "nl", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q839050", "name": "Dam", "narrativeRole": "Presentar comercio, protesta y vida pública", "contributionCode": "public_life_ceremony" },
+    { "qid": "Q1056152", "name": "Koninklijk Paleis", "narrativeRole": "Explicar poder cívico y monárquico", "contributionCode": "royal_state_power" },
+    { "qid": "Q165366", "name": "Anne Frank Huis", "narrativeRole": "Hacer tangible la persecución y la memoria", "contributionCode": "memory_rights" },
+    { "qid": "Q51411", "name": "Homomonument", "narrativeRole": "Conectar memoria histórica y derechos", "contributionCode": "memory_rights" },
+    { "qid": "Q1429748", "name": "Munttoren", "narrativeRole": "Resolver el crecimiento comercial de la ciudad", "contributionCode": "trade_economic_life" }
+  ]
+}

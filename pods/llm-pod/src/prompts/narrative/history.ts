@@ -19,6 +19,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
       user: [
         input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract):\n${input.narrativeBriefText}` : '',
         `Section: culinary or market background for ${input.localName}.`,
+        input.editorialRepairInstructions?.length ? `REPAIR INSTRUCTIONS: ${input.editorialRepairInstructions.join('; ')}` : '',
         `Tour theme: ${input.theme}.`,
         factCard || 'VERIFIED FACTS: none.',
         `Wikipedia body: ${input.seeds.wikipediaBody || 'none'}.`,
@@ -42,6 +43,7 @@ export function historyPrompt(input: LongNarrativePromptInput): SectionPrompt {
     user: [
       input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: historical background for ${input.localName}.`,
+      input.editorialRepairInstructions?.length ? `REPAIR INSTRUCTIONS: ${input.editorialRepairInstructions.join('; ')}` : '',
       `Tour theme: ${input.theme}.`,
       `Wikipedia context (primary narrative source): ${input.seeds.wikipediaBody || 'none'}.`,
       dateGuidance,

@@ -34,6 +34,18 @@ describe('contentReadiness', () => {
     expect(result.reasons).toContain('fallback_like');
   });
 
+  it('rejects long generic editorial filler', () => {
+    const description = [
+      'Plaza de Chueca stands in Madrid. Notice the building and its relationship with the immediate surroundings.',
+      Array(180).fill('history').join(' '),
+    ].join('\n\n');
+
+    const result = evaluateStopContentReadiness({ name: 'Plaza de Chueca', description });
+
+    expect(result.fallbackLike).toBe(true);
+    expect(result.reasons).toContain('fallback_like');
+  });
+
   it('rejects narration marked as generated fallback in metadata', () => {
     const description = [
       'Esta parada mantiene una narracion suficientemente larga y podria parecer aceptable si solo miraramos el numero de palabras.',

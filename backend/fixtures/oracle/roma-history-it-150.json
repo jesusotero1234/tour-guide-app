@@ -1,0 +1,13 @@
+{
+  "city": "Roma", "theme": "history", "language": "it", "durationMinutes": 150,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q10285", "name": "Colosseo", "narrativeRole": "Aprire con spettacolo, popolo e potere imperiale", "contributionCode": "public_life_ceremony" },
+    { "qid": "Q180212", "name": "Forum Romanum", "narrativeRole": "Spiegare le origini civiche dello Stato romano", "contributionCode": "origins_urban_form" },
+    { "qid": "Q99309", "name": "Pantheon", "narrativeRole": "Collegare ingegneria, religione e riuso", "contributionCode": "infrastructure_engineering" },
+    { "qid": "Q463400", "name": "Piazza Navona", "narrativeRole": "Mostrare la trasformazione dello spazio pubblico", "contributionCode": "public_life_ceremony" },
+    { "qid": "Q486382", "name": "Castel Sant’Angelo", "narrativeRole": "Raccontare difesa e potere papale", "contributionCode": "conflict_resistance" },
+    { "qid": "Q2943", "name": "Cappella Sistina", "narrativeRole": "Unire arte, fede e autorità", "contributionCode": "art_intellectual_life" },
+    { "qid": "Q12512", "name": "Basilica di San Pietro", "narrativeRole": "Risolvere Roma come capitale religiosa globale", "contributionCode": "religious_identity" }
+  ]
+}

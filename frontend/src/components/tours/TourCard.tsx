@@ -44,7 +44,7 @@ export const TourCard = ({ tour }: TourCardProps) => {
             </span>
           )}
           <span className="inline-flex items-center rounded-full bg-mutedGold/20 px-2.5 py-1 text-xs font-medium text-darkBrown">
-            {tour.language.toUpperCase()} audio
+            {tour.language.toUpperCase()} guide
           </span>
         </div>
       </div>

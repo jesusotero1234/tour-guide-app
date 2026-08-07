@@ -1,0 +1,5415 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "complete",
+  "createdAt": "2026-08-06T18:30:25.211Z",
+  "caseId": "malaga-history-es-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "36565dddc17d14aa8b48803f1ca6e0fe2a41743efdc6b1c4f6974096e95e7618",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q523311",
+      "siteId": "site:Q523311",
+      "coordinates": {
+        "lat": 36.7203556,
+        "lng": -4.410785
+      },
+      "evidenceIds": [
+        "Q523311:osm:place",
+        "Q523311:wikidata:architect",
+        "Q523311:wikidata:architecturalStyle",
+        "Q523311:wikipedia:3",
+        "Q523311:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q3127243",
+      "siteId": "site:Q3127243",
+      "coordinates": {
+        "lat": 36.7210199,
+        "lng": -4.4159336
+      },
+      "evidenceIds": [
+        "Q3127243:osm:historic",
+        "Q3127243:wikidata:architecturalStyle",
+        "Q3127243:wikidata:heritageDesignation",
+        "Q3127243:wikipedia:2",
+        "Q3127243:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q1582758",
+      "siteId": "site:Q1582758",
+      "coordinates": {
+        "lat": 36.7201789,
+        "lng": -4.41941
+      },
+      "evidenceIds": [
+        "Q1582758:wikipedia:5",
+        "Q1582758:wikidata:architect",
+        "Q1582758:wikidata:architecturalStyle",
+        "Q1582758:wikipedia:2",
+        "Q1582758:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q1049197",
+      "siteId": "site:Q1049197",
+      "coordinates": {
+        "lat": 36.7233684,
+        "lng": -4.4116294
+      },
+      "evidenceIds": [
+        "Q1049197:osm:historic",
+        "Q1049197:wikidata:heritageDesignation",
+        "Q1049197:wikidata:instanceOf",
+        "Q1049197:wikipedia:3",
+        "Q1049197:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q969308",
+      "siteId": "site:Q969308",
+      "coordinates": {
+        "lat": 36.721559,
+        "lng": -4.4182724
+      },
+      "evidenceIds": [
+        "Q115929385:osm:place",
+        "Q969308:wikidata:architecturalStyle",
+        "Q969308:wikidata:heritageDesignation",
+        "Q969308:wikipedia:0",
+        "Q969308:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q3849447",
+      "siteId": "site:Q3849447",
+      "coordinates": {
+        "lat": 36.7212854,
+        "lng": -4.4168967
+      },
+      "evidenceIds": [
+        "Q3849447:wikipedia:3",
+        "Q3849447:wikidata:heritageDesignation",
+        "Q3849447:wikidata:inception",
+        "Q3849447:wikipedia:5",
+        "Q3849447:wikipedia:9"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q97633210",
+      "siteId": "site:Q97633210",
+      "coordinates": {
+        "lat": 36.7206113,
+        "lng": -4.4205106
+      },
+      "evidenceIds": [
+        "Q97633210:wikipedia:4",
+        "Q97633210:wikidata:architecturalStyle",
+        "Q97633210:wikidata:heritageDesignation",
+        "Q97633210:wikipedia:1",
+        "Q97633210:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q4155876",
+      "siteId": "site:Q4155876",
+      "coordinates": {
+        "lat": 36.7199694,
+        "lng": -4.4171575
+      },
+      "evidenceIds": [
+        "Q106877474:osm:place",
+        "Q4155876:wikidata:architect",
+        "Q4155876:wikidata:architecturalStyle",
+        "Q4155876:wikipedia:0",
+        "Q4155876:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q5378201",
+      "siteId": "site:Q5378201",
+      "coordinates": {
+        "lat": 36.7216854,
+        "lng": -4.4068238
+      },
+      "evidenceIds": [
+        "Q102107517:osm:historic",
+        "Q5378201:wikidata:heritageDesignation",
+        "Q5378201:wikidata:inception",
+        "Q5378201:wikipedia:0",
+        "Q5378201:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q9060974",
+      "siteId": "site:Q9060974",
+      "coordinates": {
+        "lat": 36.7210904,
+        "lng": -4.4219879
+      },
+      "evidenceIds": [
+        "Q9060974:osm:place",
+        "Q9060974:wikidata:instanceOf",
+        "Q9060974:wikidata:locatedIn",
+        "Q9060974:wikipedia:1",
+        "Q9060974:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q6058241",
+      "siteId": "site:Q6058241",
+      "coordinates": {
+        "lat": 36.7199737,
+        "lng": -4.4178768
+      },
+      "evidenceIds": [
+        "Q6058241:wikipedia:4",
+        "Q6058241:wikidata:heritageDesignation",
+        "Q6058241:wikidata:instanceOf",
+        "Q6058241:wikipedia:0",
+        "Q6058241:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q2843563",
+      "siteId": "site:Q2843563",
+      "coordinates": {
+        "lat": 36.7273856,
+        "lng": -4.424402
+      },
+      "evidenceIds": [
+        "Q2843563:wikipedia:3",
+        "Q2843563:wikidata:architect",
+        "Q2843563:wikidata:architecturalStyle",
+        "Q2843563:wikipedia:5",
+        "Q2843563:wikipedia:6"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q11680432",
+      "siteId": "site:Q11680432",
+      "coordinates": {
+        "lat": 36.7196693,
+        "lng": -4.4215972
+      },
+      "evidenceIds": [
+        "Q11680432:osm:surface",
+        "Q11680432:wikidata:inception",
+        "Q11680432:wikidata:instanceOf",
+        "Q11680432:wikipedia:6",
+        "Q11680432:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q9054580",
+      "siteId": "site:Q9054580",
+      "coordinates": {
+        "lat": 36.720879,
+        "lng": -4.4191022
+      },
+      "evidenceIds": [
+        "Q9054580:wikipedia:2",
+        "Q9054580:wikidata:architecturalStyle",
+        "Q9054580:wikidata:instanceOf",
+        "Q9054580:wikipedia:1",
+        "Q9054580:wikipedia:8"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q5483542",
+      "siteId": "site:Q5483542",
+      "coordinates": {
+        "lat": 36.7249215,
+        "lng": -4.3940404
+      },
+      "evidenceIds": [
+        "osm:way:437029869:osm:building",
+        "Q5483542:wikidata:heritageDesignation",
+        "Q5483542:wikidata:inception",
+        "Q5483542:wikipedia:2",
+        "Q5483542:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q6032873",
+      "siteId": "site:Q6032873",
+      "coordinates": {
+        "lat": 36.7183224,
+        "lng": -4.4204727
+      },
+      "evidenceIds": [
+        "Q5814078:osm:historic",
+        "Q6032873:wikidata:heritageDesignation",
+        "Q6032873:wikidata:instanceOf",
+        "Q6032873:wikipedia:1",
+        "Q6032873:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q5669119",
+      "siteId": "site:Q5669119",
+      "coordinates": {
+        "lat": 36.7141676,
+        "lng": -4.4145422
+      },
+      "evidenceIds": [
+        "Q5669119:wikipedia:5",
+        "Q5669119:wikidata:heritageDesignation",
+        "Q5669119:wikidata:inception",
+        "Q5669119:wikipedia:1",
+        "Q5669119:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q2889984",
+      "siteId": "site:Q2889984",
+      "coordinates": {
+        "lat": 36.7166456,
+        "lng": -4.4202688
+      },
+      "evidenceIds": [
+        "Q113334216:osm:historic",
+        "Q2889984:wikidata:architecturalStyle",
+        "Q2889984:wikidata:inception",
+        "Q2889984:wikipedia:10",
+        "Q2889984:wikipedia:7"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q6011555",
+      "siteId": "site:Q6011555",
+      "coordinates": {
+        "lat": 36.720039,
+        "lng": -4.424772
+      },
+      "evidenceIds": [
+        "Q115929242:osm:place",
+        "Q6011555:wikidata:heritageDesignation",
+        "Q6011555:wikidata:inception",
+        "Q6011555:wikipedia:11",
+        "Q6011555:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q18170768",
+      "siteId": "site:Q18170768",
+      "coordinates": {
+        "lat": 36.7140238,
+        "lng": -4.4253205
+      },
+      "evidenceIds": [
+        "Q18170768:osm:building",
+        "Q18170768:wikidata:architect",
+        "Q18170768:wikidata:architecturalStyle",
+        "Q18170768:wikipedia:0",
+        "Q18170768:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q97633197",
+      "siteId": "site:Q97633197",
+      "coordinates": {
+        "lat": 36.7133247,
+        "lng": -4.4297506
+      },
+      "evidenceIds": [
+        "Q97633197:osm:building",
+        "Q97633197:wikidata:heritageDesignation",
+        "Q97633197:wikidata:instanceOf",
+        "Q97633197:wikipedia:1",
+        "Q97633197:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q2884109",
+      "siteId": "site:Q2884109",
+      "coordinates": {
+        "lat": 36.720125,
+        "lng": -4.420266
+      },
+      "evidenceIds": [
+        "Q2884109:wikipedia:1",
+        "Q2884109:wikidata:instanceOf",
+        "Q2884109:wikidata:locatedIn",
+        "Q2884109:wikipedia:3",
+        "Q2884109:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q6080206",
+      "siteId": "site:Q6080206",
+      "coordinates": {
+        "lat": 36.7176864,
+        "lng": -4.4204139
+      },
+      "evidenceIds": [
+        "Q6080206:wikipedia:10",
+        "Q6080206:wikidata:instanceOf",
+        "Q6080206:wikidata:locatedIn",
+        "Q6080206:wikipedia:11",
+        "Q6080206:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q6079979",
+      "siteId": "site:Q6079979",
+      "coordinates": {
+        "lat": 36.7191975,
+        "lng": -4.4232052
+      },
+      "evidenceIds": [
+        "Q6079979:wikipedia:1",
+        "Q6079979:wikidata:instanceOf",
+        "Q6079979:wikidata:locatedIn",
+        "Q6079979:wikipedia:4",
+        "Q6079979:wikipedia:6"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q97633218",
+      "siteId": "site:Q97633218",
+      "coordinates": {
+        "lat": 36.7245668,
+        "lng": -4.4232555
+      },
+      "evidenceIds": [
+        "Q97633218:wikipedia:4",
+        "Q97633218:wikidata:heritageDesignation",
+        "Q97633218:wikidata:inception",
+        "Q97633218:wikipedia:0",
+        "Q97633218:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q97633188",
+      "siteId": "site:Q97633188",
+      "coordinates": {
+        "lat": 36.7241081,
+        "lng": -4.4227836
+      },
+      "evidenceIds": [
+        "Q111967362:osm:start_date",
+        "Q97633188:wikidata:instanceOf",
+        "Q97633188:wikidata:locatedIn",
+        "Q97633188:wikipedia:8",
+        "Q97633188:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q5760368",
+      "siteId": "site:Q5760368",
+      "coordinates": {
+        "lat": 36.7340557,
+        "lng": -4.4180397
+      },
+      "evidenceIds": [
+        "Q109920148:osm:building",
+        "Q5760368:wikidata:heritageDesignation",
+        "Q5760368:wikidata:inception",
+        "Q5760368:wikipedia:0",
+        "Q5760368:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q5664304",
+      "siteId": "site:Q5664304",
+      "coordinates": {
+        "lat": 36.7215331,
+        "lng": -4.4243808
+      },
+      "evidenceIds": [
+        "Q5664304:wikipedia:4",
+        "Q5664304:wikidata:heritageDesignation",
+        "Q5664304:wikidata:instanceOf",
+        "Q5664304:wikipedia:2",
+        "Q5664304:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q5814078",
+      "siteId": "site:Q5814078",
+      "coordinates": {
+        "lat": 36.7184376,
+        "lng": -4.4204708
+      },
+      "evidenceIds": [
+        "Q5814078:osm:historic",
+        "Q6032873:wikidata:heritageDesignation",
+        "Q6032873:wikidata:instanceOf",
+        "Q6032873:wikipedia:1",
+        "Q6032873:wikipedia:0"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q115929385",
+      "siteId": "site:Q115929385",
+      "coordinates": {
+        "lat": 36.7214074,
+        "lng": -4.4179551
+      },
+      "evidenceIds": [
+        "Q115929385:osm:place",
+        "Q969308:wikidata:architecturalStyle",
+        "Q969308:wikidata:heritageDesignation",
+        "Q969308:wikipedia:0",
+        "Q969308:wikipedia:10"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "editorial-story-map-v4",
+      "centralQuestion": "¿Cómo se fue construyendo la identidad de Málaga a través de la superposición de capas históricas —romana, nazarí, cristiana, ilustrada y moderna— que conviven hoy en su centro urbano?",
+      "beats": [
+        {
+          "beatId": "b01",
+          "contributionCode": "origins_urban_form",
+          "era": "ancient",
+          "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual",
+          "evidenceRefs": [
+            "c06:e01",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05"
+          ]
+        },
+        {
+          "beatId": "b02",
+          "contributionCode": "royal_state_power",
+          "era": "medieval",
+          "focus": "El poder militar y palaciego nazarí que definió la ciudad fortificada",
+          "evidenceRefs": [
+            "c02:e01",
+            "c02:e04",
+            "c04:e04",
+            "c04:e05",
+            "c16:e04"
+          ]
+        },
+        {
+          "beatId": "b03",
+          "contributionCode": "religious_identity",
+          "era": "sixteenth_century",
+          "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+          "evidenceRefs": [
+            "c03:e04",
+            "c03:e05",
+            "c22:e01"
+          ]
+        },
+        {
+          "beatId": "b04",
+          "contributionCode": "civic_government",
+          "era": "early_modern",
+          "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+          "evidenceRefs": [
+            "c05:e04",
+            "c10:e04",
+            "c10:e05",
+            "c11:e04"
+          ]
+        },
+        {
+          "beatId": "b05",
+          "contributionCode": "trade_economic_life",
+          "era": "eighteenth_century",
+          "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar",
+          "evidenceRefs": [
+            "c08:e04",
+            "c08:e05",
+            "c17:e04",
+            "c23:e04"
+          ]
+        },
+        {
+          "beatId": "b06",
+          "contributionCode": "urban_expansion_reform",
+          "era": "nineteenth_century",
+          "focus": "La modernización decimonónica: ensanche, higiene pública y nuevas infraestructuras",
+          "evidenceRefs": [
+            "c09:e05",
+            "c13:e04",
+            "c23:e05",
+            "c27:e04"
+          ]
+        },
+        {
+          "beatId": "b07",
+          "contributionCode": "memory_rights",
+          "era": "twentieth_century",
+          "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+          "evidenceRefs": [
+            "c02:e04",
+            "c06:e04",
+            "c06:e05",
+            "c20:e04"
+          ]
+        }
+      ],
+      "candidates": {
+        "c01": {
+          "relativePriorityRank": 22,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c01:e04",
+                "c01:e05"
+              ]
+            },
+            {
+              "beatId": "b06",
+              "strength": 1,
+              "evidenceRefs": [
+                "c01:e05"
+              ]
+            }
+          ]
+        },
+        "c02": {
+          "relativePriorityRank": 1,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "medieval",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 3,
+              "evidenceRefs": [
+                "c02:e01",
+                "c02:e02",
+                "c02:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c02:e04"
+              ]
+            }
+          ]
+        },
+        "c03": {
+          "relativePriorityRank": 3,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "sixteenth_century",
+            "eighteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c03:e04",
+                "c03:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c03:e01"
+              ]
+            }
+          ]
+        },
+        "c04": {
+          "relativePriorityRank": 4,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "medieval"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 3,
+              "evidenceRefs": [
+                "c04:e04",
+                "c04:e05"
+              ]
+            }
+          ]
+        },
+        "c05": {
+          "relativePriorityRank": 6,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "sixteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 3,
+              "evidenceRefs": [
+                "c05:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c05:e05"
+              ]
+            }
+          ]
+        },
+        "c06": {
+          "relativePriorityRank": 2,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 3,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "ancient",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c06:e01",
+                "c06:e03"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c06:e04",
+                "c06:e05"
+              ]
+            }
+          ]
+        },
+        "c07": {
+          "relativePriorityRank": 15,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "eighteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c07:e04",
+                "c07:e05"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c07:e01"
+              ]
+            }
+          ]
+        },
+        "c08": {
+          "relativePriorityRank": 7,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "eighteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c08:e04",
+                "c08:e05"
+              ]
+            }
+          ]
+        },
+        "c09": {
+          "relativePriorityRank": 11,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c09:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c09:e02",
+                "c09:e05"
+              ]
+            }
+          ]
+        },
+        "c10": {
+          "relativePriorityRank": 5,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 2,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "sixteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 3,
+              "evidenceRefs": [
+                "c10:e04",
+                "c10:e05"
+              ]
+            }
+          ]
+        },
+        "c11": {
+          "relativePriorityRank": 16,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "eighteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c11:e04",
+                "c11:e05"
+              ]
+            }
+          ]
+        },
+        "c12": {
+          "relativePriorityRank": 23,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c12:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c12:e05"
+              ]
+            }
+          ]
+        },
+        "c13": {
+          "relativePriorityRank": 8,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c13:e04",
+                "c13:e05"
+              ]
+            }
+          ]
+        },
+        "c14": {
+          "relativePriorityRank": 17,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern",
+            "seventeenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c14:e04"
+              ]
+            }
+          ]
+        },
+        "c15": {
+          "relativePriorityRank": 24,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "seventeenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c15:e04"
+              ]
+            },
+            {
+              "beatId": "b06",
+              "strength": 1,
+              "evidenceRefs": [
+                "c15:e05"
+              ]
+            }
+          ]
+        },
+        "c16": {
+          "relativePriorityRank": 13,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "medieval",
+            "seventeenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c16:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c16:e04"
+              ]
+            }
+          ]
+        },
+        "c17": {
+          "relativePriorityRank": 10,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e05"
+              ]
+            }
+          ]
+        },
+        "c18": {
+          "relativePriorityRank": 25,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c18:e04",
+                "c18:e05"
+              ]
+            }
+          ]
+        },
+        "c19": {
+          "relativePriorityRank": 18,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "seventeenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c19:e05"
+              ]
+            }
+          ]
+        },
+        "c20": {
+          "relativePriorityRank": 26,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "eighteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 2,
+              "evidenceRefs": [
+                "c20:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c20:e04"
+              ]
+            }
+          ]
+        },
+        "c21": {
+          "relativePriorityRank": 19,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "sixteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c21:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c21:e04"
+              ]
+            }
+          ]
+        },
+        "c22": {
+          "relativePriorityRank": 14,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c22:e01"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c22:e04"
+              ]
+            }
+          ]
+        },
+        "c23": {
+          "relativePriorityRank": 9,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c23:e04",
+                "c23:e05"
+              ]
+            },
+            {
+              "beatId": "b05",
+              "strength": 1,
+              "evidenceRefs": [
+                "c23:e04"
+              ]
+            }
+          ]
+        },
+        "c24": {
+          "relativePriorityRank": 27,
+          "salienceLevel": 1,
+          "observableStrength": 1,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c24:e04"
+              ]
+            }
+          ]
+        },
+        "c25": {
+          "relativePriorityRank": 20,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c25:e01",
+                "c25:e03"
+              ]
+            }
+          ]
+        },
+        "c26": {
+          "relativePriorityRank": 28,
+          "salienceLevel": 1,
+          "observableStrength": 1,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c26:e01"
+              ]
+            }
+          ]
+        },
+        "c27": {
+          "relativePriorityRank": 12,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c27:e04",
+                "c27:e05"
+              ]
+            }
+          ]
+        },
+        "c28": {
+          "relativePriorityRank": 21,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 2,
+              "evidenceRefs": [
+                "c28:e01",
+                "c28:e04"
+              ]
+            }
+          ]
+        },
+        "c29": {
+          "relativePriorityRank": 29,
+          "salienceLevel": 1,
+          "observableStrength": 1,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c29:e01"
+              ]
+            }
+          ]
+        },
+        "c30": {
+          "relativePriorityRank": 30,
+          "salienceLevel": 1,
+          "observableStrength": 1,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "sixteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c30:e04"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 17059,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"¿Cómo se fue construyendo la identidad de Málaga a través de la superposición de capas históricas —romana, nazarí, cristiana, ilustrada y moderna— que conviven hoy en su centro urbano?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"ancient\",\"focus\":\"Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual\",\"evidenceRefs\":[\"c06:e01\",\"c06:e03\",\"c06:e04\",\"c06:e05\"]},{\"beatId\":\"b02\",\"contributionCode\":\"royal_state_power\",\"era\":\"medieval\",\"focus\":\"El poder militar y palaciego nazarí que definió la ciudad fortificada\",\"evidenceRefs\":[\"c02:e01\",\"c02:e04\",\"c04:e04\",\"c04:e05\",\"c16:e04\"]},{\"beatId\":\"b03\",\"contributionCode\":\"religious_identity\",\"era\":\"sixteenth_century\",\"focus\":\"La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán\",\"evidenceRefs\":[\"c03:e04\",\"c03:e05\",\"c22:e01\"]},{\"beatId\":\"b04\",\"contributionCode\":\"civic_government\",\"era\":\"early_modern\",\"focus\":\"El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII\",\"evidenceRefs\":[\"c05:e04\",\"c10:e04\",\"c10:e05\",\"c11:e04\"]},{\"beatId\":\"b05\",\"contributionCode\":\"trade_economic_life\",\"era\":\"eighteenth_century\",\"focus\":\"La expansión portuaria y comercial que transformó la relación de la ciudad con el mar\",\"evidenceRefs\":[\"c08:e04\",\"c08:e05\",\"c17:e04\",\"c23:e04\"]},{\"beatId\":\"b06\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"nineteenth_century\",\"focus\":\"La modernización decimonónica: ensanche, higiene pública y nuevas infraestructuras\",\"evidenceRefs\":[\"c09:e05\",\"c13:e04\",\"c23:e05\",\"c27:e04\"]},{\"beatId\":\"b07\",\"contributionCode\":\"memory_rights\",\"era\":\"twentieth_century\",\"focus\":\"La recuperación, conservación y reinterpretación del patrimonio como memoria viva\",\"evidenceRefs\":[\"c02:e04\",\"c06:e04\",\"c06:e05\",\"c20:e04\"]}], \"priorityOrder\": [\"c02\",\"c06\",\"c03\",\"c04\",\"c10\",\"c05\",\"c08\",\"c13\",\"c23\",\"c17\",\"c09\",\"c27\",\"c16\",\"c22\",\"c07\",\"c11\",\"c14\",\"c19\",\"c21\",\"c25\",\"c28\",\"c01\",\"c12\",\"c15\",\"c18\",\"c20\",\"c24\",\"c26\",\"c29\",\"c30\"], \"candidates\": {\"c01\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c02\":{\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"e01\",\"e02\",\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c03\":{\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"sixteenth_century\",\"eighteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c04\":{\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c05\":{\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"sixteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c06\":{\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":1,\"eraBuckets\":[\"ancient\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e01\",\"e03\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c07\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"eighteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c08\":{\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"eighteenth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c09\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e02\",\"e05\"]}]},\"c10\":{\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"sixteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c11\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"eighteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c12\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c13\":{\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c14\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"seventeenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c15\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"seventeenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c16\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"medieval\",\"seventeenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c17\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c18\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c19\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"seventeenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c20\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"eighteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c21\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"sixteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c22\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e01\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c23\":{\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b05\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c24\":{\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c25\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e01\",\"e03\"]}]},\"c26\":{\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c27\":{\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c28\":{\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":2,\"evidenceRefs\":[\"e01\",\"e04\"]}]},\"c29\":{\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c30\":{\"salienceLevel\":1,\"observableStrength\":1,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"sixteenth_century\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "0ab70a535a0a6c57afe2a7334fd4fd2ae0dff48c02aad84ebb19879e1e2a0639",
+    "input": {
+      "city": "Malaga",
+      "theme": "history",
+      "language": "es",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "plaza de toros de La Malagueta",
+          "category": "square_civic",
+          "fameScore": 28.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Joaquín Rucoba"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: neomudéjar"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La plaza de toros sufrió una restauración que comenzó en el año 2017 y tuvo una demora de dos años"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La Malagueta es la plaza de toros de Málaga (Andalucía, España)."
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "Alcazaba de Málaga",
+          "category": "palace_castle",
+          "fameScore": 27.681568569324174,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura morisca"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En 1931, la Alcazaba fue declarada Monumento histórico-artístico,​ por lo que es bien de interés cultural con categoría de monumento.​​ Historia La Alcazaba que se puede contemplar actualmente es el resultado de un largo proceso histórico que podría dividirse en cuatro etapas: el"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Su superficie actual de 15 000 metros cuadrados no alcanza ni siquiera la mitad del tamaño que poseía en su época de esplendor, como demuestran los planos históricos conservados."
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "Iglesia Catedral de la Encarnación",
+          "category": "religious",
+          "fameScore": 27.470671786825555,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Hasta el año 2012, fue el segundo edificio más alto de Andalucía, solo superado en su torre por la Giralda.​ La altura de sus bóvedas a nivel español solo es superada por la Catedral de Palma, siendo el templo catedralicio de Málaga, uno de los quince templos europeos con mayor a"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Diego de Siloé"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Renacimiento"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Su proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "Castillo de Gibralfaro",
+          "category": "palace_castle",
+          "fameScore": 25.172064766172813,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: castillo"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487."
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "Palacio de los Condes de Buenavista",
+          "category": "civic_power",
+          "fameScore": 23.00488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura del Renacimiento"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "Teatro romano",
+          "category": "other",
+          "fameScore": 22.259775004326936,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Se trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de us"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: -0050-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Tras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "Palacio Episcopal",
+          "category": "other",
+          "fameScore": 20.604887502163468,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Muy importante por su alta calidad compositiva es el diseño de su fachada principal, de tres plantas de altura, que se articula a través de pilastras pareadas y simples de bajo resalte entre las que se disponen grandes huecos a modo de balcones en las plantas superiores y de vent"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Sus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "Palacio de la Aduana",
+          "category": "civic_power",
+          "fameScore": 20.215784284662085,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Manuel Martín Rodríguez"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "Cementerio Inglés de Málaga",
+          "category": "other",
+          "fameScore": 19.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1831-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Cementerio Anglicano, Cementerio de San Jorge o Cementerio Inglés es un camposanto levantado en el siglo XIX en la ciudad de Málaga, en la comunidad autónoma de Andalucía, al sur de España."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Se trata del primer cementerio protestante de España,​ construido a partir de 1831."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "Plaza de la Constitución (Málaga)",
+          "category": "square_civic",
+          "fameScore": 19.57206476617281,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Distrito Centro"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cár"
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "Palacio del Conde de Villalcázar",
+          "category": "civic_power",
+          "fameScore": 18.00488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Del interior son destacables las columnas de mármol del patio."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: palacio"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El palacio de Villalcázar es un edificio del siglo XVIII situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Historia El Palacio toma su nombre del octavo Conde de Villalcázar de Sirga, José María Echevarri y Chacón, que también era tercer Conde de Buenavista por haber sucedido a su tío, el segundo Conde, al no tener éste descendientes."
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "Mercado de Salamanca",
+          "category": "market",
+          "fameScore": 18,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Consisten en un arco de herradura formado por bandas de ladrillo en distintas disposiciones y rejas modernistas."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Daniel Rubio Sánchez"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoárabe"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fue construido entre 1922 y 1925 y diseñado por el arquitecto Daniel Rubio Sánchez."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Anécdotas El Mercado de Salamanca se puede apreciar en el largometraje franco-estadounidense de 1966 Lost Command.​ Véase también Mercado de Atarazanas Arquitectura del siglo XX en Málaga Mapa del Mercado de Salamanca Bibliografía Mª Eugenia Candau, José Ignacio Díaz Pardo, Franc"
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "calle Marqués de Larios",
+          "category": "square_civic",
+          "fameScore": 17.972064766172814,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "surface: paving_stones"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1891-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: calle"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La apertura de la calle Larios se enmarca en una serie de operaciones urbanísticas que, desde finales del siglo XIX, buscaban modernizar el centro de Málaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España."
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "Palacio de Zea-Salvatierra",
+          "category": "other",
+          "fameScore": 17.35,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Fue propiedad del presbítero Francisco de Zea Salvatierra, a quien corresponde el escudo de la puerta."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: palacio"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se trata de una edificación residencial de finales del siglo XVII y principios del XVIII, ubicada en el centro histórico, en la calle Císter."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "SobreMálaga.com: Palacio de Zea Salvatierra Archivado el 10 de abril de 2009 en Wayback Machine."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "Castillo y Muralla de Santa Catalina",
+          "category": "other",
+          "fameScore": 17.00488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: hotel"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1625-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia La fortaleza original, conocida como Fuerte Alto de la Caleta, bautizada después durante el Siglo de las Luces como Santa Catalina,​ fue ordenada construir en 1625 como defensa de La Caleta a instancias del obispo Francisco de Mendoza según traza de Sebastián de Arriba.​"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 1849, el Estado decidió venderlo dado su mal estado de conservación y pasó a sucesivos particulares.​ El palacio fue levantado en el recinto entre 1929 y 1933 a instancias de Manuel Loring como vivienda familiar, obra de los arquitectos franceses Lahalle y Levard..​​ Durante u"
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "Muralla nazarí y muro portuario",
+          "category": "other",
+          "fameScore": 17.00488750216347,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: monumento"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El muro portuario del siglo XVII y la muralla nazarí del siglo XIV están considerados como de excepcional importancia para la investigación de la evolución urbana de la ciudad, motivo por el cual fueron declarados BIC el 13 de junio de 1995 como Monumento.​ La Muralla Nazarí está"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La muralla nazarí y el muro portuario son un bien de interés cultural de la ciudad de Málaga, Andalucía, España."
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "La Farola de Málaga",
+          "category": "other",
+          "fameScore": 16.75,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Entre 1913 y 1915 se amplió la vivienda del farero y se reformó la base añadiéndole un piso más que le da la fachada original actual."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1816-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Obra del ingeniero Joaquín María Pery y Guzmán, su construcción comenzó en 1813 y finalizó en 1817, estando entonces situado en la entrada del Puerto de Málaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En 2023, el faro fue declarado bien de interés cultural, con la categoría de monumento.​​ Historia Durante un siglo entero existió en el mismo espacio urbano una linterna de madera que cumplía con las funciones de un faro y que diseñó en 1717 el ingeniero francés Bartolomé Thurus"
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "antigua estación del ferrocarril suburbano de Málaga",
+          "category": "civic_power",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: ecléctico"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1911-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Sólo la línea de Fuengirola, construida por la empresa Ferrocarriles de Málaga a Algeciras y Cádiz, explotada por FSM hasta 1934 y pasando después a manos de FEVE, se mantuvo activa."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Daba cobertura a la red de Ferrocarriles Suburbanos de Málaga que unía a la capital malagueña con Coín, con Ventas de Zafarraya a través de Vélez-Málaga y con Fuengirola."
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "Mesón de la Victoria",
+          "category": "civic_power",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1632-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Archivado desde el original el 21 de noviembre de 2008."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Este edificio fue declarado Bien de Interés Cultural en 1964.​ Fue construido en 1632 como mesón regentado por los frailes franciscanos del Convento de la Victoria."
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "Mercado de Mayoristas",
+          "category": "civic_power",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: public"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Luis Gutiérrez Soto"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: racionalismo"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El antiguo Mercado de Mayoristas de Málaga, declarado Bien de Interés Cultural en 1987,​ y obra del arquitecto español Luis Gutiérrez Soto, alberga desde 2003 el Centro de Arte Contemporáneo de Málaga (CAC Málaga)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Se trata de uno de los límites de lo que antiguamente fue la medina musulmana, ganada a la desembocadura del río durante las obras de reordenación urbana de la ciudad de Málaga hacia el siglo XVIII, donde se encontraba el Puerto de Poniente."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "Antiguo Convento de San Andrés",
+          "category": "civic_power",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: public"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: iglesia"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se encontraba en un grave estado de abandono, por ello su rehabilitación comenzó al finalizar el verano de 2016 con técnicas antiguas para intentar asemejarse a su forma primigenia."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La primera fase de restauración terminó en enero de 2018,​ mientras que la segunda concluyó en abril de 2022.​ Historia Se trata de un antiguo convento fundado por la Orden de los Carmelitas Descalzos en el siglo XVI sobre una ermita existente consagrada a San Andrés."
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "Plaza del Obispo",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Se encuentra frente a la fachada principal de la catedral de Málaga y el palacio Episcopal de Málaga, en la confluencia entre las calles Molina Lario y Salinas del centro histórico del distrito 1."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Distrito Centro"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En la última década del siglo XX, la plaza fue reformada y algunos de sus edificios renovados, sustituyendo a los antiguos edificios de Diego Clavero y Gerónimo Cuervo."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Curiosidades La plaza del Obispo, el palacio episcopal y la catedral de Málaga aparecen en el largometraje de El puente de San Luis Rey (2004) como escenario de una ciudad del Perú colonial del siglo XVIII.​ Referencias Enlaces externos Wikimedia Commons alberga una categoría mul"
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "Plaza de la Marina",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Durante la temporada navideña se coloca un árbol de luces, justo encima de la fuente.​ Desde 2019 también forma parte del Recorrido Oficial de la Semana Santa de Málaga."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Distrito Centro"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Etimología La plaza se denomina \"de la Marina\" por su proximidad al mar, pues al igual que el Parque, ambos se construyeron en terrenos ganados al mar durante el siglo XIX.​ A lo largo de su historia también ha tenido otros nombres como plaza de Suárez de Figueroa y del General Q"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "El espacio actual surge en torno al siglo XIX, cuando comenzaron a derribarse las murallas nazaríes y se ganaron nuevos terrenos al mar, con el proyecto del ensanche."
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "Plaza de Félix Sáenz",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Está situada en la confluencia de las calles Nueva, San Juan, Sagasta, de los Esparteros y Puerta del Mar."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Distrito Centro"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En el año 2000, en el centro de la plaza se instaló la obra Casa dorada para pájaros, del escultor catalán Jaume Plensa."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005"
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "Real Conservatorio de Música María Cristina",
+          "category": "civic_power",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Tras su desamortización, en 1836, tanto el inmueble como las huertas sufrieron una profunda transformación que conllevaría a la secularización, desmembramiento y parcelación de sus propiedades, conservándose solo algunos elementos del primitivo cenobio masculino, como una parte d"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1871-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El Real Conservatorio de Música María Cristiana es un edificio público catalogado como Bien de Interés Cultural situado en Málaga, antiguo conservatorio de música de Málaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Actualmente aloja la Sala María Cristina, gestionada por la Fundación Unicaja."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "Plaza de San Francisco",
+          "category": "square_civic",
+          "fameScore": 15.904887502163469,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "start_date: 2021-12-17"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "locatedIn: Málaga"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "bilingüe [1ª Ed.] - Sevilla: Consejería de Obras Públicas y Transportes, Málaga - Colegio de Arquitectos, 2005"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La plaza de San Francisco es una plaza del distrito Centro de la ciudad de Málaga, España."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "Cementerio de San Miguel",
+          "category": "other",
+          "fameScore": 15.504887502163468,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Catalogación General"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1810-07-01"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia Antecedentes Se construye como consecuencia de la Real Cédula que en 1787 dicta el rey Carlos III, en la que por razones sanitarias se prohíbe enterrar en las iglesias y conventos y se ordena a los ayuntamientos la construcción de cementerios fuera de las poblaciones, en"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Esta normativa de Carlos III no se cumplió en Málaga hasta que a comienzos del Siglo XIX hubo una epidemia de fiebre amarilla o vómito negro que asoló la ciudad en 1804."
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Mesón de San Rafael",
+          "category": "other",
+          "fameScore": 15.504887502163468,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Descripción El acceso al antiguo mesón de San Rafael se realiza a través de un pasaje abovedado de 18 metros de longitud ubicado en el número 38 de la calle Compañía, configurándose mediante una amplia fachada con una sola crujía que fue construida a mediados del siglo XIX, según"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: edificio"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Resulta muy característico como mesón-tipo de estilo neoclásico, cuyas formas remiten a un lenguaje clasicista, con pequeñas concesiones ornamentales, ocupando el inmueble el interior de la manzana."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "En el año 2000 se llevó a cabo la rehabilitación del inmueble, siendo en la actualidad la sede de la sociedad mercantil del sector público andaluz Turismo Andaluz, S.A., dependiente de la Consejería de Turismo, Comercio y Deporte."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Monumento a Hans Christian Andersen",
+          "category": "memorial",
+          "fameScore": 13.5,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: monumento"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El muro portuario del siglo XVII y la muralla nazarí del siglo XIV están considerados como de excepcional importancia para la investigación de la evolución urbana de la ciudad, motivo por el cual fueron declarados BIC el 13 de junio de 1995 como Monumento.​ La Muralla Nazarí está"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La muralla nazarí y el muro portuario son un bien de interés cultural de la ciudad de Málaga, Andalucía, España."
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "Plaza de la Higuera",
+          "category": "square_civic",
+          "fameScore": 13.149999999999999,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura del Renacimiento"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": {
+    "schemaVersion": "walking-matrix-v1",
+    "provider": {
+      "id": "fossgis-osrm-foot",
+      "capturedAt": "2026-08-06T18:30:16.699Z"
+    },
+    "candidateFingerprint": "314d07f3bc3e771b8d9bd4e9e8c35b5590093c7827d362fe7cf307a87f241bd0",
+    "sites": [
+      {
+        "siteId": "site:Q523311",
+        "lat": 36.7203556,
+        "lng": -4.410785
+      },
+      {
+        "siteId": "site:Q3127243",
+        "lat": 36.7210199,
+        "lng": -4.4159336
+      },
+      {
+        "siteId": "site:Q1582758",
+        "lat": 36.7201789,
+        "lng": -4.41941
+      },
+      {
+        "siteId": "site:Q1049197",
+        "lat": 36.7233684,
+        "lng": -4.4116294
+      },
+      {
+        "siteId": "site:Q969308",
+        "lat": 36.721559,
+        "lng": -4.4182724
+      },
+      {
+        "siteId": "site:Q3849447",
+        "lat": 36.7212854,
+        "lng": -4.4168967
+      },
+      {
+        "siteId": "site:Q97633210",
+        "lat": 36.7206113,
+        "lng": -4.4205106
+      },
+      {
+        "siteId": "site:Q4155876",
+        "lat": 36.7199694,
+        "lng": -4.4171575
+      },
+      {
+        "siteId": "site:Q5378201",
+        "lat": 36.7216854,
+        "lng": -4.4068238
+      },
+      {
+        "siteId": "site:Q9060974",
+        "lat": 36.7210904,
+        "lng": -4.4219879
+      },
+      {
+        "siteId": "site:Q6058241",
+        "lat": 36.7199737,
+        "lng": -4.4178768
+      },
+      {
+        "siteId": "site:Q11680432",
+        "lat": 36.7196693,
+        "lng": -4.4215972
+      },
+      {
+        "siteId": "site:Q9054580",
+        "lat": 36.720879,
+        "lng": -4.4191022
+      },
+      {
+        "siteId": "site:Q5669119",
+        "lat": 36.7141676,
+        "lng": -4.4145422
+      },
+      {
+        "siteId": "site:Q2884109",
+        "lat": 36.720125,
+        "lng": -4.420266
+      },
+      {
+        "siteId": "site:Q6080206",
+        "lat": 36.7176864,
+        "lng": -4.4204139
+      },
+      {
+        "siteId": "site:Q5814078",
+        "lat": 36.7184376,
+        "lng": -4.4204708
+      },
+      {
+        "siteId": "site:Q115929385",
+        "lat": 36.7214074,
+        "lng": -4.4179551
+      }
+    ],
+    "legs": [
+      [
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1031.5,
+          "seconds": 825.3,
+          "reachable": true
+        },
+        {
+          "meters": 869.2,
+          "seconds": 695.3,
+          "reachable": true
+        },
+        {
+          "meters": 1075.9,
+          "seconds": 899.2,
+          "reachable": true
+        },
+        {
+          "meters": 827.4,
+          "seconds": 661.5,
+          "reachable": true
+        },
+        {
+          "meters": 757.1,
+          "seconds": 605.5,
+          "reachable": true
+        },
+        {
+          "meters": 1031.2,
+          "seconds": 824.9,
+          "reachable": true
+        },
+        {
+          "meters": 681,
+          "seconds": 544.8,
+          "reachable": true
+        },
+        {
+          "meters": 597.1,
+          "seconds": 481.5,
+          "reachable": true
+        },
+        {
+          "meters": 1131.5,
+          "seconds": 905.1,
+          "reachable": true
+        },
+        {
+          "meters": 723,
+          "seconds": 578.3,
+          "reachable": true
+        },
+        {
+          "meters": 1099.2,
+          "seconds": 879.5,
+          "reachable": true
+        },
+        {
+          "meters": 889.1,
+          "seconds": 711.2,
+          "reachable": true
+        },
+        {
+          "meters": 931.3,
+          "seconds": 745.1,
+          "reachable": true
+        },
+        {
+          "meters": 991.5,
+          "seconds": 793.3,
+          "reachable": true
+        },
+        {
+          "meters": 994.4,
+          "seconds": 795.5,
+          "reachable": true
+        },
+        {
+          "meters": 945.2,
+          "seconds": 758,
+          "reachable": true
+        },
+        {
+          "meters": 825.9,
+          "seconds": 660.5,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1031.5,
+          "seconds": 825.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 576,
+          "seconds": 461.2,
+          "reachable": true
+        },
+        {
+          "meters": 1344.4,
+          "seconds": 1114,
+          "reachable": true
+        },
+        {
+          "meters": 516.8,
+          "seconds": 413.4,
+          "reachable": true
+        },
+        {
+          "meters": 446.5,
+          "seconds": 357.4,
+          "reachable": true
+        },
+        {
+          "meters": 738,
+          "seconds": 590.8,
+          "reachable": true
+        },
+        {
+          "meters": 426.7,
+          "seconds": 341.7,
+          "reachable": true
+        },
+        {
+          "meters": 1609.2,
+          "seconds": 1291.4,
+          "reachable": true
+        },
+        {
+          "meters": 838.3,
+          "seconds": 671,
+          "reachable": true
+        },
+        {
+          "meters": 436.7,
+          "seconds": 349.7,
+          "reachable": true
+        },
+        {
+          "meters": 827.9,
+          "seconds": 662.7,
+          "reachable": true
+        },
+        {
+          "meters": 595.9,
+          "seconds": 477.1,
+          "reachable": true
+        },
+        {
+          "meters": 1457.1,
+          "seconds": 1165.7,
+          "reachable": true
+        },
+        {
+          "meters": 698.4,
+          "seconds": 559.2,
+          "reachable": true
+        },
+        {
+          "meters": 842.7,
+          "seconds": 676.4,
+          "reachable": true
+        },
+        {
+          "meters": 756.6,
+          "seconds": 607.4,
+          "reachable": true
+        },
+        {
+          "meters": 515.2,
+          "seconds": 412.4,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 869.2,
+          "seconds": 695.3,
+          "reachable": true
+        },
+        {
+          "meters": 576,
+          "seconds": 461.2,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1186.3,
+          "seconds": 987.3,
+          "reachable": true
+        },
+        {
+          "meters": 221,
+          "seconds": 176.8,
+          "reachable": true
+        },
+        {
+          "meters": 296.4,
+          "seconds": 237.3,
+          "reachable": true
+        },
+        {
+          "meters": 210.4,
+          "seconds": 168.2,
+          "reachable": true
+        },
+        {
+          "meters": 264.4,
+          "seconds": 211.7,
+          "reachable": true
+        },
+        {
+          "meters": 1446.8,
+          "seconds": 1161.4,
+          "reachable": true
+        },
+        {
+          "meters": 310.7,
+          "seconds": 248.4,
+          "reachable": true
+        },
+        {
+          "meters": 228,
+          "seconds": 182.5,
+          "reachable": true
+        },
+        {
+          "meters": 341.6,
+          "seconds": 273,
+          "reachable": true
+        },
+        {
+          "meters": 68.2,
+          "seconds": 54.5,
+          "reachable": true
+        },
+        {
+          "meters": 1294.8,
+          "seconds": 1035.7,
+          "reachable": true
+        },
+        {
+          "meters": 170.7,
+          "seconds": 136.6,
+          "reachable": true
+        },
+        {
+          "meters": 493.9,
+          "seconds": 397.2,
+          "reachable": true
+        },
+        {
+          "meters": 397.5,
+          "seconds": 318.1,
+          "reachable": true
+        },
+        {
+          "meters": 227.7,
+          "seconds": 182.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1075.9,
+          "seconds": 899.2,
+          "reachable": true
+        },
+        {
+          "meters": 1344.4,
+          "seconds": 1114,
+          "reachable": true
+        },
+        {
+          "meters": 1186.3,
+          "seconds": 987.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 965.3,
+          "seconds": 810.5,
+          "reachable": true
+        },
+        {
+          "meters": 897.9,
+          "seconds": 756.6,
+          "reachable": true
+        },
+        {
+          "meters": 1295.9,
+          "seconds": 1075,
+          "reachable": true
+        },
+        {
+          "meters": 1050.3,
+          "seconds": 878.5,
+          "reachable": true
+        },
+        {
+          "meters": 1286.6,
+          "seconds": 1080,
+          "reachable": true
+        },
+        {
+          "meters": 1391.8,
+          "seconds": 1151.5,
+          "reachable": true
+        },
+        {
+          "meters": 1060.3,
+          "seconds": 886.5,
+          "reachable": true
+        },
+        {
+          "meters": 1451.5,
+          "seconds": 1199.5,
+          "reachable": true
+        },
+        {
+          "meters": 1124.3,
+          "seconds": 937.7,
+          "reachable": true
+        },
+        {
+          "meters": 1796.2,
+          "seconds": 1475.2,
+          "reachable": true
+        },
+        {
+          "meters": 1286.2,
+          "seconds": 1067.2,
+          "reachable": true
+        },
+        {
+          "meters": 1466.3,
+          "seconds": 1213.2,
+          "reachable": true
+        },
+        {
+          "meters": 1380.1,
+          "seconds": 1144.2,
+          "reachable": true
+        },
+        {
+          "meters": 958.6,
+          "seconds": 805,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 827.4,
+          "seconds": 661.5,
+          "reachable": true
+        },
+        {
+          "meters": 516.8,
+          "seconds": 413.4,
+          "reachable": true
+        },
+        {
+          "meters": 221,
+          "seconds": 176.8,
+          "reachable": true
+        },
+        {
+          "meters": 965.3,
+          "seconds": 810.5,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 75.4,
+          "seconds": 60.5,
+          "reachable": true
+        },
+        {
+          "meters": 383,
+          "seconds": 306.4,
+          "reachable": true
+        },
+        {
+          "meters": 222.6,
+          "seconds": 177.9,
+          "reachable": true
+        },
+        {
+          "meters": 1405.1,
+          "seconds": 1127.6,
+          "reachable": true
+        },
+        {
+          "meters": 483.3,
+          "seconds": 386.6,
+          "reachable": true
+        },
+        {
+          "meters": 217.6,
+          "seconds": 173.9,
+          "reachable": true
+        },
+        {
+          "meters": 514.2,
+          "seconds": 411.2,
+          "reachable": true
+        },
+        {
+          "meters": 240.9,
+          "seconds": 192.7,
+          "reachable": true
+        },
+        {
+          "meters": 1253,
+          "seconds": 1001.9,
+          "reachable": true
+        },
+        {
+          "meters": 343.4,
+          "seconds": 274.8,
+          "reachable": true
+        },
+        {
+          "meters": 586.9,
+          "seconds": 471.6,
+          "reachable": true
+        },
+        {
+          "meters": 500.8,
+          "seconds": 402.6,
+          "reachable": true
+        },
+        {
+          "meters": 6.7,
+          "seconds": 5.5,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 757.1,
+          "seconds": 605.5,
+          "reachable": true
+        },
+        {
+          "meters": 446.5,
+          "seconds": 357.4,
+          "reachable": true
+        },
+        {
+          "meters": 296.4,
+          "seconds": 237.3,
+          "reachable": true
+        },
+        {
+          "meters": 897.9,
+          "seconds": 756.6,
+          "reachable": true
+        },
+        {
+          "meters": 75.4,
+          "seconds": 60.5,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 458.5,
+          "seconds": 366.9,
+          "reachable": true
+        },
+        {
+          "meters": 152.4,
+          "seconds": 121.9,
+          "reachable": true
+        },
+        {
+          "meters": 1334.8,
+          "seconds": 1071.6,
+          "reachable": true
+        },
+        {
+          "meters": 558.8,
+          "seconds": 447.1,
+          "reachable": true
+        },
+        {
+          "meters": 162.4,
+          "seconds": 129.9,
+          "reachable": true
+        },
+        {
+          "meters": 553.5,
+          "seconds": 442.9,
+          "reachable": true
+        },
+        {
+          "meters": 309.6,
+          "seconds": 247.7,
+          "reachable": true
+        },
+        {
+          "meters": 1182.8,
+          "seconds": 945.9,
+          "reachable": true
+        },
+        {
+          "meters": 418.8,
+          "seconds": 335.3,
+          "reachable": true
+        },
+        {
+          "meters": 568.3,
+          "seconds": 456.6,
+          "reachable": true
+        },
+        {
+          "meters": 482.2,
+          "seconds": 387.6,
+          "reachable": true
+        },
+        {
+          "meters": 68.7,
+          "seconds": 55,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1031.2,
+          "seconds": 824.9,
+          "reachable": true
+        },
+        {
+          "meters": 738,
+          "seconds": 590.8,
+          "reachable": true
+        },
+        {
+          "meters": 210.4,
+          "seconds": 168.2,
+          "reachable": true
+        },
+        {
+          "meters": 1295.9,
+          "seconds": 1075,
+          "reachable": true
+        },
+        {
+          "meters": 383,
+          "seconds": 306.4,
+          "reachable": true
+        },
+        {
+          "meters": 458.5,
+          "seconds": 366.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 426.4,
+          "seconds": 341.3,
+          "reachable": true
+        },
+        {
+          "meters": 1608.9,
+          "seconds": 1291,
+          "reachable": true
+        },
+        {
+          "meters": 132.4,
+          "seconds": 105.8,
+          "reachable": true
+        },
+        {
+          "meters": 390,
+          "seconds": 312.1,
+          "reachable": true
+        },
+        {
+          "meters": 164.2,
+          "seconds": 131.3,
+          "reachable": true
+        },
+        {
+          "meters": 201.6,
+          "seconds": 161.1,
+          "reachable": true
+        },
+        {
+          "meters": 1456.8,
+          "seconds": 1165.3,
+          "reachable": true
+        },
+        {
+          "meters": 113.1,
+          "seconds": 90.5,
+          "reachable": true
+        },
+        {
+          "meters": 470.1,
+          "seconds": 378.2,
+          "reachable": true
+        },
+        {
+          "meters": 372.5,
+          "seconds": 298.2,
+          "reachable": true
+        },
+        {
+          "meters": 389.7,
+          "seconds": 311.9,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 681,
+          "seconds": 544.8,
+          "reachable": true
+        },
+        {
+          "meters": 426.7,
+          "seconds": 341.7,
+          "reachable": true
+        },
+        {
+          "meters": 264.4,
+          "seconds": 211.7,
+          "reachable": true
+        },
+        {
+          "meters": 1050.3,
+          "seconds": 878.5,
+          "reachable": true
+        },
+        {
+          "meters": 222.6,
+          "seconds": 177.9,
+          "reachable": true
+        },
+        {
+          "meters": 152.4,
+          "seconds": 121.9,
+          "reachable": true
+        },
+        {
+          "meters": 426.4,
+          "seconds": 341.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1258.7,
+          "seconds": 1010.9,
+          "reachable": true
+        },
+        {
+          "meters": 526.7,
+          "seconds": 421.5,
+          "reachable": true
+        },
+        {
+          "meters": 42.1,
+          "seconds": 33.5,
+          "reachable": true
+        },
+        {
+          "meters": 429.8,
+          "seconds": 343.9,
+          "reachable": true
+        },
+        {
+          "meters": 284.3,
+          "seconds": 227.6,
+          "reachable": true
+        },
+        {
+          "meters": 1106.6,
+          "seconds": 885.2,
+          "reachable": true
+        },
+        {
+          "meters": 333.5,
+          "seconds": 266.8,
+          "reachable": true
+        },
+        {
+          "meters": 444.6,
+          "seconds": 357.6,
+          "reachable": true
+        },
+        {
+          "meters": 358.5,
+          "seconds": 288.6,
+          "reachable": true
+        },
+        {
+          "meters": 221.1,
+          "seconds": 176.9,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 597.1,
+          "seconds": 481.5,
+          "reachable": true
+        },
+        {
+          "meters": 1609.2,
+          "seconds": 1291.4,
+          "reachable": true
+        },
+        {
+          "meters": 1446.8,
+          "seconds": 1161.4,
+          "reachable": true
+        },
+        {
+          "meters": 1286.6,
+          "seconds": 1080,
+          "reachable": true
+        },
+        {
+          "meters": 1405.1,
+          "seconds": 1127.6,
+          "reachable": true
+        },
+        {
+          "meters": 1334.8,
+          "seconds": 1071.6,
+          "reachable": true
+        },
+        {
+          "meters": 1608.9,
+          "seconds": 1291,
+          "reachable": true
+        },
+        {
+          "meters": 1258.7,
+          "seconds": 1010.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1709.2,
+          "seconds": 1371.2,
+          "reachable": true
+        },
+        {
+          "meters": 1300.7,
+          "seconds": 1044.4,
+          "reachable": true
+        },
+        {
+          "meters": 1676.9,
+          "seconds": 1345.6,
+          "reachable": true
+        },
+        {
+          "meters": 1466.7,
+          "seconds": 1177.3,
+          "reachable": true
+        },
+        {
+          "meters": 1368.7,
+          "seconds": 1094.9,
+          "reachable": true
+        },
+        {
+          "meters": 1569.2,
+          "seconds": 1259.4,
+          "reachable": true
+        },
+        {
+          "meters": 1587.3,
+          "seconds": 1273.7,
+          "reachable": true
+        },
+        {
+          "meters": 1522.8,
+          "seconds": 1224.1,
+          "reachable": true
+        },
+        {
+          "meters": 1403.5,
+          "seconds": 1126.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1131.5,
+          "seconds": 905.1,
+          "reachable": true
+        },
+        {
+          "meters": 838.3,
+          "seconds": 671,
+          "reachable": true
+        },
+        {
+          "meters": 310.7,
+          "seconds": 248.4,
+          "reachable": true
+        },
+        {
+          "meters": 1391.8,
+          "seconds": 1151.5,
+          "reachable": true
+        },
+        {
+          "meters": 483.3,
+          "seconds": 386.6,
+          "reachable": true
+        },
+        {
+          "meters": 558.8,
+          "seconds": 447.1,
+          "reachable": true
+        },
+        {
+          "meters": 132.4,
+          "seconds": 105.8,
+          "reachable": true
+        },
+        {
+          "meters": 526.7,
+          "seconds": 421.5,
+          "reachable": true
+        },
+        {
+          "meters": 1709.2,
+          "seconds": 1371.2,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 490.4,
+          "seconds": 392.3,
+          "reachable": true
+        },
+        {
+          "meters": 162.6,
+          "seconds": 130.1,
+          "reachable": true
+        },
+        {
+          "meters": 301.9,
+          "seconds": 241.3,
+          "reachable": true
+        },
+        {
+          "meters": 1557.1,
+          "seconds": 1245.5,
+          "reachable": true
+        },
+        {
+          "meters": 230.2,
+          "seconds": 184,
+          "reachable": true
+        },
+        {
+          "meters": 468.6,
+          "seconds": 377,
+          "reachable": true
+        },
+        {
+          "meters": 409,
+          "seconds": 327.2,
+          "reachable": true
+        },
+        {
+          "meters": 490.1,
+          "seconds": 392.1,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 723,
+          "seconds": 578.3,
+          "reachable": true
+        },
+        {
+          "meters": 436.7,
+          "seconds": 349.7,
+          "reachable": true
+        },
+        {
+          "meters": 228,
+          "seconds": 182.5,
+          "reachable": true
+        },
+        {
+          "meters": 1060.3,
+          "seconds": 886.5,
+          "reachable": true
+        },
+        {
+          "meters": 217.6,
+          "seconds": 173.9,
+          "reachable": true
+        },
+        {
+          "meters": 162.4,
+          "seconds": 129.9,
+          "reachable": true
+        },
+        {
+          "meters": 390,
+          "seconds": 312.1,
+          "reachable": true
+        },
+        {
+          "meters": 42.1,
+          "seconds": 33.5,
+          "reachable": true
+        },
+        {
+          "meters": 1300.7,
+          "seconds": 1044.4,
+          "reachable": true
+        },
+        {
+          "meters": 490.4,
+          "seconds": 392.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 397.1,
+          "seconds": 317.8,
+          "reachable": true
+        },
+        {
+          "meters": 247.9,
+          "seconds": 198.4,
+          "reachable": true
+        },
+        {
+          "meters": 1148.7,
+          "seconds": 918.7,
+          "reachable": true
+        },
+        {
+          "meters": 300.7,
+          "seconds": 240.7,
+          "reachable": true
+        },
+        {
+          "meters": 411.9,
+          "seconds": 331.5,
+          "reachable": true
+        },
+        {
+          "meters": 325.7,
+          "seconds": 262.5,
+          "reachable": true
+        },
+        {
+          "meters": 224.3,
+          "seconds": 179.4,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1099.2,
+          "seconds": 879.5,
+          "reachable": true
+        },
+        {
+          "meters": 827.9,
+          "seconds": 662.7,
+          "reachable": true
+        },
+        {
+          "meters": 341.6,
+          "seconds": 273,
+          "reachable": true
+        },
+        {
+          "meters": 1451.5,
+          "seconds": 1199.5,
+          "reachable": true
+        },
+        {
+          "meters": 514.2,
+          "seconds": 411.2,
+          "reachable": true
+        },
+        {
+          "meters": 553.5,
+          "seconds": 442.9,
+          "reachable": true
+        },
+        {
+          "meters": 164.2,
+          "seconds": 131.3,
+          "reachable": true
+        },
+        {
+          "meters": 429.8,
+          "seconds": 343.9,
+          "reachable": true
+        },
+        {
+          "meters": 1676.9,
+          "seconds": 1345.6,
+          "reachable": true
+        },
+        {
+          "meters": 162.6,
+          "seconds": 130.1,
+          "reachable": true
+        },
+        {
+          "meters": 397.1,
+          "seconds": 317.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 332.8,
+          "seconds": 265.9,
+          "reachable": true
+        },
+        {
+          "meters": 1511.4,
+          "seconds": 1209.1,
+          "reachable": true
+        },
+        {
+          "meters": 170.9,
+          "seconds": 136.4,
+          "reachable": true
+        },
+        {
+          "meters": 306,
+          "seconds": 246.9,
+          "reachable": true
+        },
+        {
+          "meters": 246.3,
+          "seconds": 197.1,
+          "reachable": true
+        },
+        {
+          "meters": 521,
+          "seconds": 416.7,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 889.1,
+          "seconds": 711.2,
+          "reachable": true
+        },
+        {
+          "meters": 595.9,
+          "seconds": 477.1,
+          "reachable": true
+        },
+        {
+          "meters": 68.2,
+          "seconds": 54.5,
+          "reachable": true
+        },
+        {
+          "meters": 1124.3,
+          "seconds": 937.7,
+          "reachable": true
+        },
+        {
+          "meters": 240.9,
+          "seconds": 192.7,
+          "reachable": true
+        },
+        {
+          "meters": 309.6,
+          "seconds": 247.7,
+          "reachable": true
+        },
+        {
+          "meters": 201.6,
+          "seconds": 161.1,
+          "reachable": true
+        },
+        {
+          "meters": 284.3,
+          "seconds": 227.6,
+          "reachable": true
+        },
+        {
+          "meters": 1466.7,
+          "seconds": 1177.3,
+          "reachable": true
+        },
+        {
+          "meters": 301.9,
+          "seconds": 241.3,
+          "reachable": true
+        },
+        {
+          "meters": 247.9,
+          "seconds": 198.4,
+          "reachable": true
+        },
+        {
+          "meters": 332.8,
+          "seconds": 265.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1314.7,
+          "seconds": 1051.6,
+          "reachable": true
+        },
+        {
+          "meters": 161.9,
+          "seconds": 129.5,
+          "reachable": true
+        },
+        {
+          "meters": 485.1,
+          "seconds": 390.1,
+          "reachable": true
+        },
+        {
+          "meters": 388.7,
+          "seconds": 311,
+          "reachable": true
+        },
+        {
+          "meters": 247.6,
+          "seconds": 198.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 931.3,
+          "seconds": 745.1,
+          "reachable": true
+        },
+        {
+          "meters": 1457.1,
+          "seconds": 1165.7,
+          "reachable": true
+        },
+        {
+          "meters": 1294.8,
+          "seconds": 1035.7,
+          "reachable": true
+        },
+        {
+          "meters": 1796.2,
+          "seconds": 1475.2,
+          "reachable": true
+        },
+        {
+          "meters": 1253,
+          "seconds": 1001.9,
+          "reachable": true
+        },
+        {
+          "meters": 1182.8,
+          "seconds": 945.9,
+          "reachable": true
+        },
+        {
+          "meters": 1456.8,
+          "seconds": 1165.3,
+          "reachable": true
+        },
+        {
+          "meters": 1106.6,
+          "seconds": 885.2,
+          "reachable": true
+        },
+        {
+          "meters": 1368.7,
+          "seconds": 1094.9,
+          "reachable": true
+        },
+        {
+          "meters": 1557.1,
+          "seconds": 1245.5,
+          "reachable": true
+        },
+        {
+          "meters": 1148.7,
+          "seconds": 918.7,
+          "reachable": true
+        },
+        {
+          "meters": 1511.4,
+          "seconds": 1209.1,
+          "reachable": true
+        },
+        {
+          "meters": 1314.7,
+          "seconds": 1051.6,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1415.1,
+          "seconds": 1132,
+          "reachable": true
+        },
+        {
+          "meters": 1234.8,
+          "seconds": 987.9,
+          "reachable": true
+        },
+        {
+          "meters": 1322,
+          "seconds": 1059.6,
+          "reachable": true
+        },
+        {
+          "meters": 1251.5,
+          "seconds": 1000.9,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 991.5,
+          "seconds": 793.3,
+          "reachable": true
+        },
+        {
+          "meters": 698.4,
+          "seconds": 559.2,
+          "reachable": true
+        },
+        {
+          "meters": 170.7,
+          "seconds": 136.6,
+          "reachable": true
+        },
+        {
+          "meters": 1286.2,
+          "seconds": 1067.2,
+          "reachable": true
+        },
+        {
+          "meters": 343.4,
+          "seconds": 274.8,
+          "reachable": true
+        },
+        {
+          "meters": 418.8,
+          "seconds": 335.3,
+          "reachable": true
+        },
+        {
+          "meters": 113.1,
+          "seconds": 90.5,
+          "reachable": true
+        },
+        {
+          "meters": 333.5,
+          "seconds": 266.8,
+          "reachable": true
+        },
+        {
+          "meters": 1569.2,
+          "seconds": 1259.4,
+          "reachable": true
+        },
+        {
+          "meters": 230.2,
+          "seconds": 184,
+          "reachable": true
+        },
+        {
+          "meters": 300.7,
+          "seconds": 240.7,
+          "reachable": true
+        },
+        {
+          "meters": 170.9,
+          "seconds": 136.4,
+          "reachable": true
+        },
+        {
+          "meters": 161.9,
+          "seconds": 129.5,
+          "reachable": true
+        },
+        {
+          "meters": 1415.1,
+          "seconds": 1132,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 355.8,
+          "seconds": 286.8,
+          "reachable": true
+        },
+        {
+          "meters": 259.4,
+          "seconds": 207.7,
+          "reachable": true
+        },
+        {
+          "meters": 350.1,
+          "seconds": 280.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 994.4,
+          "seconds": 795.5,
+          "reachable": true
+        },
+        {
+          "meters": 842.7,
+          "seconds": 676.4,
+          "reachable": true
+        },
+        {
+          "meters": 493.9,
+          "seconds": 397.2,
+          "reachable": true
+        },
+        {
+          "meters": 1466.3,
+          "seconds": 1213.2,
+          "reachable": true
+        },
+        {
+          "meters": 586.9,
+          "seconds": 471.6,
+          "reachable": true
+        },
+        {
+          "meters": 568.3,
+          "seconds": 456.6,
+          "reachable": true
+        },
+        {
+          "meters": 470.1,
+          "seconds": 378.2,
+          "reachable": true
+        },
+        {
+          "meters": 444.6,
+          "seconds": 357.6,
+          "reachable": true
+        },
+        {
+          "meters": 1587.3,
+          "seconds": 1273.7,
+          "reachable": true
+        },
+        {
+          "meters": 468.6,
+          "seconds": 377,
+          "reachable": true
+        },
+        {
+          "meters": 411.9,
+          "seconds": 331.5,
+          "reachable": true
+        },
+        {
+          "meters": 306,
+          "seconds": 246.9,
+          "reachable": true
+        },
+        {
+          "meters": 485.1,
+          "seconds": 390.1,
+          "reachable": true
+        },
+        {
+          "meters": 1234.8,
+          "seconds": 987.9,
+          "reachable": true
+        },
+        {
+          "meters": 355.8,
+          "seconds": 286.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 196.7,
+          "seconds": 159.4,
+          "reachable": true
+        },
+        {
+          "meters": 593.6,
+          "seconds": 477.1,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 945.2,
+          "seconds": 758,
+          "reachable": true
+        },
+        {
+          "meters": 756.6,
+          "seconds": 607.4,
+          "reachable": true
+        },
+        {
+          "meters": 397.5,
+          "seconds": 318.1,
+          "reachable": true
+        },
+        {
+          "meters": 1380.1,
+          "seconds": 1144.2,
+          "reachable": true
+        },
+        {
+          "meters": 500.8,
+          "seconds": 402.6,
+          "reachable": true
+        },
+        {
+          "meters": 482.2,
+          "seconds": 387.6,
+          "reachable": true
+        },
+        {
+          "meters": 372.5,
+          "seconds": 298.2,
+          "reachable": true
+        },
+        {
+          "meters": 358.5,
+          "seconds": 288.6,
+          "reachable": true
+        },
+        {
+          "meters": 1522.8,
+          "seconds": 1224.1,
+          "reachable": true
+        },
+        {
+          "meters": 409,
+          "seconds": 327.2,
+          "reachable": true
+        },
+        {
+          "meters": 325.7,
+          "seconds": 262.5,
+          "reachable": true
+        },
+        {
+          "meters": 246.3,
+          "seconds": 197.1,
+          "reachable": true
+        },
+        {
+          "meters": 388.7,
+          "seconds": 311,
+          "reachable": true
+        },
+        {
+          "meters": 1322,
+          "seconds": 1059.6,
+          "reachable": true
+        },
+        {
+          "meters": 259.4,
+          "seconds": 207.7,
+          "reachable": true
+        },
+        {
+          "meters": 196.7,
+          "seconds": 159.4,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 507.5,
+          "seconds": 408.1,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 825.8,
+          "seconds": 660.5,
+          "reachable": true
+        },
+        {
+          "meters": 515.2,
+          "seconds": 412.4,
+          "reachable": true
+        },
+        {
+          "meters": 227.7,
+          "seconds": 182.3,
+          "reachable": true
+        },
+        {
+          "meters": 958.6,
+          "seconds": 805,
+          "reachable": true
+        },
+        {
+          "meters": 6.7,
+          "seconds": 5.5,
+          "reachable": true
+        },
+        {
+          "meters": 68.7,
+          "seconds": 55,
+          "reachable": true
+        },
+        {
+          "meters": 389.7,
+          "seconds": 311.9,
+          "reachable": true
+        },
+        {
+          "meters": 221.1,
+          "seconds": 176.9,
+          "reachable": true
+        },
+        {
+          "meters": 1403.5,
+          "seconds": 1126.6,
+          "reachable": true
+        },
+        {
+          "meters": 490.1,
+          "seconds": 392.1,
+          "reachable": true
+        },
+        {
+          "meters": 224.3,
+          "seconds": 179.4,
+          "reachable": true
+        },
+        {
+          "meters": 521,
+          "seconds": 416.7,
+          "reachable": true
+        },
+        {
+          "meters": 247.6,
+          "seconds": 198.2,
+          "reachable": true
+        },
+        {
+          "meters": 1251.5,
+          "seconds": 1000.9,
+          "reachable": true
+        },
+        {
+          "meters": 350.1,
+          "seconds": 280.3,
+          "reachable": true
+        },
+        {
+          "meters": 593.6,
+          "seconds": 477.1,
+          "reachable": true
+        },
+        {
+          "meters": 507.5,
+          "seconds": 408.1,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        }
+      ]
+    ]
+  },
+  "routeCriticCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "route-critic-v4",
+      "ranking": [
+        "r01",
+        "r04",
+        "r03",
+        "r02"
+      ],
+      "assessments": {
+        "r01": {
+          "coherence": "strong",
+          "avoidableRedundancy": false,
+          "omissionRisk": "none",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "better_observability"
+          ],
+          "evidenceRefs": [
+            "c02:e01",
+            "c02:e02",
+            "c02:e04",
+            "c06:e01",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c03:e04",
+            "c03:e05",
+            "c10:e04",
+            "c10:e05",
+            "c08:e04",
+            "c08:e05",
+            "c13:e04",
+            "c13:e05"
+          ]
+        },
+        "r02": {
+          "coherence": "weak",
+          "avoidableRedundancy": true,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "misses_high_value",
+            "weak_transition",
+            "redundant_stop"
+          ],
+          "evidenceRefs": [
+            "c06:e01",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c08:e04",
+            "c08:e05",
+            "c11:e04",
+            "c11:e05"
+          ]
+        },
+        "r03": {
+          "coherence": "adequate",
+          "avoidableRedundancy": true,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "misses_high_value",
+            "redundant_stop",
+            "weak_transition"
+          ],
+          "evidenceRefs": [
+            "c07:e04",
+            "c07:e05",
+            "c03:e04",
+            "c03:e05",
+            "c05:e04",
+            "c05:e05",
+            "c06:e01",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c08:e04",
+            "c08:e05",
+            "c11:e04",
+            "c11:e05"
+          ]
+        },
+        "r04": {
+          "coherence": "adequate",
+          "avoidableRedundancy": false,
+          "omissionRisk": "moderate",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution"
+          ],
+          "evidenceRefs": [
+            "c06:e01",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c08:e04",
+            "c08:e05",
+            "c03:e04",
+            "c03:e05",
+            "c07:e04",
+            "c07:e05",
+            "c10:e04",
+            "c10:e05",
+            "c13:e04",
+            "c13:e05"
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 3818,
+        "rawOutput": "{\"schemaVersion\": \"route-critic-v4\", \"ranking\": [\"r01\", \"r04\", \"r03\", \"r02\"], \"assessments\": {\"r01\": {\"coherence\": \"strong\", \"avoidableRedundancy\": false, \"omissionRisk\": \"none\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"better_observability\"], \"evidenceRefs\": [\"c02:e01\", \"c02:e02\", \"c02:e04\", \"c06:e01\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c03:e04\", \"c03:e05\", \"c10:e04\", \"c10:e05\", \"c08:e04\", \"c08:e05\", \"c13:e04\", \"c13:e05\"]}, \"r02\": {\"coherence\": \"weak\", \"avoidableRedundancy\": true, \"omissionRisk\": \"high\", \"reasonCodes\": [\"misses_high_value\", \"weak_transition\", \"redundant_stop\"], \"evidenceRefs\": [\"c06:e01\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c08:e04\", \"c08:e05\", \"c11:e04\", \"c11:e05\"]}, \"r03\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": true, \"omissionRisk\": \"high\", \"reasonCodes\": [\"misses_high_value\", \"redundant_stop\", \"weak_transition\"], \"evidenceRefs\": [\"c07:e04\", \"c07:e05\", \"c03:e04\", \"c03:e05\", \"c05:e04\", \"c05:e05\", \"c06:e01\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c08:e04\", \"c08:e05\", \"c11:e04\", \"c11:e05\"]}, \"r04\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": false, \"omissionRisk\": \"moderate\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\"], \"evidenceRefs\": [\"c06:e01\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c08:e04\", \"c08:e05\", \"c03:e04\", \"c03:e05\", \"c07:e04\", \"c07:e05\", \"c10:e04\", \"c10:e05\", \"c13:e04\", \"c13:e05\"]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "980446bf06679bd95ccc5e05cd9e2dc1d0b39beb0e8de7a2296695d9a8b03dd4",
+    "input": {
+      "city": "Malaga",
+      "theme": "history",
+      "language": "es",
+      "requestedDuration": 120,
+      "centralQuestion": "¿Cómo se fue construyendo la identidad de Málaga a través de la superposición de capas históricas —romana, nazarí, cristiana, ilustrada y moderna— que conviven hoy en su centro urbano?",
+      "beatInventory": [
+        {
+          "beatId": "b01",
+          "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual"
+        },
+        {
+          "beatId": "b02",
+          "focus": "El poder militar y palaciego nazarí que definió la ciudad fortificada"
+        },
+        {
+          "beatId": "b03",
+          "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán"
+        },
+        {
+          "beatId": "b04",
+          "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII"
+        },
+        {
+          "beatId": "b05",
+          "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar"
+        },
+        {
+          "beatId": "b06",
+          "focus": "La modernización decimonónica: ensanche, higiene pública y nuevas infraestructuras"
+        },
+        {
+          "beatId": "b07",
+          "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva"
+        }
+      ],
+      "routes": [
+        {
+          "routeSlot": "r01",
+          "estimatedTourMinutes": 96.3,
+          "walkingMinutes": 34.3,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [],
+          "stops": [
+            {
+              "candidateSlot": "c02",
+              "name": "Alcazaba de Málaga",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "El poder militar y palaciego nazarí que definió la ciudad fortificada",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c02:e01",
+                      "value": "historic: castle"
+                    },
+                    {
+                      "ref": "c02:e02",
+                      "value": "architecturalStyle: arquitectura morisca"
+                    },
+                    {
+                      "ref": "c02:e04",
+                      "value": "En 1931, la Alcazaba fue declarada Monumento histórico-artístico,​ por lo que es bien de interés cultural con categoría de monumento.​​ Historia La Alcazaba que se puede contemplar actualmente es el resultado de un largo proceso histórico que podría dividirse en cuatro etapas: el"
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c02:e04",
+                      "value": "En 1931, la Alcazaba fue declarada Monumento histórico-artístico,​ por lo que es bien de interés cultural con categoría de monumento.​​ Historia La Alcazaba que se puede contemplar actualmente es el resultado de un largo proceso histórico que podría dividirse en cuatro etapas: el"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "carries:b07",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Palacio de la Aduana",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c13",
+              "name": "calle Marqués de Larios",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "La modernización decimonónica: ensanche, higiene pública y nuevas infraestructuras",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c13:e04",
+                      "value": "La apertura de la calle Larios se enmarca en una serie de operaciones urbanísticas que, desde finales del siglo XIX, buscaban modernizar el centro de Málaga."
+                    },
+                    {
+                      "ref": "c13:e05",
+                      "value": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "adds-era:nineteenth_century",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c10",
+              "name": "Plaza de la Constitución (Málaga)",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c10:e04",
+                      "value": "Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia."
+                    },
+                    {
+                      "ref": "c10:e05",
+                      "value": "Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cár"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "adds-era:early_modern",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Iglesia Catedral de la Encarnación",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c03:e04",
+                      "value": "Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487."
+                    },
+                    {
+                      "ref": "c03:e05",
+                      "value": "Su proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Palacio de los Condes de Buenavista",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e05",
+                      "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b04",
+                "deepens:b07",
+                "adds-era:contemporary",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Teatro romano",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e01",
+                      "value": "Se trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de us"
+                    },
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: -0050-00-00"
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "El Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Tras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "deepens:b07",
+                "adds-era:ancient",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c04",
+              "name": "Castillo de Gibralfaro",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "El poder militar y palaciego nazarí que definió la ciudad fortificada",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c04:e04",
+                      "value": "La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340."
+                    },
+                    {
+                      "ref": "c04:e05",
+                      "value": "El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b02",
+                "salience:3"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c23",
+              "name": "Plaza de la Marina",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c23:e04",
+                  "value": "Etimología La plaza se denomina \"de la Marina\" por su proximidad al mar, pues al igual que el Parque, ambos se construyeron en terrenos ganados al mar durante el siglo XIX.​ A lo largo de su historia también ha tenido otros nombres como plaza de Suárez de Figueroa y del General Q"
+                },
+                {
+                  "ref": "c23:e05",
+                  "value": "El espacio actual surge en torno al siglo XIX, cuando comenzaron a derribarse las murallas nazaríes y se ganaron nuevos terrenos al mar, con el proyecto del ensanche."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "La Farola de Málaga",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b05",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c17:e04",
+                  "value": "Obra del ingeniero Joaquín María Pery y Guzmán, su construcción comenzó en 1813 y finalizó en 1817, estando entonces situado en la entrada del Puerto de Málaga."
+                },
+                {
+                  "ref": "c17:e05",
+                  "value": "En 2023, el faro fue declarado bien de interés cultural, con la categoría de monumento.​​ Historia Durante un siglo entero existió en el mismo espacio urbano una linterna de madera que cumplía con las funciones de un faro y que diseñó en 1717 el ingeniero francés Bartolomé Thurus"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Cementerio Inglés de Málaga",
+              "priorityRank": 11,
+              "supportedBeats": [
+                "b06",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c09:e05",
+                  "value": "Se trata del primer cementerio protestante de España,​ construido a partir de 1831."
+                },
+                {
+                  "ref": "c09:e02",
+                  "value": "heritageDesignation: bien de interés cultural"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c22",
+              "name": "Plaza del Obispo",
+              "priorityRank": 14,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c22:e01",
+                  "value": "Se encuentra frente a la fachada principal de la catedral de Málaga y el palacio Episcopal de Málaga, en la confluencia entre las calles Molina Lario y Salinas del centro histórico del distrito 1."
+                },
+                {
+                  "ref": "c22:e04",
+                  "value": "En la última década del siglo XX, la plaza fue reformada y algunos de sus edificios renovados, sustituyendo a los antiguos edificios de Diego Clavero y Gerónimo Cuervo."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c07",
+              "name": "Palacio Episcopal",
+              "priorityRank": 15,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c07:e04",
+                  "value": "Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762."
+                },
+                {
+                  "ref": "c07:e05",
+                  "value": "Sus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r02",
+          "estimatedTourMinutes": 35.51,
+          "walkingMinutes": 3.51,
+          "coveredBeatIds": [
+            "b01",
+            "b04",
+            "b05",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b02",
+            "b03",
+            "b06"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c30",
+              "name": "Plaza de la Higuera",
+              "narrativeContributions": [],
+              "marginalReasons": [
+                "adds-era:sixteenth_century"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Teatro romano",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e01",
+                      "value": "Se trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de us"
+                    },
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: -0050-00-00"
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "El Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Tras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "carries:b07",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Palacio de la Aduana",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c11",
+              "name": "Palacio del Conde de Villalcázar",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c11:e04",
+                      "value": "El palacio de Villalcázar es un edificio del siglo XVIII situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga."
+                    },
+                    {
+                      "ref": "c11:e05",
+                      "value": "Historia El Palacio toma su nombre del octavo Conde de Villalcázar de Sirga, José María Echevarri y Chacón, que también era tercer Conde de Buenavista por haber sucedido a su tío, el segundo Conde, al no tener éste descendientes."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Alcazaba de Málaga",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b02",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e01",
+                  "value": "historic: castle"
+                },
+                {
+                  "ref": "c02:e02",
+                  "value": "architecturalStyle: arquitectura morisca"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Iglesia Catedral de la Encarnación",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c03:e04",
+                  "value": "Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487."
+                },
+                {
+                  "ref": "c03:e05",
+                  "value": "Su proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c04",
+              "name": "Castillo de Gibralfaro",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b02"
+              ],
+              "evidence": [
+                {
+                  "ref": "c04:e04",
+                  "value": "La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340."
+                },
+                {
+                  "ref": "c04:e05",
+                  "value": "El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c10",
+              "name": "Plaza de la Constitución (Málaga)",
+              "priorityRank": 5,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c10:e04",
+                  "value": "Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia."
+                },
+                {
+                  "ref": "c10:e05",
+                  "value": "Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cár"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Palacio de los Condes de Buenavista",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b04",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c05:e04",
+                  "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+                },
+                {
+                  "ref": "c05:e05",
+                  "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r03",
+          "estimatedTourMinutes": 64.14,
+          "walkingMinutes": 10.14,
+          "coveredBeatIds": [
+            "b01",
+            "b03",
+            "b04",
+            "b05",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b02",
+            "b06"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c07",
+              "name": "Palacio Episcopal",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c07:e04",
+                      "value": "Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762."
+                    },
+                    {
+                      "ref": "c07:e05",
+                      "value": "Sus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b03"
+              ]
+            },
+            {
+              "candidateSlot": "c14",
+              "name": "Palacio de Zea-Salvatierra",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c14:e04",
+                      "value": "Se trata de una edificación residencial de finales del siglo XVII y principios del XVIII, ubicada en el centro histórico, en la calle Císter."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b04",
+                "adds-era:early_modern",
+                "adds-era:seventeenth_century"
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Iglesia Catedral de la Encarnación",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c03:e04",
+                      "value": "Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487."
+                    },
+                    {
+                      "ref": "c03:e05",
+                      "value": "Su proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Palacio de los Condes de Buenavista",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e05",
+                      "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "deepens:b07",
+                "adds-era:contemporary",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Teatro romano",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e01",
+                      "value": "Se trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de us"
+                    },
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: -0050-00-00"
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "El Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Tras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "carries:b07",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Palacio de la Aduana",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c11",
+              "name": "Palacio del Conde de Villalcázar",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c11:e04",
+                      "value": "El palacio de Villalcázar es un edificio del siglo XVIII situado en la ciudad de Málaga (España), obra de Felipe de Unzurrunzaga."
+                    },
+                    {
+                      "ref": "c11:e05",
+                      "value": "Historia El Palacio toma su nombre del octavo Conde de Villalcázar de Sirga, José María Echevarri y Chacón, que también era tercer Conde de Buenavista por haber sucedido a su tío, el segundo Conde, al no tener éste descendientes."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b04"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Alcazaba de Málaga",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b02",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e01",
+                  "value": "historic: castle"
+                },
+                {
+                  "ref": "c02:e02",
+                  "value": "architecturalStyle: arquitectura morisca"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c04",
+              "name": "Castillo de Gibralfaro",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b02"
+              ],
+              "evidence": [
+                {
+                  "ref": "c04:e04",
+                  "value": "La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340."
+                },
+                {
+                  "ref": "c04:e05",
+                  "value": "El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c10",
+              "name": "Plaza de la Constitución (Málaga)",
+              "priorityRank": 5,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c10:e04",
+                  "value": "Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia."
+                },
+                {
+                  "ref": "c10:e05",
+                  "value": "Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cár"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c13",
+              "name": "calle Marqués de Larios",
+              "priorityRank": 8,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c13:e04",
+                  "value": "La apertura de la calle Larios se enmarca en una serie de operaciones urbanísticas que, desde finales del siglo XIX, buscaban modernizar el centro de Málaga."
+                },
+                {
+                  "ref": "c13:e05",
+                  "value": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c23",
+              "name": "Plaza de la Marina",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c23:e04",
+                  "value": "Etimología La plaza se denomina \"de la Marina\" por su proximidad al mar, pues al igual que el Parque, ambos se construyeron en terrenos ganados al mar durante el siglo XIX.​ A lo largo de su historia también ha tenido otros nombres como plaza de Suárez de Figueroa y del General Q"
+                },
+                {
+                  "ref": "c23:e05",
+                  "value": "El espacio actual surge en torno al siglo XIX, cuando comenzaron a derribarse las murallas nazaríes y se ganaron nuevos terrenos al mar, con el proyecto del ensanche."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r04",
+          "estimatedTourMinutes": 59.29,
+          "walkingMinutes": 12.29,
+          "coveredBeatIds": [
+            "b01",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b02"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c06",
+              "name": "Teatro romano",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Los cimientos romanos y la forma urbana primigenia que subyacen bajo la ciudad actual",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e01",
+                      "value": "Se trata de un teatro de medianas dimensiones que conserva gran parte de la cavea o graderío, la orchestra ricamente decorada con grandes losas de mármol, y la scaena, en la que hoy se ha reproducido su pavimento con un entarimado de madera como el que tendría en su momento de us"
+                    },
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: -0050-00-00"
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "La recuperación, conservación y reinterpretación del patrimonio como memoria viva",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e04",
+                      "value": "El Teatro fue descubierto en 1951 en el transcurso de unas obras para la realización de un espacio ajardinado."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Tras muchos años de investigaciones y debates, en los años noventa del siglo XX, se toma la decisión de derribar la casa de la cultura, excavar en extensión todo el solar y, posteriormente, restaurarlo y consolidarlo para su puesta en valor."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "carries:b07",
+                "adds-era:ancient",
+                "adds-era:twentieth_century",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Palacio de la Aduana",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "La expansión portuaria y comercial que transformó la relación de la ciudad con el mar",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "El Palacio de la Aduana de Málaga es un edificio proyectado en 1788, destinado en su uso inicial a atender el tráfico del puerto."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "La creación del puerto de Málaga en el siglo XVIII y el espacio ganado al mar hicieron que la antigua aduana, ubicada en las Atarazanas, quedara separada del mar, por lo que la ciudadanía pronto demandó la construcción de un nuevo edificio."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Iglesia Catedral de la Encarnación",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c03:e04",
+                      "value": "Se encuentra dentro de los límites que marcaba la desaparecida muralla árabe sobre el solar de la primitiva mezquita aljama, el lugar donde los Reyes Católicos Isabel y Fernando ordenaron erigir un templo cristiano a los pocos días de conquistar la ciudad en 1487."
+                    },
+                    {
+                      "ref": "c03:e05",
+                      "value": "Su proceso constructivo comenzó en 1528 y finalizó en 1782, aunque de forma inconclusa.​​ Las originarias trazas, de estilo gótico, derivaron en un proyecto renacentista en cuyos planos participó Diego de Siloé."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c07",
+              "name": "Palacio Episcopal",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "La conquista cristiana y la imposición de la identidad religiosa sobre el solar musulmán",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c07:e04",
+                      "value": "Fue construido bajo el patrocinio del arzobispo José Francisco Lasso de Castilla a partir del año 1762."
+                    },
+                    {
+                      "ref": "c07:e05",
+                      "value": "Sus trazas se deben al arquitecto Antonio Ramos, quien a la muerte de José de Bada, en 1756, continúa con las obras que este realizaba para la catedral, levantando los poderosos cubos cilíndricos que centran las puertas de su crucero."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b03"
+              ]
+            },
+            {
+              "candidateSlot": "c10",
+              "name": "Plaza de la Constitución (Málaga)",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "El auge de la arquitectura civil y el poder municipal en los siglos XVI-XVIII",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c10:e04",
+                      "value": "Se trata de la antigua plaza Mayor, situada en el corazón del centro histórico de la ciudad, que desde el siglo XV ha sido el espacio público y político de la ciudad por excelencia."
+                    },
+                    {
+                      "ref": "c10:e05",
+                      "value": "Su estructura definitiva se conformó entre el siglo XV y el XVI, tal y como muestra un plano de 1571 ubicado en el Archivo municipal, y se configuran los principales edificios de la ciudad como el Ayuntamiento (hasta 1869)​ las casas del corregidor y del cabildo malagueño, la cár"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "adds-era:early_modern",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c13",
+              "name": "calle Marqués de Larios",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "La modernización decimonónica: ensanche, higiene pública y nuevas infraestructuras",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c13:e04",
+                      "value": "La apertura de la calle Larios se enmarca en una serie de operaciones urbanísticas que, desde finales del siglo XIX, buscaban modernizar el centro de Málaga."
+                    },
+                    {
+                      "ref": "c13:e05",
+                      "value": "La calle Marqués de Larios, más conocida simplemente como calle Larios, es una calle del centro de la ciudad de Málaga, considerada una de las calles decimonónicas más elegantes de España."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "adds-era:nineteenth_century",
+                "salience:3",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Alcazaba de Málaga",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b02",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e01",
+                  "value": "historic: castle"
+                },
+                {
+                  "ref": "c02:e02",
+                  "value": "architecturalStyle: arquitectura morisca"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c04",
+              "name": "Castillo de Gibralfaro",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b02"
+              ],
+              "evidence": [
+                {
+                  "ref": "c04:e04",
+                  "value": "La fortaleza fue ampliada y convertida en alcázar por el rey nazarita Yusuf I en el año 1340."
+                },
+                {
+                  "ref": "c04:e05",
+                  "value": "El castillo fue objeto de un fuerte asedio por parte de los Reyes Católicos durante todo el verano de 1487."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Palacio de los Condes de Buenavista",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b04",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c05:e04",
+                  "value": "El palacio de los Condes de Buenavista de la Victoria es un edificio de la arquitectura civil española del siglo XVI, construido hacia 1530-1540 por Diego de Cazalla y sede del Museo Picasso Málaga."
+                },
+                {
+                  "ref": "c05:e05",
+                  "value": "Alquilado durante años por su propietario al Estado, en 1996 fue designado como sede del Museo Picasso Málaga y, tras la inauguración de este en 2003, en 2009 se aprobó la cesión del edificio, que era propiedad de la administración autonómica, a la fundación resultante de la fusi"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c23",
+              "name": "Plaza de la Marina",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c23:e04",
+                  "value": "Etimología La plaza se denomina \"de la Marina\" por su proximidad al mar, pues al igual que el Parque, ambos se construyeron en terrenos ganados al mar durante el siglo XIX.​ A lo largo de su historia también ha tenido otros nombres como plaza de Suárez de Figueroa y del General Q"
+                },
+                {
+                  "ref": "c23:e05",
+                  "value": "El espacio actual surge en torno al siglo XIX, cuando comenzaron a derribarse las murallas nazaríes y se ganaron nuevos terrenos al mar, con el proyecto del ensanche."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "La Farola de Málaga",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b05",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c17:e04",
+                  "value": "Obra del ingeniero Joaquín María Pery y Guzmán, su construcción comenzó en 1813 y finalizó en 1817, estando entonces situado en la entrada del Puerto de Málaga."
+                },
+                {
+                  "ref": "c17:e05",
+                  "value": "En 2023, el faro fue declarado bien de interés cultural, con la categoría de monumento.​​ Historia Durante un siglo entero existió en el mismo espacio urbano una linterna de madera que cumplía con las funciones de un faro y que diseñó en 1717 el ingeniero francés Bartolomé Thurus"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "failure": null
+}

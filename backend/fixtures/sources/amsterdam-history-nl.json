@@ -56,7 +56,8 @@
         "instanceOf": "plein",
         "inception": "1270-00-00",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Dam (Amsterdam)"
     },
     "Q855003": {
       "wikidataId": "Q855003",
@@ -111,7 +112,8 @@
         "instanceOf": "waterlinie",
         "heritageDesignation": "deel van een werelderfgoedsite",
         "locatedIn": "Noord-Holland"
-      }
+      },
+      "wikipediaTag": "nl:Stelling van Amsterdam"
     },
     "Q639321": {
       "wikidataId": "Q639321",
@@ -149,7 +151,8 @@
         "architect": "Pierre Cuypers",
         "locatedIn": "Amsterdam",
         "namedAfter": "Museumstraat"
-      }
+      },
+      "wikipediaTag": "nl:Museumplein (Amsterdam)"
     },
     "Q1056152": {
       "wikidataId": "Q1056152",
@@ -207,9 +210,10 @@
         "inception": "1665-00-00",
         "architect": "Jacob van Campen",
         "architecturalStyle": "Hollands classicisme",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Paleis op de Dam"
     },
     "Q1429748": {
       "wikidataId": "Q1429748",
@@ -241,9 +245,10 @@
         "instanceOf": "stadspoort",
         "architect": "Hendrick de Keyser",
         "architecturalStyle": "renaissance",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Munttoren (Amsterdam)"
     },
     "Q165366": {
       "wikidataId": "Q165366",
@@ -299,7 +304,8 @@
         "tt": "Анна Франк йорты",
         "bg": "музей на Ане Франк",
         "sl": "hiša Anne Frank",
-        "tly": "Anna Frank kə"
+        "tly": "Anna Frank kə",
+        "mr": "ॲन फ्रँक हाऊस"
       },
       "wikidataUrl": "https://www.wikidata.org/wiki/Q165366",
       "wikidataClaims": {
@@ -307,7 +313,8 @@
         "inception": "1960-05-03",
         "locatedIn": "Amsterdam",
         "namedAfter": "Anne Frank"
-      }
+      },
+      "wikipediaTag": "nl:Anne Frank Huis"
     },
     "Q473851": {
       "wikidataId": "Q473851",
@@ -333,9 +340,10 @@
         "inception": "1956-05-04",
         "architect": "Jacobus Johannes Pieter Oud",
         "architecturalStyle": "wederopbouwarchitectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Nationaal Monument op de Dam"
     },
     "Q1568693": {
       "wikidataId": "Q1568693",
@@ -363,7 +371,8 @@
         "instanceOf": "plein",
         "inception": "1585-00-00",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Nieuwmarkt (Amsterdam)"
     },
     "Q228629": {
       "wikidataId": "Q228629",
@@ -391,9 +400,10 @@
         "inception": "1603-00-00",
         "architect": "Hendrick de Keyser",
         "architecturalStyle": "barokarchitectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Zuiderkerk (Amsterdam)"
     },
     "Q51411": {
       "wikidataId": "Q51411",
@@ -431,7 +441,8 @@
         "instanceOf": "LGBT monument or memorial",
         "inception": "1987-09-05",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Homomonument (Amsterdam)"
     },
     "Q3128167": {
       "wikidataId": "Q3128167",
@@ -445,9 +456,10 @@
       "wikidataUrl": "https://www.wikidata.org/wiki/Q3128167",
       "wikidataClaims": {
         "instanceOf": "kerkgebouw",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Sint-Olofskapel"
     },
     "Q1579642": {
       "wikidataId": "Q1579642",
@@ -478,7 +490,8 @@
         "inception": "1876-00-00",
         "locatedIn": "Amsterdam",
         "namedAfter": "Rembrandt van Rijn"
-      }
+      },
+      "wikipediaTag": "nl:Rembrandtplein (Amsterdam)"
     },
     "Q643079": {
       "wikidataId": "Q643079",
@@ -506,7 +519,8 @@
       "wikidataClaims": {
         "instanceOf": "markt",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Bloemenmarkt"
     },
     "Q1344400": {
       "wikidataId": "Q1344400",
@@ -541,9 +555,10 @@
       "wikidataUrl": "https://www.wikidata.org/wiki/Q1344400",
       "wikidataClaims": {
         "instanceOf": "basculebrug",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Magere Brug"
     },
     "Q1993531": {
       "wikidataId": "Q1993531",
@@ -560,7 +575,8 @@
       "wikidataClaims": {
         "instanceOf": "standbeeld",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Ruiterstandbeeld koningin Wilhelmina (Amsterdam)"
     },
     "Q3408888": {
       "wikidataId": "Q3408888",
@@ -588,9 +604,10 @@
         "inception": "1671-00-00",
         "architect": "Adriaan Dortsman",
         "architecturalStyle": "renaissance",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Oosterkerk (Amsterdam)"
     },
     "Q2342892": {
       "wikidataId": "Q2342892",
@@ -615,7 +632,8 @@
         "inception": "1904-00-00",
         "locatedIn": "Amsterdam",
         "namedAfter": "Albert Cuyp"
-      }
+      },
+      "wikipediaTag": "nl:Albert Cuypmarkt"
     },
     "Q1946061": {
       "wikidataId": "Q1946061",
@@ -640,9 +658,10 @@
       "wikidataClaims": {
         "instanceOf": "toren",
         "architect": "Hendrick de Keyser",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Montelbaanstoren"
     },
     "Q1409805": {
       "wikidataId": "Q1409805",
@@ -668,7 +687,8 @@
         "inception": "1750-00-00",
         "locatedIn": "Amsterdam",
         "namedAfter": "Leidsepoort"
-      }
+      },
+      "wikipediaTag": "nl:Leidseplein (Amsterdam)"
     },
     "Q1130722": {
       "wikidataId": "Q1130722",
@@ -720,9 +740,10 @@
         "inception": "1631-00-00",
         "architect": "Hendrick de Keyser",
         "architecturalStyle": "barokarchitectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Westerkerk (Amsterdam)"
     },
     "Q2577520": {
       "wikidataId": "Q2577520",
@@ -735,9 +756,10 @@
         "instanceOf": "gedenkteken",
         "inception": "1935-00-00",
         "architect": "Gijsbert Friedhoff",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Monument Indië-Nederland"
     },
     "Q2343931": {
       "wikidataId": "Q2343931",
@@ -753,9 +775,10 @@
         "instanceOf": "stadspoort",
         "inception": "1837-00-00",
         "architect": "Cornelis Alewijn",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Haarlemmerpoort (Amsterdam)"
     },
     "Q281703": {
       "wikidataId": "Q281703",
@@ -777,7 +800,8 @@
         "inception": "1882-00-00",
         "locatedIn": "Amsterdam",
         "namedAfter": "spuien"
-      }
+      },
+      "wikipediaTag": "nl:Spui (Amsterdam)"
     },
     "Q190804": {
       "wikidataId": "Q190804",
@@ -868,7 +892,8 @@
         "inception": "1800-00-00",
         "architect": "Pierre Cuypers",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Rijksmuseum Amsterdam"
     },
     "Q613854": {
       "wikidataId": "Q613854",
@@ -894,9 +919,10 @@
         "inception": "1620-00-00",
         "architect": "Hendrick de Keyser",
         "architecturalStyle": "barokarchitectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Noorderkerk (Amsterdam)"
     },
     "Q2426916": {
       "wikidataId": "Q2426916",
@@ -928,9 +954,10 @@
       "wikidataClaims": {
         "instanceOf": "waterburcht",
         "inception": "1280-00-00",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Gooise Meren"
-      }
+      },
+      "wikipediaTag": "nl:Muiderslot"
     },
     "Q447664": {
       "wikidataId": "Q447664",
@@ -984,7 +1011,8 @@
       "wikidataClaims": {
         "instanceOf": "buurt of wijk",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:De Wallen"
     },
     "Q1180056": {
       "wikidataId": "Q1180056",
@@ -1008,10 +1036,11 @@
         "inception": "1881-00-00",
         "architect": "Alfred Tepe",
         "architecturalStyle": "neogotiek",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam",
         "namedAfter": "Franciscus Xaverius"
-      }
+      },
+      "wikipediaTag": "nl:De Krijtberg"
     },
     "Q389909": {
       "wikidataId": "Q389909",
@@ -1030,7 +1059,8 @@
         "instanceOf": "straat",
         "inception": "1200-00-00",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Warmoesstraat (Amsterdam)"
     },
     "Q2623069": {
       "wikidataId": "Q2623069",
@@ -1043,9 +1073,10 @@
         "instanceOf": "gemeentehuis",
         "inception": "1776-00-00",
         "architect": "Jacob Otten Husly",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Stadhuis van Weesp"
     },
     "Q478707": {
       "wikidataId": "Q478707",
@@ -1070,7 +1101,8 @@
         "instanceOf": "buurt of wijk",
         "heritageDesignation": "werelderfgoed",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Grachtengordel (Amsterdam)"
     },
     "Q849957": {
       "wikidataId": "Q849957",
@@ -1127,9 +1159,10 @@
         "inception": "1886-00-00",
         "architect": "Dolf van Gendt",
         "architecturalStyle": "neoclassicistische architectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Koninklijk Concertgebouw"
     },
     "Q1853707": {
       "wikidataId": "Q1853707",
@@ -1166,9 +1199,10 @@
         "inception": "1676-00-00",
         "architect": "Elias Bouman",
         "architecturalStyle": "barokarchitectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Portugees-Israëlietische Synagoge"
     },
     "Q851200": {
       "wikidataId": "Q851200",
@@ -1197,10 +1231,11 @@
         "inception": "1903-00-00",
         "architect": "Hendrik Petrus Berlage",
         "architecturalStyle": "modernisme",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam",
         "namedAfter": "Hendrik Petrus Berlage"
-      }
+      },
+      "wikipediaTag": "nl:Beurs van Berlage"
     },
     "Q1576733": {
       "wikidataId": "Q1576733",
@@ -1232,7 +1267,8 @@
         "instanceOf": "hortus botanicus",
         "inception": "1638-00-00",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Hortus Botanicus Amsterdam"
     },
     "Q610402": {
       "wikidataId": "Q610402",
@@ -1249,9 +1285,10 @@
       "wikidataUrl": "https://www.wikidata.org/wiki/Q610402",
       "wikidataClaims": {
         "instanceOf": "toren",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Schreierstoren"
     },
     "Q924769": {
       "wikidataId": "Q924769",
@@ -1283,7 +1320,8 @@
         "instanceOf": "kunstmatig eiland",
         "heritageDesignation": "deel van een werelderfgoedsite",
         "locatedIn": "Muiden"
-      }
+      },
+      "wikipediaTag": "nl:Pampus (eiland)"
     },
     "Q2466999": {
       "wikidataId": "Q2466999",
@@ -1308,9 +1346,10 @@
       "wikidataClaims": {
         "instanceOf": "stadspoort",
         "architecturalStyle": "gotische architectuur",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Waag (Amsterdam)"
     },
     "Q883126": {
       "wikidataId": "Q883126",
@@ -1339,9 +1378,10 @@
       "wikidataClaims": {
         "instanceOf": "verkeersbrug",
         "inception": "1883-00-00",
-        "heritageDesignation": "rijksmonument",
+        "heritageDesignation": "Rijksmonument",
         "locatedIn": "Amsterdam"
-      }
+      },
+      "wikipediaTag": "nl:Blauwbrug"
     },
     "Q2087433": {
       "wikidataId": "Q2087433",
@@ -1356,7 +1396,8 @@
         "instanceOf": "fort",
         "heritageDesignation": "rijksmonumentcomplex",
         "locatedIn": "Wijdemeren"
-      }
+      },
+      "wikipediaTag": "nl:Fort bij Hinderdam"
     }
   },
   "wikipedia": {
@@ -1557,6 +1598,48 @@
       "body": "De Blauwbrug (brug 236) in Amsterdam is een vaste brug in Amsterdam-Centrum. De brug verbindt de Amstelstraat met het Waterlooplein. Ze overspant daarbij de Amstel. In de directe omgeving liggen de Stopera, de Mozes en Aäronkerk, de Hermitage Amsterdam en de Waterloopleinmarkt.\n\n\nNaam\nDe naam Blauwbrug is afkomstig van de bijnaam van de oude bruggen die hier voor 1883 lagen; zij hadden blauwe leuningen.\nIn de loop der jaren had de brug nog andere bijnamen. Koning Willem III der Nederlanden wilde de brug in 1839 Sophiabrug noemen naar zijn vrouw Sophie van Württemberg. De bijnaam Leeuwenbrug geeft aan dat er vermoedelijk ooit leeuwenkoppen te zien waren aan de houten brugleuningen. \nBloubrik is de naam voor de brug in het Jiddisch. Hij vormde een toegang tot de vroegere Jodenbuurt. De naam komt voor in tal van Jiddische gezegden; allemaal over hoe iemand nooit loskomt van zijn achtergrond.\n\n\nGeschiedenis\nHier lag een houten ophaalbrug tussen de stad en het eiland Vlooienburg. Zij had toen net als andere bruggen over de Amstel de vorm van de Magere Brug. Het gemeentebestuur van Amsterdam wilde een nieuwe brug in verband met het laten rijden van een tramverbinding. Ze wilde daarbij een brug van luxe aanzien, mede om te kunnen pronken tijdens de Koloniale Tentoonstelling van 1883. Architect Bastiaan de Greef en zijn assistent Willem Springer werd gevraagd met een ontwerp te komen (\"op dat schoone punt eene eenigszins monumentale brug\"). Zij kwamen met een brug in de stijl van de Alexandre III brug uit Parijs. De zoon van Willem Springer, Jan Springer, maakte ontwerpen voor versieringen. Een probleem daarbij was dat als de bogen van de Alexandre III overgezet werden naar Amsterdam de brug in de modder zou wegzakken, er werd derhalve gekozen voor kortere bogen. Wat wel meekwam naar Amsterdam zijn de stevige brugpijlers, in Parijs nodig om ijsschotsen in de snelstromende Seine van de brug af te houden, maar in wezen nutteloos in de traag stromende Amstel. \nFrans V. Smit le",
       "language": "nl",
       "wikipediaUrl": "https://nl.wikipedia.org/wiki/Blauwbrug"
+    },
+    "nl:Homomonument (Amsterdam)": {
+      "description": "Het Homomonument is een gedenkteken op de Westermarkt, gelegen tussen de Westerkerk en de Keizersgracht in de binnenstad van Amsterdam. Het monument, ontworpen door Karin Daan, werd onthuld op 5 september 1987 en bestaat uit drie roze, granieten driehoeken, die zodanig zijn neergelegd dat ze samen een grote driehoek vormen.\nHet dient ter herdenking van alle homoseksuele mannen en vrouwen die in de Tweede Wereldoorlog zijn vervolgd vanwege hun geaardheid, en om hen te inspireren en te steunen in hun strijd voor erkenning en tegen onderdrukking en discriminatie.",
+      "body": "Het Homomonument is een gedenkteken op de Westermarkt, gelegen tussen de Westerkerk en de Keizersgracht in de binnenstad van Amsterdam. Het monument, ontworpen door Karin Daan, werd onthuld op 5 september 1987 en bestaat uit drie roze, granieten driehoeken, die zodanig zijn neergelegd dat ze samen een grote driehoek vormen.\nHet dient ter herdenking van alle homoseksuele mannen en vrouwen die in de Tweede Wereldoorlog zijn vervolgd vanwege hun geaardheid, en om hen te inspireren en te steunen in hun strijd voor erkenning en tegen onderdrukking en discriminatie.\nLater zijn ook in Den Haag, Rotterdam, Utrecht en in diverse andere steden en plaatsen in de wereld homomonumenten geplaatst.\n\n\nGeschiedenis\nVoor het eerst werd in 1961 binnen de COC gesproken over de mogelijkheid van het oprichten van een homomonument, maar van concrete stappen kwam het destijds nog niet. De Tweede Wereldoorlog kreeg vervolgens in de jaren zestig en zeventig grote aandacht door de boeken van Loe de Jong, maar daarbij was voor het lot van homoseksuelen geen aandacht.\nHet idee voor een eigen monument kwam opnieuw naar voren in 1970, toen twee leden van de Amsterdamse Jongeren Aktiegroepen Homoseksualiteit (AJAH) op 4 mei een krans wilden leggen bij het oorlogsmonument op de Dam ter herinnering aan de vervolging van homo's in de Tweede Wereldoorlog. Deze jongeren werden gearresteerd en de krans werd vernield, waartegen een dag later door dertig leden van de AJAH werd gedemonstreerd. Zij droegen daarbij roze driehoekjes op hun kleding, om de nazivervolging in herinnering te brengen en een bewuste confrontatie met heteroseksuelen teweeg te brengen.\n\nNa de algemene Dodenherdenking in 1979 kon Bob van Schijndel, die lid was van de PSP-homogroep, niet begrijpen waarom joden en in 1978 ook zigeuners wel eigen monumenten hadden en homo's niet. Hij schreef toen het volgende briefje met het voorstel om een homomonument op te richten:\n\nIk kreeg gisternacht het volgende idee. We moeten in een open brief aa",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Homomonument%20(Amsterdam)"
+    },
+    "nl:Albert Cuypmarkt": {
+      "description": "De Albert Cuypmarkt is een dagelijkse markt in Amsterdam, op het gedeelte van de Albert Cuypstraat tussen de Ferdinand Bolstraat en de Van Woustraat in De Pijp in het stadsdeel Zuid. De straat en de markt zijn vernoemd naar Albert Cuyp, een kunstschilder uit de 17e eeuw.\nDe Albert Cuypmarkt is met 260 kramen de grootste dagmarkt van Europa.",
+      "body": "De Albert Cuypmarkt is een dagelijkse markt in Amsterdam, op het gedeelte van de Albert Cuypstraat tussen de Ferdinand Bolstraat en de Van Woustraat in De Pijp in het stadsdeel Zuid. De straat en de markt zijn vernoemd naar Albert Cuyp, een kunstschilder uit de 17e eeuw.\nDe Albert Cuypmarkt is met 260 kramen de grootste dagmarkt van Europa. Het staat vol met kramen met onder andere verse producten, kleding, bloemen, stoffen en lekkernijen. Hij is ook de drukste markt van Nederland met een gemengd publiek van Amsterdamse bewoners, toeristen, studenten, dagjesmensen en ondernemers.\nDe markt is een belangrijke toeristische attractie geworden; hij wordt elk jaar bezocht door zes miljoen mensen. Toeristen zijn verantwoordelijk voor een derde deel van de omzet op de markt. 'Buitenlandse toeristen geven gemiddeld dertig euro uit per bezoek. De toerist op het Damrak geeft maar vier euro uit', aldus de heer Ben Bockstael, voorzitter van de ondernemersvereniging Albert Cuyp in 2011.\nDe straat wordt al vele jaren volledig voor verkeer afgesloten wanneer de markt open is, behalve voor het lopende publiek.\n\n\nGeschiedenis\nDe markt begon als een losse verzameling straatventers en handkarren. Dit ontaardde in het begin van de 20e eeuw in een chaos, waarop het gemeentebestuur in 1905 besloot een vrije markt te vestigen, die in eerste instantie alleen op zaterdagavond gehouden werd. De Albert Cuypstraat, de Dapperstraat, de Ten Katestraat en de Lindengracht werden in 19 als 'ventstraat' aangewezen. In 1912 werd de Albert Cuypmarkt een dagelijkse markt.\nOp 23 september 2005 werd op de Albert Cuypmarkt, in de Albert Cuypstraat, het standbeeld van de Amsterdamse volkszanger André Hazes onthuld. Hazes bracht zijn jeugd door in De Pijp. Zijn zangtalent werd in 1959 ontdekt door Johnny Kraaijkamp sr., toen André op de Albert Cuypmarkt stond te zingen. \n\n\nAfbeeldingen\n\n\nLiteratuur\n100 Jaar Albert Cuyp Markt, Marcella van der Weg en Maria Douwes. Uitgeverij Bas Lubberhuizen, Amsterdam (2005)",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Albert%20Cuypmarkt"
+    },
+    "nl:Haarlemmerpoort (Amsterdam)": {
+      "description": "De Haarlemmerpoort aan het Haarlemmerplein in Amsterdam heet officieel Willemspoort maar wordt in de stad nooit zo genoemd. Het is in feite de vijfde poort aan de kant van Haarlem die voorkomt in de geschiedenis van Amsterdam. De eerdere poorten maakten deel uit van de vestingwerken van Amsterdam.",
+      "body": "De Haarlemmerpoort aan het Haarlemmerplein in Amsterdam heet officieel Willemspoort maar wordt in de stad nooit zo genoemd. Het is in feite de vijfde poort aan de kant van Haarlem die voorkomt in de geschiedenis van Amsterdam. De eerdere poorten maakten deel uit van de vestingwerken van Amsterdam. Bij elke stadsuitbreiding schoof de stadspoort een stukje op naar het westen, richting Haarlem.\n\n\nGeschiedenis\nDe eerste 'Haarlemmerpoort' stond in de 14e eeuw ter hoogte van de Haringpakkerssteeg. Omstreeks 1397 verrees de tweede Haarlemmerpoort, deze stond op de (Oude) Haarlemmersluis in de Nieuwendijk (hier is nu de Martelaarsgracht). De derde Haarlemmerpoort werd gebouwd in 1482, toen langs de Singel de stadsmuur rond Amsterdam werd gebouwd. Hier ligt nu de (Nieuwe) Haarlemmersluis, die daar werd gebouwd in 1602. Met de Derde Uitleg, de uitbreiding tot de Singelgracht vanaf 1610, verrees er in 1615 een nieuwe, vierde, Haarlemmerpoort op het nieuw aangelegde Haarlemmerplein. Deze poort was ontworpen door Hendrick de Keyser. In 1837 was deze poort zo bouwvallig geworden dat besloten werd tot afbraak. Drie jaar later verrees, vlak bij de plek van de vorige, de huidige (vijfde) Haarlemmerpoort.\n\n\nWillemspoort\nDeze 19e-eeuwse poort staat officieel op naam van architect Cornelis Alewijn (1788-1839), maar is hoogstwaarschijnlijk de facto van de hand van Bastiaan de Greef, zijn assistent-architect en zoon van de in 1834 overleden stadsarchitect, Jan de Greef. De poort werd geopend op 27 november 1840, toen koning Willem II, een dag vóór zijn inhuldiging, door deze poort de hoofdstad binnenreed. Vandaar de naam Willemspoort. Hiervan getuigt nog een inscriptie aan de binnenzijde.\nIn die tijd hadden de stadspoorten hun oorspronkelijk verdedigende functie verloren en dienden nu overwegend als 'barrière' om heffing van stedelijke belastingen mogelijk te maken. Zo ook de poort in de weg richting Haarlem, waarvan het interieur diende ter huisvesting van de met de accijnzeninning bela",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Haarlemmerpoort%20(Amsterdam)"
+    },
+    "nl:Rijksmuseum Amsterdam": {
+      "description": "Het Rijksmuseum in Amsterdam is een van de zestien rijksmusea in Nederland. De collectie biedt een overzicht van de Nederlandse kunst en geschiedenis met onder andere werken van 17e-eeuwse Nederlandse meesters als Rembrandt, Vermeer en Hals. Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers.",
+      "body": "Het Rijksmuseum in Amsterdam is een van de zestien rijksmusea in Nederland. De collectie biedt een overzicht van de Nederlandse kunst en geschiedenis met onder andere werken van 17e-eeuwse Nederlandse meesters als Rembrandt, Vermeer en Hals. Het museum is sinds 1885 gevestigd in het Rijksmuseumgebouw dat ontworpen werd door de Nederlandse architect Pierre Cuypers.\n\n\nGeschiedenis\n\n\nDen Haag (1800)\n\nDe kunstverzameling die de stadhouderlijke familie door de eeuwen had opgebouwd vormt de basis van de collectie van het Rijksmuseum. Nadat de laatste stadhouder het land in 1795 ontvlucht was nam de Bataafse Republiek de overgebleven kunstverzameling in beslag. Het grootste deel werd door de Fransen naar Parijs verscheept. Op 19 november 1798 werd op initiatief van de agent van financiën, Alexander Gogel, besloten de resterende verzameling, bestaande uit Italiaanse kunst, portretten van de Oranjes en vaderlandse rariteiten, onder te brengen in een nationaal museum naar Frans voorbeeld. Onder de naam Nationale Konst-Gallery opende dit museum op 31 mei 1800 zijn deuren in het eveneens in beslag genomen Huis ten Bosch, nabij Den Haag. De Amsterdamse kunsthandelaar Cornelis Sebille Roos (1754-1820) was de eerste museumdirecteur en was als zodanig, in samenwerking met Gogel, verantwoordelijk voor de eerste aankopen, waaronder De bedreigde zwaan van Jan Asselijn. Toen in 1806 Lodewijk Napoleon de troon besteeg van het 'Koningrijk Holland', kreeg het de naam Koninklijk Museum.\n\n\nAmsterdam (1808)\n\nIn 1808 verhuisde het museum in opdracht van Lodewijk Napoleon naar Amsterdam, waar het vanaf 1809 samen met de kunstverzameling van Amsterdam – waaronder De Nachtwacht – werd ondergebracht op de bovenverdieping van het Paleis op de Dam. De nieuwe directeur, Cornelis Apostool, werd belast met het samenstellen van een catalogus van objecten. In 1817 verhuisde de collectie van het Rijks Museum, zoals het inmiddels na de troonsbestijging van Willem I heette, naar het 17e-eeuwse Trippenhuis.",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Rijksmuseum%20Amsterdam"
+    },
+    "nl:Spui (Amsterdam)": {
+      "description": "Het Spui is een straat (gedeeltelijk plein) in de binnenstad van Amsterdam die zich uitstrekt tussen het Rokin en de Singel. Halverwege wordt het Spui gekruist door de Kalverstraat. Iets ten noorden van de Singel komen de Spuistraat en de Nieuwezijds Voorburgwal samen.",
+      "body": "Het Spui is een straat (gedeeltelijk plein) in de binnenstad van Amsterdam die zich uitstrekt tussen het Rokin en de Singel. Halverwege wordt het Spui gekruist door de Kalverstraat. Iets ten noorden van de Singel komen de Spuistraat en de Nieuwezijds Voorburgwal samen.\n\n\nGeschiedenis\nHet Spui is oorspronkelijk de naam van het water dat tot 1425 de zuidgrens van de stad Amsterdam vormde (een spui- of keersluis is een sluis bedoeld om binnenwater te spuien en buitenwater te keren). Op de plaats waar dit water het Rokin in stroomde werd in het verlengde van de Kalverstraat de Osjessluis aangelegd.\nToen eind 15e eeuw de Singel gegraven werd, kreeg het water een tweede sluis bij de Singel, het Boerenverdriet. Dat heette zo in de volksmond omdat deze sluis erg smal was. Op onderstaande foto met de zicht vanaf het Spui naar de Singel stonden voorheen nog twee panden, Spui nr.29 en 31. Tegelijkertijd met de demping van de Nieuwezijds Achterburgwal (Spuistraat) werd dit gedeelte van het Spui naar de Singel in 1867 gedempt. De rest van het Spui werd in 1882 gedempt. Ook de Nieuwezijds Voorburgwal werd vervolgens in 1884 gedempt.\nDe eerste paardentramlijn over het Spui reed in 1877 van de Dam via de Spuistraat naar het Leidseplein. In 1903 werd deze vervangen door de elektrische tramlijn 2, die via de Nieuwezijds Voorburgwal en Spui richting Leidseplein reed. In 1904 kwam tramlijn 1 erbij. Tot 1914 had de tramlijn Amsterdam - Zandvoort zijn eindpunt op het Spui en werd daarna ingekort tot de Spuistraat, waar hij tot 1957 zijn eindpunt had.\n\n\nGebruik\nAan het zuidelijk deel van het Spui, bij de Heisteeg en de Singel, liggen de terrassen van enkele bekende horecagelegenheden, zoals grand-café Luxembourg en het uit 1670 daterende café Hoppe.\nMidden op het zuidelijke deel staat het standbeeld Het Lieverdje van Carel Kneulmans (1960). Rond dit beeldje voltrokken zich vanaf 1964 - in de begintijd van de provobeweging - de happenings van de anti-rookmagiër Jasper Grootveld.\nAan het Sp",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Spui%20(Amsterdam)"
+    },
+    "nl:Portugees-Israëlietische Synagoge": {
+      "description": "De Portugees-Israëlietische Synagoge van Amsterdam, ook wel Esnoga (Hebreeuws: אסנוגה) of kortweg Snoge genoemd, is een synagoge uit de 17e eeuw die gebouwd werd door de Sefardische Joden. De synagoge ligt aan het Mr. Visserplein en het Jonas Daniël Meijerplein in de voormalige Jodenbuurt van Amsterdam.",
+      "body": "De Portugees-Israëlietische Synagoge van Amsterdam, ook wel Esnoga (Hebreeuws: אסנוגה) of kortweg Snoge genoemd, is een synagoge uit de 17e eeuw die gebouwd werd door de Sefardische Joden. De synagoge ligt aan het Mr. Visserplein en het Jonas Daniël Meijerplein in de voormalige Jodenbuurt van Amsterdam. Toen het gebouwd werd, was het de grootste synagoge ter wereld. De synagoge wordt gebruikt voor erediensten door de in 1639 opgerichte Portugees-Israëlietische Gemeente. \nDe Snoge is onderdeel van een groot synagogencomplex. Slechts de Portugees-Israëlietische Synagoge vervult nog haar oorspronkelijke functie. De Grote Sjoel vormt tegenwoordig samen met de Obbene Sjoel (1685), de Dritt Sjoel (1700) en de Neie Sjoel (1750/1752) het Joods Museum. Het interieur van de Portugees-Israëlietische Synagoge is in tegenstelling tot dat van de Hoogduitse synagogen bewaard gebleven, inclusief de koperen kaarsenkronen en -houders, en dateert nog geheel uit de bouwtijd, wat buitengewoon zeldzaam is.\nDe synagoge heeft in opzet en ruimtelijke indeling onder meer als voorbeeld gediend voor de Mikvé Israël-Emanuelsynagoge in Willemstad op Curaçao en de Tzedek ve-Shalom-synagoge in Paramaribo.\n\n\nBeschrijving\nDe synagoge staat aan een voorplein omgeven door lage dienstgebouwen, die de synagoge en voorplein aan drie zijden omvatten. Deze aanleg, maar ook de vorm van het gebouw zelf, refereert aan de Tempel van Salomo in Jeruzalem, waarvan in Amsterdam een door rabbijn Jacob Juda Leon in 1641 vervaardigd houten model bestond. Een replica van het model is te zien in het Bijbels Museum. Het model van Leon was gebaseerd op de reconstructie van de Spaanse jezuïeten Juan Bautista Villalpando en Hieronymo Prado.\nDe sobere classicistische bouwtrant, bekend als de \"strakke stijl\", is vergelijkbaar met die van protestantse kerken uit deze periode. De gevels hebben aan alle zijden een iets vooruitspringende middenpartij van drie vensterassen. Boven en onder de rondboogvensters bevinden zich lage, r",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Portugees-Isra%C3%ABlietische%20Synagoge"
+    },
+    "nl:Fort bij Hinderdam": {
+      "description": "Het Fort bij Hinderdam is een fort van de Stelling van Amsterdam. Het is gelegen op de grens van Utrecht en Noord-Holland, in de Noord-Hollandse gemeente Wijdemeren, op een eilandje midden in de Vecht. Ten noorden ligt Weesp.",
+      "body": "Het Fort bij Hinderdam is een fort van de Stelling van Amsterdam. Het is gelegen op de grens van Utrecht en Noord-Holland, in de Noord-Hollandse gemeente Wijdemeren, op een eilandje midden in de Vecht. Ten noorden ligt Weesp. Ten noordoosten, aan de Vecht ligt het Fort bij Uitermeer.\n\n\nGeschiedenis\nVoor de aanleg van de sluizen stond de Vecht in open verbinding met de Zuiderzee. Het waterniveau in de rivier fluctueerde met het tij en bij stormen was er overstromingsgevaar dat tot in de stad Utrecht schade kon aanrichten. Om dit te voorkomen werd in 1288 tussen Breukelen en Maarssen een dam met sluis aangelegd, de Otterspoordam. Deze dam lag op het noordelijke eindpunt van de Utrechtse overzeese handel en scheepvaart. In 1437 gaf de bisschop van Utrecht opdracht een nieuwe dam meer naar het noorden, maar net ten zuiden van de grens met Holland, aan te leggen. De naam Hinderdam was het gevolg van de last die dit opleverde voor de scheepvaart.\nIn een bocht van de Vecht werden zeesluizen, een keer- en uitwateringssluis en een dam gebouwd. In eerste instantie lagen hierbij geen verdedigingswerken, maar in 1629 bouwde men ter plaatse een aarden schans. In dat jaar trokken Habsburgse en Spaanse troepen vanuit het oosten het land binnen. Amersfoort werd bezet en de vijand dreigde verder naar het westen door te stoten. Ter verdediging werd met grote spoed een waterlinie op Hollands en Utrechts gebied aangelegd, deze strekte langs de Vecht en de Vaartsche Rijn van Muiden tot Vreeswijk. Het Staatse leger zette het laaggelegen land onder water door - onder andere - de sluis bij Hinderdam open te zetten. Bij de dam werd een eenvoudige versterking aangebracht ter verdediging van de sluis en ter beveiliging van de hogergelegen toegangswegen. De Utrechtse Waterlinie is later opgegaan in de Oude Hollandse Waterlinie.\nIn 1672 werd de aarden schans nog versterkt, maar in 1673 ging men al over tot de bouw van een gebastioneerd fort. Na een eeuw vergeefse onderhandelingen tussen Holland",
+      "language": "nl",
+      "wikipediaUrl": "https://nl.wikipedia.org/wiki/Fort%20bij%20Hinderdam"
     }
   }
 }

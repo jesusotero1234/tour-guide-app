@@ -24,11 +24,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
 
   const welcomeBeat = isFirst
     ? [
-        `IMPORTANT: This is the FIRST stop. Give a warm opening — but DO NOT say "Bienvenidos a esta caminata" or "Welcome to this walking tour".`,
-        `Instead, open like a real guide who is already on the street with the visitor: drop them straight into the moment.`,
-        input.totalStops ? `Naturally mention there are ${input.totalStops} stops.` : '',
-        input.tourDurationMinutes ? `Naturally mention the tour takes about ${input.tourDurationMinutes} minutes.` : '',
-        `Then introduce the first stop: "${input.localName}."`,
+        'IMPORTANT: The visitor has already heard the tour introduction and welcome.',
+        'Do not welcome them again, do not repeat the duration or number of stops, and do not restart the tour promise.',
+        `Begin directly with the distinct editorial job of "${input.localName}".`,
       ].filter(Boolean).join(' ')
     : '';
 
@@ -39,6 +37,9 @@ export function arrivalPrompt(input: LongNarrativePromptInput): SectionPrompt {
       input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: arrival opening for ${input.localName}.`,
       `Tour theme: ${input.theme}.`,
+      input.narrativeRole ? `UNIQUE ROLE FOR THIS STOP: ${input.narrativeRole}. Do not replace it with a generic idea.` : '',
+      input.centralQuestion ? `WHOLE-TOUR QUESTION: ${input.centralQuestion}` : '',
+      input.editorialRepairInstructions?.length ? `REPAIR INSTRUCTIONS: ${input.editorialRepairInstructions.join('; ')}` : '',
       `OSM visual/type cues: ${compactRecord(input.seeds.osmTags)}.`,
       `Wikipedia lead (primary narrative source): ${input.seeds.wikipediaLead || 'none'}.`,
       input.seeds.enrichedContext ? `Enriched context: ${input.seeds.enrichedContext.slice(0, 800)}` : '',

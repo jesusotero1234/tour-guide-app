@@ -6,6 +6,7 @@ import { PostgresNarrationCacheRepository } from '../../infrastructure/postgres/
 import { enrichSeeds } from '../enrichment/CityKnowledgeBase';
 
 const MODEL_VERSION = process.env.NARRATIVE_MODEL_VERSION || 'qwen2.5:14b';
+const FAST_LOCAL_NARRATION_ENABLED = process.env.FAST_LOCAL_NARRATION !== 'false';
 
 export interface NarrativeSections {
   arrival?: string;
@@ -92,7 +93,25 @@ function isFallbackLikeNarration(text: string): boolean {
   const trimmed = text.trim();
   return /^Visit\s+.+\.$/i.test(trimmed)
     || /^Visit\s+.+,\s+a notable/i.test(trimmed)
-    || /^Visita\s+.+\.$/i.test(trimmed);
+    || /^Visita\s+.+\.$/i.test(trimmed)
+    || /\burban fabric\b/i.test(trimmed)
+    || /\btransition point\b/i.test(trimmed)
+    || /\bformal boundary\b/i.test(trimmed)
+    || /\brelationship with (?:the )?(?:immediate )?surroundings\b/i.test(trimmed)
+    || /\bpublic life\b/i.test(trimmed)
+    || /\bpivot point\b/i.test(trimmed)
+    || /\bthis space\b/i.test(trimmed)
+    || /\bconnects movement, scale, and urban life\b/i.test(trimmed)
+    || /\bnot only what it is, but how it helps\b/i.test(trimmed)
+    || /\bstands in [A-Z][A-Za-z\s]+\. Notice the building\b/i.test(trimmed);
+}
+
+function narrationMetaIndicatesFallback(meta: Record<string, unknown> | undefined): boolean {
+  if (!meta) return false;
+  if (typeof meta.fallback === 'string' && meta.fallback.length > 0) return true;
+  if (typeof meta.sectionsFallbacked === 'number' && meta.sectionsFallbacked > 0) return true;
+  if (Array.isArray(meta.droppedReasons) && meta.droppedReasons.length > 0) return true;
+  return false;
 }
 
 function summarizeTags(poi: EnrichedPoi): string {
@@ -225,18 +244,25 @@ export async function buildNarration(
     stopIndex?: number;
     previousStopName?: string;
     tourStopNames?: string[];
+    narrativeRole?: string;
+    tourPromise?: string;
+    centralQuestion?: string;
+    transitionPurpose?: string;
+    forceRegenerate?: boolean;
+    editorialRepairInstructions?: string[];
   }
 ): Promise<BuiltNarration> {
   const localName = poi.enriched.nameTranslations[language] || poi.name || poi.tags.name || 'this location';
   const wikipediaExtract = poi.enriched.description;
   const poiId = `${poi.osmType}/${poi.osmId}`;
-  const shouldUseCache = position === 'middle';
+  const shouldUseCache = position === 'middle' && !tourMeta?.forceRegenerate;
   const routeSignature = JSON.stringify({
     cityName: tourMeta?.cityName,
     stopIndex: tourMeta?.stopIndex,
     stops: tourMeta?.tourStopNames,
   });
-  const cacheTheme = `${theme}:route-v1:${crypto.createHash('sha1').update(routeSignature).digest('hex').slice(0, 12)}`;
+  const pipelineVersion = FAST_LOCAL_NARRATION_ENABLED ? 'fast-route-v1' : 'route-v1';
+  const cacheTheme = `${theme}:${pipelineVersion}:${crypto.createHash('sha1').update(routeSignature).digest('hex').slice(0, 12)}`;
   const traceId = crypto.randomUUID();
 
   // First/last narrations include position-specific welcome/goodbye content, but the cache key has no position.
@@ -316,6 +342,122 @@ export async function buildNarration(
     const usedOpenings = getUsedOpenings(tourKey);
     recordOpeningStyle(tourKey, archetype);
 
+    if (FAST_LOCAL_NARRATION_ENABLED) {
+      console.log('[NarrativeBuilder]', JSON.stringify({
+        event: 'fast-request',
+        traceId,
+        url: `${llmServiceUrl}/narrative/stop/fast`,
+        stopName: localName,
+        position,
+        language,
+        theme,
+        seedSizes: seedSizes(poi),
+      }));
+
+      try {
+        const fastResponse = await axios.post(
+          `${llmServiceUrl}/narrative/stop/fast`,
+          {
+            traceId,
+            localName,
+            wikipediaExtract,
+            seeds: {
+              wikipediaLead: poi.enriched.wikipediaLead,
+              wikipediaBody: poi.enriched.wikipediaBody,
+              wikidataClaims: poi.enriched.wikidataClaims,
+              osmTags: poi.enriched.osmTags,
+              wikivoyage: poi.enriched.wikivoyage,
+              enrichedContext: enrichedText || undefined,
+            },
+            theme,
+            language,
+            previousStopName: tourMeta?.previousStopName,
+            nextStopName,
+            tourStopNames: tourMeta?.tourStopNames,
+            position,
+            cityName: tourMeta?.cityName,
+            totalStops: tourMeta?.totalStops,
+            stopIndex,
+            tourDurationMinutes: tourMeta?.tourDurationMinutes,
+            narrativeRole: tourMeta?.narrativeRole,
+            tourPromise: tourMeta?.tourPromise,
+            centralQuestion: tourMeta?.centralQuestion,
+            transitionPurpose: tourMeta?.transitionPurpose,
+            editorialRepairInstructions: tourMeta?.editorialRepairInstructions,
+          },
+          { timeout: 60000 }
+        );
+
+        const fastNarration = fastResponse.data?.narration;
+        const fastSections = fastResponse.data?.sections;
+        const fastMeta = fastResponse.data?.meta;
+        console.log('[NarrativeBuilder]', JSON.stringify({
+          event: 'fast-response',
+          traceId,
+          stopName: localName,
+          position,
+          language,
+          theme,
+          meta: fastMeta,
+        }));
+
+        if (
+          typeof fastNarration === 'string'
+          && fastNarration.trim().length > 0
+          && !isFallbackLikeNarration(fastNarration)
+          && countWords(fastNarration) >= 100
+          && !narrationMetaIndicatesFallback(fastMeta)
+        ) {
+          const built = {
+            narration: fastNarration.trim(),
+            sections: fastSections && typeof fastSections === 'object' ? fastSections : null,
+            meta: fastMeta && typeof fastMeta === 'object' ? fastMeta : { mode: 'fast-local' },
+            traceId,
+          };
+          if (shouldUseCache && shouldCacheBuiltNarration(built.meta)) {
+            await narrationCache.set(poiId, language, cacheTheme, {
+              narration: built.narration,
+              sections: built.sections || {},
+            });
+          }
+          return built;
+        }
+
+        const fallback = buildGroundedFallbackNarration({ localName, cityName: tourMeta?.cityName, theme, language, position, nextStopName, poi });
+        return {
+          ...fallback,
+          traceId,
+          meta: {
+            ...fallback.meta,
+            replacedWeakNarration: true,
+            fastMeta,
+          },
+        };
+      } catch (fastErr) {
+        const fastAxiosErr = fastErr as AxiosError;
+        console.warn('[NarrativeBuilder]', JSON.stringify({
+          event: 'fast-request-failed',
+          traceId,
+          stopName: localName,
+          position,
+          language,
+          theme,
+          error: fastAxiosErr.message,
+        }));
+
+        const fallback = buildGroundedFallbackNarration({ localName, cityName: tourMeta?.cityName, theme, language, position, nextStopName, poi });
+        return {
+          ...fallback,
+          traceId,
+          meta: {
+            ...fallback.meta,
+            replacedWeakNarration: true,
+            fastError: fastAxiosErr.message,
+          },
+        };
+      }
+    }
+
     console.log('[NarrativeBuilder]', JSON.stringify({
       event: 'long-request',
       traceId,
@@ -351,6 +493,11 @@ export async function buildNarration(
         tourDurationMinutes: tourMeta?.tourDurationMinutes,
         usedOpenings,
         openingArchetype: archetype,
+        narrativeRole: tourMeta?.narrativeRole,
+        tourPromise: tourMeta?.tourPromise,
+        centralQuestion: tourMeta?.centralQuestion,
+        transitionPurpose: tourMeta?.transitionPurpose,
+        editorialRepairInstructions: tourMeta?.editorialRepairInstructions,
       },
       { timeout: 120000 }
     );

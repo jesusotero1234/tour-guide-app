@@ -1,0 +1,45 @@
+{
+  "city": "Segovia",
+  "theme": "history",
+  "language": "es",
+  "durationMinutes": 120,
+  "purpose": "Frozen compact-city holdout. Do not load during calibration.",
+  "stops": [
+    {
+      "qid": "Q244947",
+      "name": "Acueducto de Segovia",
+      "narrativeRole": "Abrir con la ingeniería romana y la forma urbana",
+      "contributionCode": "infrastructure_engineering"
+    },
+    {
+      "qid": "Q1046543",
+      "name": "Casa de los Picos",
+      "narrativeRole": "Mostrar el paso de defensa medieval a prestigio urbano",
+      "contributionCode": "urban_expansion_reform"
+    },
+    {
+      "qid": "Q5910761",
+      "name": "Iglesia de San Martín",
+      "narrativeRole": "Introducir el románico y la identidad religiosa",
+      "contributionCode": "religious_identity"
+    },
+    {
+      "qid": "Q7085486",
+      "name": "Antigua Sinagoga Mayor",
+      "narrativeRole": "Explicar la comunidad judía y las transformaciones religiosas",
+      "contributionCode": "multicultural_exchange"
+    },
+    {
+      "qid": "Q1499912",
+      "name": "Catedral de Segovia",
+      "narrativeRole": "Conectar poder e identidad tras la revuelta comunera",
+      "contributionCode": "religious_identity"
+    },
+    {
+      "qid": "Q557337",
+      "name": "Alcázar de Segovia",
+      "narrativeRole": "Resolver la relación entre fortaleza, monarquía y ciudad",
+      "contributionCode": "royal_state_power"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { LongNarrativePromptInput, sectionSystem, SectionPrompt } from './types'
 export function transitionPrompt(input: LongNarrativePromptInput): SectionPrompt {
   const nextStop = input.nextStopName || 'the next stop';
   const isLast = input.position === 'last';
-  const routeRole = describeStopRole(input);
+  const routeRole = input.narrativeRole || describeStopRole(input);
   const tourState = input.totalStops && input.stopIndex !== undefined
     ? `Tour state: this is stop ${input.stopIndex + 1} of ${input.totalStops}. ${isLast ? 'IT IS THE LAST STOP.' : `Next stop: ${nextStop}.`}`
     : '';
@@ -18,6 +18,8 @@ export function transitionPrompt(input: LongNarrativePromptInput): SectionPrompt
     `Section: ${isLast ? 'FINAL GOODBYE' : 'walking-tour transition'} from ${input.localName}.`,
     tourState,
     `Editorial role of this stop: ${routeRole}.`,
+    input.transitionPurpose ? `Transition purpose assigned by the tour plan: ${input.transitionPurpose}.` : '',
+    input.editorialRepairInstructions?.length ? `REPAIR INSTRUCTIONS: ${input.editorialRepairInstructions.join('; ')}` : '',
     input.previousSectionsText ? `What the guide has just said at this stop:\n${input.previousSectionsText}` : '',
     transitionRules,
     isLast

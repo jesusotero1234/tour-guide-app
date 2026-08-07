@@ -62,16 +62,17 @@ export async function enrichShortlistedPois(
         wikidataClaims = wikidataEnrichment.wikidataClaims;
       }
 
-      if (poi.tags.wikipedia) {
+      const wikipediaTag = poi.tags.wikipedia || wikidataEnrichment?.wikipediaTag;
+      if (wikipediaTag) {
         const cachedWikipedia = cacheRepository
-          ? await cacheRepository.getWikipedia(poi.tags.wikipedia, language)
+          ? await cacheRepository.getWikipedia(wikipediaTag, language)
           : null;
         const wikipediaEnrichment = cachedWikipedia
-          ?? (cacheRepository?.isCompleteSnapshot ? null : await enrichFromWikipedia(poi.tags.wikipedia, language));
+          ?? (cacheRepository?.isCompleteSnapshot ? null : await enrichFromWikipedia(wikipediaTag, language));
 
         if (wikipediaEnrichment) {
           if (!cachedWikipedia && cacheRepository) {
-            await cacheRepository.setWikipedia(poi.tags.wikipedia, language, wikipediaEnrichment);
+            await cacheRepository.setWikipedia(wikipediaTag, language, wikipediaEnrichment);
           }
 
           description = wikipediaEnrichment.description;

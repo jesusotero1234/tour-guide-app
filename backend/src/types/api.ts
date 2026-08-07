@@ -56,6 +56,8 @@ export interface TourResponse {
   previewStopNames?: string[];
   language: string;
   durationMinutes: number;
+  status: 'draft' | 'review' | 'published' | 'archived';
+  introduction?: string;
   places: Place[];
   route?: Coordinates[];
   degraded?: boolean;
@@ -69,6 +71,30 @@ export interface TourResponse {
   durationAdapted?: boolean;
   createdAt: string;
   updatedAt?: string;
+}
+
+export interface GenerationJobResponse {
+  id: string;
+  status: 'queued' | 'running' | 'completed' | 'failed';
+  step: 'queued' | 'sourcing' | 'routing' | 'planning_narrative' | 'narrating' | 'validating' | 'repairing' | 'publishing' | 'completed' | 'failed';
+  progress: {
+    completedStops: number;
+    totalStops: number;
+    message?: string;
+  };
+  result?: {
+    tourId: string;
+    durationAdapted?: boolean;
+    requestedDurationMinutes?: number;
+    recommendedDurationMinutes?: number;
+  };
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ApiError {

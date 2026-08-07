@@ -42,6 +42,7 @@ import { computeTourConfidence, ComputeTourConfidenceInput, getTourConfidenceGat
 import { attemptTourQualityRepair, getTourQualityRepairMode } from './tourQuality/TourQualityRepair';
 import { evaluateTourContentReadiness } from './tourReadiness/contentReadiness';
 import { getConceptDisplayCopy } from './cityIntelligence/conceptDisplayCopy';
+import { auditTourText, buildTourIntroduction, buildTourNarrativePlan } from './narrative/TourTextQuality';
 
 interface StructuralTourPlace {
   poi: EnrichedPoi;
@@ -88,10 +89,18 @@ interface StageTimer {
 
 interface GenerateFullTourOptions {
   skipAudio?: boolean;
+  skipImages?: boolean;
+  enforceTextQuality?: boolean;
   bypassDurationRecommendation?: boolean;
   requestedDurationOverride?: number;
   generationMode?: NonNullable<Tour['metadata']>['generationMode'];
   historyPreflight?: HistoryTourPreflight;
+  onProgress?: (progress: {
+    step: 'routing' | 'planning_narrative' | 'narrating' | 'validating' | 'repairing';
+    completedStops: number;
+    totalStops: number;
+    message: string;
+  }) => Promise<void>;
 }
 
 const FLEXIBLE_PASS_TOURS_REQUIRED = 3;
@@ -99,6 +108,26 @@ const FLEXIBLE_PASS_MIN_STOP_COUNT = 5;
 const FLEXIBLE_PASS_PRICE_CENTS = 1499;
 const FLEXIBLE_PASS_INDIVIDUAL_PRICE_CENTS = 699;
 const FLEXIBLE_PASS_CURRENCY = 'USD';
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  mapper: (item: T, index: number) => Promise<R>
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(Math.max(1, concurrency), Math.max(1, items.length));
+
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (nextIndex < items.length) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  }));
+
+  return results;
+}
 
 /**
  * Service responsible for orchestrating interactions between the backend and all pods
@@ -754,6 +783,7 @@ export class OrchestrationService {
       country: request.country,
       countryCode: request.countryCode,
       durationMinutes: requestedDuration,
+      status: 'draft',
       metadata: {
         qualityStatus: baseTour.metadata?.qualityStatus,
         itineraryKey: this.buildItineraryKey(request),
@@ -800,6 +830,8 @@ export class OrchestrationService {
       theme: request.theme,
       language: request.language || 'en',
       durationMinutes: requestedDuration,
+      status: savedTour.status ?? 'draft',
+      introduction: savedTour.introduction,
       baseTourId: baseTour.id,
       baseLanguage: baseTour.language,
       localizedTourId: savedTour.id,
@@ -813,6 +845,8 @@ export class OrchestrationService {
       theme: request.theme,
       language: request.language || 'en',
       durationMinutes: requestedDuration,
+      status: savedTour.status ?? 'draft',
+      introduction: savedTour.introduction,
       places: placesWithAudio.map((place: any) => ({
         id: place.id,
         tourId: savedTour.id,
@@ -873,6 +907,33 @@ export class OrchestrationService {
     }
   }
 
+  /** Text-only generation path used by persistent jobs. It never calls TTS. */
+  async generateTextTour(request: TourRequest, onProgress?: GenerateFullTourOptions['onProgress']): Promise<TourResponse> {
+    const published = await this.findPublishedTextTour(request);
+    if (published) return published;
+    return this.generateFullTour(request, {
+      skipAudio: true,
+      skipImages: true,
+      enforceTextQuality: true,
+      onProgress,
+    });
+  }
+
+  private async findPublishedTextTour(request: TourRequest): Promise<TourResponse | null> {
+    const tours = await this.tourRepository.list({
+      city: request.city,
+      countryCode: request.countryCode,
+      theme: request.theme,
+      language: request.language || 'en',
+      durationMinutes: request.durationMinutes || request.duration || 240,
+      status: 'published',
+      limit: 1,
+    });
+    if (tours.length === 0) return null;
+    const hydrated = await this.retrieveTour(tours[0].id);
+    return this.isReadyForBrowse(hydrated) ? hydrated : null;
+  }
+
   async generateTourFromConcept(request: ConceptTourRequest): Promise<TourResponse> {
     const concept = await this.loadStoredConcept(request);
     if (!concept) {
@@ -916,6 +977,7 @@ export class OrchestrationService {
       country: request.country,
       countryCode: request.countryCode,
       durationMinutes: requestedDuration,
+      status: 'draft',
         metadata: {
           itineraryKey: this.buildConceptItineraryKey({ ...request, durationMinutes: requestedDuration }, theme),
           conceptSlug: request.conceptSlug,
@@ -972,6 +1034,8 @@ export class OrchestrationService {
       theme,
       language: request.language || 'en',
       durationMinutes: requestedDuration,
+      status: savedTour.status ?? 'draft',
+      introduction: savedTour.introduction,
       places: placesWithAudio.map((place: any) => ({
         id: place.id,
         tourId: savedTour.id,
@@ -1008,6 +1072,12 @@ export class OrchestrationService {
       request.language || 'en',
       requestedDuration
     );
+    await options.onProgress?.({
+      step: 'routing',
+      completedStops: 0,
+      totalStops: structuralTour.places.length,
+      message: 'Route selected; checking whether it can support the requested tour',
+    });
     const historyPreflight = options.historyPreflight
       ?? (this.normalizeMatchValue(request.theme) === 'history'
         ? assessHistoryTourPreflight(structuralTour.routeCandidates, requestedDuration, {
@@ -1027,6 +1097,9 @@ export class OrchestrationService {
       };
       const draftTour = await this.generateFullTour(recommendedRequest, {
         skipAudio: true,
+        skipImages: options.skipImages,
+        enforceTextQuality: options.enforceTextQuality,
+        onProgress: options.onProgress,
         bypassDurationRecommendation: true,
         requestedDurationOverride: requestedDuration,
         generationMode: 'duration-recommendation-draft',
@@ -1054,6 +1127,25 @@ export class OrchestrationService {
           protectedAnchorCount: historyPreflight.protectedAnchorCount,
           strongHistoryPlaceCount: historyPreflight.strongHistoryPlaceCount,
           secondaryPlaceShare: historyPreflight.secondaryPlaceShare,
+        },
+      });
+    }
+    if (
+      options.enforceTextQuality
+      && (
+        structuralTour.routeDiagnostics.coverageRatio < 0.85
+        || structuralTour.routeDiagnostics.coverageRatio > 1.15
+      )
+    ) {
+      throw new CityQualityNotAvailableError(request.city, request.theme, {
+        passed: false,
+        stage: 'input',
+        score: Math.min(1, structuralTour.routeDiagnostics.coverageRatio),
+        reasons: ['route_duration_out_of_range'],
+        signals: {
+          requestedDurationMinutes: requestedDuration,
+          estimatedDurationMinutes: structuralTour.routeDiagnostics.estimatedTourMinutes,
+          coverageRatio: Number(structuralTour.routeDiagnostics.coverageRatio.toFixed(3)),
         },
       });
     }
@@ -1131,17 +1223,123 @@ export class OrchestrationService {
       }
     }
 
-    const selectedPlaces = await this.buildNarratedPlaces(
+    await options.onProgress?.({
+      step: 'planning_narrative',
+      completedStops: 0,
+      totalStops: selectedStructuralPlaces.length,
+      message: 'Assigning a distinct narrative role to every stop',
+    });
+    let selectedPlaces = await this.buildNarratedPlaces(
       selectedStructuralPlaces,
       request.city,
       request.theme,
       request.language || 'en',
-      requestedDuration
+      requestedDuration,
+      async (completedStops, totalStops) => options.onProgress?.({
+        step: 'narrating',
+        completedStops,
+        totalStops,
+        message: `Written and checked ${completedStops} of ${totalStops} stops`,
+      })
     );
     console.log('Selected walkable route with stops:', selectedPlaces.length);
 
-    const placesWithImages = await this.fetchImagesForPlaces(selectedPlaces, request.city, request.country);
-    console.log('Fetched images for places');
+    const narrativePlan = buildTourNarrativePlan({
+      city: request.city,
+      theme: request.theme,
+      language: request.language || 'en',
+      placeNames: selectedPlaces.map((place) => place.name),
+    });
+    const introduction = buildTourIntroduction({
+      city: request.city,
+      theme: request.theme,
+      language: request.language || 'en',
+      durationMinutes: requestedDuration,
+      firstStopName: selectedPlaces[0]?.name || request.city,
+      plan: narrativePlan,
+    });
+    let textAudit = auditTourText({
+      introduction,
+      language: request.language || 'en',
+      places: selectedPlaces.map((place, position) => ({
+        id: place.id || `draft-${position}`,
+        position,
+        name: place.name,
+        description: place.description,
+        metadata: { narrationMeta: place.narrationMeta },
+      })),
+    });
+    await options.onProgress?.({ step: 'validating', completedStops: selectedPlaces.length, totalStops: selectedPlaces.length, message: 'Checking the complete tour for factual quality and repetition' });
+    for (let repairAttempt = 0; options.enforceTextQuality && !textAudit.passed && repairAttempt < 2 && textAudit.affectedStopPositions.length > 0; repairAttempt += 1) {
+      await options.onProgress?.({
+        step: 'repairing',
+        completedStops: 0,
+        totalStops: textAudit.affectedStopPositions.length,
+        message: `Repairing ${textAudit.affectedStopPositions.length} specific stops (attempt ${repairAttempt + 1}/2)`,
+      });
+      selectedPlaces = await this.repairNarratedPlaces({
+        structuralPlaces: selectedStructuralPlaces,
+        narratedPlaces: selectedPlaces,
+        positions: textAudit.affectedStopPositions,
+        city: request.city,
+        theme: request.theme,
+        language: request.language || 'en',
+        requestedDuration,
+        repairInstructions: [
+          ...textAudit.reasons.map((reason) => {
+            if (reason === 'welcome_outside_introduction') {
+              return 'Remove every welcome or greeting from this stop, including Bienvenido, Bienvenida, Bienvenidos, and Bienvenidas. The separate tour introduction already welcomes the visitor.';
+            }
+            if (reason === 'stop_too_short') return 'Expand this stop to at least 170 words using only the supplied facts.';
+            if (reason === 'stop_too_long') return 'Shorten this stop to no more than 300 words without losing concrete facts.';
+            if (reason === 'repeated_cross_stop_phrase') return 'Rewrite any wording shared with another stop while preserving the factual meaning.';
+            if (reason === 'repeated_opening') return 'Start with a visibly different sentence structure and concrete detail.';
+            return reason;
+          }),
+          ...textAudit.repeatedPhrases.map((phrase) => `Do not repeat: "${phrase}"`),
+          ...textAudit.repeatedOpenings.map((opening) => `Use a different opening from: "${opening}"`),
+          ...textAudit.repeatedConcepts.map((concept) => `Replace repeated abstract framing: "${concept}"`),
+        ],
+        onStopComplete: async (completedStops, totalStops) => options.onProgress?.({
+          step: 'repairing',
+          completedStops,
+          totalStops,
+          message: `Repaired ${completedStops} of ${totalStops} affected stops`,
+        }),
+      });
+      textAudit = auditTourText({
+        introduction,
+        language: request.language || 'en',
+        places: selectedPlaces.map((place, position) => ({
+          id: place.id || `draft-${position}`,
+          position,
+          name: place.name,
+          description: place.description,
+          metadata: { narrationMeta: place.narrationMeta },
+        })),
+      });
+    }
+    if (options.enforceTextQuality && !textAudit.passed) {
+      throw new CityQualityNotAvailableError(request.city, request.theme, {
+        passed: false,
+        stage: 'output',
+        score: textAudit.score / 100,
+        reasons: textAudit.reasons,
+        signals: {
+          affectedStopCount: textAudit.affectedStopPositions.length,
+          affectedStopPositions: textAudit.affectedStopPositions.join(','),
+          repeatedPhraseCount: textAudit.repeatedPhrases.length,
+          repeatedPhrases: textAudit.repeatedPhrases.join(' | '),
+          repeatedOpeningCount: textAudit.repeatedOpenings.length,
+          repeatedOpenings: textAudit.repeatedOpenings.join(' | '),
+        },
+      });
+    }
+
+    const placesWithImages = options.skipImages
+      ? selectedPlaces
+      : await this.fetchImagesForPlaces(selectedPlaces, request.city, request.country);
+    console.log(options.skipImages ? 'Skipped images for text generation' : 'Fetched images for places');
 
     const now = new Date().toISOString();
     const tourToSave: Tour = {
@@ -1152,6 +1350,8 @@ export class OrchestrationService {
       country: request.country,
       countryCode: request.countryCode,
       durationMinutes: request.durationMinutes || request.duration || 240,
+      status: 'draft',
+      introduction,
       metadata: {
         qualityStatus,
         confidence: gateMode === 'shadow' ? confidence : finalConfidence,
@@ -1162,6 +1362,9 @@ export class OrchestrationService {
         requestedDurationMinutes: options.requestedDurationOverride,
         recommendedDurationMinutes: options.historyPreflight?.recommendedDurationMinutes,
         durationAdapted: options.generationMode === 'duration-recommendation-draft',
+        routeDiagnostics: structuralTour.routeDiagnostics,
+        narrativePlan,
+        textAudit,
       },
       places: placesWithImages.map((p: any, idx: number) => ({
         id: p.id || '',
@@ -1220,6 +1423,8 @@ export class OrchestrationService {
       theme: request.theme,
       language: request.language || 'en',
       durationMinutes: request.durationMinutes || request.duration || 240,
+      status: savedTour.status ?? 'draft',
+      introduction: savedTour.introduction,
       places: placesWithAudio.map((place: any) => ({
         id: place.id,
         tourId: savedTour.id,
@@ -1284,6 +1489,8 @@ export class OrchestrationService {
         countryCode: tour.countryCode,
         language: tour.language,
         durationMinutes: tour.durationMinutes,
+        status: tour.status ?? 'draft',
+        introduction: tour.introduction,
         places: places.map(place => ({
           id: place.id,
           tourId: tour.id,
@@ -1316,7 +1523,10 @@ export class OrchestrationService {
   }
 
   async listTours(options: ListToursOptions): Promise<{ success: true; data: { tours: TourResponse[] } }> {
-    const tours = await this.tourRepository.list(options);
+    const tours = await this.tourRepository.list({
+      ...options,
+      ...(options.readyOnly ? { status: 'published' as const } : {}),
+    });
 
     if (options.readyOnly) {
       const readyTours: Array<{ source: Tour; response: TourResponse }> = [];
@@ -1380,6 +1590,8 @@ export class OrchestrationService {
             previewStopNames: tour.places.slice(0, 3).map((place) => place.name),
             language: tour.language,
             durationMinutes: tour.durationMinutes,
+            status: tour.status ?? 'draft',
+            introduction: tour.introduction,
             places: tour.places.map((place) => ({
               id: place.id,
               tourId: tour.id,
@@ -1408,11 +1620,13 @@ export class OrchestrationService {
   }
 
   private isReadyForBrowse(tour: TourResponse): boolean {
-    const hasCompleteAudio = tour.places.length > 0 && tour.places.every((place) => Boolean(place.audioUrl));
     const hasEnoughStops = tour.places.length >= FLEXIBLE_PASS_MIN_STOP_COUNT;
     const contentReadiness = evaluateTourContentReadiness(tour.places);
 
-    return hasCompleteAudio && hasEnoughStops && contentReadiness.ready;
+    return tour.status === 'published'
+      && Boolean(tour.introduction)
+      && hasEnoughStops
+      && contentReadiness.ready;
   }
 
   private buildBrowseDedupKey(tour: Tour): string {
@@ -1842,11 +2056,14 @@ export class OrchestrationService {
     city: string,
     theme: string,
     language: string,
-    requestedDuration: number
+    requestedDuration: number,
+    onStopComplete?: (completedStops: number, totalStops: number) => Promise<void>
   ): Promise<any[]> {
     const narrationTimer = this.startStageTimer(`Generate narration for ${structuralPlaces.length} stops`);
     const tourStopNames = structuralPlaces.map((place) => place.name);
-    const narratedPlaces = await Promise.all(structuralPlaces.map(async (place, index) => {
+    const narrativePlan = buildTourNarrativePlan({ city, theme, language, placeNames: tourStopNames });
+    const narrationConcurrency = Math.max(1, Number(process.env.NARRATIVE_STOP_CONCURRENCY || '1') || 1);
+    const narratedPlaces = await mapWithConcurrency(structuralPlaces, narrationConcurrency, async (place, index) => {
       const position = index === 0 ? 'first' : index === structuralPlaces.length - 1 ? 'last' : 'middle';
       const nextStopName = structuralPlaces[index + 1]?.name;
       const builtNarration = await buildNarration(
@@ -1863,6 +2080,10 @@ export class OrchestrationService {
           stopIndex: index,
           previousStopName: structuralPlaces[index - 1]?.name,
           tourStopNames,
+          narrativeRole: narrativePlan.stopRoles[index]?.role,
+          tourPromise: narrativePlan.promise,
+          centralQuestion: narrativePlan.centralQuestion,
+          transitionPurpose: narrativePlan.stopRoles[index]?.transitionPurpose,
         }
       );
 
@@ -1876,15 +2097,85 @@ export class OrchestrationService {
         meta: builtNarration.meta,
       }));
 
-      return {
+      const narratedPlace = {
         ...place,
         description: builtNarration.narration,
         descriptionSections: builtNarration.sections || undefined,
         narrationMeta: builtNarration.meta,
       };
-    }));
+      await onStopComplete?.(index + 1, structuralPlaces.length);
+      return narratedPlace;
+    });
     narrationTimer.end();
     return narratedPlaces;
+  }
+
+  private async repairNarratedPlaces(params: {
+    structuralPlaces: StructuralTourPlace[];
+    narratedPlaces: any[];
+    positions: number[];
+    city: string;
+    theme: string;
+    language: string;
+    requestedDuration: number;
+    repairInstructions: string[];
+    onStopComplete?: (completedStops: number, totalStops: number) => Promise<void>;
+  }): Promise<any[]> {
+    const result = [...params.narratedPlaces];
+    const tourStopNames = params.structuralPlaces.map((place) => place.name);
+    const plan = buildTourNarrativePlan({
+      city: params.city,
+      theme: params.theme,
+      language: params.language,
+      placeNames: tourStopNames,
+    });
+
+    for (let repairIndex = 0; repairIndex < params.positions.length; repairIndex += 1) {
+      const positionIndex = params.positions[repairIndex];
+      const place = params.structuralPlaces[positionIndex];
+      if (!place) continue;
+      const position = positionIndex === 0
+        ? 'first'
+        : positionIndex === params.structuralPlaces.length - 1 ? 'last' : 'middle';
+      const built = await buildNarration(
+        place.poi,
+        params.theme,
+        params.language,
+        this.llmServiceUrl,
+        position,
+        params.structuralPlaces[positionIndex + 1]?.name,
+        {
+          cityName: params.city,
+          totalStops: params.structuralPlaces.length,
+          tourDurationMinutes: params.requestedDuration,
+          stopIndex: positionIndex,
+          previousStopName: params.structuralPlaces[positionIndex - 1]?.name,
+          tourStopNames,
+          narrativeRole: plan.stopRoles[positionIndex]?.role,
+          tourPromise: plan.promise,
+          centralQuestion: plan.centralQuestion,
+          transitionPurpose: plan.stopRoles[positionIndex]?.transitionPurpose,
+          forceRegenerate: true,
+          editorialRepairInstructions: params.repairInstructions,
+        },
+      );
+      const repairDegradedToFallback = Boolean(
+        built.meta?.fallback
+        || built.meta?.replacedWeakNarration === true
+        || Number(built.meta?.sectionsFallbacked || 0) > 0
+      );
+      if (!repairDegradedToFallback) {
+        result[positionIndex] = {
+          ...place,
+          description: built.narration,
+          descriptionSections: built.sections || undefined,
+          narrationMeta: built.meta,
+        };
+      }
+      await params.onStopComplete?.(repairIndex + 1, params.positions.length);
+    }
+
+    return result;
   }
 
   /**

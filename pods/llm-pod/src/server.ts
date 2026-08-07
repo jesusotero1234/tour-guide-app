@@ -8,6 +8,7 @@ import textRoutes from './routes/text';
 import narrativeRoutes from './routes/narrative';
 import narrativeLongRoutes from './routes/narrativeLong';
 import enrichmentRoutes from './routes/enrichment';
+import editorialRoutes from './routes/editorial';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/translate', translationRoutes);
 app.use('/narrative', narrativeRoutes);
 app.use('/narrative', narrativeLongRoutes);
 app.use('/enrichment', enrichmentRoutes);
+app.use('/editorial', editorialRoutes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {
@@ -62,4 +64,5 @@ app.listen(port, () => {
   console.log('POST /translate/places');
   console.log('POST /narrative/stop');
   console.log('POST /narrative/stop/long');
+  console.log('POST /editorial/route-brief');
 });

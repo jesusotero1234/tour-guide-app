@@ -1,0 +1,10 @@
+{
+  "city": "Barcelona", "theme": "history", "language": "fr", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q908802", "name": "Santa Maria del Mar", "narrativeRole": "Mostrar fe, gremios y ciudad medieval", "contributionCode": "trade_economic_life" },
+    { "qid": "Q327940", "name": "Palau de la Música Catalana", "narrativeRole": "Explicar cultura e identidad moderna", "contributionCode": "art_intellectual_life" },
+    { "qid": "Q17155", "name": "Catedral de Barcelona", "narrativeRole": "Relacionar religión y poder urbano", "contributionCode": "religious_identity" },
+    { "qid": "Q597051", "name": "Palau Güell", "narrativeRole": "Resolver industria, élite y modernismo", "contributionCode": "urban_expansion_reform" }
+  ]
+}

@@ -25,9 +25,13 @@ interface CandidateFixture {
 }
 
 class SourceSnapshotRecorder implements PoiEnrichmentCache {
-  constructor(private readonly snapshot: PoiEnrichmentSnapshot) {}
+  constructor(
+    private readonly snapshot: PoiEnrichmentSnapshot,
+    private readonly refreshWikidata = false
+  ) {}
 
   async getWikidata(wikidataId: string, language: string): Promise<WikidataBatchEnrichment | null> {
+    if (this.refreshWikidata) return null;
     return language === this.snapshot.language ? this.snapshot.wikidata[wikidataId] ?? null : null;
   }
 
@@ -79,7 +83,8 @@ async function main(): Promise<void> {
   const candidateFixture = readJson<CandidateFixture>(join(fixtures, 'candidates', `${slug}.json`));
   const output = join(fixtures, 'sources', `${slug}-${language}.json`);
   const snapshot = readOrCreateSnapshot(output, { city: candidateFixture.city || city, theme, language });
-  const recorder = new SourceSnapshotRecorder(snapshot);
+  const refreshWikidata = process.argv.includes('--refresh-wikidata');
+  const recorder = new SourceSnapshotRecorder(snapshot, refreshWikidata);
 
   const rawByQid = new Map(
     pool.rawPois

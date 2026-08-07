@@ -1,0 +1,5846 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "status": "complete",
+  "createdAt": "2026-08-06T18:16:54.606Z",
+  "caseId": "berlin-history-de-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "6ef0f951d64bd63d730e7d12c3cc9f72c4a6046603f458c42bb1cd7ffdf7c259",
+  "candidateMapping": [
+    {
+      "slot": "c01",
+      "canonicalId": "Q146138",
+      "siteId": "site:Q146138",
+      "coordinates": {
+        "lat": 52.5092852,
+        "lng": 13.3812586
+      },
+      "evidenceIds": [
+        "Q146138:osm:building",
+        "Q146138:wikidata:inception",
+        "Q146138:wikidata:instanceOf",
+        "Q146138:wikipedia:0",
+        "Q146138:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q151897",
+      "siteId": "site:Q151897",
+      "coordinates": {
+        "lat": 52.518611111,
+        "lng": 13.376111111
+      },
+      "evidenceIds": [
+        "Q151897:osm:building",
+        "Q151897:wikidata:architect",
+        "Q151897:wikidata:architecturalStyle",
+        "Q151897:wikipedia:0",
+        "Q151897:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q152252",
+      "siteId": "site:Q152252",
+      "coordinates": {
+        "lat": 52.508944444,
+        "lng": 13.376333333
+      },
+      "evidenceIds": [
+        "Q152252:osm:place",
+        "Q152252:wikidata:architect",
+        "Q152252:wikidata:namedAfter",
+        "Q152252:wikipedia:10",
+        "Q152252:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q152783",
+      "siteId": "site:Q152783",
+      "coordinates": {
+        "lat": 52.521666666,
+        "lng": 13.413611111
+      },
+      "evidenceIds": [
+        "Q152783:osm:place",
+        "Q152783:wikidata:namedAfter",
+        "Q152783:wikidata:instanceOf",
+        "Q152783:wikipedia:1",
+        "Q152783:wikipedia:6"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q82425",
+      "siteId": "site:Q82425",
+      "coordinates": {
+        "lat": 52.516272222,
+        "lng": 13.377722222
+      },
+      "evidenceIds": [
+        "Q82425:osm:historic",
+        "Q82425:wikidata:architect",
+        "Q82425:wikidata:architecturalStyle",
+        "Q82425:wikipedia:1",
+        "Q82425:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q160700",
+      "siteId": "site:Q160700",
+      "coordinates": {
+        "lat": 52.5138996,
+        "lng": 13.378714
+      },
+      "evidenceIds": [
+        "Q160700:osm:historic",
+        "Q160700:wikidata:architect",
+        "Q160700:wikidata:inception",
+        "Q160700:wikipedia:2",
+        "Q160700:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q156716",
+      "siteId": "site:Q156716",
+      "coordinates": {
+        "lat": 52.516388888,
+        "lng": 13.378888888
+      },
+      "evidenceIds": [
+        "Q156716:osm:place",
+        "Q156716:wikidata:architect",
+        "Q156716:wikidata:architecturalStyle",
+        "Q156716:wikipedia:0",
+        "Q156716:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q170119",
+      "siteId": "site:Q170119",
+      "coordinates": {
+        "lat": 52.5175,
+        "lng": 13.402777777
+      },
+      "evidenceIds": [
+        "Q170119:osm:historic",
+        "Q161156:wikidata:architect",
+        "Q161156:wikidata:architecturalStyle",
+        "Q161156:wikipedia:0",
+        "Q161156:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q170103",
+      "siteId": "site:Q170103",
+      "coordinates": {
+        "lat": 52.513611111,
+        "lng": 13.392777777
+      },
+      "evidenceIds": [
+        "Q1295061:osm:heritage",
+        "Q170103:wikidata:heritageDesignation",
+        "Q170103:wikidata:namedAfter",
+        "Q170103:wikipedia:1",
+        "Q170103:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q170123",
+      "siteId": "site:Q170123",
+      "coordinates": {
+        "lat": 52.5157591,
+        "lng": 13.3948424
+      },
+      "evidenceIds": [
+        "Q170123:osm:amenity",
+        "Q170123:wikidata:architect",
+        "Q170123:wikidata:architecturalStyle",
+        "Q170123:wikipedia:1",
+        "Q170123:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q68689",
+      "siteId": "site:Q68689",
+      "coordinates": {
+        "lat": 52.5075,
+        "lng": 13.390277777
+      },
+      "evidenceIds": [
+        "Q68689:wikipedia:0",
+        "Q68689:wikidata:inception",
+        "Q68689:wikidata:instanceOf",
+        "Q68689:wikipedia:1",
+        "Q68689:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q32660126",
+      "siteId": "site:Q32660126",
+      "coordinates": {
+        "lat": 52.5166394,
+        "lng": 13.3719488
+      },
+      "evidenceIds": [
+        "Q32660126:osm:heritage",
+        "Q32660126:wikidata:heritageDesignation",
+        "Q32660126:wikidata:inception",
+        "Q32660126:wikipedia:0",
+        "Q32660126:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q702512",
+      "siteId": "site:Q702512",
+      "coordinates": {
+        "lat": 52.518611111,
+        "lng": 13.399722222
+      },
+      "evidenceIds": [
+        "Q702512:osm:place",
+        "Q702512:wikidata:heritageDesignation",
+        "Q702512:wikidata:inception",
+        "Q702512:wikipedia:1",
+        "Q702512:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q317091",
+      "siteId": "site:Q317091",
+      "coordinates": {
+        "lat": 52.5175,
+        "lng": 13.353333333
+      },
+      "evidenceIds": [
+        "Q317091:osm:historic",
+        "Q317091:wikidata:architect",
+        "Q317091:wikidata:architecturalStyle",
+        "Q317091:wikipedia:11",
+        "Q317091:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q152341",
+      "siteId": "site:Q152341",
+      "coordinates": {
+        "lat": 52.5178894,
+        "lng": 13.395536
+      },
+      "evidenceIds": [
+        "Q152341:osm:historic",
+        "Q152341:wikidata:architect",
+        "Q152341:wikidata:architecturalStyle",
+        "Q152341:wikipedia:1",
+        "Q152341:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q161156",
+      "siteId": "site:Q161156",
+      "coordinates": {
+        "lat": 52.5175,
+        "lng": 13.4025
+      },
+      "evidenceIds": [
+        "Q170119:osm:historic",
+        "Q161156:wikidata:architect",
+        "Q161156:wikidata:architecturalStyle",
+        "Q161156:wikipedia:0",
+        "Q161156:wikipedia:1"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q154563",
+      "siteId": "site:Q154563",
+      "coordinates": {
+        "lat": 52.5190862,
+        "lng": 13.4010278
+      },
+      "evidenceIds": [
+        "Q154563:osm:height",
+        "Q154563:wikidata:architect",
+        "Q154563:wikidata:architecturalStyle",
+        "Q154563:wikipedia:2",
+        "Q154563:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c18",
+      "canonicalId": "Q154987",
+      "siteId": "site:Q154987",
+      "coordinates": {
+        "lat": 52.51451,
+        "lng": 13.350111
+      },
+      "evidenceIds": [
+        "Q154987:osm:historic",
+        "Q154987:wikidata:architect",
+        "Q154987:wikidata:architecturalStyle",
+        "Q154987:wikipedia:1",
+        "Q154987:wikipedia:9"
+      ]
+    },
+    {
+      "slot": "c19",
+      "canonicalId": "Q157298",
+      "siteId": "site:Q157298",
+      "coordinates": {
+        "lat": 52.5209122,
+        "lng": 13.3964686
+      },
+      "evidenceIds": [
+        "Q157298:osm:height",
+        "Q157298:wikidata:architect",
+        "Q157298:wikidata:architecturalStyle",
+        "Q157298:wikipedia:2",
+        "Q157298:wikipedia:4"
+      ]
+    },
+    {
+      "slot": "c20",
+      "canonicalId": "Q151963",
+      "siteId": "site:Q151963",
+      "coordinates": {
+        "lat": 52.5199984,
+        "lng": 13.397183
+      },
+      "evidenceIds": [
+        "Q151963:osm:heritage",
+        "Q151963:wikidata:heritageDesignation",
+        "Q151963:wikidata:instanceOf",
+        "Q151963:wikipedia:2",
+        "Q151963:wikipedia:5"
+      ]
+    },
+    {
+      "slot": "c21",
+      "canonicalId": "Q246474",
+      "siteId": "site:Q246474",
+      "coordinates": {
+        "lat": 52.5249867,
+        "lng": 13.3943198
+      },
+      "evidenceIds": [
+        "Q246474:osm:height",
+        "Q246474:wikidata:architect",
+        "Q246474:wikidata:architecturalStyle",
+        "Q246474:wikipedia:10",
+        "Q246474:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c22",
+      "canonicalId": "Q315644",
+      "siteId": "site:Q315644",
+      "coordinates": {
+        "lat": 52.5127454,
+        "lng": 13.3927048
+      },
+      "evidenceIds": [
+        "Q315644:osm:building",
+        "Q315644:wikidata:architect",
+        "Q315644:wikidata:architecturalStyle",
+        "Q315644:wikipedia:0",
+        "Q315644:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c23",
+      "canonicalId": "Q439297",
+      "siteId": "site:Q439297",
+      "coordinates": {
+        "lat": 52.5168925,
+        "lng": 13.3928008
+      },
+      "evidenceIds": [
+        "Q439297:osm:building",
+        "Q439297:wikidata:architect",
+        "Q439297:wikidata:architecturalStyle",
+        "Q439297:wikipedia:1",
+        "Q439297:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c24",
+      "canonicalId": "Q162111",
+      "siteId": "site:Q162111",
+      "coordinates": {
+        "lat": 52.5208337,
+        "lng": 13.3983173
+      },
+      "evidenceIds": [
+        "Q162111:osm:building",
+        "Q162111:wikidata:architect",
+        "Q162111:wikidata:architecturalStyle",
+        "Q162111:wikipedia:2",
+        "Q162111:wikipedia:6"
+      ]
+    },
+    {
+      "slot": "c25",
+      "canonicalId": "Q196970",
+      "siteId": "site:Q196970",
+      "coordinates": {
+        "lat": 52.5180977,
+        "lng": 13.3969618
+      },
+      "evidenceIds": [
+        "Q196970:osm:height",
+        "Q196970:wikidata:architect",
+        "Q196970:wikidata:architecturalStyle",
+        "Q196970:wikipedia:1",
+        "Q196970:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c26",
+      "canonicalId": "Q702548",
+      "siteId": "site:Q702548",
+      "coordinates": {
+        "lat": 52.5135807,
+        "lng": 13.3918548
+      },
+      "evidenceIds": [
+        "Q702548:osm:amenity",
+        "Q702548:wikidata:architect",
+        "Q702548:wikidata:architecturalStyle",
+        "Q702548:wikipedia:1",
+        "Q702548:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c27",
+      "canonicalId": "Q157003",
+      "siteId": "site:Q157003",
+      "coordinates": {
+        "lat": 52.5022844,
+        "lng": 13.395421
+      },
+      "evidenceIds": [
+        "Q157003:osm:building",
+        "Q157003:wikidata:architect",
+        "Q157003:wikidata:architecturalStyle",
+        "Q157003:wikipedia:0",
+        "Q157003:wikipedia:11"
+      ]
+    },
+    {
+      "slot": "c28",
+      "canonicalId": "Q312576",
+      "siteId": "site:Q312576",
+      "coordinates": {
+        "lat": 52.5166928,
+        "lng": 13.3947663
+      },
+      "evidenceIds": [
+        "Q312576:osm:amenity",
+        "Q312576:wikidata:architect",
+        "Q312576:wikidata:heritageDesignation",
+        "Q312576:wikipedia:1",
+        "Q312576:wikipedia:2"
+      ]
+    },
+    {
+      "slot": "c29",
+      "canonicalId": "Q703927",
+      "siteId": "site:Q703927",
+      "coordinates": {
+        "lat": 52.5168781,
+        "lng": 13.4065136
+      },
+      "evidenceIds": [
+        "Q703927:osm:heritage",
+        "Q703927:wikidata:heritageDesignation",
+        "Q703927:wikidata:namedAfter",
+        "Q703927:wikipedia:1",
+        "Q703927:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c30",
+      "canonicalId": "Q833817",
+      "siteId": "site:Q833817",
+      "coordinates": {
+        "lat": 52.5158844,
+        "lng": 13.3975222
+      },
+      "evidenceIds": [
+        "Q833817:osm:building",
+        "Q833817:wikidata:architect",
+        "Q833817:wikidata:architecturalStyle",
+        "Q833817:wikipedia:1",
+        "Q833817:wikipedia:10"
+      ]
+    }
+  ],
+  "storyMapCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "editorial-story-map-v4",
+      "centralQuestion": "Wie wurde Berlin immer wieder neu erfunden – als Residenzstadt der Hohenzollern, als Hauptstadt des Kaiserreichs, als geteilte Frontstadt des Kalten Krieges und schließlich als wiedervereinigte Bundeshauptstadt – und wie spiegeln sich diese Brüche und Neuanfänge in den Bauwerken und Plätzen, die wir heute sehen?",
+      "beats": [
+        {
+          "beatId": "b01",
+          "contributionCode": "origins_urban_form",
+          "era": "early_modern",
+          "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+          "evidenceRefs": [
+            "c03:e05",
+            "c07:e04",
+            "c13:e04",
+            "c09:e04"
+          ]
+        },
+        {
+          "beatId": "b02",
+          "contributionCode": "royal_state_power",
+          "era": "early_modern",
+          "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+          "evidenceRefs": [
+            "c08:e05",
+            "c28:e04",
+            "c17:e04",
+            "c05:e04"
+          ]
+        },
+        {
+          "beatId": "b03",
+          "contributionCode": "art_intellectual_life",
+          "era": "nineteenth_century",
+          "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+          "evidenceRefs": [
+            "c20:e04",
+            "c24:e04",
+            "c15:e04",
+            "c25:e04"
+          ]
+        },
+        {
+          "beatId": "b04",
+          "contributionCode": "conflict_resistance",
+          "era": "twentieth_century",
+          "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+          "evidenceRefs": [
+            "c06:e04",
+            "c10:e05",
+            "c29:e04",
+            "c21:e05"
+          ]
+        },
+        {
+          "beatId": "b05",
+          "contributionCode": "memory_rights",
+          "era": "twentieth_century",
+          "focus": "Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg.",
+          "evidenceRefs": [
+            "c11:e01",
+            "c12:e04",
+            "c08:e05"
+          ]
+        },
+        {
+          "beatId": "b06",
+          "contributionCode": "urban_expansion_reform",
+          "era": "contemporary",
+          "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+          "evidenceRefs": [
+            "c03:e04",
+            "c02:e04",
+            "c01:e04"
+          ]
+        },
+        {
+          "beatId": "b07",
+          "contributionCode": "multicultural_exchange",
+          "era": "cross_era",
+          "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.",
+          "evidenceRefs": [
+            "c21:e04",
+            "c17:e05",
+            "c10:e04",
+            "c27:e04"
+          ]
+        }
+      ],
+      "candidates": {
+        "c01": {
+          "relativePriorityRank": 16,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c01:e02",
+                "c01:e03",
+                "c01:e04",
+                "c01:e05"
+              ]
+            }
+          ]
+        },
+        "c02": {
+          "relativePriorityRank": 4,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c02:e04",
+                "c02:e05"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 1,
+              "evidenceRefs": [
+                "c02:e02",
+                "c02:e03"
+              ]
+            }
+          ]
+        },
+        "c03": {
+          "relativePriorityRank": 7,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b06",
+              "strength": 3,
+              "evidenceRefs": [
+                "c03:e04"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c03:e05"
+              ]
+            }
+          ]
+        },
+        "c04": {
+          "relativePriorityRank": 20,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c04:e04"
+              ]
+            },
+            {
+              "beatId": "b06",
+              "strength": 1,
+              "evidenceRefs": [
+                "c04:e05"
+              ]
+            }
+          ]
+        },
+        "c05": {
+          "relativePriorityRank": 1,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 3,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "early_modern",
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c05:e04"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c05:e04"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c05:e05"
+              ]
+            }
+          ]
+        },
+        "c06": {
+          "relativePriorityRank": 5,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 3,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 3,
+              "evidenceRefs": [
+                "c06:e03",
+                "c06:e04",
+                "c06:e05"
+              ]
+            }
+          ]
+        },
+        "c07": {
+          "relativePriorityRank": 14,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 2,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c07:e04",
+                "c07:e05"
+              ]
+            }
+          ]
+        },
+        "c08": {
+          "relativePriorityRank": 6,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c08:e04",
+                "c08:e05"
+              ]
+            },
+            {
+              "beatId": "b05",
+              "strength": 2,
+              "evidenceRefs": [
+                "c08:e05"
+              ]
+            }
+          ]
+        },
+        "c09": {
+          "relativePriorityRank": 12,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c09:e04"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c09:e04"
+              ]
+            }
+          ]
+        },
+        "c10": {
+          "relativePriorityRank": 13,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c10:e04"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c10:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c10:e01"
+              ]
+            }
+          ]
+        },
+        "c11": {
+          "relativePriorityRank": 3,
+          "salienceLevel": 4,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c11:e01",
+                "c11:e02",
+                "c11:e04",
+                "c11:e05"
+              ]
+            }
+          ]
+        },
+        "c12": {
+          "relativePriorityRank": 10,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c12:e03",
+                "c12:e04",
+                "c12:e05"
+              ]
+            }
+          ]
+        },
+        "c13": {
+          "relativePriorityRank": 18,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 2,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern",
+            "cross_era"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 3,
+              "evidenceRefs": [
+                "c13:e03",
+                "c13:e04",
+                "c13:e05"
+              ]
+            }
+          ]
+        },
+        "c14": {
+          "relativePriorityRank": 24,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c14:e04",
+                "c14:e05"
+              ]
+            }
+          ]
+        },
+        "c15": {
+          "relativePriorityRank": 11,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c15:e04"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c15:e04"
+              ]
+            }
+          ]
+        },
+        "c16": {
+          "relativePriorityRank": 15,
+          "salienceLevel": 3,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 2,
+          "eraBuckets": [
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b05",
+              "strength": 3,
+              "evidenceRefs": [
+                "c16:e04",
+                "c16:e05"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 1,
+              "evidenceRefs": [
+                "c16:e05"
+              ]
+            }
+          ]
+        },
+        "c17": {
+          "relativePriorityRank": 9,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c17:e05"
+              ]
+            }
+          ]
+        },
+        "c18": {
+          "relativePriorityRank": 17,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c18:e04"
+              ]
+            },
+            {
+              "beatId": "b03",
+              "strength": 1,
+              "evidenceRefs": [
+                "c18:e05"
+              ]
+            }
+          ]
+        },
+        "c19": {
+          "relativePriorityRank": 19,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c19:e04",
+                "c19:e05"
+              ]
+            }
+          ]
+        },
+        "c20": {
+          "relativePriorityRank": 8,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c20:e04",
+                "c20:e05"
+              ]
+            }
+          ]
+        },
+        "c21": {
+          "relativePriorityRank": 21,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 3,
+              "evidenceRefs": [
+                "c21:e04",
+                "c21:e05"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c21:e01"
+              ]
+            }
+          ]
+        },
+        "c22": {
+          "relativePriorityRank": 26,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern"
+          ],
+          "contributions": [
+            {
+              "beatId": "b01",
+              "strength": 2,
+              "evidenceRefs": [
+                "c22:e04",
+                "c22:e05"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c22:e01"
+              ]
+            }
+          ]
+        },
+        "c23": {
+          "relativePriorityRank": 27,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c23:e04"
+              ]
+            },
+            {
+              "beatId": "b03",
+              "strength": 1,
+              "evidenceRefs": [
+                "c23:e04"
+              ]
+            }
+          ]
+        },
+        "c24": {
+          "relativePriorityRank": 22,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "nineteenth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 3,
+              "evidenceRefs": [
+                "c24:e04",
+                "c24:e05"
+              ]
+            }
+          ]
+        },
+        "c25": {
+          "relativePriorityRank": 23,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "early_modern",
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 2,
+              "evidenceRefs": [
+                "c25:e04"
+              ]
+            },
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c25:e04"
+              ]
+            }
+          ]
+        },
+        "c26": {
+          "relativePriorityRank": 25,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c26:e04"
+              ]
+            },
+            {
+              "beatId": "b02",
+              "strength": 1,
+              "evidenceRefs": [
+                "c26:e04"
+              ]
+            }
+          ]
+        },
+        "c27": {
+          "relativePriorityRank": 28,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b07",
+              "strength": 2,
+              "evidenceRefs": [
+                "c27:e04",
+                "c27:e05"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 1,
+              "evidenceRefs": [
+                "c27:e05"
+              ]
+            }
+          ]
+        },
+        "c28": {
+          "relativePriorityRank": 2,
+          "salienceLevel": 3,
+          "observableStrength": 3,
+          "openingFit": 1,
+          "resolutionFit": 1,
+          "eraBuckets": [
+            "early_modern",
+            "twentieth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b02",
+              "strength": 3,
+              "evidenceRefs": [
+                "c28:e04"
+              ]
+            },
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c28:e05"
+              ]
+            }
+          ]
+        },
+        "c29": {
+          "relativePriorityRank": 29,
+          "salienceLevel": 2,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "twentieth_century",
+            "contemporary"
+          ],
+          "contributions": [
+            {
+              "beatId": "b04",
+              "strength": 2,
+              "evidenceRefs": [
+                "c29:e04"
+              ]
+            },
+            {
+              "beatId": "b01",
+              "strength": 1,
+              "evidenceRefs": [
+                "c29:e03"
+              ]
+            }
+          ]
+        },
+        "c30": {
+          "relativePriorityRank": 30,
+          "salienceLevel": 1,
+          "observableStrength": 2,
+          "openingFit": 0,
+          "resolutionFit": 0,
+          "eraBuckets": [
+            "nineteenth_century"
+          ],
+          "contributions": [
+            {
+              "beatId": "b03",
+              "strength": 2,
+              "evidenceRefs": [
+                "c30:e04"
+              ]
+            },
+            {
+              "beatId": "b07",
+              "strength": 1,
+              "evidenceRefs": [
+                "c30:e05"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 23977,
+        "rawOutput": "{\"schemaVersion\": \"editorial-story-map-v4\", \"centralQuestion\": \"Wie wurde Berlin immer wieder neu erfunden – als Residenzstadt der Hohenzollern, als Hauptstadt des Kaiserreichs, als geteilte Frontstadt des Kalten Krieges und schließlich als wiedervereinigte Bundeshauptstadt – und wie spiegeln sich diese Brüche und Neuanfänge in den Bauwerken und Plätzen, die wir heute sehen?\", \"beats\": [{\"beatId\":\"b01\",\"contributionCode\":\"origins_urban_form\",\"era\":\"early_modern\",\"focus\":\"Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).\",\"evidenceRefs\":[\"c03:e05\",\"c07:e04\",\"c13:e04\",\"c09:e04\"]},{\"beatId\":\"b02\",\"contributionCode\":\"royal_state_power\",\"era\":\"early_modern\",\"focus\":\"Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).\",\"evidenceRefs\":[\"c08:e05\",\"c28:e04\",\"c17:e04\",\"c05:e04\"]},{\"beatId\":\"b03\",\"contributionCode\":\"art_intellectual_life\",\"era\":\"nineteenth_century\",\"focus\":\"Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.\",\"evidenceRefs\":[\"c20:e04\",\"c24:e04\",\"c15:e04\",\"c25:e04\"]},{\"beatId\":\"b04\",\"contributionCode\":\"conflict_resistance\",\"era\":\"twentieth_century\",\"focus\":\"Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.\",\"evidenceRefs\":[\"c06:e04\",\"c10:e05\",\"c29:e04\",\"c21:e05\"]},{\"beatId\":\"b05\",\"contributionCode\":\"memory_rights\",\"era\":\"twentieth_century\",\"focus\":\"Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg.\",\"evidenceRefs\":[\"c11:e01\",\"c12:e04\",\"c08:e05\"]},{\"beatId\":\"b06\",\"contributionCode\":\"urban_expansion_reform\",\"era\":\"contemporary\",\"focus\":\"Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.\",\"evidenceRefs\":[\"c03:e04\",\"c02:e04\",\"c01:e04\"]},{\"beatId\":\"b07\",\"contributionCode\":\"multicultural_exchange\",\"era\":\"cross_era\",\"focus\":\"Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.\",\"evidenceRefs\":[\"c21:e04\",\"c17:e05\",\"c10:e04\",\"c27:e04\"]}], \"candidates\": {\"c01\":{\"relativePriorityRank\":16,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e02\",\"e03\",\"e04\",\"e05\"]}]},\"c02\":{\"relativePriorityRank\":4,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":3,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"e02\",\"e03\"]}]},\"c03\":{\"relativePriorityRank\":7,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b06\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c04\":{\"relativePriorityRank\":20,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b06\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c05\":{\"relativePriorityRank\":1,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":3,\"resolutionFit\":2,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c06\":{\"relativePriorityRank\":5,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":3,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c07\":{\"relativePriorityRank\":14,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":2,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c08\":{\"relativePriorityRank\":6,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b05\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c09\":{\"relativePriorityRank\":12,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c10\":{\"relativePriorityRank\":13,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e05\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c11\":{\"relativePriorityRank\":3,\"salienceLevel\":4,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e01\",\"e02\",\"e04\",\"e05\"]}]},\"c12\":{\"relativePriorityRank\":10,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c13\":{\"relativePriorityRank\":18,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":2,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"cross_era\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":3,\"evidenceRefs\":[\"e03\",\"e04\",\"e05\"]}]},\"c14\":{\"relativePriorityRank\":24,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c15\":{\"relativePriorityRank\":11,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c16\":{\"relativePriorityRank\":15,\"salienceLevel\":3,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":2,\"eraBuckets\":[\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b05\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c17\":{\"relativePriorityRank\":9,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c18\":{\"relativePriorityRank\":17,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c19\":{\"relativePriorityRank\":19,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c20\":{\"relativePriorityRank\":8,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c21\":{\"relativePriorityRank\":21,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c22\":{\"relativePriorityRank\":26,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\"],\"contributions\":[{\"beatId\":\"b01\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e01\"]}]},\"c23\":{\"relativePriorityRank\":27,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b03\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c24\":{\"relativePriorityRank\":22,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"nineteenth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":3,\"evidenceRefs\":[\"e04\",\"e05\"]}]},\"c25\":{\"relativePriorityRank\":23,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"early_modern\",\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e04\"]}]},\"c26\":{\"relativePriorityRank\":25,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b02\",\"strength\":1,\"evidenceRefs\":[\"e04\"]}]},\"c27\":{\"relativePriorityRank\":28,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":1,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b07\",\"strength\":2,\"evidenceRefs\":[\"e04\",\"e05\"]},{\"beatId\":\"b04\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]},\"c28\":{\"relativePriorityRank\":2,\"salienceLevel\":3,\"observableStrength\":3,\"openingFit\":1,\"resolutionFit\":1,\"eraBuckets\":[\"early_modern\",\"twentieth_century\"],\"contributions\":[{\"beatId\":\"b02\",\"strength\":3,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e05\"]}]},\"c29\":{\"relativePriorityRank\":29,\"salienceLevel\":2,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"twentieth_century\",\"contemporary\"],\"contributions\":[{\"beatId\":\"b04\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b01\",\"strength\":1,\"evidenceRefs\":[\"e03\"]}]},\"c30\":{\"relativePriorityRank\":30,\"salienceLevel\":1,\"observableStrength\":2,\"openingFit\":0,\"resolutionFit\":0,\"eraBuckets\":[\"nineteenth_century\"],\"contributions\":[{\"beatId\":\"b03\",\"strength\":2,\"evidenceRefs\":[\"e04\"]},{\"beatId\":\"b07\",\"strength\":1,\"evidenceRefs\":[\"e05\"]}]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "167988c7bfd6472f1a77ef258246560d92be0b3ffd432d6824eabc5556ba778a",
+    "input": {
+      "city": "Berlin",
+      "theme": "history",
+      "language": "de",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c01",
+          "localName": "Bundesrat",
+          "category": "civic_power",
+          "fameScore": 65.5,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1949-05-23"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: Oberhaus"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Bundesrat (Abkürzung BR) ist ein Verfassungsorgan der Bundesrepublik Deutschland."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Jedes Land ist durch Mitglieder seiner Landesregierung im Bundesrat vertreten, nach Bevölkerung zwischen 3 und 6 Personen, insgesamt 69 Personen."
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "Reichstagsgebäude",
+          "category": "civic_power",
+          "fameScore": 62.29,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Paul Wallot"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Neorenaissance"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "Potsdamer Platz",
+          "category": "square_civic",
+          "fameScore": 61.03,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Renzo Piano"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Potsdam"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "November 1989 stellte sich eine neue Situation ein: Am 12."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Beim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet."
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "Alexanderplatz",
+          "category": "square_civic",
+          "fameScore": 60.86,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Alexander I."
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: Platz"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der rechteckige Platz im Ortsteil Mitte geht auf den Platz vor dem Königs Thor zurück und erhielt 1805 nach dem russischen Zaren Alexander I."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Auf dieser vierfach größeren Fläche entstanden bis 1970 u."
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "Brandenburger Tor",
+          "category": "other",
+          "fameScore": 64.26,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: city_gate"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Carl Gotthard Langhans"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Greek Revival"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "So wurde bis zum Zweiten Weltkrieg vor allem das Ende der napoleonischen Herrschaft 1813–1815 mit dem Bauwerk verbunden."
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "Denkmal für die ermordeten Juden Europas",
+          "category": "other",
+          "fameScore": 58.06,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: monument"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Peter Eisenman"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 2005-05-10"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Mai 2005 feierlich eingeweiht, ist es seit dem 12."
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "Pariser Platz",
+          "category": "square_civic",
+          "fameScore": 57.78,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Carl Gotthard Langhans"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Pariser Platz ist ein – bei der damaligen Stadterweiterung im Jahr 1734 unter König Friedrich Wilhelm I."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Im Jahr 1814 erhielt er anlässlich der Eroberung von Paris durch preußische Truppen in den Befreiungskriegen seinen Namen."
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "Berliner Schloss",
+          "category": "palace_castle",
+          "fameScore": 57.14,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: palace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Heinz Graffunder"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Moderne"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "Gendarmenmarkt",
+          "category": "square_civic",
+          "fameScore": 57,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 4"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Kulturdenkmal in Deutschland"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Gensdarmes"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Beide Kirchenbauten entstanden nach 1701 zunächst ohne die später angebauten Türme."
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "St.-Hedwigs-Kathedrale",
+          "category": "religious",
+          "fameScore": 56.62,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Georg Wenzeslaus von Knobelsdorff"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Rokokobau wurde 1747–1773 im Auftrag von Friedrich II."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Während des Zweiten Weltkriegs 1944 schwer beschädigt, wurde sie 1952–1963 wiederaufgebaut und 2018–2024 umgestaltet."
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "Checkpoint Charlie",
+          "category": "other",
+          "fameScore": 56.72,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1961-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: Berliner Grenzübergang"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Er verband in der Friedrichstraße zwischen Zimmerstraße und Kochstraße (beim gleichnamigen U-Bahnhof) den sowjetischen mit dem amerikanischen Sektor und damit den Ost-Berliner Bezirk Mitte mit dem West-Berliner Bezirk Kreuzberg."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Auch der in West-Berlin wohnende Intendant der Komischen Oper Walter Felsenstein nutzte als österreichischer Staatsbürger diesen Grenzübergang."
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "Sowjetisches Ehrenmal mit Soldatenfigur",
+          "category": "other",
+          "fameScore": 56.01,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 4"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Kulturdenkmal in Berlin"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1945-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Das Sowjetische Ehrenmal im Tiergarten ist eines von mehreren Kriegsdenkmälern in der deutschen Hauptstadt Berlin, die von der Sowjetunion zum Gedenken an ihre Kriegstoten errichtet wurden, insbesondere an die Soldaten der sowjetischen Streitkräfte, die während der Schlacht um Be"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Das Ehrenmal wurde 1945 im Großen Tiergarten erbaut, im Berliner Ortsteil Tiergarten (Bezirk Mitte) an der Straße des 17."
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Lustgarten",
+          "category": "square_civic",
+          "fameScore": 55.53,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Ensembleteil"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1646-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Im Jahr 1573 von Kurfürst Johann Georg als Küchengarten des Berliner Schlosses angelegt, wurde er im Laufe der Geschichte mehrmals umgestaltet."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Unter Kurfürst Johann Georg wurde das Areal 1573 im Zuge des Schlossausbaus zu einem Nutz- und Küchengarten, verantwortlich dafür war sein Hofgärtner Desiderius Corbinianus."
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "Schloss Bellevue",
+          "category": "palace_castle",
+          "fameScore": 55.26,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: palace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Michael Philipp Boumann"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "lebte mit seiner Familie größtenteils am Wilhelmplatz (im Johanniterordenspalais, kurzzeitig auch im Palais Marschall), und im Gegensatz zu seinem weit außerhalb der Stadt gelegenen Schloss Friedrichsfelde, das er 1785 verkaufte, lag der Neubau nahe der Berliner Altstadt im Große"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Die klassizistische Dreiflügelanlage nach französischem Muster wurde 1785/1786 von Michael Philipp Boumann als Sommerresidenz für den preußischen Prinzen August Ferdinand erbaut und seitdem mehrmals umgebaut."
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "Neue Wache",
+          "category": "memorial",
+          "fameScore": 54.03,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Karl Friedrich Schinkel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Errichtet 1816–1818 von Karl Friedrich Schinkel im Stil des Klassizismus als Wachgebäude für das Königliche Palais, wandelte sie sich 1931 zur Gedenkstätte."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Die Veränderung der Alten Wache, Kanonierwache, Schloss- oder auch Königswache war seit 1803/04 ein bevorzugtes Umgestaltungsthema des Königs."
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "Palast der Republik",
+          "category": "palace_castle",
+          "fameScore": 53.44,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: palace"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Heinz Graffunder"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Moderne"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "Berliner Dom",
+          "category": "religious",
+          "fameScore": 57,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 98"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Julius Carl Raschdorff"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Neorenaissance"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+            }
+          ]
+        },
+        {
+          "slot": "c18",
+          "localName": "Berliner Siegessäule",
+          "category": "memorial",
+          "fameScore": 54.92,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "historic: memorial"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Heinrich Strack"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Erbaut 1864 bis 1873 von Heinrich Strack auf dem Königsplatz zur Erinnerung an die Einigungskriege, wurde sie 1938 bis 1939 zusammen mit den Denkmälern Bismarcks, Roons und Moltkes an den heutigen Standort versetzt."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Nach einem von Anton von Werner geschaffenen Karton hatte es 1876 die venezianische Firma Antonio Salviati hergestellt."
+            }
+          ]
+        },
+        {
+          "slot": "c19",
+          "localName": "Pergamonmuseum",
+          "category": "civic_power",
+          "fameScore": 59.54,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 15"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Alfred Messel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "von 1907 bis 1909 von Alfred Messel im Stil des Neoklassizismus geplant, wurde es 1910 bis 1930 von Ludwig Hoffmann in vereinfachter Form ausgeführt."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Im Rahmen des Masterplans Museumsinsel wird das Pergamonmuseum seit 2013 saniert und war zunächst teilweise geschlossen."
+            }
+          ]
+        },
+        {
+          "slot": "c20",
+          "localName": "Museumsinsel",
+          "category": "other",
+          "fameScore": 58.58,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 1"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: UNESCO-Welterbe"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "instanceOf: Wohnviertel"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+            }
+          ]
+        },
+        {
+          "slot": "c21",
+          "localName": "Neue Synagoge",
+          "category": "religious",
+          "fameScore": 50,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 21.3"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Eduard Knoblauch"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Orientalisierende Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "April 1857 ein Architektenwettbewerb für die neue Synagoge ausgeschrieben."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Vorsitzender der Wettbewerbskommission war der vielbeschäftigte Architekt Eduard Knoblauch, seit 1845 Mitglied der preußischen Akademie der Künste."
+            }
+          ]
+        },
+        {
+          "slot": "c22",
+          "localName": "Deutscher Dom",
+          "category": "religious",
+          "fameScore": 47.55,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: church"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Martin Grünberg"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Neobarock"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Der Deutsche Dom am Gendarmenmarkt im Berliner Ortsteil Mitte ist ein Kuppelturm, der in den Jahren 1780–1785 an die Neue oder Deutsche Kirche angebaut wurde."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Geschichte Die 1701–1708 von Martin Grünberg und Giovanni Simonetti auf einem Teil des Schweizer Friedhofs im Stil des Barock errichtete Neue oder Deutsche Kirche hatte einen Grundriss, der eine Weiterentwicklung desjenigen der Parochialkirche war."
+            }
+          ]
+        },
+        {
+          "slot": "c23",
+          "localName": "Altes Palais",
+          "category": "palace_castle",
+          "fameScore": 46.61,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: university"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Carl Ferdinand Langhans"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Errichtet 1834 bis 1837 von Carl Ferdinand Langhans im Stil des Klassizismus als Wohnsitz für Prinz Wilhelm von Preußen, den späteren Kaiser Wilhelm I., wandelte es sich 1890 zum Museumsgebäude."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Die Erben des Markgrafen Friedrich Wilhelm von Brandenburg-Schwedt verkauften das bis dahin Markgräflich-Schwedtsche Palais genannte Gebäude für 25.000 Taler an Otto Friedrich von Bredow (1726–1799) auf Senzke und Haage."
+            }
+          ]
+        },
+        {
+          "slot": "c24",
+          "localName": "Alte Nationalgalerie",
+          "category": "civic_power",
+          "fameScore": 52.85,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: civic"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Friedrich August Stüler"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "ab 1862 von Friedrich August Stüler geplant, wurde sie bis 1876 von Johann Heinrich Strack im Stil des Klassizismus und der Neorenaissance ausgeführt."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Im Jahr 2019 verzeichnete die Alte Nationalgalerie 376.000 Besucher."
+            }
+          ]
+        },
+        {
+          "slot": "c25",
+          "localName": "Zeughaus",
+          "category": "civic_power",
+          "fameScore": 46.26,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "height: 17"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Johann Arnold Nering"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Barockarchitektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Errichtet 1695 bis 1706 von Johann Arnold Nering, Martin Grünberg, Andreas Schlüter und Jean de Bodt im Stil des Barock als Zeughaus für die Brandenburgisch-Preußische Armee, wandelte es sich 1880 zum Museumsgebäude („Ruhmeshalle der brandenburgisch-preußischen Armee“)."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Mai 1695 ließ Kurfürst Friedrich III."
+            }
+          ]
+        },
+        {
+          "slot": "c26",
+          "localName": "Konzerthaus Berlin",
+          "category": "other",
+          "fameScore": 48.58,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Karl Friedrich Schinkel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: klassizistische Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Es wurde 1818 bis 1821 im Auftrag König Friedrich Wilhelms III."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Döbbelin geriet bald in finanzielle Schwierigkeiten und wurde 1787 entlassen."
+            }
+          ]
+        },
+        {
+          "slot": "c27",
+          "localName": "Jüdisches Museum Berlin",
+          "category": "other",
+          "fameScore": 53.22,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: museum"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Q154538"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Postmoderne Architektur"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "The Jewish Museum Berlin (Jüdisches Museum Berlin) was opened in 2001 and is the largest Jewish museum in Europe."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "The museum's art collection was also seen as a contribution to German art history and one of the last exhibitions to be held was a retrospective of the German impressionist, Ernst Oppler in 1937."
+            }
+          ]
+        },
+        {
+          "slot": "c28",
+          "localName": "Staatsoper Unter den Linden",
+          "category": "other",
+          "fameScore": 52.48,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "amenity: theatre"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Georg Wenzeslaus von Knobelsdorff"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: Baudenkmal"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+            }
+          ]
+        },
+        {
+          "slot": "c29",
+          "localName": "Nikolaiviertel",
+          "category": "other",
+          "fameScore": 44.59,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "heritage: 4"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "heritageDesignation: Denkmalensemble"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "namedAfter: Nikolaikirche (Berlin)"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Im Zweiten Weltkrieg fast vollständig zerstört, wurde es 1980–1987 im Auftrag des Magistrats von Ost-Berlin anlässlich der 750-Jahr-Feier der Stadt unter der Leitung des Architekten Günter Stahn wiederaufgebaut, weshalb es heute größtenteils aus Plattenbauten besteht."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Fußgängerzone innerhalb des Viertels: Eiergasse: im regionalen Bezugssystem (RBS) mit 47 Meter als Fußweg eingetragen Nikolaikirchplatz, dazu die Nicolaikirchgasse: im regionalen Bezugssystem (RBS) sind 60 Meter als Fußweg und 120 Meter als Platz notiert Poststraße: im regionalen"
+            }
+          ]
+        },
+        {
+          "slot": "c30",
+          "localName": "Friedrichswerdersche Kirche",
+          "category": "religious",
+          "fameScore": 43.92,
+          "facts": [
+            {
+              "slot": "e01",
+              "kind": "observable",
+              "value": "building: church"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Karl Friedrich Schinkel"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: Neogotik"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Erbaut im Auftrag des preußischen Kronprinzen Friedrich Wilhelm in den Jahren 1824–1831 von Karl Friedrich Schinkel im Stil der Neogotik, zählt sie zu den frühesten repräsentativen Ziegelbauten seit dem Mittelalter."
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "Im Jahr 1699 wurde den deutschen Gemeinden der Lutheraner und der Calvinisten (Reformierte) sowie der französisch-reformierten Gemeinde ein Gebäude zur gemeinsamen Nutzung zugewiesen (Simultankirche), bekannt unter dem Namen „kurfürstliches langes Stallgebäude“ oder auch Reithaus"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "walkingMatrix": {
+    "schemaVersion": "walking-matrix-v1",
+    "provider": {
+      "id": "fossgis-osrm-foot",
+      "capturedAt": "2026-08-06T18:16:47.365Z"
+    },
+    "candidateFingerprint": "6103d1d48d8c91bb1e3a4830da8d0f7c36997265fd1aa1e362d093e55c0aaa77",
+    "sites": [
+      {
+        "siteId": "site:Q146138",
+        "lat": 52.5092852,
+        "lng": 13.3812586
+      },
+      {
+        "siteId": "site:Q151897",
+        "lat": 52.518611111,
+        "lng": 13.376111111
+      },
+      {
+        "siteId": "site:Q152252",
+        "lat": 52.508944444,
+        "lng": 13.376333333
+      },
+      {
+        "siteId": "site:Q152783",
+        "lat": 52.521666666,
+        "lng": 13.413611111
+      },
+      {
+        "siteId": "site:Q82425",
+        "lat": 52.516272222,
+        "lng": 13.377722222
+      },
+      {
+        "siteId": "site:Q160700",
+        "lat": 52.5138996,
+        "lng": 13.378714
+      },
+      {
+        "siteId": "site:Q156716",
+        "lat": 52.516388888,
+        "lng": 13.378888888
+      },
+      {
+        "siteId": "site:Q170119",
+        "lat": 52.5175,
+        "lng": 13.402777777
+      },
+      {
+        "siteId": "site:Q170103",
+        "lat": 52.513611111,
+        "lng": 13.392777777
+      },
+      {
+        "siteId": "site:Q170123",
+        "lat": 52.5157591,
+        "lng": 13.3948424
+      },
+      {
+        "siteId": "site:Q68689",
+        "lat": 52.5075,
+        "lng": 13.390277777
+      },
+      {
+        "siteId": "site:Q32660126",
+        "lat": 52.5166394,
+        "lng": 13.3719488
+      },
+      {
+        "siteId": "site:Q702512",
+        "lat": 52.518611111,
+        "lng": 13.399722222
+      },
+      {
+        "siteId": "site:Q154563",
+        "lat": 52.5190862,
+        "lng": 13.4010278
+      },
+      {
+        "siteId": "site:Q157298",
+        "lat": 52.5209122,
+        "lng": 13.3964686
+      },
+      {
+        "siteId": "site:Q151963",
+        "lat": 52.5199984,
+        "lng": 13.397183
+      },
+      {
+        "siteId": "site:Q246474",
+        "lat": 52.5249867,
+        "lng": 13.3943198
+      },
+      {
+        "siteId": "site:Q312576",
+        "lat": 52.5166928,
+        "lng": 13.3947663
+      }
+    ],
+    "legs": [
+      [
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1290.5,
+          "seconds": 1034.8,
+          "reachable": true
+        },
+        {
+          "meters": 409.6,
+          "seconds": 327.5,
+          "reachable": true
+        },
+        {
+          "meters": 3028.8,
+          "seconds": 2423.2,
+          "reachable": true
+        },
+        {
+          "meters": 1028.2,
+          "seconds": 824.8,
+          "reachable": true
+        },
+        {
+          "meters": 807.7,
+          "seconds": 648.2,
+          "reachable": true
+        },
+        {
+          "meters": 1098.8,
+          "seconds": 879.2,
+          "reachable": true
+        },
+        {
+          "meters": 2144.9,
+          "seconds": 1719.1,
+          "reachable": true
+        },
+        {
+          "meters": 1137.2,
+          "seconds": 910.2,
+          "reachable": true
+        },
+        {
+          "meters": 1548.9,
+          "seconds": 1239.5,
+          "reachable": true
+        },
+        {
+          "meters": 785.5,
+          "seconds": 628.6,
+          "reachable": true
+        },
+        {
+          "meters": 1463.8,
+          "seconds": 1173.2,
+          "reachable": true
+        },
+        {
+          "meters": 2166.8,
+          "seconds": 1733.7,
+          "reachable": true
+        },
+        {
+          "meters": 2231.2,
+          "seconds": 1785.3,
+          "reachable": true
+        },
+        {
+          "meters": 2247.6,
+          "seconds": 1798.3,
+          "reachable": true
+        },
+        {
+          "meters": 2192.4,
+          "seconds": 1754.2,
+          "reachable": true
+        },
+        {
+          "meters": 2521.3,
+          "seconds": 2021,
+          "reachable": true
+        },
+        {
+          "meters": 1643,
+          "seconds": 1314.8,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1290.5,
+          "seconds": 1034.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1167.2,
+          "seconds": 934.1,
+          "reachable": true
+        },
+        {
+          "meters": 3053.3,
+          "seconds": 2442.8,
+          "reachable": true
+        },
+        {
+          "meters": 293.2,
+          "seconds": 234.8,
+          "reachable": true
+        },
+        {
+          "meters": 611.1,
+          "seconds": 489.2,
+          "reachable": true
+        },
+        {
+          "meters": 360.9,
+          "seconds": 288.8,
+          "reachable": true
+        },
+        {
+          "meters": 2088.3,
+          "seconds": 1671,
+          "reachable": true
+        },
+        {
+          "meters": 1613.1,
+          "seconds": 1290.7,
+          "reachable": true
+        },
+        {
+          "meters": 1549,
+          "seconds": 1239.7,
+          "reachable": true
+        },
+        {
+          "meters": 1839.2,
+          "seconds": 1471.9,
+          "reachable": true
+        },
+        {
+          "meters": 617.8,
+          "seconds": 494.4,
+          "reachable": true
+        },
+        {
+          "meters": 1807.9,
+          "seconds": 1450.4,
+          "reachable": true
+        },
+        {
+          "meters": 1949.7,
+          "seconds": 1559.9,
+          "reachable": true
+        },
+        {
+          "meters": 1749.4,
+          "seconds": 1403.5,
+          "reachable": true
+        },
+        {
+          "meters": 1694.3,
+          "seconds": 1359.4,
+          "reachable": true
+        },
+        {
+          "meters": 1669.5,
+          "seconds": 1335.7,
+          "reachable": true
+        },
+        {
+          "meters": 1523.5,
+          "seconds": 1218.9,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 409.6,
+          "seconds": 327.5,
+          "reachable": true
+        },
+        {
+          "meters": 1167.2,
+          "seconds": 934.1,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 3438.4,
+          "seconds": 2750.7,
+          "reachable": true
+        },
+        {
+          "meters": 905,
+          "seconds": 724.1,
+          "reachable": true
+        },
+        {
+          "meters": 687.7,
+          "seconds": 550,
+          "reachable": true
+        },
+        {
+          "meters": 985.2,
+          "seconds": 788.2,
+          "reachable": true
+        },
+        {
+          "meters": 2445.4,
+          "seconds": 1958.8,
+          "reachable": true
+        },
+        {
+          "meters": 1495.2,
+          "seconds": 1195.9,
+          "reachable": true
+        },
+        {
+          "meters": 1823.8,
+          "seconds": 1459.4,
+          "reachable": true
+        },
+        {
+          "meters": 1092.7,
+          "seconds": 873.9,
+          "reachable": true
+        },
+        {
+          "meters": 1215,
+          "seconds": 972.3,
+          "reachable": true
+        },
+        {
+          "meters": 2461.5,
+          "seconds": 1969.5,
+          "reachable": true
+        },
+        {
+          "meters": 2525.8,
+          "seconds": 2021.1,
+          "reachable": true
+        },
+        {
+          "meters": 2542.2,
+          "seconds": 2034.1,
+          "reachable": true
+        },
+        {
+          "meters": 2487.1,
+          "seconds": 1990,
+          "reachable": true
+        },
+        {
+          "meters": 2730.8,
+          "seconds": 2185.1,
+          "reachable": true
+        },
+        {
+          "meters": 1937.6,
+          "seconds": 1550.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 3028.8,
+          "seconds": 2423.2,
+          "reachable": true
+        },
+        {
+          "meters": 3053.2,
+          "seconds": 2442.7,
+          "reachable": true
+        },
+        {
+          "meters": 3438.4,
+          "seconds": 2750.7,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2795.8,
+          "seconds": 2236.5,
+          "reachable": true
+        },
+        {
+          "meters": 2831.8,
+          "seconds": 2267.1,
+          "reachable": true
+        },
+        {
+          "meters": 2715.7,
+          "seconds": 2172.4,
+          "reachable": true
+        },
+        {
+          "meters": 1060.7,
+          "seconds": 848.3,
+          "reachable": true
+        },
+        {
+          "meters": 1980.8,
+          "seconds": 1586.5,
+          "reachable": true
+        },
+        {
+          "meters": 1750.8,
+          "seconds": 1400.5,
+          "reachable": true
+        },
+        {
+          "meters": 2634.4,
+          "seconds": 2107.7,
+          "reachable": true
+        },
+        {
+          "meters": 3259.3,
+          "seconds": 2607.3,
+          "reachable": true
+        },
+        {
+          "meters": 1289.6,
+          "seconds": 1031.2,
+          "reachable": true
+        },
+        {
+          "meters": 1258.5,
+          "seconds": 1006.4,
+          "reachable": true
+        },
+        {
+          "meters": 1486.2,
+          "seconds": 1188.9,
+          "reachable": true
+        },
+        {
+          "meters": 1446.2,
+          "seconds": 1157,
+          "reachable": true
+        },
+        {
+          "meters": 1548.2,
+          "seconds": 1238.1,
+          "reachable": true
+        },
+        {
+          "meters": 1648.2,
+          "seconds": 1318.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1028.2,
+          "seconds": 824.8,
+          "reachable": true
+        },
+        {
+          "meters": 293.2,
+          "seconds": 234.8,
+          "reachable": true
+        },
+        {
+          "meters": 905,
+          "seconds": 724.1,
+          "reachable": true
+        },
+        {
+          "meters": 2795.8,
+          "seconds": 2236.5,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 348.8,
+          "seconds": 279.2,
+          "reachable": true
+        },
+        {
+          "meters": 80.2,
+          "seconds": 64.1,
+          "reachable": true
+        },
+        {
+          "meters": 1830.7,
+          "seconds": 1464.7,
+          "reachable": true
+        },
+        {
+          "meters": 1343.6,
+          "seconds": 1074.9,
+          "reachable": true
+        },
+        {
+          "meters": 1279.5,
+          "seconds": 1023.9,
+          "reachable": true
+        },
+        {
+          "meters": 1567.3,
+          "seconds": 1254.2,
+          "reachable": true
+        },
+        {
+          "meters": 466.5,
+          "seconds": 373.2,
+          "reachable": true
+        },
+        {
+          "meters": 1656.5,
+          "seconds": 1325.2,
+          "reachable": true
+        },
+        {
+          "meters": 1720.9,
+          "seconds": 1376.8,
+          "reachable": true
+        },
+        {
+          "meters": 1712.7,
+          "seconds": 1370.2,
+          "reachable": true
+        },
+        {
+          "meters": 1657.6,
+          "seconds": 1326.1,
+          "reachable": true
+        },
+        {
+          "meters": 1827.8,
+          "seconds": 1462.5,
+          "reachable": true
+        },
+        {
+          "meters": 1254.1,
+          "seconds": 1003.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 807.7,
+          "seconds": 648.2,
+          "reachable": true
+        },
+        {
+          "meters": 611.1,
+          "seconds": 489.2,
+          "reachable": true
+        },
+        {
+          "meters": 687.7,
+          "seconds": 550,
+          "reachable": true
+        },
+        {
+          "meters": 2831.8,
+          "seconds": 2267.1,
+          "reachable": true
+        },
+        {
+          "meters": 348.8,
+          "seconds": 279.2,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 429.1,
+          "seconds": 343.3,
+          "reachable": true
+        },
+        {
+          "meters": 1871.2,
+          "seconds": 1499.2,
+          "reachable": true
+        },
+        {
+          "meters": 1126,
+          "seconds": 900.8,
+          "reachable": true
+        },
+        {
+          "meters": 1182.5,
+          "seconds": 946.4,
+          "reachable": true
+        },
+        {
+          "meters": 1286.9,
+          "seconds": 1029.6,
+          "reachable": true
+        },
+        {
+          "meters": 784.4,
+          "seconds": 627.6,
+          "reachable": true
+        },
+        {
+          "meters": 1820.2,
+          "seconds": 1456.5,
+          "reachable": true
+        },
+        {
+          "meters": 1884.5,
+          "seconds": 1508.1,
+          "reachable": true
+        },
+        {
+          "meters": 1900.9,
+          "seconds": 1521.1,
+          "reachable": true
+        },
+        {
+          "meters": 1845.8,
+          "seconds": 1477,
+          "reachable": true
+        },
+        {
+          "meters": 2070.1,
+          "seconds": 1656.5,
+          "reachable": true
+        },
+        {
+          "meters": 1296.3,
+          "seconds": 1037.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1098.8,
+          "seconds": 879.2,
+          "reachable": true
+        },
+        {
+          "meters": 360.9,
+          "seconds": 288.8,
+          "reachable": true
+        },
+        {
+          "meters": 985.2,
+          "seconds": 788.2,
+          "reachable": true
+        },
+        {
+          "meters": 2715.7,
+          "seconds": 2172.4,
+          "reachable": true
+        },
+        {
+          "meters": 80.2,
+          "seconds": 64.1,
+          "reachable": true
+        },
+        {
+          "meters": 429.1,
+          "seconds": 343.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1750.7,
+          "seconds": 1400.6,
+          "reachable": true
+        },
+        {
+          "meters": 1263.6,
+          "seconds": 1010.8,
+          "reachable": true
+        },
+        {
+          "meters": 1199.5,
+          "seconds": 959.8,
+          "reachable": true
+        },
+        {
+          "meters": 1487.2,
+          "seconds": 1190.1,
+          "reachable": true
+        },
+        {
+          "meters": 546.7,
+          "seconds": 437.3,
+          "reachable": true
+        },
+        {
+          "meters": 1575.9,
+          "seconds": 1260.7,
+          "reachable": true
+        },
+        {
+          "meters": 1640.3,
+          "seconds": 1312.3,
+          "reachable": true
+        },
+        {
+          "meters": 1632.1,
+          "seconds": 1305.7,
+          "reachable": true
+        },
+        {
+          "meters": 1576.9,
+          "seconds": 1261.6,
+          "reachable": true
+        },
+        {
+          "meters": 1747.2,
+          "seconds": 1398,
+          "reachable": true
+        },
+        {
+          "meters": 1174.1,
+          "seconds": 939.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2144.9,
+          "seconds": 1719.1,
+          "reachable": true
+        },
+        {
+          "meters": 2088.2,
+          "seconds": 1670.9,
+          "reachable": true
+        },
+        {
+          "meters": 2445.4,
+          "seconds": 1958.8,
+          "reachable": true
+        },
+        {
+          "meters": 1060.7,
+          "seconds": 848.3,
+          "reachable": true
+        },
+        {
+          "meters": 1830.7,
+          "seconds": 1464.7,
+          "reachable": true
+        },
+        {
+          "meters": 1871.2,
+          "seconds": 1499.2,
+          "reachable": true
+        },
+        {
+          "meters": 1750.7,
+          "seconds": 1400.6,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1020.1,
+          "seconds": 818.6,
+          "reachable": true
+        },
+        {
+          "meters": 785.8,
+          "seconds": 628.7,
+          "reachable": true
+        },
+        {
+          "meters": 1834.7,
+          "seconds": 1470.5,
+          "reachable": true
+        },
+        {
+          "meters": 2294.3,
+          "seconds": 1835.5,
+          "reachable": true
+        },
+        {
+          "meters": 325,
+          "seconds": 259.8,
+          "reachable": true
+        },
+        {
+          "meters": 293.9,
+          "seconds": 235,
+          "reachable": true
+        },
+        {
+          "meters": 671.3,
+          "seconds": 537,
+          "reachable": true
+        },
+        {
+          "meters": 616.1,
+          "seconds": 492.9,
+          "reachable": true
+        },
+        {
+          "meters": 1230.3,
+          "seconds": 983.4,
+          "reachable": true
+        },
+        {
+          "meters": 683.2,
+          "seconds": 546.8,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1137.2,
+          "seconds": 910.2,
+          "reachable": true
+        },
+        {
+          "meters": 1613.1,
+          "seconds": 1290.7,
+          "reachable": true
+        },
+        {
+          "meters": 1495.2,
+          "seconds": 1195.9,
+          "reachable": true
+        },
+        {
+          "meters": 1980.8,
+          "seconds": 1586.5,
+          "reachable": true
+        },
+        {
+          "meters": 1343.7,
+          "seconds": 1075.1,
+          "reachable": true
+        },
+        {
+          "meters": 1126,
+          "seconds": 900.8,
+          "reachable": true
+        },
+        {
+          "meters": 1263.7,
+          "seconds": 1011,
+          "reachable": true
+        },
+        {
+          "meters": 1020.1,
+          "seconds": 818.6,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 411.7,
+          "seconds": 329.3,
+          "reachable": true
+        },
+        {
+          "meters": 850,
+          "seconds": 680.1,
+          "reachable": true
+        },
+        {
+          "meters": 1807.3,
+          "seconds": 1445.9,
+          "reachable": true
+        },
+        {
+          "meters": 1029.6,
+          "seconds": 823.5,
+          "reachable": true
+        },
+        {
+          "meters": 1093.9,
+          "seconds": 875.1,
+          "reachable": true
+        },
+        {
+          "meters": 1110.4,
+          "seconds": 888.1,
+          "reachable": true
+        },
+        {
+          "meters": 1055.2,
+          "seconds": 844,
+          "reachable": true
+        },
+        {
+          "meters": 1547.5,
+          "seconds": 1237.9,
+          "reachable": true
+        },
+        {
+          "meters": 505.8,
+          "seconds": 404.6,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1548.9,
+          "seconds": 1239.5,
+          "reachable": true
+        },
+        {
+          "meters": 1549,
+          "seconds": 1239.7,
+          "reachable": true
+        },
+        {
+          "meters": 1823.8,
+          "seconds": 1459.4,
+          "reachable": true
+        },
+        {
+          "meters": 1750.8,
+          "seconds": 1400.5,
+          "reachable": true
+        },
+        {
+          "meters": 1279.6,
+          "seconds": 1024.1,
+          "reachable": true
+        },
+        {
+          "meters": 1182.5,
+          "seconds": 946.4,
+          "reachable": true
+        },
+        {
+          "meters": 1199.6,
+          "seconds": 960,
+          "reachable": true
+        },
+        {
+          "meters": 785.8,
+          "seconds": 628.7,
+          "reachable": true
+        },
+        {
+          "meters": 411.7,
+          "seconds": 329.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1250.8,
+          "seconds": 1000.9,
+          "reachable": true
+        },
+        {
+          "meters": 1743.2,
+          "seconds": 1394.9,
+          "reachable": true
+        },
+        {
+          "meters": 637.7,
+          "seconds": 510.1,
+          "reachable": true
+        },
+        {
+          "meters": 702,
+          "seconds": 561.7,
+          "reachable": true
+        },
+        {
+          "meters": 718.5,
+          "seconds": 574.7,
+          "reachable": true
+        },
+        {
+          "meters": 663.3,
+          "seconds": 530.6,
+          "reachable": true
+        },
+        {
+          "meters": 1216.4,
+          "seconds": 973.5,
+          "reachable": true
+        },
+        {
+          "meters": 113.9,
+          "seconds": 91.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 785.5,
+          "seconds": 628.6,
+          "reachable": true
+        },
+        {
+          "meters": 1839.2,
+          "seconds": 1471.9,
+          "reachable": true
+        },
+        {
+          "meters": 1092.7,
+          "seconds": 873.9,
+          "reachable": true
+        },
+        {
+          "meters": 2634.4,
+          "seconds": 2107.7,
+          "reachable": true
+        },
+        {
+          "meters": 1567.3,
+          "seconds": 1254.2,
+          "reachable": true
+        },
+        {
+          "meters": 1286.9,
+          "seconds": 1029.6,
+          "reachable": true
+        },
+        {
+          "meters": 1487.2,
+          "seconds": 1190.1,
+          "reachable": true
+        },
+        {
+          "meters": 1834.7,
+          "seconds": 1470.5,
+          "reachable": true
+        },
+        {
+          "meters": 850,
+          "seconds": 680.1,
+          "reachable": true
+        },
+        {
+          "meters": 1250.8,
+          "seconds": 1000.9,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2030.8,
+          "seconds": 1625,
+          "reachable": true
+        },
+        {
+          "meters": 1868.7,
+          "seconds": 1495.1,
+          "reachable": true
+        },
+        {
+          "meters": 1933.1,
+          "seconds": 1546.7,
+          "reachable": true
+        },
+        {
+          "meters": 1949.5,
+          "seconds": 1559.7,
+          "reachable": true
+        },
+        {
+          "meters": 1894.3,
+          "seconds": 1515.6,
+          "reachable": true
+        },
+        {
+          "meters": 2310.8,
+          "seconds": 1848.9,
+          "reachable": true
+        },
+        {
+          "meters": 1344.9,
+          "seconds": 1076.2,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1463.8,
+          "seconds": 1173.2,
+          "reachable": true
+        },
+        {
+          "meters": 617.8,
+          "seconds": 494.4,
+          "reachable": true
+        },
+        {
+          "meters": 1215,
+          "seconds": 972.3,
+          "reachable": true
+        },
+        {
+          "meters": 3259.3,
+          "seconds": 2607.3,
+          "reachable": true
+        },
+        {
+          "meters": 466.5,
+          "seconds": 373.2,
+          "reachable": true
+        },
+        {
+          "meters": 784.4,
+          "seconds": 627.6,
+          "reachable": true
+        },
+        {
+          "meters": 546.7,
+          "seconds": 437.3,
+          "reachable": true
+        },
+        {
+          "meters": 2294.3,
+          "seconds": 1835.5,
+          "reachable": true
+        },
+        {
+          "meters": 1807.2,
+          "seconds": 1445.7,
+          "reachable": true
+        },
+        {
+          "meters": 1743.1,
+          "seconds": 1394.7,
+          "reachable": true
+        },
+        {
+          "meters": 2030.8,
+          "seconds": 1625,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 2101.4,
+          "seconds": 1681.2,
+          "reachable": true
+        },
+        {
+          "meters": 2165.8,
+          "seconds": 1732.8,
+          "reachable": true
+        },
+        {
+          "meters": 2157.6,
+          "seconds": 1726.2,
+          "reachable": true
+        },
+        {
+          "meters": 2102.5,
+          "seconds": 1682.1,
+          "reachable": true
+        },
+        {
+          "meters": 2213.2,
+          "seconds": 1770.8,
+          "reachable": true
+        },
+        {
+          "meters": 1717.7,
+          "seconds": 1374.1,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2166.8,
+          "seconds": 1733.7,
+          "reachable": true
+        },
+        {
+          "meters": 1807.9,
+          "seconds": 1450.4,
+          "reachable": true
+        },
+        {
+          "meters": 2461.5,
+          "seconds": 1969.5,
+          "reachable": true
+        },
+        {
+          "meters": 1289.6,
+          "seconds": 1031.2,
+          "reachable": true
+        },
+        {
+          "meters": 1656.5,
+          "seconds": 1325.2,
+          "reachable": true
+        },
+        {
+          "meters": 1820.2,
+          "seconds": 1456.5,
+          "reachable": true
+        },
+        {
+          "meters": 1575.9,
+          "seconds": 1260.7,
+          "reachable": true
+        },
+        {
+          "meters": 325,
+          "seconds": 259.8,
+          "reachable": true
+        },
+        {
+          "meters": 1029.6,
+          "seconds": 823.5,
+          "reachable": true
+        },
+        {
+          "meters": 637.7,
+          "seconds": 510.1,
+          "reachable": true
+        },
+        {
+          "meters": 1868.7,
+          "seconds": 1495.1,
+          "reachable": true
+        },
+        {
+          "meters": 2101.4,
+          "seconds": 1681.2,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 71.4,
+          "seconds": 57,
+          "reachable": true
+        },
+        {
+          "meters": 346.2,
+          "seconds": 277.2,
+          "reachable": true
+        },
+        {
+          "meters": 291.1,
+          "seconds": 233.1,
+          "reachable": true
+        },
+        {
+          "meters": 1053.5,
+          "seconds": 842.2,
+          "reachable": true
+        },
+        {
+          "meters": 534.7,
+          "seconds": 427.9,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2231.2,
+          "seconds": 1785.3,
+          "reachable": true
+        },
+        {
+          "meters": 1949.7,
+          "seconds": 1559.9,
+          "reachable": true
+        },
+        {
+          "meters": 2525.8,
+          "seconds": 2021.1,
+          "reachable": true
+        },
+        {
+          "meters": 1258.5,
+          "seconds": 1006.4,
+          "reachable": true
+        },
+        {
+          "meters": 1720.9,
+          "seconds": 1376.8,
+          "reachable": true
+        },
+        {
+          "meters": 1884.5,
+          "seconds": 1508.1,
+          "reachable": true
+        },
+        {
+          "meters": 1640.3,
+          "seconds": 1312.3,
+          "reachable": true
+        },
+        {
+          "meters": 293.9,
+          "seconds": 235,
+          "reachable": true
+        },
+        {
+          "meters": 1093.9,
+          "seconds": 875.1,
+          "reachable": true
+        },
+        {
+          "meters": 702,
+          "seconds": 561.7,
+          "reachable": true
+        },
+        {
+          "meters": 1933.1,
+          "seconds": 1546.7,
+          "reachable": true
+        },
+        {
+          "meters": 2165.8,
+          "seconds": 1732.8,
+          "reachable": true
+        },
+        {
+          "meters": 71.4,
+          "seconds": 57,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 379.9,
+          "seconds": 303.8,
+          "reachable": true
+        },
+        {
+          "meters": 362.5,
+          "seconds": 290.1,
+          "reachable": true
+        },
+        {
+          "meters": 1023,
+          "seconds": 817.9,
+          "reachable": true
+        },
+        {
+          "meters": 599,
+          "seconds": 479.5,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2247.6,
+          "seconds": 1798.3,
+          "reachable": true
+        },
+        {
+          "meters": 1749.4,
+          "seconds": 1403.5,
+          "reachable": true
+        },
+        {
+          "meters": 2542.2,
+          "seconds": 2034.1,
+          "reachable": true
+        },
+        {
+          "meters": 1486.2,
+          "seconds": 1188.9,
+          "reachable": true
+        },
+        {
+          "meters": 1712.7,
+          "seconds": 1370.2,
+          "reachable": true
+        },
+        {
+          "meters": 1900.9,
+          "seconds": 1521.1,
+          "reachable": true
+        },
+        {
+          "meters": 1632.1,
+          "seconds": 1305.7,
+          "reachable": true
+        },
+        {
+          "meters": 671.3,
+          "seconds": 537,
+          "reachable": true
+        },
+        {
+          "meters": 1110.4,
+          "seconds": 888.1,
+          "reachable": true
+        },
+        {
+          "meters": 718.5,
+          "seconds": 574.7,
+          "reachable": true
+        },
+        {
+          "meters": 1949.5,
+          "seconds": 1559.7,
+          "reachable": true
+        },
+        {
+          "meters": 2157.6,
+          "seconds": 1726.2,
+          "reachable": true
+        },
+        {
+          "meters": 346.2,
+          "seconds": 277.2,
+          "reachable": true
+        },
+        {
+          "meters": 379.9,
+          "seconds": 303.8,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 55.1,
+          "seconds": 44.1,
+          "reachable": true
+        },
+        {
+          "meters": 1046.1,
+          "seconds": 836.5,
+          "reachable": true
+        },
+        {
+          "meters": 615.4,
+          "seconds": 492.4,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2192.4,
+          "seconds": 1754.2,
+          "reachable": true
+        },
+        {
+          "meters": 1694.3,
+          "seconds": 1359.4,
+          "reachable": true
+        },
+        {
+          "meters": 2487.1,
+          "seconds": 1990,
+          "reachable": true
+        },
+        {
+          "meters": 1446.2,
+          "seconds": 1157,
+          "reachable": true
+        },
+        {
+          "meters": 1657.6,
+          "seconds": 1326.1,
+          "reachable": true
+        },
+        {
+          "meters": 1845.8,
+          "seconds": 1477,
+          "reachable": true
+        },
+        {
+          "meters": 1576.9,
+          "seconds": 1261.6,
+          "reachable": true
+        },
+        {
+          "meters": 616.1,
+          "seconds": 492.9,
+          "reachable": true
+        },
+        {
+          "meters": 1055.2,
+          "seconds": 844,
+          "reachable": true
+        },
+        {
+          "meters": 663.3,
+          "seconds": 530.6,
+          "reachable": true
+        },
+        {
+          "meters": 1894.3,
+          "seconds": 1515.6,
+          "reachable": true
+        },
+        {
+          "meters": 2102.5,
+          "seconds": 1682.1,
+          "reachable": true
+        },
+        {
+          "meters": 291.1,
+          "seconds": 233.1,
+          "reachable": true
+        },
+        {
+          "meters": 362.5,
+          "seconds": 290.1,
+          "reachable": true
+        },
+        {
+          "meters": 55.1,
+          "seconds": 44.1,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1006.1,
+          "seconds": 804.6,
+          "reachable": true
+        },
+        {
+          "meters": 560.2,
+          "seconds": 448.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 2521.3,
+          "seconds": 2021,
+          "reachable": true
+        },
+        {
+          "meters": 1669.5,
+          "seconds": 1335.7,
+          "reachable": true
+        },
+        {
+          "meters": 2730.8,
+          "seconds": 2185.1,
+          "reachable": true
+        },
+        {
+          "meters": 1548.2,
+          "seconds": 1238.1,
+          "reachable": true
+        },
+        {
+          "meters": 1827.8,
+          "seconds": 1462.5,
+          "reachable": true
+        },
+        {
+          "meters": 2070.1,
+          "seconds": 1656.5,
+          "reachable": true
+        },
+        {
+          "meters": 1747.2,
+          "seconds": 1398,
+          "reachable": true
+        },
+        {
+          "meters": 1230.3,
+          "seconds": 983.4,
+          "reachable": true
+        },
+        {
+          "meters": 1547.5,
+          "seconds": 1237.9,
+          "reachable": true
+        },
+        {
+          "meters": 1216.4,
+          "seconds": 973.5,
+          "reachable": true
+        },
+        {
+          "meters": 2310.8,
+          "seconds": 1848.9,
+          "reachable": true
+        },
+        {
+          "meters": 2213.2,
+          "seconds": 1770.9,
+          "reachable": true
+        },
+        {
+          "meters": 1053.5,
+          "seconds": 842.2,
+          "reachable": true
+        },
+        {
+          "meters": 1023,
+          "seconds": 817.9,
+          "reachable": true
+        },
+        {
+          "meters": 1046.1,
+          "seconds": 836.5,
+          "reachable": true
+        },
+        {
+          "meters": 1006.1,
+          "seconds": 804.6,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        },
+        {
+          "meters": 1102.5,
+          "seconds": 882.3,
+          "reachable": true
+        }
+      ],
+      [
+        {
+          "meters": 1643,
+          "seconds": 1314.8,
+          "reachable": true
+        },
+        {
+          "meters": 1523.5,
+          "seconds": 1218.9,
+          "reachable": true
+        },
+        {
+          "meters": 1937.6,
+          "seconds": 1550.6,
+          "reachable": true
+        },
+        {
+          "meters": 1648.2,
+          "seconds": 1318.6,
+          "reachable": true
+        },
+        {
+          "meters": 1254.1,
+          "seconds": 1003.3,
+          "reachable": true
+        },
+        {
+          "meters": 1296.3,
+          "seconds": 1037.6,
+          "reachable": true
+        },
+        {
+          "meters": 1174.1,
+          "seconds": 939.2,
+          "reachable": true
+        },
+        {
+          "meters": 683.2,
+          "seconds": 546.8,
+          "reachable": true
+        },
+        {
+          "meters": 505.8,
+          "seconds": 404.6,
+          "reachable": true
+        },
+        {
+          "meters": 113.9,
+          "seconds": 91.2,
+          "reachable": true
+        },
+        {
+          "meters": 1344.9,
+          "seconds": 1076.2,
+          "reachable": true
+        },
+        {
+          "meters": 1717.7,
+          "seconds": 1374.1,
+          "reachable": true
+        },
+        {
+          "meters": 534.7,
+          "seconds": 427.9,
+          "reachable": true
+        },
+        {
+          "meters": 599,
+          "seconds": 479.5,
+          "reachable": true
+        },
+        {
+          "meters": 615.4,
+          "seconds": 492.4,
+          "reachable": true
+        },
+        {
+          "meters": 560.2,
+          "seconds": 448.3,
+          "reachable": true
+        },
+        {
+          "meters": 1102.5,
+          "seconds": 882.3,
+          "reachable": true
+        },
+        {
+          "meters": 0,
+          "seconds": 0,
+          "reachable": true
+        }
+      ]
+    ]
+  },
+  "routeCriticCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "route-critic-v4",
+      "ranking": [
+        "r01",
+        "r05",
+        "r02",
+        "r04",
+        "r03"
+      ],
+      "assessments": {
+        "r01": {
+          "coherence": "strong",
+          "avoidableRedundancy": false,
+          "omissionRisk": "moderate",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "better_observability"
+          ],
+          "evidenceRefs": [
+            "c03:e04",
+            "c03:e05",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c02:e04",
+            "c02:e05",
+            "c05:e04",
+            "c28:e04",
+            "c28:e05",
+            "c20:e04",
+            "c20:e05",
+            "c17:e04",
+            "c17:e05",
+            "c08:e04",
+            "c08:e05"
+          ]
+        },
+        "r02": {
+          "coherence": "adequate",
+          "avoidableRedundancy": true,
+          "omissionRisk": "moderate",
+          "reasonCodes": [
+            "redundant_stop",
+            "weak_transition",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c21:e04",
+            "c21:e05",
+            "c19:e04",
+            "c19:e05",
+            "c20:e04",
+            "c20:e05",
+            "c28:e04",
+            "c28:e05",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c05:e04",
+            "c02:e04",
+            "c02:e05",
+            "c12:e03",
+            "c12:e04",
+            "c12:e05"
+          ]
+        },
+        "r03": {
+          "coherence": "weak",
+          "avoidableRedundancy": true,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "redundant_stop",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c17:e04",
+            "c17:e05",
+            "c13:e03",
+            "c13:e04",
+            "c13:e05",
+            "c20:e04",
+            "c20:e05",
+            "c19:e04",
+            "c19:e05"
+          ]
+        },
+        "r04": {
+          "coherence": "adequate",
+          "avoidableRedundancy": false,
+          "omissionRisk": "high",
+          "reasonCodes": [
+            "strong_opening",
+            "strong_resolution",
+            "misses_high_value"
+          ],
+          "evidenceRefs": [
+            "c03:e04",
+            "c03:e05",
+            "c06:e03",
+            "c06:e04",
+            "c06:e05",
+            "c05:e04",
+            "c02:e04",
+            "c02:e05"
+          ]
+        },
+        "r05": {
+          "coherence": "strong",
+          "avoidableRedundancy": false,
+          "omissionRisk": "moderate",
+          "reasonCodes": [
+            "strong_opening",
+            "clear_progression",
+            "strong_resolution",
+            "better_observability"
+          ],
+          "evidenceRefs": [
+            "c05:e04",
+            "c28:e04",
+            "c28:e05",
+            "c20:e04",
+            "c20:e05",
+            "c17:e04",
+            "c17:e05",
+            "c09:e04",
+            "c11:e01",
+            "c11:e02",
+            "c11:e04",
+            "c11:e05",
+            "c01:e02",
+            "c01:e03",
+            "c01:e04",
+            "c01:e05"
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 5290,
+        "rawOutput": "{\"schemaVersion\": \"route-critic-v4\", \"ranking\": [\"r01\", \"r05\", \"r02\", \"r04\", \"r03\"], \"assessments\": {\"r01\": {\"coherence\": \"strong\", \"avoidableRedundancy\": false, \"omissionRisk\": \"moderate\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"better_observability\"], \"evidenceRefs\": [\"c03:e04\", \"c03:e05\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c02:e04\", \"c02:e05\", \"c05:e04\", \"c28:e04\", \"c28:e05\", \"c20:e04\", \"c20:e05\", \"c17:e04\", \"c17:e05\", \"c08:e04\", \"c08:e05\"]}, \"r02\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": true, \"omissionRisk\": \"moderate\", \"reasonCodes\": [\"redundant_stop\", \"weak_transition\", \"misses_high_value\"], \"evidenceRefs\": [\"c21:e04\", \"c21:e05\", \"c19:e04\", \"c19:e05\", \"c20:e04\", \"c20:e05\", \"c28:e04\", \"c28:e05\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c05:e04\", \"c02:e04\", \"c02:e05\", \"c12:e03\", \"c12:e04\", \"c12:e05\"]}, \"r03\": {\"coherence\": \"weak\", \"avoidableRedundancy\": true, \"omissionRisk\": \"high\", \"reasonCodes\": [\"redundant_stop\", \"misses_high_value\"], \"evidenceRefs\": [\"c17:e04\", \"c17:e05\", \"c13:e03\", \"c13:e04\", \"c13:e05\", \"c20:e04\", \"c20:e05\", \"c19:e04\", \"c19:e05\"]}, \"r04\": {\"coherence\": \"adequate\", \"avoidableRedundancy\": false, \"omissionRisk\": \"high\", \"reasonCodes\": [\"strong_opening\", \"strong_resolution\", \"misses_high_value\"], \"evidenceRefs\": [\"c03:e04\", \"c03:e05\", \"c06:e03\", \"c06:e04\", \"c06:e05\", \"c05:e04\", \"c02:e04\", \"c02:e05\"]}, \"r05\": {\"coherence\": \"strong\", \"avoidableRedundancy\": false, \"omissionRisk\": \"moderate\", \"reasonCodes\": [\"strong_opening\", \"clear_progression\", \"strong_resolution\", \"better_observability\"], \"evidenceRefs\": [\"c05:e04\", \"c28:e04\", \"c28:e05\", \"c20:e04\", \"c20:e05\", \"c17:e04\", \"c17:e05\", \"c09:e04\", \"c11:e01\", \"c11:e02\", \"c11:e04\", \"c11:e05\", \"c01:e02\", \"c01:e03\", \"c01:e04\", \"c01:e05\"]}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "40df7a302a681c0f0a68d818c4747ed3a5958d67549873460ae76ca7bcd47a35",
+    "input": {
+      "city": "Berlin",
+      "theme": "history",
+      "language": "de",
+      "requestedDuration": 120,
+      "centralQuestion": "Wie wurde Berlin immer wieder neu erfunden – als Residenzstadt der Hohenzollern, als Hauptstadt des Kaiserreichs, als geteilte Frontstadt des Kalten Krieges und schließlich als wiedervereinigte Bundeshauptstadt – und wie spiegeln sich diese Brüche und Neuanfänge in den Bauwerken und Plätzen, die wir heute sehen?",
+      "beatInventory": [
+        {
+          "beatId": "b01",
+          "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt)."
+        },
+        {
+          "beatId": "b02",
+          "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden)."
+        },
+        {
+          "beatId": "b03",
+          "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten."
+        },
+        {
+          "beatId": "b04",
+          "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen."
+        },
+        {
+          "beatId": "b05",
+          "focus": "Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg."
+        },
+        {
+          "beatId": "b06",
+          "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt."
+        },
+        {
+          "beatId": "b07",
+          "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten."
+        }
+      ],
+      "routes": [
+        {
+          "routeSlot": "r01",
+          "estimatedTourMinutes": 117.18,
+          "walkingMinutes": 54.18,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [],
+          "stops": [
+            {
+              "candidateSlot": "c03",
+              "name": "Potsdamer Platz",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c03:e04",
+                      "value": "November 1989 stellte sich eine neue Situation ein: Am 12."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c03:e05",
+                      "value": "Beim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b06",
+                "deepens:b01",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Denkmal für die ermordeten Juden Europas",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: 2005-05-10"
+                    },
+                    {
+                      "ref": "c06:e04",
+                      "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Mai 2005 feierlich eingeweiht, ist es seit dem 12."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Reichstagsgebäude",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c02:e04",
+                      "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+                    },
+                    {
+                      "ref": "c02:e05",
+                      "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Brandenburger Tor",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "deepens:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c28",
+              "name": "Staatsoper Unter den Linden",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c28:e04",
+                      "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c28:e05",
+                      "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "deepens:b04",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c20",
+              "name": "Museumsinsel",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c20:e04",
+                      "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+                    },
+                    {
+                      "ref": "c20:e05",
+                      "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "Berliner Dom",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c17:e04",
+                      "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c17:e05",
+                      "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07",
+                "deepens:b02",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Berliner Schloss",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c08:e04",
+                      "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+                    },
+                    {
+                      "ref": "c08:e05",
+                      "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b05",
+                  "focus": "Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c08:e05",
+                      "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "deepens:b02",
+                "salience:3",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c11",
+              "name": "Checkpoint Charlie",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c11:e01",
+                  "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+                },
+                {
+                  "ref": "c11:e02",
+                  "value": "inception: 1961-00-00"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c12",
+              "name": "Sowjetisches Ehrenmal mit Soldatenfigur",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c12:e03",
+                  "value": "inception: 1945-00-00"
+                },
+                {
+                  "ref": "c12:e04",
+                  "value": "Das Sowjetische Ehrenmal im Tiergarten ist eines von mehreren Kriegsdenkmälern in der deutschen Hauptstadt Berlin, die von der Sowjetunion zum Gedenken an ihre Kriegstoten errichtet wurden, insbesondere an die Soldaten der sowjetischen Streitkräfte, die während der Schlacht um Be"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Gendarmenmarkt",
+              "priorityRank": 12,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c09:e04",
+                  "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+                },
+                {
+                  "ref": "c09:e04",
+                  "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c10",
+              "name": "St.-Hedwigs-Kathedrale",
+              "priorityRank": 13,
+              "supportedBeats": [
+                "b02",
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c10:e04",
+                  "value": "Der Rokokobau wurde 1747–1773 im Auftrag von Friedrich II."
+                },
+                {
+                  "ref": "c10:e05",
+                  "value": "Während des Zweiten Weltkriegs 1944 schwer beschädigt, wurde sie 1952–1963 wiederaufgebaut und 2018–2024 umgestaltet."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c07",
+              "name": "Pariser Platz",
+              "priorityRank": 14,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c07:e04",
+                  "value": "Der Pariser Platz ist ein – bei der damaligen Stadterweiterung im Jahr 1734 unter König Friedrich Wilhelm I."
+                },
+                {
+                  "ref": "c07:e05",
+                  "value": "Im Jahr 1814 erhielt er anlässlich der Eroberung von Paris durch preußische Truppen in den Befreiungskriegen seinen Namen."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r02",
+          "estimatedTourMinutes": 118.25,
+          "walkingMinutes": 56.25,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [],
+          "stops": [
+            {
+              "candidateSlot": "c21",
+              "name": "Neue Synagoge",
+              "narrativeContributions": [
+                {
+                  "beatId": "b07",
+                  "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c21:e04",
+                      "value": "April 1857 ein Architektenwettbewerb für die neue Synagoge ausgeschrieben."
+                    },
+                    {
+                      "ref": "c21:e05",
+                      "value": "Vorsitzender der Wettbewerbskommission war der vielbeschäftigte Architekt Eduard Knoblauch, seit 1845 Mitglied der preußischen Akademie der Künste."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "Pergamonmuseum",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "von 1907 bis 1909 von Alfred Messel im Stil des Neoklassizismus geplant, wurde es 1910 bis 1930 von Ludwig Hoffmann in vereinfachter Form ausgeführt."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "Im Rahmen des Masterplans Museumsinsel wird das Pergamonmuseum seit 2013 saniert und war zunächst teilweise geschlossen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b03",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c20",
+              "name": "Museumsinsel",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c20:e04",
+                      "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+                    },
+                    {
+                      "ref": "c20:e05",
+                      "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c28",
+              "name": "Staatsoper Unter den Linden",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c28:e04",
+                      "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c28:e05",
+                      "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "deepens:b04",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Denkmal für die ermordeten Juden Europas",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: 2005-05-10"
+                    },
+                    {
+                      "ref": "c06:e04",
+                      "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Mai 2005 feierlich eingeweiht, ist es seit dem 12."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Brandenburger Tor",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "deepens:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Reichstagsgebäude",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c02:e04",
+                      "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+                    },
+                    {
+                      "ref": "c02:e05",
+                      "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c12",
+              "name": "Sowjetisches Ehrenmal mit Soldatenfigur",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c12:e03",
+                      "value": "inception: 1945-00-00"
+                    },
+                    {
+                      "ref": "c12:e04",
+                      "value": "Das Sowjetische Ehrenmal im Tiergarten ist eines von mehreren Kriegsdenkmälern in der deutschen Hauptstadt Berlin, die von der Sowjetunion zum Gedenken an ihre Kriegstoten errichtet wurden, insbesondere an die Soldaten der sowjetischen Streitkräfte, die während der Schlacht um Be"
+                    },
+                    {
+                      "ref": "c12:e05",
+                      "value": "Das Ehrenmal wurde 1945 im Großen Tiergarten erbaut, im Berliner Ortsteil Tiergarten (Bezirk Mitte) an der Straße des 17."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:3",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c11",
+              "name": "Checkpoint Charlie",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c11:e01",
+                  "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+                },
+                {
+                  "ref": "c11:e02",
+                  "value": "inception: 1961-00-00"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Berliner Schloss",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b02",
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Potsdamer Platz",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b06",
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c03:e04",
+                  "value": "November 1989 stellte sich eine neue Situation ein: Am 12."
+                },
+                {
+                  "ref": "c03:e05",
+                  "value": "Beim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "Berliner Dom",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b02",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c17:e04",
+                  "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+                },
+                {
+                  "ref": "c17:e05",
+                  "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Gendarmenmarkt",
+              "priorityRank": 12,
+              "supportedBeats": [
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c09:e04",
+                  "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+                },
+                {
+                  "ref": "c09:e04",
+                  "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r03",
+          "estimatedTourMinutes": 36.57,
+          "walkingMinutes": 5.57,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b07"
+          ],
+          "uncoveredBeatIds": [
+            "b04",
+            "b05",
+            "b06"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c17",
+              "name": "Berliner Dom",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c17:e04",
+                      "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c17:e05",
+                      "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "carries:b07",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c13",
+              "name": "Lustgarten",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c13:e03",
+                      "value": "inception: 1646-00-00"
+                    },
+                    {
+                      "ref": "c13:e04",
+                      "value": "Im Jahr 1573 von Kurfürst Johann Georg als Küchengarten des Berliner Schlosses angelegt, wurde er im Laufe der Geschichte mehrmals umgestaltet."
+                    },
+                    {
+                      "ref": "c13:e05",
+                      "value": "Unter Kurfürst Johann Georg wurde das Areal 1573 im Zuge des Schlossausbaus zu einem Nutz- und Küchengarten, verantwortlich dafür war sein Hofgärtner Desiderius Corbinianus."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "adds-era:early_modern",
+                "adds-era:cross_era"
+              ]
+            },
+            {
+              "candidateSlot": "c20",
+              "name": "Museumsinsel",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c20:e04",
+                      "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+                    },
+                    {
+                      "ref": "c20:e05",
+                      "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c19",
+              "name": "Pergamonmuseum",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c19:e04",
+                      "value": "von 1907 bis 1909 von Alfred Messel im Stil des Neoklassizismus geplant, wurde es 1910 bis 1930 von Ludwig Hoffmann in vereinfachter Form ausgeführt."
+                    },
+                    {
+                      "ref": "c19:e05",
+                      "value": "Im Rahmen des Masterplans Museumsinsel wird das Pergamonmuseum seit 2013 saniert und war zunächst teilweise geschlossen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b03",
+                "salience:3"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c05",
+              "name": "Brandenburger Tor",
+              "priorityRank": 1,
+              "supportedBeats": [
+                "b01",
+                "b02"
+              ],
+              "evidence": [
+                {
+                  "ref": "c05:e04",
+                  "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                },
+                {
+                  "ref": "c05:e04",
+                  "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c28",
+              "name": "Staatsoper Unter den Linden",
+              "priorityRank": 2,
+              "supportedBeats": [
+                "b02",
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c28:e04",
+                  "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+                },
+                {
+                  "ref": "c28:e05",
+                  "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c11",
+              "name": "Checkpoint Charlie",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c11:e01",
+                  "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+                },
+                {
+                  "ref": "c11:e02",
+                  "value": "inception: 1961-00-00"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Reichstagsgebäude",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Denkmal für die ermordeten Juden Europas",
+              "priorityRank": 5,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c06:e03",
+                  "value": "inception: 2005-05-10"
+                },
+                {
+                  "ref": "c06:e04",
+                  "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r04",
+          "estimatedTourMinutes": 52.73,
+          "walkingMinutes": 17.73,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b04",
+            "b06"
+          ],
+          "uncoveredBeatIds": [
+            "b03",
+            "b05",
+            "b07"
+          ],
+          "stops": [
+            {
+              "candidateSlot": "c03",
+              "name": "Potsdamer Platz",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c03:e04",
+                      "value": "November 1989 stellte sich eine neue Situation ein: Am 12."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c03:e05",
+                      "value": "Beim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b06",
+                "deepens:b01",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Denkmal für die ermordeten Juden Europas",
+              "narrativeContributions": [
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c06:e03",
+                      "value": "inception: 2005-05-10"
+                    },
+                    {
+                      "ref": "c06:e04",
+                      "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+                    },
+                    {
+                      "ref": "c06:e05",
+                      "value": "Mai 2005 feierlich eingeweiht, ist es seit dem 12."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b04",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c05",
+              "name": "Brandenburger Tor",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "carries:b02",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c02",
+              "name": "Reichstagsgebäude",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c02:e04",
+                      "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+                    },
+                    {
+                      "ref": "c02:e05",
+                      "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "salience:4",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c28",
+              "name": "Staatsoper Unter den Linden",
+              "priorityRank": 2,
+              "supportedBeats": [
+                "b02",
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c28:e04",
+                  "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+                },
+                {
+                  "ref": "c28:e05",
+                  "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c11",
+              "name": "Checkpoint Charlie",
+              "priorityRank": 3,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c11:e01",
+                  "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+                },
+                {
+                  "ref": "c11:e02",
+                  "value": "inception: 1961-00-00"
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Berliner Schloss",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b02",
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c20",
+              "name": "Museumsinsel",
+              "priorityRank": 8,
+              "supportedBeats": [
+                "b03"
+              ],
+              "evidence": [
+                {
+                  "ref": "c20:e04",
+                  "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+                },
+                {
+                  "ref": "c20:e05",
+                  "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "Berliner Dom",
+              "priorityRank": 9,
+              "supportedBeats": [
+                "b02",
+                "b07"
+              ],
+              "evidence": [
+                {
+                  "ref": "c17:e04",
+                  "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+                },
+                {
+                  "ref": "c17:e05",
+                  "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "routeSlot": "r05",
+          "estimatedTourMinutes": 119.42,
+          "walkingMinutes": 65.42,
+          "coveredBeatIds": [
+            "b01",
+            "b02",
+            "b03",
+            "b04",
+            "b05",
+            "b06",
+            "b07"
+          ],
+          "uncoveredBeatIds": [],
+          "stops": [
+            {
+              "candidateSlot": "c05",
+              "name": "Brandenburger Tor",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c05:e04",
+                      "value": "Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b01",
+                "deepens:b02",
+                "salience:4",
+                "opening"
+              ]
+            },
+            {
+              "candidateSlot": "c28",
+              "name": "Staatsoper Unter den Linden",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c28:e04",
+                      "value": "Es wurde 1741 bis 1743 im Auftrag König Friedrichs des Großen nach Plänen Georg Wenzeslaus von Knobelsdorffs im Stil des Rokoko errichtet."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b04",
+                  "focus": "Krieg, Zerstörung und Diktatur: Wie der Zweite Weltkrieg und die NS-Zeit die Stadt physisch und moralisch prägten – vom Holocaust-Mahnmal bis zu den zerstörten und wiederaufgebauten Kirchen.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c28:e05",
+                      "value": "Im Zweiten Weltkrieg ausgebrannt, wurde das Opernhaus 1951 bis 1955 nach Plänen Richard Paulicks als Teil des Forum Fridericianum wiederaufgebaut."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b02",
+                "carries:b04",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c20",
+              "name": "Museumsinsel",
+              "narrativeContributions": [
+                {
+                  "beatId": "b03",
+                  "focus": "Das bürgerliche und kaiserliche Berlin als Zentrum von Kunst, Wissenschaft und Erinnerung: Museumsinsel, Nationalgalerie, Neue Wache und die Umwidmung von Militärbauten zu Kulturstätten.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c20:e04",
+                      "value": "In den Jahren 1830 bis 1930 im Auftrag der preußischen Könige nach Plänen von fünf Architekten entstanden, wurde sie 1999 als Gesamtanlage in die Liste des UNESCO-Weltkulturerbes aufgenommen."
+                    },
+                    {
+                      "ref": "c20:e05",
+                      "value": "Juli 2019 eröffnete die James-Simon-Galerie als neues Besucherzentrum."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b03",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c17",
+              "name": "Berliner Dom",
+              "narrativeContributions": [
+                {
+                  "beatId": "b02",
+                  "focus": "Die Inszenierung königlicher Macht durch Architektur: Schlösser, Oper, Kathedrale und Prachtstraßen als Ausdruck des preußischen Absolutismus (Berliner Schloss, Staatsoper, Berliner Dom, Unter den Linden).",
+                  "strength": 2,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c17:e04",
+                      "value": "The present collegiate church was built from 1894 to 1905 by order of Emperor William II according to plans by Julius Raschdorff in Renaissance and Baroque Revival styles."
+                    }
+                  ]
+                },
+                {
+                  "beatId": "b07",
+                  "focus": "Berlin als Ort religiöser und kultureller Vielfalt: Synagoge, Kathedrale, Dom und die jüdischen wie christlichen Gemeinschaften, die das Stadtbild über Jahrhunderte prägten.",
+                  "strength": 2,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c17:e05",
+                      "value": "Since the demolition of the Memorial Church (Denkmalskirche) section on the north side by the East German authorities in 1975, Berlin Cathedral has consisted of the large Sermon Church (Predigerkirche) in the center, and the smaller Baptismal and Matrimonial Church (Tauf- und Tra"
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b07",
+                "deepens:b02",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c09",
+              "name": "Gendarmenmarkt",
+              "narrativeContributions": [
+                {
+                  "beatId": "b01",
+                  "focus": "Die barocke und klassizistische Stadterweiterung: Wie die Hohenzollern Berlin vom Küchengarten zur repräsentativen Residenzstadt formten (Potsdamer Tor, Pariser Platz, Lustgarten, Gendarmenmarkt).",
+                  "strength": 3,
+                  "selectedCarrier": false,
+                  "evidence": [
+                    {
+                      "ref": "c09:e04",
+                      "value": "Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "deepens:b01",
+                "salience:3"
+              ]
+            },
+            {
+              "candidateSlot": "c11",
+              "name": "Checkpoint Charlie",
+              "narrativeContributions": [
+                {
+                  "beatId": "b05",
+                  "focus": "Die geteilte Stadt und ihre Erinnerungskultur: Checkpoint Charlie, Sowjetisches Ehrenmal und die konkurrierenden Erinnerungslandschaften von Ost und West im Kalten Krieg.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c11:e01",
+                      "value": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990."
+                    },
+                    {
+                      "ref": "c11:e02",
+                      "value": "inception: 1961-00-00"
+                    },
+                    {
+                      "ref": "c11:e04",
+                      "value": "Er verband in der Friedrichstraße zwischen Zimmerstraße und Kochstraße (beim gleichnamigen U-Bahnhof) den sowjetischen mit dem amerikanischen Sektor und damit den Ost-Berliner Bezirk Mitte mit dem West-Berliner Bezirk Kreuzberg."
+                    },
+                    {
+                      "ref": "c11:e05",
+                      "value": "Auch der in West-Berlin wohnende Intendant der Komischen Oper Walter Felsenstein nutzte als österreichischer Staatsbürger diesen Grenzübergang."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b05",
+                "salience:4"
+              ]
+            },
+            {
+              "candidateSlot": "c01",
+              "name": "Bundesrat",
+              "narrativeContributions": [
+                {
+                  "beatId": "b06",
+                  "focus": "Wiedervereinigung und Neuerfindung: Potsdamer Platz, Reichstag und Bundesrat als Symbole des neuen Berlin – von der Brache zur modernen Bundeshauptstadt.",
+                  "strength": 3,
+                  "selectedCarrier": true,
+                  "evidence": [
+                    {
+                      "ref": "c01:e02",
+                      "value": "inception: 1949-05-23"
+                    },
+                    {
+                      "ref": "c01:e03",
+                      "value": "instanceOf: Oberhaus"
+                    },
+                    {
+                      "ref": "c01:e04",
+                      "value": "Der Bundesrat (Abkürzung BR) ist ein Verfassungsorgan der Bundesrepublik Deutschland."
+                    },
+                    {
+                      "ref": "c01:e05",
+                      "value": "Jedes Land ist durch Mitglieder seiner Landesregierung im Bundesrat vertreten, nach Bevölkerung zwischen 3 und 6 Personen, insgesamt 69 Personen."
+                    }
+                  ]
+                }
+              ],
+              "marginalReasons": [
+                "carries:b06",
+                "resolution"
+              ]
+            }
+          ],
+          "omittedHighPriority": [
+            {
+              "candidateSlot": "c02",
+              "name": "Reichstagsgebäude",
+              "priorityRank": 4,
+              "supportedBeats": [
+                "b06"
+              ],
+              "evidence": [
+                {
+                  "ref": "c02:e04",
+                  "value": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages."
+                },
+                {
+                  "ref": "c02:e05",
+                  "value": "Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c06",
+              "name": "Denkmal für die ermordeten Juden Europas",
+              "priorityRank": 5,
+              "supportedBeats": [
+                "b04"
+              ],
+              "evidence": [
+                {
+                  "ref": "c06:e03",
+                  "value": "inception: 2005-05-10"
+                },
+                {
+                  "ref": "c06:e04",
+                  "value": "Es wurde zwischen 2003 und Frühjahr 2005 auf einer 19.000 m² großen Fläche südlich des Brandenburger Tors errichtet."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c08",
+              "name": "Berliner Schloss",
+              "priorityRank": 6,
+              "supportedBeats": [
+                "b02",
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c08:e04",
+                  "value": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte."
+                },
+                {
+                  "ref": "c08:e05",
+                  "value": "Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c03",
+              "name": "Potsdamer Platz",
+              "priorityRank": 7,
+              "supportedBeats": [
+                "b06",
+                "b01"
+              ],
+              "evidence": [
+                {
+                  "ref": "c03:e04",
+                  "value": "November 1989 stellte sich eine neue Situation ein: Am 12."
+                },
+                {
+                  "ref": "c03:e05",
+                  "value": "Beim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet."
+                }
+              ]
+            },
+            {
+              "candidateSlot": "c12",
+              "name": "Sowjetisches Ehrenmal mit Soldatenfigur",
+              "priorityRank": 10,
+              "supportedBeats": [
+                "b05"
+              ],
+              "evidence": [
+                {
+                  "ref": "c12:e03",
+                  "value": "inception: 1945-00-00"
+                },
+                {
+                  "ref": "c12:e04",
+                  "value": "Das Sowjetische Ehrenmal im Tiergarten ist eines von mehreren Kriegsdenkmälern in der deutschen Hauptstadt Berlin, die von der Sowjetunion zum Gedenken an ihre Kriegstoten errichtet wurden, insbesondere an die Soldaten der sowjetischen Streitkräfte, die während der Schlacht um Be"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "failure": null
+}

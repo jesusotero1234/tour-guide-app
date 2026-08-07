@@ -1,0 +1,639 @@
+{
+  "benchmarkVersion": "benchmark-editorial-v1",
+  "createdAt": "2026-08-06T14:33:41.377Z",
+  "stage": "pilot",
+  "repetition": 1,
+  "provider": {
+    "id": "deepseek-flash-thinking-high",
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash",
+    "thinking": true,
+    "reasoningEffort": "high"
+  },
+  "case": {
+    "id": "madrid-history-es-120",
+    "scope": "calibration",
+    "city": "Madrid",
+    "theme": "history",
+    "language": "es",
+    "durationMinutes": 120
+  },
+  "fingerprints": {
+    "prompt": "38e2068a9ecefa59692066ee601386e04b295edad1f4d8c4bee78198f09bf76d",
+    "schema": "89ecf2ddff0bae8861bcdf196cb071d5ed5598601b6e7f71deb6772521f560b3",
+    "input": "056c1b5d5bd1f89068c9db97246599f3be76b80ecdd91d87c2304e342ccd9e0c",
+    "selector": "3d6caee74af60d7d08e37b847dffa1710d7fc8ce49d72abe9ea0c618c596ce89"
+  },
+  "input": {
+    "city": "Madrid",
+    "theme": "history",
+    "language": "es",
+    "requestedDuration": 120,
+    "candidates": [
+      {
+        "canonicalId": "Q1123493",
+        "localName": "Plaza Mayor de Madrid",
+        "category": "square_civic",
+        "fameScore": 30.99,
+        "facts": [
+          {
+            "id": "Q1123493:wikipedia:0",
+            "kind": "observable",
+            "value": "La plaza Mayor está situada en el centro de Madrid, en el barrio de Sol, junto a la calle Mayor y a 300 metros de la Puerta del Sol."
+          },
+          {
+            "id": "Q1123493:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: destino turístico"
+          },
+          {
+            "id": "Q1123493:wikidata:architect",
+            "kind": "claim",
+            "value": "architect: Juan de Herrera"
+          },
+          {
+            "id": "Q1123493:wikipedia:1",
+            "kind": "context",
+            "value": "Historia Los inicios de la plaza se remontan al siglo XVI, cuando en la confluencia de los caminos (hoy en día calles) de Toledo y Atocha, a las afueras de la villa medieval, se celebraba en este sitio, conocido como «plaza del Arrabal», el mercado principal de la villa."
+          },
+          {
+            "id": "Q1123493:wikipedia:2",
+            "kind": "context",
+            "value": "En esa época se construyó una primera casa porticada, o lonja, para regular el comercio en la plaza."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q427163",
+        "localName": "Puerta del Sol",
+        "category": "square_civic",
+        "fameScore": 30.64,
+        "facts": [
+          {
+            "id": "Q427163:wikipedia:0",
+            "kind": "observable",
+            "value": "La Puerta del Sol es una plaza de la ciudad española de Madrid."
+          },
+          {
+            "id": "Q427163:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q427163:wikidata:locatedIn",
+            "kind": "claim",
+            "value": "locatedIn: Sol"
+          },
+          {
+            "id": "Q427163:wikipedia:1",
+            "kind": "context",
+            "value": "En ella se encuentra desde 1950 el denominado kilómetro cero de las carreteras radiales del país."
+          },
+          {
+            "id": "Q427163:wikipedia:3",
+            "kind": "context",
+            "value": "Dichas campanadas se empezaron a televisar en 1962 en La 1 de TVE, y a partir de ese año no se ha dejado de retransmitir por diversos canales de televisión."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q171517",
+        "localName": "Palacio Real de Madrid",
+        "category": "palace_castle",
+        "fameScore": 30.32,
+        "facts": [
+          {
+            "id": "Q171517:osm:historic",
+            "kind": "observable",
+            "value": "historic: castle"
+          },
+          {
+            "id": "Q171517:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: residencia real"
+          },
+          {
+            "id": "Q171517:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1735-00-00"
+          },
+          {
+            "id": "Q171517:wikipedia:0",
+            "kind": "context",
+            "value": "El Palacio Real de Madrid es la residencia oficial del rey de España; no obstante, la familia real no habita en él, sino en el Palacio de la Zarzuela, por lo que es utilizado para ceremonias de Estado y actos solemnes.​ Con una extensión de 135 000 m² y 3418 habitaciones (casi el"
+          },
+          {
+            "id": "Q171517:wikipedia:1",
+            "kind": "context",
+            "value": "Alberga un valioso patrimonio histórico-artístico, destacando el conjunto de instrumentos musicales conocido como los Stradivarius Palatinos, y colecciones muy relevantes de otras disciplinas como pintura, escultura y tapicería."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q1537446",
+        "localName": "plaza de Cibeles",
+        "category": "square_civic",
+        "fameScore": 27.6,
+        "facts": [
+          {
+            "id": "Q1537446:osm:place",
+            "kind": "observable",
+            "value": "place: square"
+          },
+          {
+            "id": "Q1537446:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q1537446:wikidata:locatedIn",
+            "kind": "claim",
+            "value": "locatedIn: Madrid"
+          },
+          {
+            "id": "Q1849031:osm:historic",
+            "kind": "observable",
+            "value": "historic: monument"
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q1140634",
+        "localName": "Puerta de Alcalá",
+        "category": "other",
+        "fameScore": 26.85,
+        "facts": [
+          {
+            "id": "Q1140634:wikipedia:0",
+            "kind": "observable",
+            "value": "La Puerta de Alcalá es una de las cinco antiguas puertas reales que daban acceso a la ciudad de Madrid (España).​ Se encuentra situada en el centro de la rotonda de la plaza de la Independencia."
+          },
+          {
+            "id": "Q1140634:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: arco de triunfo"
+          },
+          {
+            "id": "Q1140634:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1769-00-00"
+          },
+          {
+            "id": "Q1140634:wikipedia:4",
+            "kind": "context",
+            "value": "Ha sufrido desde sus comienzos diversas transformaciones urbanísticas en su entorno, pasando de ser la frontera exterior de Madrid a un centro turístico de obligado paso que aparece insertada casi en el medio de la misma ciudad."
+          },
+          {
+            "id": "Q1140634:wikipedia:5",
+            "kind": "context",
+            "value": "Este cambio se ha debido al ensanche del siglo XIX a lo largo del barrio de Serrano y la prolongación de la calle de Alcalá."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q970525",
+        "localName": "plaza de Colón",
+        "category": "square_civic",
+        "fameScore": 28.22,
+        "facts": [
+          {
+            "id": "Q970525:wikipedia:4",
+            "kind": "observable",
+            "value": "Este consta de una base cuadrada con relieves y un pilar octogonal tallados en piedra por Arturo Mélida, y una estatua de tres metros de altura esculpida en mármol blanco de Italia por Jerónimo Suñol."
+          },
+          {
+            "id": "Q970525:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q970525:wikidata:locatedIn",
+            "kind": "claim",
+            "value": "locatedIn: Almagro"
+          },
+          {
+            "id": "Q970525:wikipedia:0",
+            "kind": "context",
+            "value": "La plaza de Colón es un espacio público de la ciudad española de Madrid, en la que confluyen calles como Goya, Génova y los paseos de la Castellana y Recoletos."
+          },
+          {
+            "id": "Q970525:wikipedia:1",
+            "kind": "context",
+            "value": "Descripción Recibe su nombre de Cristóbal Colón."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q1326261",
+        "localName": "plaza de España",
+        "category": "square_civic",
+        "fameScore": 28.07,
+        "facts": [
+          {
+            "id": "Q1326261:osm:place",
+            "kind": "observable",
+            "value": "place: square"
+          },
+          {
+            "id": "Q1326261:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q1326261:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1911-00-00"
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2193218",
+        "localName": "plaza de Oriente",
+        "category": "square_civic",
+        "fameScore": 27.51,
+        "facts": [
+          {
+            "id": "Q2193218:osm:place",
+            "kind": "observable",
+            "value": "place: square"
+          },
+          {
+            "id": "Q2193218:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q2193218:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1844-00-00"
+          },
+          {
+            "id": "Q2193218:wikipedia:0",
+            "kind": "context",
+            "value": "La plaza de Oriente está situada en el centro histórico de la ciudad española de Madrid."
+          },
+          {
+            "id": "Q2193218:wikipedia:1",
+            "kind": "context",
+            "value": "Se trata de una plaza rectangular de cabecera curvada, de carácter monumental, cuyo trazado definitivo responde a un diseño de 1844 de Narciso Pascual Colomer, heredero de varios proyectos anteriores."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q855343",
+        "localName": "Senado de España",
+        "category": "civic_power",
+        "fameScore": 27.97,
+        "facts": [
+          {
+            "id": "Q855343:osm:building",
+            "kind": "observable",
+            "value": "building: government"
+          },
+          {
+            "id": "Q855343:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: senado"
+          },
+          {
+            "id": "Q855343:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1977-00-00"
+          },
+          {
+            "id": "Q10343739:wikipedia:0",
+            "kind": "context",
+            "value": "El Palacio del Senado es la sede del Senado, una de las dos cámaras que componen las Cortes Generales, el parlamento nacional de España."
+          },
+          {
+            "id": "Q10343739:wikipedia:1",
+            "kind": "context",
+            "value": "Se encuentra en el Barrio del Palacio, Distrito Centro de Madrid."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q539149",
+        "localName": "Congreso de los Diputados",
+        "category": "civic_power",
+        "fameScore": 27.74,
+        "facts": [
+          {
+            "id": "Q539149:osm:building",
+            "kind": "observable",
+            "value": "building: government"
+          },
+          {
+            "id": "Q539149:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: cámara de diputados"
+          },
+          {
+            "id": "Q9054619:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: palacio"
+          },
+          {
+            "id": "Q9054619:wikipedia:0",
+            "kind": "context",
+            "value": "El Palacio de las Cortes o Palacio del Congreso de los Diputados, según la página web oficial,​ es el edificio que alberga el Congreso de los Diputados, una de las dos Cámaras de las Cortes Generales, el Parlamento español."
+          },
+          {
+            "id": "Q9054619:wikipedia:1",
+            "kind": "context",
+            "value": "Está situado en la plaza de las Cortes de Madrid, entre la calle de Zorrilla y la Carrera de San Jerónimo, a escasa distancia del paseo del Prado."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2657591",
+        "localName": "Puerta de Toledo",
+        "category": "other",
+        "fameScore": 25.26,
+        "facts": [
+          {
+            "id": "Q2657591:wikipedia:0",
+            "kind": "observable",
+            "value": "La puerta de Toledo era una de las puertas de acceso a la ciudad de Madrid.​ Existieron con anterioridad otras tres puertas denominadas de Toledo en las cercanías, la actual data del primer tercio del siglo xix y fue diseñada por el arquitecto español Antonio Aguado, que se encue"
+          },
+          {
+            "id": "Q2657591:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: puerta de la ciudad"
+          },
+          {
+            "id": "Q2657591:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1827-00-00"
+          },
+          {
+            "id": "Q2657591:wikipedia:2",
+            "kind": "context",
+            "value": "Se construyó en el periodo que va desde los años 1813 y 1827, y fue restaurada por el Ayuntamiento de Madrid en 1995."
+          },
+          {
+            "id": "Q2657591:wikipedia:3",
+            "kind": "context",
+            "value": "Por su ubicación en la ciudad daba acceso desde el centro de la ciudad mediante la calle de Toledo a los caminos del sur de Madrid (Camino Real de Andalucía), tras cruzar el cauce del río Manzanares mediante el puente de Toledo y los Carabancheles."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q849711",
+        "localName": "catedral de la Almudena",
+        "category": "religious",
+        "fameScore": 20.13,
+        "facts": [
+          {
+            "id": "Q849711:wikipedia:3",
+            "kind": "observable",
+            "value": "La catedral está ubicada en el centro histórico de la ciudad de Madrid; la fachada principal se encuentra frente al Palacio Real, mientras que la fachada del crucero mira hacia la calle de Bailén y el acceso a la cripta se realiza por la cuesta de la Vega, al final de la calle Ma"
+          },
+          {
+            "id": "Q849711:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: catedral católica"
+          },
+          {
+            "id": "Q849711:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1883-04-04"
+          },
+          {
+            "id": "Q849711:wikipedia:0",
+            "kind": "context",
+            "value": "La Santa Iglesia Catedral Metropolitana de Santa María la Real de la Almudena, conocida simplemente como catedral de la Almudena,​ es una catedral de culto católico, dedicada a la Virgen María bajo la advocación de la Almudena, y sede episcopal de Madrid."
+          },
+          {
+            "id": "Q849711:wikipedia:1",
+            "kind": "context",
+            "value": "Construida muy cerca del emplazamiento de la anterior y muy antigua iglesia de Santa María de la Almudena, que se levantó a su vez sobre una mezquita, la catedral está dedicada a la Virgen de la Almudena, patrona de Madrid."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2711992",
+        "localName": "plaza de la Villa",
+        "category": "square_civic",
+        "fameScore": 21.37,
+        "facts": [
+          {
+            "id": "Q2711992:wikipedia:3",
+            "kind": "observable",
+            "value": "El más antiguo es la Casa y Torre de los Lujanes (siglo XV), construido en estilo gótico-mudéjar, que se emplaza en la cara oriental de la plaza."
+          },
+          {
+            "id": "Q2711992:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: plaza"
+          },
+          {
+            "id": "Q2711992:wikidata:locatedIn",
+            "kind": "claim",
+            "value": "locatedIn: Madrid"
+          },
+          {
+            "id": "Q2711992:wikipedia:0",
+            "kind": "context",
+            "value": "La plaza de la Villa (antes llamada plaza de San Salvador) está situada en el casco histórico de Madrid (España), junto a la calle Mayor."
+          },
+          {
+            "id": "Q2711992:wikipedia:1",
+            "kind": "context",
+            "value": "En ella tienen su origen tres pequeñas calles, correspondientes al primitivo trazado medieval de la ciudad: la del Codo aparece por el este, la del Cordón por el sur y la de Madrid por el oeste."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q211250",
+        "localName": "Teatro Real",
+        "category": "other",
+        "fameScore": 25.86,
+        "facts": [
+          {
+            "id": "Q211250:osm:historic",
+            "kind": "observable",
+            "value": "historic: monument"
+          },
+          {
+            "id": "Q211250:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: teatro de ópera"
+          },
+          {
+            "id": "Q211250:wikidata:architect",
+            "kind": "claim",
+            "value": "architect: Antonio López Aguado"
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2982559",
+        "localName": "Palacio de Santa Cruz",
+        "category": "palace_castle",
+        "fameScore": 23.47,
+        "facts": [
+          {
+            "id": "Q2982559:osm:building",
+            "kind": "observable",
+            "value": "building: public"
+          },
+          {
+            "id": "Q2982559:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: palacio"
+          },
+          {
+            "id": "Q2982559:wikidata:architect",
+            "kind": "claim",
+            "value": "architect: Juan Gómez de Mora"
+          },
+          {
+            "id": "Q2982559:wikipedia:0",
+            "kind": "context",
+            "value": "El Palacio de Santa Cruz, también denominado Cárcel de Corte, hoy es una de las sedes del Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España."
+          },
+          {
+            "id": "Q2982559:wikipedia:1",
+            "kind": "context",
+            "value": "Se encuentra en la ciudad de Madrid, capital de España."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q3288223",
+        "localName": "Palacio de Liria",
+        "category": "palace_castle",
+        "fameScore": 23.6,
+        "facts": [
+          {
+            "id": "Q3288223:osm:building",
+            "kind": "observable",
+            "value": "building: yes"
+          },
+          {
+            "id": "Q3288223:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: palacio"
+          },
+          {
+            "id": "Q3288223:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1770-00-00"
+          },
+          {
+            "id": "Q3288223:wikipedia:0",
+            "kind": "context",
+            "value": "El palacio de Liria es una gran mansión urbana en Madrid, construida en el siglo XVIII."
+          },
+          {
+            "id": "Q3288223:wikipedia:1",
+            "kind": "context",
+            "value": "Desde principios del XIX es la residencia oficial de la Casa de Alba en la capital de España y principal sede de su valiosa colección de arte y archivo histórico.​ Se ubica en los números 20-22 de la actual calle de la Princesa, en una zona conocida antaño como barrio de los Afli"
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2838423",
+        "localName": "Puente de Segovia",
+        "category": "other",
+        "fameScore": 23.85,
+        "facts": [
+          {
+            "id": "Q2838423:wikipedia:3",
+            "kind": "observable",
+            "value": "En los primeros dibujos y pinturas de la ciudad, fechados en el siglo XVI, el puente aparecía bien con nueve arcos, bien con trece.​ Historia Su construcción fue ordenada por Felipe II a su arquitecto preferido, Juan de Herrera, autor del Monasterio de El Escorial y del Palacio R"
+          },
+          {
+            "id": "Q2838423:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: puente carretero"
+          },
+          {
+            "id": "Q2838423:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1574-00-00"
+          },
+          {
+            "id": "Q2838423:wikipedia:0",
+            "kind": "context",
+            "value": "El puente de Segovia es un monumento renacentista de la ciudad española de Madrid, obra del arquitecto Juan de Herrera."
+          },
+          {
+            "id": "Q2838423:wikipedia:1",
+            "kind": "context",
+            "value": "Se sitúa en el cruce de la calle de Segovia con el río Manzanares, punto que históricamente ha constituido uno de los principales accesos a la villa."
+          }
+        ]
+      },
+      {
+        "canonicalId": "Q2628455",
+        "localName": "Palacio de Linares",
+        "category": "other",
+        "fameScore": 23.26,
+        "facts": [
+          {
+            "id": "Q2628455:osm:historic",
+            "kind": "observable",
+            "value": "historic: monument"
+          },
+          {
+            "id": "Q2628455:wikidata:instanceOf",
+            "kind": "claim",
+            "value": "instanceOf: palacio"
+          },
+          {
+            "id": "Q2628455:wikidata:inception",
+            "kind": "claim",
+            "value": "inception: 1877-00-00"
+          }
+        ]
+      }
+    ]
+  },
+  "candidateSet": {
+    "prefiltered": 60,
+    "accepted": 31,
+    "sentToCurator": 18,
+    "rejected": {
+      "remote": 11,
+      "insufficient_evidence": 12,
+      "off_theme": 3
+    }
+  },
+  "curator": {
+    "provider": {
+      "id": "deepseek-flash-thinking-high",
+      "kind": "deepseek",
+      "model": "deepseek-v4-flash",
+      "thinking": true,
+      "reasoningEffort": "high"
+    },
+    "status": "transport_error",
+    "brief": null,
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "transport_error",
+        "latencyMs": 523,
+        "rawOutput": null,
+        "usage": null,
+        "costUsd": 0,
+        "systemFingerprint": null,
+        "error": "Request failed with status code 400"
+      },
+      {
+        "attempt": 2,
+        "status": "transport_error",
+        "latencyMs": 420,
+        "rawOutput": null,
+        "usage": null,
+        "costUsd": 0,
+        "systemFingerprint": null,
+        "error": "Request failed with status code 400"
+      }
+    ],
+    "totalCostUsd": 0
+  },
+  "evaluation": null
+}

@@ -2,6 +2,8 @@ import axios, { AxiosError } from 'axios';
 import { env } from '../config/env';
 import { LLMResponse } from '../types/api';
 
+type JsonSchema = Record<string, unknown>;
+
 interface ModelOptions {
   prompt: string;
   temperature?: number;
@@ -9,7 +11,7 @@ interface ModelOptions {
   stop?: string[];
   num_predict?: number;
   model?: string;
-  format?: 'json';
+  format?: 'json' | JsonSchema;
   repeat_penalty?: number;
 }
 
@@ -17,7 +19,7 @@ interface OllamaRequest {
   model: string;
   prompt: string;
   stream: false;
-  format?: 'json';
+  format?: 'json' | JsonSchema;
   options: {
     temperature: number;
     num_predict: number;
@@ -46,7 +48,9 @@ interface ChatOptions {
   max_tokens?: number;
   model?: string;
   think?: boolean;
-  format?: 'json';
+  format?: 'json' | JsonSchema;
+  num_ctx?: number;
+  seed?: number;
 }
 
 interface OllamaChatMessage {
@@ -59,10 +63,12 @@ interface OllamaChatRequest {
   messages: OllamaChatMessage[];
   stream: false;
   think: boolean;
-  format?: 'json';
+  format?: 'json' | JsonSchema;
   options: {
     temperature: number;
     num_predict: number;
+    num_ctx?: number;
+    seed?: number;
   };
 }
 
@@ -119,7 +125,7 @@ class Model {
         model: ollamaRequest.model,
         temperature: ollamaRequest.options.temperature,
         num_predict: ollamaRequest.options.num_predict,
-        format: ollamaRequest.format,
+        format: typeof ollamaRequest.format === 'string' ? ollamaRequest.format : 'json-schema',
         durationMs,
         done_reason: response.data?.done_reason,
         eval_count: response.data?.eval_count,
@@ -194,7 +200,9 @@ class Model {
         ...(options.format ? { format: options.format } : {}),
         options: {
           temperature: options.temperature ?? 0.4,
-          num_predict: options.max_tokens ?? 600
+          num_predict: options.max_tokens ?? 600,
+          ...(options.num_ctx ? { num_ctx: options.num_ctx } : {}),
+          ...(options.seed !== undefined ? { seed: options.seed } : {}),
         }
       };
 
@@ -211,7 +219,9 @@ class Model {
         model: chatRequest.model,
         temperature: chatRequest.options.temperature,
         num_predict: chatRequest.options.num_predict,
-        format: chatRequest.format,
+        num_ctx: chatRequest.options.num_ctx,
+        seed: chatRequest.options.seed,
+        format: typeof chatRequest.format === 'string' ? chatRequest.format : 'json-schema',
         think: chatRequest.think,
         durationMs,
         done_reason: response.data?.done_reason,

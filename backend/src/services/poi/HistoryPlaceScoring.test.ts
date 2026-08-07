@@ -75,4 +75,24 @@ describe('HistoryPlaceScoring', () => {
     expect(profile.isEventSiteLike).toBe(true);
     expect(profile.kinds).toContain('event-place');
   });
+
+  it('keeps a museum when its reused heritage building is itself historical evidence', () => {
+    const profile = getHistoryPlaceProfile({
+      name: 'Railway Station Museum',
+      tags: {
+        name: 'Railway Station Museum',
+        tourism: 'museum',
+        building: 'museum',
+        old_name: 'Central Railway Station',
+        start_date: '1900',
+        heritage: '2',
+        wikidata: 'Q1',
+      },
+    });
+
+    expect(profile.isMuseumLike).toBe(true);
+    expect(profile.isEventSiteLike).toBe(true);
+    expect(profile.kinds).toContain('repurposed-historic-building');
+    expect(profile.kinds).not.toContain('museum-container');
+  });
 });

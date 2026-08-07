@@ -1,0 +1,1120 @@
+{
+  "schemaVersion": 1,
+  "city": "Toledo",
+  "theme": "history",
+  "language": "es",
+  "capturedAt": "2026-08-06T12:29:31.503Z",
+  "wikidata": {
+    "Q1123180": {
+      "wikidataId": "Q1123180",
+      "nameTranslations": {
+        "pt": "Catedral de Toledo",
+        "zh-hans": "托莱多主教座堂",
+        "zh-hant": "托萊多主教座堂",
+        "zh-hk": "托萊多主教座堂",
+        "eo": "Katedralo de Toledo",
+        "eu": "Toledoko Santa Maria Katedrala",
+        "ru": "Толедский собор",
+        "fr": "cathédrale Sainte-Marie de Tolède",
+        "he": "קתדרלת טולדו",
+        "arz": "كاتدرائية توليدو",
+        "es": "catedral de Toledo",
+        "en": "Toledo Cathedral",
+        "tr": "Toledo Katedrali",
+        "ca": "Catedral de Toledo",
+        "it": "cattedrale di Santa María de Toledo",
+        "gl": "Catedral de Santa María de Toledo",
+        "de": "Kathedrale von Toledo",
+        "ja": "トレド大聖堂",
+        "fa": "کلیسای جامع تولدو",
+        "ka": "ტოლედოს საკათედრო ტაძარი",
+        "ar": "كاتدرائية طليطلة",
+        "nl": "Kathedraal van Toledo",
+        "zh": "托莱多主教座堂",
+        "ro": "Catedrala din Toledo",
+        "pl": "Katedra Najświętszej Marii Panny w Toledo",
+        "ko": "톨레도 대성당",
+        "vi": "Nhà thờ chính tòa Toledo",
+        "hi": "तोलेदो गिरजाघर",
+        "pa": "ਤੋਲੇਦੋ ਗਿਰਜਾਘਰ",
+        "ta": "டொலேடோ பெருங்கோவில்",
+        "az": "Toledo kafedralı",
+        "ur": "تولیدو گرجاگھر",
+        "de-ch": "Kathedrale von Toledo",
+        "el": "Καθεδρικός του Τολέδο",
+        "en-ca": "Toledo Cathedral",
+        "en-gb": "Toledo Cathedral",
+        "pt-br": "Catedral de Toledo",
+        "be": "Таледскі сабор",
+        "sl": "toledska stolnica",
+        "nb": "Katedralen i Toledo",
+        "hy": "Տոլեդոյի տաճար",
+        "fi": "Toledon katedraali",
+        "cs": "Katedrála Nanebevzetí Panny Marie v Toledu",
+        "uk": "Толедський собор",
+        "da": "Katedralen i Toledo",
+        "ast": "Catedral de Toledo",
+        "ga": "Ardeaglais Toledo",
+        "sv": "Katedralen i Toledo",
+        "fy": "Katedraal fan Toledo",
+        "id": "Katedral Toledo",
+        "hu": "Toledói székesegyház"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1123180",
+      "wikidataClaims": {
+        "instanceOf": "catedral católica",
+        "inception": "1226-00-00",
+        "architect": "Petrus Petri",
+        "architecturalStyle": "arquitectura gótica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Castilla-La Mancha",
+        "namedAfter": "nacimiento virginal"
+      }
+    },
+    "Q1326589": {
+      "wikidataId": "Q1326589",
+      "nameTranslations": {
+        "pt": "Alcázar de Toledo",
+        "zh-hans": "托莱多城堡",
+        "zh-hant": "托萊多城堡",
+        "zh-hk": "托萊多城堡",
+        "eo": "Alkazaro de Toledo",
+        "eu": "Toledoko alkazarra",
+        "fr": "alcazar de Tolède",
+        "ru": "Толедский алькасар",
+        "en": "Alcázar of Toledo",
+        "es": "Alcázar de Toledo",
+        "tr": "Alcázar de Toledo",
+        "ro": "Alcazarul din Toledo",
+        "ca": "Alcàsser de Toledo",
+        "it": "Alcázar di Toledo",
+        "gl": "Alcázar de Toledo",
+        "de": "Alcázar",
+        "ja": "アルカサル",
+        "el": "Αλκάθαρ του Τολέδου",
+        "nl": "Alcázar van Toledo",
+        "zh": "托莱多城堡",
+        "ko": "알카사르",
+        "ur": "قصر طلیطلہ",
+        "sl": "trdnjava Alcázar",
+        "cs": "Toledský Alcázar",
+        "be": "Таледскі алькасар",
+        "hy": "Տոլեդոյի ալկասար",
+        "ar": "قصر طليطلة",
+        "id": "Kuil Toledo",
+        "uk": "Толедський алькасар",
+        "az": "Toledo alkazarı",
+        "he": "מצודת טולדו",
+        "hu": "Alcázar"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1326589",
+      "wikidataClaims": {
+        "instanceOf": "biblioteca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1324080": {
+      "wikidataId": "Q1324080",
+      "nameTranslations": {
+        "eo": "Moskeo Bab al-Mardum",
+        "rw": "Umusigiti wa Bab al-Mardum",
+        "zh": "光辉基督清真寺",
+        "pt": "Ermida do Cristo de la Luz",
+        "de": "El Cristo de la Luz",
+        "fr": "mosquée Bab al-Mardum",
+        "en": "Mosque of Cristo de la Luz",
+        "ar": "مسجد باب المردوم",
+        "bg": "Кристо де ла Лус (Толедо)",
+        "ms": "Masjid Cristo de la Luz",
+        "pnb": "کرسٹو ڈی لا لوز",
+        "es": "Cristo de la Luz",
+        "nl": "Mosque of Cristo de la Luz",
+        "ja": "バブ・マルドゥム",
+        "it": "moschea del Cristo della Luce",
+        "eu": "Argiaren Kristo eliza",
+        "ur": "مسجد باب المردوم",
+        "bn": "ক্রিস্টো দে লা লুজ মসজিদ",
+        "tr": "Cristo de la Luz Camii"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1324080",
+      "wikidataClaims": {
+        "instanceOf": "mezquita desafecta",
+        "architecturalStyle": "arte emiral y califal",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1289106": {
+      "wikidataId": "Q1289106",
+      "nameTranslations": {
+        "de": "San Juan de los Reyes",
+        "en": "Monasterio de San Juan de los Reyes",
+        "eo": "Monaĥejo Sankta Johano de la Reĝoj",
+        "es": "monasterio de San Juan de los Reyes",
+        "pt": "Mosteiro de São João dos Reis",
+        "zh": "圣若望皇家修道院",
+        "fr": "monastère de Saint-Jean des rois",
+        "ru": "Сан-Хуан-де-лос-Рейес",
+        "sl": "Samostan San Juan de los Reyes",
+        "nl": "Monasterio de San Juan de los Reyes",
+        "hy": "Սան Խուան դե լոս Ռեյես",
+        "it": "Monastero di San Juan de los Reyes",
+        "he": "מנזר סן חואן דה לוס רייס",
+        "tr": "San Juan de los Reyes Manastırı"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1289106",
+      "wikidataClaims": {
+        "instanceOf": "monasterio",
+        "architect": "Juan Guas",
+        "architecturalStyle": "arquitectura gótica",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1568115": {
+      "wikidataId": "Q1568115",
+      "nameTranslations": {
+        "de": "Santa María la Blanca",
+        "en": "Synagogue of Santa María la Blanca",
+        "eo": "Santa María la Blanca",
+        "es": "Sinagoga de Santa María la Blanca",
+        "fr": "synagogue Santa María La Blanca de Tolède",
+        "gl": "Santa María la Blanca",
+        "id": "Santa María la Blanca",
+        "pl": "Synagoga Santa María la Blanca w Toledo",
+        "pt": "Sinagoga de Santa María la Blanca",
+        "zh": "白色圣玛利亚教堂",
+        "nl": "Santa María la Blanca",
+        "eu": "Andre Maria Zuriaren sinagoga",
+        "ca": "Santa María la Blanca",
+        "uk": "Санта Марія ла Бланка",
+        "ar": "كنيس ابن شوشان",
+        "he": "בית הכנסת בסנטה מריה לה בלנקה",
+        "it": "Sinagoga di Santa Maria la Blanca",
+        "fy": "Santa María la Blanca",
+        "th": "โบสถ์ยิวแห่งซานตามาริอาลาบลังกา"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1568115",
+      "wikidataClaims": {
+        "instanceOf": "iglesia secularizada",
+        "inception": "1180-00-00",
+        "architecturalStyle": "arquitectura morisca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo",
+        "namedAfter": "Virgen Blanca"
+      }
+    },
+    "Q3139146": {
+      "wikidataId": "Q3139146",
+      "nameTranslations": {
+        "zh-hans": "圣多默堂",
+        "zh-hant": "聖多默堂",
+        "zh-hk": "聖多默堂",
+        "pt": "Igreja de São Tomé",
+        "fr": "église Saint-Thomas de Tolède",
+        "es": "iglesia de Santo Tomé",
+        "ca": "església de Santo Tomé de Toledo",
+        "eo": "Preĝejo de Santo Tomé",
+        "zh": "圣多默堂",
+        "ko": "산토 토메 교회",
+        "sl": "cerkev Santo Tomé",
+        "en": "Church of Santo Tomé",
+        "nl": "Iglesia de Santo Tomé",
+        "it": "chiesa San Tomè",
+        "ja": "サント・トメ教会",
+        "ff": "Church of Santo Tomé, Toledo",
+        "gl": "Igrexa de Santo Tomé"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3139146",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo",
+        "namedAfter": "Tomás el Apóstol"
+      }
+    },
+    "Q3848124": {
+      "wikidataId": "Q3848124",
+      "nameTranslations": {
+        "eo": "muzeo El Greko",
+        "es": "Museo del Greco",
+        "uk": "Музей Ель Греко",
+        "pl": "Museo del Greco",
+        "ca": "Museu del Greco",
+        "fr": "musée du Greco",
+        "el": "Μουσείο Ελ Γκρέκο",
+        "en": "El Greco Museum",
+        "de": "El Greco Museum",
+        "nl": "El Greco Museum",
+        "he": "מוזיאון אל גרקו",
+        "pt-br": "El Greco Museum",
+        "pt": "Museu El Greco",
+        "arz": "متحف جريكو",
+        "zh": "格雷考博物馆 (托莱多)",
+        "hy": "Էլ Գրեկոյի թանգարան (Տոլեդո)",
+        "it": "Museo del Greco",
+        "eu": "Grekoaren museoa",
+        "ja": "エル・グレコ美術館",
+        "sl": "El Grecov muzej",
+        "gl": "Museo do Greco"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q3848124",
+      "wikidataClaims": {
+        "instanceOf": "casa museo",
+        "inception": "1911-00-00",
+        "locatedIn": "Toledo",
+        "namedAfter": "El Greco"
+      }
+    },
+    "Q581532": {
+      "wikidataId": "Q581532",
+      "nameTranslations": {
+        "es": "Puente de Alcántara",
+        "en": "Puente de Alcántara, Toledo",
+        "eo": "Ponto de Alkantaro",
+        "ro": "Podul din Alcántara",
+        "pa": "ਪੁਏਨਤੇ ਦੇ ਅਲਕਨਤਾਰਾ",
+        "sl": "Most Alcantara",
+        "br": "Pont Alcántara",
+        "nl": "Puente de Alcántara, Toledo",
+        "fr": "pont d'Alcántara",
+        "pnb": "پوئنتے الکانتارا",
+        "it": "Puente de Alcántara",
+        "de": "Puente de Alcántara (Toledo)",
+        "ast": "ponte d'Alcántara",
+        "zh": "阿尔坎塔拉桥 (托莱多)",
+        "eu": "Alcántarako zubia (Toledo)",
+        "ja": "アルカンタラ橋"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q581532",
+      "wikidataClaims": {
+        "instanceOf": "puente en arco con tablero superior",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2037255": {
+      "wikidataId": "Q2037255",
+      "nameTranslations": {
+        "eo": "Hospitalo Tavera",
+        "ru": "Госпиталь Тавера",
+        "es": "Hospital de Tavera",
+        "ca": "Hospital de Tavera",
+        "de": "Hospital de Tavera",
+        "pl": "Hospital de Tavera",
+        "en": "Hospital de Tavera",
+        "nl": "Hospital de Tavera",
+        "ja": "タベーラ施療院",
+        "pt-br": "Hospital de Tavera",
+        "pt": "Hospital de Tavera",
+        "zh": "塔维拉医院",
+        "fr": "Hospital de Tavera",
+        "it": "Hospital de Tavera",
+        "hy": "Տավերայի հիվանդանոց",
+        "mul": "Hospital de Tavera"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2037255",
+      "wikidataClaims": {
+        "instanceOf": "hospital clausurado",
+        "inception": "1541-00-00",
+        "architect": "Alonso de Covarrubias",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1112621": {
+      "wikidataId": "Q1112621",
+      "nameTranslations": {
+        "zh-hans": "新比萨格拉门",
+        "zh-hant": "新比薩格拉門",
+        "zh-hk": "新比薩格拉門",
+        "eo": "Pordego Bisagra",
+        "es": "puerta Nueva de Bisagra",
+        "en": "Puerta Nueva de Bisagra",
+        "zh": "新比萨格拉门",
+        "nl": "Puerta Nueva de Bisagra",
+        "fr": "porte de Bisagra Nueva",
+        "gl": "Porta Nova de Bisagra",
+        "ca": "Porta de Bisagra",
+        "arz": "بويرتا نويفا دى بيساجرا",
+        "ar": "بويرتا دى بيساجرا",
+        "pt": "Porta Nova de Bisagra",
+        "de": "Puerta Nueva de Bisagra"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1112621",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "inception": "1600-00-00",
+        "architecturalStyle": "arquitectura renacentista española",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1107398": {
+      "wikidataId": "Q1107398",
+      "nameTranslations": {
+        "zh-hans": "圣罗曼教堂",
+        "zh-hant": "聖羅曼教堂",
+        "zh-hk": "聖羅曼教堂",
+        "fr": "église Saint-Romain de Tolède",
+        "es": "iglesia de San Román",
+        "en": "Church of San Román",
+        "eo": "Preĝejo de Sankta Romano",
+        "zh": "圣罗曼教堂",
+        "hi": "सान रोमान का गिरजाघर",
+        "pa": "ਸਾਨ ਰੋਮਾਨ ਗਿਰਜਾਘਰ",
+        "ar": "كنيسة سان رومان",
+        "nl": "Church of San Román",
+        "it": "chiesa di San Romano",
+        "be-tarask": "касьцёл сьвятога Рамана"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1107398",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q5116861": {
+      "wikidataId": "Q5116861",
+      "nameTranslations": {
+        "en": "Church of El Salvador",
+        "es": "iglesia de El Salvador",
+        "pa": "ਅਲਸਲਵਾਦੋਰ ਗਿਰਜਾਘਰ",
+        "hi": "तोलेदो का अलसलवादोर गिरजाघर",
+        "ar": "كنيسة السلفادور"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5116861",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2993456": {
+      "wikidataId": "Q2993456",
+      "nameTranslations": {
+        "pt": "Castelo de San Servando",
+        "eo": "Kastelo de Sankta Servando",
+        "arz": "قلعة سان سيرفاندو",
+        "ru": "Замок Сан-Сервандо",
+        "es": "Castillo de San Servando",
+        "en": "Castillo de San Servando",
+        "ro": "Castelul de San Servando",
+        "nl": "Castillo de San Servando",
+        "hy": "Սան Սերվանդոյի ամրոց",
+        "hyw": "Սան Սերվանտոյի Ամրոցը",
+        "zh": "圣塞尔万多城堡",
+        "el": "Κάστρο του Σαν Σερβάντο",
+        "eu": "San Servando gaztelua",
+        "fr": "château de San Servando",
+        "it": "Castello di San Servando"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2993456",
+      "wikidataClaims": {
+        "instanceOf": "castillo",
+        "inception": "0601-01-17",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2389665": {
+      "wikidataId": "Q2389665",
+      "nameTranslations": {
+        "fr": "église Santiago del Arrabal de Tolède",
+        "en": "Church of St James, Toledo",
+        "eo": "Preĝejo de Santiago del Arrabal",
+        "es": "iglesia de Santiago del Arrabal",
+        "de": "Santiago del Arrabal",
+        "nl": "Santiago del Arrabal, Toledo",
+        "ca": "Santiago del Arrabal",
+        "zh": "圣雅各伯堂 (托莱多)",
+        "arz": "كنيسه سانت جيمس",
+        "tl": "Simbahan ng Santiago, Toledo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2389665",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1201-01-17",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo",
+        "namedAfter": "Santiago el Mayor"
+      }
+    },
+    "Q6034428": {
+      "wikidataId": "Q6034428",
+      "nameTranslations": {
+        "es": "Museo del Ejército",
+        "en": "Army Museum",
+        "ca": "museu de l'Exèrcit",
+        "fr": "musée de l'Armée",
+        "ja": "ムセオ・デル・エヘルシート",
+        "uk": "Музей Збройних Сил Іспанії",
+        "de": "Museo del Ejército",
+        "an": "Museu de l'Exercito",
+        "zh": "托莱多军事博物馆",
+        "it": "Museo dell'Esercito",
+        "he": "נשק"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6034428",
+      "wikidataClaims": {
+        "instanceOf": "museo militar",
+        "inception": "2010-00-00",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1100859": {
+      "wikidataId": "Q1100859",
+      "nameTranslations": {
+        "fr": "église Sainte-Léocadie de Tolède",
+        "es": "iglesia de Santa Leocadia",
+        "en": "Church of Santa Leocadia, Toledo",
+        "pt": "Igreja de Santa Leocádia",
+        "ca": "Santa Leocadia",
+        "arz": "كنيسه سانتا ليوكاديا",
+        "sl": "cerkev sv. Leokadije v Toledu",
+        "ja": "サンタ・レオカディア教会 (トレド)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1100859",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1201-01-17",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q6080359": {
+      "wikidataId": "Q6080359",
+      "nameTranslations": {
+        "es": "plaza de toros de Toledo",
+        "en": "Bullring of Toledo",
+        "ceb": "Plaza de toros Toledo",
+        "ig": "Ịgba ịnyịnya ibu na Toledo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6080359",
+      "wikidataClaims": {
+        "instanceOf": "plaza de toros",
+        "inception": "1866-08-18",
+        "architect": "Francisco Jareño y Alarcón",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q6033742": {
+      "wikidataId": "Q6033742",
+      "nameTranslations": {
+        "es": "Museo Sefardí",
+        "de": "Museo Sefardí",
+        "en": "Museo Sefardí",
+        "zh": "塞法迪犹太人博物馆",
+        "ca": "Museu Sefardita",
+        "he": "המוזיאון היהודי"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6033742",
+      "wikidataClaims": {
+        "instanceOf": "museo",
+        "inception": "1971-00-00",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q19360888": {
+      "wikidataId": "Q19360888",
+      "nameTranslations": {
+        "en": "Church of San Ildefonso, Toledo",
+        "de": "San Ildefonso (Toledo)",
+        "es": "iglesia de San Ildefonso",
+        "it": "chiesa di Sant'Ildefonso",
+        "fr": "église Saint-Ildefonse de Tolède"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q19360888",
+      "wikidataClaims": {
+        "instanceOf": "iglesia de culto católico",
+        "inception": "1629-00-00",
+        "architecturalStyle": "arquitectura barroca",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q5785692": {
+      "wikidataId": "Q5785692",
+      "nameTranslations": {
+        "es": "Convento de San Antonio de Padua",
+        "en": "Convento de San Antonio de Padua, Toledo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5785692",
+      "wikidataClaims": {
+        "instanceOf": "convento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q14475457": {
+      "wikidataId": "Q14475457",
+      "nameTranslations": {
+        "es": "Monasterio de Santo Domingo el Real",
+        "en": "Monasterio de Santo Domingo el Real",
+        "fr": "Monasterio de Santo Domingo el Real",
+        "de": "Santo Domingo el Real",
+        "ca": "monestir de Santo Domingo el Real",
+        "pt": "Mosteiro de Santo Domingo el Real, Toledo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q14475457",
+      "wikidataClaims": {
+        "instanceOf": "monasterios en España",
+        "inception": "1364-01-01",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q9290171": {
+      "wikidataId": "Q9290171",
+      "nameTranslations": {
+        "zh-hans": "托莱多总主教宫",
+        "zh-hant": "托萊多總主教宮",
+        "zh-hk": "托萊多總主教宮",
+        "pt": "Palácio Arquiepiscopal de Toledo",
+        "es": "Palacio Arzobispal de Toledo",
+        "zh": "托莱多总主教宫",
+        "en": "Palacio Arzobispal, Toledo",
+        "fr": "palais archiépiscopal de Tolède"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9290171",
+      "wikidataClaims": {
+        "instanceOf": "palacio arzobispal",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1112601": {
+      "wikidataId": "Q1112601",
+      "nameTranslations": {
+        "zh-hans": "太阳门",
+        "zh-hant": "太陽門",
+        "zh-hk": "太陽門",
+        "eo": "Sunpordo",
+        "en": "Puerta del Sol",
+        "es": "Puerta del Sol",
+        "nl": "Puerta del Sol",
+        "fr": "Puerta del Sol",
+        "ar": "بويرتا ديل سول",
+        "zh": "太阳门",
+        "da": "Puerta del Sol",
+        "it": "Puerta del Sol",
+        "arz": "بويرتا ديل سول",
+        "pt": "Puerta del Sol",
+        "ru": "Пуэрта-дель-Соль (Толедо)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1112601",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q5785755": {
+      "wikidataId": "Q5785755",
+      "nameTranslations": {
+        "es": "Convento de San Gil",
+        "en": "Cortes of Castilla-La Mancha building",
+        "pt": "Convento de San Gil (Toledo)"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5785755",
+      "wikidataClaims": {
+        "instanceOf": "edificio parlamentario",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q8262617": {
+      "wikidataId": "Q8262617",
+      "nameTranslations": {
+        "ca": "Capella de Reyes Nuevos de la catedral de Toledo",
+        "es": "capilla de los Reyes Nuevos",
+        "en": "Capilla de los Reyes Nuevos (Catedral de Toledo)",
+        "fr": "chapelle des Nouveaux Rois",
+        "ru": "Капелла Новых королей",
+        "gl": "Capella de Reyes Nuevos da catedral de Toledo"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q8262617",
+      "wikidataClaims": {
+        "instanceOf": "capilla",
+        "architect": "Alonso de Covarrubias",
+        "architecturalStyle": "arquitectura gótica",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2881461": {
+      "wikidataId": "Q2881461",
+      "nameTranslations": {
+        "es": "Capilla de San Blas de la Catedral de Toledo",
+        "ca": "Capella de San Blas de la catedral de Toledo",
+        "en": "Chapel of St. Blas"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2881461",
+      "wikidataClaims": {
+        "instanceOf": "capilla",
+        "architect": "Alonso de Covarrubias",
+        "architecturalStyle": "arquitectura gótica",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q6058006": {
+      "wikidataId": "Q6058006",
+      "nameTranslations": {
+        "es": "Palacio de Fuensalida",
+        "en": "Palacio de Fuensalida",
+        "ca": "Palacio de Fuensalida",
+        "ja": "フエンサリーダ宮殿",
+        "pt": "Palácio de Fuensalida",
+        "eu": "Fuensalida jauregia",
+        "sl": "Palacio de Fuensalida"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q6058006",
+      "wikidataClaims": {
+        "instanceOf": "mansión",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q5785892": {
+      "wikidataId": "Q5785892",
+      "nameTranslations": {
+        "es": "Convento de Santa Úrsula",
+        "en": "Convent of Santa Úrsula"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5785892",
+      "wikidataClaims": {
+        "instanceOf": "convento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q30594203": {
+      "wikidataId": "Q30594203",
+      "nameTranslations": {
+        "en": "Plaza de San Justo, Toledo",
+        "es": "plaza de San Justo",
+        "zh": "圣犹斯督广场",
+        "arz": "بلازا دى سان جوستو"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q30594203",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1985588": {
+      "wikidataId": "Q1985588",
+      "nameTranslations": {
+        "eo": "Romia Cirko de Toledo",
+        "es": "Circo romano de Toledo",
+        "ro": "Circul Roman din Toledo",
+        "it": "circo romano di Toledo",
+        "en": "Ancient Roman circus of Toletum",
+        "nl": "Ancient Roman circus of Toletum"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1985588",
+      "wikidataClaims": {
+        "instanceOf": "yacimiento arqueológico",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2884002": {
+      "wikidataId": "Q2884002",
+      "nameTranslations": {
+        "es": "Plaza de Zocodover",
+        "eo": "Placo de Zocodover",
+        "en": "Plaza de Zocodover, Toledo",
+        "zh": "苏克德贝尔广场",
+        "arz": "ميدان زوكودوفر",
+        "ar": "ساحة سوق الدواب",
+        "eu": "Zocodover plaza (Toledo)",
+        "it": "Plaza de Zocodover"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2884002",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q30594205": {
+      "wikidataId": "Q30594205",
+      "nameTranslations": {
+        "en": "Plaza de las Cuatro Calles",
+        "es": "plaza de las Cuatro Calles",
+        "zh": "四街广场 (托莱多)",
+        "arz": "ميدان الاربع شوارع"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q30594205",
+      "wikidataClaims": {
+        "instanceOf": "plaza",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q30594155": {
+      "wikidataId": "Q30594155",
+      "nameTranslations": {
+        "en": "Palacio de Benacazón",
+        "es": "Palacio de Benacazón",
+        "fr": "Palais de Benacazon"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q30594155",
+      "wikidataClaims": {
+        "instanceOf": "casa",
+        "architecturalStyle": "arquitectura mudéjar",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q2499221": {
+      "wikidataId": "Q2499221",
+      "nameTranslations": {
+        "nl": "Palacio de Galiana",
+        "en": "Palacio de Galiana",
+        "fr": "Palacio de Galiana",
+        "ta": "கலியானா அரண்மனை",
+        "es": "Palacio de Galiana",
+        "pa": "ਗਾਲੀਆਨਾ ਦਾ ਮਹਿਲ",
+        "hi": "गालीआना का महिल",
+        "hu": "Galiana-palota",
+        "zh": "加利亚纳宫",
+        "ja": "ガリアナ宮殿"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q2499221",
+      "wikidataClaims": {
+        "instanceOf": "palacio",
+        "architecturalStyle": "arquitectura mudéjar",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q7415304": {
+      "wikidataId": "Q7415304",
+      "nameTranslations": {
+        "en": "San Sebastián, Toledo",
+        "ms": "Gereja San Sebastián, Toledo",
+        "it": "chiesa di San Sebastián",
+        "es": "iglesia de San Sebastián",
+        "de": "Kirche San Sebastián",
+        "fr": "église Saint-Sébastien de Tolède",
+        "ar": "كنيسة سان سيباستيان، طليطلة"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q7415304",
+      "wikidataClaims": {
+        "instanceOf": "iglesia secularizada",
+        "inception": "0901-01-17",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo",
+        "namedAfter": "Sebastián de Milán"
+      }
+    },
+    "Q4119622": {
+      "wikidataId": "Q4119622",
+      "nameTranslations": {
+        "en": "Mezquita de las Tornerías",
+        "ms": "Mezquita de las Tornerías",
+        "ar": "مسجد المسلمين",
+        "es": "Mezquita de las Tornerías",
+        "it": "moschea delle Tornerie",
+        "zh": "托尔内利亚斯清真寺",
+        "bn": "লাস তর্নেরিয়াসের মসজিদ",
+        "ur": "مسجد المسلمین"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q4119622",
+      "wikidataClaims": {
+        "instanceOf": "mezquita desafecta",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q1552900": {
+      "wikidataId": "Q1552900",
+      "nameTranslations": {
+        "ru": "Клад из Гварразара",
+        "eo": "Trezoro de Guarrazar",
+        "en": "Treasure of Guarrazar",
+        "de": "Schatzfund von Guarrazar",
+        "pt": "Tesouro de Guarrazar",
+        "eu": "Guarrazarreko altxorra",
+        "ro": "Tezaurul de Guarrazar",
+        "fr": "Trésor de Guarrazar",
+        "es": "Tesoro de Guarrazar",
+        "ca": "tresor de Guarrazar",
+        "hy": "Գվառազարի գանձ",
+        "zh-hant": "誇拉薩寶藏",
+        "zh-cn": "夸拉萨宝藏",
+        "ja": "グアラサールの宝物",
+        "id": "Harta karun Guarrazar",
+        "zh-hans": "夸拉萨宝藏",
+        "sl": "Zaklad iz Guarrazarja",
+        "zh": "夸拉萨宝藏",
+        "it": "Tesoro di Guarrazar",
+        "el": "Θησαυρός του Γκουαραθάρ",
+        "kk": "Гварразардан қазына",
+        "nl": "Schat van Guarrazar",
+        "et": "Guarrazari aare"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q1552900",
+      "wikidataClaims": {
+        "instanceOf": "hallazgo arqueológico"
+      }
+    },
+    "Q5912675": {
+      "wikidataId": "Q5912675",
+      "nameTranslations": {
+        "es": "iglesia de los Santos Justo y Pastor",
+        "en": "Iglesia de los Santos Justo y Pastor, Toledo",
+        "arz": "كنيسه القديس جاستو واى باستور",
+        "zh": "圣犹斯督圣巴斯督堂 (托莱多)",
+        "ko": "로스산토스후스토이파스토르 교회"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q5912675",
+      "wikidataClaims": {
+        "instanceOf": "iglesia",
+        "inception": "1201-01-17",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo",
+        "namedAfter": "Justo y Pastor"
+      }
+    },
+    "Q7258527": {
+      "wikidataId": "Q7258527",
+      "nameTranslations": {
+        "en": "Puerta Bab al-Mardum",
+        "eo": "Pordego Bab al-Mardum",
+        "ar": "بوابة باب المردوم",
+        "es": "Puerta de Valmardón",
+        "fr": "porte Bab al-Mardum",
+        "ur": "باب المردوم",
+        "zh": "巴布马杜姆门",
+        "arz": "بوابة باب المردوم",
+        "pt": "Puerta Bab al-Mardum"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q7258527",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    },
+    "Q9064518": {
+      "wikidataId": "Q9064518",
+      "nameTranslations": {
+        "eo": "Pordego Kambrono",
+        "es": "Puerta del Cambrón",
+        "en": "Puerta del Cambrón",
+        "fr": "Puerta del Cambrón",
+        "zh": "坎布隆门",
+        "arz": "بويرتا ديل كامبرون"
+      },
+      "wikidataUrl": "https://www.wikidata.org/wiki/Q9064518",
+      "wikidataClaims": {
+        "instanceOf": "puerta de la ciudad",
+        "architecturalStyle": "arquitectura del Renacimiento",
+        "heritageDesignation": "bien de interés cultural",
+        "locatedIn": "Toledo"
+      }
+    }
+  },
+  "wikipedia": {
+    "es:Catedral de Toledo": {
+      "description": "La catedral de Santa María, llamada también catedral primada de España, es un templo católico de arquitectura gótica en Toledo, considerado por algunos como el opus magnum​ de este estilo en España. Su construcción comenzó en 1226 bajo el reinado de Fernando III el Santo y las últimas aportaciones góticas se dieron en siglo XV cuando en 1493 se cerraron las bóvedas de los pies de la nave central, en tiempos de los Reyes Católicos. Está construida con piedra blanca de Olihuelas (en el término de Olías del Rey).",
+      "body": "La catedral de Santa María, llamada también catedral primada de España, es un templo católico de arquitectura gótica en Toledo, considerado por algunos como el opus magnum​ de este estilo en España. Su construcción comenzó en 1226 bajo el reinado de Fernando III el Santo y las últimas aportaciones góticas se dieron en siglo XV cuando en 1493 se cerraron las bóvedas de los pies de la nave central, en tiempos de los Reyes Católicos. Está construida con piedra blanca de Olihuelas (en el término de Olías del Rey).\nSe la conoce popularmente como Dives Toletana (con el sentido de la rica toledana).​ Es sede de la archidiócesis de Toledo.\n\n\nHistoria\n\n\nOrígenes\nDurante muchos años, la tradición popular no escrita ha venido contando que hubo en este mismo lugar donde se encuentra la actual catedral un primer templo de la época del primer obispo Eugenio. Este templo fue consagrado por segunda vez el año 587, después de haber sufrido algunas alteraciones, como lo atestigua la inscripción aparecida en el XVI que se conserva en el claustro y dice:\n\n \n\nLa ciudad había sido sede obispal de la Hispania visigoda. Los numerosos Concilios de Toledo atestiguan su importante pasado eclesiástico.​ También la abjuración del arrianismo por parte de Recaredo había tenido en ella su lugar y tiempo. La invasión musulmana no eliminó de inmediato la impronta cristiana y el obispado se trasladó y quedó establecido en la iglesia de Santa María de Alfizén.​\nSe cree que el edificio obispal visigodo fue transformado nuevamente para convertirse en la mezquita mayor de la ciudad de Toledo. Algunos investigadores apuntan que la sala de oración de la mezquita se corresponde con el cuerpo de las cinco naves de la actual catedral: el sahn (o patio) coincidiría con una parte del actual claustro y de la capilla de San Pedro y el alminar con la torre de campanas. Entre los datos arqueológicos actuales es posible observar algunos vestigios de la construcción musulmana: una columna islámica empotrada dentro de",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Catedral%20de%20Toledo"
+    },
+    "es:Alcázar de Toledo": {
+      "description": "El Alcázar de Toledo o Real Alcázar de Toledo es una fortificación de carácter civil y militar, ubicada en una de las partes más altas de la ciudad española de Toledo. Se trata de una gran edificación de forma cuadrangular de 60 metros de lado, enmarcada con cuatro grandes torres de 60 metros de altura, cada una coronada por el típico chapitel madrileño de pizarra. Su privilegiada situación ha hecho de él un lugar de gran valor estratégico y así lo intuyeron los diversos pueblos que se asentaron en él.",
+      "body": "El Alcázar de Toledo o Real Alcázar de Toledo es una fortificación de carácter civil y militar, ubicada en una de las partes más altas de la ciudad española de Toledo. Se trata de una gran edificación de forma cuadrangular de 60 metros de lado, enmarcada con cuatro grandes torres de 60 metros de altura, cada una coronada por el típico chapitel madrileño de pizarra. Su privilegiada situación ha hecho de él un lugar de gran valor estratégico y así lo intuyeron los diversos pueblos que se asentaron en él. Su nombre se debe a uno de esos dominadores: los árabes, que fueron los que lo llamaron «Al Qasar» القصر, que significa «fortaleza».​​\nUtilizado como palacio romano en el siglo III, fue restaurado bajo el reinado de Carlos I y su hijo Felipe II en la década de 1540.​ En julio de 1528, Hernán Cortés fue recibido por Carlos I en el alcázar, tras la conquista del Imperio azteca. La mayor parte del alcázar fue reconstruida o restaurada entre 1939 y 1957 después del asedio del Alcázar en la guerra civil española.\nActualmente el Alcázar de Toledo es sede del Museo del Ejército y de la Biblioteca de Castilla-La Mancha. Está protegido como bien de interés cultural.\n\n\nHistoria\n\n\nFundación y primera fase\n\nEn el siglo III fue un palacio romano donde, tras la conquista de la ciudad, establecieron el pretorio, sede del magistrado o pretor. Durante la época visigótica el rey Leovigildo estableció en él su capitalidad en el año 568. A partir de entonces se utilizaron las inmediaciones para «residencias regias» que se completaron con la construcción de las iglesias «pretorienses», llamadas así por su proximidad al pretorio, como la de Santa Leocadia. Se cree que en esta iglesia están enterrados, flanqueando la tumba de la santa, los reyes Wamba y Recesvinto, el cual —junto a Chindasvinto — creó el Fuero Juzgo. De la era de dominación musulmana destacan las obras iniciadas por Abd al-Rahman II en el año 836 y por Abd al-Rahman III en 932.​\n\n\nBaja Edad Media\nFue restaurado y ampliado d",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Alc%C3%A1zar%20de%20Toledo"
+    },
+    "es:Cristo de la Luz": {
+      "description": "La ermita o iglesia del Cristo de la Luz, anteriormente mezquita de Bab al-Mardum (en árabe: مسجد باب المردوم‎), es un edificio de la ciudad española de Toledo, en su casco histórico.\nDe las diez mezquitas que llegó a tener la ciudad, es la mejor conservada. En época musulmana era un pequeño oratorio ligado a una puerta de acceso a la ciudad (Bab al-Mardum) para uso de los recién llegados a Toledo o para la preparación a la salida.",
+      "body": "La ermita o iglesia del Cristo de la Luz, anteriormente mezquita de Bab al-Mardum (en árabe: مسجد باب المردوم‎), es un edificio de la ciudad española de Toledo, en su casco histórico.\nDe las diez mezquitas que llegó a tener la ciudad, es la mejor conservada. En época musulmana era un pequeño oratorio ligado a una puerta de acceso a la ciudad (Bab al-Mardum) para uso de los recién llegados a Toledo o para la preparación a la salida. Fue construida en el año 999, la época de esplendor del Califato de Córdoba, tal y como reza la franja epigráfica de su fachada de acceso.\nDistintos elementos, principalmente un ábside, se añadieron en el siglo XII, tras la reconquista cristiana de la ciudad, cuando Alfonso VI cedió el edificio a los caballeros de la orden de San Juan, que establecieron allí una ermita bajo la advocación de la Santa Cruz. Se considera esta ampliación la más antigua muestra de arte mudéjar de que se tiene constancia. El nombre que terminó llevando como templo cristiano proviene de la sustitución del cristo crucificado que se colocó cuando fue consagrada como ermita, por una imagen de la Virgen de la Luz posteriormente desaparecida. En la actualidad es un espacio desacralizado.\n\n\nEstructura\nLa planta es prácticamente cuadrada, de unos 9 metros de ancho, y genera, a partir de los cuatro soportes centrales, nueve compartimentos abovedados. El mihrab se encontraría a la derecha de la entrada, en el muro  alqibla, orientado al este. Se supone que el antiguo mihrab sería móvil o una hornacina, ya que no nos han quedado restos arquitectónicos.\n\nEl alzado consta de tres cuerpos, excepto el central que es de cuatro cuerpos. Las columnas se encargan de separar las naves que conforman el primer tramo las cuales se relacionan con los arcos de herradura del segundo tramo mediante cuatro capiteles visigodos reaprovechados. El tercer cuerpo lo constituyen las nueve bóvedas de crucería califal, pero la bóveda central se compone de un elemento que eleva el cuadrante centra",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Cristo%20de%20la%20Luz"
+    },
+    "es:Monasterio de San Juan de los Reyes": {
+      "description": "El convento de San Juan de los Reyes es un cenobio de la ciudad española de Toledo perteneciente a la Orden Franciscana, que fue construido bajo el patrocinio de la reina Isabel I de Castilla con la intención de convertirlo en mausoleo real, en conmemoración de la batalla de Toro y del nacimiento del príncipe Juan. Se trata de una de las más valiosas muestras del estilo gótico isabelino y el edificio más importante erigido por los Reyes Católicos.",
+      "body": "El convento de San Juan de los Reyes es un cenobio de la ciudad española de Toledo perteneciente a la Orden Franciscana, que fue construido bajo el patrocinio de la reina Isabel I de Castilla con la intención de convertirlo en mausoleo real, en conmemoración de la batalla de Toro y del nacimiento del príncipe Juan. Se trata de una de las más valiosas muestras del estilo gótico isabelino y el edificio más importante erigido por los Reyes Católicos. El convento es, además, un monumento conmemorativo de los logros de los Reyes Católicos y de su programa político.​\n\n\nHistoria\nEl monasterio de San Juan de los Reyes, considerado como el edificio más representativo del gótico toledano, fue mandado construir por los Reyes Católicos bajo el patrocinio directo de la reina, hasta el punto de ser citado varias veces en la documentación como «monasterio de San Juan de la Reina». Dedicado a San Juan para memoria del rey don Juan su padre,​ fue levantado para conmemorar, también, la victoria de Toro (1476) y el nacimiento del príncipe don Juan (1478), así como para crear una iglesia colegial de canónigos que sirviera como panteón real, según cuenta fray Pedro de Salazar,​ cronista de la orden franciscana.\n\nLa creación de un estado moderno por parte de los Reyes Católicos se tradujo en la fundación de capillas y hospitales, así como la finalización de obras anteriores como las catedrales de Burgos y Toledo. Es por ello que se combinan las formas del gótico flamígero traído por arquitectos como Enrique Egas o Juan de Colonia con elementos propios de la arquitectura árabe del sur de España. \nPor tanto, en San Juan de los Reyes se muestra la gloria de los monarcas que habían unido los distintos reinos cristianos y estaban luchando para conquistar la última plaza musulmana de la península ibérica, el Reino de Granada. Así mismo, la guardia y custodia del monasterio le fue encomendada a los Franciscanos de la Observancia. La elección de esta orden en favor de otras se debe a que los fra",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20San%20Juan%20de%20los%20Reyes"
+    },
+    "es:Santa María la Blanca (Toledo)": {
+      "description": "Santa María la Blanca es un templo ubicado en la ciudad española de Toledo. Construida en el 1180 como sinagoga y, habiendo funcionado como tal durante 211 años, fue expropiada y transformada en iglesia como consecuencia del pogromo de 1391. En la actualidad el edificio pertenece a la Iglesia católica, pero no se realiza culto en él.",
+      "body": "Santa María la Blanca es un templo ubicado en la ciudad española de Toledo. Construida en el 1180 como sinagoga y, habiendo funcionado como tal durante 211 años, fue expropiada y transformada en iglesia como consecuencia del pogromo de 1391. En la actualidad el edificio pertenece a la Iglesia católica, pero no se realiza culto en él. Se encuentra abierto al público y funciona como museo o centro en el que se desarrollan actividades tanto culturales como educativas.\n\n\nArquitectura\nConstruido en 1180 (según testimonia la inscripción visible en una de sus vigas), este edificio mudéjar posee cinco naves separadas por pilares sobre los que descansan arcos de herradura. Si bien existe cierto contraste entre la sobriedad del exterior de la sinagoga y su elaborado interior, el edificio presenta no poca austeridad.​ Conforme a la tradición oriental, el mismo 'vive' hacia el interior. Esta sinagoga tuvo considerable influencia sobre otras sinagogas españolas; tal es el caso, por ejemplo, de la sinagoga de Segovia.\n\n\nEstilo\nSe trata de una construcción mudéjar, creada por canteros musulmanes. Sus elementos de arquitectura incluyen paredes blancas y lisas, hechas de ladrillo, arcos de herradura y pilares octogonales, decoración geométrica en los frisos y vegetal en los capiteles de los pilares. Todas estas características y la distribución de los espacios, con sus naves formadas por la sucesión de arcos de herradura soportados por pilares, tienden a recordar la tipología propia de una mezquita.​ La articulación interior y estilo morisco de Santa María la Blanca han servido de modelo para importantes sinagogas europeas y americanas del siglo XIX.​\nLos 32 pilares de este templo son de ladrillo recubierto por cemento y cal. Ornados de piñas y volutas, sus capiteles denotan influencia del arte románico. Por encima de los arcos de herradura prevalece la ornamentación abstracta en frisos horizontales que incluye molduras con delicados motivos basados en la interacción de líneas y med",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Santa%20Mar%C3%ADa%20la%20Blanca%20(Toledo)"
+    },
+    "es:Iglesia de Santo Tomé (Toledo)": {
+      "description": "La iglesia de Santo Tomé o de Santo Tomás Apóstol se encuentra ubicada en el centro histórico de la ciudad española de Toledo, y fue fundada después de la reconquista de esta ciudad por el rey Alfonso VI de León.​ Aparece citada en el siglo XII, como construida sobre el solar de una antigua mezquita del siglo XI.​ Esta mezquita junto con otras de la ciudad fueron utilizadas como iglesias cristianas sin grandes cambios, ya que en la toma de la ciudad no hubo destrucción de edificios. \nSin embargo, a principios del siglo XIV, por encontrarse en estado ruinoso fue totalmente reedificada a cargo de Gonzalo Ruiz de Toledo, señor de Orgaz y se transformó el antiguo alminar de la mezquita en campanario en estilo mudéjar.​ Su fama se debe sobre todo por albergar en su interior, el cuadro El entierro del Conde de Orgaz de El Greco, que puede contemplarse accediendo por la parte posterior de la iglesia.",
+      "body": "La iglesia de Santo Tomé o de Santo Tomás Apóstol se encuentra ubicada en el centro histórico de la ciudad española de Toledo, y fue fundada después de la reconquista de esta ciudad por el rey Alfonso VI de León.​ Aparece citada en el siglo XII, como construida sobre el solar de una antigua mezquita del siglo XI.​ Esta mezquita junto con otras de la ciudad fueron utilizadas como iglesias cristianas sin grandes cambios, ya que en la toma de la ciudad no hubo destrucción de edificios. \nSin embargo, a principios del siglo XIV, por encontrarse en estado ruinoso fue totalmente reedificada a cargo de Gonzalo Ruiz de Toledo, señor de Orgaz y se transformó el antiguo alminar de la mezquita en campanario en estilo mudéjar.​ Su fama se debe sobre todo por albergar en su interior, el cuadro El entierro del Conde de Orgaz de El Greco, que puede contemplarse accediendo por la parte posterior de la iglesia.\n\n\nInterior\n\nEl edificio consta de tres naves con crucero, cubiertas por bóvedas de cañón y ábside poligonal. Para construir la capilla mayor, con mezcla de mudéjar y gótico flamígero, el Señor de Orgaz mandó derribar la antigua cabecera y elevar la cúpula central en forma de estrella de ocho puntas con los nervios pintados. En el lado del evangelio, cerca del altar mayor, una puerta conduce a la entrada de la torre-campanario y desde allí se puede subir por medio de una escalera.​\nTiene la iglesia en sus capillas, dos retablos barrocos, uno plateresco y una pila bautismal del siglo XVI. Destacan una imagen de la Virgen María de mármol del siglo XII y el retablo con elementos jónicos de la capilla mayor del siglo XIX, que sustituyó uno anterior churrigueresco, en este retablo se encuentra en su parte central el cuadro \"La incredulidad de Santo Tomás\" del pintor Vicente López Portaña.​\n\n\nCapilla de la Concepción\nEn los pies de la nave correspondiente al lado de la Epístola, en la llamada capilla de la Concepción se encuentra enterrado por petición propia realizada en su testamen",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20Santo%20Tom%C3%A9%20(Toledo)"
+    },
+    "es:Museo del Greco": {
+      "description": "El Museo del Greco, anteriormente conocido como Casa Museo del Greco,​ es una casa-museo ubicada en la ciudad de Toledo (España) y dedicada al pintor Doménikos Theotokópoulos, más conocido como el Greco, nacido en Creta (Grecia) pero que produjo la mayor parte de su obra en dicha ciudad castellana.",
+      "body": "El Museo del Greco, anteriormente conocido como Casa Museo del Greco,​ es una casa-museo ubicada en la ciudad de Toledo (España) y dedicada al pintor Doménikos Theotokópoulos, más conocido como el Greco, nacido en Creta (Grecia) pero que produjo la mayor parte de su obra en dicha ciudad castellana. La institución, que se inauguró en 1910 para reunir el mayor número posible de cuadros del artista, es una recreación de la que utilizó el pintor para trabajar,​ aunque durante mucho tiempo se consideró que El Greco pudo haber habitado en ella.​ Museo adscrito al Ministerio de Cultura,​ es de gestión exclusiva de la Dirección General de Bellas Artes.​ En 2024 recibió un total de 187 316 visitantes.​\n\n\nHistoria\n\n\nOrígenes\nEn mayo de 1902, y con motivo de la coronación de Alfonso XIII, la Gaceta de Madrid publicaba la autorización expresa de la reina regente para la realización de una exposición sobre el Greco y las instrucciones para llevarla a cabo.​​ Esta se celebraría en el entonces llamado Museo Nacional de Pintura y Escultura (el actual Museo del Prado). Estaba compuesta por obras del propio Museo y de particulares.​ El catálogo de la exposición consideraba a El Greco un pintor olvidado hasta finales del siglo XIX y afirmaba que había llegado \"para él, el momento solemne de su rehabilitación\".\nOcho años después se aprobó la Real Orden \"disponiendo se admita la oferta hecha por el señor Marqués de Vega Inclán, de la casa del Greco, en Toledo, para servir de Museo á las obras del Greco, en Toledo\". A pesar del título,​ realmente no se creaba un Museo específico sobre el Greco. En efecto, decía el primer punto de la Real Orden citada \"Que se admita la oferta hecha por el Sr. Marqués de Vega Inclán del citado edificio, para servir de Museo á las obras del pintor cretense y con objeto de que en su día constituya la base de un Museo de Arte Español, donde sea conocida y estudiada nuestra gloriosa pintura, desde el Greco a D. Vicente López\". El Greco era por lo tanto el punt",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20del%20Greco"
+    },
+    "es:Puente de Alcántara (Toledo)": {
+      "description": "El puente de Alcántara (del árabe القنطرة al-qanṭaratu, \"puente\") es un puente sobre el río Tajo ubicado en la ciudad española de Toledo.",
+      "body": "El puente de Alcántara (del árabe القنطرة al-qanṭaratu, \"puente\") es un puente sobre el río Tajo ubicado en la ciudad española de Toledo.\nEn 1921 fue declarado Monumento nacional,​\npor lo que es bien de interés cultural con categoría de monumento.​\n\n\nDescripción\nEn la actualidad cuenta con dos arcos.​ Situado a los pies del castillo de San Servando y junto a la Puerta de Alcántara, se tiene constancia de su construcción en la época romana, en la fundación de Toletum. Fue muy dañado y reconstruido en el siglo X. Es cuando desaparece el tercer arco, reducido a un portillo con arco de herradura. Era uno de los puentes que daba entrada a la ciudad y era en el Medioevo entrada obligada para todo peregrino.\nBajo el reinado de Alfonso X sufrió graves desperfectos y fue reconstruido. A este último período pertenece el torreón occidental, luego modificado y decorado bajo el reinado de los Reyes Católicos, cuyas armas decoran sus muros. Falta en ellas el fruto de la granada, pues la Reconquista aún no había concluido. \nEl torreón oriental fue reemplazado por un arco triunfal barroco en 1721, dado su estado ruinoso.​\nEl puente presenta dos pares de apartaderos, uno clásico coronando los amplios contrafuertes del arco fluvial hacia la entrada a la ciudad, mientras que el otro par consiste en dos hendiduras rectangulares en voladizo hacia el arco de acceso al puente.\n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Puente de Alcántara.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Puente%20de%20Alc%C3%A1ntara%20(Toledo)"
+    },
+    "es:Hospital de Tavera": {
+      "description": "El Hospital de Tavera, también conocido como Hospital de San Juan Bautista, Hospital de afuera o simplemente como Hospital Tavera, es un importante edificio de estilo renacentista que se encuentra en la ciudad española de Toledo. Fue construido entre 1541 y 1603 por orden del cardenal Tavera. Este hospital está dedicado a San Juan Bautista y también sirvió como panteón para su mecenas, el cardenal Tavera.",
+      "body": "El Hospital de Tavera, también conocido como Hospital de San Juan Bautista, Hospital de afuera o simplemente como Hospital Tavera, es un importante edificio de estilo renacentista que se encuentra en la ciudad española de Toledo. Fue construido entre 1541 y 1603 por orden del cardenal Tavera. Este hospital está dedicado a San Juan Bautista y también sirvió como panteón para su mecenas, el cardenal Tavera. Inicialmente empezó a construirse bajo la supervisión de Alonso de Covarrubias, siendo sucedido por otros arquitectos y terminando la obra Bartolomé Bustamante. \nLa lejanía con el casco viejo de la ciudad hizo que se le apodara «el hospital de afuera», puesto que dentro de las murallas ya existía el Hospital de Santa Cruz.\nActualmente el edificio sigue siendo propiedad de la casa de Medinaceli y en su interior se encuentra el Museo Fundación Lerma, que alberga parte de las colecciones artísticas de dicho linaje, así como el Archivo Histórico de la Nobleza.\n\n\nEl edificio\nEl conjunto está compuesto por dos patios columnados, una iglesia (donde se encuentra la cripta de la Casa ducal de Medinaceli) y el palacio-museo, que incluye parte del antiguo hospital. \nEl aspecto del edificio es el de un palacio florentino renacentista, exceptuando la portada, que se construyó en el siglo XVIII, entre los años 1760 y 1762. Es un edificio regular con fachada almohadillada a la italiana, con ventanas equidistantes y rectangulares en el piso bajo y semicirculares en el superior, siendo a la inversa las de los extremos. El conjunto está unido por dos patios gemelos columnados de dos alturas, separados y unidos a la vez por una doble arcada que los atraviesa hacia la iglesia.\nLa portada de la iglesia es de mármol genovés. El interior presenta una sola nave y el crucero cubierto por cúpula con linterna, sobre pechinas y tambor, como la basílica del Monasterio de El Escorial. Debajo de ella se encuentra el sepulcro del Cardenal Tavera, obra realizada en mármol blanco por Alonso Berrugu",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Hospital%20de%20Tavera"
+    },
+    "es:Puerta Nueva de Bisagra": {
+      "description": "La Puerta Nueva de Bisagra es una puerta monumental situada en las murallas de la ciudad española de Toledo.",
+      "body": "La Puerta Nueva de Bisagra es una puerta monumental situada en las murallas de la ciudad española de Toledo.\n\n\nDescripción\nUbicada en la ciudad de Toledo, es conocida con el título de «Nueva» debido a que existe otra puerta en las inmediaciones —de menor tamaño— llamada «Puerta Antigua de Bisagra» o «Puerta de Alfonso VI». Su nombre musulmán era bab a Ssaqra.​ Fue reconstruida a mediados del siglo XVI,​ que debió de comenzar hacia 1540;​ participarían en ella Nicolás de Vergara el Viejo,​ Juan de Benavides, Eugenio Sánchez​ y hacia 1547-1548 Alonso de Covarrubias.​ Las obras finalizarían en 1576.​Está formada por dos cuerpos independientes con dos altos muros almenados que los unen, formando un patio entre ellos,​ donde se encuentra una estatua de Carlos V.​ El lado externo está formado por un arco de medio punto con sillares almohadillados, sobre el que se encuentra un gran escudo de la «Ciudad Imperial», con su águila bicéfala,​ además de un frontón con una escultura de un ángel custodio.​ Flanquean esta entrada dos grandes torreones circulares. El cuerpo que da a la ciudad tiene otra puerta de arco de medio punto, flanqueada por dos torreones cuadrados rematados por tejados piramidales.​ Existió cierto debate en lo referente a su origen y antigüedad, si fue primero árabe o mudéjar.​​\n\nLa excavación efectuada en 1999,​ con motivo del proyecto de restauración de las murallas de Toledo, documentó que la estructura renacentista estaba levantada sobre un antiguo acceso en codo, hoy apreciable en el pequeño patio anejo al patio principal llamado \"patio del encuentro\". Aunque algunos de los vanos originales se cubrieron, durante la intervención se pudieron exhumar diversos materiales que fechaban esta puerta claramente con anterioridad a la conquista de la ciudad por parte de Alfonso VI en el año 1085. Los potentes cimientos y la estructura en codo subrayan el carácter monumental de la estructura, que fue amortizada —quizás durante la conquista de la ciudad— y sellada. ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Puerta%20Nueva%20de%20Bisagra"
+    },
+    "es:Iglesia de El Salvador (Toledo)": {
+      "description": "La iglesia del Salvador de Toledo fue en tiempos de la presencia musulmana, una mezquita, cuya fecha está por determinar, aunque algunos investigadores la datan en 1041 o posiblemente anterior.",
+      "body": "La iglesia del Salvador de Toledo fue en tiempos de la presencia musulmana, una mezquita, cuya fecha está por determinar, aunque algunos investigadores la datan en 1041 o posiblemente anterior. Se han encontrado restos anteriores de ocupación eclesial visigoda e incluso de un periodo tardío romano del siglo II.\n\n\nHistoria y descripción\nLa iglesia del Salvador está situada en la ciudad de Toledo, cerca de las iglesias de Santo Tomé y Santa Úrsula. Es una de las iglesias nombradas en el Lazarillo de Tormes y en ella fueron bautizados Juana I de Castilla («la Loca») y el dramaturgo Francisco de Rojas Zorrilla.​\nLa actual iglesia está construida sobre una antigua mezquita musulmana, por lo que está orientada al sureste, en dirección a La Meca. Para  la construcción de esta mezquita, como era habitual, se habían reutilizado diferentes elementos arquitectónicos visigodos, gracias a lo cual se ha conservado una arquería de herradura apoyada sobre pilastras visigodas con decoración esculpida de temas figurativos, nada habituales en este tipo de restos.\nLa Pilastra de El Salvador presenta en una de sus caras diversas escenas milagrosas de la vida de Jesús, en registros superpuestos: la curación del ciego, la resurrección de Lázaro, la samaritana y la hemorroísa, así como otros temas de matiz eucarístico que aluden a Cristo como salvación y cuya iconografía parece retomada de algún sarcófago paleocristiano que puedo servir de modelo. Su tosco tratamiento muestra el abandono en que había caído el trabajo en la piedra.\nAunque conserva la figura del alminar, que lleva incrustaciones de cenefas, la conversión al culto cristiano en 1159 la hizo sufrir diversas modificaciones, especialmente, la construcción de la capilla gótica de santa Catalina, de finales del siglo XV. Al alminar, convertido en torre, se le añadiría posteriormente un campanario de ladrillo.\nEstá dedicada a San Salvador. La iglesia sufrió un incendio en el siglo XV, lo que obligó a su total renovación. Será Álvare",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20El%20Salvador%20(Toledo)"
+    },
+    "es:Iglesia de San Román (Toledo)": {
+      "description": "La iglesia de San Román de la ciudad de Toledo se construyó en estilo mudéjar en el siglo XIII en el lugar donde antes hubo una basílica visigótica, conforme atestiguaría la cripta hallada bajo la capilla mayor, reaprovechada quizá como mezquita y probablemente, sobre un antiguo edificio romano. Actualmente es la sede del Museo de los Concilios y de la Cultura Visigoda.",
+      "body": "La iglesia de San Román de la ciudad de Toledo se construyó en estilo mudéjar en el siglo XIII en el lugar donde antes hubo una basílica visigótica, conforme atestiguaría la cripta hallada bajo la capilla mayor, reaprovechada quizá como mezquita y probablemente, sobre un antiguo edificio romano. Actualmente es la sede del Museo de los Concilios y de la Cultura Visigoda.\n\n\nHistoria y descripción\n\nEstá situada en uno de los lugares más altos y privilegiados de la ciudad, en la segunda de las doce colinas que la forman. Se tienen noticias ya de la parroquia en el siglo XII y la iglesia sería consagrada en 1221 por el arzobispo Rodrigo Ximénez de Rada. La tradición señala que en ella se coronó rey a Alfonso VIII de Castilla el 26 de agosto de 1166 por el caballero y noble Esteban Illán.​\nLa iglesia presenta planta basilical con tres naves, separadas por arcos de herradura con alfiz que apoyan sobre pilares con columnas visigodas y romanas adosadas con capiteles reutilizados de procedencia visigoda en algunos casos, distinguiéndose por sus hojas corintias.​\nA lo largo del siglo XIII se construyeron un nuevo ábside y la robusta torre (de estilo mudéjar toledano, con sus dos cuerpos superiores en doble campanario, abriéndose los vanos en grupos de dos y tres, y que serviría de modelo a otras torres toledanas).\nEl ciclo de pinturas murales que recubre las paredes y arcos interiores corresponde cronológicamente a una fecha cercana a la de la consagración del templo, en 1221. Se trata del conjunto de pinturas románicas más meridional de España, conservadas in situ bien que fragmentariamente, tras haber sido ocultadas bajo un revoque de cal en el siglo XVI y recuperadas en la década de 1940.​ La superficie pictórica perdida, principalmente la de la cabecera, impide realizar una lectura iconográfica completa del conjunto, en el que elementos decorativos típicamente mudéjares, incluyendo inscripciones en caracteres arábigos con alabanzas a la Virgen María, enmarcan motivos figur",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Rom%C3%A1n%20(Toledo)"
+    },
+    "es:Castillo de San Servando": {
+      "description": "El castillo de San Servando se encuentra en la ciudad de Toledo, España, junto a la ribera del río Tajo y la Academia de Infantería.",
+      "body": "El castillo de San Servando se encuentra en la ciudad de Toledo, España, junto a la ribera del río Tajo y la Academia de Infantería. \n\n\nHistoria y descripción\n\nSe inició su construcción como monasterio en 1024, en tiempos de Alfonso VI. En 1088 se convirtió en alcázar debido a la amenaza del reino cristiano y a las posibles entradas de los musulmanes por el puente de Alcántara.\nEn 1147 Muñoz de Cervatos conquistó el castillo de las manos de los moros. Con la total expulsión de los musulmanes de la península ibérica, la fortaleza fue perdiendo paulatinamente su función de defensa quedando relegada al olvido.\nTras diversos avatares, y bajo peligro de demolición, en 1874 fue declarado «Monumento artístico nacional». En el siglo XXI, el castillo está completamente restaurado y, tras servir sucesivamente como colegio menor, sede de las Cortes de Castilla-La Mancha y residencia universitaria, ahora lo hace como albergue y lugar de celebración de cursos y conferencias. \nDesde el castillo se puede divisar una vista panorámica de la ciudad de Toledo y del Tajo, el río que la bordea, en lo que era la ciudadela medieval.\n\n\nEnlaces externos\n\n Wikimedia Commons alberga una categoría multimedia sobre Castillo de San Servando.\nLa muerte de Don Nuño Alvear | Una leyenda del castillo de San Servando",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Castillo%20de%20San%20Servando"
+    },
+    "es:Iglesia de Santa Leocadia (Toledo)": {
+      "description": "La iglesia de Santa Leocadia es un templo católico ubicado en la ciudad española de Toledo.",
+      "body": "La iglesia de Santa Leocadia es un templo católico ubicado en la ciudad española de Toledo.\n\n\nTradición e historia\nLa tradición toledana sostiene que el inmueble estaría edificado sobre el solar de la casa donde nació la santa Leocadia de Toledo, a la que pertenecería una pequeña habitación subterránea, donde se afirma que hacía oración. Esta cueva corresponde a la cripta situada junto al pilar derecho del presbiterio, y se cubre con una bovedilla de crucería en yeso, que puede fecharse en la primera mitad del siglo XVI. En la torre y en la fachada de la iglesia se conservan, empotrados, algunos fragmentos de relieves de estilo visigótico.\nLa parroquia aparece citada en documentos desde mediados del siglo siglo XII, con la denominación de «Santa Leocadia de dentro de Toledo», para diferenciarla de otra iglesia, con la misma advocación, «junto al alcázar», edificada en el lugar donde la santa estuvo en prisión, y de la basílica extramuros, «de fuera», actual ermita del Cristo de la Vega, donde fue enterrada. Tanto la actual iglesia, como la torre responden, en sus partes más antiguas, al mudéjar toledano de fines del siglo XIII, lo que lleva a pensar que existió otra construcción anterior, de la que no han quedado restos. Únicamente, hay referencias para pensar que la disposición primitiva era la de un edificio aislado, separado del convento de Santo Domingo el Antiguo por una calle que fue suprimida, en tiempos de Alfonso X, al ampliar ese convento.\nConsiderada “la parroquia de los nobles”, porque en torno a principios del siglo XVI congregaba un buen número de casas señoriales, entre ellas la que fue casa-palacio de los Lasso de la Vega, entre sus parroquianos más ilustres se encuentra el poeta toledano Garcilaso de la Vega, quien la consideró su parroquia a partir de instalarse con su mujer en la calle de los Aljibes en 1528.​\n\n\nDescripción\nLa parte mejor conservada de la construcción mudéjar es la torre, adosada al ábside del evangelio; lo que viene a confirmar q",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20Santa%20Leocadia%20(Toledo)"
+    },
+    "es:Iglesia de Santiago del Arrabal (Toledo)": {
+      "description": "La iglesia de Santiago el Mayor o de Santiago del Arrabal  es una iglesia católica de la ciudad española de Toledo, junto a la Puerta Nueva de Bisagra, en la zona norte del casco histórico de la ciudad. Construida en la segunda mitad del siglo XIII,​ bajo el mecenazgo de Sancho II, rey de Portugal,​​​ se trata de una de las mejores muestras del mudéjar toledano.​ Está catalogada como bien de interés cultural.​\n\nSu ubicación, cercana a la Puerta de Bisagra Vieja y en un antiguo barrio musulmán, apunta a que la iglesia debió construirse en el lugar de un primigenio templo, quizá una mezquita.​ De su localización también proviene el nombre, al encontrarse en el pasado a las entonces afueras de la antigua ciudad, en los arrabales.\nTiene muros de mampostería y ladrillo con puertas enmarcadas en arcos de herradura polilobulados.",
+      "body": "La iglesia de Santiago el Mayor o de Santiago del Arrabal  es una iglesia católica de la ciudad española de Toledo, junto a la Puerta Nueva de Bisagra, en la zona norte del casco histórico de la ciudad. Construida en la segunda mitad del siglo XIII,​ bajo el mecenazgo de Sancho II, rey de Portugal,​​​ se trata de una de las mejores muestras del mudéjar toledano.​ Está catalogada como bien de interés cultural.​\n\nSu ubicación, cercana a la Puerta de Bisagra Vieja y en un antiguo barrio musulmán, apunta a que la iglesia debió construirse en el lugar de un primigenio templo, quizá una mezquita.​ De su localización también proviene el nombre, al encontrarse en el pasado a las entonces afueras de la antigua ciudad, en los arrabales.\nTiene muros de mampostería y ladrillo con puertas enmarcadas en arcos de herradura polilobulados. Cuenta con tres ábsides semicirculares​ cuyos exteriores los constituyen pisos de arcos de distintos tipos (de medio punto, apuntados y polilobulados). En el interior hay símbolos árabes como la ‘mano de Fátima’ o inscripciones en el techo de madera. Los arcos de las naves son góticos, igual que la bóveda del crucero. El retablo es renacentista con decoración plateresca, obra de Francisco de Espinosa con imágenes de las vidas de Cristo y del apóstol Santiago el Mayor.​\n\nEn el siglo XX se realizaron diversas restauraciones y obras de reurbanización en el entorno, lo que desembarazó el templo de construcciones anejas y quedó exenta e independiente de la Puerta de Bisagra, a la que estaba unida.​\nSan Vicente Ferrer predicó en este templo,​ llevando a sus fieles a cristianizar forzosamente la sinagoga en 1405, posteriormente convertida en iglesia con el nombre de Santa María la Blanca.​\n\n\nReferencias\n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Iglesia de Santiago del Arrabal.\nParroquia de Santiago el Mayor de Toledo",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20Santiago%20del%20Arrabal%20(Toledo)"
+    },
+    "es:Museo del Ejército (España)": {
+      "description": "El Museo del Ejército de España, con sede en el Alcázar de Toledo, es el resultado de la fusión de diversos museos militares creados a lo largo del siglo XIX y principios del XX. Su núcleo fundacional está constituido por el de Artillería e Ingenieros.\nConforme a lo dispuesto en el Real Decreto 1305/2009, de 31 de julio, por el que se crea la Red de Museos de España, el museo del Ejército es uno de los museos nacionales de titularidad y gestión estatal, adscrito al Ministerio de Defensa.",
+      "body": "El Museo del Ejército de España, con sede en el Alcázar de Toledo, es el resultado de la fusión de diversos museos militares creados a lo largo del siglo XIX y principios del XX. Su núcleo fundacional está constituido por el de Artillería e Ingenieros.\nConforme a lo dispuesto en el Real Decreto 1305/2009, de 31 de julio, por el que se crea la Red de Museos de España, el museo del Ejército es uno de los museos nacionales de titularidad y gestión estatal, adscrito al Ministerio de Defensa.\n\n\nHistoria\nEn 1803, a instancias de Godoy, se crea en Madrid el Real Museo Militar, antecedente más remoto del Museo del Ejército actual. Se trata de uno de los museos españoles más antiguos y responde al interés existente en la Europa de la época por la conservación y difusión de los objetos relacionados con la historia militar. En ese momento, sus colecciones respondían a claros objetivos didácticos, siendo uno de sus principales el apoyo para la formación de los soldados, proporcionando una enseñanza complementaria a las Academias Militares.\nEn 1827, se produce la división del Real Museo Militar en dos secciones: el Museo de Artillería y el Museo de Ingenieros, con organización y funcionamiento propios. Se traslada en 1841 el de Artillería al palacio del Buen Retiro y abre al público en octubre con expandidos fondos, incluyendo el estandarte imperial de Túnez, la bandera de Hernán Cortés y la espada de Aliatar.​  En el último tercio del siglo XIX, se inicia una etapa de creación de nuevos museos militares. Surgen así el Museo de Intendencia (1885), el Museo de Caballería (1889) y el Museo de Infantería (1908), que junto con los ya citados de Artillería e Ingenieros mantendrán una vida independiente.\nEn 1929, se plantea ya la idea de organizar un nuevo museo reuniendo todos los museos militares existentes, aunque nunca llegó a materializarse. Habrá que esperar a la II República, cuando se crea el Museo Histórico Militar en 1932, incluyendo secciones para las cuatro armas y los cue",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20del%20Ej%C3%A9rcito%20(Espa%C3%B1a)"
+    },
+    "es:Plaza de toros de Toledo": {
+      "description": "La plaza de toros es un coso taurino de la ciudad española de Toledo",
+      "body": "La plaza de toros es un coso taurino de la ciudad española de Toledo\n\n\nHistoria\nEn la que fuera capital del Imperio aún se conserva por escrito la lidia de una corrida de toros en el año 1566, con motivo del nacimiento de la infanta Clara Eugenia, hija de Felipe II. En aquel mismo escenario años más tarde, concretamente en 1572 se celebraron dos grandes festejos taurinos que causaron sensación: la primera fue con motivo de la gran victoria de Lepanto y la segunda con el nacimiento del príncipe Fernando.\nDurante muchos años, hasta 1865, las corridas se celebraban en la plaza de Zocodover, espina dorsal de la ciudad castellana, en ocasiones sonadas. Es en el siglo XIX cuando surge la nueva y definitiva plaza de toros de Toledo, situada en la carretera de Madrid. Siguiendo un diseño de Francisco Jareño su arquitecto, las obras se costearon mediante la emisión de acciones y se calcula que llegaron a ser más de trescientos los socios fundadores.\n\n\nCaracterísticas\nLa plaza de toros presenta un estilo árabe con muros de mampostería y ocho tendidos de piedra berroqueña. En su interior podemos encontrar las instalaciones básicas, como corrales, capilla, enfermería, chiqueros, patios de caballos y meseta de toriles. Su aforo es de 8530 espectadores, por lo que se cataloga en España entre las plazas de segunda categoría. Fue estrenada el 18 de agosto de 1866, con toros de Vicente Martínez y Félix Gómez para Cayetano Sanz y El Tato, estoqueando el último Frascuelo, que curiosamente se encontraba como espectador.\n\n\nFerias\nLa Feria del Corpus, que se celebra a finales de mayo y principios de junio, es la que toma mayor relevancia en Toledo. Durante dicho período se celebran numerosas corridas de toros.\n\n\nLocalización\nSe encuentra en la C/ Huérfanos Cristino, S/N (CP 45003), frente a los antiguos cines María Cristina.\n\n\nEspectáculos\n07/09/2024: Robe, gira 'Ni santos ni inocentes'\n14/07/2017: David Bisbal, 'Hijos del Mar Tour'\n17/06/2017: Amaral, 'Gira Nocturnal'\n31/12/2016: XXXV S",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20toros%20de%20Toledo"
+    },
+    "es:Museo Sefardí": {
+      "description": "El Museo Sefardí, en  Toledo, España,  ocupa el antiguo convento de Caballeros de Calatrava, anexo a la Sinagoga del Tránsito, y muestra aspectos históricos, religiosos y de las costumbres del pasado judío en España, así como de los sefardíes, los descendientes de los judíos que vivieron en la península ibérica hasta 1492.\nEn el año 1964,​ se decide que la sinagoga del Tránsito o sinagoga de Samuel ha-Leví sea la sede del museo sefardí, el cual tiene como objetivo conservar el legado de la cultura hispano-judía y sefardí para que quede integrada como parte esencial del Patrimonio Histórico Español, tarea que desempeña hasta la actualidad. Conforme a lo dispuesto en el Real Decreto 1305/2009, de 31 de julio, por el que se crea la Red de Museos de España, el Museo Sefardí es uno de los museos nacionales de titularidad y gestión estatal, adscrito al Ministerio de Cultura.",
+      "body": "El Museo Sefardí, en  Toledo, España,  ocupa el antiguo convento de Caballeros de Calatrava, anexo a la Sinagoga del Tránsito, y muestra aspectos históricos, religiosos y de las costumbres del pasado judío en España, así como de los sefardíes, los descendientes de los judíos que vivieron en la península ibérica hasta 1492.\nEn el año 1964,​ se decide que la sinagoga del Tránsito o sinagoga de Samuel ha-Leví sea la sede del museo sefardí, el cual tiene como objetivo conservar el legado de la cultura hispano-judía y sefardí para que quede integrada como parte esencial del Patrimonio Histórico Español, tarea que desempeña hasta la actualidad. Conforme a lo dispuesto en el Real Decreto 1305/2009, de 31 de julio, por el que se crea la Red de Museos de España, el Museo Sefardí es uno de los museos nacionales de titularidad y gestión estatal, adscrito al Ministerio de Cultura.\nEs un museo nacional de España adscrito al Ministerio de Cultura y es de gestión exclusiva de la Dirección General de Bellas Artes y Patrimonio Cultural.\n\n\nHistoria del pueblo judío\nLa primera sala muestra la historia, geografía y cultura del pueblo judío en el Próximo Oriente Antiguo, donde según los escritos bíblicos se originaron las tradiciones que perduran en su vida cotidiana. Se muestran objetos arqueológicos fechados entre el 2000 a. C. y el siglo I d. C. así como una gran variedad de objetos culturales relacionados con lo que es y lo que significa ser judío, sus creencias y costumbres. Destaca una Torah (libro sagrado del judaísmo, formado por el Pentateuco) y otros objetos litúrgicos.\n\n\nLos judíos en la península ibérica\nSe exponen los principales testimonios de la cultura material a lo largo de la presencia judía en España: desde su llegada a la península ibérica, su vida en época romana y visigoda, su desarrollo en al-Ándalus así como en los reinos cristianos durante los siglos XIII-XV, los conversos, la Inquisición y la expulsión en 1492.\nEn el patio norte, a modo de necrópolis, se expone",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Museo%20Sefard%C3%AD"
+    },
+    "es:Convento de San Antonio de Padua (Toledo)": {
+      "description": "El convento de San Antonio de Padua es un edificio de la ciudad española de Toledo, cuyo origen se remonta al siglo XVI.",
+      "body": "El convento de San Antonio de Padua es un edificio de la ciudad española de Toledo, cuyo origen se remonta al siglo XVI.\n\n\nHistoria\nFue en origen un beaterio de mujeres fundado en 1514, que tuvo su sede en unas casas situadas frente a la portada de la iglesia conventual de los Dominicos de la Madre de Dios. En 1525, las beatas compran el palacio o casona del regidor comunero Hernando de Ávalos, que había sido confiscada, por orden de Carlos V. Este palacio de Ávalos será el núcleo del convento de San Antonio de Padua, con otras adiciones de inmuebles vecinos. Las trazas, para la iglesia conventual, se deben a Juan Bautista Monegro; pero quien terminó las obras fue Juan Martínez Encabo. \n\n\nDescripción\n\nEn las dependencias conventuales se aprecia una yuxtaposición, impuesta sin un criterio ordenador. Es de destacar el denominado patio de Los Naranjos, que data de 1480. Se trata de un espacio cuadrangular, de estructuras adinteladas, cuyos soportes fundamentales son pilares ochavados. Sus galerías presentan cubiertas de madera, con alfarjes de decoración vegetal pintada y algunas yeserías decorativas, gótico-mudéjares. \nLa portada conventual parece ser, también, resto del antiguo palacio de Ávalos, ejemplo del gótico civil toledano. El convento cuenta con otro patio, el conocido como del Cementerio, que parece obra de principios del siglo XVI. Está formado por tres pisos adintelados, el inferior con soportes de piedra y los restantes en madera. La sala capitular, con un alfarje como cubierta, es fechable hacia finales del siglo XV. \nLa iglesia es de planta rectangular, de una sola nave, dividida en cuatro tramos, y cuenta con amplio crucero de escaso desarrollo lateral, presbiterio de testero plano, poco profundo y tres capillas-hornacinas, por cada lado. Presenta un amplio coro a los pies del templo. Sobre el tramo central del crucero se levanta una gran cúpula, fajeada sobre pechinas, sin tambor y ciega. El resto de las bóvedas son medios cañones con lunetos. La arti",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20de%20San%20Antonio%20de%20Padua%20(Toledo)"
+    },
+    "es:Iglesia de San Ildefonso (Toledo)": {
+      "description": "La iglesia de San Ildefonso es una iglesia de estilo barroco localizada en el centro del casco histórico de la ciudad española de Toledo. También es conocida como la iglesia de los jesuitas y se encuentra consagrada a san Ildefonso de Toledo, patrón de la ciudad y Padre de la Iglesia.",
+      "body": "La iglesia de San Ildefonso es una iglesia de estilo barroco localizada en el centro del casco histórico de la ciudad española de Toledo. También es conocida como la iglesia de los jesuitas y se encuentra consagrada a san Ildefonso de Toledo, patrón de la ciudad y Padre de la Iglesia.\n\n\nConstrucción\nSu construcción, que se prolongaría durante más de cien años, comenzó en el año 1629, sobre unos terrenos adquiridos por los jesuitas de Toledo en 1569 donde se encontraban las casas de Juan Hurtado de Mendoza Rojas y Guzmán, conde de Orgaz,​ y que había sido asimismo el lugar natal de san Ildefonso. Pedro y Estefanía Manrique de Castilla, miembros de la alta nobleza castellana,​ fueron los impulsores de la erección del templo, como quedó escrito en los documentos fundacionales: \n\n \n\nCon un diseño que seguía el modelo de planta de las iglesias jesuitas de Palencia y de Alcalá de Henares y también el de la iglesia del Gesù, que se encuentra en la ciudad de Roma y es la principal iglesia de la Compañía de Jesús. Dicha traza ha sido atribuida a Juan Bautista Monegro, por aquel entonces maestro mayor de la catedral. Sin embargo, no fue él quien se encargaría de la construcción del templo, sino Pedro Sánchez, un hermano jesuita, por lo que los diseños originales fueron modificados, lo que conllevó cambios en la fachada y en la cabecera. El arquitecto jesuita Pedro Sánchez murió pocos años después, en el año 1633, y fue sustituido por otro compañero de su orden, Francisco Bautista, a quien se debe la fachada retablo de estilo también barroco, que domina la ciudad desde su elevada posición. Pasados varios lustros, en el año 1669, Bautista dejaría su lugar a Bartolomé Zumbigo, arquitecto natural de Toledo, quien terminó las torres y la fachada.\nYa entrado el siglo XVIII, en 1718, se consagró la todavía incompleta obra, a la que le faltaban aún por terminar la sacristía, la capilla mayor y el ochavo, que contiene el relicario. Casi medio siglo después, en 1765, por fin se pudo co",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Iglesia%20de%20San%20Ildefonso%20(Toledo)"
+    },
+    "es:Monasterio de Santo Domingo el Real (Toledo)": {
+      "description": "El monasterio de Santo Domingo el Real, situado en la ciudad de Toledo (España), es un monasterio de monjas dominicas.",
+      "body": "El monasterio de Santo Domingo el Real, situado en la ciudad de Toledo (España), es un monasterio de monjas dominicas.\n\n\nHistoria\nFue fundado en 1364 por la noble Inés García de Meneses,​ hija de García Suárez de Meneses y de María Fernández Barroso, después de enviudar de Sancho de Velasco. Ha sido un monasterio de clausura desde sus comienzos y el primero en Toledo fundado por las monjas dominicas.​ En él profesaron importantes figuras vinculadas a la casa real castellana como María de Castilla, hija bastarda de Pedro I, así como la madre de María y amante del rey Pedro, Teresa de Ayala, hija de Diego Gómez de Toledo y de su esposa Inés de Ayala, hermana del canciller Pero López de Ayala. El monasterio guarda en sus archivos numerosos documentos incluyendo cartas de los descendientes del rey Pedro ya que se convirtió en un «lugar de memoria» del rey.​ En el siglo XV, residió en esta casa Santa Beatriz de Silva, fundadora de la orden concepcionista. \nEl convento se articula en torno a tres patios: el del Rosal, el del Moral y el de San Martín de Porres. El edificio está conformado por bloques independientes relacionados entre sí, que se han ido incorporando al núcleo principal en el transcurso del tiempo. La primera ampliación se produjo a finales del siglo XIV, momento en el que se construyó la vieja iglesia y otras dependencias de estilo mudéjar, aunque las grandes reformas se efectuaron en el siglo XVI. A mediados de dicho siglo se transforma el coro y, entre 1566 y 1575, se construyó una nueva iglesia, siguiendo un diseño que parece corresponder a la mano del escultor y arquitecto Diego de Velasco de Ávila. En 1583 se realizó el llamado claustro de la Mona, actualmente cedido a las vecinas comendadoras de Santiago. \nLa iglesia está ubicada en la plaza de Santo Domingo el Real y se accede a ella a través de un pórtico apoyado en cuatro columnas dóricas de piedra sobre altos basamentos, que resguarda tres puertas de acceso adinteladas. Es de una sola nave y plant",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Monasterio%20de%20Santo%20Domingo%20el%20Real%20(Toledo)"
+    },
+    "es:Convento de San Gil (Toledo)": {
+      "description": "El convento de San Gil de la ciudad española de Toledo data del siglo XVII. Los franciscanos descalzos, o gilitos, llegaron a esta ciudad a mediados del siglo XVI, estableciéndose en 1557 en las proximidades de la ermita de la Virgen de la Rosa. Posteriormente, entrado el siglo XVII, dos hermanos, Francisco y Juan de Herrera, hicieron donación a los frailes de 16 000 ducados para la construcción del nuevo convento. \nLas obras comenzaron en 1610, y el maestro de albañilería Martínez de Encabo se comprometió a labrar la iglesia y el convento en cuatro años.",
+      "body": "El convento de San Gil de la ciudad española de Toledo data del siglo XVII. Los franciscanos descalzos, o gilitos, llegaron a esta ciudad a mediados del siglo XVI, estableciéndose en 1557 en las proximidades de la ermita de la Virgen de la Rosa. Posteriormente, entrado el siglo XVII, dos hermanos, Francisco y Juan de Herrera, hicieron donación a los frailes de 16 000 ducados para la construcción del nuevo convento. \nLas obras comenzaron en 1610, y el maestro de albañilería Martínez de Encabo se comprometió a labrar la iglesia y el convento en cuatro años. Muy posiblemente el tracista de la obra fuera Juan Bautista Monegro, con quien trabajaba Martínez de Encabo, en la iglesia de San Pedro Mártir. El convento «de los Gilitos», como vulgarmente se le conoce, es un ejemplo perfecto de la sencillez y sobriedad de la arquitectura toledana de comienzos del siglo XVII. \nLos monjes descalzos franciscanos habitaron el edificio por más de doscientos años, con la austeridad propia de su regla. En 1835, se decretó la famosa desamortización de Mendizábal, por la que se obligaba a cerrar los conventos con menos de doce frailes. En enero de 1836 el gobernador civil ordenó la exclaustración de los frailes y el cierre definitivo del convento. \nA lo largo del tiempo después de la expropiación, el convento fue utilizado para diversos fines. En su primera época como propiedad estatal, fungió como presidio en sustitución de la antigua cárcel de la calle Alfonso XII, la cual se encontraba en muy mal estado. En el lustro que parte de 1851 se planificaron las obras y se recaudaron los fondos para las mismas (fueron necesarios 95.280 reales y 24 maravedíes). Entre las reformas de remodelación, cabe destacar el estrechamiento de las ventanas, posiblemente para evitar la fuga de presos.​ \nDesde 1985 el convento es sede de las Cortes de Castilla-La Mancha. \n\n\nDescripción\n\nEn planta, el edificio consta de dos zonas: la iglesia, situada en la fachada este, y el ámbito conventual, que se distribu",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20de%20San%20Gil%20(Toledo)"
+    },
+    "es:Puerta del Sol (Toledo)": {
+      "description": "La Puerta del Sol es una puerta medieval de la ciudad española de Toledo.​",
+      "body": "La Puerta del Sol es una puerta medieval de la ciudad española de Toledo.​\n\n\nDescripción\n\nTiene un estilo mudéjar y fue construida para dar acceso a la ciudad amurallada. \nSe trata de una puerta de albarrana, de carácter conmemorativo, de gran influencia nazarí. Está fechada en el último cuarto del siglo XIV. \nEl arco de acceso es un arco de herradura y es acogido por un arco de herradura apuntado. Está construida en piedra, sillería y mampostería. Las almenas, los merlones y el friso de la puerta son de ladrillo. Con arcos lobulados entrelazados. Recibe su nombre de un relieve en el lado extramuros, en el que entre otras figuras aparece un sol.\n\n\nReferencias\n\n\nBibliografía\nAmador de los Ríos, José (1845). Toledo pintoresca, o descripción de sus más celebres monumentos. Madrid: Imprenta y librerías de Ignacio Boix. \n\n\nEnlaces externos\n Wikimedia Commons alberga una categoría multimedia sobre Puerta del Sol.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Puerta%20del%20Sol%20(Toledo)"
+    },
+    "es:Palacio arzobispal de Toledo": {
+      "description": "El Palacio arzobispal es una de las realizaciones arquitectónicas de más vastas dimensiones de la ciudad española de Toledo. Tipológicamente, no es un edificio unitario, pues en él se han superpuesto varios estilos artísticos. \nEn el siglo XIII Alfonso VIII dona al arzobispo don Rodrigo Jiménez de Rada unas casas situadas enfrente de la catedral.",
+      "body": "El Palacio arzobispal es una de las realizaciones arquitectónicas de más vastas dimensiones de la ciudad española de Toledo. Tipológicamente, no es un edificio unitario, pues en él se han superpuesto varios estilos artísticos. \nEn el siglo XIII Alfonso VIII dona al arzobispo don Rodrigo Jiménez de Rada unas casas situadas enfrente de la catedral. Poco a poco, este espacio se iría ampliando, por obra de los distintos prelados, que iban sucediéndose en la diócesis, conformándose el palacio, como tal, de manera progresiva. \nEl cardenal Mendoza sería el primer prelado que, en la segunda mitad del siglo XV levantaría el primer arco de palacio o pasadizo de unión de esta construcción, con la vecina catedral. Más tarde, a partir del año 1541, se realizaron profundas remodelaciones, eligiendo, para diseñar las trazas, a Alonso de Covarrubias. \nEl Palacio arzobispal se muestra, en la actualidad, como un complejo conjunto, con estancias orientadas al exterior, mediante numerosos vanos, que horadan las fachadas, interiormente conectadas por corredores. \n\n\nDescripción\n\nLa fachada principal, que da a la plaza del Ayuntamiento, se inició en tiempos del cardenal Tavera, en 1543, y su diseño se debe a la mano de Covarrubias. La portada está formada por un gran arco de medio punto, de piedra granítica, al que le encuadran fuertes dovelas almohadilladas, que se encajan, a su vez, entre dos pares de columnas, de capitel jónico y fuste estriado, que, descansando sobre altos y potentes basamentos, sostienen un friso dórico. Sobre el entablamento, situadas en los dos extremos, encontramos las figuras, aparejadas, de ninfas portantes del escudo de armas del cardenal Tavera. \nA principios del siglo XVII, esta portada sería colocada en el emplazamiento que ocupa en la actualidad. Poco después, se le colocó un amplio balcón, de sencilla reja de hierro, rematada en bolas y con cristalería en forma de cruz, cuyo vano se encuentra recercado por dos pequeños salientes y orejetas, y completado, e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20arzobispal%20de%20Toledo"
+    },
+    "es:Capilla de los Reyes Nuevos (Catedral de Toledo)": {
+      "description": "La capilla de los Reyes Nuevos de Toledo es una capilla de la  catedral de Toledo, la segunda capilla real que construyeron los reyes de Castilla en dicha catedral. \nFue iniciada por Enrique II de Castilla, primer rey de la casa de Trastámara, que buscó el marco legitimador que ofrecía la catedral toledana al albergar la capilla de los Reyes Viejos, donde estaban enterrados los reyes Sancho IV, Alfonso VII el Emperador y Sancho III el Deseado.",
+      "body": "La capilla de los Reyes Nuevos de Toledo es una capilla de la  catedral de Toledo, la segunda capilla real que construyeron los reyes de Castilla en dicha catedral. \nFue iniciada por Enrique II de Castilla, primer rey de la casa de Trastámara, que buscó el marco legitimador que ofrecía la catedral toledana al albergar la capilla de los Reyes Viejos, donde estaban enterrados los reyes Sancho IV, Alfonso VII el Emperador y Sancho III el Deseado.\n\n\nDescripción de la capilla\n\nHoy día no se encuentra en su emplazamiento original, habiendo sido trasladada en el siglo XVI por el obstáculo que suponía a las procesiones en el interior de la catedral. Para solucionarlo se trasladaron los sepulcros de los reyes y reinas y parte de los ornamentos.\nLa actual capilla, fue diseñada por Mateo de Medina, autor también del retablo mayor.​ Está situada en el lado norte, entre la capilla de Santiago y la capilla de Santa Leocadia. Tiene un acceso raro y difícil, solucionado por el arquitecto Alonso de Covarrubias. Antes de ser trasladada a este espacio se llamaba Capilla Real y se encontraba a los pies de la catedral, en la nave lateral del lado norte (lado del Evangelio), apropiándose el último tramo, por lo que cortaba e impedía el paso por el final de esta nave. El Cabildo quiso cambiar el lugar de esta capilla para despejar la nave y el arzobispo Alfonso de Fonseca y Acevedo pidió el permiso correspondiente al Emperador. Pero lo difícil era buscar un sitio idóneo, lo cual por fin se solucionó gracias al ingenio y habilidad de su arquitecto.\nMás que una capilla puede considerarse como una pequeña iglesia, de una nave con dos tramos y un ábside poligonal, más una sacristía y un vestíbulo de entrada, solución original de Covarrubias. Se construyó entre 1531 y 1534. Es la primera gran obra de Covarrubias en Toledo.\nLos dos tramos de la nave tienen bóveda de crucería gótica pero toda la ornamentación y labra de los sepulcros son renacentistas. Están separados por la reja de Domingo de C",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Capilla%20de%20los%20Reyes%20Nuevos%20(Catedral%20de%20Toledo)"
+    },
+    "es:Capilla de San Blas (Catedral de Toledo)": {
+      "description": "La capilla de San Blas es una capilla en honor al santo Blas de Sebaste que se encuentra en la planta baja de la catedral de Toledo y su bóveda en ochavo sobre planta cuadrada llama la atención sobre su final destino funerario. La percepción que de la misma se ofrecía la hizo parecer disociada del claustro, aunque los elementos arquitectónicos y su estructura interna la convierten en parte inseparable de éste, como lo demuestra que carece de acceso exterior directo.\nSu construcción no está datada con claridad.",
+      "body": "La capilla de San Blas es una capilla en honor al santo Blas de Sebaste que se encuentra en la planta baja de la catedral de Toledo y su bóveda en ochavo sobre planta cuadrada llama la atención sobre su final destino funerario. La percepción que de la misma se ofrecía la hizo parecer disociada del claustro, aunque los elementos arquitectónicos y su estructura interna la convierten en parte inseparable de éste, como lo demuestra que carece de acceso exterior directo.\nSu construcción no está datada con claridad. De los libros de cuentas se sabe a ciencia cierta que en otoño de 1398 se trabajaba sobre la bóveda y a finales del mismo año se construía la armadura. El cerramiento de los muros debió concluir poco antes de la muerte del arzobispo Pedro Tenorio. Otros documentos, sin embargo, fijan una fecha, por aproximación, de finales de 1397, cuando Pedro Tenorio había otorgado la escritura de fundación. La tercera hipótesis apunta a que la construcción se inició al tiempo del claustro, en 1389. La finalización sí que está datada con precisión: el 10 de mayo de 1399, sólo diez días antes de ser enterrado el fundador.\n\n\nDescripción\n\nSe accede por una portada gótica, adornada de follajes, crestería y rematada por un jarrón sobre la clave del arco. Sobre el mismo hay una escena escultórica de la Anunciación, cuyas figuras tienen un tamaño casi idéntico al natural con el Padre Eterno y el Espíritu Santo, este último representado en pintura. El portón es de madera de nogal desde donde se baja a la capilla sobria, situada siete metros por debajo de la línea de la calle. En el interior se aprecia la bóveda octogonal de once metros de alto con capiteles profusamente ornamentados de cabezas. La razón por la cual está situada en una cota tan por debajo de la línea de calle fue la pesadez de la estructura que se apreciaba al ir rematando la obra. El arzobispo Pedro Tenorio ordenó que se bajara el nivel del pavimento para evitar esa imagen estética que no le gustaba, consiguiendo as",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Capilla%20de%20San%20Blas%20(Catedral%20de%20Toledo)"
+    },
+    "es:Palacio de Fuensalida": {
+      "description": "El Palacio de Fuensalida es un palacio situado en Toledo (Castilla-La Mancha, España), construido en la primera mitad del siglo XV. Es la actual sede de la Presidencia de Castilla-La Mancha.",
+      "body": "El Palacio de Fuensalida es un palacio situado en Toledo (Castilla-La Mancha, España), construido en la primera mitad del siglo XV. Es la actual sede de la Presidencia de Castilla-La Mancha.\n\n\nSituación\nEl palacio de Fuensalida se encuentra en el casco histórico de la ciudad de Toledo, junto a la iglesia de Santo Tomé y el Taller del Moro (con el que se comunica mediante una antigua escalera),en la Plaza del Conde, ocupando prácticamente todo el único flanco edificado.\n\n\nHistoria\nEl palacio de Fuensalida fue mandado edificar por Pedro López de Ayala y Castañeda, I conde de Fuensalida, a comienzos del siglo XV. Durante el siglo XVI fue sede de la corte de la emperatriz Isabel de Portugal mientras se ejecutaban las obras del Alcázar,​ y en este mismo lugar murió a consecuencia del parto de su sexto hijo, Juan, el 30 de abril de 1539.\nEntre 1580 y 1603, el Palacio de Fuensalida fue una de las Academias literarias del Siglo de Oro español más prestigiosas de Toledo. A partir de una reunión organizada en el salón de la casa del canónigo don Diego López de Ayala, más adelante y con reglamento inspirado en el de una academia madrileña, la continuará en su palacio don Pedro López de Ayala (sexto duque de Fuensalida). Entre sus miembros más destacados se encuentran José de Valdivielso, Francisco de Pisa, Luis Quiñones de Benavente y el anotado simplemente como el Pintor, sin duda, El Greco. La vinculación del pintor con esta Academia se refuerza por la estrecha relación que los condes de Fuensalida mantenían con la Iglesia de Santo Tomé (Toledo), a cuyas expensas se realizó el cuadro El entierro del conde de Orgaz.​\n\n\nDescripción y características\nEn el interior del edificio se encuentra un gran patio central de estilo mudéjar, con pilares poligonales de ladrillo y zapatas. También en su interior se conservan restos de yeserías mudéjares. La escalera que comunica el edificio con el Taller del Moro posee un artesonado plateresco, con casetones, del siglo XVI. \nLa portada del ",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Fuensalida"
+    },
+    "es:Convento de Santa Úrsula (Toledo)": {
+      "description": "El convento de Santa Úrsula de la ciudad española de Toledo tuvo su origen en un beaterio acogido a la regla de San Agustín fundado en 1259, según afirma el padre Román de la Higuera, autor de los conocidos falsos Cronicones. Las sucesivas donaciones, a lo largo de los años, pueden explicar que el convento haya cobrado la estructura que hoy se contempla, con numerosas dependencias, articuladas en torno a dos patios, que deben coincidir con las antiguas viviendas cedidas. Los orígenes de la construcción de la iglesia son inciertos; se cree que antes de que se construyera, en 1360, la iglesia actualmente conservada, ya existía una anterior para uso del beaterio.",
+      "body": "El convento de Santa Úrsula de la ciudad española de Toledo tuvo su origen en un beaterio acogido a la regla de San Agustín fundado en 1259, según afirma el padre Román de la Higuera, autor de los conocidos falsos Cronicones. Las sucesivas donaciones, a lo largo de los años, pueden explicar que el convento haya cobrado la estructura que hoy se contempla, con numerosas dependencias, articuladas en torno a dos patios, que deben coincidir con las antiguas viviendas cedidas. Los orígenes de la construcción de la iglesia son inciertos; se cree que antes de que se construyera, en 1360, la iglesia actualmente conservada, ya existía una anterior para uso del beaterio. \n\n\nDescripción\nDe la época medieval se conserva el ábside mudéjar, el cual se aparta del modelo toledano por estar construido en mampostería encintada, en lugar de con las consabidas arquerías de ladrillo; en la parte alta se abren tres ventanas que mantienen la tradicional combinación de arco de herradura apuntado, cobijado por otro lobulado. \nPosteriormente, en los espacios intermedios se han incorporado dos escudos que corresponden a don Antonio de Ulloa y su esposa, doña Inés de Bazán, quienes entre 1603 y 1625 costearon la remodelación de la capilla mayor para su enterramiento. Este ábside perteneció a una iglesia de una sola nave. A esta nave se añadieron dos cuerpos laterales, con la misma fábrica de mampostería encintada, que repiten el esquema de las fachadas del crucero de Santiago del Arrabal: Remate en piñón recto escalonado y motivo de rosetón entre arquillos, todo con decoración de lóbulos. A la derecha del ábside se encuentra una sala llamada «coro viejo», que permanece todavía aislada de la iglesia por el primitivo muro exterior de la nave; conserva restos de una techumbre de madera, con un friso alrededor, bajo el que aparecen fragmentos de una inscripción en caracteres góticos. El testero de la izquierda corresponde a un espacio irregular que ha sido incorporado a la iglesia como nave de la e",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Convento%20de%20Santa%20%C3%9Arsula%20(Toledo)"
+    },
+    "en:Plaza de San Justo, Toledo": {
+      "description": "The Plaza de San Justo is a square located in the city of Toledo, in Castile-La Mancha, Spain. In the upper part of the city, halfway between the Alcázar and the Cathedral there is a square named after the Church of San Justo y Pastor. Of the same church and in that same square it says the legend of \"The Christ of the Cutlery\".",
+      "body": "The Plaza de San Justo is a square located in the city of Toledo, in Castile-La Mancha, Spain. In the upper part of the city, halfway between the Alcázar and the Cathedral there is a square named after the Church of San Justo y Pastor. Of the same church and in that same square it says the legend of \"The Christ of the Cutlery\". There a sign where it read the legend where events are supposed to happen, or not.\nAlso this small square houses other buildings of interest, such as the Palacio de Amusco and the Former Solís Sanatorium.\n\n\nReferences",
+      "language": "en",
+      "wikipediaUrl": "https://en.wikipedia.org/wiki/Plaza%20de%20San%20Justo%2C%20Toledo"
+    },
+    "es:Plaza de las Cuatro Calles (Toledo)": {
+      "description": "La plaza de las Cuatro Calles es una plaza localizada en la ciudad de Toledo, en Castilla-La Mancha, España. Esta plaza es el corazón comercial de Toledo.​\nEs el centro de una estrella de cinco puntas que llega a Zocodover por el del norte, la catedral por el del sur, el teatro de Rojas por el del este y el Alcaná por el del oeste.",
+      "body": "La plaza de las Cuatro Calles es una plaza localizada en la ciudad de Toledo, en Castilla-La Mancha, España. Esta plaza es el corazón comercial de Toledo.​\nEs el centro de una estrella de cinco puntas que llega a Zocodover por el del norte, la catedral por el del sur, el teatro de Rojas por el del este y el Alcaná por el del oeste.\n\n\nReferencias",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Plaza%20de%20las%20Cuatro%20Calles%20(Toledo)"
+    },
+    "es:Circo romano de Toledo": {
+      "description": "El circo romano de Toledo fue construido durante el siglo I, durante el mandato del emperador Octavio Augusto o el emperador Tiberio. Posiblemente, su construcción quedó incluida dentro del plan que el emperador emprendió por todo el Imperio para dotar a todas las grandes ciudades de edificios públicos, como termas, teatros, anfiteatros, o foros, con el objetivo de potenciar la romanización en estas zonas. En concreto, el circo romano se ubicó en el norte de la ciudad romana.",
+      "body": "El circo romano de Toledo fue construido durante el siglo I, durante el mandato del emperador Octavio Augusto o el emperador Tiberio. Posiblemente, su construcción quedó incluida dentro del plan que el emperador emprendió por todo el Imperio para dotar a todas las grandes ciudades de edificios públicos, como termas, teatros, anfiteatros, o foros, con el objetivo de potenciar la romanización en estas zonas. En concreto, el circo romano se ubicó en el norte de la ciudad romana.\nPese a estar poco investigado, ya que más de la mitad de la infraestructura aún permanece sin excavar, sus similitudes con otros circos de la península, como el de Augusta Emerita, permiten afirmar que su aforo debía ser entre los 15 000 o 30 000 espectadores, lo que inicialmente resultó suficiente para cubrir las necesidades de la urbe así como de otros pueblos de los alrededores. El circo romano tenía unas dimensiones de 422 metros de largo por unos 112 metros de ancho. \nCon la información con la que se cuenta, no se tiene constancia de que el circo romano de Toletum se utilizara para la naumaquia (recreación de batallas navales) como ocurría, por ejemplo, en el circo romano de Tarraco.\n\nLa importancia de los restos arqueológicos del circo es importante ya que permite afirmar que, dadas sus dimensiones, su aforo y comparándolo con los de otras ciudades hispanorromanas de la península ibérica, Toledo debió ser en época romana una ciudad que jugó un papel importante en la administración política y jurídica de la península.\nDadas las dimensiones del circo, como sucedió en casi todas las ciudades hispanorromanas, este se situaba a las afueras del recinto amurallado; es seguro que desde la ciudad existiera una calzada dirección al circo, la cual no ha sido encontrada.\nPor otro lado, junto a este se ubicaba otra infraestructura dedicada al ocio: el teatro romano, justo donde actualmente se encuentran las instalaciones deportivas del colegio situado junto al circo. Se tiene constancia, por los vesti",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Circo%20romano%20de%20Toledo"
+    },
+    "en:Palacio de Benacazón": {
+      "description": "El palacio de Benacazón es un inmueble de la ciudad española de Toledo.",
+      "body": "El palacio de Benacazón es un inmueble de la ciudad española de Toledo.\n\n\nDescripción\n\nEstá ubicado en la calle Recoletos de la ciudad española de Toledo.​ De estilo mudéjar,​ fue afectado por los bombardeos del bando republicano durante la guerra civil española.​ Antigua propiedad de Anastasio Páramo, conde de Benacazón, fue usado posteriormente por la Caja Castilla-La Mancha como lugar de desarrollo de actividades culturales.​\n\n\nReferencias\n\n\nBibliografía\nÁlvarez Lopera, José (1990). «Realidad y propaganda: el patrimonio artístico de Toledo durante la Guerra Civil». Cuadernos de Arte e Iconografía 3 (6): 91-108. ISSN 0214-2821. \nLafuente Urién, Aránzazu; López Vázquez, David; Rojo Medina, Raquel; Megino Collado, Luis; Gómez Vozmediano, Miguel Fernando; Gallo León, Francisco José (2006). «Anastasio Páramo (conde de Benacazón): el legado de un anticuario erudito». Archivo Secreto (3): 146-167. ISSN 1695-4742.",
+      "language": "es",
+      "wikipediaUrl": "https://es.wikipedia.org/wiki/Palacio%20de%20Benacaz%C3%B3n"
+    }
+  }
+}

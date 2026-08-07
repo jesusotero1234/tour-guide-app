@@ -13,6 +13,7 @@ function createService(reviewQueueRepository?: Pick<PostgresTourQualityReviewQue
     findById: jest.fn(),
     listRecent: jest.fn().mockResolvedValue([]),
     list: jest.fn().mockResolvedValue([]),
+    updateStatus: jest.fn(),
   };
 
   const audioAssetRepository: AudioAssetRepository = {
@@ -1188,6 +1189,7 @@ describe('OrchestrationService confidence gate', () => {
       'history',
       'en',
       60,
+      expect.any(Function),
     );
     expect(reviewQueueRepository.enqueue).toHaveBeenCalledWith(expect.objectContaining({
       qualityStatus: 'auto_repaired',
@@ -1281,6 +1283,8 @@ describe('OrchestrationService confidence gate', () => {
       theme: 'food',
       language: 'es',
       durationMinutes: 120,
+      status: 'published',
+      introduction: 'Bienvenido al recorrido de mercados de Madrid.',
       metadata: { conceptSlug: 'madrid-markets' },
       places: richPlaces('tour-markets-old', 6).map((place) => ({ ...place, audioUrl: `https://audio/${place.id}.wav` })),
       createdAt: '2026-05-30T10:00:00.000Z',
@@ -1294,6 +1298,8 @@ describe('OrchestrationService confidence gate', () => {
       theme: 'food',
       language: 'es',
       durationMinutes: 120,
+      status: 'published',
+      introduction: 'Bienvenido al recorrido de mercados de Madrid.',
       metadata: { conceptSlug: 'madrid-markets' },
       places: richPlaces('tour-markets-new', 6).map((place) => ({ ...place, audioUrl: `https://audio/${place.id}.wav` })),
       createdAt: '2026-05-31T10:00:00.000Z',

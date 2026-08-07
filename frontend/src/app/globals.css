@@ -2,6 +2,8 @@
 @import "leaflet/dist/leaflet.css";
 
 :root {
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: Georgia, "Times New Roman", serif;
   --surface: #f7f4ef;
   --surface-elevated: #fffdf8;
   --ink: #4a3f35;

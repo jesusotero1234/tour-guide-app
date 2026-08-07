@@ -11,13 +11,13 @@ export default function ToursPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-8 text-center">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">
-              Finished audio walks
+              Published city walks
             </p>
             <h2 className="text-3xl font-serif font-bold tracking-tight text-darkBrown sm:text-4xl">
-              Audio Walks Ready To Explore
+              Guided Walks Ready To Explore
             </h2>
             <p className="mt-4 text-lg text-darkBrown/80">
-              Browse finished walking tours with narrated stops, route guidance, and mobile audio.
+              Browse finished walking tours with a coherent story, grounded stops, and route guidance.
             </p>
           </div>
           

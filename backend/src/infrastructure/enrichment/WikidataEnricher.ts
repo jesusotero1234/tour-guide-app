@@ -12,10 +12,12 @@ export interface WikidataEntityLike {
   missing?: boolean;
   labels?: Record<string, { value?: string }>;
   claims?: Record<string, any[]>;
+  sitelinks?: Record<string, { title?: string }>;
 }
 
 export interface WikidataBatchEnrichment extends WikidataEnrichment {
   wikidataClaims: Record<string, string> | null;
+  wikipediaTag?: string;
 }
 
 const CLAIM_PROPS: Record<string, string> = {
@@ -62,7 +64,7 @@ async function fetchWikidataEntities(ids: string[]): Promise<Record<string, Wiki
     params: {
       action: 'wbgetentities',
       ids: uniqueIds.join('|'),
-      props: 'labels|claims',
+      props: 'labels|claims|sitelinks',
       format: 'json',
       formatversion: 2,
     },
@@ -82,6 +84,13 @@ async function fetchWikidataEntities(ids: string[]): Promise<Record<string, Wiki
     }
   }
   return byId;
+}
+
+function extractWikipediaTag(entity: WikidataEntityLike, language: string): string | undefined {
+  const preferred = entity.sitelinks?.[`${language}wiki`]?.title;
+  if (preferred) return `${language}:${preferred}`;
+  const english = entity.sitelinks?.enwiki?.title;
+  return english ? `en:${english}` : undefined;
 }
 
 async function fetchWikidataEntity(wikidataId: string): Promise<WikidataEntityLike | null> {
@@ -187,6 +196,7 @@ export async function enrichFromWikidataBatch(wikidataIds: string[], language = 
         nameTranslations: extractNameTranslations(entity),
         wikidataUrl: `https://www.wikidata.org/wiki/${wikidataId}`,
         wikidataClaims: extractResolvedClaims(entity, labels),
+        wikipediaTag: extractWikipediaTag(entity, language),
       } satisfies WikidataBatchEnrichment];
     }));
   } catch (err) {

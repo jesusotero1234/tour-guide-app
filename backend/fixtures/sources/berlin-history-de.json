@@ -76,7 +76,8 @@
         "architecturalStyle": "Neorenaissance",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Berliner Dom"
     },
     "Q170123": {
       "wikidataId": "Q170123",
@@ -134,7 +135,8 @@
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Hedwig von Andechs"
-      }
+      },
+      "wikipediaTag": "de:St.-Hedwigs-Kathedrale"
     },
     "Q246474": {
       "wikidataId": "Q246474",
@@ -184,7 +186,8 @@
         "architecturalStyle": "Orientalisierende Architektur",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Neue Synagoge (Berlin)"
     },
     "Q315644": {
       "wikidataId": "Q315644",
@@ -229,7 +232,8 @@
         "architecturalStyle": "Neobarock",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Deutscher Dom"
     },
     "Q157298": {
       "wikidataId": "Q157298",
@@ -354,7 +358,8 @@
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Pergamon"
-      }
+      },
+      "wikipediaTag": "de:Pergamonmuseum"
     },
     "Q157316": {
       "wikidataId": "Q157316",
@@ -585,14 +590,16 @@
         "mt": "Gżira tal-Mużewijiet",
         "tl": "Pulo ng mga Museo",
         "ur": "عجائب گھر جزیرہ",
-        "ro": "Insula Muzeelor din Berlin"
+        "ro": "Insula Muzeelor din Berlin",
+        "ckb": "دوورگەی مۆزەخانەکان"
       },
       "wikidataUrl": "https://www.wikidata.org/wiki/Q151963",
       "wikidataClaims": {
-        "instanceOf": "Sehenswürdigkeit",
+        "instanceOf": "Wohnviertel",
         "heritageDesignation": "UNESCO-Welterbe",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Museumsinsel (Berlin)"
     },
     "Q153951": {
       "wikidataId": "Q153951",
@@ -656,7 +663,8 @@
         "heritageDesignation": "Kulturdenkmal in Deutschland",
         "locatedIn": "Charlottenburg-Wilmersdorf",
         "namedAfter": "Wilhelm I."
-      }
+      },
+      "wikipediaTag": "de:Kaiser-Wilhelm-Gedächtniskirche"
     },
     "Q206211": {
       "wikidataId": "Q206211",
@@ -691,7 +699,8 @@
         "architecturalStyle": "Architektur der Renaissance",
         "heritageDesignation": "Denkmalensemble",
         "locatedIn": "Berlin"
-      }
+      },
+      "wikipediaTag": "de:Zitadelle Spandau"
     },
     "Q702477": {
       "wikidataId": "Q702477",
@@ -729,7 +738,8 @@
         "architecturalStyle": "Neogotik",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Babelsberg"
-      }
+      },
+      "wikipediaTag": "de:Schloss Babelsberg"
     },
     "Q694708": {
       "wikidataId": "Q694708",
@@ -779,7 +789,8 @@
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Nördliche Vorstädte",
         "namedAfter": "Schloss Glienicke"
-      }
+      },
+      "wikipediaTag": "de:Glienicker Brücke"
     },
     "Q702548": {
       "wikidataId": "Q702548",
@@ -928,7 +939,8 @@
         "architecturalStyle": "klassizistische Architektur",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Neue Wache"
     },
     "Q695244": {
       "wikidataId": "Q695244",
@@ -1095,7 +1107,8 @@
         "architect": "Peter Eisenman",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Holocaust"
-      }
+      },
+      "wikipediaTag": "de:Denkmal für die ermordeten Juden Europas"
     },
     "Q32660126": {
       "wikidataId": "Q32660126",
@@ -1134,7 +1147,8 @@
         "inception": "1945-00-00",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Sowjetisches Ehrenmal (Tiergarten)"
     },
     "Q5086": {
       "wikidataId": "Q5086",
@@ -1284,7 +1298,8 @@
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Ost-Berlin",
         "namedAfter": "Berlin"
-      }
+      },
+      "wikipediaTag": "de:Berliner Mauer"
     },
     "Q157003": {
       "wikidataId": "Q157003",
@@ -1387,7 +1402,8 @@
         "architect": "Santiago Calatrava",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Friedrichshain-Kreuzberg"
-      }
+      },
+      "wikipediaTag": "de:Oberbaumbrücke"
     },
     "Q146138": {
       "wikidataId": "Q146138",
@@ -1477,7 +1493,8 @@
       "wikidataClaims": {
         "instanceOf": "Oberhaus",
         "inception": "1949-05-23"
-      }
+      },
+      "wikipediaTag": "de:Bundesrat (Deutschland)"
     },
     "Q703927": {
       "wikidataId": "Q703927",
@@ -1641,7 +1658,8 @@
         "architecturalStyle": "klassizistische Architektur",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Steglitz-Zehlendorf"
-      }
+      },
+      "wikipediaTag": "de:Schloss Glienicke"
     },
     "Q233098": {
       "wikidataId": "Q233098",
@@ -1767,7 +1785,8 @@
         "architecturalStyle": "Barockarchitektur",
         "heritageDesignation": "Teilobjekt",
         "locatedIn": "Treptow-Köpenick"
-      }
+      },
+      "wikipediaTag": "de:Schloss Köpenick"
     },
     "Q706530": {
       "wikidataId": "Q706530",
@@ -1934,7 +1953,8 @@
         "architecturalStyle": "Barockarchitektur",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Zeughaus (Berlin)"
     },
     "Q700222": {
       "wikidataId": "Q700222",
@@ -2189,7 +2209,8 @@
         "architect": "Renzo Piano",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Potsdam"
-      }
+      },
+      "wikipediaTag": "de:Potsdamer Platz"
     },
     "Q152783": {
       "wikidataId": "Q152783",
@@ -2253,7 +2274,8 @@
         "instanceOf": "Platz",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Alexander I."
-      }
+      },
+      "wikipediaTag": "de:Alexanderplatz"
     },
     "Q151897": {
       "wikidataId": "Q151897",
@@ -2349,7 +2371,8 @@
         "architecturalStyle": "Neorenaissance",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Reichstagsgebäude"
     },
     "Q170119": {
       "wikidataId": "Q170119",
@@ -2418,7 +2441,8 @@
         "architect": "Andreas Schlüter",
         "architecturalStyle": "Barockarchitektur",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Berliner Schloss"
     },
     "Q317091": {
       "wikidataId": "Q317091",
@@ -2474,7 +2498,8 @@
         "architecturalStyle": "klassizistische Architektur",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Schloss Bellevue"
     },
     "Q154987": {
       "wikidataId": "Q154987",
@@ -2525,7 +2550,7 @@
         "tl": "Haligi ng Tagumpay ng Berlin",
         "sw": "Siegessäule",
         "sr": "Берлински стуб победе",
-        "th": "เสาแห่งชัยชนะ เบอร์ลิน",
+        "th": "เสาแห่งชัยชนะ",
         "sl": "Berlinski steber zmage",
         "ur": "برلن وکٹری کالم",
         "ie": "Li Colonne del Victorie (Berlin)"
@@ -2538,7 +2563,8 @@
         "architecturalStyle": "klassizistische Architektur",
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Siegessäule (Berlin)"
     },
     "Q156716": {
       "wikidataId": "Q156716",
@@ -2584,7 +2610,8 @@
         "arz": "باريزر بلاتز",
         "uz": "Pariser maydoni",
         "lv": "Parīzes laukums (Berlīne)",
-        "sl": "Pariser Platz"
+        "sl": "Pariser Platz",
+        "hi": "पारीज़र प्लात्स"
       },
       "wikidataUrl": "https://www.wikidata.org/wiki/Q156716",
       "wikidataClaims": {
@@ -2595,7 +2622,8 @@
         "heritageDesignation": "Gartendenkmal",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Paris"
-      }
+      },
+      "wikipediaTag": "de:Pariser Platz"
     },
     "Q82425": {
       "wikidataId": "Q82425",
@@ -2696,7 +2724,8 @@
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Berlin",
         "namedAfter": "Brandenburg an der Havel"
-      }
+      },
+      "wikipediaTag": "de:Brandenburger Tor"
     },
     "Q161156": {
       "wikidataId": "Q161156",
@@ -2747,7 +2776,8 @@
         "architect": "Heinz Graffunder",
         "architecturalStyle": "Moderne",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Palast der Republik"
     },
     "Q170103": {
       "wikidataId": "Q170103",
@@ -2797,7 +2827,8 @@
         "heritageDesignation": "Kulturdenkmal in Deutschland",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Gensdarmes"
-      }
+      },
+      "wikipediaTag": "de:Gendarmenmarkt"
     },
     "Q151356": {
       "wikidataId": "Q151356",
@@ -2875,7 +2906,8 @@
         "architect": "Hermann Henselmann",
         "heritageDesignation": "Denkmalensemble",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Berliner Fernsehturm"
     },
     "Q48441": {
       "wikidataId": "Q48441",
@@ -2923,7 +2955,8 @@
         "inception": "1949-05-08",
         "architect": "Jakow Borissowitsch Belopolski",
         "locatedIn": "Treptow-Köpenick"
-      }
+      },
+      "wikipediaTag": "de:Sowjetisches Ehrenmal im Treptower Park"
     },
     "Q702512": {
       "wikidataId": "Q702512",
@@ -2960,7 +2993,8 @@
         "inception": "1646-00-00",
         "heritageDesignation": "Ensembleteil",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Lustgarten (Berlin)"
     },
     "Q439297": {
       "wikidataId": "Q439297",
@@ -2986,7 +3020,8 @@
         "architecturalStyle": "klassizistische Architektur",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Bezirk Mitte"
-      }
+      },
+      "wikipediaTag": "de:Altes Palais (Berlin)"
     },
     "Q68689": {
       "wikidataId": "Q68689",
@@ -3047,7 +3082,8 @@
         "instanceOf": "Berliner Grenzübergang",
         "inception": "1961-00-00",
         "locatedIn": "Friedrichshain-Kreuzberg"
-      }
+      },
+      "wikipediaTag": "de:Checkpoint Charlie"
     },
     "Q49745": {
       "wikidataId": "Q49745",
@@ -3078,7 +3114,8 @@
         "inception": "1949-11-07",
         "heritageDesignation": "Gartendenkmal",
         "locatedIn": "Pankow"
-      }
+      },
+      "wikipediaTag": "de:Sowjetisches Ehrenmal (Schönholzer Heide)"
     },
     "Q154996": {
       "wikidataId": "Q154996",
@@ -3148,7 +3185,8 @@
         "heritageDesignation": "Denkmalensemble",
         "locatedIn": "Charlottenburg-Wilmersdorf",
         "namedAfter": "Sophie Charlotte von Hannover"
-      }
+      },
+      "wikipediaTag": "de:Schloss Charlottenburg"
     },
     "Q698095": {
       "wikidataId": "Q698095",
@@ -3192,7 +3230,8 @@
         "architect": "Rainer Michael Klotz",
         "locatedIn": "Bezirk Mitte",
         "namedAfter": "Lorenz Adlon"
-      }
+      },
+      "wikipediaTag": "de:Hotel Adlon"
     },
     "Q883381": {
       "wikidataId": "Q883381",
@@ -3223,7 +3262,8 @@
         "heritageDesignation": "Kulturdenkmal in Berlin",
         "locatedIn": "Lichtenberg",
         "namedAfter": "Friedrich I."
-      }
+      },
+      "wikipediaTag": "de:Schloss Friedrichsfelde"
     },
     "Q651833": {
       "wikidataId": "Q651833",
@@ -3257,7 +3297,8 @@
         "architect": "Karl Friedrich Schinkel",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Reinickendorf"
-      }
+      },
+      "wikipediaTag": "de:Schloss Tegel"
     },
     "Q320968": {
       "wikidataId": "Q320968",
@@ -3278,7 +3319,8 @@
         "architecturalStyle": "Barock",
         "heritageDesignation": "Baudenkmal",
         "locatedIn": "Nord"
-      }
+      },
+      "wikipediaTag": "de:Schloss Sacrow"
     }
   },
   "wikipedia": {
@@ -3551,6 +3593,102 @@
       "body": "Das Schloss Sacrow ist ein Schloss im Potsdamer Stadtteil Sacrow. Es wurde 1773 von dem schwedischen Generalleutnant Johann Ludwig von Hordt erbaut.\n\n\nEntstehung\n\nDie Ursprünge des Ortes Sacrow gehen zurück auf ein Rittergut, welches im 14. Jahrhundert erstmals im Landbuch Kaiser Karls IV. erwähnt wird. Im Jahre 1764 erwarb der Festungskommandant der Zitadelle Spandau, der schwedische Generalleutnant Graf Johann Ludwig von Hordt aus der schwedischen Adelsfamilie Hård af Segerstad, das Gut und baute 1773 an der Stelle eines Vorgängergebäudes ein neues Herrenhaus. Entsprechend den barocken Stilkonventionen ist es streng symmetrisch mit je vier Fensterreihen beiderseits der Mittelachse angelegt. Eine Besonderheit stellte schon in der Entstehungszeit ein großes Gewächshaus dar, welches direkt an den Südgiebel des Gebäudes anschloss. Im Schlosspark steht außerdem eine „tausendjährige Eiche“, die als Naturdenkmal geschützt ist. Im Jahr 1779 erwarb Heinrich Karl de la Motte Fouqué, aus Brandenburg kommend, das Gut und mit ihm das Herrenhaus. Sein Sohn, Friedrich de la Motte Fouqué, der spätere Dichter, verlebte hier einige Jahre seiner Jugend. Wahrscheinlich hat er wesentliche Inspirationen für seine „Undine“ am Sacrower See erhalten. Von 1781 bis 1811 war Sacrow im Besitz des kgl. Kammerherrn Graf August Ferdinand von Haeseler, ein Stiefsohn des Erbauers Graf von Hordt. Der erste bürgerliche Schlossherr war 1811 der kgl. Kommerzienrat und Generalkonsul Jean Balthasar Henry, der im Handel mit Russland ein Vermögen gemacht hatte und neben Sacrow die Güter Fredersdorf und Vogelsdorf im Osten Berlins besaß. Henrys Schwager, der ebenfalls zu schnellem Reichtum gekommene Bankier Rudolph Rosentreter, verheiratet mit Eugenie Caroline Henry, war von 1812 bis 1814 Besitzer des benachbarten Guts Klein-Glienicke und hatte dort Karl Friedrich Schinkel mit ersten Umbauten beauftragt. Der Bruder Jean Henry, verheiratet mit Daniel Chodowieckis Tochter Suzette, gehörte zu den führenden Th",
       "language": "de",
       "wikipediaUrl": "https://de.wikipedia.org/wiki/Schloss%20Sacrow"
+    },
+    "de:Checkpoint Charlie": {
+      "description": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990. Er verband in der Friedrichstraße zwischen Zimmerstraße und Kochstraße (beim gleichnamigen U-Bahnhof) den sowjetischen mit dem amerikanischen Sektor und damit den Ost-Berliner Bezirk Mitte mit dem West-Berliner Bezirk Kreuzberg. Der Kontrollpunkt wurde im August/September 1961 infolge des Mauerbaus von den West-Alliierten eingerichtet, um den Angehörigen ihres Militärpersonals weiterhin das Überschreiten der Sektorengrenze zu ermöglichen, wobei sie registriert und belehrt wurden.",
+      "body": "Der Checkpoint Charlie war einer der Berliner Grenzübergänge durch die Berliner Mauer zwischen 1961 und 1990. Er verband in der Friedrichstraße zwischen Zimmerstraße und Kochstraße (beim gleichnamigen U-Bahnhof) den sowjetischen mit dem amerikanischen Sektor und damit den Ost-Berliner Bezirk Mitte mit dem West-Berliner Bezirk Kreuzberg. Der Kontrollpunkt wurde im August/September 1961 infolge des Mauerbaus von den West-Alliierten eingerichtet, um den Angehörigen ihres Militärpersonals weiterhin das Überschreiten der Sektorengrenze zu ermöglichen, wobei sie registriert und belehrt wurden.\n\n\nAlliierter Kontrollpunkt\n\nAuf Ost-Berliner Seite ließen die Grenztruppen der DDR neben den in Berlin Freizügigkeit genießenden alliierten Militärangehörigen und Diplomaten, wozu auch Mitarbeiter der Ständigen Vertretung der Bundesrepublik Deutschland bei der DDR gehörten, ohne Kontrolle, sowie nach Kontrolle auch Ausländer und Funktionäre der DDR passieren. Auch der in West-Berlin wohnende Intendant der Komischen Oper Walter Felsenstein nutzte als österreichischer Staatsbürger diesen Grenzübergang.\nAuf West-Berliner Seite konnten alle Besucher den Checkpoint, wie bei den Berliner Sektorenübergängen allgemein üblich, ohne jede Kontrolle oder Registrierung passieren.\nEr war einer der drei durch die Amerikaner genutzten alliierten Kontrollpunkte, die ihn nach dem dritten Buchstaben im Alphabet, ‚C‘, gemäß dem internationalen Buchstabieralphabet „Charlie“ nannten. Checkpoint Alpha hieß dementsprechend der Kontrollpunkt am Grenzübergang Helmstedt-Marienborn an der heutigen Bundesautobahn 2, der zwar in der Britischen Zone lag, aber wegen der kürzesten Autobahnverbindung nach West-Berlin (168 km) von den drei Westalliierten fast ausschließlich benutzt und auch gemeinsam verwaltet wurde. Der Checkpoint Bravo war die amerikanische Seite des Kontrollpunktes Dreilinden, der 1969 nach Drewitz an der heutigen A 115 verlegt wurde.\nAls Folge des Versuchs der SED-Führung, alliierte Rechte der We",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Checkpoint%20Charlie"
+    },
+    "de:Reichstagsgebäude": {
+      "description": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages. Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen.\nDer Bau, ein Nationalsymbol Deutschlands, wurde nach Plänen des Architekten Paul Wallot zwischen 1884 und 1894 im Stil der Neorenaissance im Ortsteil Tiergarten am linken Ufer der Spree errichtet.",
+      "body": "Das Reichstagsgebäude (umgangssprachlich kurz: Reichstag; offiziell: Plenarbereich Reichstagsgebäude; inoffiziell auch Bundestag oder Wallot-Bau) am Platz der Republik in Berlin ist seit 1999 Sitz des Deutschen Bundestages. Seit 1994 tritt hier auch die Bundesversammlung zur Wahl des deutschen Bundespräsidenten zusammen.\nDer Bau, ein Nationalsymbol Deutschlands, wurde nach Plänen des Architekten Paul Wallot zwischen 1884 und 1894 im Stil der Neorenaissance im Ortsteil Tiergarten am linken Ufer der Spree errichtet. Er beherbergte sowohl den Reichstag des Deutschen Kaiserreiches als auch den der Weimarer Republik. Zunächst tagte dort auch der Bundesrat des Kaiserreichs. Nach schweren Beschädigungen durch den Reichstagsbrand von 1933 und den Zweiten Weltkrieg wurde das Gebäude in den 1960er Jahren in modernisierter Form wiederhergestellt und diente Ausstellungen und Sonderveranstaltungen. Von 1995 bis 1999 wurde der Reichstag für die 1991 beschlossene dauerhafte Nutzung als Parlamentsgebäude von Norman Foster grundlegend umgestaltet. Am 19. April 1999 fand die Schlüsselübergabe an Bundestagspräsident Wolfgang Thierse statt. Seither tagt dort der Deutsche Bundestag. Eine Landmarke im Stadtbild ist die begehbare Glaskuppel über dem Plenarsaal nach einer Idee von Gottfried Böhm.\nDer Reichstag gilt mit jährlich fast drei Millionen Besuchern als das weltweit meistbesuchte Parlamentsgebäude.\n\n\nZur Vorgeschichte\n\n\nProvisorien\n\nErster Sitz eines Reichstages in Berlin war das Gebäude des Preußischen Herrenhauses in der Leipziger Straße 3. Hier tagte ab 1867 der Reichstag des von Preußen dominierten Norddeutschen Bundes. Nach der Gründung des Deutschen Reiches 1871 kamen die Abgeordneten der süddeutschen Staaten hinzu, sodass ein größeres Gebäude benötigt wurde. Man zog zunächst in das Preußische Abgeordnetenhaus (Leipziger Straße 75). Bald erwies sich auch dieses als zu klein. Der Reichstag verabschiedete am 19. April 1871 einen Antrag, in dem es hieß: „Die Errichtung eines den",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Reichstagsgeb%C3%A4ude"
+    },
+    "de:Potsdamer Platz": {
+      "description": "Der Potsdamer Platz ist ein platzartiger Verkehrsknotenpunkt in den Berliner Ortsteilen Mitte und Tiergarten im Bezirk Mitte zwischen der Historischen Mitte und der City West. Als Doppelplatzanlage schließt er sich westlich an den Leipziger Platz an.\nBeim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet.",
+      "body": "Der Potsdamer Platz ist ein platzartiger Verkehrsknotenpunkt in den Berliner Ortsteilen Mitte und Tiergarten im Bezirk Mitte zwischen der Historischen Mitte und der City West. Als Doppelplatzanlage schließt er sich westlich an den Leipziger Platz an.\nBeim Bau der Berliner Zoll- und Akzisemauer wurde 1734 das Potsdamer Tor errichtet. Dort begann ab dem späten 18. Jahrhundert die Berlin-Potsdamer Chaussee (später Potsdamer Straße), die ein wichtiges Glied im Netz der Preußischen Staatschausseen war. Die westlich des Tores liegende Grünanlage, der Platz vor dem Potsdamer Thor, erhielt 1831 seinen heutigen Namen.\nMit dem Potsdamer Fernbahnhof, dem U-Bahnhof sowie den zahlreichen Straßenbahn- und Omnibuslinien war der Potsdamer Platz bis zum Ende des Zweiten Weltkriegs einer der verkehrsreichsten Plätze Europas und erhielt daher bereits Ende 1924 mit dem Verkehrsturm eine der ersten Ampel-Anlagen auf dem Kontinent. In den ersten 40 Jahren des 20. Jahrhunderts waren der Platz und die von ihm ausgehenden Straßen ein beliebter Treffpunkt der politischen, sozialen und kulturellen Szene Berlins.\nNach Kriegsende bildete der Potsdamer Platz ein „Dreiländereck“ zwischen dem sowjetischen, dem britischen sowie dem amerikanischen Sektor im geteilten Berlin. Ab August 1961 verlief die Berliner Mauer über den Platz, der die folgenden fast drei Jahrzehnte ein randständiges Dasein als innerstädtische Brache fristete. Nach der Maueröffnung am 9. November 1989 stellte sich eine neue Situation ein: Am 12. November frühmorgens wurde am Potsdamer Platz ein Stück der Mauer abgeräumt und ein provisorischer Grenzübergang geschaffen.\nDas an der historischen Straßenführung nach 1990 neu bebaute Terrain zählt zu den markantesten Orten der Stadt und ist ein touristischer Anziehungspunkt. Die Bebauung des Potsdamer Platzes gilt als größte  innerstädtische Baustelle Europas in den 90er Jahren. Für die Bebauung wurden bedeutende Architekten von Weltrang gewonnen, so haben u. a. David Chipperfield, Gi",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Potsdamer%20Platz"
+    },
+    "de:Alexanderplatz": {
+      "description": "Der Alexanderplatz ist ein Platz am nordöstlichen Rand der historischen Mitte von Berlin. Der rechteckige Platz im Ortsteil Mitte geht auf den Platz vor dem Königs Thor zurück und erhielt 1805 nach dem russischen Zaren Alexander I. seinen heutigen Namen. Im Berliner Volksmund wird er meist nur „Alex“ genannt.",
+      "body": "Der Alexanderplatz ist ein Platz am nordöstlichen Rand der historischen Mitte von Berlin. Der rechteckige Platz im Ortsteil Mitte geht auf den Platz vor dem Königs Thor zurück und erhielt 1805 nach dem russischen Zaren Alexander I. seinen heutigen Namen. Im Berliner Volksmund wird er meist nur „Alex“ genannt.\nDer mehrfach umgestaltete Platz sowie ein Großteil der umliegenden Bebauung erlitten im Zweiten Weltkrieg durch alliierte Luftangriffe erhebliche Zerstörungen. Die Ost-Berliner Verwaltung ließ in den 1960er Jahren das Areal des Platzes im Zentrum der DDR-Hauptstadt mit Ausnahme des Alexander- und Berolinahauses total umgestalten. Aus einem zuvor sehr belebten Kreisverkehrsplatz wurde eine Fußgängerzone, die eine Fläche von rund acht Hektar einnimmt. Auf dieser vierfach größeren Fläche entstanden bis 1970 u. a. das Interhotel Stadt Berlin und das HO-Centrum-Warenhaus, die heute als Park Inn und Galeria Kaufhof weiter bestehen.\nNach dem Mauerfall erfolgten weitere Umgestaltungen; mit täglich mehr als 360.000 Passanten war der Alexanderplatz 2009 der viertbelebteste Platz in Europa und ist laut einer Studie die meistbesuchte Gegend Berlins noch vor der City West um Kurfürstendamm und Tauentzienstraße. Er ist ein beliebter Ausgangspunkt für Touristen, die von den beiden gleichnamigen Bahnhöfen der S-Bahn (Stadtbahn) und U-Bahn aus viele Sehenswürdigkeiten wie den Fernsehturm, das Nikolaiviertel sowie das Rote Rathaus erreichen können. Mit den Einkaufszentren Alexa und die mitte, den Rathauspassagen sowie der Galeria Kaufhof gibt es zudem mehrere große Einzelhandelsstandorte.\nFälschlicherweise wird oft auch der südwestlich hinter dem S-Bahnhof liegende Park am Fernsehturm mit Neptunbrunnen, Marienkirche und Rotem Rathaus dem Alexanderplatz zugeordnet. Diese weiträumige Freifläche im zentralen Bereich der historischen Mitte Berlins, das frühere Marienviertel, gehört jedoch wie das Marx-Engels-Forum zwischen Spandauer Straße und der Spree nicht zum Platz.\n\n\nStraßen un",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Alexanderplatz"
+    },
+    "de:Berliner Schloss": {
+      "description": "Das Berliner Schloss ist ein Profanbau am Schloßplatz in Berlin-Mitte und beherbergt heute u. a. das Ethnologische Museum sowie das Museum für Asiatische Kunst.",
+      "body": "Das Berliner Schloss ist ein Profanbau am Schloßplatz in Berlin-Mitte und beherbergt heute u. a. das Ethnologische Museum sowie das Museum für Asiatische Kunst. Es war ursprünglich die Hauptresidenz der Kurfürsten von Brandenburg aus dem Haus Hohenzollern, die 1701 zu preußischen Königen und 1871 zu deutschen Kaisern aufstiegen. Das 1443 auf dem Schloßplatz in der Historischen Mitte von Berlin begonnene Gebäude wurde im Zweiten Weltkrieg beschädigt und 1950 auf Beschluss der SED gesprengt. Von 2013 bis 2020 wurde das alte Schloss nach einem Beschluss des Deutschen Bundestags äußerlich größtenteils rekonstruiert. Der Neubau dient dem Humboldt Forum als Ausstellungs- und Veranstaltungsort.\nDas Schloss wurde im Auftrag Friedrichs I. unter der Leitung von Andreas Schlüter in den Jahren 1698–1713 umgebaut und galt als ein Hauptwerk des europäischen Barocks. Es war ein zentrales und eines der größten Bauwerke Berlins. Als Fluchtpunkt mehrerer Blick- und Straßenachsen prägte es mit seinen Fassaden, seinen Ausmaßen und seiner im 19. Jahrhundert hinzugefügten, 70 Meter hohen Kuppel seit je das Stadtbild. Nach der Ausrufung der Republik im Jahr 1918 wurde das Schloss als Sitz von Behörden, Kunst- und Wissenschaftseinrichtungen wie der Alexander-von-Humboldt-Stiftung genutzt. Am Ende des Zweiten Weltkriegs 1945 teilweise ausgebrannt, wurde es in der DDR 1950–1951 trotz internationaler Proteste gesprengt, um eine Fläche für einen Aufmarschplatz zu gewinnen, der später durch den Palast der Republik an der Spreeseite bebaut wurde.\nNach dem öffentlichen Engagement des Fördervereins Berliner Schloss um den Hamburger Kaufmann Wilhelm von Boddien und auf Beschluss des Deutschen Bundestags vom Juli 2002 erfolgte 2008 ein Architekturwettbewerb unter Beteiligung von 85 Arbeiten. Der vom Preisgericht prämierte Entwurf des italienischen Architekten Franco Stella sah den Wiederaufbau des Berliner Schlosses in Form einer originalgetreuen Rekonstruktion der barocken Fassaden, der Kuppel, der",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Berliner%20Schloss"
+    },
+    "de:Schloss Bellevue": {
+      "description": "Das Schloss Bellevue [ʃlɔs bɛlˈvyː]  (französisch für Schöne Aussicht) ist ein Baudenkmal am Spreeweg 1 im Berliner Ortsteil Tiergarten. Es liegt am Nordrand des Großen Tiergartens zwischen der Spree und der Siegessäule. Die klassizistische Dreiflügelanlage nach französischem Muster wurde 1785/1786 von Michael Philipp Boumann als Sommerresidenz für den preußischen Prinzen August Ferdinand erbaut und seitdem mehrmals umgebaut.",
+      "body": "Das Schloss Bellevue [ʃlɔs bɛlˈvyː]  (französisch für Schöne Aussicht) ist ein Baudenkmal am Spreeweg 1 im Berliner Ortsteil Tiergarten. Es liegt am Nordrand des Großen Tiergartens zwischen der Spree und der Siegessäule. Die klassizistische Dreiflügelanlage nach französischem Muster wurde 1785/1786 von Michael Philipp Boumann als Sommerresidenz für den preußischen Prinzen August Ferdinand erbaut und seitdem mehrmals umgebaut.\nNach schweren Beschädigungen im Zweiten Weltkrieg wurde das Schloss von 1955 bis 1959 nach dem traditionellen barocken Schlossbauschema äußerlich originalgetreu wiederaufgebaut. Die Fassaden sind im Stil des Frühklassizismus gestaltet. Nachdem sich der 12. Deutsche Bundestag 1991 für den Umzug des Parlaments nach Berlin entschieden hatte, verlegte Bundespräsident Richard von Weizsäcker im Januar 1994 den ersten Amtssitz des Staatsoberhauptes von der Villa Hammerschmidt in Bonn nach Berlin.\nSeit dem Sommer 2026 werden das Schloss und seine Nebengebäude umfassend saniert und modernisiert. In etwa acht Jahren wird mit der Fertigstellung und der Rückkehr des Bundespräsidenten gerechnet. Der Bundespräsident und das Bundespräsidialamt amtieren währenddessen als Erstmieter in dem neu errichteten Bürogebäude Amtssitz am Spreebogen in Berlin-Moabit.\n\n\nBaugeschichte\n\nDas Schloss wurde im Auftrag des jüngsten Bruders von Friedrich II., Ferdinand von Preußen, nach Plänen von Michael Philipp Boumann in den Jahren 1785 und 1786 in der Übergangsphase zwischen Rokoko und Klassizismus besonders sparsam und zweckorientiert errichtet. Der 18 Jahre jüngere Bruder von Friedrich II. lebte mit seiner Familie größtenteils am Wilhelmplatz (im Johanniterordenspalais, kurzzeitig auch im Palais Marschall), und im Gegensatz zu seinem weit außerhalb der Stadt gelegenen Schloss Friedrichsfelde, das er 1785 verkaufte, lag der Neubau nahe der Berliner Altstadt im Großen Tiergarten. Diesen hatte sein Bruder 1742 durch Niederlegung der Wildgatter von einem königlichen Jagdpark i",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Schloss%20Bellevue"
+    },
+    "de:Siegessäule (Berlin)": {
+      "description": "Die Siegessäule auf dem Großen Stern im Großen Tiergarten gehört zu den bedeutendsten Nationaldenkmälern Deutschlands und den wichtigsten Sehenswürdigkeiten Berlins. Erbaut 1864 bis 1873 von Heinrich Strack auf dem Königsplatz zur Erinnerung an die Einigungskriege, wurde sie 1938 bis 1939 zusammen mit den Denkmälern Bismarcks, Roons und Moltkes an den heutigen Standort versetzt. Die bekrönende Viktoria von Friedrich Drake wird im Berliner Volksmund auch „Goldelse“ genannt.",
+      "body": "Die Siegessäule auf dem Großen Stern im Großen Tiergarten gehört zu den bedeutendsten Nationaldenkmälern Deutschlands und den wichtigsten Sehenswürdigkeiten Berlins. Erbaut 1864 bis 1873 von Heinrich Strack auf dem Königsplatz zur Erinnerung an die Einigungskriege, wurde sie 1938 bis 1939 zusammen mit den Denkmälern Bismarcks, Roons und Moltkes an den heutigen Standort versetzt. Die bekrönende Viktoria von Friedrich Drake wird im Berliner Volksmund auch „Goldelse“ genannt.\n\n\nBeschreibung\n\n\nSäule\nDie Siegessäule steht in der Mitte des als Kreisverkehr angelegten Großen Sterns und kann westlich und östlich über T-förmige Fußgängertunnel unterhalb der Fahrbahn erreicht werden. Vier neoklassizistische Torhäuser, entworfen von Johannes Huntemüller, bilden nördlich und südlich der Straße des 17. Juni den Zugang zu diesen Tunneln. Die Grünfläche um das Denkmal befindet sich 34 m ü. NHN.\nDer Aufbau der vom Hofbaumeister Heinrich Strack entworfenen Siegessäule besteht aus einem mit poliertem roten Granit verkleideten Sockel und vier sich nach oben verjüngenden Säulentrommeln aus Obernkirchener Sandstein. Auf dem Sockel befindet sich eine kreisrunde Säulenhalle mit einem Glasmosaik an der Rückwand. Nach einem von Anton von Werner geschaffenen Karton hatte es 1876 die venezianische Firma Antonio Salviati hergestellt. Bei der Einweihung war nur der Karton angebracht worden. Wie von Kaiser Wilhelm I. gewünscht, stellt das Bild die deutsche Reichsgründung als Folge des Sieges über Frankreich dar. In ihren Kannelierungen trägt die Säule in den unteren drei Trommeln 60 in den drei Einigungskriegen erbeutete, vergoldete Kanonenrohre. Bei der Säulenhalle ließ sich Schinkelschüler Strack von der Großen Neugierde im Glienicker Park inspirieren. Der Säulenschaft oberhalb der Säulenhalle wurde im Zuge der Versetzung unten um eine vierte Säulentrommel auf ihr heutiges Maß erhöht. Die Kanonenrohre wurden dabei jeweils um eine Säulentrommel nach unten versetzt, wobei die nun freien Kannelie",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Siegess%C3%A4ule%20(Berlin)"
+    },
+    "de:Pariser Platz": {
+      "description": "Der Pariser Platz ist ein – bei der damaligen Stadterweiterung im Jahr 1734 unter König Friedrich Wilhelm I. angelegter – Platz am Ende der Prachtstraße Unter den Linden im Berliner Ortsteil Mitte des gleichnamigen Bezirks. Im Zweiten Weltkrieg zerstört, lag er 1961–1989 im Grenzgebiet der geteilten Stadt und wurde danach wieder aufgebaut. Am westlichen Rand des quadratischen Platzes befindet sich das Brandenburger Tor von Carl Gotthard Langhans.",
+      "body": "Der Pariser Platz ist ein – bei der damaligen Stadterweiterung im Jahr 1734 unter König Friedrich Wilhelm I. angelegter – Platz am Ende der Prachtstraße Unter den Linden im Berliner Ortsteil Mitte des gleichnamigen Bezirks. Im Zweiten Weltkrieg zerstört, lag er 1961–1989 im Grenzgebiet der geteilten Stadt und wurde danach wieder aufgebaut. Am westlichen Rand des quadratischen Platzes befindet sich das Brandenburger Tor von Carl Gotthard Langhans. Der Platz gilt seit dem Abschluss der Neugestaltung 2008 wieder als „gute Stube Berlins“.\n\n\nGeschichte\n\nDer Pariser Platz wurde zwischen 1732 und 1734 bei der zweiten barocken Stadterweiterung (auch der angrenzenden Friedrichstadt) unter Friedrich Wilhelm I. durch Philipp Gerlach angelegt. Er war anfangs nur mit Stadtpalais des Adels bebaut. Der ursprüngliche Name des Platzes war – gemäß seiner Form – Viereck oder – nach dem Französischen – Quarree. Zusammen mit den zur gleichen Zeit entstandenen Plätzen Achteck oder Octogon (seit 1814 Leipziger Platz) und dem kreisförmigen Rondell (seit 1946/1947: Mehringplatz) gab er die neuen südwestlichen Stadtgrenzen vor und formte die Quadratur des Kreises, eine seinerzeit beliebte Figurenfolge.\nIm Jahr 1814 erhielt er anlässlich der Eroberung von Paris durch preußische Truppen in den Befreiungskriegen seinen Namen. Ab etwa 1850 wurde die Bebauung des Platzes in klassizistischem Stil vereinheitlicht. Im Jahr 1880 gestaltete der Gartenbaudirektor Hermann Mächtig den Platz neu, dabei entstanden an den Seiten des Platzes zwei rechteckige Schmuckbeete. In deren Mitte befand sich je ein rundes Brunnenbecken mit einer aus einer bronzenen Akanthusblätterkrone entspringenden Fontäne. Um die Wende des 19. zum 20. Jahrhundert wurde eine weitere Umgestaltung derartig vorgenommen, dass an diesem Platz Bogenlicht-Kandelaber nach Plänen von August Vogel aufgestellt wurden. Die Kandelaber wurden in der Hofgießerei Martin & Piltzing hergestellt.\nIm Jahr 1926 malte Oskar Kokoschka den Platz.\nDer Paris",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Pariser%20Platz"
+    },
+    "de:Gendarmenmarkt": {
+      "description": "Der Gendarmenmarkt ist ein – nach dem ursprünglich hier angesiedelten Kürassierregiment Gens d’armes benannter – Platz im Berliner Ortsteil Mitte des gleichnamigen Bezirks. Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut. Auf ihm befinden sich das, heute als Konzerthaus genutzte, ehemalige Schauspielhaus von Karl Friedrich Schinkel sowie, als weitere Profanbauten, der Deutsche als auch Französische Dom von Carl von Gontard.",
+      "body": "Der Gendarmenmarkt ist ein – nach dem ursprünglich hier angesiedelten Kürassierregiment Gens d’armes benannter – Platz im Berliner Ortsteil Mitte des gleichnamigen Bezirks. Im Jahr 1688 bei der damaligen kurfürstlichen Stadterweiterung angelegt, wurde er im Zweiten Weltkrieg zerstört und erst 1976–1993 wieder aufgebaut. Auf ihm befinden sich das, heute als Konzerthaus genutzte, ehemalige Schauspielhaus von Karl Friedrich Schinkel sowie, als weitere Profanbauten, der Deutsche als auch Französische Dom von Carl von Gontard. Der Gendarmenmarkt gilt als „schönster Platz Berlins“, und angeblich unter den Berlinern gar als „der schönste Platz Europas“.\n\n\nLage\nDer rund 3,3 Hektar große Platz liegt inmitten des auf dem Reißbrett geschaffenen Stadtviertels Friedrichstadt. Er nimmt drei der Karrees ein und wird begrenzt durch die Französische Straße im Norden, die Charlottenstraße im Westen, die Anton-Wilhelm-Amo-Straße im Süden und die Markgrafenstraße im Osten. Die Jäger- und die Taubenstraße werden durch den Platz geteilt und sind im Bereich des Platzes – als Straßen kaum noch kenntlich – in Form einer Fußgängerzone ausgelegt.\n\n\nGeschichte\n\n\nEntstehung\nDer Platz entstand ab 1688 nach Plänen von Johann Arnold Nering als Teil der Friedrichstadt, die Kurfürst Friedrich III., der spätere König Friedrich I. in Preußen, Ende des 17. Jahrhunderts anlegen ließ. In diesem historischen Viertel siedelte sich ein Großteil der französischen Einwanderer (Hugenotten) an, denen der Große Kurfürst Friedrich Wilhelm von Brandenburg mit dem Edikt von Potsdam im Jahr 1685 den Schutz ihrer religiösen Freiheit und volles Bürgerrecht zugesichert hatte.\nKönig Friedrich I. wies sowohl der lutherischen als auch der französisch-reformierten Gemeinde je eine Stelle auf dem Platz zum Kirchenbau zu: im Norden für die Französische Friedrichstadtkirche und im Süden für die Deutsche Kirche oder Neue Kirche. Beide Kirchenbauten entstanden nach 1701 zunächst ohne die später angebauten Türme.\nSeine Gestalt e",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Gendarmenmarkt"
+    },
+    "de:Palast der Republik": {
+      "description": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte. Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ. Das Gebäude stand auf der Ostseite des historischen Schlossareals, gegenüber befand sich das Außenministerium der DDR, in der Nachbarschaft der Berliner Dom und das Staatsratsgebäude.",
+      "body": "Der Palast der Republik (kurz: PdR) war ein Gebäude am historischen Lustgarten und Schloßplatz (bis 1994: Marx-Engels-Platz) auf der Spreeinsel im Ost-Berliner Ortsteil Mitte. Er wurde zwischen 1973 und 1976 nach Plänen von Heinz Graffunder und anderen auf einem 15.300 m² großen Teil des Geländes des ehemaligen Berliner Schlosses errichtet, dessen wiederaufbaufähige Ruine die SED 1950 unter internationalen Protesten sprengen ließ. Das Gebäude stand auf der Ostseite des historischen Schlossareals, gegenüber befand sich das Außenministerium der DDR, in der Nachbarschaft der Berliner Dom und das Staatsratsgebäude. Der Palast der Republik war Sitz der Volkskammer und beherbergte eine große Zahl von Veranstaltungsräumen eines öffentlichen Kulturhauses.\nDer Bau war 14 Jahre geöffnet und wurde 1990 mit der Begründung der Emission gesundheitsschädlicher Asbestfasern geschlossen. Von 1998 bis 2003 wurde der Bau deshalb dekontaminiert und dadurch auf einen Rohbauzustand zurückgeführt. Vom Innenleben wurde bis auf Einrichtungsgegenstände nichts erhalten. Trotz temporärer Nutzungen und ergebnisoffener Asbestsanierung wurde der Abriss durch einen Beschluss des Deutschen Bundestages von 2003 besiegelt. Das Bauwerk wurde von Anfang Februar 2006 bis Anfang Dezember 2008 abgerissen. Der Abriss war aus zeitgeschichtlichen, kulturellen und politischen Gründen umstritten. Im März 2013 begann an seiner Stelle der Wiederaufbau des Berliner Schlosses, das durch das 2020 eröffnete Humboldt Forum genutzt wird.\n\n\nEntstehung\n\nDer Palast der Republik wurde am 23. April 1976 nach 32-monatiger Bauzeit eröffnet. Bei der Festveranstaltung zur Eröffnung war die Staats- und Parteispitze der DDR fast vollzählig versammelt, neben Darbietungen von Angehörigen der Pionierorganisation Ernst Thälmann und der Freien Deutschen Jugend (FDJ) sprach Hans-Peter Minetti den feierlichen „Prolog zur Weihe des Hauses“ von Helmut Baierl. Die als Ersatzbau des Zentralen Regierungshochhauses der DDR geplante Anlage wa",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Palast%20der%20Republik"
+    },
+    "de:Brandenburger Tor": {
+      "description": "Das Brandenburger Tor in Berlin ist ein frühklassizistisches Triumphtor, das an der Westflanke des quadratischen Pariser Platzes im Berliner Ortsteil Mitte steht. Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II. nach Entwürfen von Carl Gotthard Langhans errichtet. Die das Tor krönende Skulptur der Quadriga ist ein Werk nach dem Entwurf des Bildhauers Johann Gottfried Schadow.",
+      "body": "Das Brandenburger Tor in Berlin ist ein frühklassizistisches Triumphtor, das an der Westflanke des quadratischen Pariser Platzes im Berliner Ortsteil Mitte steht. Es wurde als Abschluss der zentralen Prachtstraße der Dorotheenstadt, des Boulevards Unter den Linden, in den Jahren 1789 bis 1793 auf Anweisung des preußischen Königs Friedrich Wilhelm II. nach Entwürfen von Carl Gotthard Langhans errichtet. Die das Tor krönende Skulptur der Quadriga ist ein Werk nach dem Entwurf des Bildhauers Johann Gottfried Schadow. Westlich des Brandenburger Tores befinden sich die ausgedehnten Grünflächen des Großen Tiergartens, die in gradliniger Verlängerung der Straße Unter den Linden von der Straße des 17. Juni durchquert werden. Die Platzfläche unmittelbar westlich des Tores trägt den Namen Platz des 18. März.\nDas Tor ist das einzig erhaltene von zuletzt 18 Berliner Stadttoren. In der Formensprache stellt es die Hinwendung vom römischen zum griechischen Vorbild dar. Es ist eines der ersten klassizistischen Bauwerke in Preußen und markiert hiermit den Beginn des Klassizismus als staatstragende Architektur in Preußen.\nDas Tor ist das bekannteste Berliner Wahrzeichen und ein deutsches Nationalsymbol, mit dem viele wichtige geschichtliche Ereignisse des 19. und 20. Jahrhunderts verbunden sind. So wurde bis zum Zweiten Weltkrieg vor allem das Ende der napoleonischen Herrschaft 1813–1815 mit dem Bauwerk verbunden. Bis zur Öffnung des Eisernen Vorhangs stand es unmittelbar an der Grenze zwischen Ost- und West-Berlin im Ostsektor und symbolisierte so während des Kalten Krieges das Aufeinandertreffen von Warschauer Pakt und NATO an der weltpolitisch heikelsten Stelle ihres gemeinsamen Grenzverlaufes. Entsprechend wird das Brandenburger Tor seit 1990 auch als Symbol der Überwindung der Teilung Deutschlands und Europas angesehen.\nNach Beschädigung im Zweiten Weltkrieg wurde das Tor bis 1958 wiederhergestellt. Eine umfassende, knapp zweijährige Sanierung fand bis 2002 durch die Stiftung De",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Brandenburger%20Tor"
+    },
+    "de:Sowjetisches Ehrenmal im Treptower Park": {
+      "description": "Das Sowjetische Ehrenmal im Treptower Park (auch Treptower Ehrenmal) ist eine Gedenkstätte und zugleich Soldatenfriedhof im Treptower Park in Berlin. Die im Mai 1949 fertiggestellte Anlage wurde auf Weisung der Sowjetischen Militäradministration in Deutschland errichtet, um die im Zweiten Weltkrieg gefallenen Soldaten der Roten Armee zu ehren. Über 7000 der in der Schlacht um Berlin gefallenen Soldaten sind hier bestattet.",
+      "body": "Das Sowjetische Ehrenmal im Treptower Park (auch Treptower Ehrenmal) ist eine Gedenkstätte und zugleich Soldatenfriedhof im Treptower Park in Berlin. Die im Mai 1949 fertiggestellte Anlage wurde auf Weisung der Sowjetischen Militäradministration in Deutschland errichtet, um die im Zweiten Weltkrieg gefallenen Soldaten der Roten Armee zu ehren. Über 7000 der in der Schlacht um Berlin gefallenen Soldaten sind hier bestattet. Die zum Monument gehörende Kolossalstatue ist mit Hügel und Sockel insgesamt 30 Meter hoch.\n\n\nSowjetische Ehrenmale in Berlin\nNach dem Ende des Zweiten Weltkriegs wurden von der Roten Armee im Stadtgebiet von Berlin vier sowjetische Ehrenmale angelegt. Sie sollten an die getöteten Rotarmisten erinnern, insbesondere an die etwa 80.000 sowjetischen Soldaten, die bei der Eroberung Berlins gefallen waren. Diese Ehrenmale sind nicht nur Denkmale an den Sieg über Deutschland, sondern auch Soldatenfriedhöfe und somit sowjetische Kriegsgräberstätten in Deutschland. Das zentrale Ehrenmal ist die Anlage im Treptower Park. Daneben entstanden das Ehrenmal in der Schönholzer Heide (Pankow), das Ehrenmal im Tiergarten und das Ehrenmal im Bucher Schlosspark.\n\n\nBaugeschichte\nZur Gestaltung der Gedenkstätte in Berlin-Treptow wurde von der sowjetischen Kommandantur ein Wettbewerb ausgelobt, zu dem 33 Entwürfe eingingen. Ab Juni 1946 wurde der von einem sowjetischen Schöpferkollektiv stammende Vorschlag umgesetzt, dem der Architekt Jakow B. Belopolski, der Bildhauer Jewgeni Wutschetitsch, der Maler Alexander A. Gorpenko und die Ingenieurin Sarra S. Walerius vorstanden. Außer Skulpturen, u. a. von Lew Kerbel, und Reliefs kamen auch Flammenschalen mit 2,50 m Durchmesser zur Ausführung, die 1948 von der Kunstgießerei Lauchhammer hergestellt wurden.\nZudem wurde das Können der Gießerei Sperlich aus Birkholzaue für den Aufbau der Monumentalplastik genutzt. Die Gedenkstätte entstand an der Stelle einer großen Spiel- und Sportwiese im Bereich des anlässlich der Berliner Gew",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Sowjetisches%20Ehrenmal%20im%20Treptower%20Park"
+    },
+    "de:Berliner Fernsehturm": {
+      "description": "Der Berliner Fernsehturm ist mit 368 Metern das höchste Bauwerk Deutschlands sowie der sechsthöchste Fernsehturm Europas. Der Fernsehturm befindet sich im Park am Fernsehturm im Berliner Ortsteil Mitte. Er war im Jahr der Fertigstellung 1969 der zweithöchste Fernsehturm der Welt und zählt mit über einer Million Besuchern jährlich zu den zehn beliebtesten Sehenswürdigkeiten in Deutschland.",
+      "body": "Der Berliner Fernsehturm ist mit 368 Metern das höchste Bauwerk Deutschlands sowie der sechsthöchste Fernsehturm Europas. Der Fernsehturm befindet sich im Park am Fernsehturm im Berliner Ortsteil Mitte. Er war im Jahr der Fertigstellung 1969 der zweithöchste Fernsehturm der Welt und zählt mit über einer Million Besuchern jährlich zu den zehn beliebtesten Sehenswürdigkeiten in Deutschland.\nDer Fernsehturm im Internationalen Stil wurde 1965–1969 von der Deutschen Post der DDR im Park am Fernsehturm anstelle des abgerissenen Marienviertels errichtet. Am 3. Oktober 1969 erfolgte die Eröffnung. Das Bauwerk ist über 220 Meter höher als der alte Berliner Funkturm aus den 1920er Jahren in Berlin-Westend. Als Wahrzeichen und weithin sichtbare Landmarke prägt es die Skyline der Stadt. In Eröffnungsszenen von Filmen mit Bezug zu Berlin wird die Hauptstadt neben Bauwerken wie dem Brandenburger Tor, der Siegessäule und dem Reichstagsgebäude häufig durch den Fernsehturm symbolisiert.\nDas intern als „Fernmeldeturm 32“ bezeichnete Bauwerk dient neben seiner Hauptfunktion als Standort mehrerer Rundfunksender für Hörfunk und Fernsehen als Aussichtsturm mit einer Aussichtsetage inklusive Bar auf 203 Metern Höhe und beinhaltet ein Drehrestaurant auf 207 Metern Höhe. Darüber hinaus dient der Berliner Fernsehturm als Veranstaltungsort. Das markante und stadtprägende Bauwerk unterlag einer starken symbolischen Wandlung. Von einem politisch vereinnahmten nationalen Symbol der DDR entwickelte es sich nach der deutschen Wiedervereinigung zum gesamtstädtischen Symbol im wiedervereinten Berlin. Aufgrund seiner universellen und zeitlosen Formensprache fand es zunehmend als Markenzeichen Verwendung und wird international mit Berlin und Deutschland identifiziert. Der Berliner Fernsehturm erhielt 1979 in der DDR den Denkmalstatus, der nach der deutschen Wiedervereinigung fortgeschrieben wurde.\n\n\nGeschichte\n\n\nVorgeschichte\n\nBei der Europäischen Rundfunkkonferenz in Stockholm 1952, die für die Koord",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Berliner%20Fernsehturm"
+    },
+    "de:Lustgarten (Berlin)": {
+      "description": "Der Lustgarten ist eine zwei Hektar große Grünfläche auf der Museumsinsel im Berliner Ortsteil Mitte. Im Jahr 1573 von Kurfürst Johann Georg als Küchengarten des Berliner Schlosses angelegt, wurde er im Laufe der Geschichte mehrmals umgestaltet. Dabei erhielt er 1834 eine Granitschale, die zu den beliebtesten Sehenswürdigkeiten Berlins gehört, und 1863 ein Reiterstandbild Friedrich Wilhelms III., das in der Nachkriegszeit zerstört wurde.",
+      "body": "Der Lustgarten ist eine zwei Hektar große Grünfläche auf der Museumsinsel im Berliner Ortsteil Mitte. Im Jahr 1573 von Kurfürst Johann Georg als Küchengarten des Berliner Schlosses angelegt, wurde er im Laufe der Geschichte mehrmals umgestaltet. Dabei erhielt er 1834 eine Granitschale, die zu den beliebtesten Sehenswürdigkeiten Berlins gehört, und 1863 ein Reiterstandbild Friedrich Wilhelms III., das in der Nachkriegszeit zerstört wurde. Zuletzt wurde der Lustgarten 1998–1999 umgestaltet.\n\n\nLage\nDer im historischen Stadtteil Alt-Kölln gelegene Lustgarten wird begrenzt von der Straße Am Lustgarten und dem Berliner Dom im Osten, dem Alten Museum im Norden, dem Kupfergraben im Westen sowie einer mehrspurigen Straße und dem als Humboldt Forum wiederaufgebauten Berliner Schloss im Süden.\n\n\nGeschichte\n\n\nAnfänge\n\nDer nördliche Teil der aus einer Sandbank entstandenen Spreeinsel war ursprünglich ein relativ sumpfiges Gelände. Während auf dem südlichen Teil der Insel zwischen zwei Armen der Spree im 13. Jahrhundert die Stadt Cölln entstand und ab 1442 nördlich davon auf dem zentralen Teil eine mittelalterliche Burganlage von Kurfürst Friedrich II. errichtet wurde, ist über die Nutzung und das Aussehen des nördlichen Teils der Insel, auf dem der heutige Lustgarten liegt, zu dieser Zeit nichts bekannt. Erstmals erwähnt wird er 1471, man kann aber davon ausgehen, dass das Gelände auch schon vorher als Garten gedient hat. Unter Kurfürst Johann Georg wurde das Areal 1573 im Zuge des Schlossausbaus zu einem Nutz- und Küchengarten, verantwortlich dafür war sein Hofgärtner Desiderius Corbinianus. Aus der küchen notturft, also den Bedürfnissen und Ansprüchen der Hofküche entsprechend, legte Corbinianus einen Teil des Gartens als Kräutergarten an; auch Obstbäume wurden gepflanzt. Vermutlich hat ein Teil des Areals auch höfischen Festlichkeiten gedient. In den Jahren des Dreißigjährigen Krieges wurde der Garten verwüstet und verwilderte.\nNoch vor Kriegsende ließ Kurfürst Friedrich Wilh",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Lustgarten%20(Berlin)"
+    },
+    "de:Schloss Charlottenburg": {
+      "description": "Das Schloss Charlottenburg diente von 1701 bis 1888 als Sommerresidenz der preußischen Könige und ist heute ein Museum. Das Schloss ist ein Baudenkmal und liegt am Spandauer Damm im Berliner Ortsteil Charlottenburg.\nErrichtet in mehreren Abschnitten von 1695 bis 1791 nach Plänen von Johann Friedrich Eosander, Georg Wenzeslaus von Knobelsdorff und Carl Gotthard Langhans, ist das Schloss den Stilrichtungen des Barocks, des Rokokos und des Klassizismus zuzuordnen.",
+      "body": "Das Schloss Charlottenburg diente von 1701 bis 1888 als Sommerresidenz der preußischen Könige und ist heute ein Museum. Das Schloss ist ein Baudenkmal und liegt am Spandauer Damm im Berliner Ortsteil Charlottenburg.\nErrichtet in mehreren Abschnitten von 1695 bis 1791 nach Plänen von Johann Friedrich Eosander, Georg Wenzeslaus von Knobelsdorff und Carl Gotthard Langhans, ist das Schloss den Stilrichtungen des Barocks, des Rokokos und des Klassizismus zuzuordnen. Der an der Spree gelegene Park wurde ab 1697 von Siméon Godeau als französischer Garten und ab 1819 von Peter Joseph Lenné als englischer Garten gestaltet. Die im Zweiten Weltkrieg schwer beschädigte Anlage wurde originalgetreu wiederaufgebaut, wozu die West-Berliner Kunsthistorikerin Margarete Kühn maßgeblich beitrug.\nDas von der Stiftung Preußische Schlösser und Gärten verwaltete Baudenkmal ist eine beliebte Sehenswürdigkeit und die bedeutendste Schlossanlage Berlins. Zum Bauensemble gehört auch der Schlossgarten mit dem Belvedere, dem Mausoleum und dem Neuen Pavillon.\n\n\nBaugeschichte\n\n\nAltes Schloss und Erweiterungsbau\nNachdem Sophie Charlotte von Hannover ihrem Gemahl Kurfürst Friedrich III. 1694 ihren Landsitz auf Caputh bei Berlin zurückgegeben hatte, übergab dieser ihr am 30. Juni 1695 als Ersatz das Dorf Lietze/Lützow etwa sieben Kilometer vor Berlin sowie ein Grundstück. Noch im selben Jahr beauftragte Sophie Charlotte den Architekten Johann Arnold Nering mit der Planung und dem Bau einer Sommerresidenz auf dem Grundstück. Allerdings starb Nering schon einige Monate später, und Martin Grünberg übernahm die Ausführung des Ausbaus.\nDer Kernbau war noch sehr klein, er umfasste den mittleren Teil mit zwei Risaliten. Außerdem wurde wegen der Vorliebe der Königin für Opern und musikalische Darbietungen ein freistehendes kleines Opernhaus errichtet. So wurde das Schloss auch Sophie Charlottes Musenhof genannt. Am 11. Juli 1699, dem Geburtstag ihres Gatten, wurde das kleine Schloss eingeweiht und seitdem von",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Schloss%20Charlottenburg"
+    },
+    "de:Hotel Adlon": {
+      "description": "Das Hotel Adlon Kempinski ist eines der luxuriösesten und bekanntesten Hotels in Deutschland. Es liegt in der Dorotheenstadt im Berliner Ortsteil Mitte am Boulevard Unter den Linden 77, unweit des Brandenburger Tors am Pariser Platz. Es wurde 1997 eröffnet und folgt der Tradition des 1907 eröffneten ursprünglichen Hotels Adlon, das 1945 ausbrannte und bis auf einen Seitenflügel abgerissen wurde, der bis 1984 stand.",
+      "body": "Das Hotel Adlon Kempinski ist eines der luxuriösesten und bekanntesten Hotels in Deutschland. Es liegt in der Dorotheenstadt im Berliner Ortsteil Mitte am Boulevard Unter den Linden 77, unweit des Brandenburger Tors am Pariser Platz. Es wurde 1997 eröffnet und folgt der Tradition des 1907 eröffneten ursprünglichen Hotels Adlon, das 1945 ausbrannte und bis auf einen Seitenflügel abgerissen wurde, der bis 1984 stand.\nDas Hotel Adlon war 2018 mit einem Umsatz von 58 Millionen Euro das viert-umsatzstärkste Hotel in Deutschland. Es gehört zum Hotelverbund The Leading Hotels of the World.\n\n\nAltes Hotel Adlon\n\n\nVorgeschichte\nUm 1900 wurde es bei der europäischen Oberschicht modern, Bälle, Diners und andere Festlichkeiten auf großen öffentlichen Bühnen zu zelebrieren. Diese Bühnen der Gesellschaft waren Hotels, die – nach US-amerikanischem Vorbild – allen Luxus erfüllten, den die damalige Welt zu bieten hatte. Hotels, und da war Deutschland keine Ausnahme, waren in früheren Jahrhunderten nur als reine Übernachtungsmöglichkeit angesehen worden. Ein Fest oder gar einen großen Empfang in solch einem Rahmen auszurichten, war zunächst unvorstellbar, da sowohl der Adel als auch das reiche Großbürgertum daran gewöhnt waren, zu Hause oder auf einem Landsitz zu feiern.\nIn den Vereinigten Staaten gab es solch eine Entwicklung nicht. Früh eröffneten in den großen Zentren, wie New York oder Boston, Luxushotels, die sich nicht nur auf Schlafmöglichkeiten reduzierten, sondern ebenso Raum für private Vergnügungen boten, wie Spielezimmer, Rauchersalons, Bibliotheken und Cafés. Diese neue Art des Hotellebens drang nach Europa und zeigte bald erste Wirkungen in den Großstädten. In Paris und bald darauf in London eröffnete das feine Ritz, in Sankt Petersburg das Hotel Astoria, in Wien das feudale Hotel Imperial. Auch in Deutschland gab es elegante Hotels, wie das Bristol oder das Grand Hotel de Rome, doch waren diese im Vergleich zur neuen Spitzenklasse altmodisch und antiquiert. So brannte d",
+      "language": "de",
+      "wikipediaUrl": "https://de.wikipedia.org/wiki/Hotel%20Adlon"
     }
   }
 }

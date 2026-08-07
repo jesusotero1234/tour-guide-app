@@ -1,6 +1,7 @@
-import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, Tour, TourRequest, TourListParams, Language } from '@/types/api';
+import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language } from '@/types/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const FRONTEND_TOUR_API = '/api/backend';
 
 export type { TourListParams } from '@/types/api';
 
@@ -9,10 +10,13 @@ export type ApiRequestError = Error & {
   details?: unknown;
 };
 
-function createApiRequestError(errorData: any, fallbackMessage: string): ApiRequestError {
-  const err = new Error(errorData.error?.message || fallbackMessage) as ApiRequestError;
-  err.code = errorData.error?.code;
-  err.details = errorData.error?.details;
+function createApiRequestError(errorData: unknown, fallbackMessage: string): ApiRequestError {
+  const payload = errorData && typeof errorData === 'object' && 'error' in errorData
+    ? (errorData as { error?: { message?: string; code?: string; details?: unknown } }).error
+    : undefined;
+  const err = new Error(payload?.message || fallbackMessage) as ApiRequestError;
+  err.code = payload?.code;
+  err.details = payload?.details;
   return err;
 }
 
@@ -169,11 +173,7 @@ export async function getTour(id: string): Promise<Tour> {
   try {
     console.log(`Fetching tour with ID: ${id}`);
     
-    const response = await fetch(`${API_BASE_URL}/v1/tours/${id}`, {
-      headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
-      }
-    });
+    const response = await fetch(`${FRONTEND_TOUR_API}/tours/${encodeURIComponent(id)}`);
     
     if (!response.ok) {
       const errorData = await response.json();
@@ -206,13 +206,9 @@ export async function listTours(params?: TourListParams): Promise<Tour[]> {
     if (params?.offset) queryParams.append('offset', params.offset.toString());
     
     const queryString = queryParams.toString();
-    const url = `${API_BASE_URL}/v1/tours${queryString ? `?${queryString}` : ''}`;
+    const url = `${FRONTEND_TOUR_API}/tours${queryString ? `?${queryString}` : ''}`;
     
-    const response = await fetch(url, {
-      headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
-      }
-    });
+    const response = await fetch(url);
     
     if (!response.ok) {
       const errorData = await response.json();
@@ -229,4 +225,24 @@ export async function listTours(params?: TourListParams): Promise<Tour[]> {
     console.error('Error listing tours:', error);
     throw new Error('Failed to fetch tours. Please try again.');
   }
+}
+
+export async function createGenerationJob(request: TourRequest): Promise<GenerationJob> {
+  const response = await fetch(`${FRONTEND_TOUR_API}/generation-jobs`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(request),
+  });
+  const data = await response.json();
+  if (!response.ok) throw createApiRequestError(data, 'Failed to start tour generation');
+  return data as GenerationJob;
+}
+
+export async function getGenerationJob(id: string): Promise<GenerationJob> {
+  const response = await fetch(`${FRONTEND_TOUR_API}/generation-jobs/${encodeURIComponent(id)}`, {
+    cache: 'no-store',
+  });
+  const data = await response.json();
+  if (!response.ok) throw createApiRequestError(data, 'Failed to load generation progress');
+  return data as GenerationJob;
 }

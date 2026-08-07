@@ -1,0 +1,1508 @@
+{
+  "schemaVersion": "route-editorial-workbench-v3",
+  "createdAt": "2026-08-06T16:30:51.504Z",
+  "caseId": "madrid-history-es-120",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "d5330d6e88322935198f7a445c661e51e2c01ff76808f83fd40060d2c9febe94",
+  "candidateMapping": [
+    {
+      "slot": "c00",
+      "canonicalId": "Q1123493",
+      "siteId": "site:Q1123493",
+      "entityIds": [
+        "Q1123493"
+      ],
+      "evidenceIds": [
+        "Q1123493:wikipedia:0",
+        "Q1123493:wikipedia:1",
+        "Q1123493:wikidata:architect",
+        "Q1123493:wikidata:heritageDesignation",
+        "Q1123493:wikipedia:3",
+        "Q1123493:osm:place",
+        "Q1123493:wikipedia:2",
+        "Q1123493:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c01",
+      "canonicalId": "Q427163",
+      "siteId": "site:Q427163",
+      "entityIds": [
+        "Q427163"
+      ],
+      "evidenceIds": [
+        "Q427163:wikipedia:0",
+        "Q427163:wikipedia:1",
+        "Q427163:wikipedia:3",
+        "Q427163:wikipedia:2",
+        "Q427163:wikipedia:8",
+        "Q427163:wikidata:instanceOf",
+        "Q427163:wikipedia:6",
+        "Q427163:wikipedia:10"
+      ]
+    },
+    {
+      "slot": "c02",
+      "canonicalId": "Q171517",
+      "siteId": "site:Q171517",
+      "entityIds": [
+        "Q15845124",
+        "Q171517"
+      ],
+      "evidenceIds": [
+        "Q171517:osm:historic",
+        "Q171517:wikipedia:0",
+        "Q171517:wikidata:inception",
+        "Q171517:wikidata:architect",
+        "Q171517:wikipedia:3",
+        "Q171517:osm:building",
+        "Q171517:wikipedia:1",
+        "Q171517:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c03",
+      "canonicalId": "Q1537446",
+      "siteId": "site:Q1537446",
+      "entityIds": [
+        "Q1537446",
+        "Q1849031",
+        "Q2736564",
+        "way:1346140195"
+      ],
+      "evidenceIds": [
+        "Q1537446:osm:place",
+        "Q2736564:wikipedia:1",
+        "Q1537446:wikidata:namedAfter",
+        "Q1849031:wikidata:inception",
+        "Q2736564:wikipedia:5",
+        "way:1346140195:osm:historic",
+        "Q2736564:wikipedia:3",
+        "Q1537446:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c04",
+      "canonicalId": "Q1140634",
+      "siteId": "site:Q1140634",
+      "entityIds": [
+        "Q1140634"
+      ],
+      "evidenceIds": [
+        "Q1140634:wikipedia:0",
+        "Q1140634:wikipedia:4",
+        "Q1140634:wikidata:inception",
+        "Q1140634:wikidata:architecturalStyle",
+        "Q1140634:wikipedia:5",
+        "Q1140634:wikipedia:1",
+        "Q1140634:wikipedia:8",
+        "Q1140634:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c05",
+      "canonicalId": "Q849711",
+      "siteId": "site:Q849711",
+      "entityIds": [
+        "Q849711"
+      ],
+      "evidenceIds": [
+        "Q849711:wikipedia:3",
+        "Q849711:wikipedia:6",
+        "Q849711:wikidata:inception",
+        "Q849711:wikidata:architect",
+        "Q849711:wikipedia:7",
+        "Q849711:osm:amenity",
+        "Q849711:wikipedia:0",
+        "Q849711:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c06",
+      "canonicalId": "Q2711992",
+      "siteId": "site:Q2711992",
+      "entityIds": [
+        "Q2711992"
+      ],
+      "evidenceIds": [
+        "Q2711992:wikipedia:3",
+        "Q2711992:wikipedia:1",
+        "Q2711992:wikipedia:4",
+        "Q2711992:wikipedia:5",
+        "Q2711992:wikipedia:0",
+        "Q2711992:wikidata:instanceOf",
+        "Q2711992:wikipedia:9",
+        "Q2711992:wikipedia:7"
+      ]
+    },
+    {
+      "slot": "c07",
+      "canonicalId": "Q970525",
+      "siteId": "site:Q970525",
+      "entityIds": [
+        "Q970525"
+      ],
+      "evidenceIds": [
+        "Q970525:wikipedia:4",
+        "Q970525:wikipedia:3",
+        "Q970525:wikidata:namedAfter",
+        "Q970525:wikipedia:6",
+        "Q970525:osm:place",
+        "Q970525:wikipedia:0",
+        "Q970525:wikidata:instanceOf",
+        "Q970525:wikipedia:8"
+      ]
+    },
+    {
+      "slot": "c08",
+      "canonicalId": "Q2193218",
+      "siteId": "site:Q2193218",
+      "entityIds": [
+        "Q2193218"
+      ],
+      "evidenceIds": [
+        "Q2193218:osm:place",
+        "Q2193218:wikipedia:1",
+        "Q2193218:wikidata:inception",
+        "Q2193218:wikipedia:2",
+        "Q2193218:osm:highway",
+        "Q2193218:wikipedia:0",
+        "Q2193218:wikidata:instanceOf",
+        "Q2193218:wikipedia:3"
+      ]
+    },
+    {
+      "slot": "c09",
+      "canonicalId": "Q855343",
+      "siteId": "site:Q855343",
+      "entityIds": [
+        "Q10343739",
+        "Q855343"
+      ],
+      "evidenceIds": [
+        "Q10343739:osm:building",
+        "Q10343739:wikipedia:3",
+        "Q855343:wikidata:inception",
+        "Q10343739:wikidata:architecturalStyle",
+        "Q10343739:wikipedia:4",
+        "Q10343739:osm:historic",
+        "Q10343739:wikipedia:0",
+        "Q855343:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c10",
+      "canonicalId": "Q539149",
+      "siteId": "site:Q539149",
+      "entityIds": [
+        "Q539149",
+        "Q9054619"
+      ],
+      "evidenceIds": [
+        "Q9054619:osm:building",
+        "Q9054619:wikipedia:2",
+        "Q9054619:wikidata:inception",
+        "Q9054619:wikidata:architect",
+        "Q9054619:wikipedia:3",
+        "Q9054619:osm:architect",
+        "Q9054619:wikipedia:0",
+        "Q539149:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c11",
+      "canonicalId": "Q2657591",
+      "siteId": "site:Q2657591",
+      "entityIds": [
+        "Q2657591"
+      ],
+      "evidenceIds": [
+        "Q2657591:wikipedia:0",
+        "Q2657591:wikipedia:2",
+        "Q2657591:wikidata:inception",
+        "Q2657591:wikidata:heritageDesignation",
+        "Q2657591:wikipedia:4",
+        "Q2657591:wikipedia:1",
+        "Q2657591:wikipedia:3",
+        "Q2657591:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c12",
+      "canonicalId": "Q2982559",
+      "siteId": "site:Q2982559",
+      "entityIds": [
+        "Q2982559",
+        "Q6080086"
+      ],
+      "evidenceIds": [
+        "Q2982559:wikipedia:2",
+        "Q2982559:wikipedia:0",
+        "Q2982559:wikidata:architect",
+        "Q2982559:wikidata:architecturalStyle",
+        "Q2982559:wikipedia:1",
+        "Q2982559:osm:building",
+        "Q2982559:wikipedia:3",
+        "Q2982559:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c13",
+      "canonicalId": "Q3288223",
+      "siteId": "site:Q3288223",
+      "entityIds": [
+        "Q3288223"
+      ],
+      "evidenceIds": [
+        "Q3288223:osm:building",
+        "Q3288223:wikipedia:0",
+        "Q3288223:wikidata:inception",
+        "Q3288223:wikidata:architecturalStyle",
+        "Q3288223:wikipedia:1",
+        "Q3288223:osm:historic",
+        "Q3288223:wikipedia:2",
+        "Q3288223:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c14",
+      "canonicalId": "Q2838423",
+      "siteId": "site:Q2838423",
+      "entityIds": [
+        "Q2838423"
+      ],
+      "evidenceIds": [
+        "Q2838423:wikipedia:6",
+        "Q2838423:wikipedia:2",
+        "Q2838423:wikidata:inception",
+        "Q2838423:wikidata:architect",
+        "Q2838423:wikipedia:3",
+        "Q2838423:osm:building",
+        "Q2838423:wikipedia:0",
+        "Q2838423:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c15",
+      "canonicalId": "Q1472798",
+      "siteId": "site:Q1472798",
+      "entityIds": [
+        "Q1472798"
+      ],
+      "evidenceIds": [
+        "Q1472798:wikipedia:0",
+        "Q1472798:wikipedia:4",
+        "Q1472798:wikidata:inception",
+        "Q1472798:wikidata:architect",
+        "Q1472798:wikipedia:7",
+        "Q1472798:wikipedia:1",
+        "Q1472798:wikipedia:6",
+        "Q1472798:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c16",
+      "canonicalId": "Q2420025",
+      "siteId": "site:Q2420025",
+      "entityIds": [
+        "Q2420025"
+      ],
+      "evidenceIds": [
+        "Q2420025:wikipedia:4",
+        "Q2420025:wikipedia:1",
+        "Q2420025:wikidata:inception",
+        "Q2420025:wikidata:architect",
+        "Q2420025:wikipedia:2",
+        "Q2420025:osm:amenity",
+        "Q2420025:wikipedia:0",
+        "Q2420025:wikidata:instanceOf"
+      ]
+    },
+    {
+      "slot": "c17",
+      "canonicalId": "Q24944157",
+      "siteId": "site:Q24944157",
+      "entityIds": [
+        "Q24944157"
+      ],
+      "evidenceIds": [
+        "Q24944157:osm:highway",
+        "Q24944157:wikipedia:1",
+        "Q24944157:wikidata:namedAfter",
+        "Q24944157:wikipedia:2",
+        "Q24944157:osm:place",
+        "Q24944157:wikipedia:0",
+        "Q24944157:wikidata:instanceOf",
+        "Q24944157:wikipedia:3"
+      ]
+    }
+  ],
+  "candidateSignalsCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "candidate-signals-v3",
+      "signals": {
+        "c00": {
+          "visitValueScore": 85,
+          "omissionCost": 80,
+          "primaryEvidence": "e01"
+        },
+        "c01": {
+          "visitValueScore": 90,
+          "omissionCost": 85,
+          "primaryEvidence": "e03"
+        },
+        "c02": {
+          "visitValueScore": 95,
+          "omissionCost": 90,
+          "primaryEvidence": "e04"
+        },
+        "c03": {
+          "visitValueScore": 75,
+          "omissionCost": 65,
+          "primaryEvidence": "e01"
+        },
+        "c04": {
+          "visitValueScore": 80,
+          "omissionCost": 70,
+          "primaryEvidence": "e00"
+        },
+        "c05": {
+          "visitValueScore": 85,
+          "omissionCost": 75,
+          "primaryEvidence": "e04"
+        },
+        "c06": {
+          "visitValueScore": 70,
+          "omissionCost": 60,
+          "primaryEvidence": "e03"
+        },
+        "c07": {
+          "visitValueScore": 55,
+          "omissionCost": 45,
+          "primaryEvidence": "e01"
+        },
+        "c08": {
+          "visitValueScore": 70,
+          "omissionCost": 60,
+          "primaryEvidence": "e07"
+        },
+        "c09": {
+          "visitValueScore": 65,
+          "omissionCost": 55,
+          "primaryEvidence": "e04"
+        },
+        "c10": {
+          "visitValueScore": 70,
+          "omissionCost": 60,
+          "primaryEvidence": "e04"
+        },
+        "c11": {
+          "visitValueScore": 60,
+          "omissionCost": 50,
+          "primaryEvidence": "e05"
+        },
+        "c12": {
+          "visitValueScore": 55,
+          "omissionCost": 45,
+          "primaryEvidence": "e01"
+        },
+        "c13": {
+          "visitValueScore": 60,
+          "omissionCost": 50,
+          "primaryEvidence": "e04"
+        },
+        "c14": {
+          "visitValueScore": 65,
+          "omissionCost": 55,
+          "primaryEvidence": "e04"
+        },
+        "c15": {
+          "visitValueScore": 60,
+          "omissionCost": 50,
+          "primaryEvidence": "e06"
+        },
+        "c16": {
+          "visitValueScore": 65,
+          "omissionCost": 55,
+          "primaryEvidence": "e01"
+        },
+        "c17": {
+          "visitValueScore": 45,
+          "omissionCost": 35,
+          "primaryEvidence": "e03"
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 3920,
+        "rawOutput": "{\"schemaVersion\": \"candidate-signals-v3\", \"signals\": {\"c00\": {\"visitValueScore\": 85, \"omissionCost\": 80, \"primaryEvidence\": \"e01\"}, \"c01\": {\"visitValueScore\": 90, \"omissionCost\": 85, \"primaryEvidence\": \"e03\"}, \"c02\": {\"visitValueScore\": 95, \"omissionCost\": 90, \"primaryEvidence\": \"e04\"}, \"c03\": {\"visitValueScore\": 75, \"omissionCost\": 65, \"primaryEvidence\": \"e01\"}, \"c04\": {\"visitValueScore\": 80, \"omissionCost\": 70, \"primaryEvidence\": \"e00\"}, \"c05\": {\"visitValueScore\": 85, \"omissionCost\": 75, \"primaryEvidence\": \"e04\"}, \"c06\": {\"visitValueScore\": 70, \"omissionCost\": 60, \"primaryEvidence\": \"e03\"}, \"c07\": {\"visitValueScore\": 55, \"omissionCost\": 45, \"primaryEvidence\": \"e01\"}, \"c08\": {\"visitValueScore\": 70, \"omissionCost\": 60, \"primaryEvidence\": \"e07\"}, \"c09\": {\"visitValueScore\": 65, \"omissionCost\": 55, \"primaryEvidence\": \"e04\"}, \"c10\": {\"visitValueScore\": 70, \"omissionCost\": 60, \"primaryEvidence\": \"e04\"}, \"c11\": {\"visitValueScore\": 60, \"omissionCost\": 50, \"primaryEvidence\": \"e05\"}, \"c12\": {\"visitValueScore\": 55, \"omissionCost\": 45, \"primaryEvidence\": \"e01\"}, \"c13\": {\"visitValueScore\": 60, \"omissionCost\": 50, \"primaryEvidence\": \"e04\"}, \"c14\": {\"visitValueScore\": 65, \"omissionCost\": 55, \"primaryEvidence\": \"e04\"}, \"c15\": {\"visitValueScore\": 60, \"omissionCost\": 50, \"primaryEvidence\": \"e06\"}, \"c16\": {\"visitValueScore\": 65, \"omissionCost\": 55, \"primaryEvidence\": \"e01\"}, \"c17\": {\"visitValueScore\": 45, \"omissionCost\": 35, \"primaryEvidence\": \"e03\"}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "90b0cd474d909a2b320b7a02380c78eb3fc0c5a63737a687ead4fc887cb5c811",
+    "input": {
+      "city": "Madrid",
+      "theme": "history",
+      "language": "es",
+      "requestedDuration": 120,
+      "candidates": [
+        {
+          "slot": "c00",
+          "localName": "Plaza Mayor de Madrid",
+          "category": "square_civic",
+          "fameScore": 30.99,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La plaza Mayor está situada en el centro de Madrid, en el barrio de Sol, junto a la calle Mayor y a 300 metros de la Puerta del Sol."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Historia Los inicios de la plaza se remontan al siglo XVI, cuando en la confluencia de los caminos (hoy en día calles) de Toledo y Atocha, a las afueras de la villa medieval, se celebraba en este sitio, conocido como «plaza del Arrabal», el mercado principal de la villa."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan de Herrera"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En 1560, tras haber trasladado la corte a Madrid en 1561, Felipe II encargó el proyecto de remodelación de la plaza a Juan de Herrera."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "En esa época se construyó una primera casa porticada, o lonja, para regular el comercio en la plaza."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: destino turístico"
+            }
+          ]
+        },
+        {
+          "slot": "c01",
+          "localName": "Puerta del Sol",
+          "category": "square_civic",
+          "fameScore": 30.64,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La Puerta del Sol es una plaza de la ciudad española de Madrid."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "En ella se encuentra desde 1950 el denominado kilómetro cero de las carreteras radiales del país."
+            },
+            {
+              "slot": "e02",
+              "kind": "context",
+              "value": "Dichas campanadas se empezaron a televisar en 1962 en La 1 de TVE, y a partir de ese año no se ha dejado de retransmitir por diversos canales de televisión."
+            },
+            {
+              "slot": "e03",
+              "kind": "observable",
+              "value": "El edificio más antiguo de la Puerta del Sol es la Real Casa de Correos y en ella destaca el reloj de torre que fue construido y donado en el siglo XIX por José Rodríguez de Losada, y cuyas campanadas de las 12 de la noche del 31 de diciembre marcan la tradicional toma de las doc"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Entre los edificios que le daban prestigio en los comienzos se encontraban la iglesia del Buen Suceso y el convento de San Felipe el Real."
+            },
+            {
+              "slot": "e05",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Esta cerca recogía en su perímetro los arrabales medievales que habían ido creciendo extramuros, en torno a la muralla cristiana del siglo XII."
+            },
+            {
+              "slot": "e07",
+              "kind": "context",
+              "value": "La Casa de Correos fue construida por el arquitecto francés Jaime Marquet entre 1766 y 1768; la misma fue posteriormente Ministerio de la Gobernación (Interior) y Dirección General de Seguridad del Estado durante la época franquista y, actualmente, es sede de la Presidencia de la"
+            }
+          ]
+        },
+        {
+          "slot": "c02",
+          "localName": "Palacio Real de Madrid",
+          "category": "palace_castle",
+          "fameScore": 30.32,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "El Palacio Real de Madrid es la residencia oficial del rey de España; no obstante, la familia real no habita en él, sino en el Palacio de la Zarzuela, por lo que es utilizado para ceremonias de Estado y actos solemnes.​ Con una extensión de 135 000 m² y 3418 habitaciones (casi el"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1735-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Filippo Juvara"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "A eje con el palacio, y enfrentado, se encuentra al otro extremo de la plaza el Teatro Real.​ El palacio fue construido por orden del rey Felipe V, sobre el solar dejado por el Real Alcázar, destruido casi del todo por un incendio en 1734."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Alberga un valioso patrimonio histórico-artístico, destacando el conjunto de instrumentos musicales conocido como los Stradivarius Palatinos, y colecciones muy relevantes de otras disciplinas como pintura, escultura y tapicería."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: residencia real"
+            }
+          ]
+        },
+        {
+          "slot": "c03",
+          "localName": "plaza de Cibeles",
+          "category": "square_civic",
+          "fameScore": 27.6,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Fue concebida dentro de un plan de remodelación urbana en el siglo XVIII, por iniciativa del rey Carlos III, quien planeaba embellecer la capital del reino según la estética del neoclasicismo."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Cibeles"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "inception: 1907-00-00"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La actual plaza se llamó al principio plaza de Madrid y en el año 1900 tomó el nombre plaza de Castelar."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "historic: monument"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Por la belleza y amenidad del lugar una vez concluido, fue conocido entre los madrileños como \"Salón del Prado\", y se convirtió inmediatamente en uno de los lugares más populares de la ciudad."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            }
+          ]
+        },
+        {
+          "slot": "c04",
+          "localName": "Puerta de Alcalá",
+          "category": "other",
+          "fameScore": 26.85,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La Puerta de Alcalá es una de las cinco antiguas puertas reales que daban acceso a la ciudad de Madrid (España).​ Se encuentra situada en el centro de la rotonda de la plaza de la Independencia."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Ha sufrido desde sus comienzos diversas transformaciones urbanísticas en su entorno, pasando de ser la frontera exterior de Madrid a un centro turístico de obligado paso que aparece insertada casi en el medio de la misma ciudad."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1769-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Este cambio se ha debido al ensanche del siglo XIX a lo largo del barrio de Serrano y la prolongación de la calle de Alcalá."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "En el cruce de las calles de Alcalá, Alfonso XII, Serrano y Salustiano Olózaga, junto a las puertas del Retiro: Puerta de España, Puerta de la Independencia (entrada principal a los jardines del Retiro) y Puerta de Hernani.​ La puerta daba acceso a aquellos viajeros que entraban "
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Al ser uno de los monumentos más representativos, en su do"
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: arco de triunfo"
+            }
+          ]
+        },
+        {
+          "slot": "c05",
+          "localName": "catedral de la Almudena",
+          "category": "religious",
+          "fameScore": 20.13,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La catedral está ubicada en el centro histórico de la ciudad de Madrid; la fachada principal se encuentra frente al Palacio Real, mientras que la fachada del crucero mira hacia la calle de Bailén y el acceso a la cripta se realiza por la cuesta de la Vega, al final de la calle Ma"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Se trata de un edificio de 102 metros de longitud y 73 de altura máxima construido desde finales del siglo XIX a finales del XX, en diferentes estilos arquitectónicos: neoclásico en el exterior, neogótico en el interior y neorrománico en la cripta."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1883-04-04"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Francisco de Cubas"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Fue consagrada el 15 de junio de 1993 por el papa San Juan Pablo II,​ en el transcurso de su cuarto viaje a España."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "amenity: place_of_worship"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "La Santa Iglesia Catedral Metropolitana de Santa María la Real de la Almudena, conocida simplemente como catedral de la Almudena,​ es una catedral de culto católico, dedicada a la Virgen María bajo la advocación de la Almudena, y sede episcopal de Madrid."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: catedral católica"
+            }
+          ]
+        },
+        {
+          "slot": "c06",
+          "localName": "plaza de la Villa",
+          "category": "square_civic",
+          "fameScore": 21.37,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "El más antiguo es la Casa y Torre de los Lujanes (siglo XV), construido en estilo gótico-mudéjar, que se emplaza en la cara oriental de la plaza."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "En ella tienen su origen tres pequeñas calles, correspondientes al primitivo trazado medieval de la ciudad: la del Codo aparece por el este, la del Cordón por el sur y la de Madrid por el oeste."
+            },
+            {
+              "slot": "e02",
+              "kind": "context",
+              "value": "Le siguen en antigüedad la Casa de Cisneros (siglo XVI), un palacio plateresco que cierra la parte meridional del recinto, y la Casa de la Villa (siglo XVII), de estilo barroco, una de las sedes del Ayuntamiento de Madrid, ubicada en la zona occidental de la plaza."
+            },
+            {
+              "slot": "e03",
+              "kind": "observable",
+              "value": "Historia La plaza de la Villa fue uno de los principales núcleos del Madrid medieval, dada su ubicación equidistante entre la puerta de Guadalajara y la de la Vega, dos de los accesos más importantes de la ciudad durante la Edad Media."
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "La plaza de la Villa (antes llamada plaza de San Salvador) está situada en el casco histórico de Madrid (España), junto a la calle Mayor."
+            },
+            {
+              "slot": "e05",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Su construcción data del siglo XV y su nombre hace referencia a sus primeros propietarios, la familia de los Lujanes, ricos come"
+            },
+            {
+              "slot": "e07",
+              "kind": "observable",
+              "value": "Por ese nombre, fuente de San Salvador, se conocería popularmente la primera gran fuente ornamental que el antiguo Consejo de la Villa ordenó construir en la plazuela, reinando aún Felipe III.​ En el siglo xv se le dio su actual denominación, coincidiendo con la otorgación del tí"
+            }
+          ]
+        },
+        {
+          "slot": "c07",
+          "localName": "plaza de Colón",
+          "category": "square_civic",
+          "fameScore": 28.22,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "Este consta de una base cuadrada con relieves y un pilar octogonal tallados en piedra por Arturo Mélida, y una estatua de tres metros de altura esculpida en mármol blanco de Italia por Jerónimo Suñol."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "En ella se encuentra monumento a Cristóbal Colón de estilo neogótico, erigido entre 1881 y 1885."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Cristóbal Colón"
+            },
+            {
+              "slot": "e03",
+              "kind": "context",
+              "value": "En la plaza el arquitecto Antonio Palacios ubicó su monumental proyecto de \"Proyecto de Palacio de las Artes\" en 1926."
+            },
+            {
+              "slot": "e04",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La plaza de Colón es un espacio público de la ciudad española de Madrid, en la que confluyen calles como Goya, Génova y los paseos de la Castellana y Recoletos."
+            },
+            {
+              "slot": "e06",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e07",
+              "kind": "context",
+              "value": "En la parte este de la plaza se ubica desde 1975 un amplio espacio abierto conocido como Jardines del Descubrimiento, en el que se encuentra el Centro de arte Teatro Fernán Gómez, antiguo Centro Cultural de la Villa de Madrid, construidos sobre el solar que ocupaba hasta entonces"
+            }
+          ]
+        },
+        {
+          "slot": "c08",
+          "localName": "plaza de Oriente",
+          "category": "square_civic",
+          "fameScore": 27.51,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Se trata de una plaza rectangular de cabecera curvada, de carácter monumental, cuyo trazado definitivo responde a un diseño de 1844 de Narciso Pascual Colomer, heredero de varios proyectos anteriores."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1844-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "context",
+              "value": "Uno de sus principales impulsores fue el rey José I, quien ordenó la demolición de las casas medievales situadas sobre su solar."
+            },
+            {
+              "slot": "e04",
+              "kind": "observable",
+              "value": "highway: pedestrian"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La plaza de Oriente está situada en el centro histórico de la ciudad española de Madrid."
+            },
+            {
+              "slot": "e06",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e07",
+              "kind": "context",
+              "value": "Está presidida por dos de los edificios más relevantes de la capital: su contorno occidental lo delimita el Palacio Real y el oriental el Teatro Real."
+            }
+          ]
+        },
+        {
+          "slot": "c09",
+          "localName": "Senado de España",
+          "category": "civic_power",
+          "fameScore": 27.97,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Es un edificio del siglo XVI, antiguo Colegio de la Encarnación, de religiosos agustinos calzados también llamado Colegio de doña María de Aragón (parte del complejo del Real Monasterio de la Encarnación)."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1977-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura herreriana"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "El colegio fue una de las instituciones más destacadas de la corte madrileña, y su iglesia contenía varias obras maestras de El Greco, hoy en el Museo del Prado.​ Entre 1820 y 1823, durante el Trienio Liberal fue el lugar de reunión de las Cortes previstas en la Constitución de 1"
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "historic: castle"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "El Palacio del Senado es la sede del Senado, una de las dos cámaras que componen las Cortes Generales, el parlamento nacional de España."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: senado"
+            }
+          ]
+        },
+        {
+          "slot": "c10",
+          "localName": "Congreso de los Diputados",
+          "category": "civic_power",
+          "fameScore": 27.74,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "building: government"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Es uno de los edificios emblemáticos del Madrid del siglo xix, de estilo neoclásico."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1843-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Narciso Pascual Colomer"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia En el espacio que ocupa el Palacio de las Cortes se situaba antaño el convento del Espíritu Santo, de la Congregación de los Clérigos Regulares Menores, el cual sufrió un grave incendio en 1823."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "architect: Narciso Pascual Colomer"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "El Palacio de las Cortes o Palacio del Congreso de los Diputados, según la página web oficial,​ es el edificio que alberga el Congreso de los Diputados, una de las dos Cámaras de las Cortes Generales, el Parlamento español."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: cámara de diputados"
+            }
+          ]
+        },
+        {
+          "slot": "c11",
+          "localName": "Puerta de Toledo",
+          "category": "other",
+          "fameScore": 25.26,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La puerta de Toledo era una de las puertas de acceso a la ciudad de Madrid.​ Existieron con anterioridad otras tres puertas denominadas de Toledo en las cercanías, la actual data del primer tercio del siglo xix y fue diseñada por el arquitecto español Antonio Aguado, que se encue"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Se construyó en el periodo que va desde los años 1813 y 1827, y fue restaurada por el Ayuntamiento de Madrid en 1995."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1827-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "heritageDesignation: bien de interés cultural"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Historia El Madrid medieval era una ciudad amurallada con accesos controlados a la misma."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "Fue erigida a modo de arco triunfal en honor del rey Fernando VII como conmemoración de la guerra de la independencia española tras la ocupación francesa.​ Fue la última puerta monumental erigida en el antiguo recinto de Madrid."
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Por su ubicación en la ciudad daba acceso desde el centro de la ciudad mediante la calle de Toledo a los caminos del sur de Madrid (Camino Real de Andalucía), tras cruzar el cauce del río Manzanares mediante el puente de Toledo y los Carabancheles."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: puerta de la ciudad"
+            }
+          ]
+        },
+        {
+          "slot": "c12",
+          "localName": "Palacio de Santa Cruz",
+          "category": "palace_castle",
+          "fameScore": 23.47,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "Se sitúa muy cerca de la Plaza Mayor, en la plaza de la Provincia, presidida junto con el palacio por la reconstruida fuente de Orfeo."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "El Palacio de Santa Cruz, también denominado Cárcel de Corte, hoy es una de las sedes del Ministerio de Asuntos Exteriores, Unión Europea y Cooperación de España."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "architect: Juan Gómez de Mora"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura barroca"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Se encuentra en la ciudad de Madrid, capital de España."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "building: public"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "La cárcel fue trasladada a un edificio contiguo."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: palacio"
+            }
+          ]
+        },
+        {
+          "slot": "c13",
+          "localName": "Palacio de Liria",
+          "category": "palace_castle",
+          "fameScore": 23.6,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "El palacio de Liria es una gran mansión urbana en Madrid, construida en el siglo XVIII."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1770-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architecturalStyle: arquitectura neoclásica"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Desde principios del XIX es la residencia oficial de la Casa de Alba en la capital de España y principal sede de su valiosa colección de arte y archivo histórico.​ Se ubica en los números 20-22 de la actual calle de la Princesa, en una zona conocida antaño como barrio de los Afli"
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "historic: palace"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Es considerado el domicilio particular más grande de Madrid (200 estancias en 3500 m²), sus amplios jardines son los únicos de propiedad privada que figuran destacados en muchos planos de la ciudad y ya en la época de su construcción fue considerada la mejor mansión de la aristoc"
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: palacio"
+            }
+          ]
+        },
+        {
+          "slot": "c14",
+          "localName": "Puente de Segovia",
+          "category": "other",
+          "fameScore": 23.85,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "En 1648, fue colocada en su frente una puerta ornamental, obra de Teodoro Ardemans, para dar mayor monumentalidad al puente."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "En 1996 fue declarado bien de interés cultural con categoría de monumento.​​ Conocido antiguamente como «puente segoviana», las primeras referencias de esta construcción datan del siglo XIV, cuando el rey Alfonso XI de Castilla autorizó su edificación mediante dos cartas escritas"
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1574-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Juan de Herrera"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En los primeros dibujos y pinturas de la ciudad, fechados en el siglo XVI, el puente aparecía bien con nueve arcos, bien con trece.​ Historia Su construcción fue ordenada por Felipe II a su arquitecto preferido, Juan de Herrera, autor del Monasterio de El Escorial y del Palacio R"
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "building: yes"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "El puente de Segovia es un monumento renacentista de la ciudad española de Madrid, obra del arquitecto Juan de Herrera."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: puente carretero"
+            }
+          ]
+        },
+        {
+          "slot": "c15",
+          "localName": "Neptuno",
+          "category": "other",
+          "fameScore": 23.5,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La fuente de Neptuno en Madrid es una fuente de estilo neoclásico que representa al dios Neptuno y ocupa el centro de la glorieta a la que popularmente da nombre, dentro de la Plaza de Cánovas del Castillo."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Historia En la segunda mitad del siglo XVIII Carlos III emprendió una serie de reformas, entre las que se encontraba la modernización de la capital para ponerla a la altura de las grandes urbes como San Petersburgo o París."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1780-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Ventura Rodríguez"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "Diseñada por el arquitecto Ventura Rodríguez, el proyecto se inició en 1777, usándose de modelo unos bocetos de madera realizados por Miguel Ximénez."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "Esta fuente monumental representa fue propuesta en 1777 y su construcción, empezada en 1782, finalizó en 1786."
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "Se concibió como parte de las obras de ordenación del Salón del Prado y forma parte de un programa iconográfico inspirado en la mitología grecorromana."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: fuente"
+            }
+          ]
+        },
+        {
+          "slot": "c16",
+          "localName": "Palacio de Cristal del Retiro",
+          "category": "other",
+          "fameScore": 23.35,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "La disposición de sus espacios internos y la gran cúpula central facilitaban la visualización y el cuidado de las plantas acuáticas y vegetación tropical, resaltando su función primordial como invernadero."
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Fue construido en 1887 con motivo de la Exposición General de las Islas Filipinas, y es un ejemplo destacado de la arquitectura de cristal y hierro en Madrid."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "inception: 1887-00-00"
+            },
+            {
+              "slot": "e03",
+              "kind": "claim",
+              "value": "architect: Ricardo Velázquez Bosco"
+            },
+            {
+              "slot": "e04",
+              "kind": "context",
+              "value": "En la actualidad es una de las sedes del Museo Reina Sofía.​ Este Palacio fue diseñado para ofrecer un ambiente ideal para la exhibición de plantas tropicales durante la Exposición General de las Islas Filipinas de 1887."
+            },
+            {
+              "slot": "e05",
+              "kind": "observable",
+              "value": "amenity: arts_centre"
+            },
+            {
+              "slot": "e06",
+              "kind": "context",
+              "value": "El Palacio de Cristal es una estructura de metal y cristal situado en el parque del Retiro de la ciudad española de Madrid."
+            },
+            {
+              "slot": "e07",
+              "kind": "claim",
+              "value": "instanceOf: edificio"
+            }
+          ]
+        },
+        {
+          "slot": "c17",
+          "localName": "plaza de Chueca",
+          "category": "square_civic",
+          "fameScore": 22.22,
+          "facts": [
+            {
+              "slot": "e00",
+              "kind": "observable",
+              "value": "highway: pedestrian"
+            },
+            {
+              "slot": "e01",
+              "kind": "context",
+              "value": "Dedicada desde 1943 al compositor madrileño Federico Chueca,​ da nombre a todo el barrio."
+            },
+            {
+              "slot": "e02",
+              "kind": "claim",
+              "value": "namedAfter: Federico Chueca"
+            },
+            {
+              "slot": "e03",
+              "kind": "context",
+              "value": "En el inicio del siglo XXI aparecía en las guías turísticas como corazón de la comunidad gay en la capital de España,​ aunque el dato aún no figuraba en la obra de algunos cronistas, estudios callejeros y enciclopedias sobre Madrid.​​ Historia Todavía inexistente en 1861,​ cuando"
+            },
+            {
+              "slot": "e04",
+              "kind": "observable",
+              "value": "place: square"
+            },
+            {
+              "slot": "e05",
+              "kind": "context",
+              "value": "La plaza de Chueca, antes llamada plaza de San Gregorio Magno,​ es un pequeño espacio peatonal de la ciudad española de Madrid, en el barrio de Justicia, distrito Centro, enmarcado por la calle de Gravina, al este, y la de Augusto Figueroa al oeste, a un costado del inicio de la "
+            },
+            {
+              "slot": "e06",
+              "kind": "claim",
+              "value": "instanceOf: plaza"
+            },
+            {
+              "slot": "e07",
+              "kind": "context",
+              "value": "En la primera mitad del siglo XIX y parte del anterior, en el espacio que ocupan los edificios que cierran la plazuela y su entorno, estuvieron La Galera, prisión para mujeres traída a esta zona desde anteriores emplazamientos, y los huertos de los duques de Frías."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "routeJuryCall": {
+    "status": "valid",
+    "value": {
+      "schemaVersion": "route-jury-v3",
+      "scores": {
+        "r00": {
+          "paidTourScore": 82,
+          "historicalArcScore": 78,
+          "omissionSafetyScore": 85,
+          "distinctivenessScore": 70
+        },
+        "r01": {
+          "paidTourScore": 75,
+          "historicalArcScore": 72,
+          "omissionSafetyScore": 90,
+          "distinctivenessScore": 65
+        },
+        "r02": {
+          "paidTourScore": 78,
+          "historicalArcScore": 80,
+          "omissionSafetyScore": 82,
+          "distinctivenessScore": 72
+        },
+        "r03": {
+          "paidTourScore": 80,
+          "historicalArcScore": 74,
+          "omissionSafetyScore": 75,
+          "distinctivenessScore": 68
+        },
+        "r04": {
+          "paidTourScore": 84,
+          "historicalArcScore": 82,
+          "omissionSafetyScore": 80,
+          "distinctivenessScore": 74
+        }
+      }
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "status": "valid",
+        "latencyMs": 2182,
+        "rawOutput": "{\"schemaVersion\": \"route-jury-v3\", \"scores\": {\"r00\": {\"paidTourScore\": 82, \"historicalArcScore\": 78, \"omissionSafetyScore\": 85, \"distinctivenessScore\": 70}, \"r01\": {\"paidTourScore\": 75, \"historicalArcScore\": 72, \"omissionSafetyScore\": 90, \"distinctivenessScore\": 65}, \"r02\": {\"paidTourScore\": 78, \"historicalArcScore\": 80, \"omissionSafetyScore\": 82, \"distinctivenessScore\": 72}, \"r03\": {\"paidTourScore\": 80, \"historicalArcScore\": 74, \"omissionSafetyScore\": 75, \"distinctivenessScore\": 68}, \"r04\": {\"paidTourScore\": 84, \"historicalArcScore\": 82, \"omissionSafetyScore\": 80, \"distinctivenessScore\": 74}}}",
+        "error": null
+      }
+    ],
+    "model": "deepseek-v4-flash",
+    "promptFingerprint": "0a198fe849d256745b63426343d629b50d3bc8128707f55a9b836db8815c060b",
+    "input": {
+      "city": "Madrid",
+      "theme": "history",
+      "language": "es",
+      "requestedDuration": 120,
+      "routes": [
+        {
+          "slot": "r00",
+          "candidateSlots": [
+            "c02",
+            "c05",
+            "c00",
+            "c01",
+            "c10",
+            "c03",
+            "c04"
+          ],
+          "stopNames": [
+            "Palacio Real de Madrid",
+            "catedral de la Almudena",
+            "Plaza Mayor de Madrid",
+            "Puerta del Sol",
+            "Congreso de los Diputados",
+            "plaza de Cibeles",
+            "Puerta de Alcalá"
+          ],
+          "estimatedTourMinutes": 111.38,
+          "walkingMeters": 3386.91,
+          "priorityCovered": 4,
+          "averageVisitValue": 82.86
+        },
+        {
+          "slot": "r01",
+          "candidateSlots": [
+            "c01",
+            "c00",
+            "c06",
+            "c05",
+            "c02",
+            "c08",
+            "c09"
+          ],
+          "stopNames": [
+            "Puerta del Sol",
+            "Plaza Mayor de Madrid",
+            "plaza de la Villa",
+            "catedral de la Almudena",
+            "Palacio Real de Madrid",
+            "plaza de Oriente",
+            "Senado de España"
+          ],
+          "estimatedTourMinutes": 93.38,
+          "walkingMeters": 2126.9,
+          "priorityCovered": 4,
+          "averageVisitValue": 80
+        },
+        {
+          "slot": "r02",
+          "candidateSlots": [
+            "c15",
+            "c10",
+            "c01",
+            "c12",
+            "c00",
+            "c06",
+            "c05",
+            "c02"
+          ],
+          "stopNames": [
+            "Neptuno",
+            "Congreso de los Diputados",
+            "Puerta del Sol",
+            "Palacio de Santa Cruz",
+            "Plaza Mayor de Madrid",
+            "plaza de la Villa",
+            "catedral de la Almudena",
+            "Palacio Real de Madrid"
+          ],
+          "estimatedTourMinutes": 112.52,
+          "walkingMeters": 2836.53,
+          "priorityCovered": 4,
+          "averageVisitValue": 76.25
+        },
+        {
+          "slot": "r03",
+          "candidateSlots": [
+            "c14",
+            "c05",
+            "c02",
+            "c00",
+            "c01",
+            "c10"
+          ],
+          "stopNames": [
+            "Puente de Segovia",
+            "catedral de la Almudena",
+            "Palacio Real de Madrid",
+            "Plaza Mayor de Madrid",
+            "Puerta del Sol",
+            "Congreso de los Diputados"
+          ],
+          "estimatedTourMinutes": 101.71,
+          "walkingMeters": 3339.84,
+          "priorityCovered": 4,
+          "averageVisitValue": 81.67
+        },
+        {
+          "slot": "r04",
+          "candidateSlots": [
+            "c08",
+            "c02",
+            "c05",
+            "c06",
+            "c00",
+            "c01",
+            "c10",
+            "c03"
+          ],
+          "stopNames": [
+            "plaza de Oriente",
+            "Palacio Real de Madrid",
+            "catedral de la Almudena",
+            "plaza de la Villa",
+            "Plaza Mayor de Madrid",
+            "Puerta del Sol",
+            "Congreso de los Diputados",
+            "plaza de Cibeles"
+          ],
+          "estimatedTourMinutes": 116.73,
+          "walkingMeters": 3130.82,
+          "priorityCovered": 4,
+          "averageVisitValue": 80
+        }
+      ]
+    }
+  }
+}

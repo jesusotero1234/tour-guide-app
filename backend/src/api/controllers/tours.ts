@@ -105,6 +105,14 @@ export async function getTour(req: Request, res: Response) {
     // Use orchestration service to retrieve the tour
     try {
       const tour = await orchestrationService.retrieveTour(id);
+      if (tour.status !== 'published') {
+        return res.status(404).json({
+          error: {
+            code: 'TOUR_NOT_FOUND',
+            message: 'Tour not found'
+          }
+        });
+      }
       res.json(tour);
     } catch (error) {
       if (error instanceof Error && error.message.includes('not found')) {

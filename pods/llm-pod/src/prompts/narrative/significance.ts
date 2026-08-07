@@ -6,6 +6,7 @@ export function significancePrompt(input: LongNarrativePromptInput): SectionProm
     user: [
       input.narrativeBriefText ? `NARRATIVE BRIEF (primary editorial contract — use this as your guide; raw evidence is supplementary):\n${input.narrativeBriefText}` : '',
       `Section: significance for ${input.localName}.`,
+      input.editorialRepairInstructions?.length ? `REPAIR INSTRUCTIONS: ${input.editorialRepairInstructions.join('; ')}` : '',
       `Tour theme: ${input.theme}.`,
       `Wikipedia lead: ${input.seeds.wikipediaLead || 'none'}.`,
       `Wikivoyage note: ${input.seeds.wikivoyage || 'none'}.`,

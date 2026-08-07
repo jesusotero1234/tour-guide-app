@@ -123,6 +123,41 @@ describe('POI enrichment snapshots', () => {
     expect(recorder.toSnapshot().wikipedia['es:Museo del Prado'].body).toBe('Contenido capturado.');
   });
 
+  it('uses a frozen Wikidata sitelink when OSM has no wikipedia tag', async () => {
+    const snapshot = createEmptyPoiEnrichmentSnapshot({
+      city: 'Berlin',
+      theme: 'history',
+      language: 'de',
+    });
+    snapshot.wikidata.Q82425 = {
+      wikidataId: 'Q82425',
+      wikidataUrl: 'https://www.wikidata.org/wiki/Q82425',
+      nameTranslations: { de: 'Brandenburger Tor' },
+      wikidataClaims: { inception: '1791' },
+      wikipediaTag: 'de:Brandenburger Tor',
+    };
+    snapshot.wikipedia['de:Brandenburger Tor'] = {
+      description: 'Das Brandenburger Tor ist ein frühklassizistisches Triumphtor.',
+      body: 'Es wurde in den Jahren 1789 bis 1793 errichtet.',
+      language: 'de',
+      wikipediaUrl: 'https://de.wikipedia.org/wiki/Brandenburger_Tor',
+    };
+    const withoutWikipediaTag: RawPoi = {
+      ...poi,
+      name: 'Brandenburger Tor',
+      tags: { name: 'Brandenburger Tor', wikidata: 'Q82425', historic: 'city_gate' },
+    };
+
+    const result = await enrichShortlistedPois(
+      [withoutWikipediaTag],
+      'de',
+      new SnapshotPoiEnrichmentCache(snapshot)
+    );
+
+    expect(result[0].enriched.wikipediaBody).toContain('1789');
+    expect(mockedWikipedia).not.toHaveBeenCalled();
+  });
+
   it('replays the real Barcelona shortlist snapshot with zero external calls', async () => {
     const fixtures = join(__dirname, '..', '..', '..', 'fixtures');
     const snapshot = JSON.parse(

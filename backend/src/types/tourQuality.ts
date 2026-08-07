@@ -56,4 +56,7 @@ export interface TourMetadata {
   requestedDurationMinutes?: number;
   recommendedDurationMinutes?: number;
   durationAdapted?: boolean;
+  narrativePlan?: import('../services/narrative/TourTextQuality').TourNarrativePlan;
+  textAudit?: import('../services/narrative/TourTextQuality').TourTextAudit;
+  routeDiagnostics?: import('../services/poi/RouteSelection').RouteDiagnostics;
 }

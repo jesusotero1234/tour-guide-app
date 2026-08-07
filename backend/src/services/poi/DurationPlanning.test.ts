@@ -6,7 +6,7 @@ describe('getDurationPlan', () => {
   });
 
   it('returns a medium plan for 2 hour tours', () => {
-    expect(getDurationPlan(120)).toEqual({ candidateCount: 12, minStops: 5, maxStops: 7 });
+    expect(getDurationPlan(120)).toEqual({ candidateCount: 30, minStops: 5, maxStops: 7 });
   });
 
   it('returns a broad plan for long tours', () => {

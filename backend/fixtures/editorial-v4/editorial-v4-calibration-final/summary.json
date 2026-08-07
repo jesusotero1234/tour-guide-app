@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "route-editorial-workbench-v4",
+  "createdAt": "2026-08-06T18:40:11.372Z",
+  "mode": "snapshot",
+  "scope": "calibration",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "c9711d440f67f9469f44ff708baef0959b6797fb56956ae25ed89f174b866a88",
+  "results": [
+    {
+      "case": {
+        "id": "madrid-history-es-120",
+        "mode": "snapshot",
+        "city": "Madrid",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "malaga-history-es-120",
+        "mode": "snapshot",
+        "city": "Malaga",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "amsterdam-history-nl-120",
+        "mode": "snapshot",
+        "city": "Amsterdam",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "toledo-history-es-120",
+        "mode": "snapshot",
+        "city": "Toledo",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "berlin-history-de-120",
+        "mode": "snapshot",
+        "city": "Berlin",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "barcelona-history-fr-120",
+        "mode": "snapshot",
+        "city": "Barcelona",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "paris-history-en-120",
+        "mode": "snapshot",
+        "city": "Paris",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "roma-history-it-150",
+        "mode": "snapshot",
+        "city": "Roma",
+        "requestedDuration": 150
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    },
+    {
+      "case": {
+        "id": "toulouse-history-fr-120",
+        "mode": "snapshot",
+        "city": "Toulouse",
+        "requestedDuration": 120
+      },
+      "error": "story map has unexpected or missing fields",
+      "gates": {
+        "passed": false
+      }
+    }
+  ]
+}

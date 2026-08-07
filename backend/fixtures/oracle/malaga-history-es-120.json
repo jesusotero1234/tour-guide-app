@@ -1,0 +1,11 @@
+{
+  "city": "Malaga", "theme": "history", "language": "es", "durationMinutes": 120,
+  "purpose": "Editorial calibration only; never consumed by route selection.",
+  "stops": [
+    { "qid": "Q1582758", "name": "Catedral de Málaga", "narrativeRole": "Explicar la transformación religiosa de la ciudad", "contributionCode": "religious_identity" },
+    { "qid": "Q3127243", "name": "Alcazaba de Málaga", "narrativeRole": "Mostrar el poder andalusí", "contributionCode": "royal_state_power" },
+    { "qid": "Q1049197", "name": "Castillo de Gibralfaro", "narrativeRole": "Conectar defensa, conquista y paisaje", "contributionCode": "conflict_resistance" },
+    { "qid": "Q3849447", "name": "Teatro Romano", "narrativeRole": "Recuperar la ciudad pública romana", "contributionCode": "public_life_ceremony" },
+    { "qid": "Q11680432", "name": "Calle Marqués de Larios", "narrativeRole": "Resolver la modernización comercial", "contributionCode": "trade_economic_life" }
+  ]
+}

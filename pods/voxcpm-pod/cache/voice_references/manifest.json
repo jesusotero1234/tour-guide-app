@@ -1,4 +1,12 @@
 {
+  "0880582a-949f-4c27-bd10-cd94cdf26d6c": {
+    "language": "es",
+    "model": "openbmb_VoxCPM2",
+    "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/0880582a-949f-4c27-bd10-cd94cdf26d6c.wav",
+    "provider": "voxcpm",
+    "updatedAtMs": 1781047928161,
+    "voiceProfile": "guide_es"
+  },
   "0a9b8f33-0d8d-4896-bd2c-51e290898b8d": {
     "language": "fr",
     "model": "openbmb_VoxCPM2",
@@ -21,6 +29,22 @@
     "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/62e35625-d305-4942-9ee1-399958d278df.wav",
     "provider": "voxcpm",
     "updatedAtMs": 1781045559436,
+    "voiceProfile": "guide_es"
+  },
+  "9bf42b96-9148-4558-a3d2-ab428e8de8e7": {
+    "language": "fr",
+    "model": "openbmb_VoxCPM2",
+    "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/9bf42b96-9148-4558-a3d2-ab428e8de8e7.wav",
+    "provider": "voxcpm",
+    "updatedAtMs": 1781101571399,
+    "voiceProfile": "guide_fr"
+  },
+  "f3bb0318-257e-43dc-8da7-79e4a7e6c49c": {
+    "language": "es",
+    "model": "openbmb_VoxCPM2",
+    "path": "/mnt/c/Users/Jesus/Desktop/Coding/tour-guide-app/pods/voxcpm-pod/cache/voice_references/f3bb0318-257e-43dc-8da7-79e4a7e6c49c.wav",
+    "provider": "voxcpm",
+    "updatedAtMs": 1781098927506,
     "voiceProfile": "guide_es"
   }
 }
