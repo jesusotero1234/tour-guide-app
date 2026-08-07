@@ -1,7 +1,7 @@
 # Editorial selector v6 checklist
 
-- [ ] T1 Core context/audit contracts have failing tests, then pass.
-- [ ] T2 Wikimedia capture is validated, fingerprinted, and snapshot-ready.
+- [x] T1 Core context/audit contracts have failing tests, then pass.
+- [x] T2 Wikimedia capture is validated, fingerprinted, and snapshot-ready.
 - [ ] T3 Three-audit consensus, review states, budgets, and replay pass tests.
 - [ ] T4 Madrid experiment passes every eliminatory gate.
 - [ ] T5 Overrides and anti-oracle boundary pass tests.
