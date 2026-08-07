@@ -1,0 +1,3589 @@
+{
+  "schemaVersion": "route-editorial-workbench-v5",
+  "selectionSnapshotSchema": "editorial-selection-snapshot-v5",
+  "createdAt": "2026-08-07T14:10:54.745Z",
+  "mode": "live",
+  "provider": {
+    "kind": "deepseek",
+    "model": "deepseek-v4-flash"
+  },
+  "selectorFingerprint": "24187fe32d9d1bc3dc34053a9bf4fe0f847c0469be17a0923e94510d9217ee3c",
+  "results": [
+    {
+      "case": {
+        "id": "madrid-history-es-120",
+        "mode": "live",
+        "city": "Madrid",
+        "requestedDuration": 120
+      },
+      "reproducibility": {
+        "provider": {
+          "kind": "deepseek",
+          "model": "deepseek-v4-flash"
+        },
+        "selectorFingerprint": "24187fe32d9d1bc3dc34053a9bf4fe0f847c0469be17a0923e94510d9217ee3c",
+        "artifact": "/mnt/c/users/jesus/desktop/coding/tour-guide-app/backend/fixtures/editorial-v5/editorial-v5-madrid-20260807-d/madrid-history-es-120.json",
+        "walkingMatrixFingerprint": "7ac71d2d977da1bd6f7f073e7c9fa2bc54a915b42ce98ee9af50f907f2a290c7",
+        "initialPromptFingerprint": "5fa30649a4e5d1d4feea14fffd24512cc861a63422fcdd28af881196347909c4",
+        "finalPromptFingerprint": "6c44d7a2fd372c370d2c9717f4d3c89888fe12696636b7a0156f0b6efb0d6796",
+        "actualLlmCalls": 2
+      },
+      "attrition": {
+        "prefiltered": 60,
+        "evidenceReady": 47,
+        "candidateSet": 30,
+        "portfolioRoutes": 10,
+        "finalAlternatives": 6,
+        "winnerStops": 8,
+        "evidenceGaps": [
+          {
+            "canonicalId": "osm:node:6342365545",
+            "name": "Pabellón de los Hexágonos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:12988229",
+            "name": "Palacio del duque de Alba",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:18317102",
+            "name": "Palacio Condesa de Medina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:relation:3993993",
+            "name": "Palacio de Escalona y Bornos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:1338126462",
+            "name": "Cerca de Felipe IV",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:1346140195",
+            "name": "Fuente de Cibeles",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:291931539",
+            "name": "NH Palacio de Tepa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "osm:way:692839978",
+            "name": "Puerta de Murillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1026041",
+            "name": "CaixaForum Madrid",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q105776403",
+            "name": "Puente del Matadero",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q105776648",
+            "name": "Puente del Invernadero",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1070622",
+            "name": "Jardines del Campo del Moro",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q108378742",
+            "name": "Jardines de Cecilio Rodríguez",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q11065011",
+            "name": "Palacio de Santa Bárbara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1149052",
+            "name": "Calle Mayor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q115799392",
+            "name": "Plaza de Murillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1164358",
+            "name": "Palacio Longoria - SGAE",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q12344133",
+            "name": "Plaza de la Provincia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q130340447",
+            "name": "Atocha (Histórica)",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q14230837",
+            "name": "Plaza de Salvador Dalí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q15121263",
+            "name": "Museo de Cera",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q1531008",
+            "name": "Plaza del Dos de Mayo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q15845124",
+            "name": "Real Armería",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q160112",
+            "name": "Museo del Prado",
+            "missing": [
+              "observable"
+            ]
+          },
+          {
+            "canonicalId": "Q16538391",
+            "name": "Catedral del Redentor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16606346",
+            "name": "Mercado Guillermo de Osma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16606367",
+            "name": "Mercado de Chamberí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16610970",
+            "name": "Andén 0 - Nave de Motores de Pacífico",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q16620311",
+            "name": "Plaza del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q18654869",
+            "name": "Palacio de Zurbano",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q21564330",
+            "name": "Museo ABC",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q22087397",
+            "name": "Palacio del Marqués de Santa Cruz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q22810167",
+            "name": "Centro Cultural La Corrala",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26707745",
+            "name": "Palacete de Carlos María de Castro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26789351",
+            "name": "Plaza de Chamberí",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26833574",
+            "name": "Palacete del duque de Plasencia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26834087",
+            "name": "Embajada de Francia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26882537",
+            "name": "Palacio de Zabálburu",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q26960627",
+            "name": "Plaza de Margaret Thatcher",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27186278",
+            "name": "Plaza de los Carros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27213851",
+            "name": "Plaza de San Andrés",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q27947826",
+            "name": "Plaza de Olavide",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28007208",
+            "name": "Plaza de Santa Catalina de los Donados",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28047697",
+            "name": "Plaza de la Puerta de Moros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28050982",
+            "name": "Calle Botoneras",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28051520",
+            "name": "Calle de la Bolsa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2839150",
+            "name": "Plaza de Ramales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534583",
+            "name": "Calle de Gerona",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534625",
+            "name": "Plaza del Comandante Las Morenas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28534650",
+            "name": "Plaza de Herradores",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q28662636",
+            "name": "Plaza de Nelson Mandela",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29001836",
+            "name": "Calle de la Victoria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29004341",
+            "name": "Calle de Carlos III",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29004934",
+            "name": "Calle Gómez de Mora",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29005231",
+            "name": "Plaza del Conde de Barajas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29005538",
+            "name": "Calle del Maestro Villa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29016768",
+            "name": "Palacio del Marqués de Alcañices",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q2916187",
+            "name": "El Rastro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29257543",
+            "name": "Palacio de los Condes de Guevara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29581601",
+            "name": "Palacio López-Dóriga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29834891",
+            "name": "Plaza del Rastrillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29838186",
+            "name": "Plaza de los Mostenses",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q29840862",
+            "name": "Plaza del Conde de Toreno",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q30578759",
+            "name": "Plaza de San Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3321174",
+            "name": "Casón del Buen Retiro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3392158",
+            "name": "Plaza de Canalejas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35673000",
+            "name": "Mercado de Ibiza",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35786865",
+            "name": "Mercado de Pacífico",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35787403",
+            "name": "Mercado de Diego de León",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35787583",
+            "name": "Mercado de la Guindalera",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35788537",
+            "name": "Mercado Jesús del Gran Poder",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q35789412",
+            "name": "Centro Comercial Mercado Usera",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3656832",
+            "name": "Capilla de Nuestra Señora y de san Juan de Letrán",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q3845616",
+            "name": "Puente de Toledo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q386413",
+            "name": "Faro de Moncloa",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q386570",
+            "name": "Museo Lázaro Galdiano",
+            "missing": [
+              "observable"
+            ]
+          },
+          {
+            "canonicalId": "Q39072661",
+            "name": "Museo Casa de la Moneda",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42307209",
+            "name": "Mando Aéreo General",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42720683",
+            "name": "Palacio de la duquesa de Sueca",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q42912700",
+            "name": "Espacio Cultural Serrería Belga",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q4348433",
+            "name": "Casa de la Panadería",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q465250",
+            "name": "Edificio Metrópolis",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q47495696",
+            "name": "Plaza de los Guardias de Corps",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q47519622",
+            "name": "Casa Palacio Pablo del Puerto",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5117018",
+            "name": "Catedral Castrense de las Fuerzas Armadas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5117141",
+            "name": "Parroquia de Santa Bárbara",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5121553",
+            "name": "Circo Price",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5166190",
+            "name": "Iglesia del Monasterio de Benedictinas de San Plácido",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5166200",
+            "name": "Convento de las Trinitarias Descalzas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5191859",
+            "name": "Centro de Cultura Contemporánea Conde Duque",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52063001",
+            "name": "Plaza del Conde de Miranda",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52063495",
+            "name": "Plaza del Cordón",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52665136",
+            "name": "Calle del Cid",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q52828167",
+            "name": "Calle de San Ricardo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5361303",
+            "name": "Museo Nacional de Artes Decorativas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q539149",
+            "name": "Congreso de los Diputados",
+            "missing": [
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54158131",
+            "name": "Plaza Virgen de la Paloma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54165130",
+            "name": "Calle de San Bruno",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54216988",
+            "name": "Palacio del Duque de Granada de Ega",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q54234248",
+            "name": "Casa-palacio de Ricardo Augustín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5482884",
+            "name": "Plaza de las Cortes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q55005440",
+            "name": "Plaza de Juan Goytisolo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5535322",
+            "name": "Instituto Geológico y Minero de España",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5556798",
+            "name": "Museo de San Isidro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q56672440",
+            "name": "Plaza de la Corrala",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q56673316",
+            "name": "Plaza de Arturo Barea",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5675401",
+            "name": "Mercado de San Isidro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q570665",
+            "name": "Real Fábrica de Tapices",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740952",
+            "name": "Calle de Carretas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740980",
+            "name": "Calle del Arenal",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5740988",
+            "name": "Calle del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5754774",
+            "name": "Casa de Cervantes",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5754790",
+            "name": "Casa de Cisneros",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5755116",
+            "name": "Casa de la Carnicería",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5836422",
+            "name": "Carrera de San Jerónimo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5915581",
+            "name": "Casa de las Siete Chimeneas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q5962732",
+            "name": "La Casa Encendida",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q59828249",
+            "name": "Embajada de Italia",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010534",
+            "name": "Mercado de Barceló",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010567",
+            "name": "Mercado de San Antón",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010571",
+            "name": "Mercado de San Fernando",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010580",
+            "name": "Mercado de Santa María de la Cabeza",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010584",
+            "name": "Mercado Tirso de Molina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010611",
+            "name": "Mercado de la Cebada",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010619",
+            "name": "Mercado de la Paz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6010627",
+            "name": "Mercado Municipal los Mostenses",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6033986",
+            "name": "Galería de las Colecciones Reales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6034436",
+            "name": "Museo del Ferrocarril de Madrid",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057839",
+            "name": "Palacio de Abrantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057871",
+            "name": "Palacio de Biblioteca y Museos Nacionales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6057992",
+            "name": "Palacio de Fernán Núñez",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058226",
+            "name": "Palacio de Viana",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058318",
+            "name": "Palacio de la Música",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058482",
+            "name": "Palacio de los Vargas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058579",
+            "name": "Palacio Gaviria",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058593",
+            "name": "Palacio del Marqués de Perales",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6058638",
+            "name": "Palacio del Príncipe de Anglona",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079880",
+            "name": "Plazuela de Antón Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079936",
+            "name": "Plaza de Cascorro",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079939",
+            "name": "Plaza de Celenque",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6079993",
+            "name": "Plaza de Isabel II",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080004",
+            "name": "Plaza de Jacinto Benavente",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080017",
+            "name": "Plaza de Lavapiés",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080024",
+            "name": "Plaza de Matute",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080037",
+            "name": "Plaza de Pontejos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080070",
+            "name": "Plaza de San Ildefonso",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080086",
+            "name": "Plaza de Santa Cruz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080095",
+            "name": "Plaza de Santa María Soledad Torres Acosta",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080106",
+            "name": "Plaza de Santo Domingo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080114",
+            "name": "Plaza de Tirso de Molina",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080217",
+            "name": "Plaza de la Paja",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080243",
+            "name": "Plaza de las Comendadoras",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080247",
+            "name": "Plaza de las Descalzas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080267",
+            "name": "Plaza de Emilio Jiménez Millas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080388",
+            "name": "Plaza del Alamillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080406",
+            "name": "Plaza del Carmen",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6080424",
+            "name": "Plaza General Vara del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6091341",
+            "name": "Puente Monumental Parque Arganzuela",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6091607",
+            "name": "Puente del Rey",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6160850",
+            "name": "Viaducto de Segovia",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q61986887",
+            "name": "Puente del Principado de Andorra",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63341945",
+            "name": "Casa-palacio del Marqués de Viluma",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63861531",
+            "name": "Palacio del Duque del Infantado",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q63975106",
+            "name": "Palacio de Ustáriz",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6770825",
+            "name": "Mercado de San Miguel",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q68986257",
+            "name": "Calle de Martín de Vargas",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6940528",
+            "name": "Museo de Arte Contemporáneo",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q6974501",
+            "name": "Museo del Romanticismo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126215",
+            "name": "Palacio de Altamira",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126248",
+            "name": "Ministerio de la Presidencia, Justicia y Relaciones con Las Cortes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126253",
+            "name": "Palacio de Santoña",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126259",
+            "name": "Palacio del Marqués de Villamejor",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7126278",
+            "name": "Palacio del Marqués de Molins",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7131757",
+            "name": "Panteón de España",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7386456",
+            "name": "Instituto Cervantes",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q7414379",
+            "name": "Parroquia San Jerónimo el Real",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q8141010",
+            "name": "Palacio Arzobispal",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q833213",
+            "name": "Bosque del Recuerdo",
+            "missing": [
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q8343402",
+            "name": "Cementerio Británico",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q860191",
+            "name": "Puerta de San Vicente",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9031626",
+            "name": "Mercado de Antón Martín",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054434",
+            "name": "Palacio de Bermejillo",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054589",
+            "name": "Fundación Mapfre - Sala de exposiciones Recoletos",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9054715",
+            "name": "Palacio del Marqués de Salamanca - Fundación BBVA",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9060945",
+            "name": "Plaza de Puerta Cerrada",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q9067089",
+            "name": "Real Monasterio de Santa Isabel",
+            "missing": [
+              "observable",
+              "context",
+              "historical_specific"
+            ]
+          },
+          {
+            "canonicalId": "Q948580",
+            "name": "Casa Museo Lope de Vega",
+            "missing": [
+              "context",
+              "historical_specific"
+            ]
+          }
+        ]
+      },
+      "assessments": {
+        "initial": {
+          "r01": {
+            "verdict": "reject",
+            "paidTourValue": 2,
+            "firstVisitCompleteness": 2,
+            "progression": 2,
+            "nonRedundancy": 2,
+            "omissionRisk": "high",
+            "reasonCodes": [
+              "missing_canonical_landmark",
+              "weak_opening",
+              "redundant_stops",
+              "unclear_promise"
+            ]
+          },
+          "r02": {
+            "verdict": "reject",
+            "paidTourValue": 1,
+            "firstVisitCompleteness": 1,
+            "progression": 1,
+            "nonRedundancy": 2,
+            "omissionRisk": "high",
+            "reasonCodes": [
+              "too_short",
+              "missing_canonical_landmark",
+              "no_resolution",
+              "unclear_promise"
+            ]
+          },
+          "r03": {
+            "verdict": "reject",
+            "paidTourValue": 2,
+            "firstVisitCompleteness": 2,
+            "progression": 2,
+            "nonRedundancy": 2,
+            "omissionRisk": "high",
+            "reasonCodes": [
+              "missing_canonical_landmark",
+              "redundant_stops",
+              "unclear_promise"
+            ]
+          },
+          "r04": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "missing_canonical_landmark"
+            ]
+          },
+          "r05": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 3,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "clear_promise",
+              "satisfying_resolution"
+            ]
+          },
+          "r06": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "missing_canonical_landmark"
+            ]
+          },
+          "r07": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "missing_canonical_landmark"
+            ]
+          },
+          "r08": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 4,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "clear_promise",
+              "satisfying_resolution",
+              "distinct_contributions"
+            ]
+          },
+          "r09": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 3,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "clear_promise",
+              "satisfying_resolution"
+            ]
+          },
+          "r10": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "strong_opening",
+              "good_progression",
+              "missing_canonical_landmark"
+            ]
+          }
+        },
+        "final": {
+          "f01": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 4,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong-opening-anchor",
+              "canonical-first-visit-set",
+              "causal-progression",
+              "distinct-contributions",
+              "satisfying-resolution",
+              "no-redundancy"
+            ]
+          },
+          "f02": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "weak-opening-anchor",
+              "missing-canonical-landmark",
+              "redundant-stop",
+              "moderate-progression"
+            ]
+          },
+          "f03": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 4,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong-opening-anchor",
+              "canonical-first-visit-set",
+              "causal-progression",
+              "distinct-contributions",
+              "satisfying-resolution",
+              "no-redundancy"
+            ]
+          },
+          "f04": {
+            "verdict": "reject",
+            "paidTourValue": 2,
+            "firstVisitCompleteness": 2,
+            "progression": 2,
+            "nonRedundancy": 3,
+            "omissionRisk": "high",
+            "reasonCodes": [
+              "weak-opening-anchor",
+              "missing-canonical-landmark",
+              "incomplete-route",
+              "weak-resolution"
+            ]
+          },
+          "f05": {
+            "verdict": "strong",
+            "paidTourValue": 4,
+            "firstVisitCompleteness": 4,
+            "progression": 4,
+            "nonRedundancy": 4,
+            "omissionRisk": "none",
+            "reasonCodes": [
+              "strong-opening-anchor",
+              "canonical-first-visit-set",
+              "causal-progression",
+              "distinct-contributions",
+              "satisfying-resolution",
+              "no-redundancy"
+            ]
+          },
+          "f06": {
+            "verdict": "acceptable",
+            "paidTourValue": 3,
+            "firstVisitCompleteness": 3,
+            "progression": 3,
+            "nonRedundancy": 3,
+            "omissionRisk": "moderate",
+            "reasonCodes": [
+              "weak-opening-anchor",
+              "missing-canonical-landmark",
+              "redundant-stop",
+              "moderate-progression"
+            ]
+          }
+        }
+      },
+      "finalists": [
+        {
+          "slot": "r01",
+          "stops": [
+            "catedral de la Almudena",
+            "Palacio Real de Madrid",
+            "Senado de España",
+            "Plaza Mayor de Madrid",
+            "Puerta del Sol",
+            "Teatro de la Zarzuela",
+            "plaza de Colón",
+            "Museo Arqueológico Nacional"
+          ],
+          "actualDuration": 112,
+          "walkingMeters": 4410.1
+        },
+        {
+          "slot": "r02",
+          "stops": [
+            "Puerta del Sol",
+            "Plaza Mayor de Madrid",
+            "Palacio Real de Madrid",
+            "plaza de España"
+          ],
+          "actualDuration": 55.46,
+          "walkingMeters": 1984.6
+        },
+        {
+          "slot": "r03",
+          "stops": [
+            "plaza de Colón",
+            "Teatro de la Zarzuela",
+            "Puerta del Sol",
+            "Plaza Mayor de Madrid",
+            "Palacio Real de Madrid"
+          ],
+          "actualDuration": 78.31,
+          "walkingMeters": 3235.6
+        },
+        {
+          "slot": "r04",
+          "stops": [
+            "Palacio de Liria",
+            "plaza de España",
+            "Puerta del Sol",
+            "Plaza Mayor de Madrid",
+            "plaza de Oriente",
+            "Palacio Real de Madrid",
+            "basílica de San Francisco el Grande",
+            "Puerta de Toledo"
+          ],
+          "actualDuration": 118.56,
+          "walkingMeters": 4911.6
+        },
+        {
+          "slot": "r05",
+          "stops": [
+            "Puerta de Alcalá",
+            "plaza de Cibeles",
+            "Puerta del Sol",
+            "Plaza Mayor de Madrid",
+            "plaza de España",
+            "Palacio Real de Madrid",
+            "catedral de la Almudena",
+            "plaza de la Villa"
+          ],
+          "actualDuration": 115.49,
+          "walkingMeters": 4674.3
+        }
+      ],
+      "repair": {
+        "provenance": {
+          "f01": {
+            "sourceRouteSlot": "r08",
+            "operation": "original",
+            "sourceSignature": "c05>c30>c07>c24>c02>c08>c18>c14"
+          },
+          "f02": {
+            "sourceRouteSlot": "r05",
+            "operation": "original",
+            "sourceSignature": "c03>c07>c24>c02>c04>c08>c27>c18"
+          },
+          "f03": {
+            "sourceRouteSlot": "r08",
+            "operation": "delete",
+            "sourceSignature": "c05>c30>c07>c24>c02>c08>c18>c14"
+          },
+          "f04": {
+            "sourceRouteSlot": "r05",
+            "operation": "delete",
+            "sourceSignature": "c03>c07>c24>c02>c04>c08>c27>c18"
+          },
+          "f05": {
+            "sourceRouteSlot": "r04",
+            "operation": "original",
+            "sourceSignature": "c21>c04>c24>c02>c12>c08>c14>c17"
+          },
+          "f06": {
+            "sourceRouteSlot": "r07",
+            "operation": "original",
+            "sourceSignature": "c25>c06>c24>c02>c08>c28>c12>c18"
+          }
+        },
+        "discarded": [
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "delete",
+            "signature": "c05>c30>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c03>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c03>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c03>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c03>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c03>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c03>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c03",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c04>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c04>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c04>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c04>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c04>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c04>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c04>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c04",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c12>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c12>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c12>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c12>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c17>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c17>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c17>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c17>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c17>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c17>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c17>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c17",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c19>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c19>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c19>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c19>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c19>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c19>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c19>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c19",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c21>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c21>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c21>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c21>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c21>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c21>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c21>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c21",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c25>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c25>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c25>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c25>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c25>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c25>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c25>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c25",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c27>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c27>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c27>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c27>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c27>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c28>c30>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c28>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c28>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c28>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c28>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c28>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c28>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "protected_swap",
+            "signature": "c05>c30>c07>c24>c02>c08>c18>c28",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c05>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c05>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c24>c05>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c24>c02>c05>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c24>c02>c08>c05>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c24>c02>c08>c18>c05>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c07>c24>c02>c08>c18>c14>c05",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c30>c05>c07>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c30>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c24>c30>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c24>c02>c30>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c24>c02>c08>c30>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c24>c02>c08>c18>c30>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c24>c02>c08>c18>c14>c30",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c07>c05>c30>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c07>c30>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c07>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c02>c07>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c02>c08>c07>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c02>c08>c18>c07>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c02>c08>c18>c14>c07",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c24>c05>c30>c07>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c24>c30>c07>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c24>c07>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c02>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c02>c08>c24>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c02>c08>c18>c24>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c02>c08>c18>c14>c24",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c02>c05>c30>c07>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c02>c30>c07>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c02>c07>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c02>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c08>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c08>c18>c02>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c08>c18>c14>c02",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c08>c05>c30>c07>c24>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c08>c30>c07>c24>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c08>c07>c24>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c08>c24>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c08>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c18>c05>c30>c07>c24>c02>c08>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c18>c30>c07>c24>c02>c08>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c18>c07>c24>c02>c08>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c18>c24>c02>c08>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c18>c02>c08>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c02>c18>c08>c14",
+            "reason": "duplicate"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c02>c08>c14>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c14>c05>c30>c07>c24>c02>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c14>c30>c07>c24>c02>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c14>c07>c24>c02>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c14>c24>c02>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c14>c02>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c02>c14>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "relocate",
+            "signature": "c05>c30>c07>c24>c02>c08>c14>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c07>c30>c24>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c24>c07>c30>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c02>c24>c07>c30>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c08>c02>c24>c07>c30>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c18>c08>c02>c24>c07>c30>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c24>c07>c02>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c02>c24>c07>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c08>c02>c24>c07>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c18>c08>c02>c24>c07>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c02>c24>c08>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c08>c02>c24>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c18>c08>c02>c24>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c24>c08>c02>c18>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c24>c18>c08>c02>c14",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r08",
+            "operation": "two_opt",
+            "signature": "c05>c30>c07>c24>c02>c18>c08>c14",
+            "reason": "duplicate"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c05>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c05>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c05>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c05>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c05>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c05>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c05>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c05",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c12>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c12>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c12>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c14>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c14>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c14>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c14>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c14>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c14>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c17>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c17>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c17>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c17>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c17>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c17>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c17>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c17",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c19>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c19>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c19>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c19>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c19>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c19>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c19>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c19",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c21>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c21>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c21>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c21>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c21>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c21>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c21>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c21",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c25>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c25>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c25>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c25>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c25>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c25>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c25>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c25",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c28>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c28>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c28>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c28>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c30>c07>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c30>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c30>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c30>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c30>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c30>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c30>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "protected_swap",
+            "signature": "c03>c07>c24>c02>c04>c08>c27>c30",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c03>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c03>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c02>c03>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c02>c04>c03>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c02>c04>c08>c03>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c02>c04>c08>c27>c03>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c24>c02>c04>c08>c27>c18>c03",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c07>c03>c24>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c07>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c02>c07>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c02>c04>c07>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c02>c04>c08>c07>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c02>c04>c08>c27>c07>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c02>c04>c08>c27>c18>c07",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c24>c03>c07>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c24>c07>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c24>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c04>c24>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c04>c08>c24>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c04>c08>c27>c24>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c04>c08>c27>c18>c24",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c02>c03>c07>c24>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c02>c07>c24>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c02>c24>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c04>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c04>c08>c02>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c04>c08>c27>c02>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c04>c03>c07>c24>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c04>c07>c24>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c04>c24>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c04>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c08>c27>c04>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c08>c03>c07>c24>c02>c04>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c08>c07>c24>c02>c04>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c08>c24>c02>c04>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c08>c02>c04>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c08>c04>c27>c18",
+            "reason": "duplicate"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c04>c27>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c04>c27>c18>c08",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c27>c03>c07>c24>c02>c04>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c27>c07>c24>c02>c04>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c27>c24>c02>c04>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c27>c02>c04>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c04>c27>c08>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c18>c03>c07>c24>c02>c04>c08>c27",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c18>c07>c24>c02>c04>c08>c27",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c18>c24>c02>c04>c08>c27",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c18>c02>c04>c08>c27",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c04>c18>c08>c27",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "relocate",
+            "signature": "c03>c07>c24>c02>c04>c08>c18>c27",
+            "reason": "duplicate"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c24>c07>c02>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c02>c24>c07>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c04>c02>c24>c07>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c08>c04>c02>c24>c07>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c27>c08>c04>c02>c24>c07>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c02>c24>c04>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c04>c02>c24>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c08>c04>c02>c24>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c27>c08>c04>c02>c24>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c24>c04>c02>c08>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c24>c08>c04>c02>c27>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c24>c27>c08>c04>c02>c18",
+            "reason": "physical_constraints"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c24>c02>c08>c04>c27>c18",
+            "reason": "duplicate"
+          },
+          {
+            "sourceRouteSlot": "r05",
+            "operation": "two_opt",
+            "signature": "c03>c07>c24>c02>c04>c27>c08>c18",
+            "reason": "physical_constraints"
+          }
+        ],
+        "operationCounts": {
+          "original": 7,
+          "jury_suggestion": 0,
+          "delete": 15,
+          "protected_swap": 19,
+          "relocate": 11,
+          "reverse": 2,
+          "two_opt": 3
+        }
+      },
+      "selectedRoute": {
+        "slot": "f01",
+        "promise": "Un recorrido por el Madrid monumental: desde el Museo Arqueológico Nacional hasta la basílica de San Francisco el Grande, pasando por las plazas y palacios que definen la capital.",
+        "centralQuestion": "¿Cómo se construyó el Madrid monumental que hoy conocemos, desde sus museos y plazas hasta sus palacios y templos?",
+        "actualDuration": 119.32,
+        "walkingMeters": 4967,
+        "stops": [
+          {
+            "position": 1,
+            "canonicalId": "Q1352282",
+            "name": "Museo Arqueológico Nacional",
+            "role": "opening_anchor",
+            "uniqueContribution": "Abre el recorrido con el Museo Arqueológico Nacional, que introduce la historia de España desde la Antigüedad y el contexto de las desamortizaciones que marcaron el patrimonio.",
+            "evidenceIds": [
+              "Q1352282:node:255288522:wikipedia:0",
+              "Q1352282:node:255288522:wikidata:inception",
+              "Q1352282:node:255288522:wikipedia:7"
+            ]
+          },
+          {
+            "position": 2,
+            "canonicalId": "Q970525",
+            "name": "plaza de Colón",
+            "role": "chapter_anchor",
+            "uniqueContribution": "La plaza de Colón, dedicada a Cristóbal Colón, conecta la historia imperial y el descubrimiento de América con el Madrid moderno.",
+            "evidenceIds": [
+              "Q970525:way:699379821:wikidata:namedAfter",
+              "Q970525:way:699379821:wikipedia:4",
+              "Q970525:way:699379821:wikipedia:11"
+            ]
+          },
+          {
+            "position": 3,
+            "canonicalId": "Q1537446",
+            "name": "plaza de Cibeles",
+            "role": "chapter_anchor",
+            "uniqueContribution": "La plaza de Cibeles, con su fuente mitológica, introduce el programa iconográfico del Salón del Prado y el Madrid ilustrado.",
+            "evidenceIds": [
+              "Q1537446:node:-1537446:osm:place",
+              "Q1537446:node:-1537446:wikidata:namedAfter"
+            ]
+          },
+          {
+            "position": 4,
+            "canonicalId": "Q427163",
+            "name": "Puerta del Sol",
+            "role": "turning_point",
+            "uniqueContribution": "La Puerta del Sol, kilómetro cero de España, con la Real Casa de Correos y el reloj de las campanadas, es el corazón cívico y el punto de inflexión del recorrido.",
+            "evidenceIds": [
+              "Q427163:relation:7424032:wikipedia:2",
+              "Q427163:relation:7424032:wikipedia:10",
+              "Q427163:relation:7424032:wikipedia:3"
+            ]
+          },
+          {
+            "position": 5,
+            "canonicalId": "Q1123493",
+            "name": "Plaza Mayor de Madrid",
+            "role": "chapter_anchor",
+            "uniqueContribution": "La Plaza Mayor, diseñada por Juan de Herrera por encargo de Felipe II, muestra el origen del Madrid cortesano y su mercado medieval.",
+            "evidenceIds": [
+              "Q1123493:relation:16657232:wikipedia:5",
+              "Q1123493:relation:16657232:wikidata:architect",
+              "Q1123493:relation:16657232:wikipedia:1",
+              "Q1123493:relation:16657232:wikipedia:3"
+            ]
+          },
+          {
+            "position": 6,
+            "canonicalId": "Q171517",
+            "name": "Palacio Real de Madrid",
+            "role": "chapter_anchor",
+            "uniqueContribution": "El Palacio Real, residencia oficial del rey, representa el poder monárquico y la arquitectura barroca del siglo XVIII.",
+            "evidenceIds": [
+              "Q171517:relation:30399:wikipedia:5",
+              "Q171517:relation:30399:wikidata:inception",
+              "Q171517:relation:30399:wikipedia:0",
+              "Q171517:relation:30399:wikipedia:2"
+            ]
+          },
+          {
+            "position": 7,
+            "canonicalId": "Q2711992",
+            "name": "plaza de la Villa",
+            "role": "chapter_anchor",
+            "uniqueContribution": "La plaza de la Villa, con la Casa de Cisneros y la Casa de la Villa, conserva el trazado medieval y el origen del gobierno municipal.",
+            "evidenceIds": [
+              "Q2711992:relation:8096274:wikipedia:7",
+              "Q2711992:relation:8096274:wikipedia:4",
+              "Q2711992:relation:8096274:wikipedia:1"
+            ]
+          },
+          {
+            "position": 8,
+            "canonicalId": "Q2473884",
+            "name": "basílica de San Francisco el Grande",
+            "role": "resolution_anchor",
+            "uniqueContribution": "La basílica de San Francisco el Grande, con su gran cúpula y su historia franciscana desde 1217, cierra el recorrido uniendo fe, historia y arte.",
+            "evidenceIds": [
+              "Q2473884:way:28702618:wikipedia:4",
+              "Q2473884:way:28702618:wikidata:inception",
+              "Q2473884:way:28702618:wikipedia:8",
+              "Q2473884:way:28702618:wikipedia:7"
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "candidateOracle": "7/7",
+        "oracle": "5/7",
+        "required": 7,
+        "missingOracle": [
+          "Catedral de la Almudena",
+          "Puerta de Alcalá"
+        ],
+        "groundedStops": "8/8",
+        "v4ExactIdentityOracle": "5/7",
+        "greedyExactIdentityOracle": "2/7"
+      },
+      "gates": {
+        "candidateOracleCoverage": true,
+        "requiredRouteOracleCoverage": false,
+        "oracleNotBelowBestBaseline": true,
+        "noPhysicallyViableNoRoute": true,
+        "withinRequestedDuration": true,
+        "noDuplicateEntities": true,
+        "noVisitConflicts": true,
+        "noOverlongSegments": true,
+        "validStopCount": true,
+        "everyStopGrounded": true,
+        "uniqueContributions": true,
+        "finalJuryAccepted": true,
+        "passed": false
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 Fecha: 2026-08-07
 
-Estado: plan técnico aprobado para retomar; pendiente de implementación. Exclusivamente offline.
+Estado: implementado en `feature/editorial-selector-v5`; calibración bloqueada por el gate de Madrid. Véase `55-editorial-selector-v5-madrid-calibration.md`. Exclusivamente offline.
 
 ## 1. Conclusión técnica
 
@@ -374,4 +374,3 @@ Salida: las tres ejecuciones de las nueve ciudades superan todos los gates.
 - DeepSeek v4 Flash continúa inicialmente; cambiar de modelo antes de corregir la arquitectura sólo desplazaría la inestabilidad.
 - Un benchmark posterior podrá comparar DeepSeek con Qwen/Ollama usando exactamente las mismas carteras congeladas. Sólo se cambiará si el alternativo supera schema reliability, estabilidad, gates y revisión humana.
 - La calidad editorial prevalece sobre consumir toda la duración y sobre maximizar el número de paradas.
-
