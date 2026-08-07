@@ -58,8 +58,8 @@ function fixture() {
     status: 'selected', requestedDuration: 120, searchedDuration: 120, recommendedDuration: null,
     candidates, protectedCandidateSlots: ['c05', 'c06'], uncoveredProtectedCandidateSlots: [],
     routes: [
-      makeRoute('r01', ['c01', 'c02', 'c03', 'c04']),
-      makeRoute('r02', ['c01', 'c03', 'c05', 'c04']),
+      makeRoute('r01', ['c01', 'c02', 'c03', 'c04', 'c06']),
+      makeRoute('r02', ['c01', 'c03', 'c05', 'c04', 'c06']),
       makeRoute('r03', ['c02', 'c03', 'c04', 'c06']),
     ],
     diagnostics: { exploredStateCount: 30, retainedStateCount: 20, truncatedDepths: [] },
@@ -108,6 +108,7 @@ describe('deterministic editorial route repair v5', () => {
     expect(repaired.portfolio.routes.length).toBeLessThanOrEqual(6);
     expect(repaired.diagnostics.operationCounts.original).toBeGreaterThanOrEqual(2);
     expect(repaired.diagnostics.operationCounts.jury_suggestion).toBeGreaterThanOrEqual(1);
+    expect(Object.values(repaired.provenance).some((item) => item.operation === 'delete')).toBe(true);
     expect(repaired.portfolio.routes.some((route) => (
       route.candidateSlots.includes('c05') && !route.candidateSlots.includes('c02')
     ))).toBe(true);

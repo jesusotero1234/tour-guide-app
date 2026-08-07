@@ -217,6 +217,16 @@ export function buildEditorialRepairPortfolioV5(
       alternative.operation === 'jury_suggestion' && alternative.sourceRouteSlot === source.slot
     )));
   }
+  for (const source of mutationSources) {
+    const compactDelete = alternatives.filter((alternative) => (
+      alternative.operation === 'delete' && alternative.sourceRouteSlot === source.slot
+    )).sort((left, right) => (
+      left.route.metrics.estimatedTourMinutes - right.route.metrics.estimatedTourMinutes
+        || left.route.metrics.walkingMinutes - right.route.metrics.walkingMinutes
+        || signature(left.route.candidateSlots).localeCompare(signature(right.route.candidateSlots))
+    ))[0];
+    select(compactDelete);
+  }
   const protectedSet = new Set(initial.protectedCandidateSlots);
   while (selected.length < Math.min(6, alternatives.length)) {
     const covered = new Set(selected.flatMap((alternative) => alternative.route.candidateSlots));
