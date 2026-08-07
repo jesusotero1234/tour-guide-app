@@ -1,0 +1,1577 @@
+{
+  "schemaVersion": "editorial-workbench-v7",
+  "benchmark": {
+    "schemaVersion": "editorial-benchmark-v7",
+    "caseId": "berlin-history-de-120",
+    "cityKey": "berlin",
+    "theme": "history",
+    "requestedDurationMinutes": 120,
+    "mustVisitCanonicalIds": [
+      "Q68689",
+      "Q160700",
+      "Q82425",
+      "Q151897",
+      "Q151963"
+    ],
+    "requiredChapters": [
+      {
+        "chapterId": "checkpoint",
+        "title": "Die Teilung wird an einem Kontrollpunkt zu einer konkreten Konfrontation zwischen Menschen und Mächten.",
+        "carrierSceneIds": [
+          "checkpoint"
+        ]
+      },
+      {
+        "chapterId": "potsdamer",
+        "title": "Ein Verkehrszentrum wird zur Mauerbrache und anschließend zum Schaufenster der wiedervereinigten Stadt.",
+        "carrierSceneIds": [
+          "potsdamer"
+        ]
+      },
+      {
+        "chapterId": "holocaust",
+        "title": "Die Bundesrepublik macht Erinnerung zur räumlichen und staatlichen Verantwortung im Zentrum der Hauptstadt.",
+        "carrierSceneIds": [
+          "holocaust"
+        ]
+      },
+      {
+        "chapterId": "brandenburg",
+        "title": "Dasselbe Tor wechselt vom monarchischen Stadteingang zum Bild der Teilung und schließlich der Wiedervereinigung.",
+        "carrierSceneIds": [
+          "brandenburg"
+        ]
+      },
+      {
+        "chapterId": "reichstag",
+        "title": "Das Parlamentsgebäude erzählt von beschädigter Demokratie und ihrer bewusst transparenten Erneuerung.",
+        "carrierSceneIds": [
+          "reichstag"
+        ]
+      },
+      {
+        "chapterId": "neue-wache",
+        "title": "Ein einziges Gebäude zeigt, wie Monarchie und spätere deutsche Staaten öffentliches Gedenken jeweils neu definieren.",
+        "carrierSceneIds": [
+          "neue-wache"
+        ]
+      },
+      {
+        "chapterId": "palace",
+        "title": "Monarchie, DDR und Gegenwart streiten hier sichtbar darum, welche Stadt rekonstruiert und erinnert wird.",
+        "carrierSceneIds": [
+          "palace"
+        ]
+      },
+      {
+        "chapterId": "museum-island",
+        "title": "Die Route endet damit, wie preußische Herrschaft Sammlungen ordnete und als öffentliche Kultur inszenierte.",
+        "carrierSceneIds": [
+          "museum-island"
+        ]
+      }
+    ],
+    "diagnosticReferenceRoutes": []
+  },
+  "blindReviewCards": [],
+  "expectedRoute": {
+    "sceneIds": [
+      "checkpoint",
+      "potsdamer",
+      "holocaust",
+      "brandenburg",
+      "reichstag",
+      "neue-wache",
+      "palace",
+      "museum-island"
+    ],
+    "walkingMeters": 5164.7,
+    "walkingMinutes": 68.87,
+    "maxSegmentMeters": 1494
+  },
+  "snapshot": {
+    "schemaVersion": "editorial-route-snapshot-v7",
+    "createdAt": "2026-08-08T12:30:00.000Z",
+    "status": "draft_only",
+    "reason": "editorial_review_required",
+    "language": "de",
+    "profile": {
+      "schemaVersion": "city-editorial-profile-v1",
+      "cityKey": "berlin",
+      "theme": "history",
+      "productPromise": "Vom geteilten Berlin zur wiedervereinigten Hauptstadt: acht sichtbare politische Schichten zwischen Checkpoint Charlie und Museumsinsel.",
+      "requestedDurationMinutes": 120,
+      "status": "review_required",
+      "mustVisitCanonicalIds": [
+        "Q68689",
+        "Q160700",
+        "Q82425",
+        "Q151897",
+        "Q151963"
+      ],
+      "chapters": [
+        {
+          "chapterId": "checkpoint",
+          "title": "Die Teilung wird an einem Kontrollpunkt zu einer konkreten Konfrontation zwischen Menschen und Mächten.",
+          "carrierSceneIds": [
+            "checkpoint"
+          ]
+        },
+        {
+          "chapterId": "potsdamer",
+          "title": "Ein Verkehrszentrum wird zur Mauerbrache und anschließend zum Schaufenster der wiedervereinigten Stadt.",
+          "carrierSceneIds": [
+            "potsdamer"
+          ]
+        },
+        {
+          "chapterId": "holocaust",
+          "title": "Die Bundesrepublik macht Erinnerung zur räumlichen und staatlichen Verantwortung im Zentrum der Hauptstadt.",
+          "carrierSceneIds": [
+            "holocaust"
+          ]
+        },
+        {
+          "chapterId": "brandenburg",
+          "title": "Dasselbe Tor wechselt vom monarchischen Stadteingang zum Bild der Teilung und schließlich der Wiedervereinigung.",
+          "carrierSceneIds": [
+            "brandenburg"
+          ]
+        },
+        {
+          "chapterId": "reichstag",
+          "title": "Das Parlamentsgebäude erzählt von beschädigter Demokratie und ihrer bewusst transparenten Erneuerung.",
+          "carrierSceneIds": [
+            "reichstag"
+          ]
+        },
+        {
+          "chapterId": "neue-wache",
+          "title": "Ein einziges Gebäude zeigt, wie Monarchie und spätere deutsche Staaten öffentliches Gedenken jeweils neu definieren.",
+          "carrierSceneIds": [
+            "neue-wache"
+          ]
+        },
+        {
+          "chapterId": "palace",
+          "title": "Monarchie, DDR und Gegenwart streiten hier sichtbar darum, welche Stadt rekonstruiert und erinnert wird.",
+          "carrierSceneIds": [
+            "palace"
+          ]
+        },
+        {
+          "chapterId": "museum-island",
+          "title": "Die Route endet damit, wie preußische Herrschaft Sammlungen ordnete und als öffentliche Kultur inszenierte.",
+          "carrierSceneIds": [
+            "museum-island"
+          ]
+        }
+      ],
+      "arcChapterIds": [
+        "checkpoint",
+        "potsdamer",
+        "holocaust",
+        "brandenburg",
+        "reichstag",
+        "neue-wache",
+        "palace",
+        "museum-island"
+      ],
+      "approvedSceneIds": [
+        "checkpoint",
+        "potsdamer",
+        "holocaust",
+        "brandenburg",
+        "reichstag",
+        "neue-wache",
+        "palace",
+        "museum-island"
+      ],
+      "sources": [
+        {
+          "sourceId": "berlin-official-route",
+          "url": "https://www.visitberlin.de/en/tickets/guided-tour-italian-indispensable-berlin-tour",
+          "title": "Guided tour: Indispensable Berlin",
+          "excerpt": "VisitBerlin presents a three-hour walk from Potsdamer Platz to Museum Island through Checkpoint Charlie, the Holocaust Memorial, Brandenburg Gate and the Reichstag, linking the Third Reich, Cold War and reunification.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "23a5486a2b6d11067e335aa6adf02ad9b7e001fdccb1cb2e60a0deb40de5656b"
+        },
+        {
+          "sourceId": "berlin-checkpoint",
+          "url": "https://www.visitberlin.de/en/checkpoint-charlie",
+          "title": "Checkpoint Charlie",
+          "excerpt": "Checkpoint Charlie was the best-known crossing between East and West Berlin. US and Soviet tanks confronted one another here in October 1961; today a replica guardhouse and border sign mark the site.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "4aae1d4666aef800c83b8414688a4e706c3c7b268677fe68c4757de824b05e73"
+        },
+        {
+          "sourceId": "berlin-potsdamer",
+          "url": "https://www.visitberlin.de/en/potsdamer-platz",
+          "title": "Potsdamer Platz",
+          "excerpt": "Once a busy traffic hub, Potsdamer Platz became a wasteland beside the Wall and was rebuilt after reunification. A metal strip in the pavement traces where the Wall divided the square.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "1ff5a2abb331d833dee2ce14d5b84044b8e9bfea26ab608837a381b69bdd5c80"
+        },
+        {
+          "sourceId": "berlin-holocaust",
+          "url": "https://www.visitberlin.de/en/memorial-murdered-jews-europe",
+          "title": "Memorial to the Murdered Jews of Europe",
+          "excerpt": "Opened in 2005, the central German Holocaust memorial is a field of concrete stelae on sloping ground. Its information centre documents the names and biographies of persecuted and murdered Jews.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "a0a8ed4f38998dec2c4d79ee1ad2fcf67792f74be1b732afa30c8aba9a11947e"
+        },
+        {
+          "sourceId": "berlin-brandenburg",
+          "url": "https://www.visitberlin.de/en/brandenburg-gate",
+          "title": "Brandenburg Gate",
+          "excerpt": "Built from 1788 to 1791, Brandenburg Gate is Berlin’s only surviving city gate. Once stranded beside the Wall, it became a symbol of division and then reunification; the Quadriga crowns it.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "edf6dfe802ce306115d660b73ad16f320052ba90d5d059a8a3f2a6d8701c0a3a"
+        },
+        {
+          "sourceId": "berlin-reichstag",
+          "url": "https://www.visitberlin.de/en/reichstag-in-berlin",
+          "title": "Reichstag in Berlin",
+          "excerpt": "Completed in 1894, the Reichstag witnessed the 1933 fire and Germany’s fractured democracy. After reunification, Norman Foster redesigned it with the accessible glass dome opened in 1999.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "e7cca403f1754dce41f2e472bfece4589858bfa57e7d0f56f5cb4155347a9161"
+        },
+        {
+          "sourceId": "berlin-neue-wache",
+          "url": "https://www.visitberlin.de/en/neue-wache-memorial",
+          "title": "Neue Wache memorial",
+          "excerpt": "Schinkel designed the Neue Wache as a royal guardhouse. Successive German states recast it as a memorial; today Käthe Kollwitz’s Mother with her Dead Son stands beneath the open oculus.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "90c2b5236591f1bf3fb889114348a36253ad75051f21b3beae2d105339294c5d"
+        },
+        {
+          "sourceId": "berlin-humboldt",
+          "url": "https://www.visitberlin.de/en/humboldt-forum",
+          "title": "Humboldt Forum",
+          "excerpt": "The Humboldt Forum occupies a reconstruction of Berlin Palace, demolished after the war and replaced by the GDR Palace of the Republic. Baroque facades now meet a deliberately modern eastern front.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "fae50eb8477228c4c18c74dc84adbe0add832604b1addf652a5a3117afe1d132"
+        },
+        {
+          "sourceId": "berlin-museum-island",
+          "url": "https://www.visitberlin.de/en/museum-island-in-berlin",
+          "title": "Museum Island in Berlin",
+          "excerpt": "Museum Island unites five museums commissioned under Prussian rulers as a public cultural ensemble. UNESCO placed the island on the World Heritage List in 1999.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "6037eae3f3168311fd8c80e10d5c3a62c8cd8d2c18a8d96f5d19a431211c2e69"
+        }
+      ],
+      "overrides": [],
+      "requiresStreetAudit": false,
+      "review": null
+    },
+    "scenes": [
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "checkpoint",
+        "status": "review_required",
+        "primaryCanonicalId": "Q68689",
+        "memberCanonicalIds": [
+          "Q68689"
+        ],
+        "name": "Checkpoint Charlie",
+        "observationPoint": {
+          "lat": 52.5075,
+          "lng": 13.390277777
+        },
+        "facts": [
+          {
+            "factId": "checkpoint-fact-1",
+            "ownerCanonicalId": "Q68689",
+            "sourceId": "berlin-checkpoint",
+            "role": "observable",
+            "value": "A replica guardhouse and border sign identify the former crossing in the present streetscape."
+          },
+          {
+            "factId": "checkpoint-fact-2",
+            "ownerCanonicalId": "Q68689",
+            "sourceId": "berlin-checkpoint",
+            "role": "historical_context",
+            "value": "US and Soviet tanks faced one another here during the October 1961 confrontation."
+          },
+          {
+            "factId": "checkpoint-fact-3",
+            "ownerCanonicalId": "Q68689",
+            "sourceId": "berlin-checkpoint",
+            "role": "distinctive",
+            "value": "It became the best-known border crossing between East and West Berlin."
+          }
+        ],
+        "sourceIds": [
+          "berlin-checkpoint"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "potsdamer",
+        "status": "review_required",
+        "primaryCanonicalId": "Q152252",
+        "memberCanonicalIds": [
+          "Q152252"
+        ],
+        "name": "Potsdamer Platz",
+        "observationPoint": {
+          "lat": 52.508944444,
+          "lng": 13.376333333
+        },
+        "facts": [
+          {
+            "factId": "potsdamer-fact-1",
+            "ownerCanonicalId": "Q152252",
+            "sourceId": "berlin-potsdamer",
+            "role": "observable",
+            "value": "A metal strip in the pavement marks the former course of the Berlin Wall."
+          },
+          {
+            "factId": "potsdamer-fact-2",
+            "ownerCanonicalId": "Q152252",
+            "sourceId": "berlin-potsdamer",
+            "role": "historical_context",
+            "value": "The pre-war traffic hub became an empty border zone when the Wall divided Berlin."
+          },
+          {
+            "factId": "potsdamer-fact-3",
+            "ownerCanonicalId": "Q152252",
+            "sourceId": "berlin-potsdamer",
+            "role": "distinctive",
+            "value": "Its large-scale rebuilding became one of reunified Berlin’s most visible urban projects."
+          }
+        ],
+        "sourceIds": [
+          "berlin-potsdamer"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "holocaust",
+        "status": "review_required",
+        "primaryCanonicalId": "Q160700",
+        "memberCanonicalIds": [
+          "Q160700"
+        ],
+        "name": "Denkmal für die ermordeten Juden Europas",
+        "observationPoint": {
+          "lat": 52.5138996,
+          "lng": 13.378714
+        },
+        "facts": [
+          {
+            "factId": "holocaust-fact-1",
+            "ownerCanonicalId": "Q160700",
+            "sourceId": "berlin-holocaust",
+            "role": "observable",
+            "value": "The memorial forms an abstract field of concrete stelae over uneven, sloping ground."
+          },
+          {
+            "factId": "holocaust-fact-2",
+            "ownerCanonicalId": "Q160700",
+            "sourceId": "berlin-holocaust",
+            "role": "historical_context",
+            "value": "Germany’s central memorial to Europe’s murdered Jews opened in 2005."
+          },
+          {
+            "factId": "holocaust-fact-3",
+            "ownerCanonicalId": "Q160700",
+            "sourceId": "berlin-holocaust",
+            "role": "local_function",
+            "value": "The underground information centre preserves victims’ names and biographies."
+          }
+        ],
+        "sourceIds": [
+          "berlin-holocaust"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "brandenburg",
+        "status": "review_required",
+        "primaryCanonicalId": "Q82425",
+        "memberCanonicalIds": [
+          "Q82425"
+        ],
+        "name": "Brandenburger Tor",
+        "observationPoint": {
+          "lat": 52.516272222,
+          "lng": 13.377722222
+        },
+        "facts": [
+          {
+            "factId": "brandenburg-fact-1",
+            "ownerCanonicalId": "Q82425",
+            "sourceId": "berlin-brandenburg",
+            "role": "observable",
+            "value": "The Quadriga crowns the neoclassical gate and remains its most visible identifying feature."
+          },
+          {
+            "factId": "brandenburg-fact-2",
+            "ownerCanonicalId": "Q82425",
+            "sourceId": "berlin-brandenburg",
+            "role": "historical_context",
+            "value": "The gate was constructed between 1788 and 1791."
+          },
+          {
+            "factId": "brandenburg-fact-3",
+            "ownerCanonicalId": "Q82425",
+            "sourceId": "berlin-brandenburg",
+            "role": "distinctive",
+            "value": "Berlin’s only surviving city gate became a symbol first of division and then reunification."
+          }
+        ],
+        "sourceIds": [
+          "berlin-brandenburg"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "reichstag",
+        "status": "review_required",
+        "primaryCanonicalId": "Q151897",
+        "memberCanonicalIds": [
+          "Q151897"
+        ],
+        "name": "Reichstagsgebäude",
+        "observationPoint": {
+          "lat": 52.518611111,
+          "lng": 13.376111111
+        },
+        "facts": [
+          {
+            "factId": "reichstag-fact-1",
+            "ownerCanonicalId": "Q151897",
+            "sourceId": "berlin-reichstag",
+            "role": "observable",
+            "value": "Norman Foster’s glass dome sits visibly above the historic parliamentary facade."
+          },
+          {
+            "factId": "reichstag-fact-2",
+            "ownerCanonicalId": "Q151897",
+            "sourceId": "berlin-reichstag",
+            "role": "historical_context",
+            "value": "Completed in 1894, the building was marked by the Reichstag fire of 1933."
+          },
+          {
+            "factId": "reichstag-fact-3",
+            "ownerCanonicalId": "Q151897",
+            "sourceId": "berlin-reichstag",
+            "role": "distinctive",
+            "value": "The accessible dome formed part of its 1999 redesign for the reunified German parliament."
+          }
+        ],
+        "sourceIds": [
+          "berlin-reichstag"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "neue-wache",
+        "status": "review_required",
+        "primaryCanonicalId": "Q152341",
+        "memberCanonicalIds": [
+          "Q152341"
+        ],
+        "name": "Neue Wache",
+        "observationPoint": {
+          "lat": 52.5178894,
+          "lng": 13.395536
+        },
+        "facts": [
+          {
+            "factId": "neue-wache-fact-1",
+            "ownerCanonicalId": "Q152341",
+            "sourceId": "berlin-neue-wache",
+            "role": "observable",
+            "value": "Käthe Kollwitz’s Mother with her Dead Son stands alone beneath an open oculus."
+          },
+          {
+            "factId": "neue-wache-fact-2",
+            "ownerCanonicalId": "Q152341",
+            "sourceId": "berlin-neue-wache",
+            "role": "historical_context",
+            "value": "Karl Friedrich Schinkel originally designed the building as a royal guardhouse."
+          },
+          {
+            "factId": "neue-wache-fact-3",
+            "ownerCanonicalId": "Q152341",
+            "sourceId": "berlin-neue-wache",
+            "role": "local_function",
+            "value": "Successive German governments reassigned the site as a memorial with different meanings."
+          }
+        ],
+        "sourceIds": [
+          "berlin-neue-wache"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "palace",
+        "status": "review_required",
+        "primaryCanonicalId": "Q170119",
+        "memberCanonicalIds": [
+          "Q170119"
+        ],
+        "name": "Berliner Schloss / Humboldt Forum",
+        "observationPoint": {
+          "lat": 52.5175,
+          "lng": 13.402777777
+        },
+        "facts": [
+          {
+            "factId": "palace-fact-1",
+            "ownerCanonicalId": "Q170119",
+            "sourceId": "berlin-humboldt",
+            "role": "observable",
+            "value": "Reconstructed Baroque facades meet a deliberately modern eastern facade."
+          },
+          {
+            "factId": "palace-fact-2",
+            "ownerCanonicalId": "Q170119",
+            "sourceId": "berlin-humboldt",
+            "role": "historical_context",
+            "value": "The former Berlin Palace was demolished and the GDR Palace of the Republic later occupied the site."
+          },
+          {
+            "factId": "palace-fact-3",
+            "ownerCanonicalId": "Q170119",
+            "sourceId": "berlin-humboldt",
+            "role": "distinctive",
+            "value": "The Humboldt Forum makes incompatible architectural readings of the same site visible at once."
+          }
+        ],
+        "sourceIds": [
+          "berlin-humboldt"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "museum-island",
+        "status": "review_required",
+        "primaryCanonicalId": "Q151963",
+        "memberCanonicalIds": [
+          "Q151963"
+        ],
+        "name": "Museumsinsel",
+        "observationPoint": {
+          "lat": 52.5199984,
+          "lng": 13.397183
+        },
+        "facts": [
+          {
+            "factId": "museum-island-fact-1",
+            "ownerCanonicalId": "Q151963",
+            "sourceId": "berlin-museum-island",
+            "role": "observable",
+            "value": "Five museum buildings form a recognizable ensemble on the island."
+          },
+          {
+            "factId": "museum-island-fact-2",
+            "ownerCanonicalId": "Q151963",
+            "sourceId": "berlin-museum-island",
+            "role": "historical_context",
+            "value": "Prussian rulers commissioned the museums to organize and display major collections."
+          },
+          {
+            "factId": "museum-island-fact-3",
+            "ownerCanonicalId": "Q151963",
+            "sourceId": "berlin-museum-island",
+            "role": "distinctive",
+            "value": "UNESCO added Museum Island to the World Heritage List in 1999."
+          }
+        ],
+        "sourceIds": [
+          "berlin-museum-island"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      }
+    ],
+    "matrix": {
+      "schemaVersion": "walking-matrix-v1",
+      "provider": {
+        "id": "fossgis-osrm-foot",
+        "capturedAt": "2026-08-06T18:43:42.714Z"
+      },
+      "candidateFingerprint": "8fd2cd87c541cb67475ca9b1ec211b83fefbf39c5de83e5a12e785dece707a73",
+      "sites": [
+        {
+          "siteId": "checkpoint",
+          "lat": 52.5075,
+          "lng": 13.390277777
+        },
+        {
+          "siteId": "potsdamer",
+          "lat": 52.508944444,
+          "lng": 13.376333333
+        },
+        {
+          "siteId": "holocaust",
+          "lat": 52.5138996,
+          "lng": 13.378714
+        },
+        {
+          "siteId": "brandenburg",
+          "lat": 52.516272222,
+          "lng": 13.377722222
+        },
+        {
+          "siteId": "reichstag",
+          "lat": 52.518611111,
+          "lng": 13.376111111
+        },
+        {
+          "siteId": "neue-wache",
+          "lat": 52.5178894,
+          "lng": 13.395536
+        },
+        {
+          "siteId": "palace",
+          "lat": 52.5175,
+          "lng": 13.402777777
+        },
+        {
+          "siteId": "museum-island",
+          "lat": 52.5199984,
+          "lng": 13.397183
+        }
+      ],
+      "legs": [
+        [
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 1092.7,
+            "seconds": 873.9,
+            "reachable": true
+          },
+          {
+            "meters": 1286.9,
+            "seconds": 1029.6,
+            "reachable": true
+          },
+          {
+            "meters": 1567.3,
+            "seconds": 1254.2,
+            "reachable": true
+          },
+          {
+            "meters": 1839.2,
+            "seconds": 1471.9,
+            "reachable": true
+          },
+          {
+            "meters": 1512.7,
+            "seconds": 1210.5,
+            "reachable": true
+          },
+          {
+            "meters": 1834.7,
+            "seconds": 1470.5,
+            "reachable": true
+          },
+          {
+            "meters": 1894.3,
+            "seconds": 1515.6,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1092.7,
+            "seconds": 873.9,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 687.7,
+            "seconds": 550,
+            "reachable": true
+          },
+          {
+            "meters": 905,
+            "seconds": 724.1,
+            "reachable": true
+          },
+          {
+            "meters": 1167.2,
+            "seconds": 934.1,
+            "reachable": true
+          },
+          {
+            "meters": 2104.1,
+            "seconds": 1683.2,
+            "reachable": true
+          },
+          {
+            "meters": 2445.4,
+            "seconds": 1958.8,
+            "reachable": true
+          },
+          {
+            "meters": 2487.1,
+            "seconds": 1990,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1286.9,
+            "seconds": 1029.6,
+            "reachable": true
+          },
+          {
+            "meters": 687.7,
+            "seconds": 550,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 348.8,
+            "seconds": 279.2,
+            "reachable": true
+          },
+          {
+            "meters": 611.1,
+            "seconds": 489.2,
+            "reachable": true
+          },
+          {
+            "meters": 1461.5,
+            "seconds": 1169.1,
+            "reachable": true
+          },
+          {
+            "meters": 1871.2,
+            "seconds": 1499.2,
+            "reachable": true
+          },
+          {
+            "meters": 1845.8,
+            "seconds": 1477,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1567.3,
+            "seconds": 1254.2,
+            "reachable": true
+          },
+          {
+            "meters": 905,
+            "seconds": 724.1,
+            "reachable": true
+          },
+          {
+            "meters": 348.8,
+            "seconds": 279.2,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 293.2,
+            "seconds": 234.8,
+            "reachable": true
+          },
+          {
+            "meters": 1265.2,
+            "seconds": 1012.1,
+            "reachable": true
+          },
+          {
+            "meters": 1830.7,
+            "seconds": 1464.7,
+            "reachable": true
+          },
+          {
+            "meters": 1657.6,
+            "seconds": 1326.1,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1839.2,
+            "seconds": 1471.9,
+            "reachable": true
+          },
+          {
+            "meters": 1167.2,
+            "seconds": 934.1,
+            "reachable": true
+          },
+          {
+            "meters": 611.1,
+            "seconds": 489.2,
+            "reachable": true
+          },
+          {
+            "meters": 293.2,
+            "seconds": 234.8,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 1494,
+            "seconds": 1195.2,
+            "reachable": true
+          },
+          {
+            "meters": 2088.3,
+            "seconds": 1671,
+            "reachable": true
+          },
+          {
+            "meters": 1694.3,
+            "seconds": 1359.4,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1512.7,
+            "seconds": 1210.5,
+            "reachable": true
+          },
+          {
+            "meters": 2104.1,
+            "seconds": 1683.2,
+            "reachable": true
+          },
+          {
+            "meters": 1461.5,
+            "seconds": 1169.1,
+            "reachable": true
+          },
+          {
+            "meters": 1265.2,
+            "seconds": 1012.1,
+            "reachable": true
+          },
+          {
+            "meters": 1494,
+            "seconds": 1195.2,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 632.2,
+            "seconds": 505.9,
+            "reachable": true
+          },
+          {
+            "meters": 428.4,
+            "seconds": 342.6,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1834.7,
+            "seconds": 1470.5,
+            "reachable": true
+          },
+          {
+            "meters": 2445.4,
+            "seconds": 1958.8,
+            "reachable": true
+          },
+          {
+            "meters": 1871.2,
+            "seconds": 1499.2,
+            "reachable": true
+          },
+          {
+            "meters": 1830.7,
+            "seconds": 1464.7,
+            "reachable": true
+          },
+          {
+            "meters": 2088.2,
+            "seconds": 1670.9,
+            "reachable": true
+          },
+          {
+            "meters": 632.2,
+            "seconds": 505.9,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 616.1,
+            "seconds": 492.9,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1894.3,
+            "seconds": 1515.6,
+            "reachable": true
+          },
+          {
+            "meters": 2487.1,
+            "seconds": 1990,
+            "reachable": true
+          },
+          {
+            "meters": 1845.8,
+            "seconds": 1477,
+            "reachable": true
+          },
+          {
+            "meters": 1657.6,
+            "seconds": 1326.1,
+            "reachable": true
+          },
+          {
+            "meters": 1694.3,
+            "seconds": 1359.4,
+            "reachable": true
+          },
+          {
+            "meters": 428.4,
+            "seconds": 342.6,
+            "reachable": true
+          },
+          {
+            "meters": 616.1,
+            "seconds": 492.9,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          }
+        ]
+      ]
+    },
+    "optimization": {
+      "status": "selected",
+      "route": {
+        "sceneIds": [
+          "checkpoint",
+          "potsdamer",
+          "holocaust",
+          "brandenburg",
+          "reichstag",
+          "neue-wache",
+          "palace",
+          "museum-island"
+        ],
+        "chapterAssignments": [
+          {
+            "chapterId": "checkpoint",
+            "sceneId": "checkpoint"
+          },
+          {
+            "chapterId": "potsdamer",
+            "sceneId": "potsdamer"
+          },
+          {
+            "chapterId": "holocaust",
+            "sceneId": "holocaust"
+          },
+          {
+            "chapterId": "brandenburg",
+            "sceneId": "brandenburg"
+          },
+          {
+            "chapterId": "reichstag",
+            "sceneId": "reichstag"
+          },
+          {
+            "chapterId": "neue-wache",
+            "sceneId": "neue-wache"
+          },
+          {
+            "chapterId": "palace",
+            "sceneId": "palace"
+          },
+          {
+            "chapterId": "museum-island",
+            "sceneId": "museum-island"
+          }
+        ],
+        "coveredCanonicalIds": [
+          "Q151897",
+          "Q151963",
+          "Q152252",
+          "Q152341",
+          "Q160700",
+          "Q170119",
+          "Q68689",
+          "Q82425"
+        ],
+        "metrics": {
+          "walkingMeters": 5164.7,
+          "walkingSeconds": 4131.9,
+          "walkingMinutes": 68.87,
+          "maxSegmentMeters": 1494,
+          "maxSegmentSeconds": 1195.2,
+          "maxSegmentMinutes": 19.92,
+          "explicitExperienceMinutes": 0,
+          "estimatedTourMinutes": 68.87,
+          "comfortPenalty": 0
+        }
+      },
+      "searchedDurationMinutes": 120,
+      "recommendedDurationMinutes": null,
+      "attemptedDurationMinutes": [
+        120
+      ],
+      "exploredCompleteOrderCount": 40320,
+      "dominatedRouteCount": 0,
+      "discardedCounts": {
+        "coverage": 69280,
+        "arc": 40319,
+        "conflict": 0,
+        "physical": 0,
+        "redundant": 0,
+        "duration": 0
+      }
+    },
+    "storyPlanCall": {
+      "status": "valid",
+      "value": {
+        "schemaVersion": "story-module-plan-v1",
+        "routeSceneIds": [
+          "checkpoint",
+          "potsdamer",
+          "holocaust",
+          "brandenburg",
+          "reichstag",
+          "neue-wache",
+          "palace",
+          "museum-island"
+        ],
+        "promise": "Vom geteilten Berlin zur wiedervereinigten Hauptstadt: acht sichtbare politische Schichten zwischen Checkpoint Charlie und Museumsinsel.",
+        "centralQuestion": "Wie schreibt jede politische Ordnung ihre Werte in dieselben Straßen – und was lässt Berlin davon sichtbar stehen?",
+        "scenes": [
+          {
+            "sceneId": "checkpoint",
+            "main": {
+              "moduleId": "checkpoint-main",
+              "title": "Checkpoint Charlie",
+              "contribution": "Die Teilung wird an einem Kontrollpunkt zu einer konkreten Konfrontation zwischen Menschen und Mächten.",
+              "targetWords": 180,
+              "primaryFactId": "checkpoint-fact-2",
+              "evidenceFactIds": [
+                "checkpoint-fact-1",
+                "checkpoint-fact-2",
+                "checkpoint-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Vergleiche den nachgebauten Kontrollposten und das Grenzschild mit der heutigen offenen Straßenkreuzung.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "checkpoint-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "potsdamer",
+            "main": {
+              "moduleId": "potsdamer-main",
+              "title": "Potsdamer Platz",
+              "contribution": "Ein Verkehrszentrum wird zur Mauerbrache und anschließend zum Schaufenster der wiedervereinigten Stadt.",
+              "targetWords": 180,
+              "primaryFactId": "potsdamer-fact-2",
+              "evidenceFactIds": [
+                "potsdamer-fact-1",
+                "potsdamer-fact-2",
+                "potsdamer-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Suche den Metallstreifen im Boden und verfolge die frühere Mauerlinie durch den neu bebauten Platz.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "potsdamer-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "holocaust",
+            "main": {
+              "moduleId": "holocaust-main",
+              "title": "Denkmal für die ermordeten Juden Europas",
+              "contribution": "Die Bundesrepublik macht Erinnerung zur räumlichen und staatlichen Verantwortung im Zentrum der Hauptstadt.",
+              "targetWords": 180,
+              "primaryFactId": "holocaust-fact-2",
+              "evidenceFactIds": [
+                "holocaust-fact-1",
+                "holocaust-fact-2",
+                "holocaust-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Beobachte, wie der Boden absinkt und die Stelen deine Sicht auf Stadt, Begleiter und Horizont verändern.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "holocaust-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "brandenburg",
+            "main": {
+              "moduleId": "brandenburg-main",
+              "title": "Brandenburger Tor",
+              "contribution": "Dasselbe Tor wechselt vom monarchischen Stadteingang zum Bild der Teilung und schließlich der Wiedervereinigung.",
+              "targetWords": 180,
+              "primaryFactId": "brandenburg-fact-2",
+              "evidenceFactIds": [
+                "brandenburg-fact-1",
+                "brandenburg-fact-2",
+                "brandenburg-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Rahme die Quadriga zwischen den Säulen und stelle dir vor, dass direkt hinter dem Tor die Mauer verlief.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "brandenburg-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "reichstag",
+            "main": {
+              "moduleId": "reichstag-main",
+              "title": "Reichstagsgebäude",
+              "contribution": "Das Parlamentsgebäude erzählt von beschädigter Demokratie und ihrer bewusst transparenten Erneuerung.",
+              "targetWords": 180,
+              "primaryFactId": "reichstag-fact-2",
+              "evidenceFactIds": [
+                "reichstag-fact-1",
+                "reichstag-fact-2",
+                "reichstag-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Stelle die historische Steinfront der modernen Glaskuppel gegenüber und achte darauf, wer von oben wen sehen kann.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "reichstag-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "neue-wache",
+            "main": {
+              "moduleId": "neue-wache-main",
+              "title": "Neue Wache",
+              "contribution": "Ein einziges Gebäude zeigt, wie Monarchie und spätere deutsche Staaten öffentliches Gedenken jeweils neu definieren.",
+              "targetWords": 180,
+              "primaryFactId": "neue-wache-fact-2",
+              "evidenceFactIds": [
+                "neue-wache-fact-1",
+                "neue-wache-fact-2",
+                "neue-wache-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Blicke durch den offenen Eingang auf Kollwitz’ Figur und das Opaion, das sie Wetter und Licht aussetzt.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "neue-wache-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "palace",
+            "main": {
+              "moduleId": "palace-main",
+              "title": "Berliner Schloss / Humboldt Forum",
+              "contribution": "Monarchie, DDR und Gegenwart streiten hier sichtbar darum, welche Stadt rekonstruiert und erinnert wird.",
+              "targetWords": 180,
+              "primaryFactId": "palace-fact-2",
+              "evidenceFactIds": [
+                "palace-fact-1",
+                "palace-fact-2",
+                "palace-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Gehe zur Gebäudeecke, an der rekonstruierte Barockfassade und moderne Ostfassade direkt aufeinandertreffen.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "palace-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "museum-island",
+            "main": {
+              "moduleId": "museum-island-main",
+              "title": "Museumsinsel",
+              "contribution": "Die Route endet damit, wie preußische Herrschaft Sammlungen ordnete und als öffentliche Kultur inszenierte.",
+              "targetWords": 180,
+              "primaryFactId": "museum-island-fact-2",
+              "evidenceFactIds": [
+                "museum-island-fact-1",
+                "museum-island-fact-2",
+                "museum-island-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Suche entlang des Wassers die unterschiedlichen Museumsfassaden und lies sie als zusammen geplantes Ensemble.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "museum-island-fact-1"
+              ]
+            }
+          }
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "rawOutput": "{\"schemaVersion\":\"story-module-plan-v1\",\"routeSceneIds\":[\"checkpoint\",\"potsdamer\",\"holocaust\",\"brandenburg\",\"reichstag\",\"neue-wache\",\"palace\",\"museum-island\"],\"promise\":\"Vom geteilten Berlin zur wiedervereinigten Hauptstadt: acht sichtbare politische Schichten zwischen Checkpoint Charlie und Museumsinsel.\",\"centralQuestion\":\"Wie schreibt jede politische Ordnung ihre Werte in dieselben Straßen – und was lässt Berlin davon sichtbar stehen?\",\"scenes\":[{\"sceneId\":\"checkpoint\",\"main\":{\"moduleId\":\"checkpoint-main\",\"title\":\"Checkpoint Charlie\",\"contribution\":\"Die Teilung wird an einem Kontrollpunkt zu einer konkreten Konfrontation zwischen Menschen und Mächten.\",\"targetWords\":180,\"primaryFactId\":\"checkpoint-fact-2\",\"evidenceFactIds\":[\"checkpoint-fact-1\",\"checkpoint-fact-2\",\"checkpoint-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Vergleiche den nachgebauten Kontrollposten und das Grenzschild mit der heutigen offenen Straßenkreuzung.\",\"seconds\":45,\"evidenceFactIds\":[\"checkpoint-fact-1\"]}},{\"sceneId\":\"potsdamer\",\"main\":{\"moduleId\":\"potsdamer-main\",\"title\":\"Potsdamer Platz\",\"contribution\":\"Ein Verkehrszentrum wird zur Mauerbrache und anschließend zum Schaufenster der wiedervereinigten Stadt.\",\"targetWords\":180,\"primaryFactId\":\"potsdamer-fact-2\",\"evidenceFactIds\":[\"potsdamer-fact-1\",\"potsdamer-fact-2\",\"potsdamer-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Suche den Metallstreifen im Boden und verfolge die frühere Mauerlinie durch den neu bebauten Platz.\",\"seconds\":45,\"evidenceFactIds\":[\"potsdamer-fact-1\"]}},{\"sceneId\":\"holocaust\",\"main\":{\"moduleId\":\"holocaust-main\",\"title\":\"Denkmal für die ermordeten Juden Europas\",\"contribution\":\"Die Bundesrepublik macht Erinnerung zur räumlichen und staatlichen Verantwortung im Zentrum der Hauptstadt.\",\"targetWords\":180,\"primaryFactId\":\"holocaust-fact-2\",\"evidenceFactIds\":[\"holocaust-fact-1\",\"holocaust-fact-2\",\"holocaust-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Beobachte, wie der Boden absinkt und die Stelen deine Sicht auf Stadt, Begleiter und Horizont verändern.\",\"seconds\":45,\"evidenceFactIds\":[\"holocaust-fact-1\"]}},{\"sceneId\":\"brandenburg\",\"main\":{\"moduleId\":\"brandenburg-main\",\"title\":\"Brandenburger Tor\",\"contribution\":\"Dasselbe Tor wechselt vom monarchischen Stadteingang zum Bild der Teilung und schließlich der Wiedervereinigung.\",\"targetWords\":180,\"primaryFactId\":\"brandenburg-fact-2\",\"evidenceFactIds\":[\"brandenburg-fact-1\",\"brandenburg-fact-2\",\"brandenburg-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Rahme die Quadriga zwischen den Säulen und stelle dir vor, dass direkt hinter dem Tor die Mauer verlief.\",\"seconds\":45,\"evidenceFactIds\":[\"brandenburg-fact-1\"]}},{\"sceneId\":\"reichstag\",\"main\":{\"moduleId\":\"reichstag-main\",\"title\":\"Reichstagsgebäude\",\"contribution\":\"Das Parlamentsgebäude erzählt von beschädigter Demokratie und ihrer bewusst transparenten Erneuerung.\",\"targetWords\":180,\"primaryFactId\":\"reichstag-fact-2\",\"evidenceFactIds\":[\"reichstag-fact-1\",\"reichstag-fact-2\",\"reichstag-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Stelle die historische Steinfront der modernen Glaskuppel gegenüber und achte darauf, wer von oben wen sehen kann.\",\"seconds\":45,\"evidenceFactIds\":[\"reichstag-fact-1\"]}},{\"sceneId\":\"neue-wache\",\"main\":{\"moduleId\":\"neue-wache-main\",\"title\":\"Neue Wache\",\"contribution\":\"Ein einziges Gebäude zeigt, wie Monarchie und spätere deutsche Staaten öffentliches Gedenken jeweils neu definieren.\",\"targetWords\":180,\"primaryFactId\":\"neue-wache-fact-2\",\"evidenceFactIds\":[\"neue-wache-fact-1\",\"neue-wache-fact-2\",\"neue-wache-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Blicke durch den offenen Eingang auf Kollwitz’ Figur und das Opaion, das sie Wetter und Licht aussetzt.\",\"seconds\":45,\"evidenceFactIds\":[\"neue-wache-fact-1\"]}},{\"sceneId\":\"palace\",\"main\":{\"moduleId\":\"palace-main\",\"title\":\"Berliner Schloss / Humboldt Forum\",\"contribution\":\"Monarchie, DDR und Gegenwart streiten hier sichtbar darum, welche Stadt rekonstruiert und erinnert wird.\",\"targetWords\":180,\"primaryFactId\":\"palace-fact-2\",\"evidenceFactIds\":[\"palace-fact-1\",\"palace-fact-2\",\"palace-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Gehe zur Gebäudeecke, an der rekonstruierte Barockfassade und moderne Ostfassade direkt aufeinandertreffen.\",\"seconds\":45,\"evidenceFactIds\":[\"palace-fact-1\"]}},{\"sceneId\":\"museum-island\",\"main\":{\"moduleId\":\"museum-island-main\",\"title\":\"Museumsinsel\",\"contribution\":\"Die Route endet damit, wie preußische Herrschaft Sammlungen ordnete und als öffentliche Kultur inszenierte.\",\"targetWords\":180,\"primaryFactId\":\"museum-island-fact-2\",\"evidenceFactIds\":[\"museum-island-fact-1\",\"museum-island-fact-2\",\"museum-island-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Suche entlang des Wassers die unterschiedlichen Museumsfassaden und lies sie als zusammen geplantes Ensemble.\",\"seconds\":45,\"evidenceFactIds\":[\"museum-island-fact-1\"]}}]}",
+          "error": null
+        }
+      ],
+      "promptFingerprint": "35b7871a35dbfbc44bd5da618b8068c00dd369d3b2951ac9fcb313de761ae2ee",
+      "input": {
+        "schemaVersion": "story-plan-request-v1",
+        "language": "de",
+        "routeSceneIds": [
+          "checkpoint",
+          "potsdamer",
+          "holocaust",
+          "brandenburg",
+          "reichstag",
+          "neue-wache",
+          "palace",
+          "museum-island"
+        ],
+        "scenes": [
+          {
+            "sceneId": "checkpoint",
+            "name": "Checkpoint Charlie",
+            "memberCanonicalIds": [
+              "Q68689"
+            ],
+            "facts": [
+              {
+                "factId": "checkpoint-fact-1",
+                "ownerCanonicalId": "Q68689",
+                "sourceId": "berlin-checkpoint",
+                "role": "observable",
+                "value": "A replica guardhouse and border sign identify the former crossing in the present streetscape."
+              },
+              {
+                "factId": "checkpoint-fact-2",
+                "ownerCanonicalId": "Q68689",
+                "sourceId": "berlin-checkpoint",
+                "role": "historical_context",
+                "value": "US and Soviet tanks faced one another here during the October 1961 confrontation."
+              },
+              {
+                "factId": "checkpoint-fact-3",
+                "ownerCanonicalId": "Q68689",
+                "sourceId": "berlin-checkpoint",
+                "role": "distinctive",
+                "value": "It became the best-known border crossing between East and West Berlin."
+              }
+            ]
+          },
+          {
+            "sceneId": "potsdamer",
+            "name": "Potsdamer Platz",
+            "memberCanonicalIds": [
+              "Q152252"
+            ],
+            "facts": [
+              {
+                "factId": "potsdamer-fact-1",
+                "ownerCanonicalId": "Q152252",
+                "sourceId": "berlin-potsdamer",
+                "role": "observable",
+                "value": "A metal strip in the pavement marks the former course of the Berlin Wall."
+              },
+              {
+                "factId": "potsdamer-fact-2",
+                "ownerCanonicalId": "Q152252",
+                "sourceId": "berlin-potsdamer",
+                "role": "historical_context",
+                "value": "The pre-war traffic hub became an empty border zone when the Wall divided Berlin."
+              },
+              {
+                "factId": "potsdamer-fact-3",
+                "ownerCanonicalId": "Q152252",
+                "sourceId": "berlin-potsdamer",
+                "role": "distinctive",
+                "value": "Its large-scale rebuilding became one of reunified Berlin’s most visible urban projects."
+              }
+            ]
+          },
+          {
+            "sceneId": "holocaust",
+            "name": "Denkmal für die ermordeten Juden Europas",
+            "memberCanonicalIds": [
+              "Q160700"
+            ],
+            "facts": [
+              {
+                "factId": "holocaust-fact-1",
+                "ownerCanonicalId": "Q160700",
+                "sourceId": "berlin-holocaust",
+                "role": "observable",
+                "value": "The memorial forms an abstract field of concrete stelae over uneven, sloping ground."
+              },
+              {
+                "factId": "holocaust-fact-2",
+                "ownerCanonicalId": "Q160700",
+                "sourceId": "berlin-holocaust",
+                "role": "historical_context",
+                "value": "Germany’s central memorial to Europe’s murdered Jews opened in 2005."
+              },
+              {
+                "factId": "holocaust-fact-3",
+                "ownerCanonicalId": "Q160700",
+                "sourceId": "berlin-holocaust",
+                "role": "local_function",
+                "value": "The underground information centre preserves victims’ names and biographies."
+              }
+            ]
+          },
+          {
+            "sceneId": "brandenburg",
+            "name": "Brandenburger Tor",
+            "memberCanonicalIds": [
+              "Q82425"
+            ],
+            "facts": [
+              {
+                "factId": "brandenburg-fact-1",
+                "ownerCanonicalId": "Q82425",
+                "sourceId": "berlin-brandenburg",
+                "role": "observable",
+                "value": "The Quadriga crowns the neoclassical gate and remains its most visible identifying feature."
+              },
+              {
+                "factId": "brandenburg-fact-2",
+                "ownerCanonicalId": "Q82425",
+                "sourceId": "berlin-brandenburg",
+                "role": "historical_context",
+                "value": "The gate was constructed between 1788 and 1791."
+              },
+              {
+                "factId": "brandenburg-fact-3",
+                "ownerCanonicalId": "Q82425",
+                "sourceId": "berlin-brandenburg",
+                "role": "distinctive",
+                "value": "Berlin’s only surviving city gate became a symbol first of division and then reunification."
+              }
+            ]
+          },
+          {
+            "sceneId": "reichstag",
+            "name": "Reichstagsgebäude",
+            "memberCanonicalIds": [
+              "Q151897"
+            ],
+            "facts": [
+              {
+                "factId": "reichstag-fact-1",
+                "ownerCanonicalId": "Q151897",
+                "sourceId": "berlin-reichstag",
+                "role": "observable",
+                "value": "Norman Foster’s glass dome sits visibly above the historic parliamentary facade."
+              },
+              {
+                "factId": "reichstag-fact-2",
+                "ownerCanonicalId": "Q151897",
+                "sourceId": "berlin-reichstag",
+                "role": "historical_context",
+                "value": "Completed in 1894, the building was marked by the Reichstag fire of 1933."
+              },
+              {
+                "factId": "reichstag-fact-3",
+                "ownerCanonicalId": "Q151897",
+                "sourceId": "berlin-reichstag",
+                "role": "distinctive",
+                "value": "The accessible dome formed part of its 1999 redesign for the reunified German parliament."
+              }
+            ]
+          },
+          {
+            "sceneId": "neue-wache",
+            "name": "Neue Wache",
+            "memberCanonicalIds": [
+              "Q152341"
+            ],
+            "facts": [
+              {
+                "factId": "neue-wache-fact-1",
+                "ownerCanonicalId": "Q152341",
+                "sourceId": "berlin-neue-wache",
+                "role": "observable",
+                "value": "Käthe Kollwitz’s Mother with her Dead Son stands alone beneath an open oculus."
+              },
+              {
+                "factId": "neue-wache-fact-2",
+                "ownerCanonicalId": "Q152341",
+                "sourceId": "berlin-neue-wache",
+                "role": "historical_context",
+                "value": "Karl Friedrich Schinkel originally designed the building as a royal guardhouse."
+              },
+              {
+                "factId": "neue-wache-fact-3",
+                "ownerCanonicalId": "Q152341",
+                "sourceId": "berlin-neue-wache",
+                "role": "local_function",
+                "value": "Successive German governments reassigned the site as a memorial with different meanings."
+              }
+            ]
+          },
+          {
+            "sceneId": "palace",
+            "name": "Berliner Schloss / Humboldt Forum",
+            "memberCanonicalIds": [
+              "Q170119"
+            ],
+            "facts": [
+              {
+                "factId": "palace-fact-1",
+                "ownerCanonicalId": "Q170119",
+                "sourceId": "berlin-humboldt",
+                "role": "observable",
+                "value": "Reconstructed Baroque facades meet a deliberately modern eastern facade."
+              },
+              {
+                "factId": "palace-fact-2",
+                "ownerCanonicalId": "Q170119",
+                "sourceId": "berlin-humboldt",
+                "role": "historical_context",
+                "value": "The former Berlin Palace was demolished and the GDR Palace of the Republic later occupied the site."
+              },
+              {
+                "factId": "palace-fact-3",
+                "ownerCanonicalId": "Q170119",
+                "sourceId": "berlin-humboldt",
+                "role": "distinctive",
+                "value": "The Humboldt Forum makes incompatible architectural readings of the same site visible at once."
+              }
+            ]
+          },
+          {
+            "sceneId": "museum-island",
+            "name": "Museumsinsel",
+            "memberCanonicalIds": [
+              "Q151963"
+            ],
+            "facts": [
+              {
+                "factId": "museum-island-fact-1",
+                "ownerCanonicalId": "Q151963",
+                "sourceId": "berlin-museum-island",
+                "role": "observable",
+                "value": "Five museum buildings form a recognizable ensemble on the island."
+              },
+              {
+                "factId": "museum-island-fact-2",
+                "ownerCanonicalId": "Q151963",
+                "sourceId": "berlin-museum-island",
+                "role": "historical_context",
+                "value": "Prussian rulers commissioned the museums to organize and display major collections."
+              },
+              {
+                "factId": "museum-island-fact-3",
+                "ownerCanonicalId": "Q151963",
+                "sourceId": "berlin-museum-island",
+                "role": "distinctive",
+                "value": "UNESCO added Museum Island to the World Heritage List in 1999."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wordsPerMinute": 120,
+    "audioByModuleId": null,
+    "duration": {
+      "walkingSeconds": 4131.9,
+      "narrationSeconds": 720,
+      "observationSeconds": 360,
+      "totalSeconds": 5211.9,
+      "totalMinutes": 86.86,
+      "narrationSource": "word_estimate",
+      "recommendedDurationMinutes": 90
+    },
+    "routeReview": null,
+    "streetAudit": null,
+    "fingerprints": {
+      "profile": "3d9e9809e085fe298d51ec4b5e1279beac297696252f6062c91ad59e16b23980",
+      "scenes": "86f1f59fcb4f1dbb155682250864aafe2ea4f5bb77d1a748ca90d62e6ae1afca",
+      "matrix": "c4442a01801d36ecf42f6b35e75b0c16f2c9a734a2f4e4b8412b3e7bca652e54",
+      "route": "4ae8a76d891da54c294de4678eca32fb3c1b4c7e713a09500647b9be50f26414",
+      "plan": "e583a447a927d2bdaecfa2a77328e910d0b25829229469f6ba63ce6e011968d0",
+      "audio": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  },
+  "externalGates": {
+    "blindReview": "pending",
+    "realAudio": "pending",
+    "calibration": "pending",
+    "sealedHoldouts": "pending",
+    "streetAudit": "not_applicable"
+  }
+}

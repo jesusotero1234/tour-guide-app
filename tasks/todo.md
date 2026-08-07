@@ -1,20 +1,19 @@
-# Editorial selector v6 checklist
+# Editorial selector v7 checklist
 
-- [x] T1 Core context/audit contracts have failing tests, then pass.
-- [x] T2 Wikimedia capture is validated, fingerprinted, and snapshot-ready.
-- [x] T3 Three-audit consensus, review states, budgets, and replay pass tests.
-- [x] T4 Madrid experiment executed; exact consensus and Madrid 7/7 failed, so the stop condition applies.
-- [ ] T5 Overrides and anti-oracle boundary pass tests.
-- [ ] T6 Core-constrained optimizer passes route invariants.
-- [ ] T7 Madrid compactness, dominance, permutation, and extension tests pass.
-- [ ] T8 Compact route jury passes schema and semantic tests.
-- [ ] T9 One-call workflow and snapshot replay pass.
-- [ ] T10 Workbench reports and replays core/portfolio/winner exactly.
-- [x] Focused v5 suites pass unchanged (7 suites, 27 tests).
-- [ ] Full backend test, lint, and build pass.
-- [ ] Live multi-city, blind review, and sealed holdout gates are complete.
-- [x] Code review complete for the phase-1 experiment; no unresolved v6 code blocker.
-- [ ] Final feature branch commit and push only after all gates pass.
-- [ ] `master` merged, reverified, and pushed only after human approval/gates pass.
-
-Stop recorded 2026-08-07: do not implement T5–T10, push, or merge unless the failed Madrid checkpoint is resolved without post-oracle tuning.
+- [x] T1 Contracts reject invalid profile/scene/review boundaries.
+- [x] T2 Full owned evidence survives role/novelty selection.
+- [x] T3 Exact optimizer covers all requirements and chapters in approved arc order.
+- [x] T4 Dominance, contribution uniqueness, duration bands, and extension diagnostics pass.
+- [x] T5 Route-locked story plan enforces grounding, size limits, and no repeated primary facts.
+- [x] T6 Real-duration gate excludes hidden buffers and fixed per-stop dwell.
+- [x] T7 Component fingerprints invalidate only their affected snapshot layer.
+- [x] T8 Madrid snapshot replays 3,067.6 m, 41.23 minutes, and a 976.1 m longest leg.
+- [x] T9 Offline replay command and current-state documentation are complete.
+- [x] T10 Berlin and Paris proposals replay exactly as `draft_only` with official evidence and frozen OSRM matrices.
+- [x] T11 Berlin recommends 90 minutes and Paris 60; neither is mislabeled as a 120-minute verified product.
+- [x] Focused v7 and regression suites pass.
+- [x] Backend build passes; full suite/lint results are recorded.
+- [x] Five-axis review has no unresolved v7 blocker.
+- [ ] Remaining seven calibration cities, human review, real audio, holdouts, and street audit are completed.
+- [ ] Replace the live legacy verified-city list/publication behavior with the v7 `verified`/`draft_only` boundary.
+- [x] No commit, push, merge, or publication occurred before those gates.

@@ -1,0 +1,1557 @@
+{
+  "schemaVersion": "editorial-workbench-v7",
+  "benchmark": {
+    "schemaVersion": "editorial-benchmark-v7",
+    "caseId": "paris-history-en-120",
+    "cityKey": "paris",
+    "theme": "history",
+    "requestedDurationMinutes": 120,
+    "mustVisitCanonicalIds": [
+      "Q2981",
+      "Q1075988",
+      "Q329948"
+    ],
+    "requiredChapters": [
+      {
+        "chapterId": "notre-dame",
+        "title": "The cathedral establishes the sacred and civic centre from which medieval Paris understood itself.",
+        "carrierSceneIds": [
+          "notre-dame"
+        ]
+      },
+      {
+        "chapterId": "sainte-chapelle",
+        "title": "Royal authority turns architecture, relics and coloured light into a concentrated political theology.",
+        "carrierSceneIds": [
+          "sainte-chapelle"
+        ]
+      },
+      {
+        "chapterId": "conciergerie",
+        "title": "A royal palace becomes a seat of justice and then a Revolutionary prison, reversing who exercises power over whom.",
+        "carrierSceneIds": [
+          "conciergerie"
+        ]
+      },
+      {
+        "chapterId": "saint-jacques",
+        "title": "A surviving church fragment acquires new lives through pilgrimage, experiment and civic measurement.",
+        "carrierSceneIds": [
+          "saint-jacques"
+        ]
+      },
+      {
+        "chapterId": "samaritaine",
+        "title": "The nineteenth-century department store makes commerce, design and consumption part of the modern public city.",
+        "carrierSceneIds": [
+          "samaritaine"
+        ]
+      },
+      {
+        "chapterId": "louvre",
+        "title": "A fortress and royal residence becomes a museum, shifting controlled dynastic space toward public cultural access.",
+        "carrierSceneIds": [
+          "louvre"
+        ]
+      },
+      {
+        "chapterId": "carrousel",
+        "title": "Napoleon inserts a compact monument of military victory into the axis of palace and city.",
+        "carrierSceneIds": [
+          "carrousel"
+        ]
+      },
+      {
+        "chapterId": "palais-royal",
+        "title": "A cardinal’s palace and a king’s childhood home opens into arcades of trade, cafés, sociability and later public art.",
+        "carrierSceneIds": [
+          "palais-royal"
+        ]
+      }
+    ],
+    "diagnosticReferenceRoutes": []
+  },
+  "blindReviewCards": [],
+  "expectedRoute": {
+    "sceneIds": [
+      "notre-dame",
+      "sainte-chapelle",
+      "conciergerie",
+      "saint-jacques",
+      "samaritaine",
+      "louvre",
+      "carrousel",
+      "palais-royal"
+    ],
+    "walkingMeters": 3230.8,
+    "walkingMinutes": 43.56,
+    "maxSegmentMeters": 840.1
+  },
+  "snapshot": {
+    "schemaVersion": "editorial-route-snapshot-v7",
+    "createdAt": "2026-08-08T12:30:00.000Z",
+    "status": "draft_only",
+    "reason": "editorial_review_required",
+    "language": "en",
+    "profile": {
+      "schemaVersion": "city-editorial-profile-v1",
+      "cityKey": "paris",
+      "theme": "history",
+      "productPromise": "Walk from medieval Île de la Cité to the Louvre and Palais-Royal, following how sacred and royal spaces became a public capital.",
+      "requestedDurationMinutes": 120,
+      "status": "review_required",
+      "mustVisitCanonicalIds": [
+        "Q2981",
+        "Q1075988",
+        "Q329948"
+      ],
+      "chapters": [
+        {
+          "chapterId": "notre-dame",
+          "title": "The cathedral establishes the sacred and civic centre from which medieval Paris understood itself.",
+          "carrierSceneIds": [
+            "notre-dame"
+          ]
+        },
+        {
+          "chapterId": "sainte-chapelle",
+          "title": "Royal authority turns architecture, relics and coloured light into a concentrated political theology.",
+          "carrierSceneIds": [
+            "sainte-chapelle"
+          ]
+        },
+        {
+          "chapterId": "conciergerie",
+          "title": "A royal palace becomes a seat of justice and then a Revolutionary prison, reversing who exercises power over whom.",
+          "carrierSceneIds": [
+            "conciergerie"
+          ]
+        },
+        {
+          "chapterId": "saint-jacques",
+          "title": "A surviving church fragment acquires new lives through pilgrimage, experiment and civic measurement.",
+          "carrierSceneIds": [
+            "saint-jacques"
+          ]
+        },
+        {
+          "chapterId": "samaritaine",
+          "title": "The nineteenth-century department store makes commerce, design and consumption part of the modern public city.",
+          "carrierSceneIds": [
+            "samaritaine"
+          ]
+        },
+        {
+          "chapterId": "louvre",
+          "title": "A fortress and royal residence becomes a museum, shifting controlled dynastic space toward public cultural access.",
+          "carrierSceneIds": [
+            "louvre"
+          ]
+        },
+        {
+          "chapterId": "carrousel",
+          "title": "Napoleon inserts a compact monument of military victory into the axis of palace and city.",
+          "carrierSceneIds": [
+            "carrousel"
+          ]
+        },
+        {
+          "chapterId": "palais-royal",
+          "title": "A cardinal’s palace and a king’s childhood home opens into arcades of trade, cafés, sociability and later public art.",
+          "carrierSceneIds": [
+            "palais-royal"
+          ]
+        }
+      ],
+      "arcChapterIds": [
+        "notre-dame",
+        "sainte-chapelle",
+        "conciergerie",
+        "saint-jacques",
+        "samaritaine",
+        "louvre",
+        "carrousel",
+        "palais-royal"
+      ],
+      "approvedSceneIds": [
+        "notre-dame",
+        "sainte-chapelle",
+        "conciergerie",
+        "saint-jacques",
+        "samaritaine",
+        "louvre",
+        "carrousel",
+        "palais-royal"
+      ],
+      "sources": [
+        {
+          "sourceId": "paris-notre-dame-route",
+          "url": "https://parisjetaime.com/eng/article/discovery-tour-around-the-cathedrale-notre-dame-de-paris-a1798",
+          "title": "Discovery tour around Notre-Dame de Paris",
+          "excerpt": "The official Île de la Cité walk links Notre-Dame, Sainte-Chapelle and Conciergerie. It presents Notre-Dame’s Gothic west front, parvis and December 2024 reopening, and Conciergerie’s medieval riverside towers, royal-palace origins and Revolutionary-prison role.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "08bca54b868d67a03d1b97afba3d0adfd0f33e4f69be7e73fecc5c9b8dd4f572"
+        },
+        {
+          "sourceId": "paris-gothic",
+          "url": "https://parisjetaime.com/eng/article/the-explosion-of-gothic-a227",
+          "title": "The explosion of Gothic",
+          "excerpt": "Notre-Dame embodies twelfth-century Gothic, Sainte-Chapelle the radiant Gothic of royal devotion, and the Conciergerie the Gothic vocabulary of medieval civil and palatial power.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "c5b921cc53d52bfbde734a452d1f597ea421cd65a3ec008ae22f3f3107fd0a54"
+        },
+        {
+          "sourceId": "paris-chatelet",
+          "url": "https://parisjetaime.com/eng/article/walk-around-chatelet-paris-a923",
+          "title": "A walk around Châtelet",
+          "excerpt": "The flamboyant sixteenth-century Saint-Jacques Tower survives from a lost church, gathered pilgrims and later hosted scientific experiments and a weather station; the walk continues toward Samaritaine.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "333349e46fac077748666e904f2c45dc3715941b8ffb4b952b8d80b126a5e9c3"
+        },
+        {
+          "sourceId": "paris-samaritaine",
+          "url": "https://parisjetaime.com/eng/shopping/samaritaine-paris-pont-neuf-p3774",
+          "title": "Samaritaine Paris Pont-Neuf",
+          "excerpt": "Founded in 1870 by Ernest Cognacq and Marie-Louise Jaÿ, Samaritaine combines listed Art Nouveau and Art Deco buildings with a contemporary facade after its restoration.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "783fd1c887fc02dde18022066084961394f27ad91c7c1d86522f4fe73909ef37"
+        },
+        {
+          "sourceId": "paris-louvre",
+          "url": "https://www.louvre.fr/en/explore/the-palace",
+          "title": "The Louvre palace",
+          "excerpt": "The Louvre traces its transformation from medieval fortress to royal palace and then museum. Its architecture preserves successive rulers’ additions around courtyards now open to museum visitors.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "74554f246d4cbaa47fcfc7454ed3ea85bd899daeb015bd2fcb6594cffd1301c8"
+        },
+        {
+          "sourceId": "paris-napoleon",
+          "url": "https://parisjetaime.com/eng/article/discover-paris-in-the-footsteps-of-napoleon-a1535",
+          "title": "Discover Paris in the footsteps of Napoleon",
+          "excerpt": "Built from 1806 to 1808 as the official entrance to the Tuileries, the Arc de Triomphe du Carrousel celebrated Napoleon’s victory at Austerlitz beside the Louvre, then called the Napoleon Museum.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "42fb4db05278c952b758bc9fec48914cc760ba0533bd65dca9beacd083b19ceb"
+        },
+        {
+          "sourceId": "paris-palais-royal",
+          "url": "https://parisjetaime.com/eng/article/balade-du-palais-royal-a-la-place-vendome-a789",
+          "title": "A walk from Palais-Royal to Place Vendôme",
+          "excerpt": "Built for Cardinal Richelieu in 1628, Palais-Royal became Louis XIV’s childhood home. Its eighteenth-century arcades filled with traders, cafés and gambling before later layers of public art.",
+          "capturedAt": "2026-08-08T12:00:00.000Z",
+          "contentFingerprint": "a67f4e0946f0da618f218e033561ce4ddcdd540ea8d8cca708343422900ec579"
+        }
+      ],
+      "overrides": [],
+      "requiresStreetAudit": false,
+      "review": null
+    },
+    "scenes": [
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "notre-dame",
+        "status": "review_required",
+        "primaryCanonicalId": "Q2981",
+        "memberCanonicalIds": [
+          "Q2981"
+        ],
+        "name": "Notre-Dame de Paris",
+        "observationPoint": {
+          "lat": 48.8529371,
+          "lng": 2.3498701
+        },
+        "facts": [
+          {
+            "factId": "notre-dame-fact-1",
+            "ownerCanonicalId": "Q2981",
+            "sourceId": "paris-notre-dame-route",
+            "role": "observable",
+            "value": "The restored cathedral facade again anchors the open parvis on Île de la Cité."
+          },
+          {
+            "factId": "notre-dame-fact-2",
+            "ownerCanonicalId": "Q2981",
+            "sourceId": "paris-notre-dame-route",
+            "role": "historical_context",
+            "value": "Notre-Dame is a major expression of Gothic building begun in the twelfth century."
+          },
+          {
+            "factId": "notre-dame-fact-3",
+            "ownerCanonicalId": "Q2981",
+            "sourceId": "paris-notre-dame-route",
+            "role": "distinctive",
+            "value": "The cathedral reopened in December 2024 after its extensive restoration."
+          }
+        ],
+        "sourceIds": [
+          "paris-notre-dame-route"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "sainte-chapelle",
+        "status": "review_required",
+        "primaryCanonicalId": "Q193193",
+        "memberCanonicalIds": [
+          "Q193193"
+        ],
+        "name": "Sainte-Chapelle",
+        "observationPoint": {
+          "lat": 48.8553966,
+          "lng": 2.3450136
+        },
+        "facts": [
+          {
+            "factId": "sainte-chapelle-fact-1",
+            "ownerCanonicalId": "Q193193",
+            "sourceId": "paris-gothic",
+            "role": "observable",
+            "value": "Slender masonry and large stained-glass openings give the chapel its radiant visual character."
+          },
+          {
+            "factId": "sainte-chapelle-fact-2",
+            "ownerCanonicalId": "Q193193",
+            "sourceId": "paris-gothic",
+            "role": "historical_context",
+            "value": "Sainte-Chapelle represents the radiant phase of Gothic architecture."
+          },
+          {
+            "factId": "sainte-chapelle-fact-3",
+            "ownerCanonicalId": "Q193193",
+            "sourceId": "paris-gothic",
+            "role": "local_function",
+            "value": "The royal chapel joined devotion to the public expression of monarchical authority."
+          }
+        ],
+        "sourceIds": [
+          "paris-gothic"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "conciergerie",
+        "status": "review_required",
+        "primaryCanonicalId": "Q138101",
+        "memberCanonicalIds": [
+          "Q138101"
+        ],
+        "name": "Conciergerie",
+        "observationPoint": {
+          "lat": 48.8559492,
+          "lng": 2.3460263
+        },
+        "facts": [
+          {
+            "factId": "conciergerie-fact-1",
+            "ownerCanonicalId": "Q138101",
+            "sourceId": "paris-notre-dame-route",
+            "role": "observable",
+            "value": "The riverside medieval towers preserve the building’s palatial silhouette."
+          },
+          {
+            "factId": "conciergerie-fact-2",
+            "ownerCanonicalId": "Q138101",
+            "sourceId": "paris-notre-dame-route",
+            "role": "historical_context",
+            "value": "The Conciergerie formed part of the medieval royal palace on Île de la Cité."
+          },
+          {
+            "factId": "conciergerie-fact-3",
+            "ownerCanonicalId": "Q138101",
+            "sourceId": "paris-notre-dame-route",
+            "role": "distinctive",
+            "value": "It later served as a Revolutionary prison, joining royal and revolutionary history in one building."
+          }
+        ],
+        "sourceIds": [
+          "paris-notre-dame-route"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "saint-jacques",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1431547",
+        "memberCanonicalIds": [
+          "Q1431547"
+        ],
+        "name": "Tour Saint-Jacques",
+        "observationPoint": {
+          "lat": 48.8579983,
+          "lng": 2.3489178
+        },
+        "facts": [
+          {
+            "factId": "saint-jacques-fact-1",
+            "ownerCanonicalId": "Q1431547",
+            "sourceId": "paris-chatelet",
+            "role": "observable",
+            "value": "The richly carved Gothic tower now stands isolated in a public square."
+          },
+          {
+            "factId": "saint-jacques-fact-2",
+            "ownerCanonicalId": "Q1431547",
+            "sourceId": "paris-chatelet",
+            "role": "historical_context",
+            "value": "The sixteenth-century tower survives from a church that no longer exists."
+          },
+          {
+            "factId": "saint-jacques-fact-3",
+            "ownerCanonicalId": "Q1431547",
+            "sourceId": "paris-chatelet",
+            "role": "distinctive",
+            "value": "After serving pilgrims, the tower was reused for scientific experiments and as a weather station."
+          }
+        ],
+        "sourceIds": [
+          "paris-chatelet"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "samaritaine",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1583780",
+        "memberCanonicalIds": [
+          "Q1583780"
+        ],
+        "name": "La Samaritaine",
+        "observationPoint": {
+          "lat": 48.8592672,
+          "lng": 2.3424349
+        },
+        "facts": [
+          {
+            "factId": "samaritaine-fact-1",
+            "ownerCanonicalId": "Q1583780",
+            "sourceId": "paris-samaritaine",
+            "role": "observable",
+            "value": "Historic Art Nouveau and Art Deco fabric stands beside a contemporary facade."
+          },
+          {
+            "factId": "samaritaine-fact-2",
+            "ownerCanonicalId": "Q1583780",
+            "sourceId": "paris-samaritaine",
+            "role": "historical_context",
+            "value": "Ernest Cognacq and Marie-Louise Jaÿ founded Samaritaine in 1870."
+          },
+          {
+            "factId": "samaritaine-fact-3",
+            "ownerCanonicalId": "Q1583780",
+            "sourceId": "paris-samaritaine",
+            "role": "distinctive",
+            "value": "Its restoration deliberately combines listed department-store architecture with a new urban frontage."
+          }
+        ],
+        "sourceIds": [
+          "paris-samaritaine"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "louvre",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1075988",
+        "memberCanonicalIds": [
+          "Q1075988"
+        ],
+        "name": "Palais du Louvre",
+        "observationPoint": {
+          "lat": 48.8614768,
+          "lng": 2.3351677
+        },
+        "facts": [
+          {
+            "factId": "louvre-fact-1",
+            "ownerCanonicalId": "Q1075988",
+            "sourceId": "paris-louvre",
+            "role": "observable",
+            "value": "Successive palace wings and courtyards visibly preserve several phases of construction."
+          },
+          {
+            "factId": "louvre-fact-2",
+            "ownerCanonicalId": "Q1075988",
+            "sourceId": "paris-louvre",
+            "role": "historical_context",
+            "value": "The Louvre developed from a medieval fortress into a royal palace."
+          },
+          {
+            "factId": "louvre-fact-3",
+            "ownerCanonicalId": "Q1075988",
+            "sourceId": "paris-louvre",
+            "role": "local_function",
+            "value": "The former palace now organizes its historic spaces around public museum access."
+          }
+        ],
+        "sourceIds": [
+          "paris-louvre"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "carrousel",
+        "status": "review_required",
+        "primaryCanonicalId": "Q631104",
+        "memberCanonicalIds": [
+          "Q631104"
+        ],
+        "name": "Arc de Triomphe du Carrousel",
+        "observationPoint": {
+          "lat": 48.8617276,
+          "lng": 2.3329082
+        },
+        "facts": [
+          {
+            "factId": "carrousel-fact-1",
+            "ownerCanonicalId": "Q631104",
+            "sourceId": "paris-napoleon",
+            "role": "observable",
+            "value": "The arch stands on the formal axis between the Louvre and the former Tuileries site."
+          },
+          {
+            "factId": "carrousel-fact-2",
+            "ownerCanonicalId": "Q631104",
+            "sourceId": "paris-napoleon",
+            "role": "historical_context",
+            "value": "It was built from 1806 to 1808 as the official entrance to the Tuileries."
+          },
+          {
+            "factId": "carrousel-fact-3",
+            "ownerCanonicalId": "Q631104",
+            "sourceId": "paris-napoleon",
+            "role": "distinctive",
+            "value": "Its decoration celebrated Napoleon’s victory at Austerlitz beside the renamed Napoleon Museum."
+          }
+        ],
+        "sourceIds": [
+          "paris-napoleon"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "palais-royal",
+        "status": "review_required",
+        "primaryCanonicalId": "Q329948",
+        "memberCanonicalIds": [
+          "Q329948"
+        ],
+        "name": "Palais-Royal",
+        "observationPoint": {
+          "lat": 48.8635185,
+          "lng": 2.3369196
+        },
+        "facts": [
+          {
+            "factId": "palais-royal-fact-1",
+            "ownerCanonicalId": "Q329948",
+            "sourceId": "paris-palais-royal",
+            "role": "observable",
+            "value": "The palace courtyard, garden and surrounding arcades create distinct layers of public and controlled space."
+          },
+          {
+            "factId": "palais-royal-fact-2",
+            "ownerCanonicalId": "Q329948",
+            "sourceId": "paris-palais-royal",
+            "role": "historical_context",
+            "value": "Built for Cardinal Richelieu in 1628, the palace later became Louis XIV’s childhood home."
+          },
+          {
+            "factId": "palais-royal-fact-3",
+            "ownerCanonicalId": "Q329948",
+            "sourceId": "paris-palais-royal",
+            "role": "local_function",
+            "value": "Eighteenth-century arcades filled with shops, cafés and gambling before later public-art interventions."
+          }
+        ],
+        "sourceIds": [
+          "paris-palais-royal"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      }
+    ],
+    "matrix": {
+      "schemaVersion": "walking-matrix-v1",
+      "provider": {
+        "id": "fossgis-osrm-foot",
+        "capturedAt": "2026-08-06T18:44:36.086Z"
+      },
+      "candidateFingerprint": "dbea7018b44f90efbd3d64e69ac61f819ec420fa37b0a0227cbcf92ca325d5de",
+      "sites": [
+        {
+          "siteId": "notre-dame",
+          "lat": 48.8529371,
+          "lng": 2.3498701
+        },
+        {
+          "siteId": "sainte-chapelle",
+          "lat": 48.8553966,
+          "lng": 2.3450136
+        },
+        {
+          "siteId": "conciergerie",
+          "lat": 48.8559492,
+          "lng": 2.3460263
+        },
+        {
+          "siteId": "saint-jacques",
+          "lat": 48.8579983,
+          "lng": 2.3489178
+        },
+        {
+          "siteId": "samaritaine",
+          "lat": 48.8592672,
+          "lng": 2.3424349
+        },
+        {
+          "siteId": "louvre",
+          "lat": 48.8614768,
+          "lng": 2.3351677
+        },
+        {
+          "siteId": "carrousel",
+          "lat": 48.8617276,
+          "lng": 2.3329082
+        },
+        {
+          "siteId": "palais-royal",
+          "lat": 48.8635185,
+          "lng": 2.3369196
+        }
+      ],
+      "legs": [
+        [
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 604.3,
+            "seconds": 483.3,
+            "reachable": true
+          },
+          {
+            "meters": 587.6,
+            "seconds": 474.5,
+            "reachable": true
+          },
+          {
+            "meters": 712.3,
+            "seconds": 584,
+            "reachable": true
+          },
+          {
+            "meters": 1105.2,
+            "seconds": 888.6,
+            "reachable": true
+          },
+          {
+            "meters": 1821.8,
+            "seconds": 1461.7,
+            "reachable": true
+          },
+          {
+            "meters": 1953.9,
+            "seconds": 1567.5,
+            "reachable": true
+          },
+          {
+            "meters": 1926.9,
+            "seconds": 1544.9,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 604.3,
+            "seconds": 483.3,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 98.9,
+            "seconds": 79.1,
+            "reachable": true
+          },
+          {
+            "meters": 497.1,
+            "seconds": 412.8,
+            "reachable": true
+          },
+          {
+            "meters": 700,
+            "seconds": 560.1,
+            "reachable": true
+          },
+          {
+            "meters": 1416.6,
+            "seconds": 1133.2,
+            "reachable": true
+          },
+          {
+            "meters": 1548.6,
+            "seconds": 1239,
+            "reachable": true
+          },
+          {
+            "meters": 1521.7,
+            "seconds": 1216.4,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 587.6,
+            "seconds": 474.5,
+            "reachable": true
+          },
+          {
+            "meters": 98.9,
+            "seconds": 79.1,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 398.2,
+            "seconds": 333.7,
+            "reachable": true
+          },
+          {
+            "meters": 601.1,
+            "seconds": 481,
+            "reachable": true
+          },
+          {
+            "meters": 1317.7,
+            "seconds": 1054.1,
+            "reachable": true
+          },
+          {
+            "meters": 1449.7,
+            "seconds": 1159.9,
+            "reachable": true
+          },
+          {
+            "meters": 1422.8,
+            "seconds": 1137.3,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 712.3,
+            "seconds": 584,
+            "reachable": true
+          },
+          {
+            "meters": 497.1,
+            "seconds": 412.8,
+            "reachable": true
+          },
+          {
+            "meters": 398.2,
+            "seconds": 333.7,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 565.9,
+            "seconds": 466.4,
+            "reachable": true
+          },
+          {
+            "meters": 1232.6,
+            "seconds": 997.8,
+            "reachable": true
+          },
+          {
+            "meters": 1410.9,
+            "seconds": 1140.6,
+            "reachable": true
+          },
+          {
+            "meters": 1248.7,
+            "seconds": 1009.9,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1105.2,
+            "seconds": 888.6,
+            "reachable": true
+          },
+          {
+            "meters": 700,
+            "seconds": 560.1,
+            "reachable": true
+          },
+          {
+            "meters": 601.1,
+            "seconds": 481,
+            "reachable": true
+          },
+          {
+            "meters": 565.9,
+            "seconds": 466.4,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 840.1,
+            "seconds": 672.2,
+            "reachable": true
+          },
+          {
+            "meters": 1018.4,
+            "seconds": 815,
+            "reachable": true
+          },
+          {
+            "meters": 858.4,
+            "seconds": 686.3,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1821.8,
+            "seconds": 1461.7,
+            "reachable": true
+          },
+          {
+            "meters": 1416.6,
+            "seconds": 1133.2,
+            "reachable": true
+          },
+          {
+            "meters": 1317.7,
+            "seconds": 1054.1,
+            "reachable": true
+          },
+          {
+            "meters": 1232.6,
+            "seconds": 997.8,
+            "reachable": true
+          },
+          {
+            "meters": 840.1,
+            "seconds": 672.2,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 214.2,
+            "seconds": 171.4,
+            "reachable": true
+          },
+          {
+            "meters": 415,
+            "seconds": 331.6,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1953.9,
+            "seconds": 1567.5,
+            "reachable": true
+          },
+          {
+            "meters": 1548.6,
+            "seconds": 1239,
+            "reachable": true
+          },
+          {
+            "meters": 1449.7,
+            "seconds": 1159.9,
+            "reachable": true
+          },
+          {
+            "meters": 1410.9,
+            "seconds": 1140.6,
+            "reachable": true
+          },
+          {
+            "meters": 1018.4,
+            "seconds": 815,
+            "reachable": true
+          },
+          {
+            "meters": 214.2,
+            "seconds": 171.4,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 509.2,
+            "seconds": 407.4,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1926.9,
+            "seconds": 1544.9,
+            "reachable": true
+          },
+          {
+            "meters": 1521.7,
+            "seconds": 1216.4,
+            "reachable": true
+          },
+          {
+            "meters": 1422.8,
+            "seconds": 1137.3,
+            "reachable": true
+          },
+          {
+            "meters": 1248.7,
+            "seconds": 1009.9,
+            "reachable": true
+          },
+          {
+            "meters": 858.4,
+            "seconds": 686.3,
+            "reachable": true
+          },
+          {
+            "meters": 415.1,
+            "seconds": 331.7,
+            "reachable": true
+          },
+          {
+            "meters": 509.4,
+            "seconds": 407.5,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          }
+        ]
+      ]
+    },
+    "optimization": {
+      "status": "selected",
+      "route": {
+        "sceneIds": [
+          "notre-dame",
+          "sainte-chapelle",
+          "conciergerie",
+          "saint-jacques",
+          "samaritaine",
+          "louvre",
+          "carrousel",
+          "palais-royal"
+        ],
+        "chapterAssignments": [
+          {
+            "chapterId": "notre-dame",
+            "sceneId": "notre-dame"
+          },
+          {
+            "chapterId": "sainte-chapelle",
+            "sceneId": "sainte-chapelle"
+          },
+          {
+            "chapterId": "conciergerie",
+            "sceneId": "conciergerie"
+          },
+          {
+            "chapterId": "saint-jacques",
+            "sceneId": "saint-jacques"
+          },
+          {
+            "chapterId": "samaritaine",
+            "sceneId": "samaritaine"
+          },
+          {
+            "chapterId": "louvre",
+            "sceneId": "louvre"
+          },
+          {
+            "chapterId": "carrousel",
+            "sceneId": "carrousel"
+          },
+          {
+            "chapterId": "palais-royal",
+            "sceneId": "palais-royal"
+          }
+        ],
+        "coveredCanonicalIds": [
+          "Q1075988",
+          "Q138101",
+          "Q1431547",
+          "Q1583780",
+          "Q193193",
+          "Q2981",
+          "Q329948",
+          "Q631104"
+        ],
+        "metrics": {
+          "walkingMeters": 3230.8,
+          "walkingSeconds": 2613.5,
+          "walkingMinutes": 43.56,
+          "maxSegmentMeters": 840.1,
+          "maxSegmentSeconds": 672.2,
+          "maxSegmentMinutes": 11.2,
+          "explicitExperienceMinutes": 0,
+          "estimatedTourMinutes": 43.56,
+          "comfortPenalty": 0
+        }
+      },
+      "searchedDurationMinutes": 120,
+      "recommendedDurationMinutes": null,
+      "attemptedDurationMinutes": [
+        120
+      ],
+      "exploredCompleteOrderCount": 40320,
+      "dominatedRouteCount": 0,
+      "discardedCounts": {
+        "coverage": 69280,
+        "arc": 40319,
+        "conflict": 0,
+        "physical": 0,
+        "redundant": 0,
+        "duration": 0
+      }
+    },
+    "storyPlanCall": {
+      "status": "valid",
+      "value": {
+        "schemaVersion": "story-module-plan-v1",
+        "routeSceneIds": [
+          "notre-dame",
+          "sainte-chapelle",
+          "conciergerie",
+          "saint-jacques",
+          "samaritaine",
+          "louvre",
+          "carrousel",
+          "palais-royal"
+        ],
+        "promise": "Walk from medieval Île de la Cité to the Louvre and Palais-Royal, following how sacred and royal spaces became a public capital.",
+        "centralQuestion": "How did spaces built for church and crown become monuments, commerce, museums and public life?",
+        "scenes": [
+          {
+            "sceneId": "notre-dame",
+            "main": {
+              "moduleId": "notre-dame-main",
+              "title": "Notre-Dame de Paris",
+              "contribution": "The cathedral establishes the sacred and civic centre from which medieval Paris understood itself.",
+              "targetWords": 180,
+              "primaryFactId": "notre-dame-fact-2",
+              "evidenceFactIds": [
+                "notre-dame-fact-1",
+                "notre-dame-fact-2",
+                "notre-dame-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Look from the restored west front to the open parvis and notice how the cathedral still organizes the island around it.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "notre-dame-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "sainte-chapelle",
+            "main": {
+              "moduleId": "sainte-chapelle-main",
+              "title": "Sainte-Chapelle",
+              "contribution": "Royal authority turns architecture, relics and coloured light into a concentrated political theology.",
+              "targetWords": 180,
+              "primaryFactId": "sainte-chapelle-fact-2",
+              "evidenceFactIds": [
+                "sainte-chapelle-fact-1",
+                "sainte-chapelle-fact-2",
+                "sainte-chapelle-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "From the courtyard, compare the chapel’s narrow stone supports with the amount of wall given over to stained glass.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "sainte-chapelle-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "conciergerie",
+            "main": {
+              "moduleId": "conciergerie-main",
+              "title": "Conciergerie",
+              "contribution": "A royal palace becomes a seat of justice and then a Revolutionary prison, reversing who exercises power over whom.",
+              "targetWords": 180,
+              "primaryFactId": "conciergerie-fact-2",
+              "evidenceFactIds": [
+                "conciergerie-fact-1",
+                "conciergerie-fact-2",
+                "conciergerie-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Follow the riverside towers and imagine the building first as palace frontage and later as the boundary of a prison.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "conciergerie-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "saint-jacques",
+            "main": {
+              "moduleId": "saint-jacques-main",
+              "title": "Tour Saint-Jacques",
+              "contribution": "A surviving church fragment acquires new lives through pilgrimage, experiment and civic measurement.",
+              "targetWords": 180,
+              "primaryFactId": "saint-jacques-fact-2",
+              "evidenceFactIds": [
+                "saint-jacques-fact-1",
+                "saint-jacques-fact-2",
+                "saint-jacques-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Circle the isolated tower and identify the clues that it once belonged to a much larger church rather than a freestanding monument.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "saint-jacques-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "samaritaine",
+            "main": {
+              "moduleId": "samaritaine-main",
+              "title": "La Samaritaine",
+              "contribution": "The nineteenth-century department store makes commerce, design and consumption part of the modern public city.",
+              "targetWords": 180,
+              "primaryFactId": "samaritaine-fact-2",
+              "evidenceFactIds": [
+                "samaritaine-fact-1",
+                "samaritaine-fact-2",
+                "samaritaine-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Compare the restored Art Nouveau and Art Deco fabric with the contemporary facade instead of reading the store as one period.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "samaritaine-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "louvre",
+            "main": {
+              "moduleId": "louvre-main",
+              "title": "Palais du Louvre",
+              "contribution": "A fortress and royal residence becomes a museum, shifting controlled dynastic space toward public cultural access.",
+              "targetWords": 180,
+              "primaryFactId": "louvre-fact-2",
+              "evidenceFactIds": [
+                "louvre-fact-1",
+                "louvre-fact-2",
+                "louvre-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Read the different wings around the courtyard as additions by successive rulers rather than a single symmetrical project.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "louvre-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "carrousel",
+            "main": {
+              "moduleId": "carrousel-main",
+              "title": "Arc de Triomphe du Carrousel",
+              "contribution": "Napoleon inserts a compact monument of military victory into the axis of palace and city.",
+              "targetWords": 180,
+              "primaryFactId": "carrousel-fact-2",
+              "evidenceFactIds": [
+                "carrousel-fact-1",
+                "carrousel-fact-2",
+                "carrousel-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Stand on the central axis and use the arch to frame the former route toward the Tuileries palace.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "carrousel-fact-1"
+              ]
+            }
+          },
+          {
+            "sceneId": "palais-royal",
+            "main": {
+              "moduleId": "palais-royal-main",
+              "title": "Palais-Royal",
+              "contribution": "A cardinal’s palace and a king’s childhood home opens into arcades of trade, cafés, sociability and later public art.",
+              "targetWords": 180,
+              "primaryFactId": "palais-royal-fact-2",
+              "evidenceFactIds": [
+                "palais-royal-fact-1",
+                "palais-royal-fact-2",
+                "palais-royal-fact-3"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Move from the ceremonial courtyard toward the arcades and notice how a palace edge becomes a sheltered commercial and social street.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "palais-royal-fact-1"
+              ]
+            }
+          }
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "rawOutput": "{\"schemaVersion\":\"story-module-plan-v1\",\"routeSceneIds\":[\"notre-dame\",\"sainte-chapelle\",\"conciergerie\",\"saint-jacques\",\"samaritaine\",\"louvre\",\"carrousel\",\"palais-royal\"],\"promise\":\"Walk from medieval Île de la Cité to the Louvre and Palais-Royal, following how sacred and royal spaces became a public capital.\",\"centralQuestion\":\"How did spaces built for church and crown become monuments, commerce, museums and public life?\",\"scenes\":[{\"sceneId\":\"notre-dame\",\"main\":{\"moduleId\":\"notre-dame-main\",\"title\":\"Notre-Dame de Paris\",\"contribution\":\"The cathedral establishes the sacred and civic centre from which medieval Paris understood itself.\",\"targetWords\":180,\"primaryFactId\":\"notre-dame-fact-2\",\"evidenceFactIds\":[\"notre-dame-fact-1\",\"notre-dame-fact-2\",\"notre-dame-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Look from the restored west front to the open parvis and notice how the cathedral still organizes the island around it.\",\"seconds\":45,\"evidenceFactIds\":[\"notre-dame-fact-1\"]}},{\"sceneId\":\"sainte-chapelle\",\"main\":{\"moduleId\":\"sainte-chapelle-main\",\"title\":\"Sainte-Chapelle\",\"contribution\":\"Royal authority turns architecture, relics and coloured light into a concentrated political theology.\",\"targetWords\":180,\"primaryFactId\":\"sainte-chapelle-fact-2\",\"evidenceFactIds\":[\"sainte-chapelle-fact-1\",\"sainte-chapelle-fact-2\",\"sainte-chapelle-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"From the courtyard, compare the chapel’s narrow stone supports with the amount of wall given over to stained glass.\",\"seconds\":45,\"evidenceFactIds\":[\"sainte-chapelle-fact-1\"]}},{\"sceneId\":\"conciergerie\",\"main\":{\"moduleId\":\"conciergerie-main\",\"title\":\"Conciergerie\",\"contribution\":\"A royal palace becomes a seat of justice and then a Revolutionary prison, reversing who exercises power over whom.\",\"targetWords\":180,\"primaryFactId\":\"conciergerie-fact-2\",\"evidenceFactIds\":[\"conciergerie-fact-1\",\"conciergerie-fact-2\",\"conciergerie-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Follow the riverside towers and imagine the building first as palace frontage and later as the boundary of a prison.\",\"seconds\":45,\"evidenceFactIds\":[\"conciergerie-fact-1\"]}},{\"sceneId\":\"saint-jacques\",\"main\":{\"moduleId\":\"saint-jacques-main\",\"title\":\"Tour Saint-Jacques\",\"contribution\":\"A surviving church fragment acquires new lives through pilgrimage, experiment and civic measurement.\",\"targetWords\":180,\"primaryFactId\":\"saint-jacques-fact-2\",\"evidenceFactIds\":[\"saint-jacques-fact-1\",\"saint-jacques-fact-2\",\"saint-jacques-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Circle the isolated tower and identify the clues that it once belonged to a much larger church rather than a freestanding monument.\",\"seconds\":45,\"evidenceFactIds\":[\"saint-jacques-fact-1\"]}},{\"sceneId\":\"samaritaine\",\"main\":{\"moduleId\":\"samaritaine-main\",\"title\":\"La Samaritaine\",\"contribution\":\"The nineteenth-century department store makes commerce, design and consumption part of the modern public city.\",\"targetWords\":180,\"primaryFactId\":\"samaritaine-fact-2\",\"evidenceFactIds\":[\"samaritaine-fact-1\",\"samaritaine-fact-2\",\"samaritaine-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Compare the restored Art Nouveau and Art Deco fabric with the contemporary facade instead of reading the store as one period.\",\"seconds\":45,\"evidenceFactIds\":[\"samaritaine-fact-1\"]}},{\"sceneId\":\"louvre\",\"main\":{\"moduleId\":\"louvre-main\",\"title\":\"Palais du Louvre\",\"contribution\":\"A fortress and royal residence becomes a museum, shifting controlled dynastic space toward public cultural access.\",\"targetWords\":180,\"primaryFactId\":\"louvre-fact-2\",\"evidenceFactIds\":[\"louvre-fact-1\",\"louvre-fact-2\",\"louvre-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Read the different wings around the courtyard as additions by successive rulers rather than a single symmetrical project.\",\"seconds\":45,\"evidenceFactIds\":[\"louvre-fact-1\"]}},{\"sceneId\":\"carrousel\",\"main\":{\"moduleId\":\"carrousel-main\",\"title\":\"Arc de Triomphe du Carrousel\",\"contribution\":\"Napoleon inserts a compact monument of military victory into the axis of palace and city.\",\"targetWords\":180,\"primaryFactId\":\"carrousel-fact-2\",\"evidenceFactIds\":[\"carrousel-fact-1\",\"carrousel-fact-2\",\"carrousel-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Stand on the central axis and use the arch to frame the former route toward the Tuileries palace.\",\"seconds\":45,\"evidenceFactIds\":[\"carrousel-fact-1\"]}},{\"sceneId\":\"palais-royal\",\"main\":{\"moduleId\":\"palais-royal-main\",\"title\":\"Palais-Royal\",\"contribution\":\"A cardinal’s palace and a king’s childhood home opens into arcades of trade, cafés, sociability and later public art.\",\"targetWords\":180,\"primaryFactId\":\"palais-royal-fact-2\",\"evidenceFactIds\":[\"palais-royal-fact-1\",\"palais-royal-fact-2\",\"palais-royal-fact-3\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Move from the ceremonial courtyard toward the arcades and notice how a palace edge becomes a sheltered commercial and social street.\",\"seconds\":45,\"evidenceFactIds\":[\"palais-royal-fact-1\"]}}]}",
+          "error": null
+        }
+      ],
+      "promptFingerprint": "35b7871a35dbfbc44bd5da618b8068c00dd369d3b2951ac9fcb313de761ae2ee",
+      "input": {
+        "schemaVersion": "story-plan-request-v1",
+        "language": "en",
+        "routeSceneIds": [
+          "notre-dame",
+          "sainte-chapelle",
+          "conciergerie",
+          "saint-jacques",
+          "samaritaine",
+          "louvre",
+          "carrousel",
+          "palais-royal"
+        ],
+        "scenes": [
+          {
+            "sceneId": "notre-dame",
+            "name": "Notre-Dame de Paris",
+            "memberCanonicalIds": [
+              "Q2981"
+            ],
+            "facts": [
+              {
+                "factId": "notre-dame-fact-1",
+                "ownerCanonicalId": "Q2981",
+                "sourceId": "paris-notre-dame-route",
+                "role": "observable",
+                "value": "The restored cathedral facade again anchors the open parvis on Île de la Cité."
+              },
+              {
+                "factId": "notre-dame-fact-2",
+                "ownerCanonicalId": "Q2981",
+                "sourceId": "paris-notre-dame-route",
+                "role": "historical_context",
+                "value": "Notre-Dame is a major expression of Gothic building begun in the twelfth century."
+              },
+              {
+                "factId": "notre-dame-fact-3",
+                "ownerCanonicalId": "Q2981",
+                "sourceId": "paris-notre-dame-route",
+                "role": "distinctive",
+                "value": "The cathedral reopened in December 2024 after its extensive restoration."
+              }
+            ]
+          },
+          {
+            "sceneId": "sainte-chapelle",
+            "name": "Sainte-Chapelle",
+            "memberCanonicalIds": [
+              "Q193193"
+            ],
+            "facts": [
+              {
+                "factId": "sainte-chapelle-fact-1",
+                "ownerCanonicalId": "Q193193",
+                "sourceId": "paris-gothic",
+                "role": "observable",
+                "value": "Slender masonry and large stained-glass openings give the chapel its radiant visual character."
+              },
+              {
+                "factId": "sainte-chapelle-fact-2",
+                "ownerCanonicalId": "Q193193",
+                "sourceId": "paris-gothic",
+                "role": "historical_context",
+                "value": "Sainte-Chapelle represents the radiant phase of Gothic architecture."
+              },
+              {
+                "factId": "sainte-chapelle-fact-3",
+                "ownerCanonicalId": "Q193193",
+                "sourceId": "paris-gothic",
+                "role": "local_function",
+                "value": "The royal chapel joined devotion to the public expression of monarchical authority."
+              }
+            ]
+          },
+          {
+            "sceneId": "conciergerie",
+            "name": "Conciergerie",
+            "memberCanonicalIds": [
+              "Q138101"
+            ],
+            "facts": [
+              {
+                "factId": "conciergerie-fact-1",
+                "ownerCanonicalId": "Q138101",
+                "sourceId": "paris-notre-dame-route",
+                "role": "observable",
+                "value": "The riverside medieval towers preserve the building’s palatial silhouette."
+              },
+              {
+                "factId": "conciergerie-fact-2",
+                "ownerCanonicalId": "Q138101",
+                "sourceId": "paris-notre-dame-route",
+                "role": "historical_context",
+                "value": "The Conciergerie formed part of the medieval royal palace on Île de la Cité."
+              },
+              {
+                "factId": "conciergerie-fact-3",
+                "ownerCanonicalId": "Q138101",
+                "sourceId": "paris-notre-dame-route",
+                "role": "distinctive",
+                "value": "It later served as a Revolutionary prison, joining royal and revolutionary history in one building."
+              }
+            ]
+          },
+          {
+            "sceneId": "saint-jacques",
+            "name": "Tour Saint-Jacques",
+            "memberCanonicalIds": [
+              "Q1431547"
+            ],
+            "facts": [
+              {
+                "factId": "saint-jacques-fact-1",
+                "ownerCanonicalId": "Q1431547",
+                "sourceId": "paris-chatelet",
+                "role": "observable",
+                "value": "The richly carved Gothic tower now stands isolated in a public square."
+              },
+              {
+                "factId": "saint-jacques-fact-2",
+                "ownerCanonicalId": "Q1431547",
+                "sourceId": "paris-chatelet",
+                "role": "historical_context",
+                "value": "The sixteenth-century tower survives from a church that no longer exists."
+              },
+              {
+                "factId": "saint-jacques-fact-3",
+                "ownerCanonicalId": "Q1431547",
+                "sourceId": "paris-chatelet",
+                "role": "distinctive",
+                "value": "After serving pilgrims, the tower was reused for scientific experiments and as a weather station."
+              }
+            ]
+          },
+          {
+            "sceneId": "samaritaine",
+            "name": "La Samaritaine",
+            "memberCanonicalIds": [
+              "Q1583780"
+            ],
+            "facts": [
+              {
+                "factId": "samaritaine-fact-1",
+                "ownerCanonicalId": "Q1583780",
+                "sourceId": "paris-samaritaine",
+                "role": "observable",
+                "value": "Historic Art Nouveau and Art Deco fabric stands beside a contemporary facade."
+              },
+              {
+                "factId": "samaritaine-fact-2",
+                "ownerCanonicalId": "Q1583780",
+                "sourceId": "paris-samaritaine",
+                "role": "historical_context",
+                "value": "Ernest Cognacq and Marie-Louise Jaÿ founded Samaritaine in 1870."
+              },
+              {
+                "factId": "samaritaine-fact-3",
+                "ownerCanonicalId": "Q1583780",
+                "sourceId": "paris-samaritaine",
+                "role": "distinctive",
+                "value": "Its restoration deliberately combines listed department-store architecture with a new urban frontage."
+              }
+            ]
+          },
+          {
+            "sceneId": "louvre",
+            "name": "Palais du Louvre",
+            "memberCanonicalIds": [
+              "Q1075988"
+            ],
+            "facts": [
+              {
+                "factId": "louvre-fact-1",
+                "ownerCanonicalId": "Q1075988",
+                "sourceId": "paris-louvre",
+                "role": "observable",
+                "value": "Successive palace wings and courtyards visibly preserve several phases of construction."
+              },
+              {
+                "factId": "louvre-fact-2",
+                "ownerCanonicalId": "Q1075988",
+                "sourceId": "paris-louvre",
+                "role": "historical_context",
+                "value": "The Louvre developed from a medieval fortress into a royal palace."
+              },
+              {
+                "factId": "louvre-fact-3",
+                "ownerCanonicalId": "Q1075988",
+                "sourceId": "paris-louvre",
+                "role": "local_function",
+                "value": "The former palace now organizes its historic spaces around public museum access."
+              }
+            ]
+          },
+          {
+            "sceneId": "carrousel",
+            "name": "Arc de Triomphe du Carrousel",
+            "memberCanonicalIds": [
+              "Q631104"
+            ],
+            "facts": [
+              {
+                "factId": "carrousel-fact-1",
+                "ownerCanonicalId": "Q631104",
+                "sourceId": "paris-napoleon",
+                "role": "observable",
+                "value": "The arch stands on the formal axis between the Louvre and the former Tuileries site."
+              },
+              {
+                "factId": "carrousel-fact-2",
+                "ownerCanonicalId": "Q631104",
+                "sourceId": "paris-napoleon",
+                "role": "historical_context",
+                "value": "It was built from 1806 to 1808 as the official entrance to the Tuileries."
+              },
+              {
+                "factId": "carrousel-fact-3",
+                "ownerCanonicalId": "Q631104",
+                "sourceId": "paris-napoleon",
+                "role": "distinctive",
+                "value": "Its decoration celebrated Napoleon’s victory at Austerlitz beside the renamed Napoleon Museum."
+              }
+            ]
+          },
+          {
+            "sceneId": "palais-royal",
+            "name": "Palais-Royal",
+            "memberCanonicalIds": [
+              "Q329948"
+            ],
+            "facts": [
+              {
+                "factId": "palais-royal-fact-1",
+                "ownerCanonicalId": "Q329948",
+                "sourceId": "paris-palais-royal",
+                "role": "observable",
+                "value": "The palace courtyard, garden and surrounding arcades create distinct layers of public and controlled space."
+              },
+              {
+                "factId": "palais-royal-fact-2",
+                "ownerCanonicalId": "Q329948",
+                "sourceId": "paris-palais-royal",
+                "role": "historical_context",
+                "value": "Built for Cardinal Richelieu in 1628, the palace later became Louis XIV’s childhood home."
+              },
+              {
+                "factId": "palais-royal-fact-3",
+                "ownerCanonicalId": "Q329948",
+                "sourceId": "paris-palais-royal",
+                "role": "local_function",
+                "value": "Eighteenth-century arcades filled with shops, cafés and gambling before later public-art interventions."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wordsPerMinute": 150,
+    "audioByModuleId": null,
+    "duration": {
+      "walkingSeconds": 2613.5,
+      "narrationSeconds": 576,
+      "observationSeconds": 360,
+      "totalSeconds": 3549.5,
+      "totalMinutes": 59.16,
+      "narrationSource": "word_estimate",
+      "recommendedDurationMinutes": 60
+    },
+    "routeReview": null,
+    "streetAudit": null,
+    "fingerprints": {
+      "profile": "429b0a3e1a0a00c574e4d63b16c3f2b31c3edf8ddeabcb6906365b01dd65c516",
+      "scenes": "19c2d1210950193bfdea924dac5aa92b43198e914ed52ddcafe971a476885822",
+      "matrix": "bb9b8cf20da638dd2867e676c515584b908cffe3f4c31e424f49398fae00f324",
+      "route": "aef785f4ec7b36ee376ba11b633e5b43e01efeb17c43dccdf31c009de0e141de",
+      "plan": "760ecc7977ee6b13e52a8a9f916cfb8189a12ddcfcdf13310be837bf6d892dff",
+      "audio": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  },
+  "externalGates": {
+    "blindReview": "pending",
+    "realAudio": "pending",
+    "calibration": "pending",
+    "sealedHoldouts": "pending",
+    "streetAudit": "not_applicable"
+  }
+}

@@ -1,0 +1,1870 @@
+{
+  "schemaVersion": "editorial-workbench-v7",
+  "benchmark": {
+    "schemaVersion": "editorial-benchmark-v7",
+    "caseId": "madrid-history-es-120",
+    "cityKey": "madrid",
+    "theme": "history",
+    "requestedDurationMinutes": 120,
+    "mustVisitCanonicalIds": [
+      "Q171517",
+      "Q1123493",
+      "Q427163"
+    ],
+    "requiredChapters": [
+      {
+        "chapterId": "royal-foundation",
+        "title": "Fortress and royal power",
+        "carrierSceneIds": [
+          "palace"
+        ]
+      },
+      {
+        "chapterId": "religious-capital",
+        "title": "A modern cathedral for the capital",
+        "carrierSceneIds": [
+          "almudena"
+        ]
+      },
+      {
+        "chapterId": "medieval-civic",
+        "title": "Medieval fabric and municipal government",
+        "carrierSceneIds": [
+          "villa"
+        ]
+      },
+      {
+        "chapterId": "court-market",
+        "title": "Market town becomes courtly stage",
+        "carrierSceneIds": [
+          "mayor"
+        ]
+      },
+      {
+        "chapterId": "national-center",
+        "title": "The civic and national centre",
+        "carrierSceneIds": [
+          "sol"
+        ]
+      },
+      {
+        "chapterId": "enlightened-modernity",
+        "title": "Enlightened planning and modern city hall",
+        "carrierSceneIds": [
+          "cibeles"
+        ]
+      },
+      {
+        "chapterId": "expansion-boundary",
+        "title": "The old boundary inside the modern capital",
+        "carrierSceneIds": [
+          "alcala"
+        ]
+      }
+    ],
+    "diagnosticReferenceRoutes": [
+      {
+        "routeId": "reference-seven",
+        "purpose": "diagnostic_only",
+        "sceneIds": [
+          "palace",
+          "almudena",
+          "villa",
+          "mayor",
+          "sol",
+          "cibeles",
+          "alcala"
+        ]
+      }
+    ]
+  },
+  "blindReviewCards": [
+    {
+      "cardId": "route-a",
+      "productPromise": "Madrid monumental: national collections, imperial memory, public squares, royal power and sacred art.",
+      "stops": [
+        {
+          "name": "Museo Arqueológico Nacional",
+          "contribution": "National historical collection"
+        },
+        {
+          "name": "Plaza de Colón",
+          "contribution": "Imperial memory"
+        },
+        {
+          "name": "Cibeles",
+          "contribution": "Enlightened and modern capital"
+        },
+        {
+          "name": "Puerta del Sol",
+          "contribution": "Civic centre"
+        },
+        {
+          "name": "Plaza Mayor",
+          "contribution": "Court and public life"
+        },
+        {
+          "name": "Royal Palace",
+          "contribution": "Royal power"
+        },
+        {
+          "name": "Plaza de la Villa",
+          "contribution": "Medieval and municipal Madrid"
+        },
+        {
+          "name": "San Francisco el Grande",
+          "contribution": "Religious and artistic resolution"
+        }
+      ],
+      "map": [
+        {
+          "lat": 40.4234289,
+          "lng": -3.6888894
+        },
+        {
+          "lat": 40.4252776,
+          "lng": -3.6904471
+        },
+        {
+          "lat": 40.41917,
+          "lng": -3.69306
+        },
+        {
+          "lat": 40.4168622,
+          "lng": -3.7034948
+        },
+        {
+          "lat": 40.4154007,
+          "lng": -3.7073747
+        },
+        {
+          "lat": 40.417828,
+          "lng": -3.714361
+        },
+        {
+          "lat": 40.4152086,
+          "lng": -3.710424
+        },
+        {
+          "lat": 40.4104314,
+          "lng": -3.7145624
+        }
+      ],
+      "walkingMeters": 4967,
+      "walkingMinutes": 66.32,
+      "maxSegmentMeters": 976.1,
+      "durationRangeMinutes": {
+        "minimum": 85,
+        "maximum": 120
+      },
+      "moduleOptions": [
+        {
+          "stopName": "Museo Arqueológico Nacional",
+          "mainContribution": "National historical collection",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza de Colón",
+          "mainContribution": "Imperial memory",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Cibeles",
+          "mainContribution": "Enlightened and modern capital",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Puerta del Sol",
+          "mainContribution": "Civic centre",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza Mayor",
+          "mainContribution": "Court and public life",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Royal Palace",
+          "mainContribution": "Royal power",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza de la Villa",
+          "mainContribution": "Medieval and municipal Madrid",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "San Francisco el Grande",
+          "mainContribution": "Religious and artistic resolution",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        }
+      ],
+      "durationBasis": "walking_osrm+planned_words+explicit_observations",
+      "reviewCriteria": [
+        "critical_coverage",
+        "progression",
+        "uniqueness",
+        "comfort",
+        "resolution",
+        "temporal_honesty",
+        "willingness_to_pay"
+      ]
+    },
+    {
+      "cardId": "route-b",
+      "productPromise": "From medieval town to modern capital through Madrid’s royal, religious, civic and urban landmarks.",
+      "stops": [
+        {
+          "name": "Royal Palace",
+          "contribution": "Fortress and royal power"
+        },
+        {
+          "name": "Almudena Cathedral",
+          "contribution": "A modern cathedral for the capital"
+        },
+        {
+          "name": "Plaza de la Villa",
+          "contribution": "Medieval fabric and municipal government"
+        },
+        {
+          "name": "Plaza Mayor",
+          "contribution": "Market town becomes courtly stage"
+        },
+        {
+          "name": "Puerta del Sol",
+          "contribution": "The civic and national centre"
+        },
+        {
+          "name": "Cibeles",
+          "contribution": "Enlightened planning and modern city hall"
+        },
+        {
+          "name": "Puerta de Alcalá",
+          "contribution": "The old boundary inside the modern capital"
+        }
+      ],
+      "map": [
+        {
+          "lat": 40.417828,
+          "lng": -3.714361
+        },
+        {
+          "lat": 40.4157109,
+          "lng": -3.714495
+        },
+        {
+          "lat": 40.4152086,
+          "lng": -3.710424
+        },
+        {
+          "lat": 40.4154007,
+          "lng": -3.7073747
+        },
+        {
+          "lat": 40.4168622,
+          "lng": -3.7034948
+        },
+        {
+          "lat": 40.41917,
+          "lng": -3.69306
+        },
+        {
+          "lat": 40.4199868,
+          "lng": -3.6887244
+        }
+      ],
+      "walkingMeters": 3067.6,
+      "walkingMinutes": 41.23,
+      "maxSegmentMeters": 976.1,
+      "durationRangeMinutes": {
+        "minimum": 55,
+        "maximum": 103
+      },
+      "moduleOptions": [
+        {
+          "stopName": "Royal Palace",
+          "mainContribution": "Fortress and royal power",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Almudena Cathedral",
+          "mainContribution": "A modern cathedral for the capital",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza de la Villa",
+          "mainContribution": "Medieval fabric and municipal government",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza Mayor",
+          "mainContribution": "Market town becomes courtly stage",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Puerta del Sol",
+          "mainContribution": "The civic and national centre",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Cibeles",
+          "mainContribution": "Enlightened planning and modern city hall",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Puerta de Alcalá",
+          "mainContribution": "The old boundary inside the modern capital",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        }
+      ],
+      "durationBasis": "walking_osrm+planned_words+explicit_observations",
+      "reviewCriteria": [
+        "critical_coverage",
+        "progression",
+        "uniqueness",
+        "comfort",
+        "resolution",
+        "temporal_honesty",
+        "willingness_to_pay"
+      ]
+    },
+    {
+      "cardId": "route-c",
+      "productPromise": "Old Madrid: from the royal and religious centre through medieval government, market life and today’s civic heart.",
+      "stops": [
+        {
+          "name": "Royal Palace",
+          "contribution": "Fortress and royal power"
+        },
+        {
+          "name": "Almudena Cathedral",
+          "contribution": "A modern cathedral for the capital"
+        },
+        {
+          "name": "Plaza de la Villa",
+          "contribution": "Medieval fabric and municipal government"
+        },
+        {
+          "name": "Plaza Mayor",
+          "contribution": "Market town becomes courtly stage"
+        },
+        {
+          "name": "Puerta del Sol",
+          "contribution": "The civic and national centre"
+        }
+      ],
+      "map": [
+        {
+          "lat": 40.417828,
+          "lng": -3.714361
+        },
+        {
+          "lat": 40.4157109,
+          "lng": -3.714495
+        },
+        {
+          "lat": 40.4152086,
+          "lng": -3.710424
+        },
+        {
+          "lat": 40.4154007,
+          "lng": -3.7073747
+        },
+        {
+          "lat": 40.4168622,
+          "lng": -3.7034948
+        }
+      ],
+      "walkingMeters": 1606.7,
+      "walkingMinutes": 21.65,
+      "maxSegmentMeters": 470.2,
+      "durationRangeMinutes": {
+        "minimum": 31,
+        "maximum": 73
+      },
+      "moduleOptions": [
+        {
+          "stopName": "Royal Palace",
+          "mainContribution": "Fortress and royal power",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Almudena Cathedral",
+          "mainContribution": "A modern cathedral for the capital",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza de la Villa",
+          "mainContribution": "Medieval fabric and municipal government",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Plaza Mayor",
+          "mainContribution": "Market town becomes courtly stage",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        },
+        {
+          "stopName": "Puerta del Sol",
+          "mainContribution": "The civic and national centre",
+          "deepDiveOptions": [
+            "observable detail",
+            "historical context"
+          ]
+        }
+      ],
+      "durationBasis": "walking_osrm+planned_words+explicit_observations",
+      "reviewCriteria": [
+        "critical_coverage",
+        "progression",
+        "uniqueness",
+        "comfort",
+        "resolution",
+        "temporal_honesty",
+        "willingness_to_pay"
+      ]
+    }
+  ],
+  "expectedRoute": {
+    "sceneIds": [
+      "palace",
+      "almudena",
+      "villa",
+      "mayor",
+      "sol",
+      "cibeles",
+      "alcala"
+    ],
+    "walkingMeters": 3067.6,
+    "walkingMinutes": 41.23,
+    "maxSegmentMeters": 976.1
+  },
+  "snapshot": {
+    "schemaVersion": "editorial-route-snapshot-v7",
+    "createdAt": "2026-08-07T13:00:00.000Z",
+    "status": "draft_only",
+    "reason": "editorial_review_required",
+    "language": "es",
+    "profile": {
+      "schemaVersion": "city-editorial-profile-v1",
+      "cityKey": "madrid",
+      "theme": "history",
+      "productPromise": "From medieval town to modern capital: Madrid through the places where royal, religious, civic and urban power changed scale.",
+      "requestedDurationMinutes": 120,
+      "status": "review_required",
+      "mustVisitCanonicalIds": [
+        "Q171517",
+        "Q1123493",
+        "Q427163"
+      ],
+      "chapters": [
+        {
+          "chapterId": "royal-foundation",
+          "title": "Fortress and royal power",
+          "carrierSceneIds": [
+            "palace"
+          ]
+        },
+        {
+          "chapterId": "religious-capital",
+          "title": "A modern cathedral for the capital",
+          "carrierSceneIds": [
+            "almudena"
+          ]
+        },
+        {
+          "chapterId": "medieval-civic",
+          "title": "Medieval fabric and municipal government",
+          "carrierSceneIds": [
+            "villa"
+          ]
+        },
+        {
+          "chapterId": "court-market",
+          "title": "Market town becomes courtly stage",
+          "carrierSceneIds": [
+            "mayor"
+          ]
+        },
+        {
+          "chapterId": "national-center",
+          "title": "The civic and national centre",
+          "carrierSceneIds": [
+            "sol"
+          ]
+        },
+        {
+          "chapterId": "enlightened-modernity",
+          "title": "Enlightened planning and modern city hall",
+          "carrierSceneIds": [
+            "cibeles"
+          ]
+        },
+        {
+          "chapterId": "expansion-boundary",
+          "title": "The old boundary inside the modern capital",
+          "carrierSceneIds": [
+            "alcala"
+          ]
+        }
+      ],
+      "arcChapterIds": [
+        "royal-foundation",
+        "religious-capital",
+        "medieval-civic",
+        "court-market",
+        "national-center",
+        "enlightened-modernity",
+        "expansion-boundary"
+      ],
+      "approvedSceneIds": [
+        "palace",
+        "almudena",
+        "villa",
+        "mayor",
+        "sol",
+        "cibeles",
+        "alcala"
+      ],
+      "sources": [
+        {
+          "sourceId": "royal",
+          "url": "https://www.esmadrid.com/en/tourist-information/royal-palace",
+          "title": "Royal Palace | Tourism Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "Home to Spain's kings from Charles III to Alfonso XIII, the palace remains the royal family's official residence.",
+          "contentFingerprint": "85d2265fb53a00b01bae791f85b4850030aa2e5f83eaf5fa0c9fd0d1d472c673"
+        },
+        {
+          "sourceId": "almudena",
+          "url": "https://www.esmadrid.com/en/tourist-information/catedral-de-la-almudena",
+          "title": "La Almudena Cathedral | Tourism Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "The cathedral was completed in 1993 and consecrated by Pope John Paul II on 15 June that year.",
+          "contentFingerprint": "7aca73d2a59860fa78cecf80cf3db001b88e98b7d6771b83f8b3d5c96f8a27b9"
+        },
+        {
+          "sourceId": "villa",
+          "url": "https://www.esmadrid.com/en/tourist-information/plaza-de-la-villa",
+          "title": "Plaza de la Villa | Tourism Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "Three streets from the square preserve Madrid's original design; Casa de la Villa formerly housed the City Council.",
+          "contentFingerprint": "4cc4baa56e919917d2b5cf08d2f6e92fd8809cc79dec9a40efb8cf545fc12d41"
+        },
+        {
+          "sourceId": "mayor",
+          "url": "https://www.esmadrid.com/en/tourist-information/plaza-mayor-madrid",
+          "title": "Plaza Mayor | Tourism Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "The square replaced the Arrabal market and became a stage for festivities, coronations, bullfights and public ceremonies.",
+          "contentFingerprint": "c032d601432ca05e7505fe58335259f3bc3df06cfbb27491569ebc9ddd14e5dd"
+        },
+        {
+          "sourceId": "sol",
+          "url": "https://www.esmadrid.com/informacion-turistica/puerta-del-sol",
+          "title": "Puerta del Sol | Turismo Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "Several historic streets converge at this central meeting place, one of Madrid's best-known public spaces.",
+          "contentFingerprint": "2a92b51b3e176d47182bf70c88e6c8b8112d8bbe87c223b84e1432076120dbf4"
+        },
+        {
+          "sourceId": "cibeles-fountain",
+          "url": "https://www.esmadrid.com/en/tourist-information/fuente-de-la-cibeles",
+          "title": "Cibeles Fountain | Tourism Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "The fountain has stood in Plaza de Cibeles since 1782, surrounded by four major civic and institutional buildings.",
+          "contentFingerprint": "0a0f2ebe8e21f26ad0c5eef7909f2f5516250161079a64df321e97ee140dcd78"
+        },
+        {
+          "sourceId": "cibeles-palace",
+          "url": "https://www.esmadrid.com/informacion-turistica/palacio-cibeles",
+          "title": "Palacio de Cibeles | Turismo Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "The former communications palace opened in 1909 and has housed Madrid City Hall since 2007.",
+          "contentFingerprint": "0a1d96270de3fadc9bdbe0839cde1c0fea973c4ae3d6e94f430dff4d85fa182d"
+        },
+        {
+          "sourceId": "alcala",
+          "url": "https://www.esmadrid.com/informacion-turistica/puerta-de-alcala",
+          "title": "Puerta de Alcalá | Turismo Madrid",
+          "capturedAt": "2026-08-07T00:00:00.000Z",
+          "excerpt": "Charles III commissioned the monumental gate, inaugurated in 1778, to replace an earlier sixteenth-century entrance to Madrid.",
+          "contentFingerprint": "388dad3694bf8a2e5197d273c933a172feff8128600454a05be03b2d42a19b35"
+        }
+      ],
+      "overrides": [],
+      "requiresStreetAudit": true,
+      "review": null
+    },
+    "scenes": [
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "palace",
+        "status": "review_required",
+        "primaryCanonicalId": "Q171517",
+        "memberCanonicalIds": [
+          "Q171517"
+        ],
+        "name": "Royal Palace",
+        "observationPoint": {
+          "lat": 40.417828,
+          "lng": -3.714361
+        },
+        "facts": [
+          {
+            "factId": "palace-observable",
+            "ownerCanonicalId": "Q171517",
+            "sourceId": "royal",
+            "role": "observable",
+            "value": "The present palace occupies the western edge of the historic centre opposite the cathedral."
+          },
+          {
+            "factId": "palace-history",
+            "ownerCanonicalId": "Q171517",
+            "sourceId": "royal",
+            "role": "historical_context",
+            "value": "A Muslim fortress and the later Alcázar preceded the current palace, commissioned after the 1734 fire."
+          },
+          {
+            "factId": "palace-function",
+            "ownerCanonicalId": "Q171517",
+            "sourceId": "royal",
+            "role": "local_function",
+            "value": "It remains the official royal residence and is used for state ceremonies rather than daily family life."
+          },
+          {
+            "factId": "palace-distinctive",
+            "ownerCanonicalId": "Q171517",
+            "sourceId": "royal",
+            "role": "distinctive",
+            "value": "The stop opens the route with the shift from fortified settlement to the seat of monarchical power."
+          }
+        ],
+        "sourceIds": [
+          "royal"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "almudena",
+        "status": "review_required",
+        "primaryCanonicalId": "Q849711",
+        "memberCanonicalIds": [
+          "Q849711"
+        ],
+        "name": "Almudena Cathedral",
+        "observationPoint": {
+          "lat": 40.4157109,
+          "lng": -3.714495
+        },
+        "facts": [
+          {
+            "factId": "almudena-observable",
+            "ownerCanonicalId": "Q849711",
+            "sourceId": "almudena",
+            "role": "observable",
+            "value": "Its principal façade was redesigned to harmonise with the Royal Palace immediately across Calle Bailén."
+          },
+          {
+            "factId": "almudena-history",
+            "ownerCanonicalId": "Q849711",
+            "sourceId": "almudena",
+            "role": "historical_context",
+            "value": "Plans began in 1879, changed after Madrid became a bishopric in 1885, and construction concluded in 1993."
+          },
+          {
+            "factId": "almudena-function",
+            "ownerCanonicalId": "Q849711",
+            "sourceId": "almudena",
+            "role": "local_function",
+            "value": "The cathedral connects the capital's modern diocese with devotion to Madrid's patron, the Virgin of Almudena."
+          },
+          {
+            "factId": "almudena-distinctive",
+            "ownerCanonicalId": "Q849711",
+            "sourceId": "almudena",
+            "role": "distinctive",
+            "value": "Its unusually recent completion complicates the expectation that a European capital must have an ancient cathedral."
+          }
+        ],
+        "sourceIds": [
+          "almudena"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "villa",
+        "status": "review_required",
+        "primaryCanonicalId": "Q2711992",
+        "memberCanonicalIds": [
+          "Q2711992"
+        ],
+        "name": "Plaza de la Villa",
+        "observationPoint": {
+          "lat": 40.4152086,
+          "lng": -3.710424
+        },
+        "facts": [
+          {
+            "factId": "villa-observable",
+            "ownerCanonicalId": "Q2711992",
+            "sourceId": "villa",
+            "role": "observable",
+            "value": "The Lujanes tower, Casa de Cisneros and Casa de la Villa place fifteenth-, sixteenth- and seventeenth-century civil façades in one view."
+          },
+          {
+            "factId": "villa-history",
+            "ownerCanonicalId": "Q2711992",
+            "sourceId": "villa",
+            "role": "historical_context",
+            "value": "The streets of Codo, Cordón and Madrid preserve the primitive layout that made the square a main centre of medieval Madrid."
+          },
+          {
+            "factId": "villa-function",
+            "ownerCanonicalId": "Q2711992",
+            "sourceId": "villa",
+            "role": "local_function",
+            "value": "Casa de la Villa was the seat of Madrid City Council, giving the square a long municipal function."
+          },
+          {
+            "factId": "villa-distinctive",
+            "ownerCanonicalId": "Q2711992",
+            "sourceId": "villa",
+            "role": "distinctive",
+            "value": "This compact civil ensemble carries both the medieval-town chapter and the emergence of urban government."
+          }
+        ],
+        "sourceIds": [
+          "villa"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "mayor",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1123493",
+        "memberCanonicalIds": [
+          "Q1123493"
+        ],
+        "name": "Plaza Mayor",
+        "observationPoint": {
+          "lat": 40.4154007,
+          "lng": -3.7073747
+        },
+        "facts": [
+          {
+            "factId": "mayor-observable",
+            "ownerCanonicalId": "Q1123493",
+            "sourceId": "mayor",
+            "role": "observable",
+            "value": "Arcades and uniform façades enclose the former open market space at the heart of Habsburg Madrid."
+          },
+          {
+            "factId": "mayor-history",
+            "ownerCanonicalId": "Q1123493",
+            "sourceId": "mayor",
+            "role": "historical_context",
+            "value": "Philip II planned the remodelling of the Arrabal market after moving the court to Madrid in 1561."
+          },
+          {
+            "factId": "mayor-function",
+            "ownerCanonicalId": "Q1123493",
+            "sourceId": "mayor",
+            "role": "local_function",
+            "value": "The square hosted markets, festivities, bullfights, coronations and other public ceremonies."
+          },
+          {
+            "factId": "mayor-distinctive",
+            "ownerCanonicalId": "Q1123493",
+            "sourceId": "mayor",
+            "role": "distinctive",
+            "value": "It shows how a commercial edge of the medieval town became the ceremonial plaza of a royal capital."
+          }
+        ],
+        "sourceIds": [
+          "mayor"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "sol",
+        "status": "review_required",
+        "primaryCanonicalId": "Q427163",
+        "memberCanonicalIds": [
+          "Q427163"
+        ],
+        "name": "Puerta del Sol",
+        "observationPoint": {
+          "lat": 40.4168622,
+          "lng": -3.7034948
+        },
+        "facts": [
+          {
+            "factId": "sol-observable",
+            "ownerCanonicalId": "Q427163",
+            "sourceId": "sol",
+            "role": "observable",
+            "value": "Historic streets including Mayor, Arenal, Alcalá and Preciados converge in this busy central square."
+          },
+          {
+            "factId": "sol-history",
+            "ownerCanonicalId": "Q427163",
+            "sourceId": "sol",
+            "role": "historical_context",
+            "value": "The square changed repeatedly as Madrid grew from the old town into a national capital."
+          },
+          {
+            "factId": "sol-function",
+            "ownerCanonicalId": "Q427163",
+            "sourceId": "sol",
+            "role": "local_function",
+            "value": "Puerta del Sol functions as a civic meeting point and the symbolic origin of Spain’s radial roads."
+          },
+          {
+            "factId": "sol-distinctive",
+            "ownerCanonicalId": "Q427163",
+            "sourceId": "sol",
+            "role": "distinctive",
+            "value": "Its everyday crowds and national symbols turn the route from courtly Madrid toward the modern public capital."
+          }
+        ],
+        "sourceIds": [
+          "sol"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "cibeles",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1537446",
+        "memberCanonicalIds": [
+          "Q1537446",
+          "Q2736564",
+          "Q1849031"
+        ],
+        "name": "Cibeles",
+        "observationPoint": {
+          "lat": 40.41917,
+          "lng": -3.69306
+        },
+        "facts": [
+          {
+            "factId": "cibeles-observable",
+            "ownerCanonicalId": "Q1537446",
+            "sourceId": "cibeles-fountain",
+            "role": "observable",
+            "value": "The fountain, plaza and surrounding institutions form one visible urban scene at the start of Paseo del Arte."
+          },
+          {
+            "factId": "cibeles-history",
+            "ownerCanonicalId": "Q2736564",
+            "sourceId": "cibeles-fountain",
+            "role": "historical_context",
+            "value": "The fountain has stood here since 1782 and originally supplied water to residents, carriers and cavalry horses."
+          },
+          {
+            "factId": "cibeles-function",
+            "ownerCanonicalId": "Q1849031",
+            "sourceId": "cibeles-palace",
+            "role": "local_function",
+            "value": "The former communications headquarters now houses Madrid City Hall, which moved here in 2007."
+          },
+          {
+            "factId": "cibeles-distinctive",
+            "ownerCanonicalId": "Q1537446",
+            "sourceId": "cibeles-fountain",
+            "role": "distinctive",
+            "value": "The scene links Charles III’s urban programme, civic infrastructure and the modern municipal capital without duplicating its members as stops."
+          }
+        ],
+        "sourceIds": [
+          "cibeles-fountain",
+          "cibeles-palace"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      },
+      {
+        "schemaVersion": "visit-scene-v1",
+        "sceneId": "alcala",
+        "status": "review_required",
+        "primaryCanonicalId": "Q1140634",
+        "memberCanonicalIds": [
+          "Q1140634"
+        ],
+        "name": "Puerta de Alcalá",
+        "observationPoint": {
+          "lat": 40.4199868,
+          "lng": -3.6887244
+        },
+        "facts": [
+          {
+            "factId": "alcala-observable",
+            "ownerCanonicalId": "Q1140634",
+            "sourceId": "alcala",
+            "role": "observable",
+            "value": "The granite neoclassical gate has five openings and different decoration on its former inner and outer faces."
+          },
+          {
+            "factId": "alcala-history",
+            "ownerCanonicalId": "Q1140634",
+            "sourceId": "alcala",
+            "role": "historical_context",
+            "value": "Charles III commissioned it to replace an older entrance; the monumental gate opened in 1778."
+          },
+          {
+            "factId": "alcala-function",
+            "ownerCanonicalId": "Q1140634",
+            "sourceId": "alcala",
+            "role": "local_function",
+            "value": "It marked the road toward Alcalá de Henares and one of the royal access points into Madrid."
+          },
+          {
+            "factId": "alcala-distinctive",
+            "ownerCanonicalId": "Q1140634",
+            "sourceId": "alcala",
+            "role": "distinctive",
+            "value": "The final stop resolves the arc by showing a former urban boundary absorbed into the expanded modern capital."
+          }
+        ],
+        "sourceIds": [
+          "alcala"
+        ],
+        "conflictsWithSceneIds": [],
+        "review": null
+      }
+    ],
+    "matrix": {
+      "schemaVersion": "walking-matrix-v1",
+      "provider": {
+        "id": "fossgis-osrm-foot",
+        "capturedAt": "2026-08-06T18:02:44.781Z"
+      },
+      "candidateFingerprint": "87f3c6228519adbbb48894fa4c8de0eb87d86de2443855afc1920ee0b4bf1100",
+      "sites": [
+        {
+          "siteId": "palace",
+          "lat": 40.417828,
+          "lng": -3.714361
+        },
+        {
+          "siteId": "almudena",
+          "lat": 40.4157109,
+          "lng": -3.714495
+        },
+        {
+          "siteId": "villa",
+          "lat": 40.4152086,
+          "lng": -3.710424
+        },
+        {
+          "siteId": "mayor",
+          "lat": 40.4154007,
+          "lng": -3.7073747
+        },
+        {
+          "siteId": "sol",
+          "lat": 40.4168622,
+          "lng": -3.7034948
+        },
+        {
+          "siteId": "cibeles",
+          "lat": 40.41917,
+          "lng": -3.69306
+        },
+        {
+          "siteId": "alcala",
+          "lat": 40.4199868,
+          "lng": -3.6887244
+        }
+      ],
+      "legs": [
+        [
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 306.1,
+            "seconds": 244.8,
+            "reachable": true
+          },
+          {
+            "meters": 587.4,
+            "seconds": 469.7,
+            "reachable": true
+          },
+          {
+            "meters": 898.6,
+            "seconds": 719.1,
+            "reachable": true
+          },
+          {
+            "meters": 936.4,
+            "seconds": 749.2,
+            "reachable": true
+          },
+          {
+            "meters": 1912.6,
+            "seconds": 1530,
+            "reachable": true
+          },
+          {
+            "meters": 2386.2,
+            "seconds": 1909.3,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 306.1,
+            "seconds": 244.8,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 407.2,
+            "seconds": 329.8,
+            "reachable": true
+          },
+          {
+            "meters": 804.3,
+            "seconds": 657.3,
+            "reachable": true
+          },
+          {
+            "meters": 1052.5,
+            "seconds": 856.3,
+            "reachable": true
+          },
+          {
+            "meters": 2028.7,
+            "seconds": 1637.1,
+            "reachable": true
+          },
+          {
+            "meters": 2502.3,
+            "seconds": 2016.4,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 587.4,
+            "seconds": 469.7,
+            "reachable": true
+          },
+          {
+            "meters": 407.2,
+            "seconds": 329.8,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 470.2,
+            "seconds": 385.9,
+            "reachable": true
+          },
+          {
+            "meters": 718.4,
+            "seconds": 584.9,
+            "reachable": true
+          },
+          {
+            "meters": 1694.6,
+            "seconds": 1365.7,
+            "reachable": true
+          },
+          {
+            "meters": 2168.2,
+            "seconds": 1745,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 898.6,
+            "seconds": 719,
+            "reachable": true
+          },
+          {
+            "meters": 804.3,
+            "seconds": 657.3,
+            "reachable": true
+          },
+          {
+            "meters": 470.2,
+            "seconds": 385.9,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 423.2,
+            "seconds": 338.6,
+            "reachable": true
+          },
+          {
+            "meters": 1399.3,
+            "seconds": 1119.4,
+            "reachable": true
+          },
+          {
+            "meters": 1872.9,
+            "seconds": 1498.7,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 936.4,
+            "seconds": 749.2,
+            "reachable": true
+          },
+          {
+            "meters": 1052.5,
+            "seconds": 856.3,
+            "reachable": true
+          },
+          {
+            "meters": 718.4,
+            "seconds": 584.9,
+            "reachable": true
+          },
+          {
+            "meters": 423.2,
+            "seconds": 338.6,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 976.1,
+            "seconds": 780.8,
+            "reachable": true
+          },
+          {
+            "meters": 1449.7,
+            "seconds": 1160.1,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 1912.6,
+            "seconds": 1530,
+            "reachable": true
+          },
+          {
+            "meters": 2028.7,
+            "seconds": 1637.1,
+            "reachable": true
+          },
+          {
+            "meters": 1694.6,
+            "seconds": 1365.7,
+            "reachable": true
+          },
+          {
+            "meters": 1399.3,
+            "seconds": 1119.4,
+            "reachable": true
+          },
+          {
+            "meters": 976.1,
+            "seconds": 780.8,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          },
+          {
+            "meters": 484.8,
+            "seconds": 394,
+            "reachable": true
+          }
+        ],
+        [
+          {
+            "meters": 2386.2,
+            "seconds": 1909.3,
+            "reachable": true
+          },
+          {
+            "meters": 2502.3,
+            "seconds": 2016.4,
+            "reachable": true
+          },
+          {
+            "meters": 2168.2,
+            "seconds": 1745,
+            "reachable": true
+          },
+          {
+            "meters": 1872.9,
+            "seconds": 1498.7,
+            "reachable": true
+          },
+          {
+            "meters": 1449.7,
+            "seconds": 1160.1,
+            "reachable": true
+          },
+          {
+            "meters": 484.8,
+            "seconds": 394,
+            "reachable": true
+          },
+          {
+            "meters": 0,
+            "seconds": 0,
+            "reachable": true
+          }
+        ]
+      ]
+    },
+    "optimization": {
+      "status": "selected",
+      "route": {
+        "sceneIds": [
+          "palace",
+          "almudena",
+          "villa",
+          "mayor",
+          "sol",
+          "cibeles",
+          "alcala"
+        ],
+        "chapterAssignments": [
+          {
+            "chapterId": "royal-foundation",
+            "sceneId": "palace"
+          },
+          {
+            "chapterId": "religious-capital",
+            "sceneId": "almudena"
+          },
+          {
+            "chapterId": "medieval-civic",
+            "sceneId": "villa"
+          },
+          {
+            "chapterId": "court-market",
+            "sceneId": "mayor"
+          },
+          {
+            "chapterId": "national-center",
+            "sceneId": "sol"
+          },
+          {
+            "chapterId": "enlightened-modernity",
+            "sceneId": "cibeles"
+          },
+          {
+            "chapterId": "expansion-boundary",
+            "sceneId": "alcala"
+          }
+        ],
+        "coveredCanonicalIds": [
+          "Q1123493",
+          "Q1140634",
+          "Q1537446",
+          "Q171517",
+          "Q1849031",
+          "Q2711992",
+          "Q2736564",
+          "Q427163",
+          "Q849711"
+        ],
+        "metrics": {
+          "walkingMeters": 3067.6,
+          "walkingSeconds": 2473.9,
+          "walkingMinutes": 41.23,
+          "maxSegmentMeters": 976.1,
+          "maxSegmentSeconds": 780.8,
+          "maxSegmentMinutes": 13.01,
+          "explicitExperienceMinutes": 0,
+          "estimatedTourMinutes": 41.23,
+          "comfortPenalty": 0
+        }
+      },
+      "searchedDurationMinutes": 120,
+      "recommendedDurationMinutes": null,
+      "attemptedDurationMinutes": [
+        120
+      ],
+      "exploredCompleteOrderCount": 5040,
+      "dominatedRouteCount": 0,
+      "discardedCounts": {
+        "coverage": 8659,
+        "arc": 5039,
+        "conflict": 0,
+        "physical": 0,
+        "redundant": 0,
+        "duration": 0
+      }
+    },
+    "storyPlanCall": {
+      "status": "valid",
+      "value": {
+        "schemaVersion": "story-module-plan-v1",
+        "routeSceneIds": [
+          "palace",
+          "almudena",
+          "villa",
+          "mayor",
+          "sol",
+          "cibeles",
+          "alcala"
+        ],
+        "promise": "Walk from Madrid’s royal western edge to the Bourbon expansion, following the city’s transformation from villa to capital.",
+        "centralQuestion": "How did Madrid’s institutions and public spaces turn a medieval town into a modern capital?",
+        "scenes": [
+          {
+            "sceneId": "palace",
+            "main": {
+              "moduleId": "palace-main",
+              "title": "Fortress and royal power",
+              "contribution": "The stop opens the route with the shift from fortified settlement to the seat of monarchical power.",
+              "targetWords": 180,
+              "primaryFactId": "palace-distinctive",
+              "evidenceFactIds": [
+                "palace-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Royal Palace.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "palace-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "almudena",
+            "main": {
+              "moduleId": "almudena-main",
+              "title": "A modern cathedral for the capital",
+              "contribution": "Its unusually recent completion complicates the expectation that a European capital must have an ancient cathedral.",
+              "targetWords": 180,
+              "primaryFactId": "almudena-distinctive",
+              "evidenceFactIds": [
+                "almudena-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Almudena Cathedral.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "almudena-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "villa",
+            "main": {
+              "moduleId": "villa-main",
+              "title": "Medieval fabric and municipal government",
+              "contribution": "This compact civil ensemble carries both the medieval-town chapter and the emergence of urban government.",
+              "targetWords": 180,
+              "primaryFactId": "villa-distinctive",
+              "evidenceFactIds": [
+                "villa-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Plaza de la Villa.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "villa-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "mayor",
+            "main": {
+              "moduleId": "mayor-main",
+              "title": "Market town becomes courtly stage",
+              "contribution": "It shows how a commercial edge of the medieval town became the ceremonial plaza of a royal capital.",
+              "targetWords": 180,
+              "primaryFactId": "mayor-distinctive",
+              "evidenceFactIds": [
+                "mayor-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Plaza Mayor.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "mayor-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "sol",
+            "main": {
+              "moduleId": "sol-main",
+              "title": "The civic and national centre",
+              "contribution": "Its everyday crowds and national symbols turn the route from courtly Madrid toward the modern public capital.",
+              "targetWords": 180,
+              "primaryFactId": "sol-distinctive",
+              "evidenceFactIds": [
+                "sol-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Puerta del Sol.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "sol-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "cibeles",
+            "main": {
+              "moduleId": "cibeles-main",
+              "title": "Enlightened planning and modern city hall",
+              "contribution": "The scene links Charles III’s urban programme, civic infrastructure and the modern municipal capital without duplicating its members as stops.",
+              "targetWords": 180,
+              "primaryFactId": "cibeles-distinctive",
+              "evidenceFactIds": [
+                "cibeles-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Cibeles.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "cibeles-observable"
+              ]
+            }
+          },
+          {
+            "sceneId": "alcala",
+            "main": {
+              "moduleId": "alcala-main",
+              "title": "The old boundary inside the modern capital",
+              "contribution": "The final stop resolves the arc by showing a former urban boundary absorbed into the expanded modern capital.",
+              "targetWords": 180,
+              "primaryFactId": "alcala-distinctive",
+              "evidenceFactIds": [
+                "alcala-distinctive"
+              ]
+            },
+            "deepDives": [],
+            "observation": {
+              "instruction": "Pause at the observation point and identify the visible feature described for Puerta de Alcalá.",
+              "seconds": 45,
+              "evidenceFactIds": [
+                "alcala-observable"
+              ]
+            }
+          }
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "rawOutput": "{\"schemaVersion\":\"story-module-plan-v1\",\"routeSceneIds\":[\"palace\",\"almudena\",\"villa\",\"mayor\",\"sol\",\"cibeles\",\"alcala\"],\"promise\":\"Walk from Madrid’s royal western edge to the Bourbon expansion, following the city’s transformation from villa to capital.\",\"centralQuestion\":\"How did Madrid’s institutions and public spaces turn a medieval town into a modern capital?\",\"scenes\":[{\"sceneId\":\"palace\",\"main\":{\"moduleId\":\"palace-main\",\"title\":\"Fortress and royal power\",\"contribution\":\"The stop opens the route with the shift from fortified settlement to the seat of monarchical power.\",\"targetWords\":180,\"primaryFactId\":\"palace-distinctive\",\"evidenceFactIds\":[\"palace-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Royal Palace.\",\"seconds\":45,\"evidenceFactIds\":[\"palace-observable\"]}},{\"sceneId\":\"almudena\",\"main\":{\"moduleId\":\"almudena-main\",\"title\":\"A modern cathedral for the capital\",\"contribution\":\"Its unusually recent completion complicates the expectation that a European capital must have an ancient cathedral.\",\"targetWords\":180,\"primaryFactId\":\"almudena-distinctive\",\"evidenceFactIds\":[\"almudena-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Almudena Cathedral.\",\"seconds\":45,\"evidenceFactIds\":[\"almudena-observable\"]}},{\"sceneId\":\"villa\",\"main\":{\"moduleId\":\"villa-main\",\"title\":\"Medieval fabric and municipal government\",\"contribution\":\"This compact civil ensemble carries both the medieval-town chapter and the emergence of urban government.\",\"targetWords\":180,\"primaryFactId\":\"villa-distinctive\",\"evidenceFactIds\":[\"villa-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Plaza de la Villa.\",\"seconds\":45,\"evidenceFactIds\":[\"villa-observable\"]}},{\"sceneId\":\"mayor\",\"main\":{\"moduleId\":\"mayor-main\",\"title\":\"Market town becomes courtly stage\",\"contribution\":\"It shows how a commercial edge of the medieval town became the ceremonial plaza of a royal capital.\",\"targetWords\":180,\"primaryFactId\":\"mayor-distinctive\",\"evidenceFactIds\":[\"mayor-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Plaza Mayor.\",\"seconds\":45,\"evidenceFactIds\":[\"mayor-observable\"]}},{\"sceneId\":\"sol\",\"main\":{\"moduleId\":\"sol-main\",\"title\":\"The civic and national centre\",\"contribution\":\"Its everyday crowds and national symbols turn the route from courtly Madrid toward the modern public capital.\",\"targetWords\":180,\"primaryFactId\":\"sol-distinctive\",\"evidenceFactIds\":[\"sol-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Puerta del Sol.\",\"seconds\":45,\"evidenceFactIds\":[\"sol-observable\"]}},{\"sceneId\":\"cibeles\",\"main\":{\"moduleId\":\"cibeles-main\",\"title\":\"Enlightened planning and modern city hall\",\"contribution\":\"The scene links Charles III’s urban programme, civic infrastructure and the modern municipal capital without duplicating its members as stops.\",\"targetWords\":180,\"primaryFactId\":\"cibeles-distinctive\",\"evidenceFactIds\":[\"cibeles-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Cibeles.\",\"seconds\":45,\"evidenceFactIds\":[\"cibeles-observable\"]}},{\"sceneId\":\"alcala\",\"main\":{\"moduleId\":\"alcala-main\",\"title\":\"The old boundary inside the modern capital\",\"contribution\":\"The final stop resolves the arc by showing a former urban boundary absorbed into the expanded modern capital.\",\"targetWords\":180,\"primaryFactId\":\"alcala-distinctive\",\"evidenceFactIds\":[\"alcala-distinctive\"]},\"deepDives\":[],\"observation\":{\"instruction\":\"Pause at the observation point and identify the visible feature described for Puerta de Alcalá.\",\"seconds\":45,\"evidenceFactIds\":[\"alcala-observable\"]}}]}",
+          "error": null
+        }
+      ],
+      "promptFingerprint": "35b7871a35dbfbc44bd5da618b8068c00dd369d3b2951ac9fcb313de761ae2ee",
+      "input": {
+        "schemaVersion": "story-plan-request-v1",
+        "language": "es",
+        "routeSceneIds": [
+          "palace",
+          "almudena",
+          "villa",
+          "mayor",
+          "sol",
+          "cibeles",
+          "alcala"
+        ],
+        "scenes": [
+          {
+            "sceneId": "palace",
+            "name": "Royal Palace",
+            "memberCanonicalIds": [
+              "Q171517"
+            ],
+            "facts": [
+              {
+                "factId": "palace-observable",
+                "ownerCanonicalId": "Q171517",
+                "sourceId": "royal",
+                "role": "observable",
+                "value": "The present palace occupies the western edge of the historic centre opposite the cathedral."
+              },
+              {
+                "factId": "palace-history",
+                "ownerCanonicalId": "Q171517",
+                "sourceId": "royal",
+                "role": "historical_context",
+                "value": "A Muslim fortress and the later Alcázar preceded the current palace, commissioned after the 1734 fire."
+              },
+              {
+                "factId": "palace-function",
+                "ownerCanonicalId": "Q171517",
+                "sourceId": "royal",
+                "role": "local_function",
+                "value": "It remains the official royal residence and is used for state ceremonies rather than daily family life."
+              },
+              {
+                "factId": "palace-distinctive",
+                "ownerCanonicalId": "Q171517",
+                "sourceId": "royal",
+                "role": "distinctive",
+                "value": "The stop opens the route with the shift from fortified settlement to the seat of monarchical power."
+              }
+            ]
+          },
+          {
+            "sceneId": "almudena",
+            "name": "Almudena Cathedral",
+            "memberCanonicalIds": [
+              "Q849711"
+            ],
+            "facts": [
+              {
+                "factId": "almudena-observable",
+                "ownerCanonicalId": "Q849711",
+                "sourceId": "almudena",
+                "role": "observable",
+                "value": "Its principal façade was redesigned to harmonise with the Royal Palace immediately across Calle Bailén."
+              },
+              {
+                "factId": "almudena-history",
+                "ownerCanonicalId": "Q849711",
+                "sourceId": "almudena",
+                "role": "historical_context",
+                "value": "Plans began in 1879, changed after Madrid became a bishopric in 1885, and construction concluded in 1993."
+              },
+              {
+                "factId": "almudena-function",
+                "ownerCanonicalId": "Q849711",
+                "sourceId": "almudena",
+                "role": "local_function",
+                "value": "The cathedral connects the capital's modern diocese with devotion to Madrid's patron, the Virgin of Almudena."
+              },
+              {
+                "factId": "almudena-distinctive",
+                "ownerCanonicalId": "Q849711",
+                "sourceId": "almudena",
+                "role": "distinctive",
+                "value": "Its unusually recent completion complicates the expectation that a European capital must have an ancient cathedral."
+              }
+            ]
+          },
+          {
+            "sceneId": "villa",
+            "name": "Plaza de la Villa",
+            "memberCanonicalIds": [
+              "Q2711992"
+            ],
+            "facts": [
+              {
+                "factId": "villa-observable",
+                "ownerCanonicalId": "Q2711992",
+                "sourceId": "villa",
+                "role": "observable",
+                "value": "The Lujanes tower, Casa de Cisneros and Casa de la Villa place fifteenth-, sixteenth- and seventeenth-century civil façades in one view."
+              },
+              {
+                "factId": "villa-history",
+                "ownerCanonicalId": "Q2711992",
+                "sourceId": "villa",
+                "role": "historical_context",
+                "value": "The streets of Codo, Cordón and Madrid preserve the primitive layout that made the square a main centre of medieval Madrid."
+              },
+              {
+                "factId": "villa-function",
+                "ownerCanonicalId": "Q2711992",
+                "sourceId": "villa",
+                "role": "local_function",
+                "value": "Casa de la Villa was the seat of Madrid City Council, giving the square a long municipal function."
+              },
+              {
+                "factId": "villa-distinctive",
+                "ownerCanonicalId": "Q2711992",
+                "sourceId": "villa",
+                "role": "distinctive",
+                "value": "This compact civil ensemble carries both the medieval-town chapter and the emergence of urban government."
+              }
+            ]
+          },
+          {
+            "sceneId": "mayor",
+            "name": "Plaza Mayor",
+            "memberCanonicalIds": [
+              "Q1123493"
+            ],
+            "facts": [
+              {
+                "factId": "mayor-observable",
+                "ownerCanonicalId": "Q1123493",
+                "sourceId": "mayor",
+                "role": "observable",
+                "value": "Arcades and uniform façades enclose the former open market space at the heart of Habsburg Madrid."
+              },
+              {
+                "factId": "mayor-history",
+                "ownerCanonicalId": "Q1123493",
+                "sourceId": "mayor",
+                "role": "historical_context",
+                "value": "Philip II planned the remodelling of the Arrabal market after moving the court to Madrid in 1561."
+              },
+              {
+                "factId": "mayor-function",
+                "ownerCanonicalId": "Q1123493",
+                "sourceId": "mayor",
+                "role": "local_function",
+                "value": "The square hosted markets, festivities, bullfights, coronations and other public ceremonies."
+              },
+              {
+                "factId": "mayor-distinctive",
+                "ownerCanonicalId": "Q1123493",
+                "sourceId": "mayor",
+                "role": "distinctive",
+                "value": "It shows how a commercial edge of the medieval town became the ceremonial plaza of a royal capital."
+              }
+            ]
+          },
+          {
+            "sceneId": "sol",
+            "name": "Puerta del Sol",
+            "memberCanonicalIds": [
+              "Q427163"
+            ],
+            "facts": [
+              {
+                "factId": "sol-observable",
+                "ownerCanonicalId": "Q427163",
+                "sourceId": "sol",
+                "role": "observable",
+                "value": "Historic streets including Mayor, Arenal, Alcalá and Preciados converge in this busy central square."
+              },
+              {
+                "factId": "sol-history",
+                "ownerCanonicalId": "Q427163",
+                "sourceId": "sol",
+                "role": "historical_context",
+                "value": "The square changed repeatedly as Madrid grew from the old town into a national capital."
+              },
+              {
+                "factId": "sol-function",
+                "ownerCanonicalId": "Q427163",
+                "sourceId": "sol",
+                "role": "local_function",
+                "value": "Puerta del Sol functions as a civic meeting point and the symbolic origin of Spain’s radial roads."
+              },
+              {
+                "factId": "sol-distinctive",
+                "ownerCanonicalId": "Q427163",
+                "sourceId": "sol",
+                "role": "distinctive",
+                "value": "Its everyday crowds and national symbols turn the route from courtly Madrid toward the modern public capital."
+              }
+            ]
+          },
+          {
+            "sceneId": "cibeles",
+            "name": "Cibeles",
+            "memberCanonicalIds": [
+              "Q1537446",
+              "Q2736564",
+              "Q1849031"
+            ],
+            "facts": [
+              {
+                "factId": "cibeles-observable",
+                "ownerCanonicalId": "Q1537446",
+                "sourceId": "cibeles-fountain",
+                "role": "observable",
+                "value": "The fountain, plaza and surrounding institutions form one visible urban scene at the start of Paseo del Arte."
+              },
+              {
+                "factId": "cibeles-history",
+                "ownerCanonicalId": "Q2736564",
+                "sourceId": "cibeles-fountain",
+                "role": "historical_context",
+                "value": "The fountain has stood here since 1782 and originally supplied water to residents, carriers and cavalry horses."
+              },
+              {
+                "factId": "cibeles-function",
+                "ownerCanonicalId": "Q1849031",
+                "sourceId": "cibeles-palace",
+                "role": "local_function",
+                "value": "The former communications headquarters now houses Madrid City Hall, which moved here in 2007."
+              },
+              {
+                "factId": "cibeles-distinctive",
+                "ownerCanonicalId": "Q1537446",
+                "sourceId": "cibeles-fountain",
+                "role": "distinctive",
+                "value": "The scene links Charles III’s urban programme, civic infrastructure and the modern municipal capital without duplicating its members as stops."
+              }
+            ]
+          },
+          {
+            "sceneId": "alcala",
+            "name": "Puerta de Alcalá",
+            "memberCanonicalIds": [
+              "Q1140634"
+            ],
+            "facts": [
+              {
+                "factId": "alcala-observable",
+                "ownerCanonicalId": "Q1140634",
+                "sourceId": "alcala",
+                "role": "observable",
+                "value": "The granite neoclassical gate has five openings and different decoration on its former inner and outer faces."
+              },
+              {
+                "factId": "alcala-history",
+                "ownerCanonicalId": "Q1140634",
+                "sourceId": "alcala",
+                "role": "historical_context",
+                "value": "Charles III commissioned it to replace an older entrance; the monumental gate opened in 1778."
+              },
+              {
+                "factId": "alcala-function",
+                "ownerCanonicalId": "Q1140634",
+                "sourceId": "alcala",
+                "role": "local_function",
+                "value": "It marked the road toward Alcalá de Henares and one of the royal access points into Madrid."
+              },
+              {
+                "factId": "alcala-distinctive",
+                "ownerCanonicalId": "Q1140634",
+                "sourceId": "alcala",
+                "role": "distinctive",
+                "value": "The final stop resolves the arc by showing a former urban boundary absorbed into the expanded modern capital."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wordsPerMinute": 120,
+    "audioByModuleId": null,
+    "duration": {
+      "walkingSeconds": 2473.9,
+      "narrationSeconds": 630,
+      "observationSeconds": 315,
+      "totalSeconds": 3418.9,
+      "totalMinutes": 56.98,
+      "narrationSource": "word_estimate",
+      "recommendedDurationMinutes": 60
+    },
+    "routeReview": null,
+    "streetAudit": null,
+    "fingerprints": {
+      "profile": "7df444e7cf611794ad4176e1a76dfa262c09273c21286fd428a78b7e743a0bcb",
+      "scenes": "c34b278ff8d79fb4b7d38adc47280fd0284d8f4e61df6a88c818f8889a16d628",
+      "matrix": "9587da665c876e0a260b2f836b69c3deaed7a7c7295cade58593fce23fd02aa1",
+      "route": "e0ac27a7911304b462c2b03c74a63a374a6cec8832bd3b701aa27c4d189c3021",
+      "plan": "ee96cdbcb2429c967a1588f3bfe2aa6c5f04f963798fe47c92f3bb816971a471",
+      "audio": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  },
+  "externalGates": {
+    "blindReview": "pending",
+    "realAudio": "pending",
+    "calibration": "pending",
+    "sealedHoldouts": "pending",
+    "streetAudit": "pending"
+  }
+}

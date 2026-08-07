@@ -1,68 +1,76 @@
-# Implementation Plan: Editorial selector v6 core-constrained
+# Implementation Plan: Editorial selector v7 profile-constrained
 
 ## Overview
 
-Build v6 alongside the reproducible v5 baseline. Resolve and freeze a small canonical tour core before route search, require every finalist to cover that core, and ask one compact LLM jury to compare only routes that are already deterministically valid. The Madrid core experiment is eliminatory: optimizer and jury work only proceed if the frozen three-audit protocol reaches exact consensus and covers all seven Madrid anchors without importing the oracle.
+Build v7 beside the frozen v5 and failed v6 experiment. A reviewed city profile and explicit visit scenes define the product; an exact deterministic optimizer fixes the route; one bounded narrative plan may describe but never alter it. Offline snapshots must reproduce every decision and must fail closed when profile, matrix, text, audio, or evidence changes.
 
 ## Architecture decisions
 
-- Reuse v5 canonical identities, own evidence, and frozen OSRM matrices; do not modify v5 code or snapshots.
-- Keep Wikimedia context, core artifacts, and selector modules outside `fixtures/oracle`; the oracle remains evaluation-only.
-- Validate every third-party and LLM response at its boundary and fail closed on semantic errors.
-- Treat requested duration as a ceiling and canonical core coverage as a hard constraint.
-- Generate only 3–5 non-dominated, core-complete finalists; the LLM cannot change their stops or order.
+- Keep v5/v6 untouched and expose v7 through new modules and fixtures only.
+- Separate mandatory identities, required chapters with alternative carriers, and diagnostic reference routes.
+- Treat `VisitSceneV1` as the only boundary that may combine evidence from multiple exact identities, preserving the owner on every fact.
+- Enumerate all feasible orders for at most eight effective scenes and rank lexicographically by hard coverage, arc, dominance, walking, longest leg, and comfort.
+- Compute duration only from OSRM walking, narration words or real audio, and explicit observations; never fixed stop dwell or hidden buffers.
+- Human review and street audit are explicit persisted gates. Code cannot synthesize approval.
 
 ## Task list
 
-### Phase 1: Eliminatory Madrid experiment
+### Phase 1: Contracts and evidence
 
-- [x] Task 1: Define and test Wikimedia prominence snapshot and core-audit contracts.
-- [x] Task 2: Implement deterministic Wikimedia capture with revision IDs, dates, provenance, and fingerprints.
-- [x] Task 3: Implement three seeded core audits, consensus/review results, compact schemas, and snapshot replay.
-- [x] Task 4: Capture Madrid context and run the frozen three-audit protocol; evaluate the oracle only after all core artifacts are saved. **Executed; gate failed.**
+- [x] Task 1: Define and validate benchmark, profile, scene, evidence, and review contracts.
+- [x] Task 2: Preserve up to four complete 280-character owned facts selected by role and novelty.
 
-### Checkpoint: Madrid core
+### Checkpoint: Product boundary
 
-- [ ] All three responses are schema-valid and within 18,000 input / 8,000 schema characters.
-- [ ] The required sets are identical, contain Madrid 7/7, contain 1–8 identities, and cite only owned evidence.
-- [x] If any item fails, stop v6 route implementation and record the model-comparison requirement.
+- [x] Unapproved proposals cannot be verified.
+- [x] Reference routes cannot become mandatory requirements.
+- [x] Composite scenes cannot borrow facts without explicit reviewed membership.
 
-Checkpoint result (2026-08-07): exact consensus and Madrid 7/7 failed. The stop condition was applied; Qwen failed semantic validation and the second remote provider had an expired credential. See `docs/working/56-editorial-selector-v6-core-experiment.md`.
+### Phase 2: Exact selector
 
-### Phase 2: Reproducible core and constrained routes
+- [x] Task 3: Implement exhaustive selection/order search for up to eight scenes with hard requirements, chapters, arc, conflicts, and deterministic tie-breaking.
+- [x] Task 4: Add dominance, honest duration bands, extension diagnostics, and distinct-contribution rules.
 
-- [ ] Task 5: Add reviewed disputed-ID overrides, core artifact validation, and anti-oracle import/payload tests.
-- [ ] Task 6: Implement core-complete exact-order search, support insertion for small cores, duration extensions, infeasibility diagnostics, dominance, and finalist diversity.
-- [ ] Task 7: Add optimizer unit/metamorphic tests, including Madrid 93.78-minute validity and compact-route dominance.
+### Checkpoint: Deterministic route
 
-### Checkpoint: Deterministic selector
+- [x] Candidate permutation does not change the result.
+- [x] Madrid resolves to the seven-scene 3,067.6 m route (or approved reverse), never `f01`.
 
-- [ ] Focused v6 suites pass and v5 suites remain unchanged and green.
-- [ ] Every finalist covers 100% of the approved core and all physical constraints.
+### Phase 3: Narrative, time, and snapshots
 
-### Phase 3: Compact jury and workflow
+- [x] Task 5: Define the bounded route-locked story-plan contract and grounding validator.
+- [x] Task 6: Calculate pre-TTS and post-TTS duration without implicit dwell; semantic/model failures require review.
+- [x] Task 7: Fingerprint profile, scenes, matrix, plan text, and audio independently and replay an exact snapshot.
 
-- [ ] Task 8: Implement the single-call route-jury-v6 request, schema, validator, retry policy, and character budgets.
-- [ ] Task 9: Implement live/snapshot selection workflow and exact replay with immutable route order and winner-plan validation.
-- [ ] Task 10: Add the v6 workbench, separate core/oracle reporting, persisted provenance, discard diagnostics, and package command.
+### Phase 4: Offline Madrid workbench
 
-### Checkpoint: Complete implementation
+- [x] Task 8: Freeze Madrid's proposed profile, composite Cibeles scene, official-source excerpts, matrix, route, and Phase-0 blind cards.
+- [x] Task 9: Add a replay command and document gates that remain human/external.
 
-- [ ] Focused v5/v6 tests, full backend tests, lint, and TypeScript build pass.
-- [ ] Madrid and multi-city snapshots replay exactly; live gates are recorded separately from human-review gates.
-- [ ] A five-axis code review finds no unresolved blocker.
-- [ ] Commit/push/merge only if automated, live, holdout, and human gates required by the source plan have actually passed.
+### Phase 5: First calibration proposals
+
+- [x] Task 10: Freeze and replay source-grounded `draft_only` proposals for Berlin and Paris.
+- [x] Task 11: Report honest duration and route-comfort diagnostics without promoting either city to `verified`.
+- [ ] Task 12: Complete human editorial review and extend calibration to the remaining seven cities.
+
+### Checkpoint: Complete offline delivery
+
+- [x] Focused v7 tests and unchanged v5/v6 tests pass.
+- [x] TypeScript build passes; full backend suite and lint outcomes are reported honestly.
+- [x] Five-axis review has no unresolved v7 blocker.
+- [x] No commit, push, or merge occurred while blind review, real audio duration, calibration/holdouts, and Madrid street audit remain pending.
+- [x] The live legacy/v7 status mismatch for new and hard-coded cities is documented rather than silently treated as solved.
 
 ## Risks and mitigations
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| DeepSeek fails the compact Madrid protocol | High | Stop before optimizer work; compare the identical frozen contract with another model. |
-| Wikimedia content changes | Medium | Persist revision IDs, capture dates, request/response data, and fingerprints; replay offline. |
-| Exact core-order enumeration grows | Medium | Core is capped at eight; use exact permutation only for the core and bounded support insertion. |
-| Oracle leaks into selection | High | Separate files/directories plus static import and serialized-payload boundary tests. |
-| Human/holdout gates cannot be automated in this session | High | Report them as unmet and do not merge or push `master`. |
+| A type-only profile is mistaken for editorial approval | High | Require reviewer metadata and a matching approval fingerprint before `verified`. |
+| Exact enumeration expands unexpectedly | Medium | Reject more than eight effective scenes and keep search offline and bounded. |
+| LLM output mutates route or repeats evidence | High | Validate exact scene order, owned fact IDs, unique primary facts, and fail semantically to `review_required`. |
+| Duration is inflated | High | Sum only walking, computed/real audio, and explicit observation seconds. |
+| Oracle leaks into product selection | High | Keep reference routes diagnostic and add static import/payload boundary tests. |
 
 ## Open questions
 
-- None for implementation. The source plan is treated as the reviewed specification; any failed eliminatory or human gate is a stop condition, not an invitation to tune.
+- None for the offline implementation. Human review, real TTS files, nine-city calibration, sealed holdouts, and street audit are intentionally unresolved external gates.
