@@ -240,10 +240,10 @@ export function validateCoreAuditV6(value: unknown, request: CoreAuditRequestV6)
 }
 
 export function coreAuditResponseSchemaV6(request: CoreAuditRequestV6): Record<string, unknown> {
-  const candidateIds = request.candidates.map((candidate) => candidate.canonicalId);
+  const candidateIds = request.candidates.map((candidate) => candidate.canonicalId).sort();
   const supportIds = request.candidates.flatMap((candidate) => (
     candidate.support.map((support) => support.supportId)
-  ));
+  )).sort();
   const schema = {
     type: 'object',
     additionalProperties: false,
