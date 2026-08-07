@@ -1,5 +1,10 @@
 import { PoiCategory, classifyPoiTags } from '../../domain/poi/PoiClassification';
-import { EditorialCandidateSource, EvidenceFact } from './EditorialCandidate';
+import {
+  calculateFirstVisitScore,
+  EditorialCandidateSource,
+  EvidenceFact,
+} from './EditorialCandidate';
+import { getHistoryPlaceProfile } from './HistoryPlaceScoring';
 
 export const EDITORIAL_EVIDENCE_SCHEMA_VERSION_V5 = 'editorial-evidence-v5' as const;
 export const EDITORIAL_VISIT_CONFLICT_METERS_V5 = 100;
@@ -13,8 +18,11 @@ const OBSERVABLE_OSM_KEYS = new Set([
 const HISTORICAL_CLAIMS = new Set([
   'architect', 'architecturalStyle', 'heritageDesignation', 'inception', 'namedAfter',
 ]);
+const CONTEXTUAL_CLAIMS = new Set([
+  'architecturalStyle', 'heritageDesignation', 'instanceOf', 'locatedIn', 'namedAfter',
+]);
 const HISTORICAL_TEXT = /\b(1[0-9]{3}|20[0-9]{2}|ancien|antigu|arquitect|barroc|built|capital|caus|constru|court|fund|geschicht|histori|medieval|modern|neocl|reform|remodel|revuelta|rey|si[eè]cle|siglo|transform|urban)\b/i;
-const OBSERVABLE_TEXT = /\b(arcos?|arches?|barrier|carro|checkpoint|clock|columnas?|columns?|c[uú]pula|dome|fachada|facade|fountain|fuente|granite|guardhouse|kontrollpunkt|leones?|marble|m[aá]rmol|piedra|puerta|reloj|relieves?|sculpture|stone|torre|tower|ventanas?|windows?)\b/i;
+const OBSERVABLE_TEXT = /\b(arcos?|arches?|barrier|b[aâ]timent|carro|checkpoint|clock|columnas?|columns?|c[uú]pula|dome|edifici|edificio|fachada|facade|fountain|fuente|geb[aä]ude|gebouw|granite|guardhouse|kontrollpunkt|leones?|marble|m[aá]rmol|piedra|puerta|reloj|relieves?|sculpture|stone|torre|tower|ventanas?|windows?)\b/i;
 const TOKEN_STOPWORDS = new Set([
   'ante', 'bajo', 'como', 'con', 'construido', 'desde', 'donde', 'entre', 'esta', 'este',
   'junto', 'lugar', 'para', 'plaza', 'sobre', 'tras', 'city', 'from', 'into', 'that', 'the',
@@ -38,6 +46,7 @@ export interface EditorialEntityCandidateV5 {
   coordinates: { lat: number; lng: number };
   fameScore: number;
   recognitionScore: number;
+  firstVisitScore?: number;
   evidenceFacts: EvidenceFact[];
   readiness: EditorialEvidenceReadinessV5;
   visitConflictGroup: string | null;
@@ -128,14 +137,27 @@ export function selectOwnEvidenceFactsV5(facts: EvidenceFact[]): EvidenceFact[] 
     [...facts].sort((left, right) => left.id.localeCompare(right.id))
       .map((fact) => [factKey(fact), fact])
   ).values()];
-  return unique.sort((left, right) => (
+  const ranked = unique.sort((left, right) => (
     editorialFactScore(right) - editorialFactScore(left) || left.id.localeCompare(right.id)
-  )).slice(0, EDITORIAL_OWN_FACT_LIMIT_V5);
+  ));
+  const selected: EvidenceFact[] = [];
+  const add = (fact: EvidenceFact | undefined) => {
+    if (fact && !selected.some((item) => item.id === fact.id)) selected.push(fact);
+  };
+  add(ranked.find((fact) => fact.kind === 'observable'));
+  add(ranked.find((fact) => fact.kind === 'claim' && HISTORICAL_CLAIMS.has(claimKey(fact))));
+  add(ranked.find((fact) => fact.kind === 'context'));
+  for (const fact of ranked) {
+    if (selected.length >= EDITORIAL_OWN_FACT_LIMIT_V5) break;
+    add(fact);
+  }
+  return selected;
 }
 
 export function assessEditorialEvidenceReadinessV5(facts: EvidenceFact[]): EditorialEvidenceReadinessV5 {
   const observableCount = facts.filter((fact) => fact.kind === 'observable').length;
-  const contextCount = facts.filter((fact) => fact.kind === 'context').length;
+  const contextCount = facts.filter((fact) => fact.kind === 'context'
+    || (fact.kind === 'claim' && CONTEXTUAL_CLAIMS.has(claimKey(fact)))).length;
   const historicalSpecificCount = facts.filter((fact) => (
     (fact.kind === 'claim' && HISTORICAL_CLAIMS.has(claimKey(fact)))
       || (fact.kind === 'context' && HISTORICAL_TEXT.test(fact.value))
@@ -196,15 +218,19 @@ export function buildEditorialEntitiesV5(
     );
     const fameScore = Math.max(...members.map((member) => member.fameScore ?? 0));
     const sitelinks = Math.max(0, ...members.map((member) => member.fame?.sitelinks ?? 0));
+    const category = classifyPoiTags(representative.tags);
     return {
       canonicalId,
       siteId: `site:${canonicalId}`,
       sourceIds: members.map(sourceId),
       localName: localName(representative, language),
-      category: classifyPoiTags(representative.tags),
+      category,
       coordinates: { lat: representative.lat, lng: representative.lng },
       fameScore,
       recognitionScore: Number(Math.min(100, Math.max(fameScore * 2, Math.log2(sitelinks + 1) * 10)).toFixed(2)),
+      firstVisitScore: calculateFirstVisitScore(
+        representative, category, fameScore, getHistoryPlaceProfile(representative).score
+      ),
       evidenceFacts,
       readiness: assessEditorialEvidenceReadinessV5(evidenceFacts),
       visitConflictGroup: null,

@@ -242,7 +242,7 @@ function getEligibleRoles(source: EditorialCandidateSource, category: PoiCategor
   return ['transformation', 'modern-city'];
 }
 
-function calculateFirstVisitScore(
+export function calculateFirstVisitScore(
   source: EditorialCandidateSource,
   category: PoiCategory,
   fameScore: number,
