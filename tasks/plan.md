@@ -16,16 +16,18 @@ Build v6 alongside the reproducible v5 baseline. Resolve and freeze a small cano
 
 ### Phase 1: Eliminatory Madrid experiment
 
-- [ ] Task 1: Define and test Wikimedia prominence snapshot and core-audit contracts.
-- [ ] Task 2: Implement deterministic Wikimedia capture with revision IDs, dates, provenance, and fingerprints.
-- [ ] Task 3: Implement three seeded core audits, consensus/review results, compact schemas, and snapshot replay.
-- [ ] Task 4: Capture Madrid context and run the frozen three-audit protocol; evaluate the oracle only after all core artifacts are saved.
+- [x] Task 1: Define and test Wikimedia prominence snapshot and core-audit contracts.
+- [x] Task 2: Implement deterministic Wikimedia capture with revision IDs, dates, provenance, and fingerprints.
+- [x] Task 3: Implement three seeded core audits, consensus/review results, compact schemas, and snapshot replay.
+- [x] Task 4: Capture Madrid context and run the frozen three-audit protocol; evaluate the oracle only after all core artifacts are saved. **Executed; gate failed.**
 
 ### Checkpoint: Madrid core
 
 - [ ] All three responses are schema-valid and within 18,000 input / 8,000 schema characters.
 - [ ] The required sets are identical, contain Madrid 7/7, contain 1–8 identities, and cite only owned evidence.
-- [ ] If any item fails, stop v6 route implementation and record the model-comparison requirement.
+- [x] If any item fails, stop v6 route implementation and record the model-comparison requirement.
+
+Checkpoint result (2026-08-07): exact consensus and Madrid 7/7 failed. The stop condition was applied; Qwen failed semantic validation and the second remote provider had an expired credential. See `docs/working/56-editorial-selector-v6-core-experiment.md`.
 
 ### Phase 2: Reproducible core and constrained routes
 
