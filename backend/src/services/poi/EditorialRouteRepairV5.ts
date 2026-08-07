@@ -226,6 +226,15 @@ export function buildEditorialRepairPortfolioV5(
         || signature(left.route.candidateSlots).localeCompare(signature(right.route.candidateSlots))
     ))[0];
     select(compactDelete);
+    if (compactDelete) {
+      const reversedSlots = [...compactDelete.route.candidateSlots].reverse();
+      addAlternative(source, reversedSlots, 'reverse');
+      select(alternatives.find((alternative) => (
+        alternative.operation === 'reverse'
+          && alternative.sourceRouteSlot === source.slot
+          && signature(alternative.route.candidateSlots) === signature(reversedSlots)
+      )));
+    }
   }
   const protectedSet = new Set(initial.protectedCandidateSlots);
   while (selected.length < Math.min(6, alternatives.length)) {

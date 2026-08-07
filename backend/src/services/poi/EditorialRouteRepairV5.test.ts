@@ -109,6 +109,7 @@ describe('deterministic editorial route repair v5', () => {
     expect(repaired.diagnostics.operationCounts.original).toBeGreaterThanOrEqual(2);
     expect(repaired.diagnostics.operationCounts.jury_suggestion).toBeGreaterThanOrEqual(1);
     expect(Object.values(repaired.provenance).some((item) => item.operation === 'delete')).toBe(true);
+    expect(Object.values(repaired.provenance).some((item) => item.operation === 'reverse')).toBe(true);
     expect(repaired.portfolio.routes.some((route) => (
       route.candidateSlots.includes('c05') && !route.candidateSlots.includes('c02')
     ))).toBe(true);
