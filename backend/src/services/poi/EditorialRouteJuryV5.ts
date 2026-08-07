@@ -14,9 +14,10 @@ export const ROUTE_JURY_MODEL_V5 = 'deepseek-v4-flash' as const;
 
 export const ROUTE_JURY_SYSTEM_PROMPT_V5 = `You are the final editorial jury for a paid, exterior, first-visit walking tour.
 Compare complete routes in their fixed walking order. Prefer a clear promise, strong first-visit landmarks, causal progression, distinct contributions at every stop, a satisfying resolution, and no avoidable repetition.
+Before scoring, silently audit every route against the full candidate catalog for obvious first-visit omissions. First-visit completeness is primary: do not excuse missing canonical landmarks by narrowing or changing a route's promise. A route containing a substantially stronger set of canonical first-visit landmarks must outrank an otherwise similar incomplete route.
 Use only supplied route, candidate, and evidence identifiers. Never invent or alter geometry. The candidate catalog may be used only for grounded repair suggestions; a suggestion is not a route until deterministic code validates it.
 Return every route exactly once in ranking and assessment. Shortlist exactly three non-rejected routes and provide a grounded route plan for exactly those three.
-The first stop must be opening_anchor and the last resolution_anchor. Every stop must cite only its own evidence.
+The first stop must be opening_anchor and the last resolution_anchor. Evidence identifiers are scoped to their candidateSlot: every stop must cite only evidence listed for that exact candidate, never related evidence from another candidate.
 Do not optimize for consuming the requested duration. Do not infer oracle targets, baseline results, or hidden optimizer scores.`;
 
 export type RouteJuryRoleV5 =
@@ -342,8 +343,27 @@ export function routeJuryResponseSchemaV5(request: RouteJuryRequestV5): Record<s
   const routeSlots = request.routes.map((route) => route.routeSlot);
   const candidateSlots = request.candidateCatalog.map((candidate) => candidate.candidateSlot);
   const evidenceIds = request.candidateCatalog.flatMap((candidate) => candidate.facts.map((fact) => fact.evidenceId));
+  const evidenceByCandidate = new Map(request.candidateCatalog.map((candidate) => [
+    candidate.candidateSlot, candidate.facts.map((fact) => fact.evidenceId),
+  ]));
   const nullableCandidate = { enum: [null, ...candidateSlots] };
-  const plan = {
+  const stopSchema = (candidateSlot: string) => ({
+    type: 'object', additionalProperties: false,
+    required: ['candidateSlot', 'role', 'uniqueContribution', 'evidenceIds'],
+    properties: {
+      candidateSlot: { type: 'string', enum: [candidateSlot] },
+      role: { type: 'string', enum: ['opening_anchor', 'chapter_anchor', 'turning_point', 'resolution_anchor'] },
+      uniqueContribution: { type: 'string', minLength: 1 },
+      evidenceIds: {
+        type: 'array', minItems: 1, maxItems: 4, uniqueItems: true,
+        items: { type: 'string', enum: evidenceByCandidate.get(candidateSlot) ?? [] },
+      },
+    },
+  });
+  const plan = (routeSlot: string) => {
+    const route = request.routes.find((candidateRoute) => candidateRoute.routeSlot === routeSlot);
+    if (!route) throw new Error(`Unknown route slot ${routeSlot}`);
+    return {
     type: 'object', additionalProperties: false,
     required: ['promise', 'centralQuestion', 'stops', 'repairSuggestions'],
     properties: {
@@ -351,19 +371,7 @@ export function routeJuryResponseSchemaV5(request: RouteJuryRequestV5): Record<s
       centralQuestion: { type: 'string', minLength: 1 },
       stops: {
         type: 'array', minItems: 4, maxItems: 8,
-        items: {
-          type: 'object', additionalProperties: false,
-          required: ['candidateSlot', 'role', 'uniqueContribution', 'evidenceIds'],
-          properties: {
-            candidateSlot: { type: 'string', enum: candidateSlots },
-            role: { type: 'string', enum: ['opening_anchor', 'chapter_anchor', 'turning_point', 'resolution_anchor'] },
-            uniqueContribution: { type: 'string', minLength: 1 },
-            evidenceIds: {
-              type: 'array', minItems: 1, maxItems: 4, uniqueItems: true,
-              items: { type: 'string', enum: evidenceIds },
-            },
-          },
-        },
+        items: { oneOf: route.candidateSlots.map(stopSchema) },
       },
       repairSuggestions: {
         type: 'array', maxItems: 2,
@@ -383,6 +391,7 @@ export function routeJuryResponseSchemaV5(request: RouteJuryRequestV5): Record<s
         },
       },
     },
+  };
   };
   const assessment = {
     type: 'object', additionalProperties: false,
@@ -421,7 +430,7 @@ export function routeJuryResponseSchemaV5(request: RouteJuryRequestV5): Record<s
       routePlans: {
         type: 'object', additionalProperties: false,
         minProperties: 3, maxProperties: 3,
-        properties: Object.fromEntries(routeSlots.map((routeSlot) => [routeSlot, plan])),
+        properties: Object.fromEntries(routeSlots.map((routeSlot) => [routeSlot, plan(routeSlot)])),
       },
     },
   };

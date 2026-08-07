@@ -3,6 +3,7 @@ import { EditorialEntityCandidateV5 } from './EditorialEvidenceV5';
 import {
   buildRouteJuryRequestV5,
   ROUTE_JURY_SCHEMA_VERSION_V5,
+  routeJuryResponseSchemaV5,
   RouteJuryRequestV5,
   validateRouteJuryV5,
 } from './EditorialRouteJuryV5';
@@ -109,6 +110,21 @@ describe('route-conditioned editorial jury v5', () => {
     expect(result.shortlist).toEqual(['r01', 'r02', 'r03']);
     expect(result.routePlans.r01.stops.map((stop) => stop.candidateSlot))
       .toEqual(request.routes[0].candidateSlots);
+  });
+
+  it('scopes each planned stop schema to evidence owned by that candidate', () => {
+    const schema = routeJuryResponseSchemaV5(request) as any;
+    const variants = schema.properties.routePlans.properties.r01
+      .properties.stops.items.oneOf;
+    const first = variants.find((variant: any) => (
+      variant.properties.candidateSlot.enum[0] === 'c01'
+    ));
+
+    expect(first.properties.evidenceIds.items.enum).toEqual(
+      request.candidateCatalog.find((candidate) => candidate.candidateSlot === 'c01')!
+        .facts.map((fact) => fact.evidenceId)
+    );
+    expect(first.properties.evidenceIds.items.enum).not.toContain('Q2:o');
   });
 
   it('rejects incomplete responses and invented route IDs', () => {
