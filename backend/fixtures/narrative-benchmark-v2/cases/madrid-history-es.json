@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "narrative-benchmark-case-v2",
+  "caseId": "madrid-history-es",
+  "city": "Madrid",
+  "theme": "history",
+  "language": "es-ES",
+  "promise": "Recorrer tres escenarios donde la corte, el comercio y la reforma urbana dieron forma a la capital.",
+  "centralQuestion": "¿Cómo pasó Madrid de sede del poder real a ciudad representada en sus espacios públicos?",
+  "routeFingerprint": "691fc501f41a3ea84066b7cee95bee84a6b27f3a26d82ae1b74ba2a31d87c3f1",
+  "routeSceneIds": [
+    "palacio-real",
+    "plaza-mayor",
+    "puerta-de-alcala"
+  ],
+  "scenes": [
+    {
+      "sceneId": "palacio-real",
+      "name": "Palacio Real de Madrid",
+      "routePosition": 1,
+      "previousSceneId": null,
+      "nextSceneId": "plaza-mayor",
+      "contribution": "Del Alcázar medieval incendiado surge un palacio diseñado para alojar el poder absoluto.",
+      "allowedProperNouns": [
+        "Madrid",
+        "Palacio Real de Madrid",
+        "Alcázar de Madrid",
+        "Felipe II",
+        "Felipe V",
+        "Filippo Juvarra",
+        "Giambattista Sacchetti",
+        "Carlos III",
+        "Plaza Mayor"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "palacio-alcazar",
+          "ownerCanonicalId": "Q171517",
+          "originalExcerpt": "residencia oficial de los reyes",
+          "originalLanguage": "es",
+          "normalizedEs": "El palacio ocupa el solar del Alcázar medieval, que Felipe II convirtió desde 1561 en residencia oficial de los reyes de España.",
+          "sourceUrl": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+          "sourceTitle": "Palacio Real de Madrid — Patrimonio Nacional",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "663d065c76e16b10268a5c40cd471b180c9d2bea3411fdfb260e91c0011f1d96"
+        },
+        {
+          "factId": "palacio-fire",
+          "ownerCanonicalId": "Q171517",
+          "originalExcerpt": "incendio en la Nochebuena de 1734",
+          "originalLanguage": "es",
+          "normalizedEs": "Un incendio destruyó el Alcázar durante la Nochebuena de 1734; la propia fuente descarta como leyenda que la corte lo provocara.",
+          "sourceUrl": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+          "sourceTitle": "Palacio Real de Madrid — Patrimonio Nacional",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "e808858988debf5666f89770b7151891c56a783c7b968cbe684e416c108e927c"
+        },
+        {
+          "factId": "palacio-absolute-power",
+          "ownerCanonicalId": "Q171517",
+          "originalExcerpt": "albergar el poder absoluto",
+          "originalLanguage": "es",
+          "normalizedEs": "El nuevo edificio empleó bóvedas sin madera para resistir incendios y muchas plantas para oficinas, Casa Real y servidores del poder absoluto.",
+          "sourceUrl": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+          "sourceTitle": "Palacio Real de Madrid — Patrimonio Nacional",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "bf1c90c5fc4bf2a7400dda839c9ea372dae40d6af76e14675f429f464c21913e"
+        },
+        {
+          "factId": "palacio-first-monarch",
+          "ownerCanonicalId": "Q171517",
+          "originalExcerpt": "se instaló en 1764",
+          "originalLanguage": "es",
+          "normalizedEs": "Giambattista Sacchetti adaptó el proyecto de Filippo Juvarra; Carlos III fue el primer monarca que habitó el Palacio Real, desde 1764.",
+          "sourceUrl": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+          "sourceTitle": "Palacio Real de Madrid — Patrimonio Nacional",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "ab108ad11dc03995726e59f961de541126510265df8b691c821d82e8641ef7d4"
+        }
+      ]
+    },
+    {
+      "sceneId": "plaza-mayor",
+      "name": "Plaza Mayor",
+      "routePosition": 2,
+      "previousSceneId": "palacio-real",
+      "nextSceneId": "puerta-de-alcala",
+      "contribution": "Un mercado extramuros se convierte en plaza de la capital y se reconstruye tras incendios.",
+      "allowedProperNouns": [
+        "Madrid",
+        "Plaza Mayor",
+        "plaza del Arrabal",
+        "Felipe II",
+        "Juan de Herrera",
+        "Casa de la Panadería",
+        "Juan Gómez de Mora",
+        "Juan de Villanueva",
+        "Palacio Real de Madrid",
+        "Puerta de Alcalá"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "plaza-arrabal",
+          "ownerCanonicalId": "Q1133021",
+          "originalExcerpt": "antigua plaza del Arrabal",
+          "originalLanguage": "es",
+          "normalizedEs": "La Plaza Mayor nació en la plaza del Arrabal, fuera de la ciudad medieval, donde coincidían caminos y se reunían comerciantes.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2528f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Plaza Mayor — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "6e2200a5d24387926675ac196740ca5870840dd116a0c5b504aa6158c87f10d1"
+        },
+        {
+          "factId": "plaza-remodel",
+          "ownerCanonicalId": "Q1133021",
+          "originalExcerpt": "en 1580 el rey Felipe II",
+          "originalLanguage": "es",
+          "normalizedEs": "En 1580 Felipe II encargó a Juan de Herrera remodelar el espacio para adaptarlo a las necesidades de la capital.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2528f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Plaza Mayor — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "d7574ea5071325bda0b0297f26982e162ae45beaa438d34c8aabcf248cf0b456"
+        },
+        {
+          "factId": "plaza-form",
+          "ownerCanonicalId": "Q1133021",
+          "originalExcerpt": "no es hasta 1617",
+          "originalLanguage": "es",
+          "normalizedEs": "La Casa de la Panadería se construyó en 1590 y en 1617 Juan Gómez de Mora dio forma a la gran Plaza Mayor.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2528f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Plaza Mayor — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "e126a6d87c5be2467d4e4a0a044b5522905be408c93c85b893dbd2c45e998fc0"
+        },
+        {
+          "factId": "plaza-fire",
+          "ownerCanonicalId": "Q1133021",
+          "originalExcerpt": "el del año 1790",
+          "originalLanguage": "es",
+          "normalizedEs": "La plaza sufrió tres incendios; el de 1790 redujo un tercio a cenizas y motivó una reforma integral iniciada por Juan de Villanueva.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2528f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Plaza Mayor — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "59678b05aa9178a95b95d696db58088ba164f9d1a9712a1b41095f235bdbd900"
+        }
+      ]
+    },
+    {
+      "sceneId": "puerta-de-alcala",
+      "name": "Puerta de Alcalá",
+      "routePosition": 3,
+      "previousSceneId": "plaza-mayor",
+      "nextSceneId": null,
+      "contribution": "Una entrada de corte se vuelve monumento de la gran reforma urbana de Carlos III.",
+      "allowedProperNouns": [
+        "Madrid",
+        "Puerta de Alcalá",
+        "Carlos III",
+        "Salón del Prado",
+        "Margarita de Austria",
+        "Felipe III",
+        "José de Hermosilla",
+        "Ventura Rodríguez",
+        "Francisco Sabatini",
+        "Segovia",
+        "Colmenar",
+        "Plaza Mayor"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "puerta-replacement",
+          "ownerCanonicalId": "Q211474",
+          "originalExcerpt": "entrada principal a la Corte",
+          "originalLanguage": "es",
+          "normalizedEs": "Carlos III promovió la nueva Puerta de Alcalá como entrada principal a la Corte para sustituir otra construida en 1599.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2428f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Puerta de Alcalá — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "3a00e21896ab97dc3da4d93e553ca1ad88a87e944e062a2c86d99eb8411854c5"
+        },
+        {
+          "factId": "puerta-competition",
+          "ownerCanonicalId": "Q211474",
+          "originalExcerpt": "resultando elegidas las dos propuestas",
+          "originalLanguage": "es",
+          "normalizedEs": "Un concurso invitó a José de Hermosilla, Ventura Rodríguez y Francisco Sabatini; se eligieron dos propuestas de Sabatini, que las sintetizó.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2428f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Puerta de Alcalá — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "5966258744cad319e9bdf810d298b2cbaaba1c3f05a874e3ca407c2cecdb10e3"
+        },
+        {
+          "factId": "puerta-arches",
+          "ownerCanonicalId": "Q211474",
+          "originalExcerpt": "cuerpo de cinco arcos",
+          "originalLanguage": "es",
+          "normalizedEs": "La puerta se concibió como arco triunfal barroco clasicista con cinco vanos: tres centrales semicirculares y dos laterales adintelados para peatones.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2428f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Puerta de Alcalá — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "5eeb10996f6b8d3b5114f902a87e0f22c2d0815cbf2aec6403949d04847ef6df"
+        },
+        {
+          "factId": "puerta-materials",
+          "ownerCanonicalId": "Q211474",
+          "originalExcerpt": "granito de Segovia",
+          "originalLanguage": "es",
+          "normalizedEs": "Fue construida entre 1774 y 1778 con granito de Segovia para la arquitectura y piedra de Colmenar para la decoración escultórica.",
+          "sourceUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/?vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD&vgnextfmt=default&vgnextoid=2428f7d9560a4510f7d9560a45102e085a0aRCRD",
+          "sourceTitle": "Puerta de Alcalá — Ayuntamiento de Madrid",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "e4cdf82c3e078bdca63dfc8e94dcb2c7b236253805f9e0d1d29d974ec6510934"
+        }
+      ]
+    }
+  ]
+}

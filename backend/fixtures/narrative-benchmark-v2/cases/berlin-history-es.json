@@ -1,0 +1,217 @@
+{
+  "schemaVersion": "narrative-benchmark-case-v2",
+  "caseId": "berlin-history-es",
+  "city": "Berlín",
+  "theme": "history",
+  "language": "es-ES",
+  "promise": "Seguir tres lugares donde división, parlamentarismo y cultura material cambiaron junto con la ciudad.",
+  "centralQuestion": "¿Cómo reconstruyó Berlín espacios de frontera, representación política y memoria cultural?",
+  "routeFingerprint": "36e6a8d0a9b4e21bc1f92313900e7c41ce0965a5f0f571ee19edec70bd0e721b",
+  "routeSceneIds": [
+    "checkpoint-charlie",
+    "reichstag",
+    "museumsinsel"
+  ],
+  "scenes": [
+    {
+      "sceneId": "checkpoint-charlie",
+      "name": "Checkpoint Charlie",
+      "routePosition": 1,
+      "previousSceneId": null,
+      "nextSceneId": "reichstag",
+      "contribution": "Un cruce urbano se convierte en frontera controlada, escenario internacional y lugar de memoria.",
+      "allowedProperNouns": [
+        "Berlín",
+        "Checkpoint Charlie",
+        "Friedrichstraße",
+        "Zimmerstraße",
+        "RDA",
+        "Estados Unidos",
+        "Unión Soviética",
+        "Reichstag"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "checkpoint-wall",
+          "ownerCanonicalId": "Q168815",
+          "originalExcerpt": "Mit dem Bau der Mauer ab 1961",
+          "originalLanguage": "de",
+          "normalizedEs": "La construcción del Muro desde 1961 cortó el área; pocos meses después surgieron el paso fronterizo de la RDA y Checkpoint Charlie.",
+          "sourceUrl": "https://www.berlin.de/sen/stadtentwicklung/staedtebau/einzelprojekte/checkpoint-charlie/",
+          "sourceTitle": "Checkpoint Charlie — Berlin.de",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "d169a5e06c200808123399ce82963d74f9762d3b25387ed3a1944f2a397da00e"
+        },
+        {
+          "factId": "checkpoint-access",
+          "ownerCanonicalId": "Q168815",
+          "originalExcerpt": "ausschließlich für Diplomaten",
+          "originalLanguage": "de",
+          "normalizedEs": "El paso estaba reservado a diplomáticos, militares, personal de embajadas, aliados, representantes de la RFA y funcionarios de la RDA.",
+          "sourceUrl": "https://www.berlin.de/sen/stadtentwicklung/staedtebau/einzelprojekte/checkpoint-charlie/",
+          "sourceTitle": "Checkpoint Charlie — Berlin.de",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "7fab3a417a31de67c2f41de95856c0685036219b1ccfcda0260d35e852ebb7e0"
+        },
+        {
+          "factId": "checkpoint-tanks",
+          "ownerCanonicalId": "Q168815",
+          "originalExcerpt": "Panzerkonfrontation",
+          "originalLanguage": "de",
+          "normalizedEs": "El 27 de octubre de 1961 una disputa sobre los derechos aliados desembocó en una confrontación de tanques entre aliados occidentales y la Unión Soviética.",
+          "sourceUrl": "https://www.berlin.de/sen/stadtentwicklung/staedtebau/einzelprojekte/checkpoint-charlie/",
+          "sourceTitle": "Checkpoint Charlie — Berlin.de",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "fb7fcc3692ff36e56b055d905b98a3747e59abbef6a268b62f6ca1f178c39249"
+        },
+        {
+          "factId": "checkpoint-escapes",
+          "ownerCanonicalId": "Q168815",
+          "originalExcerpt": "Fluchtversuchen und Demonstrationen",
+          "originalLanguage": "de",
+          "normalizedEs": "En los años siguientes el control fronterizo se amplió y fue escenario de numerosos intentos de fuga y manifestaciones.",
+          "sourceUrl": "https://www.berlin.de/sen/stadtentwicklung/staedtebau/einzelprojekte/checkpoint-charlie/",
+          "sourceTitle": "Checkpoint Charlie — Berlin.de",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "93e8fd2e5a9cfd03d2d51c40d68bb1cfeee0a050e2cf070a22d030c3f3ab3bf3"
+        }
+      ]
+    },
+    {
+      "sceneId": "reichstag",
+      "name": "Reichstag",
+      "routePosition": 2,
+      "previousSceneId": "checkpoint-charlie",
+      "nextSceneId": "museumsinsel",
+      "contribution": "La arquitectura parlamentaria concentra conflictos sobre ciudadanía, régimen y reunificación.",
+      "allowedProperNouns": [
+        "Berlín",
+        "Reichstag",
+        "Paul Wallot",
+        "Kaiser Wilhelm I",
+        "Otto von Bismarck",
+        "Dem Deutschen Volke",
+        "Philipp Scheidemann",
+        "Norman Foster",
+        "Christo",
+        "Bundestag",
+        "Checkpoint Charlie",
+        "Museumsinsel"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "reichstag-foundation",
+          "ownerCanonicalId": "Q154987",
+          "originalExcerpt": "Grundstein gelegt werden",
+          "originalLanguage": "de",
+          "normalizedEs": "Paul Wallot ganó el concurso y la primera piedra del Reichstag se colocó el 9 de junio de 1884 en presencia del Kaiser Wilhelm I y Otto von Bismarck.",
+          "sourceUrl": "https://www.bundestag.de/besuche/architektur/reichstag/geschichte/verlauf-246958",
+          "sourceTitle": "Geschichte des Reichstagsgebäudes — Deutscher Bundestag",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "59aa3d1a191c1eaa45dc0715c8205dd67ecc2452ff9505d98a020ac4a0e7ae14"
+        },
+        {
+          "factId": "reichstag-inscription",
+          "ownerCanonicalId": "Q154987",
+          "originalExcerpt": "Dem Deutschen Volke",
+          "originalLanguage": "de",
+          "normalizedEs": "El edificio abrió en 1894 sin la inscripción Dem Deutschen Volke, rechazada por el emperador; la frase no se instaló hasta 1916.",
+          "sourceUrl": "https://www.bundestag.de/besuche/architektur/reichstag/geschichte/verlauf-246958",
+          "sourceTitle": "Geschichte des Reichstagsgebäudes — Deutscher Bundestag",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "7e245ab92bdb8b434e767cd7604e055666814324a9192f3162e818a958980aa0"
+        },
+        {
+          "factId": "reichstag-republic",
+          "ownerCanonicalId": "Q154987",
+          "originalExcerpt": "rief ... die Republik aus",
+          "originalLanguage": "de",
+          "normalizedEs": "Tras la abdicación del emperador, Philipp Scheidemann proclamó la república desde una ventana del Reichstag el 9 de noviembre de 1918.",
+          "sourceUrl": "https://www.bundestag.de/besuche/architektur/reichstag/geschichte/verlauf-246958",
+          "sourceTitle": "Geschichte des Reichstagsgebäudes — Deutscher Bundestag",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "0429656474ac0ad80087a07e2b4e1228edd9371018eb689ae42d965528a0e8ee"
+        },
+        {
+          "factId": "reichstag-return",
+          "ownerCanonicalId": "Q154987",
+          "originalExcerpt": "seinen Sitz endgültig nach Berlin",
+          "originalLanguage": "de",
+          "normalizedEs": "Norman Foster recibió el encargo de remodelación; tras la intervención y la nueva cúpula, el Bundestag trasladó definitivamente su sede allí en septiembre de 1999.",
+          "sourceUrl": "https://www.bundestag.de/besuche/architektur/reichstag/geschichte/verlauf-246958",
+          "sourceTitle": "Geschichte des Reichstagsgebäudes — Deutscher Bundestag",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "3c15805c0aee643646bda943f601fcb6318b0b57818d4194c107686b76fdd2de"
+        }
+      ]
+    },
+    {
+      "sceneId": "museumsinsel",
+      "name": "Museumsinsel Berlin",
+      "routePosition": 3,
+      "previousSceneId": "reichstag",
+      "nextSceneId": null,
+      "contribution": "Un ideal ilustrado reúne museos, sufre la guerra y vuelve a articular colecciones separadas.",
+      "allowedProperNouns": [
+        "Berlín",
+        "Museumsinsel Berlin",
+        "Staatliche Museen zu Berlin",
+        "UNESCO",
+        "Karl Friedrich Schinkel",
+        "Friedrich August Stüler",
+        "Altes Museum",
+        "Neues Museum",
+        "Alte Nationalgalerie",
+        "Bode-Museum",
+        "Pergamonmuseum",
+        "Reichstag"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "island-enlightenment",
+          "ownerCanonicalId": "Q151963",
+          "originalExcerpt": "humanistic ideals of the Enlightenment",
+          "originalLanguage": "en",
+          "normalizedEs": "Los planes iniciales de Museumsinsel nacieron de ideales humanistas de la Ilustración y fueron moldeados por arquitectos como Schinkel y Stüler.",
+          "sourceUrl": "https://www.smb.museum/en/museums-institutions/museumsinsel-berlin/about-us/profile/",
+          "sourceTitle": "Profile of the Museumsinsel Berlin — Staatliche Museen zu Berlin",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "2abf6c2ab6783fc935fbde060c7148c1de0d17767678ebfd9c3918003b39cd12"
+        },
+        {
+          "factId": "island-sequence",
+          "ownerCanonicalId": "Q151963",
+          "originalExcerpt": "Altes Museum in 1830",
+          "originalLanguage": "en",
+          "normalizedEs": "La apertura del Altes Museum en 1830 inició una secuencia de nuevos museos que culminó con el Pergamonmuseum, construido entre 1910 y 1930.",
+          "sourceUrl": "https://www.smb.museum/en/museums-institutions/museumsinsel-berlin/about-us/profile/",
+          "sourceTitle": "Profile of the Museumsinsel Berlin — Staatliche Museen zu Berlin",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "d4ca19ec15e0b15be273dcb78c5e5b07a08334871d8a2df01d62392b7d4a88f7"
+        },
+        {
+          "factId": "island-war",
+          "ownerCanonicalId": "Q151963",
+          "originalExcerpt": "buildings themselves were severely damaged",
+          "originalLanguage": "en",
+          "normalizedEs": "Tras la Segunda Guerra Mundial, miles de objetos quedaron dispersos o destruidos y los edificios de Museumsinsel sufrieron daños graves.",
+          "sourceUrl": "https://www.smb.museum/en/museums-institutions/museumsinsel-berlin/about-us/profile/",
+          "sourceTitle": "Profile of the Museumsinsel Berlin — Staatliche Museen zu Berlin",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "eec8d49818b58d31297b27e6671ba8d73267ae1c15f9d926e781fe746e4b1de3"
+        },
+        {
+          "factId": "island-reunification",
+          "ownerCanonicalId": "Q151963",
+          "originalExcerpt": "collections ... were merged",
+          "originalLanguage": "en",
+          "normalizedEs": "Después de la reunificación alemana se fusionaron las colecciones del Berlín oriental y occidental y comenzó la renovación del conjunto; UNESCO lo reconoció en 1999.",
+          "sourceUrl": "https://www.smb.museum/en/museums-institutions/museumsinsel-berlin/about-us/profile/",
+          "sourceTitle": "Profile of the Museumsinsel Berlin — Staatliche Museen zu Berlin",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "2ec3a07c68f8ab07143f6f3339d33649c5e9c2f8a744690fdf7312c3383a3fa4"
+        }
+      ]
+    }
+  ]
+}

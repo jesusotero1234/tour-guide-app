@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "narrative-benchmark-case-v2",
+  "caseId": "paris-history-es",
+  "city": "París",
+  "theme": "history",
+  "language": "es-ES",
+  "promise": "Desde la isla medieval hasta el Palais-Royal, descubrir cómo espacios sagrados y reales pasaron a formar parte de la ciudad pública.",
+  "centralQuestion": "¿Cómo convirtió París símbolos del poder en lugares compartidos?",
+  "routeFingerprint": "d5728b6a7549f272411b71bc88f05cf70a703eeb60b0e9769f98e02e6119ab13",
+  "routeSceneIds": [
+    "notre-dame",
+    "louvre",
+    "palais-royal"
+  ],
+  "scenes": [
+    {
+      "sceneId": "notre-dame",
+      "name": "Notre-Dame de Paris",
+      "routePosition": 1,
+      "previousSceneId": null,
+      "nextSceneId": "louvre",
+      "contribution": "Una ciudad decide repetidamente cómo construir, conservar y reabrir su catedral.",
+      "allowedProperNouns": [
+        "París",
+        "Notre-Dame",
+        "Île de la Cité",
+        "Maurice de Sully",
+        "Victor Hugo",
+        "Revolución",
+        "Louvre"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "notre-dame-growth",
+          "ownerCanonicalId": "Q2981",
+          "originalExcerpt": "new and vast cathedral",
+          "originalLanguage": "en",
+          "normalizedEs": "El crecimiento de París y la llegada de fieles llevaron a Maurice de Sully a emprender en el siglo XII una catedral nueva y de mayor escala.",
+          "sourceUrl": "https://www.notredamedeparis.fr/en/understand/history/",
+          "sourceTitle": "The History of Notre-Dame — Notre-Dame de Paris",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "7590f5c3d108ffdd67e547c256b803f695ee16a81a99610c08b734d9d5204e5a"
+        },
+        {
+          "factId": "notre-dame-demolition-risk",
+          "ownerCanonicalId": "Q2981",
+          "originalExcerpt": "considered the complete demolition",
+          "originalLanguage": "en",
+          "normalizedEs": "Los daños acumulados y la Revolución dejaron Notre-Dame amenazada de ruina; las autoridades parisinas llegaron a considerar su demolición completa.",
+          "sourceUrl": "https://www.notredamedeparis.fr/en/understand/history/",
+          "sourceTitle": "The History of Notre-Dame — Notre-Dame de Paris",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "475a4e80b72848bf4bb74305f0ed544ccdd0c70118d99cb5e10addc853e21580"
+        },
+        {
+          "factId": "notre-dame-hugo",
+          "ownerCanonicalId": "Q2981",
+          "originalExcerpt": "sparked a national movement",
+          "originalLanguage": "en",
+          "normalizedEs": "El éxito de la novela de Victor Hugo en 1831 desencadenó una movilización nacional por conservar Notre-Dame y precedió la restauración estatal.",
+          "sourceUrl": "https://www.notredamedeparis.fr/en/understand/history/",
+          "sourceTitle": "The History of Notre-Dame — Notre-Dame de Paris",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "3588daac134c65333c68bcacd3b4f94042aec8e66bd69d09c9ebfe9fcda574c0"
+        },
+        {
+          "factId": "notre-dame-fire-reopening",
+          "ownerCanonicalId": "Q2981",
+          "originalExcerpt": "fire on April 15, 2019",
+          "originalLanguage": "en",
+          "normalizedEs": "El incendio del 15 de abril de 2019 destruyó la armadura medieval y la aguja; la restauración permitió reabrir Notre-Dame el 8 de diciembre de 2024.",
+          "sourceUrl": "https://www.notredamedeparis.fr/en/understand/history/",
+          "sourceTitle": "The History of Notre-Dame — Notre-Dame de Paris",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "ab61de0f69be33993e1d4f423218432824ccc70b5aa16ba36ade2748b158e240"
+        }
+      ]
+    },
+    {
+      "sceneId": "louvre",
+      "name": "Palais du Louvre",
+      "routePosition": 2,
+      "previousSceneId": "notre-dame",
+      "nextSceneId": "palais-royal",
+      "contribution": "Una fortaleza y residencia del poder termina convertida en museo abierto al público.",
+      "allowedProperNouns": [
+        "París",
+        "Louvre",
+        "Philippe Auguste",
+        "François I",
+        "Henri II",
+        "Revolución",
+        "Muséum central des Arts",
+        "Notre-Dame",
+        "Palais-Royal"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "louvre-fortress",
+          "ownerCanonicalId": "Q1075988",
+          "originalExcerpt": "Louvre castle came into existence",
+          "originalLanguage": "en",
+          "normalizedEs": "En 1190, durante el reinado de Philippe Auguste, nació el castillo del Louvre como arsenal rodeado de fortificaciones.",
+          "sourceUrl": "https://presse.louvre.fr/wp-content/uploads/2016/12/832675.pdf",
+          "sourceTitle": "The Palace and its Collections — Musée du Louvre",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "1f3716311362e2b97e9bc9ba1593a1d9590c703126f504a61169fcff18d6e85d"
+        },
+        {
+          "factId": "louvre-royal-residence",
+          "ownerCanonicalId": "Q1075988",
+          "originalExcerpt": "became a royal residence in 1364",
+          "originalLanguage": "en",
+          "normalizedEs": "Al quedar dentro de la ciudad, el Louvre perdió su función protectora y en 1364 comenzó su transformación en residencia real.",
+          "sourceUrl": "https://presse.louvre.fr/wp-content/uploads/2016/12/832675.pdf",
+          "sourceTitle": "The Palace and its Collections — Musée du Louvre",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "20e16f52e93464fd09942b64e64c45067ebc97d4a14cf075b17706e3a4671939"
+        },
+        {
+          "factId": "louvre-renaissance",
+          "ownerCanonicalId": "Q1075988",
+          "originalExcerpt": "Construction begins on the Renaissance Louvre",
+          "originalLanguage": "en",
+          "normalizedEs": "En 1546 empezó la construcción del Louvre renacentista impulsado por François I y continuado principalmente durante el reinado de Henri II.",
+          "sourceUrl": "https://presse.louvre.fr/wp-content/uploads/2016/12/832675.pdf",
+          "sourceTitle": "The Palace and its Collections — Musée du Louvre",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "eb39b509c8db5e599896bcbcfc4de26062face3dfb9a655c19bc10da54fc4fc8"
+        },
+        {
+          "factId": "louvre-public-museum",
+          "ownerCanonicalId": "Q1075988",
+          "originalExcerpt": "Museum Central des Arts opened",
+          "originalLanguage": "en",
+          "normalizedEs": "Un decreto de 1791 dedicó el Louvre a las artes y en 1793 abrió allí al público el Muséum central des Arts.",
+          "sourceUrl": "https://presse.louvre.fr/wp-content/uploads/2016/12/832675.pdf",
+          "sourceTitle": "The Palace and its Collections — Musée du Louvre",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "4639bc505df5dfc8ebe7db63f5552980fdae729c279f217b8a58312f14b4d936"
+        }
+      ]
+    },
+    {
+      "sceneId": "palais-royal",
+      "name": "Palais-Royal",
+      "routePosition": 3,
+      "previousSceneId": "louvre",
+      "nextSceneId": null,
+      "contribution": "Un recinto de poder privado incorpora comercio, conversación pública y agitación política.",
+      "allowedProperNouns": [
+        "París",
+        "Palais-Royal",
+        "Richelieu",
+        "Hôtel de Rambouillet",
+        "Louvre",
+        "Luis XIII",
+        "Louis-Philippe de Orléans",
+        "Luis XVI",
+        "Versalles",
+        "Camille Desmoulins",
+        "Bastilla",
+        "Revolución"
+      ],
+      "evidenceFacts": [
+        {
+          "factId": "palais-royal-richelieu",
+          "ownerCanonicalId": "Q329948",
+          "originalExcerpt": "En 1624, le cardinal de Richelieu",
+          "originalLanguage": "fr",
+          "normalizedEs": "Richelieu adquirió el Hôtel de Rambouillet en 1624 y lo transformó en una residencia suntuosa próxima al Louvre.",
+          "sourceUrl": "https://www.domaine-palais-royal.fr/en/decouvrir/histoire-du-domaine-national-du-palais-royal",
+          "sourceTitle": "Histoire du domaine national du Palais-Royal",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "3b1d182626933cc3fc69ac109fff7bb6173f3fbba4e45fe639e732b86285fc6b"
+        },
+        {
+          "factId": "palais-royal-arcades",
+          "ownerCanonicalId": "Q329948",
+          "originalExcerpt": "galeries autour du jardin",
+          "originalLanguage": "fr",
+          "normalizedEs": "Desde 1781 se levantaron edificios con locales alquilables y galerías alrededor del jardín, donde tiendas y cafés atrajeron vida pública.",
+          "sourceUrl": "https://www.domaine-palais-royal.fr/en/decouvrir/histoire-du-domaine-national-du-palais-royal",
+          "sourceTitle": "Histoire du domaine national du Palais-Royal",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "7fd3118ee5a7d4ce844fb2d120bc8ca2997c5d0e77cb163e8838eea7a607b518"
+        },
+        {
+          "factId": "palais-royal-anti-versailles",
+          "ownerCanonicalId": "Q329948",
+          "originalExcerpt": "un anti-Versailles",
+          "originalLanguage": "fr",
+          "normalizedEs": "La hostilidad de Louis-Philippe de Orléans hacia Luis XVI y la circulación de ideas convirtieron el Palais-Royal en foro político y anti-Versalles.",
+          "sourceUrl": "https://www.domaine-palais-royal.fr/en/decouvrir/histoire-du-domaine-national-du-palais-royal",
+          "sourceTitle": "Histoire du domaine national du Palais-Royal",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "45699bf07fefc4f3ee357b1d51f5efe9fc45abd681ce225cc222c7856f984e8f"
+        },
+        {
+          "factId": "palais-royal-desmoulins",
+          "ownerCanonicalId": "Q329948",
+          "originalExcerpt": "12 juillet 1789, Camille Desmoulins",
+          "originalLanguage": "fr",
+          "normalizedEs": "El 12 de julio de 1789 Camille Desmoulins exhortó allí a la multitud a tomar las armas; dos días después cayó la Bastilla.",
+          "sourceUrl": "https://www.domaine-palais-royal.fr/en/decouvrir/histoire-du-domaine-national-du-palais-royal",
+          "sourceTitle": "Histoire du domaine national du Palais-Royal",
+          "capturedAt": "2026-08-09T00:00:00.000Z",
+          "fingerprint": "800a30924731cfee5319897071175a1ce5f8e0aafef032594f6be6799966be86"
+        }
+      ]
+    }
+  ]
+}
