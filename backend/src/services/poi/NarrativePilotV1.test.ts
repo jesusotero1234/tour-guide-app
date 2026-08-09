@@ -1,71 +1,51 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import {
-  applyNarrativePilotReviewsV1,
-  blindNarrativeReviewPacketV1,
-  changedNarrativePilotComponentsV1,
-  createFrozenNarrativePilotArtifactV1,
-  evidenceNarrativeReviewPacketV1,
-  NarrativePilotArtifactV1,
-  NarrativePilotFreezeManifestV1,
-  NarrativePilotHumanReviewV1,
   NarrativeScriptRequestV1,
-  narrativePilotFingerprintsV1,
-  replayNarrativePilotArtifactV1,
+  NarrativeScriptResponseV1,
+  narrativeContentFingerprintsV1,
+  narrativeScriptResponseSchemaV1,
   validateNarrativeScriptRequestV1,
+  validateNarrativeScriptResponseV1,
   validateNarrativeScriptsV1,
 } from './NarrativePilotV1';
 import { buildParisNarrativeScriptRequestV1 } from './ParisNarrativePilotV1';
 import { EditorialWorkbenchV7 } from './EditorialWorkbenchV7';
 
-const ROUTE_FIXTURE = join(
-  __dirname, '..', '..', '..', 'fixtures', 'editorial-v7', 'paris-history-en-120.json'
-);
-const PILOT_FIXTURE = join(
-  __dirname, '..', '..', '..', 'fixtures', 'narrative-pilot-v1', 'paris-premium-es.response.json'
-);
+const FIXTURES = join(__dirname, '..', '..', '..', 'fixtures');
 
-function routeFixture(): EditorialWorkbenchV7 {
-  return JSON.parse(readFileSync(ROUTE_FIXTURE, 'utf8')) as EditorialWorkbenchV7;
+function load<T>(...parts: string[]): T {
+  return JSON.parse(readFileSync(join(FIXTURES, ...parts), 'utf8')) as T;
 }
 
-function pilotFixture(): NarrativePilotArtifactV1 {
-  const manifest = JSON.parse(readFileSync(
-    join(__dirname, '..', '..', '..', 'fixtures', 'narrative-pilot-v1', 'paris-premium-es.manifest.json'),
-    'utf8'
-  )) as NarrativePilotFreezeManifestV1;
-  return createFrozenNarrativePilotArtifactV1(
-    buildParisNarrativeScriptRequestV1(routeFixture()),
-    JSON.parse(readFileSync(PILOT_FIXTURE, 'utf8')),
-    manifest
+function fixture() {
+  const route = load<EditorialWorkbenchV7>('editorial-v7', 'paris-history-en-120.json');
+  const response = load<NarrativeScriptResponseV1>(
+    'narrative-pilot-v1', 'paris-premium-es.response.json'
   );
+  return { route, response, request: buildParisNarrativeScriptRequestV1(route) };
 }
 
-function review(reviewerId: string, wouldPay = true): NarrativePilotHumanReviewV1 {
-  return {
-    reviewerId,
-    blind: {
-      wouldPay,
-      scores: {
-        curiosity: 4,
-        humanTension: 4,
-        lookingUtility: 4,
-        naturalness: 4,
-        progression: 4,
-      },
-      sceneScores: [
-        { sceneId: 'notre-dame', score: 4 },
-        { sceneId: 'louvre', score: 4 },
-        { sceneId: 'palais-royal', score: 4 },
-      ],
-    },
-    evidenceCheck: { factualErrors: [], misleadingOmissions: [], notes: 'Sin incidencias.' },
-  };
-}
+describe('Paris grounded narrative contracts v1', () => {
+  it('uses a DeepSeek strict-compatible schema node at every level', () => {
+    function assertSchemaNode(raw: unknown): void {
+      const node = raw as Record<string, unknown>;
+      expect(node.type !== undefined || node.anyOf !== undefined || node.$ref !== undefined).toBe(true);
+      if (node.properties) {
+        Object.values(node.properties as Record<string, unknown>).forEach(assertSchemaNode);
+      }
+      if (node.items) assertSchemaNode(node.items);
+      if (Array.isArray(node.anyOf)) node.anyOf.forEach(assertSchemaNode);
+    }
 
-describe('Paris premium narrative pilot v1', () => {
+    const schema = narrativeScriptResponseSchemaV1();
+    assertSchemaNode(schema);
+    expect(JSON.stringify(schema)).toContain('"pattern":"^.{255,280}$"');
+    expect(JSON.stringify(schema)).toContain('"pattern":"^.{130,160}$"');
+  });
+
   it('locks the three requested scenes to their real v7 positions and neighbours', () => {
-    const request = buildParisNarrativeScriptRequestV1(routeFixture());
+    const { route, request } = fixture();
 
     expect(request).toMatchObject({
       language: 'es-ES',
@@ -78,156 +58,114 @@ describe('Paris premium narrative pilot v1', () => {
       ],
     });
     expect(request.scenes.every((scene) => scene.evidenceFacts.length === 4)).toBe(true);
-    expect(request.routeFingerprint).toBe(routeFixture().snapshot.fingerprints.route);
+    expect(request.routeFingerprint).toBe(route.snapshot.fingerprints.route);
 
-    const unsupportedLanguage = {
-      ...request, language: 'fr-FR',
-    } as unknown as NarrativeScriptRequestV1;
+    const unsupportedLanguage = { ...request, language: 'fr-FR' } as unknown as NarrativeScriptRequestV1;
     expect(() => validateNarrativeScriptRequestV1(unsupportedLanguage))
       .toThrow('invalid narrative script request metadata');
   });
 
-  it('replays exactly three grounded Spanish scripts of 220 to 260 words', () => {
-    const artifact = pilotFixture();
-    const request = buildParisNarrativeScriptRequestV1(routeFixture());
+  it('validates exactly three grounded Spanish scripts of 220 to 260 words', () => {
+    const { request, response } = fixture();
 
-    const scripts = validateNarrativeScriptsV1(artifact.scripts, request);
+    const scripts = validateNarrativeScriptResponseV1(response, request);
     expect(scripts.map((script) => script.sceneId)).toEqual([
       'notre-dame', 'louvre', 'palais-royal',
     ]);
-    expect(scripts.map((script) => script.wordCount)).toEqual(
-      expect.arrayContaining([expect.any(Number)])
-    );
     expect(scripts.every((script) => script.wordCount >= 220 && script.wordCount <= 260)).toBe(true);
-    expect(replayNarrativePilotArtifactV1(artifact, request)).toEqual(artifact);
   });
 
-  it('rejects route mutations, invented evidence, dates, and proper names', () => {
-    const artifact = pilotFixture();
-    const request = buildParisNarrativeScriptRequestV1(routeFixture());
+  it('rejects route mutations, invented evidence, dates, proper names, and events', () => {
+    const { request, response } = fixture();
+    const scripts = response.scripts;
 
-    const reordered = structuredClone(artifact.scripts);
+    const reordered = structuredClone(scripts);
     [reordered[0], reordered[1]] = [reordered[1], reordered[0]];
     expect(() => validateNarrativeScriptsV1(reordered, request)).toThrow('scene order');
-    expect(() => validateNarrativeScriptsV1(artifact.scripts.slice(0, 2), request))
-      .toThrow('scene count');
-    expect(() => validateNarrativeScriptsV1([...artifact.scripts, artifact.scripts[0]], request))
-      .toThrow('scene count');
+    expect(() => validateNarrativeScriptsV1(scripts.slice(0, 2), request)).toThrow('scene count');
 
-    const inventedEvidence = structuredClone(artifact.scripts);
+    const inventedEvidence = structuredClone(scripts);
     inventedEvidence[0].blocks[0].evidenceFactIds = ['invented-fact'];
     expect(() => validateNarrativeScriptsV1(inventedEvidence, request)).toThrow('invented evidence');
 
-    const inventedDate = structuredClone(artifact.scripts);
+    const inventedDate = structuredClone(scripts);
     inventedDate[1].blocks[0].text = inventedDate[1].blocks[0].text.replace('1190', '1889');
     expect(() => validateNarrativeScriptsV1(inventedDate, request)).toThrow('unsupported date');
 
-    const inventedPerson = structuredClone(artifact.scripts);
+    const inventedPerson = structuredClone(scripts);
     inventedPerson[1].blocks[0].text = inventedPerson[1].blocks[0].text
       .replace('Philippe Auguste', 'general Napoleón');
     expect(() => validateNarrativeScriptsV1(inventedPerson, request)).toThrow('unsupported proper name');
 
-    const inventedEvent = structuredClone(artifact.scripts);
+    const inventedEvent = structuredClone(scripts);
     inventedEvent[1].blocks[0].text = inventedEvent[1].blocks[0].text
       .replace('fortaleza', 'coronación');
-    expect(() => validateNarrativeScriptsV1(inventedEvent, request)).toThrow('unsupported event');
+    expect(() => validateNarrativeScriptsV1(inventedEvent, request))
+      .toThrow('unsupported event coronación');
 
-    const english = structuredClone(artifact.scripts);
+    const english = structuredClone(scripts);
     english[0].blocks[0].text = english[0].blocks[0].text.replace(' la ', ' the ');
     expect(() => validateNarrativeScriptsV1(english, request)).toThrow('not Spanish');
   });
 
   it('rejects wrong transitions, equivalent openings, repeated phrases, and filler facts', () => {
-    const artifact = pilotFixture();
-    const request = buildParisNarrativeScriptRequestV1(routeFixture());
+    const { request, response } = fixture();
+    const scripts = response.scripts;
 
-    const wrongTransition = structuredClone(artifact.scripts);
+    const wrongTransition = structuredClone(scripts);
     wrongTransition[0].transition.targetSceneId = 'louvre';
     expect(() => validateNarrativeScriptsV1(wrongTransition, request)).toThrow('transition');
 
-    const sameOpening = structuredClone(artifact.scripts);
+    const sameOpening = structuredClone(scripts);
     sameOpening[1].openingType = sameOpening[0].openingType;
     expect(() => validateNarrativeScriptsV1(sameOpening, request)).toThrow('opening');
 
-    const repeatedPhrase = structuredClone(artifact.scripts);
+    const repeatedPhrase = structuredClone(scripts);
     repeatedPhrase[1].blocks[0].text = `${repeatedPhrase[0].blocks[0].text} ${repeatedPhrase[1].blocks[0].text}`;
     expect(() => validateNarrativeScriptsV1(repeatedPhrase, request)).toThrow('repeated phrase');
 
-    const filler = structuredClone(artifact.scripts);
+    const filler = structuredClone(scripts);
     const repeatedFactId = filler[0].blocks[0].evidenceFactIds[0];
     filler[0].blocks.forEach((block) => { block.evidenceFactIds = [repeatedFactId]; });
     expect(() => validateNarrativeScriptsV1(filler, request)).toThrow('filler');
 
-    const noLook = structuredClone(artifact.scripts);
+    const noLook = structuredClone(scripts);
     noLook[1].blocks[1].text = noLook[1].blocks[1].text.replace('Observa', 'Piensa');
     expect(() => validateNarrativeScriptsV1(noLook, request)).toThrow('visual instruction');
+
+    const wrongReportedCount = structuredClone(scripts);
+    wrongReportedCount[0].wordCount -= 1;
+    expect(validateNarrativeScriptsV1(wrongReportedCount, request)[0].wordCount)
+      .toBe(scripts[0].wordCount);
+
+    const tooLong = structuredClone(scripts);
+    tooLong[0].blocks[4].text += ` ${'detalle '.repeat(50)}`;
+    tooLong[0].wordCount += 50;
+    expect(() => validateNarrativeScriptsV1(tooLong, request)).toThrow('actual words');
   });
 
-  it('invalidates only the changed route, evidence, prompt, model, or text layer', () => {
-    const artifact = pilotFixture();
-    const request = buildParisNarrativeScriptRequestV1(routeFixture());
-    const unchanged = narrativePilotFingerprintsV1(
-      request, artifact.scripts, artifact.fingerprints.prompt, artifact.fingerprints.model
-    );
-    expect(changedNarrativePilotComponentsV1(artifact.fingerprints, unchanged)).toEqual([]);
+  it('fingerprints route, evidence, and text independently', () => {
+    const { request, response } = fixture();
+    const saved = narrativeContentFingerprintsV1(request, response.scripts);
 
     const changedRoute = structuredClone(request);
     changedRoute.routeFingerprint = 'changed-route';
-    expect(changedNarrativePilotComponentsV1(
-      artifact.fingerprints,
-      narrativePilotFingerprintsV1(
-        changedRoute, artifact.scripts, artifact.fingerprints.prompt, artifact.fingerprints.model
-      )
-    )).toEqual(['route']);
+    expect(narrativeContentFingerprintsV1(changedRoute, response.scripts)).toEqual({
+      ...saved, route: 'changed-route',
+    });
 
     const changedEvidence = structuredClone(request);
     changedEvidence.scenes[0].evidenceFacts[0].excerpt += ' Cambio.';
-    changedEvidence.scenes[0].evidenceFacts[0].fingerprint = 'changed-evidence';
-    expect(changedNarrativePilotComponentsV1(
-      artifact.fingerprints,
-      narrativePilotFingerprintsV1(
-        changedEvidence, artifact.scripts, artifact.fingerprints.prompt, artifact.fingerprints.model
-      )
-    )).toEqual(['evidence']);
+    const evidenceFingerprint = narrativeContentFingerprintsV1(changedEvidence, response.scripts);
+    expect(evidenceFingerprint.route).toBe(saved.route);
+    expect(evidenceFingerprint.evidence).not.toBe(saved.evidence);
+    expect(evidenceFingerprint.text).toBe(saved.text);
 
-    expect(changedNarrativePilotComponentsV1(artifact.fingerprints, {
-      ...artifact.fingerprints, prompt: 'changed-prompt',
-    })).toEqual(['prompt']);
-    expect(changedNarrativePilotComponentsV1(artifact.fingerprints, {
-      ...artifact.fingerprints, model: 'changed-model',
-    })).toEqual(['model']);
-    expect(changedNarrativePilotComponentsV1(artifact.fingerprints, {
-      ...artifact.fingerprints, text: 'changed-text',
-    })).toEqual(['text']);
-  });
-
-  it('separates blind text review from the later evidence check', () => {
-    const artifact = pilotFixture();
-    const blind = blindNarrativeReviewPacketV1(artifact);
-    const evidence = evidenceNarrativeReviewPacketV1(artifact);
-
-    expect(JSON.stringify(blind)).not.toMatch(/source|model|prompt|fingerprint|evidence/i);
-    expect(blind.scripts).toHaveLength(3);
-    expect(evidence.scenes.every((scene) => scene.evidenceFacts.length === 4)).toBe(true);
-  });
-
-  it('approves only a passing three-reviewer gate and otherwise names one revision layer', () => {
-    const artifact = pilotFixture();
-    const approved = applyNarrativePilotReviewsV1(
-      artifact, [review('reviewer-a'), review('reviewer-b'), review('reviewer-c')]
-    );
-    expect(approved).toMatchObject({ status: 'approved', nextRevisionLayer: null });
-
-    const failedReviews = [review('reviewer-a', false), review('reviewer-b', false), review('reviewer-c')];
-    expect(() => applyNarrativePilotReviewsV1(artifact, failedReviews)).toThrow('revision layer');
-    const failed = applyNarrativePilotReviewsV1(artifact, failedReviews, 'style');
-    expect(failed).toMatchObject({ status: 'review_required', nextRevisionLayer: 'style' });
-
-    const criticalReviews = [review('reviewer-a'), review('reviewer-b'), review('reviewer-c')];
-    criticalReviews[0].evidenceCheck.factualErrors.push({
-      sceneId: 'louvre', severity: 'critical', detail: 'Fecha incompatible con la fuente.',
-    });
-    const critical = applyNarrativePilotReviewsV1(artifact, criticalReviews, 'evidence');
-    expect(critical).toMatchObject({ status: 'review_required', nextRevisionLayer: 'evidence' });
+    const changedText = structuredClone(response.scripts);
+    changedText[0].blocks[0].text += ' Cambio.';
+    const textFingerprint = narrativeContentFingerprintsV1(request, changedText);
+    expect(textFingerprint.route).toBe(saved.route);
+    expect(textFingerprint.evidence).toBe(saved.evidence);
+    expect(textFingerprint.text).not.toBe(saved.text);
   });
 });

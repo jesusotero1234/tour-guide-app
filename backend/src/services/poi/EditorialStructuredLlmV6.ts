@@ -41,6 +41,8 @@ export interface EditorialRequestOptionsV6 {
   deepseekBaseUrl?: string;
   oneProviderBaseUrl?: string;
   maxTokens?: number;
+  deepseekStrictTools?: boolean;
+  ollamaContextTokens?: number;
   post?: EditorialPostV6;
 }
 
@@ -153,7 +155,8 @@ export async function requestEditorialStructuredV6<T>(config: {
           format: config.schema,
           options: {
             temperature: 0, seed: 42,
-            num_predict: options.maxTokens ?? 8_000, num_ctx: 65_536,
+            num_predict: options.maxTokens ?? 8_000,
+            num_ctx: options.ollamaContextTokens ?? 65_536,
           },
         }, { 'Content-Type': 'application/json' });
       } else if (config.provider.kind === 'deepseek') {
@@ -165,7 +168,7 @@ export async function requestEditorialStructuredV6<T>(config: {
           tools: [{ type: 'function', function: {
             name: config.toolName,
             description: config.toolDescription,
-            strict: false,
+            strict: options.deepseekStrictTools ?? false,
             parameters: config.schema,
           } }],
           tool_choice: { type: 'function', function: { name: config.toolName } },
