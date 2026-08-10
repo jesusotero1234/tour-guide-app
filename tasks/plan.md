@@ -1,62 +1,121 @@
-# Implementation Plan: Autonomous narrative v2
+# Implementation Plan: Madrid autonomous narrative pilot v4
 
-## Overview
+## Goal
 
-Prove Spanish historical-tour narrative generalization across Paris, Madrid, and Berlin before freezing any content. Keep the v1 replay unchanged and add a fail-closed v2 pipeline with grounded claim plans, local verdict calculation, reproducible fingerprints, and a closed benchmark.
+Produce one autonomous, Spanish, seven-stop Madrid history tour from the existing
+editorial V7 route. The result is safe to test only when its official evidence,
+deterministic claim plan, prose, critic reports, mutation qualification, replay
+fingerprints, public preview, and prepared pilot manifest all validate together.
 
-## Architecture decisions
+The CLI may create `machine_approved`, `review`, and `prepared` outputs. It must
+never publish a tour, imply demand, or overwrite outputs after a failed run.
 
-- Preserve `NarrativeScriptRequestV1`, evidence facts, final scene scripts, and every v1 module/fixture.
-- Load versioned city snapshots through one generic case contract; the engine contains no city names or branches.
-- Generate and ground an atomic claim plan before generating prose. Code, not either model, owns canonical IDs, evidence assignment, transitions, and word counts.
-- Treat malformed transport/protocol responses separately from one allowed content repair per plan/prose stage.
-- Calculate both critic verdicts locally from validated findings and scores.
-- Stage both freeze outputs first and publish neither unless the closed benchmark passes.
+## Locked product
 
-## Task list
+- Route: Palacio Real, Catedral de la Almudena, Plaza de la Villa, Plaza Mayor,
+  Puerta del Sol, Cibeles, Puerta de Alcalá.
+- Copy: `Madrid: de villa a capital`, fixed subtitle, label, promise, and question.
+- Experience: text plus map, seven scenes, about 60 minutes, no audio, checkout,
+  forms, telemetry, persistence, participants, or demand claims.
+- Page: `/pilot/madrid-history`, disabled by default and returning 404 unless
+  `ENABLE_NARRATIVE_PILOT=true`.
+- V1, V2, V3, and the multicity V3 benchmark remain unchanged.
 
-### Phase 1: Contracts and cases
+## Architecture
 
-- [x] Define raw/canonical claim-plan contracts, dynamic evidence validation, and strict-compatible schemas.
-- [x] Define generic source snapshots and load Paris, Madrid, Berlin, plus a synthetic unknown city.
+1. Official offline evidence
+   - A generic `NarrativeEvidenceCaseV4` contains seven ordered scenes and exactly
+     four explicitly typed atomic facts per scene.
+   - Only observable facts can have an on-site cue. Source excerpts, revisions,
+     capture dates, URLs, and all fingerprints are frozen before generation.
+   - Editorial contributions, the central question, and closing interpretations
+     remain separate from factual evidence.
 
-### Checkpoint: Grounded plan boundary
+2. Deterministic factual boundary
+   - Code maps `tension_or_contrast`, `observable`, `human_agency`, and
+     `historical_change` into the five fixed block kinds.
+   - Code owns IDs, evidence, relations, transitions, destinations, counts,
+     durations, opening types, proper nouns, numbers, and allowed events.
+   - DeepSeek receives the plan but returns only the introduction and prose.
 
-- [x] Every fact is used, no cross-scene reference is possible, and block/evidence limits are runtime-enforced.
-- [x] Fact order and unknown city IDs do not affect the engine.
+3. Closed autonomous flow
+   - Gemma grounds the deterministic plan.
+   - DeepSeek writes one of three fixed tone variants with strict tool output,
+     temperature zero, no thinking, and one whole-route content repair.
+   - Deterministic validation runs before the final Gemma critique.
+   - Protocol retry is independent from content repair and every error fails
+     closed without retaining approved text.
 
-### Phase 2: Critics and orchestration
+4. Madrid-only qualification
+   - Prepare pinned GPU-only Gemma once, run all three variants sequentially,
+     select by minimum scene score, aggregate score, then fixed variant order.
+   - Re-criticize the winner and reject four valid factual mutations.
+   - Freeze only a fully passed qualification, staging every file before atomic
+     rename and cross-linking outputs with mutual fingerprints.
 
-- [x] Define grounding/final critic requests and finding-only reports with local gates.
-- [x] Implement plan generation, grounding, prose generation, final criticism, repairs, protocol retries, and fail-closed artifacts.
-- [x] Fingerprint route, evidence/provenance, plan, text, four prompts, models/digest, parameters, policies, and two reports.
+5. Public pilot preview
+   - Serialize the selected narrative as seven standard `Place` values with
+     exact V7 coordinates, five description sections, and verified narration
+     metadata.
+   - A Server Component validates the frozen fixture; a focused Client Component
+     owns `?stop=N`, focus movement, announcements, and native navigation buttons.
+   - Reuse `TourMap` and provide an equivalent textual stop list.
 
-### Checkpoint: Autonomous v2 flow
+## Incremental execution and verification
 
-- [x] Direct approval, both repair paths, protocol retry, second failure, and Gemma outage are covered.
-- [x] V2 has only `machine_approved | rejected`; no human-review state exists.
+### Phase 0: baseline
 
-### Phase 3: Closed benchmark and freeze
+- [x] Confirm HEAD `713fb31` and a clean worktree.
+- [x] Run the existing backend suite/build and frontend typecheck/build.
+- [x] Record only the two preexisting failures: `LandmarkTiering.test.ts` ordering
+  and `tours.test.ts` missing expected `signals`.
 
-- [x] Run three candidates per city sequentially and score the 8/9 plus 2/3-per-city gates.
-- [x] Require valid factual rejection of four mutations per city and fully-GPU sub-180-second critiques.
-- [ ] Freeze benchmark and lowest-index approved Paris candidate only after all gates pass.
+### Phase 1: evidence and deterministic plan
 
-### Checkpoint: Delivery
+- [ ] Write failing tests for route order, four roles, visual cues, provenance,
+  fingerprints, fact permutation, one-time assignment, model-free metadata, and
+  a synthetic unknown-city case.
+- [ ] Implement the generic contracts, offline Madrid fixture, validator, and
+  deterministic plan builder.
+- [ ] Verify focused tests and backend TypeScript.
 
-- [ ] Existing 26 v1 tests, all v2 tests, three v7 replays, Paris v1 replay, and TypeScript pass (Paris v1 has no frozen artifact).
-- [x] Diff and secret scan are clean.
-- [ ] Create the additive refactor commit; create the content commit only after a live passing benchmark.
+### Phase 2: prose, critics, and lifecycle
 
-## Risks and mitigations
+- [ ] Write failing tests for direct approval, grounding rejection, one prose
+  repair, protocol retry, second content failure, deterministic prose validation,
+  Gemma warm-up/digest/GPU checks, eviction recovery, and fail-closed output.
+- [ ] Implement the strict V4 writer, critic contracts, Gemma lifecycle manager,
+  and `AutonomousNarrativeV4` orchestration.
+- [ ] Verify focused tests and backend TypeScript.
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| Strict schemas reject unsupported keywords | High | Restrict DeepSeek schemas to documented types and validate cardinality/references at runtime. |
-| Model verdict contradicts findings | High | Do not request a verdict; compute gates locally. |
-| City-specific prompt tuning leaks into engine | High | Generic case loader plus synthetic unknown-city tests and no city literals in engine modules. |
-| Partial/failed benchmark overwrites approved content | High | Stage outputs only after pass and atomically rename both prepared files. |
+### Phase 3: qualification and freeze
 
-## Closed qualification
+- [ ] Write failing tests for 1/3 and 0/3 gates, exact tie-breaks, four mutations,
+  invalid mutation reports, non-empty metrics, atomic output, and replay tampering.
+- [ ] Implement fingerprints, Madrid qualification, mutations, replay, CLI,
+  selected artifact, public preview, and prepared manifest.
+- [ ] Verify offline replay and failure atomicity.
 
-- The 2026-08-10 live batch failed at 0/9 approvals. No benchmark or content fixture was written, prompts were not adjusted, and a future iteration requires an unused holdout.
+### Phase 4: pilot experience
+
+- [ ] Write tests for preview validation, seven exact places, duration, feature
+  gating, URL navigation, and invalid/missing fixtures.
+- [ ] Implement the responsive accessible page and reuse `TourMap`.
+- [ ] Verify keyboard, focus, live announcements, textual map equivalent, console,
+  and 320/768/1024/1440 layouts in a real browser.
+
+### Phase 5: release checks
+
+- [ ] Run backend full suite/build plus route V7 and narrative V2/V3/V4 replays.
+- [ ] Run frontend typecheck/build and browser checks.
+- [ ] Review the diff across correctness, simplicity, architecture, security, and
+  performance; scan for secrets and public prompt/raw-output leakage.
+- [ ] Create additive code/UI commits. Create the content commit only if one live
+  external qualification passes and freezes in that same execution.
+
+## Live-run rule
+
+The external batch is attempted once only after all offline and browser gates pass,
+`DEEPSEEK_API_KEY` exists, and the configured Ollama host exposes the exact pinned
+Gemma digest fully in VRAM. A failed batch remains diagnostic evidence; its text is
+never manually edited or frozen.

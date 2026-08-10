@@ -1,0 +1,669 @@
+{
+  "expectedFingerprint": "8c51e1904d3851f2e1dcc2d6bdc8fa80283c1442ba68acf733bb6fd28f6c1968",
+  "evidence": {
+    "schemaVersion": "narrative-evidence-v4",
+    "caseId": "madrid-history-es-v4",
+    "city": "Madrid",
+    "theme": "history",
+    "language": "es-ES",
+    "title": "Madrid: de villa a capital",
+    "subtitle": "Del Palacio Real a la Puerta de Alcalá",
+    "experienceLabel": "Ruta histórica · 7 paradas · 60 min",
+    "promise": "Camina desde el borde real de Madrid hasta la expansión borbónica y descubre cómo una villa medieval se convirtió en capital.",
+    "centralQuestion": "¿Cómo transformaron las instituciones y los espacios públicos de Madrid una villa medieval en una capital moderna?",
+    "route": {
+      "sourceFixture": "fixtures/editorial-v7/madrid-history-es-120.json",
+      "sourceFingerprint": "e0ac27a7911304b462c2b03c74a63a374a6cec8832bd3b701aa27c4d189c3021",
+      "sceneIds": ["palace", "almudena", "villa", "mayor", "sol", "cibeles", "alcala"],
+      "walkingMeters": 3067.6,
+      "walkingSeconds": 2473.9,
+      "recommendedDurationMinutes": 60
+    },
+    "scenes": [
+      {
+        "sceneId": "palace",
+        "name": "Palacio Real",
+        "ownerCanonicalId": "Q171517",
+        "routePosition": 0,
+        "previousSceneId": null,
+        "nextSceneId": "almudena",
+        "observationPoint": { "lat": 40.417828, "lng": -3.714361 },
+        "contribution": "The stop opens the route with the shift from fortified settlement to the seat of monarchical power.",
+        "closingInterpretation": {
+          "textEs": "El palacio abre la ruta mostrando cómo un solar fortificado se convirtió en una arquitectura estable para representar y ejercer el poder real.",
+          "basisFactIds": ["palace-observable", "palace-change", "palace-agency", "palace-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "palace-observable",
+            "ownerCanonicalId": "Q171517",
+            "role": "observable",
+            "atomicTextEs": "El Palacio Real tiene planta cuadrada alrededor de un patio central y ocho niveles, seis de ellos visibles desde la calle Bailén.",
+            "originalExcerpt": "Se planteó una estructura de planta cuadrada articulada en torno a un gran patio central. Se trata de un edificio de ocho niveles, seis en la calle Bailén.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Observa la fachada sobre Bailén y compara sus niveles con la masa cuadrada del palacio." },
+            "source": {
+              "sourceId": "madrid-palacio-real",
+              "title": "Palacio Real de Madrid",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Palacio-Real-de-Madrid/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2008f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "palace-change",
+            "ownerCanonicalId": "Q171517",
+            "role": "historical_change",
+            "atomicTextEs": "El palacio actual ocupa el solar del antiguo Alcázar de Madrid, destruido por un incendio en la Nochebuena de 1734.",
+            "originalExcerpt": "El Palacio Real data del siglo XVIII pero se asienta sobre el solar del antiguo Alcázar de Madrid. El Alcázar fue destruido por un incendio en la Nochebuena de 1734.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "patrimonio-nacional-palacio-real",
+              "title": "Palacio Real de Madrid",
+              "url": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          },
+          {
+            "factId": "palace-agency",
+            "ownerCanonicalId": "Q171517",
+            "role": "human_agency",
+            "atomicTextEs": "Felipe V llamó a Filippo Juvarra para proyectar el palacio y Giambattista Sacchetti adaptó el proyecto tras la muerte del arquitecto.",
+            "originalExcerpt": "Felipe V llamó al arquitecto Filippo Juvarra, quien no pudo ver su obra terminada. Su discípulo Giambattista Sacchetti realizó una adaptación de su ambicioso proyecto.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "patrimonio-nacional-palacio-real",
+              "title": "Palacio Real de Madrid",
+              "url": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          },
+          {
+            "factId": "palace-contrast",
+            "ownerCanonicalId": "Q171517",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "El Palacio Real continúa siendo la residencia oficial del Rey, aunque se abre al público y se utiliza habitualmente para actos oficiales.",
+            "originalExcerpt": "Continúa siendo la residencia oficial del Rey de España y es una de las pocas residencias oficiales de Jefes de Estado abierta al público. Se utiliza para actos oficiales.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "patrimonio-nacional-palacio-real",
+              "title": "Palacio Real de Madrid",
+              "url": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "almudena",
+        "name": "Catedral de la Almudena",
+        "ownerCanonicalId": "Q849711",
+        "routePosition": 1,
+        "previousSceneId": "palace",
+        "nextSceneId": "villa",
+        "observationPoint": { "lat": 40.4157109, "lng": -3.714495 },
+        "contribution": "Its unusually recent completion complicates the expectation that a European capital must have an ancient cathedral.",
+        "closingInterpretation": {
+          "textEs": "La catedral revela una capital que tuvo que negociar durante más de un siglo entre una ambición medievalizante y una imagen urbana deliberadamente clásica.",
+          "basisFactIds": ["almudena-observable", "almudena-change", "almudena-agency", "almudena-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "almudena-observable",
+            "ownerCanonicalId": "Q849711",
+            "role": "observable",
+            "atomicTextEs": "La fachada de la Almudena adopta un lenguaje clasicista para armonizar visualmente con el vecino Palacio Real situado al otro lado.",
+            "originalExcerpt": "Fue finalizada con una arquitectura clasicista buscando que armonizase con el vecino Palacio Real.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Mira la fachada principal y compárala con la composición clásica del Palacio Real enfrente." },
+            "source": {
+              "sourceId": "almudena-historia",
+              "title": "Historia de la Catedral",
+              "url": "https://catedraldelaalmudena.es/historia-de-la-catedral/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          },
+          {
+            "factId": "almudena-change",
+            "ownerCanonicalId": "Q849711",
+            "role": "historical_change",
+            "atomicTextEs": "El primer proyecto concibió un gran templo neogótico, pero el diseño posterior propuso terminar la catedral con un aspecto más clásico.",
+            "originalExcerpt": "El primer proyecto consistía en un gran templo de estilo neogótico. Chueca Goitia y Sidro de la Puerta propusieron finalizar la Catedral como un edificio de corte más clásico.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "almudena-historia",
+              "title": "Historia de la Catedral",
+              "url": "https://catedraldelaalmudena.es/historia-de-la-catedral/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          },
+          {
+            "factId": "almudena-agency",
+            "ownerCanonicalId": "Q849711",
+            "role": "human_agency",
+            "atomicTextEs": "Francisco de Cubas trazó el proyecto inicial y Fernando Chueca Goitia junto con Carlos Sidro presentaron después el diseño clásico elegido.",
+            "originalExcerpt": "Francisco de Cubas González-Montes fue el elegido para el primer proyecto. Fernando Chueca Goitia y Carlos Sidro de la Puerta presentaron el nuevo proyecto que resultó elegido.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "almudena-historia",
+              "title": "Historia de la Catedral",
+              "url": "https://catedraldelaalmudena.es/historia-de-la-catedral/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          },
+          {
+            "factId": "almudena-contrast",
+            "ownerCanonicalId": "Q849711",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "Las interrupciones políticas y la escasez de fondos prolongaron las obras hasta la consagración de la catedral el 15 de junio de 1993.",
+            "originalExcerpt": "La Guerra Civil hizo que se paralizaran las obras y el proyecto elegido contaba con escasos fondos. Finalmente, el 15 de junio de 1993, san Juan Pablo II consagró la Catedral.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology", "causality"],
+            "allowsCausality": true,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "almudena-historia",
+              "title": "Historia de la Catedral",
+              "url": "https://catedraldelaalmudena.es/historia-de-la-catedral/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "villa",
+        "name": "Plaza de la Villa",
+        "ownerCanonicalId": "Q2711992",
+        "routePosition": 2,
+        "previousSceneId": "almudena",
+        "nextSceneId": "mayor",
+        "observationPoint": { "lat": 40.4152086, "lng": -3.710424 },
+        "contribution": "This compact civil ensemble carries both the medieval-town chapter and the emergence of urban government.",
+        "closingInterpretation": {
+          "textEs": "La plaza concentra el paso desde la trama medieval y las residencias nobiliarias hasta una sede estable para el gobierno municipal.",
+          "basisFactIds": ["villa-observable", "villa-change", "villa-agency", "villa-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "villa-observable",
+            "ownerCanonicalId": "Q2711992",
+            "role": "observable",
+            "atomicTextEs": "La Torre de los Lujanes combina piedra y ladrillo y conserva una portada gótica junto con un arco de herradura en la calle del Codo.",
+            "originalExcerpt": "La torre presenta aparejo mixto de piedra y ladrillo. Destacan la portada principal con ornamentación gótica y la portada de la calle del Codo con arco de herradura.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Busca la torre y distingue el aparejo de piedra y ladrillo, la portada gótica y el acceso de la calle del Codo." },
+            "source": {
+              "sourceId": "madrid-casa-lujanes",
+              "title": "Casa de los Lujanes",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Casa-de-los-Lujanes/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "6f08f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "villa-change",
+            "ownerCanonicalId": "Q2711992",
+            "role": "historical_change",
+            "atomicTextEs": "La Plaza de la Villa pertenece al trazado medieval de Madrid y de ella parten las calles del Codo, del Cordón y de Madrid.",
+            "originalExcerpt": "Se trata de un espacio correspondiente al primitivo trazado medieval de la ciudad, del que salen tres pequeñas calles: la del Codo, la del Cordón y la de Madrid.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-plaza-villa-auditoria",
+              "title": "Madrid en el ámbito de la cerca de Felipe II: Plaza de la Villa",
+              "url": "https://patrimonioypaisaje.madrid.es/FWProjects/monumenta/contenidos/Ficheros/AUDITORIA-DE-ILUMINACI%C3%93N-EN-LA-CERCA-DE-FELIPE-II.pdf",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "plaza-villa-page-138"
+            }
+          },
+          {
+            "factId": "villa-agency",
+            "ownerCanonicalId": "Q2711992",
+            "role": "human_agency",
+            "atomicTextEs": "El Concejo levantó la Casa de la Villa como sede municipal y el edificio acogió durante siglos el Ayuntamiento de Madrid.",
+            "originalExcerpt": "La Casa de la Villa, antigua sede del Ayuntamiento de Madrid, fue construida en 1644 y se encuentra en la plaza del mismo nombre.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-casa-villa",
+              "title": "La Casa de la Villa",
+              "url": "https://www.madrid.es/portales/munimadrid/es/La-Casa-de-la-Villa/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "69c46273def86110VgnVCM2000000c205a0aRCRD"
+            }
+          },
+          {
+            "factId": "villa-contrast",
+            "ownerCanonicalId": "Q2711992",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "La plaza reúne arquitectura civil de tres siglos en la Casa y Torre de los Lujanes, la Casa de Cisneros y la Casa de la Villa.",
+            "originalExcerpt": "El elemento más antiguo es la Casa y Torre de los Lujanes del siglo XV; le sigue la Casa de Cisneros del XVI y la Casa de la Villa del XVII.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-plaza-villa-auditoria",
+              "title": "Madrid en el ámbito de la cerca de Felipe II: Plaza de la Villa",
+              "url": "https://patrimonioypaisaje.madrid.es/FWProjects/monumenta/contenidos/Ficheros/AUDITORIA-DE-ILUMINACI%C3%93N-EN-LA-CERCA-DE-FELIPE-II.pdf",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "plaza-villa-page-138"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "mayor",
+        "name": "Plaza Mayor",
+        "ownerCanonicalId": "Q1123493",
+        "routePosition": 3,
+        "previousSceneId": "villa",
+        "nextSceneId": "sol",
+        "observationPoint": { "lat": 40.4154007, "lng": -3.7073747 },
+        "contribution": "It shows how a commercial edge of the medieval town became the ceremonial plaza of a royal capital.",
+        "closingInterpretation": {
+          "textEs": "La plaza convirtió un mercado periférico en un escenario regular de la Corte y sobrevivió a la destrucción mediante una nueva unidad arquitectónica.",
+          "basisFactIds": ["mayor-observable", "mayor-change", "mayor-agency", "mayor-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "mayor-observable",
+            "ownerCanonicalId": "Q1123493",
+            "role": "observable",
+            "atomicTextEs": "Las fachadas de la plaza mantienen la altura de la Casa de la Panadería, que sirvió como modelo para unificar el conjunto reconstruido.",
+            "originalExcerpt": "En el nuevo diseño se unificaba la imagen de la plaza manteniendo todos los edificios el nivel de la Casa de la Panadería, que sirvió como ejemplo para los nuevos.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Mira la Casa de la Panadería y sigue con la vista la altura continua de las fachadas que rodean la plaza." },
+            "source": {
+              "sourceId": "madrid-plaza-mayor",
+              "title": "Plaza Mayor",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "mayor-change",
+            "ownerCanonicalId": "Q1123493",
+            "role": "historical_change",
+            "atomicTextEs": "La Plaza Mayor nació en la plaza del Arrabal, un espacio extramuros donde confluían los caminos de Toledo y Atocha y se reunían comerciantes.",
+            "originalExcerpt": "La Plaza Mayor tiene sus orígenes en la antigua plaza del Arrabal. Situada extramuros, era el lugar de confluencia entre los caminos de Toledo y Atocha y donde se reunían comerciantes.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-plaza-mayor",
+              "title": "Plaza Mayor",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "mayor-agency",
+            "ownerCanonicalId": "Q1123493",
+            "role": "human_agency",
+            "atomicTextEs": "Felipe II encargó a Juan de Herrera remodelar la plaza y Juan Gómez de Mora dio forma al gran recinto desde 1617.",
+            "originalExcerpt": "En 1580 Felipe II ordenó la remodelación a Juan de Herrera. En 1617 el encargo de dar forma a la gran Plaza Mayor recayó en Juan Gómez de Mora.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-plaza-mayor",
+              "title": "Plaza Mayor",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "mayor-contrast",
+            "ownerCanonicalId": "Q1123493",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "El incendio de 1790 destruyó un tercio de la plaza y Juan de Villanueva inició una reforma integral tomando la Casa de la Panadería como referencia.",
+            "originalExcerpt": "El incendio de 1790 fue el más devastador y un tercio quedó reducido a cenizas. Juan de Villanueva inició una reforma integral; la Casa de la Panadería sirvió como ejemplo.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology", "causality"],
+            "allowsCausality": true,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-plaza-mayor",
+              "title": "Plaza Mayor",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Plaza-Mayor/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "sol",
+        "name": "Puerta del Sol",
+        "ownerCanonicalId": "Q427163",
+        "routePosition": 4,
+        "previousSceneId": "mayor",
+        "nextSceneId": "cibeles",
+        "observationPoint": { "lat": 40.4168622, "lng": -3.7034948 },
+        "contribution": "Its everyday crowds and national symbols turn the route from courtly Madrid toward the modern public capital.",
+        "closingInterpretation": {
+          "textEs": "Sol resume la transformación de un acceso periférico en un centro urbano diseñado para concentrar calles, circulación y vida pública.",
+          "basisFactIds": ["sol-observable", "sol-change", "sol-agency", "sol-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "sol-observable",
+            "ownerCanonicalId": "Q427163",
+            "role": "observable",
+            "atomicTextEs": "La plaza adopta una forma semicircular en uno de sus lados y concentra la llegada de calles históricas como Mayor, Arenal, Alcalá y Carrera de San Jerónimo.",
+            "originalExcerpt": "El proyecto adoptaba una forma semicircular. El espacio resultaba del cruce de las calles Mayor, Arenal, Alcalá y Carrera de San Jerónimo.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Gira sobre ti mismo para reconocer el arco semicircular y localiza las calles históricas que convergen en la plaza." },
+            "source": {
+              "sourceId": "madrid-puerta-sol",
+              "title": "Puerta del Sol",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-del-Sol/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "4528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "sol-change",
+            "ownerCanonicalId": "Q427163",
+            "role": "historical_change",
+            "atomicTextEs": "Puerta del Sol tomó su nombre de un postigo de la muralla medieval y pasó de ser un lugar extramuros al centro de la capital.",
+            "originalExcerpt": "Toma su nombre de un postigo de la muralla medieval, derribada en el XVII, que estaba decorado con un Sol. Era un lugar extramuros que fue transformándose en el centro de la capital.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-puerta-sol",
+              "title": "Puerta del Sol",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-del-Sol/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "4528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "sol-agency",
+            "ownerCanonicalId": "Q427163",
+            "role": "human_agency",
+            "atomicTextEs": "El concurso convocado en 1857 eligió el proyecto conjunto de Lucio del Valle, Juan Rivera y José Morer para reformar la plaza.",
+            "originalExcerpt": "En 1857 se convocó un concurso en el que ganó el proyecto de Lucio del Valle, Juan Rivera y José Morer.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-puerta-sol",
+              "title": "Puerta del Sol",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-del-Sol/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "4528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "sol-contrast",
+            "ownerCanonicalId": "Q427163",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "El proyecto conservó la alineación de la antigua Casa de Correos mientras diseñó unitariamente los edificios del lado semicircular opuesto.",
+            "originalExcerpt": "El proyecto conservaba la alineación de la antigua Casa de Correos y, al lado contrario, adoptaba una forma semicircular cuyos edificios se proyectaron unitariamente.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-puerta-sol",
+              "title": "Puerta del Sol",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-del-Sol/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "4528f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "cibeles",
+        "name": "Cibeles",
+        "ownerCanonicalId": "Q1537446",
+        "routePosition": 5,
+        "previousSceneId": "sol",
+        "nextSceneId": "alcala",
+        "observationPoint": { "lat": 40.41917, "lng": -3.69306 },
+        "contribution": "The scene links Charles III’s urban programme, civic infrastructure and the modern municipal capital without duplicating its members as stops.",
+        "closingInterpretation": {
+          "textEs": "Cibeles muestra cómo una infraestructura de agua diseñada para el paseo terminó convertida, desplazada y reorientada, en un monumento central de la capital.",
+          "basisFactIds": ["cibeles-observable", "cibeles-change", "cibeles-agency", "cibeles-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "cibeles-observable",
+            "ownerCanonicalId": "Q1537446",
+            "role": "observable",
+            "atomicTextEs": "La fuente representa a la diosa Cibeles sobre un carro tirado por dos leones, con esculturas de mármol y un pilón original de granito.",
+            "originalExcerpt": "El conjunto representa el carro triunfal de la diosa Cibeles arrastrado por dos leones. La escultura es de mármol de Montesclaros y el pilón original está construido en granito.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Busca la diosa, el carro y los dos leones, y distingue el mármol claro de la escultura frente al granito del pilón." },
+            "source": {
+              "sourceId": "madrid-cibeles",
+              "title": "Fuente de Cibeles",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Monumentos/Fuente-de-Cibeles/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "8658091d1b9c4510091d1b9c45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "cibeles-change",
+            "ownerCanonicalId": "Q1537446",
+            "role": "historical_change",
+            "atomicTextEs": "La fuente sirvió como abrevadero y abastecimiento público mediante figuras laterales hasta que su uso público quedó prohibido en 1862.",
+            "originalExcerpt": "La fuente sirvió como abrevadero y luego se añadieron un dragón para uso público y un oso para los aguadores. En 1862 se prohibió el uso público de la fuente.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-cibeles",
+              "title": "Fuente de Cibeles",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Monumentos/Fuente-de-Cibeles/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "8658091d1b9c4510091d1b9c45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "cibeles-agency",
+            "ownerCanonicalId": "Q1537446",
+            "role": "human_agency",
+            "atomicTextEs": "Ventura Rodríguez diseñó la fuente y Francisco Gutiérrez esculpió la diosa, Roberto Michel los leones y Miguel Ximénez las cenefas del carro.",
+            "originalExcerpt": "La fuente fue diseñada en 1777 por Ventura Rodríguez. Francisco Gutiérrez esculpió la diosa, Roberto Michel los dos leones y Miguel Ximénez las cenefas decorativas del carro.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-cibeles",
+              "title": "Fuente de Cibeles",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Monumentos/Fuente-de-Cibeles/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "8658091d1b9c4510091d1b9c45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "cibeles-contrast",
+            "ownerCanonicalId": "Q1537446",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "La fuente fue desplazada al centro de la nueva plaza y reorientada en 1895 para mirar hacia Puerta del Sol en vez de hacia Neptuno.",
+            "originalExcerpt": "José López Sallaberry propuso desplazarla al centro de la nueva plaza y variar su orientación hacia la Puerta del Sol en vez de Neptuno. Las obras finalizaron en septiembre de 1895.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-cibeles",
+              "title": "Fuente de Cibeles",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Monumentos/Fuente-de-Cibeles/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "8658091d1b9c4510091d1b9c45102e085a0aRCRD"
+            }
+          }
+        ]
+      },
+      {
+        "sceneId": "alcala",
+        "name": "Puerta de Alcalá",
+        "ownerCanonicalId": "Q1140634",
+        "routePosition": 6,
+        "previousSceneId": "cibeles",
+        "nextSceneId": null,
+        "observationPoint": { "lat": 40.4199868, "lng": -3.6887244 },
+        "contribution": "The final stop resolves the arc by showing a former urban boundary absorbed into the expanded modern capital.",
+        "closingInterpretation": {
+          "textEs": "La antigua entrada cierra el recorrido como una frontera ceremonial que la expansión urbana convirtió en un monumento dentro de la capital moderna.",
+          "basisFactIds": ["alcala-observable", "alcala-change", "alcala-agency", "alcala-contrast"]
+        },
+        "evidenceFacts": [
+          {
+            "factId": "alcala-observable",
+            "ownerCanonicalId": "Q1140634",
+            "role": "observable",
+            "atomicTextEs": "La Puerta de Alcalá tiene cinco vanos, tres arcos centrales y dos pasos laterales adintelados, con arquitectura de granito y decoración de piedra caliza.",
+            "originalExcerpt": "Está organizada por cinco arcos: los tres centrales son de medio punto y los dos laterales más pequeños y adintelados. Fue construida con granito y piedra de Colmenar para la decoración.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "on_site", "cueEs": "Cuenta los cinco vanos y distingue el granito de la arquitectura frente a la piedra clara de los motivos decorativos." },
+            "source": {
+              "sourceId": "madrid-puerta-alcala",
+              "title": "Puerta de Alcalá",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2428f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "alcala-change",
+            "ownerCanonicalId": "Q1140634",
+            "role": "historical_change",
+            "atomicTextEs": "La puerta actual sustituyó una entrada construida en 1599 para la llegada de Margarita de Austria, esposa de Felipe III.",
+            "originalExcerpt": "La nueva Puerta de Alcalá se realizó para sustituir a la antigua, construida en 1599 con motivo de la llegada de la reina Margarita de Austria, esposa de Felipe III.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-puerta-alcala",
+              "title": "Puerta de Alcalá",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2428f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "alcala-agency",
+            "ownerCanonicalId": "Q1140634",
+            "role": "human_agency",
+            "atomicTextEs": "José de Hermosilla, Ventura Rodríguez y Francesco Sabatini participaron en el concurso, que eligió dos propuestas de Sabatini sintetizadas después en el proyecto definitivo.",
+            "originalExcerpt": "Al concurso fueron invitados José de Hermosilla, Ventura Rodríguez y Sabatini. Resultaron elegidas las dos propuestas de este último, quien desarrolló una síntesis de ambas.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct", "chronology"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-puerta-alcala",
+              "title": "Puerta de Alcalá",
+              "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Puerta-de-Alcala/",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "2428f7d9560a4510f7d9560a45102e085a0aRCRD"
+            }
+          },
+          {
+            "factId": "alcala-contrast",
+            "ownerCanonicalId": "Q1140634",
+            "role": "tension_or_contrast",
+            "atomicTextEs": "Las dos fachadas tienen decoraciones diferentes y la antigua entrada urbana se encuentra hoy en el centro de la Plaza de la Independencia.",
+            "originalExcerpt": "Situada en el centro de la Plaza de la Independencia, fue una antigua puerta real de acceso a la ciudad. Las dos fachadas muestran decoraciones diferentes.",
+            "originalLanguage": "es",
+            "relationSupport": ["direct"],
+            "allowsCausality": false,
+            "critical": true,
+            "visibility": { "kind": "contextual" },
+            "source": {
+              "sourceId": "madrid-turismo-puerta-alcala",
+              "title": "Puerta de Alcalá",
+              "url": "https://www.esmadrid.com/informacion-turistica/puerta-de-alcala",
+              "capturedAt": "2026-08-10T00:00:00.000Z",
+              "revisionId": "captured-2026-08-10"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
