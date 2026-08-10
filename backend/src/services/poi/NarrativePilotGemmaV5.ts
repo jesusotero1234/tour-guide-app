@@ -42,12 +42,19 @@ const SCORE_VALUES_V5: Record<NarrativeScoreLabelV5, number> = {
   exceptional: 5,
 };
 
+export const NARRATIVE_FINAL_CRITIC_PARAMETERS_V5 = {
+  ...NARRATIVE_CRITIC_PARAMETERS_V4,
+  numCtx: 65_536,
+} as const;
+
 export const NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5 = [
   'Compara toda la prosa con el plan determinista y la evidencia oficial, escena por escena.',
   'Las listas de hallazgos contienen exclusivamente defectos comprobables; no incluyas elogios ni sugerencias de mejora.',
   'Para cada newClaim, copia en claim un fragmento literal de 5 a 30 palabras de la prosa que no esté respaldado y explica en detail la contradicción o ausencia concreta de evidencia.',
   'No marques como claim nuevo una observación, paráfrasis o interpretación que sí esté respaldada por el claim aprobado de su bloque.',
+  'Una causalidad o un personaje ausente de la evidencia es newClaim y claim debe citar literalmente la afirmación inventada; no lo clasifiques como distortedClaim.',
   'Informa claims deformados u omitidos y omisiones engañosas solo cuando exista una discrepancia concreta.',
+  'Antes de dejar omittedClaims vacío, verifica explícitamente los 35 claims aprobados, cinco por escena, contra su bloque asignado; usa siempre un claimId existente.',
   'Usa etiquetas semánticas de calidad: severe_failure para fallo grave, poor para deficiente, needs_improvement si necesita mejora, fully_meets si cumple plenamente y exceptional si es excepcional.',
   'Una rationale positiva como claro, sólido, eficaz o bien estructurado requiere fully_meets o exceptional.',
   'Puntúa curiosity, humanTension, lookingUtility, naturalness, progression y cada escena con esas mismas etiquetas.',
@@ -209,8 +216,8 @@ export async function requestNarrativeFinalCritiqueV5(
     options: {
       ollamaHost: lifecycle.options.ollamaHost,
       post: lifecycle.options.post,
-      maxTokens: NARRATIVE_CRITIC_PARAMETERS_V4.maxTokens,
-      ollamaContextTokens: NARRATIVE_CRITIC_PARAMETERS_V4.numCtx,
+      maxTokens: NARRATIVE_FINAL_CRITIC_PARAMETERS_V5.maxTokens,
+      ollamaContextTokens: NARRATIVE_FINAL_CRITIC_PARAMETERS_V5.numCtx,
       ollamaKeepAlive: NARRATIVE_CRITIC_KEEP_ALIVE_V4,
       requestAttempts: 1,
     },

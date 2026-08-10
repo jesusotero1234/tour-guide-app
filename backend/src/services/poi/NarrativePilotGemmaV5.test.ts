@@ -11,6 +11,7 @@ import {
 } from './NarrativePilotGemmaV4';
 import {
   NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5,
+  NARRATIVE_FINAL_CRITIC_PARAMETERS_V5,
   narrativeFinalCriticPromptFingerprintV5,
   narrativeFinalCriticReportSchemaV5,
   requestNarrativeFinalCritiqueV5,
@@ -75,6 +76,8 @@ describe('NarrativePilotGemmaV5', () => {
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('fully_meets');
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('elogios ni sugerencias');
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('fragmento literal');
+    expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('35 claims');
+    expect(NARRATIVE_FINAL_CRITIC_PARAMETERS_V5.numCtx).toBe(65_536);
     expect(JSON.stringify(narrativeFinalCriticReportSchemaV5())).not.toContain('"integer"');
     expect(narrativeFinalCriticPromptFingerprintV5()).toMatch(/^[a-f0-9]{64}$/);
   });
@@ -82,7 +85,7 @@ describe('NarrativePilotGemmaV5', () => {
   it('discards praise disguised as a new claim while retaining the raw diagnostic', async () => {
     const evidence = loadMadridNarrativeEvidenceCaseV4();
     const responses = [report(true)];
-    const post = jest.fn(async () => ({
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => ({
       data: { message: { content: JSON.stringify(responses.shift()) } },
     }));
     const model = {
@@ -113,6 +116,7 @@ describe('NarrativePilotGemmaV5', () => {
     expect(result.rawOutput).toContain('praise rather than an unsupported excerpt');
     expect(result.attempts.map((attempt) => attempt.status)).toEqual(['valid']);
     expect(post).toHaveBeenCalledTimes(1);
+    expect(post.mock.calls[0][1]).toMatchObject({ options: { num_ctx: 65_536 } });
   });
 
   it('retains a defect whose claim is an exact excerpt from the referenced block', () => {

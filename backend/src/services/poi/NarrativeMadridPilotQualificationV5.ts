@@ -33,7 +33,10 @@ import {
   NarrativeCriticModelInfoV4,
   narrativeGroundingCriticPromptFingerprintV4,
 } from './NarrativePilotGemmaV4';
-import { narrativeFinalCriticPromptFingerprintV5 } from './NarrativePilotGemmaV5';
+import {
+  NARRATIVE_FINAL_CRITIC_PARAMETERS_V5,
+  narrativeFinalCriticPromptFingerprintV5,
+} from './NarrativePilotGemmaV5';
 import {
   NARRATIVE_VARIANTS_V5,
   NARRATIVE_WRITER_MODEL_V5,
@@ -292,7 +295,11 @@ function buildFingerprints(input: {
     finalCriticPromptAndSchema: narrativeFinalCriticPromptFingerprintV5(),
     modelsAndParameters: editorialFingerprintV7({
       writer: { model: NARRATIVE_WRITER_MODEL_V5, parameters: NARRATIVE_WRITER_PARAMETERS_V5 },
-      critic: { model: input.criticModel, parameters: NARRATIVE_CRITIC_PARAMETERS_V4 },
+      critic: {
+        model: input.criticModel,
+        groundingParameters: NARRATIVE_CRITIC_PARAMETERS_V4,
+        finalParameters: NARRATIVE_FINAL_CRITIC_PARAMETERS_V5,
+      },
     }),
     selectedVariant: editorialFingerprintV7(input.selected?.variant ?? null),
     policies: editorialFingerprintV7({

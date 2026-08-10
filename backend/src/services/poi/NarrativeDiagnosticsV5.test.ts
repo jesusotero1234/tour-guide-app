@@ -2,6 +2,7 @@ import { mkdtempSync, readFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { AutonomousNarrativeArtifactV5 } from './AutonomousNarrativeV5';
+import { NarrativeMadridPilotQualificationV5 } from './NarrativeMadridPilotQualificationV5';
 import {
   buildNarrativeDiagnosticBundleV5,
   writeNarrativeDiagnosticBundleV5,
@@ -38,8 +39,24 @@ describe('NarrativeDiagnosticsV5', () => {
       }],
       finalCritiques: [],
     } as unknown as AutonomousNarrativeArtifactV5;
+    const qualification = {
+      status: 'failed',
+      selectedVariant: 'on_site',
+      cleanCritique: null,
+      mutations: [{
+        mutation: 'false_character', status: 'semantic_error', report: null,
+        attempts: [{
+          attempt: 1, status: 'semantic_error', latencyMs: 3,
+          rawOutput: '{"mutation":"Aurelio Valdés"}', error: 'invalid claim reference',
+        }],
+        rejectionReasons: [], factualRejection: false, diagnostic: 'invalid claim reference',
+        mutatedTextFingerprint: '9'.repeat(64),
+      }],
+      failureReasons: ['mutation_not_factually_rejected:false_character'],
+      fingerprints: { qualification: '8'.repeat(64) },
+    } as unknown as NarrativeMadridPilotQualificationV5;
     const bundle = buildNarrativeDiagnosticBundleV5(
-      'preflight', [artifact], '2026-08-10T12:00:00.000Z'
+      'qualification', [artifact], '2026-08-10T12:00:00.000Z', qualification
     );
     const path = join(mkdtempSync(join(tmpdir(), 'narrative-v5-diagnostic-')), 'bundle.json');
 
@@ -49,6 +66,8 @@ describe('NarrativeDiagnosticsV5', () => {
     expect(serialized).toContain('texto real');
     expect(serialized).toContain('Aurelio Valdés');
     expect(serialized).toContain('private evidence packet');
+    expect(serialized).toContain('invalid claim reference');
+    expect(serialized).toContain('Aurelio Valdés');
     expect(bundle.fingerprint).toMatch(/^[a-f0-9]{64}$/);
   });
 });

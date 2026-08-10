@@ -176,7 +176,9 @@ async function main(): Promise<void> {
       lifecycle
     ),
   });
-  const bundle = buildNarrativeDiagnosticBundleV5('qualification', result.candidates);
+  const bundle = buildNarrativeDiagnosticBundleV5(
+    'qualification', result.candidates, undefined, result
+  );
   const bundlePath = diagnosticPath('qualification');
   writeNarrativeDiagnosticBundleV5(bundlePath, bundle);
   if (freeze && result.status === 'passed') {

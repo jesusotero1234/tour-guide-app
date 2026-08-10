@@ -4,6 +4,10 @@ import { AutonomousNarrativeArtifactV5 } from './AutonomousNarrativeV5';
 import { EditorialCallResultV6 } from './EditorialStructuredLlmV6';
 import { editorialFingerprintV7 } from './EditorialProfileV7';
 import { narrativeTourTextFingerprintV5 } from './NarrativeProseV5';
+import type {
+  NarrativeMadridPilotQualificationV5,
+  NarrativeQualificationCritiqueV5,
+} from './NarrativeMadridPilotQualificationV5';
 
 export const NARRATIVE_DIAGNOSTIC_SCHEMA_VERSION_V5 =
   'narrative-diagnostic-bundle-v5' as const;
@@ -29,6 +33,17 @@ export interface NarrativeDiagnosticBundleV5 {
       responses: Array<string | null>;
     };
   }>;
+  qualification: {
+    status: NarrativeMadridPilotQualificationV5['status'];
+    selectedVariant: NarrativeMadridPilotQualificationV5['selectedVariant'];
+    cleanCritique: ReturnType<typeof diagnosticQualificationCritique> | null;
+    mutations: Array<ReturnType<typeof diagnosticQualificationCritique> & {
+      mutation: string;
+      mutatedTextFingerprint: string;
+    }>;
+    failureReasons: string[];
+    fingerprints: NarrativeMadridPilotQualificationV5['fingerprints'];
+  } | null;
   fingerprint: string;
 }
 
@@ -58,10 +73,26 @@ function diagnosticCall(result: EditorialCallResultV6<unknown>) {
   };
 }
 
+function diagnosticQualificationCritique(critique: NarrativeQualificationCritiqueV5) {
+  return {
+    status: critique.status,
+    report: critique.report,
+    attempts: critique.attempts.map((attempt) => ({
+      ...attempt,
+      rawOutput: redact(attempt.rawOutput),
+      error: redact(attempt.error),
+    })),
+    rejectionReasons: critique.rejectionReasons,
+    factualRejection: critique.factualRejection,
+    diagnostic: redact(critique.diagnostic),
+  };
+}
+
 export function buildNarrativeDiagnosticBundleV5(
   mode: NarrativeDiagnosticModeV5,
   artifacts: AutonomousNarrativeArtifactV5[],
-  createdAt = new Date().toISOString()
+  createdAt = new Date().toISOString(),
+  qualification?: NarrativeMadridPilotQualificationV5
 ): NarrativeDiagnosticBundleV5 {
   const candidates = artifacts.map((artifact) => {
     const calls: EditorialCallResultV6<unknown>[] = [
@@ -90,6 +121,20 @@ export function buildNarrativeDiagnosticBundleV5(
     mode,
     createdAt,
     candidates,
+    qualification: qualification ? {
+      status: qualification.status,
+      selectedVariant: qualification.selectedVariant,
+      cleanCritique: qualification.cleanCritique
+        ? diagnosticQualificationCritique(qualification.cleanCritique)
+        : null,
+      mutations: qualification.mutations.map((mutation) => ({
+        mutation: mutation.mutation,
+        mutatedTextFingerprint: mutation.mutatedTextFingerprint,
+        ...diagnosticQualificationCritique(mutation),
+      })),
+      failureReasons: [...qualification.failureReasons],
+      fingerprints: qualification.fingerprints,
+    } : null,
   };
   return { ...content, fingerprint: editorialFingerprintV7(content) };
 }
