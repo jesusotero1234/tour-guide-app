@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import {
-  NarrativePilotPreviewV4,
+  NarrativePilotPreviewV5,
   PILOT_BLOCK_KINDS,
   PilotBlockKind,
-} from '@/lib/narrativePilotV4';
+} from '@/lib/narrativePilotV5';
 
 const TourMap = dynamic(
   () => import('@/components/tour/map/TourMap').then((module) => module.TourMap),
@@ -37,7 +37,7 @@ function distanceLabel(meters: number): string {
 }
 
 interface MadridNarrativePilotProps {
-  preview: NarrativePilotPreviewV4;
+  preview: NarrativePilotPreviewV5;
   initialStop: number | null;
 }
 
