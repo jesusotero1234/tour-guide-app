@@ -1,7 +1,10 @@
 import 'dotenv/config';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
-import { runAutonomousNarrativeV5 } from '../../src/services/poi/AutonomousNarrativeV5';
+import {
+  AutonomousNarrativeServicesV5,
+  runAutonomousNarrativeV5,
+} from '../../src/services/poi/AutonomousNarrativeV5';
 import { buildNarrativeClaimPlanV4 } from '../../src/services/poi/NarrativeClaimPlanV4';
 import {
   buildNarrativeCriticRequestV4,
@@ -112,7 +115,7 @@ async function main(): Promise<void> {
   if (!ollamaHost) throw new Error('OLLAMA_HOST is required for the Gemma critic');
 
   const lifecycle = await prepareNarrativeCriticV4({ ollamaHost });
-  const autonomousServices = {
+  const autonomousServices: AutonomousNarrativeServicesV5 = {
     critiqueGrounding: (request: ReturnType<typeof buildNarrativeGroundingCriticRequestV4>) => (
       requestNarrativeGroundingCritiqueV4(request, lifecycle)
     ),
