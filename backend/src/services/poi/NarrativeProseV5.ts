@@ -41,6 +41,9 @@ export interface NarrativeProseIssueV5 {
   path: string;
   sceneId: string | null;
   message: string;
+  observed?: number;
+  minimum?: number;
+  maximum?: number;
 }
 
 export interface NarrativeProseValidationReportV5 {
@@ -132,8 +135,9 @@ export function validateNarrativeProseV5(
     code: NarrativeProseIssueCodeV5,
     path: string,
     message: string,
-    sceneId: string | null = null
-  ) => issues.push({ code, path, sceneId, message });
+    sceneId: string | null = null,
+    counts: Pick<NarrativeProseIssueV5, 'observed' | 'minimum' | 'maximum'> = {}
+  ) => issues.push({ code, path, sceneId, message, ...counts });
   const objectAt = (value: unknown, path: string, sceneId: string | null = null) => {
     if (!value || typeof value !== 'object' || Array.isArray(value)) {
       add('structure', path, `${path} must be an object`, sceneId);
@@ -165,7 +169,8 @@ export function validateNarrativeProseV5(
       const words = normalizedWords(match[0]);
       const atBoundary = isSentenceBoundary(text, match.index ?? 0);
       if (atBoundary && words.length === 1) continue;
-      if (atBoundary && CAPITALIZED_GRAMMAR_LEADS.has(words[0])) words.shift();
+      if (atBoundary && (CAPITALIZED_GRAMMAR_LEADS.has(words[0])
+        || words.slice(1).every((word) => allowed.has(word)))) words.shift();
       if (words.some((word) => !allowed.has(word))) {
         add(
           'unknown_proper_noun', path,
@@ -209,7 +214,9 @@ export function validateNarrativeProseV5(
       add(
         'word_count',
         'introduction',
-        `introduction has ${introductionWords} Unicode words; must contain 45 to 75`
+        `introduction has ${introductionWords} Unicode words; must contain 45 to 75`,
+        null,
+        { observed: introductionWords, minimum: 45, maximum: 75 }
       );
     }
     validateSpanish(introduction, 'introduction');
@@ -273,7 +280,8 @@ export function validateNarrativeProseV5(
       add(
         'word_count', scenePath,
         `${evidenceScene.sceneId} body has ${bodyWordCount} Unicode words; must contain 160 to 200`,
-        evidenceScene.sceneId
+        evidenceScene.sceneId,
+        { observed: bodyWordCount, minimum: 160, maximum: 200 }
       );
     }
     validateSpanish(body, scenePath, evidenceScene.sceneId);

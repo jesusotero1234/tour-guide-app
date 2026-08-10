@@ -84,6 +84,9 @@ function previousCandidate(result: EditorialCallResultV6<unknown>): unknown {
 interface SerializedValidationIssueV5 {
   path: string;
   message: string;
+  observed?: number;
+  minimum?: number;
+  maximum?: number;
 }
 
 function parseValidationIssues(error: string): SerializedValidationIssueV5[] {
@@ -111,7 +114,17 @@ export function semanticRepairInstructionsV5(
     .flatMap((attempt) => {
       const issues = parseValidationIssues(attempt.error!);
       return issues.length > 0
-        ? issues.map((issue) => `Corrige ${issue.path}: ${issue.message}`)
+        ? issues.map((issue) => {
+          if (typeof issue.observed === 'number' && typeof issue.maximum === 'number'
+            && typeof issue.minimum === 'number' && issue.observed > issue.maximum) {
+            return `Reduce ${issue.path} by at least ${issue.observed - issue.maximum} words without omitting any approved claim; leave the complete scene between ${issue.minimum} and ${issue.maximum} words.`;
+          }
+          if (typeof issue.observed === 'number' && typeof issue.minimum === 'number'
+            && typeof issue.maximum === 'number' && issue.observed < issue.minimum) {
+            return `Add at least ${issue.minimum - issue.observed} words to ${issue.path} using only its approved claims; leave the complete scene between ${issue.minimum} and ${issue.maximum} words.`;
+          }
+          return `Corrige ${issue.path}: ${issue.message}`;
+        })
         : [`Corrige el contrato de prosa: ${attempt.error}`];
     });
   return [...new Set(instructions.length > 0 ? instructions : [

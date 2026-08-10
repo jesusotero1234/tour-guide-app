@@ -1,6 +1,7 @@
 import {
   AutonomousNarrativeServicesV5,
   runAutonomousNarrativeV5,
+  semanticRepairInstructionsV5,
 } from './AutonomousNarrativeV5';
 import { EditorialCallResultV6 } from './EditorialStructuredLlmV6';
 import { buildNarrativeClaimPlanV4 } from './NarrativeClaimPlanV4';
@@ -20,7 +21,13 @@ function call<T>(value: T): EditorialCallResultV6<T> {
   };
 }
 
-function semanticFailure(issues: Array<{ path: string; message: string }>):
+function semanticFailure(issues: Array<{
+  path: string;
+  message: string;
+  observed?: number;
+  minimum?: number;
+  maximum?: number;
+}>):
 EditorialCallResultV6<NarrativeTourTextV4> {
   const expanded = issues.map((issue) => ({
     code: 'word_count', sceneId: null, ...issue,
@@ -97,6 +104,19 @@ AutonomousNarrativeServicesV5 & { generateProse: jest.Mock; critiqueFinal: jest.
 }
 
 describe('AutonomousNarrativeV5', () => {
+  it('turns structured counts into a concrete whole-scene reduction', () => {
+    const failure = semanticFailure([{
+      path: 'scripts[0]',
+      message: 'palace body has 243 Unicode words; must contain 160 to 200',
+      observed: 243,
+      minimum: 160,
+      maximum: 200,
+    }]);
+
+    expect(semanticRepairInstructionsV5(failure)).toEqual([
+      'Reduce scripts[0] by at least 43 words without omitting any approved claim; leave the complete scene between 160 and 200 words.',
+    ]);
+  });
   it('repairs one complete route with every deterministic error and then approves it', async () => {
     const first = semanticFailure([
       { path: 'introduction', message: 'introduction must contain 45 to 75 Unicode words' },

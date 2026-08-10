@@ -50,6 +50,20 @@ describe('NarrativeProseV5', () => {
     ))).toBe(true);
   });
 
+  it('treats an allowed place after a grammatical sentence opening as prose, not a new name', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const draft = naturalDraft();
+    draft.introduction = draft.introduction.replace('Sin embargo, Madrid', 'Todo Madrid');
+
+    const report = validateNarrativeProseV5(
+      draft,
+      evidence,
+      buildNarrativeClaimPlanV4(evidence)
+    );
+
+    expect(report.issues.filter((issue) => issue.code === 'unknown_proper_noun')).toEqual([]);
+  });
+
   it('reports simultaneous introduction and scene problems instead of failing fast', () => {
     const evidence = loadMadridNarrativeEvidenceCaseV4();
     const draft = naturalDraft();
@@ -74,6 +88,9 @@ describe('NarrativeProseV5', () => {
         code: 'word_count',
         sceneId: 'palace',
         message: expect.stringMatching(/has \d+ Unicode words; must contain 160 to 200/),
+        observed: expect.any(Number),
+        minimum: 160,
+        maximum: 200,
       }),
       expect.objectContaining({ code: 'visual_instruction', sceneId: 'almudena' }),
       expect.objectContaining({ code: 'visual_cue', sceneId: 'almudena' }),

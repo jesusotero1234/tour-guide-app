@@ -30,6 +30,10 @@ describe('NarrativePilotWriterV5', () => {
         === 'opening,look,human_conflict,interpretation,closing'
       && scene.visualCue.length > 0
       && scene.allowedProperNouns.length > 0
+      && scene.bodyWords.approvedClaims > 0
+      && scene.bodyWords.target === 175
+      && scene.bodyWords.minimum === 160
+      && scene.bodyWords.maximum === 200
     ))).toBe(true);
     expect(serialized).not.toMatch(/originalExcerpt|capturedAt|revisionId|sourceFingerprint/);
   });
@@ -58,7 +62,7 @@ describe('NarrativePilotWriterV5', () => {
       temperature: 0, maxTokens: 8000, thinking: false, strictTool: true,
     });
     expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).toContain('175 palabras por escena');
-    expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).toContain('cuenta las palabras del conjunto');
+    expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).toContain('bodyWords.approvedClaims');
     expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).not.toMatch(/palabras por bloque|32 palabras/);
     const userMessage = JSON.stringify(bodies[0]);
     expect(userMessage).toContain('narrative-writer-packet-v5');

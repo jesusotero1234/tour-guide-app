@@ -7,6 +7,7 @@ import {
 import { NarrativeClaimPlanV4, validateNarrativeClaimPlanV4 } from './NarrativeClaimPlanV4';
 import {
   NarrativeEvidenceCaseV4,
+  narrativeUnicodeWordsV4,
   validateNarrativeEvidenceCaseV4,
 } from './NarrativeEvidenceV4';
 import { NarrativeBlockKindV1 } from './NarrativePilotV1';
@@ -23,10 +24,10 @@ export const NARRATIVE_PROSE_TOOL_NAME_V5 = 'submit_narrative_prose_v5' as const
 export const NARRATIVE_WRITER_PACKET_SCHEMA_VERSION_V5 = 'narrative-writer-packet-v5' as const;
 export const NARRATIVE_PROSE_SYSTEM_PROMPT_V5 = [
   'Escribe una introducción y la prosa completa de las escenas en español natural de España.',
-  'Desarrolla exclusivamente los cinco claims aprobados de cada escena en los bloques opening, look, human_conflict, interpretation y closing.',
+  'Incluye una sola vez los cinco claims aprobados de cada escena en los bloques opening, look, human_conflict, interpretation y closing; no los repitas ni los parafrasees dentro de otros bloques.',
   'La introducción tendrá entre 45 y 75 palabras; el objetivo es 175 palabras por escena y el rango válido del cuerpo completo es de 160 a 200.',
   'No existe una cuota por bloque: distribuye la extensión según lo que necesite la narración.',
-  'Antes de enviar, cuenta las palabras del conjunto de los cinco bloques de cada escena y corrige cualquier total fuera del rango.',
+  'bodyWords.approvedClaims indica el conteo exacto ya ocupado por los claims; añade solo la conexión imprescindible para acercarte a bodyWords.target sin superar bodyWords.maximum.',
   'El bloque look incluirá una instrucción visual concreta y desarrollará el cue oficial.',
   'Usa solo los nombres propios y números permitidos para cada escena.',
   'No añadas hechos, personajes, acontecimientos, causalidad ni relaciones que no estén en los claims.',
@@ -66,6 +67,12 @@ export interface NarrativeWriterPacketV5 {
     name: string;
     claims: Array<{ kind: NarrativeBlockKindV1; text: string }>;
     visualCue: string;
+    bodyWords: {
+      approvedClaims: number;
+      target: 175;
+      minimum: 160;
+      maximum: 200;
+    };
     allowedProperNouns: string[];
     allowedNumbers: string[];
   }>;
@@ -110,14 +117,24 @@ export function buildNarrativeWriterPacketV5(
     if (!observable || observable.visibility.kind !== 'on_site') {
       throw new Error(`narrative writer v5 ${scene.sceneId} has no visual cue`);
     }
+    const claims = planned.blocks.map((block) => ({
+      kind: block.kind,
+      text: block.claims[0].text,
+    }));
     return {
       sceneId: scene.sceneId,
       name: scene.name,
-      claims: planned.blocks.map((block) => ({
-        kind: block.kind,
-        text: block.claims[0].text,
-      })),
+      claims,
       visualCue: observable.visibility.cueEs,
+      bodyWords: {
+        approvedClaims: claims.reduce(
+          (total, claim) => total + narrativeUnicodeWordsV4(claim.text).length,
+          0
+        ),
+        target: 175 as const,
+        minimum: plan.duration.sceneBodyWords.minimum,
+        maximum: plan.duration.sceneBodyWords.maximum,
+      },
       allowedProperNouns: sceneAllowedProperNouns(planned),
       allowedNumbers: [...planned.allowedNumbers],
     };
