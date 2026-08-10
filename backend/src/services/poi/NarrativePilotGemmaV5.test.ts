@@ -43,6 +43,22 @@ function text(): NarrativeTourTextV4 {
   };
 }
 
+function claimAudit(): Array<{
+  sceneId: string;
+  claimId: string;
+  status: 'supported' | 'distorted' | 'omitted';
+  detail: string;
+}> {
+  const evidence = loadMadridNarrativeEvidenceCaseV4();
+  const plan = buildNarrativeClaimPlanV4(evidence);
+  return plan.scenes.flatMap((scene) => scene.blocks.flatMap((block) => block.claims.map((claim) => ({
+    sceneId: scene.sceneId,
+    claimId: claim.claimId,
+    status: 'supported',
+    detail: 'El bloque conserva este claim.',
+  }))));
+}
+
 function report(newClaim = false) {
   const evidence = loadMadridNarrativeEvidenceCaseV4();
   return {
@@ -54,7 +70,7 @@ function report(newClaim = false) {
       claim: 'The scene effectively establishes a strong contrast.',
       detail: 'This is praise rather than an unsupported excerpt.',
     }] : [],
-    distortedClaims: [], omittedClaims: [], misleadingOmissions: [],
+    claimAudit: claimAudit(),
     scores: {
       dimensions: {
         curiosity: 'fully_meets',
@@ -78,7 +94,9 @@ describe('NarrativePilotGemmaV5', () => {
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('fragmento literal');
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('35 claims');
     expect(NARRATIVE_FINAL_CRITIC_PARAMETERS_V5.numCtx).toBe(65_536);
+    expect(NARRATIVE_FINAL_CRITIC_PARAMETERS_V5.maxTokens).toBe(8_000);
     expect(JSON.stringify(narrativeFinalCriticReportSchemaV5())).not.toContain('"integer"');
+    expect(JSON.stringify(narrativeFinalCriticReportSchemaV5())).toContain('"claimAudit"');
     expect(narrativeFinalCriticPromptFingerprintV5()).toMatch(/^[a-f0-9]{64}$/);
   });
 
@@ -117,6 +135,10 @@ describe('NarrativePilotGemmaV5', () => {
     expect(result.attempts.map((attempt) => attempt.status)).toEqual(['valid']);
     expect(post).toHaveBeenCalledTimes(1);
     expect(post.mock.calls[0][1]).toMatchObject({ options: { num_ctx: 65_536 } });
+    expect(result.input).toMatchObject({ schemaVersion: 'narrative-final-critic-input-v5' });
+    expect(JSON.stringify(result.input)).not.toContain('originalExcerpt');
+    expect(JSON.stringify(result.input)).toContain('"approvedClaim"');
+    expect(JSON.stringify(result.input).length).toBeLessThan(30_000);
   });
 
   it('retains a defect whose claim is an exact excerpt from the referenced block', () => {
@@ -141,5 +163,74 @@ describe('NarrativePilotGemmaV5', () => {
     );
 
     expect(validated.newClaims).toHaveLength(1);
+  });
+
+  it('derives a factual omission from the mandatory audit of every planned claim', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const plan = buildNarrativeClaimPlanV4(evidence);
+    const raw = report(false);
+    raw.claimAudit[0] = {
+      ...raw.claimAudit[0],
+      status: 'omitted',
+      detail: 'El bloque ya no expresa el claim aprobado.',
+    };
+
+    const validated = validateNarrativeFinalCriticReportV5(
+      raw,
+      buildNarrativeCriticRequestV4(evidence, plan, text())
+    );
+
+    expect(validated.omittedClaims).toEqual([{
+      sceneId: plan.scenes[0].sceneId,
+      claimId: plan.scenes[0].blocks[0].claims[0].claimId,
+      detail: 'El bloque ya no expresa el claim aprobado.',
+    }]);
+  });
+
+  it('does not reject a literal rhetorical question that asserts no new fact', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const plan = buildNarrativeClaimPlanV4(evidence);
+    const tourText = text();
+    tourText.scripts[0].blocks[0].text = [
+      '¿Qué mejor punto de partida que el corazón del poder?',
+      tourText.scripts[0].blocks[0].text,
+    ].join(' ');
+    const raw = report(false);
+    raw.newClaims = [{
+      sceneId: 'palace',
+      location: 'opening',
+      severity: 'minor',
+      claim: '¿Qué mejor punto de partida que el corazón del poder?',
+      detail: 'La pregunta es un recurso narrativo.',
+    }];
+
+    const validated = validateNarrativeFinalCriticReportV5(
+      raw,
+      buildNarrativeCriticRequestV4(evidence, plan, tourText)
+    );
+
+    expect(validated.newClaims).toEqual([]);
+  });
+
+  it('adds an unknown named person as a factual defect even when the LLM misses it', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const plan = buildNarrativeClaimPlanV4(evidence);
+    const tourText = text();
+    tourText.scripts[0].blocks[0].text = [
+      'El cronista ficticio Aurelio Valdés dirigió personalmente estos acontecimientos decisivos.',
+      tourText.scripts[0].blocks[0].text,
+    ].join(' ');
+
+    const validated = validateNarrativeFinalCriticReportV5(
+      report(false),
+      buildNarrativeCriticRequestV4(evidence, plan, tourText)
+    );
+
+    expect(validated.newClaims).toEqual(expect.arrayContaining([expect.objectContaining({
+      sceneId: 'palace',
+      location: 'opening',
+      severity: 'critical',
+      claim: 'El cronista ficticio Aurelio Valdés',
+    })]));
   });
 });

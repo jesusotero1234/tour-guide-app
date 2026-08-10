@@ -57,6 +57,33 @@ export const NARRATIVE_MUTATION_KINDS_V5 = [
   'misleading_omission',
 ] as const satisfies readonly NarrativeMutationKindV4[];
 
+function mutationWordsV5(value: string): string[] {
+  return value.match(/[\p{L}\p{N}]+(?:[’'-][\p{L}\p{N}]+)*/gu) ?? [];
+}
+
+export function applyNarrativeMutationV5(
+  text: NarrativeTourTextV4,
+  evidence: NarrativeEvidenceCaseV4,
+  kind: NarrativeMutationKindV4
+): NarrativeTourTextV4 {
+  const mutated = applyNarrativeMutationV4(text, evidence, kind);
+  if (kind !== 'misleading_omission') return mutated;
+  const originalWordCount = mutationWordsV5(text.scripts[0].blocks[0].text).length;
+  const neutralWords = mutationWordsV5([
+    'Observa el lugar con calma y compara sus formas, luces, sombras, materiales y proporciones.',
+    'Recorre con la mirada cada detalle visible y atiende a los cambios de escala, textura y color.',
+    'Detente unos instantes antes de continuar el paseo y conserva una impresión general del conjunto.',
+  ].join(' '));
+  const replacement = Array.from(
+    { length: originalWordCount },
+    (_, index) => neutralWords[index % neutralWords.length]
+  );
+  mutated.scripts[0].blocks[0].text = replacement.map((word, index) => (
+    index === 0 ? word : word.toLocaleLowerCase('es-ES')
+  )).join(' ') + '.';
+  return mutated;
+}
+
 export const NARRATIVE_MADRID_QUALIFICATION_POLICIES_V5 = {
   variants: ['on_site', 'curiosity', 'documentary'] as NarrativeVariantV5[],
   minimumApprovedCandidates: 1,
@@ -435,7 +462,7 @@ export async function runNarrativeMadridPilotQualificationV5(
   if (selected?.text) {
     clean = await runCritique(services, evidence, plan, selected.text);
     for (const kind of NARRATIVE_MUTATION_KINDS_V5) {
-      const mutated = applyNarrativeMutationV4(selected.text, evidence, kind);
+      const mutated = applyNarrativeMutationV5(selected.text, evidence, kind);
       const critique = await runCritique(services, evidence, plan, mutated);
       mutations.push({
         mutation: kind,
@@ -495,7 +522,7 @@ export function replayNarrativeMadridPilotQualificationV5(
   }
   for (const mutation of result.mutations) {
     if (!selected?.text) throw new Error('narrative madrid v5 mutation lacks selected text');
-    const mutated = applyNarrativeMutationV4(selected.text, evidence, mutation.mutation);
+    const mutated = applyNarrativeMutationV5(selected.text, evidence, mutation.mutation);
     if (narrativeTourTextFingerprintV5(mutated) !== mutation.mutatedTextFingerprint) {
       throw new Error(`narrative madrid v5 mutation ${mutation.mutation} changed`);
     }

@@ -12,11 +12,16 @@ import {
   NarrativeCriticModelInfoV4,
 } from './NarrativePilotGemmaV4';
 import {
+  applyNarrativeMutationV5,
   replayNarrativeMadridPilotQualificationV5,
   runNarrativeMadridPilotQualificationV5,
 } from './NarrativeMadridPilotQualificationV5';
 import { NarrativeVariantV5 } from './NarrativePilotWriterV5';
 import { NarrativeTourTextV4 } from './NarrativeProseV4';
+import {
+  NARRATIVE_PROSE_DRAFT_SCHEMA_VERSION_V5,
+  validateNarrativeProseV5,
+} from './NarrativeProseV5';
 
 const MODEL: NarrativeCriticModelInfoV4 = {
   name: NARRATIVE_CRITIC_MODEL_V4,
@@ -106,6 +111,29 @@ function artifact(variant: NarrativeVariantV5, approved: boolean): AutonomousNar
 }
 
 describe('NarrativeMadridPilotQualificationV5', () => {
+  it('makes the omission control remove the complete approved block without changing its length', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const original = text('natural');
+    const originalBlock = original.scripts[0].blocks[0].text;
+
+    const mutated = applyNarrativeMutationV5(original, evidence, 'misleading_omission');
+    const mutatedBlock = mutated.scripts[0].blocks[0].text;
+    const wordCount = (value: string) => value.match(/[\p{L}\p{N}]+(?:[’'-][\p{L}\p{N}]+)*/gu)?.length;
+
+    expect(mutatedBlock).not.toContain('Texto natural');
+    expect(mutatedBlock).not.toContain(originalBlock);
+    expect(wordCount(mutatedBlock)).toBe(wordCount(originalBlock));
+    const validation = validateNarrativeProseV5({
+      schemaVersion: NARRATIVE_PROSE_DRAFT_SCHEMA_VERSION_V5,
+      introduction: mutated.introduction,
+      scripts: mutated.scripts.map((script) => ({
+        sceneId: script.sceneId,
+        blocks: script.blocks.map((block) => ({ kind: block.kind, text: block.text })),
+      })),
+    }, evidence, buildNarrativeClaimPlanV4(evidence));
+    expect(validation.issues.filter((issue) => issue.code === 'unknown_proper_noun')).toEqual([]);
+  });
+
   it('requires a clean recritique and all four factual mutation detections', async () => {
     const candidates = new Map([
       ['on_site', artifact('on_site', true)],
