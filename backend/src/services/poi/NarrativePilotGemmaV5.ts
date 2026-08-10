@@ -48,6 +48,13 @@ const SCORE_VALUES_V5: Record<NarrativeScoreLabelV5, number> = {
   exceptional: 5,
 };
 
+const CLAIM_COVERAGE_STOP_WORDS_V5 = new Set([
+  'a', 'al', 'ante', 'aunque', 'como', 'con', 'contra', 'de', 'del', 'desde', 'el',
+  'ella', 'en', 'entre', 'era', 'es', 'esta', 'este', 'fue', 'hacia', 'hasta', 'la',
+  'las', 'lo', 'los', 'o', 'para', 'pero', 'por', 'que', 'se', 'sin', 'sobre', 'su',
+  'sus', 'tras', 'un', 'una', 'y', 'ya',
+]);
+
 export const NARRATIVE_FINAL_CRITIC_PARAMETERS_V5 = {
   ...NARRATIVE_CRITIC_PARAMETERS_V4,
   numCtx: 65_536,
@@ -220,6 +227,37 @@ function deterministicNewClaimsV5(request: NarrativeCriticRequestV4): NarrativeC
   });
 }
 
+function significantClaimTokensV5(value: string): Set<string> {
+  const words = narrativeUnicodeWordsV4(
+    value.normalize('NFD').replace(/[\u0300-\u036f]/gu, '').toLocaleLowerCase('es-ES')
+  );
+  return new Set(words.filter((word) => (
+    word.length >= 4 && !CLAIM_COVERAGE_STOP_WORDS_V5.has(word)
+  )).map((word) => (word.length >= 7 ? word.slice(0, 6) : word)));
+}
+
+function deterministicOmittedClaimsV5(
+  request: NarrativeCriticRequestV4
+): NarrativeCriticReportV4['omittedClaims'] {
+  return request.plan.scenes.flatMap((scene, sceneIndex) => scene.blocks.flatMap(
+    (block, blockIndex) => {
+      const proseTokens = significantClaimTokensV5(
+        request.text.scripts[sceneIndex].blocks[blockIndex].text
+      );
+      return block.claims.flatMap((claim) => {
+        const approvedTokens = significantClaimTokensV5(claim.text);
+        if (approvedTokens.size === 0
+          || [...approvedTokens].some((token) => proseTokens.has(token))) return [];
+        return [{
+          sceneId: scene.sceneId,
+          claimId: claim.claimId,
+          detail: 'El bloque no comparte contenido factual con el claim aprobado.',
+        }];
+      });
+    }
+  ));
+}
+
 export function validateNarrativeFinalCriticReportV5(
   raw: unknown,
   rawRequest: NarrativeCriticRequestV4
@@ -333,6 +371,11 @@ export function validateNarrativeFinalCriticReportV5(
       && (normalizedLiteral(candidate.claim).includes(normalizedLiteral(finding.claim))
         || normalizedLiteral(finding.claim).includes(normalizedLiteral(candidate.claim)))
     ))) report.newClaims.push(finding);
+  }
+  for (const finding of deterministicOmittedClaimsV5(request)) {
+    if (!report.omittedClaims.some((candidate) => (
+      candidate.sceneId === finding.sceneId && candidate.claimId === finding.claimId
+    ))) report.omittedClaims.push(finding);
   }
   return report;
 }

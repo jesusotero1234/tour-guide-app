@@ -187,6 +187,27 @@ describe('NarrativePilotGemmaV5', () => {
     }]);
   });
 
+  it('detects a block with zero factual claim coverage when the LLM misses the omission', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const plan = buildNarrativeClaimPlanV4(evidence);
+    const tourText = text();
+    tourText.scripts[0].blocks[0].text = [
+      'Observa el lugar con calma y compara sus formas, luces, sombras, materiales y proporciones.',
+      'Detente unos instantes, respira despacio y conserva una impresión general del conjunto.',
+    ].join(' ');
+
+    const validated = validateNarrativeFinalCriticReportV5(
+      report(false),
+      buildNarrativeCriticRequestV4(evidence, plan, tourText)
+    );
+
+    expect(validated.omittedClaims).toEqual(expect.arrayContaining([{
+      sceneId: plan.scenes[0].sceneId,
+      claimId: plan.scenes[0].blocks[0].claims[0].claimId,
+      detail: 'El bloque no comparte contenido factual con el claim aprobado.',
+    }]));
+  });
+
   it('does not reject a literal rhetorical question that asserts no new fact', () => {
     const evidence = loadMadridNarrativeEvidenceCaseV4();
     const plan = buildNarrativeClaimPlanV4(evidence);

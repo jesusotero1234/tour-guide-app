@@ -72,7 +72,7 @@ export function applyNarrativeMutationV5(
   const neutralWords = mutationWordsV5([
     'Observa el lugar con calma y compara sus formas, luces, sombras, materiales y proporciones.',
     'Recorre con la mirada cada detalle visible y atiende a los cambios de escala, textura y color.',
-    'Detente unos instantes antes de continuar el paseo y conserva una impresión general del conjunto.',
+    'Detente unos instantes, respira despacio y conserva una impresión general del conjunto antes de seguir.',
   ].join(' '));
   const replacement = Array.from(
     { length: originalWordCount },
