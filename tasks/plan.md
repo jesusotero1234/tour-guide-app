@@ -72,45 +72,46 @@ never publish a tour, imply demand, or overwrite outputs after a failed run.
 
 ### Phase 1: evidence and deterministic plan
 
-- [ ] Write failing tests for route order, four roles, visual cues, provenance,
+- [x] Write failing tests for route order, four roles, visual cues, provenance,
   fingerprints, fact permutation, one-time assignment, model-free metadata, and
   a synthetic unknown-city case.
-- [ ] Implement the generic contracts, offline Madrid fixture, validator, and
+- [x] Implement the generic contracts, offline Madrid fixture, validator, and
   deterministic plan builder.
-- [ ] Verify focused tests and backend TypeScript.
+- [x] Verify focused tests and backend TypeScript.
 
 ### Phase 2: prose, critics, and lifecycle
 
-- [ ] Write failing tests for direct approval, grounding rejection, one prose
+- [x] Write failing tests for direct approval, grounding rejection, one prose
   repair, protocol retry, second content failure, deterministic prose validation,
   Gemma warm-up/digest/GPU checks, eviction recovery, and fail-closed output.
-- [ ] Implement the strict V4 writer, critic contracts, Gemma lifecycle manager,
+- [x] Implement the strict V4 writer, critic contracts, Gemma lifecycle manager,
   and `AutonomousNarrativeV4` orchestration.
-- [ ] Verify focused tests and backend TypeScript.
+- [x] Verify focused tests and backend TypeScript.
 
 ### Phase 3: qualification and freeze
 
-- [ ] Write failing tests for 1/3 and 0/3 gates, exact tie-breaks, four mutations,
+- [x] Write failing tests for 1/3 and 0/3 gates, exact tie-breaks, four mutations,
   invalid mutation reports, non-empty metrics, atomic output, and replay tampering.
-- [ ] Implement fingerprints, Madrid qualification, mutations, replay, CLI,
+- [x] Implement fingerprints, Madrid qualification, mutations, replay, CLI,
   selected artifact, public preview, and prepared manifest.
-- [ ] Verify offline replay and failure atomicity.
+- [x] Verify offline replay and failure atomicity.
 
 ### Phase 4: pilot experience
 
-- [ ] Write tests for preview validation, seven exact places, duration, feature
+- [x] Write tests for preview validation, seven exact places, duration, feature
   gating, URL navigation, and invalid/missing fixtures.
-- [ ] Implement the responsive accessible page and reuse `TourMap`.
-- [ ] Verify keyboard, focus, live announcements, textual map equivalent, console,
-  and 320/768/1024/1440 layouts in a real browser.
+- [x] Implement the responsive accessible page and reuse `TourMap`.
+- [ ] Verify keyboard, focus, live announcements, and console with DevTools in a
+  real browser. The textual equivalent and 320/768/1024/1440 layouts were checked
+  in isolated headless Chrome; the DevTools connector was unavailable.
 
 ### Phase 5: release checks
 
-- [ ] Run backend full suite/build plus route V7 and narrative V2/V3/V4 replays.
-- [ ] Run frontend typecheck/build and browser checks.
-- [ ] Review the diff across correctness, simplicity, architecture, security, and
+- [x] Run backend full suite/build plus route V7 and narrative V2/V3/V4 replays.
+- [x] Run frontend typecheck/build and headless layout checks.
+- [x] Review the diff across correctness, simplicity, architecture, security, and
   performance; scan for secrets and public prompt/raw-output leakage.
-- [ ] Create additive code/UI commits. Create the content commit only if one live
+- [x] Create additive code/UI commits. Create the content commit only if one live
   external qualification passes and freezes in that same execution.
 
 ## Live-run rule
@@ -119,3 +120,16 @@ The external batch is attempted once only after all offline and browser gates pa
 `DEEPSEEK_API_KEY` exists, and the configured Ollama host exposes the exact pinned
 Gemma digest fully in VRAM. A failed batch remains diagnostic evidence; its text is
 never manually edited or frozen.
+
+## Official live result (2026-08-10)
+
+The single official `--generate --allow-external --freeze-pilot` run completed with
+the pinned Gemma digest fully in VRAM and valid critic latency, but failed safely:
+all three variants exhausted their one content repair while still violating the
+deterministic prose contract. The result was `failed`, `0/3` candidates were
+approved, and no qualification, artifact, preview, or manifest file was created.
+The run was not repeated and no generated prose was edited or frozen.
+
+The inherited V2 replay also remains unavailable because the current repository
+does not contain `fixtures/narrative-benchmark-v2/approved-benchmark.json`; V7, V3,
+and Madrid V4 offline validation pass.

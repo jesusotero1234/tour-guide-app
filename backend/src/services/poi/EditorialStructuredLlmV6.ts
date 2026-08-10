@@ -43,6 +43,8 @@ export interface EditorialRequestOptionsV6 {
   maxTokens?: number;
   deepseekStrictTools?: boolean;
   ollamaContextTokens?: number;
+  ollamaKeepAlive?: string;
+  requestAttempts?: 1 | 2;
   post?: EditorialPostV6;
 }
 
@@ -141,7 +143,8 @@ export async function requestEditorialStructuredV6<T>(config: {
     ? options.oneProviderApiKey
     : options.apiKey;
   const attempts: EditorialAttemptV6[] = [];
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
+  const requestAttempts = options.requestAttempts ?? 2;
+  for (let attempt = 1; attempt <= requestAttempts; attempt += 1) {
     const startedAt = Date.now();
     let response: { data: unknown };
     try {
@@ -152,6 +155,7 @@ export async function requestEditorialStructuredV6<T>(config: {
       if (config.provider.kind === 'ollama') {
         response = await post(`${(options.ollamaHost ?? 'http://localhost:11434').replace(/\/$/, '')}/api/chat`, {
           model: config.provider.model, messages, stream: false, think: false,
+          ...(options.ollamaKeepAlive ? { keep_alive: options.ollamaKeepAlive } : {}),
           format: config.schema,
           options: {
             temperature: 0, seed: 42,
@@ -197,7 +201,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         attempt, status: 'transport_error', latencyMs: Date.now() - startedAt,
         rawOutput: null, error: safeTransportError(error, activeApiKey),
       });
-      if (attempt === 1) continue;
+      if (attempt < requestAttempts) continue;
       return {
         callId: config.callId, status: 'transport_error', value: null, attempts,
         model: config.provider.model, promptFingerprint, responseFingerprint: null,
@@ -214,7 +218,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         attempt, status: 'malformed_response', latencyMs: Date.now() - startedAt,
         rawOutput, error: error instanceof Error ? error.message : String(error),
       });
-      if (attempt === 1) continue;
+      if (attempt < requestAttempts) continue;
       return {
         callId: config.callId, status: 'malformed_response', value: null, attempts,
         model: config.provider.model, promptFingerprint,

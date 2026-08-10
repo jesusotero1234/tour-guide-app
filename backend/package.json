@@ -26,6 +26,7 @@
     "quality:narrative:paris:v1:critic-smoke": "node -r ts-node/register scripts/validation/narrative-critic-smoke-paris-v1.ts",
     "quality:narrative:v2": "node -r ts-node/register scripts/validation/narrative-benchmark-v2.ts",
     "quality:narrative:v3": "node -r ts-node/register scripts/validation/narrative-benchmark-v3.ts",
+    "quality:narrative:madrid:v4": "node -r ts-node/register scripts/validation/narrative-madrid-pilot-v4.ts",
     "quality:core:v6": "node -r ts-node/register scripts/validation/resolve-editorial-core-v6.ts",
     "quality:core:v6:evaluate": "node -r ts-node/register scripts/validation/evaluate-editorial-core-v6.ts",
     "quality:benchmark:editorial": "node -r ts-node/register scripts/validation/benchmark-editorial-curators.ts",

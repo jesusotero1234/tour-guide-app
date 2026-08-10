@@ -187,3 +187,14 @@ export function buildNarrativeClaimPlanV4(
 export function narrativeClaimPlanFingerprintV4(plan: NarrativeClaimPlanV4): string {
   return editorialFingerprintV7(plan);
 }
+
+export function validateNarrativeClaimPlanV4(
+  plan: NarrativeClaimPlanV4,
+  evidence: NarrativeEvidenceCaseV4
+): NarrativeClaimPlanV4 {
+  const expected = buildNarrativeClaimPlanV4(evidence);
+  if (narrativeClaimPlanFingerprintV4(plan) !== narrativeClaimPlanFingerprintV4(expected)) {
+    throw new Error('narrative v4 deterministic claim plan changed');
+  }
+  return plan;
+}
