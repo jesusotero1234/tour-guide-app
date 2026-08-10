@@ -14,6 +14,7 @@ import {
   narrativeFinalCriticPromptFingerprintV5,
   narrativeFinalCriticReportSchemaV5,
   requestNarrativeFinalCritiqueV5,
+  validateNarrativeFinalCriticReportV5,
 } from './NarrativePilotGemmaV5';
 import { NarrativeTourTextV4 } from './NarrativeProseV4';
 
@@ -78,9 +79,9 @@ describe('NarrativePilotGemmaV5', () => {
     expect(narrativeFinalCriticPromptFingerprintV5()).toMatch(/^[a-f0-9]{64}$/);
   });
 
-  it('retries praise disguised as a new claim and accepts a clean defect report', async () => {
+  it('discards praise disguised as a new claim while retaining the raw diagnostic', async () => {
     const evidence = loadMadridNarrativeEvidenceCaseV4();
-    const responses = [report(true), report(false)];
+    const responses = [report(true)];
     const post = jest.fn(async () => ({
       data: { message: { content: JSON.stringify(responses.shift()) } },
     }));
@@ -109,7 +110,32 @@ describe('NarrativePilotGemmaV5', () => {
     expect(result.value?.scores.dimensions).toEqual({
       curiosity: 4, humanTension: 4, lookingUtility: 4, naturalness: 4, progression: 4,
     });
-    expect(result.attempts.map((attempt) => attempt.status)).toEqual(['semantic_error', 'valid']);
-    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.rawOutput).toContain('praise rather than an unsupported excerpt');
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual(['valid']);
+    expect(post).toHaveBeenCalledTimes(1);
+  });
+
+  it('retains a defect whose claim is an exact excerpt from the referenced block', () => {
+    const evidence = loadMadridNarrativeEvidenceCaseV4();
+    const tourText = text();
+    const raw = report(false);
+    raw.newClaims = [{
+      sceneId: 'palace',
+      location: 'opening',
+      severity: 'critical',
+      claim: tourText.scripts[0].blocks[0].text.split(/\s+/u).slice(0, 8).join(' '),
+      detail: 'Este fragmento no está respaldado por la evidencia.',
+    }];
+
+    const validated = validateNarrativeFinalCriticReportV5(
+      raw,
+      buildNarrativeCriticRequestV4(
+        evidence,
+        buildNarrativeClaimPlanV4(evidence),
+        tourText
+      )
+    );
+
+    expect(validated.newClaims).toHaveLength(1);
   });
 });

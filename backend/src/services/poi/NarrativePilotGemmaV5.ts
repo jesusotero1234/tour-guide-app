@@ -152,15 +152,11 @@ export function validateNarrativeFinalCriticReportV5(
     },
   };
   const report = validateNarrativeCriticReportV4(transformed, request);
-  report.newClaims.forEach((finding, index) => {
+  report.newClaims = report.newClaims.filter((finding) => {
     const claim = finding.claim.replace(/^["'“”‘’]+|["'“”‘’]+$/gu, '').trim();
     const wordCount = narrativeUnicodeWordsV4(claim).length;
-    if (wordCount < 5 || wordCount > 30
-      || !normalizedLiteral(locationText(request, finding)).includes(normalizedLiteral(claim))) {
-      throw new Error(
-        `newClaims[${index}].claim must be an exact 5-30 word excerpt from the referenced prose`
-      );
-    }
+    return wordCount >= 5 && wordCount <= 30
+      && normalizedLiteral(locationText(request, finding)).includes(normalizedLiteral(claim));
   });
   return report;
 }
