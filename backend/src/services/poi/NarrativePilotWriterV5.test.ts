@@ -58,6 +58,7 @@ describe('NarrativePilotWriterV5', () => {
       temperature: 0, maxTokens: 8000, thinking: false, strictTool: true,
     });
     expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).toContain('175 palabras por escena');
+    expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).toContain('cuenta las palabras del conjunto');
     expect(NARRATIVE_PROSE_SYSTEM_PROMPT_V5).not.toMatch(/palabras por bloque|32 palabras/);
     const userMessage = JSON.stringify(bodies[0]);
     expect(userMessage).toContain('narrative-writer-packet-v5');

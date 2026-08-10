@@ -26,6 +26,7 @@ export const NARRATIVE_PROSE_SYSTEM_PROMPT_V5 = [
   'Desarrolla exclusivamente los cinco claims aprobados de cada escena en los bloques opening, look, human_conflict, interpretation y closing.',
   'La introducción tendrá entre 45 y 75 palabras; el objetivo es 175 palabras por escena y el rango válido del cuerpo completo es de 160 a 200.',
   'No existe una cuota por bloque: distribuye la extensión según lo que necesite la narración.',
+  'Antes de enviar, cuenta las palabras del conjunto de los cinco bloques de cada escena y corrige cualquier total fuera del rango.',
   'El bloque look incluirá una instrucción visual concreta y desarrollará el cue oficial.',
   'Usa solo los nombres propios y números permitidos para cada escena.',
   'No añadas hechos, personajes, acontecimientos, causalidad ni relaciones que no estén en los claims.',

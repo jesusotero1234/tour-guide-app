@@ -206,7 +206,11 @@ export function validateNarrativeProseV5(
     introductionWords = narrativeUnicodeWordsV4(introduction).length;
     if (introductionWords < plan.duration.introductionWords.minimum
       || introductionWords > plan.duration.introductionWords.maximum) {
-      add('word_count', 'introduction', 'introduction must contain 45 to 75 Unicode words');
+      add(
+        'word_count',
+        'introduction',
+        `introduction has ${introductionWords} Unicode words; must contain 45 to 75`
+      );
     }
     validateSpanish(introduction, 'introduction');
     validateProperNouns(
@@ -268,7 +272,7 @@ export function validateNarrativeProseV5(
       || bodyWordCount > plan.duration.sceneBodyWords.maximum) {
       add(
         'word_count', scenePath,
-        `${evidenceScene.sceneId} body must contain 160 to 200 Unicode words`,
+        `${evidenceScene.sceneId} body has ${bodyWordCount} Unicode words; must contain 160 to 200`,
         evidenceScene.sceneId
       );
     }

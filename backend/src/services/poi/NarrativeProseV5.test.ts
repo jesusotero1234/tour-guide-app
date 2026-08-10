@@ -56,6 +56,7 @@ describe('NarrativeProseV5', () => {
     draft.introduction = 'Madrid 9999.';
     draft.scripts[0].blocks[0].text = draft.scripts[0].blocks[0].text
       .replace('El Palacio', 'El cronista Aurelio Valdés describió el Palacio');
+    draft.scripts[0].blocks[4].text += ` ${SCENE_REFLECTIONS.palace}`;
     draft.scripts[1].blocks[1].text = 'La fachada permanece delante de quien visita este lugar.';
 
     const report = validateNarrativeProseV5(
@@ -69,6 +70,11 @@ describe('NarrativeProseV5', () => {
       expect.objectContaining({ code: 'word_count', path: 'introduction' }),
       expect.objectContaining({ code: 'unknown_number', path: 'introduction' }),
       expect.objectContaining({ code: 'unknown_proper_noun', sceneId: 'palace' }),
+      expect.objectContaining({
+        code: 'word_count',
+        sceneId: 'palace',
+        message: expect.stringMatching(/has \d+ Unicode words; must contain 160 to 200/),
+      }),
       expect.objectContaining({ code: 'visual_instruction', sceneId: 'almudena' }),
       expect.objectContaining({ code: 'visual_cue', sceneId: 'almudena' }),
     ]));
