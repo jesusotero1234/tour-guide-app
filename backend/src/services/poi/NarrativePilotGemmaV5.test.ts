@@ -12,6 +12,7 @@ import {
 import {
   NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5,
   narrativeFinalCriticPromptFingerprintV5,
+  narrativeFinalCriticReportSchemaV5,
   requestNarrativeFinalCritiqueV5,
 } from './NarrativePilotGemmaV5';
 import { NarrativeTourTextV4 } from './NarrativeProseV4';
@@ -40,10 +41,10 @@ function text(): NarrativeTourTextV4 {
   };
 }
 
-function report(newClaim = false): NarrativeCriticReportV4 {
+function report(newClaim = false) {
   const evidence = loadMadridNarrativeEvidenceCaseV4();
   return {
-    schemaVersion: 'narrative-critic-report-v4',
+    schemaVersion: 'narrative-critic-report-v5',
     newClaims: newClaim ? [{
       sceneId: 'palace',
       location: 'opening',
@@ -54,10 +55,14 @@ function report(newClaim = false): NarrativeCriticReportV4 {
     distortedClaims: [], omittedClaims: [], misleadingOmissions: [],
     scores: {
       dimensions: {
-        curiosity: 4, humanTension: 4, lookingUtility: 4, naturalness: 4, progression: 4,
+        curiosity: 'fully_meets',
+        humanTension: 'fully_meets',
+        lookingUtility: 'fully_meets',
+        naturalness: 'fully_meets',
+        progression: 'fully_meets',
       },
       scenes: evidence.scenes.map((scene) => ({
-        sceneId: scene.sceneId, score: 4, rationale: 'Cumple plenamente el criterio.',
+        sceneId: scene.sceneId, score: 'fully_meets', rationale: 'Cumple plenamente el criterio.',
       })),
     },
   };
@@ -65,10 +70,11 @@ function report(newClaim = false): NarrativeCriticReportV4 {
 
 describe('NarrativePilotGemmaV5', () => {
   it('defines defect-only findings and an unambiguous ascending score rubric', () => {
-    expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('1 significa fallo grave');
-    expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('4 significa que cumple plenamente');
+    expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('severe_failure');
+    expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('fully_meets');
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('elogios ni sugerencias');
     expect(NARRATIVE_FINAL_CRITIC_SYSTEM_PROMPT_V5).toContain('fragmento literal');
+    expect(JSON.stringify(narrativeFinalCriticReportSchemaV5())).not.toContain('"integer"');
     expect(narrativeFinalCriticPromptFingerprintV5()).toMatch(/^[a-f0-9]{64}$/);
   });
 
@@ -100,6 +106,9 @@ describe('NarrativePilotGemmaV5', () => {
 
     expect(result.status).toBe('valid');
     expect(result.value?.newClaims).toEqual([]);
+    expect(result.value?.scores.dimensions).toEqual({
+      curiosity: 4, humanTension: 4, lookingUtility: 4, naturalness: 4, progression: 4,
+    });
     expect(result.attempts.map((attempt) => attempt.status)).toEqual(['semantic_error', 'valid']);
     expect(post).toHaveBeenCalledTimes(2);
   });
