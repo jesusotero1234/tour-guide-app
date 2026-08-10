@@ -97,3 +97,5 @@ backend/data/audio/
 
 *.m4a
 
+# private narrative generation diagnostics
+backend/fixtures/narrative-madrid-v5/diagnostics/
