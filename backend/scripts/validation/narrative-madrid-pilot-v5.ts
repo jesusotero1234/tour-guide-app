@@ -13,9 +13,9 @@ import {
 import { loadMadridNarrativeEvidenceCaseV4 } from '../../src/services/poi/NarrativeMadridEvidenceV4';
 import {
   prepareNarrativeCriticV4,
-  requestNarrativeFinalCritiqueV4,
   requestNarrativeGroundingCritiqueV4,
 } from '../../src/services/poi/NarrativePilotGemmaV4';
+import { requestNarrativeFinalCritiqueV5 } from '../../src/services/poi/NarrativePilotGemmaV5';
 import {
   NarrativeVariantV5,
   generateNarrativeProseV5,
@@ -80,7 +80,7 @@ async function main(): Promise<void> {
       generateNarrativeProseV5(candidateEvidence, candidatePlan, variant, { apiKey }, repair)
     ),
     critiqueFinal: (request: ReturnType<typeof buildNarrativeCriticRequestV4>) => (
-      requestNarrativeFinalCritiqueV4(request, lifecycle)
+      requestNarrativeFinalCritiqueV5(request, lifecycle)
     ),
   });
   const bundle = buildNarrativeDiagnosticBundleV5('preflight', [artifact]);
