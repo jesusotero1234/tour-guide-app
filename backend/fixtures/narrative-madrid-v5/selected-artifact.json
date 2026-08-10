@@ -1,0 +1,416 @@
+{
+  "schemaVersion": "narrative-pilot-freeze-document-v5",
+  "kind": "artifact",
+  "freezeLinks": {
+    "qualification": "c758cdd91197b460a2d4673da7c791e8223c0e931db5c64c39c6fae6a2bbdde1",
+    "artifact": "b6a650c692f9ad847e7cf644ba380d9b3459ce30ac326a4ce862f3c5ab8e3ca1",
+    "preview": "cb250ba22dbbd8c94eef9e4f784a685ce4b85b75c81c5172bd96a86e47a07ba3",
+    "manifest": "a497e848cbc6cab012cd86cd51840095de0e15ae05501d99487ad8b24df61b1e"
+  },
+  "payload": {
+    "schemaVersion": "narrative-selected-artifact-v5",
+    "status": "machine_approved",
+    "publicTourStatus": "review",
+    "caseId": "madrid-history-es-v4",
+    "variant": "documentary",
+    "evidenceFingerprint": "8c51e1904d3851f2e1dcc2d6bdc8fa80283c1442ba68acf733bb6fd28f6c1968",
+    "planFingerprint": "c306b9eb58df42ac852c2c1042a352ef628a58cd2e9b8ad2fa652f4336e0737c",
+    "textFingerprint": "8f40cbb0d7d55af987a679816fb8dd3360b3eca2d005d3c6c61592ad7a1472db",
+    "qualificationFingerprint": "c758cdd91197b460a2d4673da7c791e8223c0e931db5c64c39c6fae6a2bbdde1",
+    "text": {
+      "schemaVersion": "narrative-tour-text-v4",
+      "introduction": "Esta ruta recorre el borde real de Madrid hasta la expansión borbónica, siguiendo siete paradas que revelan cómo una villa medieval se convirtió en capital moderna. Desde el Palacio Real hasta la Puerta de Alcalá, cada espacio público e institucional cuenta una parte de esa transformación: incendios, concursos, reformas y decisiones que dieron forma a la ciudad que hoy conocemos.",
+      "scripts": [
+        {
+          "sceneId": "palace",
+          "name": "Palacio Real",
+          "blocks": [
+            {
+              "blockId": "palace:opening",
+              "kind": "opening",
+              "text": "El Palacio Real continúa siendo la residencia oficial del Rey, aunque se abre al público y se utiliza habitualmente para actos oficiales. Es el punto de partida natural de esta ruta.",
+              "evidenceFactIds": [
+                "palace-contrast"
+              ]
+            },
+            {
+              "blockId": "palace:look",
+              "kind": "look",
+              "text": "Observa la fachada sobre Bailén y compara sus niveles con la masa cuadrada del palacio. El Palacio Real tiene planta cuadrada alrededor de un patio central y ocho niveles, seis de ellos visibles desde la calle Bailén. Detente un momento y recorre con la mirada la verticalidad de esa fachada frente a la solidez compacta del conjunto.",
+              "evidenceFactIds": [
+                "palace-observable"
+              ]
+            },
+            {
+              "blockId": "palace:human_conflict",
+              "kind": "human_conflict",
+              "text": "Felipe V llamó a Filippo Juvarra para proyectar el palacio y Giambattista Sacchetti adaptó el proyecto tras la muerte del arquitecto. La sucesión de manos revela la complejidad de levantar una sede regia.",
+              "evidenceFactIds": [
+                "palace-agency"
+              ]
+            },
+            {
+              "blockId": "palace:interpretation",
+              "kind": "interpretation",
+              "text": "El palacio actual ocupa el solar del antiguo Alcázar de Madrid, destruido por un incendio en la Nochebuena de 1734. Aquella pérdida abrió paso a una nueva arquitectura.",
+              "evidenceFactIds": [
+                "palace-change"
+              ]
+            },
+            {
+              "blockId": "palace:closing",
+              "kind": "closing",
+              "text": "El palacio abre la ruta mostrando cómo un solar fortificado se convirtió en una arquitectura estable para representar y ejercer el poder real.",
+              "evidenceFactIds": [
+                "palace-agency",
+                "palace-change",
+                "palace-contrast",
+                "palace-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "almudena",
+            "text": "Cruza la Plaza de la Armería hacia la Catedral de la Almudena y sitúate frente a su fachada principal."
+          },
+          "bodyWordCount": 172
+        },
+        {
+          "sceneId": "almudena",
+          "name": "Catedral de la Almudena",
+          "blocks": [
+            {
+              "blockId": "almudena:opening",
+              "kind": "opening",
+              "text": "Las interrupciones políticas y la escasez de fondos prolongaron las obras hasta la consagración de la catedral el 15 de junio de 1993. Un siglo de espera para ver terminado el templo.",
+              "evidenceFactIds": [
+                "almudena-contrast"
+              ]
+            },
+            {
+              "blockId": "almudena:look",
+              "kind": "look",
+              "text": "Mira la fachada principal y compárala con la composición clásica del Palacio Real enfrente. La fachada de la Almudena adopta un lenguaje clasicista para armonizar visualmente con el vecino Palacio Real situado al otro lado. Fíjate en cómo el diálogo entre ambos edificios define el perfil de la calle.",
+              "evidenceFactIds": [
+                "almudena-observable"
+              ]
+            },
+            {
+              "blockId": "almudena:human_conflict",
+              "kind": "human_conflict",
+              "text": "Francisco de Cubas trazó el proyecto inicial y Fernando Chueca Goitia junto con Carlos Sidro presentaron después el diseño clásico elegido. Dos generaciones de arquitectos disputaron la imagen final.",
+              "evidenceFactIds": [
+                "almudena-agency"
+              ]
+            },
+            {
+              "blockId": "almudena:interpretation",
+              "kind": "interpretation",
+              "text": "El primer proyecto concibió un gran templo neogótico, pero el diseño posterior propuso terminar la catedral con un aspecto más clásico. La ambición inicial cedió ante la coherencia urbana.",
+              "evidenceFactIds": [
+                "almudena-change"
+              ]
+            },
+            {
+              "blockId": "almudena:closing",
+              "kind": "closing",
+              "text": "La catedral revela una capital que tuvo que negociar durante más de un siglo entre una ambición medievalizante y una imagen urbana deliberadamente clásica.",
+              "evidenceFactIds": [
+                "almudena-agency",
+                "almudena-change",
+                "almudena-contrast",
+                "almudena-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "villa",
+            "text": "Sigue por la calle Mayor hasta la Plaza de la Villa y detente junto a la estatua central."
+          },
+          "bodyWordCount": 163
+        },
+        {
+          "sceneId": "villa",
+          "name": "Plaza de la Villa",
+          "blocks": [
+            {
+              "blockId": "villa:opening",
+              "kind": "opening",
+              "text": "La plaza reúne arquitectura civil de tres siglos en la Casa y Torre de los Lujanes, la Casa de Cisneros y la Casa de la Villa. Tres edificios, tres épocas, un mismo espacio.",
+              "evidenceFactIds": [
+                "villa-contrast"
+              ]
+            },
+            {
+              "blockId": "villa:look",
+              "kind": "look",
+              "text": "Busca la torre y distingue el aparejo de piedra y ladrillo, la portada gótica y el acceso de la calle del Codo. La Torre de los Lujanes combina piedra y ladrillo y conserva una portada gótica junto con un arco de herradura en la calle del Codo. Acércate para apreciar la textura de los materiales.",
+              "evidenceFactIds": [
+                "villa-observable"
+              ]
+            },
+            {
+              "blockId": "villa:human_conflict",
+              "kind": "human_conflict",
+              "text": "El Concejo levantó la Casa de la Villa como sede municipal y el edificio acogió durante siglos el Ayuntamiento de Madrid. El gobierno local encontró aquí su casa estable.",
+              "evidenceFactIds": [
+                "villa-agency"
+              ]
+            },
+            {
+              "blockId": "villa:interpretation",
+              "kind": "interpretation",
+              "text": "La Plaza de la Villa pertenece al trazado medieval de Madrid y de ella parten las calles del Codo, del Cordón y de Madrid. Sus estrechas salidas conservan la memoria de la trama antigua.",
+              "evidenceFactIds": [
+                "villa-change"
+              ]
+            },
+            {
+              "blockId": "villa:closing",
+              "kind": "closing",
+              "text": "La plaza concentra el paso desde la trama medieval y las residencias nobiliarias hasta una sede estable para el gobierno municipal.",
+              "evidenceFactIds": [
+                "villa-agency",
+                "villa-change",
+                "villa-contrast",
+                "villa-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "mayor",
+            "text": "Continúa por la calle Mayor, gira hacia la Plaza Mayor y entra bajo uno de sus arcos."
+          },
+          "bodyWordCount": 172
+        },
+        {
+          "sceneId": "mayor",
+          "name": "Plaza Mayor",
+          "blocks": [
+            {
+              "blockId": "mayor:opening",
+              "kind": "opening",
+              "text": "El incendio de 1790 destruyó un tercio de la plaza y Juan de Villanueva inició una reforma integral tomando la Casa de la Panadería como referencia. La catástrofe obligó a repensar el conjunto.",
+              "evidenceFactIds": [
+                "mayor-contrast"
+              ]
+            },
+            {
+              "blockId": "mayor:look",
+              "kind": "look",
+              "text": "Mira la Casa de la Panadería y sigue con la vista la altura continua de las fachadas que rodean la plaza. Las fachadas de la plaza mantienen la altura de la Casa de la Panadería, que sirvió como modelo para unificar el conjunto reconstruido. Deja que la mirada recorra ese horizonte regular.",
+              "evidenceFactIds": [
+                "mayor-observable"
+              ]
+            },
+            {
+              "blockId": "mayor:human_conflict",
+              "kind": "human_conflict",
+              "text": "Felipe II encargó a Juan de Herrera remodelar la plaza y Juan Gómez de Mora dio forma al gran recinto desde 1617. Dos monarcas y dos arquitectos definieron su carácter.",
+              "evidenceFactIds": [
+                "mayor-agency"
+              ]
+            },
+            {
+              "blockId": "mayor:interpretation",
+              "kind": "interpretation",
+              "text": "La Plaza Mayor nació en la plaza del Arrabal, un espacio extramuros donde confluían los caminos de Toledo y Atocha y se reunían comerciantes. El mercado precedió a la Corte.",
+              "evidenceFactIds": [
+                "mayor-change"
+              ]
+            },
+            {
+              "blockId": "mayor:closing",
+              "kind": "closing",
+              "text": "La plaza convirtió un mercado periférico en un escenario regular de la Corte y sobrevivió a la destrucción mediante una nueva unidad arquitectónica.",
+              "evidenceFactIds": [
+                "mayor-agency",
+                "mayor-change",
+                "mayor-contrast",
+                "mayor-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "sol",
+            "text": "Sal hacia la calle Mayor y continúa hasta la Puerta del Sol, buscando el espacio semicircular de la plaza."
+          },
+          "bodyWordCount": 168
+        },
+        {
+          "sceneId": "sol",
+          "name": "Puerta del Sol",
+          "blocks": [
+            {
+              "blockId": "sol:opening",
+              "kind": "opening",
+              "text": "El proyecto conservó la alineación de la antigua Casa de Correos mientras diseñó unitariamente los edificios del lado semicircular opuesto. La reforma respetó lo existente y ordenó lo nuevo.",
+              "evidenceFactIds": [
+                "sol-contrast"
+              ]
+            },
+            {
+              "blockId": "sol:look",
+              "kind": "look",
+              "text": "Gira sobre ti mismo para reconocer el arco semicircular y localiza las calles históricas que convergen en la plaza. La plaza adopta una forma semicircular en uno de sus lados y concentra la llegada de calles históricas como Mayor, Arenal, Alcalá y Carrera de San Jerónimo. Date la vuelta lentamente y cuenta cada boca de calle.",
+              "evidenceFactIds": [
+                "sol-observable"
+              ]
+            },
+            {
+              "blockId": "sol:human_conflict",
+              "kind": "human_conflict",
+              "text": "El concurso convocado en 1857 eligió el proyecto conjunto de Lucio del Valle, Juan Rivera y José Morer para reformar la plaza. Tres ingenieros unieron criterios en una sola propuesta.",
+              "evidenceFactIds": [
+                "sol-agency"
+              ]
+            },
+            {
+              "blockId": "sol:interpretation",
+              "kind": "interpretation",
+              "text": "Puerta del Sol tomó su nombre de un postigo de la muralla medieval y pasó de ser un lugar extramuros al centro de la capital. El antiguo límite se volvió corazón.",
+              "evidenceFactIds": [
+                "sol-change"
+              ]
+            },
+            {
+              "blockId": "sol:closing",
+              "kind": "closing",
+              "text": "Sol resume la transformación de un acceso periférico en un centro urbano diseñado para concentrar calles, circulación y vida pública.",
+              "evidenceFactIds": [
+                "sol-agency",
+                "sol-change",
+                "sol-contrast",
+                "sol-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "cibeles",
+            "text": "Toma la calle de Alcalá y avanza hasta la plaza de Cibeles; observa la fuente desde la acera."
+          },
+          "bodyWordCount": 166
+        },
+        {
+          "sceneId": "cibeles",
+          "name": "Cibeles",
+          "blocks": [
+            {
+              "blockId": "cibeles:opening",
+              "kind": "opening",
+              "text": "La fuente fue desplazada al centro de la nueva plaza y reorientada en 1895 para mirar hacia Puerta del Sol en vez de hacia Neptuno. Un giro que cambió su papel en la ciudad.",
+              "evidenceFactIds": [
+                "cibeles-contrast"
+              ]
+            },
+            {
+              "blockId": "cibeles:look",
+              "kind": "look",
+              "text": "Busca la diosa, el carro y los dos leones, y distingue el mármol claro de la escultura frente al granito del pilón. La fuente representa a la diosa Cibeles sobre un carro tirado por dos leones, con esculturas de mármol y un pilón original de granito. Compara la luminosidad de la piedra tallada con la sobriedad de la base.",
+              "evidenceFactIds": [
+                "cibeles-observable"
+              ]
+            },
+            {
+              "blockId": "cibeles:human_conflict",
+              "kind": "human_conflict",
+              "text": "Ventura Rodríguez diseñó la fuente y Francisco Gutiérrez esculpió la diosa, Roberto Michel los leones y Miguel Ximénez las cenefas del carro. Un equipo de artistas repartió el trabajo.",
+              "evidenceFactIds": [
+                "cibeles-agency"
+              ]
+            },
+            {
+              "blockId": "cibeles:interpretation",
+              "kind": "interpretation",
+              "text": "La fuente sirvió como abrevadero y abastecimiento público mediante figuras laterales hasta que su uso público quedó prohibido en 1862. El agua dejó de ser su función principal.",
+              "evidenceFactIds": [
+                "cibeles-change"
+              ]
+            },
+            {
+              "blockId": "cibeles:closing",
+              "kind": "closing",
+              "text": "Cibeles muestra cómo una infraestructura de agua diseñada para el paseo terminó convertida, desplazada y reorientada, en un monumento central de la capital.",
+              "evidenceFactIds": [
+                "cibeles-agency",
+                "cibeles-change",
+                "cibeles-contrast",
+                "cibeles-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "walk_to_next",
+            "targetSceneId": "alcala",
+            "text": "Continúa por la calle de Alcalá hasta la Plaza de la Independencia y busca la Puerta de Alcalá."
+          },
+          "bodyWordCount": 173
+        },
+        {
+          "sceneId": "alcala",
+          "name": "Puerta de Alcalá",
+          "blocks": [
+            {
+              "blockId": "alcala:opening",
+              "kind": "opening",
+              "text": "Las dos fachadas tienen decoraciones diferentes y la antigua entrada urbana se encuentra hoy en el centro de la Plaza de la Independencia. Cada lado cuenta una historia distinta.",
+              "evidenceFactIds": [
+                "alcala-contrast"
+              ]
+            },
+            {
+              "blockId": "alcala:look",
+              "kind": "look",
+              "text": "Cuenta los cinco vanos y distingue el granito de la arquitectura frente a la piedra clara de los motivos decorativos. La Puerta de Alcalá tiene cinco vanos, tres arcos centrales y dos pasos laterales adintelados, con arquitectura de granito y decoración de piedra caliza. Recorre con la vista el contraste entre ambos materiales.",
+              "evidenceFactIds": [
+                "alcala-observable"
+              ]
+            },
+            {
+              "blockId": "alcala:human_conflict",
+              "kind": "human_conflict",
+              "text": "José de Hermosilla, Ventura Rodríguez y Francesco Sabatini participaron en el concurso, que eligió dos propuestas de Sabatini sintetizadas después en el proyecto definitivo. La competencia entre arquitectos definió el resultado.",
+              "evidenceFactIds": [
+                "alcala-agency"
+              ]
+            },
+            {
+              "blockId": "alcala:interpretation",
+              "kind": "interpretation",
+              "text": "La puerta actual sustituyó una entrada construida en 1599 para la llegada de Margarita de Austria, esposa de Felipe III. La ceremonia de entonces explica el monumento de hoy.",
+              "evidenceFactIds": [
+                "alcala-change"
+              ]
+            },
+            {
+              "blockId": "alcala:closing",
+              "kind": "closing",
+              "text": "La antigua entrada cierra el recorrido como una frontera ceremonial que la expansión urbana convirtió en un monumento dentro de la capital moderna.",
+              "evidenceFactIds": [
+                "alcala-agency",
+                "alcala-change",
+                "alcala-contrast",
+                "alcala-observable"
+              ]
+            }
+          ],
+          "transition": {
+            "kind": "tour_end",
+            "targetSceneId": null,
+            "text": "El recorrido termina aquí, frente a la Puerta de Alcalá."
+          },
+          "bodyWordCount": 165
+        }
+      ],
+      "totalWordCount": 1358,
+      "durationSeconds": 3467.9,
+      "durationMinutes": 57.8
+    },
+    "fingerprint": "b6a650c692f9ad847e7cf644ba380d9b3459ce30ac326a4ce862f3c5ab8e3ca1"
+  }
+}

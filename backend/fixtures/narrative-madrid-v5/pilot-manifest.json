@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "narrative-pilot-freeze-document-v5",
+  "kind": "manifest",
+  "freezeLinks": {
+    "qualification": "c758cdd91197b460a2d4673da7c791e8223c0e931db5c64c39c6fae6a2bbdde1",
+    "artifact": "b6a650c692f9ad847e7cf644ba380d9b3459ce30ac326a4ce862f3c5ab8e3ca1",
+    "preview": "cb250ba22dbbd8c94eef9e4f784a685ce4b85b75c81c5172bd96a86e47a07ba3",
+    "manifest": "a497e848cbc6cab012cd86cd51840095de0e15ae05501d99487ad8b24df61b1e"
+  },
+  "payload": {
+    "schemaVersion": "narrative-experience-pilot-manifest-v5",
+    "state": "prepared",
+    "caseId": "madrid-history-es-v4",
+    "routeFingerprint": "e0ac27a7911304b462c2b03c74a63a374a6cec8832bd3b701aa27c4d189c3021",
+    "qualificationFingerprint": "c758cdd91197b460a2d4673da7c791e8223c0e931db5c64c39c6fae6a2bbdde1",
+    "previewFingerprint": "cb250ba22dbbd8c94eef9e4f784a685ce4b85b75c81c5172bd96a86e47a07ba3",
+    "selectedTextFingerprint": "8f40cbb0d7d55af987a679816fb8dd3360b3eca2d005d3c6c61592ad7a1472db",
+    "sceneIds": [
+      "palace",
+      "almudena",
+      "villa",
+      "mayor",
+      "sol",
+      "cibeles",
+      "alcala"
+    ],
+    "experience": {
+      "text": true,
+      "map": true,
+      "audio": false,
+      "checkout": false,
+      "forms": false,
+      "telemetry": false
+    },
+    "machineApprovalMeans": "safe_to_test",
+    "machineApprovalIsDemandEvidence": false,
+    "participantsRecorded": false,
+    "demandDemonstrated": false,
+    "fingerprint": "a497e848cbc6cab012cd86cd51840095de0e15ae05501d99487ad8b24df61b1e"
+  }
+}
