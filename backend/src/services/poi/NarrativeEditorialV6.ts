@@ -55,6 +55,7 @@ export interface NarrativeProtocolWarningV6 {
   stopId: string;
   code:
     | 'language_mismatch'
+    | 'unauthorized_name'
     | 'unauthorized_number'
     | 'unsafe_orientation'
     | 'duration_outlier'
@@ -195,7 +196,7 @@ export function applyNarrativeLocalPatchV6(
 
 export function auditNarrativeScriptDeterministicallyV6(
   script: NarrativeScriptV6,
-  input: { language: string; authorizedNumbers: string[] }
+  input: { language: string; authorizedNames?: string[]; authorizedNumbers: string[] }
 ): NarrativeProtocolWarningV6[] {
   const warnings: NarrativeProtocolWarningV6[] = [];
   const words = normalizedWords(script.text);
@@ -207,6 +208,32 @@ export function auditNarrativeScriptDeterministicallyV6(
         code: 'language_mismatch', severity: 'hard', message: 'El texto no parece estar en español.',
       });
     }
+  }
+  const authorizedNameText = normalizedWords(input.authorizedNames?.join(' ') ?? '').join(' ');
+  const commonSentenceStarts = new Set([
+    'ahora', 'aqui', 'alli', 'cuando', 'despues', 'desde', 'el', 'ella', 'en', 'esta',
+    'este', 'esto', 'hoy', 'la', 'las', 'lo', 'los', 'mira', 'observa', 'pero', 'si', 'su',
+    'tambien', 'y',
+  ]);
+  const nameCandidates = [...script.text.matchAll(
+    /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:\s+(?:(?:de|del|la|las|los|y)\s+)?[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*/gu
+  )];
+  const checkedNames = new Set<string>();
+  for (const match of nameCandidates) {
+    const candidate = match[0];
+    const normalizedCandidate = normalizedWords(candidate).join(' ');
+    const prefix = script.text.slice(0, match.index).trimEnd();
+    const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
+    if (!normalizedCandidate || commonSentenceStarts.has(normalizedCandidate)
+      || (atSentenceStart && !normalizedCandidate.includes(' '))
+      || checkedNames.has(normalizedCandidate)
+      || authorizedNameText.includes(normalizedCandidate)) continue;
+    checkedNames.add(normalizedCandidate);
+    warnings.push({
+      warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}`, stopId: script.stopId,
+      code: 'unauthorized_name', severity: 'hard',
+      message: `El nombre ${candidate} no está autorizado por el dossier.`,
+    });
   }
   const authorized = new Set(input.authorizedNumbers.map((number) => number.replace(/\s+/gu, '')));
   const numbers = [...new Set(script.text.match(/\b\d[\d.,]*\b/gu) ?? [])];

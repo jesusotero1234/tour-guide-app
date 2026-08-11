@@ -28,6 +28,7 @@ export interface EditorialCallResultV6<T> {
   rawOutput: string | null;
   temperature?: number;
   requestFingerprint?: string;
+  usage?: { inputTokens: number; outputTokens: number; totalTokens: number };
 }
 
 export type EditorialPostV6 = (
@@ -100,6 +101,29 @@ function safeTransportError(error: unknown, apiKey?: string): string {
     message = `${message}: ${detail.slice(0, 2_000)}`;
   }
   return apiKey ? message.split(apiKey).join('[REDACTED]') : message;
+}
+
+function providerUsage(
+  value: unknown,
+  provider: EditorialProviderV6
+): EditorialCallResultV6<unknown>['usage'] {
+  const root = objectValue(value, 'provider response');
+  const usage = provider.kind === 'ollama'
+    ? {
+      inputTokens: root.prompt_eval_count,
+      outputTokens: root.eval_count,
+      totalTokens: Number(root.prompt_eval_count) + Number(root.eval_count),
+    }
+    : objectValue(root.usage ?? {}, 'provider response.usage');
+  const inputTokens = provider.kind === 'ollama' ? usage.inputTokens : usage.prompt_tokens;
+  const outputTokens = provider.kind === 'ollama' ? usage.outputTokens : usage.completion_tokens;
+  const totalTokens = provider.kind === 'ollama' ? usage.totalTokens : usage.total_tokens;
+  if (![inputTokens, outputTokens, totalTokens].every((count) => (
+    typeof count === 'number' && Number.isInteger(count) && count >= 0
+  ))) return undefined;
+  return { inputTokens, outputTokens, totalTokens } as {
+    inputTokens: number; outputTokens: number; totalTokens: number;
+  };
 }
 
 export function editorialPromptFingerprintV6(
@@ -234,6 +258,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         ...requestMetadata,
       };
     }
+    const usage = providerUsage(response.data, config.provider);
     let rawOutput: string | null = null;
     let parsed: unknown;
     try {
@@ -250,6 +275,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: rawOutput ? editorialResponseFingerprintV6(rawOutput) : null,
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        usage,
         ...requestMetadata,
       };
     }
@@ -264,6 +290,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        usage,
         ...requestMetadata,
       };
     } catch (error) {
@@ -276,6 +303,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        usage,
         ...requestMetadata,
       };
     }

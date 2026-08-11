@@ -50,6 +50,11 @@ export type NarrativeSourcePostV6 = (
   headers: Record<string, string>
 ) => Promise<{ data: unknown }>;
 
+export type NarrativeSourceGetV6 = (
+  url: string,
+  params: Record<string, string>
+) => Promise<{ data: unknown }>;
+
 const DEFAULT_FIRECRAWL_BASE_URL_V6 = 'https://api.firecrawl.dev/v2';
 const MAX_CAPTURE_CHARACTERS_V6 = 1_000_000;
 
@@ -59,6 +64,11 @@ const defaultLookup: NarrativeDnsLookupV6 = async (hostname) => (
 
 const defaultPost: NarrativeSourcePostV6 = async (url, body, headers) => {
   const response = await axios.post(url, body, { headers, timeout: 60_000, maxRedirects: 0 });
+  return { data: response.data };
+};
+
+const defaultGet: NarrativeSourceGetV6 = async (url, params) => {
+  const response = await axios.get(url, { params, timeout: 30_000, maxRedirects: 0 });
   return { data: response.data };
 };
 
@@ -141,12 +151,19 @@ const PRIMARY_PUBLISHERS_V6 = [
   'castillalamancha.es',
   'mecd.gob.es',
   'academiacolecciones.com',
+  'esmadrid.com',
+  'memoriademadrid.es',
+  'catedraldelaalmudena.es',
+  'archimadrid.org',
+  'rae.es',
+  'defensa.gob.es',
 ] as const;
 
 const SCHOLARLY_PUBLISHERS_V6 = [
   'dialnet.unirioja.es',
   'revistas.csic.es',
   'revistas.ucm.es',
+  'fcoam.eu',
 ] as const;
 
 const ESTABLISHED_PUBLISHERS_V6 = [
@@ -216,6 +233,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
   private readonly baseUrl: string;
   private readonly apiKey?: string;
   private readonly post: NarrativeSourcePostV6;
+  private readonly get: NarrativeSourceGetV6;
   private readonly lookup: NarrativeDnsLookupV6;
   private readonly now: () => Date;
 
@@ -223,12 +241,14 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     baseUrl?: string;
     apiKey?: string;
     post?: NarrativeSourcePostV6;
+    get?: NarrativeSourceGetV6;
     lookup?: NarrativeDnsLookupV6;
     now?: () => Date;
   }) {
     this.baseUrl = (options.baseUrl ?? DEFAULT_FIRECRAWL_BASE_URL_V6).replace(/\/$/, '');
     this.apiKey = options.apiKey?.trim() || undefined;
     this.post = options.post ?? defaultPost;
+    this.get = options.get ?? defaultGet;
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
     if (new URL(this.baseUrl).hostname === 'api.firecrawl.dev' && !this.apiKey) {
@@ -312,6 +332,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     finalUrl.hash = '';
     const content = data.markdown.trim();
     const sourceFingerprint = fingerprint(finalUrl.toString(), content);
+    const wikimediaRevision = await this.captureWikimediaRevision(finalUrl);
     return {
       sourceId: `source-${sourceFingerprint.slice(0, 16)}`,
       requestedUrl: requested.toString(),
@@ -324,6 +345,35 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
       fingerprint: sourceFingerprint,
       authority: classifyNarrativeSourceAuthorityV6(finalUrl.toString()),
       containsInstructionLikeText: instructionLikeText(content),
+      ...(wikimediaRevision ? { wikimediaRevision } : {}),
     };
+  }
+
+  private async captureWikimediaRevision(
+    url: URL
+  ): Promise<{ revisionId: number; timestamp: string } | undefined> {
+    const hostname = url.hostname.toLowerCase();
+    if (!hostname.endsWith('.wikipedia.org') && hostname !== 'www.wikidata.org') return undefined;
+    const title = decodeURIComponent(url.pathname.replace(/^\/wiki\//, '')).replace(/_/g, ' ');
+    if (!title || title === url.pathname) throw new Error('Wikimedia page title is invalid');
+    const response = await this.get(`${url.origin}/w/api.php`, {
+      action: 'query', prop: 'revisions', rvprop: 'ids|timestamp', titles: title,
+      format: 'json', formatversion: '2', origin: '*',
+    });
+    const root = objectValue(response.data, 'MediaWiki revision response');
+    const query = objectValue(root.query, 'MediaWiki revision query');
+    if (!Array.isArray(query.pages) || query.pages.length !== 1) {
+      throw new Error('MediaWiki revision response has no page');
+    }
+    const page = objectValue(query.pages[0], 'MediaWiki revision page');
+    if (!Array.isArray(page.revisions) || page.revisions.length === 0) {
+      throw new Error('MediaWiki revision response has no revision');
+    }
+    const revision = objectValue(page.revisions[0], 'MediaWiki revision');
+    if (!Number.isInteger(revision.revid) || typeof revision.timestamp !== 'string'
+      || Number.isNaN(Date.parse(revision.timestamp))) {
+      throw new Error('MediaWiki revision is malformed');
+    }
+    return { revisionId: Number(revision.revid), timestamp: revision.timestamp };
   }
 }

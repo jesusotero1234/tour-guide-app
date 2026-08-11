@@ -228,10 +228,7 @@ export function decideNarrativeEvidenceOutcomeV6(
       ? ['fewer than two independent authority publishers']
       : []),
   ];
-  const retrievalExhausted = stats.searchQueries >= 4
-    && stats.totalResults >= 20
-    && stats.capturedPages >= 8
-    && stats.authorityPages >= 2;
+  const retrievalExhausted = stats.searchQueries >= 4;
   if (!retrievalExhausted) {
     return {
       status: 'source_capture_failed',

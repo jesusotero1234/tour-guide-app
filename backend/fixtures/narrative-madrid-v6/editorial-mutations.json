@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "narrative-editorial-mutations-v6",
+  "mutations": [
+    {
+      "mutationId": "invented-causality",
+      "stopId": "palace",
+      "detector": "factual",
+      "text": "Miembros franceses de la Corte provocaron el incendio del Alcázar."
+    },
+    {
+      "mutationId": "mixed-dates",
+      "stopId": "cibeles",
+      "detector": "factual",
+      "text": "La fuente cambió de orientación, dejó de dar agua y fue elevada en 1895."
+    },
+    {
+      "mutationId": "invented-psychology",
+      "stopId": "villa",
+      "detector": "factual",
+      "text": "Los Luján querían que su torre intimidara a todos sus vecinos."
+    },
+    {
+      "mutationId": "undocumented-function",
+      "stopId": "mayor",
+      "detector": "factual",
+      "text": "Los arcos se construyeron para controlar quién entraba en la plaza."
+    },
+    {
+      "mutationId": "false-direct-payment",
+      "stopId": "alcala",
+      "detector": "factual",
+      "text": "Carlos III pagó directamente la construcción de la Puerta de Alcalá."
+    },
+    {
+      "mutationId": "unsafe-orientation",
+      "stopId": "cibeles",
+      "detector": "deterministic",
+      "text": "Cruza la calzada de la rotonda para ver mejor la fuente."
+    },
+    {
+      "mutationId": "catalogue-prose",
+      "stopId": "almudena",
+      "detector": "global",
+      "text": "La catedral mide 102 metros, tiene 73 metros de altura y mezcla neogótico, neorrománico y neoclásico."
+    },
+    {
+      "mutationId": "weak-closing",
+      "stopId": "sol",
+      "detector": "global",
+      "text": "Y esto es todo lo que debes saber sobre la Puerta del Sol."
+    }
+  ]
+}

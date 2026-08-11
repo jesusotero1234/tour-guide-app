@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "narrative-madrid-research-rubric-v6",
+  "minimumAuthorityPublisherMatches": 1,
+  "stops": [
+    {
+      "stopId": "palace",
+      "expectedPublishers": ["madrid.es", "patrimonionacional.es", "museodelprado.es"],
+      "forbiddenNarrativeClaims": ["incendio provocado por miembros franceses", "Sacchetti fue un mero ejecutor"]
+    },
+    {
+      "stopId": "almudena",
+      "expectedPublishers": ["catedraldelaalmudena.es", "archimadrid.org", "academiacolecciones.com"],
+      "forbiddenNarrativeClaims": ["se terminó en 1983"]
+    },
+    {
+      "stopId": "villa",
+      "expectedPublishers": ["esmadrid.com", "madrid.es"],
+      "forbiddenNarrativeClaims": ["Francisco I estuvo preso en la torre"]
+    },
+    {
+      "stopId": "mayor",
+      "expectedPublishers": ["madrid.es"],
+      "forbiddenNarrativeClaims": ["siempre tuvo el aspecto actual"]
+    },
+    {
+      "stopId": "cibeles",
+      "expectedPublishers": ["madrid.es"],
+      "forbiddenNarrativeClaims": ["siempre estuvo orientada hacia la Puerta del Sol"]
+    },
+    {
+      "stopId": "sol",
+      "expectedPublishers": ["madrid.es", "memoriademadrid.es", "comunidad.madrid"],
+      "forbiddenNarrativeClaims": ["el reloj fue instalado por orden de Isabel II"]
+    },
+    {
+      "stopId": "alcala",
+      "expectedPublishers": ["madrid.es", "esmadrid.com"],
+      "forbiddenNarrativeClaims": ["Carlos III pagó directamente la puerta"]
+    }
+  ]
+}

@@ -110,4 +110,33 @@ describe('narrative v6 source boundary', () => {
     expect(narrativeSourcesAreIndependentV6([official, samePublisher])).toBe(false);
     expect(narrativeSourcesAreIndependentV6([official, blog])).toBe(true);
   });
+
+  it('pins Wikimedia captures to an exact revision and timestamp', async () => {
+    const get = jest.fn(async () => ({ data: { query: { pages: [{ revisions: [{
+      revid: 12345, timestamp: '2026-08-11T12:00:00Z',
+    }] }] } } }));
+    const provider = new FirecrawlNarrativeSourceProviderV6({
+      apiKey: 'fc-test-secret',
+      post: async () => ({ data: { success: true, data: {
+        markdown: 'Historia enciclopédica.',
+        metadata: {
+          url: 'https://es.wikipedia.org/wiki/Alc%C3%A1zar_de_Toledo',
+          title: 'Alcázar de Toledo', statusCode: 200,
+        },
+      } } }),
+      get,
+      lookup: async () => [{ address: '208.80.154.224', family: 4 }],
+    });
+
+    const capture = await provider.capture(
+      'https://es.wikipedia.org/wiki/Alc%C3%A1zar_de_Toledo'
+    );
+
+    expect(capture.wikimediaRevision).toEqual({
+      revisionId: 12345, timestamp: '2026-08-11T12:00:00Z',
+    });
+    expect(get).toHaveBeenCalledWith('https://es.wikipedia.org/w/api.php', expect.objectContaining({
+      prop: 'revisions', rvprop: 'ids|timestamp', titles: 'Alcázar de Toledo',
+    }));
+  });
 });

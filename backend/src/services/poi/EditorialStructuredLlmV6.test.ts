@@ -3,7 +3,7 @@ import { requestEditorialStructuredV6 } from './EditorialStructuredLlmV6';
 function response(toolName: string) {
   return { data: { choices: [{ message: { tool_calls: [{ function: {
     name: toolName, arguments: '{"ok":true}',
-  } }] } }] } };
+  } }] } }], usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 } } };
 }
 
 describe('editorial structured LLM v6 providers', () => {
@@ -46,6 +46,7 @@ describe('editorial structured LLM v6 providers', () => {
     expect(auditor.temperature).toBe(0);
     expect(writer.requestFingerprint).toMatch(/^[a-f0-9]{64}$/);
     expect(writer.requestFingerprint).not.toBe(auditor.requestFingerprint);
+    expect(writer.usage).toEqual({ inputTokens: 10, outputTokens: 4, totalTokens: 14 });
   });
 
   it('rejects temperatures outside the shared provider range before transport', async () => {

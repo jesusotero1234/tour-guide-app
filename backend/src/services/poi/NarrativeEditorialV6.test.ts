@@ -74,10 +74,17 @@ describe('narrative v6 editorial protocol', () => {
         'alcazar',
         'En 1937 el edificio cambió. Este es un relato breve en español para quien escucha.'
       ),
-      { language: 'es', authorizedNumbers: ['1936'] }
+      { language: 'es', authorizedNames: [], authorizedNumbers: ['1936'] }
     );
     expect(deterministic).toEqual(expect.arrayContaining([
       expect.objectContaining({ code: 'unauthorized_number', severity: 'hard' }),
+    ]));
+
+    expect(auditNarrativeScriptDeterministicallyV6(
+      assignNarrativeSentenceIdsV6('alcazar', 'En 1808, Napoleón visitó el Alcázar de Toledo.'),
+      { language: 'es', authorizedNames: ['Alcázar de Toledo'], authorizedNumbers: [] }
+    )).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'unauthorized_name', message: expect.stringContaining('Napoleón') }),
     ]));
 
     const repeated = 'uno dos tres cuatro cinco seis siete ocho nueve diez once doce final.';

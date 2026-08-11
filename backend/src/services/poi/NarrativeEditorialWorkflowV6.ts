@@ -45,6 +45,9 @@ interface NarrativeCallMetricV6 {
   latencyMs: number;
   inputCharacters: number;
   status: string;
+  promptFingerprint: string;
+  inputTokens: number;
+  outputTokens: number;
 }
 
 export interface NarrativeStopEditorialRecordV6 {
@@ -66,6 +69,7 @@ export interface NarrativeEditorialWorkflowResultV6 {
   tourAudit: NarrativeTourAuditV6 | null;
   warnings: NarrativeProtocolWarningV6[];
   metrics: NarrativeCallMetricV6[];
+  privateDiagnostics: EditorialCallResultV6<unknown>[];
 }
 
 function metric(result: EditorialCallResultV6<unknown>): NarrativeCallMetricV6 {
@@ -75,6 +79,9 @@ function metric(result: EditorialCallResultV6<unknown>): NarrativeCallMetricV6 {
     latencyMs: result.attempts.reduce((total, attempt) => total + attempt.latencyMs, 0),
     inputCharacters: result.inputCharacters,
     status: result.status,
+    promptFingerprint: result.promptFingerprint,
+    inputTokens: result.usage?.inputTokens ?? 0,
+    outputTokens: result.usage?.outputTokens ?? 0,
   };
 }
 
@@ -98,6 +105,7 @@ export async function runNarrativeEditorialWorkflowV6(
 ): Promise<NarrativeEditorialWorkflowResultV6> {
   const empty = (run: NarrativeEditorialRunV6): NarrativeEditorialWorkflowResultV6 => ({
     run, route: input.route, arc: input.arc, stops: [], tourAudit: null, warnings: [], metrics: [],
+    privateDiagnostics: [],
   });
   const dossierByStop = new Map(input.dossiers.map((dossier) => [dossier.stopId, dossier]));
   const missingDossiers = input.route.stops.filter((stop) => !dossierByStop.has(stop.stopId));
@@ -123,6 +131,7 @@ export async function runNarrativeEditorialWorkflowV6(
 
   const records: NarrativeStopEditorialRecordV6[] = [];
   const metrics: NarrativeCallMetricV6[] = [];
+  const privateDiagnostics: EditorialCallResultV6<unknown>[] = [];
   const openIssueIds: string[] = [];
   try {
     for (const stop of input.route.stops) {
@@ -142,6 +151,7 @@ export async function runNarrativeEditorialWorkflowV6(
         voiceProfile: input.voiceProfile,
       });
       metrics.push(metric(written.diagnostic));
+      privateDiagnostics.push(written.diagnostic);
       const initialScript = assignNarrativeSentenceIdsV6(stop.stopId, written.value.text);
       let finalScript = initialScript;
       const initialAudits = await Promise.all([
@@ -149,6 +159,7 @@ export async function runNarrativeEditorialWorkflowV6(
         agents.audit({ script: initialScript, dossier }, 'gemma'),
       ]);
       metrics.push(...initialAudits.map((result) => metric(result.diagnostic)));
+      privateDiagnostics.push(...initialAudits.map((result) => result.diagnostic));
       const audits = initialAudits.map((result) => result.value);
       const objections = buildNarrativeAuditObjectionsV6(audits);
       let adjudications: NarrativeAdjudicationV6[] = [];
@@ -157,6 +168,7 @@ export async function runNarrativeEditorialWorkflowV6(
       if (objections.length > 0) {
         const adjudicated = await agents.adjudicate({ script: initialScript, dossier, objections });
         metrics.push(metric(adjudicated.diagnostic));
+        privateDiagnostics.push(adjudicated.diagnostic);
         adjudications = adjudicated.value;
         const acceptedObjections = objections.filter((objection) => (
           adjudications.some((item) => item.objectionId === objection.objectionId
@@ -167,6 +179,7 @@ export async function runNarrativeEditorialWorkflowV6(
             script: initialScript, dossier, objections, adjudications,
           });
           metrics.push(metric(repaired.diagnostic));
+          privateDiagnostics.push(repaired.diagnostic);
           finalScript = applyNarrativeLocalPatchV6(
             initialScript,
             [...new Set(acceptedObjections.map((objection) => objection.sentenceId))],
@@ -178,12 +191,14 @@ export async function runNarrativeEditorialWorkflowV6(
             agents.audit({ script: finalScript, dossier }, 'gemma'),
           ]);
           metrics.push(...finalAudits.map((result) => metric(result.diagnostic)));
+          privateDiagnostics.push(...finalAudits.map((result) => result.diagnostic));
           audits.push(...finalAudits.map((result) => result.value));
           openIssueIds.push(...hardAuditIssueIds(finalAudits.map((result) => result.value)));
         }
       }
       const warnings = auditNarrativeScriptDeterministicallyV6(finalScript, {
         language: input.route.language,
+        authorizedNames: dossier.authorizedNames,
         authorizedNumbers: dossier.authorizedNumbers,
       });
       openIssueIds.push(...warnings.filter((warning) => warning.severity === 'hard')
@@ -198,6 +213,7 @@ export async function runNarrativeEditorialWorkflowV6(
     const repetitionWarnings = narrativeRepetitionWarningsV6(scripts);
     const tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
     metrics.push(metric(tourAuditResult.diagnostic));
+    privateDiagnostics.push(tourAuditResult.diagnostic);
     openIssueIds.push(...tourAuditResult.value.issues
       .filter((issue) => issue.severity === 'hard').map((issue) => issue.issueId));
     const warnings = [...records.flatMap((record) => record.warnings), ...repetitionWarnings];
@@ -223,6 +239,7 @@ export async function runNarrativeEditorialWorkflowV6(
     return {
       run, route: input.route, arc: input.arc, stops: records,
       tourAudit: tourAuditResult.value, warnings, metrics,
+      privateDiagnostics,
     };
   } catch (error) {
     return {
@@ -232,6 +249,7 @@ export async function runNarrativeEditorialWorkflowV6(
       }),
       stops: records,
       metrics,
+      privateDiagnostics,
     };
   }
 }
@@ -260,7 +278,15 @@ export interface NarrativeReviewPackageV6 {
     after: string;
   }>;
   warnings: NarrativeProtocolWarningV6[];
-  metrics: { callCount: number; latencyMs: number; inputCharacters: number };
+  metrics: {
+    callCount: number;
+    latencyMs: number;
+    inputCharacters: number;
+    inputTokens: number;
+    outputTokens: number;
+    estimatedCostUsd: null;
+    costNote: string;
+  };
   checklist: {
     wouldPay: null;
     wouldListenNext: null;
@@ -306,6 +332,10 @@ export function buildNarrativeReviewPackageV6(
       callCount: result.metrics.length,
       latencyMs: result.metrics.reduce((total, item) => total + item.latencyMs, 0),
       inputCharacters: result.metrics.reduce((total, item) => total + item.inputCharacters, 0),
+      inputTokens: result.metrics.reduce((total, item) => total + item.inputTokens, 0),
+      outputTokens: result.metrics.reduce((total, item) => total + item.outputTokens, 0),
+      estimatedCostUsd: null,
+      costNote: 'Los proveedores no devuelven coste facturado; se conservan tokens para conciliación.',
     },
     checklist: {
       wouldPay: null,
