@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "narrative-madrid-reference-v6",
+  "caseId": "madrid-history-es-120",
+  "city": "Madrid",
+  "country": "España",
+  "language": "es",
+  "theme": "history",
+  "durationMinutes": 120,
+  "referenceStatus": "stops_human_approved_global_arc_deterministically_reviewed",
+  "promise": "Camina desde el lugar donde ardió el antiguo Alcázar hasta una puerta que la ciudad terminó rodeando, y descubre las decisiones que convirtieron una villa en capital.",
+  "centralQuestion": "¿Cómo fue dejando Madrid de ser una villa delimitada por sus puertas para convertirse en una capital construida a la medida del poder y de la vida pública?",
+  "voiceProfile": {
+    "anchorStopId": "palace",
+    "description": "Anfitrión local, cálido, inteligente y directo; histórico sin tono académico ni teatral.",
+    "durationGuidance": "Dos o tres minutos orientativos, sin rellenar para alcanzar una cuota.",
+    "rules": [
+      "Cada afirmación verificable procede del dossier y queda enlazada en el ledger.",
+      "La observación dirige la mirada sin depender de izquierda o derecha ni de cruzar zonas inseguras.",
+      "Las decisiones y consecuencias documentadas sustituyen a psicología, diálogo o causalidad inventados.",
+      "Cada parada aporta una función exclusiva y deja una razón narrativa para escuchar la siguiente.",
+      "Las objeciones abren ventanas locales; nunca autorizan una regeneración global."
+    ]
+  },
+  "developmentStopIds": ["palace", "almudena", "villa", "mayor", "cibeles"],
+  "validationStopIds": ["sol", "alcala"],
+  "decisions": [
+    {
+      "id": "documented-causality-only",
+      "category": "invented_causality",
+      "rule": "Una consecuencia solo se formula como causal cuando la evidencia respalda esa relación; en caso contrario se conserva como secuencia o contraste.",
+      "sourceStopIds": ["palace", "mayor"]
+    },
+    {
+      "id": "separate-dates-and-transformations",
+      "category": "mixed_dates",
+      "rule": "No comprimir posición original, cambio de uso, traslado y significado posterior en una sola fecha o causa.",
+      "sourceStopIds": ["cibeles"]
+    },
+    {
+      "id": "no-undocumented-psychology",
+      "category": "invented_psychology",
+      "rule": "No atribuir pensamientos, intenciones o palabras a personas históricas salvo testimonio literal autorizado.",
+      "sourceStopIds": ["palace", "villa"]
+    },
+    {
+      "id": "functions-require-evidence",
+      "category": "undocumented_function",
+      "rule": "No inferir funciones de espacios, vanos, materiales o edificios a partir de su forma o nombre.",
+      "sourceStopIds": ["mayor", "cibeles"]
+    },
+    {
+      "id": "safe-observation",
+      "category": "unsafe_orientation",
+      "rule": "Describir rasgos localizables desde el punto de observación sin izquierda/derecha ni instrucciones para invadir calzada o rotonda.",
+      "sourceStopIds": ["villa", "cibeles"]
+    },
+    {
+      "id": "oral-not-catalogue",
+      "category": "catalogue_prose",
+      "rule": "Los nombres, fechas y estilos entran al servicio de una pregunta; no se enumeran como texto de ficha.",
+      "sourceStopIds": ["almudena", "mayor"]
+    },
+    {
+      "id": "closing-must-pay-off",
+      "category": "weak_closing",
+      "rule": "El cierre resuelve la contribución de la parada y prepara la siguiente sin resumir mecánicamente lo ya dicho.",
+      "sourceStopIds": ["mayor", "cibeles"]
+    }
+  ],
+  "stops": [
+    {
+      "stopId": "palace",
+      "position": 0,
+      "name": "Palacio Real",
+      "wikidataId": "Q171517",
+      "coordinates": { "lat": 40.417828, "lng": -3.714361 },
+      "contribution": "Abrir con la pérdida del Alcázar y la solución compacta, vertical y resistente del nuevo palacio.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/palace/dossier.md", "sha256": "41f8d8268b7d85881b69855c4ee489be74010722a1592bcc7b56e4648449773e", "sources": 7, "propositions": 10 },
+      "script": { "path": "docs/working/madrid-narrative-v6/palace/script.md", "sha256": "c523f1dc22cdf1f0e785b209d68b54cc558fef233de6ce3a9b5d19910b4ea3ba" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/palace/ledger.md", "sha256": "659ab9afbfd4788f89400836e770d2b11a78a7c6840694df47b133ac87a87e7c", "claims": 13 }
+    },
+    {
+      "stopId": "almudena",
+      "position": 1,
+      "name": "Catedral de la Almudena",
+      "wikidataId": "Q849711",
+      "coordinates": { "lat": 40.4157109, "lng": -3.714495 },
+      "contribution": "Romper la expectativa de una catedral ancestral mediante un edificio concluido en 1993 tras cambios e interrupciones.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/almudena/dossier.md", "sha256": "82b9b128c1bd532dd40a0f42cb80e96c61530bd111c16aa4742a3e33e7219587", "sources": 6, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/almudena/script.md", "sha256": "dbee924df8b80d00e778cbb00faec1f6da0bd4736c84c5fa22b92f9da65ab631" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/almudena/ledger.md", "sha256": "4bfcbdcdd986816db2a2f45a33a149d30a69823b12126fc463ae3bb6abeae678", "claims": 14 }
+    },
+    {
+      "stopId": "villa",
+      "position": 2,
+      "name": "Plaza de la Villa",
+      "wikidataId": "Q2711992",
+      "coordinates": { "lat": 40.4152086, "lng": -3.710424 },
+      "contribution": "Mostrar la trama medieval, las casas nobiliarias y la búsqueda de una sede estable para el gobierno municipal.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/villa/dossier.md", "sha256": "23177c73b7ab8a6402860aa99b81d256d65eb6063db5cd3bf42626d8d31c5756", "sources": 7, "propositions": 10 },
+      "script": { "path": "docs/working/madrid-narrative-v6/villa/script.md", "sha256": "c85e01b10b87781c4115f9ab7f604a4b8ff33a85c9c9956757be764eeb910766" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/villa/ledger.md", "sha256": "0631bfe0f963e64e99d913f044ad18c8e929bf321053dd174db8feea386e7fd0", "claims": 17 }
+    },
+    {
+      "stopId": "mayor",
+      "position": 3,
+      "name": "Plaza Mayor",
+      "wikidataId": "Q1123493",
+      "coordinates": { "lat": 40.4154007, "lng": -3.7073747 },
+      "contribution": "Transformar el mercado extramuros en escenario ceremonial y explicar la unidad visible nacida de la reconstrucción.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/mayor/dossier.md", "sha256": "41a7759ece9fe64563f49538354d0a60a4bff58c36793a6954c33649e5562a59", "sources": 7, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/mayor/script.md", "sha256": "7c34daf6164bd2eaadfab46e6e33e9f946ffedf79462a74eb54ced520159b758" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/mayor/ledger.md", "sha256": "f6a648341fd8c190b78da96aadf5ec23d709bed71a6abee57cf0a3f7581fd981", "claims": 18 }
+    },
+    {
+      "stopId": "sol",
+      "position": 4,
+      "name": "Puerta del Sol",
+      "wikidataId": "Q427163",
+      "coordinates": { "lat": 40.4168622, "lng": -3.7034948 },
+      "contribution": "Convertir un antiguo borde urbano en centro mediante circulación, reforma urbana y vida pública.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/sol/dossier.md", "sha256": "0813399f6e43f4634aca9a5bf6b9a1c4547d12369c1ebd6f1130d2f684228e55", "sources": 8, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/sol/script.md", "sha256": "40acd3254a37e2d6770654bb4940ddd8ff821906107fc59361c11e4b0a41660b" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/sol/ledger.md", "sha256": "f648635c50cce332a0c30caecf8e42b2c34ce87c6e035851a99bf28a5fd7c859", "claims": 17 }
+    },
+    {
+      "stopId": "cibeles",
+      "position": 5,
+      "name": "Cibeles",
+      "wikidataId": "Q1537446",
+      "coordinates": { "lat": 40.41917, "lng": -3.69306 },
+      "contribution": "Mostrar cómo una infraestructura de agua cambió de uso, orientación y significado hasta ser monumento urbano.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/cibeles/dossier.md", "sha256": "d770e8ac46bff88c4e3b89d47c98f5e2bd53facfff57659c3c44eb130a1ff0c6", "sources": 6, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/cibeles/script.md", "sha256": "ed063730fa78446eac3c170840da36b9baade552e1cd767cb3c32430a2abc9aa" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/cibeles/ledger.md", "sha256": "2208a1cd8673fe11ff966281d0d4e7b8f4ed7fa094c1683df546faabad606eae", "claims": 19 }
+    },
+    {
+      "stopId": "alcala",
+      "position": 6,
+      "name": "Puerta de Alcalá",
+      "wikidataId": "Q1140634",
+      "coordinates": { "lat": 40.4199868, "lng": -3.6887244 },
+      "contribution": "Resolver el arco con una frontera ceremonial absorbida por la expansión de la capital moderna.",
+      "dossier": { "path": "docs/working/madrid-narrative-v6/alcala/dossier.md", "sha256": "1ac4f395c249420d146850b02ede240b7aca84f9085418b42f6672059afbb523", "sources": 6, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/alcala/script.md", "sha256": "978a567cf6d00091132d1e1645092fafd1ce99e43a7f1c03e4af7efdda52b526" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/alcala/ledger.md", "sha256": "b0bd34e83ce51a4e2cf76f947b632e253249ac9cb28e1ac9e93a242b1c339eac", "claims": 24 }
+    }
+  ]
+}
