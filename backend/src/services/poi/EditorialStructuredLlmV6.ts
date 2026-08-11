@@ -26,6 +26,8 @@ export interface EditorialCallResultV6<T> {
   schemaCharacters: number;
   input: unknown;
   rawOutput: string | null;
+  temperature?: number;
+  requestFingerprint?: string;
 }
 
 export type EditorialPostV6 = (
@@ -41,6 +43,7 @@ export interface EditorialRequestOptionsV6 {
   deepseekBaseUrl?: string;
   oneProviderBaseUrl?: string;
   maxTokens?: number;
+  temperature?: number;
   deepseekStrictTools?: boolean;
   ollamaContextTokens?: number;
   ollamaKeepAlive?: string;
@@ -113,6 +116,16 @@ export function editorialResponseFingerprintV6(rawOutput: string): string {
   return createHash('sha256').update(rawOutput).digest('hex');
 }
 
+export function editorialRequestFingerprintV6(input: {
+  promptFingerprint: string;
+  provider: EditorialProviderV6;
+  temperature: number;
+  maxTokens: number;
+  requestInput: unknown;
+}): string {
+  return createHash('sha256').update(JSON.stringify(input)).digest('hex');
+}
+
 export async function requestEditorialStructuredV6<T>(config: {
   callId: string;
   input: unknown;
@@ -135,9 +148,21 @@ export async function requestEditorialStructuredV6<T>(config: {
     throw new Error(`${config.callId} schema exceeds ${config.schemaCharacterLimit} characters`);
   }
   const options = config.options ?? {};
+  const temperature = options.temperature ?? 0;
+  if (!Number.isFinite(temperature) || temperature < 0 || temperature > 2) {
+    throw new Error('temperature must be between 0 and 2');
+  }
   const promptFingerprint = editorialPromptFingerprintV6(
     config.systemPrompt, config.toolName, config.schema
   );
+  const requestFingerprint = editorialRequestFingerprintV6({
+    promptFingerprint,
+    provider: config.provider,
+    temperature,
+    maxTokens: options.maxTokens ?? 8_000,
+    requestInput: config.input,
+  });
+  const requestMetadata = { temperature, requestFingerprint };
   const post = options.post ?? defaultPost;
   const activeApiKey = config.provider.kind === 'oneprovider'
     ? options.oneProviderApiKey
@@ -158,7 +183,7 @@ export async function requestEditorialStructuredV6<T>(config: {
           ...(options.ollamaKeepAlive ? { keep_alive: options.ollamaKeepAlive } : {}),
           format: config.schema,
           options: {
-            temperature: 0, seed: 42,
+            temperature, seed: 42,
             num_predict: options.maxTokens ?? 8_000,
             num_ctx: options.ollamaContextTokens ?? 65_536,
           },
@@ -167,7 +192,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         if (!options.apiKey) throw new Error('DEEPSEEK_API_KEY is required');
         response = await post(`${(options.deepseekBaseUrl ?? 'https://api.deepseek.com/beta').replace(/\/$/, '')}/chat/completions`, {
           model: config.provider.model, messages,
-          max_tokens: options.maxTokens ?? 8_000, temperature: 0,
+          max_tokens: options.maxTokens ?? 8_000, temperature,
           thinking: { type: 'disabled' },
           tools: [{ type: 'function', function: {
             name: config.toolName,
@@ -184,7 +209,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         if (!options.oneProviderApiKey) throw new Error('ONEPROVIDER_API_KEY is required');
         response = await post(`${(options.oneProviderBaseUrl ?? 'https://api.oneprovider.dev/v1').replace(/\/$/, '')}/chat/completions`, {
           model: config.provider.model, messages,
-          max_tokens: options.maxTokens ?? 8_000, temperature: 0,
+          max_tokens: options.maxTokens ?? 8_000, temperature,
           tools: [{ type: 'function', function: {
             name: config.toolName,
             description: config.toolDescription,
@@ -206,6 +231,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         callId: config.callId, status: 'transport_error', value: null, attempts,
         model: config.provider.model, promptFingerprint, responseFingerprint: null,
         inputCharacters, schemaCharacters, input: config.input, rawOutput: null,
+        ...requestMetadata,
       };
     }
     let rawOutput: string | null = null;
@@ -224,6 +250,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: rawOutput ? editorialResponseFingerprintV6(rawOutput) : null,
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        ...requestMetadata,
       };
     }
     try {
@@ -237,6 +264,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        ...requestMetadata,
       };
     } catch (error) {
       attempts.push({
@@ -248,6 +276,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         model: config.provider.model, promptFingerprint,
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
+        ...requestMetadata,
       };
     }
   }

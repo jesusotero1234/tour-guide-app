@@ -7,6 +7,63 @@ function response(toolName: string) {
 }
 
 describe('editorial structured LLM v6 providers', () => {
+  it('uses an explicit temperature and fingerprints the effective request configuration', async () => {
+    const temperatures: unknown[] = [];
+    const post = jest.fn(async (
+      _url: string,
+      body: Record<string, unknown>
+    ) => {
+      expect(body).toMatchObject({ model: 'deepseek-v4-flash' });
+      temperatures.push(body.temperature);
+      return response('submit_test_v6');
+    });
+
+    const base = {
+      callId: 'deepseek-temperature-test', input: { candidate: 'Q1' },
+      provider: { kind: 'deepseek' as const, model: 'deepseek-v4-flash' },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value as { ok: true },
+    };
+    const writer = await requestEditorialStructuredV6({
+      ...base,
+      options: { apiKey: 'deepseek-test-key', temperature: 0.7, post },
+    });
+    const auditor = await requestEditorialStructuredV6({
+      ...base,
+      options: { apiKey: 'deepseek-test-key', post },
+    });
+
+    expect(writer.status).toBe('valid');
+    expect(auditor.status).toBe('valid');
+    expect(temperatures).toEqual([0.7, 0]);
+    expect(writer.temperature).toBe(0.7);
+    expect(auditor.temperature).toBe(0);
+    expect(writer.requestFingerprint).toMatch(/^[a-f0-9]{64}$/);
+    expect(writer.requestFingerprint).not.toBe(auditor.requestFingerprint);
+  });
+
+  it('rejects temperatures outside the shared provider range before transport', async () => {
+    const post = jest.fn();
+
+    await expect(requestEditorialStructuredV6({
+      callId: 'invalid-temperature', input: {},
+      provider: { kind: 'ollama', model: 'gemma4:12b' },
+      options: { temperature: Number.NaN, post },
+      systemPrompt: 'Return valid structured data.',
+      schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value) => value,
+    })).rejects.toThrow('temperature must be between 0 and 2');
+    expect(post).not.toHaveBeenCalled();
+  });
+
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {
     const post = jest.fn(async (
       url: string,
