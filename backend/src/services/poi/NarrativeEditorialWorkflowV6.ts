@@ -177,7 +177,7 @@ export async function runNarrativeEditorialWorkflowV6(
       let finalScript = initialScript;
       const initialAudits = await Promise.all([
         agents.audit({ script: initialScript, dossier }, 'deepseek'),
-        agents.audit({ script: initialScript, dossier }, 'gemma'),
+        agents.audit({ script: initialScript, dossier }, 'deepseek_pro'),
       ]);
       metrics.push(...initialAudits.map((result) => metric(result.diagnostic)));
       privateDiagnostics.push(...initialAudits.map((result) => result.diagnostic));
@@ -209,7 +209,7 @@ export async function runNarrativeEditorialWorkflowV6(
           repairRoundUsed = true;
           const finalAudits = await Promise.all([
             agents.audit({ script: finalScript, dossier }, 'deepseek'),
-            agents.audit({ script: finalScript, dossier }, 'gemma'),
+            agents.audit({ script: finalScript, dossier }, 'deepseek_pro'),
           ]);
           metrics.push(...finalAudits.map((result) => metric(result.diagnostic)));
           privateDiagnostics.push(...finalAudits.map((result) => result.diagnostic));
@@ -278,7 +278,7 @@ export async function runNarrativeEditorialWorkflowV6(
       globalRepairUsed = true;
       const factualAudits = await Promise.all([
         agents.audit({ script: record.finalScript, dossier }, 'deepseek'),
-        agents.audit({ script: record.finalScript, dossier }, 'gemma'),
+        agents.audit({ script: record.finalScript, dossier }, 'deepseek_pro'),
       ]);
       metrics.push(...factualAudits.map((result) => metric(result.diagnostic)));
       privateDiagnostics.push(...factualAudits.map((result) => result.diagnostic));

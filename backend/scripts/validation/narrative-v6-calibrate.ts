@@ -109,7 +109,7 @@ async function gateA(apiKey: string, ollamaHost: string): Promise<void> {
     } else {
       const reports = await Promise.all([
         agents.audit({ script, dossier }, 'deepseek'),
-        agents.audit({ script, dossier }, 'gemma'),
+        agents.audit({ script, dossier }, 'deepseek_pro'),
       ]);
       privateMutationDiagnostics.push(...reports.map((result) => result.diagnostic));
       detected = buildNarrativeAuditObjectionsV6(reports.map((result) => result.value)).length > 0;

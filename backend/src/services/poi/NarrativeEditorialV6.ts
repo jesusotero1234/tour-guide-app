@@ -7,7 +7,7 @@ export type NarrativeAuditClassificationV6 =
   | 'distorted'
   | 'unclear';
 
-export type NarrativeAuditorV6 = 'deepseek' | 'gemma';
+export type NarrativeAuditorV6 = 'deepseek' | 'deepseek_pro' | 'gemma';
 
 export interface NarrativeSentenceV6 {
   sentenceId: string;
@@ -105,7 +105,7 @@ export function validateNarrativeAuditReportV6(
   report: NarrativeAuditReportV6,
   script: NarrativeScriptV6
 ): NarrativeAuditReportV6 {
-  if (report.auditor !== 'deepseek' && report.auditor !== 'gemma') {
+  if (!['deepseek', 'deepseek_pro', 'gemma'].includes(report.auditor)) {
     throw new Error('unknown narrative auditor');
   }
   const expected = script.sentences.map((sentence) => sentence.sentenceId);

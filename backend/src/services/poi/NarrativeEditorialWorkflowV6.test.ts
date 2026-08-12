@@ -138,7 +138,7 @@ describe('narrative v6 editorial workflow', () => {
     const originalAudit = fake.audit;
     fake.audit = jest.fn(async (input, auditor) => {
       const result = await originalAudit(input, auditor);
-      if (auditor === 'gemma') {
+      if (auditor === 'deepseek_pro') {
         result.value.findings[0] = {
           ...result.value.findings[0],
           classification: 'distorted',
@@ -150,8 +150,8 @@ describe('narrative v6 editorial workflow', () => {
     fake.adjudicate = jest.fn(async (input) => {
       const value = input.objections.map((objection) => ({
         objectionId: objection.objectionId,
-        decision: objection.auditor === 'gemma' ? 'rejected' as const : 'accepted' as const,
-        reason: objection.auditor === 'gemma'
+        decision: objection.auditor === 'deepseek_pro' ? 'rejected' as const : 'accepted' as const,
+        reason: objection.auditor === 'deepseek_pro'
           ? 'La objeción interpreta mal la proposición.'
           : 'La afirmación debe repararse.',
       }));

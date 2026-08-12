@@ -1,5 +1,6 @@
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import {
+  DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
   DEEPSEEK_NARRATIVE_MODEL_V6,
   GEMMA_NARRATIVE_AUDITOR_MODEL_V6,
   createNarrativeEditorialAgentsV6,
@@ -38,13 +39,19 @@ describe('narrative v6 editorial agents', () => {
     });
     const script = assignNarrativeSentenceIdsV6('palace', written.value.text);
     await agents.audit({ script, dossier }, 'deepseek');
+    await agents.audit({ script, dossier }, 'deepseek_pro');
 
-    expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0]);
-    expect(calls.every((call) => call.body.model === DEEPSEEK_NARRATIVE_MODEL_V6)).toBe(true);
+    expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0, 0]);
+    expect(calls.map((call) => call.body.model)).toEqual([
+      DEEPSEEK_NARRATIVE_MODEL_V6,
+      DEEPSEEK_NARRATIVE_MODEL_V6,
+      DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
+    ]);
     const auditPrompt = ((calls[1].body.messages as Array<{ content: string }>)[0].content);
     expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
     expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
+    expect(DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6).toBe('deepseek-v4-pro');
   });
 
   it('batches long Gemma audits and still returns one complete sentence ledger', async () => {

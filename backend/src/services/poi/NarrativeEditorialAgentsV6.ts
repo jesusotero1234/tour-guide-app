@@ -18,6 +18,7 @@ import {
 } from './NarrativeEditorialV6';
 
 export const DEEPSEEK_NARRATIVE_MODEL_V6 = 'deepseek-v4-flash' as const;
+export const DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6 = 'deepseek-v4-pro' as const;
 export const GEMMA_NARRATIVE_AUDITOR_MODEL_V6 = 'gemma4:12b' as const;
 
 export interface NarrativeWriterInputV6 {
@@ -160,6 +161,9 @@ export function createNarrativeEditorialAgentsV6(options: {
     requestAttempts: 1,
   };
   const deepseek = { kind: 'deepseek' as const, model: DEEPSEEK_NARRATIVE_MODEL_V6 };
+  const deepseekPro = {
+    kind: 'deepseek' as const, model: DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
+  };
   const gemma = { kind: 'ollama' as const, model: GEMMA_NARRATIVE_AUDITOR_MODEL_V6 };
 
   return {
@@ -211,7 +215,9 @@ export function createNarrativeEditorialAgentsV6(options: {
             ? baseCallId
             : `${baseCallId}-${label}`,
           input: batchInput,
-          provider: auditor === 'deepseek' ? deepseek : gemma,
+          provider: auditor === 'deepseek'
+            ? deepseek
+            : auditor === 'deepseek_pro' ? deepseekPro : gemma,
           options: { ...shared, temperature: 0, maxTokens: 6_000, requestAttempts: 2 },
           systemPrompt: [
             'Eres un auditor factual independiente.',
