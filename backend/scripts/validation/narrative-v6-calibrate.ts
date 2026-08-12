@@ -163,8 +163,8 @@ class CalibrationSpendGuardV6 {
     const key = this.key(event);
     if (this.reservations.has(key)) throw new Error(`duplicate cost reservation for ${key}`);
     this.reservations.set(key, this.ledger.reserve(event.maximumCostUsd, {
-      runId: event.runId,
-      phase: event.phase,
+      ...(event.runId ? { runId: event.runId } : {}),
+      ...(event.phase ? { phase: event.phase } : {}),
       model: event.requestedModel,
       attempt: event.attempt,
     }));
