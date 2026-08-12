@@ -169,6 +169,23 @@ describe('narrative v6 automatic research', () => {
     expect(sourceProvider.search).not.toHaveBeenCalled();
   });
 
+  it('rejects planned research without two authority-domain searches', async () => {
+    const sourceProvider = provider();
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator,
+      searchPlanner: { plan: async () => ({ queries: [
+        'Alcázar de Toledo conflicto historia oficial',
+        'Alcázar de Toledo transformación arquitectura',
+        'Alcázar de Toledo estudio académico',
+        'Alcázar de Toledo función controversia',
+      ] }) },
+    });
+
+    expect(result.status).toBe('source_capture_failed');
+    expect(result.reason).toContain('two distinct authority site filters');
+    expect(sourceProvider.search).not.toHaveBeenCalled();
+  });
+
   it('turns an unknown curator chunk into protocol_failed', async () => {
     const invalid: NarrativeResearchCuratorV6 = {
       curate: async () => ({

@@ -83,6 +83,23 @@ describe('narrative v6 source boundary', () => {
       .toThrow('Firecrawl cloud requires an API key');
   });
 
+  it('retries Firecrawl rate limits with bounded exponential backoff', async () => {
+    const waits: number[] = [];
+    const post = jest.fn()
+      .mockRejectedValueOnce({ response: { status: 429, headers: {} } })
+      .mockRejectedValueOnce({ response: { status: 429, headers: {} } })
+      .mockResolvedValue({ data: { success: true, data: { web: [] } } });
+    const provider = new FirecrawlNarrativeSourceProviderV6({
+      apiKey: 'fc-test-secret', post,
+      wait: async (milliseconds) => { waits.push(milliseconds); },
+      lookup: async () => [{ address: '93.184.216.34', family: 4 }],
+    });
+
+    await expect(provider.search({ query: 'Palacio Real', limit: 5 })).resolves.toEqual([]);
+    expect(post).toHaveBeenCalledTimes(3);
+    expect(waits).toEqual([2_000, 4_000]);
+  });
+
   it('rejects malformed and excessive capture responses', async () => {
     const provider = new FirecrawlNarrativeSourceProviderV6({
       baseUrl: 'https://firecrawl.example/v2',

@@ -55,6 +55,8 @@ export type NarrativeSourceGetV6 = (
   params: Record<string, string>
 ) => Promise<{ data: unknown }>;
 
+export type NarrativeSourceWaitV6 = (milliseconds: number) => Promise<void>;
+
 const DEFAULT_FIRECRAWL_BASE_URL_V6 = 'https://api.firecrawl.dev/v2';
 const MAX_CAPTURE_CHARACTERS_V6 = 1_000_000;
 
@@ -71,6 +73,25 @@ const defaultGet: NarrativeSourceGetV6 = async (url, params) => {
   const response = await axios.get(url, { params, timeout: 30_000, maxRedirects: 0 });
   return { data: response.data };
 };
+
+const defaultWait: NarrativeSourceWaitV6 = async (milliseconds) => {
+  await new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
+
+function firecrawlRateLimitDelay(error: unknown, retry: number): number | null {
+  const response = (error as {
+    response?: { status?: number; headers?: Record<string, unknown> };
+  })?.response;
+  if (response?.status !== 429) return null;
+  const retryAfter = response.headers?.['retry-after'];
+  const retryAfterSeconds = typeof retryAfter === 'number'
+    ? retryAfter
+    : typeof retryAfter === 'string' ? Number(retryAfter) : Number.NaN;
+  if (Number.isFinite(retryAfterSeconds) && retryAfterSeconds >= 0) {
+    return Math.min(retryAfterSeconds * 1_000, 60_000);
+  }
+  return Math.min(2 ** retry * 1_000, 30_000);
+}
 
 function objectValue(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -243,6 +264,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
   private readonly get: NarrativeSourceGetV6;
   private readonly lookup: NarrativeDnsLookupV6;
   private readonly now: () => Date;
+  private readonly wait: NarrativeSourceWaitV6;
 
   constructor(options: {
     baseUrl?: string;
@@ -251,6 +273,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     get?: NarrativeSourceGetV6;
     lookup?: NarrativeDnsLookupV6;
     now?: () => Date;
+    wait?: NarrativeSourceWaitV6;
   }) {
     this.baseUrl = (options.baseUrl ?? DEFAULT_FIRECRAWL_BASE_URL_V6).replace(/\/$/, '');
     this.apiKey = options.apiKey?.trim() || undefined;
@@ -258,6 +281,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     this.get = options.get ?? defaultGet;
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
+    this.wait = options.wait ?? defaultWait;
     if (new URL(this.baseUrl).hostname === 'api.firecrawl.dev' && !this.apiKey) {
       throw new Error('Firecrawl cloud requires an API key');
     }
@@ -270,6 +294,22 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     };
   }
 
+  private async request(
+    url: string,
+    body: Record<string, unknown>
+  ): Promise<{ data: unknown }> {
+    for (let retry = 1; retry <= 6; retry += 1) {
+      try {
+        return await this.post(url, body, this.headers());
+      } catch (error) {
+        const delay = firecrawlRateLimitDelay(error, retry);
+        if (delay === null || retry === 6) throw error;
+        await this.wait(delay);
+      }
+    }
+    throw new Error('Firecrawl request retries exhausted');
+  }
+
   async search(input: { query: string; limit?: number }): Promise<NarrativeSourceSearchResultV6[]> {
     const query = input.query.trim();
     const limit = input.limit ?? 20;
@@ -277,9 +317,9 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     if (!Number.isInteger(limit) || limit < 1 || limit > 20) {
       throw new Error('narrative search limit must be between 1 and 20');
     }
-    const response = await this.post(`${this.baseUrl}/search`, {
+    const response = await this.request(`${this.baseUrl}/search`, {
       query, limit, country: 'ES', ignoreInvalidURLs: true,
-    }, this.headers());
+    });
     const root = objectValue(response.data, 'Firecrawl search response');
     if (root.success !== true) throw new Error('Firecrawl search was not successful');
     const data = objectValue(root.data, 'Firecrawl search data');
@@ -315,9 +355,9 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
   async capture(rawUrl: string): Promise<NarrativeCapturedSourceV6> {
     const requested = await assertSafeNarrativeUrlV6(rawUrl, this.lookup);
     requested.hash = '';
-    const response = await this.post(`${this.baseUrl}/scrape`, {
+    const response = await this.request(`${this.baseUrl}/scrape`, {
       url: requested.toString(), formats: ['markdown'], onlyMainContent: true,
-    }, this.headers());
+    });
     const root = objectValue(response.data, 'Firecrawl capture response');
     if (root.success !== true) throw new Error('Firecrawl capture was not successful');
     const data = objectValue(root.data, 'Firecrawl capture data');
