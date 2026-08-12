@@ -5,37 +5,51 @@
     {
       "stopId": "palace",
       "expectedPublishers": ["madrid.es", "patrimonionacional.es", "museodelprado.es"],
-      "forbiddenNarrativeClaims": ["incendio provocado por miembros franceses", "Sacchetti fue un mero ejecutor"]
+      "forbiddenNarrativeClaims": ["incendio provocado por miembros franceses", "Sacchetti fue un mero ejecutor"],
+      "requiredNarrativeConcepts": [
+        { "conceptId": "alcazar-fire", "requiredTerms": ["alcázar", "incendio", "1734"], "oneOfTerms": ["nochebuena", "destruido"] },
+        { "conceptId": "juvarra-site", "requiredTerms": ["juvarra", "proyecto"], "oneOfTerms": ["solar", "emplazamiento", "san bernardino"] },
+        { "conceptId": "sacchetti-design", "requiredTerms": ["sacchetti", "proyecto"], "oneOfTerms": ["nuevo", "planta", "vertical"] },
+        { "conceptId": "fire-resistant-construction", "requiredTerms": ["bóvedas", "madera"], "oneOfTerms": ["incendio", "fuego", "resistente"] },
+        { "conceptId": "visible-exterior", "requiredTerms": ["palacio"], "oneOfTerms": ["altura", "niveles", "vertical", "fachada"] },
+        { "conceptId": "current-function", "requiredTerms": ["palacio"], "oneOfTerms": ["museo", "actos oficiales", "actos solemnes"] }
+      ]
     },
     {
       "stopId": "almudena",
       "expectedPublishers": ["catedraldelaalmudena.es", "archimadrid.org", "academiacolecciones.com"],
-      "forbiddenNarrativeClaims": ["se terminó en 1983"]
+      "forbiddenNarrativeClaims": ["se terminó en 1983"],
+      "requiredNarrativeConcepts": []
     },
     {
       "stopId": "villa",
       "expectedPublishers": ["esmadrid.com", "madrid.es"],
-      "forbiddenNarrativeClaims": ["Francisco I estuvo preso en la torre"]
+      "forbiddenNarrativeClaims": ["Francisco I estuvo preso en la torre"],
+      "requiredNarrativeConcepts": []
     },
     {
       "stopId": "mayor",
       "expectedPublishers": ["madrid.es"],
-      "forbiddenNarrativeClaims": ["siempre tuvo el aspecto actual"]
+      "forbiddenNarrativeClaims": ["siempre tuvo el aspecto actual"],
+      "requiredNarrativeConcepts": []
     },
     {
       "stopId": "cibeles",
       "expectedPublishers": ["madrid.es"],
-      "forbiddenNarrativeClaims": ["siempre estuvo orientada hacia la Puerta del Sol"]
+      "forbiddenNarrativeClaims": ["siempre estuvo orientada hacia la Puerta del Sol"],
+      "requiredNarrativeConcepts": []
     },
     {
       "stopId": "sol",
       "expectedPublishers": ["madrid.es", "memoriademadrid.es", "comunidad.madrid"],
-      "forbiddenNarrativeClaims": ["el reloj fue instalado por orden de Isabel II"]
+      "forbiddenNarrativeClaims": ["el reloj fue instalado por orden de Isabel II"],
+      "requiredNarrativeConcepts": []
     },
     {
       "stopId": "alcala",
       "expectedPublishers": ["madrid.es", "esmadrid.com"],
-      "forbiddenNarrativeClaims": ["Carlos III pagó directamente la puerta"]
+      "forbiddenNarrativeClaims": ["Carlos III pagó directamente la puerta"],
+      "requiredNarrativeConcepts": []
     }
   ]
 }

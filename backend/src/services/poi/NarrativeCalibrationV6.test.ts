@@ -38,7 +38,14 @@ describe('narrative v6 Madrid calibration gates', () => {
     const dossier = {
       stopId: 'palace',
       sources: [{ authority: { publisherKey: 'patrimonionacional.es' } }],
-      propositions: [{ text: 'El edificio respondió a un incendio.' }],
+      propositions: [
+        { text: 'El Alcázar fue destruido por un incendio en la Nochebuena de 1734.' },
+        { text: 'Juvarra preparó un proyecto para otro emplazamiento.' },
+        { text: 'Sacchetti produjo un proyecto nuevo de planta vertical.' },
+        { text: 'Las bóvedas evitaron la madera para resistir otro incendio.' },
+        { text: 'La fachada del palacio hace visibles sus niveles.' },
+        { text: 'El palacio funciona como museo y acoge actos oficiales.' },
+      ],
       limits: ['No afirmar quién provocó el incendio.'],
       sufficiency: { isSufficient: true },
     } as NarrativeDossierV6;
@@ -53,6 +60,18 @@ describe('narrative v6 Madrid calibration gates', () => {
       outcomes: [{ stopId: 'palace', status: 'sufficient', dossier }],
       humanSpotCheck: 'pending',
     })).toMatchObject({ status: 'human_spot_check_required' });
+
+    expect(evaluateNarrativeResearchGateV6({
+      rubric: { ...validated, stops: [palace] },
+      outcomes: [{
+        stopId: 'palace', status: 'sufficient',
+        dossier: { ...dossier, propositions: dossier.propositions.slice(0, -1) } as NarrativeDossierV6,
+      }],
+      humanSpotCheck: 'accepted',
+    })).toMatchObject({
+      status: 'model_calibration_failed', stage: 'research',
+      reason: expect.stringContaining('current-function'),
+    });
 
     const unsafe = {
       ...dossier,

@@ -7,6 +7,11 @@ export interface NarrativeMadridResearchRubricV6 {
     stopId: string;
     expectedPublishers: string[];
     forbiddenNarrativeClaims: string[];
+    requiredNarrativeConcepts: Array<{
+      conceptId: string;
+      requiredTerms: string[];
+      oneOfTerms: string[];
+    }>;
   }>;
 }
 
@@ -48,12 +53,38 @@ export function validateNarrativeMadridResearchRubricV6(
     if (typeof stop.stopId !== 'string' || !stop.stopId.trim()) {
       throw new Error(`rubric stop ${index} requires stopId`);
     }
+    if (!Array.isArray(stop.requiredNarrativeConcepts)) {
+      throw new Error(`rubric stop ${index} requiredNarrativeConcepts must be an array`);
+    }
+    const requiredNarrativeConcepts = stop.requiredNarrativeConcepts.map((rawConcept, conceptIndex) => {
+      const concept = objectValue(
+        rawConcept, `rubric stop ${index} concept ${conceptIndex}`
+      );
+      if (typeof concept.conceptId !== 'string' || !concept.conceptId.trim()) {
+        throw new Error(`rubric stop ${index} concept ${conceptIndex} requires conceptId`);
+      }
+      const requiredTerms = stringArray(
+        concept.requiredTerms, `rubric stop ${index} concept ${conceptIndex} requiredTerms`
+      );
+      const oneOfTerms = stringArray(
+        concept.oneOfTerms, `rubric stop ${index} concept ${conceptIndex} oneOfTerms`
+      );
+      if (requiredTerms.length === 0 || oneOfTerms.length === 0) {
+        throw new Error(`rubric stop ${index} concept ${conceptIndex} requires search terms`);
+      }
+      return { conceptId: concept.conceptId, requiredTerms, oneOfTerms };
+    });
+    if (new Set(requiredNarrativeConcepts.map((concept) => concept.conceptId)).size
+      !== requiredNarrativeConcepts.length) {
+      throw new Error(`rubric stop ${index} conceptIds must be unique`);
+    }
     return {
       stopId: stop.stopId,
       expectedPublishers: stringArray(stop.expectedPublishers, `rubric stop ${index} publishers`),
       forbiddenNarrativeClaims: stringArray(
         stop.forbiddenNarrativeClaims, `rubric stop ${index} forbidden claims`
       ),
+      requiredNarrativeConcepts,
     };
   });
   if (new Set(stops.map((stop) => stop.stopId)).size !== stops.length) {
@@ -128,6 +159,20 @@ export function evaluateNarrativeResearchGateV6(input: {
     const narrativeText = normalized(
       outcome.dossier.propositions.map((proposition) => proposition.text).join(' ')
     );
+    const propositionTexts = outcome.dossier.propositions
+      .map((proposition) => normalized(proposition.text));
+    const missingConcepts = reference.requiredNarrativeConcepts.filter((concept) => (
+      !propositionTexts.some((text) => (
+        concept.requiredTerms.every((term) => text.includes(normalized(term)))
+        && concept.oneOfTerms.some((term) => text.includes(normalized(term)))
+      ))
+    ));
+    if (missingConcepts.length > 0) {
+      failures.push(
+        `${reference.stopId}: missed reference concepts: ${missingConcepts
+          .map((concept) => concept.conceptId).join(', ')}`
+      );
+    }
     const narrativeTokens = new Set(narrativeText.split(' '));
     const forbidden = reference.forbiddenNarrativeClaims.find((claim) => (
       normalized(claim).split(' ').filter((token) => token.length > 3)
