@@ -15,6 +15,7 @@ import {
 } from '../../src/services/poi/NarrativeEditorialWorkflowV6';
 import {
   createDeepSeekNarrativeResearchCuratorV6,
+  createDeepSeekNarrativeSearchPlannerV6,
   researchNarrativeStopV6,
 } from '../../src/services/poi/NarrativeResearchV6';
 import { FirecrawlNarrativeSourceProviderV6 } from '../../src/services/poi/NarrativeSourcesV6';
@@ -71,6 +72,7 @@ async function main(): Promise<void> {
   const route = buildNarrativeRouteBriefV6({ candidates, oracle, sources, country: 'España' });
   const sourceProvider = new FirecrawlNarrativeSourceProviderV6({ apiKey: firecrawlKey });
   const curator = createDeepSeekNarrativeResearchCuratorV6({ apiKey });
+  const searchPlanner = createDeepSeekNarrativeSearchPlannerV6({ apiKey });
   const architect = createDeepSeekNarrativeArcArchitectV6({ apiKey });
   const agents = createNarrativeEditorialAgentsV6({ apiKey, ollamaHost });
   const createdAt = new Date().toISOString();
@@ -87,7 +89,7 @@ async function main(): Promise<void> {
     ],
   }, {
     research: (stop) => researchNarrativeStopV6({
-      stop, language: route.language, sourceProvider, curator,
+      stop, city: route.city, language: route.language, sourceProvider, curator, searchPlanner,
     }),
     buildArc: async (input) => (await architect.build(input)).arc,
     runEditorial: (input) => runNarrativeEditorialWorkflowV6({
@@ -108,6 +110,8 @@ async function main(): Promise<void> {
     research: canary.research.map((result) => ({
       stopId: result.stopId,
       captures: result.captures,
+      captureErrors: result.captureErrors,
+      searchDiagnostic: result.searchDiagnostic,
       diagnostic: result.diagnostic,
     })),
     editorial: canary.editorial?.privateDiagnostics,

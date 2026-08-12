@@ -1,5 +1,6 @@
 import {
   FirecrawlNarrativeSourceProviderV6,
+  ReplayNarrativeSourceProviderV6,
   applyNarrativeAuthorityCeilingV6,
   assertSafeNarrativeUrlV6,
   classifyNarrativeSourceAuthorityV6,
@@ -138,5 +139,33 @@ describe('narrative v6 source boundary', () => {
     expect(get).toHaveBeenCalledWith('https://es.wikipedia.org/w/api.php', expect.objectContaining({
       prop: 'revisions', rvprop: 'ids|timestamp', titles: 'Alcázar de Toledo',
     }));
+  });
+
+  it('replays frozen captures without network access and rotates bounded search windows', async () => {
+    const captures = Array.from({ length: 8 }, (_, index) => ({
+      sourceId: `source-${index}`,
+      requestedUrl: `https://museum.example/source-${index}`,
+      finalUrl: `https://museum.example/source-${index}`,
+      title: `Source ${index}`,
+      capturedAt: '2026-08-12T10:00:00.000Z',
+      content: `Frozen content ${index}`,
+      fingerprint: String(index).padStart(64, '0'),
+      authority: {
+        tier: 'primary_authority' as const,
+        publisherKey: `publisher-${index}.example`,
+        rule: 'replay',
+      },
+      containsInstructionLikeText: false,
+    }));
+    const provider = new ReplayNarrativeSourceProviderV6(captures);
+
+    const first = await provider.search({ query: 'first', limit: 5 });
+    const second = await provider.search({ query: 'second', limit: 5 });
+
+    expect(new Set([...first, ...second].map((result) => result.url)).size).toBe(8);
+    await expect(provider.capture(first[0].url)).resolves.toMatchObject({ sourceId: 'source-0' });
+    await expect(provider.capture('https://unknown.example/page')).rejects.toThrow(
+      'source replay has no capture'
+    );
   });
 });

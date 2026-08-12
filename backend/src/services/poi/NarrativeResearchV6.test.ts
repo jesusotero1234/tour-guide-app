@@ -59,7 +59,8 @@ const curator: NarrativeResearchCuratorV6 = {
       sources: captures.map((item) => item.sourceId),
       passages: captures.slice(0, 2).map((item, index) => ({
         passageId: `passage-${index}`, sourceId: item.sourceId,
-        quote: `Pasaje literal ${index}.`,
+        chunkId: `${item.sourceId}-1`,
+        quote: `Pasaje literal ${item.sourceId.split('-')[1]}.`,
       })),
       propositions: NARRATIVE_SUFFICIENCY_ROLES_V6.map((role, index) => ({
         propositionId: `P${index + 1}`, text: `Hecho ${index + 1}`, role,
@@ -91,14 +92,45 @@ describe('narrative v6 automatic research', () => {
       .toContain('datos sin permisos');
   });
 
-  it('turns an invalid non-literal curator quote into protocol_failed', async () => {
+  it('backfills failed captures until eight source pages succeed', async () => {
+    const sourceProvider = provider();
+    sourceProvider.capture
+      .mockRejectedValueOnce(new Error('first unavailable'))
+      .mockRejectedValueOnce(new Error('second unavailable'));
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator,
+    });
+
+    expect(result.status).toBe('sufficient');
+    expect(sourceProvider.capture).toHaveBeenCalledTimes(10);
+    expect(result.stats).toMatchObject({ capturedPages: 8, captureFailures: 2 });
+    expect(result.captureErrors).toHaveLength(2);
+  });
+
+  it('rejects an invalid four-query plan before calling the source provider', async () => {
+    const sourceProvider = provider();
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator,
+      searchPlanner: { plan: async () => ({ queries: ['only one'] }) },
+    });
+
+    expect(result.status).toBe('source_capture_failed');
+    expect(result.reason).toContain('exactly four unique search queries');
+    expect(sourceProvider.search).not.toHaveBeenCalled();
+  });
+
+  it('turns an unknown curator chunk into protocol_failed', async () => {
     const invalid: NarrativeResearchCuratorV6 = {
       curate: async () => ({
         proposal: {
           ...(await curator.curate({ stop, captures: [capture(0), capture(1)], packet: {
             context: '', chunks: [], securityNotice: '',
           } })).proposal,
-          passages: [{ passageId: 'invented', sourceId: 'source-0', quote: 'No existe.' }],
+          passages: [{
+            passageId: 'invented', sourceId: 'source-0', chunkId: 'source-0-999',
+            quote: 'No existe.',
+          }],
           propositions: [],
         },
       }),
@@ -108,7 +140,7 @@ describe('narrative v6 automatic research', () => {
     });
 
     expect(result).toMatchObject({ status: 'protocol_failed' });
-    expect(result.reason).toContain('is not literal');
+    expect(result.reason).toContain('references unknown curator chunk');
   });
 
   it('counts principled refusal as a valid research outcome after exhaustive retrieval', async () => {

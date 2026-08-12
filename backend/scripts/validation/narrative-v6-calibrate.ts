@@ -27,10 +27,16 @@ import {
 } from '../../src/services/poi/NarrativeMadridTrustedFixturesV6';
 import {
   createDeepSeekNarrativeResearchCuratorV6,
+  createDeepSeekNarrativeSearchPlannerV6,
   NarrativeResearchStopResultV6,
   researchNarrativeStopV6,
 } from '../../src/services/poi/NarrativeResearchV6';
-import { FirecrawlNarrativeSourceProviderV6 } from '../../src/services/poi/NarrativeSourcesV6';
+import {
+  FirecrawlNarrativeSourceProviderV6,
+  NarrativeCapturedSourceV6,
+  NarrativeSourceProviderV6,
+  ReplayNarrativeSourceProviderV6,
+} from '../../src/services/poi/NarrativeSourcesV6';
 
 function option(name: string): string | undefined {
   return process.argv.find((argument) => argument.startsWith(`${name}=`))?.slice(name.length + 1);
@@ -147,7 +153,7 @@ async function gateA(apiKey: string, ollamaHost: string): Promise<void> {
   if (gate.status !== 'passed') process.exitCode = 1;
 }
 
-async function gateB(apiKey: string, firecrawlKey: string): Promise<void> {
+async function gateB(apiKey: string, firecrawlKey?: string): Promise<void> {
   const paths = outputPaths('b');
   const rubric = validateNarrativeMadridResearchRubricV6(rubricJson);
   const stage = option('--stage') ?? 'spot-check';
@@ -163,8 +169,28 @@ async function gateB(apiKey: string, firecrawlKey: string): Promise<void> {
     throw new Error('spot-check stage always remains pending; accept or reject it in the full stage');
   }
   const selectedRubric = stage === 'spot-check' ? { ...rubric, stops: [rubric.stops[0]] } : rubric;
-  const sourceProvider = new FirecrawlNarrativeSourceProviderV6({ apiKey: firecrawlKey });
+  const replayPrivatePath = option('--replay-private');
+  let sourceProvider: NarrativeSourceProviderV6;
+  let replayQueries: string[] | undefined;
+  if (replayPrivatePath) {
+    if (stage !== 'spot-check') throw new Error('--replay-private is supported only for spot-check');
+    const replay = JSON.parse(readFileSync(resolve(replayPrivatePath), 'utf8')) as Array<{
+      captures?: NarrativeCapturedSourceV6[];
+      searchDiagnostic?: { value?: { queries?: string[] } };
+    }>;
+    if (!Array.isArray(replay) || !Array.isArray(replay[0]?.captures)) {
+      throw new Error('research replay does not contain captured pages');
+    }
+    sourceProvider = new ReplayNarrativeSourceProviderV6(replay[0].captures);
+    replayQueries = replay[0].searchDiagnostic?.value?.queries;
+  } else {
+    if (!firecrawlKey) throw new Error('FIRECRAWL_API_KEY is required without a replay');
+    sourceProvider = new FirecrawlNarrativeSourceProviderV6({ apiKey: firecrawlKey });
+  }
   const curator = createDeepSeekNarrativeResearchCuratorV6({ apiKey });
+  const searchPlanner = replayQueries
+    ? { plan: async () => ({ queries: replayQueries as string[] }) }
+    : createDeepSeekNarrativeSearchPlannerV6({ apiKey });
   const results: NarrativeResearchStopResultV6[] = [];
   let humanReview: Record<string, string> | undefined;
   if (stage === 'full') {
@@ -203,7 +229,8 @@ async function gateB(apiKey: string, firecrawlKey: string): Promise<void> {
     const stop = route.stops.find((item) => item.stopId === reference.stopId);
     if (!stop) throw new Error(`research rubric references unknown stop ${reference.stopId}`);
     results.push(await researchNarrativeStopV6({
-      stop, language: route.language, sourceProvider, curator,
+      stop, city: route.city, language: route.language, sourceProvider, curator,
+      searchPlanner,
       calibrationExpectedSufficient: true,
     }));
   }
@@ -239,6 +266,8 @@ async function gateB(apiKey: string, firecrawlKey: string): Promise<void> {
   writeFileSync(paths.privatePath, JSON.stringify(results.map((result) => ({
     stopId: result.stopId,
     captures: result.captures,
+    captureErrors: result.captureErrors,
+    searchDiagnostic: result.searchDiagnostic,
     diagnostic: result.diagnostic,
   })), null, 2));
   writeFileSync(paths.publicPath, JSON.stringify(review, null, 2));
@@ -261,7 +290,10 @@ async function main(): Promise<void> {
     return;
   }
   if (gate === 'b') {
-    await gateB(apiKey, requiredSecret('FIRECRAWL_API_KEY'));
+    await gateB(
+      apiKey,
+      option('--replay-private') ? undefined : requiredSecret('FIRECRAWL_API_KEY')
+    );
     return;
   }
   throw new Error('--gate must be a or b');

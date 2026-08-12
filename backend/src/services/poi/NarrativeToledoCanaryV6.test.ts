@@ -16,6 +16,7 @@ function enough(stopId: string): NarrativeResearchStopResultV6 {
     status: 'sufficient', stopId,
     stats: { searchQueries: 4, totalResults: 20, capturedPages: 8, authorityPages: 4, captureFailures: 0 },
     captures: [],
+    captureErrors: [],
     dossier: {
       stopId, language: 'es', sources: [], passages: [], propositions: [],
       authorizedNames: [], authorizedNumbers: [], discrepancies: [], limits: [],

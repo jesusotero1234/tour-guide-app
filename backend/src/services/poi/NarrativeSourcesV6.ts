@@ -157,6 +157,9 @@ const PRIMARY_PUBLISHERS_V6 = [
   'archimadrid.org',
   'rae.es',
   'defensa.gob.es',
+  'galeriadelascoleccionesreales.es',
+  'cdnprado.net',
+  'madrid.org',
 ] as const;
 
 const SCHOLARLY_PUBLISHERS_V6 = [
@@ -164,6 +167,10 @@ const SCHOLARLY_PUBLISHERS_V6 = [
   'revistas.csic.es',
   'revistas.ucm.es',
   'fcoam.eu',
+  'realacademiabellasartessanfernando.com',
+  'rah.es',
+  'uc3m.es',
+  'usal.es',
 ] as const;
 
 const ESTABLISHED_PUBLISHERS_V6 = [
@@ -375,5 +382,41 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
       throw new Error('MediaWiki revision is malformed');
     }
     return { revisionId: Number(revision.revid), timestamp: revision.timestamp };
+  }
+}
+
+export class ReplayNarrativeSourceProviderV6 implements NarrativeSourceProviderV6 {
+  private searchCall = 0;
+
+  constructor(private readonly captures: NarrativeCapturedSourceV6[]) {
+    if (captures.length === 0) throw new Error('source replay requires captured pages');
+    if (new Set(captures.map((capture) => capture.finalUrl)).size !== captures.length) {
+      throw new Error('source replay capture URLs must be unique');
+    }
+  }
+
+  async search(input: { query: string; limit?: number }): Promise<NarrativeSourceSearchResultV6[]> {
+    const query = input.query.trim();
+    const limit = input.limit ?? 20;
+    if (!query || query.length > 500) throw new Error('search query must contain 1 to 500 characters');
+    if (!Number.isInteger(limit) || limit < 1 || limit > 20) {
+      throw new Error('narrative search limit must be between 1 and 20');
+    }
+    const offset = (this.searchCall * limit) % this.captures.length;
+    this.searchCall += 1;
+    return Array.from({ length: Math.min(limit, this.captures.length) }, (_, index) => (
+      this.captures[(offset + index) % this.captures.length]
+    )).map((capture) => ({
+      url: capture.finalUrl,
+      title: capture.title,
+      description: 'Frozen narrative source replay.',
+      authority: capture.authority,
+    }));
+  }
+
+  async capture(url: string): Promise<NarrativeCapturedSourceV6> {
+    const capture = this.captures.find((item) => item.finalUrl === url || item.requestedUrl === url);
+    if (!capture) throw new Error(`source replay has no capture for ${url}`);
+    return capture;
   }
 }

@@ -23,6 +23,7 @@ export interface NarrativeDossierProposalV6 {
   passages: Array<{
     passageId: string;
     sourceId: string;
+    chunkId?: string;
     quote: string;
   }>;
   propositions: Array<{
@@ -92,7 +93,7 @@ export interface NarrativeCuratorPacketV6 {
 
 const MAX_CURATOR_CONTEXT_CHARACTERS_V6 = 45_000;
 const MAX_PASSAGE_CHARACTERS_V6 = 2_000;
-const CURATOR_CHUNK_CHARACTERS_V6 = 2_500;
+const CURATOR_CHUNK_CHARACTERS_V6 = 800;
 
 function unique(values: string[], label: string): void {
   const seen = new Set<string>();
