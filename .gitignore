@@ -80,6 +80,8 @@ coverage/
 
 .cache/
 
+.runtime/firecrawl/
+
 tmp/
 
 temp/

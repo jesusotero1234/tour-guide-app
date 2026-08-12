@@ -1,0 +1,52 @@
+services:
+  playwright-service:
+    build:
+      context: apps/playwright-service-ts
+      args:
+        PORT: "3000"
+    cpus: 0.0
+    mem_limit: ""
+    memswap_limit: ""
+    environment:
+      PROXY_PASSWORD: ""
+      PROXY_SERVER: ""
+      PROXY_USERNAME: ""
+  api:
+    cpus: 0.0
+    mem_limit: ""
+    memswap_limit: ""
+    environment:
+      NUQ_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@nuq-postgres:5432/${POSTGRES_DB}
+      NUQ_DATABASE_URL_LISTEN: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@nuq-postgres:5432/${POSTGRES_DB}
+      PLAYWRIGHT_MICROSERVICE_URL: http://playwright-service:3000/scrape
+      POSTGRES_HOST: nuq-postgres
+      POSTGRES_PORT: "5432"
+      REDIS_RATE_LIMIT_URL: redis://redis:6379
+      REDIS_URL: redis://redis:6379
+      PROXY_PASSWORD: ""
+      PROXY_SERVER: ""
+      PROXY_USERNAME: ""
+      SEARXNG_CATEGORIES: ""
+      SEARXNG_ENDPOINT: ""
+      SEARXNG_ENGINES: ""
+      SELF_HOSTED_WEBHOOK_URL: ""
+      SLACK_WEBHOOK_URL: ""
+      SUPABASE_ANON_TOKEN: ""
+      SUPABASE_SERVICE_TOKEN: ""
+      SUPABASE_URL: ""
+  rabbitmq:
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+    entrypoint:
+      - /bin/bash
+      - -c
+      - umask 077; printf '%s' "$$RABBITMQ_ERLANG_COOKIE" > /var/lib/rabbitmq/.erlang.cookie; chown -R rabbitmq:rabbitmq /var/lib/rabbitmq; exec gosu rabbitmq rabbitmq-server
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+  nuq-postgres:
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+  rabbitmq-data:
