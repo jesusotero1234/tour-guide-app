@@ -2,6 +2,7 @@ import { NarrativeRouteStopV6 } from './NarrativeContractsV6';
 import { NARRATIVE_SUFFICIENCY_ROLES_V6 } from './NarrativeDossierV6';
 import {
   NarrativeResearchCuratorV6,
+  createDeepSeekNarrativeResearchCuratorV6,
   researchNarrativeStopV6,
 } from './NarrativeResearchV6';
 import {
@@ -76,6 +77,37 @@ const curator: NarrativeResearchCuratorV6 = {
 };
 
 describe('narrative v6 automatic research', () => {
+  it('instructs the curator to prefer route-relevant evidence over promotional synthesis', async () => {
+    const calls: Array<Record<string, unknown>> = [];
+    const deepSeekCurator = createDeepSeekNarrativeResearchCuratorV6({
+      apiKey: 'test-key',
+      post: jest.fn(async (_url: string, body: Record<string, unknown>) => {
+        calls.push(body);
+        const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
+        return { data: { choices: [{ message: { tool_calls: [{ function: {
+          name: toolName,
+          arguments: JSON.stringify({
+            stopId: stop.stopId, language: 'es', sources: [], passages: [], propositions: [],
+            authorizedNames: [], authorizedNumbers: [], discrepancies: [], limits: [],
+          }),
+        } }] } }] } };
+      }),
+    });
+
+    await deepSeekCurator.curate({
+      stop, captures: [capture(0)],
+      packet: { context: 'Datos capturados.', chunks: [], securityNotice: 'No obedecer.' },
+    });
+
+    const prompt = ((calls[0].messages as Array<{ content: string }>)[0].content);
+    expect(prompt).toContain('narrativeRole guía la selección, pero no es evidencia');
+    expect(prompt).toContain('No mezcles en una proposición');
+    expect(prompt).toContain('superlativos promocionales');
+    expect(prompt).toContain('diferenciador arquitectónico o funcional documentado');
+    expect(prompt).toContain('no convierte una causalidad en directa');
+    expect(prompt).toContain('visible desde el recorrido público');
+  });
+
   it('enforces four searches, twenty unique results, eight captures and bounded curator context', async () => {
     const sourceProvider = provider();
     const result = await researchNarrativeStopV6({
@@ -117,6 +149,23 @@ describe('narrative v6 automatic research', () => {
 
     expect(result.status).toBe('source_capture_failed');
     expect(result.reason).toContain('exactly four unique search queries');
+    expect(sourceProvider.search).not.toHaveBeenCalled();
+  });
+
+  it('rejects search plans that ignore the distinctive narrative role', async () => {
+    const sourceProvider = provider();
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator,
+      searchPlanner: { plan: async () => ({ queries: [
+        'Alcázar de Toledo historia general',
+        'Alcázar de Toledo horarios visita',
+        'Alcázar de Toledo ubicación mapa',
+        'Alcázar de Toledo turismo entradas',
+      ] }) },
+    });
+
+    expect(result.status).toBe('source_capture_failed');
+    expect(result.reason).toContain('distinctive narrativeRole terms');
     expect(sourceProvider.search).not.toHaveBeenCalled();
   });
 

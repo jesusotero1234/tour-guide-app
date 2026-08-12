@@ -247,20 +247,27 @@ export function decideNarrativeEvidenceOutcomeV6(
 }
 
 function normalizedTerms(terms: string[]): string[] {
-  return [...new Set(terms.map((term) => term.normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '').toLowerCase().trim()).filter(Boolean))];
+  return [...new Set(terms.flatMap((term) => {
+    const normalized = term.normalize('NFD').replace(/\p{Diacritic}/gu, '')
+      .toLowerCase().trim();
+    if (!normalized) return [];
+    return [
+      normalized,
+      ...normalized.split(/[^a-z0-9]+/u).filter((word) => word.length >= 5),
+    ];
+  }))];
 }
 
 function relevance(text: string, terms: string[], tier: NarrativeSourceAuthorityTierV6): number {
   const normalizedText = text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
-  const matches = terms.reduce((total, term) => total + (normalizedText.split(term).length - 1), 0);
+  const matches = terms.filter((term) => normalizedText.includes(term)).length;
   const authorityWeight: Record<NarrativeSourceAuthorityTierV6, number> = {
     primary_authority: 40,
     scholarly_authority: 30,
     established_source: 20,
     discovery_only: 0,
   };
-  return authorityWeight[tier] + Math.min(matches, 100);
+  return authorityWeight[tier] + matches;
 }
 
 export function buildNarrativeCuratorPacketV6(

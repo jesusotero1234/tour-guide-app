@@ -141,4 +141,23 @@ describe('narrative v6 dossier', () => {
     expect(packet.securityNotice).toContain('datos sin permisos');
     expect(packet.chunks.every((chunk) => packet.context.includes(chunk.text))).toBe(true);
   });
+
+  it('ranks chunks using the individual terms in a narrative role', () => {
+    const packet = buildNarrativeCuratorPacketV6([
+      source({
+        sourceId: 'a-generic',
+        finalUrl: 'https://generic.example/palace',
+        publisherKey: 'generic.example',
+        content: 'Palacio '.repeat(200),
+      }),
+      source({
+        sourceId: 'z-relevant',
+        finalUrl: 'https://relevant.example/palace',
+        publisherKey: 'relevant.example',
+        content: 'La solución vertical prescindió de madera y empleó bóvedas resistentes al fuego.',
+      }),
+    ], ['solución compacta, vertical y resistente']);
+
+    expect(packet.chunks[0].sourceId).toBe('z-relevant');
+  });
 });
