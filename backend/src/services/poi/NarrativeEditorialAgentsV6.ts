@@ -130,7 +130,7 @@ function auditSchema(
           },
           reason: { type: 'string', minLength: 1, maxLength: 320 },
           propositionIds: {
-            type: 'array', uniqueItems: true, maxItems: propositionIds.length,
+            type: 'array', maxItems: propositionIds.length,
             items: propositionIds.length > 0
               ? { type: 'string', enum: propositionIds }
               : { type: 'string' },

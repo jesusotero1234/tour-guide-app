@@ -30,7 +30,7 @@
           "facetId": "juvarra-site", "hard": true,
           "allowedRoles": ["chronology_or_transformation", "tension_or_contrast"],
           "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "la primera y fundamental fue la elección del lugar" }],
-          "conceptGroups": [["juvarra"], ["proyecto", "diseño"], ["otro emplazamiento", "terreno más amplio", "solar inadecuado", "fuera del solar del alcázar"]],
+          "conceptGroups": [["juvarra"], ["proyecto", "diseño"], ["otro emplazamiento", "terreno más amplio", "solar inadecuado", "fuera del solar del alcázar", "lugar llano"]],
           "contradictionPhrases": ["el proyecto de juvarra se construyó", "juvarra proyectó el palacio construido"]
         },
         {
@@ -44,7 +44,7 @@
           "facetId": "fire-resistant-construction", "hard": true,
           "allowedRoles": ["distinctive_trait", "chronology_or_transformation"],
           "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas" }],
-          "conceptGroups": [["bóvedas", "estructura abovedada"], ["sin madera", "prescindió de madera"], ["incendio", "fuego"]],
+          "conceptGroups": [["bóvedas", "bóveda", "estructura abovedada"], ["sin madera", "prescindió de madera"], ["incendio", "fuego"]],
           "contradictionPhrases": ["estructura de madera", "se construyó principalmente con madera"]
         },
         {

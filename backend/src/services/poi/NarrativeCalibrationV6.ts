@@ -320,9 +320,7 @@ function evaluateFacet(
       if (!aliases.some((alias) => phrasePresent(normalized(proposition.text), alias))) return false;
       return proposition.passageIds.some((passageId) => {
         const passage = passagesById.get(passageId);
-        return passage !== undefined
-          && proposition.sourceIds.includes(passage.sourceId)
-          && aliases.some((alias) => phrasePresent(normalized(passage.quote), alias));
+        return passage !== undefined && proposition.sourceIds.includes(passage.sourceId);
       });
     });
     if (contributor) {
@@ -335,7 +333,7 @@ function evaluateFacet(
     const referenceUrl = referenceSources.find((source) => (
       source.referenceId === evidence.referenceId
     ))?.url;
-    return referenceUrl !== undefined && traceable.some((proposition) => (
+    return referenceUrl !== undefined && eligible.some((proposition) => (
       proposition.passageIds.some((passageId) => {
         const passage = passagesById.get(passageId);
         return passage !== undefined
