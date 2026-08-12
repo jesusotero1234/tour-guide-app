@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "narrative-research-snapshot-v2",
+  "capturePolicy": "once",
+  "sources": [
+    {
+      "sourceId": "source-49ee6b52a2769fda",
+      "finalUrl": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Palacio-Real-de-Madrid/?vgnextfmt=default&vgnextoid=2008f7d9560a4510f7d9560a45102e085a0aRCRD&vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD",
+      "requestedUrlFingerprint": "a1e3a89fc6b04d2845116635016456a4ef5a2932488e3a68588eaef7c7053af7",
+      "title": "Palacio Real de Madrid - Patrimonio cultural y paisaje urbano",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "madrid.es",
+        "rule": "official_registry"
+      },
+      "fingerprint": "49ee6b52a2769fda2a6808b8f884e489391ddbd1461502808c9b4e1ca8303a54",
+      "capturedAt": "2026-08-12T15:18:46.885Z",
+      "excerpts": [
+        "ocho niveles -seis en la calle Bailen-",
+        "actualmente no se encuentra habitado"
+      ]
+    },
+    {
+      "sourceId": "source-4d16166a756dc772",
+      "finalUrl": "https://www.patrimonionacional.es/sites/default/files/2020-06/folleto_palacio_real_accesibilidad_para_pmr.pdf",
+      "requestedUrlFingerprint": "a5d7eefe7d2c9cf218ff97848418e6a2383a95ec03667da05539d258ca228b64",
+      "title": "untitled",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "patrimonionacional.es",
+        "rule": "official_registry"
+      },
+      "fingerprint": "4d16166a756dc77226f6c1b7fe1b4dcab2f26e9c66c824368a3a065fc1a55df0",
+      "capturedAt": "2026-08-12T15:18:47.326Z",
+      "excerpts": [
+        "incendio, la Nochebuena de 1734",
+        "la primera y fundamental fue la elección del lugar por Felipe V en el solar mismo del Alcázar. Quiso también que toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas",
+        "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad para que, ocupando el mismo solar del antiguo, el Palacio Nuevo fuese capaz de albergar a las personas reales, los cortesanos, los criados, los ministerios y las dependencias de servicio, de modo que el edificio tiene seis alturas donde menos, y ocho donde más"
+      ]
+    }
+  ],
+  "fingerprint": "3edb227c49862de7bb7569652e1a583bb188a775d3c8770c9fad8482c7678810"
+}

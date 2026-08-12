@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "narrative-research-snapshot-v1",
+  "capturePolicy": "once",
+  "sources": [
+    {
+      "sourceId": "source-0d4448ef9cb668a1",
+      "finalUrl": "https://publicaciones.realacademiabellasartessanfernando.com/academia/article/view/63",
+      "requestedUrlFingerprint": "95ccb199fd8d7ffc472ae0d5ad587489d338a615e601e18aff3ccee608a318eb",
+      "title": "Filippo Juvarra y la maqueta del Palacio Real nuevo de Madrid: el proceso creativo de un proyecto arquitectónico frustrado\n\t\t\t\t\t\t\t| Academia. Boletín de la Real Academia de Bellas Artes de San Fernando",
+      "authority": {
+        "tier": "scholarly_authority",
+        "publisherKey": "realacademiabellasartessanfernando.com",
+        "rule": "scholarly_registry"
+      },
+      "fingerprint": "0d4448ef9cb668a18cf3044c262f786a72925afd88e3d6720fb385d20c1bfc80",
+      "capturedAt": "2026-08-12T08:31:20.690Z",
+      "excerpts": [
+        "# Filippo Juvarra y la maqueta del Palacio Real nuevo de Madrid\n\n## el proceso creativo de un proyecto arquitectónico frustrado"
+      ]
+    },
+    {
+      "sourceId": "source-53479c3177417aab",
+      "finalUrl": "https://www.slideshare.net/slideshow/alczar-y-palacio-real-de-madrid/16987827",
+      "requestedUrlFingerprint": "430e237471fa96941832e9cb4a3fc0e5b99d08bca6d9d8ae2bf69c514588173f",
+      "title": "ALCÁZAR Y PALACIO REAL DE MADRID | PPTX",
+      "authority": {
+        "tier": "discovery_only",
+        "publisherKey": "slideshare.net",
+        "rule": "unregistered"
+      },
+      "fingerprint": "53479c3177417aab151b69317f9987b283dee3aefa26d7bf9768a19a80d71e38",
+      "capturedAt": "2026-08-12T08:31:51.348Z",
+      "excerpts": [
+        "Alcázar y el Palacio Real de Madrid, centrando la atención en su construcción, importancia histórica y modificaciones a lo largo de los siglos. Destaca excavaciones recientes que revelan restos humanos previos a la fundación del Alcázar y menciona el incendio de 1734 que lo destruyó."
+      ]
+    },
+    {
+      "sourceId": "source-5f1ae075f7bded1e",
+      "finalUrl": "https://www.galeriadelascoleccionesreales.es/obra-de-arte/proyecto-de-filippo-juvarra-para-el-palacio-real/b88281c6-d851-4917-8893-2711dc87e4c5",
+      "requestedUrlFingerprint": "286f4207aa8f82b3e65015b847e5f4a63bf07478c70ce56e5782e7211076d7f4",
+      "title": "Proyecto de Filippo Juvarra para el Palacio Real de Madrid: secciones longitudinales y alzados de la fachada principal y a los jardines. - La Galería de las Colecciones Reales",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "galeriadelascoleccionesreales.es",
+        "rule": "official_registry"
+      },
+      "fingerprint": "5f1ae075f7bded1e902ee16fc634ec6cccec40e797a7ed1f1823508fdf80ad1d",
+      "capturedAt": "2026-08-12T08:30:53.810Z",
+      "excerpts": [
+        "obligó a la inmediata construcción de un palacio real más acorde con la estética de la nueva dinastía, y que cumpliese con las necesidades propias de una residencia regia."
+      ]
+    },
+    {
+      "sourceId": "source-7ea54c67398c412f",
+      "finalUrl": "https://www.esmadrid.com/informacion-turistica/palacio-real",
+      "requestedUrlFingerprint": "8862da8131358cd0224ac7f51fdd21aa30056757295f6a0ddeb2b40e8bc52c94",
+      "title": "Palacio Real de Madrid | Turismo Madrid",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "esmadrid.com",
+        "rule": "official_registry"
+      },
+      "fingerprint": "7ea54c67398c412fe7cbd0e6319c78160d0f4db0b0fe617ed2b3ac98abedff23",
+      "capturedAt": "2026-08-12T08:30:58.445Z",
+      "excerpts": [
+        "Morada regia desde Carlos III hasta Alfonso XIII, el Palacio Real de Madrid nos propone un viaje por la Historia de España. Aunque no está habitado por los actuales monarcas, el recinto, gestionado por Patrimonio Nacional, es la residencia oficial de los reyes."
+      ]
+    },
+    {
+      "sourceId": "source-c3b2824a48071734",
+      "finalUrl": "https://www.academia.edu/43976615/El_interior_del_Alc%C3%A1zar_de_Madrid_durante_el_reinado_de_Felipe_V",
+      "requestedUrlFingerprint": "6c216fe362f09fcc2ecaa1c72fd93ae8d7ecd287c2a8a6ebcb1672736b4eb2fe",
+      "title": "(PDF) El interior del Alcázar de Madrid durante el reinado de Felipe V",
+      "authority": {
+        "tier": "discovery_only",
+        "publisherKey": "academia.edu",
+        "rule": "unregistered"
+      },
+      "fingerprint": "c3b2824a480717344c7eb6bb22b1c92b697d266e25207e5116581d2cf3fecd61",
+      "capturedAt": "2026-08-12T08:31:49.324Z",
+      "excerpts": [
+        "El interior del Alcázar de Madrid durante el reinado de Felipe V\n\nJosé Luis Sancho GasparJosé Luis Sancho Gaspar"
+      ]
+    },
+    {
+      "sourceId": "source-ceb7e97a91384cd6",
+      "finalUrl": "https://publicaciones.realacademiabellasartessanfernando.com/academia/article/view/63/74",
+      "requestedUrlFingerprint": "623f765c90a353f4136560bc1255691d8543d846d75a0e6a76ecdd1a2d5b2747",
+      "title": "Vista de Filippo Juvarra y la maqueta del Palacio Real nuevo de Madrid",
+      "authority": {
+        "tier": "scholarly_authority",
+        "publisherKey": "realacademiabellasartessanfernando.com",
+        "rule": "scholarly_registry"
+      },
+      "fingerprint": "ceb7e97a91384cd6ad4711d4852dd3e00e35844ed6f6db3c2265f8d29d7cb066",
+      "capturedAt": "2026-08-12T08:31:45.470Z",
+      "excerpts": [
+        "PDF.js"
+      ]
+    },
+    {
+      "sourceId": "source-eb1dd25a09bd099f",
+      "finalUrl": "https://www.patrimonionacional.es/visita/palacio-real-de-madrid",
+      "requestedUrlFingerprint": "6aa98a8cb51010b5bbdb12df68be728a5be5c891328bc809193f894f798b2efe",
+      "title": "Palacio Real de Madrid | Patrimonio Nacional",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "patrimonionacional.es",
+        "rule": "official_registry"
+      },
+      "fingerprint": "eb1dd25a09bd099f9a0d0e9c2afb6e968e4a94dc019d2d810db2583aaf76ee83",
+      "capturedAt": "2026-08-12T08:31:02.233Z",
+      "excerpts": [
+        "El Palacio Real data del siglo XVIII pero en realidad se asienta sobre el solar del antiguo Alcázar de Madrid, fortaleza medieval convertida en palacio y que Felipe II convirtió desde 1561 en la residencia oficial de los reyes de España."
+      ]
+    },
+    {
+      "sourceId": "source-f8ca08e041acc5d1",
+      "finalUrl": "https://tickets.patrimonionacional.es/es/tickets/palacio-real-de-madrid",
+      "requestedUrlFingerprint": "18ec0880fe5624687dfd1f100a9d4cf86ae5970a4b7373c6056e5611bdea1d15",
+      "title": "Entradas Palacio Real de Madrid. Visitas y Horarios - Patrimonio Nacional",
+      "authority": {
+        "tier": "primary_authority",
+        "publisherKey": "patrimonionacional.es",
+        "rule": "official_registry"
+      },
+      "fingerprint": "f8ca08e041acc5d113d4304ff56521d68c824010da5cb2d09989a5f898a77485",
+      "capturedAt": "2026-08-12T08:31:13.506Z",
+      "excerpts": [
+        "Horarios  Entradas  Audioguías  Cómo Llegar  Accesibilidad"
+      ]
+    }
+  ],
+  "fingerprint": "44110dae0e05889917548099fdc483f469154688a6c20e55e7921e7a6cda735c"
+}

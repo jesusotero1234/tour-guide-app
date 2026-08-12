@@ -1,55 +1,109 @@
 {
-  "schemaVersion": "narrative-madrid-research-rubric-v6",
+  "schemaVersion": "narrative-madrid-research-rubric-v6.1",
   "minimumAuthorityPublisherMatches": 1,
   "stops": [
     {
       "stopId": "palace",
       "expectedPublishers": ["madrid.es", "patrimonionacional.es", "museodelprado.es"],
       "forbiddenNarrativeClaims": ["incendio provocado por miembros franceses", "Sacchetti fue un mero ejecutor"],
-      "requiredNarrativeConcepts": [
-        { "conceptId": "alcazar-fire", "requiredTerms": ["alcázar", "incendio", "1734"], "oneOfTerms": ["nochebuena", "destruido"] },
-        { "conceptId": "juvarra-site", "requiredTerms": ["juvarra", "proyecto"], "oneOfTerms": ["solar", "emplazamiento", "san bernardino"] },
-        { "conceptId": "sacchetti-design", "requiredTerms": ["sacchetti", "proyecto"], "oneOfTerms": ["nuevo", "planta", "vertical"] },
-        { "conceptId": "fire-resistant-construction", "requiredTerms": ["bóvedas", "madera"], "oneOfTerms": ["incendio", "fuego", "resistente"] },
-        { "conceptId": "visible-exterior", "requiredTerms": ["palacio"], "oneOfTerms": ["altura", "niveles", "vertical", "fachada"] },
-        { "conceptId": "current-function", "requiredTerms": ["palacio"], "oneOfTerms": ["museo", "actos oficiales", "actos solemnes"] }
+      "referenceSources": [
+        {
+          "referenceId": "S01-municipal",
+          "url": "https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Edificios-singulares/Palacio-Real-de-Madrid/?vgnextfmt=default&vgnextoid=2008f7d9560a4510f7d9560a45102e085a0aRCRD&vgnextchannel=83bc3cb702aa4510VgnVCM1000008a4a900aRCRD",
+          "literalAnchors": ["ocho niveles -seis en la calle Bailen-", "actualmente no se encuentra habitado"]
+        },
+        {
+          "referenceId": "S03-institutional",
+          "url": "https://www.patrimonionacional.es/sites/default/files/2020-06/folleto_palacio_real_accesibilidad_para_pmr.pdf",
+          "literalAnchors": ["incendio, la Nochebuena de 1734", "la primera y fundamental fue la elección del lugar", "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad", "seis alturas donde menos, y ocho donde más", "toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas"]
+        }
+      ],
+      "facets": [
+        {
+          "facetId": "alcazar-fire", "hard": true,
+          "allowedRoles": ["chronology_or_transformation"],
+          "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "incendio, la Nochebuena de 1734" }],
+          "conceptGroups": [["alcázar"], ["incendio", "ardió", "destruido por el fuego"], ["1734"]],
+          "contradictionPhrases": ["el alcázar no ardió", "el alcázar no fue destruido", "no hubo incendio en 1734"]
+        },
+        {
+          "facetId": "juvarra-site", "hard": true,
+          "allowedRoles": ["chronology_or_transformation", "tension_or_contrast"],
+          "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "la primera y fundamental fue la elección del lugar" }],
+          "conceptGroups": [["juvarra"], ["proyecto", "diseño"], ["otro emplazamiento", "terreno más amplio", "solar inadecuado", "fuera del solar del alcázar"]],
+          "contradictionPhrases": ["el proyecto de juvarra se construyó", "juvarra proyectó el palacio construido"]
+        },
+        {
+          "facetId": "sacchetti-design", "hard": true,
+          "allowedRoles": ["tension_or_contrast", "distinctive_trait"],
+          "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad" }],
+          "conceptGroups": [["sacchetti"], ["proyecto nuevo", "nuevo diseño"], ["verticalidad", "concentró en altura", "concentración vertical"]],
+          "contradictionPhrases": ["sacchetti fue un mero ejecutor", "sacchetti solo ejecutó el proyecto de juvarra"]
+        },
+        {
+          "facetId": "fire-resistant-construction", "hard": true,
+          "allowedRoles": ["distinctive_trait", "chronology_or_transformation"],
+          "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas" }],
+          "conceptGroups": [["bóvedas", "estructura abovedada"], ["sin madera", "prescindió de madera"], ["incendio", "fuego"]],
+          "contradictionPhrases": ["estructura de madera", "se construyó principalmente con madera"]
+        },
+        {
+          "facetId": "visible-exterior", "hard": true,
+          "allowedRoles": ["visible_observation"],
+          "humanEvidence": [{ "referenceId": "S01-municipal", "literalExcerpt": "ocho niveles -seis en la calle Bailen-" }],
+          "conceptGroups": [["palacio real", "palacio construido"], ["seis alturas", "seis niveles"], ["ocho alturas", "ocho niveles"], ["bailén", "calle de bailén"]],
+          "contradictionPhrases": ["mirador", "interior del palacio", "proyecto de juvarra", "fachada no construida"]
+        },
+        {
+          "facetId": "current-function", "hard": true,
+          "allowedRoles": ["human_agency_or_lived_function"],
+          "humanEvidence": [{ "referenceId": "S01-municipal", "literalExcerpt": "actualmente no se encuentra habitado" }],
+          "conceptGroups": [["no está habitado", "los monarcas no viven", "sin uso residencial"], ["museo", "abierto al público", "visitable"], ["actos oficiales", "actos institucionales", "actos solemnes"]],
+          "contradictionPhrases": ["los reyes viven en el palacio", "es la residencia habitada"]
+        }
       ]
     },
     {
       "stopId": "almudena",
       "expectedPublishers": ["catedraldelaalmudena.es", "archimadrid.org", "academiacolecciones.com"],
       "forbiddenNarrativeClaims": ["se terminó en 1983"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     },
     {
       "stopId": "villa",
       "expectedPublishers": ["esmadrid.com", "madrid.es"],
       "forbiddenNarrativeClaims": ["Francisco I estuvo preso en la torre"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     },
     {
       "stopId": "mayor",
       "expectedPublishers": ["madrid.es"],
       "forbiddenNarrativeClaims": ["siempre tuvo el aspecto actual"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     },
     {
       "stopId": "cibeles",
       "expectedPublishers": ["madrid.es"],
       "forbiddenNarrativeClaims": ["siempre estuvo orientada hacia la Puerta del Sol"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     },
     {
       "stopId": "sol",
       "expectedPublishers": ["madrid.es", "memoriademadrid.es", "comunidad.madrid"],
       "forbiddenNarrativeClaims": ["el reloj fue instalado por orden de Isabel II"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     },
     {
       "stopId": "alcala",
       "expectedPublishers": ["madrid.es", "esmadrid.com"],
       "forbiddenNarrativeClaims": ["Carlos III pagó directamente la puerta"],
-      "requiredNarrativeConcepts": []
+      "referenceSources": [],
+      "facets": []
     }
   ]
 }

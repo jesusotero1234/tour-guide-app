@@ -118,15 +118,19 @@ describe('narrative v6 dossier', () => {
       searchQueries: 1, totalResults: 5, capturedPages: 1, authorityPages: 1,
     })).toMatchObject({ status: 'source_capture_failed' });
     expect(decideNarrativeEvidenceOutcomeV6(insufficient, {
-      searchQueries: 4, totalResults: 20, capturedPages: 8, authorityPages: 2,
+      searchQueries: 5, totalResults: 25, capturedPages: 8, authorityPages: 2,
+      calibrationExpectedSufficient: true,
+    })).toMatchObject({ status: 'source_capture_failed' });
+    expect(decideNarrativeEvidenceOutcomeV6(insufficient, {
+      searchQueries: 6, totalResults: 30, capturedPages: 8, authorityPages: 2,
       calibrationExpectedSufficient: true,
     })).toMatchObject({ status: 'model_calibration_failed', stage: 'research' });
     expect(decideNarrativeEvidenceOutcomeV6(insufficient, {
-      searchQueries: 4, totalResults: 20, capturedPages: 8, authorityPages: 2,
+      searchQueries: 6, totalResults: 30, capturedPages: 8, authorityPages: 2,
     })).toMatchObject({ status: 'evidence_review_required' });
   });
 
-  it('bounds deterministic untrusted source context to 45000 characters', () => {
+  it('bounds deterministic untrusted source context to 24 chunks and 30000 characters', () => {
     const packet = buildNarrativeCuratorPacketV6([
       ...captures,
       source({
@@ -137,7 +141,8 @@ describe('narrative v6 dossier', () => {
       }),
     ], ['alcázar', 'historia']);
 
-    expect(packet.context.length).toBeLessThanOrEqual(45_000);
+    expect(packet.context.length).toBeLessThanOrEqual(30_000);
+    expect(packet.chunks.length).toBeLessThanOrEqual(24);
     expect(packet.securityNotice).toContain('datos sin permisos');
     expect(packet.chunks.every((chunk) => packet.context.includes(chunk.text))).toBe(true);
   });
@@ -159,5 +164,66 @@ describe('narrative v6 dossier', () => {
     ], ['solución compacta, vertical y resistente']);
 
     expect(packet.chunks[0].sourceId).toBe('z-relevant');
+  });
+
+  it('excludes discovery-only and navigation-heavy blocks from paragraph packets', () => {
+    const authorityParagraph = 'Sacchetti concentró el proyecto en altura. '
+      .repeat(25).trim();
+    const packet = buildNarrativeCuratorPacketV6([
+      source({
+        sourceId: 'authority', finalUrl: 'https://authority.example/palace',
+        publisherKey: 'authority.example',
+        content: `[Inicio](/) [Visitas](/visitas) [Agenda](/agenda) [Contacto](/contacto)\n\n${authorityParagraph}`,
+      }),
+      {
+        ...source({
+          sourceId: 'discovery', finalUrl: 'https://unknown.example/palace',
+          publisherKey: 'unknown.example', content: 'bóvedas sin madera '.repeat(100),
+        }),
+        authority: {
+          tier: 'discovery_only' as const, publisherKey: 'unknown.example', rule: 'unregistered',
+        },
+      },
+    ], ['Sacchetti', 'bóvedas', 'madera']);
+
+    expect(packet.chunks).toHaveLength(1);
+    expect(packet.chunks[0].sourceId).toBe('authority');
+    expect(packet.chunks[0].text.length).toBeGreaterThanOrEqual(800);
+    expect(packet.chunks[0].text.length).toBeLessThanOrEqual(1_400);
+    expect(packet.context).not.toContain('[Inicio]');
+    expect(packet.context).not.toContain('bóvedas sin madera');
+  });
+
+  it('keeps one high-relevance paragraph per independent publisher before filling the packet', () => {
+    const packet = buildNarrativeCuratorPacketV6([
+      source({
+        sourceId: 'publisher-a-1', finalUrl: 'https://a.example/palace-one',
+        publisherKey: 'a.example', content: 'Juvarra proyecto horizontal. '.repeat(400),
+      }),
+      source({
+        sourceId: 'publisher-b-1', finalUrl: 'https://b.example/palace-two',
+        publisherKey: 'b.example', content: 'Sacchetti bóvedas sin madera. '.repeat(40),
+      }),
+    ], ['Juvarra', 'proyecto', 'Sacchetti', 'bóvedas', 'madera']);
+
+    expect(new Set(packet.chunks.slice(0, 2).map((chunk) => chunk.sourceId)))
+      .toEqual(new Set(['publisher-a-1', 'publisher-b-1']));
+  });
+
+  it('reserves literal human-reference anchors before higher-scoring filler chunks', () => {
+    const anchor = 'ocho niveles -seis en la calle Bailen-';
+    const filler = Array.from({ length: 30 }, (_, index) => (
+      `Juvarra proyecto arquitectura ${index}. ${'Historia institucional. '.repeat(45)}`
+    ));
+    const packet = buildNarrativeCuratorPacketV6([source({
+      sourceId: 'municipal', finalUrl: 'https://madrid.example/palacio',
+      publisherKey: 'madrid.example',
+      content: [...filler, `${anchor}. ${'Descripción del Palacio Real construido. '.repeat(25)}`]
+        .join('\n\n'),
+    })], ['Juvarra', 'proyecto', 'arquitectura'], [anchor]);
+
+    expect(packet.chunks).toHaveLength(24);
+    expect(packet.chunks[0].text).toContain(anchor);
+    expect(packet.context).toContain(anchor);
   });
 });

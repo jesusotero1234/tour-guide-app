@@ -64,8 +64,8 @@ describe('narrative v6 source boundary', () => {
 
     expect(results).toHaveLength(1);
     expect(posts[0].body).not.toHaveProperty('scrapeOptions');
-    expect(posts[0].body).toMatchObject({
-      excludeDomains: expect.arrayContaining(['facebook.com', 'instagram.com', 'youtube.com']),
+    expect(posts[0].body).toEqual({
+      query: 'historia del museo', limit: 20, country: 'ES', ignoreInvalidURLs: true,
     });
     expect(posts[0].headers.Authorization).toBe('Bearer fc-test-secret');
     expect(posts[1]).toMatchObject({
@@ -104,7 +104,7 @@ describe('narrative v6 source boundary', () => {
     expect(waits).toEqual([2_000, 4_000]);
   });
 
-  it('turns site filters into Firecrawl includeDomains and reports exhausted quota', async () => {
+  it('keeps site filters in the v2.8-compatible query and reports exhausted quota', async () => {
     const post = jest.fn()
       .mockResolvedValueOnce({ data: { success: true, data: { web: [] } } })
       .mockRejectedValueOnce({ response: { status: 402, headers: {} } });
@@ -117,7 +117,7 @@ describe('narrative v6 source boundary', () => {
       query: 'Palacio Real vertical site:patrimonionacional.es', limit: 5,
     });
     expect(post.mock.calls[0][1]).toMatchObject({
-      includeDomains: ['patrimonionacional.es'],
+      query: 'Palacio Real vertical site:patrimonionacional.es',
     });
     await expect(provider.search({ query: 'otra búsqueda', limit: 5 }))
       .rejects.toThrow('Firecrawl quota or payment required (HTTP 402)');

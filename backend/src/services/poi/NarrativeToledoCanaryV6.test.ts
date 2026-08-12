@@ -14,7 +14,8 @@ const route = buildNarrativeRouteBriefV6({ candidates, oracle, sources, country:
 function enough(stopId: string): NarrativeResearchStopResultV6 {
   return {
     status: 'sufficient', stopId,
-    stats: { searchQueries: 4, totalResults: 20, capturedPages: 8, authorityPages: 4, captureFailures: 0 },
+    stats: { searchQueries: 6, totalResults: 30, capturedPages: 8, authorityPages: 4, captureFailures: 0 },
+    searchResultsByQuery: [],
     captures: [],
     captureErrors: [],
     dossier: {
