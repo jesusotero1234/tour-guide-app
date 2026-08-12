@@ -42,7 +42,7 @@ function option(name: string): string | undefined {
   return process.argv.find((argument) => argument.startsWith(`${name}=`))?.slice(name.length + 1);
 }
 
-function requiredSecret(name: 'DEEPSEEK_API_KEY' | 'FIRECRAWL_API_KEY'): string {
+function requiredSecret(name: 'DEEPSEEK_API_KEY' | 'OPENROUTER_API_KEY'): string {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`${name} is required`);
   return value;
@@ -74,9 +74,11 @@ const documents = loadNarrativeMadridDocumentsV6(
 const route = buildMadridNarrativeRouteBriefV6(manifest);
 const dossiers = buildTrustedMadridDossiersV6(manifest, documents);
 
-async function gateA(apiKey: string): Promise<void> {
+async function gateA(apiKey: string, profile: string, openRouterApiKey?: string): Promise<void> {
   const paths = outputPaths('a');
-  const agents = createNarrativeEditorialAgentsV6({ apiKey });
+  const agents = createNarrativeEditorialAgentsV6({
+    apiKey, openRouterApiKey, profile, runId: paths.runId,
+  });
   const workflow = await runNarrativeEditorialWorkflowV6({
     runId: paths.runId,
     createdAt: new Date().toISOString(),
@@ -154,7 +156,12 @@ async function gateA(apiKey: string): Promise<void> {
   if (gate.status !== 'passed') process.exitCode = 1;
 }
 
-async function gateB(apiKey: string, firecrawlKey?: string): Promise<void> {
+async function gateB(
+  apiKey: string,
+  profile: string,
+  openRouterApiKey?: string,
+  firecrawlKey?: string
+): Promise<void> {
   const paths = outputPaths('b');
   const rubric = validateNarrativeMadridResearchRubricV6(rubricJson);
   const stage = option('--stage') ?? 'spot-check';
@@ -185,13 +192,19 @@ async function gateB(apiKey: string, firecrawlKey?: string): Promise<void> {
     sourceProvider = new ReplayNarrativeSourceProviderV6(replay[0].captures);
     replayQueries = replay[0].searchDiagnostic?.value?.queries;
   } else {
-    if (!firecrawlKey) throw new Error('FIRECRAWL_API_KEY is required without a replay');
-    sourceProvider = new FirecrawlNarrativeSourceProviderV6({ apiKey: firecrawlKey });
+    sourceProvider = new FirecrawlNarrativeSourceProviderV6({
+      baseUrl: process.env.FIRECRAWL_BASE_URL ?? 'http://127.0.0.1:3007/v2',
+      apiKey: firecrawlKey,
+    });
   }
-  const curator = createDeepSeekNarrativeResearchCuratorV6({ apiKey });
+  const curator = createDeepSeekNarrativeResearchCuratorV6({
+    apiKey, openRouterApiKey, profile, runId: paths.runId,
+  });
   const searchPlanner = replayQueries
     ? { plan: async () => ({ queries: replayQueries as string[] }) }
-    : createDeepSeekNarrativeSearchPlannerV6({ apiKey });
+    : createDeepSeekNarrativeSearchPlannerV6({
+      apiKey, openRouterApiKey, profile, runId: paths.runId,
+    });
   const results: NarrativeResearchStopResultV6[] = [];
   let humanReview: Record<string, string> | undefined;
   if (stage === 'full') {
@@ -283,15 +296,20 @@ async function main(): Promise<void> {
     throw new Error('calibration requires --generate --allow-external');
   }
   const gate = option('--gate');
+  const profile = option('--profile') ?? process.env.NARRATIVE_MODEL_PROFILE ?? 'deepseek_control';
   const apiKey = requiredSecret('DEEPSEEK_API_KEY');
+  const openRouterApiKey = profile === 'balanced_openrouter'
+    ? requiredSecret('OPENROUTER_API_KEY') : undefined;
   if (gate === 'a') {
-    await gateA(apiKey);
+    await gateA(apiKey, profile, openRouterApiKey);
     return;
   }
   if (gate === 'b') {
     await gateB(
       apiKey,
-      option('--replay-private') ? undefined : requiredSecret('FIRECRAWL_API_KEY')
+      profile,
+      openRouterApiKey,
+      process.env.FIRECRAWL_API_KEY?.trim() || undefined
     );
     return;
   }
@@ -299,7 +317,11 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
-  const secrets = [process.env.DEEPSEEK_API_KEY, process.env.FIRECRAWL_API_KEY]
+  const secrets = [
+    process.env.DEEPSEEK_API_KEY,
+    process.env.OPENROUTER_API_KEY,
+    process.env.FIRECRAWL_API_KEY,
+  ]
     .filter((value): value is string => Boolean(value));
   process.stderr.write(`${safeError(error, secrets)}\n`);
   process.exitCode = 1;

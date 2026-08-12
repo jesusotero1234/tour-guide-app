@@ -1,4 +1,7 @@
-import { requestEditorialStructuredV6 } from './EditorialStructuredLlmV6';
+import {
+  DEEPSEEK_PRICING_V6,
+  requestEditorialStructuredV6,
+} from './EditorialStructuredLlmV6';
 import {
   NARRATIVE_MODEL_PROFILES_V6,
   resolveNarrativeModelProfileV6,
@@ -338,7 +341,13 @@ describe('editorial structured LLM v6 providers', () => {
     expect(auditor.temperature).toBe(0);
     expect(writer.requestFingerprint).toMatch(/^[a-f0-9]{64}$/);
     expect(writer.requestFingerprint).not.toBe(auditor.requestFingerprint);
-    expect(writer.usage).toEqual({ inputTokens: 10, outputTokens: 4, totalTokens: 14 });
+    expect(writer.usage).toMatchObject({
+      inputTokens: 10,
+      outputTokens: 4,
+      totalTokens: 14,
+    });
+    expect(writer.usage?.costUsd).toBeCloseTo(0.00000252, 12);
+    expect(DEEPSEEK_PRICING_V6.effectiveDate).toBe('2026-08-12');
   });
 
   it('rejects temperatures outside the shared provider range before transport', async () => {

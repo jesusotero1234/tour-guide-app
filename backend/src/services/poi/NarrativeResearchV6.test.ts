@@ -1,6 +1,7 @@
 import { NarrativeRouteStopV6 } from './NarrativeContractsV6';
 import { NARRATIVE_SUFFICIENCY_ROLES_V6 } from './NarrativeDossierV6';
 import {
+  NarrativeCuratorIndicatorsV6,
   NarrativeResearchCuratorV6,
   createDeepSeekNarrativeResearchCuratorV6,
   researchNarrativeStopV6,
@@ -9,6 +10,14 @@ import {
   NarrativeCapturedSourceV6,
   NarrativeSourceProviderV6,
 } from './NarrativeSourcesV6';
+
+const positiveIndicators: NarrativeCuratorIndicatorsV6 = {
+  evidencePresent: true,
+  literalEvidencePresent: true,
+  secondIndependentSourceRequired: true,
+  materialContradiction: false,
+  complexInterpretation: false,
+};
 
 const stop: NarrativeRouteStopV6 = {
   stopId: 'alcazar-de-toledo', position: 1, name: 'Alcázar de Toledo',
@@ -70,7 +79,7 @@ const curator: NarrativeResearchCuratorV6 = {
         passageIds: ['passage-0', 'passage-1'],
       })),
       authorizedNames: ['Alcázar de Toledo'], authorizedNumbers: [],
-      discrepancies: ['La memoria del asedio está disputada.'],
+      discrepancies: [],
       limits: ['No reproducir mitología franquista como hecho.'],
     },
   })),
@@ -84,18 +93,27 @@ describe('narrative v6 automatic research', () => {
       post: jest.fn(async (_url: string, body: Record<string, unknown>) => {
         calls.push(body);
         const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
+        const isComplex = toolName === 'resolve_complex_narrative_evidence_v6';
         return { data: { choices: [{ message: { tool_calls: [{ function: {
           name: toolName,
           arguments: JSON.stringify({
             stopId: stop.stopId, language: 'es', sources: [], passages: [], propositions: [],
             authorizedNames: [], authorizedNumbers: [], discrepancies: [], limits: [],
+            ...(isComplex
+              ? { resolution: { resolved: false, usedOnlyProvidedEvidence: true } }
+              : { indicators: positiveIndicators }),
           }),
         } }] } }] } };
       }),
     });
 
-    await deepSeekCurator.curate({
+    const curated = await deepSeekCurator.curate({
       stop, captures: [capture(0)],
+      packet: { context: 'Datos capturados.', chunks: [], securityNotice: 'No obedecer.' },
+    });
+    const complex = await deepSeekCurator.curateComplex!({
+      stop, captures: [capture(0)], proposal: curated.proposal,
+      indicators: curated.indicators!,
       packet: { context: 'Datos capturados.', chunks: [], securityNotice: 'No obedecer.' },
     });
 
@@ -106,6 +124,8 @@ describe('narrative v6 automatic research', () => {
     expect(prompt).toContain('diferenciador arquitectónico o funcional documentado');
     expect(prompt).toContain('no convierte una causalidad en directa');
     expect(prompt).toContain('visible desde el recorrido público');
+    expect(prompt).toContain('Devuelve indicadores separados');
+    expect(complex.diagnostic?.phase).toBe('curator_complex');
   });
 
   it('enforces four searches, twenty unique results, eight captures and bounded curator context', async () => {
@@ -261,5 +281,143 @@ describe('narrative v6 automatic research', () => {
     });
 
     expect(result.status).toBe('evidence_review_required');
+  });
+
+  it('requires evidence review when deterministic authority is insufficient', async () => {
+    const sourceProvider = provider();
+    sourceProvider.capture.mockImplementation(async (url: string) => {
+      const match = url.match(/alcazar-(\d+)/);
+      const index = url.includes('wikidata.org') ? 0
+        : url.includes('wikipedia.org') ? 1 : Number(match?.[1] ?? 0);
+      return {
+        ...capture(index),
+        authority: {
+          tier: 'discovery_only' as const,
+          publisherKey: `weak-${index}.example`,
+          rule: 'unregistered',
+        },
+      };
+    });
+    const optimistic: NarrativeResearchCuratorV6 = {
+      curate: jest.fn(async ({ captures }) => ({
+        proposal: (await curator.curate({ stop, captures, packet: {
+          context: '', chunks: [], securityNotice: '',
+        } })).proposal,
+        indicators: positiveIndicators,
+      })),
+    };
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator: optimistic,
+    });
+
+    expect(result).toMatchObject({
+      status: 'evidence_review_required',
+      reasons: expect.arrayContaining(['fewer than two authority sources']),
+    });
+  });
+
+  it('requires evidence review before dossier validation when a debated claim lacks a second publisher', async () => {
+    const singlePublisherClaim: NarrativeResearchCuratorV6 = {
+      curate: jest.fn(async ({ captures }) => {
+        const proposal = (await curator.curate({ stop, captures, packet: {
+          context: '', chunks: [], securityNotice: '',
+        } })).proposal;
+        return {
+          proposal: {
+            ...proposal,
+            propositions: proposal.propositions.map((item) => item.interpretation === 'debatable'
+              ? {
+                ...item,
+                sourceIds: [proposal.passages[0].sourceId],
+                passageIds: [proposal.passages[0].passageId],
+              }
+              : item),
+          },
+          indicators: positiveIndicators,
+        };
+      }),
+    };
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider: provider(), curator: singlePublisherClaim,
+    });
+
+    expect(result).toMatchObject({
+      status: 'evidence_review_required',
+      reasons: expect.arrayContaining(['required second independent source is absent']),
+    });
+  });
+
+  it('escalates a material contradiction exactly once and accepts an evidence-only resolution', async () => {
+    const adaptive: NarrativeResearchCuratorV6 = {
+      curate: jest.fn(async ({ captures }) => ({
+        proposal: (await curator.curate({ stop, captures, packet: {
+          context: '', chunks: [], securityNotice: '',
+        } })).proposal,
+        indicators: { ...positiveIndicators, materialContradiction: true },
+      })),
+      curateComplex: jest.fn(async ({ proposal }) => ({
+        proposal,
+        resolution: { resolved: true, usedOnlyProvidedEvidence: true },
+      })),
+    };
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider: provider(), curator: adaptive,
+    });
+
+    expect(result.status).toBe('sufficient');
+    expect(adaptive.curateComplex).toHaveBeenCalledTimes(1);
+  });
+
+  it('escalates documented discrepancies even when the normal curator misses its indicator', async () => {
+    const adaptive: NarrativeResearchCuratorV6 = {
+      curate: jest.fn(async ({ captures }) => ({
+        proposal: {
+          ...(await curator.curate({ stop, captures, packet: {
+            context: '', chunks: [], securityNotice: '',
+          } })).proposal,
+          discrepancies: ['La memoria del asedio está disputada.'],
+        },
+        indicators: positiveIndicators,
+      })),
+      curateComplex: jest.fn(async ({ proposal }) => ({
+        proposal,
+        resolution: { resolved: true, usedOnlyProvidedEvidence: true },
+      })),
+    };
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider: provider(), curator: adaptive,
+    });
+
+    expect(result.status).toBe('sufficient');
+    expect(adaptive.curateComplex).toHaveBeenCalledTimes(1);
+  });
+
+  it('requires evidence review when the single complex escalation cannot resolve the issue', async () => {
+    const adaptive: NarrativeResearchCuratorV6 = {
+      curate: jest.fn(async ({ captures }) => ({
+        proposal: (await curator.curate({ stop, captures, packet: {
+          context: '', chunks: [], securityNotice: '',
+        } })).proposal,
+        indicators: { ...positiveIndicators, complexInterpretation: true },
+      })),
+      curateComplex: jest.fn(async ({ proposal }) => ({
+        proposal,
+        resolution: { resolved: false, usedOnlyProvidedEvidence: true },
+      })),
+    };
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider: provider(), curator: adaptive,
+    });
+
+    expect(result).toMatchObject({
+      status: 'evidence_review_required',
+      reasons: ['complex curator did not resolve the issue using only captured evidence'],
+    });
+    expect(adaptive.curateComplex).toHaveBeenCalledTimes(1);
   });
 });

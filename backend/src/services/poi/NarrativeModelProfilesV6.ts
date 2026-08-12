@@ -33,8 +33,10 @@ export interface NarrativeModelPhaseConfigV6 {
 
 export interface NarrativeConcurrencyV6 {
   researchStops: number;
+  searches: number;
   captures: number;
   curations: number;
+  editorialStops: number;
   writers: number;
   auditStops: number;
   adjudications: number;
@@ -122,8 +124,10 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
     },
     concurrency: {
       researchStops: 1,
+      searches: 1,
       captures: 1,
       curations: 1,
+      editorialStops: 1,
       writers: 1,
       auditStops: 1,
       adjudications: 1,
@@ -146,8 +150,10 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
     },
     concurrency: {
       researchStops: 2,
+      searches: 6,
       captures: 2,
       curations: 3,
+      editorialStops: 3,
       writers: 3,
       auditStops: 2,
       adjudications: 3,

@@ -6,6 +6,7 @@ import {
 import {
   NarrativeModelClientOptionsV6,
   narrativePhaseExecutionV6,
+  resolveNarrativeModelProfileV6,
 } from './NarrativeModelProfilesV6';
 import { narrativeFingerprintV6 } from './NarrativeContractsV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
@@ -67,6 +68,7 @@ export interface NarrativeTourAuditV6 {
 export interface NarrativeAgentResultV6<T> {
   value: T;
   diagnostic: EditorialCallResultV6<T>;
+  diagnostics?: EditorialCallResultV6<unknown>[];
 }
 
 export class NarrativeAgentProtocolErrorV6 extends Error {
@@ -77,6 +79,7 @@ export class NarrativeAgentProtocolErrorV6 extends Error {
 }
 
 export interface NarrativeEditorialAgentsV6 {
+  readonly profileName?: string;
   write(input: NarrativeWriterInputV6): Promise<NarrativeAgentResultV6<{ text: string }>>;
   audit(
     input: NarrativeAuditInputV6,
@@ -167,6 +170,7 @@ export function createNarrativeEditorialAgentsV6(
   const gemma = { kind: 'ollama' as const, model: GEMMA_NARRATIVE_AUDITOR_MODEL_V6 };
 
   return {
+    profileName: resolveNarrativeModelProfileV6(options.profile).name,
     async write(input) {
       const execution = narrativePhaseExecutionV6(options, 'writer', input.stopId, 1);
       const result = await requestEditorialStructuredV6({
@@ -284,10 +288,18 @@ export function createNarrativeEditorialAgentsV6(
           inputTokens: total.inputTokens + (result.usage?.inputTokens ?? 0),
           outputTokens: total.outputTokens + (result.usage?.outputTokens ?? 0),
           totalTokens: total.totalTokens + (result.usage?.totalTokens ?? 0),
-        }), { inputTokens: 0, outputTokens: 0, totalTokens: 0 })
+          reasoningTokens: total.reasoningTokens + (result.usage?.reasoningTokens ?? 0),
+          cacheReadTokens: total.cacheReadTokens + (result.usage?.cacheReadTokens ?? 0),
+          cacheMissTokens: total.cacheMissTokens + (result.usage?.cacheMissTokens ?? 0),
+          costUsd: total.costUsd + (result.usage?.costUsd ?? 0),
+        }), {
+          inputTokens: 0, outputTokens: 0, totalTokens: 0,
+          reasoningTokens: 0, cacheReadTokens: 0, cacheMissTokens: 0, costUsd: 0,
+        })
         : undefined;
       return {
         value,
+        diagnostics: results,
         diagnostic: {
           callId: baseCallId,
           status: 'valid',
@@ -308,6 +320,22 @@ export function createNarrativeEditorialAgentsV6(
             results.map((result) => result.requestFingerprint)
           ),
           usage,
+          phase: results[0].phase,
+          stopId: results[0].stopId,
+          runId: results[0].runId,
+          profile: results[0].profile,
+          reasoning: results[0].reasoning,
+          requestedModel: results[0].requestedModel,
+          actualModel: results.every((result) => result.actualModel === results[0].actualModel)
+            ? results[0].actualModel : results[0].model,
+          requestedEndpoint: results[0].requestedEndpoint,
+          actualProvider: results.every((result) => (
+            result.actualProvider === results[0].actualProvider
+          )) ? results[0].actualProvider : null,
+          finishReason: results.every((result) => result.finishReason === 'stop') ? 'stop' : null,
+          schemaValid: results.every((result) => result.schemaValid === true),
+          retryCount: results.reduce((total, result) => total + (result.retryCount ?? 0), 0),
+          ttftMs: null,
         },
       };
     },

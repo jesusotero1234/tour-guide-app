@@ -30,8 +30,19 @@ export interface EditorialUsageV6 {
   totalTokens: number;
   reasoningTokens?: number;
   cacheReadTokens?: number;
+  cacheMissTokens?: number;
   costUsd?: number;
 }
+
+export const DEEPSEEK_PRICING_V6 = {
+  effectiveDate: '2026-08-12',
+  currency: 'USD',
+  unit: 'per_million_tokens',
+  models: {
+    'deepseek-v4-flash': { inputCacheHit: 0.0028, inputCacheMiss: 0.14, output: 0.28 },
+    'deepseek-v4-pro': { inputCacheHit: 0.003625, inputCacheMiss: 0.435, output: 0.87 },
+  },
+} as const;
 
 export interface EditorialRoutingV6 {
   requestedModel: string;
@@ -195,15 +206,36 @@ function providerUsage(
   const cost = provider.kind === 'openrouter'
     ? (root.usage as Record<string, unknown> | undefined)?.cost
     : undefined;
+  const cacheReadTokens = typeof promptDetails.cached_tokens === 'number'
+    ? promptDetails.cached_tokens
+    : typeof usage.prompt_cache_hit_tokens === 'number'
+      ? usage.prompt_cache_hit_tokens
+      : undefined;
+  const cacheMissTokens = typeof usage.prompt_cache_miss_tokens === 'number'
+    ? usage.prompt_cache_miss_tokens
+    : undefined;
+  const deepseekPrices = provider.kind === 'deepseek'
+    ? DEEPSEEK_PRICING_V6.models[provider.model as keyof typeof DEEPSEEK_PRICING_V6.models]
+    : undefined;
+  const calculatedDeepseekCost = deepseekPrices
+    ? (
+      (cacheReadTokens ?? 0) * deepseekPrices.inputCacheHit
+      + (cacheMissTokens ?? Math.max(0, inputTokens - (cacheReadTokens ?? 0)))
+        * deepseekPrices.inputCacheMiss
+      + outputTokens * deepseekPrices.output
+    ) / 1_000_000
+    : undefined;
   return {
     inputTokens,
     outputTokens,
     totalTokens,
     ...(typeof completionDetails.reasoning_tokens === 'number'
       ? { reasoningTokens: completionDetails.reasoning_tokens } : {}),
-    ...(typeof promptDetails.cached_tokens === 'number'
-      ? { cacheReadTokens: promptDetails.cached_tokens } : {}),
-    ...(typeof cost === 'number' && Number.isFinite(cost) && cost >= 0 ? { costUsd: cost } : {}),
+    ...(cacheReadTokens === undefined ? {} : { cacheReadTokens }),
+    ...(cacheMissTokens === undefined ? {} : { cacheMissTokens }),
+    ...(typeof cost === 'number' && Number.isFinite(cost) && cost >= 0
+      ? { costUsd: cost }
+      : calculatedDeepseekCost === undefined ? {} : { costUsd: calculatedDeepseekCost }),
   };
 }
 
@@ -318,6 +350,18 @@ function explicitTtftMs(value: unknown): number | null {
   return typeof candidate === 'number' && Number.isFinite(candidate) && candidate >= 0
     ? candidate
     : null;
+}
+
+function directProviderName(provider: EditorialProviderV6): string | null {
+  if (provider.kind === 'deepseek') return 'DeepSeek';
+  if (provider.kind === 'ollama') return 'Ollama';
+  if (provider.kind === 'oneprovider') return 'OneProvider';
+  return null;
+}
+
+function responseModel(value: unknown, fallback: string): string {
+  const root = optionalObject(value);
+  return typeof root?.model === 'string' ? root.model : fallback;
 }
 
 function transportDetails(error: unknown): {
@@ -572,8 +616,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         responseFingerprint: rawOutput ? editorialResponseFingerprintV6(rawOutput) : null,
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
         usage,
-        actualModel: routing?.actualModel ?? config.provider.model,
-        actualProvider: routing?.actualProvider ?? null,
+        actualModel: routing?.actualModel ?? responseModel(response.data, config.provider.model),
+        actualProvider: routing?.actualProvider ?? directProviderName(config.provider),
         finishReason: responseFinishReason,
         schemaValid: false,
         retryCount: attempts.length - 1,
@@ -607,8 +651,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         input: config.input,
         rawOutput,
         usage,
-        actualModel: routing?.actualModel ?? config.provider.model,
-        actualProvider: routing?.actualProvider ?? null,
+        actualModel: routing?.actualModel ?? responseModel(response.data, config.provider.model),
+        actualProvider: routing?.actualProvider ?? directProviderName(config.provider),
         finishReason: responseFinishReason,
         schemaValid: false,
         retryCount: attempts.length - 1,
@@ -629,8 +673,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
         usage,
-        actualModel: routing?.actualModel ?? config.provider.model,
-        actualProvider: routing?.actualProvider ?? null,
+        actualModel: routing?.actualModel ?? responseModel(response.data, config.provider.model),
+        actualProvider: routing?.actualProvider ?? directProviderName(config.provider),
         finishReason: responseFinishReason,
         schemaValid: true,
         retryCount: attempts.length - 1,
@@ -650,8 +694,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         responseFingerprint: editorialResponseFingerprintV6(rawOutput),
         inputCharacters, schemaCharacters, input: config.input, rawOutput,
         usage,
-        actualModel: routing?.actualModel ?? config.provider.model,
-        actualProvider: routing?.actualProvider ?? null,
+        actualModel: routing?.actualModel ?? responseModel(response.data, config.provider.model),
+        actualProvider: routing?.actualProvider ?? directProviderName(config.provider),
         finishReason: responseFinishReason,
         schemaValid: true,
         retryCount: attempts.length - 1,

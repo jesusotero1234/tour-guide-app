@@ -23,6 +23,10 @@ import {
   buildNarrativeAuditObjectionsV6,
   narrativeRepetitionWarningsV6,
 } from './NarrativeEditorialV6';
+import {
+  NarrativeSchedulerV6,
+  createNarrativeSchedulerV6,
+} from './NarrativeSchedulerV6';
 
 export interface NarrativeArcV6 {
   promise: string;
@@ -40,15 +44,37 @@ export interface NarrativeEditorialWorkflowInputV6 {
   privateArtifactPath: string;
 }
 
-interface NarrativeCallMetricV6 {
+export interface NarrativeCallMetricV6 {
   callId: string;
-  model: string;
+  phase: string | null;
+  stopId: string | null;
+  runId: string | null;
+  profile: string | null;
+  requestedModel: string;
+  actualModel: string;
+  requestedEndpoint: string | null;
+  actualProvider: string | null;
+  reasoning: string | null;
+  temperature: number | null;
   latencyMs: number;
+  ttftMs: number | null;
   inputCharacters: number;
   status: string;
+  finishReason: string | null;
+  schemaValid: boolean;
+  retryCount: number;
+  rateLimited: boolean;
+  timedOut: boolean;
+  fallback: boolean;
   promptFingerprint: string;
+  requestFingerprint: string | null;
+  responseFingerprint: string | null;
   inputTokens: number;
   outputTokens: number;
+  reasoningTokens: number;
+  cacheReadTokens: number;
+  cacheMissTokens: number;
+  costUsd: number | null;
 }
 
 export interface NarrativeStopEditorialRecordV6 {
@@ -76,14 +102,67 @@ export interface NarrativeEditorialWorkflowResultV6 {
 function metric(result: EditorialCallResultV6<unknown>): NarrativeCallMetricV6 {
   return {
     callId: result.callId,
-    model: result.model,
+    phase: result.phase ?? null,
+    stopId: result.stopId ?? null,
+    runId: result.runId ?? null,
+    profile: result.profile ?? null,
+    requestedModel: result.requestedModel ?? result.model,
+    actualModel: result.actualModel ?? result.model,
+    requestedEndpoint: result.requestedEndpoint ?? null,
+    actualProvider: result.actualProvider ?? null,
+    reasoning: result.reasoning ?? null,
+    temperature: result.temperature ?? null,
     latencyMs: result.attempts.reduce((total, attempt) => total + attempt.latencyMs, 0),
+    ttftMs: result.ttftMs ?? null,
     inputCharacters: result.inputCharacters,
     status: result.status,
+    finishReason: result.finishReason ?? null,
+    schemaValid: result.schemaValid ?? false,
+    retryCount: result.retryCount ?? Math.max(0, result.attempts.length - 1),
+    rateLimited: result.attempts.some((attempt) => attempt.rateLimited === true),
+    timedOut: result.attempts.some((attempt) => attempt.timedOut === true),
+    fallback: result.routing?.fallback ?? false,
     promptFingerprint: result.promptFingerprint,
+    requestFingerprint: result.requestFingerprint ?? null,
+    responseFingerprint: result.responseFingerprint,
     inputTokens: result.usage?.inputTokens ?? 0,
     outputTokens: result.usage?.outputTokens ?? 0,
+    reasoningTokens: result.usage?.reasoningTokens ?? 0,
+    cacheReadTokens: result.usage?.cacheReadTokens ?? 0,
+    cacheMissTokens: result.usage?.cacheMissTokens ?? 0,
+    costUsd: result.usage?.costUsd ?? null,
   };
+}
+
+function agentDiagnostics(result: {
+  diagnostic: EditorialCallResultV6<unknown>;
+  diagnostics?: EditorialCallResultV6<unknown>[];
+}): EditorialCallResultV6<unknown>[] {
+  return result.diagnostics ?? [result.diagnostic];
+}
+
+function appendDiagnostics(
+  result: {
+    diagnostic: EditorialCallResultV6<unknown>;
+    diagnostics?: EditorialCallResultV6<unknown>[];
+  },
+  metrics: NarrativeCallMetricV6[],
+  privateDiagnostics: EditorialCallResultV6<unknown>[]
+): void {
+  const diagnostics = agentDiagnostics(result);
+  metrics.push(...diagnostics.map(metric));
+  privateDiagnostics.push(...diagnostics);
+}
+
+class NarrativeStopExecutionErrorV6 extends Error {
+  constructor(
+    readonly causeValue: unknown,
+    readonly metrics: NarrativeCallMetricV6[],
+    readonly diagnostics: EditorialCallResultV6<unknown>[]
+  ) {
+    super(causeValue instanceof Error ? causeValue.message : String(causeValue));
+    this.name = 'NarrativeStopExecutionErrorV6';
+  }
 }
 
 function baseRun(input: NarrativeEditorialWorkflowInputV6) {
@@ -122,7 +201,8 @@ function deterministicWarnings(
 
 export async function runNarrativeEditorialWorkflowV6(
   input: NarrativeEditorialWorkflowInputV6,
-  agents: NarrativeEditorialAgentsV6
+  agents: NarrativeEditorialAgentsV6,
+  options: { scheduler?: NarrativeSchedulerV6; profile?: string } = {}
 ): Promise<NarrativeEditorialWorkflowResultV6> {
   const empty = (run: NarrativeEditorialRunV6): NarrativeEditorialWorkflowResultV6 => ({
     run, route: input.route, arc: input.arc, stops: [], tourAudit: null, warnings: [], metrics: [],
@@ -150,88 +230,121 @@ export async function runNarrativeEditorialWorkflowV6(
     });
   }
 
-  const records: NarrativeStopEditorialRecordV6[] = [];
+  let records: NarrativeStopEditorialRecordV6[] = [];
   const metrics: NarrativeCallMetricV6[] = [];
   const privateDiagnostics: EditorialCallResultV6<unknown>[] = [];
   const openIssueIds: string[] = [];
+  const scheduler = options.scheduler
+    ?? createNarrativeSchedulerV6(options.profile ?? agents.profileName);
   try {
-    for (const stop of input.route.stops) {
-      const dossier = dossierByStop.get(stop.stopId) as NarrativeDossierV6;
-      const arcStop = input.arc.stops.find((item) => item.stopId === stop.stopId);
-      if (!arcStop) throw new Error(`arc is missing stop ${stop.stopId}`);
-      const written = await agents.write({
-        stopId: stop.stopId,
-        dossier,
-        arc: {
-          promise: input.arc.promise,
-          contribution: arcStop.contribution,
-          bridge: arcStop.bridge,
-        },
-        previousStop: stop.previousStopId,
-        nextStop: stop.nextStopId,
-        voiceProfile: input.voiceProfile,
-      });
-      metrics.push(metric(written.diagnostic));
-      privateDiagnostics.push(written.diagnostic);
-      const initialScript = assignNarrativeSentenceIdsV6(stop.stopId, written.value.text);
-      let finalScript = initialScript;
-      const initialAudits = await Promise.all([
-        agents.audit({ script: initialScript, dossier }, 'deepseek'),
-        agents.audit({ script: initialScript, dossier }, 'deepseek_pro'),
-      ]);
-      metrics.push(...initialAudits.map((result) => metric(result.diagnostic)));
-      privateDiagnostics.push(...initialAudits.map((result) => result.diagnostic));
-      const audits = initialAudits.map((result) => result.value);
-      const objections = buildNarrativeAuditObjectionsV6(audits);
-      let adjudications: NarrativeAdjudicationV6[] = [];
-      let repairRoundUsed = false;
+    const settledStopResults = await Promise.allSettled(input.route.stops.map((stop) => (
+      scheduler.editorialStop(async () => {
+        const stopMetrics: NarrativeCallMetricV6[] = [];
+        const stopDiagnostics: EditorialCallResultV6<unknown>[] = [];
+        const stopOpenIssueIds: string[] = [];
+        try {
+          const dossier = dossierByStop.get(stop.stopId) as NarrativeDossierV6;
+          const arcStop = input.arc.stops.find((item) => item.stopId === stop.stopId);
+          if (!arcStop) throw new Error(`arc is missing stop ${stop.stopId}`);
+          const written = await scheduler.write(() => agents.write({
+          stopId: stop.stopId,
+          dossier,
+          arc: {
+            promise: input.arc.promise,
+            contribution: arcStop.contribution,
+            bridge: arcStop.bridge,
+          },
+          previousStop: stop.previousStopId,
+          nextStop: stop.nextStopId,
+          voiceProfile: input.voiceProfile,
+          }));
+          appendDiagnostics(written, stopMetrics, stopDiagnostics);
+          const initialScript = assignNarrativeSentenceIdsV6(stop.stopId, written.value.text);
+          let finalScript = initialScript;
+          const initialAudits = await scheduler.auditStop(() => Promise.all([
+          agents.audit({ script: initialScript, dossier }, 'deepseek'),
+          agents.audit({ script: initialScript, dossier }, 'deepseek_pro'),
+          ]));
+          initialAudits.forEach((result) => appendDiagnostics(
+            result, stopMetrics, stopDiagnostics
+          ));
+          const audits = initialAudits.map((result) => result.value);
+          const objections = buildNarrativeAuditObjectionsV6(audits);
+          let adjudications: NarrativeAdjudicationV6[] = [];
+          let repairRoundUsed = false;
 
-      if (objections.length > 0) {
-        const adjudicated = await agents.adjudicate({ script: initialScript, dossier, objections });
-        metrics.push(metric(adjudicated.diagnostic));
-        privateDiagnostics.push(adjudicated.diagnostic);
-        adjudications = adjudicated.value;
-        const acceptedObjections = objections.filter((objection) => (
-          adjudications.some((item) => item.objectionId === objection.objectionId
-            && item.decision === 'accepted')
-        ));
-        if (acceptedObjections.length > 0) {
-          const repaired = await agents.repair({
-            script: initialScript, dossier, objections, adjudications,
-          });
-          metrics.push(metric(repaired.diagnostic));
-          privateDiagnostics.push(repaired.diagnostic);
-          finalScript = applyNarrativeLocalPatchV6(
-            initialScript,
-            [...new Set(acceptedObjections.map((objection) => objection.sentenceId))],
-            repaired.value
-          );
-          repairRoundUsed = true;
-          const finalAudits = await Promise.all([
-            agents.audit({ script: finalScript, dossier }, 'deepseek'),
-            agents.audit({ script: finalScript, dossier }, 'deepseek_pro'),
-          ]);
-          metrics.push(...finalAudits.map((result) => metric(result.diagnostic)));
-          privateDiagnostics.push(...finalAudits.map((result) => result.diagnostic));
-          audits.push(...finalAudits.map((result) => result.value));
-          const rejectedIds = new Set(adjudications
-            .filter((item) => item.decision === 'rejected')
-            .map((item) => item.objectionId));
-          openIssueIds.push(...hardAuditIssueIds(finalAudits.map((result) => result.value))
-            .filter((objectionId) => !rejectedIds.has(objectionId)));
+          if (objections.length > 0) {
+          const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
+            script: initialScript, dossier, objections,
+          }));
+          appendDiagnostics(adjudicated, stopMetrics, stopDiagnostics);
+          adjudications = adjudicated.value;
+          const acceptedObjections = objections.filter((objection) => (
+            adjudications.some((item) => item.objectionId === objection.objectionId
+              && item.decision === 'accepted')
+          ));
+          if (acceptedObjections.length > 0) {
+            const repaired = await scheduler.write(() => agents.repair({
+              script: initialScript, dossier, objections, adjudications,
+            }));
+            appendDiagnostics(repaired, stopMetrics, stopDiagnostics);
+            finalScript = applyNarrativeLocalPatchV6(
+              initialScript,
+              [...new Set(acceptedObjections.map((objection) => objection.sentenceId))],
+              repaired.value
+            );
+            repairRoundUsed = true;
+            const finalAudits = await scheduler.auditStop(() => Promise.all([
+              agents.audit({ script: finalScript, dossier }, 'deepseek'),
+              agents.audit({ script: finalScript, dossier }, 'deepseek_pro'),
+            ]));
+            finalAudits.forEach((result) => appendDiagnostics(
+              result, stopMetrics, stopDiagnostics
+            ));
+            audits.push(...finalAudits.map((result) => result.value));
+            const rejectedIds = new Set(adjudications
+              .filter((item) => item.decision === 'rejected')
+              .map((item) => item.objectionId));
+            stopOpenIssueIds.push(...hardAuditIssueIds(
+              finalAudits.map((result) => result.value)
+            ).filter((objectionId) => !rejectedIds.has(objectionId)));
+          }
+          }
+          const warnings = deterministicWarnings(input, dossier, finalScript);
+          const record: NarrativeStopEditorialRecordV6 = {
+            stopId: stop.stopId, initialScript, finalScript, audits, objections,
+            adjudications, repairRoundUsed, warnings,
+          };
+          return { record, metrics: stopMetrics, diagnostics: stopDiagnostics, stopOpenIssueIds };
+        } catch (error) {
+          throw new NarrativeStopExecutionErrorV6(error, stopMetrics, stopDiagnostics);
         }
+      })
+    )));
+    const stopResults = settledStopResults.flatMap((result) => (
+      result.status === 'fulfilled' ? [result.value] : []
+    ));
+    records = stopResults.map((result) => result.record);
+    metrics.push(...stopResults.flatMap((result) => result.metrics));
+    privateDiagnostics.push(...stopResults.flatMap((result) => result.diagnostics));
+    openIssueIds.push(...stopResults.flatMap((result) => result.stopOpenIssueIds));
+    const rejectedStop = settledStopResults.find((result) => result.status === 'rejected');
+    for (const result of settledStopResults) {
+      if (result.status === 'rejected' && result.reason instanceof NarrativeStopExecutionErrorV6) {
+        metrics.push(...result.reason.metrics);
+        privateDiagnostics.push(...result.reason.diagnostics);
       }
-      const warnings = deterministicWarnings(input, dossier, finalScript);
-      records.push({
-        stopId: stop.stopId, initialScript, finalScript, audits, objections,
-        adjudications, repairRoundUsed, warnings,
-      });
+    }
+    if (rejectedStop?.status === 'rejected') {
+      throw rejectedStop.reason instanceof NarrativeStopExecutionErrorV6
+        ? rejectedStop.reason.causeValue : rejectedStop.reason;
     }
 
     let scripts = records.map((record) => record.finalScript);
-    let tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
-    metrics.push(metric(tourAuditResult.diagnostic));
-    privateDiagnostics.push(tourAuditResult.diagnostic);
+    let tourAuditResult = await scheduler.globalAudit(() => agents.auditTour({
+      promise: input.arc.promise, scripts,
+    }));
+    appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
     const rejectedTourIssueIds = new Set<string>();
     let globalRepairUsed = false;
     const tourIssues = tourAuditResult.value.issues;
@@ -248,11 +361,10 @@ export async function runNarrativeEditorialWorkflowV6(
         reason: issue.reason,
         propositionIds: [],
       }));
-      const adjudicated = await agents.adjudicate({
+      const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
         script: record.finalScript, dossier, objections,
-      });
-      metrics.push(metric(adjudicated.diagnostic));
-      privateDiagnostics.push(adjudicated.diagnostic);
+      }));
+      appendDiagnostics(adjudicated, metrics, privateDiagnostics);
       record.objections.push(...objections);
       record.adjudications.push(...adjudicated.value);
       for (const issue of issues) {
@@ -264,11 +376,10 @@ export async function runNarrativeEditorialWorkflowV6(
         item.objectionId === objection.objectionId && item.decision === 'accepted'
       )));
       if (accepted.length === 0) continue;
-      const repaired = await agents.repair({
+      const repaired = await scheduler.write(() => agents.repair({
         script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
-      });
-      metrics.push(metric(repaired.diagnostic));
-      privateDiagnostics.push(repaired.diagnostic);
+      }));
+      appendDiagnostics(repaired, metrics, privateDiagnostics);
       record.finalScript = applyNarrativeLocalPatchV6(
         record.finalScript,
         [...new Set(accepted.map((objection) => objection.sentenceId))],
@@ -276,12 +387,13 @@ export async function runNarrativeEditorialWorkflowV6(
       );
       record.repairRoundUsed = true;
       globalRepairUsed = true;
-      const factualAudits = await Promise.all([
+      const factualAudits = await scheduler.auditStop(() => Promise.all([
         agents.audit({ script: record.finalScript, dossier }, 'deepseek'),
         agents.audit({ script: record.finalScript, dossier }, 'deepseek_pro'),
-      ]);
-      metrics.push(...factualAudits.map((result) => metric(result.diagnostic)));
-      privateDiagnostics.push(...factualAudits.map((result) => result.diagnostic));
+      ]));
+      factualAudits.forEach((result) => appendDiagnostics(
+        result, metrics, privateDiagnostics
+      ));
       record.audits.push(...factualAudits.map((result) => result.value));
       const factualObjections = buildNarrativeAuditObjectionsV6(
         factualAudits.map((result) => result.value)
@@ -291,9 +403,10 @@ export async function runNarrativeEditorialWorkflowV6(
     }
     if (globalRepairUsed) {
       scripts = records.map((record) => record.finalScript);
-      tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
-      metrics.push(metric(tourAuditResult.diagnostic));
-      privateDiagnostics.push(tourAuditResult.diagnostic);
+      tourAuditResult = await scheduler.globalAudit(() => agents.auditTour({
+        promise: input.arc.promise, scripts,
+      }));
+      appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
     }
     openIssueIds.push(...tourAuditResult.value.issues
       .filter((issue) => issue.severity === 'hard' && !rejectedTourIssueIds.has(issue.issueId))
@@ -377,7 +490,9 @@ export interface NarrativeReviewPackageV6 {
     inputCharacters: number;
     inputTokens: number;
     outputTokens: number;
-    estimatedCostUsd: null;
+    reasoningTokens: number;
+    cacheReadTokens: number;
+    costUsd: number | null;
     costNote: string;
   };
   checklist: {
@@ -427,8 +542,14 @@ export function buildNarrativeReviewPackageV6(
       inputCharacters: result.metrics.reduce((total, item) => total + item.inputCharacters, 0),
       inputTokens: result.metrics.reduce((total, item) => total + item.inputTokens, 0),
       outputTokens: result.metrics.reduce((total, item) => total + item.outputTokens, 0),
-      estimatedCostUsd: null,
-      costNote: 'Los proveedores no devuelven coste facturado; se conservan tokens para conciliación.',
+      reasoningTokens: result.metrics.reduce((total, item) => total + item.reasoningTokens, 0),
+      cacheReadTokens: result.metrics.reduce((total, item) => total + item.cacheReadTokens, 0),
+      costUsd: result.metrics.some((item) => item.costUsd === null)
+        ? null
+        : result.metrics.reduce((total, item) => total + (item.costUsd ?? 0), 0),
+      costNote: result.metrics.some((item) => item.costUsd === null)
+        ? 'Coste desconocido: al menos una llamada no devolvió uso facturable.'
+        : 'OpenRouter usa coste facturado; DeepSeek usa la tabla fechada del adaptador.',
     },
     checklist: {
       wouldPay: null,

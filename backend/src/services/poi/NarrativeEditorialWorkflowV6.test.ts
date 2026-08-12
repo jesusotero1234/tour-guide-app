@@ -6,6 +6,7 @@ import {
   buildNarrativeReviewPackageV6,
   runNarrativeEditorialWorkflowV6,
 } from './NarrativeEditorialWorkflowV6';
+import { createNarrativeSchedulerV6 } from './NarrativeSchedulerV6';
 
 function diagnostic<T>(callId: string, value: T): EditorialCallResultV6<T> {
   return {
@@ -235,5 +236,59 @@ describe('narrative v6 editorial workflow', () => {
     expect(serialized).not.toContain('private raw secret');
     expect(serialized).not.toContain('"private":true');
     expect(review.sources[0].passages[0].quote).toBe('Cuatro torres.');
+  });
+
+  it('applies profile concurrency while keeping both auditors parallel per stop', async () => {
+    let activeWriters = 0;
+    let peakWriters = 0;
+    let releaseWriters: (() => void) | undefined;
+    const writerBarrier = new Promise<void>((resolve) => { releaseWriters = resolve; });
+    const multiRoute = {
+      ...route,
+      stops: [0, 1, 2].map((position) => ({
+        ...route.stops[0],
+        stopId: `stop-${position}`,
+        position,
+        previousStopId: position === 0 ? null : `stop-${position - 1}`,
+        nextStopId: position === 2 ? null : `stop-${position + 1}`,
+      })),
+    };
+    const fake = agents() as ReturnType<typeof agents>;
+    fake.write = jest.fn(async (input) => {
+      activeWriters += 1;
+      peakWriters = Math.max(peakWriters, activeWriters);
+      if (peakWriters === 3) releaseWriters?.();
+      await writerBarrier;
+      activeWriters -= 1;
+      const value = { text: 'Mira el Alcázar de Toledo.' };
+      return { value, diagnostic: diagnostic(`write-${input.stopId}`, value) };
+    });
+    fake.audit = jest.fn(async (input, auditor) => {
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported' as const,
+          reason: 'Respaldada.',
+          propositionIds: ['P1'],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+    const result = await runNarrativeEditorialWorkflowV6({
+      ...base,
+      route: multiRoute,
+      dossiers: multiRoute.stops.map((stop) => ({ ...dossier(), stopId: stop.stopId })),
+      arc: {
+        ...base.arc,
+        stops: multiRoute.stops.map((stop) => ({
+          stopId: stop.stopId, contribution: stop.stopId, bridge: 'Siguiente',
+        })),
+      },
+    }, fake, { scheduler: createNarrativeSchedulerV6('balanced_openrouter') });
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(peakWriters).toBe(3);
+    expect(result.stops.map((stop) => stop.stopId)).toEqual(['stop-0', 'stop-1', 'stop-2']);
   });
 });

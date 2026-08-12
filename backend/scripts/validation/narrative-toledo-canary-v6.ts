@@ -34,7 +34,7 @@ function reportPassed(path: string, gateName: string): void {
   }
 }
 
-function requiredSecret(name: 'DEEPSEEK_API_KEY' | 'FIRECRAWL_API_KEY'): string {
+function requiredSecret(name: 'DEEPSEEK_API_KEY' | 'OPENROUTER_API_KEY'): string {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`${name} is required`);
   return value;
@@ -60,7 +60,9 @@ async function main(): Promise<void> {
   reportPassed(gateBPath, 'Madrid gate B');
 
   const apiKey = requiredSecret('DEEPSEEK_API_KEY');
-  const firecrawlKey = requiredSecret('FIRECRAWL_API_KEY');
+  const profile = option('--profile') ?? process.env.NARRATIVE_MODEL_PROFILE ?? 'deepseek_control';
+  const openRouterApiKey = profile === 'balanced_openrouter'
+    ? requiredSecret('OPENROUTER_API_KEY') : undefined;
   const runId = option('--run-id')
     ?? `toledo-v6-${new Date().toISOString().replace(/[:.]/g, '-')}`;
   const directory = resolve(process.cwd(), 'tmp/narrative-v6', runId);
@@ -68,11 +70,15 @@ async function main(): Promise<void> {
   const privatePath = resolve(directory, 'diagnostics.private.json');
   const reviewPath = resolve(directory, 'review.json');
   const route = buildNarrativeRouteBriefV6({ candidates, oracle, sources, country: 'España' });
-  const sourceProvider = new FirecrawlNarrativeSourceProviderV6({ apiKey: firecrawlKey });
-  const curator = createDeepSeekNarrativeResearchCuratorV6({ apiKey });
-  const searchPlanner = createDeepSeekNarrativeSearchPlannerV6({ apiKey });
-  const architect = createDeepSeekNarrativeArcArchitectV6({ apiKey });
-  const agents = createNarrativeEditorialAgentsV6({ apiKey });
+  const sourceProvider = new FirecrawlNarrativeSourceProviderV6({
+    baseUrl: process.env.FIRECRAWL_BASE_URL ?? 'http://127.0.0.1:3007/v2',
+    apiKey: process.env.FIRECRAWL_API_KEY?.trim() || undefined,
+  });
+  const modelOptions = { apiKey, openRouterApiKey, profile, runId };
+  const curator = createDeepSeekNarrativeResearchCuratorV6(modelOptions);
+  const searchPlanner = createDeepSeekNarrativeSearchPlannerV6(modelOptions);
+  const architect = createDeepSeekNarrativeArcArchitectV6(modelOptions);
+  const agents = createNarrativeEditorialAgentsV6(modelOptions);
   const createdAt = new Date().toISOString();
   const canary = await runNarrativeToledoCanaryV6({
     runId,
@@ -147,7 +153,11 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
-  const secrets = [process.env.DEEPSEEK_API_KEY, process.env.FIRECRAWL_API_KEY]
+  const secrets = [
+    process.env.DEEPSEEK_API_KEY,
+    process.env.OPENROUTER_API_KEY,
+    process.env.FIRECRAWL_API_KEY,
+  ]
     .filter((value): value is string => Boolean(value));
   process.stderr.write(`${redact(error, secrets)}\n`);
   process.exitCode = 1;
