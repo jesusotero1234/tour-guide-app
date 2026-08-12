@@ -1,4 +1,7 @@
-import { EditorialCallResultV6 } from './EditorialStructuredLlmV6';
+import {
+  EditorialCallResultV6,
+  EditorialProgressCallbackV6,
+} from './EditorialStructuredLlmV6';
 import {
   NARRATIVE_EDITORIAL_RUN_SCHEMA_VERSION_V6,
   NarrativeEditorialRunV6,
@@ -9,6 +12,7 @@ import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import {
   NarrativeEditorialAgentsV6,
   NarrativeAgentProtocolErrorV6,
+  NarrativeAgentExecutionV6,
   NarrativeTourAuditV6,
 } from './NarrativeEditorialAgentsV6';
 import {
@@ -97,6 +101,53 @@ export interface NarrativeEditorialWorkflowResultV6 {
   warnings: NarrativeProtocolWarningV6[];
   metrics: NarrativeCallMetricV6[];
   privateDiagnostics: EditorialCallResultV6<unknown>[];
+}
+
+export interface NarrativeEditorialWorkflowOptionsV6 {
+  scheduler?: NarrativeSchedulerV6;
+  profile?: string;
+  signal?: AbortSignal;
+  onProgress?: EditorialProgressCallbackV6;
+}
+
+function throwIfCancelled(signal?: AbortSignal): void {
+  if (signal?.aborted) {
+    throw signal.reason instanceof Error
+      ? signal.reason
+      : new Error('narrative editorial workflow cancelled');
+  }
+}
+
+export async function runPairedNarrativeAuditsV6(
+  agents: NarrativeEditorialAgentsV6,
+  input: Parameters<NarrativeEditorialAgentsV6['audit']>[0],
+  execution: NarrativeAgentExecutionV6
+) {
+  throwIfCancelled(execution.signal);
+  const pairController = new AbortController();
+  const cancelPair = () => pairController.abort(
+    execution.signal?.reason ?? new Error('paired narrative audit cancelled')
+  );
+  execution.signal?.addEventListener('abort', cancelPair, { once: true });
+  const auditors = ['deepseek', 'deepseek_pro'] as const;
+  const pending = auditors.map((auditor) => agents.audit(input, auditor, {
+    signal: pairController.signal,
+    ...(execution.onProgress ? { onProgress: execution.onProgress } : {}),
+  }).catch((error) => {
+    if (!pairController.signal.aborted) pairController.abort(error);
+    throw error;
+  }));
+  try {
+    const settled = await Promise.allSettled(pending);
+    const rejected = settled.find((result) => result.status === 'rejected');
+    if (rejected?.status === 'rejected') throw rejected.reason;
+    return settled.map((result) => {
+      if (result.status !== 'fulfilled') throw new Error('paired audit did not settle');
+      return result.value;
+    });
+  } finally {
+    execution.signal?.removeEventListener('abort', cancelPair);
+  }
 }
 
 function metric(result: EditorialCallResultV6<unknown>): NarrativeCallMetricV6 {
@@ -202,7 +253,7 @@ function deterministicWarnings(
 export async function runNarrativeEditorialWorkflowV6(
   input: NarrativeEditorialWorkflowInputV6,
   agents: NarrativeEditorialAgentsV6,
-  options: { scheduler?: NarrativeSchedulerV6; profile?: string } = {}
+  options: NarrativeEditorialWorkflowOptionsV6 = {}
 ): Promise<NarrativeEditorialWorkflowResultV6> {
   const empty = (run: NarrativeEditorialRunV6): NarrativeEditorialWorkflowResultV6 => ({
     run, route: input.route, arc: input.arc, stops: [], tourAudit: null, warnings: [], metrics: [],
@@ -236,7 +287,12 @@ export async function runNarrativeEditorialWorkflowV6(
   const openIssueIds: string[] = [];
   const scheduler = options.scheduler
     ?? createNarrativeSchedulerV6(options.profile ?? agents.profileName);
+  const agentExecution: NarrativeAgentExecutionV6 = {
+    ...(options.signal ? { signal: options.signal } : {}),
+    ...(options.onProgress ? { onProgress: options.onProgress } : {}),
+  };
   try {
+    throwIfCancelled(options.signal);
     const settledStopResults = await Promise.allSettled(input.route.stops.map((stop) => (
       scheduler.editorialStop(async () => {
         const stopMetrics: NarrativeCallMetricV6[] = [];
@@ -257,14 +313,13 @@ export async function runNarrativeEditorialWorkflowV6(
           previousStop: stop.previousStopId,
           nextStop: stop.nextStopId,
           voiceProfile: input.voiceProfile,
-          }));
+          }, agentExecution));
           appendDiagnostics(written, stopMetrics, stopDiagnostics);
           const initialScript = assignNarrativeSentenceIdsV6(stop.stopId, written.value.text);
           let finalScript = initialScript;
-          const initialAudits = await scheduler.auditStop(() => Promise.all([
-          agents.audit({ script: initialScript, dossier }, 'deepseek'),
-          agents.audit({ script: initialScript, dossier }, 'deepseek_pro'),
-          ]));
+          const initialAudits = await scheduler.auditStop(() => runPairedNarrativeAuditsV6(
+            agents, { script: initialScript, dossier }, agentExecution
+          ));
           initialAudits.forEach((result) => appendDiagnostics(
             result, stopMetrics, stopDiagnostics
           ));
@@ -276,7 +331,7 @@ export async function runNarrativeEditorialWorkflowV6(
           if (objections.length > 0) {
           const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
             script: initialScript, dossier, objections,
-          }));
+          }, agentExecution));
           appendDiagnostics(adjudicated, stopMetrics, stopDiagnostics);
           adjudications = adjudicated.value;
           const acceptedObjections = objections.filter((objection) => (
@@ -286,7 +341,7 @@ export async function runNarrativeEditorialWorkflowV6(
           if (acceptedObjections.length > 0) {
             const repaired = await scheduler.write(() => agents.repair({
               script: initialScript, dossier, objections, adjudications,
-            }));
+            }, agentExecution));
             appendDiagnostics(repaired, stopMetrics, stopDiagnostics);
             finalScript = applyNarrativeLocalPatchV6(
               initialScript,
@@ -294,10 +349,9 @@ export async function runNarrativeEditorialWorkflowV6(
               repaired.value
             );
             repairRoundUsed = true;
-            const finalAudits = await scheduler.auditStop(() => Promise.all([
-              agents.audit({ script: finalScript, dossier }, 'deepseek'),
-              agents.audit({ script: finalScript, dossier }, 'deepseek_pro'),
-            ]));
+            const finalAudits = await scheduler.auditStop(() => runPairedNarrativeAuditsV6(
+              agents, { script: finalScript, dossier }, agentExecution
+            ));
             finalAudits.forEach((result) => appendDiagnostics(
               result, stopMetrics, stopDiagnostics
             ));
@@ -343,7 +397,7 @@ export async function runNarrativeEditorialWorkflowV6(
     let scripts = records.map((record) => record.finalScript);
     let tourAuditResult = await scheduler.globalAudit(() => agents.auditTour({
       promise: input.arc.promise, scripts,
-    }));
+    }, agentExecution));
     appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
     const rejectedTourIssueIds = new Set<string>();
     let globalRepairUsed = false;
@@ -363,7 +417,7 @@ export async function runNarrativeEditorialWorkflowV6(
       }));
       const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
         script: record.finalScript, dossier, objections,
-      }));
+      }, agentExecution));
       appendDiagnostics(adjudicated, metrics, privateDiagnostics);
       record.objections.push(...objections);
       record.adjudications.push(...adjudicated.value);
@@ -378,7 +432,7 @@ export async function runNarrativeEditorialWorkflowV6(
       if (accepted.length === 0) continue;
       const repaired = await scheduler.write(() => agents.repair({
         script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
-      }));
+      }, agentExecution));
       appendDiagnostics(repaired, metrics, privateDiagnostics);
       record.finalScript = applyNarrativeLocalPatchV6(
         record.finalScript,
@@ -387,10 +441,9 @@ export async function runNarrativeEditorialWorkflowV6(
       );
       record.repairRoundUsed = true;
       globalRepairUsed = true;
-      const factualAudits = await scheduler.auditStop(() => Promise.all([
-        agents.audit({ script: record.finalScript, dossier }, 'deepseek'),
-        agents.audit({ script: record.finalScript, dossier }, 'deepseek_pro'),
-      ]));
+      const factualAudits = await scheduler.auditStop(() => runPairedNarrativeAuditsV6(
+        agents, { script: record.finalScript, dossier }, agentExecution
+      ));
       factualAudits.forEach((result) => appendDiagnostics(
         result, metrics, privateDiagnostics
       ));
@@ -405,7 +458,7 @@ export async function runNarrativeEditorialWorkflowV6(
       scripts = records.map((record) => record.finalScript);
       tourAuditResult = await scheduler.globalAudit(() => agents.auditTour({
         promise: input.arc.promise, scripts,
-      }));
+      }, agentExecution));
       appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
     }
     openIssueIds.push(...tourAuditResult.value.issues

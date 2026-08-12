@@ -4,6 +4,7 @@ import {
   NARRATIVE_MODEL_PROFILES_V6,
   NarrativeModelPhaseConfigV6,
 } from './NarrativeModelProfilesV6';
+import { EditorialPricingV6 } from './EditorialStructuredLlmV6';
 
 export type OpenRouterCatalogGetV6 = (
   url: string,
@@ -12,10 +13,12 @@ export type OpenRouterCatalogGetV6 = (
 
 export interface OpenRouterPreflightCheckV6 {
   model: string;
+  endpointModel: string;
   endpoint: string;
   provider: string;
   requiredParameters: string[];
   supportedParameters: string[];
+  pricing: EditorialPricingV6;
 }
 
 export interface OpenRouterPreflightResultV6 {
@@ -23,6 +26,15 @@ export interface OpenRouterPreflightResultV6 {
   fingerprint: string;
   checks: OpenRouterPreflightCheckV6[];
   issues: string[];
+}
+
+export function openRouterPricingFromPreflightV6(
+  preflight: OpenRouterPreflightResultV6
+): Record<string, EditorialPricingV6> {
+  if (preflight.status !== 'ready') {
+    throw new Error('OpenRouter pricing requires a ready endpoint preflight');
+  }
+  return Object.fromEntries(preflight.checks.map((check) => [check.model, check.pricing]));
 }
 
 interface RequiredEndpointV6 {
@@ -41,6 +53,40 @@ function record(value: unknown): Record<string, unknown> | null {
 
 function normalizedProvider(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function price(value: unknown, label: string): number {
+  const parsed = typeof value === 'string' || typeof value === 'number'
+    ? Number(value)
+    : Number.NaN;
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error(`${label} is not a non-negative USD price`);
+  }
+  return parsed;
+}
+
+function endpointPricing(value: unknown): EditorialPricingV6 {
+  const pricing = record(value);
+  if (!pricing) throw new Error('endpoint pricing is missing');
+  if (pricing.prompt === undefined || pricing.completion === undefined) {
+    throw new Error('endpoint pricing omitted prompt or completion');
+  }
+  const rows = [
+    pricing,
+    ...(Array.isArray(pricing.overrides) ? pricing.overrides.map(record).filter(
+      (row): row is Record<string, unknown> => row !== null
+    ) : []),
+  ];
+  const maximum = (field: string, fallback = 0): number => Math.max(
+    fallback,
+    ...rows.map((row) => row[field] === undefined ? fallback : price(row[field], field))
+  );
+  return {
+    inputUsdPerToken: maximum('prompt'),
+    outputUsdPerToken: maximum('completion'),
+    internalReasoningUsdPerToken: maximum('internal_reasoning'),
+    requestUsd: maximum('request'),
+  };
 }
 
 function parametersForPhase(phase: NarrativeModelPhaseConfigV6): string[] {
@@ -125,20 +171,40 @@ export async function preflightBalancedOpenRouterV6(options: {
       const providerName = typeof endpoint.provider_name === 'string'
         ? endpoint.provider_name
         : '';
+      const endpointName = typeof endpoint.name === 'string' ? endpoint.name : '';
+      const endpointModel = requirement.acceptedModels.find((model) => (
+        endpointName === model || endpointName.endsWith(`| ${model}`)
+      )) ?? '';
       const supportedParameters = Array.isArray(endpoint.supported_parameters)
         ? endpoint.supported_parameters.filter((item): item is string => typeof item === 'string').sort()
         : [];
       const requiredParameters = [...requirement.requiredParameters].sort();
+      let pricing: EditorialPricingV6;
+      try {
+        pricing = endpointPricing(endpoint.pricing);
+      } catch (error) {
+        issues.push(
+          `Pinned endpoint pricing is invalid for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
+        );
+        continue;
+      }
       checks.push({
         model: requirement.model,
+        endpointModel,
         endpoint: requirement.endpoint,
         provider: providerName,
         requiredParameters,
         supportedParameters,
+        pricing,
       });
       if (normalizedProvider(providerName) !== normalizedProvider(requirement.provider)) {
         issues.push(
           `Pinned provider mismatch for ${requirement.model}: expected ${requirement.provider}, got ${providerName || 'unknown'}`
+        );
+      }
+      if (!endpointModel) {
+        issues.push(
+          `Pinned endpoint model mismatch for ${requirement.model}: ${endpointName || 'unknown'}`
         );
       }
       const missing = requiredParameters.filter((parameter) => (

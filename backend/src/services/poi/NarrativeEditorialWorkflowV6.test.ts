@@ -7,6 +7,13 @@ import {
   runNarrativeEditorialWorkflowV6,
 } from './NarrativeEditorialWorkflowV6';
 import { createNarrativeSchedulerV6 } from './NarrativeSchedulerV6';
+import {
+  NarrativeBenchmarkRunnerV6,
+  NarrativeBenchmarkSpendBudgetV6,
+  parseNarrativeBenchmarkArgsV6,
+  runNarrativeBenchmarkV6,
+} from './NarrativeBenchmarkV6';
+import { createHash } from 'crypto';
 
 function diagnostic<T>(callId: string, value: T): EditorialCallResultV6<T> {
   return {
@@ -290,5 +297,154 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.run.status).toBe('ready_for_human_gate');
     expect(peakWriters).toBe(3);
     expect(result.stops.map((stop) => stop.stopId)).toEqual(['stop-0', 'stop-1', 'stop-2']);
+  });
+
+  it('cancels a sibling auditor and waits for both before releasing the audit semaphore', async () => {
+    const fake = agents();
+    const onProgress = jest.fn();
+    const signals: AbortSignal[] = [];
+    let siblingSettled = false;
+    fake.audit = jest.fn(async (_input, auditor, execution) => {
+      signals.push(execution?.signal as AbortSignal);
+      if (auditor === 'deepseek') throw new Error('auditor A failed');
+      await new Promise<void>((resolve) => {
+        execution?.signal?.addEventListener('abort', () => {
+          siblingSettled = true;
+          resolve();
+        }, { once: true });
+      });
+      throw new Error('auditor B cancelled');
+    });
+    const scheduler = createNarrativeSchedulerV6('deepseek_control');
+    let releasedAfterSiblingSettled = false;
+    const wrappedScheduler = {
+      ...scheduler,
+      auditStop: async <T>(task: () => Promise<T>): Promise<T> => {
+        try {
+          return await scheduler.auditStop(task);
+        } finally {
+          releasedAfterSiblingSettled = siblingSettled;
+        }
+      },
+    };
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake, {
+      scheduler: wrappedScheduler,
+      onProgress,
+    });
+
+    expect(result.run).toMatchObject({ status: 'protocol_failed' });
+    expect(signals).toHaveLength(2);
+    expect(signals[0]).toBe(signals[1]);
+    expect(signals[0].aborted).toBe(true);
+    expect(releasedAfterSiblingSettled).toBe(true);
+    expect(fake.write).toHaveBeenCalledWith(expect.any(Object), expect.objectContaining({
+      onProgress,
+    }));
+  });
+
+  it('fails the benchmark closed on budget, configuration and routing protocol violations', async () => {
+    const fp = (value: string) => createHash('sha256').update(value).digest('hex');
+    expect(parseNarrativeBenchmarkArgsV6([])).toEqual({
+      profiles: ['deepseek_control', 'balanced_openrouter'],
+      repetitions: 3,
+      maxSpendUsd: 2,
+      fixture: 'madrid',
+    });
+    expect(() => parseNarrativeBenchmarkArgsV6(['--max-spned-usd=1']))
+      .toThrow('unknown narrative benchmark argument');
+    const budget = new NarrativeBenchmarkSpendBudgetV6(0.1);
+    budget.reserve(0.08);
+    expect(() => budget.reserve(0.03)).toThrow('spend cap exhausted before call');
+
+    const fingerprints = {
+      fixture: fp('fixture-v1'), input: fp('input-v1'), snapshot: fp('snapshot-v1'),
+    };
+    const phases = [
+      'planner', 'curator', 'architect', 'writer',
+      'auditor_a', 'auditor_b', 'global_auditor',
+    ];
+    const costPolicy = Object.fromEntries([
+      'smoke-model',
+      ...['deepseek_control', 'balanced_openrouter'].flatMap((profile) => (
+        phases.map((phase) => `${profile}-${phase}`)
+      )),
+    ].map((modelKey) => [
+      modelKey,
+      { inputUsdPerToken: 0.00001, outputUsdPerToken: 0.00001 },
+    ]));
+    const runner: NarrativeBenchmarkRunnerV6 = {
+      preflight: async () => ({
+        status: 'ready', fingerprint: fp('preflight-v1'),
+        fixtureFingerprint: fingerprints.fixture,
+        inputFingerprint: fingerprints.input,
+        snapshotFingerprint: fingerprints.snapshot,
+        frozenGateFingerprints: {
+          deepseek_control: fp('deepseek-gate-a'),
+          balanced_openrouter: fp('openrouter-gate-a'),
+        },
+        requiredSmokeModelKeys: ['smoke-model'],
+        costPolicy,
+      }),
+      runPaidSmokes: async (_input, execute) => {
+        await execute({
+          id: 'smoke', profile: 'deepseek_control', phase: 'smoke',
+          comparisonKey: 'smoke-model', modelKey: 'smoke-model',
+          requestFingerprint: fp('smoke-request'), schemaFingerprint: fp('smoke-schema'),
+          configurationFingerprint: fp('smoke-config'),
+          maximumInputTokens: 10, maximumOutputTokens: 10, temperature: 0,
+          invoke: async () => ({
+            actualCostUsd: 0.0001, protocolValid: true, fallbackUsed: false,
+            attempts: [{
+              durationMs: 1, schemaValid: true, costUsd: 0.0001, reason: 'initial',
+            }],
+            fullResponse: { ok: true },
+          }),
+        });
+      },
+      runTour: async ({ profile, repetition }, execute) => {
+        for (const phase of phases) {
+          await execute({
+            id: `${phase}-${repetition}`, profile, phase,
+            comparisonKey: phase, modelKey: `${profile}-${phase}`,
+            requestFingerprint: fp(`${profile}-${phase}-${repetition}-request`),
+            schemaFingerprint: fp(`${phase}-schema`),
+            configurationFingerprint: fp(`${profile}-${phase}-config`),
+            maximumInputTokens: 10, maximumOutputTokens: 10, temperature: 0,
+            invoke: async () => ({
+              actualCostUsd: 0.0001,
+              protocolValid: true,
+              fallbackUsed: profile === 'balanced_openrouter' && repetition === 1
+                && phase === 'writer',
+              attempts: [{
+                durationMs: 2, schemaValid: true, costUsd: 0.0001, reason: 'initial',
+              }],
+              fullResponse: { profile, phase },
+            }),
+          });
+        }
+        return {
+          quality: {
+            detectedMutations: 8, totalMutations: 8, hardFactualWarnings: 0,
+            dossierComparable: true, disputedInterpretationsWithSingleSource: 0,
+          },
+          fingerprints,
+          reusedFrozenGate: true,
+          gateFingerprint: profile === 'deepseek_control'
+            ? fp('deepseek-gate-a') : fp('openrouter-gate-a'),
+        };
+      },
+    };
+
+    const report = await runNarrativeBenchmarkV6(
+      parseNarrativeBenchmarkArgsV6(['--max-spend-usd=1']), runner
+    );
+
+    expect(report.status).toBe('model_calibration_failed');
+    expect(report.reasons).toEqual(expect.arrayContaining([
+      expect.stringContaining('provider fallback'),
+    ]));
+    expect(report.budget.spentUsd).toBeLessThanOrEqual(1);
+    expect(report.budget.reservedUsd).toBe(0);
   });
 });

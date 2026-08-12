@@ -77,6 +77,7 @@ export interface AutonomousNarrativeFailureV3 {
     | 'transport_error'
     | 'malformed_response'
     | 'semantic_error'
+    | 'protocol_failed'
     | 'critic_rejected'
     | 'internal_error';
   contentAttempt: number | null;

@@ -8,7 +8,11 @@ import {
 import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 
 const dossier = {
-  stopId: 'palace', language: 'es', sources: [], passages: [], propositions: [],
+  stopId: 'palace', language: 'es', sources: [], passages: [], propositions: [{
+    propositionId: 'prop-palace-1', text: 'La fachada puede observarse desde la ruta.',
+    role: 'visible_observation', certainty: 'high', interpretation: 'direct',
+    sourceIds: [], passageIds: [],
+  }],
   authorizedNames: [], authorizedNumbers: [], discrepancies: [], limits: [],
   sufficiency: {
     isSufficient: true, missingRoles: [], authoritySourceCount: 2, independentPublisherCount: 2,
@@ -55,6 +59,21 @@ describe('narrative v6 editorial agents', () => {
         }) }),
       }) }),
     ]));
+    const auditSchema = (((calls[1].body.tools as Array<{
+      function: { parameters: Record<string, unknown> };
+    }>)[0].function.parameters.properties as {
+      findings: Record<string, unknown>;
+    }).findings);
+    expect(auditSchema).toMatchObject({ minItems: 2, maxItems: 2 });
+    expect(auditSchema.items).toMatchObject({ properties: {
+      sentenceId: { enum: ['palace-S001', 'palace-S002'] },
+      reason: { maxLength: 320 },
+      propositionIds: {
+        uniqueItems: true, maxItems: 1,
+        items: { enum: ['prop-palace-1'] },
+      },
+    } });
+    expect(calls.slice(1).map((call) => call.body.max_tokens)).toEqual([2_000, 2_000]);
     expect(calls.map((call) => call.body.model)).toEqual([
       DEEPSEEK_NARRATIVE_MODEL_V6,
       DEEPSEEK_NARRATIVE_MODEL_V6,

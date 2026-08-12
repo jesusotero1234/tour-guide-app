@@ -1,5 +1,7 @@
 import {
+  EditorialProgressCallbackV6,
   EditorialPostV6,
+  EditorialPricingV6,
   EditorialProviderV6,
   EditorialReasoningV6,
   EditorialRequestOptionsV6,
@@ -56,6 +58,10 @@ export interface NarrativeModelClientOptionsV6 {
   ollamaHost?: string;
   post?: EditorialPostV6;
   disableOpenRouterCache?: boolean;
+  requestTimeoutMs?: number;
+  openRouterPricing?: Record<string, EditorialPricingV6>;
+  signal?: AbortSignal;
+  onProgress?: EditorialProgressCallbackV6;
   runId?: string;
 }
 
@@ -93,15 +99,34 @@ const openRouterFlash = openRouterProvider(
   'deepseek/deepseek-v4-flash-0731',
   'digitalocean',
   'DigitalOcean',
-  ['deepseek/deepseek-v4-flash-0731-20260731']
+  [
+    'deepseek/deepseek-v4-flash-0731-20260731',
+    'deepseek/deepseek-v4-flash-20260731',
+  ]
 );
-const openAiMini = openRouterProvider('openai/gpt-5.4-mini', 'openai', 'OpenAI');
-const openAiFull = openRouterProvider('openai/gpt-5.4', 'openai', 'OpenAI');
+const openAiMini = openRouterProvider(
+  'openai/gpt-5.4-mini',
+  'openai',
+  'OpenAI',
+  ['openai/gpt-5.4-mini-20260317']
+);
+const openAiFull = openRouterProvider(
+  'openai/gpt-5.4',
+  'openai',
+  'OpenAI',
+  ['openai/gpt-5.4-20260305']
+);
 const geminiAudit = openRouterProvider(
-  'google/gemini-3.5-flash-lite', 'google-ai-studio', 'Google AI Studio'
+  'google/gemini-3.5-flash-lite',
+  'google-ai-studio',
+  'Google AI Studio',
+  ['google/gemini-3.5-flash-lite-20260721']
 );
 const geminiGlobal = openRouterProvider(
-  'google/gemini-3.6-flash', 'google-vertex/global', 'Google'
+  'google/gemini-3.6-flash',
+  'google-vertex/global',
+  'Google',
+  ['google/gemini-3.6-flash-20260721']
 );
 
 export const NARRATIVE_MODEL_PROFILES_V6: Record<
@@ -116,8 +141,8 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       curator_complex: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 8_000 },
       architect: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 4_000 },
       writer: { provider: deepseekFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
-      auditor_a: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 6_000 },
-      auditor_b: { provider: deepseekPro, reasoning: 'none', temperature: 0, maxTokens: 6_000 },
+      auditor_a: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: deepseekPro, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       adjudicator: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 4_000 },
       repair: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       global_auditor: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 4_000 },
@@ -142,8 +167,8 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openRouterFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
-      auditor_a: { provider: openRouterFlash, reasoning: 'low', temperature: 0, maxTokens: 6_000 },
-      auditor_b: { provider: geminiAudit, reasoning: 'low', temperature: 0, maxTokens: 6_000 },
+      auditor_a: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: geminiAudit, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
       repair: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       global_auditor: { provider: geminiGlobal, reasoning: 'low', maxTokens: 4_000 },
@@ -189,6 +214,12 @@ export function narrativePhaseExecutionV6(
       ollamaHost: client.ollamaHost,
       post: client.post,
       disableOpenRouterCache: client.disableOpenRouterCache,
+      requestTimeoutMs: client.requestTimeoutMs,
+      pricing: config.provider.kind === 'openrouter'
+        ? client.openRouterPricing?.[config.provider.model]
+        : undefined,
+      signal: client.signal,
+      onProgress: client.onProgress,
       runId: client.runId,
       ...(stopId ? { stopId } : {}),
       phase,

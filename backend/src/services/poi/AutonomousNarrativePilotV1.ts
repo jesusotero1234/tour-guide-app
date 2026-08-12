@@ -63,6 +63,7 @@ export interface AutonomousNarrativePilotFailureV1 {
     | 'transport_error'
     | 'malformed_response'
     | 'semantic_error'
+    | 'protocol_failed'
     | 'critic_rejected'
     | 'internal_error';
   attempt: number | null;
