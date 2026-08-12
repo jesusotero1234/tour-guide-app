@@ -1,5 +1,13 @@
 import 'dotenv/config';
-import { mkdirSync, readFileSync, writeFileSync } from 'fs';
+import {
+  closeSync,
+  fsyncSync,
+  mkdirSync,
+  openSync,
+  readFileSync,
+  writeFileSync,
+  writeSync,
+} from 'fs';
 import { resolve } from 'path';
 import manifestJson from '../../fixtures/narrative-madrid-v6/reference.json';
 import rubricJson from '../../fixtures/narrative-madrid-v6/research-rubric.json';
@@ -7,6 +15,8 @@ import mutationsJson from '../../fixtures/narrative-madrid-v6/editorial-mutation
 import {
   evaluateNarrativeEditorialGateV6,
   evaluateNarrativeResearchGateV6,
+  narrativeReferenceEvidenceFromCapturesV6,
+  narrativeReferenceRequirementsFromRubricV6,
   validateNarrativeMadridResearchRubricV6,
 } from '../../src/services/poi/NarrativeCalibrationV6';
 import {
@@ -14,8 +24,19 @@ import {
   assignNarrativeSentenceIdsV6,
   auditNarrativeScriptDeterministicallyV6,
 } from '../../src/services/poi/NarrativeEditorialV6';
-import { createNarrativeEditorialAgentsV6 } from '../../src/services/poi/NarrativeEditorialAgentsV6';
-import { runNarrativeEditorialWorkflowV6 } from '../../src/services/poi/NarrativeEditorialWorkflowV6';
+import {
+  NarrativeAgentProtocolErrorV6,
+  createNarrativeEditorialAgentsV6,
+} from '../../src/services/poi/NarrativeEditorialAgentsV6';
+import { NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6 } from '../../src/services/poi/NarrativeBenchmarkV6';
+import {
+  NarrativeSpendLedgerV6,
+  NarrativeSpendReservationV6,
+} from '../../src/services/poi/NarrativeSpendLedgerV6';
+import {
+  runNarrativeEditorialWorkflowV6,
+  runPairedNarrativeAuditsV6,
+} from '../../src/services/poi/NarrativeEditorialWorkflowV6';
 import {
   loadNarrativeMadridDocumentsV6,
   validateNarrativeMadridCorpusV6,
@@ -37,6 +58,135 @@ import {
   NarrativeSourceProviderV6,
   ReplayNarrativeSourceProviderV6,
 } from '../../src/services/poi/NarrativeSourcesV6';
+import {
+  EditorialProgressCallbackV6,
+  EditorialProgressEventV6,
+  EditorialPricingV6,
+} from '../../src/services/poi/EditorialStructuredLlmV6';
+import {
+  openRouterPricingFromPreflightV6,
+  preflightBalancedOpenRouterV6,
+} from '../../src/services/poi/OpenRouterPreflightV6';
+
+const CALIBRATION_REQUEST_TIMEOUT_MS = 120_000;
+const GATE_A_DEADLINE_MS = 20 * 60 * 1_000;
+const PROGRESS_HEARTBEAT_MS = 15_000;
+const CALIBRATION_SPEND_LIMIT_USD = 2;
+
+type CalibrationGateV6 = 'a' | 'b';
+
+interface CalibrationOutputPathsV6 {
+  runId: string;
+  publicPath: string;
+  privatePath: string;
+  progressPath: string;
+}
+
+interface CalibrationLifecycleEventV6 {
+  event: 'run_started' | 'run_finished' | 'run_failed' | 'deadline_reached' | 'sigint';
+  at: string;
+  runId: string;
+  gate: CalibrationGateV6;
+  profile: string;
+  error?: string;
+}
+
+interface CalibrationBudgetSnapshotV6 {
+  limitUsd: number;
+  spentUsd: number;
+  reservedUsd: number;
+  remainingUsd: number;
+}
+
+type CalibrationProgressEventV6 = EditorialProgressEventV6 & {
+  gate: CalibrationGateV6;
+  budget: CalibrationBudgetSnapshotV6;
+};
+
+interface CalibrationProgressWriterV6 {
+  append(event: CalibrationProgressEventV6 | CalibrationLifecycleEventV6): void;
+  sync(): void;
+  close(): void;
+}
+
+class CalibrationAbortErrorV6 extends Error {
+  constructor(message: string, readonly exitCode: number) {
+    super(message);
+    this.name = 'CalibrationAbortErrorV6';
+  }
+}
+
+class CalibrationSpendGuardV6 {
+  private readonly historicalSpendUsd = Number(
+    option('--prior-spend-usd') ?? NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6
+  );
+  private readonly ledger: NarrativeSpendLedgerV6;
+  private readonly reservations = new Map<string, NarrativeSpendReservationV6>();
+
+  constructor() {
+    if (!Number.isFinite(this.historicalSpendUsd)
+      || this.historicalSpendUsd < NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6
+      || this.historicalSpendUsd > CALIBRATION_SPEND_LIMIT_USD) {
+      throw new Error(
+        `--prior-spend-usd must be between ${NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6} and ${CALIBRATION_SPEND_LIMIT_USD}`
+      );
+    }
+    this.ledger = new NarrativeSpendLedgerV6({
+      limitUsd: CALIBRATION_SPEND_LIMIT_USD,
+      historicalSpendUsd: this.historicalSpendUsd,
+      path: option('--spend-ledger') ?? process.env.NARRATIVE_V6_SPEND_LEDGER_PATH,
+    });
+  }
+
+  record(event: EditorialProgressEventV6): CalibrationBudgetSnapshotV6 {
+    if (event.event === 'attempt_started') this.reserve(event);
+    if (event.event === 'attempt_finished') this.settle(event);
+    return this.snapshot();
+  }
+
+  snapshot(): CalibrationBudgetSnapshotV6 {
+    return this.ledger.snapshot();
+  }
+
+  assertSettled(): void {
+    if (this.reservations.size > 0) {
+      throw new Error('calibration ended with unsettled cost reservations');
+    }
+  }
+
+  private reserve(event: EditorialProgressEventV6): void {
+    if (event.attempt === undefined) throw new Error('attempt start omitted its attempt number');
+    if (event.maximumCostUsd === undefined || !Number.isFinite(event.maximumCostUsd)
+      || event.maximumCostUsd < 0) {
+      throw new Error(`no verified maximum cost is available for ${event.requestedModel}`);
+    }
+    const key = this.key(event);
+    if (this.reservations.has(key)) throw new Error(`duplicate cost reservation for ${key}`);
+    this.reservations.set(key, this.ledger.reserve(event.maximumCostUsd, {
+      runId: event.runId,
+      phase: event.phase,
+      model: event.requestedModel,
+      attempt: event.attempt,
+    }));
+  }
+
+  private settle(event: EditorialProgressEventV6): void {
+    if (event.attempt === undefined) throw new Error('attempt finish omitted its attempt number');
+    const key = this.key(event);
+    const reservation = this.reservations.get(key);
+    if (reservation === undefined) throw new Error(`unknown cost reservation for ${key}`);
+    this.reservations.delete(key);
+    const actual = event.diagnostic?.usage?.costUsd;
+    if (actual !== undefined && (!Number.isFinite(actual) || actual < 0)) {
+      throw new Error(`invalid billed cost for ${key}`);
+    }
+    this.ledger.settle(reservation, actual);
+  }
+
+  private key(event: EditorialProgressEventV6): string {
+    return `${event.callId}#${event.attempt}`;
+  }
+}
 
 function option(name: string): string | undefined {
   return process.argv.find((argument) => argument.startsWith(`${name}=`))?.slice(name.length + 1);
@@ -55,7 +205,7 @@ function safeError(error: unknown, secrets: string[]): string {
   );
 }
 
-function outputPaths(gate: string) {
+function outputPaths(gate: CalibrationGateV6): CalibrationOutputPathsV6 {
   const runId = option('--run-id') ?? `madrid-gate-${gate}-${new Date().toISOString().replace(/[:.]/g, '-')}`;
   const directory = resolve(process.cwd(), 'tmp/narrative-v6', runId);
   mkdirSync(directory, { recursive: true });
@@ -63,7 +213,35 @@ function outputPaths(gate: string) {
     runId,
     publicPath: resolve(directory, 'review.json'),
     privatePath: resolve(directory, 'diagnostics.private.json'),
+    progressPath: resolve(directory, 'progress.private.jsonl'),
   };
+}
+
+function createProgressWriter(path: string): CalibrationProgressWriterV6 {
+  const descriptor = openSync(path, 'ax');
+  let closed = false;
+  return {
+    append(event) {
+      if (closed) throw new Error('calibration progress writer is closed');
+      writeSync(descriptor, `${JSON.stringify(event)}\n`);
+    },
+    sync() {
+      if (!closed) fsyncSync(descriptor);
+    },
+    close() {
+      if (closed) return;
+      fsyncSync(descriptor);
+      closeSync(descriptor);
+      closed = true;
+    },
+  };
+}
+
+function throwIfAborted(signal: AbortSignal): void {
+  if (!signal.aborted) return;
+  throw signal.reason instanceof Error
+    ? signal.reason
+    : new CalibrationAbortErrorV6('calibration aborted', 1);
 }
 
 const manifest = validateNarrativeMadridCorpusV6(manifestJson);
@@ -74,10 +252,21 @@ const documents = loadNarrativeMadridDocumentsV6(
 const route = buildMadridNarrativeRouteBriefV6(manifest);
 const dossiers = buildTrustedMadridDossiersV6(manifest, documents);
 
-async function gateA(apiKey: string, profile: string, openRouterApiKey?: string): Promise<void> {
-  const paths = outputPaths('a');
+async function gateA(
+  paths: CalibrationOutputPathsV6,
+  signal: AbortSignal,
+  onProgress: EditorialProgressCallbackV6,
+  apiKey: string,
+  profile: string,
+  openRouterApiKey?: string,
+  openRouterPricing?: Record<string, EditorialPricingV6>
+): Promise<void> {
   const agents = createNarrativeEditorialAgentsV6({
     apiKey, openRouterApiKey, profile, runId: paths.runId,
+    openRouterPricing,
+    requestTimeoutMs: CALIBRATION_REQUEST_TIMEOUT_MS,
+    signal,
+    onProgress,
   });
   const workflow = await runNarrativeEditorialWorkflowV6({
     runId: paths.runId,
@@ -91,32 +280,51 @@ async function gateA(apiKey: string, profile: string, openRouterApiKey?: string)
       ...manifest.voiceProfile.rules,
     ],
     privateArtifactPath: paths.privatePath,
-  }, agents);
+  }, agents, { signal, onProgress, profile });
+  throwIfAborted(signal);
   const privateMutationDiagnostics: unknown[] = [];
   const mutations = [];
   if (!Array.isArray(mutationsJson.mutations)) throw new Error('mutation fixture is malformed');
-  for (const mutation of mutationsJson.mutations) {
+  const mutationInputs = workflow.run.status === 'ready_for_human_gate'
+    ? mutationsJson.mutations
+    : [];
+  for (const mutation of mutationInputs) {
+    throwIfAborted(signal);
     const dossier = dossiers.find((item) => item.stopId === mutation.stopId);
     if (!dossier) throw new Error(`mutation ${mutation.mutationId} has unknown stop`);
     const script = assignNarrativeSentenceIdsV6(mutation.stopId, mutation.text);
     let detected = false;
-    if (mutation.detector === 'deterministic') {
-      detected = auditNarrativeScriptDeterministicallyV6(script, {
-        language: 'es', authorizedNumbers: dossier.authorizedNumbers,
-      }).some((warning) => warning.severity === 'hard');
-    } else if (mutation.detector === 'global') {
-      const result = await agents.auditTour({ promise: manifest.promise, scripts: [script] });
-      privateMutationDiagnostics.push(result.diagnostic);
-      detected = result.value.issues.some((issue) => issue.severity === 'hard');
-    } else {
-      const reports = await Promise.all([
-        agents.audit({ script, dossier }, 'deepseek'),
-        agents.audit({ script, dossier }, 'deepseek_pro'),
-      ]);
-      privateMutationDiagnostics.push(...reports.map((result) => result.diagnostic));
-      detected = buildNarrativeAuditObjectionsV6(reports.map((result) => result.value)).length > 0;
+    let protocolError: string | undefined;
+    try {
+      if (mutation.detector === 'deterministic') {
+        detected = auditNarrativeScriptDeterministicallyV6(script, {
+          language: 'es', authorizedNumbers: dossier.authorizedNumbers,
+        }).some((warning) => warning.severity === 'hard');
+      } else if (mutation.detector === 'global') {
+        const result = await agents.auditTour({ promise: manifest.promise, scripts: [script] });
+        privateMutationDiagnostics.push(result.diagnostic);
+        detected = result.value.issues.some((issue) => issue.severity === 'hard');
+      } else {
+        const reports = await runPairedNarrativeAuditsV6(
+          agents,
+          { script, dossier },
+          { signal, onProgress }
+        );
+        privateMutationDiagnostics.push(...reports.map((result) => result.diagnostic));
+        detected = buildNarrativeAuditObjectionsV6(reports.map((result) => result.value)).length > 0;
+      }
+    } catch (error) {
+      if (error instanceof NarrativeAgentProtocolErrorV6) {
+        privateMutationDiagnostics.push(error.diagnostic);
+      }
+      protocolError = error instanceof Error ? error.message : String(error);
     }
-    mutations.push({ mutationId: mutation.mutationId, detected });
+    throwIfAborted(signal);
+    mutations.push({
+      mutationId: mutation.mutationId,
+      detected,
+      ...(protocolError ? { protocolError } : {}),
+    });
   }
   const writerFingerprints = workflow.metrics
     .filter((item) => item.callId.includes('-writer-'))
@@ -146,6 +354,7 @@ async function gateA(apiKey: string, profile: string, openRouterApiKey?: string)
     warnings: workflow.warnings,
     metrics: workflow.metrics,
     privateDiagnosticsPath: paths.privatePath,
+    privateProgressPath: paths.progressPath,
   };
   writeFileSync(paths.privatePath, JSON.stringify({
     workflow: workflow.privateDiagnostics,
@@ -157,12 +366,15 @@ async function gateA(apiKey: string, profile: string, openRouterApiKey?: string)
 }
 
 async function gateB(
+  paths: CalibrationOutputPathsV6,
+  signal: AbortSignal,
+  onProgress: EditorialProgressCallbackV6,
   apiKey: string,
   profile: string,
   openRouterApiKey?: string,
-  firecrawlKey?: string
+  firecrawlKey?: string,
+  openRouterPricing?: Record<string, EditorialPricingV6>
 ): Promise<void> {
-  const paths = outputPaths('b');
   const rubric = validateNarrativeMadridResearchRubricV6(rubricJson);
   const stage = option('--stage') ?? 'spot-check';
   if (stage !== 'spot-check' && stage !== 'full') throw new Error('--stage must be spot-check or full');
@@ -199,21 +411,30 @@ async function gateB(
   }
   const curator = createDeepSeekNarrativeResearchCuratorV6({
     apiKey, openRouterApiKey, profile, runId: paths.runId,
+    openRouterPricing,
+    requestTimeoutMs: CALIBRATION_REQUEST_TIMEOUT_MS,
+    signal,
+    onProgress,
   });
   const searchPlanner = replayQueries
     ? { plan: async () => ({ queries: replayQueries as string[] }) }
     : createDeepSeekNarrativeSearchPlannerV6({
       apiKey, openRouterApiKey, profile, runId: paths.runId,
+      openRouterPricing,
+      requestTimeoutMs: CALIBRATION_REQUEST_TIMEOUT_MS,
+      signal,
+      onProgress,
     });
   const results: NarrativeResearchStopResultV6[] = [];
   let humanReview: Record<string, string> | undefined;
   if (stage === 'full') {
     const spotCheckPath = option('--spot-check-report');
+    const spotCheckPrivatePath = option('--spot-check-private');
     const reviewedBy = option('--reviewed-by');
     const reviewReason = option('--review-reason');
-    if (!spotCheckPath || !reviewedBy || !reviewReason) {
+    if (!spotCheckPath || !spotCheckPrivatePath || !reviewedBy || !reviewReason) {
       throw new Error(
-        'full gate B requires --spot-check-report, --reviewed-by and --review-reason'
+        'full gate B requires --spot-check-report, --spot-check-private, --reviewed-by and --review-reason'
       );
     }
     const spotCheck = JSON.parse(readFileSync(resolve(spotCheckPath), 'utf8')) as {
@@ -228,7 +449,18 @@ async function gateB(
       || !reviewed.dossier?.fingerprint) {
       throw new Error('spot-check report is not a reviewable sufficient Madrid dossier');
     }
-    results.push({ ...reviewed, captures: [] });
+    const privateSpotCheck = JSON.parse(
+      readFileSync(resolve(spotCheckPrivatePath), 'utf8')
+    ) as Array<{ stopId?: string; captures?: NarrativeCapturedSourceV6[] }>;
+    const reviewedPrivate = privateSpotCheck.find((item) => item.stopId === reviewed.stopId);
+    if (!reviewedPrivate?.captures?.length || reviewedPrivate.captures.some((capture) => (
+      !reviewed.dossier!.sources.some((source) => (
+        source.sourceId === capture.sourceId && source.fingerprint === capture.fingerprint
+      ))
+    ))) {
+      throw new Error('spot-check private captures do not match the reviewed dossier');
+    }
+    results.push({ ...reviewed, captures: reviewedPrivate.captures });
     humanReview = {
       decision: humanSpotCheck,
       reviewedBy,
@@ -239,6 +471,7 @@ async function gateB(
     };
   }
   for (const reference of selectedRubric.stops) {
+    throwIfAborted(signal);
     if (results.some((result) => result.stopId === reference.stopId)) continue;
     const stop = route.stops.find((item) => item.stopId === reference.stopId);
     if (!stop) throw new Error(`research rubric references unknown stop ${reference.stopId}`);
@@ -246,7 +479,12 @@ async function gateB(
       stop, city: route.city, language: route.language, sourceProvider, curator,
       searchPlanner,
       calibrationExpectedSufficient: true,
+      requiredReferenceEvidence: narrativeReferenceRequirementsFromRubricV6(
+        selectedRubric,
+        reference.stopId
+      ),
     }));
+    throwIfAborted(signal);
   }
   const outcomes = results.map((result) => ({
     stopId: result.stopId,
@@ -261,6 +499,10 @@ async function gateB(
     rubric: selectedRubric,
     outcomes,
     humanSpotCheck: humanSpotCheck as 'pending' | 'accepted' | 'rejected',
+    referenceEvidence: narrativeReferenceEvidenceFromCapturesV6(
+      selectedRubric,
+      results.flatMap((result) => result.captures)
+    ),
   });
   const review = {
     schemaVersion: 'narrative-madrid-research-gate-v6',
@@ -276,13 +518,16 @@ async function gateB(
       dossier: result.dossier,
     })),
     privateDiagnosticsPath: paths.privatePath,
+    privateProgressPath: paths.progressPath,
   };
   writeFileSync(paths.privatePath, JSON.stringify(results.map((result) => ({
     stopId: result.stopId,
+    searchResultsByQuery: result.searchResultsByQuery,
     captures: result.captures,
     captureErrors: result.captureErrors,
     searchDiagnostic: result.searchDiagnostic,
     diagnostic: result.diagnostic,
+    complexDiagnostic: result.complexDiagnostic,
   })), null, 2));
   writeFileSync(paths.publicPath, JSON.stringify(review, null, 2));
   process.stdout.write(`${JSON.stringify({ ...review, stops: review.stops.map((stop) => ({
@@ -295,25 +540,125 @@ async function main(): Promise<void> {
   if (!process.argv.includes('--generate') || !process.argv.includes('--allow-external')) {
     throw new Error('calibration requires --generate --allow-external');
   }
-  const gate = option('--gate');
+  const gateValue = option('--gate');
+  if (gateValue !== 'a' && gateValue !== 'b') throw new Error('--gate must be a or b');
+  const gate: CalibrationGateV6 = gateValue;
   const profile = option('--profile') ?? process.env.NARRATIVE_MODEL_PROFILE ?? 'deepseek_control';
-  const apiKey = requiredSecret('DEEPSEEK_API_KEY');
-  const openRouterApiKey = profile === 'balanced_openrouter'
-    ? requiredSecret('OPENROUTER_API_KEY') : undefined;
-  if (gate === 'a') {
-    await gateA(apiKey, profile, openRouterApiKey);
-    return;
-  }
-  if (gate === 'b') {
-    await gateB(
-      apiKey,
+  const paths = outputPaths(gate);
+  const progressWriter = createProgressWriter(paths.progressPath);
+  const abortController = new AbortController();
+  const spendGuard = new CalibrationSpendGuardV6();
+  let interrupted = false;
+  const onProgress: EditorialProgressCallbackV6 = (event) => {
+    try {
+      const budget = spendGuard.record(event);
+      progressWriter.append({ ...event, gate, budget });
+    } catch (error) {
+      if (event.event === 'attempt_started') throw error;
+      if (!abortController.signal.aborted) abortController.abort(error);
+      progressWriter.append({ ...event, gate, budget: spendGuard.snapshot() });
+    }
+  };
+  const lifecycle = (
+    event: CalibrationLifecycleEventV6['event'],
+    error?: string
+  ): void => {
+    progressWriter.append({
+      event,
+      at: new Date().toISOString(),
+      runId: paths.runId,
+      gate,
       profile,
-      openRouterApiKey,
-      process.env.FIRECRAWL_API_KEY?.trim() || undefined
+      ...(error ? { error } : {}),
+    });
+  };
+  const handleSigint = (): void => {
+    if (abortController.signal.aborted) return;
+    interrupted = true;
+    const error = new CalibrationAbortErrorV6('calibration interrupted by SIGINT', 130);
+    lifecycle('sigint', error.message);
+    progressWriter.sync();
+    process.exitCode = error.exitCode;
+    abortController.abort(error);
+  };
+  process.on('SIGINT', handleSigint);
+  const heartbeat = setInterval(() => onProgress({
+    event: 'heartbeat',
+    at: new Date().toISOString(),
+    callId: `narrative-v6-gate-${gate}`,
+    phase: `gate_${gate}`,
+    stopId: null,
+    runId: paths.runId,
+    profile,
+    requestedModel: 'workflow',
+    requestedEndpoint: null,
+    reasoning: 'none',
+  }), PROGRESS_HEARTBEAT_MS);
+  heartbeat.unref?.();
+  const gateDeadline = gate === 'a' ? setTimeout(() => {
+    if (abortController.signal.aborted) return;
+    const error = new CalibrationAbortErrorV6(
+      `Gate A exceeded its absolute ${GATE_A_DEADLINE_MS}ms deadline`,
+      1
     );
-    return;
+    lifecycle('deadline_reached', error.message);
+    progressWriter.sync();
+    abortController.abort(error);
+  }, GATE_A_DEADLINE_MS) : undefined;
+  gateDeadline?.unref?.();
+  lifecycle('run_started');
+  try {
+    const apiKey = requiredSecret('DEEPSEEK_API_KEY');
+    const openRouterApiKey = profile === 'balanced_openrouter'
+      ? requiredSecret('OPENROUTER_API_KEY') : undefined;
+    let openRouterPricing: Record<string, EditorialPricingV6> | undefined;
+    if (profile === 'balanced_openrouter') {
+      const preflight = await preflightBalancedOpenRouterV6();
+      if (preflight.status !== 'ready') {
+        throw new Error(`OpenRouter endpoint preflight failed: ${preflight.issues.join('; ')}`);
+      }
+      openRouterPricing = openRouterPricingFromPreflightV6(preflight);
+    }
+    if (gate === 'a') {
+      await gateA(
+        paths,
+        abortController.signal,
+        onProgress,
+        apiKey,
+        profile,
+        openRouterApiKey,
+        openRouterPricing
+      );
+    } else {
+      await gateB(
+        paths,
+        abortController.signal,
+        onProgress,
+        apiKey,
+        profile,
+        openRouterApiKey,
+        process.env.FIRECRAWL_API_KEY?.trim() || undefined,
+        openRouterPricing
+      );
+    }
+    throwIfAborted(abortController.signal);
+    spendGuard.assertSettled();
+    lifecycle('run_finished');
+  } catch (error) {
+    const safe = safeError(error, [
+      process.env.DEEPSEEK_API_KEY,
+      process.env.OPENROUTER_API_KEY,
+      process.env.FIRECRAWL_API_KEY,
+    ].filter((value): value is string => Boolean(value)));
+    if (!interrupted) lifecycle('run_failed', safe);
+    if (error instanceof CalibrationAbortErrorV6) process.exitCode = error.exitCode;
+    throw error;
+  } finally {
+    if (gateDeadline) clearTimeout(gateDeadline);
+    clearInterval(heartbeat);
+    process.removeListener('SIGINT', handleSigint);
+    progressWriter.close();
   }
-  throw new Error('--gate must be a or b');
 }
 
 main().catch((error) => {
@@ -324,5 +669,5 @@ main().catch((error) => {
   ]
     .filter((value): value is string => Boolean(value));
   process.stderr.write(`${safeError(error, secrets)}\n`);
-  process.exitCode = 1;
+  if (process.exitCode === undefined) process.exitCode = 1;
 });

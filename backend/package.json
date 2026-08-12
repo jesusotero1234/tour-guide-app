@@ -29,6 +29,7 @@
     "quality:narrative:madrid:v4": "node -r ts-node/register scripts/validation/narrative-madrid-pilot-v4.ts",
     "quality:narrative:madrid:v5": "node -r ts-node/register scripts/validation/narrative-madrid-pilot-v5.ts",
     "quality:narrative:v6:calibrate": "node -r ts-node/register scripts/validation/narrative-v6-calibrate.ts",
+    "quality:narrative:v6:benchmark": "node -r ts-node/register scripts/validation/narrative-v6-benchmark.ts",
     "quality:narrative:v6:toledo": "node -r ts-node/register scripts/validation/narrative-toledo-canary-v6.ts",
     "quality:core:v6": "node -r ts-node/register scripts/validation/resolve-editorial-core-v6.ts",
     "quality:core:v6:evaluate": "node -r ts-node/register scripts/validation/evaluate-editorial-core-v6.ts",
