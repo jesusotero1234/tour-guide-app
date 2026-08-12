@@ -74,9 +74,9 @@ const documents = loadNarrativeMadridDocumentsV6(
 const route = buildMadridNarrativeRouteBriefV6(manifest);
 const dossiers = buildTrustedMadridDossiersV6(manifest, documents);
 
-async function gateA(apiKey: string, ollamaHost: string): Promise<void> {
+async function gateA(apiKey: string): Promise<void> {
   const paths = outputPaths('a');
-  const agents = createNarrativeEditorialAgentsV6({ apiKey, ollamaHost });
+  const agents = createNarrativeEditorialAgentsV6({ apiKey });
   const workflow = await runNarrativeEditorialWorkflowV6({
     runId: paths.runId,
     createdAt: new Date().toISOString(),
@@ -285,9 +285,7 @@ async function main(): Promise<void> {
   const gate = option('--gate');
   const apiKey = requiredSecret('DEEPSEEK_API_KEY');
   if (gate === 'a') {
-    const ollamaHost = process.env.OLLAMA_HOST?.trim();
-    if (!ollamaHost) throw new Error('OLLAMA_HOST is required for gate A');
-    await gateA(apiKey, ollamaHost);
+    await gateA(apiKey);
     return;
   }
   if (gate === 'b') {

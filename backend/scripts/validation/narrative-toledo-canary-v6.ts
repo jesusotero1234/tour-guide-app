@@ -61,8 +61,6 @@ async function main(): Promise<void> {
 
   const apiKey = requiredSecret('DEEPSEEK_API_KEY');
   const firecrawlKey = requiredSecret('FIRECRAWL_API_KEY');
-  const ollamaHost = process.env.OLLAMA_HOST?.trim();
-  if (!ollamaHost) throw new Error('OLLAMA_HOST is required for the Gemma auditor');
   const runId = option('--run-id')
     ?? `toledo-v6-${new Date().toISOString().replace(/[:.]/g, '-')}`;
   const directory = resolve(process.cwd(), 'tmp/narrative-v6', runId);
@@ -74,7 +72,7 @@ async function main(): Promise<void> {
   const curator = createDeepSeekNarrativeResearchCuratorV6({ apiKey });
   const searchPlanner = createDeepSeekNarrativeSearchPlannerV6({ apiKey });
   const architect = createDeepSeekNarrativeArcArchitectV6({ apiKey });
-  const agents = createNarrativeEditorialAgentsV6({ apiKey, ollamaHost });
+  const agents = createNarrativeEditorialAgentsV6({ apiKey });
   const createdAt = new Date().toISOString();
   const canary = await runNarrativeToledoCanaryV6({
     runId,
