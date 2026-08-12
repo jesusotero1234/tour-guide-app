@@ -109,4 +109,37 @@ describe('narrative v6 editorial agents', () => {
     expect(batchSizes).toEqual([6, 6, 3, 3]);
     expect(result.value.findings).toHaveLength(6);
   });
+
+  it('requires repair prompts to remove the accepted objection instead of paraphrasing it', async () => {
+    let repairPrompt = '';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      repairPrompt = (body.messages as Array<{ content: string }>)[0].content;
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'repair_narrative_window_v6',
+        arguments: JSON.stringify({ replacements: [{
+          sentenceId: 'palace-S001', text: 'La ornamentación exterior es contenida.',
+        }] }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace', 'La institución quería parecer seria.'
+    );
+    await agents.repair({
+      script,
+      dossier,
+      objections: [{
+        objectionId: 'gemma:palace-S001:distorted', auditor: 'gemma',
+        sentenceId: 'palace-S001', classification: 'distorted',
+        reason: 'Atribuye psicología institucional no documentada.', propositionIds: [],
+      }],
+      adjudications: [{
+        objectionId: 'gemma:palace-S001:distorted', decision: 'accepted',
+        reason: 'Debe eliminarse toda la atribución psicológica.',
+      }],
+    });
+
+    expect(repairPrompt).toContain('eliminar por completo el motivo aceptado');
+    expect(repairPrompt).toContain('No basta con acortar o parafrasear');
+  });
 });

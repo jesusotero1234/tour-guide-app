@@ -194,7 +194,11 @@ export async function runNarrativeEditorialWorkflowV6(
           metrics.push(...finalAudits.map((result) => metric(result.diagnostic)));
           privateDiagnostics.push(...finalAudits.map((result) => result.diagnostic));
           audits.push(...finalAudits.map((result) => result.value));
-          openIssueIds.push(...hardAuditIssueIds(finalAudits.map((result) => result.value)));
+          const rejectedIds = new Set(adjudications
+            .filter((item) => item.decision === 'rejected')
+            .map((item) => item.objectionId));
+          openIssueIds.push(...hardAuditIssueIds(finalAudits.map((result) => result.value))
+            .filter((objectionId) => !rejectedIds.has(objectionId)));
         }
       }
       const warnings = auditNarrativeScriptDeterministicallyV6(finalScript, {

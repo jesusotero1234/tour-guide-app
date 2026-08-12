@@ -102,6 +102,12 @@ describe('narrative v6 editorial protocol', () => {
     expect(authorizedNarration).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ code: 'unauthorized_name' }),
     ]));
+    expect(auditNarrativeScriptDeterministicallyV6(
+      assignNarrativeSentenceIdsV6('mayor', 'En el siglo XVII, la plaza cambió.'),
+      { language: 'es', authorizedNames: [], authorizedNumbers: [] }
+    )).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'unauthorized_name' }),
+    ]));
 
     const repeated = 'uno dos tres cuatro cinco seis siete ocho nueve diez once doce final.';
     expect(narrativeRepetitionWarningsV6([

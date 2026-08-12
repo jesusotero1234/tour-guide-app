@@ -240,7 +240,8 @@ export function auditNarrativeScriptDeterministicallyV6(
     const normalizedCandidate = candidateWords.join(' ');
     const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
     const previousWord = normalizedWords(prefix.match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
-    if (!normalizedCandidate || commonSentenceStarts.has(normalizedCandidate)
+    if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
+      || commonSentenceStarts.has(normalizedCandidate)
       || (atSentenceStart && !normalizedCandidate.includes(' '))
       || (candidateWords.length === 1 && singleNamePrepositions.has(previousWord))
       || checkedNames.has(normalizedCandidate)

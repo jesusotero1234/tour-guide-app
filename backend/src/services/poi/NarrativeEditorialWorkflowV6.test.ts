@@ -133,6 +133,36 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.run).toMatchObject({ status: 'draft_review_required' });
   });
 
+  it('does not reopen an identical objection already rejected by the editor', async () => {
+    const fake = agents();
+    const originalAudit = fake.audit;
+    fake.audit = jest.fn(async (input, auditor) => {
+      const result = await originalAudit(input, auditor);
+      if (auditor === 'gemma') {
+        result.value.findings[0] = {
+          ...result.value.findings[0],
+          classification: 'distorted',
+          reason: 'Objeción repetida que el editor debe valorar.',
+        };
+      }
+      return result;
+    });
+    fake.adjudicate = jest.fn(async (input) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: objection.auditor === 'gemma' ? 'rejected' as const : 'accepted' as const,
+        reason: objection.auditor === 'gemma'
+          ? 'La objeción interpreta mal la proposición.'
+          : 'La afirmación debe repararse.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+  });
+
   it('authorizes route and arc names used only to connect neighboring stops', async () => {
     const fake = agents();
     fake.write.mockImplementation(async () => {

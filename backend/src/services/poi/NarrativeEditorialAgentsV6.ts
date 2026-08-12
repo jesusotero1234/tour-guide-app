@@ -350,6 +350,8 @@ export function createNarrativeEditorialAgentsV6(options: {
         options: { ...shared, temperature: 0, maxTokens: 2_000 },
         systemPrompt: [
           'Repara únicamente las frases con objeciones aceptadas y, si es imprescindible, una adyacente.',
+          'Cada reemplazo debe eliminar por completo el motivo aceptado y respetar la razón del editor.',
+          'No basta con acortar o parafrasear una afirmación objetada si conserva el mismo problema.',
           'Devuelve reemplazos identificados; no añadas ni elimines frases.',
           'El código rechazará cualquier cambio fuera de ventana.',
         ].join(' '),
