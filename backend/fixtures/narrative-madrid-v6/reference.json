@@ -119,9 +119,9 @@
       "wikidataId": "Q427163",
       "coordinates": { "lat": 40.4168622, "lng": -3.7034948 },
       "contribution": "Convertir un antiguo borde urbano en centro mediante circulación, reforma urbana y vida pública.",
-      "dossier": { "path": "docs/working/madrid-narrative-v6/sol/dossier.md", "sha256": "0813399f6e43f4634aca9a5bf6b9a1c4547d12369c1ebd6f1130d2f684228e55", "sources": 8, "propositions": 11 },
-      "script": { "path": "docs/working/madrid-narrative-v6/sol/script.md", "sha256": "40acd3254a37e2d6770654bb4940ddd8ff821906107fc59361c11e4b0a41660b" },
-      "ledger": { "path": "docs/working/madrid-narrative-v6/sol/ledger.md", "sha256": "f648635c50cce332a0c30caecf8e42b2c34ce87c6e035851a99bf28a5fd7c859", "claims": 17 }
+      "dossier": { "path": "docs/working/madrid-narrative-v6/sol/dossier.md", "sha256": "592df3e0ebabedda96c3c5bae93dbb9f74871544c0961f5492ac6ffa5341d2c2", "sources": 9, "propositions": 11 },
+      "script": { "path": "docs/working/madrid-narrative-v6/sol/script.md", "sha256": "9252341a5065fa0262c82c3bd80b84589d1c959eea5b89fb698edf596fa8667e" },
+      "ledger": { "path": "docs/working/madrid-narrative-v6/sol/ledger.md", "sha256": "677f864ebed31cfcc712adfb6a29e2f8feef7ce50afccba4d440f1ecf2802a7f", "claims": 17 }
     },
     {
       "stopId": "cibeles",
@@ -141,7 +141,7 @@
       "wikidataId": "Q1140634",
       "coordinates": { "lat": 40.4199868, "lng": -3.6887244 },
       "contribution": "Resolver el arco con una frontera ceremonial absorbida por la expansión de la capital moderna.",
-      "dossier": { "path": "docs/working/madrid-narrative-v6/alcala/dossier.md", "sha256": "1ac4f395c249420d146850b02ede240b7aca84f9085418b42f6672059afbb523", "sources": 6, "propositions": 11 },
+      "dossier": { "path": "docs/working/madrid-narrative-v6/alcala/dossier.md", "sha256": "aebcf399a82fecbe58b4ccb5ac05851d5eeed7299ccbcca3fbaa6697243219a4", "sources": 6, "propositions": 11 },
       "script": { "path": "docs/working/madrid-narrative-v6/alcala/script.md", "sha256": "978a567cf6d00091132d1e1645092fafd1ce99e43a7f1c03e4af7efdda52b526" },
       "ledger": { "path": "docs/working/madrid-narrative-v6/alcala/ledger.md", "sha256": "b0bd34e83ce51a4e2cf76f947b632e253249ac9cb28e1ac9e93a242b1c339eac", "claims": 24 }
     }

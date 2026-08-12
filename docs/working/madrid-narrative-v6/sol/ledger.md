@@ -25,9 +25,9 @@ y centro geográfico.
 | C11 | José Rodríguez Losada ofreció un reloj nuevo, inaugurado en 1866. | P07 | S03–S05 | alta | verificado |
 | C12 | Cada 31 de diciembre marca doce campanadas ante una multitud que toma doce uvas y millones lo siguen por televisión. | P08 | S03, S06 | alta, sensible al tiempo | verificado a 2026-08-11 |
 | C13 | El instrumento funcional terminó convertido en ritual colectivo. | P08 | S03, S06 | inferencia directa | permitido |
-| C14 | Sol se definió en 1854 como origen del kilometraje radial y la primera placa oficial se instaló en 1950. | P09 | S03, S06 | alta | verificado |
+| C14 | Desde 1950, Sol se considera punto de partida o Kilómetro Cero de las carreteras radiales. | P09 | S09 | alta | verificado |
 | C15 | Leer el paso de borde a origen como «un borde fabricado como centro» sintetiza las transformaciones documentadas. | P10 | S01–S07 | inferencia explícita | permitido |
-| C16 | Cibeles fue diseñada en 1777, tuvo usos de abrevadero y abastecimiento y en 1895 fue desplazada y orientada hacia Sol. | P11 | S08 | alta | verificado |
+| C16 | Cibeles fue diseñada en 1777, instalada a finales de 1781, usada después para agua y en 1895 desplazada y orientada hacia Sol. | P11 | S08 | alta | verificado |
 | C17 | Contrastar utilidad cotidiana y símbolo anticipa el cambio de función documentado en Cibeles. | P11 | S08 | inferencia explícita | permitido |
 
 ## Resolución de nombres y números
@@ -39,7 +39,7 @@ y centro geográfico.
 | Gobierno | institución vinculada al marco de expropiación | autorizada por P03 |
 | Lucio del Valle, Juan Rivera, José Morer | autores del proyecto | autorizados por P04 |
 | Jaime Marquet, José Rodríguez Losada | arquitecto y relojero | autorizados por P06, P07 |
-| siglos XVII y XIX; 1768, 1854, 1855, 1857, 1859–1862, 1866, 1950, 1777, 1895 | fechas | autorizadas por P01–P11 |
+| siglos XVII y XIX; 1768, 1854, 1855, 1857, 1859–1862, 1866, 1950, 1777, 1781, 1862, 1895 | fechas | autorizadas por P01–P11 |
 | 31 de diciembre, doce campanadas, doce uvas | ritual | autorizado por P08 |
 
 Warnings abiertos: **0**.

@@ -59,6 +59,10 @@ describe('narrative v6 editorial agents', () => {
         }) }),
       }) }),
     ]));
+    const writerPrompt = ((calls[0].body.messages as Array<{ content: string }>)[0].content);
+    expect(writerPrompt).toContain('no una ruta');
+    expect(writerPrompt).toContain('Mantén separadas la fecha de diseño o construcción');
+    expect(writerPrompt).toContain('cierra explícitamente el recorrido');
     const auditSchema = (((calls[1].body.tools as Array<{
       function: { parameters: Record<string, unknown> };
     }>)[0].function.parameters.properties as {
@@ -67,12 +71,14 @@ describe('narrative v6 editorial agents', () => {
     expect(auditSchema).toMatchObject({ minItems: 2, maxItems: 2 });
     expect(auditSchema.items).toMatchObject({ properties: {
       sentenceId: { enum: ['palace-S001', 'palace-S002'] },
-      reason: { maxLength: 320 },
+      reason: { maxLength: 120 },
       propositionIds: {
-        uniqueItems: true, maxItems: 1,
+        maxItems: 1,
         items: { enum: ['prop-palace-1'] },
       },
     } });
+    expect((auditSchema.items as { properties: { propositionIds: object } })
+      .properties.propositionIds).not.toHaveProperty('uniqueItems');
     expect(calls.slice(1).map((call) => call.body.max_tokens)).toEqual([2_000, 2_000]);
     expect(calls.map((call) => call.body.model)).toEqual([
       DEEPSEEK_NARRATIVE_MODEL_V6,
@@ -115,6 +121,36 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value.findings).toHaveLength(13);
     expect(result.value.findings.map((finding) => finding.sentenceId))
       .toEqual(longScript.sentences.map((sentence) => sentence.sentenceId));
+  });
+
+  it('batches provider audits so the 2,000-token response contract remains bounded', async () => {
+    const batchSizes: number[] = [];
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
+      const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
+        script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
+      };
+      batchSizes.push(input.script.sentences.length);
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'audit_narrative_sentences_v6',
+        arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported',
+          reason: 'Respaldada.',
+          propositionIds: [],
+        })) }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const longScript = assignNarrativeSentenceIdsV6(
+      'palace',
+      Array.from({ length: 17 }, (_, index) => `Esta es la frase número ${index + 1}.`).join(' ')
+    );
+
+    const result = await agents.audit({ script: longScript, dossier }, 'deepseek');
+
+    expect(batchSizes).toEqual([16, 1]);
+    expect(result.value.findings).toHaveLength(17);
   });
 
   it('splits only a Gemma batch that remains semantically incomplete after retry', async () => {

@@ -261,6 +261,7 @@ async function gateA(
   openRouterApiKey?: string,
   openRouterPricing?: Record<string, EditorialPricingV6>
 ): Promise<void> {
+  const tourOnly = process.argv.includes('--tour-only');
   const agents = createNarrativeEditorialAgentsV6({
     apiKey, openRouterApiKey, profile, runId: paths.runId,
     openRouterPricing,
@@ -285,7 +286,7 @@ async function gateA(
   const privateMutationDiagnostics: unknown[] = [];
   const mutations = [];
   if (!Array.isArray(mutationsJson.mutations)) throw new Error('mutation fixture is malformed');
-  const mutationInputs = workflow.run.status === 'ready_for_human_gate'
+  const mutationInputs = workflow.run.status === 'ready_for_human_gate' && !tourOnly
     ? mutationsJson.mutations
     : [];
   for (const mutation of mutationInputs) {
@@ -331,21 +332,24 @@ async function gateA(
     .map((item) => item.promptFingerprint);
   const promptFingerprint = writerFingerprints[0] ?? 'missing';
   const status = workflow.run.status;
-  const gate = evaluateNarrativeEditorialGateV6({
-    developmentStopIds: manifest.developmentStopIds,
-    validationStopIds: manifest.validationStopIds,
-    stopOutcomes: manifest.stops.map((stop) => ({
-      stopId: stop.stopId,
-      status,
-      promptFingerprint,
-    })),
-    mutations,
-  });
+  const gate = tourOnly
+    ? { status: 'not_run', reason: 'mutation benchmark omitted by --tour-only' } as const
+    : evaluateNarrativeEditorialGateV6({
+      developmentStopIds: manifest.developmentStopIds,
+      validationStopIds: manifest.validationStopIds,
+      stopOutcomes: manifest.stops.map((stop) => ({
+        stopId: stop.stopId,
+        status,
+        promptFingerprint,
+      })),
+      mutations,
+    });
   const review = {
     schemaVersion: 'narrative-madrid-editorial-gate-v6',
     runId: paths.runId,
     gate,
     workflowStatus: workflow.run.status,
+    tourOnly,
     workflowRun: workflow.run,
     developmentStopIds: manifest.developmentStopIds,
     validationStopIds: manifest.validationStopIds,
@@ -362,7 +366,9 @@ async function gateA(
   }, null, 2));
   writeFileSync(paths.publicPath, JSON.stringify(review, null, 2));
   process.stdout.write(`${JSON.stringify({ ...review, scripts: undefined, output: paths.publicPath }, null, 2)}\n`);
-  if (gate.status !== 'passed') process.exitCode = 1;
+  if (tourOnly) {
+    if (workflow.run.status !== 'ready_for_human_gate') process.exitCode = 1;
+  } else if (gate.status !== 'passed') process.exitCode = 1;
 }
 
 async function gateB(

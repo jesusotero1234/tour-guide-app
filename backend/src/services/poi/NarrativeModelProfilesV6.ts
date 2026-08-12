@@ -116,19 +116,6 @@ const openAiFull = openRouterProvider(
   'OpenAI',
   ['openai/gpt-5.4-20260305']
 );
-const geminiAudit = openRouterProvider(
-  'google/gemini-3.5-flash-lite',
-  'google-ai-studio',
-  'Google AI Studio',
-  ['google/gemini-3.5-flash-lite-20260721']
-);
-const geminiGlobal = openRouterProvider(
-  'google/gemini-3.6-flash',
-  'google-vertex/global',
-  'Google',
-  ['google/gemini-3.6-flash-20260721']
-);
-
 export const NARRATIVE_MODEL_PROFILES_V6: Record<
   NarrativeModelProfileNameV6,
   NarrativeModelProfileV6
@@ -168,19 +155,19 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openRouterFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
       auditor_a: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
-      auditor_b: { provider: geminiAudit, reasoning: 'low', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
       repair: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
-      global_auditor: { provider: geminiGlobal, reasoning: 'low', maxTokens: 4_000 },
+      global_auditor: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
     },
     concurrency: {
       researchStops: 2,
       searches: 6,
       captures: 2,
       curations: 3,
-      editorialStops: 3,
-      writers: 3,
-      auditStops: 2,
+      editorialStops: 1,
+      writers: 1,
+      auditStops: 1,
       adjudications: 3,
       globalAudits: 1,
     },

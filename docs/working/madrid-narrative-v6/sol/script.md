@@ -2,7 +2,7 @@
 
 Estado: **aprobado editorialmente el 11 de agosto de 2026; referencia de continuidad para V6**
 
-Voz: anfitrión local · Público: primera visita · Extensión: 393 palabras · Lectura estimada: 2,8–3 minutos
+Voz: anfitrión local · Público: primera visita · Extensión: 395 palabras · Lectura estimada: 2,8–3 minutos
 
 ## Guion
 
@@ -28,11 +28,11 @@ en 1866. Cada 31 de diciembre marca las doce campanadas ante una multitud que to
 millones de personas lo siguen por televisión. Un instrumento para medir el tiempo terminó convertido en
 un ritual colectivo.
 
-Baja la vista hacia la placa del Kilómetro Cero, frente a la Casa de Correos. En 1854 se definió Sol como
-origen de las carreteras radiales españolas; la primera placa oficial se instaló en 1950. Ahí está la
-paradoja: un borde fabricado como centro, donde antes se salía de Madrid y hoy empiezan las distancias.
+Baja la vista hacia la placa del Kilómetro Cero, frente a la Casa de Correos. Desde 1950, Sol se considera
+el punto de partida de las carreteras radiales españolas. Ahí está la paradoja: un borde fabricado como
+centro, donde antes se salía de Madrid y hoy empiezan las distancias.
 
-Sal ahora por la calle de Alcalá hacia Cibeles. La fuente que encontrarás allí, diseñada en 1777, sirvió
-como abrevadero y abastecimiento público antes de convertirse en monumento. En 1895 la desplazaron y la
-hicieron mirar hacia Sol. La próxima historia empieza con esa transformación: de utilidad cotidiana a
-símbolo de la capital.
+Sal ahora por la calle de Alcalá hacia Cibeles. La fuente que encontrarás allí fue diseñada en 1777 e
+instalada a finales de 1781; después sirvió como abrevadero y abastecimiento público antes de convertirse
+en monumento. En 1895 la desplazaron y la hicieron mirar hacia Sol. La próxima historia empieza con esa
+transformación: de utilidad cotidiana a símbolo de la capital.

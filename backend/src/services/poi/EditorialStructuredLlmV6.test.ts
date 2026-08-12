@@ -63,15 +63,16 @@ describe('editorial structured LLM v6 providers', () => {
       writer: { reasoning: 'none', temperature: 0.7 },
       auditor_a: { reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       auditor_b: {
-        provider: { model: 'google/gemini-3.5-flash-lite', endpoint: 'google-ai-studio' },
-        reasoning: 'none', temperature: 0, maxTokens: 2_000,
+        provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
+        reasoning: 'low', maxTokens: 2_000,
       },
       global_auditor: {
-        provider: { model: 'google/gemini-3.6-flash', endpoint: 'google-vertex/global' },
+        provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
         reasoning: 'low',
       },
     });
     expect(candidate.phases.curator).not.toHaveProperty('temperature');
+    expect(candidate.phases.auditor_b).not.toHaveProperty('temperature');
     expect(candidate.phases.global_auditor).not.toHaveProperty('temperature');
   });
 
@@ -112,7 +113,7 @@ describe('editorial structured LLM v6 providers', () => {
 
     expect(result.status).toBe('ready');
     expect(result.issues).toEqual([]);
-    expect(result.checks).toHaveLength(5);
+    expect(result.checks).toHaveLength(3);
     expect(result.checks[0].pricing).toEqual({
       inputUsdPerToken: 0.000001,
       outputUsdPerToken: 0.000003,
@@ -120,7 +121,7 @@ describe('editorial structured LLM v6 providers', () => {
       requestUsd: 0,
     });
     expect(result.fingerprint).toMatch(/^[a-f0-9]{64}$/);
-    expect(get).toHaveBeenCalledTimes(6);
+    expect(get).toHaveBeenCalledTimes(4);
     expect(get.mock.calls.flat()).not.toContain(expect.stringContaining('Bearer'));
   });
 

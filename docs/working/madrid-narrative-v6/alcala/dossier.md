@@ -74,7 +74,8 @@ la transformación urbana en una intención única mantenida durante siglos.
   Colmenar.
 - **Fuentes:** S02; S03.
 - **Extracto breve:** «cinco arcos»; «uso peatonal».
-- **Certeza:** alta.
+- **Certeza:** alta. El uso peatonal describe la función histórica de los vanos laterales; no autoriza a
+  acercarse al monumento ni a cruzar la calzada en la actualidad.
 - **Uso narrativo:** cue visual seguro desde la acera; contar huecos y distinguir los pasos laterales.
 
 ### P05 — Una fachada para salir y otra para entrar

@@ -27,6 +27,7 @@ proyecto creara toda la centralidad social de Sol ni que sea el centro geográfi
 | S06 | Turismo Madrid, «Puerta del Sol» | Portal oficial de turismo; usos y elementos visibles actuales | https://www.esmadrid.com/informacion-turistica/puerta-del-sol | actualizado 2026; consultado 2026-08-11 |
 | S07 | Patrimonio Cultural y Paisaje Urbano, «Antigua Iglesia y Hospital del Buen Suceso» | Inventario municipal del emplazamiento desaparecido | https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos/Monumentos-urbanos/Antigua-Iglesia-y-Hospital-del-Buen-Suceso/ | revisión municipal `e6d8091d1b9c4510091d1b9c45102e085a0aRCRD`; recapturado 2026-08-11 |
 | S08 | Patrimonio Cultural y Paisaje Urbano, «Fuente de Cibeles» | Inventario municipal; fuente de continuidad hacia la parada siguiente | https://patrimonioypaisaje.madrid.es/portales/monumenta/es/Monumentos-y-Edificios-Singulares/Monumentos/Fuente-de-Cibeles/ | revisión municipal `8658091d1b9c4510091d1b9c45102e085a0aRCRD`; capturado 2026-08-10 en evidencia V4 |
+| S09 | Ayuntamiento de Madrid, *Paseo para descubrir la Puerta del Sol* | Publicación municipal sobre los elementos de la plaza | https://www.madrid.es/UnidadesDescentralizadas/ZonasVerdes/Parques/Estufas_del_Retiro_Vivero/ficheros/Paseo.pdf | consultado 2026-08-12 |
 
 ## Proposiciones autorizadas
 
@@ -114,10 +115,10 @@ proyecto creara toda la centralidad social de Sol ni que sea el centro geográfi
 
 ### P09 — Del límite al Kilómetro Cero
 
-- **Texto:** En 1854 se definió Sol como origen del kilometraje de las carreteras radiales españolas. La
-  primera placa oficial del Kilómetro Cero se instaló en 1950 frente a la Casa de Correos.
-- **Fuentes:** S03; S06.
-- **Extractos breves:** «origen de todas las carreteras radiales»; «1950 [...] primera placa oficial».
+- **Texto:** Desde 1950, Puerta del Sol se considera punto de partida o Kilómetro Cero de las carreteras
+  radiales españolas; la placa lo señala frente a la Casa de Correos.
+- **Fuente:** S09.
+- **Extracto breve:** «desde 1950 [...] punto de partida, o kilómetro cero».
 - **Certeza:** alta. No se identifica con el centro geográfico de Madrid o de España.
 - **Uso narrativo:** payoff del arco: el antiguo borde pasó a funcionar como origen convencional de distancias.
 
@@ -133,9 +134,9 @@ proyecto creara toda la centralidad social de Sol ni que sea el centro geográfi
 
 ### P11 — Puente hacia Cibeles
 
-- **Texto:** Siguiendo la calle de Alcalá se llega a Cibeles. La fuente, diseñada en 1777, tuvo funciones
-  de abrevadero y abastecimiento público antes de que ese uso se prohibiera en 1862; en 1895 fue desplazada
-  y reorientada para mirar hacia Puerta del Sol.
+- **Texto:** Siguiendo la calle de Alcalá se llega a Cibeles. La fuente fue diseñada en 1777 e instalada
+  a finales de 1781; después tuvo funciones de abrevadero y abastecimiento público antes de que ese uso se
+  prohibiera en 1862. En 1895 fue desplazada y reorientada para mirar hacia Puerta del Sol.
 - **Fuente:** S08; hechos `cibeles-change`, `cibeles-agency` y `cibeles-contrast` de evidencia V4.
 - **Extractos breves:** «abrevadero»; «orientación hacia la Puerta del Sol».
 - **Certeza:** alta.
@@ -150,7 +151,8 @@ proyecto creara toda la centralidad social de Sol ni que sea el centro geográfi
 | Gobierno, Oficina Central de Correos | institución y función | S02, S03 |
 | Lucio del Valle, Juan Rivera, José Morer | autores del proyecto de 1857 | S01, S02 |
 | Jaime Marquet, José Rodríguez Losada | arquitecto y relojero | S03–S05 |
-| siglos XVII y XIX; 1768, 1854, 1855, 1857, 1859–1862, 1866, 1950 | fechas verificadas | S01–S07 |
+| siglos XVII y XIX; 1768, 1854, 1855, 1857, 1859–1862, 1866, 1950 | fechas verificadas | S01–S07, S09 |
+| 1777, 1781, 1862, 1895 | diseño, instalación, fin del uso de agua y traslado de Cibeles | S08 |
 | 31 de diciembre, doce campanadas, doce uvas | ritual contemporáneo | S03, S06 |
 
 Todo nombre o número nuevo debe resolverse antes del gate.
