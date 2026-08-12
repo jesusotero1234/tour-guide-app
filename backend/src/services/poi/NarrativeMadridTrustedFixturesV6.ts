@@ -46,6 +46,7 @@ function roleFor(text: string, index: number): NarrativeSufficiencyRoleV6 {
 function parseTrustedDossier(
   stopId: string,
   markdown: string,
+  ledger: string,
   fingerprint: string
 ): NarrativeDossierV6 {
   const sources = [...markdown.matchAll(
@@ -93,13 +94,35 @@ function parseTrustedDossier(
   });
   const numbersSection = markdown.split(/^## Nombres y números autorizados[^\n]*$/m)[1]
     ?.split(/^## /m)[0] ?? '';
-  const authorizedNumbers = [...new Set(numbersSection.match(/\b\d[\d.,]*\b/gu) ?? [])];
-  const authorizedNames = [...new Set([...numbersSection.matchAll(/^\|\s*([^|]+)\|/gmu)]
+  const ledgerResolutionSection = ledger.split(/^## Resolución de nombres y números\s*$/m)[1]
+    ?.split(/^## /m)[0] ?? '';
+  const propositionEvidence = [
+    ...propositions.map((proposition) => proposition.text),
+    ...passages.map((passage) => passage.quote),
+  ].join('\n');
+  const authorizedNumbers = [...new Set(
+    `${numbersSection}\n${ledgerResolutionSection}\n${propositionEvidence}`
+      .match(/\b\d[\d.,]*\b/gu) ?? []
+  )];
+  const authorizedNames = [...new Set([
+    ...`${numbersSection}\n${ledgerResolutionSection}`.matchAll(/^\|\s*([^|]+)\|/gmu),
+  ]
     .map((match) => cleanMarkdown(match[1]))
-    .filter((name) => name !== 'Elemento' && name !== '---'))];
+    .filter((name) => !['Elemento', 'Token', '---'].includes(name))
+    .concat(propositionEvidence.match(
+      /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:\s+(?:(?:de|del|la|las|los|y)\s+)?[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*/gu
+    ) ?? []))];
   const limitsSection = markdown.split(/^## Pistas descartadas o restringidas\s*$/m)[1]
     ?.split(/^## /m)[0] ?? '';
-  const limits = [...limitsSection.matchAll(/^-\s+(.+)$/gmu)].map((match) => cleanMarkdown(match[1]));
+  const ledgerLimitsSection = ledger.split(/^## Inferencias y límites editoriales\s*$/m)[1]
+    ?.split(/^## /m)[0] ?? '';
+  const repairsSection = ledger.split(/^## Redacción y reparación localizada\s*$/m)[1]
+    ?.split(/^## /m)[0] ?? '';
+  const limits = [
+    ...limitsSection.matchAll(/^-\s+(.+)$/gmu),
+    ...ledgerLimitsSection.matchAll(/^-\s+(.+)$/gmu),
+    ...repairsSection.matchAll(/^\d+\.\s+(.+)$/gmu),
+  ].map((match) => cleanMarkdown(match[1]));
   const authoritySources = sources.filter((source) => source.authority.tier !== 'discovery_only');
   const dossierWithoutFingerprint = {
     stopId,
@@ -128,7 +151,11 @@ export function buildTrustedMadridDossiersV6(
   documents: NarrativeMadridDocumentsV6
 ): NarrativeDossierV6[] {
   return manifest.stops.map((stop) => parseTrustedDossier(
-    stop.stopId, documents[stop.stopId].dossier, stop.dossier.sha256
+    stop.stopId, documents[stop.stopId].dossier, documents[stop.stopId].ledger,
+    narrativeFingerprintV6({
+      dossierFingerprint: stop.dossier.sha256,
+      ledgerFingerprint: stop.ledger.sha256,
+    })
   ));
 }
 

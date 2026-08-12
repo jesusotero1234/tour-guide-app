@@ -12,6 +12,7 @@ import {
 } from './NarrativeMadridTrustedFixturesV6';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { narrativeFingerprintV6 } from './NarrativeContractsV6';
 
 describe('narrative v6 trusted Madrid fixtures', () => {
   const manifest = validateNarrativeMadridCorpusV6(manifestJson);
@@ -30,7 +31,18 @@ describe('narrative v6 trusted Madrid fixtures', () => {
     expect(dossiers.every((dossier) => dossier.sufficiency.isSufficient)).toBe(true);
     expect(dossiers.find((dossier) => dossier.stopId === 'palace')?.propositions).toHaveLength(10);
     expect(dossiers.find((dossier) => dossier.stopId === 'palace')?.authorizedNumbers)
-      .toEqual(expect.arrayContaining(['1561', '1734', '1735', '1736', '1993']));
+      .toEqual(expect.arrayContaining(['15', '1561', '1734', '1735', '1736', '1993']));
+    expect(dossiers.find((dossier) => dossier.stopId === 'palace')?.authorizedNames.join(' '))
+      .toContain('Corte');
+    expect(dossiers.find((dossier) => dossier.stopId === 'cibeles')?.limits.join(' '))
+      .toContain('sin convertir a Carlos III en sujeto directo de un encargo de Aranda');
+    const palace = manifest.stops.find((stop) => stop.stopId === 'palace');
+    expect(dossiers.find((dossier) => dossier.stopId === 'palace')?.fingerprint).toBe(
+      narrativeFingerprintV6({
+        dossierFingerprint: palace?.dossier.sha256,
+        ledgerFingerprint: palace?.ledger.sha256,
+      })
+    );
     expect(buildMadridNarrativeArcV6(manifest).stops).toHaveLength(7);
     expect(extractApprovedMadridScriptV6(documents.palace.script)).toContain(
       'Estás frente al Palacio Real'

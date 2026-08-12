@@ -87,6 +87,22 @@ describe('narrative v6 editorial protocol', () => {
       expect.objectContaining({ code: 'unauthorized_name', message: expect.stringContaining('Napoleón') }),
     ]));
 
+    const authorizedNarration = auditNarrativeScriptDeterministicallyV6(
+      assignNarrativeSentenceIdsV6(
+        'cibeles',
+        'Fue Carlos III quien llegó. Entonces José Rodríguez Losada respondió. '
+          + 'La noche terminó en Navidad junto a la Fuente de Cibeles.'
+      ),
+      {
+        language: 'es',
+        authorizedNames: ['Carlos III', 'José Rodríguez Losada', 'Cibeles'],
+        authorizedNumbers: [],
+      }
+    );
+    expect(authorizedNarration).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'unauthorized_name' }),
+    ]));
+
     const repeated = 'uno dos tres cuatro cinco seis siete ocho nueve diez once doce final.';
     expect(narrativeRepetitionWarningsV6([
       assignNarrativeSentenceIdsV6('one', repeated),

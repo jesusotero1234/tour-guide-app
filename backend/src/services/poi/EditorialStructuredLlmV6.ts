@@ -298,6 +298,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         attempt, status: 'semantic_error', latencyMs: Date.now() - startedAt,
         rawOutput, error: error instanceof Error ? error.message : String(error),
       });
+      if (attempt < requestAttempts) continue;
       return {
         callId: config.callId, status: 'semantic_error', value: null, attempts,
         model: config.provider.model, promptFingerprint,

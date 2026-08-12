@@ -65,6 +65,30 @@ describe('editorial structured LLM v6 providers', () => {
     expect(post).not.toHaveBeenCalled();
   });
 
+  it('uses the single configured retry when a structured response is semantically incomplete', async () => {
+    const post = jest.fn(async () => response('submit_test_v6'));
+    let validations = 0;
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'semantic-retry', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: { apiKey: 'deepseek-test-key', post, requestAttempts: 2 },
+      systemPrompt: 'Return complete structured data.',
+      schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value) => {
+        validations += 1;
+        if (validations === 1) throw new Error('missing required item');
+        return value;
+      },
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual(['semantic_error', 'valid']);
+    expect(post).toHaveBeenCalledTimes(2);
+  });
+
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {
     const post = jest.fn(async (
       url: string,

@@ -136,6 +136,7 @@ async function gateA(apiKey: string, ollamaHost: string): Promise<void> {
     runId: paths.runId,
     gate,
     workflowStatus: workflow.run.status,
+    workflowRun: workflow.run,
     developmentStopIds: manifest.developmentStopIds,
     validationStopIds: manifest.validationStopIds,
     mutations,

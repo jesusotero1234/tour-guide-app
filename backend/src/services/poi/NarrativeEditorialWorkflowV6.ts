@@ -8,6 +8,7 @@ import {
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import {
   NarrativeEditorialAgentsV6,
+  NarrativeAgentProtocolErrorV6,
   NarrativeTourAuditV6,
 } from './NarrativeEditorialAgentsV6';
 import {
@@ -198,7 +199,15 @@ export async function runNarrativeEditorialWorkflowV6(
       }
       const warnings = auditNarrativeScriptDeterministicallyV6(finalScript, {
         language: input.route.language,
-        authorizedNames: dossier.authorizedNames,
+        authorizedNames: [
+          ...dossier.authorizedNames,
+          input.route.city,
+          input.route.country,
+          ...input.route.stops.map((routeStop) => routeStop.name),
+          input.arc.promise,
+          input.arc.centralQuestion,
+          ...input.arc.stops.flatMap((arcStop) => [arcStop.contribution, arcStop.bridge ?? '']),
+        ],
         authorizedNumbers: dossier.authorizedNumbers,
       });
       openIssueIds.push(...warnings.filter((warning) => warning.severity === 'hard')
@@ -242,6 +251,9 @@ export async function runNarrativeEditorialWorkflowV6(
       privateDiagnostics,
     };
   } catch (error) {
+    if (error instanceof NarrativeAgentProtocolErrorV6) {
+      privateDiagnostics.push(error.diagnostic);
+    }
     return {
       ...empty({
         ...baseRun(input), status: 'protocol_failed', stage: 'editorial_workflow',

@@ -133,6 +133,26 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.run).toMatchObject({ status: 'draft_review_required' });
   });
 
+  it('authorizes route and arc names used only to connect neighboring stops', async () => {
+    const fake = agents();
+    fake.write.mockImplementation(async () => {
+      const value = { text: 'Llegamos a Casa de Campo. Toda su historia fue pacífica.' };
+      return { value, diagnostic: diagnostic('write', value) };
+    });
+    const result = await runNarrativeEditorialWorkflowV6({
+      ...base,
+      route: {
+        ...route,
+        stops: [{ ...route.stops[0], name: 'Casa de Campo' }],
+      },
+      dossiers: [{ ...dossier(), authorizedNames: [] }],
+    }, fake);
+
+    expect(result.warnings).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'unauthorized_name' }),
+    ]));
+  });
+
   it('builds a public review package without raw LLM output or full private inputs', async () => {
     const result = await runNarrativeEditorialWorkflowV6(base, agents());
     const review = buildNarrativeReviewPackageV6(result, [dossier()]);

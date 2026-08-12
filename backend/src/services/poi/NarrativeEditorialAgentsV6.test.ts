@@ -41,6 +41,72 @@ describe('narrative v6 editorial agents', () => {
 
     expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0]);
     expect(calls.every((call) => call.body.model === DEEPSEEK_NARRATIVE_MODEL_V6)).toBe(true);
+    const auditPrompt = ((calls[1].body.messages as Array<{ content: string }>)[0].content);
+    expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
+    expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
+  });
+
+  it('batches long Gemma audits and still returns one complete sentence ledger', async () => {
+    const batchSizes: number[] = [];
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
+      const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
+        script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
+      };
+      batchSizes.push(input.script.sentences.length);
+      return { data: { message: { content: JSON.stringify({
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported',
+          reason: 'Respaldada por el dossier.',
+          propositionIds: [],
+        })),
+      }) } } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ ollamaHost: 'http://ollama.test', post });
+    const longScript = assignNarrativeSentenceIdsV6(
+      'palace',
+      Array.from({ length: 13 }, (_, index) => `Esta es la frase número ${index + 1}.`).join(' ')
+    );
+
+    const result = await agents.audit({ script: longScript, dossier }, 'gemma');
+
+    expect(batchSizes).toEqual([6, 6, 1]);
+    expect(result.value.findings).toHaveLength(13);
+    expect(result.value.findings.map((finding) => finding.sentenceId))
+      .toEqual(longScript.sentences.map((sentence) => sentence.sentenceId));
+  });
+
+  it('splits only a Gemma batch that remains semantically incomplete after retry', async () => {
+    const batchSizes: number[] = [];
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
+      const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
+        script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
+      };
+      batchSizes.push(input.script.sentences.length);
+      const sentences = input.script.sentences.length > 3
+        ? input.script.sentences.slice(0, -1)
+        : input.script.sentences;
+      return { data: { message: { content: JSON.stringify({
+        findings: sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported',
+          reason: 'Respaldada por el dossier.',
+          propositionIds: [],
+        })),
+      }) } } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ ollamaHost: 'http://ollama.test', post });
+    const scriptWithSixSentences = assignNarrativeSentenceIdsV6(
+      'palace',
+      Array.from({ length: 6 }, (_, index) => `Esta es la frase número ${index + 1}.`).join(' ')
+    );
+
+    const result = await agents.audit({ script: scriptWithSixSentences, dossier }, 'gemma');
+
+    expect(batchSizes).toEqual([6, 6, 3, 3]);
+    expect(result.value.findings).toHaveLength(6);
   });
 });
