@@ -1,12 +1,14 @@
 import {
   EditorialCallResultV6,
-  EditorialPostV6,
   requestEditorialStructuredV6,
 } from './EditorialStructuredLlmV6';
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
-import { DEEPSEEK_NARRATIVE_MODEL_V6 } from './NarrativeEditorialAgentsV6';
 import { NarrativeArcV6 } from './NarrativeEditorialWorkflowV6';
+import {
+  NarrativeModelClientOptionsV6,
+  narrativePhaseExecutionV6,
+} from './NarrativeModelProfilesV6';
 
 export interface NarrativeArcArchitectV6 {
   build(input: { route: NarrativeRouteBriefV6; dossiers: NarrativeDossierV6[] }): Promise<{
@@ -55,23 +57,20 @@ export function validateNarrativeArcV6(
   return { promise: root.promise.trim(), centralQuestion: root.centralQuestion.trim(), stops };
 }
 
-export function createDeepSeekNarrativeArcArchitectV6(options: {
-  apiKey?: string;
-  post?: EditorialPostV6;
-}): NarrativeArcArchitectV6 {
+export function createNarrativeArcArchitectV6(
+  options: NarrativeModelClientOptionsV6
+): NarrativeArcArchitectV6 {
   return {
     async build(input) {
       if (input.dossiers.some((dossier) => !dossier.sufficiency.isSufficient)) {
         throw new Error('arc cannot be built from an insufficient dossier');
       }
+      const execution = narrativePhaseExecutionV6(options, 'architect', undefined, 1);
       const result = await requestEditorialStructuredV6({
         callId: `narrative-v6-arc-${input.route.caseId}`,
         input,
-        provider: { kind: 'deepseek', model: DEEPSEEK_NARRATIVE_MODEL_V6 },
-        options: {
-          apiKey: options.apiKey, post: options.post, temperature: 0,
-          maxTokens: 4_000, requestAttempts: 1,
-        },
+        provider: execution.provider,
+        options: execution.options,
         systemPrompt: [
           'Construye la columna vertebral de una audioguía solo cuando todos los dossiers sean suficientes.',
           'Formula una promesa y pregunta central para el tour completo.',
@@ -105,3 +104,5 @@ export function createDeepSeekNarrativeArcArchitectV6(options: {
     },
   };
 }
+
+export const createDeepSeekNarrativeArcArchitectV6 = createNarrativeArcArchitectV6;

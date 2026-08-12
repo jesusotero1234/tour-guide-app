@@ -23,7 +23,10 @@ describe('narrative v6 editorial agents', () => {
       calls.push({ url, body });
       const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
       const args = toolName === 'write_narrative_stop_v6'
-        ? { text: 'Mira la fachada. Aquí comienza la historia del edificio.' }
+        ? {
+          stop_id: 'palace',
+          script: 'Mira la fachada. Aquí comienza la historia del edificio.',
+        }
         : { findings: [
           { sentenceId: 'palace-S001', classification: 'supported', reason: 'P1', propositionIds: [] },
           { sentenceId: 'palace-S002', classification: 'supported', reason: 'P1', propositionIds: [] },
@@ -42,6 +45,16 @@ describe('narrative v6 editorial agents', () => {
     await agents.audit({ script, dossier }, 'deepseek_pro');
 
     expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0, 0]);
+    expect(written.value).toEqual({
+      text: 'Mira la fachada. Aquí comienza la historia del edificio.',
+    });
+    expect(calls[0].body.tools).toEqual(expect.arrayContaining([
+      expect.objectContaining({ function: expect.objectContaining({
+        parameters: expect.objectContaining({ properties: expect.objectContaining({
+          stop_id: { type: 'string', const: 'palace' },
+        }) }),
+      }) }),
+    ]));
     expect(calls.map((call) => call.body.model)).toEqual([
       DEEPSEEK_NARRATIVE_MODEL_V6,
       DEEPSEEK_NARRATIVE_MODEL_V6,
