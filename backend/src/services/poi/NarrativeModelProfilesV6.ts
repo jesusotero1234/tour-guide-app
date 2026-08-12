@@ -168,7 +168,7 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openRouterFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
       auditor_a: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
-      auditor_b: { provider: geminiAudit, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: geminiAudit, reasoning: 'low', temperature: 0, maxTokens: 2_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
       repair: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       global_auditor: { provider: geminiGlobal, reasoning: 'low', maxTokens: 4_000 },

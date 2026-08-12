@@ -15,7 +15,7 @@
         {
           "referenceId": "S03-institutional",
           "url": "https://www.patrimonionacional.es/sites/default/files/2020-06/folleto_palacio_real_accesibilidad_para_pmr.pdf",
-          "literalAnchors": ["incendio, la Nochebuena de 1734", "la primera y fundamental fue la elección del lugar", "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad", "seis alturas donde menos, y ocho donde más", "toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas"]
+          "literalAnchors": ["incendio, la Nochebuena de 1734", "la primera y fundamental fue la elección del lugar", "un proyecto completamente nuevo de Sacchetti", "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad", "seis alturas donde menos, y ocho donde más", "toda la nueva estructura fuese de bóveda, sin más madera que la de puertas y ventanas"]
         }
       ],
       "facets": [
@@ -36,7 +36,10 @@
         {
           "facetId": "sacchetti-design", "hard": true,
           "allowedRoles": ["tension_or_contrast", "distinctive_trait"],
-          "humanEvidence": [{ "referenceId": "S03-institutional", "literalExcerpt": "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad" }],
+          "humanEvidence": [
+            { "referenceId": "S03-institutional", "literalExcerpt": "un proyecto completamente nuevo de Sacchetti" },
+            { "referenceId": "S03-institutional", "literalExcerpt": "horizontalidad hubo de convertirlo aquí Sacchetti en verticalidad" }
+          ],
           "conceptGroups": [["sacchetti"], ["proyecto nuevo", "nuevo diseño"], ["verticalidad", "concentró en altura", "concentración vertical"]],
           "contradictionPhrases": ["sacchetti fue un mero ejecutor", "sacchetti solo ejecutó el proyecto de juvarra"]
         },

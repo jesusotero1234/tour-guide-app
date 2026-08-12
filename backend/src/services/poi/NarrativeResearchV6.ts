@@ -406,6 +406,58 @@ function canonicalProposal(
   return { ...proposal, stopId, language, passages };
 }
 
+function attachRequiredFacetEvidence(
+  proposal: NarrativeDossierProposalV6,
+  packet: NarrativeCuratorPacketV6,
+  captures: NarrativeCapturedSourceV6[],
+  requirements: readonly NarrativeReferenceEvidenceRequirementV6[],
+  targets: readonly NarrativeCuratorFacetTargetV6[]
+): NarrativeDossierProposalV6 {
+  const passages = [...proposal.passages];
+  const propositions = proposal.propositions.map((item) => ({
+    ...item, sourceIds: [...item.sourceIds], passageIds: [...item.passageIds],
+  }));
+  const sources = [...proposal.sources];
+  for (const target of targets) {
+    const eligible = propositions.filter((item) => target.allowedRoles.includes(item.role));
+    const contributors = target.conceptGroups.map((aliases) => eligible.find((item) => (
+      aliases.some((alias) => searchText(item.text).includes(searchText(alias)))
+    )));
+    if (contributors.some((item) => item === undefined)) continue;
+    for (const [index, evidence] of target.humanEvidence.entries()) {
+      const requirement = requirements.find((item) => item.referenceId === evidence.referenceId);
+      const capture = requirement && captures.find((item) => (
+        item.requestedUrl === requirement.url || item.finalUrl === requirement.url
+      ));
+      const chunks = capture ? packet.chunks.filter((item) => (
+        item.sourceId === capture.sourceId && item.text.includes(evidence.literalExcerpt)
+      )) : [];
+      if (!capture || chunks.length !== 1) continue;
+      let passage = passages.find((item) => (
+        item.sourceId === capture.sourceId && item.quote.includes(evidence.literalExcerpt)
+      ));
+      if (!passage) {
+        let passageId = `required-${target.facetId}-${index + 1}`;
+        while (passages.some((item) => item.passageId === passageId)) passageId += '-anchor';
+        passage = {
+          passageId,
+          sourceId: capture.sourceId,
+          chunkId: chunks[0].chunkId,
+          quote: evidence.literalExcerpt,
+        };
+        passages.push(passage);
+      }
+      const contributor = contributors.find((item) => item !== undefined)!;
+      if (!contributor.sourceIds.includes(capture.sourceId)) contributor.sourceIds.push(capture.sourceId);
+      if (!contributor.passageIds.includes(passage.passageId)) {
+        contributor.passageIds.push(passage.passageId);
+      }
+      if (!sources.includes(capture.sourceId)) sources.push(capture.sourceId);
+    }
+  }
+  return { ...proposal, sources, passages, propositions };
+}
+
 function preDossierGapReasons(
   proposal: NarrativeDossierProposalV6,
   indicators: NarrativeCuratorIndicatorsV6,
@@ -712,6 +764,9 @@ export async function researchNarrativeStopV6(input: {
     const indicators = curatorIndicators(curated.proposal, curated.indicators);
     let proposal = canonicalProposal(
       curated.proposal, packet, input.stop.stopId, input.language
+    );
+    proposal = attachRequiredFacetEvidence(
+      proposal, packet, captures, requirements, facetTargets
     );
     const issues = materialIssues(proposal, indicators);
     const earlyGapReasons = preDossierGapReasons(proposal, indicators, captures);
@@ -1219,8 +1274,11 @@ export function createNarrativeResearchCuratorV6(
         schemaCharacterLimit: 20_000,
         validate: (value) => {
           const root = objectValue(value, 'curator response');
+          const proposal = validateProposal(root);
           return {
-            proposal: validateProposal(root),
+            proposal: canonicalProposal(
+              proposal, input.packet, input.stop.stopId, proposal.language
+            ),
             indicators: validateIndicators(root.indicators),
           };
         },
