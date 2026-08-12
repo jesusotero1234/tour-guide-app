@@ -64,6 +64,9 @@ describe('narrative v6 source boundary', () => {
 
     expect(results).toHaveLength(1);
     expect(posts[0].body).not.toHaveProperty('scrapeOptions');
+    expect(posts[0].body).toMatchObject({
+      excludeDomains: expect.arrayContaining(['facebook.com', 'instagram.com', 'youtube.com']),
+    });
     expect(posts[0].headers.Authorization).toBe('Bearer fc-test-secret');
     expect(posts[1]).toMatchObject({
       url: 'https://api.firecrawl.dev/v2/scrape',
@@ -99,6 +102,25 @@ describe('narrative v6 source boundary', () => {
     await expect(provider.search({ query: 'Palacio Real', limit: 5 })).resolves.toEqual([]);
     expect(post).toHaveBeenCalledTimes(3);
     expect(waits).toEqual([2_000, 4_000]);
+  });
+
+  it('turns site filters into Firecrawl includeDomains and reports exhausted quota', async () => {
+    const post = jest.fn()
+      .mockResolvedValueOnce({ data: { success: true, data: { web: [] } } })
+      .mockRejectedValueOnce({ response: { status: 402, headers: {} } });
+    const provider = new FirecrawlNarrativeSourceProviderV6({
+      apiKey: 'fc-test-secret', post,
+      lookup: async () => [{ address: '93.184.216.34', family: 4 }],
+    });
+
+    await provider.search({
+      query: 'Palacio Real vertical site:patrimonionacional.es', limit: 5,
+    });
+    expect(post.mock.calls[0][1]).toMatchObject({
+      includeDomains: ['patrimonionacional.es'],
+    });
+    await expect(provider.search({ query: 'otra búsqueda', limit: 5 }))
+      .rejects.toThrow('Firecrawl quota or payment required (HTTP 402)');
   });
 
   it('rejects malformed and excessive capture responses', async () => {

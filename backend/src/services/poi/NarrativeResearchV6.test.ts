@@ -140,6 +140,25 @@ describe('narrative v6 automatic research', () => {
     expect(result.captureErrors).toHaveLength(2);
   });
 
+  it('stops capture immediately when Firecrawl quota is exhausted', async () => {
+    const sourceProvider = provider();
+    const curatorCallsBefore = (curator.curate as jest.Mock).mock.calls.length;
+    sourceProvider.capture.mockRejectedValue(
+      new Error('Firecrawl quota or payment required (HTTP 402)')
+    );
+
+    const result = await researchNarrativeStopV6({
+      stop, language: 'es', sourceProvider, curator,
+    });
+
+    expect(result).toMatchObject({
+      status: 'source_capture_failed',
+      reason: 'Firecrawl quota or payment required (HTTP 402)',
+    });
+    expect(sourceProvider.capture).toHaveBeenCalledTimes(1);
+    expect((curator.curate as jest.Mock).mock.calls).toHaveLength(curatorCallsBefore);
+  });
+
   it('rejects an invalid four-query plan before calling the source provider', async () => {
     const sourceProvider = provider();
     const result = await researchNarrativeStopV6({

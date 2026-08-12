@@ -59,6 +59,10 @@ export type NarrativeSourceWaitV6 = (milliseconds: number) => Promise<void>;
 
 const DEFAULT_FIRECRAWL_BASE_URL_V6 = 'https://api.firecrawl.dev/v2';
 const MAX_CAPTURE_CHARACTERS_V6 = 1_000_000;
+const FIRECRAWL_EXCLUDED_SEARCH_DOMAINS_V6 = [
+  'facebook.com', 'instagram.com', 'tiktok.com', 'youtube.com', 'youtu.be',
+  'pinterest.com', 'x.com', 'twitter.com',
+];
 
 const defaultLookup: NarrativeDnsLookupV6 = async (hostname) => (
   dnsLookup(hostname, { all: true })
@@ -91,6 +95,10 @@ function firecrawlRateLimitDelay(error: unknown, retry: number): number | null {
     return Math.min(retryAfterSeconds * 1_000, 60_000);
   }
   return Math.min(2 ** retry * 1_000, 30_000);
+}
+
+function firecrawlHttpStatus(error: unknown): number | undefined {
+  return (error as { response?: { status?: number } })?.response?.status;
 }
 
 function objectValue(value: unknown, label: string): Record<string, unknown> {
@@ -320,6 +328,9 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
       try {
         return await this.post(url, body, this.headers());
       } catch (error) {
+        if (firecrawlHttpStatus(error) === 402) {
+          throw new Error('Firecrawl quota or payment required (HTTP 402)');
+        }
         const delay = firecrawlRateLimitDelay(error, retry);
         if (delay === null || retry === 6) throw error;
         await this.wait(delay);
@@ -335,8 +346,13 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     if (!Number.isInteger(limit) || limit < 1 || limit > 20) {
       throw new Error('narrative search limit must be between 1 and 20');
     }
+    const includeDomains = [...new Set(
+      [...query.toLowerCase().matchAll(/\bsite:([a-z0-9.-]+)/g)].map((match) => match[1])
+    )];
     const response = await this.request(`${this.baseUrl}/search`, {
       query, limit, country: 'ES', ignoreInvalidURLs: true,
+      ...(includeDomains.length > 0 ? { includeDomains } : {}),
+      excludeDomains: FIRECRAWL_EXCLUDED_SEARCH_DOMAINS_V6,
     });
     const root = objectValue(response.data, 'Firecrawl search response');
     if (root.success !== true) throw new Error('Firecrawl search was not successful');

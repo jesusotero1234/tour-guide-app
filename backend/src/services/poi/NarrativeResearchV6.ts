@@ -257,6 +257,7 @@ export async function researchNarrativeStopV6(input: {
   ));
   const captures: NarrativeCapturedSourceV6[] = [];
   const captureErrors: Array<{ url: string; error: string }> = [];
+  let fatalCaptureReason: string | undefined;
   for (const result of ranked) {
     if (captures.length >= 8) break;
     try {
@@ -265,16 +266,24 @@ export async function researchNarrativeStopV6(input: {
         captures.push(capture);
       }
     } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
       captureErrors.push({
         url: result.url,
-        error: error instanceof Error ? error.message : String(error),
+        error: reason,
       });
+      if (reason === 'Firecrawl quota or payment required (HTTP 402)') {
+        fatalCaptureReason = reason;
+        break;
+      }
     }
   }
   const common = {
     ...baseResult(input.stop.stopId, searchResults, captures, captureErrors),
     searchDiagnostic,
   };
+  if (fatalCaptureReason) {
+    return { ...common, status: 'source_capture_failed', reason: fatalCaptureReason };
+  }
   if (captures.length === 0) {
     return { ...common, status: 'source_capture_failed', reason: 'no source page could be captured' };
   }
