@@ -1123,7 +1123,7 @@ export function createNarrativeResearchCuratorV6(
   }));
   return {
     async curate(input) {
-      const execution = narrativePhaseExecutionV6(options, 'curator', input.stop.stopId, 1);
+      const execution = narrativePhaseExecutionV6(options, 'curator', input.stop.stopId, 2);
       const result = await requestEditorialStructuredV6({
         callId: `narrative-v6-curator-${input.stop.stopId}`,
         input: {
