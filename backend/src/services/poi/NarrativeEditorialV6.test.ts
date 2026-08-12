@@ -91,11 +91,14 @@ describe('narrative v6 editorial protocol', () => {
       assignNarrativeSentenceIdsV6(
         'cibeles',
         'Fue Carlos III quien llegó. Entonces José Rodríguez Losada respondió. '
-          + 'La noche terminó en Navidad junto a la Fuente de Cibeles.'
+          + 'La noche terminó en Navidad junto a la Fuente de Cibeles. '
+          + 'Después visitamos el Palacio Real de Madrid.'
       ),
       {
         language: 'es',
-        authorizedNames: ['Carlos III', 'José Rodríguez Losada', 'Cibeles'],
+        authorizedNames: [
+          'Carlos III', 'José Rodríguez Losada', 'Cibeles', 'Palacio Real', 'Madrid',
+        ],
         authorizedNumbers: [],
       }
     );

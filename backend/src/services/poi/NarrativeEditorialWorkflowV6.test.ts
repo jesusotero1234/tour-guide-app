@@ -163,6 +163,49 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.run.status).toBe('ready_for_human_gate');
   });
 
+  it('adjudicates global issues locally and reruns factual and tour audits', async () => {
+    const fake = agents();
+    fake.audit = jest.fn(async (input, auditor) => {
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported' as const,
+          reason: 'Respaldada.',
+          propositionIds: ['P1'],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+    fake.repair = jest.fn(async (input) => {
+      const value = { replacements: [{
+        sentenceId: input.objections[0].sentenceId,
+        text: 'Mira las torres del Alcázar desde la plaza.',
+      }] };
+      return { value, diagnostic: diagnostic('global-repair', value) };
+    });
+    let tourAudits = 0;
+    fake.auditTour = jest.fn(async () => {
+      tourAudits += 1;
+      const value = {
+        issues: tourAudits === 1 ? [{
+          issueId: 'alcazar-S001-global', stopId: 'alcazar', sentenceId: 'alcazar-S001',
+          severity: 'soft' as const, reason: 'La transición sitúa mal el edificio.',
+        }] : [],
+        progressionWorks: true, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic(`tour-audit-${tourAudits}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(result.stops[0].finalScript.sentences[0].text)
+      .toBe('Mira las torres del Alcázar desde la plaza.');
+    expect(fake.auditTour).toHaveBeenCalledTimes(2);
+    expect(fake.audit).toHaveBeenCalledTimes(4);
+  });
+
   it('authorizes route and arc names used only to connect neighboring stops', async () => {
     const fake = agents();
     fake.write.mockImplementation(async () => {

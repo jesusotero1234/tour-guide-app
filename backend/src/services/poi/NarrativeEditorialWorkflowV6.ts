@@ -100,6 +100,26 @@ function hardAuditIssueIds(reports: NarrativeAuditReportV6[]): string[] {
   return buildNarrativeAuditObjectionsV6(reports).map((objection) => objection.objectionId);
 }
 
+function deterministicWarnings(
+  input: NarrativeEditorialWorkflowInputV6,
+  dossier: NarrativeDossierV6,
+  script: NarrativeScriptV6
+): NarrativeProtocolWarningV6[] {
+  return auditNarrativeScriptDeterministicallyV6(script, {
+    language: input.route.language,
+    authorizedNames: [
+      ...dossier.authorizedNames,
+      input.route.city,
+      input.route.country,
+      ...input.route.stops.map((routeStop) => routeStop.name),
+      input.arc.promise,
+      input.arc.centralQuestion,
+      ...input.arc.stops.flatMap((arcStop) => [arcStop.contribution, arcStop.bridge ?? '']),
+    ],
+    authorizedNumbers: dossier.authorizedNumbers,
+  });
+}
+
 export async function runNarrativeEditorialWorkflowV6(
   input: NarrativeEditorialWorkflowInputV6,
   agents: NarrativeEditorialAgentsV6
@@ -201,34 +221,91 @@ export async function runNarrativeEditorialWorkflowV6(
             .filter((objectionId) => !rejectedIds.has(objectionId)));
         }
       }
-      const warnings = auditNarrativeScriptDeterministicallyV6(finalScript, {
-        language: input.route.language,
-        authorizedNames: [
-          ...dossier.authorizedNames,
-          input.route.city,
-          input.route.country,
-          ...input.route.stops.map((routeStop) => routeStop.name),
-          input.arc.promise,
-          input.arc.centralQuestion,
-          ...input.arc.stops.flatMap((arcStop) => [arcStop.contribution, arcStop.bridge ?? '']),
-        ],
-        authorizedNumbers: dossier.authorizedNumbers,
-      });
-      openIssueIds.push(...warnings.filter((warning) => warning.severity === 'hard')
-        .map((warning) => warning.warningId));
+      const warnings = deterministicWarnings(input, dossier, finalScript);
       records.push({
         stopId: stop.stopId, initialScript, finalScript, audits, objections,
         adjudications, repairRoundUsed, warnings,
       });
     }
 
-    const scripts = records.map((record) => record.finalScript);
-    const repetitionWarnings = narrativeRepetitionWarningsV6(scripts);
-    const tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
+    let scripts = records.map((record) => record.finalScript);
+    let tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
     metrics.push(metric(tourAuditResult.diagnostic));
     privateDiagnostics.push(tourAuditResult.diagnostic);
+    const rejectedTourIssueIds = new Set<string>();
+    let globalRepairUsed = false;
+    const tourIssues = tourAuditResult.value.issues;
+    for (const stopId of [...new Set(tourIssues.map((issue) => issue.stopId))]) {
+      const record = records.find((item) => item.stopId === stopId);
+      const dossier = dossierByStop.get(stopId);
+      if (!record || !dossier) throw new Error(`tour audit references unknown stop ${stopId}`);
+      const issues = tourIssues.filter((issue) => issue.stopId === stopId);
+      const objections: NarrativeAuditObjectionV6[] = issues.map((issue) => ({
+        objectionId: `tour:${issue.issueId}`,
+        auditor: 'deepseek',
+        sentenceId: issue.sentenceId,
+        classification: issue.severity === 'hard' ? 'distorted' : 'unclear',
+        reason: issue.reason,
+        propositionIds: [],
+      }));
+      const adjudicated = await agents.adjudicate({
+        script: record.finalScript, dossier, objections,
+      });
+      metrics.push(metric(adjudicated.diagnostic));
+      privateDiagnostics.push(adjudicated.diagnostic);
+      record.objections.push(...objections);
+      record.adjudications.push(...adjudicated.value);
+      for (const issue of issues) {
+        if (adjudicated.value.some((item) => (
+          item.objectionId === `tour:${issue.issueId}` && item.decision === 'rejected'
+        ))) rejectedTourIssueIds.add(issue.issueId);
+      }
+      const accepted = objections.filter((objection) => adjudicated.value.some((item) => (
+        item.objectionId === objection.objectionId && item.decision === 'accepted'
+      )));
+      if (accepted.length === 0) continue;
+      const repaired = await agents.repair({
+        script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
+      });
+      metrics.push(metric(repaired.diagnostic));
+      privateDiagnostics.push(repaired.diagnostic);
+      record.finalScript = applyNarrativeLocalPatchV6(
+        record.finalScript,
+        [...new Set(accepted.map((objection) => objection.sentenceId))],
+        repaired.value
+      );
+      record.repairRoundUsed = true;
+      globalRepairUsed = true;
+      const factualAudits = await Promise.all([
+        agents.audit({ script: record.finalScript, dossier }, 'deepseek'),
+        agents.audit({ script: record.finalScript, dossier }, 'gemma'),
+      ]);
+      metrics.push(...factualAudits.map((result) => metric(result.diagnostic)));
+      privateDiagnostics.push(...factualAudits.map((result) => result.diagnostic));
+      record.audits.push(...factualAudits.map((result) => result.value));
+      const factualObjections = buildNarrativeAuditObjectionsV6(
+        factualAudits.map((result) => result.value)
+      );
+      record.objections.push(...factualObjections);
+      openIssueIds.push(...factualObjections.map((objection) => objection.objectionId));
+    }
+    if (globalRepairUsed) {
+      scripts = records.map((record) => record.finalScript);
+      tourAuditResult = await agents.auditTour({ promise: input.arc.promise, scripts });
+      metrics.push(metric(tourAuditResult.diagnostic));
+      privateDiagnostics.push(tourAuditResult.diagnostic);
+    }
     openIssueIds.push(...tourAuditResult.value.issues
-      .filter((issue) => issue.severity === 'hard').map((issue) => issue.issueId));
+      .filter((issue) => issue.severity === 'hard' && !rejectedTourIssueIds.has(issue.issueId))
+      .map((issue) => issue.issueId));
+    for (const record of records) {
+      record.warnings = deterministicWarnings(
+        input, dossierByStop.get(record.stopId) as NarrativeDossierV6, record.finalScript
+      );
+      openIssueIds.push(...record.warnings.filter((warning) => warning.severity === 'hard')
+        .map((warning) => warning.warningId));
+    }
+    const repetitionWarnings = narrativeRepetitionWarningsV6(scripts);
     const warnings = [...records.flatMap((record) => record.warnings), ...repetitionWarnings];
     const tourFingerprint = narrativeTourFingerprintV6({
       routeFingerprint: input.route.fingerprint,

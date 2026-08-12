@@ -231,13 +231,20 @@ export function auditNarrativeScriptDeterministicallyV6(
     while (candidateWords.length > 1 && commonSentenceStarts.has(candidateWords[0])) {
       candidateWords.shift();
     }
-    if (candidateWords.length > 1 && genericNamePrefixes.has(candidateWords[0])) {
+    if (candidateWords.length > 2 && genericNamePrefixes.has(candidateWords[0])
+      && nameConnectors.has(candidateWords[1])) {
       candidateWords.shift();
       while (candidateWords.length > 1 && nameConnectors.has(candidateWords[0])) {
         candidateWords.shift();
       }
     }
     const normalizedCandidate = candidateWords.join(' ');
+    const lastConnector = Math.max(
+      candidateWords.lastIndexOf('de'), candidateWords.lastIndexOf('del')
+    );
+    const authorizedComposite = lastConnector > 0 && lastConnector < candidateWords.length - 1
+      && authorizedNameText.includes(candidateWords.slice(0, lastConnector).join(' '))
+      && authorizedNameText.includes(candidateWords.slice(lastConnector + 1).join(' '));
     const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
     const previousWord = normalizedWords(prefix.match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
     if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
@@ -245,7 +252,7 @@ export function auditNarrativeScriptDeterministicallyV6(
       || (atSentenceStart && !normalizedCandidate.includes(' '))
       || (candidateWords.length === 1 && singleNamePrepositions.has(previousWord))
       || checkedNames.has(normalizedCandidate)
-      || authorizedNameText.includes(normalizedCandidate)) continue;
+      || authorizedNameText.includes(normalizedCandidate) || authorizedComposite) continue;
     checkedNames.add(normalizedCandidate);
     warnings.push({
       warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}`, stopId: script.stopId,
