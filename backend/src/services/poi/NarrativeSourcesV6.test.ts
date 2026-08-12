@@ -4,6 +4,7 @@ import {
   applyNarrativeAuthorityCeilingV6,
   assertSafeNarrativeUrlV6,
   classifyNarrativeSourceAuthorityV6,
+  narrativePrimaryAuthorityDomainsV6,
   narrativeSourcesAreIndependentV6,
 } from './NarrativeSourcesV6';
 
@@ -127,6 +128,17 @@ describe('narrative v6 source boundary', () => {
     expect(applyNarrativeAuthorityCeilingV6(blog, 'primary_authority')).toBe('discovery_only');
     expect(narrativeSourcesAreIndependentV6([official, samePublisher])).toBe(false);
     expect(narrativeSourcesAreIndependentV6([official, blog])).toBe(true);
+  });
+
+  it('provides deterministic authority domains for Madrid and Toledo research', () => {
+    expect(narrativePrimaryAuthorityDomainsV6('Madrid')).toEqual(expect.arrayContaining([
+      'madrid.es', 'patrimonionacional.es', 'museodelprado.es',
+    ]));
+    expect(narrativePrimaryAuthorityDomainsV6('Toledo')).toEqual(expect.arrayContaining([
+      'toledo.es', 'cultura.gob.es', 'castillalamancha.es',
+    ]));
+    expect(narrativePrimaryAuthorityDomainsV6('Madrid'))
+      .not.toContain('patrimonionacional.gob.es');
   });
 
   it('pins Wikimedia captures to an exact revision and timestamp', async () => {

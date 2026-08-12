@@ -20,6 +20,7 @@ import {
   NarrativeSourceProviderV6,
   NarrativeSourceSearchResultV6,
   classifyNarrativeSourceAuthorityV6,
+  narrativePrimaryAuthorityDomainsV6,
 } from './NarrativeSourcesV6';
 import { DEEPSEEK_NARRATIVE_MODEL_V6 } from './NarrativeEditorialAgentsV6';
 
@@ -101,7 +102,7 @@ function distinctiveRoleTerms(stop: NarrativeRouteStopV6): string[] {
 function validateSearchQueries(
   queries: string[],
   stop?: NarrativeRouteStopV6,
-  requireAuthoritySites = false
+  authorityDomains: string[] = []
 ): string[] {
   const normalized = queries.map((query) => query.trim());
   if (normalized.length !== 4 || new Set(normalized).size !== 4
@@ -118,8 +119,14 @@ function validateSearchQueries(
   const authoritySites = new Set(normalized.flatMap((query) => (
     [...query.toLowerCase().matchAll(/\bsite:([a-z0-9.-]+)/g)].map((match) => match[1])
   )));
-  if (requireAuthoritySites && authoritySites.size < 2) {
+  if (authorityDomains.length > 0 && authoritySites.size < 2) {
     throw new Error('narrative research queries require two distinct authority site filters');
+  }
+  const registeredSites = [...authoritySites].filter((site) => authorityDomains.some((domain) => (
+    site === domain || site.endsWith(`.${domain}`)
+  )));
+  if (authorityDomains.length > 0 && registeredSites.length !== authoritySites.size) {
+    throw new Error('narrative research site filters must use registered authority domains');
   }
   return normalized;
 }
@@ -220,7 +227,11 @@ export async function researchNarrativeStopV6(input: {
         stop: input.stop, city: input.city, language: input.language,
       })
       : { queries: searchQueries(input.stop) };
-    const queries = validateSearchQueries(planned.queries, input.stop, Boolean(input.searchPlanner));
+    const queries = validateSearchQueries(
+      planned.queries,
+      input.stop,
+      input.searchPlanner ? narrativePrimaryAuthorityDomainsV6(input.city) : []
+    );
     plannedQueries = queries;
     searchDiagnostic = planned.diagnostic;
     const batches = [];
@@ -374,9 +385,10 @@ export function createDeepSeekNarrativeSearchPlannerV6(options: {
 }): NarrativeSearchPlannerV6 {
   return {
     async plan(input) {
+      const authorityDomains = narrativePrimaryAuthorityDomainsV6(input.city);
       const result = await requestEditorialStructuredV6({
         callId: `narrative-v6-search-plan-${input.stop.stopId}`,
-        input,
+        input: { ...input, authorityDomains },
         provider: { kind: 'deepseek', model: DEEPSEEK_NARRATIVE_MODEL_V6 },
         options: {
           apiKey: options.apiKey, post: options.post, temperature: 0,
@@ -390,6 +402,7 @@ export function createDeepSeekNarrativeSearchPlannerV6(options: {
           'Consulta 2: copia los términos distintivos de narrativeRole e incluye posibles arquitectos,',
           'agentes, proyectos o decisiones como hipótesis de búsqueda.',
           'Consulta 2 debe usar site: con otro dominio institucional independiente.',
+          'Usa para ambos filtros únicamente dominios exactos de authorityDomains incluidos en los datos.',
           'Consulta 3: publicación académica o DOI con los nombres históricos más discriminantes.',
           'Consulta 4: función vivida, contraste, leyendas o controversias que deban limitarse.',
           'Usa el nombre completo y la ciudad. No sustituyas narrativeRole por temas turísticos genéricos.',
@@ -414,7 +427,7 @@ export function createDeepSeekNarrativeSearchPlannerV6(options: {
           const root = objectValue(value, 'search planner response');
           return {
             queries: validateSearchQueries(
-              stringArray(root.queries, 'search queries'), input.stop, true
+              stringArray(root.queries, 'search queries'), input.stop, authorityDomains
             ),
           };
         },

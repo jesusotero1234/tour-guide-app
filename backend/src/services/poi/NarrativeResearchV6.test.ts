@@ -186,6 +186,23 @@ describe('narrative v6 automatic research', () => {
     expect(sourceProvider.search).not.toHaveBeenCalled();
   });
 
+  it('rejects invented site filters outside the deterministic authority registry', async () => {
+    const sourceProvider = provider();
+    const result = await researchNarrativeStopV6({
+      stop, city: 'Toledo', language: 'es', sourceProvider, curator,
+      searchPlanner: { plan: async () => ({ queries: [
+        'Alcázar de Toledo conflicto site:toledo.es',
+        'Alcázar de Toledo transformación site:patrimonio-toledo.gob.es',
+        'Alcázar de Toledo estudio académico',
+        'Alcázar de Toledo función controversia',
+      ] }) },
+    });
+
+    expect(result.status).toBe('source_capture_failed');
+    expect(result.reason).toContain('registered authority domains');
+    expect(sourceProvider.search).not.toHaveBeenCalled();
+  });
+
   it('turns an unknown curator chunk into protocol_failed', async () => {
     const invalid: NarrativeResearchCuratorV6 = {
       curate: async () => ({

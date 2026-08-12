@@ -183,6 +183,24 @@ const PRIMARY_PUBLISHERS_V6 = [
   'madrid.org',
 ] as const;
 
+const CITY_PRIMARY_PUBLISHERS_V6: Record<string, readonly string[]> = {
+  madrid: [
+    'madrid.es', 'patrimonionacional.es', 'museodelprado.es', 'esmadrid.com',
+    'memoriademadrid.es', 'comunidad.madrid', 'galeriadelascoleccionesreales.es',
+    'academiacolecciones.com', 'archimadrid.org', 'catedraldelaalmudena.es',
+  ],
+  toledo: [
+    'toledo.es', 'cultura.gob.es', 'castillalamancha.es', 'defensa.gob.es',
+  ],
+};
+
+export function narrativePrimaryAuthorityDomainsV6(city?: string): string[] {
+  const key = city?.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
+  return [...(key && CITY_PRIMARY_PUBLISHERS_V6[key]
+    ? CITY_PRIMARY_PUBLISHERS_V6[key]
+    : PRIMARY_PUBLISHERS_V6)];
+}
+
 const SCHOLARLY_PUBLISHERS_V6 = [
   'dialnet.unirioja.es',
   'revistas.csic.es',
