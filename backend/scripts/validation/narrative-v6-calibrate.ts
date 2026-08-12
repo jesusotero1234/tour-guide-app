@@ -125,10 +125,10 @@ class CalibrationSpendGuardV6 {
 
   constructor() {
     if (!Number.isFinite(this.historicalSpendUsd)
-      || this.historicalSpendUsd < NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6
+      || this.historicalSpendUsd < 0
       || this.historicalSpendUsd > CALIBRATION_SPEND_LIMIT_USD) {
       throw new Error(
-        `--prior-spend-usd must be between ${NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6} and ${CALIBRATION_SPEND_LIMIT_USD}`
+        `--prior-spend-usd must be between 0 and ${CALIBRATION_SPEND_LIMIT_USD}`
       );
     }
     this.ledger = new NarrativeSpendLedgerV6({
