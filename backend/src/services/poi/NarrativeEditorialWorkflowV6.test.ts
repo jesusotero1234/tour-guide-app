@@ -142,15 +142,61 @@ describe('narrative v6 editorial workflow', () => {
     const supplied = assignNarrativeSentenceIdsV6(
       'alcazar', 'Mira las torres del Alcázar. El edificio atravesó etapas de conflicto.'
     );
-
     const result = await runNarrativeEditorialWorkflowV6(base, fake, {
       scripts: [supplied], auditStopIds: [], maximumAdditionalRepairs: 1,
     });
 
-    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(result.run).toMatchObject({ status: 'ready_for_human_gate' });
     expect(fake.write).not.toHaveBeenCalled();
     expect(fake.audit).not.toHaveBeenCalled();
     expect(result.stops[0].finalScript.text).toBe(supplied.text);
+  });
+
+  it('repairs an accepted global issue on an explicitly repairable resumed stop', async () => {
+    const fake = agents();
+    const supplied = assignNarrativeSentenceIdsV6(
+      'alcazar', 'Mira las torres del Alcázar. El edificio atravesó etapas de conflicto.'
+    );
+    fake.audit = jest.fn(async (input, auditor) => {
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId, classification: 'supported' as const,
+          reason: 'Respaldada.', propositionIds: ['P1'],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+    fake.repair = jest.fn(async (input) => {
+      const value = { replacements: [{
+        sentenceId: input.objections[0].sentenceId,
+        text: 'Observa cómo las torres ordenan la silueta del edificio.',
+      }] };
+      return { value, diagnostic: diagnostic('global-repair', value) };
+    });
+    let tourAudits = 0;
+    fake.auditTour = jest.fn(async () => {
+      tourAudits += 1;
+      const value = {
+        issues: tourAudits === 1 ? [{
+          issueId: 'repetition', stopId: 'alcazar', sentenceId: 'alcazar-S001',
+          severity: 'soft' as const, reason: 'Repite la observación anterior.',
+        }] : [],
+        progressionWorks: true, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic(`tour-audit-${tourAudits}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake, {
+      scripts: [supplied], auditStopIds: [], repairStopIds: ['alcazar'],
+      maximumAdditionalRepairs: 1,
+    });
+
+    expect(result.run).toEqual(expect.objectContaining({ status: 'ready_for_human_gate' }));
+    expect(fake.write).not.toHaveBeenCalled();
+    expect(fake.audit).toHaveBeenCalledTimes(2);
+    expect(fake.repair).toHaveBeenCalledWith(expect.objectContaining({ scope: 'tour' }), expect.any(Object));
+    expect(fake.auditTour).toHaveBeenCalledTimes(2);
   });
 
   it('requires draft review when a hard issue remains after the single repair round', async () => {

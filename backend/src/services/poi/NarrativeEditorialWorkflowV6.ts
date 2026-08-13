@@ -122,6 +122,7 @@ export interface NarrativeEditorialWorkflowOptionsV6 {
   onProgress?: EditorialProgressCallbackV6;
   scripts?: NarrativeScriptV6[];
   auditStopIds?: string[];
+  repairStopIds?: string[];
   maximumAdditionalRepairs?: number;
 }
 
@@ -307,6 +308,9 @@ export async function runNarrativeEditorialWorkflowV6(
   let performance: NarrativeWorkflowPerformanceV6 | null = null;
   const suppliedScripts = new Map((options.scripts ?? []).map((script) => [script.stopId, script]));
   const auditStopIds = options.auditStopIds ? new Set(options.auditStopIds) : undefined;
+  const repairStopIds = options.repairStopIds
+    ? new Set(options.repairStopIds)
+    : auditStopIds;
   let remainingRepairs = options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY;
   const consumeRepair = (): boolean => {
     if (remainingRepairs <= 0) return false;
@@ -550,7 +554,7 @@ export async function runNarrativeEditorialWorkflowV6(
         item.objectionId === objection.objectionId && item.decision === 'accepted'
       )));
       if (accepted.length === 0) continue;
-      if ((auditStopIds && !auditStopIds.has(stopId)) || !consumeRepair()) continue;
+      if ((repairStopIds && !repairStopIds.has(stopId)) || !consumeRepair()) continue;
       const repaired = await scheduler.write(() => agents.repair({
         script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
         scope: 'tour',

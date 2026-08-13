@@ -89,6 +89,7 @@ describe('narrative v6 editorial agents', () => {
     const auditPrompt = ((calls[1].body.messages as Array<{ content: string }>)[0].content);
     expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
     expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
+    expect(auditPrompt).toContain('no necesitan respaldo explícito del dossier');
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
     expect(DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6).toBe('deepseek-v4-pro');
   });
@@ -297,7 +298,63 @@ describe('narrative v6 editorial agents', () => {
     expect(adjudicationPrompt).toContain('aunque no exista un error factual');
   });
 
-  it('enforces the weighted scorecard thresholds and sentence citations', async () => {
+  it('does not turn unsupported visitor actions into factual objections', async () => {
+    let adjudicationPrompt = '';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      adjudicationPrompt = (body.messages as Array<{ content: string }>)[0].content;
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'adjudicate_narrative_objections_v6',
+        arguments: JSON.stringify({ adjudications: [{
+          objectionId: 'deepseek:palace-S001:unclear', decision: 'rejected',
+          reason: 'Es una instrucción de observación, no una afirmación factual.',
+        }] }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace', 'Compara por un momento las dos fachadas.'
+    );
+
+    const result = await agents.adjudicate({
+      script,
+      dossier,
+      scope: 'factual',
+      objections: [{
+        objectionId: 'deepseek:palace-S001:unclear', auditor: 'deepseek',
+        sentenceId: 'palace-S001', classification: 'unclear',
+        reason: 'La acción del visitante no figura en el dossier.', propositionIds: [],
+      }],
+    });
+
+    expect(result.value[0].decision).toBe('rejected');
+    expect(adjudicationPrompt).toContain('su único motivo es que una transición');
+    expect(adjudicationPrompt).toContain('No rebajes el control de hechos');
+  });
+
+  it('limits global issues to material publication blockers', async () => {
+    let auditPrompt = '';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      auditPrompt = (body.messages as Array<{ content: string }>)[0].content;
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'audit_narrative_tour_v6',
+        arguments: JSON.stringify({
+          issues: [], progressionWorks: true, promiseDelivered: true, closingWorks: true,
+        }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+
+    await agents.auditTour({
+      promise: 'Comprender Madrid',
+      scripts: [assignNarrativeSentenceIdsV6('palace', 'Mira la fachada del palacio.')],
+    });
+
+    expect(auditPrompt).toContain('solo defectos materiales');
+    expect(auditPrompt).toContain('el pulido opcional no es un issue');
+    expect(auditPrompt).toContain('identificaciones necesarias al llegar');
+  });
+
+  it('derives approval from discrete publishable grades and sentence citations', async () => {
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
       const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
       const dimensions = Object.fromEntries([
@@ -309,7 +366,7 @@ describe('narrative v6 editorial agents', () => {
       }]));
       return { data: { choices: [{ message: { tool_calls: [{ function: {
         name: toolName,
-        arguments: JSON.stringify({ decision: 'Approve', dimensions, objections: [] }),
+        arguments: JSON.stringify({ dimensions, polishNotes: [], objections: [] }),
       } }] } }] } };
     });
     const script = assignNarrativeSentenceIdsV6('palace', 'Mira la fachada del palacio.');
@@ -319,7 +376,9 @@ describe('narrative v6 editorial agents', () => {
       { promise: 'Comprender Madrid', scripts: [script], dossiers: [dossier] }
     );
 
-    expect(result.value).toMatchObject({ decision: 'Approve', weightedScore: 8.5 });
+    expect(result.value).toMatchObject({
+      decision: 'Approve', overallBand: 'Good', weightedScore: 8.5,
+    });
     expect(result.value.dimensions.accuracyGrounding.sentenceIds).toEqual(['palace-S001']);
   });
 });

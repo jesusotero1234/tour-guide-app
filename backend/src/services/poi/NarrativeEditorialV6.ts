@@ -214,7 +214,7 @@ export function auditNarrativeScriptDeterministicallyV6(
   );
   const commonSentenceStarts = new Set([
     'ahora', 'aqui', 'alli', 'aunque', 'ambos', 'asi', 'aun', 'cuando', 'comenzo',
-    'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
+    'comparala', 'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
     'ese', 'esa', 'fijate', 'fijese', 'fue', 'hemos', 'hoy', 'la', 'las', 'llegamos',
     'lo', 'los', 'luego', 'mira', 'mirale', 'mientras', 'no', 'nos', 'observa',
     'observe', 'originariamente', 'pero', 'si', 'sigueme', 'sin', 'su', 'tal',

@@ -30,6 +30,10 @@ import {
   createNarrativeEditorialAgentsV6,
   reviewNarrativeTourScorecardV6,
 } from '../../src/services/poi/NarrativeEditorialAgentsV6';
+import {
+  renderBlockedNarrativeScorecardMarkdownV6,
+  renderNarrativeScorecardMarkdownV6,
+} from '../../src/services/poi/NarrativeMarkdownV6';
 import { NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6 } from '../../src/services/poi/NarrativeBenchmarkV6';
 import {
   NarrativeSpendLedgerV6,
@@ -380,76 +384,6 @@ async function gateA(
   } else if (gate.status !== 'passed') process.exitCode = 1;
 }
 
-function scorecardMarkdown(scorecard: Awaited<ReturnType<
-  typeof reviewNarrativeTourScorecardV6
->>['value']): string {
-  const labels = {
-    accuracyGrounding: 'Exactitud y grounding',
-    narrativeArcTransitions: 'Arco narrativo y transiciones',
-    oralClarityRhythm: 'Claridad oral y ritmo',
-    placeObservationSafety: 'Observación del lugar y seguridad',
-    styleRepetitionClosing: 'Estilo, repetición y cierre',
-  } as const;
-  const dimensionRows = Object.entries(labels).map(([key, label]) => {
-    const dimension = scorecard.dimensions[key as keyof typeof labels];
-    return `| ${label} | ${dimension.score.toFixed(1)} | ${dimension.sentenceIds.join(', ')} |`;
-  });
-  const dimensionDetails = Object.entries(labels).flatMap(([key, label]) => {
-    const dimension = scorecard.dimensions[key as keyof typeof labels];
-    return [`### ${label}`, '', dimension.rationale, ''];
-  });
-  return [
-    '# Scorecard editorial — tour de Madrid',
-    '',
-    `> **Decisión:** ${scorecard.decision}`,
-    `> **Media ponderada:** ${scorecard.weightedScore.toFixed(2)}`,
-    '',
-    '| Dimensión | Nota | Frases citadas |',
-    '| --- | ---: | --- |',
-    ...dimensionRows,
-    '',
-    '## Justificación por dimensión',
-    '',
-    ...dimensionDetails,
-    '## Objeciones',
-    '',
-    ...(scorecard.objections.length === 0
-      ? ['Ninguna.']
-      : scorecard.objections.flatMap((objection) => [
-        `- **${objection.sentenceId}:** ${objection.exactSentence}`,
-        `  - Evidencia: ${objection.evidence}`,
-        `  - Reemplazo mínimo: ${objection.minimalReplacement}`,
-      ])),
-    '',
-  ].join('\n');
-}
-
-function blockedScorecardMarkdown(input: {
-  workflowStatus: string;
-  hardWarningCount: number;
-  globalIssueCount: number;
-  openIssueIds: string[];
-}): string {
-  return [
-    '# Scorecard editorial — tour de Madrid',
-    '',
-    '> **Decisión:** Request changes',
-    '> **Revisor LLM:** no ejecutado; fallaron condiciones automáticas obligatorias.',
-    '',
-    `- Estado del workflow: \`${input.workflowStatus}\``,
-    `- Warnings duros: ${input.hardWarningCount}`,
-    `- Issues globales pendientes: ${input.globalIssueCount}`,
-    `- Issues abiertos: ${input.openIssueIds.length}`,
-    '',
-    '## Issues abiertos',
-    '',
-    ...(input.openIssueIds.length === 0
-      ? ['Ninguno.']
-      : input.openIssueIds.map((issueId) => `- \`${issueId}\``)),
-    '',
-  ].join('\n');
-}
-
 async function resumeReviewGateA(
   paths: CalibrationOutputPathsV6,
   signal: AbortSignal,
@@ -521,6 +455,7 @@ async function resumeReviewGateA(
     }),
     scripts: prepared.scripts,
     auditStopIds: prepared.auditedStopIds,
+    repairStopIds: MADRID_RESUME_REVIEW_STOP_IDS_V6,
     maximumAdditionalRepairs: 1,
   });
   throwIfAborted(signal);
@@ -622,8 +557,9 @@ async function resumeReviewGateA(
   writeFileSync(appliedPatchPath, `${JSON.stringify(patch, null, 2)}\n`);
   writeFileSync(paths.publicPath, `${JSON.stringify(review, null, 2)}\n`);
   writeFileSync(scorecardPath, `${scorecardResult
-    ? scorecardMarkdown(scorecardResult.value)
-    : blockedScorecardMarkdown({
+    ? renderNarrativeScorecardMarkdownV6({ city: 'Madrid', scorecard: scorecardResult.value })
+    : renderBlockedNarrativeScorecardMarkdownV6({
+      city: 'Madrid',
       workflowStatus: workflow.run.status,
       hardWarningCount: automaticChecks.hardWarningCount,
       globalIssueCount: automaticChecks.globalIssueCount,

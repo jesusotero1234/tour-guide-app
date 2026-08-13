@@ -68,7 +68,7 @@ describe('editorial structured LLM v6 providers', () => {
       },
       global_auditor: {
         provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
-        reasoning: 'low',
+        reasoning: 'high', maxTokens: 20_000,
       },
     });
     expect(candidate.phases.curator).not.toHaveProperty('temperature');
@@ -560,6 +560,32 @@ describe('editorial structured LLM v6 providers', () => {
     });
     expect(Date.now() - startedAt).toBeGreaterThanOrEqual(15);
     expect(post).toHaveBeenCalledTimes(2);
+  });
+
+  it('backs off when a 429 omits Retry-After', async () => {
+    const throttled = Object.assign(new Error('provider rate limited'), {
+      response: { status: 429, headers: {} },
+    });
+    const post = jest.fn().mockRejectedValue(throttled);
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'retry-default-429', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    expect(result.status).toBe('transport_error');
+    expect(result.attempts).toHaveLength(1);
+    expect(result.attempts[0]).toMatchObject({
+      status: 'transport_error', httpStatus: 429, retryAfterMs: 5_000,
+    });
+    expect(post).toHaveBeenCalledTimes(1);
   });
 
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {

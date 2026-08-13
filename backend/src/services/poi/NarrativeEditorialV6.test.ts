@@ -143,7 +143,7 @@ describe('narrative v6 editorial protocol', () => {
     const starts = [
       'Estás', 'Aunque', 'Mientras', 'Comenzó', 'Así', 'Fíjate', 'Mírale',
       'Sígueme', 'Originariamente', 'Luego', 'Nos', 'Dos', 'Todo', 'Sin', 'Fíjese',
-      'Observe', 'Ambos', 'Tal', 'Aun', 'Hemos', 'No',
+      'Observe', 'Compárala', 'Ambos', 'Tal', 'Aun', 'Hemos', 'No',
     ];
 
     for (const start of starts) {

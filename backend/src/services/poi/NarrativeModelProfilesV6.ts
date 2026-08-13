@@ -158,7 +158,7 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
       repair: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
-      global_auditor: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
+      global_auditor: { provider: openAiMini, reasoning: 'high', maxTokens: 20_000 },
     },
     concurrency: {
       researchStops: 2,

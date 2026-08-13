@@ -10,7 +10,7 @@ export interface EditorialProviderV6 {
   acceptedModels?: string[];
 }
 
-export type EditorialReasoningV6 = 'none' | 'low' | 'medium';
+export type EditorialReasoningV6 = 'none' | 'low' | 'medium' | 'high';
 
 export interface EditorialAttemptV6 {
   attempt: number;
@@ -766,6 +766,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         deadlineReached,
         deadlineController.signal.aborted && !deadlineReached
       );
+      const retryAfterMs = details.retryAfterMs
+        ?? (details.rateLimited ? Math.min(5_000 * attempt, 30_000) : undefined);
       recordAttempt({
         attempt, status: 'transport_error', latencyMs: Date.now() - startedAt,
         rawOutput: null,
@@ -775,18 +777,18 @@ export async function requestEditorialStructuredV6<T>(config: {
         ...(details.httpStatus === undefined ? {} : { httpStatus: details.httpStatus }),
         rateLimited: details.rateLimited,
         timedOut: details.timedOut,
-        ...(details.retryAfterMs === undefined ? {} : { retryAfterMs: details.retryAfterMs }),
+        ...(retryAfterMs === undefined ? {} : { retryAfterMs }),
         actualModel: config.provider.model,
         actualProvider: null,
       });
       let canRetry = attempt < requestAttempts && details.retryable;
-      if (canRetry && details.retryAfterMs !== undefined && details.retryAfterMs > 0) {
+      if (canRetry && retryAfterMs !== undefined && retryAfterMs > 0) {
         const remainingMs = deadlineAt - Date.now();
-        if (details.retryAfterMs >= remainingMs) {
+        if (retryAfterMs >= remainingMs) {
           canRetry = false;
         } else {
           try {
-            await abortableDelay(details.retryAfterMs, deadlineController.signal);
+            await abortableDelay(retryAfterMs, deadlineController.signal);
           } catch {
             canRetry = false;
           }
