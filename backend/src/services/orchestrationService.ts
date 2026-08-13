@@ -44,7 +44,7 @@ import { evaluateTourContentReadiness } from './tourReadiness/contentReadiness';
 import { getConceptDisplayCopy } from './cityIntelligence/conceptDisplayCopy';
 import { auditTourText, buildTourIntroduction, buildTourNarrativePlan } from './narrative/TourTextQuality';
 
-interface StructuralTourPlace {
+export interface StructuralTourPlace {
   poi: EnrichedPoi;
   name: string;
   nameInTourLanguage?: string;
@@ -60,7 +60,7 @@ interface StructuralTourPlace {
   estimatedDuration: number;
 }
 
-interface StructuralTourData {
+export interface StructuralTourData {
   places: StructuralTourPlace[];
   routeCandidates: StructuralTourPlace[];
   routeDiagnostics: RouteDiagnostics;
@@ -1066,12 +1066,10 @@ export class OrchestrationService {
 
     // Structural pipeline first so a future confidence gate can reject before
     // narration, images, persistence, and audio.
-    const structuralTour = await this.generateStructuralTourData(
-      request.city,
-      request.theme,
-      request.language || 'en',
-      requestedDuration
-    );
+    const structuralTour = await this.selectStructuralTour({
+      ...request,
+      durationMinutes: requestedDuration,
+    });
     await options.onProgress?.({
       step: 'routing',
       completedStops: 0,
@@ -1879,6 +1877,16 @@ export class OrchestrationService {
   /**
    * OSM pipeline: geocode city → fetch POIs from Overpass (with Postgres cache) → enrich → rank → compose route
    */
+  public async selectStructuralTour(request: TourRequest): Promise<StructuralTourData> {
+    const requestedDuration = request.durationMinutes || request.duration || 240;
+    return this.generateStructuralTourData(
+      request.city,
+      request.theme,
+      request.language || 'en',
+      requestedDuration
+    );
+  }
+
   private async generateStructuralTourData(city: string, theme: string, language: string, requestedDuration: number): Promise<StructuralTourData> {
     const poiCache = new PostgresPoiCacheRepository(prismaClient);
     const poiEnrichmentCache = new PostgresPoiEnrichmentCacheRepository(prismaClient);

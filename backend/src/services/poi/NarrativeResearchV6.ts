@@ -165,8 +165,11 @@ function searchQueries(stop: NarrativeRouteStopV6): string[] {
 }
 
 const GENERIC_ROLE_SEARCH_TERMS_V6 = new Set([
-  'abrir', 'cerrar', 'convertir', 'edificio', 'historia', 'lugar', 'mediante', 'mostrar',
-  'nuevo', 'nueva', 'palacio', 'resolver', 'romper', 'transformar',
+  'abrir', 'ampliar', 'base', 'cambio', 'central', 'cerrar', 'ciudad', 'concreta',
+  'conectar', 'convertir', 'cotidiana', 'edificio', 'explicar', 'historia', 'historica',
+  'institucion', 'lugar', 'mediante', 'moderna', 'mostrar', 'nuevo', 'nueva', 'origen',
+  'partida', 'poder', 'pregunta', 'presentar', 'punto', 'recorrido', 'resolver', 'romper',
+  'tension', 'transformacion', 'transformar', 'urbana', 'vida',
 ]);
 
 function searchText(value: string): string {

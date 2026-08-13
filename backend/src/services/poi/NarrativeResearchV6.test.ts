@@ -250,6 +250,31 @@ describe('narrative v6 automatic research', () => {
     expect(sourceProvider.search).not.toHaveBeenCalled();
   });
 
+  it('does not require generic product arc wording in research queries', async () => {
+    const sourceProvider = provider();
+    const result = await researchNarrativeStopV6({
+      stop: {
+        ...stop,
+        narrativeRole: 'presentar el punto de partida y la tensión central: Alcázar de Toledo',
+      },
+      city: 'Toledo',
+      language: 'es',
+      sourceProvider,
+      curator,
+      searchPlanner: { plan: async () => ({ queries: [
+        'site:toledo.es Alcázar de Toledo historia cronología oficial',
+        'site:cultura.gob.es Alcázar de Toledo arquitectura observable',
+        'Alcázar de Toledo función actual acceso museo actos',
+        'Alcázar de Toledo publicación institucional arquitectura historia',
+        'Alcázar de Toledo estudio académico proyecto autores',
+        'Alcázar de Toledo corroboración controversia fuentes',
+      ] }) },
+    });
+
+    expect(result.status).toBe('sufficient');
+    expect(sourceProvider.search).toHaveBeenCalledTimes(6);
+  });
+
   it('rejects planned research without two authority-domain searches', async () => {
     const sourceProvider = provider();
     const result = await researchNarrativeStopV6({

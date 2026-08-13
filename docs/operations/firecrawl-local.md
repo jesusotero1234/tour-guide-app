@@ -57,9 +57,10 @@ FIRECRAWL_BASE_URL=http://127.0.0.1:3007/v2
 FIRECRAWL_API_KEY=
 ```
 
-Una instancia local no requiere clave. El adaptador exige clave cuando el host
-es `api.firecrawl.dev`, por lo que una caída local no puede derivar
-silenciosamente a Firecrawl Cloud.
+Una instancia local no requiere clave. El adaptador usa este endpoint local por
+defecto y rechaza explícitamente el host `api.firecrawl.dev`, incluso si existe
+una clave, por lo que una caída local no puede derivar silenciosamente a
+Firecrawl Cloud.
 
 ## Límites y seguridad
 

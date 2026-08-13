@@ -52,6 +52,7 @@ describe('narrative v6 source boundary', () => {
       } } };
     });
     const provider = new FirecrawlNarrativeSourceProviderV6({
+      baseUrl: 'http://127.0.0.1:3007/v2',
       apiKey: 'fc-test-secret',
       post,
       lookup: async (hostname) => hostname === 'private.example'
@@ -69,7 +70,7 @@ describe('narrative v6 source boundary', () => {
     });
     expect(posts[0].headers.Authorization).toBe('Bearer fc-test-secret');
     expect(posts[1]).toMatchObject({
-      url: 'https://api.firecrawl.dev/v2/scrape',
+      url: 'http://127.0.0.1:3007/v2/scrape',
       body: { url: 'https://museo.example/historia', formats: ['markdown'] },
     });
     expect(capture.containsInstructionLikeText).toBe(true);
@@ -77,14 +78,21 @@ describe('narrative v6 source boundary', () => {
     expect(JSON.stringify(capture)).not.toContain('fc-test-secret');
   });
 
-  it('allows an unauthenticated self-hosted base URL but requires a key for cloud', () => {
+  it('defaults to self-hosted Firecrawl and rejects cloud even with a key', async () => {
+    const post = jest.fn(async () => ({ data: { success: true, data: { web: [] } } }));
+    const local = new FirecrawlNarrativeSourceProviderV6({ post });
+    await local.search({ query: 'historia local' });
+    expect(post).toHaveBeenCalledWith(
+      'http://127.0.0.1:3007/v2/search', expect.any(Object), expect.any(Object)
+    );
     expect(() => new FirecrawlNarrativeSourceProviderV6({
       baseUrl: 'https://firecrawl.internal.example/v2',
       post: jest.fn(),
       lookup: async () => [{ address: '93.184.216.34', family: 4 }],
     })).not.toThrow();
-    expect(() => new FirecrawlNarrativeSourceProviderV6({ post: jest.fn() }))
-      .toThrow('Firecrawl cloud requires an API key');
+    expect(() => new FirecrawlNarrativeSourceProviderV6({
+      baseUrl: 'https://api.firecrawl.dev/v2', apiKey: 'fc-cloud-key', post: jest.fn(),
+    })).toThrow('Firecrawl cloud is disabled');
   });
 
   it('retries Firecrawl rate limits with bounded exponential backoff', async () => {
@@ -152,13 +160,19 @@ describe('narrative v6 source boundary', () => {
     expect(narrativeSourcesAreIndependentV6([official, blog])).toBe(true);
   });
 
-  it('provides deterministic authority domains for Madrid and Toledo research', () => {
+  it('provides deterministic authority domains for Madrid, Toledo, and Barcelona research', () => {
     expect(narrativePrimaryAuthorityDomainsV6('Madrid')).toEqual(expect.arrayContaining([
       'madrid.es', 'patrimonionacional.es', 'museodelprado.es',
     ]));
     expect(narrativePrimaryAuthorityDomainsV6('Toledo')).toEqual(expect.arrayContaining([
       'toledo.es', 'cultura.gob.es', 'castillalamancha.es',
     ]));
+    expect(narrativePrimaryAuthorityDomainsV6('Barcelona')).toEqual(expect.arrayContaining([
+      'barcelona.cat', 'gencat.cat', 'palauguell.cat', 'palaumusica.cat',
+    ]));
+    expect(classifyNarrativeSourceAuthorityV6(
+      'https://www.barcelona.cat/museuhistoria/es/'
+    ).tier).toBe('primary_authority');
     expect(narrativePrimaryAuthorityDomainsV6('Madrid'))
       .not.toContain('patrimonionacional.gob.es');
   });

@@ -57,7 +57,7 @@ export type NarrativeSourceGetV6 = (
 
 export type NarrativeSourceWaitV6 = (milliseconds: number) => Promise<void>;
 
-const DEFAULT_FIRECRAWL_BASE_URL_V6 = 'https://api.firecrawl.dev/v2';
+const DEFAULT_FIRECRAWL_BASE_URL_V6 = 'http://127.0.0.1:3007/v2';
 const MAX_CAPTURE_CHARACTERS_V6 = 1_000_000;
 const defaultLookup: NarrativeDnsLookupV6 = async (hostname) => (
   dnsLookup(hostname, { all: true })
@@ -184,6 +184,10 @@ const PRIMARY_PUBLISHERS_V6 = [
   'galeriadelascoleccionesreales.es',
   'cdnprado.net',
   'madrid.org',
+  'barcelona.cat',
+  'gencat.cat',
+  'palauguell.cat',
+  'palaumusica.cat',
 ] as const;
 
 const CITY_PRIMARY_PUBLISHERS_V6: Record<string, readonly string[]> = {
@@ -194,6 +198,9 @@ const CITY_PRIMARY_PUBLISHERS_V6: Record<string, readonly string[]> = {
   ],
   toledo: [
     'toledo.es', 'cultura.gob.es', 'castillalamancha.es', 'defensa.gob.es',
+  ],
+  barcelona: [
+    'barcelona.cat', 'gencat.cat', 'palauguell.cat', 'palaumusica.cat',
   ],
 };
 
@@ -303,8 +310,8 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
     this.wait = options.wait ?? defaultWait;
-    if (new URL(this.baseUrl).hostname === 'api.firecrawl.dev' && !this.apiKey) {
-      throw new Error('Firecrawl cloud requires an API key');
+    if (new URL(this.baseUrl).hostname === 'api.firecrawl.dev') {
+      throw new Error('Firecrawl cloud is disabled; use the self-hosted base URL');
     }
   }
 
