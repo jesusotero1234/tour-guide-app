@@ -118,4 +118,40 @@ describe('narrative v6 editorial protocol', () => {
       assignNarrativeSentenceIdsV6('two', `Inicio. ${repeated}`),
     ])).toHaveLength(1);
   });
+
+  it('covers authorized name tokens without hiding an unknown companion name', () => {
+    const authorizedNames = [
+      'Fernando Chueca Goitia', 'Carlos Sidro',
+      'calles del Codo, del Cordón y de Madrid',
+    ];
+    const warnings = (text: string) => auditNarrativeScriptDeterministicallyV6(
+      assignNarrativeSentenceIdsV6('madrid', text),
+      { language: 'es', authorizedNames, authorizedNumbers: [] }
+    ).filter((warning) => warning.code === 'unauthorized_name');
+
+    expect(warnings('Ganaron Fernando Chueca Goitia y Carlos Sidro.')).toEqual([]);
+    expect(warnings('Las calles son las del Codo, el Cordón y Madrid.')).toEqual([]);
+    expect(warnings('Napoleón llegó después.')).toEqual([
+      expect.objectContaining({ message: expect.stringContaining('Napoleón') }),
+    ]);
+    expect(warnings('Fernando Chueca Goitia y Napoleón llegaron después.')).toEqual([
+      expect.objectContaining({ message: expect.stringContaining('Napoleón') }),
+    ]);
+  });
+
+  it('does not treat ordinary capitalized sentence starts as names', () => {
+    const starts = [
+      'Estás', 'Aunque', 'Mientras', 'Comenzó', 'Así', 'Fíjate', 'Mírale',
+      'Sígueme', 'Originariamente', 'Luego', 'Nos', 'Dos', 'Todo', 'Sin', 'Fíjese',
+      'Observe', 'Ambos', 'Tal', 'Aun', 'Hemos', 'No',
+    ];
+
+    for (const start of starts) {
+      const warnings = auditNarrativeScriptDeterministicallyV6(
+        assignNarrativeSentenceIdsV6('madrid', `${start} una frase normal en español.`),
+        { language: 'es', authorizedNames: [], authorizedNumbers: [] }
+      ).filter((warning) => warning.code === 'unauthorized_name');
+      expect(warnings).toEqual([]);
+    }
+  });
 });

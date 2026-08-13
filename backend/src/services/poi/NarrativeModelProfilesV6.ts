@@ -97,8 +97,8 @@ function openRouterProvider(
 
 const openRouterFlash = openRouterProvider(
   'deepseek/deepseek-v4-flash-0731',
-  'digitalocean',
-  'DigitalOcean',
+  'deepinfra',
+  'DeepInfra',
   [
     'deepseek/deepseek-v4-flash-0731-20260731',
     'deepseek/deepseek-v4-flash-20260731',

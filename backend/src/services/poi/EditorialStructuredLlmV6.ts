@@ -558,7 +558,7 @@ export async function requestEditorialStructuredV6<T>(config: {
       : options.apiKey;
   const attempts: EditorialAttemptV6[] = [];
   const requestAttempts = options.requestAttempts ?? 2;
-  const requestTimeoutMs = Math.min(options.requestTimeoutMs ?? 120_000, 120_000);
+  const requestTimeoutMs = Math.min(options.requestTimeoutMs ?? 120_000, 180_000);
   if (!Number.isInteger(requestTimeoutMs) || requestTimeoutMs < 1_000) {
     throw new Error('request timeout must be an integer of at least 1000ms');
   }

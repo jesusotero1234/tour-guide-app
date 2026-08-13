@@ -2,6 +2,7 @@ import { EditorialCallResultV6 } from './EditorialStructuredLlmV6';
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { NarrativeEditorialAgentsV6 } from './NarrativeEditorialAgentsV6';
+import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 import {
   buildNarrativeReviewPackageV6,
   runNarrativeEditorialWorkflowV6,
@@ -136,12 +137,34 @@ describe('narrative v6 editorial workflow', () => {
     expect(fake.write).not.toHaveBeenCalled();
   });
 
-  it('requires draft review when a hard issue remains after the single repair round', async () => {
-    const result = await runNarrativeEditorialWorkflowV6(base, agents(true));
-    expect(result.run).toMatchObject({ status: 'draft_review_required' });
+  it('resumes from supplied scripts without invoking writers or auditing excluded stops', async () => {
+    const fake = agents();
+    const supplied = assignNarrativeSentenceIdsV6(
+      'alcazar', 'Mira las torres del Alcázar. El edificio atravesó etapas de conflicto.'
+    );
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake, {
+      scripts: [supplied], auditStopIds: [], maximumAdditionalRepairs: 1,
+    });
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(fake.write).not.toHaveBeenCalled();
+    expect(fake.audit).not.toHaveBeenCalled();
+    expect(result.stops[0].finalScript.text).toBe(supplied.text);
   });
 
-  it('does not reopen an identical objection already rejected by the editor', async () => {
+  it('requires draft review when a hard issue remains after the single repair round', async () => {
+    const fake = agents(true);
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+    expect(result.run).toMatchObject({ status: 'draft_review_required' });
+    expect(fake.adjudicate).toHaveBeenCalledTimes(2);
+    expect(fake.adjudicate).toHaveBeenLastCalledWith(expect.objectContaining({
+      scope: 'factual',
+      objections: [expect.objectContaining({ sentenceId: 'alcazar-S002' })],
+    }), expect.any(Object));
+  });
+
+  it('does not leave a reaudited objection open when the editor rejects it', async () => {
     const fake = agents();
     const originalAudit = fake.audit;
     fake.audit = jest.fn(async (input, auditor) => {
@@ -168,7 +191,8 @@ describe('narrative v6 editorial workflow', () => {
 
     const result = await runNarrativeEditorialWorkflowV6(base, fake);
 
-    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(result.run).toMatchObject({ status: 'ready_for_human_gate' });
+    expect(fake.adjudicate).toHaveBeenCalledTimes(2);
   });
 
   it('adjudicates global issues locally and reruns factual and tour audits', async () => {
@@ -212,6 +236,105 @@ describe('narrative v6 editorial workflow', () => {
       .toBe('Mira las torres del Alcázar desde la plaza.');
     expect(fake.auditTour).toHaveBeenCalledTimes(2);
     expect(fake.audit).toHaveBeenCalledTimes(4);
+    expect(fake.adjudicate).toHaveBeenCalledWith(expect.objectContaining({
+      scope: 'tour',
+    }), expect.any(Object));
+  });
+
+  it('blocks on a new soft global issue that has not been adjudicated', async () => {
+    const fake = agents();
+    fake.audit = jest.fn(async (input, auditor) => {
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId, classification: 'supported' as const,
+          reason: 'Respaldada.', propositionIds: ['P1'],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+    fake.repair = jest.fn(async (input) => {
+      const value = { replacements: [{
+        sentenceId: input.objections[0].sentenceId,
+        text: 'Mira las torres del Alcázar desde la plaza.',
+      }] };
+      return { value, diagnostic: diagnostic('global-repair', value) };
+    });
+    let tourAudits = 0;
+    fake.auditTour = jest.fn(async () => {
+      tourAudits += 1;
+      const value = {
+        issues: tourAudits === 1 ? [{
+          issueId: 'premature-close', stopId: 'alcazar', sentenceId: 'alcazar-S001',
+          severity: 'soft' as const, reason: 'Cierre prematuro.',
+        }] : [{
+          issueId: 'new-transition', stopId: 'alcazar', sentenceId: 'alcazar-S001',
+          severity: 'soft' as const, reason: 'La transición nueva sigue sin funcionar.',
+        }],
+        progressionWorks: true, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic(`tour-audit-${tourAudits}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run).toMatchObject({
+      status: 'draft_review_required', openIssueIds: ['new-transition'],
+    });
+  });
+
+  it('does not block on a global issue explicitly rejected with tour scope', async () => {
+    const fake = agents();
+    fake.audit = jest.fn(async (input, auditor) => {
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId, classification: 'supported' as const,
+          reason: 'Respaldada.', propositionIds: ['P1'],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+    fake.auditTour = jest.fn(async () => {
+      const value = {
+        issues: [{
+          issueId: 'valid-transition', stopId: 'alcazar', sentenceId: 'alcazar-S001',
+          severity: 'soft' as const, reason: 'La transición podría ser más explícita.',
+        }],
+        progressionWorks: true, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+    fake.adjudicate = jest.fn(async (input) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId, decision: 'rejected' as const,
+        reason: 'La transición ya cumple su función narrativa.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(fake.adjudicate).toHaveBeenCalledWith(expect.objectContaining({
+      scope: 'tour',
+    }), expect.any(Object));
+  });
+
+  it('requires all three global audit booleans to pass', async () => {
+    const fake = agents();
+    fake.auditTour = jest.fn(async () => {
+      const value = {
+        issues: [], progressionWorks: false, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run).toMatchObject({
+      status: 'draft_review_required', openIssueIds: ['tour:progressionWorks'],
+    });
   });
 
   it('authorizes route and arc names used only to connect neighboring stops', async () => {
@@ -245,11 +368,9 @@ describe('narrative v6 editorial workflow', () => {
     expect(review.sources[0].passages[0].quote).toBe('Cuatro torres.');
   });
 
-  it('applies profile concurrency while keeping both auditors parallel per stop', async () => {
+  it('applies the current serialized stop profile and preserves route order', async () => {
     let activeWriters = 0;
     let peakWriters = 0;
-    let releaseWriters: (() => void) | undefined;
-    const writerBarrier = new Promise<void>((resolve) => { releaseWriters = resolve; });
     const multiRoute = {
       ...route,
       stops: [0, 1, 2].map((position) => ({
@@ -264,8 +385,7 @@ describe('narrative v6 editorial workflow', () => {
     fake.write = jest.fn(async (input) => {
       activeWriters += 1;
       peakWriters = Math.max(peakWriters, activeWriters);
-      if (peakWriters === 3) releaseWriters?.();
-      await writerBarrier;
+      await Promise.resolve();
       activeWriters -= 1;
       const value = { text: 'Mira el Alcázar de Toledo.' };
       return { value, diagnostic: diagnostic(`write-${input.stopId}`, value) };
@@ -295,7 +415,7 @@ describe('narrative v6 editorial workflow', () => {
     }, fake, { scheduler: createNarrativeSchedulerV6('balanced_openrouter') });
 
     expect(result.run.status).toBe('ready_for_human_gate');
-    expect(peakWriters).toBe(3);
+    expect(peakWriters).toBe(1);
     expect(result.stops.map((stop) => stop.stopId)).toEqual(['stop-0', 'stop-1', 'stop-2']);
   });
 

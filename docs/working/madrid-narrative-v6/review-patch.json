@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813",
+  "tourFingerprint": "14db71b1655dcd4042634342797027e032b146fa5ce59b63a8e1b308975acb56",
+  "replacements": [
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S012",
+      "before": "Y justo al lado, la Catedral de la Almudena tardó siglos en completarse: las interrupciones políticas y la escasez de fondos prolongaron su construcción hasta su consagración el 15 de junio de 1993, con un diseño que pasó de una propuesta neogótica a una solución exterior más clásica, pensada para armonizar visualmente con el palacio.",
+      "after": "A pocos pasos está la Catedral de la Almudena: su construcción sufrió interrupciones políticas y falta de fondos, y el exterior clásico sustituyó a la propuesta neogótica para armonizar con el palacio antes de su consagración en 1993."
+    },
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S013",
+      "before": "Este recorrido histórico termina aquí, ante el Palacio Real y la Catedral de la Almudena.",
+      "after": "A pocos pasos te espera la Almudena, una catedral mucho más reciente de lo que su fachada sugiere."
+    },
+    {
+      "stopId": "almudena",
+      "sentenceId": "almudena-S014",
+      "before": "A sus espaldas queda el Palacio Real; si continúa hacia la calle Mayor, encontrará en pocos minutos la Plaza de la Villa, un espacio que conserva el trazado medieval de Madrid y que le mostrará la escala anterior de esta ciudad, la de los siglos XV, XVI y XVII, donde se gobernaba esta villa antes de que todo esto fuera la gran capital que hoy contempla.",
+      "after": "A sus espaldas queda el Palacio Real; continúe por la calle Mayor hasta la Plaza de la Villa."
+    },
+    {
+      "stopId": "villa",
+      "sentenceId": "villa-S001",
+      "before": "Has dejado atrás la Almudena y el Palacio Real, y ahora la calle Mayor te ha traído hasta una de las plazas más antiguas de Madrid: la Plaza de la Villa.",
+      "after": "Estás en la Plaza de la Villa."
+    },
+    {
+      "stopId": "villa",
+      "sentenceId": "villa-S020",
+      "before": "Este lugar resume la búsqueda de un gobierno estable para la villa.",
+      "after": "Aquí, el Concejo pasó de reunirse junto a San Salvador a contar con una sede propia en la Casa de la Villa."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S001",
+      "before": "Recuerda el camino que has recorrido, desde aquel incendio del Alcázar hasta este umbral abierto.",
+      "after": "Estás en la Plaza Mayor, que nació como plaza del Arrabal fuera de la ciudad medieval."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S019",
+      "before": "La Casa de la Panadería, que sobrevivió al incendio, sirvió de referencia para unificar los nuevos edificios.",
+      "after": "La Casa de la Panadería sobrevivió al incendio y sirvió como referencia de altura y composición para los nuevos edificios."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S023",
+      "before": "Si este recinto es un perímetro que acoge, la Puerta del Sol es un punto donde todo converge.",
+      "after": "La siguiente parada es la Puerta del Sol, una plaza definida por la convergencia y la circulación."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S024",
+      "before": "Verás cómo la ciudad pasa de encerrar a irradiar.",
+      "after": "Su lado semicircular y la Casa de Correos explican la forma actual de ese espacio."
+    }
+  ]
+}

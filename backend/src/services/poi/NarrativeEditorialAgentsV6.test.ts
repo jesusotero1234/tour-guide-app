@@ -4,6 +4,7 @@ import {
   DEEPSEEK_NARRATIVE_MODEL_V6,
   GEMMA_NARRATIVE_AUDITOR_MODEL_V6,
   createNarrativeEditorialAgentsV6,
+  reviewNarrativeTourScorecardV6,
 } from './NarrativeEditorialAgentsV6';
 import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 
@@ -149,7 +150,7 @@ describe('narrative v6 editorial agents', () => {
 
     const result = await agents.audit({ script: longScript, dossier }, 'deepseek');
 
-    expect(batchSizes).toEqual([16, 1]);
+    expect(batchSizes).toEqual([6, 6, 5]);
     expect(result.value.findings).toHaveLength(17);
   });
 
@@ -203,6 +204,7 @@ describe('narrative v6 editorial agents', () => {
     await agents.repair({
       script,
       dossier,
+      scope: 'factual',
       objections: [{
         objectionId: 'gemma:palace-S001:distorted', auditor: 'gemma',
         sentenceId: 'palace-S001', classification: 'distorted',
@@ -216,5 +218,64 @@ describe('narrative v6 editorial agents', () => {
 
     expect(repairPrompt).toContain('eliminar por completo el motivo aceptado');
     expect(repairPrompt).toContain('No basta con acortar o parafrasear');
+  });
+
+  it('adjudicates premature closure with tour-wide narrative scope', async () => {
+    let adjudicationPrompt = '';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      adjudicationPrompt = (body.messages as Array<{ content: string }>)[0].content;
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'adjudicate_narrative_objections_v6',
+        arguments: JSON.stringify({ adjudications: [{
+          objectionId: 'tour:premature-close', decision: 'accepted',
+          reason: 'La primera parada no puede cerrar el tour completo.',
+        }] }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace', 'Este recorrido histórico termina aquí, ante el Palacio Real.'
+    );
+
+    const result = await agents.adjudicate({
+      script,
+      dossier,
+      scope: 'tour',
+      objections: [{
+        objectionId: 'tour:premature-close', auditor: 'deepseek',
+        sentenceId: 'palace-S001', classification: 'unclear',
+        reason: 'Cierra el recorrido en la primera parada.', propositionIds: [],
+      }],
+    });
+
+    expect(result.value[0].decision).toBe('accepted');
+    expect(adjudicationPrompt).toContain('progresión, transiciones, repetición');
+    expect(adjudicationPrompt).toContain('aunque no exista un error factual');
+  });
+
+  it('enforces the weighted scorecard thresholds and sentence citations', async () => {
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
+      const dimensions = Object.fromEntries([
+        'accuracyGrounding', 'narrativeArcTransitions', 'oralClarityRhythm',
+        'placeObservationSafety', 'styleRepetitionClosing',
+      ].map((dimension) => [dimension, {
+        score: 8.5, rationale: 'La frase concreta sostiene esta dimensión.',
+        sentenceIds: ['palace-S001'],
+      }]));
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: toolName,
+        arguments: JSON.stringify({ decision: 'Approve', dimensions, objections: [] }),
+      } }] } }] } };
+    });
+    const script = assignNarrativeSentenceIdsV6('palace', 'Mira la fachada del palacio.');
+
+    const result = await reviewNarrativeTourScorecardV6(
+      { apiKey: 'test-key', post },
+      { promise: 'Comprender Madrid', scripts: [script], dossiers: [dossier] }
+    );
+
+    expect(result.value).toMatchObject({ decision: 'Approve', weightedScore: 8.5 });
+    expect(result.value.dimensions.accuracyGrounding.sentenceIds).toEqual(['palace-S001']);
   });
 });

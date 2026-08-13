@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import {
   closeSync,
+  existsSync,
   fsyncSync,
   mkdirSync,
   openSync,
@@ -8,7 +9,7 @@ import {
   writeFileSync,
   writeSync,
 } from 'fs';
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
 import manifestJson from '../../fixtures/narrative-madrid-v6/reference.json';
 import rubricJson from '../../fixtures/narrative-madrid-v6/research-rubric.json';
 import mutationsJson from '../../fixtures/narrative-madrid-v6/editorial-mutations.json';
@@ -27,6 +28,7 @@ import {
 import {
   NarrativeAgentProtocolErrorV6,
   createNarrativeEditorialAgentsV6,
+  reviewNarrativeTourScorecardV6,
 } from '../../src/services/poi/NarrativeEditorialAgentsV6';
 import { NARRATIVE_BENCHMARK_PRIOR_SPEND_USD_V6 } from '../../src/services/poi/NarrativeBenchmarkV6';
 import {
@@ -37,6 +39,11 @@ import {
   runNarrativeEditorialWorkflowV6,
   runPairedNarrativeAuditsV6,
 } from '../../src/services/poi/NarrativeEditorialWorkflowV6';
+import {
+  prepareNarrativeResumeReviewV6,
+  validateNarrativeReviewPatchV6,
+} from '../../src/services/poi/NarrativeReviewResumeV6';
+import { writeNarrativeV6PreviewV6 } from './narrative-v6-preview';
 import {
   loadNarrativeMadridDocumentsV6,
   validateNarrativeMadridCorpusV6,
@@ -68,10 +75,11 @@ import {
   preflightBalancedOpenRouterV6,
 } from '../../src/services/poi/OpenRouterPreflightV6';
 
-const CALIBRATION_REQUEST_TIMEOUT_MS = 120_000;
+const CALIBRATION_REQUEST_TIMEOUT_MS = 180_000;
 const GATE_A_DEADLINE_MS = 20 * 60 * 1_000;
 const PROGRESS_HEARTBEAT_MS = 15_000;
 const CALIBRATION_SPEND_LIMIT_USD = 2;
+const MADRID_RESUME_REVIEW_STOP_IDS_V6 = ['palace', 'almudena', 'villa', 'mayor'];
 
 type CalibrationGateV6 = 'a' | 'b';
 
@@ -217,8 +225,8 @@ function outputPaths(gate: CalibrationGateV6): CalibrationOutputPathsV6 {
   };
 }
 
-function createProgressWriter(path: string): CalibrationProgressWriterV6 {
-  const descriptor = openSync(path, 'ax');
+function createProgressWriter(path: string, appendExisting = false): CalibrationProgressWriterV6 {
+  const descriptor = openSync(path, appendExisting ? 'a' : 'ax');
   let closed = false;
   return {
     append(event) {
@@ -369,6 +377,254 @@ async function gateA(
   if (tourOnly) {
     if (workflow.run.status !== 'ready_for_human_gate') process.exitCode = 1;
   } else if (gate.status !== 'passed') process.exitCode = 1;
+}
+
+function scorecardMarkdown(scorecard: Awaited<ReturnType<
+  typeof reviewNarrativeTourScorecardV6
+>>['value']): string {
+  const labels = {
+    accuracyGrounding: 'Exactitud y grounding',
+    narrativeArcTransitions: 'Arco narrativo y transiciones',
+    oralClarityRhythm: 'Claridad oral y ritmo',
+    placeObservationSafety: 'Observación del lugar y seguridad',
+    styleRepetitionClosing: 'Estilo, repetición y cierre',
+  } as const;
+  const dimensionRows = Object.entries(labels).map(([key, label]) => {
+    const dimension = scorecard.dimensions[key as keyof typeof labels];
+    return `| ${label} | ${dimension.score.toFixed(1)} | ${dimension.sentenceIds.join(', ')} |`;
+  });
+  const dimensionDetails = Object.entries(labels).flatMap(([key, label]) => {
+    const dimension = scorecard.dimensions[key as keyof typeof labels];
+    return [`### ${label}`, '', dimension.rationale, ''];
+  });
+  return [
+    '# Scorecard editorial — tour de Madrid',
+    '',
+    `> **Decisión:** ${scorecard.decision}`,
+    `> **Media ponderada:** ${scorecard.weightedScore.toFixed(2)}`,
+    '',
+    '| Dimensión | Nota | Frases citadas |',
+    '| --- | ---: | --- |',
+    ...dimensionRows,
+    '',
+    '## Justificación por dimensión',
+    '',
+    ...dimensionDetails,
+    '## Objeciones',
+    '',
+    ...(scorecard.objections.length === 0
+      ? ['Ninguna.']
+      : scorecard.objections.flatMap((objection) => [
+        `- **${objection.sentenceId}:** ${objection.exactSentence}`,
+        `  - Evidencia: ${objection.evidence}`,
+        `  - Reemplazo mínimo: ${objection.minimalReplacement}`,
+      ])),
+    '',
+  ].join('\n');
+}
+
+function blockedScorecardMarkdown(input: {
+  workflowStatus: string;
+  hardWarningCount: number;
+  globalIssueCount: number;
+  openIssueIds: string[];
+}): string {
+  return [
+    '# Scorecard editorial — tour de Madrid',
+    '',
+    '> **Decisión:** Request changes',
+    '> **Revisor LLM:** no ejecutado; fallaron condiciones automáticas obligatorias.',
+    '',
+    `- Estado del workflow: \`${input.workflowStatus}\``,
+    `- Warnings duros: ${input.hardWarningCount}`,
+    `- Issues globales pendientes: ${input.globalIssueCount}`,
+    `- Issues abiertos: ${input.openIssueIds.length}`,
+    '',
+    '## Issues abiertos',
+    '',
+    ...(input.openIssueIds.length === 0
+      ? ['Ninguno.']
+      : input.openIssueIds.map((issueId) => `- \`${issueId}\``)),
+    '',
+  ].join('\n');
+}
+
+async function resumeReviewGateA(
+  paths: CalibrationOutputPathsV6,
+  signal: AbortSignal,
+  onProgress: EditorialProgressCallbackV6,
+  apiKey: string,
+  profile: string,
+  openRouterApiKey?: string,
+  openRouterPricing?: Record<string, EditorialPricingV6>
+): Promise<void> {
+  const reviewPath = resolve(option('--resume-review') as string);
+  const patchPath = resolve(option('--patch-file') as string);
+  if (reviewPath === paths.publicPath) throw new Error('resumed review cannot overwrite its source run');
+  const source = JSON.parse(readFileSync(reviewPath, 'utf8')) as {
+    runId?: string;
+    workflowRun?: { tourFingerprint?: string };
+    scripts?: Array<{ stopId: string; text: string }>;
+  };
+  if (!source.runId || !source.workflowRun?.tourFingerprint || !Array.isArray(source.scripts)) {
+    throw new Error('source review is not a resumable editorial review');
+  }
+  const patch = validateNarrativeReviewPatchV6(JSON.parse(readFileSync(patchPath, 'utf8')));
+  const prepared = prepareNarrativeResumeReviewV6({
+    review: {
+      runId: source.runId,
+      tourFingerprint: source.workflowRun.tourFingerprint,
+      scripts: source.scripts,
+    },
+    patch,
+    route,
+    dossiers,
+    reviewStopIds: MADRID_RESUME_REVIEW_STOP_IDS_V6,
+  });
+  const agents = createNarrativeEditorialAgentsV6({
+    apiKey, openRouterApiKey, profile, runId: paths.runId,
+    openRouterPricing,
+    requestTimeoutMs: CALIBRATION_REQUEST_TIMEOUT_MS,
+    signal,
+    onProgress,
+  });
+  const workflow = await runNarrativeEditorialWorkflowV6({
+    runId: paths.runId,
+    createdAt: new Date().toISOString(),
+    route,
+    dossiers,
+    arc: buildMadridNarrativeArcV6(manifest),
+    voiceProfile: [
+      manifest.voiceProfile.description,
+      manifest.voiceProfile.durationGuidance,
+      ...manifest.voiceProfile.rules,
+    ],
+    privateArtifactPath: paths.privatePath,
+  }, agents, {
+    signal,
+    onProgress,
+    profile,
+    scripts: prepared.scripts,
+    auditStopIds: prepared.auditedStopIds,
+    maximumAdditionalRepairs: 1,
+  });
+  throwIfAborted(signal);
+  const finalScripts = workflow.stops.map((stop) => stop.finalScript);
+  const hardWarnings = workflow.warnings.filter((warning) => warning.severity === 'hard');
+  const tourEndPattern = /\b(?:aquí|aqui)\s+termina\s+(?:el\s+)?recorrido\b|\brecorrido\s+termina\s+(?:aquí|aqui)\b/iu;
+  const onlyFinalStopClaimsTourEnd = finalScripts.every((script) => (
+    script.stopId === 'alcala'
+      || !tourEndPattern.test(script.text)
+  ));
+  const finalStopClaimsTourEnd = tourEndPattern.test(
+    finalScripts.find((script) => script.stopId === 'alcala')?.text ?? ''
+  );
+  const rejectedTourIssueIds = new Set(workflow.stops.flatMap((stop) => (
+    stop.adjudications.filter((item) => (
+      item.decision === 'rejected' && item.objectionId.startsWith('tour:')
+    )).map((item) => item.objectionId.slice('tour:'.length))
+  )));
+  const pendingGlobalIssueCount = (workflow.tourAudit?.issues ?? [])
+    .filter((issue) => !rejectedTourIssueIds.has(issue.issueId)).length;
+  const sourceScripts = new Map(source.scripts.map((script) => [script.stopId, script.text]));
+  const unmodifiedStopsPreserved = ['sol', 'cibeles', 'alcala'].every((stopId) => (
+    finalScripts.find((script) => script.stopId === stopId)?.text === sourceScripts.get(stopId)
+  ));
+  const wordCounts = finalScripts.map((script) => ({
+    stopId: script.stopId,
+    words: script.text.trim().split(/\s+/u).length,
+  }));
+  const automaticChecks = {
+    workflowReady: workflow.run.status === 'ready_for_human_gate',
+    hardWarningCount: hardWarnings.length,
+    globalIssueCount: pendingGlobalIssueCount,
+    progressionWorks: workflow.tourAudit?.progressionWorks ?? false,
+    promiseDelivered: workflow.tourAudit?.promiseDelivered ?? false,
+    closingWorks: workflow.tourAudit?.closingWorks ?? false,
+    onlyFinalStopClaimsTourEnd,
+    finalStopClaimsTourEnd,
+    unmodifiedStopsPreserved,
+    safeOrientation: !workflow.warnings.some((warning) => warning.code === 'unsafe_orientation'),
+    wordCounts,
+    wordCountsInRange: wordCounts.every((item) => item.words >= 330 && item.words <= 470),
+  };
+  let scorecardResult: Awaited<ReturnType<typeof reviewNarrativeTourScorecardV6>> | undefined;
+  if (workflow.run.status === 'ready_for_human_gate'
+    && hardWarnings.length === 0
+    && automaticChecks.progressionWorks
+    && automaticChecks.promiseDelivered
+    && automaticChecks.closingWorks
+    && automaticChecks.onlyFinalStopClaimsTourEnd
+    && automaticChecks.finalStopClaimsTourEnd
+    && automaticChecks.unmodifiedStopsPreserved
+    && automaticChecks.globalIssueCount === 0
+    && automaticChecks.safeOrientation
+    && automaticChecks.wordCountsInRange) {
+    scorecardResult = await reviewNarrativeTourScorecardV6({
+      apiKey, openRouterApiKey, profile, runId: paths.runId,
+      openRouterPricing,
+      requestTimeoutMs: CALIBRATION_REQUEST_TIMEOUT_MS,
+      signal,
+      onProgress,
+    }, { promise: manifest.promise, scripts: finalScripts, dossiers }, { signal, onProgress });
+  }
+  throwIfAborted(signal);
+  const appliedPatchPath = resolve(dirname(paths.publicPath), 'review-patch.applied.json');
+  const scorecardPath = resolve(dirname(paths.publicPath), 'editorial-scorecard.md');
+  const review = {
+    schemaVersion: 'narrative-madrid-editorial-gate-v6',
+    runId: paths.runId,
+    gate: { status: 'not_run', reason: 'mutation benchmark omitted by --tour-only' } as const,
+    workflowStatus: workflow.run.status,
+    tourOnly: true,
+    resumedReview: {
+      sourceRunId: prepared.sourceRunId,
+      sourceReviewPath: reviewPath,
+      sourceTourFingerprint: prepared.sourceTourFingerprint,
+      patchedTourFingerprint: prepared.patchedTourFingerprint,
+      auditedStopIds: prepared.auditedStopIds,
+      maximumAdditionalRepairs: 1,
+      appliedPatchPath,
+    },
+    workflowRun: workflow.run,
+    tourAudit: workflow.tourAudit,
+    automaticChecks,
+    scorecard: scorecardResult?.value ?? null,
+    developmentStopIds: manifest.developmentStopIds,
+    validationStopIds: manifest.validationStopIds,
+    mutations: [],
+    scripts: finalScripts.map((script) => ({ stopId: script.stopId, text: script.text })),
+    warnings: workflow.warnings,
+    metrics: workflow.metrics,
+    privateDiagnosticsPath: paths.privatePath,
+    privateProgressPath: paths.progressPath,
+  };
+  writeFileSync(paths.privatePath, JSON.stringify({
+    workflow: workflow.privateDiagnostics,
+    scorecard: scorecardResult?.diagnostic ?? null,
+  }, null, 2));
+  writeFileSync(appliedPatchPath, `${JSON.stringify(patch, null, 2)}\n`);
+  writeFileSync(paths.publicPath, `${JSON.stringify(review, null, 2)}\n`);
+  writeFileSync(scorecardPath, `${scorecardResult
+    ? scorecardMarkdown(scorecardResult.value)
+    : blockedScorecardMarkdown({
+      workflowStatus: workflow.run.status,
+      hardWarningCount: automaticChecks.hardWarningCount,
+      globalIssueCount: automaticChecks.globalIssueCount,
+      openIssueIds: workflow.run.openIssueIds,
+    })}\n`);
+  const preview = finalScripts.length === manifest.stops.length
+    ? writeNarrativeV6PreviewV6(dirname(paths.publicPath)) : null;
+  process.stdout.write(`${JSON.stringify({
+    ...review,
+    scripts: undefined,
+    output: paths.publicPath,
+    preview,
+    scorecardOutput: scorecardPath,
+  }, null, 2)}\n`);
+  if (workflow.run.status !== 'ready_for_human_gate'
+    || !scorecardResult
+    || scorecardResult.value.decision !== 'Approve') process.exitCode = 1;
 }
 
 async function gateB(
@@ -549,9 +805,23 @@ async function main(): Promise<void> {
   const gateValue = option('--gate');
   if (gateValue !== 'a' && gateValue !== 'b') throw new Error('--gate must be a or b');
   const gate: CalibrationGateV6 = gateValue;
+  const resumeReview = option('--resume-review');
+  const patchFile = option('--patch-file');
+  if (Boolean(resumeReview) !== Boolean(patchFile)) {
+    throw new Error('--resume-review and --patch-file must be provided together');
+  }
+  if (resumeReview && gate !== 'a') throw new Error('resumed editorial review requires --gate=a');
   const profile = option('--profile') ?? process.env.NARRATIVE_MODEL_PROFILE ?? 'deepseek_control';
   const paths = outputPaths(gate);
-  const progressWriter = createProgressWriter(paths.progressPath);
+  if (resumeReview && existsSync(paths.publicPath)) {
+    const existing = JSON.parse(readFileSync(paths.publicPath, 'utf8')) as {
+      workflowStatus?: string;
+    };
+    if (existing.workflowStatus !== 'protocol_failed') {
+      throw new Error('derived review run already has a public result');
+    }
+  }
+  const progressWriter = createProgressWriter(paths.progressPath, Boolean(resumeReview));
   const abortController = new AbortController();
   const spendGuard = new CalibrationSpendGuardV6();
   let interrupted = false;
@@ -626,15 +896,27 @@ async function main(): Promise<void> {
       openRouterPricing = openRouterPricingFromPreflightV6(preflight);
     }
     if (gate === 'a') {
-      await gateA(
-        paths,
-        abortController.signal,
-        onProgress,
-        apiKey,
-        profile,
-        openRouterApiKey,
-        openRouterPricing
-      );
+      if (resumeReview) {
+        await resumeReviewGateA(
+          paths,
+          abortController.signal,
+          onProgress,
+          apiKey,
+          profile,
+          openRouterApiKey,
+          openRouterPricing
+        );
+      } else {
+        await gateA(
+          paths,
+          abortController.signal,
+          onProgress,
+          apiKey,
+          profile,
+          openRouterApiKey,
+          openRouterPricing
+        );
+      }
     } else {
       await gateB(
         paths,

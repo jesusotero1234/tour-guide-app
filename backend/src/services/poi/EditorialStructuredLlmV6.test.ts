@@ -49,7 +49,7 @@ describe('editorial structured LLM v6 providers', () => {
     const candidate = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter;
     expect(candidate.phases).toMatchObject({
       planner: {
-        provider: { model: 'deepseek/deepseek-v4-flash-0731', endpoint: 'digitalocean' },
+        provider: { model: 'deepseek/deepseek-v4-flash-0731', endpoint: 'deepinfra' },
         reasoning: 'none', temperature: 0,
       },
       curator: {
@@ -79,7 +79,7 @@ describe('editorial structured LLM v6 providers', () => {
   it('preflights the public catalog and exact endpoints without an API key', async () => {
     const providers: Record<string, { tag: string; provider: string }> = {
       'deepseek/deepseek-v4-flash-0731': {
-        tag: 'digitalocean', provider: 'DigitalOcean',
+        tag: 'deepinfra', provider: 'DeepInfra',
       },
       'openai/gpt-5.4-mini': { tag: 'openai', provider: 'OpenAI' },
       'openai/gpt-5.4': { tag: 'openai', provider: 'OpenAI' },

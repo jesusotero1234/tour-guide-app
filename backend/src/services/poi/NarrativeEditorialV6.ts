@@ -209,16 +209,22 @@ export function auditNarrativeScriptDeterministicallyV6(
       });
     }
   }
-  const authorizedNameText = normalizedWords(input.authorizedNames?.join(' ') ?? '').join(' ');
+  const authorizedNameTokens = new Set(
+    (input.authorizedNames ?? []).flatMap((name) => normalizedWords(name))
+  );
   const commonSentenceStarts = new Set([
-    'ahora', 'aqui', 'alli', 'cuando', 'despues', 'desde', 'el', 'ella', 'en', 'esta',
-    'este', 'esto', 'ese', 'esa', 'fue', 'hoy', 'la', 'las', 'lo', 'los', 'mira',
-    'observa', 'pero', 'si', 'su', 'tambien', 'entonces', 'y',
+    'ahora', 'aqui', 'alli', 'aunque', 'ambos', 'asi', 'aun', 'cuando', 'comenzo',
+    'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
+    'ese', 'esa', 'fijate', 'fijese', 'fue', 'hemos', 'hoy', 'la', 'las', 'llegamos',
+    'lo', 'los', 'luego', 'mira', 'mirale', 'mientras', 'no', 'nos', 'observa',
+    'observe', 'originariamente', 'pero', 'si', 'sigueme', 'sin', 'su', 'tal',
+    'tambien', 'toda', 'todo', 'entonces', 'y',
   ]);
   const genericNamePrefixes = new Set([
     'calle', 'catedral', 'fuente', 'museo', 'palacio', 'paseo', 'plaza', 'puerta',
   ]);
   const nameConnectors = new Set(['de', 'del', 'la', 'las', 'los']);
+  const authorizedNameJoiners = new Set(['de', 'del', 'y']);
   const singleNamePrepositions = new Set(['a', 'al', 'con', 'de', 'del', 'en', 'la', 'por']);
   const nameCandidates = [...script.text.matchAll(
     /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:\s+(?:(?:de|del|la|las|los|y)\s+)?[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*/gu
@@ -228,9 +234,6 @@ export function auditNarrativeScriptDeterministicallyV6(
     const candidate = match[0];
     const prefix = script.text.slice(0, match.index).trimEnd();
     const candidateWords = normalizedWords(candidate);
-    while (candidateWords.length > 1 && commonSentenceStarts.has(candidateWords[0])) {
-      candidateWords.shift();
-    }
     if (candidateWords.length > 2 && genericNamePrefixes.has(candidateWords[0])
       && nameConnectors.has(candidateWords[1])) {
       candidateWords.shift();
@@ -239,20 +242,18 @@ export function auditNarrativeScriptDeterministicallyV6(
       }
     }
     const normalizedCandidate = candidateWords.join(' ');
-    const lastConnector = Math.max(
-      candidateWords.lastIndexOf('de'), candidateWords.lastIndexOf('del')
-    );
-    const authorizedComposite = lastConnector > 0 && lastConnector < candidateWords.length - 1
-      && authorizedNameText.includes(candidateWords.slice(0, lastConnector).join(' '))
-      && authorizedNameText.includes(candidateWords.slice(lastConnector + 1).join(' '));
     const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
     const previousWord = normalizedWords(prefix.match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
+    const covered = (wordsToCheck: string[]) => wordsToCheck.every((word) => (
+      authorizedNameJoiners.has(word) || authorizedNameTokens.has(word)
+    ));
+    const authorizedCandidate = covered(candidateWords)
+      || (atSentenceStart && candidateWords.length > 1 && covered(candidateWords.slice(1)));
     if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
       || commonSentenceStarts.has(normalizedCandidate)
-      || (atSentenceStart && !normalizedCandidate.includes(' '))
       || (candidateWords.length === 1 && singleNamePrepositions.has(previousWord))
       || checkedNames.has(normalizedCandidate)
-      || authorizedNameText.includes(normalizedCandidate) || authorizedComposite) continue;
+      || authorizedCandidate) continue;
     checkedNames.add(normalizedCandidate);
     warnings.push({
       warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}`, stopId: script.stopId,

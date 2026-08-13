@@ -26,9 +26,10 @@ function readableParagraphs(text: string): string {
   return paragraphs.join('\n\n');
 }
 
-function main(): void {
-  const runDirectory = resolve(option('--run-dir') ?? '');
-  if (!option('--run-dir')) throw new Error('--run-dir is required');
+export function writeNarrativeV6PreviewV6(
+  runDirectory: string,
+  markdownOutput = resolve(runDirectory, 'tour-preview.md')
+): { output: string; markdownOutput: string; places: number } {
   const diagnostics = JSON.parse(
     readFileSync(resolve(runDirectory, 'diagnostics.private.json'), 'utf8')
   ) as {
@@ -103,7 +104,6 @@ function main(): void {
     updatedAt: now,
   };
   const output = resolve(runDirectory, 'tour-preview.json');
-  const markdownOutput = resolve(option('--markdown-output') ?? resolve(runDirectory, 'tour-preview.md'));
   const stopWordCounts = tour.places.map((place) => wordCount(place.description));
   const totalWords = stopWordCounts.reduce((total, count) => total + count, 0);
   const gatePassed = review?.gate?.status === 'passed';
@@ -148,16 +148,20 @@ function main(): void {
   mkdirSync(runDirectory, { recursive: true });
   writeFileSync(output, JSON.stringify(tour, null, 2));
   writeFileSync(markdownOutput, `${markdown}\n`);
-  process.stdout.write(`${JSON.stringify({
-    output,
-    markdownOutput,
-    places: tour.places.length,
-  }, null, 2)}\n`);
+  return { output, markdownOutput, places: tour.places.length };
 }
 
-try {
-  main();
-} catch (error) {
-  process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
-  process.exitCode = 1;
+if (require.main === module) {
+  try {
+    const runDirectory = resolve(option('--run-dir') ?? '');
+    if (!option('--run-dir')) throw new Error('--run-dir is required');
+    const output = writeNarrativeV6PreviewV6(
+      runDirectory,
+      resolve(option('--markdown-output') ?? resolve(runDirectory, 'tour-preview.md'))
+    );
+    process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
+  } catch (error) {
+    process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+    process.exitCode = 1;
+  }
 }
