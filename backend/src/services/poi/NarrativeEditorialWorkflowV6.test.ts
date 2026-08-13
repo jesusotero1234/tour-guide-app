@@ -337,6 +337,26 @@ describe('narrative v6 editorial workflow', () => {
     });
   });
 
+  it('rejects a global issue that references a stop outside the route', async () => {
+    const fake = agents();
+    fake.auditTour = jest.fn(async () => {
+      const value = {
+        issues: [{
+          issueId: 'unknown-stop', stopId: 'not-on-route', sentenceId: 'not-on-route-S001',
+          severity: 'hard' as const, reason: 'Referencia inválida.',
+        }],
+        progressionWorks: true, promiseDelivered: true, closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
+
+    expect(result.run).toMatchObject({
+      status: 'protocol_failed', reason: 'tour audit references unknown stop not-on-route',
+    });
+  });
+
   it('authorizes route and arc names used only to connect neighboring stops', async () => {
     const fake = agents();
     fake.write.mockImplementation(async () => {
@@ -419,6 +439,169 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.stops.map((stop) => stop.stopId)).toEqual(['stop-0', 'stop-1', 'stop-2']);
   });
 
+  it('applies explicit scheduler overrides without changing profile defaults', () => {
+    const baseline = createNarrativeSchedulerV6('balanced_openrouter');
+    const parallel = createNarrativeSchedulerV6('balanced_openrouter', {
+      editorialStops: 2,
+      auditStops: 2,
+    });
+
+    expect(baseline.limits).toMatchObject({ editorialStops: 1, auditStops: 1 });
+    expect(parallel.limits).toMatchObject({
+      editorialStops: 2, auditStops: 2, writers: 1, globalAudits: 1,
+    });
+    expect(() => createNarrativeSchedulerV6('balanced_openrouter', {
+      auditStops: 0,
+    })).toThrow('auditStops must be a positive integer');
+  });
+
+  it('audits two stops concurrently but assigns the single repair in route order', async () => {
+    const multiRoute = {
+      ...route,
+      stops: [0, 1].map((position) => ({
+        ...route.stops[0],
+        stopId: `stop-${position}`,
+        position,
+        previousStopId: position === 0 ? null : 'stop-0',
+        nextStopId: position === 0 ? 'stop-1' : null,
+      })),
+    };
+    const scripts = multiRoute.stops.map((stop) => assignNarrativeSentenceIdsV6(
+      stop.stopId, 'Mira las torres. Esta afirmación requiere reparación.'
+    ));
+    const fake = agents();
+    let activeAuditors = 0;
+    let peakAuditors = 0;
+    let initialAuditors = 0;
+    let releaseInitialAudits: (() => void) | undefined;
+    const initialAuditBarrier = new Promise<void>((resolve) => { releaseInitialAudits = resolve; });
+    fake.audit = jest.fn(async (input, auditor) => {
+      const repaired = input.script.text.includes('afirmación corregida');
+      if (!repaired) {
+        activeAuditors += 1;
+        peakAuditors = Math.max(peakAuditors, activeAuditors);
+        initialAuditors += 1;
+        if (initialAuditors === 4) releaseInitialAudits?.();
+        await initialAuditBarrier;
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        activeAuditors -= 1;
+      }
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: sentence.index === 1 && auditor === 'deepseek' && !repaired
+            ? 'unsupported' as const : 'supported' as const,
+          reason: sentence.index === 1 ? 'Debe corregirse.' : 'Respaldada.',
+          propositionIds: sentence.index === 0 ? ['P1'] : [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${input.script.stopId}-${auditor}`, value) };
+    });
+    const repairedStopIds: string[] = [];
+    fake.repair = jest.fn(async (input) => {
+      repairedStopIds.push(input.script.stopId);
+      const value = { replacements: [{
+        sentenceId: `${input.script.stopId}-S002`, text: 'Esta es la afirmación corregida.',
+      }] };
+      return { value, diagnostic: diagnostic(`repair-${input.script.stopId}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6({
+      ...base,
+      route: multiRoute,
+      dossiers: multiRoute.stops.map((stop) => ({ ...dossier(), stopId: stop.stopId })),
+      arc: {
+        ...base.arc,
+        stops: multiRoute.stops.map((stop) => ({
+          stopId: stop.stopId, contribution: stop.stopId, bridge: 'Siguiente',
+        })),
+      },
+    }, fake, {
+      scripts,
+      auditStopIds: multiRoute.stops.map((stop) => stop.stopId),
+      maximumAdditionalRepairs: 1,
+      scheduler: createNarrativeSchedulerV6('balanced_openrouter', {
+        editorialStops: 2, auditStops: 2,
+      }),
+    });
+
+    expect(peakAuditors).toBe(4);
+    expect(repairedStopIds).toEqual(['stop-0']);
+    expect(result.stops.map((stop) => stop.stopId)).toEqual(['stop-0', 'stop-1']);
+    expect(result.run).toMatchObject({
+      status: 'draft_review_required',
+      openIssueIds: ['deepseek:stop-1-S002:unsupported'],
+    });
+    expect(result.performance).toMatchObject({
+      configuredEditorialStops: 2,
+      configuredAuditStops: 2,
+      peakEditorialStops: 2,
+      peakAuditStops: 2,
+      peakAuditorCalls: 4,
+    });
+    expect(result.performance?.reviewSpeedup).toBeGreaterThanOrEqual(1.5);
+  });
+
+  it('gives the repair to the next eligible route stop', async () => {
+    const multiRoute = {
+      ...route,
+      stops: [0, 1].map((position) => ({
+        ...route.stops[0], stopId: `stop-${position}`, position,
+        previousStopId: position === 0 ? null : 'stop-0',
+        nextStopId: position === 0 ? 'stop-1' : null,
+      })),
+    };
+    const fake = agents();
+    fake.audit = jest.fn(async (input, auditor) => {
+      const needsRepair = input.script.stopId === 'stop-1'
+        && !input.script.text.includes('corregida');
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: needsRepair && auditor === 'deepseek'
+            ? 'unsupported' as const : 'supported' as const,
+          reason: needsRepair ? 'Debe corregirse.' : 'Respaldada.',
+          propositionIds: [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${input.script.stopId}-${auditor}`, value) };
+    });
+    const repairedStopIds: string[] = [];
+    fake.repair = jest.fn(async (input) => {
+      repairedStopIds.push(input.script.stopId);
+      const value = { replacements: [{
+        sentenceId: `${input.script.stopId}-S001`, text: 'Esta frase está corregida.',
+      }] };
+      return { value, diagnostic: diagnostic(`repair-${input.script.stopId}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6({
+      ...base,
+      route: multiRoute,
+      dossiers: multiRoute.stops.map((stop) => ({ ...dossier(), stopId: stop.stopId })),
+      arc: {
+        ...base.arc,
+        stops: multiRoute.stops.map((stop) => ({
+          stopId: stop.stopId, contribution: stop.stopId, bridge: 'Siguiente',
+        })),
+      },
+    }, fake, {
+      scripts: multiRoute.stops.map((stop) => assignNarrativeSentenceIdsV6(
+        stop.stopId, 'Esta frase requiere revisión.'
+      )),
+      auditStopIds: multiRoute.stops.map((stop) => stop.stopId),
+      maximumAdditionalRepairs: 1,
+      scheduler: createNarrativeSchedulerV6('balanced_openrouter', {
+        editorialStops: 2, auditStops: 2,
+      }),
+    });
+
+    expect(result.run.status).toBe('ready_for_human_gate');
+    expect(repairedStopIds).toEqual(['stop-1']);
+  });
+
   it('cancels a sibling auditor and waits for both before releasing the audit semaphore', async () => {
     const fake = agents();
     const onProgress = jest.fn();
@@ -461,6 +644,66 @@ describe('narrative v6 editorial workflow', () => {
     expect(fake.write).toHaveBeenCalledWith(expect.any(Object), expect.objectContaining({
       onProgress,
     }));
+  });
+
+  it('cancels other active stops and skips the global audit after a parallel failure', async () => {
+    const multiRoute = {
+      ...route,
+      stops: [0, 1].map((position) => ({
+        ...route.stops[0], stopId: `stop-${position}`, position,
+        previousStopId: position === 0 ? null : 'stop-0',
+        nextStopId: position === 0 ? 'stop-1' : null,
+      })),
+    };
+    const fake = agents();
+    let startedAuditors = 0;
+    let settledAuditors = 0;
+    let releaseAuditors: (() => void) | undefined;
+    const auditorBarrier = new Promise<void>((resolve) => { releaseAuditors = resolve; });
+    fake.audit = jest.fn(async (input, auditor, execution) => {
+      startedAuditors += 1;
+      if (startedAuditors === 4) releaseAuditors?.();
+      await auditorBarrier;
+      try {
+        if (input.script.stopId === 'stop-0' && auditor === 'deepseek') {
+          throw new Error('primary parallel audit failed');
+        }
+        await new Promise<void>((_resolve, reject) => {
+          const signal = execution?.signal as AbortSignal;
+          if (signal.aborted) reject(signal.reason);
+          else signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+        });
+        throw new Error('unreachable');
+      } finally {
+        settledAuditors += 1;
+      }
+    });
+
+    const result = await runNarrativeEditorialWorkflowV6({
+      ...base,
+      route: multiRoute,
+      dossiers: multiRoute.stops.map((stop) => ({ ...dossier(), stopId: stop.stopId })),
+      arc: {
+        ...base.arc,
+        stops: multiRoute.stops.map((stop) => ({
+          stopId: stop.stopId, contribution: stop.stopId, bridge: 'Siguiente',
+        })),
+      },
+    }, fake, {
+      scripts: multiRoute.stops.map((stop) => assignNarrativeSentenceIdsV6(
+        stop.stopId, 'Mira las torres.'
+      )),
+      auditStopIds: multiRoute.stops.map((stop) => stop.stopId),
+      maximumAdditionalRepairs: 1,
+      scheduler: createNarrativeSchedulerV6('balanced_openrouter', {
+        editorialStops: 2, auditStops: 2,
+      }),
+    });
+
+    expect(result.run).toMatchObject({ status: 'protocol_failed' });
+    expect(startedAuditors).toBe(4);
+    expect(settledAuditors).toBe(4);
+    expect(fake.auditTour).not.toHaveBeenCalled();
   });
 
   it('fails the benchmark closed on budget, configuration and routing protocol violations', async () => {

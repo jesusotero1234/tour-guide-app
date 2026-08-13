@@ -495,7 +495,9 @@ export function createNarrativeEditorialAgentsV6(
           successfulResults.push(result);
           return;
         }
-        if (auditor === 'gemma' && result.status === 'semantic_error' && sentences.length > 1) {
+        const shouldSplit = result.finishReason === 'length'
+          || (auditor === 'gemma' && result.status === 'semantic_error');
+        if (shouldSplit && sentences.length > 1) {
           const middle = Math.ceil(sentences.length / 2);
           await auditBatch(sentences.slice(0, middle), `${label}-split-1`);
           await auditBatch(sentences.slice(middle), `${label}-split-2`);

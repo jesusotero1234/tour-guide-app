@@ -39,6 +39,7 @@ import {
   runNarrativeEditorialWorkflowV6,
   runPairedNarrativeAuditsV6,
 } from '../../src/services/poi/NarrativeEditorialWorkflowV6';
+import { createNarrativeSchedulerV6 } from '../../src/services/poi/NarrativeSchedulerV6';
 import {
   prepareNarrativeResumeReviewV6,
   validateNarrativeReviewPatchV6,
@@ -504,6 +505,13 @@ async function resumeReviewGateA(
     signal,
     onProgress,
     profile,
+    scheduler: createNarrativeSchedulerV6(profile, {
+      editorialStops: 2,
+      auditStops: 2,
+      adjudications: 3,
+      writers: 1,
+      globalAudits: 1,
+    }),
     scripts: prepared.scripts,
     auditStopIds: prepared.auditedStopIds,
     maximumAdditionalRepairs: 1,
@@ -588,6 +596,7 @@ async function resumeReviewGateA(
     },
     workflowRun: workflow.run,
     tourAudit: workflow.tourAudit,
+    performance: workflow.performance,
     automaticChecks,
     scorecard: scorecardResult?.value ?? null,
     developmentStopIds: manifest.developmentStopIds,
@@ -611,7 +620,8 @@ async function resumeReviewGateA(
       workflowStatus: workflow.run.status,
       hardWarningCount: automaticChecks.hardWarningCount,
       globalIssueCount: automaticChecks.globalIssueCount,
-      openIssueIds: workflow.run.openIssueIds,
+      openIssueIds: workflow.run.status === 'draft_review_required'
+        ? workflow.run.openIssueIds : [],
     })}\n`);
   const preview = finalScripts.length === manifest.stops.length
     ? writeNarrativeV6PreviewV6(dirname(paths.publicPath)) : null;
@@ -889,7 +899,7 @@ async function main(): Promise<void> {
       ? requiredSecret('OPENROUTER_API_KEY') : undefined;
     let openRouterPricing: Record<string, EditorialPricingV6> | undefined;
     if (profile === 'balanced_openrouter') {
-      const preflight = await preflightBalancedOpenRouterV6();
+      const preflight = await preflightBalancedOpenRouterV6({ signal: abortController.signal });
       if (preflight.status !== 'ready') {
         throw new Error(`OpenRouter endpoint preflight failed: ${preflight.issues.join('; ')}`);
       }

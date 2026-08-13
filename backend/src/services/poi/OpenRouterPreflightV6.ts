@@ -8,7 +8,8 @@ import { EditorialPricingV6 } from './EditorialStructuredLlmV6';
 
 export type OpenRouterCatalogGetV6 = (
   url: string,
-  headers: Record<string, string>
+  headers: Record<string, string>,
+  signal?: AbortSignal
 ) => Promise<{ data: unknown }>;
 
 export interface OpenRouterPreflightCheckV6 {
@@ -123,14 +124,15 @@ function requirements(): RequiredEndpointV6[] {
   ));
 }
 
-const defaultGet: OpenRouterCatalogGetV6 = async (url, headers) => {
-  const response = await axios.get(url, { headers, timeout: 30_000 });
+const defaultGet: OpenRouterCatalogGetV6 = async (url, headers, signal) => {
+  const response = await axios.get(url, { headers, timeout: 30_000, signal });
   return { data: response.data };
 };
 
 export async function preflightBalancedOpenRouterV6(options: {
   baseUrl?: string;
   get?: OpenRouterCatalogGetV6;
+  signal?: AbortSignal;
 } = {}): Promise<OpenRouterPreflightResultV6> {
   const baseUrl = (options.baseUrl ?? 'https://openrouter.ai/api/v1').replace(/\/$/, '');
   const get = options.get ?? defaultGet;
@@ -139,7 +141,9 @@ export async function preflightBalancedOpenRouterV6(options: {
   let catalogModels = new Set<string>();
 
   try {
-    const catalog = record((await get(`${baseUrl}/models`, { Accept: 'application/json' })).data);
+    const catalog = record((await get(
+      `${baseUrl}/models`, { Accept: 'application/json' }, options.signal
+    )).data);
     const models = Array.isArray(catalog?.data) ? catalog.data : [];
     catalogModels = new Set(models.flatMap((item) => {
       const model = record(item);
@@ -150,14 +154,17 @@ export async function preflightBalancedOpenRouterV6(options: {
     issues.push(`OpenRouter model catalog failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 
-  for (const requirement of requirements()) {
+  const endpointResults = await Promise.all(requirements().map(async (requirement) => {
+    const endpointIssues: string[] = [];
+    const endpointChecks: OpenRouterPreflightCheckV6[] = [];
     if (!requirement.acceptedModels.some((model) => catalogModels.has(model))) {
-      issues.push(`Model is absent from the OpenRouter catalog: ${requirement.model}`);
+      endpointIssues.push(`Model is absent from the OpenRouter catalog: ${requirement.model}`);
     }
     try {
       const response = record((await get(
         `${baseUrl}/models/${requirement.model}/endpoints`,
-        { Accept: 'application/json' }
+        { Accept: 'application/json' },
+        options.signal
       )).data);
       const data = record(response?.data);
       const endpoints = Array.isArray(data?.endpoints) ? data.endpoints : [];
@@ -165,8 +172,10 @@ export async function preflightBalancedOpenRouterV6(options: {
         candidate?.tag === requirement.endpoint
       ));
       if (!endpoint) {
-        issues.push(`Pinned endpoint is unavailable: ${requirement.model} -> ${requirement.endpoint}`);
-        continue;
+        endpointIssues.push(
+          `Pinned endpoint is unavailable: ${requirement.model} -> ${requirement.endpoint}`
+        );
+        return { checks: endpointChecks, issues: endpointIssues };
       }
       const providerName = typeof endpoint.provider_name === 'string'
         ? endpoint.provider_name
@@ -183,12 +192,12 @@ export async function preflightBalancedOpenRouterV6(options: {
       try {
         pricing = endpointPricing(endpoint.pricing);
       } catch (error) {
-        issues.push(
+        endpointIssues.push(
           `Pinned endpoint pricing is invalid for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
         );
-        continue;
+        return { checks: endpointChecks, issues: endpointIssues };
       }
-      checks.push({
+      endpointChecks.push({
         model: requirement.model,
         endpointModel,
         endpoint: requirement.endpoint,
@@ -198,12 +207,12 @@ export async function preflightBalancedOpenRouterV6(options: {
         pricing,
       });
       if (normalizedProvider(providerName) !== normalizedProvider(requirement.provider)) {
-        issues.push(
+        endpointIssues.push(
           `Pinned provider mismatch for ${requirement.model}: expected ${requirement.provider}, got ${providerName || 'unknown'}`
         );
       }
       if (!endpointModel) {
-        issues.push(
+        endpointIssues.push(
           `Pinned endpoint model mismatch for ${requirement.model}: ${endpointName || 'unknown'}`
         );
       }
@@ -214,16 +223,21 @@ export async function preflightBalancedOpenRouterV6(options: {
           : !supportedParameters.includes(parameter)
       ));
       if (missing.length > 0) {
-        issues.push(
+        endpointIssues.push(
           `Pinned endpoint lacks required parameters for ${requirement.model}: ${missing.join(', ')}`
         );
       }
     } catch (error) {
-      issues.push(
+      endpointIssues.push(
         `Endpoint catalog failed for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
       );
     }
-  }
+    return { checks: endpointChecks, issues: endpointIssues };
+  }));
+  endpointResults.forEach((result) => {
+    checks.push(...result.checks);
+    issues.push(...result.issues);
+  });
 
   const normalized = { checks, issues: [...issues].sort() };
   return {

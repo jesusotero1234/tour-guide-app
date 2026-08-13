@@ -126,12 +126,18 @@ describe('narrative v6 editorial agents', () => {
 
   it('batches provider audits so the 2,000-token response contract remains bounded', async () => {
     const batchSizes: number[] = [];
+    let activeBatches = 0;
+    let peakBatches = 0;
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      activeBatches += 1;
+      peakBatches = Math.max(peakBatches, activeBatches);
+      await Promise.resolve();
       const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
       const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
         script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
       };
       batchSizes.push(input.script.sentences.length);
+      activeBatches -= 1;
       return { data: { choices: [{ message: { tool_calls: [{ function: {
         name: 'audit_narrative_sentences_v6',
         arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
@@ -151,7 +157,45 @@ describe('narrative v6 editorial agents', () => {
     const result = await agents.audit({ script: longScript, dossier }, 'deepseek');
 
     expect(batchSizes).toEqual([6, 6, 5]);
+    expect(peakBatches).toBe(1);
     expect(result.value.findings).toHaveLength(17);
+  });
+
+  it('splits a provider audit batch sequentially when its output reaches the token limit', async () => {
+    const batchSizes: number[] = [];
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
+      const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
+        script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
+      };
+      batchSizes.push(input.script.sentences.length);
+      if (batchSizes.length === 1) {
+        return { data: { choices: [{
+          finish_reason: 'length', message: { content: '{"findings":[' },
+        }] } };
+      }
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'audit_narrative_sentences_v6',
+        arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported',
+          reason: 'Respaldada.',
+          propositionIds: [],
+        })) }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace',
+      Array.from({ length: 6 }, (_, index) => `Esta es la frase número ${index + 1}.`).join(' ')
+    );
+
+    const result = await agents.audit({ script, dossier }, 'deepseek');
+
+    expect(batchSizes).toEqual([6, 3, 3]);
+    expect(result.value.findings).toHaveLength(6);
+    expect(result.diagnostics?.map((diagnostic) => diagnostic.status))
+      .toEqual(['protocol_failed', 'valid', 'valid']);
   });
 
   it('splits only a Gemma batch that remains semantically incomplete after retry', async () => {

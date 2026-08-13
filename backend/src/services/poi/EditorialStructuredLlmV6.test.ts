@@ -49,7 +49,7 @@ describe('editorial structured LLM v6 providers', () => {
     const candidate = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter;
     expect(candidate.phases).toMatchObject({
       planner: {
-        provider: { model: 'deepseek/deepseek-v4-flash-0731', endpoint: 'deepinfra' },
+        provider: { model: 'deepseek/deepseek-v4-flash-0731', endpoint: 'deepinfra/fp4' },
         reasoning: 'none', temperature: 0,
       },
       curator: {
@@ -79,7 +79,7 @@ describe('editorial structured LLM v6 providers', () => {
   it('preflights the public catalog and exact endpoints without an API key', async () => {
     const providers: Record<string, { tag: string; provider: string }> = {
       'deepseek/deepseek-v4-flash-0731': {
-        tag: 'deepinfra', provider: 'DeepInfra',
+        tag: 'deepinfra/fp4', provider: 'DeepInfra',
       },
       'openai/gpt-5.4-mini': { tag: 'openai', provider: 'OpenAI' },
       'openai/gpt-5.4': { tag: 'openai', provider: 'OpenAI' },
@@ -90,11 +90,30 @@ describe('editorial structured LLM v6 providers', () => {
         tag: 'google-vertex/global', provider: 'Google',
       },
     };
-    const get = jest.fn(async (url: string, headers: Record<string, string>) => {
+    let activeEndpointRequests = 0;
+    let peakEndpointRequests = 0;
+    let releaseEndpoints: (() => void) | undefined;
+    let releaseScheduled = false;
+    const endpointBarrier = new Promise<void>((resolve) => { releaseEndpoints = resolve; });
+    const controller = new AbortController();
+    const get = jest.fn(async (
+      url: string,
+      headers: Record<string, string>,
+      signal?: AbortSignal
+    ) => {
       expect(headers).toEqual({ Accept: 'application/json' });
+      expect(signal).toBe(controller.signal);
       if (url.endsWith('/models')) {
         return { data: { data: Object.keys(providers).map((id) => ({ id })) } };
       }
+      activeEndpointRequests += 1;
+      peakEndpointRequests = Math.max(peakEndpointRequests, activeEndpointRequests);
+      if (!releaseScheduled) {
+        releaseScheduled = true;
+        setTimeout(() => releaseEndpoints?.(), 20);
+      }
+      await endpointBarrier;
+      activeEndpointRequests -= 1;
       const model = Object.keys(providers).find((candidate) => url.includes(candidate));
       if (!model) throw new Error(`unexpected URL: ${url}`);
       const provider = providers[model];
@@ -109,7 +128,7 @@ describe('editorial structured LLM v6 providers', () => {
       }] } } };
     });
 
-    const result = await preflightBalancedOpenRouterV6({ get });
+    const result = await preflightBalancedOpenRouterV6({ get, signal: controller.signal });
 
     expect(result.status).toBe('ready');
     expect(result.issues).toEqual([]);
@@ -122,6 +141,7 @@ describe('editorial structured LLM v6 providers', () => {
     });
     expect(result.fingerprint).toMatch(/^[a-f0-9]{64}$/);
     expect(get).toHaveBeenCalledTimes(4);
+    expect(peakEndpointRequests).toBe(3);
     expect(get.mock.calls.flat()).not.toContain(expect.stringContaining('Bearer'));
   });
 
@@ -511,6 +531,35 @@ describe('editorial structured LLM v6 providers', () => {
     expect(rejected.status).toBe('transport_error');
     expect(rejected.attempts).toHaveLength(1);
     expect(clientErrorPost).toHaveBeenCalledTimes(1);
+  });
+
+  it('honors Retry-After for a transient provider failure within the absolute deadline', async () => {
+    const throttled = Object.assign(new Error('provider overloaded'), {
+      response: { status: 503, headers: { 'retry-after': '0.02' } },
+    });
+    const post = jest.fn()
+      .mockRejectedValueOnce(throttled)
+      .mockResolvedValueOnce(response('submit_test_v6'));
+    const startedAt = Date.now();
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'retry-after-503', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.attempts[0]).toMatchObject({
+      status: 'transport_error', httpStatus: 503, retryAfterMs: 20,
+    });
+    expect(Date.now() - startedAt).toBeGreaterThanOrEqual(15);
+    expect(post).toHaveBeenCalledTimes(2);
   });
 
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {

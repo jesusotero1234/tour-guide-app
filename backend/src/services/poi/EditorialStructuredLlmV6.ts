@@ -27,6 +27,7 @@ export interface EditorialAttemptV6 {
   schemaValid?: boolean;
   rateLimited?: boolean;
   timedOut?: boolean;
+  retryAfterMs?: number;
   usage?: EditorialUsageV6;
   finishReason?: string | null;
   actualModel?: string;
@@ -445,6 +446,7 @@ function transportDetails(error: unknown, deadlineReached = false, cancelled = f
   rateLimited: boolean;
   timedOut: boolean;
   retryable: boolean;
+  retryAfterMs?: number;
 } {
   const axiosStatus = axios.isAxiosError(error) ? error.response?.status : undefined;
   const record = optionalObject(error);
@@ -456,13 +458,48 @@ function transportDetails(error: unknown, deadlineReached = false, cancelled = f
   const timedOut = deadlineReached || code === 'ECONNABORTED' || code === 'ETIMEDOUT'
     || (error instanceof Error && /timed?\s*out/i.test(error.message));
   const rateLimited = status === 429;
+  const response = axios.isAxiosError(error)
+    ? error.response
+    : optionalObject(optionalObject(error)?.response);
+  const headers = response?.headers;
+  const headerValue = (() => {
+    if (!headers || typeof headers !== 'object') return undefined;
+    const getter = (headers as { get?: (name: string) => unknown }).get;
+    if (typeof getter === 'function') return getter.call(headers, 'retry-after');
+    return Object.entries(headers).find(([name]) => name.toLowerCase() === 'retry-after')?.[1];
+  })();
+  const retryAfterMs = (() => {
+    if (status !== 429 && status !== 503) return undefined;
+    const value = Array.isArray(headerValue) ? headerValue[0] : headerValue;
+    if (typeof value !== 'string' && typeof value !== 'number') return undefined;
+    const seconds = Number(value);
+    if (Number.isFinite(seconds) && seconds >= 0) return Math.ceil(seconds * 1_000);
+    const date = Date.parse(String(value));
+    return Number.isFinite(date) ? Math.max(0, date - Date.now()) : undefined;
+  })();
   return {
     ...(status === undefined ? {} : { httpStatus: status }),
     rateLimited,
     timedOut,
     retryable: !deadlineReached && !cancelled
       && (timedOut || status === 408 || status === 429 || Boolean(status && status >= 500)),
+    ...(retryAfterMs === undefined ? {} : { retryAfterMs }),
   };
+}
+
+function abortableDelay(delayMs: number, signal: AbortSignal): Promise<void> {
+  if (signal.aborted) return Promise.reject(signal.reason);
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      signal.removeEventListener('abort', onAbort);
+      resolve();
+    }, delayMs);
+    const onAbort = () => {
+      clearTimeout(timer);
+      reject(signal.reason);
+    };
+    signal.addEventListener('abort', onAbort, { once: true });
+  });
 }
 
 function compileSchema(schema: Record<string, unknown>): ValidateFunction {
@@ -738,10 +775,24 @@ export async function requestEditorialStructuredV6<T>(config: {
         ...(details.httpStatus === undefined ? {} : { httpStatus: details.httpStatus }),
         rateLimited: details.rateLimited,
         timedOut: details.timedOut,
+        ...(details.retryAfterMs === undefined ? {} : { retryAfterMs: details.retryAfterMs }),
         actualModel: config.provider.model,
         actualProvider: null,
       });
-      if (attempt < requestAttempts && details.retryable) continue;
+      let canRetry = attempt < requestAttempts && details.retryable;
+      if (canRetry && details.retryAfterMs !== undefined && details.retryAfterMs > 0) {
+        const remainingMs = deadlineAt - Date.now();
+        if (details.retryAfterMs >= remainingMs) {
+          canRetry = false;
+        } else {
+          try {
+            await abortableDelay(details.retryAfterMs, deadlineController.signal);
+          } catch {
+            canRetry = false;
+          }
+        }
+      }
+      if (canRetry) continue;
       return {
         callId: config.callId, status: 'transport_error', value: null, attempts,
         model: config.provider.model, promptFingerprint, responseFingerprint: null,

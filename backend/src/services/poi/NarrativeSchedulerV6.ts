@@ -43,10 +43,16 @@ export interface NarrativeSchedulerV6 {
 }
 
 export function createNarrativeSchedulerV6(
-  profileName?: NarrativeModelProfileNameV6 | string
+  profileName?: NarrativeModelProfileNameV6 | string,
+  overrides: Partial<NarrativeConcurrencyV6> = {}
 ): NarrativeSchedulerV6 {
   const profile = resolveNarrativeModelProfileV6(profileName);
-  const limits = profile.concurrency;
+  const limits = { ...profile.concurrency, ...overrides };
+  for (const [name, limit] of Object.entries(limits)) {
+    if (!Number.isInteger(limit) || limit < 1) {
+      throw new Error(`narrative concurrency ${name} must be a positive integer`);
+    }
+  }
   const semaphores = {
     researchStop: new NarrativeSemaphoreV6(limits.researchStops),
     search: new NarrativeSemaphoreV6(limits.searches),
