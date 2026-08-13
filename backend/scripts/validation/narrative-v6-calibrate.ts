@@ -471,6 +471,13 @@ async function resumeReviewGateA(
     throw new Error('source review is not a resumable editorial review');
   }
   const patch = validateNarrativeReviewPatchV6(JSON.parse(readFileSync(patchPath, 'utf8')));
+  const reviewStopIds = [...new Set(patch.replacements.map((replacement) => replacement.stopId))];
+  const unsupportedReviewStopIds = reviewStopIds.filter((stopId) => (
+    !MADRID_RESUME_REVIEW_STOP_IDS_V6.includes(stopId)
+  ));
+  if (unsupportedReviewStopIds.length > 0) {
+    throw new Error(`review patch includes unsupported Madrid stops: ${unsupportedReviewStopIds.join(', ')}`);
+  }
   const prepared = prepareNarrativeResumeReviewV6({
     review: {
       runId: source.runId,
@@ -480,7 +487,7 @@ async function resumeReviewGateA(
     patch,
     route,
     dossiers,
-    reviewStopIds: MADRID_RESUME_REVIEW_STOP_IDS_V6,
+    reviewStopIds,
   });
   const agents = createNarrativeEditorialAgentsV6({
     apiKey, openRouterApiKey, profile, runId: paths.runId,
