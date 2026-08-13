@@ -313,7 +313,7 @@ describe('narrative v6 automatic research', () => {
     expect(sourceProvider.search).not.toHaveBeenCalled();
   });
 
-  it('turns an unknown curator chunk into protocol_failed', async () => {
+  it('turns an unmatched curator excerpt into protocol_failed', async () => {
     const invalid: NarrativeResearchCuratorV6 = {
       curate: async () => ({
         proposal: {
@@ -333,10 +333,10 @@ describe('narrative v6 automatic research', () => {
     });
 
     expect(result).toMatchObject({ status: 'protocol_failed' });
-    expect(result.reason).toContain('references unknown curator chunk');
+    expect(result.reason).toContain('excerpt has no unique literal curator chunk');
   });
 
-  it('rejects a literal excerpt cited against the wrong chunk of the same source', async () => {
+  it('relocates a uniquely literal excerpt cited against the wrong chunk', async () => {
     const sourceProvider = provider();
     sourceProvider.capture.mockImplementation(async (url: string) => {
       const match = url.match(/alcazar-(\d+)/);
@@ -373,8 +373,10 @@ describe('narrative v6 automatic research', () => {
       stop, language: 'es', sourceProvider, curator: invalid,
     });
 
-    expect(result).toMatchObject({ status: 'protocol_failed' });
-    expect(result.reason).toContain('excerpt is not literal in curator chunk');
+    expect(result).toMatchObject({
+      status: 'evidence_review_required',
+      reasons: expect.arrayContaining(['narrative evidence is absent']),
+    });
   });
 
   it('returns reference_evidence_missing before planner or curator when direct preflight fails', async () => {
