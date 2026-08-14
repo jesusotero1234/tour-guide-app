@@ -70,6 +70,10 @@ coverage/
 
 .opencode/
 
+.codex/
+
+.claude/
+
 
 
 # local runtime/state

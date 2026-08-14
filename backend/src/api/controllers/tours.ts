@@ -4,6 +4,10 @@ import { orchestrationService } from '../../services/orchestrationService';
 import { CityNotAvailableError, CITY_NOT_AVAILABLE_CODE } from '../../domain/errors/CityNotAvailableError';
 import { CityQualityNotAvailableError, CITY_QUALITY_NOT_AVAILABLE_CODE } from '../../domain/errors/CityQualityNotAvailableError';
 import { TourDurationNotRecommendedError, TOUR_DURATION_NOT_RECOMMENDED_CODE } from '../../domain/errors/TourDurationNotRecommendedError';
+import {
+  InvalidTourRouteError,
+} from '../../services/WalkingRouteService';
+import { walkingRouteService } from '../../services/walkingRouteServiceInstance';
 
 export async function generateTour(req: Request, res: Response) {
   try {
@@ -132,6 +136,55 @@ export async function getTour(req: Request, res: Response) {
         code: 'TOUR_RETRIEVAL_ERROR',
         message: 'Failed to retrieve tour'
       }
+    });
+  }
+}
+
+export async function getWalkingRoute(req: Request, res: Response) {
+  try {
+    const tour = await orchestrationService.retrieveTour(req.params.id);
+    if (tour.status !== 'published') {
+      return res.status(404).json({
+        error: {
+          code: 'TOUR_NOT_FOUND',
+          message: 'Tour not found',
+        },
+      });
+    }
+
+    const route = await walkingRouteService.getRoute(
+      tour.places.map((place) => ({
+        latitude: place.latitude,
+        longitude: place.longitude,
+      }))
+    );
+
+    return res.json({ data: route });
+  } catch (error) {
+    if (error instanceof InvalidTourRouteError) {
+      return res.status(422).json({
+        error: {
+          code: 'INVALID_TOUR_ROUTE',
+          message: 'Tour stops do not form a valid walking route',
+        },
+      });
+    }
+
+    if (error instanceof Error && error.message.toLowerCase().includes('not found')) {
+      return res.status(404).json({
+        error: {
+          code: 'TOUR_NOT_FOUND',
+          message: 'Tour not found',
+        },
+      });
+    }
+
+    console.error('Error retrieving walking route:', error);
+    return res.status(503).json({
+      error: {
+        code: 'WALKING_ROUTE_UNAVAILABLE',
+        message: 'Walking route is unavailable',
+      },
     });
   }
 }

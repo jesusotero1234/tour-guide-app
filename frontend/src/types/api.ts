@@ -159,6 +159,16 @@ export interface GenerationJob {
   updatedAt: string;
 }
 
+export interface WalkingRoute {
+  provider: 'fossgis-osrm-foot';
+  geometry: {
+    type: 'LineString';
+    coordinates: Array<[longitude: number, latitude: number]>;
+  };
+  distanceMeters: number;
+  durationSeconds: number;
+}
+
 export interface Place {
   id: string;
   name: string;

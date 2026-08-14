@@ -1,7 +1,8 @@
-import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language } from '@/types/api';
+import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language, WalkingRoute } from '@/types/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 const FRONTEND_TOUR_API = '/api/backend';
+const walkingRouteRequests = new Map<string, Promise<WalkingRoute>>();
 
 export type { TourListParams } from '@/types/api';
 
@@ -18,6 +19,37 @@ function createApiRequestError(errorData: unknown, fallbackMessage: string): Api
   err.code = payload?.code;
   err.details = payload?.details;
   return err;
+}
+
+function isWalkingRoute(value: unknown): value is WalkingRoute {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const route = value as Record<string, unknown>;
+  const geometry = route.geometry;
+  if (!geometry || typeof geometry !== 'object' || Array.isArray(geometry)) return false;
+  const lineString = geometry as Record<string, unknown>;
+
+  return route.provider === 'fossgis-osrm-foot'
+    && typeof route.distanceMeters === 'number'
+    && Number.isFinite(route.distanceMeters)
+    && route.distanceMeters >= 0
+    && typeof route.durationSeconds === 'number'
+    && Number.isFinite(route.durationSeconds)
+    && route.durationSeconds >= 0
+    && lineString.type === 'LineString'
+    && Array.isArray(lineString.coordinates)
+    && lineString.coordinates.length >= 2
+    && lineString.coordinates.every((coordinate) => (
+      Array.isArray(coordinate)
+      && coordinate.length === 2
+      && typeof coordinate[0] === 'number'
+      && Number.isFinite(coordinate[0])
+      && coordinate[0] >= -180
+      && coordinate[0] <= 180
+      && typeof coordinate[1] === 'number'
+      && Number.isFinite(coordinate[1])
+      && coordinate[1] >= -90
+      && coordinate[1] <= 90
+    ));
 }
 
 export async function generateTour(request: TourRequest): Promise<Tour> {
@@ -189,6 +221,37 @@ export async function getTour(id: string): Promise<Tour> {
     console.error('Error fetching tour:', error);
     throw new Error('Failed to fetch tour. Please try again.');
   }
+}
+
+export function getWalkingRoute(id: string): Promise<WalkingRoute> {
+  const existingRequest = walkingRouteRequests.get(id);
+  if (existingRequest) return existingRequest;
+
+  const request = (async () => {
+    const response = await fetch(
+      `${FRONTEND_TOUR_API}/tours/${encodeURIComponent(id)}/walking-route`
+    );
+    const payload = await response.json();
+    if (!response.ok) {
+      throw createApiRequestError(payload, 'Walking route is unavailable');
+    }
+
+    const route = payload && typeof payload === 'object' && 'data' in payload
+      ? (payload as { data: unknown }).data
+      : null;
+    if (!isWalkingRoute(route)) {
+      throw new Error('Walking route is unavailable');
+    }
+
+    return route;
+  })();
+
+  walkingRouteRequests.set(id, request);
+  const forgetRequest = () => {
+    if (walkingRouteRequests.get(id) === request) walkingRouteRequests.delete(id);
+  };
+  void request.then(forgetRequest, forgetRequest);
+  return request;
 }
 
 export async function listTours(params?: TourListParams): Promise<Tour[]> {

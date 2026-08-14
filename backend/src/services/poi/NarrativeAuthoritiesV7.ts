@@ -383,8 +383,9 @@ function domainFromOfficialUrl(url: string): string | null {
   } catch {
     return null;
   }
-  if (parsed.protocol !== 'https:') return null;
-  if (parsed.username || parsed.password || (parsed.port && parsed.port !== '443')) {
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+  if (parsed.username || parsed.password
+    || (parsed.port && parsed.port !== '443' && parsed.port !== '80')) {
     return null;
   }
   const hostname = parsed.hostname.toLowerCase();
@@ -414,7 +415,8 @@ export class WikidataAuthorityProviderV7 {
     const result: Record<string, unknown> = {};
     for (let offset = 0; offset < unique.length; offset += 50) {
       const batch = unique.slice(offset, offset + 50);
-      const missing = batch.filter((qid) => !this.entityCache.has(qid));
+      const cacheKey = (qid: string): string => `${qid}|${props}`;
+      const missing = batch.filter((qid) => !this.entityCache.has(cacheKey(qid)));
       if (missing.length > 0) {
         const response = await requestMediaWikiWithMaxlagPolicyV8(
           () => this.get('https://www.wikidata.org/w/api.php', {
@@ -435,12 +437,12 @@ export class WikidataAuthorityProviderV7 {
         const entities = objectValue(root.entities, 'Wikibase entities');
         for (const [qid, entity] of Object.entries(entities)) {
           if (entity && typeof entity === 'object' && !Array.isArray(entity)) {
-            this.entityCache.set(qid, entity as Record<string, unknown>);
+            this.entityCache.set(cacheKey(qid), entity as Record<string, unknown>);
           }
         }
       }
       for (const qid of batch) {
-        const cached = this.entityCache.get(qid);
+        const cached = this.entityCache.get(cacheKey(qid));
         if (cached) result[qid] = cached;
       }
     }

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r8",
+  "tourFingerprint": "1da9ff58d56ac33ea0f7b6887fe4524e508882447eb55bcf208599990e1bdc4a",
+  "replacements": [
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S013",
+      "before": "Ahora compárala por un momento con la piedra del Palacio Real.",
+      "after": "La visita continúa ahora allí, en la siguiente parada de este recorrido histórico por Madrid."
+    }
+  ]
+}

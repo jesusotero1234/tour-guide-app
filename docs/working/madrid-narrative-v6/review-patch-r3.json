@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r3",
+  "tourFingerprint": "6b9c12ad19826df4fb52734a44dcc3b95cc4f478e155508e89abe5c5aa13a6ea",
+  "replacements": [
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S022",
+      "before": "Ahora, déjame llevarte al siguiente lugar.",
+      "after": "El recinto termina aquí; la historia continúa en otro tipo de plaza."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S025",
+      "before": "Continúa el recorrido.",
+      "after": "El contraste se hará visible al llegar."
+    }
+  ]
+}

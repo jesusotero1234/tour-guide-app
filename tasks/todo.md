@@ -1,63 +1,35 @@
-# Madrid narrative pilot v4 checklist
+# V6 restante: checklist
 
-## Evidence boundary
+## Infraestructura
 
-- [x] Seven V7 scenes preserve exact order, coordinates, distance, and contribution.
-- [x] Every scene has exactly one fact for each explicit V4 role.
-- [x] Atomic Spanish facts contain 8–45 Unicode words and one proposition.
-- [x] Only observable facts contain an on-site cue visible from the observation point.
-- [x] Official source provenance and nested fingerprints validate offline.
-- [x] Fact permutation yields the same plan and every direct fact is assigned once.
-- [x] A synthetic unknown-city case passes through the same generic engine.
+- [ ] Firecrawl `v2.8.0` arranca exclusivamente en `127.0.0.1:3007`.
+- [ ] Search, Markdown, PDF, SSRF y redirecciones pasan el smoke sin LLM.
+- [ ] `down` conserva volúmenes y los secretos permanecen ignorados.
 
-## Prose and criticism
+## Proveedores y contratos
 
-- [x] Code owns all IDs, evidence, relations, transitions, counts, and duration.
-- [x] Writer schema contains only introduction, scene IDs, block kinds, and text.
-- [x] Introduction is 45–75 words; each body is 160–200 Unicode words.
-- [x] Look blocks instruct observation; new names/numbers and repeated seven-grams fail.
-- [x] Walking, observation, and 120 wpm duration produce an accepted 55–65 minutes.
-- [x] Grounding and final verdicts are calculated locally from valid findings/scores.
-- [x] Protocol retry does not consume the one whole-route content repair.
-- [x] Gemma exact digest, full VRAM residency, keep-alive, timeout, and one eviction
-  recovery are enforced.
+- [ ] `deepseek_control` conserva el baseline y sigue predeterminado.
+- [ ] `balanced_openrouter` fija todos los modelos, endpoints y parámetros.
+- [ ] JSON Schema local, metadata y preflight fallan cerrados.
 
-## Madrid qualification and freeze
+## Pipeline
 
-- [x] Three fixed variants run sequentially after one Gemma preparation.
-- [x] At least one approval selects by the preregistered deterministic tie-break.
-- [x] Clean re-critique and four valid factual mutation rejections pass.
-- [x] Empty critique metrics and protocol failures cannot count as success.
-- [x] Route, evidence, plan, text, prompts/schemas, models, parameters, variant,
-  policies, reports, mutations, preview, and qualification fingerprints are independent.
-- [x] Staged atomic freeze cannot create or overwrite a partial publication.
-- [x] Artifact=`machine_approved`, qualification=`passed`, public tour=`review`,
-  pilot=`prepared`; no V4 path emits `published`.
-- [x] Offline CLI validates evidence and replays an existing bundle without network.
+- [ ] Curación normal devuelve indicadores y GPT-5.4 escala una sola vez.
+- [ ] Semáforos aplican los límites por fase y perfil.
+- [ ] Reauditorías usan llamadas nuevas; telemetría privada cubre coste/tokens/routing.
 
-## Pilot experience
+## Benchmark y gates
 
-- [x] Disabled flag returns 404; missing/invalid fixture shows an explicit error only.
-- [x] Cover, map, seven text scenes, and current stop work on mobile.
-- [x] URL `?stop=N` restores progress; previous/next/end controls are correct.
-- [x] One h1, native buttons, visible focus, 44px targets, `aria-live`, and focus move.
-- [x] Map has an equivalent textual list and current stop is not color-only.
-- [x] Layout passes at 320, 768, 1024, and 1440px in isolated headless Chrome.
-- [ ] DevTools keyboard/focus/console inspection (connector unavailable).
+- [ ] Snapshot privado separa captura única de repeticiones offline.
+- [ ] Presupuesto conjunto de 2 USD se reserva antes de cada llamada.
+- [ ] Tres repeticiones calculan p50/p95, fingerprints y tasas de retry/schema.
+- [ ] Gate A y mutaciones pasan para ambos perfiles.
+- [ ] Gate B pasa tras spot-check humano.
+- [ ] Madrid integrado y Toledo quedan como máximo en revisión humana.
 
-## Final verification
+## Entrega
 
-- [x] Backend focused V4 tests and TypeScript pass.
-- [x] Backend full suite introduces no failures beyond the two recorded baseline failures.
-- [ ] Route V7, narrative V2, narrative V3, and Madrid V4 offline commands pass (V2 freeze is absent).
-- [x] Frontend TypeScript and production build pass.
-- [x] Headless browser layout, diff, and secret scans pass.
-- [ ] DevTools keyboard, focus, console, and network inspection (connector unavailable).
-- [x] No public preview contains prompts, raw model output, credentials, or private reports.
-- [x] No push or merge; no content commit exists because the live freeze failed.
-
-## Live qualification
-
-- [x] One official live run executed with pinned Gemma fully in VRAM.
-- [x] Failed run produced no partial outputs and was not retried or hand-edited.
-- [ ] At least one autonomous candidate passes and can be frozen (official run: 0/3).
+- [ ] Builds backend/frontend y suites focalizadas pasan.
+- [ ] Revisión de corrección, seguridad, rendimiento y secretos completada.
+- [ ] Cinco commits atómicos usan staging explícito.
+- [ ] Informe final recomienda activar o rechazar el candidato según resultados.

@@ -368,6 +368,31 @@ describe('buildValidatedDossierV8', () => {
     expect(badNumber.status).toBe('curator_contract_failed');
   });
 
+  it('accepts an authorized name that matches the evidence after normalization', () => {
+    const c = capture('source-a', 'El Teatro romano de Málaga fue declarado BIC en 1972.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const spanId = spans.get('source-a')![0].evidenceSpanId;
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [{
+          text: 'El teatro fue declarado BIC.',
+          role: 'chronology_or_transformation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [spanId] }],
+        }],
+        authorizedNames: ['Teatro Romano De Malaga'],
+        authorizedNumbers: ['1972'],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('ok');
+  });
+
   it('computes both gates and lets buildNarrativeDossierV6 confirm writerReady', () => {
     const a = capture('source-a', [
       'Se observa la torre inacabada.',

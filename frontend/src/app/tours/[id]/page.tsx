@@ -418,6 +418,7 @@ export default function TourDetailPage() {
                   <div id="map-panel" className="order-2 lg:order-2">
                     <TourMap
                       key={tour.id}
+                      tourId={tour.id}
                       stops={tour.places}
                       currentIndex={currentIndex}
                       onStopSelect={setCurrentIndex}

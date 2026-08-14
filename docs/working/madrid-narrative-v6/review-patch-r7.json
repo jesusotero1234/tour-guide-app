@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r7",
+  "tourFingerprint": "975401cefb6f2e32ec5b775ac46b7bd4de945c8fd8c2399f4873994ff20cf1ce",
+  "replacements": [
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S013",
+      "before": "Compárala por un momento con la piedra del palacio que acabamos de dejar atrás.",
+      "after": "Ahora compárala por un momento con la piedra del palacio que acabamos de dejar atrás."
+    }
+  ]
+}

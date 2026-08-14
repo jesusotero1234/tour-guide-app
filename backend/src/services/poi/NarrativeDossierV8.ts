@@ -85,6 +85,15 @@ function normalizePropositionTextV8(text: string): string {
   return text.normalize('NFKD').toLocaleLowerCase().replace(/\s+/gu, ' ').trim();
 }
 
+function normalizeIdentityNameV8(name: string): string {
+  return name.normalize('NFKD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim()
+    .replace(/\s+/gu, ' ');
+}
+
 function contractFailure(reason: string): NarrativeDossierValidationV8 {
   return { status: 'curator_contract_failed', reason };
 }
@@ -217,9 +226,13 @@ export function buildValidatedDossierV8(
     return contractFailure('curator output has no propositions');
   }
   const identityNames = input.authorizedIdentityNames ?? [];
+  const normalizedIdentityNames = identityNames.map(normalizeIdentityNameV8);
+  const normalizedQuotes = passageQuotes.map(normalizeIdentityNameV8);
   for (const name of curatorOutput.authorizedNames) {
-    const supported = identityNames.some((candidate) => candidate === name)
-      || passageQuotes.some((quote) => quote.includes(name));
+    const normalized = normalizeIdentityNameV8(name);
+    const supported = normalized.length > 0
+      && (normalizedIdentityNames.includes(normalized)
+        || normalizedQuotes.some((quote) => quote.includes(normalized)));
     if (!supported) return contractFailure(`authorized name not in evidence: ${name}`);
   }
   for (const number of curatorOutput.authorizedNumbers) {

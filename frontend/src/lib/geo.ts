@@ -26,10 +26,10 @@ export function haversineDistanceMeters(from: GeoPoint, to: GeoPoint) {
 
 export function formatDistance(meters: number) {
   if (meters < 1000) {
-    return `${Math.round(meters / 10) * 10}m away`;
+    return `≈ ${Math.round(meters / 10) * 10}m away`;
   }
 
-  return `${(meters / 1000).toFixed(meters < 10000 ? 1 : 0)}km away`;
+  return `≈ ${(meters / 1000).toFixed(meters < 10000 ? 1 : 0)}km away`;
 }
 
 export function getDistanceLabel(from: GeoPoint, to: GeoPoint) {

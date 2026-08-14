@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
+import { getWalkingRoute } from '@/lib/api';
+import { WalkingRoute } from '@/types/api';
 import { createNumberedMarkerIcon } from './markerIcons';
 import { TourMapStop } from './types';
 
@@ -12,6 +14,7 @@ const tileUrl = process.env.NEXT_PUBLIC_TILE_URL || DEFAULT_TILE_URL;
 const tileAttribution = process.env.NEXT_PUBLIC_TILE_ATTRIBUTION || DEFAULT_TILE_ATTRIBUTION;
 
 interface TourMapProps {
+  tourId: string;
   stops: TourMapStop[];
   currentIndex: number;
   onStopSelect: (index: number) => void;
@@ -21,25 +24,51 @@ interface TourMapProps {
   } | null;
 }
 
-export function TourMap({ stops, currentIndex, onStopSelect, userLocation }: TourMapProps) {
+type RouteStatus = 'loading' | 'ready' | 'error';
+
+function formatWalkingDistance(meters: number): string {
+  return meters < 1000
+    ? `${Math.round(meters)} m`
+    : `${(meters / 1000).toFixed(1)} km`;
+}
+
+export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocation }: TourMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.Marker[]>([]);
   const polylineRef = useRef<L.Polyline | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
+  const [walkingRoute, setWalkingRoute] = useState<WalkingRoute | null>(null);
+  const [routeStatus, setRouteStatus] = useState<RouteStatus>('loading');
 
   const validStops = useMemo(
     () =>
       stops.filter(
-        (stop) => Number.isFinite(stop.latitude) && Number.isFinite(stop.longitude)
+        (stop) => Number.isFinite(stop.latitude)
+          && stop.latitude >= -90
+          && stop.latitude <= 90
+          && Number.isFinite(stop.longitude)
+          && stop.longitude >= -180
+          && stop.longitude <= 180
       ),
     [stops]
   );
-
-  const route = validStops.map(
-    (stop) => [stop.latitude, stop.longitude] as [number, number]
+  const stopPoints = useMemo(
+    () => validStops.map(
+      (stop) => [stop.latitude, stop.longitude] as [number, number]
+    ),
+    [validStops]
   );
-  const center = route[0] ?? [0, 0];
+  const streetRoute = useMemo(
+    () => walkingRoute?.geometry.coordinates.map(
+      ([longitude, latitude]) => [latitude, longitude] as [number, number]
+    ) ?? [],
+    [walkingRoute]
+  );
+  const center = useMemo<[number, number]>(
+    () => stopPoints[0] ?? [0, 0],
+    [stopPoints]
+  );
   const userPoint = useMemo(
     () =>
       userLocation
@@ -48,10 +77,30 @@ export function TourMap({ stops, currentIndex, onStopSelect, userLocation }: Tou
     [userLocation]
   );
 
-  // Create and destroy the map instance on mount/unmount.
-  // Using useEffect with explicit remove() handles React StrictMode
-  // double-invoke correctly — the cleanup runs and clears _leaflet_id
-  // before the second mount.
+  useEffect(() => {
+    let active = true;
+    setWalkingRoute(null);
+    setRouteStatus('loading');
+
+    void getWalkingRoute(tourId).then(
+      (route) => {
+        if (!active) return;
+        setWalkingRoute(route);
+        setRouteStatus('ready');
+      },
+      () => {
+        if (!active) return;
+        setWalkingRoute(null);
+        setRouteStatus('error');
+      }
+    );
+
+    return () => {
+      active = false;
+    };
+  }, [tourId]);
+
+  // Explicit cleanup makes map creation safe under React Strict Mode.
   useEffect(() => {
     if (validStops.length === 0) return;
 
@@ -77,43 +126,40 @@ export function TourMap({ stops, currentIndex, onStopSelect, userLocation }: Tou
       polylineRef.current = null;
       userMarkerRef.current = null;
     };
-    // Only recreate the map when stops change.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validStops]);
+  }, [center, validStops.length]);
 
-  // Fit bounds whenever route changes.
+  // The real geometry drives the bounds when available; stops remain visible
+  // during loading and provider failures.
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || route.length === 0) return;
+    if (!map || stopPoints.length === 0) return;
 
-    const bounds = L.latLngBounds(userPoint ? [...route, userPoint] : route);
+    const visiblePoints = streetRoute.length > 1
+      ? [...streetRoute, ...stopPoints]
+      : stopPoints;
+    const bounds = L.latLngBounds(userPoint ? [...visiblePoints, userPoint] : visiblePoints);
     map.fitBounds(bounds, { padding: [24, 24], maxZoom: 16 });
-  }, [route, userPoint]);
+  }, [stopPoints, streetRoute, userPoint]);
 
-  // Sync markers and active state on index/props change.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    // Clear old markers
-    markersRef.current.forEach((m) => m.remove());
+    markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
-    // Clear old polyline
     if (polylineRef.current) {
       polylineRef.current.remove();
       polylineRef.current = null;
     }
 
-    // Add route polyline
-    if (route.length > 1) {
-      polylineRef.current = L.polyline(route, {
+    if (streetRoute.length > 1) {
+      polylineRef.current = L.polyline(streetRoute, {
         color: '#4A3F35',
         weight: 4,
       }).addTo(map);
     }
 
-    // Add markers
     validStops.forEach((stop, index) => {
       const marker = L.marker([stop.latitude, stop.longitude], {
         icon: createNumberedMarkerIcon(
@@ -145,7 +191,7 @@ export function TourMap({ stops, currentIndex, onStopSelect, userLocation }: Tou
         .addTo(map)
         .bindTooltip('Your location', { direction: 'top' });
     }
-  }, [validStops, route, currentIndex, onStopSelect, userPoint]);
+  }, [validStops, streetRoute, currentIndex, onStopSelect, userPoint]);
 
   if (validStops.length === 0) {
     return (
@@ -156,23 +202,53 @@ export function TourMap({ stops, currentIndex, onStopSelect, userLocation }: Tou
   }
 
   return (
-    <div className="relative">
-      <div
-        ref={containerRef}
-        className="h-[38vh] min-h-72 overflow-hidden rounded-2xl border border-darkBrown/12 shadow-sm lg:h-[70vh]"
-      />
-      {userPoint && (
-        <button
-          type="button"
-          onClick={() => {
-            const map = mapRef.current as (L.Map & { setView?: (center: [number, number], zoom?: number) => void }) | null;
-            map?.setView?.(userPoint, 16);
-          }}
-          className="absolute right-3 top-3 rounded-full border border-darkBrown/12 bg-surface/95 px-3 py-2 text-xs font-medium text-darkBrown shadow-sm backdrop-blur"
-        >
-          Center me
-        </button>
-      )}
+    <div aria-busy={routeStatus === 'loading'}>
+      <div className="relative">
+        <div
+          ref={containerRef}
+          role="region"
+          aria-label="Walking tour map"
+          className="h-[38vh] min-h-72 overflow-hidden rounded-2xl border border-darkBrown/12 shadow-sm lg:h-[70vh]"
+        />
+        {userPoint && (
+          <button
+            type="button"
+            onClick={() => {
+              const map = mapRef.current as (L.Map & { setView?: (center: [number, number], zoom?: number) => void }) | null;
+              map?.setView?.(userPoint, 16);
+            }}
+            className="absolute right-3 top-3 rounded-full border border-darkBrown/12 bg-surface/95 px-3 py-2 text-xs font-medium text-darkBrown shadow-sm backdrop-blur"
+          >
+            Center me
+          </button>
+        )}
+      </div>
+
+      <div className="mt-3 rounded-xl border border-darkBrown/12 bg-surface-elevated px-4 py-3 text-sm text-ink-muted shadow-sm">
+        <p role="status" aria-live="polite">
+          {routeStatus === 'loading' && 'Loading street route…'}
+          {routeStatus === 'error' && 'Street route unavailable; stop markers are still accurate.'}
+          {routeStatus === 'ready' && walkingRoute && (
+            `${formatWalkingDistance(walkingRoute.distanceMeters)} · ${Math.round(walkingRoute.durationSeconds / 60)} min walk`
+          )}
+        </p>
+        <p className="mt-1 text-xs text-ink-muted">
+          Walking route:{' '}
+          <a
+            href="https://routing.openstreetmap.de/about.html"
+            className="underline decoration-darkBrown/30 underline-offset-2 hover:text-darkBrown focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-darkBrown"
+          >
+            FOSSGIS/OSRM
+          </a>
+          {' · '}
+          <a
+            href="https://www.openstreetmap.org/fixthemap"
+            className="underline decoration-darkBrown/30 underline-offset-2 hover:text-darkBrown focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-darkBrown"
+          >
+            Fix the map
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

@@ -227,7 +227,7 @@ describe('WikidataAuthorityProviderV7', () => {
     expect(registry.aliases).toContain('Alias de Q1');
   });
 
-  it('ignores deprecated and non-HTTPS P856 claims', async () => {
+  it('ignores deprecated P856 claims and preserves http URLs with their domain', async () => {
     const provider = new WikidataAuthorityProviderV7({
       get: async (_url, params): Promise<{ data: unknown }> => {
         if (params.action === 'wbgetentities') {
@@ -263,7 +263,9 @@ describe('WikidataAuthorityProviderV7', () => {
     const domains = registry.authorities.map((authority) => authority.domain);
     expect(domains).toContain('www.valid.example');
     expect(domains).not.toContain('old.example');
-    expect(domains).not.toContain('insecure.example');
+    expect(domains).toContain('insecure.example');
+    expect(registry.authorities.find((authority) => authority.domain === 'insecure.example')?.url)
+      .toBe('http://insecure.example');
   });
 
   it('handles a city entity without labels and sends the run language plus English for local labels', async () => {

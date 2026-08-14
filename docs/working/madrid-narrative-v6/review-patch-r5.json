@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r5",
+  "tourFingerprint": "71ccd0487841ba70ac0d76a25bbb277c7abf9d4d1f4e8828aaf95956389115e8",
+  "replacements": [
+    {
+      "stopId": "villa",
+      "sentenceId": "villa-S019",
+      "before": "Si miras hacia arriba, verás ese pasadizo que Luis Bellido construyó para comunicar ambos edificios.",
+      "after": "Mira ahora cómo el pasadizo queda suspendido sobre la calle entre las dos fachadas."
+    }
+  ]
+}

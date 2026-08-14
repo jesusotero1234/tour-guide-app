@@ -12,7 +12,13 @@ import { NarrativeAuthorityRegistryV7 } from './NarrativeAuthoritiesV7';
 
 const REGISTRY: NarrativeAuthorityRegistryV7 = {
   authorities: [
-    { domain: 'www.malaga.es', origin: 'city_p856', qid: 'Q10', wikidataRevision: null, url: null },
+    {
+      domain: 'www.malaga.es',
+      origin: 'city_p856',
+      qid: 'Q10',
+      wikidataRevision: null,
+      url: 'https://www.malaga.es/alcazaba',
+    },
   ],
   aliases: ['Málaga'],
   labels: ['Málaga'],
@@ -159,13 +165,13 @@ describe('researchNarrativeStopV8', () => {
 
     const result = await researchNarrativeStopV8(BASE_INPUT, services);
 
-    expect(webCaptureCalls).toBe(0);
+    expect(webCaptureCalls).toBe(1);
     expect(searchCalls).toBeGreaterThan(0);
     expect(result.stats.capturedSourceCount).toBe(1);
     expect(result.captures.every((capture) => capture.sourceKind === 'wikipedia_api')).toBe(true);
     expect(result.status).toBe('evidence_review_required');
     if (result.status === 'evidence_review_required') {
-      expect(result.reasons).toContain('fewer than two authority sources');
+      expect(result.reasons.join(' ')).toContain('authority_insufficient');
     }
   });
 
@@ -220,9 +226,83 @@ describe('researchNarrativeStopV8', () => {
 
     expect(result.status).toBe('sufficient');
     if (result.status !== 'sufficient') return;
-    expect(searches).toBe(4);
+    expect(searches).toBe(0);
     expect(adaptiveCalls).toBe(0);
     expect(result.dossier.sufficiency.isSufficient).toBe(true);
     expect(result.gates.writerReady).toBe(true);
+  });
+
+  it('never calls Firecrawl for discovery_only URLs and caps attempts and curations', async () => {
+    const wiki = wikipediaSource('es-wiki', 'Contenido del artículo de la parada.');
+    let webCaptureCalls = 0;
+    const services: NarrativeResearchServicesV8 = {
+      resolveIdentity: async () => ({
+        qid: 'Q1',
+        labels: ['Alcazaba'],
+        aliases: [],
+        wikipediaTitle: 'Alcazaba de Málaga',
+        revision: null,
+      }),
+      resolveAuthorities: async () => REGISTRY,
+      resolveQidFromWikipedia: async () => 'Q1',
+      captureWikipedia: async () => wiki,
+      search: async () => Array.from({ length: 20 }, (_, index) => ({
+        url: `https://www.other${index}.example/p${index}`,
+        title: 'Otro',
+        description: 'no autorizado',
+        engine: 'searxng-json',
+        authority: { tier: 'discovery_only', publisherKey: 'other.example', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7)),
+      mapOfficialSite: async () => [],
+      captureWeb: async () => {
+        webCaptureCalls += 1;
+        return officialSource('x', 'Contenido.');
+      },
+      curate: async (packet) => curatorFromSpans(packet),
+      proposeAdaptiveQueries: async () => [],
+    };
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(webCaptureCalls).toBe(1);
+    expect(result.captureLog.some((entry) => entry.outcome === 'skipped_discovery_only')).toBe(true);
+    expect(result.stats.attemptedUrlCount).toBeLessThanOrEqual(12);
+    expect(result.stats.curationCount).toBeLessThanOrEqual(2);
+  });
+
+  it('records a 403 capture failure as an attempt with its status', async () => {
+    const services: NarrativeResearchServicesV8 = {
+      resolveIdentity: async () => ({
+        qid: 'Q1',
+        labels: ['Alcazaba'],
+        aliases: [],
+        wikipediaTitle: null,
+        revision: null,
+      }),
+      resolveAuthorities: async () => REGISTRY,
+      resolveQidFromWikipedia: async () => null,
+      captureWikipedia: async () => null,
+      search: async () => [{
+        url: 'https://www.malaga.es/alcazaba',
+        title: 'Alcazaba',
+        description: 'Alcazaba de Málaga',
+        engine: 'searxng-json',
+        authority: { tier: 'discovery_only', publisherKey: 'www.malaga.es', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7],
+      mapOfficialSite: async () => [],
+      captureWeb: async () => {
+        throw Object.assign(new Error('forbidden'), { response: { status: 403 } });
+      },
+      curate: async (packet) => curatorFromSpans(packet),
+      proposeAdaptiveQueries: async () => [],
+    };
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    const failed = result.captureLog.find((entry) => entry.outcome === 'capture_failed');
+
+    expect(failed).toBeDefined();
+    expect(failed?.httpStatus).toBe(403);
+    expect(result.stats.attemptedUrlCount).toBeGreaterThan(0);
+    expect(result.stats.capturedSourceCount).toBe(0);
   });
 });

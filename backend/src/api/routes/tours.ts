@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { generateTour, generateTourFromConcept, getTour, listTours } from '../controllers/tours';
+import { generateTour, generateTourFromConcept, getTour, getWalkingRoute, listTours } from '../controllers/tours';
 import { validateConceptTourRequest, validateTourRequest } from '../middleware/validation';
 import { createGenerationJob, getGenerationJob } from '../controllers/generationJobs';
 
@@ -17,6 +17,7 @@ router.post('/generate', validateTourRequest, generateTour);
 router.post('/generate-from-concept', validateConceptTourRequest, generateTourFromConcept);
 
 // Get an existing tour
+router.get('/:id/walking-route', getWalkingRoute);
 router.get('/:id', getTour);
 
 export default router;

@@ -132,12 +132,14 @@ describe('runNarrativeUserCanaryV8', () => {
           },
           dossier,
           captures: [],
+          captureLog: [],
           stats: {
             searchQueries: 4,
             mappedUrlCount: 0,
             attemptedUrlCount: 2,
             capturedSourceCount: 2,
             publisherCount: 2,
+            curationCount: 1,
           },
         } as NarrativeResearchStopResultV8;
       },
@@ -209,12 +211,14 @@ describe('runNarrativeUserCanaryV8', () => {
             },
             dossier: null,
             captures: [],
+            captureLog: [],
             stats: {
               searchQueries: 4,
               mappedUrlCount: 0,
               attemptedUrlCount: 1,
               capturedSourceCount: 0,
               publisherCount: 0,
+              curationCount: 0,
             },
             reasons: ['missing writer role visible_observation'],
           } as NarrativeResearchStopResultV8;
@@ -231,12 +235,14 @@ describe('runNarrativeUserCanaryV8', () => {
           },
           dossier,
           captures: [],
+          captureLog: [],
           stats: {
             searchQueries: 4,
             mappedUrlCount: 0,
             attemptedUrlCount: 2,
             capturedSourceCount: 2,
             publisherCount: 2,
+            curationCount: 1,
           },
         } as NarrativeResearchStopResultV8;
       },
@@ -251,5 +257,154 @@ describe('runNarrativeUserCanaryV8', () => {
     if (result.status === 'blocked') {
       expect(result.failure.code).toBe('evidence_review_required');
     }
+  });
+
+  it('never researches more than two stops at the same time', async () => {
+    const route = routeWith(STOPS);
+    let current = 0;
+    let maxConcurrent = 0;
+    const result = await runNarrativeUserCanaryV8({
+      runId: 'e2e-concurrency',
+      request: {
+        city: 'Test City',
+        country: 'España',
+        countryCode: 'ES',
+        theme: 'history',
+        language: 'es',
+        durationMinutes: 120,
+      },
+      route,
+      core: { requiredIds: [STOPS[0].qid], disagreement: false },
+      researchStop: async ({ stopId }) => {
+        current += 1;
+        maxConcurrent = Math.max(maxConcurrent, current);
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        const dossier = dossierFor(stopId, 'Parada');
+        current -= 1;
+        return {
+          status: 'sufficient',
+          stopId,
+          gates: {
+            minimumEvidenceReady: true,
+            writerReady: true,
+            missingMinimumRoles: [],
+            missingWriterRoles: [],
+          },
+          dossier,
+          captures: [],
+          captureLog: [],
+          stats: {
+            searchQueries: 4,
+            mappedUrlCount: 0,
+            attemptedUrlCount: 2,
+            capturedSourceCount: 2,
+            publisherCount: 2,
+            curationCount: 1,
+          },
+        } as NarrativeResearchStopResultV8;
+      },
+      runEditorial: async ({ dossiers: inputDossiers }) => {
+        const scripts = inputDossiers.map((dossier) => {
+          const script = {
+            stopId: dossier.stopId,
+            text: 'Texto.',
+            sentences: [{
+              sentenceId: dossier.stopId + '-s1',
+              stopId: dossier.stopId,
+              index: 0,
+              text: 'Texto.',
+            }],
+            fingerprint: '',
+          };
+          return { ...script, fingerprint: narrativeFingerprintV6(script) };
+        });
+        return {
+          scripts,
+          markdown: '# Tour',
+          workflowStatus: 'ready_for_human_gate',
+          scorecardDecision: 'Approve',
+        };
+      },
+    });
+
+    expect(result.status).toBe('approved');
+    expect(maxConcurrent).toBeLessThanOrEqual(2);
+  });
+
+  it('stops scheduling new research and never runs writers when a required stop fails', async () => {
+    const route = routeWith(STOPS);
+    let researchCalls = 0;
+    let editorialCalls = 0;
+    const result = await runNarrativeUserCanaryV8({
+      runId: 'e2e-failfast',
+      request: {
+        city: 'Test City',
+        country: 'España',
+        countryCode: 'ES',
+        theme: 'history',
+        language: 'es',
+        durationMinutes: 120,
+      },
+      route,
+      core: { requiredIds: [STOPS[1].qid], disagreement: false },
+      researchStop: async ({ stopId, required }) => {
+        researchCalls += 1;
+        if (required) {
+          return {
+            status: 'evidence_review_required',
+            stopId,
+            gates: {
+              minimumEvidenceReady: false,
+              writerReady: false,
+              missingMinimumRoles: ['visible_observation'],
+              missingWriterRoles: ['visible_observation'],
+            },
+            dossier: null,
+            captures: [],
+            captureLog: [],
+            stats: {
+              searchQueries: 4,
+              mappedUrlCount: 0,
+              attemptedUrlCount: 1,
+              capturedSourceCount: 0,
+              publisherCount: 0,
+              curationCount: 0,
+            },
+            reasons: ['authority_insufficient'],
+          } as NarrativeResearchStopResultV8;
+        }
+        const dossier = dossierFor(stopId, 'Parada');
+        return {
+          status: 'sufficient',
+          stopId,
+          gates: {
+            minimumEvidenceReady: true,
+            writerReady: true,
+            missingMinimumRoles: [],
+            missingWriterRoles: [],
+          },
+          dossier,
+          captures: [],
+          captureLog: [],
+          stats: {
+            searchQueries: 4,
+            mappedUrlCount: 0,
+            attemptedUrlCount: 2,
+            capturedSourceCount: 2,
+            publisherCount: 2,
+            curationCount: 1,
+          },
+        } as NarrativeResearchStopResultV8;
+      },
+      runEditorial: async () => {
+        editorialCalls += 1;
+        throw new Error('writers must not run');
+      },
+    });
+
+    expect(result.status).toBe('blocked');
+    expect(editorialCalls).toBe(0);
+    expect(researchCalls).toBeLessThanOrEqual(3);
+    expect(researchCalls).toBeLessThan(STOPS.length);
   });
 });

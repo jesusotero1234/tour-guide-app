@@ -137,6 +137,7 @@ export function MadridNarrativePilot({ preview, initialStop }: MadridNarrativePi
         <div className="relative mx-auto grid max-w-7xl gap-5 px-4 py-5 sm:px-6 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)] lg:px-8 lg:py-8">
           <section aria-label="Mapa y orden de paradas" className="lg:sticky lg:top-5 lg:self-start">
             <TourMap
+              tourId={tour.id}
               stops={tour.places}
               currentIndex={currentIndex}
               onStopSelect={showStop}

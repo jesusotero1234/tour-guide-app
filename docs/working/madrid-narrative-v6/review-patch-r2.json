@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r2",
+  "tourFingerprint": "8076bd4d17784b8193dad61c04bfa63f47ce7187ad8ea1b799fca9b975e3fc37",
+  "replacements": [
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S013",
+      "before": "La Catedral de la Almudena, consagrada en 1993, presenta un exterior clásico que sustituyó a la propuesta neogótica para armonizar con el Palacio Real.",
+      "after": "La siguiente parada es la Catedral de la Almudena."
+    },
+    {
+      "stopId": "mayor",
+      "sentenceId": "mayor-S025",
+      "before": "El camino es corto; te espero allí.",
+      "after": "Continúa el recorrido."
+    }
+  ]
+}

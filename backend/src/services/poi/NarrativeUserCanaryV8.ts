@@ -35,6 +35,11 @@ export interface NarrativeUserCanaryInputV8 {
   }): Promise<NarrativeUserCanaryEditorialResultV8>;
 }
 
+export const NARRATIVE_USER_CANARY_CONCURRENCY_V8 = {
+  researchStops: 2,
+  writers: 1,
+} as const;
+
 export interface NarrativeUserCanaryResearchSummaryV8 {
   stopId: string;
   status: string;
@@ -94,19 +99,42 @@ function summarize(
 export async function runNarrativeUserCanaryV8(
   input: NarrativeUserCanaryInputV8
 ): Promise<NarrativeUserCanaryResultV8> {
-  const research = [];
-  for (const stop of input.route.stops) {
-    const result = await input.researchStop({
-      runId: input.runId,
-      stopId: stop.wikidataId,
-      stopName: stop.name,
-      cityQid: '',
-      countryCode: input.request.countryCode,
-      language: input.request.language,
-      required: input.core.requiredIds.includes(stop.wikidataId),
-    });
-    research.push({ stopId: stop.stopId, result });
-  }
+  const research: Array<{ stopId: string; result: NarrativeResearchStopResultV8 }> = [];
+  let failed = false;
+  let nextIndex = 0;
+  const worker = async (): Promise<void> => {
+    while (!failed) {
+      const index = nextIndex;
+      nextIndex += 1;
+      if (index >= input.route.stops.length) return;
+      const stop = input.route.stops[index];
+      const result = await input.researchStop({
+        runId: input.runId,
+        stopId: stop.wikidataId,
+        stopName: stop.name,
+        cityQid: '',
+        countryCode: input.request.countryCode,
+        language: input.request.language,
+        required: input.core.requiredIds.includes(stop.wikidataId),
+      });
+      research.push({ stopId: stop.stopId, result });
+      if (result.status !== 'sufficient') {
+        failed = true;
+        return;
+      }
+    }
+  };
+  await Promise.all(Array.from(
+    { length: Math.min(NARRATIVE_USER_CANARY_CONCURRENCY_V8.researchStops, input.route.stops.length) },
+    () => worker()
+  ));
+  const orderByStopId = new Map(
+    input.route.stops.map((stop, index) => [stop.wikidataId, index])
+  );
+  research.sort((left, right) => (
+    (orderByStopId.get(left.stopId) ?? Number.MAX_SAFE_INTEGER)
+      - (orderByStopId.get(right.stopId) ?? Number.MAX_SAFE_INTEGER)
+  ));
   const summary = research.map(({ stopId, result }) => summarize(stopId, result));
   const dossiers = research
     .filter(({ result }) => result.status === 'sufficient')

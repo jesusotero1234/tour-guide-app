@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "narrative-review-patch-v6",
+  "runId": "madrid-clean-tour-openrouter-20260813-r6",
+  "tourFingerprint": "55b0971ccc59c3ed531c2d88fe96a128da53f62f980c5061aba8534118a22db4",
+  "replacements": [
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S012",
+      "before": "A pocos pasos está la Catedral de la Almudena, cuya construcción se prolongó hasta su consagración en 1993.",
+      "after": "A pocos pasos está la Catedral de la Almudena, mucho más reciente de lo que su fachada clásica sugiere y destinada a abrir el siguiente capítulo del Madrid contemporáneo."
+    },
+    {
+      "stopId": "palace",
+      "sentenceId": "palace-S013",
+      "before": "La siguiente parada es la Catedral de la Almudena.",
+      "after": "Compárala por un momento con la piedra del palacio que acabamos de dejar atrás."
+    }
+  ]
+}

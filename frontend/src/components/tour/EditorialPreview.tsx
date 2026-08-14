@@ -59,7 +59,7 @@ export function EditorialPreview() {
           </section>
 
           {tour.places.length > 0 && (
-            <TourMap stops={tour.places} currentIndex={0} onStopSelect={() => {}} userLocation={null} />
+            <TourMap tourId={tour.id} stops={tour.places} currentIndex={0} onStopSelect={() => {}} userLocation={null} />
           )}
           <div>
             {tour.places.map((place) => <PlaceCard key={place.id || place.position} place={place} language={tour.language} />)}
