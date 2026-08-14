@@ -1,6 +1,7 @@
 import {
   classifyNarrativeHttpFailureV7,
   classifyWikipediaCaptureV8,
+  createHostnameThrottleV7,
   FirecrawlNarrativeCaptureProviderV7,
   SearxngNarrativeDiscoveryProviderV7,
   WikimediaNarrativeCaptureProviderV7,
@@ -172,6 +173,65 @@ describe('SearxngNarrativeDiscoveryProviderV7', () => {
       query: 'test', language: 'es', countryCode: 'ES', limit: 5,
     })).rejects.toThrow();
   });
+
+  it('paces consecutive requests to the same SearXNG host with a fake wait', async () => {
+    const waits: number[] = [];
+    let nowMs = 5_000_000;
+    let calls = 0;
+    const provider = new SearxngNarrativeDiscoveryProviderV7({
+      baseUrl: 'http://127.0.0.1:8080',
+      lookup: PUBLIC_LOOKUP,
+      now: () => new Date(nowMs),
+      wait: async (milliseconds) => {
+        waits.push(milliseconds);
+        nowMs += milliseconds;
+      },
+      get: async () => {
+        calls += 1;
+        nowMs += 50;
+        return { data: { results: [
+          { url: 'https://www.example.com/page', title: 'Page' },
+        ] } };
+      },
+    });
+
+    await provider.search({
+      query: 'uno', language: 'es', countryCode: 'ES', limit: 5,
+    });
+    await provider.search({
+      query: 'dos', language: 'es', countryCode: 'ES', limit: 5,
+    });
+    await provider.search({
+      query: 'tres', language: 'es', countryCode: 'ES', limit: 5,
+    });
+
+    expect(calls).toBe(3);
+    expect(waits).toHaveLength(2);
+    expect(waits[0]).toBeGreaterThanOrEqual(1_400);
+    expect(waits[1]).toBeGreaterThanOrEqual(1_400);
+  });
+});
+
+describe('createHostnameThrottleV7', () => {
+  it('spaces requests per hostname using the injected wait', async () => {
+    const waits: number[] = [];
+    let nowMs = 1_000_000;
+    const throttle = createHostnameThrottleV7({
+      minIntervalMs: 1_500,
+      now: () => new Date(nowMs),
+      wait: async (milliseconds) => {
+        waits.push(milliseconds);
+        nowMs += milliseconds;
+      },
+    });
+
+    await throttle.waitIfNeeded('searxng');
+    await throttle.waitIfNeeded('searxng');
+    await throttle.waitIfNeeded('firecrawl');
+    await throttle.waitIfNeeded('searxng');
+
+    expect(waits).toEqual([1_500, 1_500]);
+  });
 });
 
 describe('FirecrawlNarrativeCaptureProviderV7', () => {
@@ -208,6 +268,8 @@ describe('FirecrawlNarrativeCaptureProviderV7', () => {
     });
 
     expect(seenBodies[0]).toMatchObject({ url: 'https://www.barcelona.cat/', search: 'sagrada familia' });
+    expect(Object.keys(seenBodies[0] as Record<string, unknown>).sort())
+      .toEqual(['limit', 'search', 'url']);
     expect(results).toHaveLength(1);
     expect(results[0].url).toBe('https://www.barcelona.cat/ca/sagrada-familia');
   });

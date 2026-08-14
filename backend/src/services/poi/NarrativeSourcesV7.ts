@@ -223,6 +223,47 @@ const defaultWait: NarrativeSourceWaitV6 = async (milliseconds) => {
   await new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
+export interface NarrativeHostnameThrottleV7 {
+  waitIfNeeded(hostname: string): Promise<void>;
+}
+
+export interface NarrativeHostnameThrottleOptionsV7 {
+  minIntervalMs?: number;
+  now?: () => Date;
+  wait?: NarrativeSourceWaitV6;
+}
+
+export const DEFAULT_SEARXNG_MIN_INTERVAL_MS_V7 = 1_500;
+
+/**
+ * Centralized per-hostname pacing. Reusable by any provider that must avoid
+ * bursting requests to the same host (e.g. the local SearXNG instance).
+ * `wait` is injectable so tests can record delays without sleeping.
+ */
+export function createHostnameThrottleV7(
+  options: NarrativeHostnameThrottleOptionsV7 = {}
+): NarrativeHostnameThrottleV7 {
+  const minIntervalMs = options.minIntervalMs ?? DEFAULT_SEARXNG_MIN_INTERVAL_MS_V7;
+  const now = options.now ?? (() => new Date());
+  const wait = options.wait ?? defaultWait;
+  const nextAllowedAtByHost = new Map<string, number>();
+  return {
+    async waitIfNeeded(hostname) {
+      const key = hostname.toLowerCase();
+      const current = now().getTime();
+      const nextAllowedAt = nextAllowedAtByHost.get(key) ?? 0;
+      const remaining = nextAllowedAt - current;
+      if (remaining > 0) {
+        await wait(remaining);
+      }
+      nextAllowedAtByHost.set(
+        key,
+        Math.max(now().getTime(), nextAllowedAt) + minIntervalMs
+      );
+    },
+  };
+}
+
 function retryDelaySeconds(error: unknown, retry: number): number {
   const response = (error as {
     response?: { status?: number; headers?: Record<string, unknown> };
@@ -299,24 +340,31 @@ function isSelfHostedSearxngHost(hostname: string): boolean {
 
 export class SearxngNarrativeDiscoveryProviderV7 implements NarrativeDiscoveryProviderV7 {
   private readonly baseUrl: string;
+  private readonly hostname: string;
   private readonly get: NarrativeSourceGetV6;
   private readonly lookup: NarrativeDnsLookupV6;
   private readonly now: () => Date;
+  private readonly wait: NarrativeSourceWaitV6;
+  private readonly throttle: NarrativeHostnameThrottleV7;
 
   constructor(options: {
     baseUrl?: string;
     get?: NarrativeSourceGetV6;
     lookup?: NarrativeDnsLookupV6;
     now?: () => Date;
+    wait?: NarrativeSourceWaitV6;
   }) {
     this.baseUrl = (options.baseUrl ?? DEFAULT_SEARXNG_BASE_URL_V7).replace(/\/$/, '');
     this.get = options.get ?? defaultGet;
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
+    this.wait = options.wait ?? defaultWait;
     const hostname = new URL(this.baseUrl).hostname.toLowerCase().replace(/^\[|\]$/g, '');
     if (!isSelfHostedSearxngHost(hostname)) {
       throw new Error('SearXNG must be self-hosted; public instances are not allowed');
     }
+    this.hostname = hostname;
+    this.throttle = createHostnameThrottleV7({ now: this.now, wait: this.wait });
   }
 
   private async request(
@@ -329,6 +377,7 @@ export class SearxngNarrativeDiscoveryProviderV7 implements NarrativeDiscoveryPr
     const queryWithSite = siteFilter ? `site:${siteFilter} ${query}` : query;
     for (let retry = 1; retry <= 4; retry += 1) {
       try {
+        await this.throttle.waitIfNeeded(this.hostname);
         return await this.get(`${this.baseUrl}/search`, {
           q: queryWithSite,
           format: 'json',
@@ -339,7 +388,7 @@ export class SearxngNarrativeDiscoveryProviderV7 implements NarrativeDiscoveryPr
       } catch (error) {
         const { classification } = classifyNarrativeHttpFailureV7(error);
         if (classification !== 'retryable' || retry === 4) throw error;
-        await new Promise((resolve) => setTimeout(resolve, retryDelaySeconds(error, retry) * 1_000));
+        await this.wait(retryDelaySeconds(error, retry) * 1_000);
       }
     }
     throw new Error('SearXNG request retries exhausted');
@@ -493,7 +542,6 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
       url: safeOrigin.toString(),
       search,
       limit: input.limit,
-      ignoreInvalidURLs: true,
     });
     const root = objectValue(response.data, 'Firecrawl map response');
     if (root.success !== true) throw new Error('Firecrawl map was not successful');

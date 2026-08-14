@@ -1,4 +1,4 @@
-# Local SearXNG settings override for tour-guide-app (V8 plan).
+# Local SearXNG settings override for tour-guide-app (Plan 64).
 # Based on the official settings.yml (searxng/searxng master) with the
 # minimal changes required for the local JSON discovery provider:
 #   - enable the json output format (official default only enables html,
@@ -6,14 +6,54 @@
 #   - keep server private (limiter disabled, bind to all interfaces inside
 #     the container so the Firecrawl api container can reach it over the
 #     podman bridge network; the published port remains 127.0.0.1 only)
+#   - restrict web discovery to engines that tolerate datacenter IPs without
+#     an API key. Validated 2026-08-15 from this IP:
+#       * bing        -> works (keyless HTML), returns official domains
+#       * mojeek      -> serves a JS CAPTCHA (altcha) to the SearXNG UA,
+#                        SearXNG suspends it with "access denied"
+#       * marginalia  -> requires an API key in this SearXNG version
+#                        (api2.marginalia-search.com: "Missing API-Key header")
+#     Brave, Google/Google CSE, DuckDuckGo, Startpage and Qwant were removed
+#     with keep_only because they return 429 / CAPTCHA / connection errors
+#     from this IP (see docs/working/64-searxng-fiable-canary-plan.md).
+#   - keep Wikipedia disabled here: it is redundant, the canary already
+#     captures Wikipedia through its direct API with UA + maxlag handling.
+#   - the client additionally paces requests (~1.5 s per hostname) in
+#     SearxngNarrativeDiscoveryProviderV7 to avoid triggering rate limits.
 # Secrets are supplied through the environment (SEARXNG_SECRET).
 
-use_default_settings: true
+# Option B (documented, NOT enabled): to add a guaranteed second engine, use
+# an API key (Brave/Tavily/Serper/Marginalia) by removing the keep_only
+# section and re-enabling the keyed engine, e.g.:
+#   use_default_settings: true
+#   engines:
+#     - name: braveapi
+#       disabled: false
+#       api_key: "<BRAVE_API_KEY>"
+#     - name: marginalia
+#       disabled: false
+#       api_key: "<MARGINALIA_API_KEY>"
+# or Tavily/Serper through a custom engine definition. Keep JSON formats and
+# the pacing provider changes; never expose the API key in this file (read it
+# from the environment instead, e.g. SEARXNG_MARGINALIA_API_KEY).
+
+use_default_settings:
+  engines:
+    keep_only:
+      - bing
+      - mojeek
+      - marginalia
+      - wikipedia
 
 search:
   formats:
     - html
     - json
+
+outgoing:
+  # The 3 s default is too tight for slow engines answering from a datacenter
+  # IP; the discovery provider itself still times out at 30 s.
+  request_timeout: 8.0
 
 server:
   # The official image applies SEARXNG_* environment overrides on top of
@@ -22,3 +62,19 @@ server:
   secret_key: "searxng-local-dev-secret-change-me"
   limiter: false
   bind_address: "0.0.0.0"
+
+engines:
+  # Merged with the defaults by engine name (use_default_settings). Bing is the
+  # only keyless engine that answers from this datacenter IP; the others are
+  # kept but disabled on purpose (see header comment for validated reasons).
+  - name: bing
+    disabled: false
+    weight: 1.0
+  - name: mojeek
+    disabled: true
+  - name: marginalia
+    disabled: true
+  # Kept but disabled on purpose: Wikipedia discovery is redundant because the
+  # canary captures it through the MediaWiki Action API directly.
+  - name: wikipedia
+    disabled: true
