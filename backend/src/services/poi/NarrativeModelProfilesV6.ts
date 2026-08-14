@@ -150,7 +150,7 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
     name: 'balanced_openrouter',
     phases: {
       planner: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 1_200 },
-      curator: { provider: openAiMini, reasoning: 'low', maxTokens: 8_000 },
+      curator: { provider: openAiMini, reasoning: 'low', maxTokens: 16_000 },
       curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openRouterFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },

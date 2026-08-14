@@ -72,7 +72,10 @@ import {
   validateWikimediaProminenceSnapshotV6,
   WikimediaProminenceSnapshotV6,
 } from '../../src/services/poi/EditorialProminenceV6';
-import { EditorialProviderV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
+import {
+  EditorialPricingV6,
+  EditorialProviderV6,
+} from '../../src/services/poi/EditorialStructuredLlmV6';
 import { EditorialEntityCandidateV5 } from '../../src/services/poi/EditorialEvidenceV5';
 
 const SPEND_LIMIT_USD = 2;
@@ -97,13 +100,18 @@ function safeError(error: unknown, secrets: string[]): string {
 
 async function curatorServiceV8(options: {
   apiKey: string;
+  openRouterApiKey: string;
+  openRouterPricing?: Record<string, EditorialPricingV6>;
+  profile: string;
   runId: string;
   onProgress?: EditorialProgressCallbackV6;
 }): Promise<NarrativeResearchServicesV8['curate']> {
   const execution = narrativePhaseExecutionV6(
     {
       apiKey: options.apiKey,
-      profile: 'deepseek_control',
+      openRouterApiKey: options.openRouterApiKey,
+      openRouterPricing: options.openRouterPricing,
+      profile: options.profile,
       runId: options.runId,
       onProgress: options.onProgress,
     },
@@ -140,6 +148,8 @@ async function curatorServiceV8(options: {
         'human_agency_or_lived_function, tension_or_contrast, distinctive_trait.',
         'Una proposición directa necesita un soporte de fuente autorizada; una debatible necesita',
         'dos publishers independientes en sus supports (wikimedia cuenta una sola vez).',
+        'Si una afirmación solo puede apoyarse con spans de un publisher, márcala como direct',
+        '(si es sólida) u omítela; nunca la marques debatable sin dos publishers en sus supports.',
         hasMultiplePublishers
           ? 'Los publishers disponibles son: ' + packet.publishers.join(', ') + '.'
           : 'Solo hay un publisher disponible: no emitas proposiciones debatibles ni inventes un segundo soporte.',
@@ -322,6 +332,8 @@ async function loadReplayRoute(artifactPath: string): Promise<{
 async function buildResearchServices(options: {
   apiKey: string;
   openRouterApiKey: string;
+  openRouterPricing?: Record<string, EditorialPricingV6>;
+  profile: string;
   runId: string;
   cityQid: string;
   onProgress?: EditorialProgressCallbackV6;
@@ -336,6 +348,9 @@ async function buildResearchServices(options: {
   const authorities = new WikidataAuthorityProviderV7();
   const curate = await curatorServiceV8({
     apiKey: options.apiKey,
+    openRouterApiKey: options.openRouterApiKey,
+    openRouterPricing: options.openRouterPricing,
+    profile: options.profile,
     runId: options.runId,
     onProgress: options.onProgress,
   });
@@ -632,6 +647,8 @@ async function main(): Promise<void> {
     const researchServices = await buildResearchServices({
       apiKey,
       openRouterApiKey,
+      openRouterPricing,
+      profile,
       runId,
       cityQid,
       onProgress,
@@ -643,6 +660,7 @@ async function main(): Promise<void> {
         runId,
         stopId: stop.wikidataId,
         stopName: stop.name,
+        cityName: request.city,
         cityQid,
         countryCode: request.countryCode ?? 'ES',
         language: request.language,

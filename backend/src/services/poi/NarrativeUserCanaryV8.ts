@@ -112,6 +112,7 @@ export async function runNarrativeUserCanaryV8(
         runId: input.runId,
         stopId: stop.wikidataId,
         stopName: stop.name,
+        cityName: input.request.city,
         cityQid: '',
         countryCode: input.request.countryCode,
         language: input.request.language,

@@ -113,6 +113,7 @@ const BASE_INPUT = {
   runId: 'research-test',
   stopId: 'Q1',
   stopName: 'Alcazaba',
+  cityName: 'Málaga',
   cityQid: 'Q10',
   countryCode: 'ES',
   language: 'es',
@@ -268,6 +269,189 @@ describe('researchNarrativeStopV8', () => {
     expect(result.captureLog.some((entry) => entry.outcome === 'skipped_discovery_only')).toBe(true);
     expect(result.stats.attemptedUrlCount).toBeLessThanOrEqual(12);
     expect(result.stats.curationCount).toBeLessThanOrEqual(2);
+  });
+
+  it('attempts deterministic search results before map links at equal priority', async () => {
+    const wiki = wikipediaSource('es-wiki', [
+      'Se observa la torre y el lienzo de la muralla.',
+      'Construida en el siglo XI sobre una fortificación anterior.',
+      'Fue residencia de los gobernadores musulmanes.',
+      'Contrasta con la Alcazaba de Granada.',
+      'Su rasgo distintivo son los jardines de acceso.',
+    ].join('\n\n'));
+    const official = officialSource('municipal', [
+      'La visita permite observar el recinto amurallado.',
+      'Las obras comenzaron en el siglo XI.',
+      'El ayuntamiento gestiona el uso público del recinto.',
+      'El contraste con el puerto es evidente.',
+      'El rasgo único es su sistema de doble muralla.',
+    ].join('\n\n'));
+    const alcazabaUrl = 'https://www.malaga.es/es/laprovincia/patrimonio/lis_cd-3816/alcazaba-de-malaga';
+    const delegationUrls = Array.from({ length: 10 }, (_, index) => (
+      `https://www.malaga.es/delegacion${index}`
+    ));
+    const homepageRegistry: NarrativeAuthorityRegistryV7 = {
+      authorities: [{
+        domain: 'www.malaga.es',
+        origin: 'city_p856',
+        qid: 'Q10',
+        wikidataRevision: null,
+        url: 'https://www.malaga.es/',
+      }],
+      aliases: ['Málaga'],
+      labels: ['Málaga'],
+    };
+    const webCaptureUrls: string[] = [];
+    const services: NarrativeResearchServicesV8 = {
+      resolveIdentity: async () => ({
+        qid: 'Q1',
+        labels: ['Alcazaba'],
+        aliases: [],
+        wikipediaTitle: 'Alcazaba de Málaga',
+        revision: null,
+      }),
+      resolveAuthorities: async () => homepageRegistry,
+      resolveQidFromWikipedia: async () => 'Q1',
+      captureWikipedia: async () => wiki,
+      search: async () => [{
+        url: alcazabaUrl,
+        title: 'Alcazaba de Málaga',
+        description: 'Patrimonio de la provincia',
+        engine: 'searxng-json',
+        authority: { tier: 'discovery_only', publisherKey: 'www.malaga.es', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7],
+      mapOfficialSite: async () => delegationUrls.map((url) => ({
+        url,
+        title: 'Delegación',
+        description: '',
+        engine: 'map',
+        authority: { tier: 'discovery_only', publisherKey: 'www.malaga.es', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7)),
+      captureWeb: async (input) => {
+        const url = input.url;
+        webCaptureUrls.push(url);
+        if (url.includes('alcazaba')) return official;
+        return {
+          ...official,
+          sourceId: `delegation-${webCaptureUrls.length}`,
+          requestedUrl: url,
+          finalUrl: url,
+          title: 'Delegación',
+          content: 'Portal institucional de la delegación.',
+        };
+      },
+      curate: async (packet) => curatorFromSpans(packet),
+      proposeAdaptiveQueries: async () => [],
+    };
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    const alcazabaIndex = webCaptureUrls.findIndex((url) => url.includes('alcazaba'));
+    const firstDelegationIndex = webCaptureUrls.findIndex((url) => url.includes('delegacion'));
+    expect(alcazabaIndex).toBeGreaterThanOrEqual(0);
+    expect(firstDelegationIndex).toBeGreaterThan(alcazabaIndex);
+  });
+
+  it('retries a registered URL once when a transient scrape misses the identity', async () => {
+    const wiki = wikipediaSource('es-wiki', [
+      'Se observa la torre y el lienzo de la muralla.',
+      'Construida en el siglo XI sobre una fortificación anterior.',
+      'Fue residencia de los gobernadores musulmanes.',
+      'Contrasta con la Alcazaba de Granada.',
+      'Su rasgo distintivo son los jardines de acceso.',
+    ].join('\n\n'));
+    const official = officialSource('municipal', [
+      'La visita permite observar el recinto amurallado.',
+      'Las obras comenzaron en el siglo XI.',
+      'El ayuntamiento gestiona el uso público del recinto.',
+      'El contraste con el puerto es evidente.',
+      'El rasgo único es su sistema de doble muralla.',
+    ].join('\n\n'));
+    const alcazabaUrl = 'https://www.malaga.es/es/laprovincia/patrimonio/lis_cd-3816/alcazaba-de-malaga';
+    const callsByUrl = new Map<string, number>();
+    const homepageRegistry: NarrativeAuthorityRegistryV7 = {
+      authorities: [{
+        domain: 'www.malaga.es',
+        origin: 'city_p856',
+        qid: 'Q10',
+        wikidataRevision: null,
+        url: 'https://www.malaga.es/',
+      }],
+      aliases: ['Málaga'],
+      labels: ['Málaga'],
+    };
+    const services: NarrativeResearchServicesV8 = {
+      resolveIdentity: async () => ({
+        qid: 'Q1',
+        labels: ['Alcazaba'],
+        aliases: [],
+        wikipediaTitle: 'Alcazaba de Málaga',
+        revision: null,
+      }),
+      resolveAuthorities: async () => homepageRegistry,
+      resolveQidFromWikipedia: async () => 'Q1',
+      captureWikipedia: async () => wiki,
+      search: async () => [{
+        url: alcazabaUrl,
+        title: 'Alcazaba de Málaga',
+        description: 'Patrimonio de la provincia',
+        engine: 'searxng-json',
+        authority: { tier: 'discovery_only', publisherKey: 'www.malaga.es', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7],
+      mapOfficialSite: async () => [],
+      captureWeb: async (input) => {
+        const url = input.url;
+        const calls = (callsByUrl.get(url) ?? 0) + 1;
+        callsByUrl.set(url, calls);
+        if (url.includes('alcazaba') && calls >= 2) return official;
+        return {
+          ...official,
+          sourceId: `partial-${calls}`,
+          requestedUrl: url,
+          finalUrl: url,
+          title: 'Portal institucional',
+          content: 'Contenido parcial sin el nombre de la parada.',
+        };
+      },
+      curate: async (packet) => curatorFromSpans(packet),
+      proposeAdaptiveQueries: async () => [],
+    };
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(callsByUrl.get(alcazabaUrl)).toBe(2);
+    expect(result.status).toBe('sufficient');
+  });
+
+  it('builds deterministic queries with the disambiguated name and no quotes', async () => {
+    const queries: string[] = [];
+    const services: NarrativeResearchServicesV8 = {
+      resolveIdentity: async () => ({
+        qid: 'Q1',
+        labels: ['Alcazaba'],
+        aliases: [],
+        wikipediaTitle: 'Alcazaba de Málaga',
+        revision: null,
+      }),
+      resolveAuthorities: async () => REGISTRY,
+      resolveQidFromWikipedia: async () => 'Q1',
+      captureWikipedia: async () => wikipediaSource('es-wiki', 'Contenido del artículo.'),
+      search: async (input) => {
+        queries.push(input.query);
+        return [];
+      },
+      mapOfficialSite: async () => [],
+      captureWeb: async () => officialSource('x', 'Contenido.'),
+      curate: async (packet) => curatorFromSpans(packet),
+      proposeAdaptiveQueries: async () => [],
+    };
+
+    await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(queries.length).toBeGreaterThan(0);
+    expect(queries[0]).toBe('Alcazaba de Málaga');
+    expect(queries.every((query) => !query.startsWith('"'))).toBe(true);
   });
 
   it('records a 403 capture failure as an attempt with its status', async () => {

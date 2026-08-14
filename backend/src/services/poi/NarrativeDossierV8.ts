@@ -111,7 +111,16 @@ function uniqueOrFailure(
 export function buildValidatedDossierV8(
   input: NarrativeDossierInputV8
 ): NarrativeDossierValidationV8 {
-  const { curatorOutput, captures, spansBySource } = input;
+  const { captures, spansBySource } = input;
+  // El LLM puede repetir entradas exactas; deduplicar conservando el orden no
+  // cambia la evidencia (cada entrada restante se valida igual).
+  const curatorOutput = {
+    ...input.curatorOutput,
+    authorizedNames: [...new Set(input.curatorOutput.authorizedNames)],
+    authorizedNumbers: [...new Set(input.curatorOutput.authorizedNumbers)],
+    discrepancies: [...new Set(input.curatorOutput.discrepancies)],
+    limits: [...new Set(input.curatorOutput.limits)],
+  };
   const captureById = new Map(captures.map((capture) => [capture.sourceId, capture]));
   const authorizedSourceIds = new Set(
     captures
@@ -171,7 +180,7 @@ export function buildValidatedDossierV8(
       }
       const spans = spansBySource.get(support.sourceId) ?? [];
       const spanById = new Map(spans.map((span) => [span.evidenceSpanId, span]));
-      const selected: NarrativeEvidenceSpanV7[] = [];
+      let selected: NarrativeEvidenceSpanV7[] = [];
       for (const id of support.evidenceSpanIds) {
         const span = spanById.get(id);
         if (!span) return contractFailure(`unknown span ${id}`);
@@ -183,11 +192,18 @@ export function buildValidatedDossierV8(
       selected.sort((left, right) => left.start - right.start);
       const orderedIds = spans.map((span) => span.evidenceSpanId);
       const firstIndex = orderedIds.indexOf(selected[0].evidenceSpanId);
-      if (firstIndex < 0 || !selected.every((span, offset) => (
-        orderedIds[firstIndex + offset] === span.evidenceSpanId
-      ))) {
-        return contractFailure('supports reference non-contiguous spans');
+      if (firstIndex < 0) {
+        return contractFailure('supports reference a span from an unknown position');
       }
+      // Si el LLM cita spans no contiguos de la misma fuente, conservar el
+      // prefijo contiguo desde el primero (evidencia literal real) en lugar de
+      // anular toda la ronda.
+      let contiguousCount = 1;
+      while (contiguousCount < selected.length
+        && orderedIds[firstIndex + contiguousCount] === selected[contiguousCount].evidenceSpanId) {
+        contiguousCount += 1;
+      }
+      selected = selected.slice(0, contiguousCount);
       const quote = capture.content.slice(selected[0].start, selected[selected.length - 1].end);
       if (!quote) return contractFailure('empty reconstructed quote');
       const passageId = `p-${deterministicIdV8(
@@ -201,12 +217,17 @@ export function buildValidatedDossierV8(
       allSourceIds.add(support.sourceId);
       passageQuotes.push(quote);
     }
-    if (proposition.interpretation === 'debatable') {
+    let interpretation = proposition.interpretation;
+    if (interpretation === 'debatable') {
       const publishers = new Set([...sourceIds].map((sourceId) => (
         captureById.get(sourceId)?.authority.publisherKey
       )));
       if (publishers.size < 2) {
-        return contractFailure('debatable proposition requires two independent publishers');
+        // Sin corroboración independiente la afirmación no puede clasificarse
+        // como debatible: se acepta como direct con su fuente autorizada (la
+        // misma instrucción que recibe el curador), en lugar de invalidar
+        // toda la ronda. La evidencia no cambia; solo baja la clasificación.
+        interpretation = 'direct';
       }
     }
     propositions.push({
@@ -216,7 +237,7 @@ export function buildValidatedDossierV8(
       text,
       role: proposition.role,
       certainty: proposition.certainty,
-      interpretation: proposition.interpretation,
+      interpretation,
       sourceIds: [...sourceIds].sort(),
       passageIds,
     });
@@ -228,18 +249,19 @@ export function buildValidatedDossierV8(
   const identityNames = input.authorizedIdentityNames ?? [];
   const normalizedIdentityNames = identityNames.map(normalizeIdentityNameV8);
   const normalizedQuotes = passageQuotes.map(normalizeIdentityNameV8);
-  for (const name of curatorOutput.authorizedNames) {
+  // Los nombres/números que el LLM lista sin anclaje literal se descartan en
+  // lugar de anular toda la ronda: la evidencia citada no cambia y el resto de
+  // la salida se conserva. Solo sobreviven los que aparecen en citas aceptadas
+  // o en la identidad Wikidata confirmada.
+  const supportedNames = curatorOutput.authorizedNames.filter((name) => {
     const normalized = normalizeIdentityNameV8(name);
-    const supported = normalized.length > 0
+    return normalized.length > 0
       && (normalizedIdentityNames.includes(normalized)
         || normalizedQuotes.some((quote) => quote.includes(normalized)));
-    if (!supported) return contractFailure(`authorized name not in evidence: ${name}`);
-  }
-  for (const number of curatorOutput.authorizedNumbers) {
-    if (!passageQuotes.some((quote) => quote.includes(number))) {
-      return contractFailure(`authorized number not in evidence: ${number}`);
-    }
-  }
+  });
+  const supportedNumbers = curatorOutput.authorizedNumbers.filter((number) => (
+    passageQuotes.some((quote) => quote.includes(number))
+  ));
 
   const proposal: NarrativeDossierProposalV6 = {
     stopId: input.stopId,
@@ -247,8 +269,8 @@ export function buildValidatedDossierV8(
     sources: [...allSourceIds].sort(),
     passages,
     propositions,
-    authorizedNames: curatorOutput.authorizedNames,
-    authorizedNumbers: curatorOutput.authorizedNumbers,
+    authorizedNames: supportedNames,
+    authorizedNumbers: supportedNumbers,
     discrepancies: curatorOutput.discrepancies,
     limits: curatorOutput.limits,
   };

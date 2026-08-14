@@ -46,6 +46,7 @@ export interface NarrativeResearchStopInputV8 {
   runId: string;
   stopId: string;
   stopName: string;
+  cityName: string;
   cityQid: string;
   countryCode: string;
   language: string;
@@ -353,9 +354,17 @@ export async function researchNarrativeStopV8(
     }
     const startedAt = Date.now();
     try {
-      const captured = await services.captureWeb({ url: target });
-      const asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
-      const accepted = addCapturedSource(asV8);
+      let captured = await services.captureWeb({ url: target });
+      let asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
+      let accepted = addCapturedSource(asV8);
+      if (!accepted && asV8.authority.tier === 'discovery_only' && registered) {
+        // Un scrape transitorio (cookie wall, página parcial) puede llegar sin
+        // el nombre de la parada aunque la URL sea la oficial registrada:
+        // reintentar una única vez; la identidad se vuelve a comprobar igual.
+        captured = await services.captureWeb({ url: target });
+        asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
+        accepted = addCapturedSource(asV8);
+      }
       const log: NarrativeCaptureAttemptV8 = {
         stopId: input.stopId,
         phase,
@@ -488,11 +497,20 @@ export async function researchNarrativeStopV8(
   const officialDomains = registry.authorities.map((authority) => authority.domain);
   const gathered: Array<{ url: string; phase: NarrativeCaptureAttemptV8['phase']; priority: number }> = [];
   const gatheredUrls = new Set<string>();
+  // Nombre completo desambiguado (p. ej. "Teatro romano de Málaga" en lugar de
+  // "Teatro romano") y sin comillas: Bing ignora la desambiguación con la
+  // ciudad suelta y con frases entrecomilladas devuelve resultados genéricos.
+  const searchName = identity.wikipediaTitle && identity.wikipediaTitle.length > input.stopName.length
+    ? identity.wikipediaTitle
+    : input.stopName;
+  const citySuffix = searchName.toLocaleLowerCase().includes(input.cityName.toLocaleLowerCase())
+    ? ''
+    : ` ${input.cityName}`;
   const deterministicQueries = [
-    '"' + input.stopName + '" historia cronología',
-    '"' + input.stopName + '" arquitectura elementos visibles',
-    '"' + input.stopName + '" función uso transformación',
-    '"' + input.stopName + '" conflicto contraste rasgo distintivo',
+    searchName + citySuffix,
+    `${searchName}${citySuffix} historia cronología`,
+    `${searchName}${citySuffix} arquitectura elementos visibles`,
+    `${searchName}${citySuffix} función uso transformación`,
   ];
   for (const query of deterministicQueries) {
     if (attemptedUrls.size >= budget.captures) break;
@@ -536,7 +554,7 @@ export async function researchNarrativeStopV8(
     try {
       mapped = await services.mapOfficialSite({
         origin: domain,
-        search: [input.stopName, ...identity.aliases].slice(0, 3).join(' '),
+        search: [input.stopName, input.cityName, ...identity.aliases].slice(0, 3).join(' '),
         limit: 20,
         language: input.language,
         countryCode: input.countryCode,
@@ -566,7 +584,18 @@ export async function researchNarrativeStopV8(
       }
     }
   }
-  gathered.sort((left, right) => left.priority - right.priority || left.url.localeCompare(right.url));
+  // A igual prioridad de autoridad, capturar primero los resultados de las
+  // búsquedas deterministas (relevantes por query) antes que los enlaces
+  // genéricos de /map: las páginas de delegación del mismo dominio podrían
+  // agotar el presupuesto antes de intentar la página oficial correcta.
+  const discoveryPhaseRank = (phase: NarrativeCaptureAttemptV8['phase']): number => (
+    phase === 'deterministic_search' ? 0 : phase === 'adaptive_search' ? 1 : 2
+  );
+  gathered.sort((left, right) => (
+    left.priority - right.priority
+    || discoveryPhaseRank(left.phase) - discoveryPhaseRank(right.phase)
+    || left.url.localeCompare(right.url)
+  ));
   const targetAccepted = 4;
   for (const item of gathered) {
     if (attemptedUrls.size >= budget.captures) break;

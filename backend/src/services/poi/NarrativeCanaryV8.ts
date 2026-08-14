@@ -282,6 +282,7 @@ export async function runNarrativeCanaryV8(
           runId: input.runId,
           stop,
           candidate,
+          cityName: input.city,
           cityQid: input.cityQid,
           language: input.language,
           country: input.country,
@@ -323,6 +324,7 @@ export async function runNarrativeCanaryV8(
               runId: input.runId,
               stop: nearestReserveId,
               candidate: nearestReserve,
+              cityName: input.city,
               cityQid: input.cityQid,
               language: input.language,
               country: input.country,
@@ -457,6 +459,7 @@ interface ResearchCanaryStopContextV8 {
   runId: string;
   stop: string;
   candidate: EssentialRouteCandidateV8;
+  cityName: string;
   cityQid: string;
   language: string;
   country: string;
@@ -504,6 +507,7 @@ async function researchCanaryStopV8(
     runId: context.runId,
     stopId: wikidataId,
     stopName: context.candidate.name ?? context.stop,
+    cityName: context.cityName,
     cityQid: context.cityQid,
     countryCode: context.country,
     language: context.language,
