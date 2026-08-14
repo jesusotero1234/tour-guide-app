@@ -27,7 +27,7 @@ services:
       PROXY_SERVER: ""
       PROXY_USERNAME: ""
       SEARXNG_CATEGORIES: ""
-      SEARXNG_ENDPOINT: ""
+      SEARXNG_ENDPOINT: "http://searxng:8080"
       SEARXNG_ENGINES: ""
       SELF_HOSTED_WEBHOOK_URL: ""
       SLACK_WEBHOOK_URL: ""

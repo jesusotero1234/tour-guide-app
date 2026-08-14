@@ -46,6 +46,47 @@ export OLLAMA_API_URL=http://your-ollama-server:11434
 export OLLAMA_MODEL=mistral:latest
 ```
 
+## SearXNG Local (Discovery Provider)
+
+SearXNG is a self-hosted metasearch engine used as the web discovery provider for the research pipeline. It runs as a separate local container that publishes `127.0.0.1:8080` only, and it exposes a JSON API at `/search?format=json`. The JSON format is explicitly enabled in `scripts/searxng-settings.yml` (mounted read-only); the official default only enables `html` and would return `403` for `format=json`.
+
+### Starting SearXNG
+
+Firecrawl must be up first: SearXNG joins the Firecrawl bridge network so the Firecrawl api container can reach it as `http://searxng:8080`:
+
+```bash
+./scripts/firecrawl-local.sh up      # first: creates the shared network
+bash scripts/searxng-local.sh up        # then: joins it and publishes 127.0.0.1:8080
+bash scripts/searxng-local.sh status    # verify it responds
+bash scripts/searxng-local.sh down      # stop (volumes are preserved)
+```
+
+The image is pinned by digest in `scripts/searxng-local.compose.yaml`. Settings and runtime data persist in a named volume mounted at `/etc/searxng`.
+
+### Configuring the backend
+
+Point the backend/discovery configuration at the local instance:
+
+```bash
+export SEARXNG_BASE_URL=http://127.0.0.1:8080
+```
+
+When using Firecrawl self-hosted as the capture provider, wire its own SearXNG integration as well: set `SEARXNG_ENDPOINT=http://searxng:8080` in the Firecrawl local environment file (`~/.local/state/tour-guide-app/firecrawl.env`) and restart Firecrawl with `./scripts/firecrawl-local.sh down && ./scripts/firecrawl-local.sh up`. The compose default already sets this value; the env file must not override it with a loopback address, which would not resolve inside the Firecrawl container.
+
+### Running the provider smoke test
+
+With SearXNG and Firecrawl both up, run the smoke test (no LLM required):
+
+```bash
+bash scripts/smoke-v8-providers.sh
+```
+
+It checks that SearXNG returns JSON, that Firecrawl `/search`, `/map` and `/scrape` (HTML and PDF) work, that SSRF protection blocks private addresses, and that no request can reach Firecrawl Cloud. Each check prints `[ok]` or `[fail]`; the script exits with a non-zero code if any check fails.
+
+### Security note
+
+SearXNG publishes `127.0.0.1` only and must never be exposed to the network: it is an unauthenticated open metasearch endpoint. Inside the container it binds `0.0.0.0` (see `scripts/searxng-settings.yml`) so the Firecrawl api container can reach it over the podman bridge network; the host-facing published port remains loopback-only. The compose file defines a default `SEARXNG_SECRET` for local development that can be overridden via environment when needed.
+
 ## Accessing Individual Services
 
 Each service exposes its API at the following URLs:
@@ -74,7 +115,7 @@ This project has two container orchestration configurations:
    - Uses simplified Dockerfiles directly from pod directories
    - Set with NODE_ENV=development
    - Optimized for quick iteration and debugging
-   
+
 2. **Production Setup**
    - Located at `deployment/podman/compose.yml`
    - Uses optimized Containerfiles in the deployment directory

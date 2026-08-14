@@ -588,7 +588,8 @@ export function buildDiversePrefix<T extends RouteCandidate>(
   }
 
   if (requiredFlagships > 0) {
-    while (selected.length < requiredFlagships) {
+    let selectedFlagships = selected.filter((place) => getLandmarkTier(place) === 'flagship').length;
+    while (selectedFlagships < requiredFlagships && selected.length < stopCount) {
       const flagshipCandidates = remaining
         .filter((place) => getLandmarkTier(place) === 'flagship')
         .map((place) => ({
@@ -614,6 +615,7 @@ export function buildDiversePrefix<T extends RouteCandidate>(
       }
 
       selected.push(nextFlagship);
+      selectedFlagships += 1;
       const category = getCategory(nextFlagship);
       categoryCounts.set(category, (categoryCounts.get(category) ?? 0) + 1);
 

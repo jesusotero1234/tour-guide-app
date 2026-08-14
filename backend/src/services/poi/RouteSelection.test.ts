@@ -68,6 +68,38 @@ describe('buildDiversePrefix', () => {
     expect(selected.map((place) => place.name)).toContain('Arc Gate');
     expect(selected.map((place) => place.name)).not.toContain('Compact Plaza');
   });
+
+  it('counts real flagship selections instead of total selected items', () => {
+    const selected = buildDiversePrefix([
+      tieredCandidate('History Anchor', 40.4168, -3.7038, 'memorial', 9.5, 'supporting'),
+      tieredCandidate('First Flagship', 40.4178, -3.7048, 'palace_castle', 11, 'flagship'),
+      tieredCandidate('Second Flagship', 40.4188, -3.7058, 'museum', 10.8, 'flagship'),
+      tieredCandidate('Third Flagship', 40.4198, -3.7068, 'square_civic', 10.6, 'flagship'),
+    ], 4, 0.6, {
+      requestedDuration: 120,
+      requiredFlagships: 3,
+      theme: 'history',
+    });
+
+    const flagshipCount = selected.filter((place) => place.landmarkTier === 'flagship').length;
+    expect(flagshipCount).toBe(3);
+  });
+
+  it('never exceeds stopCount when flagships and history anchors compete', () => {
+    const selected = buildDiversePrefix([
+      tieredCandidate('Anchor One', 40.4168, -3.7038, 'memorial', 9.5, 'supporting'),
+      tieredCandidate('Anchor Two', 40.4169, -3.7039, 'memorial', 9.4, 'supporting'),
+      tieredCandidate('Flagship One', 40.4178, -3.7048, 'palace_castle', 11, 'flagship'),
+      tieredCandidate('Flagship Two', 40.4188, -3.7058, 'museum', 10.8, 'flagship'),
+      tieredCandidate('Flagship Three', 40.4198, -3.7068, 'square_civic', 10.6, 'flagship'),
+    ], 4, 0.6, {
+      requestedDuration: 120,
+      requiredFlagships: 3,
+      theme: 'history',
+    });
+
+    expect(selected).toHaveLength(4);
+  });
 });
 
 describe('estimateRouteMetrics', () => {

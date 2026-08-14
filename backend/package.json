@@ -33,6 +33,8 @@
     "quality:narrative:v6:preview": "node -r ts-node/register scripts/validation/narrative-v6-preview.ts",
     "quality:narrative:v6:toledo": "node -r ts-node/register scripts/validation/narrative-toledo-canary-v6.ts",
     "quality:narrative:v6:user-canary": "node -r ts-node/register scripts/validation/narrative-user-canary-v6.ts",
+    "quality:narrative:v8:canary": "node -r ts-node/register scripts/validation/narrative-canary-v8.ts",
+    "quality:narrative:v8:user-canary": "node -r ts-node/register scripts/validation/narrative-user-canary-v8.ts",
     "quality:core:v6": "node -r ts-node/register scripts/validation/resolve-editorial-core-v6.ts",
     "quality:core:v6:evaluate": "node -r ts-node/register scripts/validation/evaluate-editorial-core-v6.ts",
     "quality:benchmark:editorial": "node -r ts-node/register scripts/validation/benchmark-editorial-curators.ts",

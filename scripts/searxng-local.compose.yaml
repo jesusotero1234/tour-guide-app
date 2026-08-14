@@ -1,0 +1,48 @@
+# Local SearXNG for the tour-guide-app discovery stack (V8 plan).
+#
+# Official image pinned by digest (Docker Hub tag `latest`, multi-arch OCI
+# index, verified 2026-08-13):
+#   https://hub.docker.com/v2/repositories/searxng/searxng/tags/latest
+# The old searxng-docker "stable" branch is archived; its compose/settings
+# now live in the main searxng repo under container/.
+#
+# - Publishes ONLY 127.0.0.1:8080 on the host; never expose it outside
+#   localhost. Inside the container it binds 0.0.0.0 (see
+#   scripts/searxng-settings.yml) so the Firecrawl api container can reach
+#   it over the podman bridge network as http://searxng:8080.
+# - A settings.yml is mounted to enable the json output format: the official
+#   default only enables html, and /search?format=json returns 403 otherwise.
+# - A named volume covers /etc/searxng (runtime data).
+# - Redis/valkey is intentionally NOT deployed: the JSON search API
+#   (/search?format=json) does not require it, keeping the local footprint
+#   minimal.
+#
+# SEARXNG_SECRET / SEARXNG_BASE_URL follow the searxng-docker convention:
+# they are honored when /etc/searxng/settings.yml references them via the
+# `!ENV ${...}` tag. With a fresh volume the image entrypoint generates and
+# persists its own random secret in settings.yml, so these are overridable
+# safety valves rather than a hard requirement.
+
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest@sha256:c7ca5516d881de86f34ea65fcb4231eb1b2d0837f95abe6cd035764e051eb575
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SEARXNG_SECRET: "${SEARXNG_SECRET:-searxng-local-dev-secret-change-me}"
+    volumes:
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+      - searxng-data:/etc/searxng
+    networks:
+      - default
+      - firecrawl-local
+
+networks:
+  default:
+    name: tour-guide-searxng_default
+  firecrawl-local:
+    name: tour-guide-firecrawl-v2-8-0_backend
+    external: true
+
+volumes:
+  searxng-data:
