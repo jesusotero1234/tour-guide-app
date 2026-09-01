@@ -3,7 +3,7 @@ import Ajv, { ValidateFunction } from 'ajv';
 import { createHash } from 'crypto';
 
 export interface EditorialProviderV6 {
-  kind: 'deepseek' | 'ollama' | 'oneprovider' | 'openrouter';
+  kind: 'deepseek' | 'ollama' | 'oneprovider' | 'openrouter' | 'qwen_local';
   model: string;
   endpoint?: string;
   expectedProviderName?: string;
@@ -53,14 +53,71 @@ export interface EditorialPricingV6 {
 }
 
 export const DEEPSEEK_PRICING_V6 = {
-  effectiveDate: '2026-08-12',
+  effectiveDate: '2026-08-16T16:00:00Z',
   currency: 'USD',
   unit: 'per_million_tokens',
+  peakUtc: {
+    weekdays: [1, 2, 3, 4, 5],
+    windows: [
+      { startMinute: 60, endMinute: 240 },
+      { startMinute: 360, endMinute: 600 },
+    ],
+  },
   models: {
-    'deepseek-v4-flash': { inputCacheHit: 0.0028, inputCacheMiss: 0.14, output: 0.28 },
-    'deepseek-v4-pro': { inputCacheHit: 0.003625, inputCacheMiss: 0.435, output: 0.87 },
+    'deepseek-v4-flash': {
+      previous: { inputCacheHit: 0.0028, inputCacheMiss: 0.14, output: 0.28 },
+      offPeak: { inputCacheHit: 0.007, inputCacheMiss: 0.22, output: 0.66 },
+      peak: { inputCacheHit: 0.014, inputCacheMiss: 0.44, output: 1.32 },
+    },
+    'deepseek-v4-pro': {
+      previous: { inputCacheHit: 0.003625, inputCacheMiss: 0.435, output: 0.87 },
+      offPeak: { inputCacheHit: 0.022, inputCacheMiss: 0.66, output: 1.98 },
+      peak: { inputCacheHit: 0.044, inputCacheMiss: 1.32, output: 3.96 },
+    },
   },
 } as const;
+
+export interface DeepseekTokenPricingV6 {
+  inputCacheHit: number;
+  inputCacheMiss: number;
+  output: number;
+}
+
+export function deepseekPricingAtV6(
+  model: string,
+  at: Date
+): DeepseekTokenPricingV6 | undefined {
+  const modelPricing = DEEPSEEK_PRICING_V6.models[
+    model as keyof typeof DEEPSEEK_PRICING_V6.models
+  ];
+  if (!modelPricing || !Number.isFinite(at.getTime())) return undefined;
+  if (at.getTime() < Date.parse(DEEPSEEK_PRICING_V6.effectiveDate)) {
+    return modelPricing.previous;
+  }
+  const utcMinute = at.getUTCHours() * 60 + at.getUTCMinutes();
+  const peak = DEEPSEEK_PRICING_V6.peakUtc.weekdays.includes(
+    at.getUTCDay() as 1 | 2 | 3 | 4 | 5
+  ) && DEEPSEEK_PRICING_V6.peakUtc.windows.some((window) => (
+    utcMinute >= window.startMinute && utcMinute < window.endMinute
+  ));
+  return modelPricing[peak ? 'peak' : 'offPeak'];
+}
+
+export function calculateDeepseekCostV6(input: {
+  model: string;
+  cacheReadTokens: number;
+  cacheMissTokens: number;
+  outputTokens: number;
+  at: Date;
+}): number | undefined {
+  const pricing = deepseekPricingAtV6(input.model, input.at);
+  if (!pricing) return undefined;
+  return (
+    input.cacheReadTokens * pricing.inputCacheHit
+    + input.cacheMissTokens * pricing.inputCacheMiss
+    + input.outputTokens * pricing.output
+  ) / 1_000_000;
+}
 
 export interface EditorialRoutingV6 {
   requestedModel: string;
@@ -136,6 +193,7 @@ export interface EditorialRequestOptionsV6 {
   deepseekBaseUrl?: string;
   oneProviderBaseUrl?: string;
   openRouterBaseUrl?: string;
+  qwenLocalBaseUrl?: string;
   maxTokens?: number;
   temperature?: number;
   reasoning?: EditorialReasoningV6;
@@ -172,14 +230,14 @@ function extractProviderOutput(value: unknown, provider: EditorialProviderV6, to
     }
     return message.content.trim();
   }
-  if (provider.kind === 'openrouter') {
+  if (provider.kind === 'openrouter' || provider.kind === 'qwen_local') {
     if (!Array.isArray(root.choices) || root.choices.length !== 1) {
-      throw new Error('openrouter returned no single choice');
+      throw new Error(`${provider.kind} returned no single choice`);
     }
-    const choice = objectValue(root.choices[0], 'openrouter choice');
-    const message = objectValue(choice.message, 'openrouter message');
+    const choice = objectValue(root.choices[0], `${provider.kind} choice`);
+    const message = objectValue(choice.message, `${provider.kind} message`);
     if (typeof message.content !== 'string' || !message.content.trim()) {
-      throw new Error('openrouter returned empty content');
+      throw new Error(`${provider.kind} returned empty content`);
     }
     return message.content.trim();
   }
@@ -225,7 +283,8 @@ function safeTransportError(error: unknown, apiKeys: Array<string | undefined>):
 
 function providerUsage(
   value: unknown,
-  provider: EditorialProviderV6
+  provider: EditorialProviderV6,
+  fallbackBillingTime: Date
 ): EditorialUsageV6 | undefined {
   const root = objectValue(value, 'provider response');
   const usage = provider.kind === 'ollama'
@@ -249,9 +308,11 @@ function providerUsage(
   const promptDetails = !Array.isArray(root.usage) && root.usage
     ? objectValue((root.usage as Record<string, unknown>).prompt_tokens_details ?? {}, 'prompt details')
     : {};
-  const cost = provider.kind === 'openrouter'
-    ? (root.usage as Record<string, unknown> | undefined)?.cost
-    : undefined;
+  const cost = provider.kind === 'qwen_local'
+    ? 0
+    : provider.kind === 'openrouter'
+      ? (root.usage as Record<string, unknown> | undefined)?.cost
+      : undefined;
   const cacheReadTokens = typeof promptDetails.cached_tokens === 'number'
     ? promptDetails.cached_tokens
     : typeof usage.prompt_cache_hit_tokens === 'number'
@@ -260,16 +321,17 @@ function providerUsage(
   const cacheMissTokens = typeof usage.prompt_cache_miss_tokens === 'number'
     ? usage.prompt_cache_miss_tokens
     : undefined;
-  const deepseekPrices = provider.kind === 'deepseek'
-    ? DEEPSEEK_PRICING_V6.models[provider.model as keyof typeof DEEPSEEK_PRICING_V6.models]
-    : undefined;
-  const calculatedDeepseekCost = deepseekPrices
-    ? (
-      (cacheReadTokens ?? 0) * deepseekPrices.inputCacheHit
-      + (cacheMissTokens ?? Math.max(0, inputTokens - (cacheReadTokens ?? 0)))
-        * deepseekPrices.inputCacheMiss
-      + outputTokens * deepseekPrices.output
-    ) / 1_000_000
+  const created = typeof root.created === 'number' && Number.isFinite(root.created)
+    ? new Date(root.created * 1_000)
+    : fallbackBillingTime;
+  const calculatedDeepseekCost = provider.kind === 'deepseek'
+    ? calculateDeepseekCostV6({
+      model: provider.model,
+      cacheReadTokens: cacheReadTokens ?? 0,
+      cacheMissTokens: cacheMissTokens ?? Math.max(0, inputTokens - (cacheReadTokens ?? 0)),
+      outputTokens,
+      at: created,
+    })
     : undefined;
   return {
     inputTokens,
@@ -430,6 +492,7 @@ function directProviderName(provider: EditorialProviderV6): string | null {
   if (provider.kind === 'deepseek') return 'DeepSeek';
   if (provider.kind === 'ollama') return 'Ollama';
   if (provider.kind === 'oneprovider') return 'OneProvider';
+  if (provider.kind === 'qwen_local') return 'Qwen local';
   return null;
 }
 
@@ -509,7 +572,7 @@ function maximumAttemptCostUsd(
   pricing: EditorialPricingV6 | undefined,
   maximumOutputTokens: number
 ): number | undefined {
-  if (provider.kind === 'ollama') return 0;
+  if (provider.kind === 'ollama' || provider.kind === 'qwen_local') return 0;
   if (provider.kind === 'openrouter') {
     if (!pricing) return undefined;
     return (
@@ -522,10 +585,9 @@ function maximumAttemptCostUsd(
     );
   }
   if (provider.kind !== 'deepseek') return undefined;
-  const modelPricing = (DEEPSEEK_PRICING_V6.models as Record<
-    string,
-    { inputCacheMiss: number; output: number }
-  >)[provider.model];
+  const modelPricing = DEEPSEEK_PRICING_V6.models[
+    provider.model as keyof typeof DEEPSEEK_PRICING_V6.models
+  ]?.peak;
   if (!modelPricing) return undefined;
   return (
     maximumInputTokens * modelPricing.inputCacheMiss
@@ -589,7 +651,8 @@ export async function requestEditorialStructuredV6<T>(config: {
   const post = options.post ?? defaultPost;
   const activeApiKey = config.provider.kind === 'oneprovider' ? options.oneProviderApiKey
     : config.provider.kind === 'openrouter' ? options.openRouterApiKey
-      : options.apiKey;
+      : config.provider.kind === 'qwen_local' ? undefined
+        : options.apiKey;
   const attempts: EditorialAttemptV6[] = [];
   let retryFeedback: string | null = null;
   const requestAttempts = options.requestAttempts ?? 2;
@@ -642,14 +705,12 @@ export async function requestEditorialStructuredV6<T>(config: {
     reasoning,
     maximumCostUsd: maximumAttemptCostUsd(
       config.provider,
-      4 * (
-        inputCharacters
-        + schemaCharacters
-        + config.systemPrompt.length
-        + config.toolDescription.length
-        + config.toolName.length
-        + 2_048
-      ),
+      Buffer.byteLength(JSON.stringify(config.input), 'utf8')
+        + Buffer.byteLength(JSON.stringify(config.schema), 'utf8')
+        + Buffer.byteLength(config.systemPrompt, 'utf8')
+        + Buffer.byteLength(config.toolDescription, 'utf8')
+        + Buffer.byteLength(config.toolName, 'utf8')
+        + 2_048,
       options.pricing,
       options.maxTokens ?? 8_000
     ),
@@ -694,6 +755,28 @@ export async function requestEditorialStructuredV6<T>(config: {
             temperature: temperature ?? 0, seed: 42,
             num_predict: options.maxTokens ?? 8_000,
             num_ctx: options.ollamaContextTokens ?? 65_536,
+          },
+        }, { 'Content-Type': 'application/json' }, {
+          timeoutMs: remainingMs, signal: deadlineController.signal,
+        });
+      } else if (config.provider.kind === 'qwen_local') {
+        const baseUrl = options.qwenLocalBaseUrl
+          ?? config.provider.endpoint
+          ?? 'http://127.0.0.1:8080/v1';
+        response = await postWithinDeadline(`${baseUrl.replace(/\/$/, '')}/chat/completions`, {
+          model: config.provider.model,
+          messages,
+          stream: false,
+          max_tokens: options.maxTokens ?? 8_000,
+          temperature: temperature ?? 0,
+          seed: 42,
+          response_format: {
+            type: 'json_schema',
+            json_schema: {
+              name: config.toolName,
+              strict: true,
+              schema: config.schema,
+            },
           },
         }, { 'Content-Type': 'application/json' }, {
           timeoutMs: remainingMs, signal: deadlineController.signal,
@@ -809,7 +892,7 @@ export async function requestEditorialStructuredV6<T>(config: {
     }
     let usage: EditorialUsageV6 | undefined;
     try {
-      usage = providerUsage(response.data, config.provider);
+      usage = providerUsage(response.data, config.provider, new Date(startedAt));
     } catch (error) {
       const actualModel = responseModel(response.data, config.provider.model);
       const actualProvider = directProviderName(config.provider);

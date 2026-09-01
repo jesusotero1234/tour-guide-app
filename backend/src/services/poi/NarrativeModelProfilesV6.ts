@@ -10,6 +10,8 @@ import {
 export const NARRATIVE_MODEL_PROFILE_NAMES_V6 = [
   'deepseek_control',
   'balanced_openrouter',
+  'qwen38_hybrid',
+  'multilingual_openrouter',
 ] as const;
 
 export type NarrativeModelProfileNameV6 = typeof NARRATIVE_MODEL_PROFILE_NAMES_V6[number];
@@ -56,6 +58,7 @@ export interface NarrativeModelClientOptionsV6 {
   apiKey?: string;
   openRouterApiKey?: string;
   ollamaHost?: string;
+  qwenLocalBaseUrl?: string;
   post?: EditorialPostV6;
   disableOpenRouterCache?: boolean;
   requestTimeoutMs?: number;
@@ -107,6 +110,22 @@ const openAiFull = openRouterProvider(
   'openai/gpt-5.4',
   ['openai/gpt-5.4-20260305']
 );
+const mistralSmall4 = openRouterProvider(
+  'mistralai/mistral-small-2603'
+);
+const gemini35FlashLite = openRouterProvider(
+  'google/gemini-3.5-flash-lite',
+  ['google/gemini-3.5-flash-lite-20260721']
+);
+const openAiNano = openRouterProvider(
+  'openai/gpt-5.4-nano',
+  ['openai/gpt-5.4-nano-20260317']
+);
+const qwenLocal = {
+  kind: 'qwen_local' as const,
+  model: 'qwen-local',
+  endpoint: 'http://127.0.0.1:8080/v1',
+};
 export const NARRATIVE_MODEL_PROFILES_V6: Record<
   NarrativeModelProfileNameV6,
   NarrativeModelProfileV6
@@ -163,6 +182,58 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       globalAudits: 1,
     },
   },
+  qwen38_hybrid: {
+    name: 'qwen38_hybrid',
+    phases: {
+      planner: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 1_200 },
+      curator: { provider: openAiMini, reasoning: 'low', maxTokens: 16_000 },
+      curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
+      architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
+      writer: { provider: qwenLocal, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
+      auditor_a: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
+      adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
+      repair: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      global_auditor: { provider: openAiMini, reasoning: 'high', maxTokens: 20_000 },
+    },
+    concurrency: {
+      researchStops: 2,
+      searches: 6,
+      captures: 2,
+      curations: 3,
+      editorialStops: 1,
+      writers: 1,
+      auditStops: 1,
+      adjudications: 3,
+      globalAudits: 1,
+    },
+  },
+  multilingual_openrouter: {
+    name: 'multilingual_openrouter',
+    phases: {
+      planner: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 1_200 },
+      curator: { provider: mistralSmall4, reasoning: 'none', maxTokens: 16_000 },
+      curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
+      architect: { provider: gemini35FlashLite, reasoning: 'low', maxTokens: 8_000 },
+      writer: { provider: qwenLocal, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
+      auditor_a: { provider: openRouterFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: mistralSmall4, reasoning: 'none', maxTokens: 2_000 },
+      adjudicator: { provider: openAiNano, reasoning: 'medium', maxTokens: 4_000 },
+      repair: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      global_auditor: { provider: mistralSmall4, reasoning: 'none', maxTokens: 12_000 },
+    },
+    concurrency: {
+      researchStops: 2,
+      searches: 6,
+      captures: 2,
+      curations: 3,
+      editorialStops: 1,
+      writers: 1,
+      auditStops: 1,
+      adjudications: 3,
+      globalAudits: 1,
+    },
+  },
 };
 
 export function resolveNarrativeModelProfileV6(
@@ -191,6 +262,7 @@ export function narrativePhaseExecutionV6(
       apiKey: client.apiKey,
       openRouterApiKey: client.openRouterApiKey,
       ollamaHost: client.ollamaHost,
+      qwenLocalBaseUrl: client.qwenLocalBaseUrl,
       post: client.post,
       disableOpenRouterCache: client.disableOpenRouterCache,
       requestTimeoutMs: client.requestTimeoutMs,

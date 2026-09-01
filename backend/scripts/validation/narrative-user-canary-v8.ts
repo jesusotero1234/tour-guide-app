@@ -1,9 +1,13 @@
 import 'dotenv/config';
+import axios from 'axios';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { TourRequest } from '../../src/types/api';
 import { requestEditorialStructuredV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
-import { narrativePhaseExecutionV6 } from '../../src/services/poi/NarrativeModelProfilesV6';
+import {
+  NarrativeModelProfileNameV6,
+  narrativePhaseExecutionV6,
+} from '../../src/services/poi/NarrativeModelProfilesV6';
 import {
   FirecrawlNarrativeCaptureProviderV7,
   SearxngNarrativeDiscoveryProviderV7,
@@ -54,7 +58,7 @@ import {
 } from '../../src/services/poi/NarrativeEvidenceBoundaryV8';
 import {
   openRouterPricingFromPreflightV6,
-  preflightBalancedOpenRouterV6,
+  preflightNarrativeOpenRouterV6,
 } from '../../src/services/poi/OpenRouterPreflightV6';
 import { NarrativeProgressSpendGuardV6 } from '../../src/services/poi/NarrativeProgressSpendGuardV6';
 import { createNarrativeSchedulerV6 } from '../../src/services/poi/NarrativeSchedulerV6';
@@ -285,13 +289,20 @@ async function curatorServiceV8(options: {
 
 async function adaptiveQueryServiceV8(options: {
   apiKey: string;
+  openRouterApiKey: string;
+  openRouterPricing?: Record<string, EditorialPricingV6>;
+  qwenLocalBaseUrl: string;
+  profile: string;
   runId: string;
   onProgress?: EditorialProgressCallbackV6;
 }): Promise<NarrativeResearchServicesV8['proposeAdaptiveQueries']> {
   const execution = narrativePhaseExecutionV6(
     {
       apiKey: options.apiKey,
-      profile: 'deepseek_control',
+      openRouterApiKey: options.openRouterApiKey,
+      openRouterPricing: options.openRouterPricing,
+      qwenLocalBaseUrl: options.qwenLocalBaseUrl,
+      profile: options.profile,
       runId: options.runId,
       onProgress: options.onProgress,
     },
@@ -538,6 +549,7 @@ async function buildResearchServices(options: {
   apiKey: string;
   openRouterApiKey: string;
   openRouterPricing?: Record<string, EditorialPricingV6>;
+  qwenLocalBaseUrl: string;
   profile: string;
   runId: string;
   cityQid: string;
@@ -562,6 +574,10 @@ async function buildResearchServices(options: {
   });
   const proposeAdaptiveQueries = await adaptiveQueryServiceV8({
     apiKey: options.apiKey,
+    openRouterApiKey: options.openRouterApiKey,
+    openRouterPricing: options.openRouterPricing,
+    qwenLocalBaseUrl: options.qwenLocalBaseUrl,
+    profile: options.profile,
     runId: options.runId,
     onProgress: options.onProgress,
   });
@@ -690,10 +706,16 @@ async function main(): Promise<void> {
   const resumeOptions = parseResumeOptionsV8(process.argv);
   const resumeFromPhase = resumeOptions?.resumeFrom ?? null;
   const researchRuntime = researchRuntimeV8();
-  const profile = option('--profile') ?? 'balanced_openrouter';
-  if (profile !== 'balanced_openrouter') {
-    throw new Error('narrative user canary V8 requires --profile=balanced_openrouter');
+  const requestedProfile = option('--profile') ?? 'qwen38_hybrid';
+  if (!['qwen38_hybrid', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
+    throw new Error(
+      'narrative user canary V8 requires --profile=qwen38_hybrid, balanced_openrouter, or multilingual_openrouter'
+    );
   }
+  const profile = requestedProfile as NarrativeModelProfileNameV6;
+  const qwenLocalBaseUrl = option('--qwen-base-url')
+    ?? process.env.QWEN_LOCAL_BASE_URL?.trim()
+    ?? 'http://127.0.0.1:8080/v1';
   const priorSpendUsd = Number(option('--prior-spend-usd'));
   if (!Number.isFinite(priorSpendUsd) || priorSpendUsd < 0 || priorSpendUsd > SPEND_LIMIT_USD) {
     throw new Error('--prior-spend-usd is required and must preserve the cumulative spend below $2');
@@ -848,7 +870,20 @@ async function main(): Promise<void> {
       await assertResearchRuntimeReachableV8(researchRuntime);
     }
     currentStage = 'preflight';
-    const preflight = await preflightBalancedOpenRouterV6({ signal: abortController.signal });
+    if (profile === 'qwen38_hybrid' || profile === 'multilingual_openrouter') {
+      const qwenModelsUrl = `${qwenLocalBaseUrl.replace(/\/$/, '')}/models`;
+      const qwenResponse = await axios.get(qwenModelsUrl, {
+        headers: { Accept: 'application/json' }, timeout: 5_000, signal: abortController.signal,
+      });
+      const qwenModels = (qwenResponse.data as { data?: Array<{ id?: unknown }> })?.data;
+      if (!Array.isArray(qwenModels) || !qwenModels.some((model) => model.id === 'qwen-local')) {
+        throw new Error(`Qwen local preflight did not find qwen-local at ${qwenModelsUrl}`);
+      }
+    }
+    const preflight = await preflightNarrativeOpenRouterV6({
+      profile,
+      signal: abortController.signal,
+    });
     if (preflight.status !== 'ready') {
       throw new Error(`OpenRouter endpoint preflight failed: ${preflight.issues.join('; ')}`);
     }
@@ -1118,6 +1153,7 @@ async function main(): Promise<void> {
         apiKey,
         openRouterApiKey,
         openRouterPricing,
+        qwenLocalBaseUrl,
         profile,
         runId,
         cityQid,
@@ -1283,6 +1319,7 @@ async function main(): Promise<void> {
     const modelOptions = {
       apiKey,
       openRouterApiKey,
+      qwenLocalBaseUrl,
       profile,
       runId,
       openRouterPricing,

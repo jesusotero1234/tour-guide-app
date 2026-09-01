@@ -10,6 +10,10 @@ import {
 } from './EditorialRouteBrief';
 import { optimizeEditorialRoute } from './EditorialRouteOptimizer';
 import { composeWalkingRoute } from './RouteSelection';
+import {
+  calculateDeepseekCostV6,
+  DEEPSEEK_PRICING_V6,
+} from './EditorialStructuredLlmV6';
 
 export const EDITORIAL_BENCHMARK_VERSION = 'benchmark-editorial-v1' as const;
 export const DEEPSEEK_FLASH_MODEL = 'deepseek-v4-flash' as const;
@@ -317,19 +321,31 @@ export function editorialBenchmarkInputFingerprint(request: EditorialRouteBriefR
   return sha256(JSON.stringify(request));
 }
 
-export function calculateDeepSeekCost(usage: EditorialBenchmarkUsage): number {
-  const cacheHitCost = usage.cacheHitPromptTokens * 0.0028 / 1_000_000;
-  const cacheMissCost = usage.cacheMissPromptTokens * 0.14 / 1_000_000;
-  const outputCost = usage.completionTokens * 0.28 / 1_000_000;
-  return Number((cacheHitCost + cacheMissCost + outputCost).toFixed(8));
+export function calculateDeepSeekCost(
+  usage: EditorialBenchmarkUsage,
+  at: Date = new Date()
+): number {
+  const cost = calculateDeepseekCostV6({
+    model: DEEPSEEK_FLASH_MODEL,
+    cacheReadTokens: usage.cacheHitPromptTokens,
+    cacheMissTokens: usage.cacheMissPromptTokens,
+    outputTokens: usage.completionTokens,
+    at,
+  });
+  if (cost === undefined) throw new Error('DeepSeek pricing is unavailable');
+  return Number(cost.toFixed(8));
 }
 
 export function estimateMaximumDeepSeekCallCost(request: EditorialRouteBriefRequest): number {
   const messages = buildEditorialBenchmarkMessages(request);
-  const estimatedInputTokens = Math.ceil((messages.system.length + messages.user.length) / 3);
+  const maximumInputTokens = Buffer.byteLength(messages.system, 'utf8')
+    + Buffer.byteLength(messages.user, 'utf8')
+    + Buffer.byteLength(JSON.stringify(createEditorialBenchmarkResponseSchema(request)), 'utf8')
+    + 2_048;
+  const pricing = DEEPSEEK_PRICING_V6.models[DEEPSEEK_FLASH_MODEL].peak;
   return Number((
-    (estimatedInputTokens * 0.14 / 1_000_000)
-    + (MAX_OUTPUT_TOKENS * 0.28 / 1_000_000)
+    (maximumInputTokens * pricing.inputCacheMiss / 1_000_000)
+    + (MAX_OUTPUT_TOKENS * pricing.output / 1_000_000)
   ).toFixed(8));
 }
 

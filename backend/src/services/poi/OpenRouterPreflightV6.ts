@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 import {
   NARRATIVE_MODEL_PROFILES_V6,
   NarrativeModelPhaseConfigV6,
+  NarrativeModelProfileNameV6,
 } from './NarrativeModelProfilesV6';
 import { EditorialPricingV6 } from './EditorialStructuredLlmV6';
 
@@ -94,12 +95,10 @@ function parametersForPhase(phase: NarrativeModelPhaseConfigV6): string[] {
   ];
 }
 
-function requirements(): RequiredModelV6[] {
+function requirements(profile: NarrativeModelProfileNameV6): RequiredModelV6[] {
   const byModel = new Map<string, RequiredModelV6>();
-  for (const phase of Object.values(NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases)) {
-    if (phase.provider.kind !== 'openrouter') {
-      throw new Error('balanced_openrouter contains a non-openrouter provider');
-    }
+  for (const phase of Object.values(NARRATIVE_MODEL_PROFILES_V6[profile].phases)) {
+    if (phase.provider.kind !== 'openrouter') continue;
     const model = phase.provider.model;
     const existing = byModel.get(model) ?? {
       model,
@@ -117,11 +116,13 @@ const defaultGet: OpenRouterCatalogGetV6 = async (url, headers, signal) => {
   return { data: response.data };
 };
 
-export async function preflightBalancedOpenRouterV6(options: {
+export async function preflightNarrativeOpenRouterV6(options: {
+  profile?: NarrativeModelProfileNameV6;
   baseUrl?: string;
   get?: OpenRouterCatalogGetV6;
   signal?: AbortSignal;
 } = {}): Promise<OpenRouterPreflightResultV6> {
+  const profile = options.profile ?? 'balanced_openrouter';
   const baseUrl = (options.baseUrl ?? 'https://openrouter.ai/api/v1').replace(/\/$/, '');
   const get = options.get ?? defaultGet;
   const issues: string[] = [];
@@ -142,7 +143,7 @@ export async function preflightBalancedOpenRouterV6(options: {
     issues.push(`OpenRouter model catalog failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 
-  const modelResults = await Promise.all(requirements().map(async (requirement) => {
+  const modelResults = await Promise.all(requirements(profile).map(async (requirement) => {
     const modelIssues: string[] = [];
     const modelChecks: OpenRouterPreflightCheckV6[] = [];
     if (!requirement.acceptedModels.some((model) => catalogModels.has(model))) {
@@ -242,4 +243,15 @@ export async function preflightBalancedOpenRouterV6(options: {
     checks,
     issues,
   };
+}
+
+export async function preflightBalancedOpenRouterV6(options: {
+  baseUrl?: string;
+  get?: OpenRouterCatalogGetV6;
+  signal?: AbortSignal;
+} = {}): Promise<OpenRouterPreflightResultV6> {
+  return preflightNarrativeOpenRouterV6({
+    ...options,
+    profile: 'balanced_openrouter',
+  });
 }

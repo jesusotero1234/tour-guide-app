@@ -1,4 +1,5 @@
 import {
+  calculateDeepseekCostV6,
   DEEPSEEK_PRICING_V6,
   requestEditorialStructuredV6,
 } from './EditorialStructuredLlmV6';
@@ -6,10 +7,13 @@ import {
   NARRATIVE_MODEL_PROFILES_V6,
   resolveNarrativeModelProfileV6,
 } from './NarrativeModelProfilesV6';
-import { preflightBalancedOpenRouterV6 } from './OpenRouterPreflightV6';
+import {
+  preflightBalancedOpenRouterV6,
+  preflightNarrativeOpenRouterV6,
+} from './OpenRouterPreflightV6';
 
 function response(toolName: string) {
-  return { data: { choices: [{ message: { tool_calls: [{ function: {
+  return { data: { created: Date.parse('2026-09-01T17:00:00Z') / 1_000, choices: [{ message: { tool_calls: [{ function: {
     name: toolName, arguments: '{"ok":true}',
   } }] } }], usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 } } };
 }
@@ -40,6 +44,19 @@ function openRouterResponse(
       pipeline: [],
     },
     ...overrides,
+  } };
+}
+
+function qwenLocalResponse(content: string) {
+  return { data: {
+    model: 'qwen-local',
+    choices: [{ finish_reason: 'stop', message: { content } }],
+    usage: {
+      prompt_tokens: 12,
+      completion_tokens: 5,
+      total_tokens: 17,
+      prompt_tokens_details: { cached_tokens: 4 },
+    },
   } };
 }
 
@@ -76,6 +93,103 @@ describe('editorial structured LLM v6 providers', () => {
     expect(candidate.phases.global_auditor).not.toHaveProperty('temperature');
   });
 
+  it('maps the hybrid profile to local Qwen only for bounded execution phases', () => {
+    const hybrid = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid;
+
+    expect(hybrid.phases).toMatchObject({
+      planner: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0 },
+      curator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+      curator_complex: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4' } },
+      architect: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+      writer: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0.7 },
+      auditor_a: {
+        provider: { kind: 'openrouter', model: 'deepseek/deepseek-v4-flash-0731' },
+      },
+      auditor_b: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+      adjudicator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+      repair: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0 },
+      global_auditor: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+    });
+  });
+
+  it('maps the multilingual profile to independent, cheaper remote roles', () => {
+    const profile = NARRATIVE_MODEL_PROFILES_V6.multilingual_openrouter;
+
+    expect(profile.phases).toMatchObject({
+      planner: { provider: { kind: 'qwen_local', model: 'qwen-local' } },
+      curator: { provider: { kind: 'openrouter', model: 'mistralai/mistral-small-2603' } },
+      curator_complex: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4' } },
+      architect: {
+        provider: { kind: 'openrouter', model: 'google/gemini-3.5-flash-lite' },
+      },
+      writer: { provider: { kind: 'qwen_local', model: 'qwen-local' } },
+      auditor_a: {
+        provider: { kind: 'openrouter', model: 'deepseek/deepseek-v4-flash-0731' },
+      },
+      auditor_b: {
+        provider: { kind: 'openrouter', model: 'mistralai/mistral-small-2603' },
+      },
+      adjudicator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-nano' } },
+      repair: { provider: { kind: 'qwen_local', model: 'qwen-local' } },
+      global_auditor: {
+        provider: { kind: 'openrouter', model: 'mistralai/mistral-small-2603' },
+      },
+    });
+  });
+
+  it('uses the local Qwen OpenAI-compatible endpoint without credentials or spend', async () => {
+    const phase = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid.phases.writer;
+    const progress: Array<{ event: string; maximumCostUsd?: number }> = [];
+    const post = jest.fn(async (
+      url: string,
+      body: Record<string, unknown>,
+      headers: Record<string, string>
+    ) => {
+      expect(url).toBe('http://qwen.test/v1/chat/completions');
+      expect(headers).toEqual({ 'Content-Type': 'application/json' });
+      expect(body).toMatchObject({
+        model: 'qwen-local',
+        stream: false,
+        max_tokens: 2_000,
+        temperature: 0.7,
+        seed: 42,
+        response_format: {
+          type: 'json_schema',
+          json_schema: { name: 'submit_test_v6', strict: true },
+        },
+      });
+      expect(body).not.toHaveProperty('reasoning');
+      expect(body).not.toHaveProperty('provider');
+      return qwenLocalResponse('{"ok":true}');
+    });
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'qwen-local-test', input: { candidate: 'Q1' }, provider: phase.provider,
+      options: {
+        qwenLocalBaseUrl: 'http://qwen.test/v1/', post,
+        temperature: phase.temperature, maxTokens: phase.maxTokens,
+        onProgress: (event) => progress.push(event),
+      },
+      systemPrompt: 'Return structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit test data.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value) => value as { ok: boolean },
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.value).toEqual({ ok: true });
+    expect(result.actualModel).toBe('qwen-local');
+    expect(result.actualProvider).toBe('Qwen local');
+    expect(result.usage).toMatchObject({
+      inputTokens: 12, outputTokens: 5, totalTokens: 17, cacheReadTokens: 4, costUsd: 0,
+    });
+    expect(progress[0]).toMatchObject({ event: 'attempt_started', maximumCostUsd: 0 });
+  });
+
   it('preflights the public catalog for compatible endpoints without an API key', async () => {
     const providers: Record<string, { tag: string; provider: string }> = {
       'deepseek/deepseek-v4-flash-0731': {
@@ -83,6 +197,8 @@ describe('editorial structured LLM v6 providers', () => {
       },
       'openai/gpt-5.4-mini': { tag: 'openai', provider: 'OpenAI' },
       'openai/gpt-5.4': { tag: 'openai', provider: 'OpenAI' },
+      'openai/gpt-5.4-nano': { tag: 'openai', provider: 'OpenAI' },
+      'mistralai/mistral-small-2603': { tag: 'mistral', provider: 'Mistral' },
       'google/gemini-3.5-flash-lite': {
         tag: 'google-ai-studio', provider: 'Google AI Studio',
       },
@@ -114,7 +230,9 @@ describe('editorial structured LLM v6 providers', () => {
       }
       await endpointBarrier;
       activeEndpointRequests -= 1;
-      const model = Object.keys(providers).find((candidate) => url.includes(candidate));
+      const model = Object.keys(providers)
+        .sort((left, right) => right.length - left.length)
+        .find((candidate) => url.includes(candidate));
       if (!model) throw new Error(`unexpected URL: ${url}`);
       const provider = providers[model];
       return { data: { data: { id: model, endpoints: [{
@@ -159,6 +277,18 @@ describe('editorial structured LLM v6 providers', () => {
     expect(get).toHaveBeenCalledTimes(4);
     expect(peakEndpointRequests).toBe(3);
     expect(get.mock.calls.flat()).not.toContain(expect.stringContaining('Bearer'));
+
+    const multilingual = await preflightNarrativeOpenRouterV6({
+      profile: 'multilingual_openrouter', get, signal: controller.signal,
+    });
+    expect(multilingual.status).toBe('ready');
+    expect(multilingual.checks.map((check) => check.model).sort()).toEqual([
+      'deepseek/deepseek-v4-flash-0731',
+      'google/gemini-3.5-flash-lite',
+      'mistralai/mistral-small-2603',
+      'openai/gpt-5.4',
+      'openai/gpt-5.4-nano',
+    ]);
   });
 
   it('stops preflight when no endpoint can honor the request protocol', async () => {
@@ -243,7 +373,8 @@ describe('editorial structured LLM v6 providers', () => {
     expect(progress.map((event) => event.event)).toEqual([
       'attempt_started', 'attempt_finished',
     ]);
-    expect(progress[0].maximumCostUsd).toBeGreaterThan(0.024);
+    expect(progress[0].maximumCostUsd).toBeGreaterThan(0.048);
+    expect(progress[0].maximumCostUsd).toBeLessThan(0.052);
     expect(result.attempts[0]).toMatchObject({
       usage: { inputTokens: 20, outputTokens: 8, costUsd: 0.0012 },
       finishReason: 'stop', actualModel: 'openai/gpt-5.4-mini', actualProvider: 'OpenAI',
@@ -407,8 +538,30 @@ describe('editorial structured LLM v6 providers', () => {
       outputTokens: 4,
       totalTokens: 14,
     });
-    expect(writer.usage?.costUsd).toBeCloseTo(0.00000252, 12);
-    expect(DEEPSEEK_PRICING_V6.effectiveDate).toBe('2026-08-12');
+    expect(writer.usage?.costUsd).toBeCloseTo(0.00000484, 12);
+    expect(DEEPSEEK_PRICING_V6.effectiveDate).toBe('2026-08-16T16:00:00Z');
+  });
+
+  it('applies current DeepSeek V4 peak and off-peak prices in UTC', () => {
+    const usage = {
+      model: 'deepseek-v4-flash',
+      cacheReadTokens: 5_248,
+      cacheMissTokens: 79,
+      outputTokens: 2_454,
+    };
+
+    expect(calculateDeepseekCostV6({
+      ...usage, at: new Date('2026-09-01T17:00:00Z'),
+    })).toBeCloseTo(0.001673756, 12);
+    expect(calculateDeepseekCostV6({
+      ...usage, at: new Date('2026-09-01T01:30:00Z'),
+    })).toBeCloseTo(0.003347512, 12);
+    expect(calculateDeepseekCostV6({
+      ...usage, at: new Date('2026-09-05T01:30:00Z'),
+    })).toBeCloseTo(0.001673756, 12);
+    expect(calculateDeepseekCostV6({
+      ...usage, at: new Date('2026-08-12T17:00:00Z'),
+    })).toBeCloseTo(0.0007128744, 12);
   });
 
   it('rejects temperatures outside the shared provider range before transport', async () => {
