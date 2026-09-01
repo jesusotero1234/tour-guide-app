@@ -87,6 +87,13 @@ function assertManifestMatchesAdmittedStops(
   });
 }
 
+export interface ReviewEvidenceEnvelopeV8 {
+  routeStopId: string;
+  entityQid: string;
+  dossierFingerprint: string;
+  dossier: Omit<NarrativeDossierV6, 'stopId' | 'sufficiency' | 'fingerprint'>;
+}
+
 export interface AuthorizedPropositionEntryV8 {
   ownerRouteStopId: string;
   entityQid: string;
@@ -220,7 +227,8 @@ function projectTourInput(
   admittedStops: NarrativeAdmittedStopV8[],
   manifest: NarrativeEvidenceManifestV8,
   arc: NarrativeArcV8,
-  authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[]
+  authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[],
+  reviewEvidenceByStop: ReviewEvidenceEnvelopeV8[]
 ): JsonRecord {
   const projected: JsonRecord = {
     ...input,
@@ -228,6 +236,7 @@ function projectTourInput(
     evidenceByStop: manifest.stops,
     arc,
     authorizedEvidenceByStop,
+    reviewEvidenceByStop,
   };
 
   if (Array.isArray(input.dossiers)) {
@@ -255,7 +264,8 @@ const V8_PROMPT_SUFFIX_WRITER = [
 
 const V8_PROMPT_SUFFIX_AUDITOR = [
   'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
-  'Distingue la evidencia soportada por fuentes de la evidencia autorizada por el escritor.',
+  'El dossier y reviewEvidence determinan el soporte de fuentes; authorizedEvidence determina el permiso del escritor.',
+  'Las afirmaciones verdaderas pero no autorizadas permanecen como objeciones reparables.',
   'En nivel B no presentes la evidencia como corroborada por varios publishers.',
   'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
   'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
@@ -281,13 +291,19 @@ export function createNarrativeEditorialRequestProjectorV8(
   const authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[] = admittedStops.map((stop, i) =>
     resolveAuthorizedEvidenceForStop(stop, arc.stops[i], admittedStops[i + 1])
   );
+  const reviewEvidenceByStop: ReviewEvidenceEnvelopeV8[] = admittedStops.map((stop) => ({
+    routeStopId: stop.routeStopId,
+    entityQid: stop.entityQid,
+    dossierFingerprint: stop.dossier.fingerprint,
+    dossier: projectNarrativeDossierForEditorialV8(stop.dossier),
+  }));
 
   return ({ operation, systemPrompt, input }) => {
     const inputRecord = record(input, `${operation} input`);
     if (operation === 'auditTour') {
       return {
         systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX_AUDITOR}`,
-        input: projectTourInput(inputRecord, admittedStops, manifest, arc, authorizedEvidenceByStop),
+        input: projectTourInput(inputRecord, admittedStops, manifest, arc, authorizedEvidenceByStop, reviewEvidenceByStop),
       };
     }
 
@@ -304,9 +320,21 @@ export function createNarrativeEditorialRequestProjectorV8(
       ? V8_PROMPT_SUFFIX_WRITER
       : V8_PROMPT_SUFFIX_AUDITOR;
 
+    const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence);
+    if (operation === 'audit' || operation === 'adjudicate') {
+      projectedInput.reviewEvidence = {
+        current: {
+          routeStopId: stop.routeStopId,
+          entityQid: stop.entityQid,
+          dossierFingerprint: stop.dossier.fingerprint,
+        },
+        next: reviewEvidenceByStop[stopIndex + 1] ?? null,
+      };
+    }
+
     return {
       systemPrompt: `${systemPrompt} ${promptSuffix}`,
-      input: projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence),
+      input: projectedInput,
     };
   };
 }

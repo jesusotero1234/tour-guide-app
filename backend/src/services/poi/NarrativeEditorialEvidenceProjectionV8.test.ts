@@ -233,6 +233,186 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     }
   });
 
+  test('projects supervisor-only complete current/next review evidence for audit and adjudicate', () => {
+    const stopA = fixture('malaga-history-stop-01', 'Q3849441', COMPLETE_ROLES);
+    const stopB = fixture('malaga-history-stop-02', 'Q3849442', COMPLETE_ROLES);
+    const stopC = fixture('malaga-history-stop-03', 'Q3849443', COMPLETE_ROLES);
+    const admitted = [admit(stopA), admit(stopB), admit(stopC)];
+    const manifest = manifestFor(admitted);
+    const projector = createNarrativeEditorialRequestProjectorV8(admitted, manifest, arcFor(admitted));
+
+    const audit = projector({
+      operation: 'audit',
+      systemPrompt: 'audit-prefix',
+      input: {
+        script: { stopId: stopA.routeStopId, sentences: [] },
+        dossier: stopA.dossier,
+      },
+    });
+    const auditInput = audit.input as Record<string, unknown>;
+    expect(auditInput).toHaveProperty('reviewEvidence');
+    const auditReviewEvidence = auditInput.reviewEvidence as Record<string, unknown>;
+    expect(auditReviewEvidence).toHaveProperty('current');
+    expect(auditReviewEvidence).toHaveProperty('next');
+    const auditCurrent = auditReviewEvidence.current as Record<string, unknown>;
+    const auditNext = auditReviewEvidence.next as Record<string, unknown> | null;
+    expect(auditCurrent).not.toBe(stopA.dossier);
+    expect(auditCurrent).toMatchObject({
+      routeStopId: stopA.routeStopId,
+      entityQid: stopA.entityQid,
+      dossierFingerprint: stopA.dossier.fingerprint,
+    });
+    expect(auditCurrent).not.toHaveProperty('dossier');
+    expect(auditNext).not.toBeNull();
+    expect(auditNext).not.toBe(stopB.dossier);
+    expect(auditNext).toMatchObject({
+      routeStopId: stopB.routeStopId,
+      entityQid: stopB.entityQid,
+      dossierFingerprint: stopB.dossier.fingerprint,
+    });
+    const auditNextDossier = (auditNext as Record<string, unknown>).dossier as Record<string, unknown>;
+    expect(auditNextDossier).toHaveProperty('sources');
+    expect(auditNextDossier).toHaveProperty('passages');
+    expect(auditNextDossier).not.toHaveProperty('stopId');
+    expect(auditNextDossier).not.toHaveProperty('sufficiency');
+    expect(auditNextDossier).not.toHaveProperty('fingerprint');
+    const auditDossier = auditInput.dossier as Record<string, unknown>;
+    expect(auditDossier).toHaveProperty('sources');
+    expect(auditDossier).toHaveProperty('passages');
+    expect(auditDossier).not.toHaveProperty('stopId');
+    expect(auditDossier).not.toHaveProperty('sufficiency');
+    expect(auditDossier).not.toHaveProperty('fingerprint');
+    expect(auditInput).toHaveProperty('authorizedEvidence');
+
+    const adjudicate = projector({
+      operation: 'adjudicate',
+      systemPrompt: 'adjudicate-prefix',
+      input: {
+        script: { stopId: stopA.routeStopId, sentences: [] },
+        objections: [],
+        dossier: stopA.dossier,
+      },
+    });
+    const adjudicateInput = adjudicate.input as Record<string, unknown>;
+    expect(adjudicateInput).toHaveProperty('reviewEvidence');
+    const adjudicateReviewEvidence = adjudicateInput.reviewEvidence as Record<string, unknown>;
+    expect(adjudicateReviewEvidence).toHaveProperty('current');
+    expect(adjudicateReviewEvidence).toHaveProperty('next');
+    const adjudicateCurrent = adjudicateReviewEvidence.current as Record<string, unknown>;
+    const adjudicateNext = adjudicateReviewEvidence.next as Record<string, unknown> | null;
+    expect(adjudicateCurrent).not.toBe(stopA.dossier);
+    expect(adjudicateCurrent).toMatchObject({
+      routeStopId: stopA.routeStopId,
+      entityQid: stopA.entityQid,
+      dossierFingerprint: stopA.dossier.fingerprint,
+    });
+    expect(adjudicateCurrent).not.toHaveProperty('dossier');
+    expect(adjudicateNext).not.toBeNull();
+    expect(adjudicateNext).not.toBe(stopB.dossier);
+    expect(adjudicateNext).toMatchObject({
+      routeStopId: stopB.routeStopId,
+      entityQid: stopB.entityQid,
+      dossierFingerprint: stopB.dossier.fingerprint,
+    });
+    const adjudicateNextDossier = (adjudicateNext as Record<string, unknown>).dossier as Record<string, unknown>;
+    expect(adjudicateNextDossier).toHaveProperty('sources');
+    expect(adjudicateNextDossier).toHaveProperty('passages');
+    expect(adjudicateNextDossier).not.toHaveProperty('stopId');
+    expect(adjudicateNextDossier).not.toHaveProperty('sufficiency');
+    expect(adjudicateNextDossier).not.toHaveProperty('fingerprint');
+    const adjudicateDossier = adjudicateInput.dossier as Record<string, unknown>;
+    expect(adjudicateDossier).toHaveProperty('sources');
+    expect(adjudicateDossier).toHaveProperty('passages');
+    expect(adjudicateDossier).not.toHaveProperty('stopId');
+    expect(adjudicateDossier).not.toHaveProperty('sufficiency');
+    expect(adjudicateDossier).not.toHaveProperty('fingerprint');
+    expect(adjudicateInput).toHaveProperty('authorizedEvidence');
+
+    const finalAudit = projector({
+      operation: 'audit',
+      systemPrompt: 'audit-prefix',
+      input: {
+        script: { stopId: stopC.routeStopId, sentences: [] },
+        dossier: stopC.dossier,
+      },
+    });
+    const finalAuditInput = finalAudit.input as Record<string, unknown>;
+    expect(finalAuditInput).toHaveProperty('reviewEvidence');
+    const finalAuditReviewEvidence = finalAuditInput.reviewEvidence as Record<string, unknown>;
+    expect(finalAuditReviewEvidence).toHaveProperty('current');
+    expect(finalAuditReviewEvidence).toHaveProperty('next');
+    const finalAuditCurrent = finalAuditReviewEvidence.current as Record<string, unknown>;
+    expect(finalAuditCurrent).not.toBe(stopC.dossier);
+    expect(finalAuditCurrent).toMatchObject({
+      routeStopId: stopC.routeStopId,
+      entityQid: stopC.entityQid,
+      dossierFingerprint: stopC.dossier.fingerprint,
+    });
+    expect(finalAuditCurrent).not.toHaveProperty('dossier');
+    expect(finalAuditReviewEvidence.next).toBeNull();
+
+    const write = projector({
+      operation: 'write',
+      systemPrompt: 'writer-prefix',
+      input: {
+        stopId: stopA.routeStopId,
+        dossier: stopA.dossier,
+        neighboringStops: [],
+      },
+    });
+    const writeInput = write.input as Record<string, unknown>;
+    expect(writeInput).not.toHaveProperty('reviewEvidence');
+    const writeDossier = writeInput.dossier as Record<string, unknown>;
+    expect(writeDossier).not.toHaveProperty('sources');
+    expect(writeDossier).not.toHaveProperty('passages');
+    expect(writeInput).toHaveProperty('authorizedEvidence');
+
+    const repair = projector({
+      operation: 'repair',
+      systemPrompt: 'repair-prefix',
+      input: {
+        script: { stopId: stopA.routeStopId, sentences: [] },
+        objections: [],
+        adjudications: [],
+        dossier: stopA.dossier,
+      },
+    });
+    const repairInput = repair.input as Record<string, unknown>;
+    expect(repairInput).not.toHaveProperty('reviewEvidence');
+    const repairDossier = repairInput.dossier as Record<string, unknown>;
+    expect(repairDossier).not.toHaveProperty('sources');
+    expect(repairDossier).not.toHaveProperty('passages');
+    expect(repairInput).toHaveProperty('authorizedEvidence');
+
+    const tour = projector({
+      operation: 'auditTour',
+      systemPrompt: 'tour-prefix',
+      input: {
+        scripts: admitted.map((stop) => ({ stopId: stop.routeStopId, sentences: [] })),
+        dossiers: admitted.map((stop) => stop.dossier),
+      },
+    });
+    const tourInput = tour.input as Record<string, unknown>;
+    expect(tourInput).toHaveProperty('reviewEvidenceByStop');
+    const reviewEvidenceByStop = tourInput.reviewEvidenceByStop as Record<string, unknown>[];
+    expect(reviewEvidenceByStop.length).toBe(admitted.length);
+    for (let i = 0; i < admitted.length; i++) {
+      const entry = reviewEvidenceByStop[i];
+      expect(entry).not.toBe(admitted[i].dossier);
+      expect(entry).toMatchObject({
+        routeStopId: admitted[i].routeStopId,
+        entityQid: admitted[i].entityQid,
+        dossierFingerprint: admitted[i].dossier.fingerprint,
+      });
+      const dossier = entry.dossier as Record<string, unknown>;
+      expect(dossier).toHaveProperty('sources');
+      expect(dossier).toHaveProperty('passages');
+      expect(dossier).not.toHaveProperty('stopId');
+      expect(dossier).not.toHaveProperty('sufficiency');
+      expect(dossier).not.toHaveProperty('fingerprint');
+    }
+  });
+
   test('rejects a corrupted manifest before any request projection', () => {
     const admitted = admit(fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES));
     const manifest = manifestFor([admitted]);
