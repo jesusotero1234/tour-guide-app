@@ -1,7 +1,7 @@
 # Plan 69 — Supervisión editorial V8 con contexto completo y reparación por parada
 
 Fecha: 2026-09-02
-Estado: en implementación
+Estado: implementación y validación estática completadas; canary live pendiente
 Responsable técnico: Codex
 Ejecución mecánica y validación: qwen_worker
 
@@ -34,10 +34,13 @@ Orden: `numeric-authorization` → `supervisor-context` → `per-stop-repair`.
 
 `reviewEvidence` es el contrato adicional del supervisor:
 
-- dossier completo validado de la parada actual;
-- dossier completo validado de la parada siguiente, cuando exista;
+- el dossier completo validado actual permanece en el campo `dossier` ya existente;
+- `current` conserva `routeStopId`, `entityQid` y fingerprint sin duplicar el dossier;
+- `next` incorpora el dossier completo validado de la parada siguiente, cuando exista;
 - identidad de propietario por `routeStopId` y `entityQid`;
 - Arc, evidence manifest y `authorizedEvidence` ya existentes.
+
+Para `auditTour`, `reviewEvidenceByStop` contiene cada dossier admitido una sola vez y en orden de ruta. Así el supervisor ve el tour completo sin duplicar cada dossier como current/next.
 
 El supervisor debe distinguir:
 
@@ -97,6 +100,8 @@ El límite es global pero la policy existente emite como máximo un plan por par
 
 ### Tarea 1 — Autorización numérica desde proposiciones
 
+Estado: completada.
+
 Archivos:
 
 - `backend/src/services/poi/NarrativeEditorialV6.test.ts`
@@ -109,6 +114,8 @@ Pruebas RED:
 - El comportamiento V6 legacy no cambia.
 
 ### Tarea 2 — Panorama completo para supervisión
+
+Estado: completada.
 
 Archivos:
 
@@ -125,9 +132,10 @@ Pruebas RED:
 
 ### Tarea 3 — Una reparación por parada afectada
 
-Archivos:
+Estado: completada.
 
-- `backend/src/services/poi/NarrativeUserCanaryRuntimeV8.test.ts` o el test enfocado que cubra las opciones efectivas del canary.
+Archivo:
+
 - `backend/scripts/validation/narrative-user-canary-v8.ts`
 
 Pruebas RED:
@@ -136,6 +144,8 @@ Pruebas RED:
 - la policy sigue garantizando una como máximo por parada;
 - el spend guard sigue siendo el límite monetario;
 - no se reutiliza `maximumAdditionalRepairs: 1`.
+
+La garantía de una sola reparación por parada ya estaba cubierta por `NarrativeEditorialIssuePolicyV8.test.ts` y `NarrativeEditorialWorkflowV8.test.ts`; el cambio del canary es una sustitución determinista de configuración.
 
 ## Criterios de aceptación
 
@@ -163,6 +173,14 @@ npx tsc --noEmit --pretty false
 cd ..
 git diff --check
 ```
+
+Resultado:
+
+- 5 suites / 44 tests pasaron.
+- TypeScript completo de `backend` pasó.
+- `git diff --check` pasó.
+- El test RED numérico reprodujo 11 falsos positivos antes del fix y quedó verde después.
+- El test RED de supervisión confirmó que `reviewEvidence` no existía antes del nuevo boundary y quedó verde después.
 
 ## Canary final
 
