@@ -11,12 +11,14 @@ import {
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
+import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
 export interface NarrativeTourScorecardInputV8 {
   promise: string;
   scripts: NarrativeScriptV6[];
   admittedStops: NarrativeAdmittedStopV8[];
   evidenceManifest: NarrativeEvidenceManifestV8;
+  arc: NarrativeArcV8;
 }
 
 export interface NarrativeTourScorecardResultV8
@@ -40,7 +42,8 @@ export async function reviewNarrativeTourScorecardV8(
 
   const requestProjector = createNarrativeEditorialRequestProjectorV8(
     input.admittedStops,
-    input.evidenceManifest
+    input.evidenceManifest,
+    input.arc
   );
   const result = await reviewNarrativeTourScorecardV6Core(
     options,

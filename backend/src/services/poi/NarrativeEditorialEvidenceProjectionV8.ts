@@ -7,6 +7,7 @@ import {
   NarrativeAdmittedStopV8,
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
+import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -28,6 +29,20 @@ export function projectNarrativeDossierForEditorialV8(
     stopId: _stopId,
     sufficiency: _sufficiency,
     fingerprint: _fingerprint,
+    ...projected
+  } = dossier;
+  return projected;
+}
+
+function projectNarrativeDossierForWriterV8(
+  dossier: NarrativeDossierV6
+): Omit<NarrativeDossierV6, 'stopId' | 'sufficiency' | 'fingerprint' | 'sources' | 'passages'> {
+  const {
+    stopId: _stopId,
+    sufficiency: _sufficiency,
+    fingerprint: _fingerprint,
+    sources: _sources,
+    passages: _passages,
     ...projected
   } = dossier;
   return projected;
@@ -72,6 +87,83 @@ function assertManifestMatchesAdmittedStops(
   });
 }
 
+export interface AuthorizedPropositionEntryV8 {
+  ownerRouteStopId: string;
+  entityQid: string;
+  proposition: NarrativeDossierV6['propositions'][number];
+}
+
+export interface AuthorizedEvidenceByStopV8 {
+  routeStopId: string;
+  entityQid: string;
+  localPropositions: AuthorizedPropositionEntryV8[];
+  contributionPropositions: AuthorizedPropositionEntryV8[];
+  bridgePropositions: AuthorizedPropositionEntryV8[];
+}
+
+function resolveAuthorizedEvidenceForStop(
+  stop: NarrativeAdmittedStopV8,
+  arcStop: NarrativeArcV8['stops'][number],
+  nextStop: NarrativeAdmittedStopV8 | undefined
+): AuthorizedEvidenceByStopV8 {
+  const propositionById = new Map(
+    stop.dossier.propositions.map((p) => [p.propositionId, p])
+  );
+
+  const resolveEntry = (propositionId: string, ownerStop: NarrativeAdmittedStopV8): AuthorizedPropositionEntryV8 => {
+    const proposition = propositionById.get(propositionId);
+    if (!proposition) {
+      throw new Error(`authorized proposition ${propositionId} not found in stop ${ownerStop.routeStopId}`);
+    }
+    return {
+      ownerRouteStopId: ownerStop.routeStopId,
+      entityQid: ownerStop.entityQid,
+      proposition,
+    };
+  };
+
+  const localPropositions: AuthorizedPropositionEntryV8[] = stop.dossier.propositions.map((p) => ({
+    ownerRouteStopId: stop.routeStopId,
+    entityQid: stop.entityQid,
+    proposition: p,
+  }));
+
+  const contributionPropositions: AuthorizedPropositionEntryV8[] = arcStop.contributionPropositionIds.map((id) =>
+    resolveEntry(id, stop)
+  );
+
+  const bridgePropositions: AuthorizedPropositionEntryV8[] = arcStop.bridgePropositionIds.map((id) => {
+    const currentProp = stop.dossier.propositions.find((p) => p.propositionId === id);
+    if (currentProp) {
+      return {
+        ownerRouteStopId: stop.routeStopId,
+        entityQid: stop.entityQid,
+        proposition: currentProp,
+      };
+    }
+    if (!nextStop) {
+      throw new Error(`bridge proposition ${id} not in current or next stop dossier`);
+    }
+    const nextProp = nextStop.dossier.propositions.find((p) => p.propositionId === id);
+    if (!nextProp) {
+      throw new Error(`bridge proposition ${id} not in current or next stop dossier`);
+    }
+    return {
+      ownerRouteStopId: nextStop.routeStopId,
+      entityQid: nextStop.entityQid,
+      proposition: nextProp,
+    };
+  });
+
+  return {
+    routeStopId: stop.routeStopId,
+    entityQid: stop.entityQid,
+    localPropositions,
+    contributionPropositions,
+    bridgePropositions,
+  };
+}
+
 function routeStopIdForOperation(
   operation: NarrativeEditorialOperationV6,
   input: JsonRecord
@@ -87,7 +179,10 @@ function routeStopIdForOperation(
 function projectPerStopInput(
   operation: Exclude<NarrativeEditorialOperationV6, 'auditTour'>,
   input: JsonRecord,
-  stop: NarrativeAdmittedStopV8
+  stop: NarrativeAdmittedStopV8,
+  arc: NarrativeArcV8,
+  arcStop: NarrativeArcV8['stops'][number],
+  authorizedEvidence: AuthorizedEvidenceByStopV8
 ): JsonRecord {
   const suppliedDossier = record(input.dossier, `${operation} dossier`) as unknown as NarrativeDossierV6;
   if (
@@ -97,24 +192,42 @@ function projectPerStopInput(
     throw new Error(`editorial dossier mismatch for route stop ${stop.routeStopId}`);
   }
 
+  const isWriteOrRepair = operation === 'write' || operation === 'repair';
+  const dossierProjection = isWriteOrRepair
+    ? projectNarrativeDossierForWriterV8(stop.dossier)
+    : projectNarrativeDossierForEditorialV8(stop.dossier);
+
   return {
     ...input,
-    dossier: projectNarrativeDossierForEditorialV8(stop.dossier),
+    dossier: dossierProjection,
     routeStopId: stop.routeStopId,
     entityQid: stop.entityQid,
     evidence: stop.evidence,
+    arcContext: {
+      promise: arc.promise,
+      centralQuestion: arc.centralQuestion,
+      contribution: arcStop.contribution,
+      bridge: arcStop.bridge,
+      contributionPropositionIds: arcStop.contributionPropositionIds,
+      bridgePropositionIds: arcStop.bridgePropositionIds,
+    },
+    authorizedEvidence,
   };
 }
 
 function projectTourInput(
   input: JsonRecord,
   admittedStops: NarrativeAdmittedStopV8[],
-  manifest: NarrativeEvidenceManifestV8
+  manifest: NarrativeEvidenceManifestV8,
+  arc: NarrativeArcV8,
+  authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[]
 ): JsonRecord {
   const projected: JsonRecord = {
     ...input,
     evidenceManifest: manifest,
     evidenceByStop: manifest.stops,
+    arc,
+    authorizedEvidenceByStop,
   };
 
   if (Array.isArray(input.dossiers)) {
@@ -132,9 +245,17 @@ function projectTourInput(
   return projected;
 }
 
-const V8_PROMPT_SUFFIX = [
+const V8_PROMPT_SUFFIX_WRITER = [
   'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
-  'Usa únicamente las proposiciones y límites del dossier proyectado.',
+  'Usa únicamente las proposiciones del dossier proyectado y de authorizedEvidence; las de bridge pueden pertenecer a la siguiente parada.',
+  'En nivel B no presentes la evidencia como corroborada por varios publishers.',
+  'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
+  'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
+].join(' ');
+
+const V8_PROMPT_SUFFIX_AUDITOR = [
+  'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
+  'Distingue la evidencia soportada por fuentes de la evidencia autorizada por el escritor.',
   'En nivel B no presentes la evidencia como corroborada por varios publishers.',
   'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
   'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
@@ -142,17 +263,31 @@ const V8_PROMPT_SUFFIX = [
 
 export function createNarrativeEditorialRequestProjectorV8(
   admittedStops: NarrativeAdmittedStopV8[],
-  manifest: NarrativeEvidenceManifestV8
+  manifest: NarrativeEvidenceManifestV8,
+  arc: NarrativeArcV8
 ): NarrativeEditorialRequestProjectorV6 {
   assertManifestMatchesAdmittedStops(admittedStops, manifest);
+
+  if (arc.stops.length !== admittedStops.length) {
+    throw new Error('arc stop cardinality mismatch');
+  }
+  for (let i = 0; i < admittedStops.length; i++) {
+    if (arc.stops[i].stopId !== admittedStops[i].routeStopId) {
+      throw new Error(`arc stop order mismatch at index ${i}`);
+    }
+  }
+
   const stopByRouteId = new Map(admittedStops.map((stop) => [stop.routeStopId, stop]));
+  const authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[] = admittedStops.map((stop, i) =>
+    resolveAuthorizedEvidenceForStop(stop, arc.stops[i], admittedStops[i + 1])
+  );
 
   return ({ operation, systemPrompt, input }) => {
     const inputRecord = record(input, `${operation} input`);
     if (operation === 'auditTour') {
       return {
-        systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX}`,
-        input: projectTourInput(inputRecord, admittedStops, manifest),
+        systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX_AUDITOR}`,
+        input: projectTourInput(inputRecord, admittedStops, manifest, arc, authorizedEvidenceByStop),
       };
     }
 
@@ -162,9 +297,16 @@ export function createNarrativeEditorialRequestProjectorV8(
       throw new Error(`unknown editorial route stop ${routeStopId ?? '<missing>'}`);
     }
 
+    const stopIndex = admittedStops.findIndex((s) => s.routeStopId === routeStopId);
+    const arcStop = arc.stops[stopIndex];
+    const authorizedEvidence = authorizedEvidenceByStop[stopIndex];
+    const promptSuffix = (operation === 'write' || operation === 'repair')
+      ? V8_PROMPT_SUFFIX_WRITER
+      : V8_PROMPT_SUFFIX_AUDITOR;
+
     return {
-      systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX}`,
-      input: projectPerStopInput(operation, inputRecord, stop),
+      systemPrompt: `${systemPrompt} ${promptSuffix}`,
+      input: projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence),
     };
   };
 }

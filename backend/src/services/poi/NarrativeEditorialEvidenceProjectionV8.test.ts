@@ -9,6 +9,7 @@ import {
   NarrativeEvidenceFixtureResultV8,
 } from './NarrativeEvidenceFixturesV8.test-support';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
+import type { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
 const COMPLETE_ROLES = [
   'visible_observation',
@@ -62,6 +63,28 @@ function admit(value: NarrativeEvidenceFixtureResultV8): NarrativeAdmittedStopV8
   };
 }
 
+function arcFor(admittedStops: NarrativeAdmittedStopV8[]): NarrativeArcV8 {
+  return {
+    promise: 'test-promise',
+    centralQuestion: 'test-question',
+    stops: admittedStops.map((stop, i) => {
+      const nextStop = admittedStops[i + 1];
+      const currentIds = new Set(stop.dossier.propositions.map((p) => p.propositionId));
+      const nextPropositionId = nextStop
+        ? nextStop.dossier.propositions.find((p) => !currentIds.has(p.propositionId))?.propositionId
+        : undefined;
+      const bridgePropositionId = nextPropositionId ?? stop.dossier.propositions[0].propositionId;
+      return {
+        stopId: stop.routeStopId,
+        contribution: `contribution-${stop.routeStopId}`,
+        bridge: `bridge-${stop.routeStopId}`,
+        contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+        bridgePropositionIds: [bridgePropositionId],
+      };
+    }),
+  };
+}
+
 function manifestFor(stops: NarrativeAdmittedStopV8[]): NarrativeEvidenceManifestV8 {
   return {
     schemaVersion: NARRATIVE_EVIDENCE_MANIFEST_SCHEMA_VERSION_V8,
@@ -88,7 +111,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const admitted = admit(complete);
     const manifest = manifestFor([admitted]);
 
-    const projected = createNarrativeEditorialRequestProjectorV8([admitted], manifest)({
+    const projected = createNarrativeEditorialRequestProjectorV8([admitted], manifest, arcFor([admitted]))({
       operation: 'write',
       systemPrompt: 'writer-prefix',
       input: {
@@ -109,7 +132,19 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(dossier).not.toHaveProperty('stopId');
     expect(dossier).not.toHaveProperty('sufficiency');
     expect(dossier).not.toHaveProperty('fingerprint');
+    expect(dossier).not.toHaveProperty('sources');
+    expect(dossier).not.toHaveProperty('passages');
     expect(dossier).toHaveProperty('propositions');
+    const arcContext = input.arcContext as Record<string, unknown>;
+    expect(arcContext.contribution).toBe(arcFor([admitted]).stops[0].contribution);
+    expect(arcContext.bridge).toBe(arcFor([admitted]).stops[0].bridge);
+    const authorizedEvidence = input.authorizedEvidence as Record<string, unknown>;
+    expect(authorizedEvidence).toHaveProperty('localPropositions');
+    expect(authorizedEvidence).toHaveProperty('contributionPropositions');
+    expect(authorizedEvidence).toHaveProperty('bridgePropositions');
+    expect((authorizedEvidence.localPropositions as unknown[]).length).toBeGreaterThan(0);
+    expect((authorizedEvidence.contributionPropositions as unknown[]).length).toBeGreaterThan(0);
+    expect((authorizedEvidence.bridgePropositions as unknown[]).length).toBeGreaterThan(0);
     expect(projected.systemPrompt).toMatch(/^writer-prefix /);
     expect(projected.systemPrompt).toContain('missingWriterRoles');
     expect(JSON.stringify(complete.dossier)).toBe(original);
@@ -117,15 +152,15 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
   });
 
   test('carries partial C restrictions into per-stop and tour requests', () => {
-    const complete = admit(fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES));
     const partialFixture = fixture('malaga-history-stop-04', 'Q3849448', PARTIAL_ROLES);
     expect(partialFixture.tier).toBe('C');
     expect(partialFixture.gates.writerReady).toBe(false);
     expect(partialFixture.gates.missingWriterRoles).toContain('tension_or_contrast');
     const partial = admit(partialFixture);
-    const admitted = [complete, partial];
+    const complete = admit(fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES));
+    const admitted = [partial, complete];
     const manifest = manifestFor(admitted);
-    const projector = createNarrativeEditorialRequestProjectorV8(admitted, manifest);
+    const projector = createNarrativeEditorialRequestProjectorV8(admitted, manifest, arcFor(admitted));
 
     const audit = projector({
       operation: 'audit',
@@ -146,6 +181,34 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
         },
       },
     });
+    const auditDossier = (audit.input as Record<string, unknown>).dossier as Record<string, unknown>;
+    expect(auditDossier).toHaveProperty('sources');
+    expect(auditDossier).toHaveProperty('passages');
+    expect(auditDossier).not.toHaveProperty('stopId');
+    expect(auditDossier).not.toHaveProperty('sufficiency');
+    expect(auditDossier).not.toHaveProperty('fingerprint');
+    expect(audit.input).toHaveProperty('authorizedEvidence');
+    const auditAuthorizedEvidence = (audit.input as Record<string, unknown>).authorizedEvidence as Record<string, unknown>;
+    const auditBridgePropositions = auditAuthorizedEvidence.bridgePropositions as Record<string, unknown>[];
+    expect(auditBridgePropositions.length).toBeGreaterThan(0);
+    expect(auditBridgePropositions[0].ownerRouteStopId).toBe(complete.routeStopId);
+    expect(auditBridgePropositions[0].entityQid).toBe(complete.entityQid);
+
+    const repair = projector({
+      operation: 'repair',
+      systemPrompt: 'repair-prefix',
+      input: {
+        script: { stopId: partial.routeStopId, sentences: [] },
+        objections: [],
+        adjudications: [],
+        dossier: partial.dossier,
+      },
+    });
+    const repairInput = repair.input as Record<string, unknown>;
+    const repairDossier = repairInput.dossier as Record<string, unknown>;
+    expect(repairDossier).not.toHaveProperty('sources');
+    expect(repairDossier).not.toHaveProperty('passages');
+    expect(repairInput).toHaveProperty('authorizedEvidence');
 
     const tour = projector({
       operation: 'auditTour',
@@ -158,7 +221,12 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const tourInput = tour.input as Record<string, unknown>;
     expect(tourInput.evidenceManifest).toBe(manifest);
     expect(tourInput.evidenceByStop).toBe(manifest.stops);
+    expect(tourInput).toHaveProperty('arc');
+    const authorizedEvidenceByStop = tourInput.authorizedEvidenceByStop as Record<string, unknown>[];
+    expect(authorizedEvidenceByStop.length).toBe(admitted.length);
     for (const dossier of tourInput.dossiers as Record<string, unknown>[]) {
+      expect(dossier).toHaveProperty('sources');
+      expect(dossier).toHaveProperty('passages');
       expect(dossier).not.toHaveProperty('stopId');
       expect(dossier).not.toHaveProperty('sufficiency');
       expect(dossier).not.toHaveProperty('fingerprint');
@@ -173,7 +241,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
       stops: [{ ...manifest.stops[0], entityQid: 'Q999999' }],
     };
 
-    expect(() => createNarrativeEditorialRequestProjectorV8([admitted], corrupted))
+    expect(() => createNarrativeEditorialRequestProjectorV8([admitted], corrupted, arcFor([admitted])))
       .toThrow('evidence manifest mismatch');
   });
 });

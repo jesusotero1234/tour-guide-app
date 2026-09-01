@@ -27,8 +27,8 @@ import {
 import {
   createNarrativeArcArchitectV8,
   NarrativeArcBundleV8,
+  validateNarrativeArcV8,
 } from '../../src/services/poi/NarrativeArcArchitectV8';
-import { validateNarrativeArcShapeV6 } from '../../src/services/poi/NarrativeArcArchitectV6';
 import { NarrativeScriptV6 } from '../../src/services/poi/NarrativeEditorialV6';
 import {
   createNarrativeEditorialAgentsV8,
@@ -1261,7 +1261,7 @@ async function main(): Promise<void> {
       if (!sourceCheckpoint?.arc) {
         throw new Error(`resume from ${resumeOptions?.resumeFrom} requires a saved arc in the source checkpoint`);
       }
-      const validatedArc = validateNarrativeArcShapeV6(sourceCheckpoint.arc, route);
+      const validatedArc = validateNarrativeArcV8(sourceCheckpoint.arc, route, admittedStops);
       architectResult = { arc: validatedArc, manifest: evidenceManifest };
       checkpointState.arc = toJsonValue(validatedArc);
       await persistCheckpoint('arc');
@@ -1290,7 +1290,12 @@ async function main(): Promise<void> {
       };
       await persistCheckpoint('editorial');
     } else {
-      const agents = createNarrativeEditorialAgentsV8(modelOptions, admittedStops, evidenceManifest);
+      const agents = createNarrativeEditorialAgentsV8(
+        modelOptions,
+        admittedStops,
+        evidenceManifest,
+        architectResult.arc
+      );
       const workflowResult = await runNarrativeEditorialWorkflowV8({
         runId,
         createdAt: new Date().toISOString(),
@@ -1446,6 +1451,7 @@ async function main(): Promise<void> {
       scripts: editorialScripts,
       admittedStops,
       evidenceManifest,
+      arc: architectResult.arc,
     }, { signal: abortController.signal, onProgress });
     if (scorecardResult.value === null) {
       checkpointState.editorial = {

@@ -10,6 +10,7 @@ import {
 } from './NarrativeEvidenceBoundaryV8';
 import { buildNarrativeEvidenceFixtureV8 } from './NarrativeEvidenceFixturesV8.test-support';
 import { reviewNarrativeTourScorecardV8 } from './NarrativeTourScorecardV8';
+import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
 jest.mock('./NarrativeEditorialAgentsV6', () => ({
   reviewNarrativeTourScorecardV6Core: jest.fn(),
@@ -23,6 +24,7 @@ function completeC(): {
   admitted: NarrativeAdmittedStopV8;
   manifest: NarrativeEvidenceManifestV8;
   script: NarrativeScriptV6;
+  arc: NarrativeArcV8;
 } {
   const fixture = buildNarrativeEvidenceFixtureV8({
     routeStopId: 'malaga-scorecard-stop-03',
@@ -82,7 +84,19 @@ function completeC(): {
     }],
     fingerprint: 't'.repeat(64),
   };
-  return { admitted, manifest, script };
+  const propositionId = admitted.dossier.propositions[0].propositionId;
+  const arc: NarrativeArcV8 = {
+    promise: 'Promesa.',
+    centralQuestion: '¿Qué define esta parada?',
+    stops: [{
+      stopId: admitted.routeStopId,
+      contribution: 'Contribución.',
+      bridge: 'Puente.',
+      contributionPropositionIds: [propositionId],
+      bridgePropositionIds: [propositionId],
+    }],
+  };
+  return { admitted, manifest, script, arc };
 }
 
 describe('NarrativeTourScorecardV8', () => {
@@ -91,7 +105,7 @@ describe('NarrativeTourScorecardV8', () => {
   });
 
   test('projects admitted C evidence and returns the exact manifest', async () => {
-    const { admitted, manifest, script } = completeC();
+    const { admitted, manifest, script, arc } = completeC();
     const original = JSON.stringify(admitted.dossier);
     let projectedInput: unknown = null;
     coreMock.mockImplementation(async (_options, input, _request, projector) => {
@@ -139,12 +153,15 @@ describe('NarrativeTourScorecardV8', () => {
       scripts: [script],
       admittedStops: [admitted],
       evidenceManifest: manifest,
+      arc,
     });
 
     expect(result.evidenceManifest).toBe(manifest);
     const projected = projectedInput as Record<string, unknown>;
     expect(projected.evidenceManifest).toBe(manifest);
     expect(projected.evidenceByStop).toBe(manifest.stops);
+    expect(projected.arc).toBe(arc);
+    expect(projected.authorizedEvidenceByStop).toHaveLength(1);
     const dossier = (projected.dossiers as Record<string, unknown>[])[0];
     expect(dossier).not.toHaveProperty('stopId');
     expect(dossier).not.toHaveProperty('sufficiency');
@@ -154,12 +171,13 @@ describe('NarrativeTourScorecardV8', () => {
   });
 
   test('rejects mismatched script identity before the V6 core', async () => {
-    const { admitted, manifest, script } = completeC();
+    const { admitted, manifest, script, arc } = completeC();
     await expect(reviewNarrativeTourScorecardV8({}, {
       promise: 'Promesa.',
       scripts: [{ ...script, stopId: 'wrong-route-stop' }],
       admittedStops: [admitted],
       evidenceManifest: manifest,
+      arc,
     })).rejects.toThrow('scorecard scripts/admitted stops mismatch');
     expect(coreMock).not.toHaveBeenCalled();
   });
