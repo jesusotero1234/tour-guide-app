@@ -516,7 +516,7 @@ export function createNarrativeEditorialAgentsV6Core(
     profileName: resolveNarrativeModelProfileV6(options.profile).name,
     async write(input, request) {
       const execution = narrativePhaseExecutionV6(
-        withExecution(request), 'writer', input.stopId, 2
+        withExecution(request), 'writer', input.stopId, 2, options.writerRateLimitAttempts
       );
       const writerSystemPrompt = [
           'Eres el escritor de una audioguía histórica en español de España.',

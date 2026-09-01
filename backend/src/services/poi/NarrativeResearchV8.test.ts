@@ -7,7 +7,9 @@ import {
   NarrativeCuratorPacketV8,
   NarrativeResearchServicesV8,
   NARRATIVE_RESEARCH_BUDGET_V8,
+  NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8,
   buildCuratorPacketV8,
+  curatorRoleGuidanceV8,
   researchNarrativeStopV8,
 } from './NarrativeResearchV8';
 import { NarrativeCapturedSourceV8, NarrativeDiscoveryResultV7 } from './NarrativeSourcesV7';
@@ -113,6 +115,60 @@ function curatorFromSpans(packet: NarrativeCuratorPacketV8): NarrativeCuratorOut
   };
 }
 
+function curatorForRoles(
+  packet: NarrativeCuratorPacketV8,
+  roles: NarrativeRoleV8[]
+): NarrativeCuratorOutputV8 {
+  const used = new Set<string>();
+  return {
+    propositions: roles.map((role) => {
+      const span = packet.spans.find((candidate) => !used.has(candidate.evidenceSpanId))!;
+      used.add(span.evidenceSpanId);
+      return {
+        text: `Proposición de ${role} basada en el fragmento ${span.evidenceSpanId}.`,
+        role,
+        certainty: 'high' as const,
+        interpretation: 'direct' as const,
+        supports: [{ sourceId: span.sourceId, evidenceSpanIds: [span.evidenceSpanId] }],
+      };
+    }),
+    authorizedNames: [],
+    authorizedNumbers: [],
+    discrepancies: [],
+    limits: [],
+  };
+}
+
+function baselineServicesV8(
+  overrides: Partial<NarrativeResearchServicesV8> = {}
+): NarrativeResearchServicesV8 {
+  const wiki = wikipediaSource('es-wiki', [
+    'Se observa la torre y el lienzo de la muralla.',
+    'Construida en el siglo XI sobre una fortificación anterior.',
+    'Fue residencia histórica de los gobernadores musulmanes durante siglos.',
+    'El abandono histórico contrasta con su recuperación contemporánea.',
+    'Su rasgo distintivo es el sistema de doble muralla.',
+  ].join('\n\n'));
+  return {
+    resolveIdentity: async () => ({
+      qid: 'Q1',
+      labels: ['Alcazaba'],
+      aliases: [],
+      wikipediaTitle: 'Alcazaba de Málaga',
+      revision: null,
+    }),
+    resolveAuthorities: async () => REGISTRY,
+    resolveQidFromWikipedia: async () => 'Q1',
+    captureWikipedia: async () => wiki,
+    search: async () => [],
+    mapOfficialSite: async () => [],
+    captureWeb: async () => officialSource('municipal', wiki.content),
+    curate: async (packet) => curatorFromSpans(packet),
+    proposeAdaptiveQueries: async () => [],
+    ...overrides,
+  };
+}
+
 const BASE_INPUT = {
   runId: 'research-test',
   stopId: 'Q1',
@@ -125,6 +181,14 @@ const BASE_INPUT = {
 };
 
 describe('researchNarrativeStopV8', () => {
+  it('shares role semantics with repair curation and adaptive query planning', () => {
+    const repairGuidance = curatorRoleGuidanceV8(['tension_or_contrast']).join(' ');
+    expect(repairGuidance).toContain('destrucción/reconstrucción');
+    expect(repairGuidance).toContain('ronda de reparación');
+    expect(repairGuidance).toContain('Prioriza primero: tension_or_contrast');
+    expect(NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8.join(' ')).toContain('abandono/recuperación');
+  });
+
   it('produces API sources when SearXNG returns nothing and Firecrawl would 403 on Wikimedia', async () => {
     const es = wikipediaSource('es-wiki', [
       'Se observa la torre y el lienzo de la muralla.',
@@ -205,7 +269,7 @@ describe('researchNarrativeStopV8', () => {
       expect(result.gates.minimumEvidenceReady).toBe(true);
       expect(result.gates.writerReady).toBe(false);
       expect(result.stats.publisherCount).toBe(1);
-      expect(result.stats.curationCount).toBe(1);
+      expect(result.stats.curationCount).toBe(2);
     }
   });
 
@@ -483,7 +547,8 @@ describe('researchNarrativeStopV8', () => {
     await researchNarrativeStopV8(BASE_INPUT, services);
 
     expect(queries.length).toBeGreaterThan(0);
-    expect(queries[0]).toBe('Alcazaba de Málaga');
+    expect(queries[0]).toBe('site:www.malaga.es Alcazaba de Málaga');
+    expect(queries).toContain('Alcazaba de Málaga historia transformación');
     expect(queries.every((query) => !query.startsWith('"'))).toBe(true);
   });
 
@@ -529,6 +594,31 @@ describe('researchNarrativeStopV8', () => {
     expect(packet.spans.length).toBeLessThanOrEqual(maxSpans);
     const totalChars = packet.spans.reduce((sum, span) => sum + span.text.length, 0);
     expect(totalChars).toBeLessThanOrEqual(NARRATIVE_RESEARCH_BUDGET_V8.packetMaxCharacters);
+  });
+
+  it('ranks equally relevant primary-authority spans ahead of established-source spans', () => {
+    const sharedContent = [
+      'La Alcazaba de Málaga conserva una torre visible junto a la muralla principal.',
+      'La Alcazaba de Málaga fue construida y transformada durante varias etapas históricas.',
+      'La Alcazaba de Málaga sirvió como fortaleza y residencia de sus gobernadores.',
+      'La Alcazaba de Málaga pasó del abandono histórico a una recuperación pública documentada.',
+      'La Alcazaba de Málaga destaca por su sistema defensivo de doble muralla.',
+    ].join('\n\n');
+    const wiki = wikipediaSource('es-wiki', sharedContent);
+    const official = officialSource('municipal', sharedContent);
+    const packet = buildCuratorPacketV8({
+      stopId: 'Q1',
+      stopName: 'Alcazaba de Málaga',
+      language: 'es',
+      captures: [wiki, official],
+      spansBySource: new Map([
+        [wiki.sourceId, segmentCaptureIntoSpansV7(wiki).spans],
+        [official.sourceId, segmentCaptureIntoSpansV7(official).spans],
+      ]),
+      aliases: [],
+    });
+
+    expect(packet.spans[0]?.publisherKey).toBe('www.malaga.es');
   });
 
   it('records a 403 capture failure as an attempt with its status', async () => {
@@ -978,5 +1068,211 @@ describe('researchNarrativeStopV8', () => {
     expect(adaptiveMissingRoles).toEqual(['tension_or_contrast', 'distinctive_trait']);
     expect(eventOrder).toEqual(['curate1', 'adaptive', 'capture', 'curate2']);
     expect(result.captures.some((capture) => capture.sourceId === 'municipal')).toBe(true);
+  });
+
+  it('returns failed with a null tier when every external provider operation is unavailable', async () => {
+    const unavailable = () => {
+      throw Object.assign(new Error('fetch failed'), { cause: { code: 'ECONNREFUSED' } });
+    };
+    const services = baselineServicesV8({
+      search: async () => unavailable(),
+      mapOfficialSite: async () => unavailable(),
+      captureWeb: async () => unavailable(),
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('failed');
+    if (result.status !== 'failed') return;
+    expect(result.failure.code).toBe('research_infrastructure_unavailable');
+    expect(result.evidenceTier).toBeNull();
+    expect(result.routeEligible).toBe(false);
+    expect(result.stats.searchQueryAttempts).toBeGreaterThan(0);
+    expect(result.stats.searchQuerySuccesses).toBe(0);
+    expect(result.stats.mapAttempts).toBe(1);
+    expect(result.stats.mapSuccesses).toBe(0);
+    expect(result.stats.webCaptureAttempts).toBe(1);
+    expect(result.stats.webCaptureResponses).toBe(0);
+    expect(result.stats.infrastructureFailureCount).toBeGreaterThan(0);
+    expect(result.captureLog.some((entry) => entry.outcome === 'provider_failed')).toBe(true);
+    expect(result.captureLog.every((entry) => entry.outcome !== 'discovered')).toBe(true);
+  });
+
+  it('invalidates a Wikipedia-only tier when a provider dies after an earlier successful query', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    let searchCalls = 0;
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      search: async () => {
+        searchCalls += 1;
+        if (searchCalls === 1) return [];
+        throw Object.assign(new Error('provider stopped'), { code: 'ECONNREFUSED' });
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('failed');
+    if (result.status !== 'failed') return;
+    expect(result.failure.code).toBe('research_infrastructure_unavailable');
+    expect(result.stats.searchQuerySuccesses).toBe(1);
+    expect(result.stats.infrastructureFailureCount).toBeGreaterThan(0);
+  });
+
+  it('keeps a legitimate full C when providers respond without additional results and skips adaptive planning', async () => {
+    const healthyRegistry: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    let adaptiveCalls = 0;
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => healthyRegistry,
+      proposeAdaptiveQueries: async () => {
+        adaptiveCalls += 1;
+        return [];
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.evidenceTier).toBe('C');
+    expect(result.gates.writerReady).toBe(true);
+    expect(adaptiveCalls).toBe(0);
+    expect(result.stats.searchQueryAttempts).toBe(result.stats.searchQuerySuccesses);
+    expect(result.stats.mapAttempts).toBe(result.stats.mapSuccesses);
+    expect(result.stats.infrastructureFailureCount).toBe(0);
+  });
+
+  it('repairs missing roles in a second curation over the same captures', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    const packets: NarrativeCuratorPacketV8[] = [];
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      curate: async (packet) => {
+        packets.push(packet);
+        return packets.length === 1
+          ? curatorForRoles(packet, [
+            'visible_observation',
+            'chronology_or_transformation',
+            'human_agency_or_lived_function',
+          ])
+          : curatorFromSpans(packet);
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.gates.writerReady).toBe(true);
+    expect(result.stats.curationCount).toBe(2);
+    expect(packets).toHaveLength(2);
+    expect(packets[0].priorityRoles).toEqual([]);
+    expect(packets[1].priorityRoles).toEqual(['tension_or_contrast', 'distinctive_trait']);
+    expect(new Set(packets[1].spans.map((span) => span.sourceId))).toEqual(new Set(['es-wiki']));
+  });
+
+  it('preserves the first valid C when the repair curation fails', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    let curatorCalls = 0;
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      curate: async (packet) => {
+        curatorCalls += 1;
+        if (curatorCalls === 2) throw new Error('repair contract failed');
+        return curatorForRoles(packet, [
+          'visible_observation',
+          'chronology_or_transformation',
+          'human_agency_or_lived_function',
+        ]);
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.evidenceTier).toBe('C');
+    expect(result.gates.minimumEvidenceReady).toBe(true);
+    expect(result.gates.writerReady).toBe(false);
+    expect(result.stats.curationCount).toBe(2);
+  });
+
+  it('canonicalizes HTTP and HTTPS before consuming capture budget', async () => {
+    const httpRegistry: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({
+        ...authority,
+        url: 'http://www.malaga.es/alcazaba',
+      })),
+    };
+    let captureCalls = 0;
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => httpRegistry,
+      captureWeb: async () => {
+        captureCalls += 1;
+        return officialSource('municipal', [
+          'La visita permite observar el recinto amurallado.',
+          'Las obras comenzaron en el siglo XI.',
+          'El ayuntamiento gestiona el uso público del recinto.',
+        ].join('\n\n'));
+      },
+      search: async () => [{
+        url: 'https://www.malaga.es/alcazaba',
+        title: 'Alcazaba de Málaga',
+        description: 'Patrimonio histórico',
+        engine: 'searxng-json',
+        authority: { tier: 'discovery_only', publisherKey: 'www.malaga.es', rule: 'unregistered' },
+      } as NarrativeDiscoveryResultV7],
+      curate: async (packet) => curatorForRoles(packet, [
+        'visible_observation',
+        'chronology_or_transformation',
+        'human_agency_or_lived_function',
+      ]),
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(captureCalls).toBe(1);
+    expect(result.stats.webCaptureAttempts).toBe(1);
+  });
+
+  it('recognizes official identity after the first 500 captured characters', async () => {
+    const navigation = 'Navegación institucional accesibilidad menú principal. '.repeat(14);
+    const lateIdentity = officialSource('late-identity', [
+      navigation,
+      'La Alcazaba de Málaga conserva un recinto amurallado visitable.',
+      'Las obras del conjunto comenzaron durante el siglo XI.',
+      'Los gobernadores musulmanes utilizaron el recinto como fortaleza y residencia.',
+      'El abandono histórico contrasta con la recuperación iniciada en el siglo XX.',
+      'La doble muralla constituye un rasgo distintivo.',
+    ].join('\n\n'));
+    lateIdentity.title = 'Portal institucional';
+    let captured: NarrativeCapturedSourceV8 | undefined;
+    const services = baselineServicesV8({
+      captureWeb: async () => lateIdentity,
+      curate: async (packet) => {
+        captured = lateIdentity;
+        return curatorFromSpans(packet);
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    expect(captured).toBeDefined();
+    expect(result.captures.find((source) => source.sourceId === 'late-identity')?.authority.tier)
+      .toBe('primary_authority');
   });
 });

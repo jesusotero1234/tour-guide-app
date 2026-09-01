@@ -687,6 +687,119 @@ describe('editorial structured LLM v6 providers', () => {
     expect(post).toHaveBeenCalledTimes(1);
   });
 
+  it('retries 429 responses up to rateLimitAttempts and succeeds on the third attempt', async () => {
+    const throttled = Object.assign(new Error('provider rate limited'), {
+      response: { status: 429, headers: { 'retry-after': '0.01' } },
+    });
+    const post = jest.fn()
+      .mockRejectedValueOnce(throttled)
+      .mockRejectedValueOnce(throttled)
+      .mockResolvedValueOnce(response('submit_test_v6'));
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'rate-limit-429-retry', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, rateLimitAttempts: 3, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    expect(result.status).toBe('valid');
+    expect(post).toHaveBeenCalledTimes(3);
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual([
+      'transport_error', 'transport_error', 'valid',
+    ]);
+    expect(result.attempts[0]).toMatchObject({ httpStatus: 429, rateLimited: true });
+    expect(result.attempts[1]).toMatchObject({ httpStatus: 429, rateLimited: true });
+    expect(result.retryCount).toBe(2);
+  });
+
+  it('stops after requestAttempts when 500 responses occur with rateLimitAttempts:3', async () => {
+    const serverError = Object.assign(new Error('internal server error'), { status: 500 });
+    const post = jest.fn().mockRejectedValue(serverError);
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'rate-limit-500-stop', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, rateLimitAttempts: 3, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    expect(result.status).toBe('transport_error');
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.attempts).toHaveLength(2);
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual([
+      'transport_error', 'transport_error',
+    ]);
+    expect(result.attempts[0]).toMatchObject({ httpStatus: 500, rateLimited: false });
+    expect(result.attempts[1]).toMatchObject({ httpStatus: 500, rateLimited: false });
+  });
+
+  it('stops after requestAttempts when semantic validation fails with rateLimitAttempts:3', async () => {
+    const post = jest.fn(async () => response('submit_test_v6'));
+    let validations = 0;
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'rate-limit-semantic-stop', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, rateLimitAttempts: 3, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => {
+        validations += 1;
+        throw new Error('semantic validation failed');
+      },
+    });
+
+    expect(result.status).toBe('semantic_error');
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.attempts).toHaveLength(2);
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual([
+      'semantic_error', 'semantic_error',
+    ]);
+    expect(result.retryCount).toBe(1);
+  });
+
+  it('stops after two 429 responses when rateLimitAttempts is not specified', async () => {
+    const throttled = Object.assign(new Error('provider rate limited'), {
+      response: { status: 429, headers: { 'retry-after': '0.01' } },
+    });
+    const post = jest.fn().mockRejectedValue(throttled);
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'rate-limit-default-429', input: {},
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key', post, requestAttempts: 2, requestTimeoutMs: 1_000,
+      },
+      systemPrompt: 'Return valid structured data.', schema: { type: 'object' },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    expect(result.status).toBe('transport_error');
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.attempts).toHaveLength(2);
+    expect(result.attempts.map((attempt) => attempt.status)).toEqual([
+      'transport_error', 'transport_error',
+    ]);
+    expect(result.attempts[0]).toMatchObject({ httpStatus: 429, rateLimited: true });
+    expect(result.attempts[1]).toMatchObject({ httpStatus: 429, rateLimited: true });
+  });
+
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {
     const post = jest.fn(async (
       url: string,

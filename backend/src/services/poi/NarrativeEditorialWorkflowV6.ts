@@ -124,6 +124,7 @@ export interface NarrativeEditorialWorkflowOptionsV6 {
   auditStopIds?: string[];
   repairStopIds?: string[];
   maximumAdditionalRepairs?: number;
+  allowPartialScripts?: boolean;
 }
 
 export interface NarrativeEditorialCoreStopV6 {
@@ -306,12 +307,31 @@ export async function runNarrativeEditorialWorkflowCoreV6(
     remainingRepairs -= 1;
     return true;
   };
-  if (options.scripts && (suppliedScripts.size !== input.route.stops.length
-    || input.route.stops.some((stop) => !suppliedScripts.has(stop.stopId)))) {
-    return empty({
-      ...baseRun(input), status: 'protocol_failed', stage: 'resume_boundary',
-      reason: 'supplied scripts must match the exact route stop set',
-    });
+  if (options.scripts) {
+    const seenStopIds = new Set<string>();
+    for (const script of options.scripts) {
+      if (seenStopIds.has(script.stopId)) {
+        return empty({
+          ...baseRun(input), status: 'protocol_failed', stage: 'resume_boundary',
+          reason: `duplicate supplied script stopId ${script.stopId}`,
+        });
+      }
+      seenStopIds.add(script.stopId);
+    }
+    const routeStopIds = new Set(input.route.stops.map((stop) => stop.stopId));
+    const unknownStopId = options.scripts.find((script) => !routeStopIds.has(script.stopId));
+    if (unknownStopId) {
+      return empty({
+        ...baseRun(input), status: 'protocol_failed', stage: 'resume_boundary',
+        reason: `supplied script stopId ${unknownStopId.stopId} is not in the route`,
+      });
+    }
+    if (!options.allowPartialScripts && suppliedScripts.size !== input.route.stops.length) {
+      return empty({
+        ...baseRun(input), status: 'protocol_failed', stage: 'resume_boundary',
+        reason: 'supplied scripts must match the exact route stop set',
+      });
+    }
   }
   const scheduler = options.scheduler
     ?? createNarrativeSchedulerV6(options.profile ?? agents.profileName);

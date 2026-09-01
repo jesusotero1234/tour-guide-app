@@ -13,6 +13,13 @@ jest.mock('./EditorialStructuredLlmV6', () => ({
 
 const stats = {
   searchQueries: 0,
+  searchQueryAttempts: 0,
+  searchQuerySuccesses: 0,
+  mapAttempts: 0,
+  mapSuccesses: 0,
+  webCaptureAttempts: 0,
+  webCaptureResponses: 0,
+  infrastructureFailureCount: 0,
   mappedUrlCount: 0,
   attemptedUrlCount: 0,
   capturedSourceCount: 1,

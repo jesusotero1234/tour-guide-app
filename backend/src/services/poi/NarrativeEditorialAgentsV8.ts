@@ -19,7 +19,7 @@ export function createNarrativeEditorialAgentsV8(
   manifest: NarrativeEvidenceManifestV8
 ): NarrativeEditorialAgentsV8 {
   const core = createNarrativeEditorialAgentsV6Core(
-    options,
+    { ...options, writerRateLimitAttempts: 3 },
     createNarrativeEditorialRequestProjectorV8(admittedStops, manifest)
   );
   return {

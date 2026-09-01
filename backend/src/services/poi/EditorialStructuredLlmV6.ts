@@ -148,6 +148,7 @@ export interface EditorialRequestOptionsV6 {
   ollamaContextTokens?: number;
   ollamaKeepAlive?: string;
   requestAttempts?: 1 | 2;
+  rateLimitAttempts?: 1 | 2 | 3;
   requestTimeoutMs?: number;
   pricing?: EditorialPricingV6;
   signal?: AbortSignal;
@@ -592,6 +593,7 @@ export async function requestEditorialStructuredV6<T>(config: {
   const attempts: EditorialAttemptV6[] = [];
   let retryFeedback: string | null = null;
   const requestAttempts = options.requestAttempts ?? 2;
+  const rateLimitAttempts = options.rateLimitAttempts ?? requestAttempts;
   const requestTimeoutMs = Math.min(options.requestTimeoutMs ?? 120_000, 180_000);
   if (!Number.isInteger(requestTimeoutMs) || requestTimeoutMs < 1_000) {
     throw new Error('request timeout must be an integer of at least 1000ms');
@@ -668,7 +670,8 @@ export async function requestEditorialStructuredV6<T>(config: {
     progress('attempt_finished', { attempt: diagnostic.attempt, diagnostic });
   };
   try {
-    for (let attempt = 1; attempt <= requestAttempts; attempt += 1) {
+    const attemptCeiling = Math.max(requestAttempts, rateLimitAttempts);
+    for (let attempt = 1; attempt <= attemptCeiling; attempt += 1) {
     const startedAt = Date.now();
     let response: { data: unknown; status?: number; headers?: Record<string, unknown> };
     try {
@@ -775,7 +778,8 @@ export async function requestEditorialStructuredV6<T>(config: {
         actualModel: config.provider.model,
         actualProvider: null,
       });
-      let canRetry = attempt < requestAttempts && details.retryable;
+      const attemptLimit = details.rateLimited ? rateLimitAttempts : requestAttempts;
+      let canRetry = attempt < attemptLimit && details.retryable;
       if (canRetry && retryAfterMs !== undefined && retryAfterMs > 0) {
         const remainingMs = deadlineAt - Date.now();
         if (retryAfterMs >= remainingMs) {

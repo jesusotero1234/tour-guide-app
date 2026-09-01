@@ -62,7 +62,38 @@ export interface NarrativeCuratorPacketV8 {
   spans: Array<NarrativeEvidenceSpanV7 & { sourceUrl: string; publisherKey: string }>;
   publishers: string[];
   excludedSpanCount: number;
+  priorityRoles: NarrativeRoleV8[];
 }
+
+export const NARRATIVE_ROLE_DEFINITIONS_V8 = [
+  'Definiciones operativas:',
+  'visible_observation: rasgo material, espacial o arquitectónico observable por el visitante.',
+  'chronology_or_transformation: construcción, reforma, destrucción, restauración o cambio en el tiempo.',
+  'human_agency_or_lived_function: personas, instituciones, comunidades o usos documentados del lugar.',
+  'tension_or_contrast: contraste documentado entre etapas, funciones, estados o fuerzas; incluye',
+  'destrucción/reconstrucción, abandono/recuperación, uso original/uso posterior, defensa/vida palaciega,',
+  'asedio/uso actual o conflicto histórico; no exige una polémica contemporánea.',
+  'distinctive_trait: rasgo que diferencia esta parada de las demás.',
+] as const;
+
+export function curatorRoleGuidanceV8(priorityRoles: NarrativeRoleV8[]): string[] {
+  return [
+    ...NARRATIVE_ROLE_DEFINITIONS_V8,
+    'Antes de añadir una segunda proposición para un rol, intenta cubrir una proposición sólida',
+    'para cada rol soportado por la evidencia.',
+    ...(priorityRoles.length > 0 ? [
+      `Esta es una ronda de reparación. Prioriza primero: ${priorityRoles.join(', ')}.`,
+      'Cubre esos roles cuando exista soporte literal; no inventes hechos ni elimines roles ya',
+      'cubiertos salvo que carezcan de soporte válido.',
+    ] : []),
+  ];
+}
+
+export const NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8 = [
+  'Interpreta tension_or_contrast como contraste histórico documentado, no solo controversia actual.',
+  'Prioriza patrones como destrucción/reconstrucción, abandono/recuperación, uso original/uso posterior,',
+  'asedio/defensa/transformación, reformas/cambios de función y estado histórico/estado actual.',
+] as const;
 
 export interface NarrativeResearchServicesV8 {
   resolveIdentity(input: { qid: string; language: string }): Promise<NarrativeStopIdentityV8>;
@@ -143,6 +174,13 @@ export type NarrativeResearchStopResultV8 =
 
 export interface NarrativeResearchStopStatsV8 {
   searchQueries: number;
+  searchQueryAttempts: number;
+  searchQuerySuccesses: number;
+  mapAttempts: number;
+  mapSuccesses: number;
+  webCaptureAttempts: number;
+  webCaptureResponses: number;
+  infrastructureFailureCount: number;
   mappedUrlCount: number;
   attemptedUrlCount: number;
   capturedSourceCount: number;
@@ -152,6 +190,7 @@ export interface NarrativeResearchStopStatsV8 {
 
 export type NarrativeCaptureOutcomeV8 =
   | 'discovered'
+  | 'provider_failed'
   | 'skipped_discovery_only'
   | 'capture_failed'
   | 'capture_rejected'
@@ -180,6 +219,42 @@ function normalizeUrlV8(raw: string): string {
   } catch {
     return raw;
   }
+}
+
+function canonicalAttemptUrlV8(raw: string): string {
+  return normalizeUrlV8(raw.replace(/^http:\/\//iu, 'https://'));
+}
+
+const INFRASTRUCTURE_ERROR_CODES_V8 = new Set([
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'EHOSTUNREACH',
+  'ENETUNREACH',
+  'ENOTFOUND',
+  'EAI_AGAIN',
+  'ETIMEDOUT',
+  'UND_ERR_CONNECT_TIMEOUT',
+  'UND_ERR_SOCKET',
+]);
+
+function errorCodeV8(error: unknown): string | null {
+  let current: unknown = error;
+  for (let depth = 0; depth < 4 && current && typeof current === 'object'; depth += 1) {
+    const candidate = current as { code?: unknown; cause?: unknown };
+    if (typeof candidate.code === 'string' && candidate.code.trim()) return candidate.code;
+    current = candidate.cause;
+  }
+  return null;
+}
+
+function errorHttpStatusV8(error: unknown): number | null {
+  const status = (error as { response?: { status?: unknown } })?.response?.status;
+  return typeof status === 'number' && Number.isFinite(status) ? status : null;
+}
+
+function isInfrastructureFailureV8(error: unknown): boolean {
+  const code = errorCodeV8(error);
+  return code !== null && INFRASTRUCTURE_ERROR_CODES_V8.has(code.toUpperCase());
 }
 
 function normalizeDomainV8(hostname: string): string | null {
@@ -262,6 +337,7 @@ export function buildCuratorPacketV8(input: {
   captures: NarrativeCapturedSourceV8[];
   spansBySource: Map<string, NarrativeEvidenceSpanV7[]>;
   aliases: string[];
+  priorityRoles?: NarrativeRoleV8[];
 }): NarrativeCuratorPacketV8 {
   const budget = NARRATIVE_RESEARCH_BUDGET_V8;
   const nameTerms = [input.stopName, ...input.aliases].map(normalizeNarrativeIdentityTextV8);
@@ -280,8 +356,8 @@ export function buildCuratorPacketV8(input: {
       }
       const normalized = normalizeNarrativeIdentityTextV8(span.text);
       const nameScore = nameTerms.some((term) => term.length > 0 && normalized.includes(term)) ? 4 : 0;
-      const authorityScore = capture.authority.tier === 'established_source'
-        ? 3 : capture.authority.tier === 'primary_authority' ? 2 : 1;
+      const authorityScore = capture.authority.tier === 'primary_authority'
+        ? 3 : capture.authority.tier === 'established_source' ? 2 : 1;
       candidates.push({
         span,
         source: capture,
@@ -329,6 +405,7 @@ export function buildCuratorPacketV8(input: {
     spans,
     publishers: [...new Set(input.captures.map((capture) => capture.authority.publisherKey))],
     excludedSpanCount,
+    priorityRoles: input.priorityRoles ?? [],
   };
 }
 
@@ -346,7 +423,7 @@ function classifyWebCaptureV8(
     ? classifyAgainstRegistryV7({
       url: capture.finalUrl,
       title: capture.title,
-      description: capture.content.slice(0, 500),
+      description: capture.content.slice(0, 8_000),
       engine: 'capture',
       authority: classifyNarrativeSourceAuthorityV7(capture.finalUrl),
     }, registry, stopName).authority
@@ -378,10 +455,21 @@ export async function researchNarrativeStopV8(
   const usedQueries: string[] = [];
   const captureLog: NarrativeCaptureAttemptV8[] = [];
   const wikimediaExternalDomains = new Set<string>();
-  let searchQueries = 0;
+  let searchQueryAttempts = 0;
+  let searchQuerySuccesses = 0;
+  let mapAttempts = 0;
+  let mapSuccesses = 0;
+  let webCaptureAttempts = 0;
+  let webCaptureResponses = 0;
+  let infrastructureFailureCount = 0;
   let curationCount = 0;
+  type ResearchRoundV8 = {
+    dossier: NarrativeDossierV6;
+    gates: NarrativeEvidenceGatesV8;
+    tier: NarrativeEvidenceTierV8;
+  };
   const state: {
-    round: { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 } | null;
+    round: ResearchRoundV8 | null;
     failure: string | null;
     lastValidCaptureCount: number;
   } = { round: null, failure: null, lastValidCaptureCount: 0 };
@@ -394,8 +482,38 @@ export async function researchNarrativeStopV8(
     captureLog.push({ ...entry, stopId: input.stopId, attempt: attemptedUrls.size, elapsedMs: 0 });
   };
 
+  const stats = (): NarrativeResearchStopStatsV8 => ({
+    searchQueries: searchQueryAttempts,
+    searchQueryAttempts,
+    searchQuerySuccesses,
+    mapAttempts,
+    mapSuccesses,
+    webCaptureAttempts,
+    webCaptureResponses,
+    infrastructureFailureCount,
+    mappedUrlCount: mappedUrls.size,
+    attemptedUrlCount: attemptedUrls.size,
+    capturedSourceCount: captures.length,
+    publisherCount: publisherCount(),
+    curationCount,
+  });
+
+  const recordInfrastructureFailure = (error: unknown): void => {
+    if (!isInfrastructureFailureV8(error)) return;
+    infrastructureFailureCount += 1;
+  };
+
+  const externalInfrastructureUnavailable = (): boolean => {
+    const hasOnlyWikimediaEvidence = captures.every((capture) => (
+      capture.sourceKind === 'wikipedia_api' || capture.authority.publisherKey === 'wikimedia'
+    ));
+    if (!hasOnlyWikimediaEvidence) return false;
+    return infrastructureFailureCount > 0;
+  };
+
   const addCapturedSource = (captured: NarrativeCapturedSourceV8): boolean => {
-    if (!attemptedUrls.has(captured.requestedUrl)) attemptedUrls.add(captured.requestedUrl);
+    const attemptKey = canonicalAttemptUrlV8(captured.requestedUrl);
+    if (!attemptedUrls.has(attemptKey)) attemptedUrls.add(attemptKey);
     if (attemptedUrls.size > budget.captures) return false;
     if (captured.authority.tier === 'discovery_only') return false;
     if (captures.some((existing) => existing.finalUrl === captured.finalUrl)) return false;
@@ -410,10 +528,11 @@ export async function researchNarrativeStopV8(
     url: string,
     phase: NarrativeCaptureAttemptV8['phase']
   ): Promise<void> => {
-    if (attemptedUrls.has(url)) return;
-    attemptedUrls.add(url);
+    const attemptKey = canonicalAttemptUrlV8(url);
+    if (attemptedUrls.has(attemptKey)) return;
+    attemptedUrls.add(attemptKey);
     if (attemptedUrls.size > budget.captures) return;
-    const target = url.replace(/^http:\/\//iu, 'https://');
+    const target = attemptKey;
     let hostname: string;
     try {
       hostname = new URL(target).hostname.toLowerCase();
@@ -454,7 +573,9 @@ export async function researchNarrativeStopV8(
     }
     const startedAt = Date.now();
     try {
+      webCaptureAttempts += 1;
       let captured = await services.captureWeb({ url: target });
+      webCaptureResponses += 1;
       let asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
       if (!registered && isWikimediaExternal) {
         const identityText = `${asV8.title} ${asV8.content}`;
@@ -474,7 +595,9 @@ export async function researchNarrativeStopV8(
         // Un scrape transitorio (cookie wall, página parcial) puede llegar sin
         // el nombre de la parada aunque la URL sea la oficial registrada:
         // reintentar una única vez; la identidad se vuelve a comprobar igual.
+        webCaptureAttempts += 1;
         captured = await services.captureWeb({ url: target });
+        webCaptureResponses += 1;
         asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
         accepted = addCapturedSource(asV8);
       }
@@ -494,6 +617,9 @@ export async function researchNarrativeStopV8(
       };
       captureLog.push(log);
     } catch (error) {
+      const httpStatus = errorHttpStatusV8(error);
+      if (httpStatus !== null) webCaptureResponses += 1;
+      recordInfrastructureFailure(error);
       captureLog.push({
         stopId: input.stopId,
         phase,
@@ -503,12 +629,33 @@ export async function researchNarrativeStopV8(
         authorityAfterCapture: 'error',
         publisherKey: null,
         outcome: 'capture_failed',
-        httpStatus: (error as { response?: { status?: number } })?.response?.status ?? null,
-        errorClassification: (error as { code?: string })?.code ?? null,
+        httpStatus,
+        errorClassification: errorCodeV8(error),
         attempt: attemptedUrls.size,
         elapsedMs: Date.now() - startedAt,
       });
     }
+  };
+
+  const roundQuality = (round: ResearchRoundV8): [number, number, number, number] => {
+    const tierRank: Record<NarrativeEvidenceTierV8, number> = { D: 0, C: 1, B: 2, A: 3 };
+    return [
+      round.gates.minimumEvidenceReady ? 1 : 0,
+      round.gates.writerReady ? 1 : 0,
+      -round.gates.missingWriterRoles.length,
+      tierRank[round.tier],
+    ];
+  };
+
+  const isBetterRound = (candidate: ResearchRoundV8, current: ResearchRoundV8): boolean => {
+    const candidateQuality = roundQuality(candidate);
+    const currentQuality = roundQuality(current);
+    for (let index = 0; index < candidateQuality.length; index += 1) {
+      if (candidateQuality[index] !== currentQuality[index]) {
+        return candidateQuality[index] > currentQuality[index];
+      }
+    }
+    return false;
   };
 
   const curate = async (): Promise<
@@ -517,22 +664,39 @@ export async function researchNarrativeStopV8(
   > => {
     if (curationCount >= 2) return { ok: false, failure: 'curation budget exhausted' };
     curationCount += 1;
-    const curated = await curateRoundV8(input, services, captures, spansBySource, identity, registry);
+    const curated = await curateRoundV8(
+      input,
+      services,
+      captures,
+      spansBySource,
+      identity,
+      registry,
+      state.round?.gates.missingWriterRoles ?? []
+    );
     if (curated && 'dossier' in curated) {
       const tier = classifyEvidenceTierV8(curated.dossier, curated.gates, captures);
-      state.round = curated;
+      const candidate = { ...curated, tier };
+      if (state.round === null || isBetterRound(candidate, state.round)) {
+        state.round = candidate;
+      }
       state.failure = null;
       state.lastValidCaptureCount = captures.length;
-      return { ok: true, dossier: curated.dossier, gates: curated.gates, tier };
+      return {
+        ok: true,
+        dossier: state.round.dossier,
+        gates: state.round.gates,
+        tier: state.round.tier,
+      };
     }
     if (curated) {
-      state.failure = (curated as { failure: string }).failure;
-      return { ok: false, failure: (curated as { failure: string }).failure };
+      const failure = (curated as { failure: string }).failure;
+      if (state.round === null) state.failure = failure;
+      return { ok: false, failure };
     }
     return { ok: false, failure: 'curation failed' };
   };
 
-  const sufficient = (round: { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 }, tier: Exclude<NarrativeEvidenceTierV8, 'D'>): NarrativeResearchStopResultV8 => {
+  const sufficient = (round: ResearchRoundV8, tier: Exclude<NarrativeEvidenceTierV8, 'D'>): NarrativeResearchStopResultV8 => {
     return {
       status: 'sufficient',
       stopId: input.stopId,
@@ -548,14 +712,7 @@ export async function researchNarrativeStopV8(
         domain: authority.domain,
         url: authority.url,
       })),
-      stats: {
-        searchQueries,
-        mappedUrlCount: mappedUrls.size,
-        attemptedUrlCount: attemptedUrls.size,
-        capturedSourceCount: captures.length,
-        publisherCount: publisherCount(),
-        curationCount,
-      },
+      stats: stats(),
     };
   };
 
@@ -621,7 +778,20 @@ export async function researchNarrativeStopV8(
   }
 
   // Descubrimiento: reunir resultados, deduplicar, priorizar y capturar.
-  const officialDomains = registry.authorities.map((authority) => authority.domain);
+  const authorityOriginRank: Record<string, number> = {
+    place_p856: 0,
+    city_p856: 1,
+    admin_level_1: 2,
+    admin_level_2: 3,
+    admin_level_3: 4,
+  };
+  const officialDomains = [...registry.authorities]
+    .sort((left, right) => (
+      (authorityOriginRank[left.origin] ?? 50) - (authorityOriginRank[right.origin] ?? 50)
+      || left.domain.localeCompare(right.domain)
+    ))
+    .map((authority) => authority.domain)
+    .filter((domain, index, domains) => domains.indexOf(domain) === index);
   const gathered: Array<{ url: string; phase: NarrativeCaptureAttemptV8['phase']; priority: number }> = [];
   const gatheredUrls = new Set<string>();
   // Nombre completo desambiguado (p. ej. "Teatro romano de Málaga" en lugar de
@@ -633,24 +803,25 @@ export async function researchNarrativeStopV8(
   const citySuffix = searchName.toLocaleLowerCase().includes(input.cityName.toLocaleLowerCase())
     ? ''
     : ` ${input.cityName}`;
-  const deterministicQueries: string[] = [];
-  let corroboratedDomain: string | null = null;
-  if (wikimediaExternalDomains.size > 0) {
-    corroboratedDomain = [...wikimediaExternalDomains].sort()[0];
-    deterministicQueries.push(`site:${corroboratedDomain} ${searchName}${citySuffix}`);
-  }
-  deterministicQueries.push(
-    searchName + citySuffix,
-    `${searchName}${citySuffix} historia cronología`,
-    `${searchName}${citySuffix} arquitectura elementos visibles`,
-    `${searchName}${citySuffix} función uso transformación`,
-  );
+  const corroboratedDomains = [...wikimediaExternalDomains].sort();
+  const targetedDomains = [...officialDomains, ...corroboratedDomains]
+    .filter((domain, index, domains) => domains.indexOf(domain) === index)
+    .slice(0, 2);
+  const deterministicQueries = [
+    ...targetedDomains.map((domain) => `site:${domain} ${searchName}${citySuffix}`),
+    `${searchName}${citySuffix} historia transformación`,
+    `${searchName}${citySuffix} arquitectura función uso`,
+  ];
   const cappedDeterministicQueries = deterministicQueries.slice(0, budget.deterministicQueries);
   for (const query of cappedDeterministicQueries) {
     if (attemptedUrls.size >= budget.captures) break;
-    searchQueries += 1;
+    searchQueryAttempts += 1;
     usedQueries.push(query);
-    const isCorroboratedSiteQuery = corroboratedDomain !== null && query === `site:${corroboratedDomain} ${searchName}${citySuffix}`;
+    const queriedDomain = targetedDomains.find((domain) => (
+      query === `site:${domain} ${searchName}${citySuffix}`
+    )) ?? null;
+    const isCorroboratedSiteQuery = queriedDomain !== null
+      && wikimediaExternalDomains.has(queriedDomain);
     const resultLimit = isCorroboratedSiteQuery ? 10 : 5;
     let results: NarrativeDiscoveryResultV7[] = [];
     try {
@@ -660,7 +831,9 @@ export async function researchNarrativeStopV8(
         countryCode: input.countryCode,
         limit: resultLimit,
       });
+      searchQuerySuccesses += 1;
     } catch (error) {
+      recordInfrastructureFailure(error);
       captureLog.push({
         stopId: input.stopId,
         phase: 'deterministic_search',
@@ -669,9 +842,9 @@ export async function researchNarrativeStopV8(
         authorityBeforeCapture: 'search_error',
         authorityAfterCapture: 'search_error',
         publisherKey: null,
-        outcome: 'discovered',
-        httpStatus: (error as { response?: { status?: number } })?.response?.status ?? null,
-        errorClassification: (error as { code?: string })?.code ?? null,
+        outcome: 'provider_failed',
+        httpStatus: errorHttpStatusV8(error),
+        errorClassification: errorCodeV8(error),
         attempt: attemptedUrls.size,
         elapsedMs: 0,
       });
@@ -681,11 +854,11 @@ export async function researchNarrativeStopV8(
       if (!gatheredUrls.has(url)) {
         gatheredUrls.add(url);
         let priority = authorityPriorityV8(url, registry);
-        if (isCorroboratedSiteQuery && corroboratedDomain !== null) {
+        if (isCorroboratedSiteQuery && queriedDomain !== null) {
           try {
             const hostname = new URL(url).hostname.toLowerCase();
             const domain = normalizeDomainV8(hostname);
-            if (domain === corroboratedDomain) priority = -1;
+            if (domain === queriedDomain) priority = -1;
           } catch {
             // ignore malformed URL
           }
@@ -697,6 +870,7 @@ export async function researchNarrativeStopV8(
   for (const domain of officialDomains.slice(0, budget.mappedDomains)) {
     if (attemptedUrls.size >= budget.captures) break;
     let mapped: NarrativeDiscoveryResultV7[] = [];
+    mapAttempts += 1;
     try {
       mapped = await services.mapOfficialSite({
         origin: domain,
@@ -705,7 +879,9 @@ export async function researchNarrativeStopV8(
         language: input.language,
         countryCode: input.countryCode,
       });
+      mapSuccesses += 1;
     } catch (error) {
+      recordInfrastructureFailure(error);
       captureLog.push({
         stopId: input.stopId,
         phase: 'map',
@@ -714,9 +890,9 @@ export async function researchNarrativeStopV8(
         authorityBeforeCapture: 'map_error',
         authorityAfterCapture: 'map_error',
         publisherKey: null,
-        outcome: 'discovered',
-        httpStatus: (error as { response?: { status?: number } })?.response?.status ?? null,
-        errorClassification: (error as { code?: string })?.code ?? null,
+        outcome: 'provider_failed',
+        httpStatus: errorHttpStatusV8(error),
+        errorClassification: errorCodeV8(error),
         attempt: attemptedUrls.size,
         elapsedMs: 0,
       });
@@ -752,7 +928,12 @@ export async function researchNarrativeStopV8(
 
 
   // Ronda adaptativa: solo si falta writerReady y queda presupuesto.
-  if (attemptedUrls.size < budget.captures && services.proposeAdaptiveQueries) {
+  const needsSemanticDiscovery = state.round === null || !state.round.gates.writerReady;
+  if (
+    needsSemanticDiscovery
+    && attemptedUrls.size < budget.captures
+    && services.proposeAdaptiveQueries
+  ) {
     let adaptive: string[] = [];
     try {
       adaptive = await services.proposeAdaptiveQueries({
@@ -773,7 +954,7 @@ export async function researchNarrativeStopV8(
       if (usedQueries.includes(query)) continue;
       if (attemptedUrls.size >= budget.captures) break;
       usedQueries.push(query);
-      searchQueries += 1;
+      searchQueryAttempts += 1;
       let results: NarrativeDiscoveryResultV7[] = [];
       try {
         results = await services.search({
@@ -782,7 +963,9 @@ export async function researchNarrativeStopV8(
           countryCode: input.countryCode,
           limit: 5,
         });
+        searchQuerySuccesses += 1;
       } catch (error) {
+        recordInfrastructureFailure(error);
         captureLog.push({
           stopId: input.stopId,
           phase: 'adaptive_search',
@@ -791,9 +974,9 @@ export async function researchNarrativeStopV8(
           authorityBeforeCapture: 'search_error',
           authorityAfterCapture: 'search_error',
           publisherKey: null,
-          outcome: 'discovered',
-          httpStatus: (error as { response?: { status?: number } })?.response?.status ?? null,
-          errorClassification: (error as { code?: string })?.code ?? null,
+          outcome: 'provider_failed',
+          httpStatus: errorHttpStatusV8(error),
+          errorClassification: errorCodeV8(error),
           attempt: attemptedUrls.size,
           elapsedMs: 0,
         });
@@ -809,10 +992,37 @@ export async function researchNarrativeStopV8(
     }
   }
 
-  // CURATE #2: solo si las capturas aumentaron tras la última curación válida,
-  // o si no hay ronda válida y existen capturas.
-  const shouldCurate2 = captures.length > state.lastValidCaptureCount
-    || (state.round === null && captures.length > 0);
+  if (externalInfrastructureUnavailable()) {
+    return {
+      status: 'failed',
+      stopId: input.stopId,
+      failure: {
+        code: 'research_infrastructure_unavailable',
+        message: 'External acquisition providers were unavailable; the evidence tier was not evaluated after a completed search.',
+      },
+      evidenceTier: null,
+      routeEligible: false,
+      captures,
+      captureLog,
+      authorities: registry.authorities.map((authority) => ({
+        qid: authority.qid,
+        origin: authority.origin,
+        domain: authority.domain,
+        url: authority.url,
+      })),
+      stats: stats(),
+    };
+  }
+
+  // CURATE #2 también repara roles ausentes con los mismos spans validados.
+  const needsRoleRepair = state.round !== null && !state.round.gates.writerReady;
+  const shouldCurate2 = curationCount < 2
+    && captures.length > 0
+    && (
+      captures.length > state.lastValidCaptureCount
+      || state.round === null
+      || needsRoleRepair
+    );
   if (shouldCurate2) {
     const result = await curate();
     if (result.ok && (result.tier === 'A' || result.tier === 'B' || result.tier === 'C')) {
@@ -850,7 +1060,7 @@ export async function researchNarrativeStopV8(
       missingWriterRoles: [],
     },
     dossier: state.round ? state.round.dossier : null,
-    evidenceTier,
+    evidenceTier: evidenceTier === 'D' ? 'D' : null,
     routeEligible: false,
     captures,
     captureLog,
@@ -860,14 +1070,7 @@ export async function researchNarrativeStopV8(
       domain: authority.domain,
       url: authority.url,
     })),
-    stats: {
-      searchQueries,
-      mappedUrlCount: mappedUrls.size,
-      attemptedUrlCount: attemptedUrls.size,
-      capturedSourceCount: captures.length,
-      publisherCount: publisherCount(),
-      curationCount,
-    },
+    stats: stats(),
     reasons,
   };
 }
@@ -903,7 +1106,8 @@ async function curateRoundV8(
   captures: NarrativeCapturedSourceV8[],
   spansBySource: Map<string, NarrativeEvidenceSpanV7[]>,
   identity: NarrativeStopIdentityV8,
-  registry: NarrativeAuthorityRegistryV7
+  registry: NarrativeAuthorityRegistryV7,
+  priorityRoles: NarrativeRoleV8[]
 ): Promise<
   | { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 }
   | { failure: string }
@@ -916,6 +1120,7 @@ async function curateRoundV8(
     captures,
     spansBySource,
     aliases: identity.aliases,
+    priorityRoles,
   });
   if (packet.spans.length === 0) return { failure: 'no spans in the curator packet' };
   let output: NarrativeCuratorOutputV8;

@@ -7,6 +7,13 @@ import { buildNarrativeEvidenceFixtureV8 } from './NarrativeEvidenceFixturesV8.t
 
 const stats = {
   searchQueries: 0,
+  searchQueryAttempts: 0,
+  searchQuerySuccesses: 0,
+  mapAttempts: 0,
+  mapSuccesses: 0,
+  webCaptureAttempts: 0,
+  webCaptureResponses: 0,
+  infrastructureFailureCount: 0,
   mappedUrlCount: 0,
   attemptedUrlCount: 0,
   capturedSourceCount: 0,
@@ -84,6 +91,13 @@ function makeHandoff(
       routeEligible: true,
       stats: {
         searchQueries: 0,
+        searchQueryAttempts: 0,
+        searchQuerySuccesses: 0,
+        mapAttempts: 0,
+        mapSuccesses: 0,
+        webCaptureAttempts: 0,
+        webCaptureResponses: 0,
+        infrastructureFailureCount: 0,
         mappedUrlCount: 0,
         attemptedUrlCount: 0,
         capturedSourceCount: fixture.captures.length,

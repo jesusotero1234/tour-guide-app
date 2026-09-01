@@ -53,11 +53,20 @@ export interface NarrativeUserCanaryResearchSummaryV8 {
   entityQid: string;
   status: string;
   evidenceTier: NarrativeEvidenceTierV8 | null;
+  evidenceVariant: 'C_FULL' | 'C_PARTIAL' | null;
   routeEligible: boolean;
   minimumEvidenceReady: boolean;
   writerReady: boolean;
   missingRoles: string[];
   queryCount: number;
+  searchQueryAttempts: number;
+  searchQuerySuccesses: number;
+  mapAttempts: number;
+  mapSuccesses: number;
+  webCaptureAttempts: number;
+  webCaptureResponses: number;
+  infrastructureFailureCount: number;
+  providerFailureCount: number;
   mappedUrlCount: number;
   attemptedUrlCount: number;
   capturedSourceCount: number;
@@ -100,16 +109,31 @@ function summarize(
     : result.gates;
   const evidenceTier = result.status === 'failed' ? null : result.evidenceTier;
   const routeEligible = result.status === 'failed' ? false : result.routeEligible;
+  const evidenceVariant = evidenceTier === 'C'
+    ? gates.writerReady ? 'C_FULL' : 'C_PARTIAL'
+    : null;
   return {
     stopId,
     entityQid,
     status: result.status,
     evidenceTier,
+    evidenceVariant,
     routeEligible,
     minimumEvidenceReady: gates.minimumEvidenceReady,
     writerReady: gates.writerReady,
     missingRoles: gates.missingWriterRoles,
     queryCount: result.stats.searchQueries,
+    searchQueryAttempts: result.stats.searchQueryAttempts,
+    searchQuerySuccesses: result.stats.searchQuerySuccesses,
+    mapAttempts: result.stats.mapAttempts,
+    mapSuccesses: result.stats.mapSuccesses,
+    webCaptureAttempts: result.stats.webCaptureAttempts,
+    webCaptureResponses: result.stats.webCaptureResponses,
+    infrastructureFailureCount: result.stats.infrastructureFailureCount,
+    providerFailureCount: result.captureLog.filter((entry) => (
+      entry.phase !== 'wikipedia'
+      && (entry.outcome === 'provider_failed' || entry.outcome === 'capture_failed')
+    )).length,
     mappedUrlCount: result.stats.mappedUrlCount,
     attemptedUrlCount: result.stats.attemptedUrlCount,
     capturedSourceCount: result.stats.capturedSourceCount,
@@ -165,13 +189,17 @@ export async function runNarrativeUserCanaryV8(
 
   if (candidateDossiers.length !== input.route.stops.length) {
     const ineligible = research.filter((handoff) => !handoff.result.routeEligible);
-    const hasFailed = ineligible.some((handoff) => handoff.result.status === 'failed');
+    const failedHandoff = ineligible.find((handoff) => handoff.result.status === 'failed');
+    const hasFailed = failedHandoff !== undefined;
     const status: 'failed' | 'blocked' = hasFailed ? 'failed' : 'blocked';
-    const code = hasFailed ? 'research_failed' : 'evidence_review_required';
+    const code = failedHandoff?.result.status === 'failed'
+      ? failedHandoff.result.failure.code
+      : 'evidence_review_required';
     const message = ineligible
       .map((handoff) => (
         `${handoff.routeStopId}: ${handoff.result.status}${handoff.result.status === 'evidence_review_required'
-          ? ` — ${handoff.result.reasons.join('; ')}` : ''}`
+          ? ` — ${handoff.result.reasons.join('; ')}`
+          : handoff.result.status === 'failed' ? ` — ${handoff.result.failure.message}` : ''}`
       ))
       .join('; ');
     return {
@@ -180,7 +208,7 @@ export async function runNarrativeUserCanaryV8(
         stage: 'research',
         code,
         message,
-        retryableLater: false,
+        retryableLater: code === 'research_infrastructure_unavailable',
       },
       research: summary,
       dossiers: candidateDossiers,

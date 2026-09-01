@@ -23,6 +23,7 @@ import {
 } from './NarrativeEvidenceFixturesV8.test-support';
 import { createNarrativeArcArchitectV8 } from './NarrativeArcArchitectV8';
 import { runNarrativeEditorialWorkflowV8 } from './NarrativeEditorialWorkflowV8';
+import { NarrativeScriptV6 } from './NarrativeEditorialV6';
 
 jest.mock('./EditorialStructuredLlmV6', () => ({
   requestEditorialStructuredV6: jest.fn(),
@@ -358,11 +359,18 @@ describe('NarrativeEditorialWorkflowV8', () => {
           routeEligible: true,
           stats: {
             searchQueries: 0,
+            searchQueryAttempts: 0,
+            searchQuerySuccesses: 0,
             mappedUrlCount: 0,
+            mapAttempts: 0,
+            mapSuccesses: 0,
             attemptedUrlCount: 0,
+            webCaptureAttempts: 0,
+            webCaptureResponses: 0,
             capturedSourceCount: fixture.captures.length,
             publisherCount: new Set(fixture.captures.map((c) => c.publisherKey)).size,
             curationCount: fixture.captures.length,
+            infrastructureFailureCount: 0,
           },
           captures: fixture.captures,
           captureLog: [],
@@ -430,5 +438,146 @@ describe('NarrativeEditorialWorkflowV8', () => {
 
     expect(admittedStops[2].evidence.gates.writerReady).toBe(true);
     expect(admittedStops[3].evidence.gates.writerReady).toBe(false);
+  });
+
+  test('allows partial script resume where one valid supplied script skips only that writer', async () => {
+    const stop1 = admit(evidenceFixture('malaga-partial-01', 'Q5000001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-partial-02', 'Q5000002', COMPLETE_ROLES));
+    const route = routeFor([stop1, stop2]);
+    const manifest = manifestFor(route, [stop1, stop2]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const suppliedScript: NarrativeScriptV6 = {
+      stopId: stop1.routeStopId,
+      text: 'Script supplied for stop 1.',
+      fingerprint: 'supplied-stop-1-fingerprint',
+      sentences: [{ sentenceId: 's1', stopId: stop1.routeStopId, index: 0, text: 'Script supplied for stop 1.' }],
+    };
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-partial-resume-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop1, stop2],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa parcial.',
+          centralQuestion: 'Pregunta parcial.',
+          stops: [
+            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
+            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+          ],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-partial-resume.private.json',
+    }, agents, { scripts: [suppliedScript] });
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+    expect(result.editorial.stops).toHaveLength(2);
+    expect(result.editorial.stops[0].initialScript.text).toBe('Script supplied for stop 1.');
+    expect(agents.write.mock.calls.map((call) => call[0].stopId)).toEqual([stop2.routeStopId]);
+    expect(agents.audit).toHaveBeenCalled();
+    expect(agents.auditTour).toHaveBeenCalled();
+  });
+
+  test('protocol-fails before any agent call when duplicate partial scripts are supplied', async () => {
+    const stop1 = admit(evidenceFixture('malaga-dup-01', 'Q6000001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-dup-02', 'Q6000002', COMPLETE_ROLES));
+    const route = routeFor([stop1, stop2]);
+    const manifest = manifestFor(route, [stop1, stop2]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const script1: NarrativeScriptV6 = {
+      stopId: stop1.routeStopId,
+      text: 'Script 1.',
+      fingerprint: 'duplicate-stop-1-original-fingerprint',
+      sentences: [{ sentenceId: 's1', stopId: stop1.routeStopId, index: 0, text: 'Script 1.' }],
+    };
+    const script1Dup: NarrativeScriptV6 = {
+      stopId: stop1.routeStopId,
+      text: 'Script 1 dup.',
+      fingerprint: 'duplicate-stop-1-copy-fingerprint',
+      sentences: [{ sentenceId: 's1', stopId: stop1.routeStopId, index: 0, text: 'Script 1 dup.' }],
+    };
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-dup-partial-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop1, stop2],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa.',
+          centralQuestion: 'Pregunta.',
+          stops: [
+            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
+            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+          ],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-dup-partial.private.json',
+    }, agents, { scripts: [script1, script1Dup] });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.editorial.run.status).toBe('protocol_failed');
+    if (result.editorial.run.status !== 'protocol_failed') throw new Error('Expected inner protocol failure');
+    expect(result.editorial.run.reason).toContain('duplicate supplied script stopId');
+    expect(agents.write).not.toHaveBeenCalled();
+    expect(agents.audit).not.toHaveBeenCalled();
+    expect(agents.adjudicate).not.toHaveBeenCalled();
+    expect(agents.repair).not.toHaveBeenCalled();
+    expect(agents.auditTour).not.toHaveBeenCalled();
+  });
+
+  test('protocol-fails before any agent call when unknown partial script is supplied', async () => {
+    const stop1 = admit(evidenceFixture('malaga-unknown-01', 'Q7000001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-unknown-02', 'Q7000002', COMPLETE_ROLES));
+    const route = routeFor([stop1, stop2]);
+    const manifest = manifestFor(route, [stop1, stop2]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const unknownScript: NarrativeScriptV6 = {
+      stopId: 'malaga-unknown-99',
+      text: 'Script unknown.',
+      fingerprint: 'unknown-stop-fingerprint',
+      sentences: [{ sentenceId: 's1', stopId: 'malaga-unknown-99', index: 0, text: 'Script unknown.' }],
+    };
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-unknown-partial-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop1, stop2],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa.',
+          centralQuestion: 'Pregunta.',
+          stops: [
+            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
+            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+          ],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-unknown-partial.private.json',
+    }, agents, { scripts: [unknownScript] });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.editorial.run.status).toBe('protocol_failed');
+    if (result.editorial.run.status !== 'protocol_failed') throw new Error('Expected inner protocol failure');
+    expect(result.editorial.run.reason).toContain('is not in the route');
+    expect(agents.write).not.toHaveBeenCalled();
+    expect(agents.audit).not.toHaveBeenCalled();
+    expect(agents.adjudicate).not.toHaveBeenCalled();
+    expect(agents.repair).not.toHaveBeenCalled();
+    expect(agents.auditTour).not.toHaveBeenCalled();
   });
 });

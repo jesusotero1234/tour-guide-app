@@ -119,11 +119,11 @@ oficial descubrible queden en `authority_insufficient` con diagnóstico claro
 
 **Nota histórica:** Los fallos de publisher/curador/Arc documentados en este plan son evidencia histórica que motivó la creación del Plan 66. No representan el resultado actual post-implementación.
 
-**Estado actual:** La implementación del Plan 66 ha completado la migración de la frontera de evidencia V8, separando la suficiencia estricta V6 de la elegibilidad de ruta A/B/C V8 mediante una frontera determinista, Arc V8, Editorial V8 y scorecard/artefactos conscientes del manifiesto.
+**Estado actual:** La implementación del Plan 66 ha completado la migración de la frontera de evidencia V8, separando la suficiencia estricta V6 de la elegibilidad de ruta A/B/C V8 mediante una frontera determinista, Arc V8, Editorial V8 y scorecard/artefactos conscientes del manifiesto. La implementación del Plan 67 de checkpoint/resume está ahora completa, proporcionando checkpoints privados atómicos, reanudación de fase, reutilización parcial de scripts y prevención de Scorecard/Markdown en Editorial incompleto (ver [Plan 67](67-v8-canary-checkpoint-resume-plan.md)).
 
 **Evidencia de validación completada:**
-- 11 suites focalizadas, 77 tests pasados.
+- 9 suites, 133 tests pasados.
 - Backend `src` TypeScript pasó (`tsc --noEmit`).
 - Verificación TypeScript directa de `narrative-user-canary-v8.ts` pasó.
 
-**Pendiente:** La ejecución completa del canary de Málaga fue intencionalmente no ejecutada por Codex y permanece pendiente de ejecución por el usuario.
+**Pendiente:** La ejecución completa del canary de Málaga en vivo permanece intencionalmente pendiente para el usuario; no se reclama aprobación de publicación.

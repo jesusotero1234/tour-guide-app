@@ -143,6 +143,13 @@ function researchResultFor(
   const publisherCount = new Set(fixture.captures.map((capture) => capture.authority.publisherKey)).size;
   const stats = {
     searchQueries: 0,
+    searchQueryAttempts: 0,
+    searchQuerySuccesses: 0,
+    mapAttempts: 0,
+    mapSuccesses: 0,
+    webCaptureAttempts: 0,
+    webCaptureResponses: 0,
+    infrastructureFailureCount: 0,
     mappedUrlCount: 0,
     attemptedUrlCount: 0,
     capturedSourceCount,
@@ -426,6 +433,82 @@ describe('runNarrativeUserCanaryV8', () => {
     expect(researchCalls).toBeLessThan(STOPS.length);
   });
 
+  it('propagates research infrastructure failure as retryable and never runs Editorial', async () => {
+    const route = routeWith(STOPS.slice(0, 1));
+    let editorialCalls = 0;
+    const result = await runNarrativeUserCanaryV8({
+      runId: 'e2e-research-infrastructure-failure',
+      request: {
+        city: 'Test City',
+        country: 'España',
+        countryCode: 'ES',
+        theme: 'history',
+        language: 'es',
+        durationMinutes: 120,
+      },
+      route,
+      core: { requiredIds: [STOPS[0].qid], disagreement: false },
+      researchStop: async ({ stopId }) => ({
+        status: 'failed',
+        stopId,
+        failure: {
+          code: 'research_infrastructure_unavailable',
+          message: 'SearXNG stopped responding.',
+        },
+        evidenceTier: null,
+        routeEligible: false,
+        stats: {
+          searchQueries: 1,
+          searchQueryAttempts: 1,
+          searchQuerySuccesses: 0,
+          mapAttempts: 0,
+          mapSuccesses: 0,
+          webCaptureAttempts: 0,
+          webCaptureResponses: 0,
+          infrastructureFailureCount: 1,
+          mappedUrlCount: 0,
+          attemptedUrlCount: 0,
+          capturedSourceCount: 0,
+          publisherCount: 0,
+          curationCount: 0,
+        },
+        captures: [],
+        captureLog: [{
+          stopId,
+          phase: 'deterministic_search',
+          requestedUrl: 'query',
+          finalUrl: '',
+          authorityBeforeCapture: 'search_error',
+          authorityAfterCapture: 'search_error',
+          publisherKey: null,
+          outcome: 'provider_failed',
+          httpStatus: null,
+          errorClassification: 'ECONNREFUSED',
+          attempt: 0,
+          elapsedMs: 0,
+        }],
+      }),
+      runEditorial: async () => {
+        editorialCalls += 1;
+        throw new Error('Editorial must not run');
+      },
+    });
+
+    expect(result.status).toBe('failed');
+    if (result.status !== 'failed') return;
+    expect(result.failure).toMatchObject({
+      code: 'research_infrastructure_unavailable',
+      retryableLater: true,
+    });
+    expect(result.research[0]).toMatchObject({
+      evidenceTier: null,
+      routeEligible: false,
+      infrastructureFailureCount: 1,
+      providerFailureCount: 1,
+    });
+    expect(editorialCalls).toBe(0);
+  });
+
   it('continues a partial tier C stop with writerReady false without fail-fast', async () => {
     const route = routeWith(STOPS.slice(0, 2));
     let editorialCalls = 0;
@@ -483,6 +566,7 @@ describe('runNarrativeUserCanaryV8', () => {
       expect(entry.minimumEvidenceReady).toBe(true);
       expect(entry.writerReady).toBe(false);
       expect(entry.evidenceTier).toBe('C');
+      expect(entry.evidenceVariant).toBe('C_PARTIAL');
       expect(entry.routeEligible).toBe(true);
       expect(entry.missingRoles).toEqual(['tension_or_contrast']);
     }
@@ -548,6 +632,7 @@ describe('runNarrativeUserCanaryV8', () => {
       expect(entry.minimumEvidenceReady).toBe(true);
       expect(entry.writerReady).toBe(true);
       expect(entry.evidenceTier).toBe('C');
+      expect(entry.evidenceVariant).toBe('C_FULL');
       expect(entry.routeEligible).toBe(true);
       expect(entry.missingRoles).toEqual([]);
     }

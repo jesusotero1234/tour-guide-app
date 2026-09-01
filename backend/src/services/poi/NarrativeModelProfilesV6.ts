@@ -63,6 +63,7 @@ export interface NarrativeModelClientOptionsV6 {
   signal?: AbortSignal;
   onProgress?: EditorialProgressCallbackV6;
   runId?: string;
+  writerRateLimitAttempts?: 1 | 2 | 3;
 }
 
 export interface NarrativePhaseExecutionV6 {
@@ -178,7 +179,8 @@ export function narrativePhaseExecutionV6(
   client: NarrativeModelClientOptionsV6,
   phase: NarrativeModelPhaseV6,
   stopId?: string,
-  requestAttempts: 1 | 2 = 2
+  requestAttempts: 1 | 2 = 2,
+  rateLimitAttempts?: 1 | 2 | 3
 ): NarrativePhaseExecutionV6 {
   const profile = resolveNarrativeModelProfileV6(client.profile);
   const config = profile.phases[phase];
@@ -205,6 +207,7 @@ export function narrativePhaseExecutionV6(
       ...(config.temperature === undefined ? {} : { temperature: config.temperature }),
       maxTokens: config.maxTokens,
       requestAttempts,
+      ...(rateLimitAttempts !== undefined ? { rateLimitAttempts } : {}),
     },
   };
 }
