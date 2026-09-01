@@ -3,6 +3,7 @@ import { EditorialEntityCandidateV5 } from './EditorialEvidenceV5';
 import {
   captureWikimediaProminenceV6,
   WikimediaGetV6,
+  WikimediaProminenceProgressV6,
 } from './EditorialProminenceCaptureV6';
 import { validateWikimediaProminenceSnapshotV6 } from './EditorialProminenceV6';
 
@@ -38,8 +39,11 @@ describe('Wikimedia prominence capture v6', () => {
 
   it('captures candidate-owned mult-source signals, source revisions, and pageview percentiles', async () => {
     let rateLimited = false;
+    const progress: WikimediaProminenceProgressV6[] = [];
     const get: jest.MockedFunction<WikimediaGetV6> = jest.fn(async (url, options) => {
       const params = options.params as Record<string, string>;
+      expect(options.headers['User-Agent']).toContain('github.com/jesusotero1234/tour-guide-app');
+      expect(options.headers['Accept-Encoding']).toBe('gzip');
       if (url.includes('wikidata.org')) {
         expect(params.props).toBe('info|sitelinks');
         return { data: { success: 1, entities: {
@@ -96,6 +100,7 @@ describe('Wikimedia prominence capture v6', () => {
       capturedAt: '2026-08-07T00:00:00.000Z',
       pageviewWindow: { start: '2025-08-07', end: '2026-08-06' },
       get,
+      onProgress: (event) => progress.push(event),
     });
 
     expect(snapshot.candidates).toHaveLength(2);
@@ -122,6 +127,21 @@ describe('Wikimedia prominence capture v6', () => {
     })).toEqual(snapshot);
     expect(get.mock.calls.filter(([url]) => url.includes('wikimedia.org/api/rest_v1')))
       .toHaveLength(3);
+    expect(progress.filter((event) => event.event === 'stage_finished').map((event) => (
+      event.event === 'stage_finished' ? event.stage : null
+    ))).toEqual([
+      'wikidata_entities',
+      'city_wikipedia_revision',
+      'city_wikipedia_links',
+      'city_wikivoyage_revision',
+      'wikivoyage_sections',
+      'candidate_wikipedia_revisions',
+      'candidate_pageviews',
+    ]);
+    expect(progress.filter((event) => event.event === 'pageview_finished')).toHaveLength(2);
+    expect(progress.find((event) => event.event === 'request_retry')).toMatchObject({
+      event: 'request_retry', status: 429, attempt: 1, waitMs: 0,
+    });
   });
 
   it('rejects changed fingerprints and support IDs assigned to another identity', async () => {

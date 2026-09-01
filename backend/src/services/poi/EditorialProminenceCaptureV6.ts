@@ -28,7 +28,44 @@ export interface CaptureWikimediaProminenceOptionsV6 {
   capturedAt?: string;
   pageviewWindow?: { start: string; end: string };
   get?: WikimediaGetV6;
+  onProgress?: WikimediaProminenceProgressCallbackV6;
 }
+
+export type WikimediaProminenceStageV6 =
+  | 'wikidata_entities'
+  | 'city_wikipedia_revision'
+  | 'city_wikipedia_links'
+  | 'city_wikivoyage_revision'
+  | 'wikivoyage_sections'
+  | 'candidate_wikipedia_revisions'
+  | 'candidate_pageviews';
+
+export type WikimediaProminenceProgressV6 =
+  | {
+    event: 'stage_finished';
+    stage: WikimediaProminenceStageV6;
+    status: 'completed' | 'failed';
+    durationMs: number;
+  }
+  | {
+    event: 'pageview_finished';
+    canonicalId: string;
+    title: string;
+    completed: number;
+    total: number;
+    durationMs: number;
+  }
+  | {
+    event: 'request_retry';
+    endpoint: string;
+    status: 429 | 503;
+    attempt: number;
+    waitMs: number;
+  };
+
+export type WikimediaProminenceProgressCallbackV6 = (
+  event: WikimediaProminenceProgressV6
+) => void;
 
 interface WikidataEntityV6 {
   id: string;
@@ -37,7 +74,10 @@ interface WikidataEntityV6 {
   sitelinks: Record<string, { title: string }>;
 }
 
-const USER_AGENT_V6 = 'tour-guide-app/1.0 (offline editorial calibration)';
+const WIKIMEDIA_HEADERS_V6 = {
+  'User-Agent': 'tour-guide-app/1.0 (https://github.com/jesusotero1234/tour-guide-app)',
+  'Accept-Encoding': 'gzip',
+};
 const SEE_SECTION_NAMES = new Set([
   'see', 'ver', 'que ver', 'visitar', 'lugares de interes', 'voir', 'sehen', 'zien',
   'vedere', 'vegeu',
@@ -73,7 +113,10 @@ function retryAfterMilliseconds(error: unknown, attempt: number): number {
     : attempt * 1_000;
 }
 
-function retryingGet(rawGet: WikimediaGetV6): WikimediaGetV6 {
+function retryingGet(
+  rawGet: WikimediaGetV6,
+  onProgress?: WikimediaProminenceProgressCallbackV6
+): WikimediaGetV6 {
   return async (url, options) => {
     for (let attempt = 1; attempt <= 3; attempt += 1) {
       try {
@@ -81,7 +124,16 @@ function retryingGet(rawGet: WikimediaGetV6): WikimediaGetV6 {
       } catch (error) {
         const status = httpStatus(error);
         if (attempt < 3 && (status === 429 || status === 503)) {
-          await new Promise((resolve) => setTimeout(resolve, retryAfterMilliseconds(error, attempt)));
+          const waitMs = retryAfterMilliseconds(error, attempt);
+          const endpoint = new URL(url);
+          onProgress?.({
+            event: 'request_retry',
+            endpoint: `${endpoint.hostname}${endpoint.pathname}`,
+            status,
+            attempt,
+            waitMs,
+          });
+          await new Promise((resolve) => setTimeout(resolve, waitMs));
           continue;
         }
         const endpoint = new URL(url);
@@ -93,6 +145,26 @@ function retryingGet(rawGet: WikimediaGetV6): WikimediaGetV6 {
     }
     throw new Error('Wikimedia request exhausted retries unexpectedly');
   };
+}
+
+async function captureStage<T>(
+  stage: WikimediaProminenceStageV6,
+  onProgress: WikimediaProminenceProgressCallbackV6 | undefined,
+  operation: () => Promise<T>
+): Promise<T> {
+  const startedAt = Date.now();
+  try {
+    const result = await operation();
+    onProgress?.({
+      event: 'stage_finished', stage, status: 'completed', durationMs: Date.now() - startedAt,
+    });
+    return result;
+  } catch (error) {
+    onProgress?.({
+      event: 'stage_finished', stage, status: 'failed', durationMs: Date.now() - startedAt,
+    });
+    throw error;
+  }
 }
 
 function objectValue(value: unknown, label: string): Record<string, unknown> {
@@ -148,7 +220,7 @@ async function requestActionRevision(
       action: 'query', format: 'json', formatversion: 2, redirects: true,
       prop: 'revisions', rvprop: 'ids|timestamp', titles: title,
     },
-    headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+    headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
   });
   const pages = actionPages(response.data, `${project} revision response`);
   if (pages.length !== 1 || pages[0].missing !== undefined) {
@@ -170,7 +242,7 @@ async function requestWikidataEntities(
         action: 'wbgetentities', format: 'json', props: 'info|sitelinks',
         ids: qids.slice(offset, offset + 50).join('|'),
       },
-      headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+      headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
     });
     const root = objectValue(response.data, 'Wikidata response');
     if (root.success !== 1) throw new Error('Wikidata response was not successful');
@@ -211,7 +283,7 @@ async function requestCityWikipediaLinks(
         generator: 'links', titles: cityTitle, gplnamespace: 0, gpllimit: 'max',
         prop: 'pageprops', ppprop: 'wikibase_item', ...continuation,
       },
-      headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+      headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
     });
     for (const page of actionPages(response.data, 'city Wikipedia links response')) {
       if (!page.pageprops) continue;
@@ -238,7 +310,7 @@ async function requestWikivoyageSeeSections(
 ): Promise<Array<{ title: string; wikitext: string }>> {
   const sectionsResponse = await get(endpoint, {
     params: { action: 'parse', format: 'json', formatversion: 2, page: cityTitle, prop: 'sections' },
-    headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+    headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
   });
   const sectionsRoot = objectValue(sectionsResponse.data, 'Wikivoyage sections response');
   const parse = objectValue(sectionsRoot.parse, 'Wikivoyage sections parse');
@@ -257,7 +329,7 @@ async function requestWikivoyageSeeSections(
         action: 'parse', format: 'json', formatversion: 2, page: cityTitle,
         prop: 'wikitext', section: section.index,
       },
-      headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+      headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
     });
     const root = objectValue(response.data, `Wikivoyage ${section.title} response`);
     const parsed = objectValue(root.parse, `Wikivoyage ${section.title} parse`);
@@ -289,7 +361,7 @@ async function requestWikipediaRevisions(
         prop: 'revisions', rvprop: 'ids|timestamp',
         titles: unique.slice(offset, offset + 50).join('|'),
       },
-      headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+      headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
     });
     for (const page of actionPages(response.data, `${project} candidate revision response`)) {
       if (page.missing !== undefined) continue;
@@ -315,7 +387,7 @@ async function requestPageviews(
     + `/all-access/all-agents/${encodedTitle}/daily/${window.start.replace(/-/g, '')}`
     + `/${window.end.replace(/-/g, '')}`;
   const response = await get(url, {
-    params: {}, headers: { 'User-Agent': USER_AGENT_V6 }, timeout: 30_000,
+    params: {}, headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
   });
   const root = objectValue(response.data, `pageviews ${project}:${title}`);
   if (!Array.isArray(root.items)) throw new Error(`Pageviews ${project}:${title} items must be an array`);
@@ -370,7 +442,7 @@ export async function captureWikimediaProminenceV6(
   if (new Set(options.entities.map((entity) => entity.canonicalId)).size !== options.entities.length) {
     throw new Error('Wikimedia prominence capture requires unique canonical identities');
   }
-  const get = retryingGet(options.get ?? defaultGet);
+  const get = retryingGet(options.get ?? defaultGet, options.onProgress);
   const capturedAt = options.capturedAt ?? new Date().toISOString();
   const end = new Date(new Date(capturedAt).getTime() - 86_400_000);
   const start = new Date(end.getTime() - (364 * 86_400_000));
@@ -382,35 +454,59 @@ export async function captureWikimediaProminenceV6(
   const wikivoyageEndpoint = `https://${wikivoyageProject}/w/api.php`;
   const wikipediaSourcePrefix = `${options.language}wiki`;
   const wikivoyageSourcePrefix = `${options.language}wikivoyage`;
-  const wikidata = await requestWikidataEntities(
-    get, options.entities.map((entity) => entity.canonicalId)
+  const wikidata = await captureStage('wikidata_entities', options.onProgress, () => (
+    requestWikidataEntities(get, options.entities.map((entity) => entity.canonicalId))
+  ));
+  const cityRevision = await captureStage('city_wikipedia_revision', options.onProgress, () => (
+    requestActionRevision(
+      get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix, options.cityTitle
+    )
+  ));
+  const cityLinkedIds = await captureStage('city_wikipedia_links', options.onProgress, () => (
+    requestCityWikipediaLinks(get, wikipediaEndpoint, options.cityTitle)
+  ));
+  const wikivoyageRevision = await captureStage(
+    'city_wikivoyage_revision', options.onProgress, () => requestActionRevision(
+      get, wikivoyageEndpoint, wikivoyageProject, wikivoyageSourcePrefix, options.cityTitle
+    )
   );
-  const cityRevision = await requestActionRevision(
-    get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix, options.cityTitle
-  );
-  const cityLinkedIds = await requestCityWikipediaLinks(get, wikipediaEndpoint, options.cityTitle);
-  const wikivoyageRevision = await requestActionRevision(
-    get, wikivoyageEndpoint, wikivoyageProject, wikivoyageSourcePrefix, options.cityTitle
-  );
-  const seeSections = await requestWikivoyageSeeSections(get, wikivoyageEndpoint, options.cityTitle);
+  const seeSections = await captureStage('wikivoyage_sections', options.onProgress, () => (
+    requestWikivoyageSeeSections(get, wikivoyageEndpoint, options.cityTitle)
+  ));
   const wikipediaTitles = new Map(options.entities.map((entity) => {
     const sitelinks = wikidata.get(entity.canonicalId)?.sitelinks ?? {};
     return [entity.canonicalId, sitelinks[`${options.language}wiki`]?.title ?? null] as const;
   }));
-  const candidateRevisions = await requestWikipediaRevisions(
-    get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix,
-    [...wikipediaTitles.values()].filter((title): title is string => Boolean(title))
+  const candidateRevisions = await captureStage(
+    'candidate_wikipedia_revisions', options.onProgress, () => requestWikipediaRevisions(
+      get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix,
+      [...wikipediaTitles.values()].filter((title): title is string => Boolean(title))
+    )
   );
-  const pageviews: Array<number | null> = [];
-  for (const entity of options.entities) {
-    const title = wikipediaTitles.get(entity.canonicalId) ?? null;
-    pageviews.push(title
-      ? await requestPageviews(get, wikipediaProject, title, pageviewWindow)
-      : null);
-    if (!options.get && title) {
-      await new Promise((resolve) => setTimeout(resolve, 1_000));
+  const pageviewTotal = [...wikipediaTitles.values()].filter(Boolean).length;
+  const pageviews = await captureStage('candidate_pageviews', options.onProgress, async () => {
+    const values: Array<number | null> = [];
+    let completed = 0;
+    for (const entity of options.entities) {
+      const title = wikipediaTitles.get(entity.canonicalId) ?? null;
+      if (!title) {
+        values.push(null);
+        continue;
+      }
+      const startedAt = Date.now();
+      values.push(await requestPageviews(get, wikipediaProject, title, pageviewWindow));
+      completed += 1;
+      options.onProgress?.({
+        event: 'pageview_finished',
+        canonicalId: entity.canonicalId,
+        title,
+        completed,
+        total: pageviewTotal,
+        durationMs: Date.now() - startedAt,
+      });
     }
-  }
+    return values;
+  });
   const percentiles = pageviewPercentiles(pageviews);
   const labelsById = uniqueCandidateLabels(options.entities, wikipediaTitles);
   const wikivoyageSectionById = new Map<string, string>();

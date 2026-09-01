@@ -101,29 +101,34 @@ export async function runCanonicalCoreResolutionV6(
   provider: EditorialProviderV6,
   options: CoreResolutionOptionsV6 = {}
 ): Promise<CoreResolutionWorkflowResultV6> {
-  const seeds = options.candidatePermutationSeeds ?? [...CORE_AUDIT_PERMUTATION_SEEDS_V6];
+  const {
+    createdAt,
+    candidatePermutationSeeds,
+    ...requestOptions
+  } = options;
+  const seeds = candidatePermutationSeeds ?? [...CORE_AUDIT_PERMUTATION_SEEDS_V6];
   if (seeds.length !== 3 || new Set(seeds).size !== 3) {
     throw new Error('Core resolution requires exactly three distinct permutation seeds');
   }
-  const requestOptions: EditorialRequestOptionsV6 = {
-    apiKey: options.apiKey, oneProviderApiKey: options.oneProviderApiKey,
-    ollamaHost: options.ollamaHost,
-    deepseekBaseUrl: options.deepseekBaseUrl,
-    oneProviderBaseUrl: options.oneProviderBaseUrl,
-    maxTokens: options.maxTokens,
-    post: options.post,
-  };
-  const runs: Array<EditorialCallResultV6<CoreAuditV6>> = [];
-  for (const seed of seeds) {
+  const auditSeed = (seed: string): Promise<EditorialCallResultV6<CoreAuditV6>> => {
     const request = buildCoreAuditRequestV6(context, entities, prominence, seed);
-    const call = await requestAudit(request, provider, requestOptions);
-    runs.push(call);
+    return requestAudit(request, provider, requestOptions);
+  };
+  let runs: Array<EditorialCallResultV6<CoreAuditV6>>;
+  if (provider.kind === 'deepseek') {
+    // The three permutations are independent, and DeepSeek explicitly supports concurrent calls.
+    runs = await Promise.all(seeds.map(auditSeed));
+  } else {
+    runs = [];
+    for (const seed of seeds) runs.push(await auditSeed(seed));
+  }
+  for (const [index, call] of runs.entries()) {
     if (!call.value) {
       const error = call.attempts.at(-1)?.error ?? call.status;
       return snapshotResult(
         'core_review_required', provider, prominence.fingerprint, seeds, runs, null,
-        `Core audit ${seed} failed closed with ${call.status}: ${error}`,
-        options.createdAt ?? new Date().toISOString()
+        `Core audit ${seeds[index]} failed closed with ${call.status}: ${error}`,
+        createdAt ?? new Date().toISOString()
       );
     }
   }
@@ -146,7 +151,7 @@ export async function runCanonicalCoreResolutionV6(
   return snapshotResult(
     coreResult.status, provider, prominence.fingerprint, seeds, runs, coreResult,
     coreResult.status === 'approved' ? null : coreResult.reason,
-    options.createdAt ?? new Date().toISOString()
+    createdAt ?? new Date().toISOString()
   );
 }
 

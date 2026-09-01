@@ -94,7 +94,10 @@ import {
   runCanonicalCoreResolutionV6,
   CoreResolutionSnapshotV6,
 } from '../../src/services/poi/EditorialCoreWorkflowV6';
-import { captureWikimediaProminenceV6 } from '../../src/services/poi/EditorialProminenceCaptureV6';
+import {
+  captureWikimediaProminenceV6,
+  WikimediaProminenceProgressV6,
+} from '../../src/services/poi/EditorialProminenceCaptureV6';
 import {
   validateWikimediaProminenceSnapshotV6,
   WikimediaProminenceSnapshotV6,
@@ -628,12 +631,36 @@ function providerFromArguments(): EditorialProviderV6 {
   };
 }
 
+function reportWikimediaProminenceProgressV6(event: WikimediaProminenceProgressV6): void {
+  if (event.event === 'request_retry') {
+    console.warn(
+      `[v8-canary] prominence retry ${event.endpoint} HTTP ${event.status}`
+      + ` in ${event.waitMs}ms (attempt ${event.attempt}/3)`
+    );
+    return;
+  }
+  if (event.event === 'pageview_finished') {
+    console.log(
+      `[v8-canary] prominence pageview ${event.completed}/${event.total}`
+      + ` ${event.canonicalId} ${event.title}: ${event.durationMs}ms`
+    );
+    return;
+  }
+  console.log(
+    `[v8-canary] prominence ${event.stage} ${event.status}: ${event.durationMs}ms`
+  );
+}
+
 async function loadCoreV8(
   context: CoreResolutionContextV6,
   entities: EditorialEntityCandidateV5[],
   provider: EditorialProviderV6,
   apiKey: string,
-  onProgress?: EditorialProgressCallbackV6
+  progress: {
+    onProgress?: EditorialProgressCallbackV6;
+    runId?: string;
+    profile?: string;
+  } = {}
 ): Promise<{
   requiredIds: string[];
   disagreement: boolean;
@@ -677,14 +704,30 @@ async function loadCoreV8(
     cityTitle: option('--city-title') ?? context.cityKey,
     language: option('--language') ?? 'es',
     entities,
+    onProgress: reportWikimediaProminenceProgressV6,
   });
+  const coreProgress: EditorialProgressCallbackV6 = (event) => {
+    progress.onProgress?.(event);
+    if (event.event === 'attempt_started') {
+      console.log(`[v8-canary] ${event.callId} attempt ${event.attempt} started`);
+    } else if (event.event === 'attempt_finished') {
+      console.log(
+        `[v8-canary] ${event.callId} attempt ${event.attempt}`
+        + ` ${event.diagnostic?.status ?? 'unknown'}: ${event.diagnostic?.latencyMs ?? 0}ms`
+      );
+    }
+  };
   const result = await runCanonicalCoreResolutionV6(
     entities, prominence, context, provider,
     {
       apiKey,
       oneProviderApiKey: process.env.ONEPROVIDER_API_KEY?.trim(),
       ollamaHost: process.env.OLLAMA_HOST,
-      onProgress,
+      onProgress: coreProgress,
+      phase: 'core_audit',
+      stopId: 'v8-user-canary',
+      runId: progress.runId,
+      profile: progress.profile,
     }
   );
   const core = result.coreResult?.status === 'approved'
@@ -959,7 +1002,7 @@ async function main(): Promise<void> {
         readyEntities,
         providerFromArguments(),
         apiKey,
-        onProgress
+        { onProgress, runId, profile }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1069,7 +1112,7 @@ async function main(): Promise<void> {
         loaded.readyEntities,
         providerFromArguments(),
         apiKey,
-        onProgress
+        { onProgress, runId, profile }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,

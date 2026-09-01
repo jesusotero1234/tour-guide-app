@@ -82,7 +82,14 @@ describe('canonical core audit workflow v6', () => {
   it('runs three frozen permutations, persists full responses, and replays exactly', async () => {
     const { entities, prominence } = fixture();
     const required = new Set(['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7']);
+    let active = 0;
+    let peakActive = 0;
+    const progress: string[] = [];
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      active += 1;
+      peakActive = Math.max(peakActive, active);
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      active -= 1;
       const request = requestFromBody(body);
       const toolName = ((body.tools as any[])[0].function.name) as string;
       return response(toolName, audit(request, required));
@@ -92,11 +99,17 @@ describe('canonical core audit workflow v6', () => {
       entities, prominence,
       { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
       { kind: 'deepseek', model: 'deepseek-v4-flash' },
-      { apiKey: 'test-key', post, createdAt: '2026-08-07T01:00:00.000Z' }
+      {
+        apiKey: 'test-key', post, createdAt: '2026-08-07T01:00:00.000Z',
+        onProgress: (event) => progress.push(event.event),
+      }
     );
 
     expect(result.status).toBe('approved');
     expect(post).toHaveBeenCalledTimes(3);
+    expect(peakActive).toBe(3);
+    expect(progress.filter((event) => event === 'attempt_started')).toHaveLength(3);
+    expect(progress.filter((event) => event === 'attempt_finished')).toHaveLength(3);
     expect(result.snapshot.runs).toHaveLength(3);
     expect(new Set(result.snapshot.runs.map((run) => run.promptFingerprint)).size).toBe(1);
     expect(result.snapshot.runs.every((run) => (
@@ -181,6 +194,6 @@ describe('canonical core audit workflow v6', () => {
     );
     expect(rejected.status).toBe('core_review_required');
     expect(rejected.reason).toMatch(/semantic/i);
-    expect(semanticPost).toHaveBeenCalledTimes(2);
+    expect(semanticPost).toHaveBeenCalledTimes(6);
   });
 });
