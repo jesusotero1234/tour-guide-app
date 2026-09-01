@@ -46,7 +46,7 @@ describe('narrative v6 editorial agents', () => {
       const args = toolName === 'write_narrative_stop_v6'
         ? {
           stop_id: 'palace',
-          script: 'Mira la fachada. Aquí comienza la historia del edificio.',
+          script: 'Mira la fachada. El poder de su origen abre el contraste entre la autoridad religiosa y civil.',
         }
         : { findings: [
           { sentenceId: 'palace-S001', classification: 'supported', reason: 'P1', propositionIds: [] },
@@ -58,7 +58,10 @@ describe('narrative v6 editorial agents', () => {
     });
     const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
     const written = await agents.write({
-      stopId: 'palace', dossier, arc: { promise: 'Entender el poder', contribution: 'Origen' },
+      stopId: 'palace', dossier, arc: {
+        promise: 'Entender el poder', contribution: 'Origen',
+        bridge: 'El poder religioso se confronta con la autoridad civil.',
+      },
       previousStop: null, nextStop: 'almudena', voiceProfile: ['Español oral'],
     });
     const script = assignNarrativeSentenceIdsV6('palace', written.value.text);
@@ -70,7 +73,7 @@ describe('narrative v6 editorial agents', () => {
 
     expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0, 0]);
     expect(written.value).toEqual({
-      text: 'Mira la fachada. Aquí comienza la historia del edificio.',
+      text: 'Mira la fachada. El poder de su origen abre el contraste entre la autoridad religiosa y civil.',
     });
     expect(writerBody.tools).toEqual(expect.arrayContaining([
       expect.objectContaining({ function: expect.objectContaining({
@@ -83,6 +86,7 @@ describe('narrative v6 editorial agents', () => {
     expect(writerPrompt).toContain('no una ruta');
     expect(writerPrompt).toContain('Mantén separadas la fecha de diseño o construcción');
     expect(writerPrompt).toContain('cierra explícitamente el recorrido');
+    expect(writerPrompt).toContain('reutiliza dos de sus palabras significativas');
     const auditSchema = ((auditBody.tools[0].function.parameters.properties as {
       findings: Record<string, unknown>;
     }).findings);
@@ -135,6 +139,40 @@ describe('narrative v6 editorial agents', () => {
     expect(auditBody.tools[0].function.name).toBe('audit_narrative_sentences_v6');
     expect(auditBody.tools[0].function.parameters.type).toBe('object');
     expect(auditBody.tools[0].function.parameters.required).toEqual(['findings']);
+  });
+
+  it('retries a generic closing and accepts an ending that carries the arc bridge', async () => {
+    let attempt = 0;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      attempt += 1;
+      const messages = body.messages as Array<{ role: string; content: string }>;
+      if (attempt === 2) {
+        expect(messages[2].content).toContain('closes the tour even though a next stop exists');
+      }
+      const script = attempt === 1
+        ? 'Observa la fachada. Con esto termina nuestro recorrido.'
+        : 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.';
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'write_narrative_stop_v6',
+        arguments: JSON.stringify({ stop_id: 'palace', script }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+
+    const written = await agents.write({
+      stopId: 'palace', dossier,
+      arc: {
+        promise: 'Entender el poder', contribution: 'Origen',
+        bridge: 'La autoridad religiosa contrasta con el poder civil.',
+      },
+      previousStop: null, nextStop: 'almudena', voiceProfile: ['Español oral'],
+    });
+
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(written.diagnostic.attempts.map((item) => item.status))
+      .toEqual(['semantic_error', 'valid']);
+    expect(written.value.text).toContain('autoridad religiosa');
+    expect(written.value.text).toContain('poder civil');
   });
 
   it('batches long Gemma audits and still returns one complete sentence ledger', async () => {
