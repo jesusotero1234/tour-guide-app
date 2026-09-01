@@ -154,4 +154,152 @@ describe('narrative v6 editorial protocol', () => {
       expect(warnings).toEqual([]);
     }
   });
+
+  it('v8 policy: authorizes Pío IX from proposition text and rejects synthetic recombination', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Pío IX visitó el Alcázar. Después llegó Napoleón y Carlos III.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: ['Alcázar'],
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts: ['Pío IX fue el papa que visitó el Alcázar.'],
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0].message).toContain('Napoleón');
+    expect(warnings[0].sentenceId).toBe('alcazar-S002');
+    expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+
+    const synthetic = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Carlos Napoleón llegó al Alcázar.'
+    );
+    const syntheticWarnings = auditNarrativeScriptDeterministicallyV6(synthetic, {
+      language: 'es',
+      authorizedNames: ['Alcázar'],
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts: ['Carlos III fue el rey. Napoleón visitó la ciudad.'],
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(syntheticWarnings).toHaveLength(1);
+    expect(syntheticWarnings[0].message).toContain('Carlos Napoleón');
+  });
+
+  it('v8 policy: treats Hermanas de la Cruz and hyphenated surnames as complete spans', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'madrid',
+      'Las Hermanas de la Cruz atendieron al paciente. María José-García llegó después.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts: [
+        'Las Hermanas de la Cruz son una congregación religiosa.',
+        'María José-García es una historiadora.',
+      ],
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(warnings).toEqual([]);
+
+    const unauthorizedScript = assignNarrativeSentenceIdsV6(
+      'madrid',
+      'El grupo visitó a las Hermanas de la Cruz en el barrio. Después María José-García llegó al museo.'
+    );
+    const unauthorizedWarnings = auditNarrativeScriptDeterministicallyV6(unauthorizedScript, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(unauthorizedWarnings).toHaveLength(2);
+    expect(unauthorizedWarnings[0].severity).toBe('hard');
+    expect(unauthorizedWarnings[0].message).toContain('Hermanas de la Cruz');
+    expect(unauthorizedWarnings[1].severity).toBe('hard');
+    expect(unauthorizedWarnings[1].message).toContain('María José-García');
+  });
+
+  it('v8 policy: emits ambiguous_capitalized_start for unknown single capitalized word at sentence start', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'madrid',
+      'Zorro caminó por la plaza. Después llegó el grupo.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+    });
+    const ambiguous = warnings.filter((w) => w.code === 'ambiguous_capitalized_start');
+    expect(ambiguous).toHaveLength(1);
+    expect(ambiguous[0].severity).toBe('soft');
+    expect(ambiguous[0].sentenceId).toBe('madrid-S001');
+    expect(ambiguous[0].scriptFingerprint).toBe(script.fingerprint);
+  });
+
+  it('v8 policy: repeated unauthorized names carry distinct sentence IDs', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Aquí llegó Napoleón al Alcázar. Después volvió Napoleón al día siguiente.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: ['Alcázar'],
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(warnings).toHaveLength(2);
+    expect(warnings[0].sentenceId).toBe('alcazar-S001');
+    expect(warnings[1].sentenceId).toBe('alcazar-S002');
+    expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+    expect(warnings[1].scriptFingerprint).toBe(script.fingerprint);
+  });
+
+  it('v8 policy: canonicalizes equivalent Spanish thousands formats', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Había 15 000 visitantes. También 15\u00A0000 personas. Luego 15\u202F000 asistentes. Y 15.000 más.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: ['15.000'],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_number');
+    expect(warnings).toEqual([]);
+  });
+
+  it('v8 policy: treats year ranges as a single canonical range', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'La construcción ocurrió entre 1530-1540. También se cita 1530\u20131540.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: ['1530-1540'],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_number');
+    expect(warnings).toEqual([]);
+  });
+
+  it('v8 policy: repeated unauthorized numeric occurrences have distinct sentence IDs', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'En 1937 llegó el grupo. Después en 1937 volvió.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_number');
+    expect(warnings).toHaveLength(2);
+    expect(warnings[0].sentenceId).toBe('alcazar-S001');
+    expect(warnings[1].sentenceId).toBe('alcazar-S002');
+    expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+    expect(warnings[1].scriptFingerprint).toBe(script.fingerprint);
+  });
 });

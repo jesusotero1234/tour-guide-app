@@ -59,9 +59,12 @@ export interface NarrativeProtocolWarningV6 {
     | 'unauthorized_number'
     | 'unsafe_orientation'
     | 'duration_outlier'
-    | 'cross_stop_repetition';
+    | 'cross_stop_repetition'
+    | 'ambiguous_capitalized_start';
   severity: 'hard' | 'soft';
   message: string;
+  sentenceId?: string;
+  scriptFingerprint?: string;
 }
 
 const AUDIT_CLASSIFICATIONS_V6: NarrativeAuditClassificationV6[] = [
@@ -196,7 +199,13 @@ export function applyNarrativeLocalPatchV6(
 
 export function auditNarrativeScriptDeterministicallyV6(
   script: NarrativeScriptV6,
-  input: { language: string; authorizedNames?: string[]; authorizedNumbers: string[] }
+  input: {
+    language: string;
+    authorizedNames?: string[];
+    authorizedNumbers: string[];
+    policy?: 'v8';
+    authorizedPropositionTexts?: string[];
+  }
 ): NarrativeProtocolWarningV6[] {
   const warnings: NarrativeProtocolWarningV6[] = [];
   const words = normalizedWords(script.text);
@@ -209,67 +218,173 @@ export function auditNarrativeScriptDeterministicallyV6(
       });
     }
   }
-  const authorizedNameTokens = new Set(
-    (input.authorizedNames ?? []).flatMap((name) => normalizedWords(name))
-  );
-  const commonSentenceStarts = new Set([
-    'ahora', 'aqui', 'alli', 'aunque', 'ambos', 'asi', 'aun', 'cuando', 'comenzo',
-    'comparala', 'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
-    'ese', 'esa', 'fijate', 'fijese', 'fue', 'hemos', 'hoy', 'la', 'las', 'llegamos',
-    'lo', 'los', 'luego', 'mira', 'mirale', 'mientras', 'no', 'nos', 'observa',
-    'observe', 'originariamente', 'pero', 'si', 'sigueme', 'sin', 'su', 'tal',
-    'tambien', 'toda', 'todo', 'entonces', 'y',
-  ]);
-  const genericNamePrefixes = new Set([
-    'calle', 'catedral', 'fuente', 'museo', 'palacio', 'paseo', 'plaza', 'puerta',
-  ]);
-  const nameConnectors = new Set(['de', 'del', 'la', 'las', 'los']);
-  const authorizedNameJoiners = new Set(['de', 'del', 'y']);
-  const singleNamePrepositions = new Set(['a', 'al', 'con', 'de', 'del', 'en', 'la', 'por']);
-  const nameCandidates = [...script.text.matchAll(
-    /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:\s+(?:(?:de|del|la|las|los|y)\s+)?[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*/gu
-  )];
-  const checkedNames = new Set<string>();
-  for (const match of nameCandidates) {
-    const candidate = match[0];
-    const prefix = script.text.slice(0, match.index).trimEnd();
-    const candidateWords = normalizedWords(candidate);
-    if (candidateWords.length > 2 && genericNamePrefixes.has(candidateWords[0])
-      && nameConnectors.has(candidateWords[1])) {
-      candidateWords.shift();
-      while (candidateWords.length > 1 && nameConnectors.has(candidateWords[0])) {
-        candidateWords.shift();
+  if (input.policy === 'v8') {
+    const authorizedTexts = [
+      ...(input.authorizedNames ?? []),
+      ...(input.authorizedPropositionTexts ?? []),
+    ];
+    const authorizedNormalized = authorizedTexts.map((text) => normalizedWords(text).join(' '));
+    const commonSentenceStarts = new Set([
+      'ahora', 'aqui', 'alli', 'aunque', 'ambos', 'asi', 'aun', 'cuando', 'comenzo',
+      'comparala', 'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
+      'ese', 'esa', 'fijate', 'fijese', 'fue', 'hemos', 'hoy', 'la', 'las', 'llegamos',
+      'lo', 'los', 'luego', 'mira', 'mirale', 'mientras', 'no', 'nos', 'observa',
+      'observe', 'originariamente', 'pero', 'si', 'sigueme', 'sin', 'su', 'tal',
+      'tambien', 'toda', 'todo', 'entonces', 'y',
+    ]);
+    const genericNamePrefixes = new Set([
+      'calle', 'catedral', 'fuente', 'museo', 'palacio', 'paseo', 'plaza', 'puerta',
+    ]);
+    const nameConnectors = new Set(['de', 'del', 'la', 'las', 'los']);
+    const singleNamePrepositions = new Set(['a', 'al', 'con', 'de', 'del', 'en', 'la', 'por']);
+    const nameCandidateRegex = /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*(?:\s+(?:(?:de|del|la|las|los|y)\s+)*[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*)*/gu;
+    const checkedPerSentence = new Map<string, Set<string>>();
+    for (const sentence of script.sentences) {
+      const sentenceText = sentence.text;
+      const checkedInSentence = checkedPerSentence.get(sentence.sentenceId) ?? new Set<string>();
+      checkedPerSentence.set(sentence.sentenceId, checkedInSentence);
+      const matches = [...sentenceText.matchAll(nameCandidateRegex)];
+      for (const match of matches) {
+        const candidate = match[0];
+        const candidateWords = normalizedWords(candidate);
+        if (candidateWords.length > 2 && genericNamePrefixes.has(candidateWords[0])
+          && nameConnectors.has(candidateWords[1])) {
+          candidateWords.shift();
+          while (candidateWords.length > 1 && nameConnectors.has(candidateWords[0])) {
+            candidateWords.shift();
+          }
+        }
+        const normalizedCandidate = candidateWords.join(' ');
+        if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
+          || commonSentenceStarts.has(normalizedCandidate)
+          || checkedInSentence.has(normalizedCandidate)) continue;
+        const atSentenceStart = match.index === 0;
+        const previousWord = normalizedWords(sentenceText.slice(0, match.index).match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
+        if (candidateWords.length === 1 && singleNamePrepositions.has(previousWord)) continue;
+        const isAuthorized = authorizedNormalized.some((authText) => ` ${authText} `.includes(` ${normalizedCandidate} `));
+        if (isAuthorized) {
+          checkedInSentence.add(normalizedCandidate);
+          continue;
+        }
+        if (atSentenceStart && candidateWords.length === 1) {
+          checkedInSentence.add(normalizedCandidate);
+          warnings.push({
+            warningId: `${script.stopId}:ambiguous_capitalized_start:${normalizedCandidate}:${sentence.sentenceId}`, stopId: script.stopId,
+            code: 'ambiguous_capitalized_start', severity: 'soft',
+            message: `La palabra inicial ${candidate} podría ser un nombre no autorizado.`,
+            sentenceId: sentence.sentenceId,
+            scriptFingerprint: script.fingerprint,
+          });
+          continue;
+        }
+        checkedInSentence.add(normalizedCandidate);
+        warnings.push({
+          warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}:${sentence.sentenceId}`, stopId: script.stopId,
+          code: 'unauthorized_name', severity: 'hard',
+          message: `El nombre ${candidate} no está autorizado por el dossier.`,
+          sentenceId: sentence.sentenceId,
+          scriptFingerprint: script.fingerprint,
+        });
       }
     }
-    const normalizedCandidate = candidateWords.join(' ');
-    const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
-    const previousWord = normalizedWords(prefix.match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
-    const covered = (wordsToCheck: string[]) => wordsToCheck.every((word) => (
-      authorizedNameJoiners.has(word) || authorizedNameTokens.has(word)
-    ));
-    const authorizedCandidate = covered(candidateWords)
-      || (atSentenceStart && candidateWords.length > 1 && covered(candidateWords.slice(1)));
-    if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
-      || commonSentenceStarts.has(normalizedCandidate)
-      || (candidateWords.length === 1 && singleNamePrepositions.has(previousWord))
-      || checkedNames.has(normalizedCandidate)
-      || authorizedCandidate) continue;
-    checkedNames.add(normalizedCandidate);
-    warnings.push({
-      warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}`, stopId: script.stopId,
-      code: 'unauthorized_name', severity: 'hard',
-      message: `El nombre ${candidate} no está autorizado por el dossier.`,
-    });
+  } else {
+    const authorizedNameTokens = new Set(
+      (input.authorizedNames ?? []).flatMap((name) => normalizedWords(name))
+    );
+    const commonSentenceStarts = new Set([
+      'ahora', 'aqui', 'alli', 'aunque', 'ambos', 'asi', 'aun', 'cuando', 'comenzo',
+      'comparala', 'despues', 'desde', 'dos', 'el', 'ella', 'en', 'esta', 'estas', 'este', 'esto',
+      'ese', 'esa', 'fijate', 'fijese', 'fue', 'hemos', 'hoy', 'la', 'las', 'llegamos',
+      'lo', 'los', 'luego', 'mira', 'mirale', 'mientras', 'no', 'nos', 'observa',
+      'observe', 'originariamente', 'pero', 'si', 'sigueme', 'sin', 'su', 'tal',
+      'tambien', 'toda', 'todo', 'entonces', 'y',
+    ]);
+    const genericNamePrefixes = new Set([
+      'calle', 'catedral', 'fuente', 'museo', 'palacio', 'paseo', 'plaza', 'puerta',
+    ]);
+    const nameConnectors = new Set(['de', 'del', 'la', 'las', 'los']);
+    const authorizedNameJoiners = new Set(['de', 'del', 'y']);
+    const singleNamePrepositions = new Set(['a', 'al', 'con', 'de', 'del', 'en', 'la', 'por']);
+    const nameCandidates = [...script.text.matchAll(
+      /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:\s+(?:(?:de|del|la|las|los|y)\s+)?[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*/gu
+    )];
+    const checkedNames = new Set<string>();
+    for (const match of nameCandidates) {
+      const candidate = match[0];
+      const prefix = script.text.slice(0, match.index).trimEnd();
+      const candidateWords = normalizedWords(candidate);
+      if (candidateWords.length > 2 && genericNamePrefixes.has(candidateWords[0])
+        && nameConnectors.has(candidateWords[1])) {
+        candidateWords.shift();
+        while (candidateWords.length > 1 && nameConnectors.has(candidateWords[0])) {
+          candidateWords.shift();
+        }
+      }
+      const normalizedCandidate = candidateWords.join(' ');
+      const atSentenceStart = !prefix || /[.!?…]$/u.test(prefix);
+      const previousWord = normalizedWords(prefix.match(/([\p{L}]+)\s*$/u)?.[1] ?? '')[0];
+      const covered = (wordsToCheck: string[]) => wordsToCheck.every((word) => (
+        authorizedNameJoiners.has(word) || authorizedNameTokens.has(word)
+      ));
+      const authorizedCandidate = covered(candidateWords)
+        || (atSentenceStart && candidateWords.length > 1 && covered(candidateWords.slice(1)));
+      if (!normalizedCandidate || /^[ivxlcdm]+$/iu.test(normalizedCandidate)
+        || commonSentenceStarts.has(normalizedCandidate)
+        || (candidateWords.length === 1 && singleNamePrepositions.has(previousWord))
+        || checkedNames.has(normalizedCandidate)
+        || authorizedCandidate) continue;
+      checkedNames.add(normalizedCandidate);
+      warnings.push({
+        warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}`, stopId: script.stopId,
+        code: 'unauthorized_name', severity: 'hard',
+        message: `El nombre ${candidate} no está autorizado por el dossier.`,
+      });
+    }
   }
   const authorized = new Set(input.authorizedNumbers.map((number) => number.replace(/\s+/gu, '')));
-  const numbers = [...new Set(script.text.match(/\b\d[\d.,]*\b/gu) ?? [])];
-  for (const number of numbers) {
-    if (!authorized.has(number.replace(/\s+/gu, ''))) {
-      warnings.push({
-        warningId: `${script.stopId}:unauthorized_number:${number}`, stopId: script.stopId,
-        code: 'unauthorized_number', severity: 'hard',
-        message: `El número ${number} no está autorizado por el dossier.`,
-      });
+  if (input.policy === 'v8') {
+    const numericCandidateRegex = /\b\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}\s*[-\u2013\u2014]\s*\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}\b|\b\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}\s*[-\u2013\u2014]\s*\d{1,4}\b|\b\d{1,4}\s*[-\u2013\u2014]\s*\d{1,4}\b|\b\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}\b|\b\d+(?:[.,]\d+)?\b/gu;
+    const canonicalizeNumber = (raw: string): string => {
+      const trimmed = raw.trim();
+      const rangeMatch = trimmed.match(/^(\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}|\d{1,4})\s*[-\u2013\u2014]\s*(\d{1,4}(?:[\u00A0\u202F.\s]\d{3}){1,3}|\d{1,4})$/u);
+      if (rangeMatch) {
+        const left = rangeMatch[1].replace(/[\u00A0\u202F.\s]/gu, '');
+        const right = rangeMatch[2].replace(/[\u00A0\u202F.\s]/gu, '');
+        return `${left}-${right}`;
+      }
+      const dotThousands = trimmed.match(/^(\d{1,4})(?:\.\d{3}){1,3}$/u);
+      if (dotThousands) {
+        return dotThousands[0].replace(/\./gu, '');
+      }
+      return trimmed.replace(/[\u00A0\u202F.\s]/gu, '');
+    };
+    const authorizedCanonical = new Set(input.authorizedNumbers.map(canonicalizeNumber));
+    for (const sentence of script.sentences) {
+      const matches = [...sentence.text.matchAll(numericCandidateRegex)];
+      for (const match of matches) {
+        const raw = match[0];
+        const canonical = canonicalizeNumber(raw);
+        if (!authorizedCanonical.has(canonical)) {
+          warnings.push({
+            warningId: `${script.stopId}:unauthorized_number:${canonical}:${sentence.sentenceId}`, stopId: script.stopId,
+            code: 'unauthorized_number', severity: 'hard',
+            message: `El número ${raw} no está autorizado por el dossier.`,
+            sentenceId: sentence.sentenceId,
+            scriptFingerprint: script.fingerprint,
+          });
+        }
+      }
+    }
+  } else {
+    const numbers = [...new Set(script.text.match(/\b\d[\d.,]*\b/gu) ?? [])];
+    for (const number of numbers) {
+      if (!authorized.has(number.replace(/\s+/gu, ''))) {
+        warnings.push({
+          warningId: `${script.stopId}:unauthorized_number:${number}`, stopId: script.stopId,
+          code: 'unauthorized_number', severity: 'hard',
+          message: `El número ${number} no está autorizado por el dossier.`,
+        });
+      }
     }
   }
   if (/\b(?:cruza|atraviesa)\s+(?:la\s+)?(?:calle|carretera|calzada)\b/iu.test(script.text)) {
