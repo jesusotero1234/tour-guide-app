@@ -784,10 +784,48 @@ async function main(): Promise<void> {
       scripts: JsonValue[];
       failureReason?: string;
       retryableLater?: boolean;
+      openIssueIds?: string[];
+      issues?: JsonValue[];
+      issueSummary?: JsonValue;
     };
     scorecard?: JsonValue;
   } = {};
   const toJsonValue = (value: unknown): JsonValue => JSON.parse(JSON.stringify(value)) as JsonValue;
+  type EditorialIssueCheckpointFields = Pick<
+    NonNullable<NarrativeUserCanaryCheckpointV8['editorial']>,
+    'openIssueIds' | 'issues' | 'issueSummary'
+  >;
+  const editorialIssueCheckpointFields = (
+    editorial: NarrativeUserCanaryCheckpointV8['editorial']
+  ): EditorialIssueCheckpointFields => {
+    if (!editorial) return {};
+    const fields: EditorialIssueCheckpointFields = {};
+    if (editorial.openIssueIds !== undefined) {
+      fields.openIssueIds = [...editorial.openIssueIds];
+    }
+    if (editorial.issues !== undefined) {
+      fields.issues = editorial.issues.map((issue) => toJsonValue(issue));
+    }
+    if (editorial.issueSummary !== undefined) {
+      fields.issueSummary = toJsonValue(editorial.issueSummary);
+    }
+    return fields;
+  };
+  const workflowIssueStateToCheckpointFields = (source: {
+    issueStateV8?: {
+      openIssueIds: string[];
+      issues: unknown[];
+      summary: unknown;
+    };
+  }): EditorialIssueCheckpointFields => {
+    const issueState = source.issueStateV8;
+    if (!issueState) return {};
+    return {
+      openIssueIds: [...issueState.openIssueIds],
+      issues: issueState.issues.map((issue) => toJsonValue(issue)),
+      issueSummary: toJsonValue(issueState.summary),
+    };
+  };
   let checkpointPersistenceEnabled = true;
   const persistCheckpoint = async (completedPhase: 'candidates' | 'route' | 'research' | 'arc' | 'editorial' | 'scorecard') => {
     if (!checkpointPersistenceEnabled) return;
@@ -1281,12 +1319,16 @@ async function main(): Promise<void> {
     currentStage = 'editorial_workflow';
     let editorialScripts: NarrativeScriptV6[];
     let editorialWorkflowStatus: string;
+    let editorialIssueFields: EditorialIssueCheckpointFields = checkpointState.editorial
+      ? editorialIssueCheckpointFields(checkpointState.editorial)
+      : {};
     if (!shouldExecuteResumePhaseV8(resumeFromPhase, 'editorial')) {
       editorialScripts = savedEditorialScripts;
       editorialWorkflowStatus = 'ready_for_human_gate';
       checkpointState.editorial = {
         status: editorialWorkflowStatus,
         scripts: savedEditorialScripts.map((script) => toJsonValue(script)),
+        ...editorialIssueFields,
       };
       await persistCheckpoint('editorial');
     } else {
@@ -1344,6 +1386,7 @@ async function main(): Promise<void> {
         throw new Error(workflowResult.reason);
       }
       const editorial = workflowResult.editorial;
+      editorialIssueFields = workflowIssueStateToCheckpointFields({ issueStateV8: editorial.issueStateV8 });
       const editorialScriptSet = inspectEditorialScriptSetV8(
         route.stops.map((stop) => stop.stopId),
         editorial.stops
@@ -1355,7 +1398,7 @@ async function main(): Promise<void> {
         arc: architectResult,
         editorialRun: editorial.run,
         ...editorialScriptSet,
-        openIssueIds: 'openIssueIds' in editorial.run ? editorial.run.openIssueIds : [],
+        ...editorialIssueFields,
         privateDiagnostics: editorial.privateDiagnostics,
       }, null, 2)}\n`);
       if (editorial.run.status !== 'ready_for_human_gate') {
@@ -1375,7 +1418,7 @@ async function main(): Promise<void> {
           editorial,
           completedStopIds: editorial.stops.map((stop) => stop.stopId),
           ...editorialScriptSet,
-          openIssueIds: 'openIssueIds' in editorial.run ? editorial.run.openIssueIds : [],
+          ...editorialIssueFields,
           privateDiagnostics: editorial.privateDiagnostics,
         }, null, 2)}\n`);
         writeFileSync(reviewPath, `${JSON.stringify({
@@ -1401,6 +1444,7 @@ async function main(): Promise<void> {
             workflowStatus: editorial.run.status,
             scriptStopIds: editorial.stops.map((stop) => stop.stopId),
             scorecardDecision: null,
+            ...editorialIssueFields,
           },
           budget: spendGuard.snapshot(),
         }, null, 2)}\n`);
@@ -1410,6 +1454,7 @@ async function main(): Promise<void> {
           scripts: editorial.stops.map((stop) => toJsonValue(stop.finalScript)),
           failureReason: reason,
           retryableLater: rateLimited,
+          ...editorialIssueFields,
         };
         await persistCheckpoint('arc');
         throw new Error(reason);
@@ -1423,6 +1468,7 @@ async function main(): Promise<void> {
       checkpointState.editorial = {
         status: editorialWorkflowStatus,
         scripts: editorialScripts.map((script) => toJsonValue(script)),
+        ...editorialIssueFields,
       };
       await persistCheckpoint('editorial');
     }
@@ -1442,7 +1488,7 @@ async function main(): Promise<void> {
         arc: architectResult,
         editorialRun: { status: editorialWorkflowStatus },
         ...resumedScriptSet,
-        openIssueIds: [],
+        ...editorialIssueFields,
       }, null, 2)}\n`);
     }
     currentStage = 'scorecard';
@@ -1457,6 +1503,7 @@ async function main(): Promise<void> {
       checkpointState.editorial = {
         status: editorialWorkflowStatus,
         scripts: editorialScripts.map((script) => toJsonValue(script)),
+        ...editorialIssueFields,
       };
       await persistCheckpoint('editorial');
       suppressFailureMarkdown = true;
@@ -1504,6 +1551,7 @@ async function main(): Promise<void> {
         workflowStatus: editorialWorkflowStatus,
         scriptStopIds: editorialScripts.map((script) => script.stopId),
         scorecardDecision: scorecardResult?.value?.decision ?? null,
+        ...editorialIssueFields,
       },
       budget: spendGuard.snapshot(),
     }, null, 2)}\n`);
