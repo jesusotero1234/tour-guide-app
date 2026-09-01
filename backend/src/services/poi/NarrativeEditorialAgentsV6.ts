@@ -646,19 +646,24 @@ export function createNarrativeEditorialAgentsV6Core(
       }, input.script);
       if (results.length === 1) return { value, diagnostic: results[0] };
       const rawOutputs = results.map((result) => result.rawOutput);
+      const usageCostUsd = results.every((result) => result.usage?.costUsd !== undefined)
+        ? results.reduce((total, result) => total + (result.usage?.costUsd ?? 0), 0)
+        : undefined;
       const usage = results.some((result) => result.usage)
-        ? results.reduce((total, result) => ({
-          inputTokens: total.inputTokens + (result.usage?.inputTokens ?? 0),
-          outputTokens: total.outputTokens + (result.usage?.outputTokens ?? 0),
-          totalTokens: total.totalTokens + (result.usage?.totalTokens ?? 0),
-          reasoningTokens: total.reasoningTokens + (result.usage?.reasoningTokens ?? 0),
-          cacheReadTokens: total.cacheReadTokens + (result.usage?.cacheReadTokens ?? 0),
-          cacheMissTokens: total.cacheMissTokens + (result.usage?.cacheMissTokens ?? 0),
-          costUsd: total.costUsd + (result.usage?.costUsd ?? 0),
-        }), {
-          inputTokens: 0, outputTokens: 0, totalTokens: 0,
-          reasoningTokens: 0, cacheReadTokens: 0, cacheMissTokens: 0, costUsd: 0,
-        })
+        ? {
+          ...results.reduce((total, result) => ({
+            inputTokens: total.inputTokens + (result.usage?.inputTokens ?? 0),
+            outputTokens: total.outputTokens + (result.usage?.outputTokens ?? 0),
+            totalTokens: total.totalTokens + (result.usage?.totalTokens ?? 0),
+            reasoningTokens: total.reasoningTokens + (result.usage?.reasoningTokens ?? 0),
+            cacheReadTokens: total.cacheReadTokens + (result.usage?.cacheReadTokens ?? 0),
+            cacheMissTokens: total.cacheMissTokens + (result.usage?.cacheMissTokens ?? 0),
+          }), {
+            inputTokens: 0, outputTokens: 0, totalTokens: 0,
+            reasoningTokens: 0, cacheReadTokens: 0, cacheMissTokens: 0,
+          }),
+          ...(usageCostUsd === undefined ? {} : { costUsd: usageCostUsd }),
+        }
         : undefined;
       return {
         value,

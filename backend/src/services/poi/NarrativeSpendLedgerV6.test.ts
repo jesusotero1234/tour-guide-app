@@ -18,11 +18,17 @@ describe('NarrativeSpendLedgerV6', () => {
 
     const second = new NarrativeSpendLedgerV6({ limitUsd: 2, path });
     expect(second.snapshot()).toMatchObject({
+      historicalSpentUsd: NARRATIVE_SPEND_HISTORICAL_USD_V6,
+      runReportedCostUsd: 0,
+      runUnverifiedExposureUsd: 0,
       spentUsd: NARRATIVE_SPEND_HISTORICAL_USD_V6,
       reservedUsd: 0.2,
     });
     second.settle(reservation, 0.05);
     expect(first.snapshot()).toMatchObject({
+      historicalSpentUsd: NARRATIVE_SPEND_HISTORICAL_USD_V6,
+      runReportedCostUsd: 0.05,
+      runUnverifiedExposureUsd: 0,
       spentUsd: NARRATIVE_SPEND_HISTORICAL_USD_V6 + 0.05,
       reservedUsd: 0,
     });
@@ -43,6 +49,10 @@ describe('NarrativeSpendLedgerV6', () => {
       NARRATIVE_SPEND_HISTORICAL_USD_V6 + 0.1,
       10
     );
+    expect(ledger.snapshot()).toMatchObject({
+      runReportedCostUsd: 0,
+      runUnverifiedExposureUsd: 0.1,
+    });
     expect(readFileSync(path, 'utf8')).toContain('reserved_maximum_no_usage');
 
     const overage = ledger.reserve(0.1);

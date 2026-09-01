@@ -17,6 +17,9 @@ export const NARRATIVE_SPEND_LEDGER_PATH_V6 = resolve(
 
 export interface NarrativeSpendLedgerSnapshotV6 {
   limitUsd: number;
+  historicalSpentUsd: number;
+  runReportedCostUsd: number;
+  runUnverifiedExposureUsd: number;
   spentUsd: number;
   reservedUsd: number;
   remainingUsd: number;
@@ -60,6 +63,9 @@ type LedgerEventV6 = {
 );
 
 interface ReplayedLedgerV6 {
+  historicalSpentUsd: number;
+  runReportedCostUsd: number;
+  runUnverifiedExposureUsd: number;
   spentUsd: number;
   reservations: Map<string, number>;
 }
@@ -176,6 +182,9 @@ export class NarrativeSpendLedgerV6 {
     const reservedUsd = sum(replayed.reservations.values());
     return {
       limitUsd: this.limitUsd,
+      historicalSpentUsd: replayed.historicalSpentUsd,
+      runReportedCostUsd: replayed.runReportedCostUsd,
+      runUnverifiedExposureUsd: replayed.runUnverifiedExposureUsd,
       spentUsd: replayed.spentUsd,
       reservedUsd,
       remainingUsd: Math.max(0, this.limitUsd - replayed.spentUsd - reservedUsd),
@@ -191,6 +200,9 @@ export class NarrativeSpendLedgerV6 {
     }
     const reservations = new Map<string, number>();
     let spentUsd: number | undefined;
+    let historicalSpentUsd: number | undefined;
+    let runReportedCostUsd = 0;
+    let runUnverifiedExposureUsd = 0;
     for (const [index, line] of content.split('\n').entries()) {
       if (!line.trim()) continue;
       let event: LedgerEventV6;
@@ -211,6 +223,7 @@ export class NarrativeSpendLedgerV6 {
           throw new Error('shared narrative spend ledger historical spend does not match');
         }
         spentUsd = event.historicalSpendUsd;
+        historicalSpentUsd = event.historicalSpendUsd;
       } else if (event.event === 'reserved') {
         if (spentUsd === undefined || typeof event.reservationId !== 'string') {
           throw new Error('shared narrative spend ledger is not initialized');
@@ -226,6 +239,12 @@ export class NarrativeSpendLedgerV6 {
         if (event.event === 'settled') {
           assertNonNegative(event.costUsd, 'ledger settlement');
           spentUsd += event.costUsd;
+          if (event.basis === 'reported_actual') runReportedCostUsd += event.costUsd;
+          else if (event.basis === 'reserved_maximum_no_usage') {
+            runUnverifiedExposureUsd += event.costUsd;
+          } else {
+            throw new Error(`shared narrative spend ledger has invalid settlement basis at line ${index + 1}`);
+          }
         } else if (event.event !== 'released') {
           throw new Error(`shared narrative spend ledger has unknown event at line ${index + 1}`);
         }
@@ -242,8 +261,18 @@ export class NarrativeSpendLedgerV6 {
         historicalSpendUsd: this.historicalSpendUsd,
       });
       spentUsd = this.historicalSpendUsd;
+      historicalSpentUsd = this.historicalSpendUsd;
     }
-    return { spentUsd, reservations };
+    if (historicalSpentUsd === undefined) {
+      throw new Error('shared narrative spend ledger has no historical baseline');
+    }
+    return {
+      historicalSpentUsd,
+      runReportedCostUsd,
+      runUnverifiedExposureUsd,
+      spentUsd,
+      reservations,
+    };
   }
 
   private assertOpenReservation(

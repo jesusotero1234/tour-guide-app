@@ -138,7 +138,14 @@ export function renderNarrativeTourMarkdownV6(input: {
   workflowStatus: string;
   scorecard: NarrativeTourScorecardV6 | null;
   calls: NarrativeTourCallSummaryV6[];
-  budget: { limitUsd: number; spentUsd: number; remainingUsd: number };
+  budget: {
+    limitUsd: number;
+    spentUsd: number;
+    remainingUsd: number;
+    historicalSpentUsd?: number;
+    runReportedCostUsd?: number;
+    runUnverifiedExposureUsd?: number;
+  };
 }): string {
   const scriptByStopId = new Map(input.scripts.map((script) => [script.stopId, script]));
   const missingScripts = input.route.stops.filter((stop) => !scriptByStopId.has(stop.stopId));
@@ -161,6 +168,16 @@ export function renderNarrativeTourMarkdownV6(input: {
     ? renderNarrativeScorecardMarkdownV6({ city: input.request.city, scorecard: input.scorecard })
       .replace(/^# Scorecard editorial[^\n]*\n/u, '## Scorecard editorial\n')
     : '## Scorecard editorial\n\nNo ejecutado: el workflow no superó las condiciones automáticas.';
+  const budgetLines = input.budget.runReportedCostUsd === undefined
+    ? [
+      `Presupuesto acumulado: $${input.budget.spentUsd.toFixed(4)} de $${input.budget.limitUsd.toFixed(2)}; quedan $${input.budget.remainingUsd.toFixed(4)}.`,
+    ]
+    : [
+      `Coste reportado de esta ejecución: $${input.budget.runReportedCostUsd.toFixed(4)}.`,
+      `Exposición sin verificar de esta ejecución: $${(input.budget.runUnverifiedExposureUsd ?? 0).toFixed(4)}.`,
+      `Gasto contabilizado anterior: $${(input.budget.historicalSpentUsd ?? 0).toFixed(4)}.`,
+      `Presupuesto contabilizado: $${input.budget.spentUsd.toFixed(4)} de $${input.budget.limitUsd.toFixed(2)}; quedan $${input.budget.remainingUsd.toFixed(4)}.`,
+    ];
   return [
     `# Tour de ${input.request.city} — ${input.request.theme}`,
     '',
@@ -206,7 +223,7 @@ export function renderNarrativeTourMarkdownV6(input: {
       `| ${call.model} | ${call.provider} | ${call.calls} | ${(call.latencyMs / 1_000).toFixed(1)} s | ${call.costUsd === null ? 'no informado' : `$${call.costUsd.toFixed(4)}`} |`
     )),
     '',
-    `Presupuesto acumulado: $${input.budget.spentUsd.toFixed(4)} de $${input.budget.limitUsd.toFixed(2)}; quedan $${input.budget.remainingUsd.toFixed(4)}.`,
+    ...budgetLines,
     '',
     '## Fuentes',
     '',

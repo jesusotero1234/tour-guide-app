@@ -218,15 +218,19 @@ describe('narrative v6 editorial agents', () => {
           finish_reason: 'length', message: { content: '{"findings":[' },
         }] } };
       }
-      return { data: { choices: [{ message: { tool_calls: [{ function: {
-        name: 'audit_narrative_sentences_v6',
-        arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
-          sentenceId: sentence.sentenceId,
-          classification: 'supported',
-          reason: 'Respaldada.',
-          propositionIds: [],
-        })) }),
-      } }] } }] } };
+      return { data: {
+        created: Date.parse('2026-09-01T17:00:00Z') / 1_000,
+        choices: [{ message: { tool_calls: [{ function: {
+          name: 'audit_narrative_sentences_v6',
+          arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
+            sentenceId: sentence.sentenceId,
+            classification: 'supported',
+            reason: 'Respaldada.',
+            propositionIds: [],
+          })) }),
+        } }] } }],
+        usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 },
+      } };
     });
     const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
     const script = assignNarrativeSentenceIdsV6(
@@ -240,6 +244,8 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value.findings).toHaveLength(6);
     expect(result.diagnostics?.map((diagnostic) => diagnostic.status))
       .toEqual(['protocol_failed', 'valid', 'valid']);
+    expect(result.diagnostic.usage).toMatchObject({ inputTokens: 20, outputTokens: 8 });
+    expect(result.diagnostic.usage).not.toHaveProperty('costUsd');
   });
 
   it('splits only a Gemma batch that remains semantically incomplete after retry', async () => {

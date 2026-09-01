@@ -32,7 +32,56 @@ describe('NarrativeProgressSpendGuardV6', () => {
         },
       }));
 
-      expect(snapshot).toMatchObject({ spentUsd: 0.45, reservedUsd: 0, remainingUsd: 1.55 });
+      expect(snapshot).toMatchObject({
+        historicalSpentUsd: 0.4,
+        runReportedCostUsd: 0.05,
+        runUnverifiedExposureUsd: 0,
+        spentUsd: 0.45,
+        reservedUsd: 0,
+        remainingUsd: 1.55,
+      });
+      expect(() => guard.assertSettled()).not.toThrow();
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
+  it('releases rejected rate-limited requests but keeps ambiguous failures separate', () => {
+    const directory = mkdtempSync(resolve(tmpdir(), 'narrative-progress-spend-'));
+    try {
+      const guard = new NarrativeProgressSpendGuardV6({
+        limitUsd: 2, historicalSpendUsd: 0.4, path: resolve(directory, 'ledger.jsonl'),
+      });
+      guard.record(event('attempt_started', { maximumCostUsd: 0.2 }));
+      const afterRateLimit = guard.record(event('attempt_finished', {
+        diagnostic: {
+          attempt: 1, status: 'transport_error', latencyMs: 10,
+          rawOutput: null, error: 'rate limited', httpStatus: 429, rateLimited: true,
+        },
+      }));
+      expect(afterRateLimit).toMatchObject({
+        runReportedCostUsd: 0,
+        runUnverifiedExposureUsd: 0,
+        spentUsd: 0.4,
+        reservedUsd: 0,
+      });
+
+      guard.record(event('attempt_started', {
+        callId: 'call-2', maximumCostUsd: 0.3,
+      }));
+      const afterTimeout = guard.record(event('attempt_finished', {
+        callId: 'call-2',
+        diagnostic: {
+          attempt: 1, status: 'transport_error', latencyMs: 10,
+          rawOutput: null, error: 'timed out', timedOut: true,
+        },
+      }));
+      expect(afterTimeout).toMatchObject({
+        runReportedCostUsd: 0,
+        runUnverifiedExposureUsd: 0.3,
+        spentUsd: 0.7,
+        reservedUsd: 0,
+      });
       expect(() => guard.assertSettled()).not.toThrow();
     } finally {
       rmSync(directory, { recursive: true, force: true });

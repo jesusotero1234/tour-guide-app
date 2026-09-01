@@ -58,6 +58,11 @@ export class NarrativeProgressSpendGuardV6 {
     if (actualCostUsd !== undefined && (!Number.isFinite(actualCostUsd) || actualCostUsd < 0)) {
       throw new Error(`invalid billed cost for ${key}`);
     }
+    if (actualCostUsd === undefined
+      && (event.diagnostic?.rateLimited === true || event.diagnostic?.httpStatus === 429)) {
+      this.ledger.release(reservation);
+      return;
+    }
     this.ledger.settle(reservation, actualCostUsd);
   }
 

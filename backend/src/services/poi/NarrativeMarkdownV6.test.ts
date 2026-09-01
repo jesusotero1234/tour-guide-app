@@ -73,12 +73,22 @@ describe('narrative v6 Markdown renderers', () => {
       }],
       dossiers: [], workflowStatus: 'ready_for_human_gate', scorecard,
       calls: [{ model: 'gpt', provider: 'OpenAI', calls: 1, latencyMs: 1000, costUsd: 0.01 }],
-      budget: { limitUsd: 2, spentUsd: 1, remainingUsd: 1 },
+      budget: {
+        limitUsd: 2,
+        historicalSpentUsd: 0.8,
+        runReportedCostUsd: 0.15,
+        runUnverifiedExposureUsd: 0.05,
+        spentUsd: 1,
+        remainingUsd: 1,
+      },
     });
 
     expect(markdown).toContain('# Tour de Barcelona — history');
     expect(markdown).toContain('## Guiones');
     expect(markdown).toContain('aprobado — Good');
+    expect(markdown).toContain('Coste reportado de esta ejecución: $0.1500');
+    expect(markdown).toContain('Exposición sin verificar de esta ejecución: $0.0500');
+    expect(markdown).toContain('Gasto contabilizado anterior: $0.8000');
     expect(markdown).not.toContain('8.95');
   });
 });
