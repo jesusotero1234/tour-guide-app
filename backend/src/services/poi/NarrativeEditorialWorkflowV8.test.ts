@@ -5,7 +5,7 @@ import {
   NarrativeAuditInputV6,
   NarrativeWriterInputV6,
 } from './NarrativeEditorialAgentsV6';
-import { NarrativeAuditorV6 } from './NarrativeEditorialV6';
+import { NarrativeAuditorV6, assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 import {
   NarrativeEditorialAgentsV8,
 } from './NarrativeEditorialAgentsV8';
@@ -667,5 +667,113 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(agents.adjudicate).not.toHaveBeenCalled();
     expect(agents.repair).not.toHaveBeenCalled();
     expect(agents.auditTour).not.toHaveBeenCalled();
+  });
+
+  test('combines deterministic, factual, and tour issues into at most one repair call per stop', async () => {
+    const stop = admit(evidenceFixture('malaga-repair-01', 'Q9000001', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const originalText = 'Aquí llegó Napoleón en 1937 para observar el edificio.';
+    const repairedText = stop.dossier.propositions[0].text;
+
+    const suppliedScript = assignNarrativeSentenceIdsV6(stop.routeStopId, originalText);
+
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const propositionId = input.dossier.propositions[0]?.propositionId ?? '';
+      const isOriginal = input.script.text === originalText;
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: isOriginal ? ('unsupported' as const) : ('supported' as const),
+          reason: isOriginal ? 'Sin respaldo.' : 'Respaldada.',
+          propositionIds: propositionId ? [propositionId] : [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'accepted' as const,
+        reason: 'Accepted for repair.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    agents.auditTour.mockImplementation(async () => {
+      const value = {
+        issues: [{
+          issueId: 'I1',
+          stopId: stop.routeStopId,
+          sentenceId: suppliedScript.sentences[0].sentenceId,
+          severity: 'soft' as const,
+          reason: 'Tour progression issue.',
+        }],
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    agents.repair.mockImplementation(async () => {
+      const value = {
+        replacements: [{
+          sentenceId: suppliedScript.sentences[0].sentenceId,
+          text: repairedText,
+        }],
+      };
+      return { value, diagnostic: diagnostic('repair', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-repair-combined-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa de reparación.',
+          centralQuestion: 'Pregunta de reparación.',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: 'Cierre.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-repair-combined.private.json',
+    }, agents, { scripts: [suppliedScript], maximumRepairCalls: 1 });
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+
+    expect(agents.repair).toHaveBeenCalledTimes(1);
+    const repairInput = agents.repair.mock.calls[0][0] as {
+      script: NarrativeScriptV6;
+      objections: Array<{ objectionId: string; sentenceId: string }>;
+    };
+    expect(repairInput.script.stopId).toBe(stop.routeStopId);
+
+    const objectionIds = repairInput.objections.map((objection) => objection.objectionId);
+    expect(objectionIds.some((id) => id.startsWith('deterministic:'))).toBe(true);
+    expect(objectionIds.some((id) => id.startsWith('deepseek:'))).toBe(true);
+    expect(objectionIds.some((id) => id.startsWith('deepseek_pro:'))).toBe(true);
+    expect(objectionIds).toContain('tour:I1');
+
+    const sentenceIds = repairInput.objections.map((objection) => objection.sentenceId);
+    expect(new Set(sentenceIds)).toEqual(new Set([suppliedScript.sentences[0].sentenceId]));
+
+    expect(result.editorial.stops[0].finalScript.text).toBe(repairedText);
+    expect(result.editorial.stops[0].repairRoundUsed).toBe(true);
   });
 });

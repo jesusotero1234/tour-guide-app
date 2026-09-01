@@ -31,6 +31,7 @@ import {
   NarrativeSchedulerV6,
   createNarrativeSchedulerV6,
 } from './NarrativeSchedulerV6';
+import { planNarrativeRepairsV8 } from './NarrativeEditorialIssuePolicyV8';
 
 export interface NarrativeArcV6 {
   promise: string;
@@ -126,6 +127,8 @@ export interface NarrativeEditorialWorkflowOptionsV6 {
   maximumAdditionalRepairs?: number;
   allowPartialScripts?: boolean;
   deterministicAuditPolicy?: 'v8';
+  editorialIssuePolicy?: 'v8';
+  maximumRepairCalls?: number;
 }
 
 export interface NarrativeEditorialCoreStopV6 {
@@ -309,7 +312,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
   const repairStopIds = options.repairStopIds
     ? new Set(options.repairStopIds)
     : auditStopIds;
-  let remainingRepairs = options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY;
+  const isV8Policy = options.editorialIssuePolicy === 'v8';
+  let remainingRepairs = isV8Policy
+    ? (options.maximumRepairCalls ?? options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY)
+    : (options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY);
   const consumeRepair = (): boolean => {
     if (remainingRepairs <= 0) return false;
     remainingRepairs -= 1;
@@ -490,43 +496,45 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         ? rejectedStop.reason.causeValue : rejectedStop.reason;
     }
 
-    for (const result of stopResults) {
-      const { record, acceptedObjections } = result;
-      if (acceptedObjections.length === 0) continue;
-      if (!consumeRepair()) {
-        openIssueIds.push(...acceptedObjections.map((objection) => objection.objectionId));
-        continue;
+    if (!isV8Policy) {
+      for (const result of stopResults) {
+        const { record, acceptedObjections } = result;
+        if (acceptedObjections.length === 0) continue;
+        if (!consumeRepair()) {
+          openIssueIds.push(...acceptedObjections.map((objection) => objection.objectionId));
+          continue;
+        }
+        const dossier = dossierByStop.get(record.stopId) as NarrativeDossierV6;
+        const repaired = await scheduler.write(() => agents.repair({
+          script: record.initialScript, dossier, objections: record.objections,
+          adjudications: record.adjudications, scope: 'factual',
+        }, agentExecution));
+        appendDiagnostics(repaired, metrics, privateDiagnostics);
+        record.finalScript = applyNarrativeLocalPatchV6(
+          record.initialScript,
+          [...new Set(acceptedObjections.map((objection) => objection.sentenceId))],
+          repaired.value
+        );
+        record.repairRoundUsed = true;
+        const finalAudits = await audited(() => runPairedNarrativeAuditsV6(
+          agents, { script: record.finalScript, dossier }, agentExecution, auditorObserver
+        ));
+        finalAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
+        record.audits.push(...finalAudits.map((audit) => audit.value));
+        const finalObjections = buildNarrativeAuditObjectionsV6(
+          finalAudits.map((audit) => audit.value)
+        );
+        record.objections.push(...finalObjections);
+        if (finalObjections.length === 0) continue;
+        const finalAdjudicated = await scheduler.adjudicate(() => agents.adjudicate({
+          script: record.finalScript, dossier, objections: finalObjections, scope: 'factual',
+        }, agentExecution));
+        appendDiagnostics(finalAdjudicated, metrics, privateDiagnostics);
+        record.adjudications.push(...finalAdjudicated.value);
+        openIssueIds.push(...finalAdjudicated.value
+          .filter((item) => item.decision === 'accepted')
+          .map((item) => item.objectionId));
       }
-      const dossier = dossierByStop.get(record.stopId) as NarrativeDossierV6;
-      const repaired = await scheduler.write(() => agents.repair({
-        script: record.initialScript, dossier, objections: record.objections,
-        adjudications: record.adjudications, scope: 'factual',
-      }, agentExecution));
-      appendDiagnostics(repaired, metrics, privateDiagnostics);
-      record.finalScript = applyNarrativeLocalPatchV6(
-        record.initialScript,
-        [...new Set(acceptedObjections.map((objection) => objection.sentenceId))],
-        repaired.value
-      );
-      record.repairRoundUsed = true;
-      const finalAudits = await audited(() => runPairedNarrativeAuditsV6(
-        agents, { script: record.finalScript, dossier }, agentExecution, auditorObserver
-      ));
-      finalAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
-      record.audits.push(...finalAudits.map((audit) => audit.value));
-      const finalObjections = buildNarrativeAuditObjectionsV6(
-        finalAudits.map((audit) => audit.value)
-      );
-      record.objections.push(...finalObjections);
-      if (finalObjections.length === 0) continue;
-      const finalAdjudicated = await scheduler.adjudicate(() => agents.adjudicate({
-        script: record.finalScript, dossier, objections: finalObjections, scope: 'factual',
-      }, agentExecution));
-      appendDiagnostics(finalAdjudicated, metrics, privateDiagnostics);
-      record.adjudications.push(...finalAdjudicated.value);
-      openIssueIds.push(...finalAdjudicated.value
-        .filter((item) => item.decision === 'accepted')
-        .map((item) => item.objectionId));
     }
 
     let scripts = records.map((record) => record.finalScript);
@@ -571,6 +579,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         item.objectionId === objection.objectionId && item.decision === 'accepted'
       )));
       if (accepted.length === 0) continue;
+      if (isV8Policy) continue;
       if ((repairStopIds && !repairStopIds.has(stopId)) || !consumeRepair()) continue;
       const repaired = await scheduler.write(() => agents.repair({
         script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
@@ -602,6 +611,56 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         appendDiagnostics(factualAdjudicated, metrics, privateDiagnostics);
         record.adjudications.push(...factualAdjudicated.value);
         openIssueIds.push(...factualAdjudicated.value
+          .filter((item) => item.decision === 'accepted')
+          .map((item) => item.objectionId));
+      }
+    }
+    if (isV8Policy) {
+      const plans = planNarrativeRepairsV8(
+        input.route.stops.map((stop) => stop.stopId),
+        records.map((record) => ({
+          stopId: record.stopId,
+          script: record.finalScript,
+          warnings: record.warnings,
+          objections: record.objections,
+          adjudications: record.adjudications,
+        })),
+        repairStopIds ? [...repairStopIds] : undefined,
+        remainingRepairs
+      );
+      for (const plan of plans) {
+        const planRecord = records.find((item) => item.stopId === plan.stopId);
+        const planDossier = dossierByStop.get(plan.stopId) as NarrativeDossierV6;
+        if (!planRecord || !planDossier) throw new Error(`unknown stop ${plan.stopId}`);
+        const repaired = await scheduler.write(() => agents.repair({
+          script: planRecord.finalScript, dossier: planDossier, objections: plan.objections,
+          adjudications: plan.adjudications, scope: 'factual',
+        }, agentExecution));
+        appendDiagnostics(repaired, metrics, privateDiagnostics);
+        planRecord.finalScript = applyNarrativeLocalPatchV6(
+          planRecord.finalScript,
+          plan.sentenceIds,
+          repaired.value
+        );
+        planRecord.repairRoundUsed = true;
+        remainingRepairs -= 1;
+        globalRepairUsed = true;
+        const finalAudits = await audited(() => runPairedNarrativeAuditsV6(
+          agents, { script: planRecord.finalScript, dossier: planDossier }, agentExecution, auditorObserver
+        ));
+        finalAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
+        planRecord.audits.push(...finalAudits.map((audit) => audit.value));
+        const finalObjections = buildNarrativeAuditObjectionsV6(
+          finalAudits.map((audit) => audit.value)
+        );
+        planRecord.objections.push(...finalObjections);
+        if (finalObjections.length === 0) continue;
+        const finalAdjudicated = await scheduler.adjudicate(() => agents.adjudicate({
+          script: planRecord.finalScript, dossier: planDossier, objections: finalObjections, scope: 'factual',
+        }, agentExecution));
+        appendDiagnostics(finalAdjudicated, metrics, privateDiagnostics);
+        planRecord.adjudications.push(...finalAdjudicated.value);
+        openIssueIds.push(...finalAdjudicated.value
           .filter((item) => item.decision === 'accepted')
           .map((item) => item.objectionId));
       }
