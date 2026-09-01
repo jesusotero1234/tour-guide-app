@@ -82,6 +82,7 @@ import {
   assertResumeCompatibilityV8,
   assertCheckpointSupportsResumeV8,
   shouldExecuteResumePhaseV8,
+  projectCheckpointStateForResumeV8,
 } from '../../src/services/poi/NarrativeUserCanaryCheckpointV8';
 import {
   CoreResolutionContextV6,
@@ -849,14 +850,10 @@ async function main(): Promise<void> {
         priorSpendUsd,
       });
       assertCheckpointSupportsResumeV8(sourceCheckpoint, resumeOptions.resumeFrom);
-      const cloned = JSON.parse(JSON.stringify(sourceCheckpoint)) as NarrativeUserCanaryCheckpointV8;
-      checkpointState.candidates = cloned.candidates;
-      checkpointState.route = cloned.route;
-      checkpointState.research = cloned.research;
-      checkpointState.evidenceManifest = cloned.evidenceManifest;
-      checkpointState.arc = cloned.arc;
-      checkpointState.editorial = cloned.editorial;
-      checkpointState.scorecard = cloned.scorecard;
+      Object.assign(
+        checkpointState,
+        projectCheckpointStateForResumeV8(sourceCheckpoint, resumeOptions.resumeFrom)
+      );
       console.log(`[v8-canary] resume source=${resolvedSourcePath} phase=${resumeOptions.resumeFrom}`);
     }
     currentStage = 'route';

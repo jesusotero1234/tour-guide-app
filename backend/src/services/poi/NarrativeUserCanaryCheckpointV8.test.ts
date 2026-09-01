@@ -10,6 +10,7 @@ import {
   parseResumeOptionsV8,
   assertCheckpointSupportsResumeV8,
   shouldExecuteResumePhaseV8,
+  projectCheckpointStateForResumeV8,
   SCHEMA_VERSION,
 } from "./NarrativeUserCanaryCheckpointV8";
 
@@ -439,6 +440,91 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
           expect(shouldExecuteResumePhaseV8(resumeFrom, phase)).toBe(expected);
         }
       }
+    });
+  });
+
+  describe("projectCheckpointStateForResumeV8", () => {
+    const scorecardCheckpoint = createCheckpoint(buildInput("scorecard") as any);
+
+    it("preserves only candidates when resuming from route", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "route");
+      expect(projected.candidates).toEqual(baseCandidates);
+      expect(projected.route).toBeUndefined();
+      expect(projected.research).toBeUndefined();
+      expect(projected.evidenceManifest).toBeUndefined();
+      expect(projected.arc).toBeUndefined();
+      expect(projected.editorial).toBeUndefined();
+      expect(projected.scorecard).toBeUndefined();
+    });
+
+    it("preserves candidates and route when resuming from research", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "research");
+      expect(projected.candidates).toEqual(baseCandidates);
+      expect(projected.route).toEqual(baseRoute);
+      expect(projected.research).toBeUndefined();
+      expect(projected.evidenceManifest).toBeUndefined();
+      expect(projected.arc).toBeUndefined();
+      expect(projected.editorial).toBeUndefined();
+      expect(projected.scorecard).toBeUndefined();
+    });
+
+    it("preserves candidates, route, research, and evidenceManifest when resuming from arc", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "arc");
+      expect(projected.candidates).toEqual(baseCandidates);
+      expect(projected.route).toEqual(baseRoute);
+      expect(projected.research).toEqual(baseResearch);
+      expect(projected.evidenceManifest).toEqual(baseEvidenceManifest);
+      expect(projected.arc).toBeUndefined();
+      expect(projected.editorial).toBeUndefined();
+      expect(projected.scorecard).toBeUndefined();
+    });
+
+    it("preserves through arc but clears editorial and scorecard when resuming from editorial", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "editorial");
+      expect(projected.candidates).toEqual(baseCandidates);
+      expect(projected.route).toEqual(baseRoute);
+      expect(projected.research).toEqual(baseResearch);
+      expect(projected.evidenceManifest).toEqual(baseEvidenceManifest);
+      expect(projected.arc).toEqual(baseArc);
+      expect(projected.editorial).toBeUndefined();
+      expect(projected.scorecard).toBeUndefined();
+    });
+
+    it("preserves through editorial but clears scorecard when resuming from scorecard", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "scorecard");
+      expect(projected.candidates).toEqual(baseCandidates);
+      expect(projected.route).toEqual(baseRoute);
+      expect(projected.research).toEqual(baseResearch);
+      expect(projected.evidenceManifest).toEqual(baseEvidenceManifest);
+      expect(projected.arc).toEqual(baseArc);
+      expect(projected.editorial).toEqual(baseEditorial);
+      expect(projected.scorecard).toBeUndefined();
+    });
+
+    it("returns deep clones without mutating the source checkpoint", () => {
+      const projected = projectCheckpointStateForResumeV8(scorecardCheckpoint, "scorecard");
+      expect(projected).not.toBe(scorecardCheckpoint);
+
+      const projectedCandidates = projected.candidates as Record<string, unknown>;
+      const projectedRoute = projected.route as Record<string, unknown>;
+      const projectedResearch = projected.research as Record<string, unknown>;
+      const projectedEvidenceManifest = projected.evidenceManifest as Record<string, unknown>;
+      const projectedArc = projected.arc as Record<string, unknown>;
+      const projectedEditorial = projected.editorial as Record<string, unknown>;
+
+      projectedCandidates.id = "mutated";
+      projectedRoute.stops = ["mutated"];
+      projectedResearch.sources = ["mutated"];
+      projectedEvidenceManifest.items = ["mutated"];
+      projectedArc.theme = "mutated";
+      projectedEditorial.status = "mutated";
+
+      expect(scorecardCheckpoint.candidates).toEqual(baseCandidates);
+      expect(scorecardCheckpoint.route).toEqual(baseRoute);
+      expect(scorecardCheckpoint.research).toEqual(baseResearch);
+      expect(scorecardCheckpoint.evidenceManifest).toEqual(baseEvidenceManifest);
+      expect(scorecardCheckpoint.arc).toEqual(baseArc);
+      expect(scorecardCheckpoint.editorial).toEqual(baseEditorial);
     });
   });
 

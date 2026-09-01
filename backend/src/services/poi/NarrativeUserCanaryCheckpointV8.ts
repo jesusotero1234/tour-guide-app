@@ -438,3 +438,47 @@ export function assertCheckpointSupportsResumeV8(
     );
   }
 }
+
+export function projectCheckpointStateForResumeV8(
+  sourceCheckpoint: NarrativeUserCanaryCheckpointV8,
+  resumeFrom: ResumeFromV8
+): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "route" | "research" | "evidenceManifest" | "arc" | "editorial" | "scorecard">> {
+  const clone = <T extends JsonValue>(value: T | undefined): T | undefined =>
+    value === undefined ? undefined : JSON.parse(JSON.stringify(value)) as T;
+
+  switch (resumeFrom) {
+    case "route":
+      return {
+        candidates: clone(sourceCheckpoint.candidates),
+      };
+    case "research":
+      return {
+        candidates: clone(sourceCheckpoint.candidates),
+        route: clone(sourceCheckpoint.route),
+      };
+    case "arc":
+      return {
+        candidates: clone(sourceCheckpoint.candidates),
+        route: clone(sourceCheckpoint.route),
+        research: clone(sourceCheckpoint.research),
+        evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
+      };
+    case "editorial":
+      return {
+        candidates: clone(sourceCheckpoint.candidates),
+        route: clone(sourceCheckpoint.route),
+        research: clone(sourceCheckpoint.research),
+        evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
+        arc: clone(sourceCheckpoint.arc),
+      };
+    case "scorecard":
+      return {
+        candidates: clone(sourceCheckpoint.candidates),
+        route: clone(sourceCheckpoint.route),
+        research: clone(sourceCheckpoint.research),
+        evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
+        arc: clone(sourceCheckpoint.arc),
+        editorial: clone(sourceCheckpoint.editorial),
+      };
+  }
+}
