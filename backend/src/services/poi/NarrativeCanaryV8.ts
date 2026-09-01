@@ -28,6 +28,7 @@ import {
 import {
   NarrativeCuratorOutputV8,
   NarrativeEvidenceGatesV8,
+  NarrativeEvidenceTierV8,
 } from './NarrativeDossierV8';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import {
@@ -60,6 +61,8 @@ export interface NarrativeCanaryStopV8 {
   substitutions: number;
   dossier: NarrativeDossierV6 | null;
   gates: NarrativeEvidenceGatesV8;
+  evidenceTier: NarrativeEvidenceTierV8 | null;
+  routeEligible: boolean;
 }
 
 export interface NarrativeCanaryCoreResolutionV8 {
@@ -294,7 +297,7 @@ export async function runNarrativeCanaryV8(
 
         const isRequired = core.requiredIds.includes(stop);
         if (!isRequired
-          && !stopResult.writerReady
+          && !stopResult.routeEligible
           && availableReserveIds.size > 0) {
           const blockCoordinates = block.stopIds
             .map((blockStopId) => selection.route.find((item) => item.wikidataId === blockStopId))
@@ -333,10 +336,10 @@ export async function runNarrativeCanaryV8(
             reserveAttempts.push({
               originalStopId: stop,
               reserveStopId: nearestReserveId,
-              sufficient: reserveResult.writerReady,
+              sufficient: reserveResult.routeEligible,
               evidenceGaps: reserveResult.stop.sufficiency.missingRoles,
             });
-            if (reserveResult.writerReady) {
+            if (reserveResult.routeEligible) {
               stopResult = {
                 ...reserveResult,
                 stop: {
@@ -401,9 +404,7 @@ export async function runNarrativeCanaryV8(
       },
     }
     : selection;
-  const evidenceReviewRequired = stops.some((stop) => (
-    !stop.gates.writerReady
-  ));
+  const evidenceReviewRequired = stops.some((stop) => !stop.routeEligible);
   const noResults = selection.route.length === 0;
   const finalGeometryReasons = finalGeometry
     ? classifyRunBlockV8({
@@ -468,7 +469,7 @@ interface ResearchCanaryStopContextV8 {
 
 interface ResearchCanaryStopResultV8 {
   stop: NarrativeCanaryStopV8;
-  writerReady: boolean;
+  routeEligible: boolean;
   captureBlocked: boolean;
   parseEmpty: boolean;
   curatorContractFailed: boolean;
@@ -542,6 +543,8 @@ async function researchCanaryStopV8(
     substitutions: 0,
     dossier: research.status === 'failed' ? null : research.dossier,
     gates,
+    evidenceTier: research.evidenceTier,
+    routeEligible: research.routeEligible,
   };
   logPhase(diagnostics, {
     phase: 'curation',
@@ -557,13 +560,16 @@ async function researchCanaryStopV8(
     substitutions: 0,
     editorialCoreCoverage: 0,
     freeTransferCount: 0,
-  }, gates.minimumEvidenceReady ? null : 'evidence_review_required');
+  }, research.routeEligible ? null : 'evidence_review_required');
+  const curatorContractFailed = research.status === 'evidence_review_required'
+    && research.evidenceTier === null
+    && research.reasons.some((reason) => reason.includes('curator_contract_failed'));
   return {
     stop,
-    writerReady: gates.writerReady,
+    routeEligible: research.routeEligible,
     captureBlocked: false,
     parseEmpty: false,
-    curatorContractFailed: false,
+    curatorContractFailed,
   };
 }
 

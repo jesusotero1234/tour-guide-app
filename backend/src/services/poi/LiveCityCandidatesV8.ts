@@ -395,7 +395,7 @@ async function fetchWikipediaExtractsBatchV8(
       prop: 'extracts',
       explaintext: true,
       redirects: true,
-      maxlag: 5,
+      maxlag: 30,
       ...(introOnly
         ? { exintro: true, exsentences: 3 }
         : { exsectionformat: 'plain' }),
@@ -524,7 +524,7 @@ export async function fetchWikidataEntitiesV8(
         action: 'wbgetentities',
         ids: batch.join('|'),
         props: 'labels|claims|sitelinks',
-        maxlag: 5,
+        maxlag: 30,
         format: 'json',
         formatversion: 2,
       }),
@@ -566,7 +566,7 @@ export async function fetchWikidataLabelsV8(
         ids: batch.join('|'),
         props: 'labels',
         languages: [language, 'en'].join('|'),
-        maxlag: 5,
+        maxlag: 30,
         format: 'json',
         formatversion: 2,
       }),

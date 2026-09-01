@@ -6,7 +6,7 @@
 # The old searxng-docker "stable" branch is archived; its compose/settings
 # now live in the main searxng repo under container/.
 #
-# - Publishes ONLY 127.0.0.1:8080 on the host; never expose it outside
+# - Publishes ONLY 127.0.0.1:18081 on the host; never expose it outside
 #   localhost. Inside the container it binds 0.0.0.0 (see
 #   scripts/searxng-settings.yml) so the Firecrawl api container can reach
 #   it over the podman bridge network as http://searxng:8080.
@@ -17,21 +17,16 @@
 #   (/search?format=json) does not require it, keeping the local footprint
 #   minimal.
 #
-# SEARXNG_SECRET / SEARXNG_BASE_URL follow the searxng-docker convention:
-# they are honored when /etc/searxng/settings.yml references them via the
-# `!ENV ${...}` tag. With a fresh volume the image entrypoint generates and
-# persists its own random secret in settings.yml, so these are overridable
-# safety valves rather than a hard requirement.
+# SEARXNG_SETTINGS_FILE is exported by scripts/searxng-local.sh for every
+# compose command so the mount path is always valid.
 
 services:
   searxng:
     image: docker.io/searxng/searxng:latest@sha256:c7ca5516d881de86f34ea65fcb4231eb1b2d0837f95abe6cd035764e051eb575
     ports:
-      - "127.0.0.1:8080:8080"
-    environment:
-      SEARXNG_SECRET: "${SEARXNG_SECRET:-searxng-local-dev-secret-change-me}"
+      - "127.0.0.1:18081:8080"
     volumes:
-      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+      - "${SEARXNG_SETTINGS_FILE}:/etc/searxng/settings.yml:ro"
       - searxng-data:/etc/searxng
     networks:
       - default

@@ -6,10 +6,12 @@ readonly PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd -P)"
 readonly USER_STATE_HOME="${XDG_STATE_HOME:-$(getent passwd "$(id -u)" | cut -d: -f6)/.local/state}"
 readonly PRIVATE_STATE_ROOT="$USER_STATE_HOME/tour-guide-app"
 readonly ENV_FILE="$PRIVATE_STATE_ROOT/searxng.env"
+readonly SETTINGS_TEMPLATE="$SCRIPT_DIR/searxng-settings.yml"
+readonly SETTINGS_FILE="$PRIVATE_STATE_ROOT/searxng-settings.yml"
 readonly COMPOSE_FILE="$SCRIPT_DIR/searxng-local.compose.yaml"
 readonly COMPOSE_PROJECT="tour-guide-searxng"
-readonly BASE_URL="http://127.0.0.1:8080"
-readonly PORT=8080
+readonly BASE_URL="http://127.0.0.1:18081"
+readonly PORT=18081
 readonly FIRECRAWL_NETWORK="tour-guide-firecrawl-v2-8-0_backend"
 
 log() {
@@ -36,8 +38,8 @@ require_commands() {
 }
 
 compose() {
+  SEARXNG_SETTINGS_FILE="$SETTINGS_FILE" \
   PODMAN_COMPOSE_PROVIDER=podman-compose podman compose \
-    --env-file "$ENV_FILE" \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
     "$@"
@@ -64,6 +66,65 @@ ensure_env_file() {
   } > "$ENV_FILE"
   chmod 0600 -- "$ENV_FILE"
   log "Created ignored local configuration (secret values not displayed)"
+}
+
+read_env_value() {
+  local key="$1"
+  local line
+  while IFS= read -r line; do
+    if [[ "$line" == "$key="* ]]; then
+      printf '%s' "${line#"$key="}"
+      return 0
+    fi
+  done < "$ENV_FILE"
+  return 1
+}
+
+render_settings() {
+  local secret_key
+  secret_key="${SEARXNG_SECRET:-}"
+
+  if [[ -z "$secret_key" ]]; then
+    secret_key="$(read_env_value "SEARXNG_SECRET" || true)"
+  fi
+
+  [[ -n "$secret_key" ]] || fail "SEARXNG_SECRET is not set; export it or edit $ENV_FILE"
+
+  mkdir -p -- "$PRIVATE_STATE_ROOT"
+  chmod 0700 -- "$PRIVATE_STATE_ROOT"
+
+  [[ "$secret_key" != *$'\n'* && "$secret_key" != *$'\r'* ]] \
+    || fail "SEARXNG_SECRET must be a single-line value"
+
+  local secret_yaml
+  secret_yaml="'${secret_key//\'/\'\'}'"
+
+  local tmp_file
+  tmp_file="$(mktemp -- "$SETTINGS_FILE.XXXXXX")"
+  chmod 0600 -- "$tmp_file"
+
+  local line secret_markers=0
+  if ! while IFS= read -r line || [[ -n "$line" ]]; do
+    case "$line" in
+      '  secret_key: __SEARXNG_SECRET__')
+        printf '  secret_key: %s\n' "$secret_yaml"
+        secret_markers=$((secret_markers + 1))
+        ;;
+      *) printf '%s\n' "$line" ;;
+    esac
+  done < "$SETTINGS_TEMPLATE" > "$tmp_file"; then
+    rm -f -- "$tmp_file"
+    fail "Failed to render private SearXNG settings"
+  fi
+
+  if [[ "$secret_markers" -ne 1 ]] \
+    || rg -q '__SEARXNG_SECRET__' "$tmp_file"; then
+    rm -f -- "$tmp_file"
+    fail "SearXNG settings template must contain the secret marker exactly once"
+  fi
+
+  mv -- "$tmp_file" "$SETTINGS_FILE"
+  chmod 0600 -- "$SETTINGS_FILE"
 }
 
 assert_port_available() {
@@ -104,9 +165,12 @@ status() {
 }
 
 up() {
-  require_commands openssl podman podman-compose ss rg stat
+  require_commands openssl podman podman-compose ss rg stat mktemp
   assert_port_available
   ensure_env_file
+
+  render_settings
+
   if ! podman network exists "$FIRECRAWL_NETWORK" 2>/dev/null; then
     log "Firecrawl bridge network '$FIRECRAWL_NETWORK' not found"
     log "Start Firecrawl first: ./scripts/firecrawl-local.sh up"

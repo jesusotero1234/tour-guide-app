@@ -353,7 +353,7 @@ async function main(): Promise<void> {
   );
 
   const discovery = new SearxngNarrativeDiscoveryProviderV7({
-    baseUrl: process.env.SEARXNG_BASE_URL ?? 'http://127.0.0.1:8080',
+    baseUrl: process.env.SEARXNG_BASE_URL ?? 'http://127.0.0.1:18081',
   });
   const capture = new FirecrawlNarrativeCaptureProviderV7({
     baseUrl: process.env.FIRECRAWL_BASE_URL ?? 'http://127.0.0.1:3007/v2',

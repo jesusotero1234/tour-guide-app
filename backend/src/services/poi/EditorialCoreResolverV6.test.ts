@@ -157,10 +157,34 @@ describe('canonical tour core v6', () => {
     expect(result.core.requirements.every((requirement) => (
       requirement.provenance === 'stable_model_consensus'
     ))).toBe(true);
+    expect(result.core.audit.disputedCanonicalIds).toEqual([]);
+  });
+
+  it('approves the unanimous required intersection and exposes disputed IDs in audit', () => {
+    const seeds = ['seed-a', 'seed-b', 'seed-c'];
+    const requests = seeds.map((seed) => buildCoreAuditRequestV6(context, entities, snapshot, seed));
+    const sets = [new Set(['Q1', 'Q2']), new Set(['Q1']), new Set(['Q1', 'Q2'])];
+    const result = resolveCanonicalTourCoreV6({
+      context,
+      sourceFingerprint: snapshot.fingerprint,
+      provider: 'deepseek', model: 'deepseek-v4-flash', promptFingerprint: 'prompt-fingerprint',
+      runs: requests.map((request, index) => ({
+        seed: seeds[index], request, response: auditFor(request, sets[index]),
+        responseFingerprint: `response-${index + 1}`,
+      })),
+    });
+
+    expect(result.status).toBe('approved');
+    if (result.status !== 'approved') throw new Error('Expected approved core');
+    expect(result.core.requirements.map((requirement) => requirement.canonicalId).sort())
+      .toEqual(['Q1']);
+    expect(result.core.requirements.every((requirement) => (
+      requirement.provenance === 'stable_model_consensus'
+    ))).toBe(true);
+    expect(result.core.audit.disputedCanonicalIds).toEqual(['Q2']);
   });
 
   it.each([
-    ['different sets', [new Set(['Q1', 'Q2']), new Set(['Q1']), new Set(['Q1', 'Q2'])]],
     ['empty core', [new Set<string>(), new Set<string>(), new Set<string>()]],
     ['more than eight', [
       new Set(Array.from({ length: 9 }, (_, index) => `Q${index + 1}`)),

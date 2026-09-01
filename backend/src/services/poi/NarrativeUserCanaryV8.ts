@@ -1,10 +1,17 @@
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
+import { NarrativeEvidenceTierV8 } from './NarrativeDossierV8';
 import {
   NarrativeResearchStopInputV8,
   NarrativeResearchStopResultV8,
 } from './NarrativeResearchV8';
 import { NarrativeScriptV6 } from './NarrativeEditorialV6';
+import {
+  buildNarrativeEvidenceBoundaryV8,
+  NarrativeAdmittedStopV8,
+  NarrativeEvidenceManifestV8,
+  NarrativeResearchHandoffStopV8,
+} from './NarrativeEvidenceBoundaryV8';
 
 export interface NarrativeUserCanaryRequestV8 {
   city: string;
@@ -30,7 +37,8 @@ export interface NarrativeUserCanaryInputV8 {
   researchStop(input: NarrativeResearchStopInputV8): Promise<NarrativeResearchStopResultV8>;
   runEditorial(input: {
     route: NarrativeRouteBriefV6;
-    dossiers: NarrativeDossierV6[];
+    admittedStops: NarrativeAdmittedStopV8[];
+    evidenceManifest: NarrativeEvidenceManifestV8;
     request: NarrativeUserCanaryRequestV8;
   }): Promise<NarrativeUserCanaryEditorialResultV8>;
 }
@@ -42,7 +50,10 @@ export const NARRATIVE_USER_CANARY_CONCURRENCY_V8 = {
 
 export interface NarrativeUserCanaryResearchSummaryV8 {
   stopId: string;
+  entityQid: string;
   status: string;
+  evidenceTier: NarrativeEvidenceTierV8 | null;
+  routeEligible: boolean;
   minimumEvidenceReady: boolean;
   writerReady: boolean;
   missingRoles: string[];
@@ -59,6 +70,8 @@ export type NarrativeUserCanaryResultV8 =
     failure: null;
     research: NarrativeUserCanaryResearchSummaryV8[];
     dossiers: NarrativeDossierV6[];
+    evidenceManifest: NarrativeEvidenceManifestV8;
+    boundaryMigrationPassed: true;
     editorial: {
       workflowStatus: string;
       scriptStopIds: string[];
@@ -71,23 +84,31 @@ export type NarrativeUserCanaryResultV8 =
     failure: { stage: string; code: string; message: string; retryableLater: boolean };
     research: NarrativeUserCanaryResearchSummaryV8[];
     dossiers: NarrativeDossierV6[];
+    evidenceManifest: NarrativeEvidenceManifestV8 | null;
+    boundaryMigrationPassed: boolean;
     editorial: null;
     markdown: null;
   };
 
 function summarize(
   stopId: string,
+  entityQid: string,
   result: NarrativeResearchStopResultV8
 ): NarrativeUserCanaryResearchSummaryV8 {
   const gates = result.status === 'failed'
     ? { minimumEvidenceReady: false, writerReady: false, missingWriterRoles: [] as string[] }
     : result.gates;
+  const evidenceTier = result.status === 'failed' ? null : result.evidenceTier;
+  const routeEligible = result.status === 'failed' ? false : result.routeEligible;
   return {
     stopId,
+    entityQid,
     status: result.status,
-    minimumEvidenceReady: result.status === 'sufficient' || gates.minimumEvidenceReady,
-    writerReady: result.status === 'sufficient',
-    missingRoles: result.status === 'sufficient' ? [] : gates.missingWriterRoles,
+    evidenceTier,
+    routeEligible,
+    minimumEvidenceReady: gates.minimumEvidenceReady,
+    writerReady: gates.writerReady,
+    missingRoles: gates.missingWriterRoles,
     queryCount: result.stats.searchQueries,
     mappedUrlCount: result.stats.mappedUrlCount,
     attemptedUrlCount: result.stats.attemptedUrlCount,
@@ -99,7 +120,7 @@ function summarize(
 export async function runNarrativeUserCanaryV8(
   input: NarrativeUserCanaryInputV8
 ): Promise<NarrativeUserCanaryResultV8> {
-  const research: Array<{ stopId: string; result: NarrativeResearchStopResultV8 }> = [];
+  const research: NarrativeResearchHandoffStopV8[] = [];
   let failed = false;
   let nextIndex = 0;
   const worker = async (): Promise<void> => {
@@ -118,8 +139,8 @@ export async function runNarrativeUserCanaryV8(
         language: input.request.language,
         required: input.core.requiredIds.includes(stop.wikidataId),
       });
-      research.push({ stopId: stop.stopId, result });
-      if (result.status !== 'sufficient') {
+      research.push({ routeStopId: stop.stopId, entityQid: stop.wikidataId, result });
+      if (!result.routeEligible) {
         failed = true;
         return;
       }
@@ -130,76 +151,104 @@ export async function runNarrativeUserCanaryV8(
     () => worker()
   ));
   const orderByStopId = new Map(
-    input.route.stops.map((stop, index) => [stop.wikidataId, index])
+    input.route.stops.map((stop, index) => [stop.stopId, index])
   );
   research.sort((left, right) => (
-    (orderByStopId.get(left.stopId) ?? Number.MAX_SAFE_INTEGER)
-      - (orderByStopId.get(right.stopId) ?? Number.MAX_SAFE_INTEGER)
+    (orderByStopId.get(left.routeStopId) ?? Number.MAX_SAFE_INTEGER)
+      - (orderByStopId.get(right.routeStopId) ?? Number.MAX_SAFE_INTEGER)
   ));
-  const summary = research.map(({ stopId, result }) => summarize(stopId, result));
-  const dossiers = research
-    .filter(({ result }) => result.status === 'sufficient')
-    .map(({ result }) => (result.status === 'sufficient' ? result.dossier : null))
+  const summary = research.map((handoff) => summarize(handoff.routeStopId, handoff.entityQid, handoff.result));
+  const candidateDossiers = research
+    .filter((handoff) => handoff.result.routeEligible && handoff.result.status === 'sufficient')
+    .map((handoff) => (handoff.result.routeEligible && handoff.result.status === 'sufficient' ? handoff.result.dossier : null))
     .filter((dossier): dossier is NarrativeDossierV6 => dossier !== null);
 
-  if (dossiers.length !== input.route.stops.length) {
-    const message = research
-      .filter(({ result }) => result.status !== 'sufficient')
-      .map(({ stopId, result }) => (
-        `${stopId}: ${result.status}${result.status === 'evidence_review_required'
-          ? ` — ${result.reasons.join('; ')}` : ''}`
+  if (candidateDossiers.length !== input.route.stops.length) {
+    const ineligible = research.filter((handoff) => !handoff.result.routeEligible);
+    const hasFailed = ineligible.some((handoff) => handoff.result.status === 'failed');
+    const status: 'failed' | 'blocked' = hasFailed ? 'failed' : 'blocked';
+    const code = hasFailed ? 'research_failed' : 'evidence_review_required';
+    const message = ineligible
+      .map((handoff) => (
+        `${handoff.routeStopId}: ${handoff.result.status}${handoff.result.status === 'evidence_review_required'
+          ? ` — ${handoff.result.reasons.join('; ')}` : ''}`
       ))
       .join('; ');
     return {
-      status: 'blocked',
+      status,
       failure: {
         stage: 'research',
-        code: 'evidence_review_required',
+        code,
         message,
         retryableLater: false,
       },
       research: summary,
-      dossiers: [],
+      dossiers: candidateDossiers,
+      evidenceManifest: null,
+      boundaryMigrationPassed: false,
       editorial: null,
       markdown: null,
     };
   }
 
-  const routeIds = input.route.stops.map((stop) => stop.wikidataId);
-  const dossierIds = dossiers.map((dossier) => dossier.stopId);
-  if (JSON.stringify(routeIds) !== JSON.stringify(dossierIds)) {
+  const boundary = buildNarrativeEvidenceBoundaryV8(input.route, research);
+  if (boundary.status === 'blocked') {
     return {
-      status: 'failed',
+      status: 'blocked',
       failure: {
-        stage: 'dossier_boundary',
-        code: 'dossier_id_mismatch',
-        message: `route IDs and dossier IDs diverge: ${routeIds.join(',')} vs ${dossierIds.join(',')}`,
+        stage: 'evidence_boundary',
+        code: 'evidence_review_required',
+        message: boundary.reasons.join('; '),
         retryableLater: false,
       },
       research: summary,
-      dossiers,
+      dossiers: candidateDossiers,
+      evidenceManifest: null,
+      boundaryMigrationPassed: false,
+      editorial: null,
+      markdown: null,
+    };
+  }
+  if (boundary.status === 'protocol_failed') {
+    return {
+      status: 'failed',
+      failure: {
+        stage: 'evidence_boundary',
+        code: 'protocol_failed',
+        message: boundary.reason,
+        retryableLater: false,
+      },
+      research: summary,
+      dossiers: candidateDossiers,
+      evidenceManifest: null,
+      boundaryMigrationPassed: false,
       editorial: null,
       markdown: null,
     };
   }
 
+  const dossiers = boundary.admittedStops.map((stop) => stop.dossier);
   const editorial = await input.runEditorial({
     route: input.route,
-    dossiers,
+    admittedStops: boundary.admittedStops,
+    evidenceManifest: boundary.manifest,
     request: input.request,
   });
+  const routeStopIds = input.route.stops.map((stop) => stop.stopId);
   const scriptStopIds = editorial.scripts.map((script) => script.stopId);
-  if (JSON.stringify(scriptStopIds) !== JSON.stringify(routeIds)) {
+  if (JSON.stringify(scriptStopIds) !== JSON.stringify(routeStopIds)) {
     return {
       status: 'failed',
       failure: {
         stage: 'editorial_workflow',
         code: 'script_id_mismatch',
-        message: `scripts and route diverge: ${scriptStopIds.join(',')} vs ${routeIds.join(',')}`,
+        message: `scripts and route diverge: ${scriptStopIds.join(',')} vs ${routeStopIds.join(',')}`,
         retryableLater: false,
       },
       research: summary,
       dossiers,
+      evidenceManifest: boundary.manifest,
+      boundaryMigrationPassed: true,
       editorial: null,
       markdown: null,
     };
@@ -211,6 +260,8 @@ export async function runNarrativeUserCanaryV8(
     failure: null,
     research: summary,
     dossiers,
+    evidenceManifest: boundary.manifest,
+    boundaryMigrationPassed: true,
     editorial: {
       workflowStatus: editorial.workflowStatus,
       scriptStopIds,

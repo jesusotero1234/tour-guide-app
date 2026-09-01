@@ -95,7 +95,7 @@ export async function captureWikipediaArticleV8(
       rvprop: 'ids|timestamp',
       redirects: '1',
       converttitles: '1',
-      maxlag: '5',
+      maxlag: '30',
       titles: input.title,
       format: 'json',
       formatversion: '2',
@@ -192,7 +192,7 @@ export function classifyNarrativeHttpFailureV7(
   return { classification: 'classified_no_retry', status };
 }
 
-const DEFAULT_SEARXNG_BASE_URL_V7 = 'http://127.0.0.1:8080';
+const DEFAULT_SEARXNG_BASE_URL_V7 = 'http://127.0.0.1:18081';
 const DEFAULT_FIRECRAWL_BASE_URL_V7 = 'http://127.0.0.1:3007/v2';
 const MAX_CAPTURE_CHARACTERS_V7 = 1_000_000;
 

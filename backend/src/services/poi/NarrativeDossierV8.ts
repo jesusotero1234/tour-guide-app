@@ -49,6 +49,8 @@ export interface NarrativeCuratorOutputV8 {
   limits: string[];
 }
 
+export type NarrativeEvidenceTierV8 = 'A' | 'B' | 'C' | 'D';
+
 export interface NarrativeEvidenceGatesV8 {
   minimumEvidenceReady: boolean;
   writerReady: boolean;
@@ -303,13 +305,32 @@ export function assessNarrativeEvidenceGatesV8(
   const missingWriterRoles = NARRATIVE_ROLES_V8.filter((role) => !covered.has(role));
   const minimumEvidenceReady = identityConfirmed && missingMinimumRoles.length === 0;
   const writerReady = identityConfirmed
-    && missingWriterRoles.length === 0
-    && dossier.sufficiency.authoritySourceCount >= 2
-    && dossier.sufficiency.independentPublisherCount >= 2;
+    && missingWriterRoles.length === 0;
   return {
     minimumEvidenceReady,
     writerReady,
     missingMinimumRoles,
     missingWriterRoles,
   };
+}
+
+export function classifyEvidenceTierV8(
+  dossier: NarrativeDossierV6,
+  gates: NarrativeEvidenceGatesV8,
+  captures: NarrativeCapturedSourceV8[]
+): NarrativeEvidenceTierV8 {
+  if (!gates.minimumEvidenceReady) return 'D';
+  if (gates.writerReady) {
+    if (dossier.sufficiency.authoritySourceCount >= 2
+      && dossier.sufficiency.independentPublisherCount >= 2) {
+      return 'A';
+    }
+    const dossierSourceIds = new Set(dossier.sources.map((source) => source.sourceId));
+    const hasSupportedPrimary = captures.some((capture) => (
+      capture.authority.tier === 'primary_authority'
+      && dossierSourceIds.has(capture.sourceId)
+    ));
+    if (hasSupportedPrimary) return 'B';
+  }
+  return 'C';
 }

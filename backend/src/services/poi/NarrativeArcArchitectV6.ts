@@ -24,14 +24,10 @@ function objectValue(value: unknown, label: string): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
-export function validateNarrativeArcV6(
+export function validateNarrativeArcShapeV6(
   value: unknown,
-  route: NarrativeRouteBriefV6,
-  dossiers: NarrativeDossierV6[]
+  route: NarrativeRouteBriefV6
 ): NarrativeArcV6 {
-  if (dossiers.some((dossier) => !route.stops.some((stop) => stop.stopId === dossier.stopId))) {
-    throw new Error('arc received a dossier outside the route');
-  }
   const root = objectValue(value, 'arc response');
   if (typeof root.promise !== 'string' || !root.promise.trim()
     || typeof root.centralQuestion !== 'string' || !root.centralQuestion.trim()
@@ -50,11 +46,23 @@ export function validateNarrativeArcV6(
     || expected.some((stopId) => !observed.includes(stopId))) {
     throw new Error('arc must cover every route stop exactly once');
   }
+  return { promise: root.promise.trim(), centralQuestion: root.centralQuestion.trim(), stops };
+}
+
+export function validateNarrativeArcV6(
+  value: unknown,
+  route: NarrativeRouteBriefV6,
+  dossiers: NarrativeDossierV6[]
+): NarrativeArcV6 {
+  if (dossiers.some((dossier) => !route.stops.some((stop) => stop.stopId === dossier.stopId))) {
+    throw new Error('arc received a dossier outside the route');
+  }
+  const arc = validateNarrativeArcShapeV6(value, route);
   if (dossiers.length !== route.stops.length
-    || expected.some((stopId) => !dossiers.some((dossier) => dossier.stopId === stopId))) {
+    || route.stops.some((stop) => !dossiers.some((dossier) => dossier.stopId === stop.stopId))) {
     throw new Error('arc cannot be built before every dossier is sufficient');
   }
-  return { promise: root.promise.trim(), centralQuestion: root.centralQuestion.trim(), stops };
+  return arc;
 }
 
 export function createNarrativeArcArchitectV6(

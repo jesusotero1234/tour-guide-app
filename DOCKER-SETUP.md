@@ -48,27 +48,33 @@ export OLLAMA_MODEL=mistral:latest
 
 ## SearXNG Local (Discovery Provider)
 
-SearXNG is a self-hosted metasearch engine used as the web discovery provider for the research pipeline. It runs as a separate local container that publishes `127.0.0.1:8080` only, and it exposes a JSON API at `/search?format=json`. The JSON format is explicitly enabled in `scripts/searxng-settings.yml` (mounted read-only); the official default only enables `html` and would return `403` for `format=json`.
+SearXNG is a self-hosted metasearch engine used as the web discovery provider for the research pipeline. It runs as a separate local container that publishes `127.0.0.1:18081` only, and it exposes a JSON API at `/search?format=json`. The local configuration uses Bing and Mwmbl, both of which are credential-free.
+
+### Configuration
+
+The local configuration uses Bing and Mwmbl. No API keys or billing credentials are required.
+
+`scripts/searxng-settings.yml` is a secret-free committed template. The local script safely renders the SearXNG secret to `~/.local/state/tour-guide-app/searxng-settings.yml` under private state, and Compose mounts the rendered file read-only. The secret is not placed in the committed template or container environment, and the script does not print its value.
 
 ### Starting SearXNG
 
 Firecrawl must be up first: SearXNG joins the Firecrawl bridge network so the Firecrawl api container can reach it as `http://searxng:8080`:
 
 ```bash
-./scripts/firecrawl-local.sh up      # first: creates the shared network
-bash scripts/searxng-local.sh up        # then: joins it and publishes 127.0.0.1:8080
-bash scripts/searxng-local.sh status    # verify it responds
-bash scripts/searxng-local.sh down      # stop (volumes are preserved)
+./scripts/firecrawl-local.sh up       # first: creates the shared network
+bash scripts/searxng-local.sh up      # then: joins it and publishes 127.0.0.1:18081
+bash scripts/searxng-local.sh status  # verify it responds
+bash scripts/searxng-local.sh down    # stop (volumes are preserved)
 ```
 
-The image is pinned by digest in `scripts/searxng-local.compose.yaml`. Settings and runtime data persist in a named volume mounted at `/etc/searxng`.
+The image is pinned by digest in `scripts/searxng-local.compose.yaml`. The rendered settings persist in private state; the named `/etc/searxng` volume preserves the remaining container configuration.
 
 ### Configuring the backend
 
 Point the backend/discovery configuration at the local instance:
 
 ```bash
-export SEARXNG_BASE_URL=http://127.0.0.1:8080
+export SEARXNG_BASE_URL=http://127.0.0.1:18081
 ```
 
 When using Firecrawl self-hosted as the capture provider, wire its own SearXNG integration as well: set `SEARXNG_ENDPOINT=http://searxng:8080` in the Firecrawl local environment file (`~/.local/state/tour-guide-app/firecrawl.env`) and restart Firecrawl with `./scripts/firecrawl-local.sh down && ./scripts/firecrawl-local.sh up`. The compose default already sets this value; the env file must not override it with a loopback address, which would not resolve inside the Firecrawl container.
@@ -81,11 +87,17 @@ With SearXNG and Firecrawl both up, run the smoke test (no LLM required):
 bash scripts/smoke-v8-providers.sh
 ```
 
-It checks that SearXNG returns JSON, that Firecrawl `/search`, `/map` and `/scrape` (HTML and PDF) work, that SSRF protection blocks private addresses, and that no request can reach Firecrawl Cloud. Each check prints `[ok]` or `[fail]`; the script exits with a non-zero code if any check fails.
+It checks that SearXNG returns JSON, that Firecrawl `/search`, `/map` and `/scrape` (HTML and PDF) work, that SSRF protection blocks private addresses, and that no request can reach Firecrawl Cloud. The SearXNG gate runs the Palacio de los Condes de Buenavista Málaga query in `es-ES`. It requires that Mwmbl returns `https://www.wikidata.org/wiki/Q969308` and that Bing returns a relevant HTTPS Alcazaba de Málaga result. Each check prints `[ok]` or `[fail]`; the script exits with a non-zero code if any check fails.
 
 ### Security note
 
-SearXNG publishes `127.0.0.1` only and must never be exposed to the network: it is an unauthenticated open metasearch endpoint. Inside the container it binds `0.0.0.0` (see `scripts/searxng-settings.yml`) so the Firecrawl api container can reach it over the podman bridge network; the host-facing published port remains loopback-only. The compose file defines a default `SEARXNG_SECRET` for local development that can be overridden via environment when needed.
+SearXNG publishes `127.0.0.1` only and must never be exposed to the network: it is an unauthenticated open metasearch endpoint. Inside the container it binds `0.0.0.0` (see `scripts/searxng-settings.yml`) so the Firecrawl API container can reach it over the Podman bridge network; the host-facing published port remains loopback-only.
+
+Only `SEARXNG_SECRET` is rendered into private state. The private state directory must remain mode `0700` and the rendered settings file must remain mode `0600`.
+
+### Browser-based search rejection
+
+Browser-based search was rejected because it did not avoid CAPTCHA/blocking and added latency/maintenance. Firecrawl Playwright remains for page capture/rendering, while browser MCP is investigation-only and not runtime.
 
 ## Accessing Individual Services
 

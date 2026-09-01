@@ -6,8 +6,10 @@ import {
   NarrativeCuratorOutputV8,
   NarrativeDossierInputV8,
   NarrativeEvidenceGatesV8,
+  NarrativeEvidenceTierV8,
   NarrativeRoleV8,
   buildValidatedDossierV8,
+  classifyEvidenceTierV8,
 } from './NarrativeDossierV8';
 import {
   NarrativeCapturedSourceV7,
@@ -107,6 +109,8 @@ export type NarrativeResearchStopResultV8 =
     stopId: string;
     gates: NarrativeEvidenceGatesV8;
     dossier: NarrativeDossierV6;
+    evidenceTier: Exclude<NarrativeEvidenceTierV8, 'D'>;
+    routeEligible: true;
     stats: NarrativeResearchStopStatsV8;
     captures: NarrativeCapturedSourceV8[];
     captureLog: NarrativeCaptureAttemptV8[];
@@ -117,6 +121,8 @@ export type NarrativeResearchStopResultV8 =
     stopId: string;
     gates: NarrativeEvidenceGatesV8;
     dossier: NarrativeDossierV6 | null;
+    evidenceTier: 'D' | null;
+    routeEligible: false;
     stats: NarrativeResearchStopStatsV8;
     captures: NarrativeCapturedSourceV8[];
     captureLog: NarrativeCaptureAttemptV8[];
@@ -127,6 +133,8 @@ export type NarrativeResearchStopResultV8 =
     status: 'failed';
     stopId: string;
     failure: { code: string; message: string };
+    evidenceTier: null;
+    routeEligible: false;
     stats: NarrativeResearchStopStatsV8;
     captures: NarrativeCapturedSourceV8[];
     captureLog: NarrativeCaptureAttemptV8[];
@@ -174,6 +182,79 @@ function normalizeUrlV8(raw: string): string {
   }
 }
 
+function normalizeDomainV8(hostname: string): string | null {
+  const lower = hostname.toLowerCase();
+  if (!lower || lower === 'localhost' || lower.endsWith('.local') || lower.endsWith('.internal')) return null;
+  const labels = lower.split('.');
+  if (labels.length < 2) return null;
+  const domain = labels.slice(-2).join('.');
+  if (domain.endsWith('.wikipedia.org') || domain.endsWith('.wikimedia.org') || domain.endsWith('.wikidata.org')) return null;
+  return domain;
+}
+
+function extractWikimediaExternalLinkDomainsV8(content: string): string[] {
+  const lines = content.split('\n');
+  let inSection = false;
+  const domains = new Set<string>();
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!inSection) {
+      if (/^(?:==+\s*(?:Enlaces externos|External links)\s*==+|\*\s*(?:Enlaces externos|External links)|##\s*(?:Enlaces externos|External links)|(?:Enlaces externos|External links))$/iu.test(trimmed)) {
+        inSection = true;
+      }
+      continue;
+    }
+    if (/^(?:==+\s*[^=]|\*\s*(?!(?:Enlaces externos|External links))|##\s*[^#])$/iu.test(trimmed)) {
+      break;
+    }
+    const urlPattern = /https?:\/\/[a-zA-Z0-9.-]+/giu;
+    for (const match of trimmed.matchAll(urlPattern)) {
+      try {
+        const url = new URL(match[0]);
+        const domain = normalizeDomainV8(url.hostname);
+        if (domain) domains.add(domain);
+      } catch {
+        // ignore malformed URLs
+      }
+    }
+    const barePattern = /\bwww\.[a-zA-Z0-9.-]+/giu;
+    for (const match of trimmed.matchAll(barePattern)) {
+      const domain = normalizeDomainV8(match[0]);
+      if (domain) domains.add(domain);
+    }
+  }
+  return [...domains];
+}
+
+function hasIdentityTermV8(text: string, stopName: string, identity: NarrativeStopIdentityV8): boolean {
+  const normalized = normalizeNarrativeIdentityTextV8(text);
+  if (!normalized) return false;
+  const terms = [
+    normalizeNarrativeIdentityTextV8(stopName),
+    normalizeNarrativeIdentityTextV8(identity.wikipediaTitle ?? ''),
+    ...identity.labels.map(normalizeNarrativeIdentityTextV8),
+    ...identity.aliases.map(normalizeNarrativeIdentityTextV8),
+  ].filter((term) => term.length >= 3);
+  return terms.some((term) => normalized.includes(term));
+}
+
+function curatorPacketProseV8(value: string): string {
+  return value
+    .replace(/!\[[^\]]*\]\([^)]*\)/gu, ' ')
+    .replace(/\[([^\]]+)\]\([^)]*\)/gu, '$1')
+    .replace(/https?:\/\/\S+|\bwww\.\S+/giu, ' ')
+    .replace(/[#*_`>|-]+/gu, ' ')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
+function usefulCuratorPacketProseV8(value: string): boolean {
+  const prose = curatorPacketProseV8(value);
+  return prose.length >= 40
+    && prose.split(/\s+/u).length >= 7
+    && /\p{L}/u.test(prose);
+}
+
 export function buildCuratorPacketV8(input: {
   stopId: string;
   stopName: string;
@@ -189,9 +270,14 @@ export function buildCuratorPacketV8(input: {
     source: NarrativeCapturedSourceV8;
     score: number;
   }> = [];
+  let filteredSpanCount = 0;
   for (const capture of input.captures) {
     const spans = input.spansBySource.get(capture.sourceId) ?? [];
     spans.forEach((span, index) => {
+      if (!usefulCuratorPacketProseV8(span.text)) {
+        filteredSpanCount += 1;
+        return;
+      }
       const normalized = normalizeNarrativeIdentityTextV8(span.text);
       const nameScore = nameTerms.some((term) => term.length > 0 && normalized.includes(term)) ? 4 : 0;
       const authorityScore = capture.authority.tier === 'established_source'
@@ -203,13 +289,21 @@ export function buildCuratorPacketV8(input: {
       });
     });
   }
-  const firstSpanBySource = new Map<string, NarrativeEvidenceSpanV7>();
-  for (const capture of input.captures) {
-    const first = (input.spansBySource.get(capture.sourceId) ?? [])[0];
-    if (first) firstSpanBySource.set(capture.sourceId, first);
+  candidates.sort((left, right) => (
+    right.score - left.score
+    || left.source.finalUrl.localeCompare(right.source.finalUrl)
+    || left.span.start - right.span.start
+  ));
+  const reservedByPublisher = new Map<string, number>();
+  const tier = new Map<string, number>();
+  for (const candidate of candidates) {
+    const key = candidate.source.authority.publisherKey;
+    const reserved = reservedByPublisher.get(key) ?? 0;
+    tier.set(candidate.span.evidenceSpanId, reserved < 3 ? 0 : 1);
+    if (reserved < 3) reservedByPublisher.set(key, reserved + 1);
   }
   candidates.sort((left, right) => (
-    Number(firstSpanBySource.has(right.source.sourceId)) - Number(firstSpanBySource.has(left.source.sourceId))
+    (tier.get(left.span.evidenceSpanId) ?? 1) - (tier.get(right.span.evidenceSpanId) ?? 1)
     || right.score - left.score
     || left.source.finalUrl.localeCompare(right.source.finalUrl)
     || left.span.start - right.span.start
@@ -227,7 +321,7 @@ export function buildCuratorPacketV8(input: {
     });
     characters += candidate.span.text.length;
   }
-  excludedSpanCount = candidates.length - spans.length;
+  excludedSpanCount = filteredSpanCount + candidates.length - spans.length;
   return {
     stopId: input.stopId,
     stopName: input.stopName,
@@ -283,12 +377,14 @@ export async function researchNarrativeStopV8(
   const mappedUrls = new Set<string>();
   const usedQueries: string[] = [];
   const captureLog: NarrativeCaptureAttemptV8[] = [];
+  const wikimediaExternalDomains = new Set<string>();
   let searchQueries = 0;
   let curationCount = 0;
   const state: {
     round: { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 } | null;
     failure: string | null;
-  } = { round: null, failure: null };
+    lastValidCaptureCount: number;
+  } = { round: null, failure: null, lastValidCaptureCount: 0 };
 
   const publisherCount = (): number => (
     new Set(captures.map((capture) => capture.authority.publisherKey)).size
@@ -335,27 +431,44 @@ export async function researchNarrativeStopV8(
       });
       return;
     }
+    const targetDomain = normalizeDomainV8(hostname);
     const registered = registry.authorities.some((authority) => (
       hostname === authority.domain || hostname.endsWith('.' + authority.domain)
     ));
+    const isWikimediaExternal = phase === 'deterministic_search' && targetDomain !== null && wikimediaExternalDomains.has(targetDomain);
     if (!registered) {
-      recordAttempt({
-        phase,
-        requestedUrl: url,
-        finalUrl: url,
-        authorityBeforeCapture: 'discovery_only',
-        authorityAfterCapture: 'discovery_only',
-        publisherKey: null,
-        outcome: 'skipped_discovery_only',
-        httpStatus: null,
-        errorClassification: null,
-      });
-      return;
+      if (!isWikimediaExternal) {
+        recordAttempt({
+          phase,
+          requestedUrl: url,
+          finalUrl: url,
+          authorityBeforeCapture: 'discovery_only',
+          authorityAfterCapture: 'discovery_only',
+          publisherKey: null,
+          outcome: 'skipped_discovery_only',
+          httpStatus: null,
+          errorClassification: null,
+        });
+        return;
+      }
     }
     const startedAt = Date.now();
     try {
       let captured = await services.captureWeb({ url: target });
       let asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
+      if (!registered && isWikimediaExternal) {
+        const identityText = `${asV8.title} ${asV8.content}`;
+        if (hasIdentityTermV8(identityText, input.stopName, identity)) {
+          asV8 = {
+            ...asV8,
+            authority: {
+              tier: 'established_source',
+              publisherKey: asV8.authority.publisherKey,
+              rule: 'wikimedia_external_link_identity_verified',
+            },
+          };
+        }
+      }
       let accepted = addCapturedSource(asV8);
       if (!accepted && asV8.authority.tier === 'discovery_only' && registered) {
         // Un scrape transitorio (cookie wall, página parcial) puede llegar sin
@@ -398,46 +511,53 @@ export async function researchNarrativeStopV8(
     }
   };
 
-  const curate = async (): Promise<boolean> => {
-    if (curationCount >= 2) return false;
+  const curate = async (): Promise<
+    | { ok: true; dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8; tier: NarrativeEvidenceTierV8 }
+    | { ok: false; failure: string }
+  > => {
+    if (curationCount >= 2) return { ok: false, failure: 'curation budget exhausted' };
     curationCount += 1;
     const curated = await curateRoundV8(input, services, captures, spansBySource, identity, registry);
     if (curated && 'dossier' in curated) {
+      const tier = classifyEvidenceTierV8(curated.dossier, curated.gates, captures);
       state.round = curated;
       state.failure = null;
-      return curated.gates.writerReady;
+      state.lastValidCaptureCount = captures.length;
+      return { ok: true, dossier: curated.dossier, gates: curated.gates, tier };
     }
-    if (curated) state.failure = (curated as { failure: string }).failure;
-    return false;
+    if (curated) {
+      state.failure = (curated as { failure: string }).failure;
+      return { ok: false, failure: (curated as { failure: string }).failure };
+    }
+    return { ok: false, failure: 'curation failed' };
   };
 
-  const sufficient = (): NarrativeResearchStopResultV8 => ({
-    status: 'sufficient',
-    stopId: input.stopId,
-    gates: state.round?.gates ?? {
-      minimumEvidenceReady: false,
-      writerReady: false,
-      missingMinimumRoles: [],
-      missingWriterRoles: [],
-    },
-    dossier: state.round?.dossier ?? null as unknown as NarrativeDossierV6,
-    captures,
-    captureLog,
-    authorities: registry.authorities.map((authority) => ({
-      qid: authority.qid,
-      origin: authority.origin,
-      domain: authority.domain,
-      url: authority.url,
-    })),
-    stats: {
-      searchQueries,
-      mappedUrlCount: mappedUrls.size,
-      attemptedUrlCount: attemptedUrls.size,
-      capturedSourceCount: captures.length,
-      publisherCount: publisherCount(),
-      curationCount,
-    },
-  });
+  const sufficient = (round: { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 }, tier: Exclude<NarrativeEvidenceTierV8, 'D'>): NarrativeResearchStopResultV8 => {
+    return {
+      status: 'sufficient',
+      stopId: input.stopId,
+      gates: round.gates,
+      dossier: round.dossier,
+      evidenceTier: tier,
+      routeEligible: true,
+      captures,
+      captureLog,
+      authorities: registry.authorities.map((authority) => ({
+        qid: authority.qid,
+        origin: authority.origin,
+        domain: authority.domain,
+        url: authority.url,
+      })),
+      stats: {
+        searchQueries,
+        mappedUrlCount: mappedUrls.size,
+        attemptedUrlCount: attemptedUrls.size,
+        capturedSourceCount: captures.length,
+        publisherCount: publisherCount(),
+        curationCount,
+      },
+    };
+  };
 
   // Semilla: Wikipedia por API y URLs P856 exactas.
   if (identity.wikipediaTitle) {
@@ -463,6 +583,11 @@ export async function researchNarrativeStopV8(
           attempt: attemptedUrls.size,
           elapsedMs: 0,
         });
+        if (accepted && wikipedia.entityQid === input.stopId) {
+          for (const domain of extractWikimediaExternalLinkDomainsV8(wikipedia.content)) {
+            wikimediaExternalDomains.add(domain);
+          }
+        }
       }
     } catch (error) {
       captureLog.push({
@@ -487,10 +612,12 @@ export async function researchNarrativeStopV8(
     await attemptWebCapture(authority.url, 'p856');
   }
 
-  // Si ya hay dos publishers, primera curación (ronda 1).
-  if (publisherCount() >= 2) {
-    const done = await curate();
-    if (done) return sufficient();
+  // Primera curación (ronda 1) con al menos una captura aceptada.
+  if (captures.length >= 1) {
+    const result = await curate();
+    if (result.ok && (result.tier === 'A' || result.tier === 'B')) {
+      return sufficient(state.round!, result.tier);
+    }
   }
 
   // Descubrimiento: reunir resultados, deduplicar, priorizar y capturar.
@@ -506,23 +633,32 @@ export async function researchNarrativeStopV8(
   const citySuffix = searchName.toLocaleLowerCase().includes(input.cityName.toLocaleLowerCase())
     ? ''
     : ` ${input.cityName}`;
-  const deterministicQueries = [
+  const deterministicQueries: string[] = [];
+  let corroboratedDomain: string | null = null;
+  if (wikimediaExternalDomains.size > 0) {
+    corroboratedDomain = [...wikimediaExternalDomains].sort()[0];
+    deterministicQueries.push(`site:${corroboratedDomain} ${searchName}${citySuffix}`);
+  }
+  deterministicQueries.push(
     searchName + citySuffix,
     `${searchName}${citySuffix} historia cronología`,
     `${searchName}${citySuffix} arquitectura elementos visibles`,
     `${searchName}${citySuffix} función uso transformación`,
-  ];
-  for (const query of deterministicQueries) {
+  );
+  const cappedDeterministicQueries = deterministicQueries.slice(0, budget.deterministicQueries);
+  for (const query of cappedDeterministicQueries) {
     if (attemptedUrls.size >= budget.captures) break;
     searchQueries += 1;
     usedQueries.push(query);
+    const isCorroboratedSiteQuery = corroboratedDomain !== null && query === `site:${corroboratedDomain} ${searchName}${citySuffix}`;
+    const resultLimit = isCorroboratedSiteQuery ? 10 : 5;
     let results: NarrativeDiscoveryResultV7[] = [];
     try {
       results = await services.search({
         query,
         language: input.language,
         countryCode: input.countryCode,
-        limit: 5,
+        limit: resultLimit,
       });
     } catch (error) {
       captureLog.push({
@@ -540,11 +676,21 @@ export async function researchNarrativeStopV8(
         elapsedMs: 0,
       });
     }
-    for (const result of results.slice(0, 5)) {
+    for (const result of results.slice(0, resultLimit)) {
       const url = normalizeUrlV8(result.url);
       if (!gatheredUrls.has(url)) {
         gatheredUrls.add(url);
-        gathered.push({ url, phase: 'deterministic_search', priority: authorityPriorityV8(url, registry) });
+        let priority = authorityPriorityV8(url, registry);
+        if (isCorroboratedSiteQuery && corroboratedDomain !== null) {
+          try {
+            const hostname = new URL(url).hostname.toLowerCase();
+            const domain = normalizeDomainV8(hostname);
+            if (domain === corroboratedDomain) priority = -1;
+          } catch {
+            // ignore malformed URL
+          }
+        }
+        gathered.push({ url, phase: 'deterministic_search', priority });
       }
     }
   }
@@ -603,11 +749,7 @@ export async function researchNarrativeStopV8(
     await attemptWebCapture(item.url, item.phase);
   }
 
-  // Curación agregada (ronda 1 o 2) tras el descubrimiento.
-  if (publisherCount() >= 2) {
-    const done = await curate();
-    if (done) return sufficient();
-  }
+
 
   // Ronda adaptativa: solo si falta writerReady y queda presupuesto.
   if (attemptedUrls.size < budget.captures && services.proposeAdaptiveQueries) {
@@ -665,31 +807,39 @@ export async function researchNarrativeStopV8(
         }
       }
     }
-    if (captures.length > 0 && publisherCount() >= 2) {
-      const done = await curate();
-      if (done) return sufficient();
+  }
+
+  // CURATE #2: solo si las capturas aumentaron tras la última curación válida,
+  // o si no hay ronda válida y existen capturas.
+  const shouldCurate2 = captures.length > state.lastValidCaptureCount
+    || (state.round === null && captures.length > 0);
+  if (shouldCurate2) {
+    const result = await curate();
+    if (result.ok && (result.tier === 'A' || result.tier === 'B' || result.tier === 'C')) {
+      return sufficient(state.round!, result.tier);
     }
   }
 
   const finalGates = state.round?.gates ?? null;
   const reasons: string[] = [];
-  if (state.failure !== null && publisherCount() < 2) {
-    reasons.push('authority_insufficient: fewer than two independent publishers');
-  } else if (state.failure !== null) {
+  let evidenceTier: NarrativeEvidenceTierV8 | null = null;
+  if (state.failure !== null) {
+    evidenceTier = null;
     reasons.push('curator_contract_failed: ' + state.failure);
-  } else {
-    if (publisherCount() < 2
-      || (state.round && state.round.dossier.sufficiency.independentPublisherCount < 2)) {
-      reasons.push('authority_insufficient: fewer than two independent publishers');
+  } else if (state.round) {
+    evidenceTier = classifyEvidenceTierV8(state.round.dossier, state.round.gates, captures);
+    if (evidenceTier !== 'D') {
+      return sufficient(state.round, evidenceTier);
     }
-    if (state.round && state.round.dossier.sufficiency.authoritySourceCount < 2) {
-      reasons.push('authority_insufficient: fewer than two authority sources');
-    }
+    reasons.push('evidence tier D: minimum evidence not ready');
     for (const role of (finalGates?.missingWriterRoles ?? [])) {
       reasons.push('missing writer role ' + role);
     }
+  } else {
+    evidenceTier = null;
+    reasons.push('no valid dossier round');
   }
-  if (reasons.length === 0) reasons.push('authority_insufficient');
+  if (reasons.length === 0) reasons.push('evidence tier D: minimum evidence not ready');
   return {
     status: 'evidence_review_required',
     stopId: input.stopId,
@@ -700,6 +850,8 @@ export async function researchNarrativeStopV8(
       missingWriterRoles: [],
     },
     dossier: state.round ? state.round.dossier : null,
+    evidenceTier,
+    routeEligible: false,
     captures,
     captureLog,
     authorities: registry.authorities.map((authority) => ({
@@ -790,19 +942,18 @@ async function curateRoundV8(
 function sufficientResultV8(
   input: NarrativeResearchStopInputV8,
   dossier: NarrativeDossierV6,
+  gates: NarrativeEvidenceGatesV8,
+  evidenceTier: Exclude<NarrativeEvidenceTierV8, 'D'>,
   captures: NarrativeCapturedSourceV8[],
   stats: Omit<NarrativeResearchStopStatsV8, 'capturedSourceCount' | 'publisherCount'>
 ): NarrativeResearchStopResultV8 {
   return {
     status: 'sufficient',
     stopId: input.stopId,
-    gates: {
-      minimumEvidenceReady: true,
-      writerReady: true,
-      missingMinimumRoles: [],
-      missingWriterRoles: [],
-    },
+    gates,
     dossier,
+    evidenceTier,
+    routeEligible: true,
     captures,
     captureLog: [],
     stats: {

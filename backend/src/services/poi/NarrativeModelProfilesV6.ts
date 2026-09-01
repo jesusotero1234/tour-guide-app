@@ -82,23 +82,17 @@ const deepseekPro = {
 
 function openRouterProvider(
   model: string,
-  endpoint: string,
-  expectedProviderName: string,
   acceptedModels: string[] = []
 ): EditorialProviderV6 {
   return {
     kind: 'openrouter',
     model,
-    endpoint,
-    expectedProviderName,
     acceptedModels,
   };
 }
 
 const openRouterFlash = openRouterProvider(
   'deepseek/deepseek-v4-flash-0731',
-  'deepinfra/fp4',
-  'DeepInfra',
   [
     'deepseek/deepseek-v4-flash-0731-20260731',
     'deepseek/deepseek-v4-flash-20260731',
@@ -106,14 +100,10 @@ const openRouterFlash = openRouterProvider(
 );
 const openAiMini = openRouterProvider(
   'openai/gpt-5.4-mini',
-  'openai',
-  'OpenAI',
   ['openai/gpt-5.4-mini-20260317']
 );
 const openAiFull = openRouterProvider(
   'openai/gpt-5.4',
-  'openai',
-  'OpenAI',
   ['openai/gpt-5.4-20260305']
 );
 export const NARRATIVE_MODEL_PROFILES_V6: Record<

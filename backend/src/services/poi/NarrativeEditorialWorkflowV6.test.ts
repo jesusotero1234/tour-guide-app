@@ -116,7 +116,8 @@ describe('narrative v6 editorial workflow', () => {
   };
 
   it('repairs one local window, reaudits with both models and reaches the human gate', async () => {
-    const result = await runNarrativeEditorialWorkflowV6(base, agents());
+    const fake = agents();
+    const result = await runNarrativeEditorialWorkflowV6(base, fake);
 
     expect(result.run).toMatchObject({
       status: 'ready_for_human_gate',
@@ -125,6 +126,9 @@ describe('narrative v6 editorial workflow', () => {
     expect(result.stops[0].repairRoundUsed).toBe(true);
     expect(result.stops[0].finalScript.text).toContain('etapas de conflicto');
     expect(result.stops[0].audits).toHaveLength(4);
+    const writerInput = fake.write.mock.calls[0][0];
+    expect(writerInput).not.toHaveProperty('evidence');
+    expect(writerInput).not.toHaveProperty('evidenceContext');
   });
 
   it('stops before writing when any dossier is insufficient', async () => {
@@ -135,6 +139,10 @@ describe('narrative v6 editorial workflow', () => {
 
     expect(result.run.status).toBe('evidence_review_required');
     expect(fake.write).not.toHaveBeenCalled();
+    expect(fake.audit).not.toHaveBeenCalled();
+    expect(fake.adjudicate).not.toHaveBeenCalled();
+    expect(fake.repair).not.toHaveBeenCalled();
+    expect(fake.auditTour).not.toHaveBeenCalled();
   });
 
   it('resumes from supplied scripts without invoking writers or auditing excluded stops', async () => {

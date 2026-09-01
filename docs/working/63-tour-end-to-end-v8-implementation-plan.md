@@ -1160,3 +1160,18 @@ La entrega final debe incluir además:
 - confirmación explícita de que el tiempo de traslado no forma parte de `guidedDurationMinutes`.
 
 No hacer commit, merge, push ni activar producción salvo autorización separada del usuario.
+
+## 17. Addendum de estado de implementación (2026-09-01)
+
+**Estado actual:** La implementación del Plan 66 ha completado la migración de la frontera de evidencia V8, separando la suficiencia estricta V6 de la elegibilidad de ruta A/B/C V8 mediante una frontera determinista, Arc V8, Editorial V8 y scorecard/artefactos conscientes del manifiesto.
+
+**Evidencia de validación completada:**
+- 11 suites focalizadas, 77 tests pasados.
+- Backend `src` TypeScript pasó (`tsc --noEmit`).
+- Verificación TypeScript directa de `narrative-user-canary-v8.ts` pasó.
+
+**Definición de Done (DoD) actual:**
+- **DoD de implementación/estático:** Completado. Los módulos, contratos, frontera de evidencia y validaciones estáticas están implementados y verificados.
+- **DoD de producto/live:** Pendiente. La validación en vivo del canary de Málaga no se ha ejecutado.
+
+**Pendiente:** La ejecución completa del canary de Málaga fue intencionalmente no ejecutada por Codex y permanece pendiente de ejecución por el usuario.

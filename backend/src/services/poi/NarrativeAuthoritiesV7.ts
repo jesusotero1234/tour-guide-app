@@ -316,7 +316,7 @@ export async function resolveWikidataQidFromWikipediaV8(input: {
       prop: 'pageprops',
       redirects: '1',
       converttitles: '1',
-      maxlag: '5',
+      maxlag: '30',
       titles: input.title,
       format: 'json',
       formatversion: '2',

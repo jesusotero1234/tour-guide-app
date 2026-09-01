@@ -71,6 +71,7 @@ export interface CanonicalTourCoreV6 {
     promptFingerprint: string;
     responseFingerprints: string[];
     candidatePermutationSeeds: string[];
+    disputedCanonicalIds: string[];
   };
 }
 
@@ -322,7 +323,7 @@ export function resolveCanonicalTourCoreV6(config: CoreResolutionConfigV6): Core
     }
     validateCoreAuditV6(run.response, run.request);
   }
-  const audit: CanonicalTourCoreV6['audit'] = {
+  const audit = {
     provider: config.provider,
     model: config.model,
     promptFingerprint: config.promptFingerprint,
@@ -330,17 +331,21 @@ export function resolveCanonicalTourCoreV6(config: CoreResolutionConfigV6): Core
     candidatePermutationSeeds: config.runs.map((run) => run.seed),
   };
   const requiredSets = config.runs.map((run) => requiredSet(run.response));
-  const consensus = requiredSets.every((set) => set.join(',') === requiredSets[0].join(','));
   const union = new Set(requiredSets.flat());
   const intersection = new Set(requiredSets[0].filter((id) => (
     requiredSets.every((set) => set.includes(id))
   )));
+  const unanimousRequiredIds = [...intersection].sort();
   const disputedCanonicalIds = [...union].filter((id) => !intersection.has(id)).sort();
-  if (!consensus || requiredSets[0].length < 1 || requiredSets[0].length > 8) {
+  const auditWithDisputes: CanonicalTourCoreV6['audit'] = {
+    ...audit,
+    disputedCanonicalIds,
+  };
+  if (unanimousRequiredIds.length < 1 || unanimousRequiredIds.length > 8) {
     return {
       schemaVersion: 'core-build-result-v1', status: 'core_review_required',
-      reason: consensus ? 'invalid_core_cardinality' : 'audit_disagreement',
-      requiredSets, disputedCanonicalIds, audit,
+      reason: 'invalid_core_cardinality',
+      requiredSets, disputedCanonicalIds, audit: auditWithDisputes,
     };
   }
   const firstById = new Map(config.runs[0].response.classifications.map((item) => [item.canonicalId, item]));
@@ -351,7 +356,7 @@ export function resolveCanonicalTourCoreV6(config: CoreResolutionConfigV6): Core
       ...config.context,
       sourceFingerprint: config.sourceFingerprint,
       status: 'approved',
-      requirements: requiredSets[0].map((canonicalId) => {
+      requirements: unanimousRequiredIds.map((canonicalId) => {
         const classification = firstById.get(canonicalId) as CoreAuditClassificationV6;
         return {
           canonicalId,
@@ -361,7 +366,7 @@ export function resolveCanonicalTourCoreV6(config: CoreResolutionConfigV6): Core
           provenance: 'stable_model_consensus' as const,
         };
       }),
-      audit,
+      audit: auditWithDisputes,
     },
   };
 }

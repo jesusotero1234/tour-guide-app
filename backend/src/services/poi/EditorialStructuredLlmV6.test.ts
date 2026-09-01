@@ -44,30 +44,30 @@ function openRouterResponse(
 }
 
 describe('editorial structured LLM v6 providers', () => {
-  it('keeps the DeepSeek control default and pins every OpenRouter phase', () => {
+  it('keeps the DeepSeek control default with unpinned OpenRouter phases', () => {
     expect(resolveNarrativeModelProfileV6()).toBe(NARRATIVE_MODEL_PROFILES_V6.deepseek_control);
     const candidate = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter;
     expect(candidate.phases).toMatchObject({
       planner: {
-        provider: { model: 'deepseek/deepseek-v4-flash-0731', endpoint: 'deepinfra/fp4' },
+        provider: { model: 'deepseek/deepseek-v4-flash-0731' },
         reasoning: 'none', temperature: 0,
       },
       curator: {
-        provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
+        provider: { model: 'openai/gpt-5.4-mini' },
         reasoning: 'low',
       },
       curator_complex: {
-        provider: { model: 'openai/gpt-5.4', endpoint: 'openai' },
+        provider: { model: 'openai/gpt-5.4' },
         reasoning: 'medium',
       },
       writer: { reasoning: 'none', temperature: 0.7 },
       auditor_a: { reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       auditor_b: {
-        provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
+        provider: { model: 'openai/gpt-5.4-mini' },
         reasoning: 'low', maxTokens: 2_000,
       },
       global_auditor: {
-        provider: { model: 'openai/gpt-5.4-mini', endpoint: 'openai' },
+        provider: { model: 'openai/gpt-5.4-mini' },
         reasoning: 'high', maxTokens: 20_000,
       },
     });
@@ -76,10 +76,10 @@ describe('editorial structured LLM v6 providers', () => {
     expect(candidate.phases.global_auditor).not.toHaveProperty('temperature');
   });
 
-  it('preflights the public catalog and exact endpoints without an API key', async () => {
+  it('preflights the public catalog for compatible endpoints without an API key', async () => {
     const providers: Record<string, { tag: string; provider: string }> = {
       'deepseek/deepseek-v4-flash-0731': {
-        tag: 'deepinfra/fp4', provider: 'DeepInfra',
+        tag: 'relace/fp4', provider: 'Relace',
       },
       'openai/gpt-5.4-mini': { tag: 'openai', provider: 'OpenAI' },
       'openai/gpt-5.4': { tag: 'openai', provider: 'OpenAI' },
@@ -118,10 +118,26 @@ describe('editorial structured LLM v6 providers', () => {
       if (!model) throw new Error(`unexpected URL: ${url}`);
       const provider = providers[model];
       return { data: { data: { id: model, endpoints: [{
+        tag: 'incompatible',
+        provider_name: 'Incompatible Provider',
+        name: `Incompatible Provider | ${model}`,
+        pricing: { prompt: '0.1', completion: '0.1', request: '0.1' },
+        supported_parameters: ['max_tokens'],
+      }, {
         tag: provider.tag,
         provider_name: provider.provider,
         name: `${provider.provider} | ${model}`,
-        pricing: { prompt: '0.000001', completion: '0.000003', request: '0' },
+        pricing: { prompt: '0.000001', completion: '0.000004', request: '0' },
+        supported_parameters: [
+          'max_tokens', 'reasoning', 'response_format', 'structured_outputs', 'temperature',
+        ],
+      }, {
+        tag: 'compatible-backup',
+        provider_name: 'Compatible Backup',
+        name: `Compatible Backup | ${model}`,
+        pricing: {
+          prompt: '0.000002', completion: '0.000003', internal_reasoning: '0.000005', request: '0.000006',
+        },
         supported_parameters: [
           'max_tokens', 'reasoning', 'response_format', 'structured_outputs', 'temperature',
         ],
@@ -134,10 +150,10 @@ describe('editorial structured LLM v6 providers', () => {
     expect(result.issues).toEqual([]);
     expect(result.checks).toHaveLength(3);
     expect(result.checks[0].pricing).toEqual({
-      inputUsdPerToken: 0.000001,
-      outputUsdPerToken: 0.000003,
-      internalReasoningUsdPerToken: 0,
-      requestUsd: 0,
+      inputUsdPerToken: 0.000002,
+      outputUsdPerToken: 0.000004,
+      internalReasoningUsdPerToken: 0.000005,
+      requestUsd: 0.000006,
     });
     expect(result.fingerprint).toMatch(/^[a-f0-9]{64}$/);
     expect(get).toHaveBeenCalledTimes(4);
@@ -145,7 +161,7 @@ describe('editorial structured LLM v6 providers', () => {
     expect(get.mock.calls.flat()).not.toContain(expect.stringContaining('Bearer'));
   });
 
-  it('stops preflight when a pinned endpoint cannot honor the request protocol', async () => {
+  it('stops preflight when no endpoint can honor the request protocol', async () => {
     const get = jest.fn(async (url: string) => {
       if (url.endsWith('/models')) {
         return { data: { data: [{ id: 'openai/gpt-5.4-mini' }] } };
@@ -162,12 +178,12 @@ describe('editorial structured LLM v6 providers', () => {
 
     expect(result.status).toBe('protocol_failed');
     expect(result.issues).toEqual(expect.arrayContaining([
-      expect.stringContaining('lacks required parameters'),
-      expect.stringContaining('Pinned endpoint is unavailable'),
+      expect.stringContaining('No compatible endpoint found'),
+      expect.stringContaining('Model is absent from the OpenRouter catalog'),
     ]));
   });
 
-  it('sends strict pinned OpenRouter JSON schema requests and validates routing metadata', async () => {
+  it('sends strict dynamically routed OpenRouter JSON schema requests and validates routing metadata', async () => {
     const phase = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases.curator;
     const progress: Array<{ event: string; diagnostic?: unknown; maximumCostUsd?: number }> = [];
     const post = jest.fn(async (
@@ -184,9 +200,7 @@ describe('editorial structured LLM v6 providers', () => {
       expect(body).toMatchObject({
         model: 'openai/gpt-5.4-mini',
         reasoning: { effort: 'low' },
-        provider: {
-          only: ['openai'], require_parameters: true, allow_fallbacks: false,
-        },
+        provider: { require_parameters: true, allow_fallbacks: false },
         response_format: {
           type: 'json_schema',
           json_schema: { name: 'submit_test_v6', strict: true },
@@ -218,7 +232,7 @@ describe('editorial structured LLM v6 providers', () => {
 
     expect(result).toMatchObject({
       status: 'valid', actualModel: 'openai/gpt-5.4-mini', actualProvider: 'OpenAI',
-      requestedEndpoint: 'openai', schemaValid: true, retryCount: 0, ttftMs: null,
+      requestedEndpoint: null, schemaValid: true, retryCount: 0, ttftMs: null,
       reasoning: 'low', profile: 'balanced_openrouter',
       usage: {
         inputTokens: 20, outputTokens: 8, totalTokens: 28,
@@ -413,14 +427,99 @@ describe('editorial structured LLM v6 providers', () => {
     expect(post).not.toHaveBeenCalled();
   });
 
-  it('does not retry a structurally valid response that fails semantic validation', async () => {
+  it('retries a schema-invalid response with corrective feedback and succeeds on the second attempt', async () => {
+    const phase = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases.curator;
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse('{"ok":"wrong"}'))
+      .mockResolvedValueOnce(openRouterResponse('{"ok":true}'));
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'schema-retry-corrective', input: {}, provider: phase.provider,
+      options: {
+        openRouterApiKey: 'test-key', post, reasoning: phase.reasoning, requestAttempts: 2,
+      },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value as { ok: true },
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.attempts[0].status).toBe('semantic_error');
+    expect(result.attempts[0].schemaValid).toBe(false);
+    expect(result.attempts[1].status).toBe('valid');
+    expect(result.attempts[1].schemaValid).toBe(true);
+    expect(result.retryCount).toBe(1);
+    expect(post).toHaveBeenCalledTimes(2);
+    const firstBody = post.mock.calls[0][1] as Record<string, unknown>;
+    const firstMessages = firstBody.messages as Array<Record<string, string>>;
+    expect(firstMessages).toHaveLength(2);
+    expect(firstMessages[1].content).not.toContain('failed validation');
+    const secondBody = post.mock.calls[1][1] as Record<string, unknown>;
+    const secondMessages = secondBody.messages as Array<Record<string, string>>;
+    expect(secondMessages).toHaveLength(3);
+    expect(secondMessages[2].content).toContain('failed validation');
+    expect(secondMessages[2].content).toContain('Return a complete replacement JSON response');
+    expect(secondMessages[2].content).toContain('Copy every enum or const identifier exactly');
+  });
+
+  it('retries a semantic-invalid response with corrective feedback and succeeds on the second attempt', async () => {
+    const phase = NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases.curator;
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse('{"ok":true}'))
+      .mockResolvedValueOnce(openRouterResponse('{"ok":true}'));
+    let validations = 0;
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'semantic-retry-corrective', input: {}, provider: phase.provider,
+      options: {
+        openRouterApiKey: 'test-key', post, reasoning: phase.reasoning, requestAttempts: 2,
+      },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => {
+        validations += 1;
+        if (validations === 1) throw new Error('missing required item');
+        return value as { ok: true };
+      },
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.attempts[0].status).toBe('semantic_error');
+    expect(result.attempts[0].schemaValid).toBe(true);
+    expect(result.attempts[1].status).toBe('valid');
+    expect(result.attempts[1].schemaValid).toBe(true);
+    expect(result.retryCount).toBe(1);
+    expect(post).toHaveBeenCalledTimes(2);
+    const firstBody = post.mock.calls[0][1] as Record<string, unknown>;
+    const firstMessages = firstBody.messages as Array<Record<string, string>>;
+    expect(firstMessages).toHaveLength(2);
+    expect(firstMessages[1].content).not.toContain('failed semantic validation');
+    const secondBody = post.mock.calls[1][1] as Record<string, unknown>;
+    const secondMessages = secondBody.messages as Array<Record<string, string>>;
+    expect(secondMessages).toHaveLength(3);
+    expect(secondMessages[2].content).toContain('failed semantic validation');
+    expect(secondMessages[2].content).toContain('Return a complete replacement JSON response');
+    expect(secondMessages[2].content).toContain('Copy every identifier exactly');
+  });
+
+  it('does not retry a structurally valid response that fails semantic validation when configured for a single attempt', async () => {
     const post = jest.fn(async () => response('submit_test_v6'));
     let validations = 0;
 
     const result = await requestEditorialStructuredV6({
       callId: 'semantic-retry', input: {},
       provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
-      options: { apiKey: 'deepseek-test-key', post, requestAttempts: 2 },
+      options: { apiKey: 'deepseek-test-key', post, requestAttempts: 1 },
       systemPrompt: 'Return complete structured data.',
       schema: { type: 'object' },
       toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',

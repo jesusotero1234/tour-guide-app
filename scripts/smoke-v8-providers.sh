@@ -9,7 +9,7 @@ readonly FIRECRAWL_VERSION="v2.8.0"
 readonly FIRECRAWL_SRC="$PROJECT_ROOT/.runtime/firecrawl/$FIRECRAWL_VERSION"
 readonly FIRECRAWL_PROJECT="tour-guide-firecrawl-v2-8-0"
 readonly FIRECRAWL_API_CONTAINER="${FIRECRAWL_PROJECT}_api_1"
-readonly SEARXNG_URL="http://127.0.0.1:8080"
+readonly SEARXNG_URL="http://127.0.0.1:18081"
 readonly FIRECRAWL_URL="http://127.0.0.1:3007/v2"
 
 PASS_COUNT=0
@@ -65,16 +65,111 @@ jq_ok() {
 check_searxng_json() {
   local output="$1"
   local status
-  status=$(curl --silent --show-error \
+  if ! status=$(curl --silent --show-error \
     --connect-timeout 10 --max-time 60 \
-    --get --data-urlencode 'q=test' --data-urlencode 'format=json' \
+    --get \
+    --data-urlencode 'q=Palacio de los Condes de Buenavista Málaga' \
+    --data-urlencode 'language=es-ES' \
+    --data-urlencode 'format=json' \
     --output "$output" --write-out '%{http_code}' \
-    "$SEARXNG_URL/search")
-  if [[ "$status" == "200" ]] && jq_ok "$output" '.results | type == "array"'; then
-    pass "SearXNG JSON search ($SEARXNG_URL/search?q=test&format=json)"
-  else
-    fail_check "SearXNG JSON search (HTTP $status); body: $(head -c 200 "$output" 2>/dev/null || true)"
+    "$SEARXNG_URL/search"); then
+    fail_check "SearXNG JSON search request failed"
+    return
   fi
+
+  if [[ "$status" != "200" ]]; then
+    fail_check "SearXNG JSON search (HTTP $status); body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if ! jq_ok "$output" '.results | type == "array" and length > 0'; then
+    fail_check "SearXNG JSON search: results is not a non-empty array; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if ! jq_ok "$output" '
+    [.results[] | select(
+      .url == "https://www.wikidata.org/wiki/Q969308"
+      and (
+        (.engine? // "") == "mwmbl"
+        or ((.engines? // []) | type == "array" and index("mwmbl") != null)
+      )
+    )] | length > 0
+  '; then
+    fail_check "SearXNG JSON search: no result with URL https://www.wikidata.org/wiki/Q969308 attributed to mwmbl; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if jq_ok "$output" '
+    (.unresponsive_engines // []) | any(.[];
+      if type == "array" then .[0] == "mwmbl"
+      elif type == "object" then (.engine // .name // "") == "mwmbl"
+      else . == "mwmbl"
+      end
+    )
+  '; then
+    fail_check "SearXNG JSON search: mwmbl present in unresponsive_engines; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  pass "SearXNG JSON search: mwmbl returned the expected Wikidata result for Palacio de los Condes de Buenavista Málaga"
+}
+
+check_searxng_bing() {
+  local output="$1"
+  local status
+  if ! status=$(curl --silent --show-error \
+    --connect-timeout 10 --max-time 60 \
+    --get \
+    --data-urlencode 'q=Alcazaba de Málaga' \
+    --data-urlencode 'language=es-ES' \
+    --data-urlencode 'format=json' \
+    --output "$output" --write-out '%{http_code}' \
+    "$SEARXNG_URL/search"); then
+    fail_check "SearXNG Bing keyless check: request failed"
+    return
+  fi
+
+  if [[ "$status" != "200" ]]; then
+    fail_check "SearXNG Bing keyless check (HTTP $status); body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if ! jq_ok "$output" '.results | type == "array" and length > 0'; then
+    fail_check "SearXNG Bing keyless check: results is not a non-empty array; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if ! jq_ok "$output" '
+    [.results[] | select(
+      (.url | startswith("https://"))
+      and (
+        (.engine? // "") == "bing"
+        or ((.engines? // []) | type == "array" and index("bing") != null)
+      )
+      and (
+        ((.title? // "") | ascii_downcase | contains("alcazaba"))
+        or ((.url? // "") | ascii_downcase | contains("alcazaba"))
+      )
+    )] | length > 0
+  '; then
+    fail_check "SearXNG Bing keyless check: no HTTPS result attributed to bing containing alcazaba in title or URL; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  if jq_ok "$output" '
+    (.unresponsive_engines // []) | any(.[];
+      if type == "array" then .[0] == "bing"
+      elif type == "object" then (.engine // .name // "") == "bing"
+      else . == "bing"
+      end
+    )
+  '; then
+    fail_check "SearXNG Bing keyless check: bing present in unresponsive_engines; body: $(head -c 200 "$output" 2>/dev/null || true)"
+    return
+  fi
+
+  pass "SearXNG Bing keyless check: bing returned a relevant HTTPS result for Alcazaba de Málaga"
 }
 
 check_firecrawl_searxng_wiring() {
@@ -197,14 +292,16 @@ check_cloud_isolation() {
 
 main() {
   require_commands curl jq podman mktemp head
-  local smoke_dir searxng_output firecrawl_output
+  local smoke_dir searxng_output searxng_bing_output firecrawl_output
   smoke_dir=$(mktemp -d)
   trap "rm -rf -- '$smoke_dir'" EXIT
   searxng_output="$smoke_dir/searxng.json"
+  searxng_bing_output="$smoke_dir/searxng_bing.json"
   firecrawl_output="$smoke_dir/firecrawl.json"
 
   log "Checking SearXNG (provider de descubrimiento)"
   check_searxng_json "$searxng_output"
+  check_searxng_bing "$searxng_bing_output"
 
   log "Checking Firecrawl (captura y map)"
   check_firecrawl_searxng_wiring

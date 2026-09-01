@@ -38,10 +38,8 @@ export function openRouterPricingFromPreflightV6(
   return Object.fromEntries(preflight.checks.map((check) => [check.model, check.pricing]));
 }
 
-interface RequiredEndpointV6 {
+interface RequiredModelV6 {
   model: string;
-  endpoint: string;
-  provider: string;
   acceptedModels: string[];
   requiredParameters: Set<string>;
 }
@@ -50,10 +48,6 @@ function record(value: unknown): Record<string, unknown> | null {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
     : null;
-}
-
-function normalizedProvider(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
 function price(value: unknown, label: string): number {
@@ -100,28 +94,22 @@ function parametersForPhase(phase: NarrativeModelPhaseConfigV6): string[] {
   ];
 }
 
-function requirements(): RequiredEndpointV6[] {
-  const byRoute = new Map<string, RequiredEndpointV6>();
+function requirements(): RequiredModelV6[] {
+  const byModel = new Map<string, RequiredModelV6>();
   for (const phase of Object.values(NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases)) {
-    if (phase.provider.kind !== 'openrouter'
-      || !phase.provider.endpoint
-      || !phase.provider.expectedProviderName) {
-      throw new Error('balanced_openrouter contains an incomplete provider pin');
+    if (phase.provider.kind !== 'openrouter') {
+      throw new Error('balanced_openrouter contains a non-openrouter provider');
     }
-    const key = `${phase.provider.model}\n${phase.provider.endpoint}`;
-    const existing = byRoute.get(key) ?? {
-      model: phase.provider.model,
-      endpoint: phase.provider.endpoint,
-      provider: phase.provider.expectedProviderName,
-      acceptedModels: [phase.provider.model, ...(phase.provider.acceptedModels ?? [])],
+    const model = phase.provider.model;
+    const existing = byModel.get(model) ?? {
+      model,
+      acceptedModels: [model, ...(phase.provider.acceptedModels ?? [])],
       requiredParameters: new Set<string>(),
     };
     parametersForPhase(phase).forEach((parameter) => existing.requiredParameters.add(parameter));
-    byRoute.set(key, existing);
+    byModel.set(model, existing);
   }
-  return [...byRoute.values()].sort((left, right) => (
-    `${left.model}/${left.endpoint}`.localeCompare(`${right.model}/${right.endpoint}`)
-  ));
+  return [...byModel.values()].sort((left, right) => left.model.localeCompare(right.model));
 }
 
 const defaultGet: OpenRouterCatalogGetV6 = async (url, headers, signal) => {
@@ -154,11 +142,11 @@ export async function preflightBalancedOpenRouterV6(options: {
     issues.push(`OpenRouter model catalog failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 
-  const endpointResults = await Promise.all(requirements().map(async (requirement) => {
-    const endpointIssues: string[] = [];
-    const endpointChecks: OpenRouterPreflightCheckV6[] = [];
+  const modelResults = await Promise.all(requirements().map(async (requirement) => {
+    const modelIssues: string[] = [];
+    const modelChecks: OpenRouterPreflightCheckV6[] = [];
     if (!requirement.acceptedModels.some((model) => catalogModels.has(model))) {
-      endpointIssues.push(`Model is absent from the OpenRouter catalog: ${requirement.model}`);
+      modelIssues.push(`Model is absent from the OpenRouter catalog: ${requirement.model}`);
     }
     try {
       const response = record((await get(
@@ -168,73 +156,81 @@ export async function preflightBalancedOpenRouterV6(options: {
       )).data);
       const data = record(response?.data);
       const endpoints = Array.isArray(data?.endpoints) ? data.endpoints : [];
-      const endpoint = endpoints.map(record).find((candidate) => (
-        candidate?.tag === requirement.endpoint
-      ));
-      if (!endpoint) {
-        endpointIssues.push(
-          `Pinned endpoint is unavailable: ${requirement.model} -> ${requirement.endpoint}`
+      const compatibleEndpoints = endpoints.map(record).filter((candidate): candidate is Record<string, unknown> => {
+        if (!candidate) return false;
+        const endpointName = typeof candidate.name === 'string' ? candidate.name : '';
+        const endpointModel = requirement.acceptedModels.find((model) => (
+          endpointName === model || endpointName.endsWith(`| ${model}`)
+        ));
+        if (!endpointModel) return false;
+        const supportedParameters = Array.isArray(candidate.supported_parameters)
+          ? candidate.supported_parameters.filter((item): item is string => typeof item === 'string')
+          : [];
+        const missing = [...requirement.requiredParameters].filter((parameter) => (
+          parameter === 'reasoning'
+            ? !supportedParameters.includes('reasoning')
+              && !supportedParameters.includes('reasoning_effort')
+            : !supportedParameters.includes(parameter)
+        ));
+        return missing.length === 0;
+      });
+      if (compatibleEndpoints.length === 0) {
+        modelIssues.push(
+          `No compatible endpoint found for ${requirement.model} satisfying required parameters: ${[...requirement.requiredParameters].sort().join(', ')}`
         );
-        return { checks: endpointChecks, issues: endpointIssues };
+        return { checks: modelChecks, issues: modelIssues };
       }
-      const providerName = typeof endpoint.provider_name === 'string'
-        ? endpoint.provider_name
+      const aggregatedPricing = compatibleEndpoints.reduce((acc: EditorialPricingV6, endpoint) => {
+        try {
+          const endpointPricingValue = endpointPricing(endpoint.pricing);
+          return {
+            inputUsdPerToken: Math.max(acc.inputUsdPerToken, endpointPricingValue.inputUsdPerToken),
+            outputUsdPerToken: Math.max(acc.outputUsdPerToken, endpointPricingValue.outputUsdPerToken),
+            internalReasoningUsdPerToken: Math.max(acc.internalReasoningUsdPerToken ?? 0, endpointPricingValue.internalReasoningUsdPerToken ?? 0),
+            requestUsd: Math.max(acc.requestUsd ?? 0, endpointPricingValue.requestUsd ?? 0),
+          };
+        } catch (error) {
+          modelIssues.push(
+            `Endpoint pricing is invalid for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
+          );
+          return acc;
+        }
+      }, {
+        inputUsdPerToken: 0,
+        outputUsdPerToken: 0,
+        internalReasoningUsdPerToken: 0,
+        requestUsd: 0,
+      });
+      const firstCompatible = compatibleEndpoints[0];
+      const providerName = typeof firstCompatible.provider_name === 'string'
+        ? firstCompatible.provider_name
         : '';
-      const endpointName = typeof endpoint.name === 'string' ? endpoint.name : '';
+      const endpointTag = typeof firstCompatible.tag === 'string' ? firstCompatible.tag : '';
+      const endpointName = typeof firstCompatible.name === 'string' ? firstCompatible.name : '';
       const endpointModel = requirement.acceptedModels.find((model) => (
         endpointName === model || endpointName.endsWith(`| ${model}`)
       )) ?? '';
-      const supportedParameters = Array.isArray(endpoint.supported_parameters)
-        ? endpoint.supported_parameters.filter((item): item is string => typeof item === 'string').sort()
+      const supportedParameters = Array.isArray(firstCompatible.supported_parameters)
+        ? firstCompatible.supported_parameters.filter((item): item is string => typeof item === 'string').sort()
         : [];
       const requiredParameters = [...requirement.requiredParameters].sort();
-      let pricing: EditorialPricingV6;
-      try {
-        pricing = endpointPricing(endpoint.pricing);
-      } catch (error) {
-        endpointIssues.push(
-          `Pinned endpoint pricing is invalid for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
-        );
-        return { checks: endpointChecks, issues: endpointIssues };
-      }
-      endpointChecks.push({
+      modelChecks.push({
         model: requirement.model,
         endpointModel,
-        endpoint: requirement.endpoint,
+        endpoint: endpointTag,
         provider: providerName,
         requiredParameters,
         supportedParameters,
-        pricing,
+        pricing: aggregatedPricing,
       });
-      if (normalizedProvider(providerName) !== normalizedProvider(requirement.provider)) {
-        endpointIssues.push(
-          `Pinned provider mismatch for ${requirement.model}: expected ${requirement.provider}, got ${providerName || 'unknown'}`
-        );
-      }
-      if (!endpointModel) {
-        endpointIssues.push(
-          `Pinned endpoint model mismatch for ${requirement.model}: ${endpointName || 'unknown'}`
-        );
-      }
-      const missing = requiredParameters.filter((parameter) => (
-        parameter === 'reasoning'
-          ? !supportedParameters.includes('reasoning')
-            && !supportedParameters.includes('reasoning_effort')
-          : !supportedParameters.includes(parameter)
-      ));
-      if (missing.length > 0) {
-        endpointIssues.push(
-          `Pinned endpoint lacks required parameters for ${requirement.model}: ${missing.join(', ')}`
-        );
-      }
     } catch (error) {
-      endpointIssues.push(
+      modelIssues.push(
         `Endpoint catalog failed for ${requirement.model}: ${error instanceof Error ? error.message : String(error)}`
       );
     }
-    return { checks: endpointChecks, issues: endpointIssues };
+    return { checks: modelChecks, issues: modelIssues };
   }));
-  endpointResults.forEach((result) => {
+  modelResults.forEach((result) => {
     checks.push(...result.checks);
     issues.push(...result.issues);
   });

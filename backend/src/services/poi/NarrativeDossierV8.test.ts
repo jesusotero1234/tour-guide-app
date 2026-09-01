@@ -2,6 +2,7 @@ import {
   NarrativeCuratorOutputV8,
   NARRATIVE_ROLES_V8,
   buildValidatedDossierV8,
+  classifyEvidenceTierV8,
 } from './NarrativeDossierV8';
 import { NarrativeCapturedSourceV8 } from './NarrativeSourcesV7';
 import {
@@ -454,5 +455,139 @@ describe('buildValidatedDossierV8', () => {
     expect(result.value.gates.minimumEvidenceReady).toBe(true);
     expect(result.value.gates.writerReady).toBe(true);
     expect(result.value.dossier.sufficiency.isSufficient).toBe(true);
+  });
+
+  it('classifies tier A with two supporting publishers', () => {
+    const a = capture('source-a', 'Texto A.', AUTHORITY_A);
+    const b = capture('source-b', 'Texto B.', AUTHORITY_B);
+    const spans = new Map([...spansOf(a), ...spansOf(b)]);
+    const idsA = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const idsB = spans.get('source-b')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [a, b],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          { text: 'Obs.', role: 'visible_observation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Cron.', role: 'chronology_or_transformation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-b', evidenceSpanIds: [idsB[0]] }] },
+          { text: 'Func.', role: 'human_agency_or_lived_function', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Tens.', role: 'tension_or_contrast', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-b', evidenceSpanIds: [idsB[0]] }] },
+          { text: 'Rasgo.', role: 'distinctive_trait', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+    expect(result.status).toBe('ok');
+    if (result.status !== 'ok') return;
+    expect(classifyEvidenceTierV8(result.value.dossier, result.value.gates, [a, b])).toBe('A');
+  });
+
+  it('classifies tier B with one supporting primary authority', () => {
+    const a = capture('source-a', 'Texto A.', AUTHORITY_A);
+    const spans = spansOf(a);
+    const idsA = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [a],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          { text: 'Obs.', role: 'visible_observation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Cron.', role: 'chronology_or_transformation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Func.', role: 'human_agency_or_lived_function', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Tens.', role: 'tension_or_contrast', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Rasgo.', role: 'distinctive_trait', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+    expect(result.status).toBe('ok');
+    if (result.status !== 'ok') return;
+    expect(result.value.dossier.sources).toHaveLength(1);
+    expect(classifyEvidenceTierV8(result.value.dossier, result.value.gates, [a])).toBe('B');
+  });
+
+  it('does not upgrade C to B with unsupported primary capture', () => {
+    const a = capture('source-a', 'Texto A.', { tier: 'established_source', publisherKey: 'a.example', rule: 'established' });
+    const unsupported = capture('source-c', 'Texto C.', AUTHORITY_A);
+    const spans = spansOf(a);
+    const idsA = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [a, unsupported],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          { text: 'Obs.', role: 'visible_observation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Cron.', role: 'chronology_or_transformation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Func.', role: 'human_agency_or_lived_function', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Tens.', role: 'tension_or_contrast', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Rasgo.', role: 'distinctive_trait', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+    expect(result.status).toBe('ok');
+    if (result.status !== 'ok') return;
+    expect(result.value.dossier.sources).toHaveLength(1);
+    expect(classifyEvidenceTierV8(result.value.dossier, result.value.gates, [a, unsupported])).toBe('C');
+  });
+
+  it('classifies tier C with minimum evidence but no writer readiness', () => {
+    const a = capture('source-a', 'Texto A.', AUTHORITY_A);
+    const b = capture('source-b', 'Texto B.', AUTHORITY_B);
+    const spans = new Map([...spansOf(a), ...spansOf(b)]);
+    const idsA = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const idsB = spans.get('source-b')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [a, b],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          { text: 'Obs.', role: 'visible_observation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+          { text: 'Cron.', role: 'chronology_or_transformation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-b', evidenceSpanIds: [idsB[0]] }] },
+          { text: 'Func.', role: 'human_agency_or_lived_function', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+    expect(result.status).toBe('ok');
+    if (result.status !== 'ok') return;
+    expect(result.value.gates.minimumEvidenceReady).toBe(true);
+    expect(result.value.gates.writerReady).toBe(false);
+    expect(classifyEvidenceTierV8(result.value.dossier, result.value.gates, [a, b])).toBe('C');
+  });
+
+  it('classifies tier D without minimum evidence', () => {
+    const a = capture('source-a', 'Texto A.', AUTHORITY_A);
+    const spans = spansOf(a);
+    const idsA = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [a],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          { text: 'Obs.', role: 'visible_observation', certainty: 'high', interpretation: 'direct', supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0]] }] },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+    expect(result.status).toBe('ok');
+    if (result.status !== 'ok') return;
+    expect(result.value.gates.minimumEvidenceReady).toBe(false);
+    expect(classifyEvidenceTierV8(result.value.dossier, result.value.gates, [a])).toBe('D');
   });
 });

@@ -258,7 +258,7 @@ describe('loadLiveCityCandidatesV8', () => {
     const wikipediaCalls = calls.filter((call) => call.url.includes('wikipedia.org'));
     expect(wikipediaCalls.length).toBeGreaterThan(0);
     expect(wikipediaCalls.every((call) => call.url === 'https://es.wikipedia.org/w/api.php')).toBe(true);
-    expect(wikipediaCalls.every((call) => call.params.maxlag === 5)).toBe(true);
+    expect(wikipediaCalls.every((call) => call.params.maxlag === 30)).toBe(true);
   });
 
   it('keeps a small serial Wikipedia budget when the pool is much larger than the shortlist', async () => {

@@ -61,10 +61,11 @@ function titled(results: NarrativeDiscoveryResultV7[], name: string): NarrativeD
 }
 
 function curatorFromSpans(packet: NarrativeCuratorPacketV8): NarrativeCuratorOutputV8 {
-  const used = new Set<string>();
+  if (packet.spans.length === 0) {
+    throw new Error('curatorFromSpans: packet.spans is empty');
+  }
   const propositions = NARRATIVE_ROLES_V8.map((role, index) => {
-    const span = packet.spans.find((item) => !used.has(item.evidenceSpanId))!;
-    used.add(span.evidenceSpanId);
+    const span = packet.spans[index % packet.spans.length];
     return {
       text: `Proposición de ${role} basada en ${span.evidenceSpanId}.`,
       role,
@@ -87,6 +88,7 @@ function servicesOver(options: {
   disagreement?: boolean;
   emptyForStopName?: string;
   redirectFinalUrl?: string;
+  minimumOnly?: boolean;
 } = {}): NarrativeCanaryServicesV8 {
   const contentByUrl: Record<string, string> = {
     'https://www.a.example/identidad': 'El lugar tiene identidad confirmada oficialmente.',
@@ -163,7 +165,33 @@ function servicesOver(options: {
       ),
       ...(options.redirectFinalUrl ? { finalUrl: options.redirectFinalUrl } : {}),
     }),
-    curate: async (packet) => curatorFromSpans(packet),
+    curate: async (packet) => {
+      if (options.minimumOnly) {
+        const roles = [
+          'visible_observation',
+          'chronology_or_transformation',
+          'human_agency_or_lived_function',
+        ] as const;
+        const propositions = roles.map((role, index) => {
+          const span = packet.spans[index % packet.spans.length];
+          return {
+            text: `Proposición de ${role} basada en ${span.evidenceSpanId}.`,
+            role,
+            certainty: 'high' as const,
+            interpretation: 'direct' as const,
+            supports: [{ sourceId: span.sourceId, evidenceSpanIds: [span.evidenceSpanId] }],
+          };
+        });
+        return {
+          propositions,
+          authorizedNames: [],
+          authorizedNumbers: [],
+          discrepancies: [],
+          limits: [],
+        };
+      }
+      return curatorFromSpans(packet);
+    },
   };
 }
 
@@ -270,5 +298,15 @@ describe('runNarrativeCanaryV8', () => {
     expect(result.status).toBe('review_required');
     expect(result.reasons).toContain('evidence_review_required');
     expect(result.stops[0].capturedSources).toEqual([]);
+  });
+
+  it('proves tier C route eligibility is independent of writerReady', async () => {
+    const result = await runNarrativeCanaryV8(baseInput, servicesOver({ minimumOnly: true }));
+
+    expect(result.status).toBe('ready_for_human_gate');
+    expect(result.reasons).not.toContain('evidence_review_required');
+    expect(result.reserveAttempts).toEqual([]);
+    expect(result.stops.every((stop) => stop.evidenceTier === 'C' && stop.routeEligible)).toBe(true);
+    expect(result.stops.every((stop) => stop.gates.minimumEvidenceReady && !stop.gates.writerReady)).toBe(true);
   });
 });

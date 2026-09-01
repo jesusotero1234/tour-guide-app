@@ -113,7 +113,7 @@ describe('canonical core audit workflow v6', () => {
     expect(replay).toEqual(result);
   });
 
-  it('does not hide disagreement behind a majority', async () => {
+  it('approves the unanimous required intersection and exposes disputed IDs in audit', async () => {
     const { entities, prominence } = fixture();
     let call = 0;
     const sets = [new Set(['Q1', 'Q2']), new Set(['Q1']), new Set(['Q1', 'Q2'])];
@@ -130,12 +130,22 @@ describe('canonical core audit workflow v6', () => {
       { apiKey: 'test-key', post }
     );
 
-    expect(result.status).toBe('core_review_required');
-    expect(result.coreResult?.status).toBe('core_review_required');
-    expect(result.coreResult).toMatchObject({ reason: 'audit_disagreement' });
+    expect(result.status).toBe('approved');
+    expect(result.coreResult?.status).toBe('approved');
+    if (result.coreResult?.status !== 'approved') throw new Error('Expected approved core');
+    expect(result.coreResult.core.requirements.map((requirement) => requirement.canonicalId).sort())
+      .toEqual(['Q1']);
+    expect(result.coreResult.core.audit.disputedCanonicalIds).toEqual(['Q2']);
+
+    const replay = replayCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      result.snapshot
+    );
+    expect(replay).toEqual(result);
   });
 
-  it('retries malformed JSON once but never retries semantic violations', async () => {
+  it('retries malformed JSON once and retries semantic violations once', async () => {
     const { entities, prominence } = fixture();
     const required = new Set(['Q1', 'Q2']);
     let malformedCalls = 0;
@@ -171,6 +181,6 @@ describe('canonical core audit workflow v6', () => {
     );
     expect(rejected.status).toBe('core_review_required');
     expect(rejected.reason).toMatch(/semantic/i);
-    expect(semanticPost).toHaveBeenCalledTimes(1);
+    expect(semanticPost).toHaveBeenCalledTimes(2);
   });
 });

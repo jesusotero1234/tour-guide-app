@@ -8,6 +8,20 @@ import {
 } from './NarrativeEditorialAgentsV6';
 import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 
+type CapturedPostBody = Record<string, unknown>;
+
+function projectPostBody(body: CapturedPostBody): {
+  messages: Array<{ role: string; content: string }>;
+  tools: Array<{ function: { name: string; parameters: Record<string, unknown> } }>;
+  tool_choice: { type: string; function: { name: string } };
+} {
+  return {
+    messages: body.messages as Array<{ role: string; content: string }>,
+    tools: body.tools as Array<{ function: { name: string; parameters: Record<string, unknown> } }>,
+    tool_choice: body.tool_choice as { type: string; function: { name: string } },
+  };
+}
+
 const dossier = {
   stopId: 'palace', language: 'es', sources: [], passages: [], propositions: [{
     propositionId: 'prop-palace-1', text: 'La fachada puede observarse desde la ruta.',
@@ -49,24 +63,25 @@ describe('narrative v6 editorial agents', () => {
     await agents.audit({ script, dossier }, 'deepseek');
     await agents.audit({ script, dossier }, 'deepseek_pro');
 
+    const writerBody = projectPostBody(calls[0].body);
+    const auditBody = projectPostBody(calls[1].body);
+
     expect(calls.map((call) => call.body.temperature)).toEqual([0.7, 0, 0]);
     expect(written.value).toEqual({
       text: 'Mira la fachada. Aquí comienza la historia del edificio.',
     });
-    expect(calls[0].body.tools).toEqual(expect.arrayContaining([
+    expect(writerBody.tools).toEqual(expect.arrayContaining([
       expect.objectContaining({ function: expect.objectContaining({
         parameters: expect.objectContaining({ properties: expect.objectContaining({
           stop_id: { type: 'string', const: 'palace' },
         }) }),
       }) }),
     ]));
-    const writerPrompt = ((calls[0].body.messages as Array<{ content: string }>)[0].content);
+    const writerPrompt = writerBody.messages[0].content;
     expect(writerPrompt).toContain('no una ruta');
     expect(writerPrompt).toContain('Mantén separadas la fecha de diseño o construcción');
     expect(writerPrompt).toContain('cierra explícitamente el recorrido');
-    const auditSchema = (((calls[1].body.tools as Array<{
-      function: { parameters: Record<string, unknown> };
-    }>)[0].function.parameters.properties as {
+    const auditSchema = ((auditBody.tools[0].function.parameters.properties as {
       findings: Record<string, unknown>;
     }).findings);
     expect(auditSchema).toMatchObject({ minItems: 2, maxItems: 2 });
@@ -86,12 +101,34 @@ describe('narrative v6 editorial agents', () => {
       DEEPSEEK_NARRATIVE_MODEL_V6,
       DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
     ]);
-    const auditPrompt = ((calls[1].body.messages as Array<{ content: string }>)[0].content);
+    const auditPrompt = auditBody.messages[0].content;
     expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
     expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
     expect(auditPrompt).toContain('no necesitan respaldo explícito del dossier');
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
     expect(DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6).toBe('deepseek-v4-pro');
+
+    // Freeze writer request contract
+    expect(writerBody.tool_choice).toEqual({ type: 'function', function: { name: 'write_narrative_stop_v6' } });
+    expect(writerBody.messages[0].role).toBe('system');
+    expect(writerBody.messages[1].role).toBe('user');
+    const writerUserContent = writerBody.messages[1].content;
+    expect(writerUserContent).toContain('stopId');
+    expect(writerUserContent).toContain('dossier');
+    expect(writerUserContent).toContain('arc');
+    expect(writerUserContent).toContain('voiceProfile');
+    expect(writerBody.tools[0].function.name).toBe('write_narrative_stop_v6');
+
+    // Freeze factual audit request contract
+    expect(auditBody.tool_choice).toEqual({ type: 'function', function: { name: 'audit_narrative_sentences_v6' } });
+    expect(auditBody.messages[0].role).toBe('system');
+    expect(auditBody.messages[1].role).toBe('user');
+    const auditUserContent = auditBody.messages[1].content;
+    expect(auditUserContent).toContain('script');
+    expect(auditUserContent).toContain('dossier');
+    expect(auditBody.tools[0].function.name).toBe('audit_narrative_sentences_v6');
+    expect(auditBody.tools[0].function.parameters.type).toBe('object');
+    expect(auditBody.tools[0].function.parameters.required).toEqual(['findings']);
   });
 
   it('batches long Gemma audits and still returns one complete sentence ledger', async () => {
@@ -263,6 +300,20 @@ describe('narrative v6 editorial agents', () => {
 
     expect(repairPrompt).toContain('eliminar por completo el motivo aceptado');
     expect(repairPrompt).toContain('No basta con acortar o parafrasear');
+
+    // Freeze factual repair request contract
+    const repairBody = projectPostBody(post.mock.calls[0][1]);
+    expect(repairBody.tool_choice).toEqual({ type: 'function', function: { name: 'repair_narrative_window_v6' } });
+    expect(repairBody.messages[0].role).toBe('system');
+    expect(repairBody.messages[1].role).toBe('user');
+    const repairUserContent = repairBody.messages[1].content;
+    expect(repairUserContent).toContain('script');
+    expect(repairUserContent).toContain('dossier');
+    expect(repairUserContent).toContain('objections');
+    expect(repairUserContent).toContain('adjudications');
+    expect(repairBody.tools[0].function.name).toBe('repair_narrative_window_v6');
+    expect(repairBody.tools[0].function.parameters.type).toBe('object');
+    expect(repairBody.tools[0].function.parameters.required).toEqual(['replacements']);
   });
 
   it('adjudicates premature closure with tour-wide narrative scope', async () => {
@@ -296,6 +347,19 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value[0].decision).toBe('accepted');
     expect(adjudicationPrompt).toContain('progresión, transiciones, repetición');
     expect(adjudicationPrompt).toContain('aunque no exista un error factual');
+
+    // Freeze tour adjudication request contract
+    const adjudicationBody = projectPostBody(post.mock.calls[0][1]);
+    expect(adjudicationBody.tool_choice).toEqual({ type: 'function', function: { name: 'adjudicate_narrative_objections_v6' } });
+    expect(adjudicationBody.messages[0].role).toBe('system');
+    expect(adjudicationBody.messages[1].role).toBe('user');
+    const adjudicationUserContent = adjudicationBody.messages[1].content;
+    expect(adjudicationUserContent).toContain('script');
+    expect(adjudicationUserContent).toContain('dossier');
+    expect(adjudicationUserContent).toContain('objections');
+    expect(adjudicationBody.tools[0].function.name).toBe('adjudicate_narrative_objections_v6');
+    expect(adjudicationBody.tools[0].function.parameters.type).toBe('object');
+    expect(adjudicationBody.tools[0].function.parameters.required).toEqual(['adjudications']);
   });
 
   it('does not turn unsupported visitor actions into factual objections', async () => {
@@ -329,6 +393,19 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value[0].decision).toBe('rejected');
     expect(adjudicationPrompt).toContain('su único motivo es que una transición');
     expect(adjudicationPrompt).toContain('No rebajes el control de hechos');
+
+    // Freeze factual adjudication request contract
+    const adjudicationBody = projectPostBody(post.mock.calls[0][1]);
+    expect(adjudicationBody.tool_choice).toEqual({ type: 'function', function: { name: 'adjudicate_narrative_objections_v6' } });
+    expect(adjudicationBody.messages[0].role).toBe('system');
+    expect(adjudicationBody.messages[1].role).toBe('user');
+    const adjudicationUserContent = adjudicationBody.messages[1].content;
+    expect(adjudicationUserContent).toContain('script');
+    expect(adjudicationUserContent).toContain('dossier');
+    expect(adjudicationUserContent).toContain('objections');
+    expect(adjudicationBody.tools[0].function.name).toBe('adjudicate_narrative_objections_v6');
+    expect(adjudicationBody.tools[0].function.parameters.type).toBe('object');
+    expect(adjudicationBody.tools[0].function.parameters.required).toEqual(['adjudications']);
   });
 
   it('limits global issues to material publication blockers', async () => {
@@ -352,6 +429,18 @@ describe('narrative v6 editorial agents', () => {
     expect(auditPrompt).toContain('solo defectos materiales');
     expect(auditPrompt).toContain('el pulido opcional no es un issue');
     expect(auditPrompt).toContain('identificaciones necesarias al llegar');
+
+    // Freeze tour audit request contract
+    const tourAuditBody = projectPostBody(post.mock.calls[0][1]);
+    expect(tourAuditBody.tool_choice).toEqual({ type: 'function', function: { name: 'audit_narrative_tour_v6' } });
+    expect(tourAuditBody.messages[0].role).toBe('system');
+    expect(tourAuditBody.messages[1].role).toBe('user');
+    const tourAuditUserContent = tourAuditBody.messages[1].content;
+    expect(tourAuditUserContent).toContain('promise');
+    expect(tourAuditUserContent).toContain('scripts');
+    expect(tourAuditBody.tools[0].function.name).toBe('audit_narrative_tour_v6');
+    expect(tourAuditBody.tools[0].function.parameters.type).toBe('object');
+    expect(tourAuditBody.tools[0].function.parameters.required).toEqual(['issues', 'progressionWorks', 'promiseDelivered', 'closingWorks']);
   });
 
   it('derives approval from discrete publishable grades and sentence citations', async () => {

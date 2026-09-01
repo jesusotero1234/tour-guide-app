@@ -114,3 +114,16 @@ Artefactos por run (privados, gitignored):
 Nota: sin la opción B, el resultado esperado es que las paradas sin dominio
 oficial descubrible queden en `authority_insufficient` con diagnóstico claro
 (eso es un resultado válido del Plan 64, no "motores suspendidos").
+
+## Addendum de estado de implementación (2026-09-01)
+
+**Nota histórica:** Los fallos de publisher/curador/Arc documentados en este plan son evidencia histórica que motivó la creación del Plan 66. No representan el resultado actual post-implementación.
+
+**Estado actual:** La implementación del Plan 66 ha completado la migración de la frontera de evidencia V8, separando la suficiencia estricta V6 de la elegibilidad de ruta A/B/C V8 mediante una frontera determinista, Arc V8, Editorial V8 y scorecard/artefactos conscientes del manifiesto.
+
+**Evidencia de validación completada:**
+- 11 suites focalizadas, 77 tests pasados.
+- Backend `src` TypeScript pasó (`tsc --noEmit`).
+- Verificación TypeScript directa de `narrative-user-canary-v8.ts` pasó.
+
+**Pendiente:** La ejecución completa del canary de Málaga fue intencionalmente no ejecutada por Codex y permanece pendiente de ejecución por el usuario.

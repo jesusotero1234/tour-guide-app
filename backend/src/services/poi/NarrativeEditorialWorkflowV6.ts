@@ -126,6 +126,15 @@ export interface NarrativeEditorialWorkflowOptionsV6 {
   maximumAdditionalRepairs?: number;
 }
 
+export interface NarrativeEditorialCoreStopV6 {
+  routeStopId: string;
+  dossier: NarrativeDossierV6;
+}
+
+export interface NarrativeEditorialWorkflowCoreInputV6 extends NarrativeEditorialWorkflowInputV6 {
+  coreStops: NarrativeEditorialCoreStopV6[];
+}
+
 function throwIfCancelled(signal?: AbortSignal): void {
   if (signal?.aborted) {
     throw signal.reason instanceof Error
@@ -270,8 +279,8 @@ function deterministicWarnings(
   });
 }
 
-export async function runNarrativeEditorialWorkflowV6(
-  input: NarrativeEditorialWorkflowInputV6,
+export async function runNarrativeEditorialWorkflowCoreV6(
+  input: NarrativeEditorialWorkflowCoreInputV6,
   agents: NarrativeEditorialAgentsV6,
   options: NarrativeEditorialWorkflowOptionsV6 = {}
 ): Promise<NarrativeEditorialWorkflowResultV6> {
@@ -279,27 +288,7 @@ export async function runNarrativeEditorialWorkflowV6(
     run, route: input.route, arc: input.arc, stops: [], tourAudit: null, warnings: [], metrics: [],
     privateDiagnostics: [], performance: null,
   });
-  const dossierByStop = new Map(input.dossiers.map((dossier) => [dossier.stopId, dossier]));
-  const missingDossiers = input.route.stops.filter((stop) => !dossierByStop.has(stop.stopId));
-  if (missingDossiers.length > 0) {
-    return empty({
-      ...baseRun(input), status: 'protocol_failed', stage: 'dossier_boundary',
-      reason: `missing dossiers: ${missingDossiers.map((stop) => stop.stopId).join(', ')}`,
-    });
-  }
-  const insufficient = input.route.stops.filter((stop) => (
-    !dossierByStop.get(stop.stopId)?.sufficiency.isSufficient
-  ));
-  if (insufficient.length > 0) {
-    return empty({
-      ...baseRun(input), status: 'evidence_review_required',
-      stopIds: insufficient.map((stop) => stop.stopId),
-      reasons: insufficient.map((stop) => {
-        const dossier = dossierByStop.get(stop.stopId) as NarrativeDossierV6;
-        return `${stop.stopId}: ${dossier.sufficiency.missingRoles.join(', ') || 'insufficient authority'}`;
-      }),
-    });
-  }
+  const dossierByStop = new Map(input.coreStops.map((coreStop) => [coreStop.routeStopId, coreStop.dossier]));
 
   let records: NarrativeStopEditorialRecordV6[] = [];
   const metrics: NarrativeCallMetricV6[] = [];
@@ -650,6 +639,47 @@ export async function runNarrativeEditorialWorkflowV6(
       performance,
     };
   }
+}
+
+export async function runNarrativeEditorialWorkflowV6(
+  input: NarrativeEditorialWorkflowInputV6,
+  agents: NarrativeEditorialAgentsV6,
+  options: NarrativeEditorialWorkflowOptionsV6 = {}
+): Promise<NarrativeEditorialWorkflowResultV6> {
+  const empty = (run: NarrativeEditorialRunV6): NarrativeEditorialWorkflowResultV6 => ({
+    run, route: input.route, arc: input.arc, stops: [], tourAudit: null, warnings: [], metrics: [],
+    privateDiagnostics: [], performance: null,
+  });
+  const dossierByStop = new Map(input.dossiers.map((dossier) => [dossier.stopId, dossier]));
+  const missingDossiers = input.route.stops.filter((stop) => !dossierByStop.has(stop.stopId));
+  if (missingDossiers.length > 0) {
+    return empty({
+      ...baseRun(input), status: 'protocol_failed', stage: 'dossier_boundary',
+      reason: `missing dossiers: ${missingDossiers.map((stop) => stop.stopId).join(', ')}`,
+    });
+  }
+  const insufficient = input.route.stops.filter((stop) => (
+    !dossierByStop.get(stop.stopId)?.sufficiency.isSufficient
+  ));
+  if (insufficient.length > 0) {
+    return empty({
+      ...baseRun(input), status: 'evidence_review_required',
+      stopIds: insufficient.map((stop) => stop.stopId),
+      reasons: insufficient.map((stop) => {
+        const dossier = dossierByStop.get(stop.stopId) as NarrativeDossierV6;
+        return `${stop.stopId}: ${dossier.sufficiency.missingRoles.join(', ') || 'insufficient authority'}`;
+      }),
+    });
+  }
+  const coreStops: NarrativeEditorialCoreStopV6[] = input.route.stops.map((stop) => ({
+    routeStopId: stop.stopId,
+    dossier: dossierByStop.get(stop.stopId) as NarrativeDossierV6,
+  }));
+  return runNarrativeEditorialWorkflowCoreV6(
+    { ...input, coreStops },
+    agents,
+    options
+  );
 }
 
 export interface NarrativeReviewPackageV6 {
