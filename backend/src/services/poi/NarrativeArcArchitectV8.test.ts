@@ -1,6 +1,6 @@
 import { requestEditorialStructuredV6 } from './EditorialStructuredLlmV6';
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
-import { createNarrativeArcArchitectV8 } from './NarrativeArcArchitectV8';
+import { createNarrativeArcArchitectV8, validateNarrativeArcV8 } from './NarrativeArcArchitectV8';
 import {
   NarrativeResearchHandoffStopV8,
   buildNarrativeEvidenceBoundaryV8,
@@ -90,6 +90,7 @@ function readyInput() {
 describe('narrative v8 arc architect', () => {
   it('builds an arc from a real complete tier C envelope without exposing legacy sufficiency', async () => {
     const { fixture, route, boundary } = readyInput();
+    const propositionId = fixture.dossier.propositions[0].propositionId;
     const requester = requestEditorialStructuredV6 as jest.Mock;
     requester.mockReset();
     requester.mockResolvedValue({
@@ -101,6 +102,8 @@ describe('narrative v8 arc architect', () => {
           stopId: 'malaga-history-stop-03',
           contribution: 'Presenta una transformación urbana.',
           bridge: 'Resuelve la pregunta central.',
+          contributionPropositionIds: [propositionId],
+          bridgePropositionIds: [propositionId],
         }],
       },
     });
@@ -114,6 +117,8 @@ describe('narrative v8 arc architect', () => {
     expect(requester).toHaveBeenCalledTimes(1);
     expect(result.manifest.fingerprint).toBe(boundary.manifest.fingerprint);
     expect(result.arc.stops[0].stopId).toBe('malaga-history-stop-03');
+    expect(result.arc.stops[0].contributionPropositionIds).toEqual([propositionId]);
+    expect(result.arc.stops[0].bridgePropositionIds).toEqual([propositionId]);
     expect(fixture.dossier.sufficiency.isSufficient).toBe(false);
 
     const call = requester.mock.calls[0][0];
@@ -129,6 +134,9 @@ describe('narrative v8 arc architect', () => {
     expect(projected.dossier).not.toHaveProperty('stopId');
     expect(projected.dossier).not.toHaveProperty('sufficiency');
     expect(projected.dossier).not.toHaveProperty('fingerprint');
+    expect(projected.dossier).toHaveProperty('propositions');
+    expect(projected.dossier).not.toHaveProperty('sources');
+    expect(projected.dossier).not.toHaveProperty('passages');
     expect(call.systemPrompt).toContain('A, B y C son elegibles');
     expect(call.systemPrompt).toContain('No debes llenar roles ausentes en C');
     expect(call.systemPrompt).toContain('No añadas hechos externos');
@@ -140,6 +148,18 @@ describe('narrative v8 arc architect', () => {
     expect(stopsSchema.minItems).toBe(1);
     expect(stopsSchema.maxItems).toBe(1);
     expect(stopsSchema.items.properties.stopId.enum).toEqual(['malaga-history-stop-03']);
+    expect(stopsSchema.items.required).toContain('contributionPropositionIds');
+    expect(stopsSchema.items.required).toContain('bridgePropositionIds');
+    expect(stopsSchema.items.properties.contributionPropositionIds).toEqual({
+      type: 'array',
+      items: { type: 'string' },
+      minItems: 1,
+    });
+    expect(stopsSchema.items.properties.bridgePropositionIds).toEqual({
+      type: 'array',
+      items: { type: 'string' },
+      minItems: 1,
+    });
   });
 
   it('rejects a corrupted evidence manifest fingerprint before requesting the model', async () => {
@@ -157,5 +177,196 @@ describe('narrative v8 arc architect', () => {
     ).rejects.toThrow('manifest.fingerprint does not match recomputed fingerprint');
 
     expect(requester).not.toHaveBeenCalled();
+  });
+
+  it('validates proposition provenance membership for contribution and bridge IDs', () => {
+    const { fixture, route, boundary } = readyInput();
+    const propositionId = fixture.dossier.propositions[0].propositionId;
+    const validArc = {
+      promise: 'Comprender la transformación de Málaga.',
+      centralQuestion: '¿Cómo cambió este lugar?',
+      stops: [{
+        stopId: 'malaga-history-stop-03',
+        contribution: 'Presenta una transformación urbana.',
+        bridge: 'Resuelve la pregunta central.',
+        contributionPropositionIds: [propositionId],
+        bridgePropositionIds: [propositionId],
+      }],
+    };
+
+    expect(() => validateNarrativeArcV8(validArc, route, boundary.admittedStops)).not.toThrow();
+
+    const unknownContributionArc = {
+      ...validArc,
+      stops: [{
+        ...validArc.stops[0],
+        contributionPropositionIds: ['unknown-contribution-id'],
+      }],
+    };
+    expect(() => validateNarrativeArcV8(unknownContributionArc, route, boundary.admittedStops)).toThrow(
+      'arc stop 0 contributionPropositionId unknown-contribution-id not in current stop dossier'
+    );
+
+    const unknownBridgeArc = {
+      ...validArc,
+      stops: [{
+        ...validArc.stops[0],
+        bridgePropositionIds: ['unknown-bridge-id'],
+      }],
+    };
+    expect(() => validateNarrativeArcV8(unknownBridgeArc, route, boundary.admittedStops)).toThrow(
+      'arc stop 0 bridgePropositionId unknown-bridge-id not in current or next stop dossier'
+    );
+  });
+
+  it('validates bridge adjacency for a two-stop arc', () => {
+    const fixtureA = buildNarrativeEvidenceFixtureV8({
+      routeStopId: 'stop-a',
+      entityQid: 'Q100',
+      includedRoles: [
+        'visible_observation',
+        'chronology_or_transformation',
+        'human_agency_or_lived_function',
+      ],
+      sources: [{
+        sourceId: 'source-a',
+        publisherKey: 'publisher-a',
+        authorityTier: 'established_source',
+      }],
+    });
+    const fixtureB = buildNarrativeEvidenceFixtureV8({
+      routeStopId: 'stop-b',
+      entityQid: 'Q200',
+      includedRoles: [
+        'visible_observation',
+        'chronology_or_transformation',
+        'tension_or_contrast',
+      ],
+      sources: [{
+        sourceId: 'source-b',
+        publisherKey: 'publisher-b',
+        authorityTier: 'established_source',
+      }],
+    });
+    if (fixtureA.tier === 'D' || fixtureB.tier === 'D') {
+      throw new Error('adjacency fixtures must be route eligible');
+    }
+
+    const route = {
+      schemaVersion: 'narrative-route-brief-v6',
+      caseId: 'arc-v8-two-stop-test',
+      city: 'Málaga',
+      country: 'España',
+      language: 'es',
+      theme: 'history',
+      durationMinutes: 60,
+      stops: [
+        {
+          stopId: fixtureA.routeStopId,
+          position: 1,
+          name: 'Stop A',
+          narrativeRole: 'opening',
+          wikidataId: fixtureA.entityQid,
+          wikidataUrl: `https://www.wikidata.org/wiki/${fixtureA.entityQid}`,
+          wikipediaUrl: null,
+          coordinates: { lat: 36.721, lng: -4.418 },
+          previousStopId: null,
+          nextStopId: fixtureB.routeStopId,
+        },
+        {
+          stopId: fixtureB.routeStopId,
+          position: 2,
+          name: 'Stop B',
+          narrativeRole: 'closing',
+          wikidataId: fixtureB.entityQid,
+          wikidataUrl: `https://www.wikidata.org/wiki/${fixtureB.entityQid}`,
+          wikipediaUrl: null,
+          coordinates: { lat: 36.722, lng: -4.419 },
+          previousStopId: fixtureA.routeStopId,
+          nextStopId: null,
+        },
+      ],
+      fingerprint: 'arc-v8-two-stop-fingerprint',
+    } satisfies NarrativeRouteBriefV6;
+
+    const handoffA = {
+      routeStopId: fixtureA.routeStopId,
+      entityQid: fixtureA.entityQid,
+      result: {
+        status: 'sufficient',
+        stopId: fixtureA.entityQid,
+        gates: fixtureA.gates,
+        dossier: fixtureA.dossier,
+        evidenceTier: fixtureA.tier,
+        routeEligible: true,
+        stats,
+        captures: fixtureA.captures,
+        captureLog: [],
+      },
+    } satisfies NarrativeResearchHandoffStopV8;
+
+    const handoffB = {
+      routeStopId: fixtureB.routeStopId,
+      entityQid: fixtureB.entityQid,
+      result: {
+        status: 'sufficient',
+        stopId: fixtureB.entityQid,
+        gates: fixtureB.gates,
+        dossier: fixtureB.dossier,
+        evidenceTier: fixtureB.tier,
+        routeEligible: true,
+        stats,
+        captures: fixtureB.captures,
+        captureLog: [],
+      },
+    } satisfies NarrativeResearchHandoffStopV8;
+
+    const boundary = buildNarrativeEvidenceBoundaryV8(route, [handoffA, handoffB]);
+    if (boundary.status !== 'ready') throw new Error(`boundary was ${boundary.status}`);
+
+    const propositionA = fixtureA.dossier.propositions.find(
+      (proposition) => proposition.role === 'human_agency_or_lived_function'
+    )!.propositionId;
+    const propositionB = fixtureB.dossier.propositions.find(
+      (proposition) => proposition.role === 'tension_or_contrast'
+    )!.propositionId;
+
+    const validArc = {
+      promise: 'Comprender la transformación de Málaga.',
+      centralQuestion: '¿Cómo cambió este lugar?',
+      stops: [
+        {
+          stopId: fixtureA.routeStopId,
+          contribution: 'Presenta una transformación urbana.',
+          bridge: 'Resuelve la pregunta central.',
+          contributionPropositionIds: [propositionA],
+          bridgePropositionIds: [propositionB],
+        },
+        {
+          stopId: fixtureB.routeStopId,
+          contribution: 'Presenta una transformación urbana.',
+          bridge: 'Resuelve la pregunta central.',
+          contributionPropositionIds: [propositionB],
+          bridgePropositionIds: [propositionB],
+        },
+      ],
+    };
+
+    expect(() => validateNarrativeArcV8(validArc, route, boundary.admittedStops)).not.toThrow();
+
+    const invalidArc = {
+      ...validArc,
+      stops: [
+        validArc.stops[0],
+        {
+          ...validArc.stops[1],
+          bridgePropositionIds: [propositionA],
+        },
+      ],
+    };
+
+    expect(() => validateNarrativeArcV8(invalidArc, route, boundary.admittedStops)).toThrow(
+      `arc stop 1 bridgePropositionId ${propositionA} not in current or next stop dossier`
+    );
   });
 });
