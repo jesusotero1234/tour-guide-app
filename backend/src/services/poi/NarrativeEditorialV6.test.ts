@@ -302,4 +302,40 @@ describe('narrative v6 editorial protocol', () => {
     expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
     expect(warnings[1].scriptFingerprint).toBe(script.fingerprint);
   });
+
+  it('v8 policy: numeric authorization includes literals from authorized proposition texts while rejecting an unrelated number', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'malaga',
+      'El edificio tenía 1340 metros. La obra comenzó en 1487. ' +
+        'Había 40 ventanas. El cambio ocurrió en 1940. ' +
+        'La reforma terminó en 1930. Se usaron 16 columnas. ' +
+        'El museo abrió en 1972. Llegaron 11 guías. ' +
+        'La fundación data de 1874. La ampliación fue en 1876. ' +
+        'El código 9999 no aparece en el dossier.'
+    );
+    const authorizedPropositionTexts = [
+      'El edificio tenía 1340 metros de perímetro.',
+      'La obra comenzó en 1487 tras la restauración.',
+      'Había 40 ventanas en la fachada.',
+      'El cambio de uso ocurrió en 1940.',
+      'La reforma terminó en 1930 con nuevos muros.',
+      'Se usaron 16 columnas de mármol.',
+      'El museo abrió en 1972 para el público.',
+      'Llegaron 11 guías al recinto.',
+      'La fundación data de 1874 en el archivo.',
+      'La ampliación fue en 1876 con una nueva torre.',
+    ];
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts,
+    }).filter((w) => w.code === 'unauthorized_number');
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0].severity).toBe('hard');
+    expect(warnings[0].message).toContain('9999');
+    expect(warnings[0].sentenceId).toBe('malaga-S011');
+    expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+  });
 });

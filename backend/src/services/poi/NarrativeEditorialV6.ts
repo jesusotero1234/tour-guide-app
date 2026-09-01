@@ -358,7 +358,12 @@ export function auditNarrativeScriptDeterministicallyV6(
       }
       return trimmed.replace(/[\u00A0\u202F.\s]/gu, '');
     };
-    const authorizedCanonical = new Set(input.authorizedNumbers.map(canonicalizeNumber));
+    const authorizedCanonical = new Set<string>([
+      ...input.authorizedNumbers.map(canonicalizeNumber),
+      ...(input.authorizedPropositionTexts ?? []).flatMap((text) =>
+        [...text.matchAll(numericCandidateRegex)].map((match) => canonicalizeNumber(match[0]))
+      ),
+    ]);
     for (const sentence of script.sentences) {
       const matches = [...sentence.text.matchAll(numericCandidateRegex)];
       for (const match of matches) {
