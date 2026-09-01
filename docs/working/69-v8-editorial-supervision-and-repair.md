@@ -9,7 +9,7 @@ Ejecución mecánica y validación: qwen_worker
 
 Conseguir que Editorial no se limite a acumular objeciones y detener el tour. El supervisor debe evaluar cada guion con el contexto validado necesario, devolver incidencias localizables y permitir una única reparación conjunta por parada antes de decidir el estado final.
 
-El canary `malaga-v8-qwen38-live-20260901-1` demostró que Research, boundary, Arc y los siete writers funcionan. Editorial terminó en `draft_review_required` con trece bloqueos: once falsos positivos numéricos y dos objeciones sobre bridges interparada.
+El canary `malaga-v8-qwen38-live-20260901-1` demostró que Research, boundary, Arc y los siete writers funcionan. Editorial terminó en `draft_review_required` con trece bloqueos: diez literales numéricos presentes exactamente en proposiciones, una reformulación `años 40` → `1940` que debe repararse y dos objeciones sobre bridges interparada.
 
 ## Mapa de capacidades
 
@@ -149,7 +149,8 @@ La garantía de una sola reparación por parada ya estaba cubierta por `Narrativ
 
 ## Criterios de aceptación
 
-- Los once números del canary anterior dejan de ser falsos positivos.
+- Los números presentes literalmente en proposiciones dejan de ser falsos positivos.
+- Reformulaciones numéricas no literales, como `años 40` → `1940`, siguen siendo reparables y no se autorizan automáticamente.
 - Un número realmente ajeno a la evidencia sigue bloqueando.
 - Supervisor y adjudicador ven contexto validado actual y siguiente.
 - Writer y repair no reciben pasajes completos ni evidencia no autorizada.
@@ -179,7 +180,7 @@ Resultado:
 - 5 suites / 44 tests pasaron.
 - TypeScript completo de `backend` pasó.
 - `git diff --check` pasó.
-- El test RED numérico reprodujo 11 falsos positivos antes del fix y quedó verde después.
+- El test RED numérico reprodujo diez literales válidos más un número realmente ajeno antes del fix y quedó verde después.
 - El test RED de supervisión confirmó que `reviewEvidence` no existía antes del nuevo boundary y quedó verde después.
 
 ## Canary final
