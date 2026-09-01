@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { TourRequest } from '../../src/types/api';
 import { requestEditorialStructuredV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import {
+  NARRATIVE_MODEL_PROFILES_V6,
   NarrativeModelProfileNameV6,
   narrativePhaseExecutionV6,
 } from '../../src/services/poi/NarrativeModelProfilesV6';
@@ -565,6 +566,11 @@ async function buildResearchServices(options: {
   const capture = new FirecrawlNarrativeCaptureProviderV7({
     baseUrl: options.runtime.firecrawlBaseUrl,
     apiKey: process.env.FIRECRAWL_API_KEY?.trim() || undefined,
+    onRetry: (event) => console.warn(
+      `[v8-canary] Firecrawl ${event.path} failed after ${event.elapsedMs}ms`
+      + `; retrying in ${event.waitMs}ms (attempt ${event.attempt}/${event.maxAttempts})`
+      + (event.httpStatus === null ? '' : ` | HTTP ${event.httpStatus}`)
+    ),
   });
   const authorities = new WikidataAuthorityProviderV7();
   const curate = await curatorServiceV8({
@@ -1204,41 +1210,72 @@ async function main(): Promise<void> {
         onProgress,
       });
       research = [];
-      for (const [index, stop] of route.stops.entries()) {
-        console.log(`[v8-canary] researching stop ${index + 1}/${route.stops.length}: ${stop.wikidataId} ${stop.name}`);
-        const result = await researchNarrativeStopV8({
-          runId,
-          stopId: stop.wikidataId,
-          stopName: stop.name,
-          cityName: request.city,
-          cityQid,
-          countryCode: request.countryCode ?? 'ES',
-          language: request.language,
-          required: core.requiredIds.includes(stop.wikidataId),
-        }, researchServices);
-        research.push({ routeStopId: stop.stopId, entityQid: stop.wikidataId, result });
-        const writerReady = 'gates' in result && result.gates.writerReady;
-        const evidenceVariant = result.evidenceTier === 'C'
-          ? writerReady ? 'C_FULL' : 'C_PARTIAL'
-          : '-';
-        const providerFailureCount = result.captureLog.filter((entry) => (
-          entry.phase !== 'wikipedia'
-          && (entry.outcome === 'provider_failed' || entry.outcome === 'capture_failed')
-        )).length;
-        console.log(
-          `[v8-canary] stop ${index + 1}/${route.stops.length} -> ${result.status}`
-          + ` | evidenceTier=${result.evidenceTier ?? 'null'}`
-          + ` | evidenceVariant=${evidenceVariant}`
-          + ` | routeEligible=${result.routeEligible}`
-          + ` | writerReady=${writerReady}`
-          + ` | missingWriterRoles=${'gates' in result ? result.gates.missingWriterRoles.join(',') || '-' : '-'}`
-          + ` | capturedSources=${result.stats.capturedSourceCount}`
-          + ` | publishers=${result.stats.publisherCount}`
-          + ` | providerFailures=${providerFailureCount}`
-        );
-        if (!result.routeEligible) {
-          console.log(`[v8-canary] fail-fast: stop ${stop.wikidataId} not routeEligible; deteniendo la investigación`);
-          break;
+      const researchConcurrency = Math.min(
+        NARRATIVE_MODEL_PROFILES_V6[profile].concurrency.researchStops,
+        route.stops.length
+      );
+      console.log(`[v8-canary] research concurrency=${researchConcurrency}`);
+      let stopAfterBatch = false;
+      for (
+        let batchStart = 0;
+        batchStart < route.stops.length && !stopAfterBatch;
+        batchStart += researchConcurrency
+      ) {
+        const batch = route.stops
+          .slice(batchStart, batchStart + researchConcurrency)
+          .map((stop, offset) => ({ stop, index: batchStart + offset }));
+        const completed = await Promise.all(batch.map(async ({ stop, index }) => {
+          const startedAt = Date.now();
+          console.log(`[v8-canary] researching stop ${index + 1}/${route.stops.length}: ${stop.wikidataId} ${stop.name}`);
+          const result = await researchNarrativeStopV8({
+            runId,
+            stopId: stop.wikidataId,
+            stopName: stop.name,
+            cityName: request.city,
+            cityQid,
+            countryCode: request.countryCode ?? 'ES',
+            language: request.language,
+            required: core.requiredIds.includes(stop.wikidataId),
+          }, researchServices);
+          return { stop, index, result, elapsedMs: Date.now() - startedAt };
+        }));
+        for (const { stop, index, result, elapsedMs } of completed) {
+          research.push({ routeStopId: stop.stopId, entityQid: stop.wikidataId, result });
+          for (const entry of result.captureLog) {
+            if (entry.elapsedMs === 0 && entry.errorClassification !== 'identity_mismatch') continue;
+            const target = entry.requestedUrl.replace(/\s+/gu, ' ').slice(0, 160);
+            console.log(
+              `[v8-canary] stop ${index + 1}/${route.stops.length} timing`
+              + ` | phase=${entry.phase}`
+              + ` | outcome=${entry.outcome}`
+              + ` | elapsedMs=${entry.elapsedMs}`
+              + ` | target=${target}`
+            );
+          }
+          const writerReady = 'gates' in result && result.gates.writerReady;
+          const evidenceVariant = result.evidenceTier === 'C'
+            ? writerReady ? 'C_FULL' : 'C_PARTIAL'
+            : '-';
+          const providerFailureCount = result.captureLog.filter((entry) => (
+            entry.phase !== 'wikipedia'
+            && (entry.outcome === 'provider_failed' || entry.outcome === 'capture_failed')
+          )).length;
+          console.log(
+            `[v8-canary] stop ${index + 1}/${route.stops.length} -> ${result.status}`
+            + ` | elapsedMs=${elapsedMs}`
+            + ` | evidenceTier=${result.evidenceTier ?? 'null'}`
+            + ` | evidenceVariant=${evidenceVariant}`
+            + ` | routeEligible=${result.routeEligible}`
+            + ` | writerReady=${writerReady}`
+            + ` | missingWriterRoles=${'gates' in result ? result.gates.missingWriterRoles.join(',') || '-' : '-'}`
+            + ` | capturedSources=${result.stats.capturedSourceCount}`
+            + ` | publishers=${result.stats.publisherCount}`
+            + ` | providerFailures=${providerFailureCount}`
+          );
+          if (!result.routeEligible) {
+            stopAfterBatch = true;
+            console.log(`[v8-canary] fail-fast: stop ${stop.wikidataId} not routeEligible; deteniendo la investigación`);
+          }
         }
       }
     }
@@ -1436,7 +1473,7 @@ async function main(): Promise<void> {
         profile,
         signal: abortController.signal,
         onProgress,
-        maximumAdditionalRepairs: 1,
+        maximumRepairCalls: route.stops.length,
         scripts: savedEditorialScripts,
       });
       if (workflowResult.status === 'protocol_failed') {
