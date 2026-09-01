@@ -13,6 +13,7 @@ import {
   projectCheckpointStateForResumeV8,
   SCHEMA_VERSION,
 } from "./NarrativeUserCanaryCheckpointV8";
+import type { NarrativeEditorialIssueV8, NarrativeEditorialIssueSummaryV8 } from "./NarrativeEditorialIssuePolicyV8";
 
 describe("NarrativeUserCanaryCheckpointV8", () => {
   const baseRun = {
@@ -33,6 +34,29 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
   const baseArc = { theme: "History" };
   const baseEditorial = { status: "ok", scripts: ["script1"] };
   const baseScorecard = { score: 90 };
+
+  const sampleIssue: NarrativeEditorialIssueV8 = {
+    schemaVersion: "narrative-editorial-issue-v8",
+    issueId: "issue-1",
+    source: "deterministic",
+    stopId: "stop-1",
+    sentenceIds: ["stop-1-S1"],
+    code: "distorted",
+    severity: "hard",
+    state: "open",
+    scriptFingerprint: "fp-script-1",
+    reason: "Test reason",
+  };
+
+  const sampleSummary: NarrativeEditorialIssueSummaryV8 = {
+    schemaVersion: "narrative-editorial-issue-summary-v8",
+    totalOpen: 1,
+    hardWarnings: 1,
+    softWarnings: 0,
+    acceptedFactual: 0,
+    acceptedTour: 0,
+    byStop: { "stop-1": 1 },
+  };
 
   function buildInput(
     completedPhase: string,
@@ -525,6 +549,103 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
       expect(scorecardCheckpoint.evidenceManifest).toEqual(baseEvidenceManifest);
       expect(scorecardCheckpoint.arc).toEqual(baseArc);
       expect(scorecardCheckpoint.editorial).toEqual(baseEditorial);
+    });
+  });
+
+  describe("editorial issue state persistence", () => {
+    it("round-trips issue state through create/write/read", async () => {
+      const tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "checkpoint-issue-test-"));
+      try {
+        const editorialWithIssues = {
+          ...baseEditorial,
+          openIssueIds: ["issue-1"],
+          issues: [sampleIssue],
+          issueSummary: sampleSummary,
+        };
+        const input = buildInput("scorecard");
+        input.editorial = editorialWithIssues;
+        const checkpoint = createCheckpoint(input as any);
+        const filePath = path.join(tmpDir, "checkpoint.json");
+
+        await writeCheckpointV8(filePath, checkpoint);
+        const readBack = await readCheckpointV8(filePath);
+
+        expect(readBack.editorial?.openIssueIds).toEqual(["issue-1"]);
+        expect(readBack.editorial?.issues).toEqual([sampleIssue]);
+        expect(readBack.editorial?.issueSummary).toEqual(sampleSummary);
+        expect(readBack.fingerprint).toBe(checkpoint.fingerprint);
+      } finally {
+        await fs.promises.rm(tmpDir, { recursive: true, force: true });
+      }
+    });
+
+    it("detects fingerprint mismatch when issue state is mutated after creation", () => {
+      const editorialWithIssues = {
+        ...baseEditorial,
+        openIssueIds: ["issue-1"],
+        issues: [sampleIssue],
+        issueSummary: sampleSummary,
+      };
+      const input = buildInput("scorecard");
+      input.editorial = editorialWithIssues;
+      const checkpoint = createCheckpoint(input as any);
+
+      const mutated = JSON.parse(JSON.stringify(checkpoint)) as any;
+      mutated.editorial.issues[0].reason = "mutated reason";
+
+      expect(() => validateCheckpointV8(mutated)).toThrow("Fingerprint mismatch");
+    });
+
+    it("rejects invalid issue records", () => {
+      const editorialWithInvalidIssue = {
+        ...baseEditorial,
+        openIssueIds: ["issue-1"],
+        issues: [{ ...sampleIssue, issueId: 123 }],
+        issueSummary: sampleSummary,
+      };
+      const input = buildInput("scorecard");
+      input.editorial = editorialWithInvalidIssue;
+      expect(() => createCheckpoint(input as any)).toThrow(
+        "editorial.issues items must have issueId as a non-empty string"
+      );
+    });
+
+    it("rejects invalid issue summary", () => {
+      const editorialWithInvalidSummary = {
+        ...baseEditorial,
+        openIssueIds: ["issue-1"],
+        issues: [sampleIssue],
+        issueSummary: { ...sampleSummary, totalOpen: "1" },
+      };
+      const input = buildInput("scorecard");
+      input.editorial = editorialWithInvalidSummary;
+      expect(() => createCheckpoint(input as any)).toThrow(
+        "editorial.issueSummary must have totalOpen as a finite number"
+      );
+    });
+
+    it("rejects invalid openIssueIds", () => {
+      const editorialWithInvalidOpenIds = {
+        ...baseEditorial,
+        openIssueIds: [123],
+        issues: [sampleIssue],
+        issueSummary: sampleSummary,
+      };
+      const input = buildInput("scorecard");
+      input.editorial = editorialWithInvalidOpenIds;
+      expect(() => createCheckpoint(input as any)).toThrow(
+        "editorial.openIssueIds must be an array of strings when present"
+      );
+    });
+
+    it("accepts legacy checkpoint without issue fields", () => {
+      const input = buildInput("scorecard");
+      const checkpoint = createCheckpoint(input as any);
+      expect(checkpoint.editorial?.openIssueIds).toBeUndefined();
+      expect(checkpoint.editorial?.issues).toBeUndefined();
+      expect(checkpoint.editorial?.issueSummary).toBeUndefined();
+      expect(typeof checkpoint.fingerprint).toBe("string");
+      expect(checkpoint.fingerprint).toHaveLength(64);
     });
   });
 

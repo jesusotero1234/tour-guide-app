@@ -48,6 +48,9 @@ export interface NarrativeUserCanaryCheckpointV8 {
     scripts: JsonValue[];
     failureReason?: string;
     retryableLater?: boolean;
+    openIssueIds?: string[];
+    issues?: JsonValue[];
+    issueSummary?: JsonValue;
   };
   scorecard?: JsonValue;
   fingerprint: string;
@@ -203,6 +206,66 @@ export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpoin
     }
     if (editorial.retryableLater !== undefined && typeof editorial.retryableLater !== "boolean") {
       throw new Error("editorial.retryableLater must be a boolean when present");
+    }
+    if (editorial.openIssueIds !== undefined) {
+      if (!Array.isArray(editorial.openIssueIds) || !editorial.openIssueIds.every((id) => typeof id === "string")) {
+        throw new Error("editorial.openIssueIds must be an array of strings when present");
+      }
+    }
+    if (editorial.issues !== undefined) {
+      if (!Array.isArray(editorial.issues)) {
+        throw new Error("editorial.issues must be an array when present");
+      }
+      for (const issue of editorial.issues) {
+        if (!isPlainObject(issue)) {
+          throw new Error("editorial.issues items must be plain objects");
+        }
+        const issueObj = issue as JsonObject;
+        if (issueObj.schemaVersion !== "narrative-editorial-issue-v8") {
+          throw new Error("editorial.issues items must have schemaVersion narrative-editorial-issue-v8");
+        }
+        const requiredIssueFields = ["issueId", "source", "stopId", "sentenceIds", "code", "severity", "state", "scriptFingerprint", "reason"] as const;
+        for (const field of requiredIssueFields) {
+          if (field === "sentenceIds") {
+            if (!Array.isArray(issueObj[field]) || !issueObj[field].every((id) => typeof id === "string")) {
+              throw new Error(`editorial.issues items must have sentenceIds as an array of strings`);
+            }
+          } else {
+            if (typeof issueObj[field] !== "string" || (issueObj[field] as string).length === 0) {
+              throw new Error(`editorial.issues items must have ${field} as a non-empty string`);
+            }
+          }
+        }
+        if (issueObj.sourceIssueIds !== undefined) {
+          if (!Array.isArray(issueObj.sourceIssueIds) || !issueObj.sourceIssueIds.every((id) => typeof id === "string")) {
+            throw new Error("editorial.issues items must have sourceIssueIds as an array of strings when present");
+          }
+        }
+      }
+    }
+    if (editorial.issueSummary !== undefined) {
+      if (!isPlainObject(editorial.issueSummary)) {
+        throw new Error("editorial.issueSummary must be a plain object when present");
+      }
+      const summary = editorial.issueSummary as JsonObject;
+      if (summary.schemaVersion !== "narrative-editorial-issue-summary-v8") {
+        throw new Error("editorial.issueSummary must have schemaVersion narrative-editorial-issue-summary-v8");
+      }
+      const requiredSummaryFields = ["totalOpen", "hardWarnings", "softWarnings", "acceptedFactual", "acceptedTour"] as const;
+      for (const field of requiredSummaryFields) {
+        if (typeof summary[field] !== "number" || !Number.isFinite(summary[field] as number)) {
+          throw new Error(`editorial.issueSummary must have ${field} as a finite number`);
+        }
+      }
+      if (!isPlainObject(summary.byStop)) {
+        throw new Error("editorial.issueSummary must have byStop as a plain object");
+      }
+      const byStop = summary.byStop as JsonObject;
+      for (const key of Object.keys(byStop)) {
+        if (typeof byStop[key] !== "number" || !Number.isFinite(byStop[key] as number)) {
+          throw new Error(`editorial.issueSummary.byStop values must be finite numbers`);
+        }
+      }
     }
   }
 
