@@ -705,14 +705,17 @@ describe('NarrativeEditorialWorkflowV8', () => {
       return { value, diagnostic: diagnostic('adjudicate', value) };
     });
 
-    agents.auditTour.mockImplementation(async () => {
+    agents.auditTour.mockImplementation(async (input: { scripts: NarrativeScriptV6[] }) => {
+      const script = input.scripts[0];
+      const isOriginal = script.text === originalText;
+      const issueId = isOriginal ? 'I1' : 'I2';
       const value = {
         issues: [{
-          issueId: 'I1',
+          issueId,
           stopId: stop.routeStopId,
-          sentenceId: suppliedScript.sentences[0].sentenceId,
+          sentenceId: script.sentences[0].sentenceId,
           severity: 'soft' as const,
-          reason: 'Tour progression issue.',
+          reason: isOriginal ? 'Tour progression issue.' : 'Tour progression issue after repair.',
         }],
         progressionWorks: true,
         promiseDelivered: true,
@@ -775,5 +778,24 @@ describe('NarrativeEditorialWorkflowV8', () => {
 
     expect(result.editorial.stops[0].finalScript.text).toBe(repairedText);
     expect(result.editorial.stops[0].repairRoundUsed).toBe(true);
+
+    expect(agents.auditTour).toHaveBeenCalledTimes(2);
+    const adjudicateCalls = agents.adjudicate.mock.calls;
+    expect(adjudicateCalls.some((call) => {
+      const input = call[0] as { objections: Array<{ objectionId: string }> };
+      return input.objections.some((objection) => objection.objectionId === 'tour:I2');
+    })).toBe(true);
+
+    const issueState = result.editorial.issueStateV8;
+    expect(issueState).toBeDefined();
+    if (!issueState) throw new Error('expected V8 final issue state');
+    expect(issueState.openIssueIds).toContain('tour:I2');
+    expect(issueState.openIssueIds).not.toContain('tour:I1');
+    for (const id of issueState.openIssueIds) {
+      expect(id.startsWith('deterministic:')).toBe(false);
+      expect(id.startsWith('deepseek:')).toBe(false);
+      expect(id.startsWith('deepseek_pro:')).toBe(false);
+    }
+    expect(issueState.summary.acceptedTour).toBe(1);
   });
 });

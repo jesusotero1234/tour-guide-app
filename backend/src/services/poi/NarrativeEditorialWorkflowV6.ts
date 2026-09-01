@@ -31,7 +31,11 @@ import {
   NarrativeSchedulerV6,
   createNarrativeSchedulerV6,
 } from './NarrativeSchedulerV6';
-import { planNarrativeRepairsV8 } from './NarrativeEditorialIssuePolicyV8';
+import {
+  buildFinalNarrativeIssueStateV8,
+  NarrativeEditorialFinalIssueStateV8,
+  planNarrativeRepairsV8,
+} from './NarrativeEditorialIssuePolicyV8';
 
 export interface NarrativeArcV6 {
   promise: string;
@@ -114,6 +118,7 @@ export interface NarrativeEditorialWorkflowResultV6 {
   metrics: NarrativeCallMetricV6[];
   privateDiagnostics: EditorialCallResultV6<unknown>[];
   performance: NarrativeWorkflowPerformanceV6 | null;
+  issueStateV8?: NarrativeEditorialFinalIssueStateV8;
 }
 
 export interface NarrativeEditorialWorkflowOptionsV6 {
@@ -313,6 +318,8 @@ export async function runNarrativeEditorialWorkflowCoreV6(
     ? new Set(options.repairStopIds)
     : auditStopIds;
   const isV8Policy = options.editorialIssuePolicy === 'v8';
+  const latestAcceptedFactualByStop = new Map<string, NarrativeAuditObjectionV6[]>();
+  let acceptedTourObjections: NarrativeAuditObjectionV6[] = [];
   let remainingRepairs = isV8Policy
     ? (options.maximumRepairCalls ?? options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY)
     : (options.maximumAdditionalRepairs ?? Number.POSITIVE_INFINITY);
@@ -447,6 +454,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             adjudications.some((item) => item.objectionId === objection.objectionId
               && item.decision === 'accepted')
           ));
+          if (isV8Policy) latestAcceptedFactualByStop.set(stop.stopId, acceptedObjections);
           const warnings = deterministicWarnings(input, dossier, initialScript, options.deterministicAuditPolicy);
           const record: NarrativeStopEditorialRecordV6 = {
             stopId: stop.stopId, initialScript, finalScript: initialScript, audits, objections,
@@ -550,6 +558,9 @@ export async function runNarrativeEditorialWorkflowCoreV6(
     if (unknownTourIssue) {
       throw new Error(`tour audit references unknown stop ${unknownTourIssue.stopId}`);
     }
+    if (isV8Policy) {
+      acceptedTourObjections = [];
+    }
     for (const stopId of input.route.stops.map((stop) => stop.stopId)
       .filter((stopId) => tourIssues.some((issue) => issue.stopId === stopId))) {
       const record = records.find((item) => item.stopId === stopId);
@@ -578,8 +589,11 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       const accepted = objections.filter((objection) => adjudicated.value.some((item) => (
         item.objectionId === objection.objectionId && item.decision === 'accepted'
       )));
+      if (isV8Policy) {
+        acceptedTourObjections.push(...accepted);
+        continue;
+      }
       if (accepted.length === 0) continue;
-      if (isV8Policy) continue;
       if ((repairStopIds && !repairStopIds.has(stopId)) || !consumeRepair()) continue;
       const repaired = await scheduler.write(() => agents.repair({
         script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
@@ -654,7 +668,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
           finalAudits.map((audit) => audit.value)
         );
         planRecord.objections.push(...finalObjections);
-        if (finalObjections.length === 0) continue;
+        if (finalObjections.length === 0) {
+          latestAcceptedFactualByStop.set(plan.stopId, []);
+          continue;
+        }
         const finalAdjudicated = await scheduler.adjudicate(() => agents.adjudicate({
           script: planRecord.finalScript, dossier: planDossier, objections: finalObjections, scope: 'factual',
         }, agentExecution));
@@ -663,6 +680,12 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         openIssueIds.push(...finalAdjudicated.value
           .filter((item) => item.decision === 'accepted')
           .map((item) => item.objectionId));
+        if (isV8Policy) {
+          latestAcceptedFactualByStop.set(plan.stopId, finalObjections.filter((objection) => (
+            finalAdjudicated.value.some((item) => item.objectionId === objection.objectionId
+              && item.decision === 'accepted')
+          )));
+        }
       }
     }
     if (globalRepairUsed) {
@@ -671,19 +694,56 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         promise: input.arc.promise, scripts,
       }, agentExecution));
       appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
+      if (isV8Policy) {
+        acceptedTourObjections = [];
+        const finalTourIssues = tourAuditResult.value.issues;
+        const finalRouteStopIds = new Set(input.route.stops.map((stop) => stop.stopId));
+        const unknownFinalTourIssue = finalTourIssues.find((issue) => !finalRouteStopIds.has(issue.stopId));
+        if (unknownFinalTourIssue) {
+          throw new Error(`tour audit references unknown stop ${unknownFinalTourIssue.stopId}`);
+        }
+        for (const stopId of input.route.stops.map((stop) => stop.stopId)
+          .filter((stopId) => finalTourIssues.some((issue) => issue.stopId === stopId))) {
+          const record = records.find((item) => item.stopId === stopId);
+          const dossier = dossierByStop.get(stopId);
+          if (!record || !dossier) throw new Error(`tour audit references unknown stop ${stopId}`);
+          const issues = finalTourIssues.filter((issue) => issue.stopId === stopId);
+          const objections: NarrativeAuditObjectionV6[] = issues.map((issue) => ({
+            objectionId: `tour:${issue.issueId}`,
+            auditor: 'deepseek',
+            sentenceId: issue.sentenceId,
+            classification: issue.severity === 'hard' ? 'distorted' : 'unclear',
+            reason: issue.reason,
+            propositionIds: [],
+          }));
+          const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
+            script: record.finalScript, dossier, objections, scope: 'tour',
+          }, agentExecution));
+          appendDiagnostics(adjudicated, metrics, privateDiagnostics);
+          record.objections.push(...objections);
+          record.adjudications.push(...adjudicated.value);
+          acceptedTourObjections.push(...objections.filter((objection) => adjudicated.value.some((item) => (
+            item.objectionId === objection.objectionId && item.decision === 'accepted'
+          ))));
+        }
+      }
     }
-    openIssueIds.push(...tourAuditResult.value.issues
-      .filter((issue) => !rejectedTourIssueIds.has(issue.issueId))
-      .map((issue) => issue.issueId));
-    if (!tourAuditResult.value.progressionWorks) openIssueIds.push('tour:progressionWorks');
-    if (!tourAuditResult.value.promiseDelivered) openIssueIds.push('tour:promiseDelivered');
-    if (!tourAuditResult.value.closingWorks) openIssueIds.push('tour:closingWorks');
+    if (!isV8Policy) {
+      openIssueIds.push(...tourAuditResult.value.issues
+        .filter((issue) => !rejectedTourIssueIds.has(issue.issueId))
+        .map((issue) => issue.issueId));
+      if (!tourAuditResult.value.progressionWorks) openIssueIds.push('tour:progressionWorks');
+      if (!tourAuditResult.value.promiseDelivered) openIssueIds.push('tour:promiseDelivered');
+      if (!tourAuditResult.value.closingWorks) openIssueIds.push('tour:closingWorks');
+    }
     for (const record of records) {
       record.warnings = deterministicWarnings(
         input, dossierByStop.get(record.stopId) as NarrativeDossierV6, record.finalScript, options.deterministicAuditPolicy
       );
-      openIssueIds.push(...record.warnings.filter((warning) => warning.severity === 'hard')
-        .map((warning) => warning.warningId));
+      if (!isV8Policy) {
+        openIssueIds.push(...record.warnings.filter((warning) => warning.severity === 'hard')
+          .map((warning) => warning.warningId));
+      }
     }
     const repetitionWarnings = narrativeRepetitionWarningsV6(scripts);
     const warnings = [...records.flatMap((record) => record.warnings), ...repetitionWarnings];
@@ -694,7 +754,31 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       )),
       scripts: scripts.map((script) => ({ stopId: script.stopId, text: script.text })),
     });
-    const uniqueOpenIssues = [...new Set(openIssueIds)];
+    let issueStateV8: NarrativeEditorialFinalIssueStateV8 | undefined;
+    if (isV8Policy) {
+      const finalAcceptedFactualObjections = [...latestAcceptedFactualByStop.values()].flat();
+      const scriptByStop = new Map(scripts.map((script) => [script.stopId, script]));
+      const boundWarnings = warnings.map((warning) => {
+        const script = scriptByStop.get(warning.stopId);
+        if (!script) throw new Error(`unknown warning stop ${warning.stopId}`);
+        return { ...warning, scriptFingerprint: script.fingerprint };
+      });
+      issueStateV8 = buildFinalNarrativeIssueStateV8(
+        boundWarnings,
+        finalAcceptedFactualObjections,
+        acceptedTourObjections,
+        scripts,
+        {
+          progressionWorks: tourAuditResult.value.progressionWorks,
+          promiseDelivered: tourAuditResult.value.promiseDelivered,
+          closingWorks: tourAuditResult.value.closingWorks,
+          tourFingerprint,
+        }
+      );
+    }
+    const uniqueOpenIssues = isV8Policy
+      ? issueStateV8!.openIssueIds
+      : [...new Set(openIssueIds)];
     const run: NarrativeEditorialRunV6 = uniqueOpenIssues.length > 0
       ? {
         ...baseRun(input), status: 'draft_review_required',
@@ -710,6 +794,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       run, route: input.route, arc: input.arc, stops: records,
       tourAudit: tourAuditResult.value, warnings, metrics,
       privateDiagnostics, performance,
+      ...(isV8Policy ? { issueStateV8 } : {}),
     };
   } catch (error) {
     if (error instanceof NarrativeAgentProtocolErrorV6) {
