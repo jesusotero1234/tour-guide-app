@@ -25,6 +25,7 @@ import {
 export const DEEPSEEK_NARRATIVE_MODEL_V6 = 'deepseek-v4-flash' as const;
 export const DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6 = 'deepseek-v4-pro' as const;
 export const GEMMA_NARRATIVE_AUDITOR_MODEL_V6 = 'gemma4:12b' as const;
+const AUDIT_REASON_MAX_LENGTH_V6 = 200;
 
 export interface NarrativeWriterInputV6 {
   stopId: string;
@@ -128,7 +129,12 @@ export interface NarrativeAgentExecutionV6 {
 
 export class NarrativeAgentProtocolErrorV6 extends Error {
   constructor(readonly diagnostic: EditorialCallResultV6<unknown>) {
-    super(`${diagnostic.callId} failed protocol validation with status ${diagnostic.status}`);
+    const finalAttempt = diagnostic.attempts[diagnostic.attempts.length - 1];
+    const finalError = finalAttempt?.error?.trim();
+    super(
+      `${diagnostic.callId} failed protocol validation with status ${diagnostic.status}`
+      + (finalError ? `: ${finalError}` : '')
+    );
     this.name = 'NarrativeAgentProtocolErrorV6';
   }
 }
@@ -177,7 +183,7 @@ function auditSchema(
             type: 'string',
             enum: ['supported', 'authorized_inference', 'unsupported', 'distorted', 'unclear'],
           },
-          reason: { type: 'string', minLength: 1, maxLength: 120 },
+          reason: { type: 'string', minLength: 1, maxLength: AUDIT_REASON_MAX_LENGTH_V6 },
           propositionIds: {
             type: 'array', maxItems: propositionIds.length,
             items: propositionIds.length > 0
@@ -583,7 +589,7 @@ export function createNarrativeEditorialAgentsV6Core(
             'unsupported, distorted o unclear. No apruebas el texto y no reescribes.',
             `Devuelve exactamente ${sentences.length} findings, uno por sentenceId,`,
             'en el mismo orden y sin omitir frases de transición o navegación.',
-            'Cada reason debe ser concreta y no superar 120 caracteres.',
+            `Cada reason debe ser concreta y no superar ${AUDIT_REASON_MAX_LENGTH_V6} caracteres.`,
             'Compara sujeto, acción, objeto, causalidad, fechas, cantidades y negaciones:',
             'que coincidan nombres o fechas no basta; cambiar quién encarga, decide o actúa es distorted.',
             'Respeta también discrepancies y limits del dossier.',

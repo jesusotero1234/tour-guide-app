@@ -3,10 +3,12 @@ import {
   DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
   DEEPSEEK_NARRATIVE_MODEL_V6,
   GEMMA_NARRATIVE_AUDITOR_MODEL_V6,
+  NarrativeAgentProtocolErrorV6,
   createNarrativeEditorialAgentsV6,
   reviewNarrativeTourScorecardV6,
 } from './NarrativeEditorialAgentsV6';
 import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
+import type { EditorialCallResultV6 } from './EditorialStructuredLlmV6';
 
 type CapturedPostBody = Record<string, unknown>;
 
@@ -87,7 +89,7 @@ describe('narrative v6 editorial agents', () => {
     expect(auditSchema).toMatchObject({ minItems: 2, maxItems: 2 });
     expect(auditSchema.items).toMatchObject({ properties: {
       sentenceId: { enum: ['palace-S001', 'palace-S002'] },
-      reason: { maxLength: 120 },
+      reason: { maxLength: 200 },
       propositionIds: {
         maxItems: 1,
         items: { enum: ['prop-palace-1'] },
@@ -105,6 +107,7 @@ describe('narrative v6 editorial agents', () => {
     expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
     expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
     expect(auditPrompt).toContain('no necesitan respaldo explícito del dossier');
+    expect(auditPrompt).toContain('Cada reason debe ser concreta y no superar 200 caracteres.');
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
     expect(DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6).toBe('deepseek-v4-pro');
 
@@ -469,5 +472,31 @@ describe('narrative v6 editorial agents', () => {
       decision: 'Approve', overallBand: 'Good', weightedScore: 8.5,
     });
     expect(result.value.dimensions.accuracyGrounding.sentenceIds).toEqual(['palace-S001']);
+  });
+
+  it('surfaces protocol errors with safe diagnostics and excludes raw output', () => {
+    const rawOutputSentinel = 'RAW_OUTPUT_SENTINEL_DO_NOT_LEAK';
+    const diagnostic = {
+      callId: 'audit-test',
+      status: 'semantic_error',
+      value: null,
+      attempts: [{
+        attempt: 2,
+        status: 'semantic_error',
+        latencyMs: 1,
+        error: 'JSON schema validation failed: reason exceeds maxLength',
+        rawOutput: rawOutputSentinel,
+      }],
+      model: 'test-model',
+      promptFingerprint: 'prompt-fingerprint',
+      responseFingerprint: 'response-fingerprint',
+      inputCharacters: 0,
+      schemaCharacters: 0,
+      input: {},
+      rawOutput: rawOutputSentinel,
+    } satisfies EditorialCallResultV6<unknown>;
+    const error = new NarrativeAgentProtocolErrorV6(diagnostic);
+    expect(error.message).toContain('JSON schema validation failed: reason exceeds maxLength');
+    expect(error.message).not.toContain(rawOutputSentinel);
   });
 });
