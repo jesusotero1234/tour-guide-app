@@ -125,7 +125,7 @@ export async function runNarrativeEditorialWorkflowV8(
       })),
     },
     agents,
-    { ...options, allowPartialScripts: true }
+    { ...options, allowPartialScripts: true, deterministicAuditPolicy: 'v8' }
   );
 
   return {

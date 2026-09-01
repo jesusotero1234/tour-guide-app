@@ -231,6 +231,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
             stopId: stop.routeStopId,
             contribution: `Contribución ${index + 1}`,
             bridge: index + 1 < admittedStops.length ? 'Continuamos.' : 'Cierre del recorrido.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
           })),
         },
       },
@@ -266,7 +268,13 @@ describe('NarrativeEditorialWorkflowV8', () => {
         arc: {
           promise: 'Promesa.',
           centralQuestion: 'Pregunta.',
-          stops: [{ stopId: stop.routeStopId, contribution: 'Aporte.', bridge: '' }],
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: '',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
         },
       },
       voiceProfile: ['Precisión'],
@@ -465,8 +473,20 @@ describe('NarrativeEditorialWorkflowV8', () => {
           promise: 'Promesa parcial.',
           centralQuestion: 'Pregunta parcial.',
           stops: [
-            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
-            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+            {
+              stopId: stop1.routeStopId,
+              contribution: 'Aporte 1',
+              bridge: 'Puente',
+              contributionPropositionIds: [stop1.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop1.dossier.propositions[0].propositionId],
+            },
+            {
+              stopId: stop2.routeStopId,
+              contribution: 'Aporte 2',
+              bridge: 'Cierre',
+              contributionPropositionIds: [stop2.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop2.dossier.propositions[0].propositionId],
+            },
           ],
         },
       },
@@ -514,8 +534,20 @@ describe('NarrativeEditorialWorkflowV8', () => {
           promise: 'Promesa.',
           centralQuestion: 'Pregunta.',
           stops: [
-            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
-            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+            {
+              stopId: stop1.routeStopId,
+              contribution: 'Aporte 1',
+              bridge: 'Puente',
+              contributionPropositionIds: [stop1.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop1.dossier.propositions[0].propositionId],
+            },
+            {
+              stopId: stop2.routeStopId,
+              contribution: 'Aporte 2',
+              bridge: 'Cierre',
+              contributionPropositionIds: [stop2.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop2.dossier.propositions[0].propositionId],
+            },
           ],
         },
       },
@@ -533,6 +565,50 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(agents.adjudicate).not.toHaveBeenCalled();
     expect(agents.repair).not.toHaveBeenCalled();
     expect(agents.auditTour).not.toHaveBeenCalled();
+  });
+
+  test('forces proposition-scoped deterministic auditing with policy v8 even when caller omits deterministicAuditPolicy', async () => {
+    const stop = admit(evidenceFixture('malaga-audit-01', 'Q8000001', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const auditSpy = jest.spyOn(require('./NarrativeEditorialV6'), 'auditNarrativeScriptDeterministicallyV6');
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-audit-policy-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa de auditoría.',
+          centralQuestion: 'Pregunta de auditoría.',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: 'Cierre.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-audit-policy-test.private.json',
+    }, agents, {});
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+
+    expect(auditSpy).toHaveBeenCalled();
+    const expectedPropositionTexts = stop.dossier.propositions.map((p) => p.text);
+    for (const call of auditSpy.mock.calls) {
+      const input = call[1] as { policy?: 'v8'; authorizedPropositionTexts?: string[] };
+      expect(input.policy).toBe('v8');
+      expect(input.authorizedPropositionTexts).toEqual(expectedPropositionTexts);
+    }
+    auditSpy.mockRestore();
   });
 
   test('protocol-fails before any agent call when unknown partial script is supplied', async () => {
@@ -560,8 +636,20 @@ describe('NarrativeEditorialWorkflowV8', () => {
           promise: 'Promesa.',
           centralQuestion: 'Pregunta.',
           stops: [
-            { stopId: stop1.routeStopId, contribution: 'Aporte 1', bridge: 'Puente' },
-            { stopId: stop2.routeStopId, contribution: 'Aporte 2', bridge: 'Cierre' },
+            {
+              stopId: stop1.routeStopId,
+              contribution: 'Aporte 1',
+              bridge: 'Puente',
+              contributionPropositionIds: [stop1.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop1.dossier.propositions[0].propositionId],
+            },
+            {
+              stopId: stop2.routeStopId,
+              contribution: 'Aporte 2',
+              bridge: 'Cierre',
+              contributionPropositionIds: [stop2.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop2.dossier.propositions[0].propositionId],
+            },
           ],
         },
       },

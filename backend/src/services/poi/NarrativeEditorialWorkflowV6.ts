@@ -125,6 +125,7 @@ export interface NarrativeEditorialWorkflowOptionsV6 {
   repairStopIds?: string[];
   maximumAdditionalRepairs?: number;
   allowPartialScripts?: boolean;
+  deterministicAuditPolicy?: 'v8';
 }
 
 export interface NarrativeEditorialCoreStopV6 {
@@ -263,7 +264,8 @@ function baseRun(input: NarrativeEditorialWorkflowInputV6) {
 function deterministicWarnings(
   input: NarrativeEditorialWorkflowInputV6,
   dossier: NarrativeDossierV6,
-  script: NarrativeScriptV6
+  script: NarrativeScriptV6,
+  policy?: 'v8'
 ): NarrativeProtocolWarningV6[] {
   return auditNarrativeScriptDeterministicallyV6(script, {
     language: input.route.language,
@@ -277,6 +279,12 @@ function deterministicWarnings(
       ...input.arc.stops.flatMap((arcStop) => [arcStop.contribution, arcStop.bridge ?? '']),
     ],
     authorizedNumbers: dossier.authorizedNumbers,
+    ...(policy === 'v8'
+      ? {
+          policy: 'v8' as const,
+          authorizedPropositionTexts: dossier.propositions.map((proposition) => proposition.text),
+        }
+      : {}),
   });
 }
 
@@ -402,7 +410,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             initialScript = assignNarrativeSentenceIdsV6(stop.stopId, written.value.text);
           }
           if (auditStopIds && !auditStopIds.has(stop.stopId)) {
-            const warnings = deterministicWarnings(input, dossier, initialScript);
+            const warnings = deterministicWarnings(input, dossier, initialScript, options.deterministicAuditPolicy);
             const record: NarrativeStopEditorialRecordV6 = {
               stopId: stop.stopId, initialScript, finalScript: initialScript,
               audits: [], objections: [],
@@ -433,7 +441,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             adjudications.some((item) => item.objectionId === objection.objectionId
               && item.decision === 'accepted')
           ));
-          const warnings = deterministicWarnings(input, dossier, initialScript);
+          const warnings = deterministicWarnings(input, dossier, initialScript, options.deterministicAuditPolicy);
           const record: NarrativeStopEditorialRecordV6 = {
             stopId: stop.stopId, initialScript, finalScript: initialScript, audits, objections,
             adjudications, repairRoundUsed: false, warnings,
@@ -613,7 +621,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
     if (!tourAuditResult.value.closingWorks) openIssueIds.push('tour:closingWorks');
     for (const record of records) {
       record.warnings = deterministicWarnings(
-        input, dossierByStop.get(record.stopId) as NarrativeDossierV6, record.finalScript
+        input, dossierByStop.get(record.stopId) as NarrativeDossierV6, record.finalScript, options.deterministicAuditPolicy
       );
       openIssueIds.push(...record.warnings.filter((warning) => warning.severity === 'hard')
         .map((warning) => warning.warningId));
