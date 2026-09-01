@@ -89,7 +89,7 @@ describe('narrative v6 editorial agents', () => {
     expect(auditSchema).toMatchObject({ minItems: 2, maxItems: 2 });
     expect(auditSchema.items).toMatchObject({ properties: {
       sentenceId: { enum: ['palace-S001', 'palace-S002'] },
-      reason: { maxLength: 200 },
+      reason: { type: 'string', minLength: 1 },
       propositionIds: {
         maxItems: 1,
         items: { enum: ['prop-palace-1'] },
@@ -107,7 +107,10 @@ describe('narrative v6 editorial agents', () => {
     expect(auditPrompt).toContain('sujeto, acción, objeto, causalidad');
     expect(auditPrompt).toContain('superlativos y adornos que parecen hechos');
     expect(auditPrompt).toContain('no necesitan respaldo explícito del dossier');
-    expect(auditPrompt).toContain('Cada reason debe ser concreta y no superar 200 caracteres.');
+    expect((auditSchema.items as { properties: { reason: object } })
+      .properties.reason).not.toHaveProperty('maxLength');
+    expect(auditPrompt).toContain('Cada reason debe ser concreta y breve.');
+    expect(auditPrompt).not.toMatch(/reason.*\d+\s+caracteres/iu);
     expect(GEMMA_NARRATIVE_AUDITOR_MODEL_V6).toBe('gemma4:12b');
     expect(DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6).toBe('deepseek-v4-pro');
 
