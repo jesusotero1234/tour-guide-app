@@ -14,6 +14,7 @@ La implementación está completada y validada estáticamente. Los hechos establ
 - Reutilización de guiones editoriales parciales válidos con auditorías, adjudicación, reparaciones y tour audit reejecutados de forma coherente.
 - El writer V8 realiza un tercer intento únicamente cuando los intentos anteriores terminan en 429/rate limit.
 - No se ejecuta Scorecard ni Markdown tras un resultado Editorial incompleto.
+- Los IDs de issues abiertos finales de V8, los registros estructurados de issues y el resumen de issues persisten a través de ejecuciones nuevas, checkpoints, reanudaciones, artefactos privados y revisión pública.
 
 Evidencia exacta de validación estática:
 
@@ -22,6 +23,8 @@ Evidencia exacta de validación estática:
 - La comprobación TypeScript directa del canary pasó.
 - La regresión enfocada de Research/canary (2 suites / 31 tests) pasó.
 - La revisión de Qwen no produjo hallazgos Required.
+- `NarrativeUserCanaryCheckpointV8` y `NarrativeEditorialWorkflowV8` pasaron 73 tests en 2 suites.
+- La comprobación de diff acotada (`git diff --check`) pasó.
 
 El canary live completo de Málaga no fue ejecutado por Codex de forma intencional y permanece como validación final del usuario. No se declara `Approve` ni `publicationPassed`.
 

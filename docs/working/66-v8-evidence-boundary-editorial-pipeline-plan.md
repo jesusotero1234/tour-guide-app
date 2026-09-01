@@ -1,7 +1,7 @@
 # Plan 66 — Boundary de evidencia y pipeline editorial V8
 
 Fecha: 2026-09-01
-Estado: implementado y validado estáticamente; canary live de Málaga ejecutado; migración de boundary y Arc completada; publicación no completada por fallo upstream y control flow post-editorial; trabajo de resume pendiente en Plan 67
+Estado: arquitectura V8, ciclo final de issues e integración checkpoint/resume implementados y validados estáticamente; la validación live final de Málaga y la aprobación de publicación siguen pendientes
 Responsable técnico: Codex
 Ejecución mecánica: qwen_worker
 
@@ -17,6 +17,11 @@ Ejecución mecánica: qwen_worker
 - Handoff canary ejecutable implementado.
 - Persistencia de manifest implementada.
 - Tipo de Research estrechado.
+- Trazabilidad de proposiciones en el Arc implementada.
+- Writer y repair V8 limitados a proposiciones autorizadas; auditores con alcance de evidencia explícito.
+- Una única reparación combinada como máximo por parada.
+- Issues abiertos derivados de las auditorías del script final, no de un historial append-only.
+- IDs, registros y resumen de issues persistidos en checkpoint/resume y review.
 
 ### Evidencia de validación
 
@@ -33,7 +38,7 @@ Ejecución mecánica: qwen_worker
 ### Definition of Done
 
 - Items 1-16: satisfechos en implementación/estática solo en la medida soportada por los tests registrados; no se marca comportamiento live como observado.
-- Item 17 (progresión de Arc de Málaga): pendiente explícito.
+- Item 17 (progresión de Arc de Málaga): completado; el run de Málaga superó el antiguo gate de Arc.
 - Item 18 (Approve de scorecard): pendiente explícito.
 
 ### Canary de Málaga
