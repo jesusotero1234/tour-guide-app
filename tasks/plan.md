@@ -791,7 +791,7 @@ PublicationGateSnapshot
   sourceIsExactRecord: bool
   coverage: CoverageMetadata
 
-NormalizedBox
+NormalizedBox (definido en models.py e importado aquí; no duplicar)
   x0, y0, x1, y1: float, 0..1, x1>x0, y1>y0
 
 ExtractedLineCandidate
@@ -2434,7 +2434,8 @@ chore: add isolated Madoz ingestion runtime
 
 ### QW-02 — Extensión compatible de modelos públicos
 
-- [ ] Pendiente.
+- [x] Completado: `27` pruebas de contrato nuevas, `20` de API y `4` de
+  registry verdes; los modelos compartidos evitan la dependencia circular.
 - Depende de: QW-01.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_madoz_models.py`
@@ -2456,7 +2457,8 @@ Requisitos:
 - extraer `DocumentMetadata` como base sin cambiar la forma JSON de
   `IngestRequest`;
 - añadir los campos públicos de 5.4;
-- definir `PrintedRange` en `models.py` como tipo compartido exacto de 5.3;
+- definir `PrintedRange` y `NormalizedBox` en `models.py` como tipos
+  compartidos exactos de 5.3;
 - añadir `PageSummary`, `PageRecord` y `SourceLineRecord`;
 - conservar `extra="forbid"`;
 - conservar todos los nombres y defaults antiguos;
@@ -2499,8 +2501,9 @@ Requisitos de implementación, copiados literalmente por Codex en <=10:
    `registry._compute_chunk_id` lo reexporte sin cambiar resultados/imports.
 3. Importar y reutilizar `PrintedRange` desde `models.py`; implementar
    `CoverageMetadata` y `PublicationGateSnapshot` exactos de 5.3.
-4. Implementar `NormalizedBox`, `ExtractedLineCandidate`, `SourceLineInput` y
-   `SourcePageInput` con límites y finitud exactos.
+4. Importar y reutilizar `NormalizedBox` desde `models.py`; implementar
+   `ExtractedLineCandidate`, `SourceLineInput` y `SourcePageInput` con límites
+   y finitud exactos.
 5. Implementar `PageInventoryRecord` de 5.1.1, snapshots tipados de
    canonicalización, `StagedPage`, `ModelLock`, `ModelLockFingerprint` y
    `ModelLockFingerprintEntry`.
