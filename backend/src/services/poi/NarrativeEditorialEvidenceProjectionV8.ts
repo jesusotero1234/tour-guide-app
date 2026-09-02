@@ -262,6 +262,13 @@ const V8_PROMPT_SUFFIX_WRITER = [
   'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
 ].join(' ');
 
+const V8_PROMPT_SUFFIX_REPAIR = [
+  'Cada replacement.text debe contener una frase completa y no vacía.',
+  'Nunca uses una cadena vacía para borrar o fusionar sentenceIds.',
+  'Si dos sentenceIds provienen de una frase dividida, conserva ambos IDs y redistribuye el contenido en dos frases completas que eliminen el fragmento.',
+  'Nunca copies el mismo texto completo en dos sentenceIds.',
+].join(' ');
+
 const V8_PROMPT_SUFFIX_AUDITOR = [
   'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
   'El dossier y reviewEvidence determinan el soporte de fuentes; authorizedEvidence determina el permiso del escritor.',
@@ -316,9 +323,11 @@ export function createNarrativeEditorialRequestProjectorV8(
     const stopIndex = admittedStops.findIndex((s) => s.routeStopId === routeStopId);
     const arcStop = arc.stops[stopIndex];
     const authorizedEvidence = authorizedEvidenceByStop[stopIndex];
-    const promptSuffix = (operation === 'write' || operation === 'repair')
-      ? V8_PROMPT_SUFFIX_WRITER
-      : V8_PROMPT_SUFFIX_AUDITOR;
+    const promptSuffix = operation === 'repair'
+      ? `${V8_PROMPT_SUFFIX_WRITER} ${V8_PROMPT_SUFFIX_REPAIR}`
+      : operation === 'write'
+        ? V8_PROMPT_SUFFIX_WRITER
+        : V8_PROMPT_SUFFIX_AUDITOR;
 
     const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence);
     if (operation === 'audit' || operation === 'adjudicate') {
@@ -332,9 +341,19 @@ export function createNarrativeEditorialRequestProjectorV8(
       };
     }
 
+    const auditCitationPropositionIds = operation === 'audit'
+      ? [...new Set([
+        ...stop.dossier.propositions.map((p) => p.propositionId),
+        ...(admittedStops[stopIndex + 1]?.dossier.propositions ?? []).map((p) => p.propositionId),
+        ...authorizedEvidence.contributionPropositions.map((e) => e.proposition.propositionId),
+        ...authorizedEvidence.bridgePropositions.map((e) => e.proposition.propositionId),
+      ])]
+      : undefined;
+
     return {
       systemPrompt: `${systemPrompt} ${promptSuffix}`,
       input: projectedInput,
+      ...(auditCitationPropositionIds !== undefined ? { auditCitationPropositionIds } : {}),
     };
   };
 }

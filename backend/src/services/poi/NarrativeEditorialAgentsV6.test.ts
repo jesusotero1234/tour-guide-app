@@ -5,6 +5,7 @@ import {
   GEMMA_NARRATIVE_AUDITOR_MODEL_V6,
   NarrativeAgentProtocolErrorV6,
   createNarrativeEditorialAgentsV6,
+  createNarrativeEditorialAgentsV6Core,
   reviewNarrativeTourScorecardV6,
 } from './NarrativeEditorialAgentsV6';
 import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
@@ -243,6 +244,51 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value.findings).toHaveLength(17);
   });
 
+  it('retries a DeepSeek incomplete sentence ledger before splitting the batch', async () => {
+    const batchSizes: number[] = [];
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const userMessage = (body.messages as Array<{ role: string; content: string }>)[1].content;
+      const input = JSON.parse(userMessage.split('\n').slice(1).join('\n')) as {
+        script: ReturnType<typeof assignNarrativeSentenceIdsV6>;
+      };
+      batchSizes.push(input.script.sentences.length);
+      if (input.script.sentences.length === 6) {
+        return { data: { choices: [{ message: { tool_calls: [{ function: {
+          name: 'audit_narrative_sentences_v6',
+          arguments: JSON.stringify({ findings: input.script.sentences.map((sentence, index) => ({
+            sentenceId: index === input.script.sentences.length - 1
+              ? input.script.sentences[0].sentenceId
+              : sentence.sentenceId,
+            classification: 'supported',
+            reason: 'Respaldada.',
+            propositionIds: [],
+          })) }),
+        } }] } }] } };
+      }
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'audit_narrative_sentences_v6',
+        arguments: JSON.stringify({ findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported',
+          reason: 'Respaldada.',
+          propositionIds: [],
+        })) }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace',
+      Array.from({ length: 6 }, (_, index) => `Esta es la frase número ${index + 1}.`).join(' ')
+    );
+
+    const result = await agents.audit({ script, dossier }, 'deepseek');
+
+    expect(batchSizes).toEqual([6, 6, 3, 3]);
+    expect(result.value.findings).toHaveLength(6);
+    expect(result.value.findings.map((finding) => finding.sentenceId))
+      .toEqual(script.sentences.map((sentence) => sentence.sentenceId));
+  });
+
   it('splits a provider audit batch sequentially when its output reaches the token limit', async () => {
     const batchSizes: number[] = [];
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
@@ -364,6 +410,81 @@ describe('narrative v6 editorial agents', () => {
     expect(repairBody.tools[0].function.name).toBe('repair_narrative_window_v6');
     expect(repairBody.tools[0].function.parameters.type).toBe('object');
     expect(repairBody.tools[0].function.parameters.required).toEqual(['replacements']);
+    const repairSchema = ((repairBody.tools[0].function.parameters.properties as {
+      replacements: Record<string, unknown>;
+    }).replacements);
+    expect((repairSchema.items as { properties: { text: object } }).properties.text).toMatchObject({
+      type: 'string', minLength: 1,
+    });
+  });
+
+  it.each(['', '   '])('retries blank repair replacement %p as semantic protocol error before returning a patch', async (invalidText) => {
+    let attempt = 0;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      attempt += 1;
+      const replacements = attempt === 1
+        ? [{ sentenceId: 'palace-S002', text: 'La fachada se observa desde la ruta.' }, { sentenceId: 'palace-S003', text: invalidText }]
+        : [{ sentenceId: 'palace-S002', text: 'La fachada se observa desde la ruta.' }, { sentenceId: 'palace-S003', text: 'El origen del edificio abre el contraste.' }];
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'repair_narrative_window_v6',
+        arguments: JSON.stringify({ replacements }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace',
+      'La institución quería parecer seria. La fachada se observa desde la ruta. El origen del edificio abre el contraste.'
+    );
+
+    const result = await agents.repair({
+      script,
+      dossier,
+      scope: 'factual',
+      objections: [{
+        objectionId: 'gemma:palace-S002:distorted', auditor: 'gemma',
+        sentenceId: 'palace-S002', classification: 'distorted',
+        reason: 'Atribuye psicología institucional no documentada.', propositionIds: [],
+      }],
+      adjudications: [{
+        objectionId: 'gemma:palace-S002:distorted', decision: 'accepted',
+        reason: 'Debe eliminarse toda la atribución psicológica.',
+      }],
+    });
+
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.diagnostic.attempts.map((item) => item.status))
+      .toEqual(['semantic_error', 'valid']);
+    expect(result.value.replacements.every((replacement) => replacement.text.trim().length > 0)).toBe(true);
+  });
+
+  it('rejects repair when both attempts return whitespace-only replacement text', async () => {
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'repair_narrative_window_v6',
+        arguments: JSON.stringify({ replacements: [{
+          sentenceId: 'palace-S001', text: '   ',
+        }] }),
+      } }] } }] } };
+    });
+    const agents = createNarrativeEditorialAgentsV6({ apiKey: 'test-key', post });
+    const script = assignNarrativeSentenceIdsV6(
+      'palace', 'La institución quería parecer seria.'
+    );
+
+    await expect(agents.repair({
+      script,
+      dossier,
+      scope: 'factual',
+      objections: [{
+        objectionId: 'gemma:palace-S001:distorted', auditor: 'gemma',
+        sentenceId: 'palace-S001', classification: 'distorted',
+        reason: 'Atribuye psicología institucional no documentada.', propositionIds: [],
+      }],
+      adjudications: [{
+        objectionId: 'gemma:palace-S001:distorted', decision: 'accepted',
+        reason: 'Debe eliminarse toda la atribución psicológica.',
+      }],
+    })).rejects.toThrow(NarrativeAgentProtocolErrorV6);
   });
 
   it('adjudicates premature closure with tour-wide narrative scope', async () => {
@@ -545,5 +666,53 @@ describe('narrative v6 editorial agents', () => {
     const error = new NarrativeAgentProtocolErrorV6(diagnostic);
     expect(error.message).toContain('JSON schema validation failed: reason exceeds maxLength');
     expect(error.message).not.toContain(rawOutputSentinel);
+  });
+
+  it('accepts a projected review proposition ID without writer authorization', async () => {
+    const nextStopPropositionId = 'prop-almudena-1';
+    const currentPropositionId = 'prop-palace-1';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
+      const args = toolName === 'audit_narrative_sentences_v6'
+        ? { findings: [
+          { sentenceId: 'palace-S001', classification: 'supported', reason: 'P1', propositionIds: [nextStopPropositionId] },
+        ] }
+        : { findings: [] };
+      return { data: { choices: [{ message: { tool_calls: [{
+        function: { name: toolName, arguments: JSON.stringify(args) },
+      }] } }] } };
+    });
+
+    const projector = (projection: {
+      operation: 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
+      systemPrompt: string;
+      input: unknown;
+    }) => ({
+      systemPrompt: projection.systemPrompt,
+      input: projection.input,
+      auditCitationPropositionIds: [nextStopPropositionId],
+    });
+
+    const agents = createNarrativeEditorialAgentsV6Core({
+      apiKey: 'test-key',
+      post,
+    }, projector);
+
+    const script = assignNarrativeSentenceIdsV6('palace', 'Mira la fachada.');
+    const result = await agents.audit({ script, dossier }, 'deepseek');
+
+    const auditBody = projectPostBody(post.mock.calls[0][1]);
+    const auditSchema = ((auditBody.tools[0].function.parameters.properties as {
+      findings: Record<string, unknown>;
+    }).findings);
+    const propositionIdsSchema = (auditSchema.items as {
+      properties: { propositionIds: { items: { enum: string[] } } };
+    }).properties.propositionIds;
+    expect(propositionIdsSchema.items.enum).toEqual([currentPropositionId, nextStopPropositionId]);
+    const parsedModelInput = JSON.parse(
+      auditBody.messages[1].content.split('\n').slice(1).join('\n')
+    ) as Record<string, unknown>;
+    expect(parsedModelInput).not.toHaveProperty('auditCitationPropositionIds');
+    expect(result.value.findings[0].propositionIds).toEqual([nextStopPropositionId]);
   });
 });

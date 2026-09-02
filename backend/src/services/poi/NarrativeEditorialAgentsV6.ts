@@ -18,6 +18,7 @@ import {
   NarrativeAuditorV6,
   NarrativeLocalPatchV6,
   NarrativeScriptV6,
+  applyNarrativeLocalPatchV6,
   validateNarrativeAdjudicationsV6,
   validateNarrativeAuditReportV6,
 } from './NarrativeEditorialV6';
@@ -165,10 +166,14 @@ export interface NarrativeEditorialAgentsV6 {
 
 function auditSchema(
   sentences: NarrativeScriptV6['sentences'],
-  dossier: NarrativeDossierV6
+  dossier: NarrativeDossierV6,
+  auditCitationPropositionIds: string[] = []
 ): Record<string, unknown> {
   const sentenceIds = sentences.map((sentence) => sentence.sentenceId);
-  const propositionIds = dossier.propositions.map((proposition) => proposition.propositionId);
+  const propositionIds = [...new Set([
+    ...dossier.propositions.map((proposition) => proposition.propositionId),
+    ...auditCitationPropositionIds,
+  ])];
   return {
     type: 'object', additionalProperties: false, required: ['findings'],
     properties: { findings: {
@@ -537,7 +542,7 @@ export interface NarrativeEditorialRequestProjectionV6 {
 
 export type NarrativeEditorialRequestProjectorV6 = (
   projection: NarrativeEditorialRequestProjectionV6
-) => { systemPrompt: string; input: unknown };
+) => { systemPrompt: string; input: unknown; auditCitationPropositionIds?: string[] };
 
 export function createNarrativeEditorialAgentsV6Core(
   options: NarrativeModelClientOptionsV6,
@@ -662,7 +667,11 @@ export function createNarrativeEditorialAgentsV6Core(
             temperature: 0, maxTokens: 2_000, requestAttempts: 2,
           },
           systemPrompt: auditProjection.systemPrompt,
-          schema: auditSchema(sentences, input.dossier),
+          schema: auditSchema(
+            sentences,
+            input.dossier,
+            auditProjection.auditCitationPropositionIds
+          ),
           toolName: 'audit_narrative_sentences_v6',
           toolDescription: 'Clasifica cada frase contra el dossier.',
           inputCharacterLimit: 100_000,
@@ -676,8 +685,12 @@ export function createNarrativeEditorialAgentsV6Core(
           successfulResults.push(result);
           return;
         }
+        const finalAttempt = result.attempts[result.attempts.length - 1];
+        const finalError = finalAttempt?.error?.trim() ?? '';
         const shouldSplit = result.finishReason === 'length'
-          || (auditor === 'gemma' && result.status === 'semantic_error');
+          || (auditor === 'gemma' && result.status === 'semantic_error')
+          || (auditor === 'deepseek' && result.status === 'semantic_error'
+            && finalError.includes('must classify every sentence exactly once'));
         if (shouldSplit && sentences.length > 1) {
           const middle = Math.ceil(sentences.length / 2);
           await auditBatch(sentences.slice(0, middle), `${label}-split-1`);
@@ -820,6 +833,10 @@ export function createNarrativeEditorialAgentsV6Core(
         withExecution(request), 'repair', input.script.stopId, 2
       );
       const accepted = input.adjudications.filter((item) => item.decision === 'accepted');
+      const acceptedObjectionIds = new Set(accepted.map((item) => item.objectionId));
+      const acceptedSentenceIds = [...new Set(input.objections
+        .filter((objection) => acceptedObjectionIds.has(objection.objectionId))
+        .map((objection) => objection.sentenceId))];
       const repairInput = { ...input, adjudications: accepted };
       const repairSystemPrompt = [
           'Repara únicamente las frases con objeciones aceptadas y, si es imprescindible, una adyacente.',
@@ -839,7 +856,7 @@ export function createNarrativeEditorialAgentsV6Core(
           type: 'object', additionalProperties: false, required: ['replacements'],
           properties: { replacements: { type: 'array', items: {
             type: 'object', additionalProperties: false, required: ['sentenceId', 'text'],
-            properties: { sentenceId: { type: 'string' }, text: { type: 'string' } },
+            properties: { sentenceId: { type: 'string' }, text: { type: 'string', minLength: 1 } },
           } } },
         },
         toolName: 'repair_narrative_window_v6',
@@ -849,13 +866,17 @@ export function createNarrativeEditorialAgentsV6Core(
         validate: (value) => {
           const root = objectValue(value, 'repair response');
           if (!Array.isArray(root.replacements)) throw new Error('replacements must be an array');
-          return { replacements: root.replacements.map((raw, index) => {
-            const item = objectValue(raw, `replacement ${index}`);
-            if (typeof item.sentenceId !== 'string' || typeof item.text !== 'string') {
-              throw new Error(`replacement ${index} is malformed`);
-            }
-            return { sentenceId: item.sentenceId, text: item.text };
-          }) };
+          const patch: NarrativeLocalPatchV6 = {
+            replacements: root.replacements.map((raw, index) => {
+              const item = objectValue(raw, `replacement ${index}`);
+              if (typeof item.sentenceId !== 'string' || typeof item.text !== 'string') {
+                throw new Error(`replacement ${index} is malformed`);
+              }
+              return { sentenceId: item.sentenceId, text: item.text };
+            }),
+          };
+          applyNarrativeLocalPatchV6(input.script, acceptedSentenceIds, patch);
+          return patch;
         },
       });
       return validResult(result);

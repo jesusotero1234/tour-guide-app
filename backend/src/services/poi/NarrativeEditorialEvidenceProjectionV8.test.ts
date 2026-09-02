@@ -8,6 +8,7 @@ import {
   buildNarrativeEvidenceFixtureV8,
   NarrativeEvidenceFixtureResultV8,
 } from './NarrativeEvidenceFixturesV8.test-support';
+import { buildNarrativeDossierV6 } from './NarrativeDossierV6';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
 import type { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
@@ -209,6 +210,32 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(repairDossier).not.toHaveProperty('sources');
     expect(repairDossier).not.toHaveProperty('passages');
     expect(repairInput).toHaveProperty('authorizedEvidence');
+    expect(repairInput).not.toHaveProperty('reviewEvidence');
+    expect(repair.systemPrompt).toContain(
+      'Cada replacement.text debe contener una frase completa y no vacía.'
+    );
+    expect(repair.systemPrompt).toContain(
+      'Nunca uses una cadena vacía para borrar o fusionar sentenceIds.'
+    );
+    expect(repair.systemPrompt).toContain(
+      'conserva ambos IDs y redistribuye el contenido en dos frases completas'
+    );
+    expect(repair.systemPrompt).toContain(
+      'Nunca copies el mismo texto completo en dos sentenceIds.'
+    );
+
+    const write = projector({
+      operation: 'write',
+      systemPrompt: 'writer-prefix',
+      input: {
+        stopId: partial.routeStopId,
+        dossier: partial.dossier,
+        neighboringStops: [],
+      },
+    });
+    expect(write.systemPrompt).not.toContain(
+      'Nunca uses una cadena vacía para borrar o fusionar sentenceIds.'
+    );
 
     const tour = projector({
       operation: 'auditTour',
@@ -237,6 +264,23 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const stopA = fixture('malaga-history-stop-01', 'Q3849441', COMPLETE_ROLES);
     const stopB = fixture('malaga-history-stop-02', 'Q3849442', COMPLETE_ROLES);
     const stopC = fixture('malaga-history-stop-03', 'Q3849443', COMPLETE_ROLES);
+    for (const stop of [stopB, stopC]) {
+      const dossier = stop.dossier;
+      stop.dossier = buildNarrativeDossierV6({
+        stopId: dossier.stopId,
+        language: dossier.language,
+        sources: dossier.sources.map((source) => source.sourceId),
+        passages: dossier.passages,
+        propositions: dossier.propositions.map((proposition) => ({
+          ...proposition,
+          propositionId: `${proposition.propositionId}-${stop.routeStopId}`,
+        })),
+        authorizedNames: dossier.authorizedNames,
+        authorizedNumbers: dossier.authorizedNumbers,
+        discrepancies: dossier.discrepancies,
+        limits: dossier.limits,
+      }, stop.captures);
+    }
     const admitted = [admit(stopA), admit(stopB), admit(stopC)];
     const manifest = manifestFor(admitted);
     const projector = createNarrativeEditorialRequestProjectorV8(admitted, manifest, arcFor(admitted));
@@ -283,6 +327,23 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(auditDossier).not.toHaveProperty('sufficiency');
     expect(auditDossier).not.toHaveProperty('fingerprint');
     expect(auditInput).toHaveProperty('authorizedEvidence');
+
+    const currentIds = stopA.dossier.propositions.map((p) => p.propositionId);
+    const nextIds = stopB.dossier.propositions.map((p) => p.propositionId);
+    const expectedAuditCitationIds = [...new Set([...currentIds, ...nextIds])];
+    expect(audit.auditCitationPropositionIds).toEqual(expectedAuditCitationIds);
+
+    const reviewOnlyNextPropositionId = stopB.dossier.propositions[1].propositionId;
+    expect(audit.auditCitationPropositionIds).toContain(reviewOnlyNextPropositionId);
+
+    const auditAuthorizedEvidence = auditInput.authorizedEvidence as Record<string, unknown>;
+    const flattenedAuthorizedIds = [
+      ...(auditAuthorizedEvidence.localPropositions as Record<string, unknown>[]).map((e) => (e.proposition as Record<string, unknown>).propositionId),
+      ...(auditAuthorizedEvidence.contributionPropositions as Record<string, unknown>[]).map((e) => (e.proposition as Record<string, unknown>).propositionId),
+      ...(auditAuthorizedEvidence.bridgePropositions as Record<string, unknown>[]).map((e) => (e.proposition as Record<string, unknown>).propositionId),
+    ];
+    expect(flattenedAuthorizedIds).not.toContain(reviewOnlyNextPropositionId);
+    expect(auditInput).not.toHaveProperty('auditCitationPropositionIds');
 
     const adjudicate = projector({
       operation: 'adjudicate',
@@ -350,6 +411,13 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     });
     expect(finalAuditCurrent).not.toHaveProperty('dossier');
     expect(finalAuditReviewEvidence.next).toBeNull();
+
+    const finalAuditCitationIds = stopC.dossier.propositions.map((p) => p.propositionId);
+    expect(finalAudit.auditCitationPropositionIds).toEqual(finalAuditCitationIds);
+    const stopAIds = new Set(stopA.dossier.propositions.map((p) => p.propositionId));
+    for (const id of finalAudit.auditCitationPropositionIds as string[]) {
+      expect(stopAIds.has(id)).toBe(false);
+    }
 
     const write = projector({
       operation: 'write',
