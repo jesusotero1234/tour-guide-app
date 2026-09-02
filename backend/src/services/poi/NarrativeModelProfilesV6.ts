@@ -106,6 +106,7 @@ const openAiMini = openRouterProvider(
   'openai/gpt-5.4-mini',
   ['openai/gpt-5.4-mini-20260317']
 );
+export const QWEN38_CANONICAL_CORE_PROVIDER_V6: EditorialProviderV6 = openAiMini;
 const openAiFull = openRouterProvider(
   'openai/gpt-5.4',
   ['openai/gpt-5.4-20260305']

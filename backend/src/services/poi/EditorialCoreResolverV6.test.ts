@@ -3,6 +3,7 @@ import {
   buildCoreAuditRequestV6,
   CORE_AUDIT_INPUT_CHARACTER_LIMIT_V6,
   CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6,
+  coreAuditOpenRouterResponseSchemaV6,
   coreAuditResponseSchemaV6,
   CoreAuditV6,
   resolveCanonicalTourCoreV6,
@@ -207,5 +208,29 @@ describe('canonical tour core v6', () => {
     expect(result.status).toBe('core_review_required');
     if (result.status !== 'core_review_required') throw new Error('Expected review result');
     expect(result.requiredSets).toEqual(sets.map((set) => [...set].sort()));
+  });
+
+  it('verifies simplified OpenRouter schema constraints and strict semantic validation', () => {
+    const request = buildCoreAuditRequestV6(context, entities, snapshot, 'seed-a');
+    const schema = coreAuditOpenRouterResponseSchemaV6(request) as Record<string, unknown>;
+    const classifications = (schema.properties as Record<string, unknown>).classifications as Record<string, unknown>;
+    const items = classifications.items as Record<string, unknown>;
+    const properties = items.properties as Record<string, unknown>;
+
+    expect(classifications.minItems).toBeUndefined();
+    expect(classifications.maxItems).toBeUndefined();
+    expect((properties.canonicalId as Record<string, unknown>).enum).toBeUndefined();
+    expect((properties.omissionReason as Record<string, unknown>).minLength).toBeUndefined();
+    expect((properties.omissionReason as Record<string, unknown>).maxLength).toBeUndefined();
+    const supportIds = properties.supportIds as Record<string, unknown>;
+    expect(supportIds.minItems).toBeUndefined();
+    expect(supportIds.maxItems).toBeUndefined();
+    expect(supportIds.uniqueItems).toBeUndefined();
+    expect((supportIds.items as Record<string, unknown>).enum).toBeUndefined();
+
+    const valid = auditFor(request, new Set(['Q1', 'Q2']));
+    const missing = structuredClone(valid);
+    missing.classifications.pop();
+    expect(() => validateCoreAuditV6(missing, request)).toThrow(/every candidate/i);
   });
 });

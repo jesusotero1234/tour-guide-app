@@ -4,6 +4,7 @@ import {
   CORE_AUDIT_INPUT_CHARACTER_LIMIT_V6,
   CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6,
   CoreAuditRequestV6,
+  coreAuditOpenRouterResponseSchemaV6,
   coreAuditResponseSchemaV6,
   CoreAuditV6,
   CoreBuildResultV6,
@@ -85,7 +86,9 @@ function requestAudit(
     callId: `core-audit:${request.candidatePermutationSeed}`,
     input: request, provider, options,
     systemPrompt: CORE_RESOLVER_SYSTEM_PROMPT_V6,
-    schema: coreAuditResponseSchemaV6(request),
+    schema: provider.kind === 'openrouter'
+      ? coreAuditOpenRouterResponseSchemaV6(request)
+      : coreAuditResponseSchemaV6(request),
     toolName: CORE_AUDIT_TOOL_NAME_V6,
     toolDescription: 'Classify every supplied canonical candidate exactly once as required or optional.',
     inputCharacterLimit: CORE_AUDIT_INPUT_CHARACTER_LIMIT_V6,

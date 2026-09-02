@@ -388,6 +388,39 @@ describe('editorial structured LLM v6 providers', () => {
     expect(JSON.stringify(result)).not.toContain('openrouter-test-key');
   });
 
+  it('propagates an attempt-start progress failure without emitting attempt-finished', async () => {
+    const post = jest.fn(async () => qwenLocalResponse('{"ok":true}'));
+    const events: string[] = [];
+
+    await expect(requestEditorialStructuredV6({
+      callId: 'reservation-rejected',
+      input: { candidate: 'Q1' },
+      provider: { kind: 'qwen_local', model: 'qwen-local' },
+      options: {
+        qwenLocalBaseUrl: 'http://127.0.0.1:8080/v1',
+        post,
+        requestAttempts: 2,
+        onProgress: (event) => {
+          events.push(event.event);
+          if (event.event === 'attempt_started') throw new Error('reservation rejected');
+        },
+      },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6',
+      toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000,
+      schemaCharacterLimit: 1_000,
+      validate: (value) => value as { ok: true },
+    })).rejects.toThrow('reservation rejected');
+
+    expect(post).not.toHaveBeenCalled();
+    expect(events).toEqual(['attempt_started']);
+  });
+
   it('opts Gemini 2.5 Flash Lite OpenRouter requests into ZDR', async () => {
     const phase = NARRATIVE_MODEL_PROFILES_V6.multilingual_openrouter.phases.architect;
     const post = jest.fn(async (

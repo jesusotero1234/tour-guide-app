@@ -2,6 +2,7 @@ import {
   EditorialScriptSetInvalidErrorV8,
   assertCompleteEditorialScriptSetV8,
   assertResearchRuntimeReachableV8,
+  narrativeCanaryCoreOpenRouterOptionsV8,
   narrativeCanaryCoreProviderV8,
   narrativeCanaryEditorialConcurrencyV8,
   narrativeCanaryEditorialDispositionV8,
@@ -122,9 +123,9 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
 
   it('selects the canonical core provider from the qwen38_hybrid profile or an explicit override', () => {
     expect(narrativeCanaryCoreProviderV8('qwen38_hybrid', {})).toEqual({
-      kind: 'qwen_local',
-      model: 'qwen-local',
-      endpoint: 'http://127.0.0.1:8080/v1',
+      kind: 'openrouter',
+      model: 'openai/gpt-5.4-mini',
+      acceptedModels: ['openai/gpt-5.4-mini-20260317'],
     });
     expect(narrativeCanaryCoreProviderV8('qwen38_hybrid', {
       provider: 'deepseek',
@@ -133,5 +134,23 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
       kind: 'deepseek',
       model: 'deepseek-v4-flash',
     });
+  });
+
+  it('passes the OpenRouter API key and the pricing entry for the selected model to the canonical core', () => {
+    const pricing = {
+      inputUsdPerToken: 0.00000025,
+      outputUsdPerToken: 0.000001,
+      internalReasoningUsdPerToken: 0.0000005,
+      requestUsd: 0.0000001,
+    };
+    const options = narrativeCanaryCoreOpenRouterOptionsV8({
+      provider: 'openai/gpt-5.4-mini',
+      openRouterApiKey: 'openrouter-canary-test-key',
+      pricing: {
+        'openai/gpt-5.4-mini': pricing,
+      },
+    });
+    expect(options.openRouterApiKey).toBe('openrouter-canary-test-key');
+    expect(options.pricing).toBe(pricing);
   });
 });

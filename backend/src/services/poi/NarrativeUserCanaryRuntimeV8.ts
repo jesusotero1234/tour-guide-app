@@ -1,6 +1,6 @@
-import type { EditorialProviderV6 } from './EditorialStructuredLlmV6';
+import type { EditorialProviderV6, EditorialPricingV6 } from './EditorialStructuredLlmV6';
 import type { NarrativeConcurrencyV6, NarrativeModelProfileNameV6 } from './NarrativeModelProfilesV6';
-import { NARRATIVE_MODEL_PROFILES_V6 } from './NarrativeModelProfilesV6';
+import { NARRATIVE_MODEL_PROFILES_V6, QWEN38_CANONICAL_CORE_PROVIDER_V6 } from './NarrativeModelProfilesV6';
 
 export interface NarrativeResearchRuntimeV8 {
   searxngBaseUrl: string;
@@ -68,8 +68,23 @@ export function narrativeCanaryCoreProviderV8(
     }
     throw new Error(`Allowed providers are deepseek, ollama, and oneprovider; got ${explicitProvider}`);
   }
+  if (profile === 'qwen38_hybrid') {
+    return { ...QWEN38_CANONICAL_CORE_PROVIDER_V6 };
+  }
   const auditorA = NARRATIVE_MODEL_PROFILES_V6[profile].phases.auditor_a.provider;
   return { ...auditorA };
+}
+
+export function narrativeCanaryCoreOpenRouterOptionsV8(input: {
+  provider: string;
+  openRouterApiKey: string;
+  pricing?: Record<string, EditorialPricingV6>;
+}): { openRouterApiKey: string; pricing?: EditorialPricingV6 } {
+  const pricing = input.pricing?.[input.provider];
+  return {
+    openRouterApiKey: input.openRouterApiKey,
+    ...(pricing === undefined ? {} : { pricing }),
+  };
 }
 
 export function narrativeCanaryEditorialDispositionV8(status: string): NarrativeCanaryEditorialDispositionV8 {

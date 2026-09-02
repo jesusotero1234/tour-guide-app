@@ -734,13 +734,13 @@ export async function requestEditorialStructuredV6<T>(config: {
   try {
     const attemptCeiling = Math.max(requestAttempts, rateLimitAttempts);
     for (let attempt = 1; attempt <= attemptCeiling; attempt += 1) {
+    if (deadlineController.signal.aborted) {
+      throw deadlineController.signal.reason ?? new Error('editorial request cancelled');
+    }
+    progress('attempt_started', { attempt });
     const startedAt = Date.now();
     let response: { data: unknown; status?: number; headers?: Record<string, unknown> };
     try {
-      if (deadlineController.signal.aborted) {
-        throw deadlineController.signal.reason ?? new Error('editorial request cancelled');
-      }
-      progress('attempt_started', { attempt });
       const remainingMs = Math.max(1, deadlineAt - Date.now());
       const messages = [
         { role: 'system', content: config.systemPrompt },

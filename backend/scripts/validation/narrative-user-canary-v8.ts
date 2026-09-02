@@ -114,6 +114,7 @@ import {
   assertCompleteEditorialScriptSetV8,
   assertResearchRuntimeReachableV8,
   inspectEditorialScriptSetV8,
+  narrativeCanaryCoreOpenRouterOptionsV8,
   narrativeCanaryCoreProviderV8,
   narrativeCanaryEditorialConcurrencyV8,
   narrativeCanaryEditorialDispositionV8,
@@ -657,8 +658,10 @@ async function loadCoreV8(
     onProgress?: EditorialProgressCallbackV6;
     runId?: string;
     profile?: string;
+    openRouterApiKey: string;
+    openRouterPricing?: Record<string, EditorialPricingV6>;
     qwenLocalBaseUrl?: string;
-  } = {}
+  }
 ): Promise<{
   requiredIds: string[];
   disagreement: boolean;
@@ -711,6 +714,11 @@ async function loadCoreV8(
     entities, prominence, context, provider,
     {
       apiKey,
+      ...narrativeCanaryCoreOpenRouterOptionsV8({
+        provider: provider.model,
+        openRouterApiKey: progress.openRouterApiKey,
+        pricing: progress.openRouterPricing,
+      }),
       oneProviderApiKey: process.env.ONEPROVIDER_API_KEY?.trim(),
       ollamaHost: process.env.OLLAMA_HOST,
       qwenLocalBaseUrl: progress.qwenLocalBaseUrl,
@@ -1011,7 +1019,10 @@ async function main(): Promise<void> {
           model: option('--model'),
         }),
         apiKey,
-        { onProgress, runId, profile, qwenLocalBaseUrl }
+        {
+          onProgress, runId, profile, qwenLocalBaseUrl,
+          openRouterApiKey, openRouterPricing,
+        }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1124,7 +1135,10 @@ async function main(): Promise<void> {
           model: option('--model'),
         }),
         apiKey,
-        { onProgress, runId, profile, qwenLocalBaseUrl }
+        {
+          onProgress, runId, profile, qwenLocalBaseUrl,
+          openRouterApiKey, openRouterPricing,
+        }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,

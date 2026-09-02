@@ -305,6 +305,24 @@ export function coreAuditResponseSchemaV6(request: CoreAuditRequestV6): Record<s
   return schema;
 }
 
+export function coreAuditOpenRouterResponseSchemaV6(request: CoreAuditRequestV6): Record<string, unknown> {
+  const schema = structuredClone(coreAuditResponseSchemaV6(request)) as Record<string, unknown>;
+  const classifications = (schema.properties as Record<string, unknown>).classifications as Record<string, unknown>;
+  delete classifications.minItems;
+  delete classifications.maxItems;
+  const items = classifications.items as Record<string, unknown>;
+  const properties = items.properties as Record<string, unknown>;
+  delete (properties.canonicalId as Record<string, unknown>).enum;
+  delete (properties.omissionReason as Record<string, unknown>).minLength;
+  delete (properties.omissionReason as Record<string, unknown>).maxLength;
+  const supportIds = properties.supportIds as Record<string, unknown>;
+  delete supportIds.minItems;
+  delete supportIds.maxItems;
+  delete supportIds.uniqueItems;
+  delete (supportIds.items as Record<string, unknown>).enum;
+  return schema;
+}
+
 function requiredSet(audit: CoreAuditV6): string[] {
   return audit.classifications.filter((item) => item.classification === 'required')
     .map((item) => item.canonicalId).sort();

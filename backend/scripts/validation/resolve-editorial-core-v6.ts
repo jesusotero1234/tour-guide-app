@@ -19,6 +19,7 @@ import {
   WikimediaProminenceSnapshotV6,
 } from '../../src/services/poi/EditorialProminenceV6';
 import { EditorialProviderV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
+import { QWEN38_CANONICAL_CORE_PROVIDER_V6 } from '../../src/services/poi/NarrativeModelProfilesV6';
 
 type CoreWorkbenchModeV6 = 'live' | 'snapshot';
 
@@ -102,15 +103,21 @@ function contextFromArguments(): EditorialCoreInputContextV6 {
 
 function providerFromArguments(): EditorialProviderV6 {
   const kind = argumentValue('--provider') ?? 'deepseek';
-  if (kind !== 'deepseek' && kind !== 'ollama' && kind !== 'oneprovider') {
-    throw new Error('--provider must be deepseek, ollama, or oneprovider');
+  if (kind !== 'deepseek' && kind !== 'ollama' && kind !== 'oneprovider' && kind !== 'openrouter') {
+    throw new Error('--provider must be deepseek, ollama, oneprovider, or openrouter');
   }
-  return {
-    kind,
-    model: argumentValue('--model') ?? (kind === 'deepseek'
-      ? 'deepseek-v4-flash'
-      : kind === 'ollama' ? 'qwen2.5:14b' : 'claude-sonnet-4-6'),
-  };
+  const model = argumentValue('--model') ?? (kind === 'deepseek'
+    ? 'deepseek-v4-flash'
+    : kind === 'ollama' ? 'qwen2.5:14b'
+      : kind === 'openrouter' ? 'openai/gpt-5.4-mini' : 'claude-sonnet-4-6');
+  if (kind === 'openrouter' && model === QWEN38_CANONICAL_CORE_PROVIDER_V6.model) {
+    return {
+      kind: 'openrouter',
+      model: QWEN38_CANONICAL_CORE_PROVIDER_V6.model,
+      acceptedModels: QWEN38_CANONICAL_CORE_PROVIDER_V6.acceptedModels,
+    };
+  }
+  return { kind, model };
 }
 
 export async function runEditorialCoreWorkbenchV6(): Promise<void> {
@@ -214,6 +221,7 @@ export async function runEditorialCoreWorkbenchV6(): Promise<void> {
         {
           apiKey: process.env.DEEPSEEK_API_KEY?.trim(),
           oneProviderApiKey: process.env.ONEPROVIDER_API_KEY?.trim(),
+          openRouterApiKey: process.env.OPENROUTER_API_KEY?.trim(),
           ollamaHost: argumentValue('--ollama-host') ?? process.env.OLLAMA_HOST,
         }
       );
