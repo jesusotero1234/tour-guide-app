@@ -312,6 +312,7 @@ class CorpusRegistry:
         row = self._conn.execute(
             """
             SELECT c.*, d.source_url, d.title, d.content_hash, d.rights_status,
+                   d.rights_uri, d.rights_verified_at,
                    d.publication_year, d.language, d.source_class
             FROM chunks c
             JOIN documents d ON c.document_id = d.document_id
@@ -356,6 +357,8 @@ class CorpusRegistry:
             title=row["title"],
             textHash=row["text_hash"],
             contentHash=row["content_hash"],
+            rightsUri=row["rights_uri"],
+            rightsVerifiedAt=row["rights_verified_at"],
         )
 
     def get_filtered_candidate_ids(self, request: SearchRequest) -> set[int]:
@@ -429,6 +432,7 @@ class CorpusRegistry:
         rows = self._conn.execute(
             f"""
             SELECT c.*, d.source_url, d.title, d.content_hash, d.rights_status,
+                   d.rights_uri, d.rights_verified_at,
                    d.publication_year, d.language, d.source_class
             FROM chunks c
             JOIN documents d ON c.document_id = d.document_id
@@ -474,6 +478,8 @@ class CorpusRegistry:
                     title=row["title"],
                     textHash=row["text_hash"],
                     contentHash=row["content_hash"],
+                    rightsUri=row["rights_uri"],
+                    rightsVerifiedAt=row["rights_verified_at"],
                 )
             )
         return records

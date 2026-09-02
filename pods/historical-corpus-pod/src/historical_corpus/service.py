@@ -295,6 +295,17 @@ class HistoricalCorpusService:
                         fusionScore=fusion_scores.get(vector_id, 0.0),
                         rerankScore=float(rerank_score),
                         matchedEntityQids=matched_qids,
+                        text=record.correctedText or record.originalText,
+                        sectionPath=record.sectionPath,
+                        cityQids=record.cityQids,
+                        entityQids=record.entityQids,
+                        language=record.language,
+                        sourceClass=record.sourceClass,
+                        publicationYear=record.publicationYear,
+                        historicalPeriod=record.historicalPeriod,
+                        ocrConfidence=record.ocrConfidence,
+                        rightsUri=record.rightsUri,
+                        rightsVerifiedAt=record.rightsVerifiedAt,
                     )
                 )
 
