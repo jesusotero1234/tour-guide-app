@@ -2527,7 +2527,11 @@ Validación:
 
 ### QW-03B — Bundle completo y muestra OCR no publicable
 
-- [ ] Pendiente.
+- [x] Completado: payload de fingerprint tipado/inmutable con vector golden,
+  bundle preparado, muestra OCR no publicable y reporte; validación
+  adversarial de hashes, procedencia, inventario/canonicalización, geometría,
+  IDs, líneas/chunks, cobertura y gates. Pasan 77 pruebas focalizadas y 51 de
+  regresión del pod.
 - Depende de: QW-03A.
 - Archivos existentes, nunca escritos juntos en la misma llamada:
   - `pods/historical-corpus-pod/tests/test_ingest_models.py`
