@@ -32,6 +32,31 @@ describe('WikidataCanonicalPoiFetcher', () => {
     expect(poi).toBeNull();
   });
 
+  it('filters high-sitelink legislative bodies that are not physical POIs', () => {
+    const poi = canonicalBindingToRawPoi({
+      item: { value: 'http://www.wikidata.org/entity/Q855343' },
+      itemLabel: { value: 'Senate of Spain' },
+      coord: { value: 'Point(-3.6925 40.4167)' },
+      sitelinks: { value: '120' },
+      instanceLabels: { value: 'senate' },
+    });
+
+    expect(poi).toBeNull();
+  });
+
+  it('keeps explicitly physical parliament buildings even when the name contains Senate', () => {
+    const poi = canonicalBindingToRawPoi({
+      item: { value: 'http://www.wikidata.org/entity/Q855343' },
+      itemLabel: { value: 'Senate of Spain' },
+      coord: { value: 'Point(-3.6925 40.4167)' },
+      sitelinks: { value: '120' },
+      instanceLabels: { value: 'parliament building|architectural landmark' },
+    });
+
+    expect(poi).not.toBeNull();
+    expect(poi?.tags.wikidata).toBe('Q855343');
+  });
+
   it('filters abstract events even when Wikidata gives them coordinates', () => {
     const poi = canonicalBindingToRawPoi({
       item: { value: 'http://www.wikidata.org/entity/Q153992' },

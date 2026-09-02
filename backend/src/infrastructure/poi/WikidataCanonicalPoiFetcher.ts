@@ -13,6 +13,13 @@ const NON_PLACE_INSTANCE_PATTERNS = [
   /arson/i,
   /demolition/i,
   /historical event/i,
+  /legislative assembly/i,
+  /legislature/i,
+  /parliament/i,
+  /senate/i,
+  /upper house/i,
+  /lower house/i,
+  /congress/i,
   /photograph/i,
   /summit/i,
 ];
