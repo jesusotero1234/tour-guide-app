@@ -43,6 +43,7 @@ function coreWith(requiredIds: string[]): CanonicalTourCoreV6 {
       promptFingerprint: 'test',
       responseFingerprints: ['test'],
       candidatePermutationSeeds: ['a', 'b', 'c'],
+      disputedCanonicalIds: [],
     },
   };
 }
