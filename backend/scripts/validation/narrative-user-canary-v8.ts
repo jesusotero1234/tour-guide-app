@@ -62,6 +62,7 @@ import {
   preflightNarrativeOpenRouterV6,
 } from '../../src/services/poi/OpenRouterPreflightV6';
 import { NarrativeProgressSpendGuardV6 } from '../../src/services/poi/NarrativeProgressSpendGuardV6';
+import { NarrativeCanaryConsoleReporterV8 } from '../../src/services/poi/NarrativeCanaryConsoleReporterV8';
 import { createNarrativeSchedulerV6 } from '../../src/services/poi/NarrativeSchedulerV6';
 import { EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import { loadLiveCityCandidatesV8, LiveCityCandidatesV8Input } from '../../src/services/poi/LiveCityCandidatesV8';
@@ -113,6 +114,9 @@ import {
   assertCompleteEditorialScriptSetV8,
   assertResearchRuntimeReachableV8,
   inspectEditorialScriptSetV8,
+  narrativeCanaryCoreProviderV8,
+  narrativeCanaryEditorialConcurrencyV8,
+  narrativeCanaryEditorialDispositionV8,
   researchRuntimeV8,
 } from '../../src/services/poi/NarrativeUserCanaryRuntimeV8';
 
@@ -624,19 +628,6 @@ async function buildResearchServices(options: {
   };
 }
 
-function providerFromArguments(): EditorialProviderV6 {
-  const kind = option('--provider') ?? 'deepseek';
-  if (kind !== 'deepseek' && kind !== 'ollama' && kind !== 'oneprovider') {
-    throw new Error('--provider must be deepseek, ollama, or oneprovider');
-  }
-  return {
-    kind,
-    model: option('--model') ?? (kind === 'deepseek'
-      ? 'deepseek-v4-flash'
-      : kind === 'ollama' ? 'qwen2.5:14b' : 'claude-sonnet-4-6'),
-  };
-}
-
 function reportWikimediaProminenceProgressV6(event: WikimediaProminenceProgressV6): void {
   if (event.event === 'request_retry') {
     console.warn(
@@ -666,6 +657,7 @@ async function loadCoreV8(
     onProgress?: EditorialProgressCallbackV6;
     runId?: string;
     profile?: string;
+    qwenLocalBaseUrl?: string;
   } = {}
 ): Promise<{
   requiredIds: string[];
@@ -714,14 +706,6 @@ async function loadCoreV8(
   });
   const coreProgress: EditorialProgressCallbackV6 = (event) => {
     progress.onProgress?.(event);
-    if (event.event === 'attempt_started') {
-      console.log(`[v8-canary] ${event.callId} attempt ${event.attempt} started`);
-    } else if (event.event === 'attempt_finished') {
-      console.log(
-        `[v8-canary] ${event.callId} attempt ${event.attempt}`
-        + ` ${event.diagnostic?.status ?? 'unknown'}: ${event.diagnostic?.latencyMs ?? 0}ms`
-      );
-    }
   };
   const result = await runCanonicalCoreResolutionV6(
     entities, prominence, context, provider,
@@ -729,6 +713,7 @@ async function loadCoreV8(
       apiKey,
       oneProviderApiKey: process.env.ONEPROVIDER_API_KEY?.trim(),
       ollamaHost: process.env.OLLAMA_HOST,
+      qwenLocalBaseUrl: progress.qwenLocalBaseUrl,
       onProgress: coreProgress,
       phase: 'core_audit',
       stopId: 'v8-user-canary',
@@ -800,6 +785,12 @@ async function main(): Promise<void> {
     historicalSpendUsd: priorSpendUsd,
     path: spendPath,
   });
+  const runStartedAt = Date.now();
+  const consoleReporter = new NarrativeCanaryConsoleReporterV8({
+    sanitizeText: value => safeError(value, secrets),
+    onReporterError: error => process.stderr.write(`[v8-canary] human progress disabled: ${safeError(error, secrets)}\n`)
+  });
+  consoleReporter.runStarted({ city: cityKey, runId, profile });
   const abortController = new AbortController();
   const deadline = setTimeout(() => abortController.abort(
     new Error(`${cityKey} user canary V8 exceeded ${DEADLINE_MS}ms`)
@@ -807,7 +798,9 @@ async function main(): Promise<void> {
   deadline.unref?.();
   const onProgress: EditorialProgressCallbackV6 = (event) => {
     spendGuard.record(event);
-    writeFileSync(progressPath, `${JSON.stringify({ ...event, budget: spendGuard.snapshot() })}\n`, { flag: 'a' });
+    const budget = spendGuard.snapshot();
+    writeFileSync(progressPath, `${JSON.stringify({ ...event, budget })}\n`, { flag: 'a' });
+    consoleReporter.onProgress(event, budget);
   };
   let retainedEvidenceManifest: NarrativeEvidenceManifestV8 | null = null;
   let suppressFailureMarkdown = false;
@@ -912,13 +905,12 @@ async function main(): Promise<void> {
   try {
     if (shouldExecuteResumePhaseV8(resumeFromPhase, 'research')) {
       currentStage = 'research_preflight';
-      console.log(
-        `[v8-canary] research runtime | searxng=${researchRuntime.searxngBaseUrl}`
-        + ` | firecrawl=${researchRuntime.firecrawlBaseUrl}`
-      );
+      consoleReporter.stageStarted('research_preflight', 'comprobando servicios locales');
       await assertResearchRuntimeReachableV8(researchRuntime);
+      consoleReporter.stageCompleted('research_preflight', 'servicios disponibles');
     }
     currentStage = 'preflight';
+    consoleReporter.stageStarted('preflight', 'comprobando modelos y proveedores');
     if (profile === 'qwen38_hybrid' || profile === 'multilingual_openrouter') {
       const qwenModelsUrl = `${qwenLocalBaseUrl.replace(/\/$/, '')}/models`;
       const qwenResponse = await axios.get(qwenModelsUrl, {
@@ -937,6 +929,7 @@ async function main(): Promise<void> {
       throw new Error(`OpenRouter endpoint preflight failed: ${preflight.issues.join('; ')}`);
     }
     const openRouterPricing = openRouterPricingFromPreflightV6(preflight);
+    consoleReporter.stageCompleted('preflight', 'modelos y proveedores disponibles');
     const routeArtifactPath = option('--route-artifact');
     checkpointPersistenceEnabled = !routeArtifactPath;
     const routeSource = routeArtifactPath ? 'replay' : (resumeOptions ? 'checkpoint' : 'live');
@@ -945,6 +938,7 @@ async function main(): Promise<void> {
       throw new Error('--city-qid must be a QID');
     }
     currentStage = 'candidate_loading';
+    consoleReporter.stageStarted('candidate_loading', 'cargando ciudad y checkpoint');
     let sourceCheckpoint: NarrativeUserCanaryCheckpointV8 | null = null;
     let resolvedSourcePath: string | null = null;
     if (resumeOptions) {
@@ -976,9 +970,15 @@ async function main(): Promise<void> {
         checkpointState,
         projectCheckpointStateForResumeV8(sourceCheckpoint, resumeOptions.resumeFrom)
       );
-      console.log(`[v8-canary] resume source=${resolvedSourcePath} phase=${resumeOptions.resumeFrom}`);
     }
+    consoleReporter.stageCompleted(
+      'candidate_loading',
+      sourceCheckpoint && resumeOptions && resolvedSourcePath
+        ? `checkpoint=${resolvedSourcePath} · resume=${resumeOptions.resumeFrom}`
+        : `ciudad=${cityQid}`
+    );
     currentStage = 'route';
+    consoleReporter.stageStarted('route', `origen=${routeSource}`);
     let route: NarrativeRouteBriefV6;
     let core = { requiredIds: [] as string[], coverageRatio: 0, disagreement: false };
     if (routeArtifactPath) {
@@ -1006,9 +1006,12 @@ async function main(): Promise<void> {
       const coreResolution = await loadCoreV8(
         { cityKey, theme: request.theme, durationMinutes: request.durationMinutes },
         readyEntities,
-        providerFromArguments(),
+        narrativeCanaryCoreProviderV8(profile, {
+          provider: option('--provider'),
+          model: option('--model'),
+        }),
         apiKey,
-        { onProgress, runId, profile }
+        { onProgress, runId, profile, qwenLocalBaseUrl }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1116,9 +1119,12 @@ async function main(): Promise<void> {
       const coreResolution = await loadCoreV8(
         { cityKey, theme: request.theme, durationMinutes: request.durationMinutes },
         loaded.readyEntities,
-        providerFromArguments(),
+        narrativeCanaryCoreProviderV8(profile, {
+          provider: option('--provider'),
+          model: option('--model'),
+        }),
         apiKey,
-        { onProgress, runId, profile }
+        { onProgress, runId, profile, qwenLocalBaseUrl }
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1188,6 +1194,14 @@ async function main(): Promise<void> {
       await persistCheckpoint('route');
     }
 
+    consoleReporter.registerStops(route.stops.map((stop, index) => ({
+      stopId: stop.stopId,
+      position: index + 1,
+      name: stop.name,
+      wikidataId: stop.wikidataId,
+    })));
+    consoleReporter.stageCompleted('route', `${route.stops.length} paradas · origen=${routeSource}`);
+
     currentStage = 'research';
     let research: NarrativeResearchHandoffStopV8[];
     if (!shouldExecuteResumePhaseV8(resumeFromPhase, 'research') && sourceCheckpoint && resolvedSourcePath) {
@@ -1196,8 +1210,12 @@ async function main(): Promise<void> {
         throw new Error(`checkpoint ${resolvedSourcePath} research must be a nonempty array`);
       }
       research = rawResearch as unknown as NarrativeResearchHandoffStopV8[];
-      console.log(`[v8-canary] skipping research phase; using ${research.length} resumed handoff stops`);
+      consoleReporter.stageSkipped(
+        'research',
+        `checkpoint=${resolvedSourcePath} · ${research.length} paradas`
+      );
     } else {
+      consoleReporter.stageStarted('research', `analizando ${route.stops.length} paradas`);
       const researchServices = await buildResearchServices({
         apiKey,
         openRouterApiKey,
@@ -1350,7 +1368,11 @@ async function main(): Promise<void> {
       if (retryableLater) suppressFailureMarkdown = true;
       throw new Error(reason);
     }
+    if (shouldExecuteResumePhaseV8(resumeFromPhase, 'research')) {
+      consoleReporter.stageCompleted('research', `${research.length} paradas aptas`);
+    }
     currentStage = 'boundary';
+    consoleReporter.stageStarted('boundary', 'validando alcance de evidencia');
     const boundary = buildNarrativeEvidenceBoundaryV8(route, research);
     if (boundary.status === 'blocked' || boundary.status === 'protocol_failed') {
       const reason = boundary.status === 'blocked'
@@ -1395,6 +1417,7 @@ async function main(): Promise<void> {
     checkpointState.evidenceManifest = toJsonValue(evidenceManifest);
     const dossiers = admittedStops.map((stop) => stop.dossier);
     writeFileSync(privatePath, `${JSON.stringify({ researchRuntime, research, evidenceManifest }, null, 2)}\n`);
+    consoleReporter.stageCompleted('boundary', `${admittedStops.length} dossiers admitidos`);
 
     const modelOptions = {
       apiKey,
@@ -1407,9 +1430,10 @@ async function main(): Promise<void> {
       signal: abortController.signal,
       onProgress,
     };
-    const scheduler = createNarrativeSchedulerV6(profile, {
-      researchStops: 1, editorialStops: 1, writers: 1, auditStops: 1,
-    });
+    const scheduler = createNarrativeSchedulerV6(
+      profile,
+      narrativeCanaryEditorialConcurrencyV8(route.stops.length)
+    );
     currentStage = 'arc';
     let architectResult: NarrativeArcBundleV8;
     if (!shouldExecuteResumePhaseV8(resumeFromPhase, 'arc')) {
@@ -1420,12 +1444,15 @@ async function main(): Promise<void> {
       architectResult = { arc: validatedArc, manifest: evidenceManifest };
       checkpointState.arc = toJsonValue(validatedArc);
       await persistCheckpoint('arc');
+      consoleReporter.stageSkipped('arc', `checkpoint=${resolvedSourcePath ?? checkpointPath}`);
     } else {
+      consoleReporter.stageStarted('arc', 'construyendo arco narrativo');
       const built = await createNarrativeArcArchitectV8(modelOptions)
         .build({ route, admittedStops, manifest: evidenceManifest });
       architectResult = built;
       checkpointState.arc = toJsonValue(built.arc);
       await persistCheckpoint('arc');
+      consoleReporter.stageCompleted('arc', 'arco narrativo guardado');
     }
     const savedEditorialScripts = !shouldExecuteResumePhaseV8(resumeFromPhase, 'arc')
       ? decodeCheckpointEditorialScripts(sourceCheckpoint?.editorial?.scripts, route, resolvedSourcePath ?? checkpointPath)
@@ -1448,7 +1475,16 @@ async function main(): Promise<void> {
         ...editorialIssueFields,
       };
       await persistCheckpoint('editorial');
+      consoleReporter.stageSkipped(
+        'editorial_workflow',
+        `checkpoint=${resolvedSourcePath ?? checkpointPath} · ${savedEditorialScripts.length} guiones`
+      );
     } else {
+      consoleReporter.stageStarted(
+        'editorial_workflow',
+        `${route.stops.length} paradas · hasta ${scheduler.limits.editorialStops} pipelines; `
+          + `1 writer; hasta ${scheduler.limits.auditStops} pares de auditoría`
+      );
       const agents = createNarrativeEditorialAgentsV8(
         modelOptions,
         admittedStops,
@@ -1518,7 +1554,8 @@ async function main(): Promise<void> {
         ...editorialIssueFields,
         privateDiagnostics: editorial.privateDiagnostics,
       }, null, 2)}\n`);
-      if (editorial.run.status !== 'ready_for_human_gate') {
+      const editorialDisposition = narrativeCanaryEditorialDispositionV8(editorial.run.status);
+      if (editorialDisposition === 'failure') {
         const rateLimited = editorial.privateDiagnostics.some((diagnostic) => (
           diagnostic.status === 'transport_error'
           && diagnostic.attempts.some((attempt) => attempt.rateLimited === true)
@@ -1588,6 +1625,10 @@ async function main(): Promise<void> {
         ...editorialIssueFields,
       };
       await persistCheckpoint('editorial');
+      consoleReporter.stageCompleted(
+        'editorial_workflow',
+        `estado=${editorialWorkflowStatus} · ${editorialScripts.length} guiones`
+      );
     }
     assertCompleteEditorialScriptSetV8(
       route.stops.map((stop) => stop.stopId),
@@ -1609,14 +1650,22 @@ async function main(): Promise<void> {
       }, null, 2)}\n`);
     }
     currentStage = 'scorecard';
-    const scorecardResult = await reviewNarrativeTourScorecardV8(modelOptions, {
-      promise: architectResult.arc.promise,
-      scripts: editorialScripts,
-      admittedStops,
-      evidenceManifest,
-      arc: architectResult.arc,
-    }, { signal: abortController.signal, onProgress });
-    if (scorecardResult.value === null) {
+    const shouldRunScorecard = narrativeCanaryEditorialDispositionV8(editorialWorkflowStatus) === 'scorecard';
+    if (shouldRunScorecard) {
+      consoleReporter.stageStarted('scorecard', 'evaluando el recorrido completo');
+    } else {
+      consoleReporter.stageSkipped('scorecard', 'estado=draft_review_required · requiere revisión humana');
+    }
+    const scorecardResult = shouldRunScorecard
+      ? await reviewNarrativeTourScorecardV8(modelOptions, {
+        promise: architectResult.arc.promise,
+        scripts: editorialScripts,
+        admittedStops,
+        evidenceManifest,
+        arc: architectResult.arc,
+      }, { signal: abortController.signal, onProgress })
+      : null;
+    if (scorecardResult !== null && scorecardResult.value === null) {
       checkpointState.editorial = {
         status: editorialWorkflowStatus,
         scripts: editorialScripts.map((script) => toJsonValue(script)),
@@ -1626,10 +1675,14 @@ async function main(): Promise<void> {
       suppressFailureMarkdown = true;
       throw new Error('scorecard returned null');
     }
-    const publicationPassed = scorecardResult.value.decision === 'Approve';
-    checkpointState.scorecard = toJsonValue(scorecardResult.value);
-    await persistCheckpoint('scorecard');
+    const publicationPassed = scorecardResult?.value?.decision === 'Approve';
+    if (scorecardResult?.value) {
+      checkpointState.scorecard = toJsonValue(scorecardResult.value);
+      await persistCheckpoint('scorecard');
+      consoleReporter.stageCompleted('scorecard', `decisión=${scorecardResult.value.decision}`);
+    }
     currentStage = 'artifact_write';
+    consoleReporter.stageStarted('artifact_write', 'guardando resultados');
     const markdown = renderNarrativeTourMarkdownV6({
       request,
       route,
@@ -1650,11 +1703,14 @@ async function main(): Promise<void> {
       budget: spendGuard.snapshot(),
     });
     writeFileSync(markdownPath, `${markdown}\n`);
+    const canaryResultStatus = narrativeCanaryEditorialDispositionV8(editorialWorkflowStatus) === 'review_required'
+      ? 'review_required'
+      : publicationPassed ? 'approved' : 'request_changes';
     writeFileSync(reviewPath, `${JSON.stringify({
       schemaVersion: 'narrative-user-canary-v8',
       runId,
       request,
-      status: publicationPassed ? 'approved' : 'request_changes',
+      status: canaryResultStatus,
       completedStage: 'artifact_write',
       failure: null,
       core,
@@ -1672,6 +1728,15 @@ async function main(): Promise<void> {
       },
       budget: spendGuard.snapshot(),
     }, null, 2)}\n`);
+    consoleReporter.stageCompleted('artifact_write', 'resultados guardados');
+    consoleReporter.runCompleted({
+      status: canaryResultStatus,
+      elapsedMs: Date.now() - runStartedAt,
+      checkpointPath,
+      diagnosticsPath: privatePath,
+      progressPath,
+      budget: spendGuard.snapshot(),
+    });
     process.stdout.write(`${JSON.stringify({
       runId,
       status: 'ok',
@@ -1744,7 +1809,14 @@ async function main(): Promise<void> {
     ) {
       writeFileSync(markdownPath, `# ${cityKey}\n\n> **Estado:** no completado.\n\n${message}\n`);
     }
-    process.stderr.write(`${message}\n`);
+    consoleReporter.runFailed({
+      stage: currentStage,
+      message,
+      checkpointPath,
+      diagnosticsPath: privatePath,
+      progressPath,
+      budget: spendGuard.snapshot(),
+    });
     process.exitCode = 1;
   } finally {
     clearTimeout(deadline);

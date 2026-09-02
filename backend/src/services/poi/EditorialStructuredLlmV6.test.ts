@@ -103,7 +103,7 @@ describe('editorial structured LLM v6 providers', () => {
       architect: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
       writer: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0.7 },
       auditor_a: {
-        provider: { kind: 'openrouter', model: 'deepseek/deepseek-v4-flash-0731' },
+        provider: { kind: 'qwen_local', model: 'qwen-local' },
       },
       auditor_b: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
       adjudicator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
@@ -120,7 +120,7 @@ describe('editorial structured LLM v6 providers', () => {
       curator: { provider: { kind: 'openrouter', model: 'mistralai/mistral-small-2603' } },
       curator_complex: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4' } },
       architect: {
-        provider: { kind: 'openrouter', model: 'google/gemini-3.5-flash-lite' },
+        provider: { kind: 'openrouter', model: 'google/gemini-2.5-flash-lite' },
       },
       writer: { provider: { kind: 'qwen_local', model: 'qwen-local' } },
       auditor_a: {
@@ -199,8 +199,8 @@ describe('editorial structured LLM v6 providers', () => {
       'openai/gpt-5.4': { tag: 'openai', provider: 'OpenAI' },
       'openai/gpt-5.4-nano': { tag: 'openai', provider: 'OpenAI' },
       'mistralai/mistral-small-2603': { tag: 'mistral', provider: 'Mistral' },
-      'google/gemini-3.5-flash-lite': {
-        tag: 'google-ai-studio', provider: 'Google AI Studio',
+      'google/gemini-2.5-flash-lite': {
+        tag: 'google-vertex/global', provider: 'Google',
       },
       'google/gemini-3.6-flash': {
         tag: 'google-vertex/global', provider: 'Google',
@@ -284,7 +284,7 @@ describe('editorial structured LLM v6 providers', () => {
     expect(multilingual.status).toBe('ready');
     expect(multilingual.checks.map((check) => check.model).sort()).toEqual([
       'deepseek/deepseek-v4-flash-0731',
-      'google/gemini-3.5-flash-lite',
+      'google/gemini-2.5-flash-lite',
       'mistralai/mistral-small-2603',
       'openai/gpt-5.4',
       'openai/gpt-5.4-nano',
@@ -330,12 +330,17 @@ describe('editorial structured LLM v6 providers', () => {
       expect(body).toMatchObject({
         model: 'openai/gpt-5.4-mini',
         reasoning: { effort: 'low' },
-        provider: { require_parameters: true, allow_fallbacks: false },
+        provider: {
+          require_parameters: true,
+          allow_fallbacks: false,
+          data_collection: 'deny',
+        },
         response_format: {
           type: 'json_schema',
           json_schema: { name: 'submit_test_v6', strict: true },
         },
       });
+      expect((body.provider as Record<string, unknown>)).not.toHaveProperty('zdr');
       expect(body).not.toHaveProperty('temperature');
       expect(body).not.toHaveProperty('plugins');
       return openRouterResponse('{"ok":true}');
@@ -380,6 +385,78 @@ describe('editorial structured LLM v6 providers', () => {
       finishReason: 'stop', actualModel: 'openai/gpt-5.4-mini', actualProvider: 'OpenAI',
       routing: { fallback: false },
     });
+    expect(JSON.stringify(result)).not.toContain('openrouter-test-key');
+  });
+
+  it('opts Gemini 2.5 Flash Lite OpenRouter requests into ZDR', async () => {
+    const phase = NARRATIVE_MODEL_PROFILES_V6.multilingual_openrouter.phases.architect;
+    const post = jest.fn(async (
+      url: string,
+      body: Record<string, unknown>,
+      headers: Record<string, string>
+    ) => {
+      expect(url).toBe('https://openrouter.ai/api/v1/chat/completions');
+      expect(headers).toMatchObject({
+        Authorization: 'Bearer openrouter-test-key',
+        'X-OpenRouter-Metadata': 'enabled',
+        'X-OpenRouter-Cache': 'false',
+      });
+      expect(body).toMatchObject({
+        model: 'google/gemini-2.5-flash-lite',
+        provider: {
+          require_parameters: true,
+          allow_fallbacks: false,
+          data_collection: 'deny',
+          zdr: true,
+        },
+        response_format: {
+          type: 'json_schema',
+          json_schema: { name: 'submit_test_v6', strict: true },
+        },
+      });
+      expect(body).not.toHaveProperty('temperature');
+      expect(body).not.toHaveProperty('plugins');
+      return openRouterResponse('{"ok":true}', {
+        model: 'google/gemini-2.5-flash-lite',
+        openrouter_metadata: {
+          requested: 'google/gemini-2.5-flash-lite',
+          strategy: 'direct',
+          attempt: 1,
+          endpoints: { total: 1, available: [{
+            provider: 'Google', model: 'google/gemini-2.5-flash-lite', selected: true,
+          }] },
+          attempts: [{ provider: 'Google', model: 'google/gemini-2.5-flash-lite', status: 200 }],
+          pipeline: [],
+        },
+      });
+    });
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'gemini-zdr-test', input: { candidate: 'Q1' }, provider: phase.provider,
+      options: {
+        openRouterApiKey: 'openrouter-test-key', post, reasoning: phase.reasoning,
+        maxTokens: phase.maxTokens, disableOpenRouterCache: true,
+        pricing: { inputUsdPerToken: 0.000001, outputUsdPerToken: 0.000003 },
+        phase: 'architect', profile: 'multilingual_openrouter', requestAttempts: 2,
+      },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value) => value as { ok: true },
+    });
+
+    expect(result.status).toBe('valid');
+    expect(result.actualModel).toBe('google/gemini-2.5-flash-lite');
+    expect(result.actualProvider).toBe('Google');
+    expect(result.value).toEqual({ ok: true });
+    expect(result.usage).toMatchObject({
+      inputTokens: 20, outputTokens: 8, totalTokens: 28, costUsd: 0.0012,
+    });
+    expect(result.routing).toMatchObject({ strategy: 'direct', fallback: false });
     expect(JSON.stringify(result)).not.toContain('openrouter-test-key');
   });
 

@@ -1,3 +1,7 @@
+import type { EditorialProviderV6 } from './EditorialStructuredLlmV6';
+import type { NarrativeConcurrencyV6, NarrativeModelProfileNameV6 } from './NarrativeModelProfilesV6';
+import { NARRATIVE_MODEL_PROFILES_V6 } from './NarrativeModelProfilesV6';
+
 export interface NarrativeResearchRuntimeV8 {
   searxngBaseUrl: string;
   firecrawlBaseUrl: string;
@@ -43,6 +47,48 @@ export class EditorialScriptSetInvalidErrorV8 extends Error {
     ].join(' | '));
     this.name = 'EditorialScriptSetInvalidErrorV8';
   }
+}
+
+export type NarrativeCanaryEditorialDispositionV8 = 'scorecard' | 'review_required' | 'failure';
+
+export function narrativeCanaryCoreProviderV8(
+  profile: NarrativeModelProfileNameV6,
+  options: { provider?: string; model?: string }
+): EditorialProviderV6 {
+  const explicitProvider = options.provider?.trim();
+  if (explicitProvider) {
+    if (explicitProvider === 'deepseek') {
+      return { kind: 'deepseek', model: options.model?.trim() || 'deepseek-v4-flash' };
+    }
+    if (explicitProvider === 'ollama') {
+      return { kind: 'ollama', model: options.model?.trim() || 'qwen2.5:14b' };
+    }
+    if (explicitProvider === 'oneprovider') {
+      return { kind: 'oneprovider', model: options.model?.trim() || 'claude-sonnet-4-6' };
+    }
+    throw new Error(`Allowed providers are deepseek, ollama, and oneprovider; got ${explicitProvider}`);
+  }
+  const auditorA = NARRATIVE_MODEL_PROFILES_V6[profile].phases.auditor_a.provider;
+  return { ...auditorA };
+}
+
+export function narrativeCanaryEditorialDispositionV8(status: string): NarrativeCanaryEditorialDispositionV8 {
+  if (status === 'ready_for_human_gate') return 'scorecard';
+  if (status === 'draft_review_required') return 'review_required';
+  return 'failure';
+}
+
+export function narrativeCanaryEditorialConcurrencyV8(
+  stopCount: number
+): Partial<NarrativeConcurrencyV6> {
+  return {
+    researchStops: 1,
+    editorialStops: stopCount,
+    writers: 1,
+    auditStops: 2,
+    adjudications: 2,
+    globalAudits: 1,
+  };
 }
 
 export function researchRuntimeV8(

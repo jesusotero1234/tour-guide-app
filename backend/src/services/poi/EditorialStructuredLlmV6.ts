@@ -8,6 +8,7 @@ export interface EditorialProviderV6 {
   endpoint?: string;
   expectedProviderName?: string;
   acceptedModels?: string[];
+  zeroDataRetention?: boolean;
 }
 
 export type EditorialReasoningV6 = 'none' | 'low' | 'medium' | 'high';
@@ -824,6 +825,8 @@ export async function requestEditorialStructuredV6<T>(config: {
           provider: {
             require_parameters: true,
             allow_fallbacks: false,
+            data_collection: 'deny',
+            ...(config.provider.zeroDataRetention ? { zdr: true } : {}),
           },
           response_format: {
             type: 'json_schema',
