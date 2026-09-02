@@ -1,0 +1,5 @@
+services:
+  historical-corpus-api:
+    environment:
+      HISTORICAL_CORPUS_MODEL_BACKEND: deterministic
+      HISTORICAL_CORPUS_ALLOW_DETERMINISTIC: "true"

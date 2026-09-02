@@ -1,0 +1,15 @@
+{
+  "query": "reutilización del teatro romano en siglos posteriores",
+  "cityQid": "Q8851",
+  "stopQid": "Q3849447",
+  "languages": [
+    "es"
+  ],
+  "sourceClasses": [
+    "synthetic_test"
+  ],
+  "rightsStatuses": [
+    "cc0-1.0"
+  ],
+  "limit": 5
+}

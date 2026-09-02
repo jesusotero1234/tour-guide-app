@@ -79,19 +79,28 @@ retrieval core is proven.
 
 ## Commands
 
-From the repository root:
+Use absolute compose paths because `podman compose` may change directory before
+invoking its external provider:
 
 ```bash
-PODMAN_COMPOSE_PROVIDER=podman-compose podman compose \
-  -f deployment/podman/historical-corpus.compose.yml build
+CORPUS_REPO="$(git rev-parse --show-toplevel)"
+CORPUS_COMPOSE="$CORPUS_REPO/deployment/podman/historical-corpus.compose.yml"
+export PODMAN_COMPOSE_PROVIDER=podman-compose
 
 PODMAN_COMPOSE_PROVIDER=podman-compose podman compose \
-  -f deployment/podman/historical-corpus.compose.yml up -d
+  -f "$CORPUS_COMPOSE" build
 
 PODMAN_COMPOSE_PROVIDER=podman-compose podman compose \
-  -f deployment/podman/historical-corpus.compose.yml run --rm \
-  historical-corpus-api pytest -q
+  -f "$CORPUS_COMPOSE" up -d
+
+podman build --target test \
+  --tag localhost/tour-guide-historical-corpus:test \
+  "$CORPUS_REPO/pods/historical-corpus-pod"
+podman run --rm localhost/tour-guide-historical-corpus:test
 ```
+
+See `docs/operations/historical-corpus-rag.md` for the isolated deterministic
+smoke and Qwen startup procedures.
 
 ## Testing strategy
 
@@ -124,4 +133,3 @@ PODMAN_COMPOSE_PROVIDER=podman-compose podman compose \
 - Curator/boundary conversion of candidate chunks into authorized evidence.
 - Narrative Research or auditor integration, including shadow mode.
 - Domain evaluation datasets, reranker fine-tuning and Qwen contract tuning.
-

@@ -1,0 +1,41 @@
+FROM python:3.12-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    HF_HOME=/model-cache/huggingface
+
+WORKDIR /app
+
+RUN groupadd --gid 10001 historical-corpus \
+    && useradd --uid 10001 --gid historical-corpus --no-create-home \
+        --shell /usr/sbin/nologin historical-corpus \
+    && mkdir -p /data /model-cache \
+    && chown -R 10001:10001 /data /model-cache
+
+COPY pyproject.toml ./
+COPY src ./src
+
+RUN python -m pip install \
+        --index-url https://download.pytorch.org/whl/cpu \
+        "torch==2.13.0+cpu" \
+    && python -m pip install ".[models]"
+
+FROM base AS test
+
+COPY tests ./tests
+RUN python -m pip install ".[dev]"
+
+USER 10001:10001
+CMD ["python", "-m", "pytest", "-q", "-p", "no:cacheprovider", "tests"]
+
+FROM base AS runtime
+
+LABEL org.opencontainers.image.title="Tour Guide Historical Corpus Service" \
+      org.opencontainers.image.description="Local historical evidence retrieval with SQLite FTS5, TurboVec and Qwen3"
+
+USER 10001:10001
+EXPOSE 3010
+
+CMD ["python", "-m", "uvicorn", "historical_corpus.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "3010", "--workers", "1"]

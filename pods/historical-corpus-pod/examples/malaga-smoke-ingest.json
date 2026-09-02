@@ -1,0 +1,37 @@
+{
+  "documentId": "synthetic:malaga:theatre:smoke:v1",
+  "sourceUrl": "https://example.invalid/synthetic/malaga-theatre-smoke",
+  "title": "Synthetic Málaga retrieval smoke fixture",
+  "author": "Tour Guide test fixture",
+  "edition": "v1",
+  "publicationYear": 2026,
+  "language": "es",
+  "countryCode": "ES",
+  "sourceClass": "synthetic_test",
+  "contentHash": "sha256:f902637cc9eb02c61455bda5205ad41929de1ca3869f5984123ab10c2e4ce88e",
+  "rights": {
+    "status": "cc0-1.0",
+    "uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "verifiedAt": "2026-09-02T00:00:00Z",
+    "isExplicitlyReusable": true
+  },
+  "chunks": [
+    {
+      "originalText": "El teatro romano de Málaga fue construido en época altoimperial y reutilizado en siglos posteriores.",
+      "correctedText": null,
+      "pageStart": 1,
+      "pageEnd": 1,
+      "sectionPath": [
+        "Synthetic smoke fixture"
+      ],
+      "cityQids": [
+        "Q8851"
+      ],
+      "entityQids": [
+        "Q3849447"
+      ],
+      "historicalPeriod": "roman_to_late_antiquity",
+      "ocrConfidence": 1.0
+    }
+  ]
+}
