@@ -1,0 +1,307 @@
+{
+  "canonicalPdfRelativePath": "raw/b27559ed847721c89ce9dd9717447c6e2b882aec87103048a39a45b975f961ba/0000000000000000000000000000000000000000000000000000000000000000.pdf",
+  "canonicalization": {
+    "defaultOrder": "source_order",
+    "defaultStatus": "include",
+    "duplicateDecisions": [],
+    "pageOverrides": []
+  },
+  "chunks": [
+    {
+      "chunkId": "sha256:ed83974544af225ebcb465f6ef2506382bf579cb9577498ce1faf2cb9a773372",
+      "cityQids": [],
+      "correctedText": null,
+      "entityQids": [],
+      "entryTitle": "MÁLAGA",
+      "historicalPeriod": "1848",
+      "lineIds": [
+        "sha256:53e43cb077f7e6f9d9636633a3a4b446d80ca37c96b075a90f8614b22aa4d5c2"
+      ],
+      "ocrConfidence": 0.95,
+      "originalText": "MÁLAGA: ciudad histórica.",
+      "pageEnd": 1,
+      "pageStart": 1,
+      "sectionPath": [
+        "Diccionario Madoz",
+        "Tomo XI",
+        "MÁLAGA"
+      ]
+    }
+  ],
+  "inventoryRecords": [
+    {
+      "anomalyFlags": [],
+      "canonicalSequenceIndex": 1,
+      "canonicalStatus": "include",
+      "continuityBreakBefore": false,
+      "decisionReason": null,
+      "declaredDpiX": 600.0,
+      "declaredDpiY": 600.0,
+      "duplicateCandidates": [],
+      "duplicateOf": null,
+      "embeddedTextSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "mediaBox": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "normalizedPrintedLabel": "32",
+      "pdfPage": 39,
+      "pdfRotationDegrees": 0,
+      "printedLabelBox": {
+        "x0": 0.123456789,
+        "x1": 0.876543219,
+        "y0": 0.2,
+        "y1": 0.9
+      },
+      "printedLabelCandidates": [
+        {
+          "box": {
+            "x0": 0.123456789,
+            "x1": 0.876543219,
+            "y0": 0.2,
+            "y1": 0.9
+          },
+          "text": "32."
+        }
+      ],
+      "printedLabelSource": "embedded_ocr_heuristic",
+      "rasterBitsPerComponent": 1,
+      "rasterFilter": "JBIG2Decode",
+      "rasterHeightPx": 6600,
+      "rasterWidthPx": 5100,
+      "schemaVersion": 1,
+      "side": "full",
+      "sourceImageSha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "textSimhash64": "fedcba9876543210",
+      "visualDhash64": "0123456789abcdef"
+    }
+  ],
+  "inventoryVerifiedAt": "2026-09-02T20:00:00+02:00",
+  "metadata": {
+    "attribution": "Digitalizado por Google",
+    "author": "Pascual Madoz",
+    "canonicalPdfSha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "contentHash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "countryCode": "ES",
+    "coverageAcceptedAt": null,
+    "coverageAcceptedForProduct": false,
+    "coverageStatement": "Faltan dos páginas impresas.",
+    "coverageStatus": "partial_source",
+    "documentId": "madoz-11",
+    "edition": "Tomo XI",
+    "historicalPeriod": "1848",
+    "language": "es",
+    "missingPrintedPages": [
+      "62",
+      "63"
+    ],
+    "observedPrintedRanges": [
+      {
+        "end": "61",
+        "start": "32"
+      }
+    ],
+    "pageInventorySha256": "sha256:5370a17035a2144c30404575b6cfa84a75b5d2dd4f722f7c0d24c58ef480e0c5",
+    "processingFingerprint": "sha256:97d7c3b7837653c106d8e337dbb91be66c8125791e1413be654dca4b56f5ddc9",
+    "publicationYear": 1848,
+    "repositoryName": "Google Books / Stanford University Libraries",
+    "rights": {
+      "isExplicitlyReusable": false,
+      "status": "pending_intended_use_review",
+      "uri": "https://books.google.es/books?id=eboNAAAAIAAJ",
+      "verifiedAt": "2026-09-02T20:00:00+02:00"
+    },
+    "sourceClass": "primary_historical",
+    "sourceIsExactRecord": true,
+    "sourceUrl": "https://books.google.es/books?id=eboNAAAAIAAJ",
+    "temporalScope": "España, siglo XIX",
+    "title": "Diccionario geográfico-estadístico-histórico",
+    "volumeNumber": 11,
+    "workId": "madoz-diccionario-1845-1850"
+  },
+  "pageArtifactHashes": [
+    "sha256:766a67e4a4798c815d0d17e72859acdbe7d8faf19e39e7aaf5c379a80b8d54f4"
+  ],
+  "pageInventorySha256": "sha256:5370a17035a2144c30404575b6cfa84a75b5d2dd4f722f7c0d24c58ef480e0c5",
+  "pages": [
+    {
+      "contentClass": "normal",
+      "continuityBreakBefore": false,
+      "cropBox": {
+        "x0": 0.123456789,
+        "x1": 0.876543219,
+        "y0": 0.2,
+        "y1": 0.9
+      },
+      "documentId": "madoz-11",
+      "foregroundRatio": 0.31,
+      "heightPx": 3300,
+      "imageSha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "leafSide": "full",
+      "lines": [
+        {
+          "box": {
+            "x0": 0.123456789,
+            "x1": 0.876543219,
+            "y0": 0.2,
+            "y1": 0.9
+          },
+          "confidence": 0.95,
+          "lineId": "sha256:53e43cb077f7e6f9d9636633a3a4b446d80ca37c96b075a90f8614b22aa4d5c2",
+          "lineOrder": 0,
+          "logicalPageNumber": 1,
+          "orientationDegrees": null,
+          "originalText": "MÁLAGA: ciudad histórica.",
+          "role": "body"
+        }
+      ],
+      "logicalPageNumber": 1,
+      "lowConfidenceRatio": 0.0,
+      "meanConfidence": 0.95,
+      "ocrDetectionModel": "PP-OCRv6_medium_det",
+      "ocrEngine": "transformers",
+      "ocrEngineVersion": "3.7.0",
+      "ocrRecognitionModel": "PP-OCRv6_medium_rec",
+      "originalText": "MÁLAGA: ciudad histórica.",
+      "pageId": "sha256:b33644713827474d7120fb7690a648fe00f9eb1370811713205c5ea1149fb7cd",
+      "printedPageLabel": "32",
+      "qualityFlags": [],
+      "qualityScore": 0.93,
+      "rasterizationPolicy": "pymupdf-page-render-v1",
+      "renderDpi": 300,
+      "rotationDegrees": 0,
+      "sourcePdfPageNumber": 39,
+      "textSource": "ppocrv6",
+      "widthPx": 2550
+    }
+  ],
+  "preparedAt": "2026-09-02T20:00:00+02:00",
+  "preparedDocumentHash": "sha256:cb1b5b6b8afbc73cf4913022bc3e12381441910039266051138f01e4d341d4db",
+  "processing": {
+    "chunking": {
+      "maxChunkChars": 1500,
+      "overlapLines": 2
+    },
+    "fingerprintSchemaVersion": 1,
+    "manifestSchemaVersion": 1,
+    "modelLock": {
+      "engine": "transformers",
+      "models": [
+        {
+          "files": [
+            {
+              "relativePath": "model.json",
+              "sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+              "sizeBytes": 1
+            }
+          ],
+          "name": "PP-OCRv6_medium_det"
+        },
+        {
+          "files": [
+            {
+              "relativePath": "model.json",
+              "sha256": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+              "sizeBytes": 1
+            }
+          ],
+          "name": "PP-OCRv6_medium_rec"
+        }
+      ],
+      "paddleOcrVersion": "3.7.0",
+      "paddleXVersion": "3.7.2",
+      "schemaVersion": 1,
+      "transformersVersion": "5.16.1"
+    },
+    "ocr": {
+      "detectionModel": "PP-OCRv6_medium_det",
+      "device": "cpu",
+      "documentOrientationClassification": false,
+      "documentUnwarping": false,
+      "engine": "transformers",
+      "language": "es",
+      "recognitionModel": "PP-OCRv6_medium_rec",
+      "textLineOrientation": true,
+      "textMode": "ocr"
+    },
+    "policies": {
+      "entryPolicy": "madoz-entry-v1",
+      "layoutPolicy": "madoz-two-column-v1"
+    },
+    "quality": {
+      "lowConfidenceThreshold": 0.6
+    },
+    "render": {
+      "dpi": 300,
+      "rasterizationPolicy": "pymupdf-page-render-v1"
+    },
+    "selection": {
+      "candidatePdfPageRanges": [
+        {
+          "end": 39,
+          "start": 39
+        }
+      ],
+      "canonicalization": {
+        "defaultOrder": "source_order",
+        "defaultStatus": "include",
+        "duplicateDecisions": [],
+        "pageOverrides": []
+      },
+      "gutterRatio": 0.5,
+      "innerGutterTrimRatio": 0.005,
+      "leafGeometry": [
+        {
+          "cropBox": {
+            "x0": 0.123456789,
+            "x1": 0.876543219,
+            "y0": 0.2,
+            "y1": 0.9
+          },
+          "heightPx": 3300,
+          "pdfPage": 39,
+          "rotationDegrees": 0,
+          "side": "full",
+          "widthPx": 2550
+        }
+      ],
+      "leafOverrides": [],
+      "pageInventorySha256": "sha256:5370a17035a2144c30404575b6cfa84a75b5d2dd4f722f7c0d24c58ef480e0c5",
+      "splitSpreads": false
+    },
+    "software": {
+      "numpy": "2.3.5",
+      "paddleocr": "3.7.0",
+      "paddlex": "3.7.2",
+      "pymupdf": "1.28.2",
+      "torch": "2.13.0",
+      "transformers": "5.16.1"
+    },
+    "source": {
+      "canonicalPdfSha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "processingFingerprint": "sha256:97d7c3b7837653c106d8e337dbb91be66c8125791e1413be654dca4b56f5ddc9",
+  "publicationGate": {
+    "coverage": {
+      "acceptedAt": null,
+      "acceptedForProduct": false,
+      "missingPrintedPages": [
+        "62",
+        "63"
+      ],
+      "observedPrintedRanges": [
+        {
+          "end": "61",
+          "start": "32"
+        }
+      ],
+      "statement": "Faltan dos páginas impresas.",
+      "status": "partial_source"
+    },
+    "sourceIsExactRecord": true
+  },
+  "schemaVersion": 1
+}

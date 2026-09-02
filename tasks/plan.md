@@ -2628,7 +2628,10 @@ Validación:
 
 ### QW-05A — Persistencia atómica de páginas, líneas y joins
 
-- [ ] Pendiente.
+- [x] Completado: persistencia transaccional del bundle preparado, mapeo íntegro
+  de documento/páginas/líneas/chunks/joins/embeddings/FTS, lecturas tipadas y
+  ordenadas, ruta PDF exclusivamente persistida, conflictos explícitos y
+  rollback sin filas parciales. Pasan 3 pruebas focalizadas y 178 de regresión.
 - Depende de: QW-04.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_madoz_registry.py`

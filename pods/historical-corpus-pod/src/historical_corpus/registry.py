@@ -8,13 +8,17 @@ from datetime import datetime, timezone
 from typing import Any, Sequence
 
 from historical_corpus.identity import compute_chunk_id as _compute_chunk_id
+from historical_corpus.ingest_models import PreparedDocument
 from historical_corpus.models import (
     ChunkInput,
     ChunkRecord,
     DocumentRecord,
     IngestRequest,
     IndexVersion,
+    PageRecord,
+    PageSummary,
     SearchRequest,
+    SourceLineRecord,
 )
 
 _SCHEMA_VERSION = "2"
@@ -168,6 +172,96 @@ class CorpusRegistry:
             return None
         return (row["content_hash"], row["request_hash"])
 
+    def _insert_chunk_row(
+        self,
+        chunk_id: str,
+        document_id: str,
+        original_text: str,
+        corrected_text: str | None,
+        page_start: int,
+        page_end: int,
+        section_path: list[str],
+        historical_period: str,
+        ocr_confidence: float,
+        entry_title: str | None,
+        chunk_order: int | None,
+        language: str,
+        source_class: str,
+        rights_status: str,
+        publication_year: int,
+        city_qids: list[str],
+        entity_qids: list[str],
+        embeddings: dict[str, bytes],
+    ) -> None:
+        vector_id = _compute_vector_id(chunk_id)
+        text_hash = _compute_text_hash(original_text)
+        section_json = json.dumps(section_path, ensure_ascii=False, separators=(",", ":"))
+        self._conn.execute(
+            """
+            INSERT INTO chunks (
+                chunk_id, vector_id, document_id, original_text, corrected_text,
+                page_start, page_end, section_path, historical_period,
+                ocr_confidence, text_hash, entry_title, chunk_order
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                chunk_id,
+                vector_id,
+                document_id,
+                original_text,
+                corrected_text,
+                page_start,
+                page_end,
+                section_json,
+                historical_period,
+                ocr_confidence,
+                text_hash,
+                entry_title,
+                chunk_order,
+            ),
+        )
+        for qid in city_qids:
+            self._conn.execute(
+                "INSERT INTO chunk_city_qids (chunk_id, city_qid) VALUES (?, ?)",
+                (chunk_id, qid),
+            )
+        for qid in entity_qids:
+            self._conn.execute(
+                "INSERT INTO chunk_entity_qids (chunk_id, entity_qid) VALUES (?, ?)",
+                (chunk_id, qid),
+            )
+        if chunk_id in embeddings:
+            self._conn.execute(
+                "INSERT INTO embeddings (chunk_id, vector_id, vector) VALUES (?, ?, ?)",
+                (chunk_id, vector_id, embeddings[chunk_id]),
+            )
+        index_text = corrected_text if corrected_text else original_text
+        self._conn.execute(
+            """
+            INSERT INTO chunks_fts (
+                chunk_id, vector_id, document_id, searchable_text,
+                section_path, city_qid, entity_qid, language,
+                source_class, rights_status, publication_year,
+                historical_period, ocr_confidence
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                chunk_id,
+                vector_id,
+                document_id,
+                index_text,
+                section_json,
+                ",".join(city_qids),
+                ",".join(entity_qids),
+                language,
+                source_class,
+                rights_status,
+                publication_year,
+                historical_period,
+                ocr_confidence,
+            ),
+        )
+
     def atomically_insert_document(
         self,
         request: IngestRequest,
@@ -205,7 +299,7 @@ class CorpusRegistry:
                     now,
                 ),
             )
-            for chunk in request.chunks:
+            for index, chunk in enumerate(request.chunks):
                 chunk_id = _compute_chunk_id(
                     request.documentId,
                     chunk.pageStart,
@@ -214,72 +308,207 @@ class CorpusRegistry:
                     chunk.originalText,
                 )
                 chunk_ids.append(chunk_id)
-                vector_id = _compute_vector_id(chunk_id)
-                text_hash = _compute_text_hash(chunk.originalText)
-                section_json = json.dumps(chunk.sectionPath, ensure_ascii=False, separators=(",", ":"))
+                self._insert_chunk_row(
+                    chunk_id,
+                    request.documentId,
+                    chunk.originalText,
+                    chunk.correctedText,
+                    chunk.pageStart,
+                    chunk.pageEnd,
+                    chunk.sectionPath,
+                    chunk.historicalPeriod,
+                    chunk.ocrConfidence,
+                    chunk.entryTitle,
+                    index,
+                    request.language,
+                    request.sourceClass,
+                    request.rights.status,
+                    request.publicationYear,
+                    chunk.cityQids,
+                    chunk.entityQids,
+                    embeddings,
+                )
+        self._update_index_state()
+        return chunk_ids
+
+    def atomically_insert_prepared_document(
+        self,
+        prepared: PreparedDocument,
+        embeddings: dict[str, bytes],
+    ) -> list[str]:
+        metadata = prepared.metadata
+        gate = prepared.publicationGate
+        coverage = gate.coverage
+        now = datetime.now(timezone.utc).isoformat()
+        chunk_ids: list[str] = []
+        with self._conn:
+            self._conn.execute(
+                """
+                INSERT INTO documents (
+                    document_id, source_url, title, author, edition,
+                    publication_year, language, country_code, source_class,
+                    content_hash, request_hash, rights_status, rights_uri,
+                    rights_verified_at, rights_is_explicitly_reusable, created_at,
+                    work_id, volume_number, repository_name, historical_period,
+                    temporal_scope, attribution, source_is_exact_record,
+                    canonical_pdf_relative_path, canonical_pdf_sha256,
+                    processing_fingerprint, page_inventory_sha256,
+                    inventory_verified_at, coverage_status, coverage_statement,
+                    observed_printed_ranges_json, missing_printed_pages_json,
+                    coverage_accepted_for_product, coverage_accepted_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    metadata.documentId,
+                    metadata.sourceUrl,
+                    metadata.title,
+                    metadata.author,
+                    metadata.edition,
+                    metadata.publicationYear,
+                    metadata.language,
+                    metadata.countryCode,
+                    metadata.sourceClass,
+                    metadata.contentHash,
+                    prepared.preparedDocumentHash,
+                    metadata.rights.status,
+                    metadata.rights.uri,
+                    metadata.rights.verifiedAt,
+                    1 if metadata.rights.isExplicitlyReusable else 0,
+                    now,
+                    metadata.workId,
+                    metadata.volumeNumber,
+                    metadata.repositoryName,
+                    metadata.historicalPeriod,
+                    metadata.temporalScope,
+                    metadata.attribution,
+                    1 if gate.sourceIsExactRecord else 0,
+                    prepared.canonicalPdfRelativePath,
+                    metadata.canonicalPdfSha256,
+                    prepared.processingFingerprint,
+                    prepared.pageInventorySha256,
+                    prepared.inventoryVerifiedAt.isoformat(),
+                    coverage.status,
+                    coverage.statement,
+                    json.dumps(
+                        [item.model_dump(mode="json") for item in coverage.observedPrintedRanges],
+                        ensure_ascii=False,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    json.dumps(
+                        coverage.missingPrintedPages,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    1 if coverage.acceptedForProduct else 0,
+                    coverage.acceptedAt.isoformat() if coverage.acceptedAt is not None else None,
+                ),
+            )
+            for page in prepared.pages:
                 self._conn.execute(
                     """
-                    INSERT INTO chunks (
-                        chunk_id, vector_id, document_id, original_text, corrected_text,
-                        page_start, page_end, section_path, historical_period,
-                        ocr_confidence, text_hash
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO source_pages (
+                        page_id, document_id, logical_page_number,
+                        source_pdf_page_number, leaf_side, continuity_break_before,
+                        crop_box_json, printed_page_label, width_px, height_px,
+                        render_dpi, rasterization_policy, rotation_degrees,
+                        image_sha256, content_class, foreground_ratio, text_source,
+                        ocr_engine, ocr_engine_version, ocr_detection_model,
+                        ocr_recognition_model, mean_confidence, low_confidence_ratio,
+                        quality_score, quality_flags_json, original_text,
+                        processing_fingerprint
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
-                        chunk_id,
-                        vector_id,
-                        request.documentId,
-                        chunk.originalText,
-                        chunk.correctedText,
-                        chunk.pageStart,
-                        chunk.pageEnd,
-                        section_json,
-                        chunk.historicalPeriod,
-                        chunk.ocrConfidence,
-                        text_hash,
+                        page.pageId,
+                        metadata.documentId,
+                        page.logicalPageNumber,
+                        page.sourcePdfPageNumber,
+                        page.leafSide,
+                        1 if page.continuityBreakBefore else 0,
+                        json.dumps(
+                            page.cropBox.model_dump(mode="json"),
+                            ensure_ascii=False,
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ),
+                        page.printedPageLabel,
+                        page.widthPx,
+                        page.heightPx,
+                        page.renderDpi,
+                        page.rasterizationPolicy,
+                        page.rotationDegrees,
+                        page.imageSha256,
+                        page.contentClass,
+                        page.foregroundRatio,
+                        page.textSource,
+                        page.ocrEngine,
+                        page.ocrEngineVersion,
+                        page.ocrDetectionModel,
+                        page.ocrRecognitionModel,
+                        page.meanConfidence,
+                        page.lowConfidenceRatio,
+                        page.qualityScore,
+                        json.dumps(
+                            page.qualityFlags,
+                            ensure_ascii=False,
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ),
+                        page.originalText,
+                        prepared.processingFingerprint,
                     ),
                 )
-                for qid in chunk.cityQids:
+                for line in page.lines:
                     self._conn.execute(
-                        "INSERT INTO chunk_city_qids (chunk_id, city_qid) VALUES (?, ?)",
-                        (chunk_id, qid),
+                        """
+                        INSERT INTO source_lines (
+                            line_id, page_id, line_order, original_text,
+                            confidence, x0, y0, x1, y1, orientation_degrees, role
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            line.lineId,
+                            page.pageId,
+                            line.lineOrder,
+                            line.originalText,
+                            line.confidence,
+                            line.box.x0,
+                            line.box.y0,
+                            line.box.x1,
+                            line.box.y1,
+                            line.orientationDegrees,
+                            line.role,
+                        ),
                     )
-                for qid in chunk.entityQids:
-                    self._conn.execute(
-                        "INSERT INTO chunk_entity_qids (chunk_id, entity_qid) VALUES (?, ?)",
-                        (chunk_id, qid),
-                    )
-                if chunk_id in embeddings:
-                    self._conn.execute(
-                        "INSERT INTO embeddings (chunk_id, vector_id, vector) VALUES (?, ?, ?)",
-                        (chunk_id, vector_id, embeddings[chunk_id]),
-                    )
-                index_text = chunk.correctedText if chunk.correctedText else chunk.originalText
-                self._conn.execute(
-                    """
-                    INSERT INTO chunks_fts (
-                        chunk_id, vector_id, document_id, searchable_text,
-                        section_path, city_qid, entity_qid, language,
-                        source_class, rights_status, publication_year,
-                        historical_period, ocr_confidence
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        chunk_id,
-                        vector_id,
-                        request.documentId,
-                        index_text,
-                        section_json,
-                        ",".join(chunk.cityQids),
-                        ",".join(chunk.entityQids),
-                        request.language,
-                        request.sourceClass,
-                        request.rights.status,
-                        request.publicationYear,
-                        chunk.historicalPeriod,
-                        chunk.ocrConfidence,
-                    ),
+            for index, chunk in enumerate(prepared.chunks):
+                chunk_ids.append(chunk.chunkId)
+                self._insert_chunk_row(
+                    chunk.chunkId,
+                    metadata.documentId,
+                    chunk.originalText,
+                    chunk.correctedText,
+                    chunk.pageStart,
+                    chunk.pageEnd,
+                    chunk.sectionPath,
+                    chunk.historicalPeriod,
+                    chunk.ocrConfidence,
+                    chunk.entryTitle,
+                    index,
+                    metadata.language,
+                    metadata.sourceClass,
+                    metadata.rights.status,
+                    metadata.publicationYear,
+                    chunk.cityQids,
+                    chunk.entityQids,
+                    embeddings,
                 )
+                for line_order, line_id in enumerate(chunk.lineIds):
+                    self._conn.execute(
+                        "INSERT INTO chunk_lines (chunk_id, line_id, chunk_line_order) VALUES (?, ?, ?)",
+                        (chunk.chunkId, line_id, line_order),
+                    )
         self._update_index_state()
         return chunk_ids
 
@@ -290,6 +519,8 @@ class CorpusRegistry:
         ).fetchone()
         if row is None:
             return None
+        observed_ranges = json.loads(row["observed_printed_ranges_json"]) if row["observed_printed_ranges_json"] is not None else []
+        missing_pages = json.loads(row["missing_printed_pages_json"]) if row["missing_printed_pages_json"] is not None else []
         return DocumentRecord(
             documentId=row["document_id"],
             sourceUrl=row["source_url"],
@@ -305,37 +536,50 @@ class CorpusRegistry:
             rightsUri=row["rights_uri"],
             rightsVerifiedAt=row["rights_verified_at"],
             rightsIsExplicitlyReusable=bool(row["rights_is_explicitly_reusable"]),
+            workId=row["work_id"],
+            volumeNumber=row["volume_number"],
+            repositoryName=row["repository_name"],
+            historicalPeriod=row["historical_period"],
+            temporalScope=row["temporal_scope"],
+            attribution=row["attribution"],
+            sourceIsExactRecord=bool(row["source_is_exact_record"]) if row["source_is_exact_record"] is not None else None,
+            canonicalPdfSha256=row["canonical_pdf_sha256"],
+            processingFingerprint=row["processing_fingerprint"],
+            pageInventorySha256=row["page_inventory_sha256"],
+            inventoryVerifiedAt=row["inventory_verified_at"],
+            coverageStatus=row["coverage_status"],
+            coverageStatement=row["coverage_statement"],
+            observedPrintedRanges=observed_ranges,
+            missingPrintedPages=missing_pages,
+            coverageAcceptedForProduct=bool(row["coverage_accepted_for_product"]) if row["coverage_accepted_for_product"] is not None else None,
+            coverageAcceptedAt=row["coverage_accepted_at"],
         )
 
-    def get_chunk(self, chunk_id: str) -> ChunkRecord | None:
-        row = self._conn.execute(
-            """
-            SELECT c.*, d.source_url, d.title, d.content_hash, d.rights_status,
-                   d.rights_uri, d.rights_verified_at,
-                   d.publication_year, d.language, d.source_class
-            FROM chunks c
-            JOIN documents d ON c.document_id = d.document_id
-            WHERE c.chunk_id = ?
-            """,
-            (chunk_id,),
-        ).fetchone()
-        if row is None:
-            return None
+    def _map_chunk_row(self, row: sqlite3.Row) -> ChunkRecord:
         city_qids = [
             r["city_qid"]
             for r in self._conn.execute(
                 "SELECT city_qid FROM chunk_city_qids WHERE chunk_id = ? ORDER BY city_qid",
-                (chunk_id,),
+                (row["chunk_id"],),
             )
         ]
         entity_qids = [
             r["entity_qid"]
             for r in self._conn.execute(
                 "SELECT entity_qid FROM chunk_entity_qids WHERE chunk_id = ? ORDER BY entity_qid",
-                (chunk_id,),
+                (row["chunk_id"],),
+            )
+        ]
+        line_ids = [
+            r["line_id"]
+            for r in self._conn.execute(
+                "SELECT line_id FROM chunk_lines WHERE chunk_id = ? ORDER BY chunk_line_order",
+                (row["chunk_id"],),
             )
         ]
         section_path = json.loads(row["section_path"])
+        observed_ranges = json.loads(row["observed_printed_ranges_json"]) if row["observed_printed_ranges_json"] is not None else []
+        missing_pages = json.loads(row["missing_printed_pages_json"]) if row["missing_printed_pages_json"] is not None else []
         return ChunkRecord(
             chunkId=row["chunk_id"],
             documentId=row["document_id"],
@@ -358,7 +602,49 @@ class CorpusRegistry:
             contentHash=row["content_hash"],
             rightsUri=row["rights_uri"],
             rightsVerifiedAt=row["rights_verified_at"],
+            entryTitle=row["entry_title"],
+            lineIds=line_ids,
+            rightsIsExplicitlyReusable=bool(row["rights_is_explicitly_reusable"]) if row["rights_is_explicitly_reusable"] is not None else None,
+            workId=row["work_id"],
+            volumeNumber=row["volume_number"],
+            repositoryName=row["repository_name"],
+            temporalScope=row["temporal_scope"],
+            attribution=row["attribution"],
+            sourceIsExactRecord=bool(row["source_is_exact_record"]) if row["source_is_exact_record"] is not None else None,
+            canonicalPdfSha256=row["canonical_pdf_sha256"],
+            processingFingerprint=row["processing_fingerprint"],
+            pageInventorySha256=row["page_inventory_sha256"],
+            inventoryVerifiedAt=row["inventory_verified_at"],
+            coverageStatus=row["coverage_status"],
+            coverageStatement=row["coverage_statement"],
+            observedPrintedRanges=observed_ranges,
+            missingPrintedPages=missing_pages,
+            coverageAcceptedForProduct=bool(row["coverage_accepted_for_product"]) if row["coverage_accepted_for_product"] is not None else None,
+            coverageAcceptedAt=row["coverage_accepted_at"],
         )
+
+    def get_chunk(self, chunk_id: str) -> ChunkRecord | None:
+        row = self._conn.execute(
+            """
+            SELECT c.*, d.source_url, d.title, d.content_hash, d.rights_status,
+                   d.rights_uri, d.rights_verified_at,
+                   d.publication_year, d.language, d.source_class,
+                   d.rights_is_explicitly_reusable, d.work_id, d.volume_number,
+                   d.repository_name, d.temporal_scope, d.attribution,
+                   d.source_is_exact_record, d.canonical_pdf_sha256,
+                   d.processing_fingerprint, d.page_inventory_sha256,
+                   d.inventory_verified_at, d.coverage_status, d.coverage_statement,
+                   d.observed_printed_ranges_json, d.missing_printed_pages_json,
+                   d.coverage_accepted_for_product, d.coverage_accepted_at
+            FROM chunks c
+            JOIN documents d ON c.document_id = d.document_id
+            WHERE c.chunk_id = ?
+            """,
+            (chunk_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        return self._map_chunk_row(row)
 
     def get_filtered_candidate_ids(self, request: SearchRequest) -> set[int]:
         clauses: list[str] = []
@@ -432,56 +718,159 @@ class CorpusRegistry:
             f"""
             SELECT c.*, d.source_url, d.title, d.content_hash, d.rights_status,
                    d.rights_uri, d.rights_verified_at,
-                   d.publication_year, d.language, d.source_class
+                   d.publication_year, d.language, d.source_class,
+                   d.rights_is_explicitly_reusable, d.work_id, d.volume_number,
+                   d.repository_name, d.temporal_scope, d.attribution,
+                   d.source_is_exact_record, d.canonical_pdf_sha256,
+                   d.processing_fingerprint, d.page_inventory_sha256,
+                   d.inventory_verified_at, d.coverage_status, d.coverage_statement,
+                   d.observed_printed_ranges_json, d.missing_printed_pages_json,
+                   d.coverage_accepted_for_product, d.coverage_accepted_at
             FROM chunks c
             JOIN documents d ON c.document_id = d.document_id
             WHERE c.vector_id IN ({placeholders})
             """,
             vector_ids,
         ).fetchall()
-        records: list[ChunkRecord] = []
-        for row in rows:
-            city_qids = [
-                r["city_qid"]
-                for r in self._conn.execute(
-                    "SELECT city_qid FROM chunk_city_qids WHERE chunk_id = ? ORDER BY city_qid",
-                    (row["chunk_id"],),
-                )
-            ]
-            entity_qids = [
-                r["entity_qid"]
-                for r in self._conn.execute(
-                    "SELECT entity_qid FROM chunk_entity_qids WHERE chunk_id = ? ORDER BY entity_qid",
-                    (row["chunk_id"],),
-                )
-            ]
-            section_path = json.loads(row["section_path"])
-            records.append(
-                ChunkRecord(
-                    chunkId=row["chunk_id"],
-                    documentId=row["document_id"],
-                    originalText=row["original_text"],
-                    correctedText=row["corrected_text"],
-                    pageStart=row["page_start"],
-                    pageEnd=row["page_end"],
-                    sectionPath=section_path,
-                    cityQids=city_qids,
-                    entityQids=entity_qids,
-                    historicalPeriod=row["historical_period"],
-                    ocrConfidence=row["ocr_confidence"],
-                    language=row["language"],
-                    sourceClass=row["source_class"],
-                    rightsStatus=row["rights_status"],
-                    publicationYear=row["publication_year"],
-                    sourceUrl=row["source_url"],
-                    title=row["title"],
-                    textHash=row["text_hash"],
-                    contentHash=row["content_hash"],
-                    rightsUri=row["rights_uri"],
-                    rightsVerifiedAt=row["rights_verified_at"],
+        return [self._map_chunk_row(row) for row in rows]
+
+    def _map_page_summary_row(self, row: sqlite3.Row) -> PageSummary:
+        quality_flags = json.loads(row["quality_flags_json"])
+        observed_ranges = json.loads(row["observed_printed_ranges_json"])
+        missing_pages = json.loads(row["missing_printed_pages_json"])
+        return PageSummary(
+            pageId=row["page_id"],
+            documentId=row["document_id"],
+            logicalPageNumber=row["logical_page_number"],
+            sourcePdfPageNumber=row["source_pdf_page_number"],
+            leafSide=row["leaf_side"],
+            continuityBreakBefore=bool(row["continuity_break_before"]),
+            printedPageLabel=row["printed_page_label"],
+            contentClass=row["content_class"],
+            textSource=row["text_source"],
+            qualityScore=row["quality_score"],
+            qualityFlags=quality_flags,
+            processingFingerprint=row["processing_fingerprint"],
+            workId=row["work_id"],
+            volumeNumber=row["volume_number"],
+            repositoryName=row["repository_name"],
+            historicalPeriod=row["historical_period"],
+            temporalScope=row["temporal_scope"],
+            attribution=row["attribution"],
+            sourceIsExactRecord=bool(row["source_is_exact_record"]) if row["source_is_exact_record"] is not None else None,
+            canonicalPdfSha256=row["canonical_pdf_sha256"],
+            pageInventorySha256=row["page_inventory_sha256"],
+            inventoryVerifiedAt=row["inventory_verified_at"],
+            sourceUrl=row["source_url"],
+            rightsStatus=row["rights_status"],
+            rightsUri=row["rights_uri"],
+            rightsVerifiedAt=row["rights_verified_at"],
+            rightsIsExplicitlyReusable=bool(row["rights_is_explicitly_reusable"]),
+            coverageStatus=row["coverage_status"],
+            coverageStatement=row["coverage_statement"],
+            observedPrintedRanges=observed_ranges,
+            missingPrintedPages=missing_pages,
+            coverageAcceptedForProduct=bool(row["coverage_accepted_for_product"]),
+            coverageAcceptedAt=row["coverage_accepted_at"],
+        )
+
+    def get_pages_for_document(self, document_id: str) -> list[PageSummary]:
+        rows = self._conn.execute(
+            """
+            SELECT sp.page_id, sp.logical_page_number, sp.source_pdf_page_number,
+                   sp.leaf_side, sp.continuity_break_before, sp.printed_page_label,
+                   sp.width_px, sp.height_px, sp.render_dpi, sp.rasterization_policy,
+                   sp.rotation_degrees, sp.image_sha256, sp.content_class,
+                   sp.foreground_ratio, sp.text_source, sp.ocr_engine,
+                   sp.ocr_engine_version, sp.ocr_detection_model,
+                   sp.ocr_recognition_model, sp.mean_confidence,
+                   sp.low_confidence_ratio, sp.quality_score, sp.quality_flags_json,
+                   sp.original_text, sp.processing_fingerprint,
+                   d.document_id, d.work_id, d.volume_number, d.repository_name,
+                   d.historical_period, d.temporal_scope, d.attribution,
+                   d.source_is_exact_record, d.canonical_pdf_sha256,
+                   d.page_inventory_sha256, d.inventory_verified_at,
+                   d.source_url, d.rights_status, d.rights_uri,
+                   d.rights_verified_at, d.rights_is_explicitly_reusable,
+                   d.coverage_status, d.coverage_statement,
+                   d.observed_printed_ranges_json, d.missing_printed_pages_json,
+                   d.coverage_accepted_for_product, d.coverage_accepted_at
+            FROM source_pages sp
+            JOIN documents d ON sp.document_id = d.document_id
+            WHERE sp.document_id = ?
+            ORDER BY sp.logical_page_number
+            """,
+            (document_id,),
+        ).fetchall()
+        return [self._map_page_summary_row(row) for row in rows]
+
+    def get_page(self, page_id: str) -> PageRecord | None:
+        row = self._conn.execute(
+            """
+            SELECT sp.*, d.document_id, d.work_id, d.volume_number, d.repository_name,
+                   d.historical_period, d.temporal_scope, d.attribution,
+                   d.source_is_exact_record, d.canonical_pdf_sha256,
+                   d.page_inventory_sha256, d.inventory_verified_at,
+                   d.source_url, d.rights_status, d.rights_uri,
+                   d.rights_verified_at, d.rights_is_explicitly_reusable,
+                   d.coverage_status, d.coverage_statement,
+                   d.observed_printed_ranges_json, d.missing_printed_pages_json,
+                   d.coverage_accepted_for_product, d.coverage_accepted_at
+            FROM source_pages sp
+            JOIN documents d ON sp.document_id = d.document_id
+            WHERE sp.page_id = ?
+            """,
+            (page_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        crop_box = json.loads(row["crop_box_json"])
+        line_rows = self._conn.execute(
+            "SELECT * FROM source_lines WHERE page_id = ? ORDER BY line_order",
+            (page_id,),
+        ).fetchall()
+        lines: list[SourceLineRecord] = []
+        for lr in line_rows:
+            lines.append(
+                SourceLineRecord(
+                    lineId=lr["line_id"],
+                    lineOrder=lr["line_order"],
+                    originalText=lr["original_text"],
+                    confidence=lr["confidence"],
+                    box={"x0": lr["x0"], "y0": lr["y0"], "x1": lr["x1"], "y1": lr["y1"]},
+                    orientationDegrees=lr["orientation_degrees"],
+                    role=lr["role"],
                 )
             )
-        return records
+        summary = self._map_page_summary_row(row)
+        return PageRecord(
+            **summary.model_dump(mode="python"),
+            cropBox=crop_box,
+            widthPx=row["width_px"],
+            heightPx=row["height_px"],
+            renderDpi=row["render_dpi"],
+            rasterizationPolicy=row["rasterization_policy"],
+            rotationDegrees=row["rotation_degrees"],
+            imageSha256=row["image_sha256"],
+            foregroundRatio=row["foreground_ratio"],
+            meanConfidence=row["mean_confidence"],
+            lowConfidenceRatio=row["low_confidence_ratio"],
+            ocrEngine=row["ocr_engine"],
+            ocrEngineVersion=row["ocr_engine_version"],
+            ocrDetectionModel=row["ocr_detection_model"],
+            ocrRecognitionModel=row["ocr_recognition_model"],
+            originalText=row["original_text"],
+            lines=lines,
+        )
+
+    def get_canonical_pdf_relative_path(self, document_id: str) -> str | None:
+        row = self._conn.execute(
+            "SELECT canonical_pdf_relative_path FROM documents WHERE document_id = ?",
+            (document_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        return row["canonical_pdf_relative_path"]
 
     def load_all_embeddings(self) -> dict[int, bytes]:
         rows = self._conn.execute("SELECT vector_id, vector FROM embeddings").fetchall()
