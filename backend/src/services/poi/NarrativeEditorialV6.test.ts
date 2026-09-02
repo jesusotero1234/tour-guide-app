@@ -68,6 +68,34 @@ describe('narrative v6 editorial protocol', () => {
     })).toThrow('patch changes sentence alcazar-S004 outside the permitted window');
   });
 
+  it('rejects a repair that duplicates the same text in two adjacent sentenceIds', () => {
+    const duplicateScript = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Mira las cuatro torres del Alcázar. Su historia fue siempre pacífica.'
+    );
+    expect(() => applyNarrativeLocalPatchV6(duplicateScript, ['alcazar-S001'], {
+      replacements: [
+        { sentenceId: 'alcazar-S001', text: 'Mira las cuatro torres del Alcázar.' },
+        { sentenceId: 'alcazar-S002', text: 'Mira las cuatro torres del Alcázar.' },
+      ],
+    })).toThrow('patch cannot duplicate adjacent sentence text');
+  });
+
+  it('does not block a patch because of pre-existing duplicates outside the modified window', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'alcazar',
+      'Mira las cuatro torres del Alcázar. Mira las cuatro torres del Alcázar. El edificio cambió de función.'
+    );
+    const repaired = applyNarrativeLocalPatchV6(script, ['alcazar-S003'], {
+      replacements: [
+        { sentenceId: 'alcazar-S003', text: 'El edificio cambió de uso con los siglos.' },
+      ],
+    });
+    expect(repaired.sentences[0].text).toBe('Mira las cuatro torres del Alcázar.');
+    expect(repaired.sentences[1].text).toBe('Mira las cuatro torres del Alcázar.');
+    expect(repaired.sentences[2].text).toBe('El edificio cambió de uso con los siglos.');
+  });
+
   it('flags unauthorized numbers and cross-stop repetition without inventing a hard word quota', () => {
     const deterministic = auditNarrativeScriptDeterministicallyV6(
       assignNarrativeSentenceIdsV6(
@@ -337,5 +365,25 @@ describe('narrative v6 editorial protocol', () => {
     expect(warnings[0].message).toContain('9999');
     expect(warnings[0].sentenceId).toBe('malaga-S011');
     expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+  });
+
+  it('v8 policy: preserves complete sentences containing a. C. and d. C. era abbreviations', () => {
+    const text = 'El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C. Después llegó el grupo.';
+    const script = assignNarrativeSentenceIdsV6('alcazar', text, { sentenceBoundaryPolicy: 'v8' });
+    expect(script.sentences.map((sentence) => sentence.text)).toEqual([
+      'El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C.',
+      'Después llegó el grupo.',
+    ]);
+  });
+
+  it('legacy default: fragments era abbreviations the same way as before', () => {
+    const text = 'El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C. Después llegó el grupo.';
+    const script = assignNarrativeSentenceIdsV6('alcazar', text);
+    expect(script.sentences.map((sentence) => sentence.text)).toEqual([
+      'El templo se construyó en el siglo II a.',
+      'C. y se amplió en el siglo I d.',
+      'C.',
+      'Después llegó el grupo.',
+    ]);
   });
 });

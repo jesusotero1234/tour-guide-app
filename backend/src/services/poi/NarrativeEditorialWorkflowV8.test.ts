@@ -3,6 +3,7 @@ import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
 import {
   NarrativeAdjudicationInputV6,
   NarrativeAuditInputV6,
+  NarrativeRepairInputV6,
   NarrativeWriterInputV6,
 } from './NarrativeEditorialAgentsV6';
 import { NarrativeAuditorV6, assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
@@ -24,6 +25,7 @@ import {
 import { createNarrativeArcArchitectV8 } from './NarrativeArcArchitectV8';
 import { runNarrativeEditorialWorkflowV8 } from './NarrativeEditorialWorkflowV8';
 import { NarrativeScriptV6 } from './NarrativeEditorialV6';
+import { createNarrativeSchedulerV6 } from './NarrativeSchedulerV6';
 
 jest.mock('./EditorialStructuredLlmV6', () => ({
   requestEditorialStructuredV6: jest.fn(),
@@ -797,5 +799,470 @@ describe('NarrativeEditorialWorkflowV8', () => {
       expect(id.startsWith('deepseek_pro:')).toBe(false);
     }
     expect(issueState.summary.acceptedTour).toBe(1);
+  });
+
+  test('uses remaining budget to repair an issue first discovered by the post-repair global audit', async () => {
+    const stop = admit(evidenceFixture('malaga-final-repair-01', 'Q9300001', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+    const agents = fakeAgents(manifest.fingerprint);
+    const originalText = 'La cronología original necesita corrección.';
+    const firstRepairedText = stop.dossier.propositions[0].text;
+    const finalRepairedText = `${firstRepairedText} La cronología queda expresada con precisión.`;
+    const suppliedScript = assignNarrativeSentenceIdsV6(stop.routeStopId, originalText);
+
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const isOriginal = input.script.text === originalText;
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: isOriginal ? ('unsupported' as const) : ('supported' as const),
+          reason: isOriginal ? 'Sin respaldo.' : 'Respaldada.',
+          propositionIds: isOriginal ? [] : [input.dossier.propositions[0].propositionId],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'accepted' as const,
+        reason: 'Accepted for repair.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    agents.auditTour.mockImplementation(async (input: { scripts: NarrativeScriptV6[] }) => {
+      const script = input.scripts[0];
+      const issues = script.text === originalText
+        ? [{
+          issueId: 'I1',
+          stopId: stop.routeStopId,
+          sentenceId: script.sentences[0].sentenceId,
+          severity: 'soft' as const,
+          reason: 'Initial tour issue.',
+        }]
+        : script.text === firstRepairedText
+          ? [{
+            issueId: 'I2',
+            stopId: stop.routeStopId,
+            sentenceId: script.sentences[0].sentenceId,
+            severity: 'soft' as const,
+            reason: 'New issue found after the first repair.',
+          }]
+          : [];
+      const value = {
+        issues,
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    agents.repair.mockImplementation(async (input: NarrativeRepairInputV6) => {
+      const finalPass = input.objections.some((objection) => objection.objectionId === 'tour:I2');
+      const value = {
+        replacements: [{
+          sentenceId: input.script.sentences[0].sentenceId,
+          text: finalPass ? finalRepairedText : firstRepairedText,
+        }],
+      };
+      return { value, diagnostic: diagnostic('repair', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-final-repair-test',
+      createdAt: '2026-09-02T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa de reparación final.',
+          centralQuestion: 'Pregunta de reparación final.',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: 'Cierre.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-final-repair-test.private.json',
+    }, agents, { scripts: [suppliedScript], maximumRepairCalls: 2 });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(agents.repair).toHaveBeenCalledTimes(2);
+    expect(agents.auditTour).toHaveBeenCalledTimes(3);
+    expect(result.editorial.stops[0].finalScript.text).toBe(finalRepairedText);
+    expect(result.editorial.issueStateV8?.openIssueIds).not.toContain('tour:I1');
+    expect(result.editorial.issueStateV8?.openIssueIds).not.toContain('tour:I2');
+  });
+
+  test('generates and validates all planned repair patches before any repaired stop is re-audited', async () => {
+    const stop1 = admit(evidenceFixture('malaga-red-01', 'Q9100001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-red-02', 'Q9100002', COMPLETE_ROLES));
+    const route = routeFor([stop1, stop2]);
+    const manifest = manifestFor(route, [stop1, stop2]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const script1Text = 'Script one for stop one.';
+    const script2Text = 'Script two for stop two.';
+    const suppliedScripts: NarrativeScriptV6[] = [
+      assignNarrativeSentenceIdsV6(stop1.routeStopId, script1Text),
+      assignNarrativeSentenceIdsV6(stop2.routeStopId, script2Text),
+    ];
+
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const propositionId = input.dossier.propositions[0]?.propositionId ?? '';
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'unsupported' as const,
+          reason: 'Sin respaldo.',
+          propositionIds: propositionId ? [propositionId] : [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'accepted' as const,
+        reason: 'Accepted for repair.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    agents.auditTour.mockImplementation(async (input: { scripts: NarrativeScriptV6[] }) => {
+      const value = {
+        issues: input.scripts.map((script, index) => ({
+          issueId: `I${index + 1}`,
+          stopId: script.stopId,
+          sentenceId: script.sentences[0].sentenceId,
+          severity: 'soft' as const,
+          reason: 'Tour progression issue.',
+        })),
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    let repairCallCount = 0;
+    agents.repair.mockImplementation(async () => {
+      repairCallCount += 1;
+      if (repairCallCount === 1) {
+        const value = { replacements: [{ sentenceId: suppliedScripts[0].sentences[0].sentenceId, text: stop1.dossier.propositions[0].text }] };
+        return { value, diagnostic: diagnostic('repair', value) };
+      }
+      throw new Error('invalid second patch');
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-red-repair-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop1, stop2],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa RED.',
+          centralQuestion: 'Pregunta RED.',
+          stops: [
+            {
+              stopId: stop1.routeStopId,
+              contribution: 'Aporte 1',
+              bridge: 'Puente',
+              contributionPropositionIds: [stop1.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop1.dossier.propositions[0].propositionId],
+            },
+            {
+              stopId: stop2.routeStopId,
+              contribution: 'Aporte 2',
+              bridge: 'Cierre',
+              contributionPropositionIds: [stop2.dossier.propositions[0].propositionId],
+              bridgePropositionIds: [stop2.dossier.propositions[0].propositionId],
+            },
+          ],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-red-repair-test.private.json',
+    }, agents, { scripts: suppliedScripts, maximumRepairCalls: 2 });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.editorial.run.status).toBe('protocol_failed');
+    if (result.editorial.run.status !== 'protocol_failed') throw new Error('Expected inner protocol failure');
+    expect(result.editorial.run.reason).toContain('invalid second patch');
+
+    expect(agents.repair).toHaveBeenCalledTimes(2);
+    expect(agents.audit).toHaveBeenCalledTimes(4);
+    expect(agents.auditTour).toHaveBeenCalledTimes(1);
+  });
+
+  test('re-audits and adjudicates repaired stops in parallel while preserving route order', async () => {
+    const stop1 = admit(evidenceFixture('malaga-parallel-01', 'Q9200001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-parallel-02', 'Q9200002', COMPLETE_ROLES));
+    const stops = [stop1, stop2];
+    const route = routeFor(stops);
+    const manifest = manifestFor(route, stops);
+    const agents = fakeAgents(manifest.fingerprint);
+    const suppliedScripts = stops.map((stop) => assignNarrativeSentenceIdsV6(
+      stop.routeStopId,
+      stop.dossier.propositions[0].text
+    ));
+
+    let activeRepairAudits = 0;
+    let peakRepairAudits = 0;
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const repaired = input.script.text.startsWith('Reparado ');
+      if (repaired) {
+        activeRepairAudits += 1;
+        peakRepairAudits = Math.max(peakRepairAudits, activeRepairAudits);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        activeRepairAudits -= 1;
+      }
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: repaired ? ('unsupported' as const) : ('supported' as const),
+          reason: repaired ? 'Requiere revisión final.' : 'Respaldada.',
+          propositionIds: repaired ? [] : [input.dossier.propositions[0].propositionId],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    let activeFinalAdjudications = 0;
+    let peakFinalAdjudications = 0;
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      if (input.scope === 'factual') {
+        activeFinalAdjudications += 1;
+        peakFinalAdjudications = Math.max(peakFinalAdjudications, activeFinalAdjudications);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        activeFinalAdjudications -= 1;
+      }
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'accepted' as const,
+        reason: 'Accepted for repair.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    let tourAuditCalls = 0;
+    agents.auditTour.mockImplementation(async (input: { scripts: NarrativeScriptV6[] }) => {
+      tourAuditCalls += 1;
+      const value = {
+        issues: tourAuditCalls === 1
+          ? input.scripts.map((script, index) => ({
+            issueId: `parallel-I${index + 1}`,
+            stopId: script.stopId,
+            sentenceId: script.sentences[0].sentenceId,
+            severity: 'soft' as const,
+            reason: 'Tour progression issue.',
+          }))
+          : [],
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    agents.repair.mockImplementation(async (input) => {
+      const value = {
+        replacements: [{
+          sentenceId: input.script.sentences[0].sentenceId,
+          text: `Reparado ${input.script.stopId}.`,
+        }],
+      };
+      return { value, diagnostic: diagnostic('repair', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-parallel-repair-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: stops,
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa paralela.',
+          centralQuestion: 'Pregunta paralela.',
+          stops: stops.map((stop, index) => ({
+            stopId: stop.routeStopId,
+            contribution: `Aporte ${index + 1}`,
+            bridge: index === stops.length - 1 ? 'Cierre' : 'Puente',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          })),
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-parallel-repair-test.private.json',
+    }, agents, {
+      scripts: suppliedScripts,
+      maximumRepairCalls: 2,
+      scheduler: createNarrativeSchedulerV6('balanced_openrouter', {
+        editorialStops: 2,
+        writers: 1,
+        auditStops: 2,
+        adjudications: 2,
+        globalAudits: 1,
+      }),
+    });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(peakRepairAudits).toBe(4);
+    expect(peakFinalAdjudications).toBe(2);
+    expect(result.editorial.stops.map((stop) => stop.stopId)).toEqual(
+      stops.map((stop) => stop.routeStopId)
+    );
+    expect(result.editorial.stops.map((stop) => stop.finalScript.sentences.length)).toEqual([1, 1]);
+  });
+
+  test('repairs split era abbreviations without empty replacements or changing sentence cardinality', async () => {
+    const stop = admit(evidenceFixture('malaga-era-repair-01', 'Q3849447', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+    const agents = fakeAgents(manifest.fingerprint);
+    const suppliedScript = assignNarrativeSentenceIdsV6(
+      stop.routeStopId,
+      'Introducción. Se construyó en los primeros años del siglo I d. C., aprovechando la pendiente. '
+        + 'Durante aproximadamente dos siglos tuvo uso escénico, pero desde el siglo V d. C. el espacio cambió de función. '
+        + 'Más tarde quedó oculto. Hoy es el principal vestigio. La visita continúa.'
+    );
+    expect(suppliedScript.sentences).toHaveLength(8);
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'accepted' as const,
+        reason: 'Accepted for repair.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    let tourAuditCalls = 0;
+    agents.auditTour.mockImplementation(async () => {
+      tourAuditCalls += 1;
+      const value = {
+        issues: tourAuditCalls === 1
+          ? [
+            { issueId: 'fragment-S002', stopId: stop.routeStopId, sentenceId: suppliedScript.sentences[1].sentenceId, severity: 'soft' as const, reason: 'Unir S002 y S003.' },
+            { issueId: 'fragment-S004', stopId: stop.routeStopId, sentenceId: suppliedScript.sentences[3].sentenceId, severity: 'soft' as const, reason: 'Unir S004 y S005.' },
+            { issueId: 'designation-S007', stopId: stop.routeStopId, sentenceId: suppliedScript.sentences[6].sentenceId, severity: 'soft' as const, reason: 'Aclarar la designación.' },
+          ]
+          : [],
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    const replacements = [
+      { sentenceId: suppliedScript.sentences[1].sentenceId, text: 'Se construyó en los primeros años del siglo I d. C.' },
+      { sentenceId: suppliedScript.sentences[2].sentenceId, text: 'Para ello se aprovechó la pendiente del cerro.' },
+      { sentenceId: suppliedScript.sentences[3].sentenceId, text: 'Durante aproximadamente dos siglos tuvo uso escénico.' },
+      { sentenceId: suppliedScript.sentences[4].sentenceId, text: 'Desde el siglo V d. C., el espacio cambió de función.' },
+      { sentenceId: suppliedScript.sentences[6].sentenceId, text: 'Hoy es el principal vestigio arqueológico visible de la ciudad.' },
+    ];
+    agents.repair.mockImplementation(async () => {
+      const value = { replacements };
+      return { value, diagnostic: diagnostic('repair', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-era-repair-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa histórica.',
+          centralQuestion: 'Pregunta histórica.',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: 'Cierre.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-era-repair-test.private.json',
+    }, agents, { scripts: [suppliedScript], maximumRepairCalls: 1 });
+
+    expect(result.status).toBe('complete');
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(agents.repair).toHaveBeenCalledTimes(1);
+    expect(replacements).toHaveLength(5);
+    expect(replacements.every((replacement) => replacement.text.trim().length > 0)).toBe(true);
+    expect(result.editorial.stops[0].finalScript.sentences).toHaveLength(
+      suppliedScript.sentences.length
+    );
+    expect(result.editorial.stops[0].finalScript.sentences.map((sentence) => sentence.text))
+      .toEqual(expect.arrayContaining(replacements.map((replacement) => replacement.text)));
+  });
+
+  test('preserves Spanish era abbreviations as complete sentences in newly written scripts', async () => {
+    const stop = admit(evidenceFixture('malaga-era-01', 'Q9500001', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const eraText = 'Se levantó en el siglo II a. C. y cambió en el siglo V d. C. Después llegó el grupo.';
+    agents.write.mockImplementation(async (input: NarrativeWriterInputV6) => {
+      const value = { text: eraText };
+      return { value, diagnostic: diagnostic(`write-${input.stopId}`, value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-era-abbrev-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Comprender la era histórica.',
+          centralQuestion: '¿Cómo cambió la ciudad?',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte de era.',
+            bridge: 'Cierre del recorrido.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Anfitrión local cálido', 'Precisión sin tono de ficha'],
+      privateArtifactPath: '/tmp/narrative-v8-era-abbrev-test.private.json',
+    }, agents);
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+    expect(result.editorial.stops).toHaveLength(1);
+    expect(result.editorial.stops[0].initialScript.sentences.map((s) => s.text)).toEqual([
+      'Se levantó en el siglo II a. C. y cambió en el siglo V d. C.',
+      'Después llegó el grupo.',
+    ]);
   });
 });

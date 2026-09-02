@@ -81,9 +81,22 @@ function normalizedWords(value: string): string[] {
     .replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/u).filter(Boolean);
 }
 
-function splitSentences(text: string): string[] {
-  return text.replace(/\s+/gu, ' ').trim().split(/(?<=[.!?…])\s+(?=[A-ZÁÉÍÓÚÜÑ¿¡])/u)
+function splitSentences(text: string, policy?: 'legacy' | 'v8'): string[] {
+  const parts = text.replace(/\s+/gu, ' ').trim().split(/(?<=[.!?…])\s+(?=[A-ZÁÉÍÓÚÜÑ¿¡])/u)
     .map((sentence) => sentence.trim()).filter(Boolean);
+  if (policy !== 'v8') return parts;
+  const reduced: string[] = [];
+  for (const part of parts) {
+    const previous = reduced[reduced.length - 1];
+    if (previous !== undefined
+      && /\b[ad]\.\s*$/iu.test(previous)
+      && /^c\./iu.test(part)) {
+      reduced[reduced.length - 1] = `${previous} ${part}`;
+      continue;
+    }
+    reduced.push(part);
+  }
+  return reduced;
 }
 
 function scriptFromSentences(stopId: string, texts: string[]): NarrativeScriptV6 {
@@ -97,9 +110,13 @@ function scriptFromSentences(stopId: string, texts: string[]): NarrativeScriptV6
   return { ...script, fingerprint: narrativeFingerprintV6(script) };
 }
 
-export function assignNarrativeSentenceIdsV6(stopId: string, text: string): NarrativeScriptV6 {
+export function assignNarrativeSentenceIdsV6(
+  stopId: string,
+  text: string,
+  options?: { sentenceBoundaryPolicy?: 'legacy' | 'v8' }
+): NarrativeScriptV6 {
   if (!stopId.trim()) throw new Error('script stopId is required');
-  const sentences = splitSentences(text);
+  const sentences = splitSentences(text, options?.sentenceBoundaryPolicy ?? 'legacy');
   if (sentences.length === 0) throw new Error(`script ${stopId} has no sentences`);
   return scriptFromSentences(stopId, sentences);
 }
@@ -190,6 +207,15 @@ export function applyNarrativeLocalPatchV6(
     throw new Error('patch must change at least one accepted sentence');
   }
   const texts = script.sentences.map((sentence) => replacements.get(sentence.sentenceId) ?? sentence.text);
+  for (let index = 0; index < texts.length - 1; index += 1) {
+    const current = texts[index].replace(/\s+/gu, ' ').trim();
+    const next = texts[index + 1].replace(/\s+/gu, ' ').trim();
+    if (current === next
+      && (replacements.has(script.sentences[index].sentenceId)
+        || replacements.has(script.sentences[index + 1].sentenceId))) {
+      throw new Error('patch cannot duplicate adjacent sentence text');
+    }
+  }
   const repaired = scriptFromSentences(script.stopId, texts);
   if (repaired.sentences.length !== script.sentences.length) {
     throw new Error('patch cannot add or remove sentences');
