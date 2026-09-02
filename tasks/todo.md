@@ -33,3 +33,12 @@
 - [ ] Revisión de corrección, seguridad, rendimiento y secretos completada.
 - [ ] Cinco commits atómicos usan staging explícito.
 - [ ] Informe final recomienda activar o rechazar el candidato según resultados.
+
+## Incremento actual: Qwen base audit y reparación final
+
+- [x] Probar y conectar la auditoría base al proveedor de `qwen38_hybrid`.
+- [x] Probar el error nuevo detectado tras la primera reparación global.
+- [x] Implementar una reparación final única, limitada por presupuesto y
+  re-auditada.
+- [x] Pasar pruebas focalizadas y build del backend.
+- [x] Revisar el diff del incremento sin incorporar cambios ajenos.

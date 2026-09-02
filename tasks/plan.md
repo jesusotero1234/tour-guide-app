@@ -41,3 +41,48 @@ permanece `ready_for_human_gate`.
 - El worktree contiene cambios ajenos: staging por rutas explícitas en cada commit.
 - El benchmark consume dinero: sin `--allow-external` y reserva presupuestaria no
   puede emitir llamadas.
+
+## Addendum 2026-09-02: Qwen base audit and final repair pass
+
+### Objective
+
+Make the `qwen38_hybrid` canary consistently use its selected model profile for
+the canonical base audit, and give V8 one bounded repair opportunity when the
+post-repair global audit discovers a new accepted issue.
+
+### Decisions
+
+- The canary base-audit provider defaults to the selected profile's
+  `auditor_a` provider. An explicit `--provider`/`--model` override remains
+  available for controlled comparisons.
+- The canary forwards the configured Qwen local base URL to canonical-core
+  requests, so the profile-derived provider uses the same validated endpoint as
+  the rest of the run.
+- A newly accepted issue from the post-repair global audit may consume remaining
+  `maximumRepairCalls` budget exactly once. Repaired stops are factually
+  re-audited, and the tour receives one final global audit; no recursive repair
+  loop is introduced.
+
+### Tasks and acceptance criteria
+
+1. Profile-driven canonical base audit (small, runtime helper + canary wiring).
+   - `qwen38_hybrid` defaults to `qwen-local`, not DeepSeek.
+   - Explicit provider/model overrides preserve the existing comparison path.
+   - A focused runtime test covers both cases.
+2. Bounded final repair pass (medium, workflow + focused test).
+   - A newly accepted issue from the second global audit is repaired when budget
+     remains.
+   - The repair is followed by factual checks and one final global audit.
+   - Exhausted repair budgets still leave the issue open for human review.
+3. Verification checkpoint.
+   - Focused runtime, workflow, provider-profile tests and backend build pass.
+   - Only the intended hunks are attributed to this increment in the dirty
+     worktree.
+
+### Risks and mitigations
+
+- Extra model cost: the pass only runs when an accepted issue exists and repair
+  budget remains.
+- Infinite repair loop: the new opportunity is single-pass and budget-bound.
+- A repair introduces another defect: paired factual audits and the final global
+  audit still fail closed to human review.
