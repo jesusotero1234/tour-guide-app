@@ -177,6 +177,78 @@ class ChunkInput(_StrictBaseModel):
         return _validate_unique_bounded_list(v, 32, _validate_qid)
 
 
+def _validate_coverage(
+    status: Literal["unknown", "partial_source", "complete_source"] | None,
+    statement: str | None,
+    observed_ranges: list[PrintedRange],
+    missing_pages: list[str],
+    accepted: bool | None,
+    accepted_at: str | None,
+    allow_all_default: bool,
+) -> None:
+    has_coverage = (
+        status is not None
+        or statement is not None
+        or accepted is not None
+        or accepted_at is not None
+        or observed_ranges
+        or missing_pages
+    )
+    if not has_coverage:
+        if not allow_all_default:
+            raise ValueError("coverage metadata is required")
+        return
+
+    if status is None:
+        raise ValueError("coverageStatus is required when coverage metadata is present")
+    if accepted is None:
+        raise ValueError("coverageAcceptedForProduct is required when coverage metadata is present")
+
+    if status == "partial_source":
+        if not statement or not statement.strip():
+            raise ValueError("coverageStatement must be non-blank for partial_source")
+        if not missing_pages:
+            raise ValueError("missingPrintedPages must be non-empty for partial_source")
+    elif status == "complete_source":
+        if missing_pages:
+            raise ValueError("missingPrintedPages must be empty for complete_source")
+    elif status == "unknown":
+        if accepted:
+            raise ValueError("coverageAcceptedForProduct must be false for unknown")
+
+    if accepted:
+        if accepted_at is None:
+            raise ValueError("coverageAcceptedAt is required when coverageAcceptedForProduct is true")
+    else:
+        if accepted_at is not None:
+            raise ValueError("coverageAcceptedAt must be null when coverageAcceptedForProduct is false")
+
+    if observed_ranges:
+        prev_end: int | None = None
+        for r in observed_ranges:
+            range_start = int(r.start)
+            range_end = int(r.end)
+            if prev_end is not None and range_start <= prev_end:
+                raise ValueError("observedPrintedRanges must be ordered and non-overlapping")
+            prev_end = range_end
+
+    if missing_pages:
+        seen: set[str] = set()
+        prev: int | None = None
+        for label in missing_pages:
+            _validate_printed_label(label)
+            if label in seen:
+                raise ValueError("missingPrintedPages must contain unique values")
+            seen.add(label)
+            n = int(label)
+            if prev is not None and n <= prev:
+                raise ValueError("missingPrintedPages must be ordered")
+            prev = n
+            for r in observed_ranges:
+                if int(r.start) <= n <= int(r.end):
+                    raise ValueError("missingPrintedPages must be outside observedPrintedRanges")
+
+
 class DocumentMetadata(_StrictBaseModel):
     documentId: str = Field(min_length=1, max_length=256)
     sourceUrl: str = Field(min_length=1, max_length=2048)
@@ -244,65 +316,15 @@ class DocumentMetadata(_StrictBaseModel):
 
     @model_validator(mode="after")
     def _validate_coverage(self) -> "DocumentMetadata":
-        has_coverage = (
-            self.coverageStatus is not None
-            or self.coverageStatement is not None
-            or self.coverageAcceptedForProduct is not None
-            or self.coverageAcceptedAt is not None
-            or self.observedPrintedRanges
-            or self.missingPrintedPages
+        _validate_coverage(
+            self.coverageStatus,
+            self.coverageStatement,
+            self.observedPrintedRanges,
+            self.missingPrintedPages,
+            self.coverageAcceptedForProduct,
+            self.coverageAcceptedAt,
+            True,
         )
-        if not has_coverage:
-            return self
-
-        if self.coverageStatus is None:
-            raise ValueError("coverageStatus is required when coverage metadata is present")
-        if self.coverageAcceptedForProduct is None:
-            raise ValueError("coverageAcceptedForProduct is required when coverage metadata is present")
-
-        if self.coverageStatus == "partial_source":
-            if not self.coverageStatement or not self.coverageStatement.strip():
-                raise ValueError("coverageStatement must be non-blank for partial_source")
-            if not self.missingPrintedPages:
-                raise ValueError("missingPrintedPages must be non-empty for partial_source")
-        elif self.coverageStatus == "complete_source":
-            if self.missingPrintedPages:
-                raise ValueError("missingPrintedPages must be empty for complete_source")
-        elif self.coverageStatus == "unknown":
-            if self.coverageAcceptedForProduct:
-                raise ValueError("coverageAcceptedForProduct must be false for unknown")
-
-        if self.coverageAcceptedForProduct:
-            if self.coverageAcceptedAt is None:
-                raise ValueError("coverageAcceptedAt is required when coverageAcceptedForProduct is true")
-        else:
-            if self.coverageAcceptedAt is not None:
-                raise ValueError("coverageAcceptedAt must be null when coverageAcceptedForProduct is false")
-
-        if self.observedPrintedRanges:
-            prev_end: int | None = None
-            for r in self.observedPrintedRanges:
-                s, e = int(r.start), int(r.end)
-                if prev_end is not None and s <= prev_end:
-                    raise ValueError("observedPrintedRanges must be ordered and non-overlapping")
-                prev_end = e
-
-        if self.missingPrintedPages:
-            seen: set[str] = set()
-            prev: int | None = None
-            for label in self.missingPrintedPages:
-                _validate_printed_label(label)
-                if label in seen:
-                    raise ValueError("missingPrintedPages must contain unique values")
-                seen.add(label)
-                n = int(label)
-                if prev is not None and n <= prev:
-                    raise ValueError("missingPrintedPages must be ordered")
-                prev = n
-                for r in self.observedPrintedRanges:
-                    if int(r.start) <= n <= int(r.end):
-                        raise ValueError("missingPrintedPages must be outside observedPrintedRanges")
-
         return self
 
 
@@ -618,49 +640,15 @@ class PageSummary(_StrictBaseModel):
 
     @model_validator(mode="after")
     def _validate_coverage(self) -> "PageSummary":
-        if self.coverageStatus == "partial_source":
-            if not self.coverageStatement or not self.coverageStatement.strip():
-                raise ValueError("coverageStatement must be non-blank for partial_source")
-            if not self.missingPrintedPages:
-                raise ValueError("missingPrintedPages must be non-empty for partial_source")
-        elif self.coverageStatus == "complete_source":
-            if self.missingPrintedPages:
-                raise ValueError("missingPrintedPages must be empty for complete_source")
-        elif self.coverageStatus == "unknown":
-            if self.coverageAcceptedForProduct:
-                raise ValueError("coverageAcceptedForProduct must be false for unknown")
-
-        if self.coverageAcceptedForProduct:
-            if self.coverageAcceptedAt is None:
-                raise ValueError("coverageAcceptedAt is required when coverageAcceptedForProduct is true")
-        else:
-            if self.coverageAcceptedAt is not None:
-                raise ValueError("coverageAcceptedAt must be null when coverageAcceptedForProduct is false")
-
-        if self.observedPrintedRanges:
-            prev_end: int | None = None
-            for r in self.observedPrintedRanges:
-                s, e = int(r.start), int(r.end)
-                if prev_end is not None and s <= prev_end:
-                    raise ValueError("observedPrintedRanges must be ordered and non-overlapping")
-                prev_end = e
-
-        if self.missingPrintedPages:
-            seen: set[str] = set()
-            prev: int | None = None
-            for label in self.missingPrintedPages:
-                _validate_printed_label(label)
-                if label in seen:
-                    raise ValueError("missingPrintedPages must contain unique values")
-                seen.add(label)
-                n = int(label)
-                if prev is not None and n <= prev:
-                    raise ValueError("missingPrintedPages must be ordered")
-                prev = n
-                for r in self.observedPrintedRanges:
-                    if int(r.start) <= n <= int(r.end):
-                        raise ValueError("missingPrintedPages must be outside observedPrintedRanges")
-
+        _validate_coverage(
+            self.coverageStatus,
+            self.coverageStatement,
+            self.observedPrintedRanges,
+            self.missingPrintedPages,
+            self.coverageAcceptedForProduct,
+            self.coverageAcceptedAt,
+            False,
+        )
         return self
 
 
