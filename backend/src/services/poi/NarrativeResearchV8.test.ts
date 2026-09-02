@@ -368,7 +368,7 @@ describe('researchNarrativeStopV8', () => {
     expect(result.stats.curationCount).toBeLessThanOrEqual(2);
   });
 
-  it('attempts deterministic search results before map links at equal priority', async () => {
+  it('filters generic map links before attempting deterministic search results', async () => {
     const wiki = wikipediaSource('es-wiki', [
       'Se observa la torre y el lienzo de la muralla.',
       'Construida en el siglo XI sobre una fortificación anterior.',
@@ -447,10 +447,15 @@ describe('researchNarrativeStopV8', () => {
     const alcazabaIndex = webCaptureUrls.findIndex((url) => url.includes('alcazaba'));
     const firstDelegationIndex = webCaptureUrls.findIndex((url) => url.includes('delegacion'));
     expect(alcazabaIndex).toBeGreaterThanOrEqual(0);
-    expect(firstDelegationIndex).toBeGreaterThan(alcazabaIndex);
+    expect(firstDelegationIndex).toBe(-1);
+    expect(result.captureLog.some((entry) => (
+      entry.phase === 'map'
+      && entry.outcome === 'skipped_discovery_only'
+      && entry.errorClassification === 'identity_mismatch'
+    ))).toBe(true);
   });
 
-  it('retries a registered URL once when a transient scrape misses the identity', async () => {
+  it('does not repeat a successful scrape whose content misses the stop identity', async () => {
     const wiki = wikipediaSource('es-wiki', [
       'Se observa la torre y el lienzo de la muralla.',
       'Construida en el siglo XI sobre una fortificación anterior.',
@@ -517,8 +522,11 @@ describe('researchNarrativeStopV8', () => {
 
     const result = await researchNarrativeStopV8(BASE_INPUT, services);
 
-    expect(callsByUrl.get(alcazabaUrl)).toBe(2);
-    expect(result.status).toBe('sufficient');
+    expect(callsByUrl.get(alcazabaUrl)).toBe(1);
+    expect(result.status).toBe('evidence_review_required');
+    expect(result.captureLog.some((entry) => (
+      entry.requestedUrl === alcazabaUrl && entry.outcome === 'capture_rejected'
+    ))).toBe(true);
   });
 
   it('builds deterministic queries with the disambiguated name and no quotes', async () => {

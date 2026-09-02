@@ -168,6 +168,15 @@ export interface NarrativeCaptureProviderV7 {
   capture(url: string): Promise<NarrativeCapturedSourceV7>;
 }
 
+export interface NarrativeFirecrawlRetryEventV7 {
+  path: '/map' | '/scrape';
+  attempt: number;
+  maxAttempts: number;
+  elapsedMs: number;
+  waitMs: number;
+  httpStatus: number | null;
+}
+
 export type NarrativeHttpFailureClassV7 =
   | 'retryable'
   | 'classified_no_retry'
@@ -476,6 +485,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
   private readonly lookup: NarrativeDnsLookupV6;
   private readonly now: () => Date;
   private readonly wait: NarrativeSourceWaitV6;
+  private readonly onRetry?: (event: NarrativeFirecrawlRetryEventV7) => void;
 
   constructor(options: {
     baseUrl?: string;
@@ -485,6 +495,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     lookup?: NarrativeDnsLookupV6;
     now?: () => Date;
     wait?: NarrativeSourceWaitV6;
+    onRetry?: (event: NarrativeFirecrawlRetryEventV7) => void;
   }) {
     this.baseUrl = (options.baseUrl ?? DEFAULT_FIRECRAWL_BASE_URL_V7).replace(/\/$/, '');
     this.apiKey = options.apiKey?.trim() || undefined;
@@ -493,6 +504,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
     this.wait = options.wait ?? defaultWait;
+    this.onRetry = options.onRetry;
     if (new URL(this.baseUrl).hostname === 'api.firecrawl.dev') {
       throw new Error('Firecrawl cloud is disabled; use the self-hosted base URL');
     }
@@ -506,19 +518,30 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
   }
 
   private async request(
-    path: string,
+    path: '/map' | '/scrape',
     body: Record<string, unknown>
   ): Promise<{ data: unknown }> {
-    for (let retry = 1; retry <= 4; retry += 1) {
+    const maxAttempts = 2;
+    for (let retry = 1; retry <= maxAttempts; retry += 1) {
+      const startedAt = this.now().getTime();
       try {
         return await this.post(`${this.baseUrl}${path}`, body, this.headers());
       } catch (error) {
-        const { classification } = classifyNarrativeHttpFailureV7(error);
+        const { classification, status } = classifyNarrativeHttpFailureV7(error);
         if (classification === 'quota') {
           throw new Error('Firecrawl quota or payment required (HTTP 402)');
         }
-        if (classification !== 'retryable' || retry === 4) throw error;
-        await this.wait(retryDelaySeconds(error, retry) * 1_000);
+        if (classification !== 'retryable' || retry === maxAttempts) throw error;
+        const waitMs = retryDelaySeconds(error, retry) * 1_000;
+        this.onRetry?.({
+          path,
+          attempt: retry,
+          maxAttempts,
+          elapsedMs: Math.max(0, this.now().getTime() - startedAt),
+          waitMs,
+          httpStatus: status,
+        });
+        await this.wait(waitMs);
       }
     }
     throw new Error('Firecrawl request retries exhausted');

@@ -313,6 +313,38 @@ function hasIdentityTermV8(text: string, stopName: string, identity: NarrativeSt
   return terms.some((term) => normalized.includes(term));
 }
 
+const GENERIC_MAP_IDENTITY_TOKENS_V8 = new Set([
+  'de', 'del', 'la', 'las', 'el', 'los', 'y', 'en',
+  'iglesia', 'catedral', 'palacio', 'museo', 'monumento', 'plaza',
+  'castillo', 'teatro', 'convento', 'basilica', 'parque', 'puerta',
+]);
+
+function mapResultMatchesIdentityV8(
+  result: NarrativeDiscoveryResultV7,
+  stopName: string,
+  cityName: string,
+  identity: NarrativeStopIdentityV8
+): boolean {
+  const resultText = `${result.url} ${result.title} ${result.description}`;
+  if (hasIdentityTermV8(resultText, stopName, identity)) return true;
+  const normalizedResult = ` ${normalizeNarrativeIdentityTextV8(resultText)} `;
+  const identityTexts = [
+    stopName,
+    identity.wikipediaTitle ?? '',
+    ...identity.labels,
+    ...identity.aliases,
+  ];
+  const cityTokens = new Set(normalizeNarrativeIdentityTextV8(cityName).split(' '));
+  const distinctiveTokens = new Set(identityTexts.flatMap((text) => (
+    normalizeNarrativeIdentityTextV8(text).split(' ')
+  )).filter((token) => (
+    token.length >= 4
+    && !GENERIC_MAP_IDENTITY_TOKENS_V8.has(token)
+    && !cityTokens.has(token)
+  )));
+  return [...distinctiveTokens].some((token) => normalizedResult.includes(` ${token} `));
+}
+
 function curatorPacketProseV8(value: string): string {
   return value
     .replace(/!\[[^\]]*\]\([^)]*\)/gu, ' ')
@@ -574,7 +606,7 @@ export async function researchNarrativeStopV8(
     const startedAt = Date.now();
     try {
       webCaptureAttempts += 1;
-      let captured = await services.captureWeb({ url: target });
+      const captured = await services.captureWeb({ url: target });
       webCaptureResponses += 1;
       let asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
       if (!registered && isWikimediaExternal) {
@@ -590,17 +622,7 @@ export async function researchNarrativeStopV8(
           };
         }
       }
-      let accepted = addCapturedSource(asV8);
-      if (!accepted && asV8.authority.tier === 'discovery_only' && registered) {
-        // Un scrape transitorio (cookie wall, página parcial) puede llegar sin
-        // el nombre de la parada aunque la URL sea la oficial registrada:
-        // reintentar una única vez; la identidad se vuelve a comprobar igual.
-        webCaptureAttempts += 1;
-        captured = await services.captureWeb({ url: target });
-        webCaptureResponses += 1;
-        asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
-        accepted = addCapturedSource(asV8);
-      }
+      const accepted = addCapturedSource(asV8);
       const log: NarrativeCaptureAttemptV8 = {
         stopId: input.stopId,
         phase,
@@ -718,6 +740,7 @@ export async function researchNarrativeStopV8(
 
   // Semilla: Wikipedia por API y URLs P856 exactas.
   if (identity.wikipediaTitle) {
+    const wikipediaStartedAt = Date.now();
     try {
       const wikipedia = await services.captureWikipedia({
         title: identity.wikipediaTitle,
@@ -738,7 +761,7 @@ export async function researchNarrativeStopV8(
           httpStatus: wikipedia.finalHttpStatus,
           errorClassification: null,
           attempt: attemptedUrls.size,
-          elapsedMs: 0,
+          elapsedMs: Date.now() - wikipediaStartedAt,
         });
         if (accepted && wikipedia.entityQid === input.stopId) {
           for (const domain of extractWikimediaExternalLinkDomainsV8(wikipedia.content)) {
@@ -759,7 +782,7 @@ export async function researchNarrativeStopV8(
         httpStatus: (error as { response?: { status?: number } })?.response?.status ?? null,
         errorClassification: (error as { code?: string })?.code ?? null,
         attempt: attemptedUrls.size,
-        elapsedMs: 0,
+        elapsedMs: Date.now() - wikipediaStartedAt,
       });
     }
   }
@@ -824,6 +847,7 @@ export async function researchNarrativeStopV8(
       && wikimediaExternalDomains.has(queriedDomain);
     const resultLimit = isCorroboratedSiteQuery ? 10 : 5;
     let results: NarrativeDiscoveryResultV7[] = [];
+    const searchStartedAt = Date.now();
     try {
       results = await services.search({
         query,
@@ -832,6 +856,20 @@ export async function researchNarrativeStopV8(
         limit: resultLimit,
       });
       searchQuerySuccesses += 1;
+      captureLog.push({
+        stopId: input.stopId,
+        phase: 'deterministic_search',
+        requestedUrl: query,
+        finalUrl: '',
+        authorityBeforeCapture: 'search',
+        authorityAfterCapture: 'search',
+        publisherKey: null,
+        outcome: 'discovered',
+        httpStatus: null,
+        errorClassification: null,
+        attempt: attemptedUrls.size,
+        elapsedMs: Date.now() - searchStartedAt,
+      });
     } catch (error) {
       recordInfrastructureFailure(error);
       captureLog.push({
@@ -846,7 +884,7 @@ export async function researchNarrativeStopV8(
         httpStatus: errorHttpStatusV8(error),
         errorClassification: errorCodeV8(error),
         attempt: attemptedUrls.size,
-        elapsedMs: 0,
+        elapsedMs: Date.now() - searchStartedAt,
       });
     }
     for (const result of results.slice(0, resultLimit)) {
@@ -871,6 +909,7 @@ export async function researchNarrativeStopV8(
     if (attemptedUrls.size >= budget.captures) break;
     let mapped: NarrativeDiscoveryResultV7[] = [];
     mapAttempts += 1;
+    const mapStartedAt = Date.now();
     try {
       mapped = await services.mapOfficialSite({
         origin: domain,
@@ -880,6 +919,20 @@ export async function researchNarrativeStopV8(
         countryCode: input.countryCode,
       });
       mapSuccesses += 1;
+      captureLog.push({
+        stopId: input.stopId,
+        phase: 'map',
+        requestedUrl: domain,
+        finalUrl: '',
+        authorityBeforeCapture: 'map',
+        authorityAfterCapture: 'map',
+        publisherKey: domain,
+        outcome: 'discovered',
+        httpStatus: null,
+        errorClassification: null,
+        attempt: attemptedUrls.size,
+        elapsedMs: Date.now() - mapStartedAt,
+      });
     } catch (error) {
       recordInfrastructureFailure(error);
       captureLog.push({
@@ -894,12 +947,26 @@ export async function researchNarrativeStopV8(
         httpStatus: errorHttpStatusV8(error),
         errorClassification: errorCodeV8(error),
         attempt: attemptedUrls.size,
-        elapsedMs: 0,
+        elapsedMs: Date.now() - mapStartedAt,
       });
     }
     for (const result of mapped.slice(0, 5)) {
-      if (mappedUrls.size < budget.captures) mappedUrls.add(normalizeUrlV8(result.url));
       const url = normalizeUrlV8(result.url);
+      if (!mapResultMatchesIdentityV8(result, input.stopName, input.cityName, identity)) {
+        recordAttempt({
+          phase: 'map',
+          requestedUrl: url,
+          finalUrl: url,
+          authorityBeforeCapture: 'registered',
+          authorityAfterCapture: 'discovery_only',
+          publisherKey: result.authority.publisherKey,
+          outcome: 'skipped_discovery_only',
+          httpStatus: null,
+          errorClassification: 'identity_mismatch',
+        });
+        continue;
+      }
+      if (mappedUrls.size < budget.captures) mappedUrls.add(url);
       if (!gatheredUrls.has(url)) {
         gatheredUrls.add(url);
         gathered.push({ url, phase: 'map', priority: authorityPriorityV8(url, registry) });
@@ -956,6 +1023,7 @@ export async function researchNarrativeStopV8(
       usedQueries.push(query);
       searchQueryAttempts += 1;
       let results: NarrativeDiscoveryResultV7[] = [];
+      const searchStartedAt = Date.now();
       try {
         results = await services.search({
           query,
@@ -964,6 +1032,20 @@ export async function researchNarrativeStopV8(
           limit: 5,
         });
         searchQuerySuccesses += 1;
+        captureLog.push({
+          stopId: input.stopId,
+          phase: 'adaptive_search',
+          requestedUrl: query,
+          finalUrl: '',
+          authorityBeforeCapture: 'search',
+          authorityAfterCapture: 'search',
+          publisherKey: null,
+          outcome: 'discovered',
+          httpStatus: null,
+          errorClassification: null,
+          attempt: attemptedUrls.size,
+          elapsedMs: Date.now() - searchStartedAt,
+        });
       } catch (error) {
         recordInfrastructureFailure(error);
         captureLog.push({
@@ -978,7 +1060,7 @@ export async function researchNarrativeStopV8(
           httpStatus: errorHttpStatusV8(error),
           errorClassification: errorCodeV8(error),
           attempt: attemptedUrls.size,
-          elapsedMs: 0,
+          elapsedMs: Date.now() - searchStartedAt,
         });
       }
       for (const result of results.slice(0, 5)) {

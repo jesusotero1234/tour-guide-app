@@ -315,10 +315,12 @@ describe('FirecrawlNarrativeCaptureProviderV7', () => {
 
   it('retries 429 and never retries 403', async () => {
     let calls = 0;
+    const retryEvents: unknown[] = [];
     const rateLimited = new FirecrawlNarrativeCaptureProviderV7({
       baseUrl: 'http://127.0.0.1:3007/v2',
       lookup: PUBLIC_LOOKUP,
       wait: async () => undefined,
+      onRetry: (event) => retryEvents.push(event),
       post: async () => {
         calls += 1;
         if (calls === 1) {
@@ -336,6 +338,13 @@ describe('FirecrawlNarrativeCaptureProviderV7', () => {
     });
     await rateLimited.capture('https://www.barcelona.cat/');
     expect(calls).toBe(2);
+    expect(retryEvents).toEqual([expect.objectContaining({
+      path: '/scrape',
+      attempt: 1,
+      maxAttempts: 2,
+      waitMs: 0,
+      httpStatus: 429,
+    })]);
 
     calls = 0;
     const forbidden = new FirecrawlNarrativeCaptureProviderV7({
@@ -350,6 +359,24 @@ describe('FirecrawlNarrativeCaptureProviderV7', () => {
     });
     await expect(forbidden.capture('https://www.barcelona.cat/')).rejects.toThrow();
     expect(calls).toBe(1);
+  });
+
+  it('caps persistent retryable Firecrawl failures at two attempts', async () => {
+    let calls = 0;
+    const provider = new FirecrawlNarrativeCaptureProviderV7({
+      baseUrl: 'http://127.0.0.1:3007/v2',
+      lookup: PUBLIC_LOOKUP,
+      wait: async () => undefined,
+      post: async () => {
+        calls += 1;
+        const error = new Error('500');
+        (error as { response?: unknown }).response = { status: 500 };
+        throw error;
+      },
+    });
+
+    await expect(provider.capture('https://www.barcelona.cat/')).rejects.toThrow('500');
+    expect(calls).toBe(2);
   });
 });
 
