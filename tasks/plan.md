@@ -2481,7 +2481,11 @@ Validación:
 
 ### QW-03A — Identidad y modelos internos base
 
-- [ ] Pendiente.
+- [x] Completado en `identity.py`, `ingest_models.py` y
+  `test_ingest_models.py`; 7 pruebas focalizadas y 58 pruebas combinadas
+  pasan. La prueba se creó primero y falló por ausencia de los módulos; los
+  modelos de fingerprint validan orden/unicidad tanto al proyectar como al
+  cargarse directamente.
 - Depende de: QW-02.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/identity.py`
