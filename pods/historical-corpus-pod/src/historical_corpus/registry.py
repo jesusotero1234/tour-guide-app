@@ -63,7 +63,7 @@ def _fts_quote(term: str) -> str:
             continue
         escaped = t.replace('"', '""')
         quoted.append(f'"{escaped}"')
-    return " ".join(quoted)
+    return " OR ".join(quoted)
 
 
 class CorpusRegistry:

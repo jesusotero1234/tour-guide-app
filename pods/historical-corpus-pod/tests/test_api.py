@@ -1,12 +1,16 @@
+import asyncio
 import hashlib
+import threading
+import time
 from pathlib import Path
 
+import httpx2
 import pytest
 from fastapi.testclient import TestClient
 
 from historical_corpus.app import create_app
 from historical_corpus.backends import DeterministicEmbeddingProvider, DeterministicReranker, InMemoryVectorIndex
-from historical_corpus.models import ChunkInput, ClaimSearchRequest, IngestRequest, RightsMetadata, SearchRequest, StopSearchRequest
+from historical_corpus.models import ChunkInput, ClaimSearchRequest, IngestRequest, RightsMetadata, SearchRequest, SearchResponse, StopSearchRequest
 from historical_corpus.service import HistoricalCorpusService
 
 
@@ -374,3 +378,46 @@ def test_payload_too_large_413(client: TestClient) -> None:
     assert response.status_code == 413
     body = response.json()
     assert body["error"]["code"] == "PAYLOAD_TOO_LARGE"
+
+
+def test_slow_search_does_not_block_health(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    started = threading.Event()
+    release = threading.Event()
+
+    def blocking_search(payload: SearchRequest) -> SearchResponse:
+        started.set()
+        release.wait(timeout=2.0)
+        return SearchResponse(
+            queryHash="sha256:" + "0" * 64,
+            indexVersion="1",
+            hits=[],
+        )
+
+    service.search = blocking_search
+    app = create_app(service=service)
+
+    async def run_test() -> None:
+        transport = httpx2.ASGITransport(app=app)
+        async with httpx2.AsyncClient(transport=transport, base_url="http://test") as client:
+            start_time = time.monotonic()
+            search_task = asyncio.create_task(
+                client.post("/v1/search", json={"query": "test", "cityQid": "Q8851"})
+            )
+            timer = threading.Timer(0.5, release.set)
+            timer.start()
+            await asyncio.sleep(0)
+            health_response = await client.get("/health")
+            elapsed = time.monotonic() - start_time
+            assert health_response.status_code == 200
+            assert health_response.json() == {"status": "ok"}
+            assert elapsed < 0.25
+            release.set()
+            search_response = await search_task
+            assert search_response.status_code == 200
+            timer.cancel()
+
+    try:
+        asyncio.run(run_test())
+    finally:
+        service.close()

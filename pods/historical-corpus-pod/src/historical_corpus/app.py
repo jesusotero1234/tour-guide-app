@@ -212,38 +212,38 @@ def create_app(
         return {"status": "ok"}
 
     @app.get("/v1/index/version", response_model=IndexVersion)
-    async def index_version() -> IndexVersion:
+    def index_version() -> IndexVersion:
         svc = _require_service()
         return svc.index_version()
 
     @app.get("/v1/chunks/{chunk_id}", response_model=ChunkRecord)
-    async def get_chunk(chunk_id: str) -> ChunkRecord:
+    def get_chunk(chunk_id: str) -> ChunkRecord:
         svc = _require_service()
         return svc.get_chunk(chunk_id)
 
     @app.get("/v1/documents/{document_id}", response_model=DocumentRecord)
-    async def get_document(document_id: str) -> DocumentRecord:
+    def get_document(document_id: str) -> DocumentRecord:
         svc = _require_service()
         return svc.get_document(document_id)
 
     @app.post("/v1/ingest", response_model=IngestResult)
-    async def ingest(request: Request, payload: IngestRequest) -> IngestResult:
+    def ingest(request: Request, payload: IngestRequest) -> IngestResult:
         _check_ingest_auth(request)
         svc = _require_service()
         return svc.ingest(payload)
 
     @app.post("/v1/search", response_model=SearchResponse)
-    async def search(payload: SearchRequest) -> SearchResponse:
+    def search(payload: SearchRequest) -> SearchResponse:
         svc = _require_service()
         return svc.search(payload)
 
     @app.post("/v1/search-for-stop", response_model=SearchResponse)
-    async def search_for_stop(payload: StopSearchRequest) -> SearchResponse:
+    def search_for_stop(payload: StopSearchRequest) -> SearchResponse:
         svc = _require_service()
         return svc.search(payload.to_search_request())
 
     @app.post("/v1/search-for-claim", response_model=SearchResponse)
-    async def search_for_claim(payload: ClaimSearchRequest) -> SearchResponse:
+    def search_for_claim(payload: ClaimSearchRequest) -> SearchResponse:
         svc = _require_service()
         return svc.search(payload.to_search_request())
 

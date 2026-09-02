@@ -120,10 +120,30 @@ class HistoricalCorpusService:
                         "documentId is already bound to different content or metadata",
                         details={"documentId": request.documentId},
                     )
-                return IngestResult(
-                    documentId=request.documentId,
-                    chunkIds=self._registry.get_chunk_ids_for_document(request.documentId),
+                chunk_ids = self._registry.get_chunk_ids_for_document(request.documentId)
+                stored_embeddings = self._registry.load_embeddings(chunk_ids)
+                vector_id_by_chunk = self._registry.get_vector_ids_for_chunk_ids(chunk_ids)
+                missing = [
+                    chunk_id
+                    for chunk_id in chunk_ids
+                    if chunk_id not in stored_embeddings or chunk_id not in vector_id_by_chunk
+                ]
+                if missing:
+                    raise HistoricalCorpusError(
+                        "stored embeddings or vector IDs are missing for replay",
+                        details={"documentId": request.documentId, "missingChunkIds": missing},
+                    )
+                vectors = np.stack(
+                    [self._decode_embedding(stored_embeddings[chunk_id]) for chunk_id in chunk_ids]
                 )
+                vector_ids = [vector_id_by_chunk[chunk_id] for chunk_id in chunk_ids]
+                self._vector_index.upsert(vector_ids, vectors)
+                self._registry.mark_index_state(
+                    self._embedding_provider.model_id,
+                    self._embedding_provider.dimension,
+                    self._reranker.model_id,
+                )
+                return IngestResult(documentId=request.documentId, chunkIds=chunk_ids)
 
             searchable_texts = [
                 chunk.correctedText or chunk.originalText for chunk in request.chunks
@@ -235,9 +255,18 @@ class HistoricalCorpusService:
                 allowed_ids,
             )
 
-            lexical_scores = {
-                vector_id: 1.0 / (1.0 + abs(float(raw_score)))
+            lexical_strengths = {
+                vector_id: abs(float(raw_score))
                 for vector_id, raw_score in lexical_rows
+            }
+            max_lexical_strength = max(lexical_strengths.values(), default=0.0)
+            lexical_scores = {
+                vector_id: (
+                    strength / max_lexical_strength
+                    if max_lexical_strength > 0
+                    else 0.0
+                )
+                for vector_id, strength in lexical_strengths.items()
             }
             dense_scores = {vector_id: float(score) for vector_id, score in dense_rows}
             fusion_scores: dict[int, float] = {}

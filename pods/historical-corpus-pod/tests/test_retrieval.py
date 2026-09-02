@@ -8,6 +8,18 @@ from historical_corpus.models import ChunkInput, IngestRequest, RightsMetadata, 
 from historical_corpus.service import HistoricalCorpusService
 
 
+class FailOnceVectorIndex(InMemoryVectorIndex):
+    def __init__(self, dimension: int = 1024) -> None:
+        super().__init__(dimension=dimension)
+        self._failed = False
+
+    def upsert(self, ids, vectors) -> None:
+        if not self._failed and len(ids) > 0:
+            self._failed = True
+            raise RuntimeError("simulated vector index failure")
+        super().upsert(ids, vectors)
+
+
 def _make_service(tmp_path: Path) -> HistoricalCorpusService:
     db_path = tmp_path / "corpus.db"
     vector_index = InMemoryVectorIndex()
@@ -139,6 +151,65 @@ def _ingest_three_chunks(service: HistoricalCorpusService) -> None:
         service.ingest(request)
 
 
+def test_spanish_fts_candidate_recall_regression(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    try:
+        rights = RightsMetadata(
+            status="public_domain",
+            uri="urn:example:rights:shared",
+            verifiedAt="2024-01-01T00:00:00Z",
+            isExplicitlyReusable=True,
+        )
+        chunk = _chunk(
+            original_text="El teatro romano de Málaga fue construido en época altoimperial y reutilizado en siglos posteriores.",
+            corrected_text="El teatro romano de Málaga fue construido en época altoimperial y reutilizado en siglos posteriores.",
+            page_start=1,
+            page_end=1,
+            section_path=["capitulo", "1"],
+            city_qids=["Q8851"],
+            entity_qids=["Q3849447"],
+            historical_period="roman_to_late_antiquity",
+            ocr_confidence=1.0,
+        )
+        request = IngestRequest(
+            documentId="doc-malaga-theatre",
+            sourceUrl="https://example.org/doc-malaga-theatre",
+            title="Documento Malaga Teatro",
+            author="Autor",
+            edition="1",
+            publicationYear=2026,
+            language="es",
+            countryCode="ES",
+            sourceClass="archive",
+            contentHash="sha256:" + hashlib.sha256(chunk.originalText.encode("utf-8")).hexdigest(),
+            rights=rights,
+            chunks=[chunk],
+        )
+        service.ingest(request)
+        search_request = SearchRequest(
+            query="reutilización del teatro romano en siglos posteriores",
+            cityQid="Q8851",
+            stopQid=None,
+            languages=["es"],
+            sourceClasses=["archive"],
+            rightsStatuses=["public_domain"],
+            documentIds=None,
+            publicationYearFrom=None,
+            publicationYearTo=None,
+            historicalPeriods=None,
+            minOcrConfidence=None,
+            limit=10,
+        )
+        response = service.search(search_request)
+        assert len(response.hits) == 1
+        hit = response.hits[0]
+        assert hit.documentId == "doc-malaga-theatre"
+        assert hit.lexicalScore is not None
+        assert hit.lexicalScore > 0
+    finally:
+        service.close()
+
+
 def test_lexical_search_finds_exact_terms_and_numbers(tmp_path: Path) -> None:
     service = _make_service(tmp_path)
     _ingest_three_chunks(service)
@@ -214,6 +285,63 @@ def test_filters_exclude_nonmatching_chunks(
     assert hit_document_ids == expected_chunk_ids
 
 
+def test_lexical_score_direction_multi_term_query(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    try:
+        _ingest_three_chunks(service)
+        request = SearchRequest(
+            query="historia Pío IX 15 000",
+            cityQid="Q8851",
+            stopQid=None,
+            languages=["es"],
+            sourceClasses=["archive"],
+            rightsStatuses=["public_domain"],
+            documentIds=None,
+            publicationYearFrom=None,
+            publicationYearTo=None,
+            historicalPeriods=None,
+            minOcrConfidence=None,
+            limit=10,
+        )
+        response = service.search(request)
+        hits_by_doc = {hit.documentId: hit for hit in response.hits}
+        assert "doc-malaga-1" in hits_by_doc
+        assert "doc-malaga-2" in hits_by_doc
+        score_1 = hits_by_doc["doc-malaga-1"].lexicalScore
+        score_2 = hits_by_doc["doc-malaga-2"].lexicalScore
+        assert score_1 is not None
+        assert score_2 is not None
+        assert score_1 > 0
+        assert score_2 > 0
+        assert score_1 > score_2
+    finally:
+        service.close()
+
+
+def test_punctuation_only_query_safety(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    try:
+        _ingest_three_chunks(service)
+        request = SearchRequest(
+            query="!!!",
+            cityQid="Q8851",
+            stopQid=None,
+            languages=["es"],
+            sourceClasses=["archive"],
+            rightsStatuses=["public_domain"],
+            documentIds=None,
+            publicationYearFrom=None,
+            publicationYearTo=None,
+            historicalPeriods=None,
+            minOcrConfidence=None,
+            limit=10,
+        )
+        response = service.search(request)
+        assert response.queryHash.startswith("sha256:")
+    finally:
+        service.close()
+
+
 def test_index_version_metadata(tmp_path: Path) -> None:
     service = _make_service(tmp_path)
     _ingest_three_chunks(service)
@@ -229,3 +357,88 @@ def test_index_version_metadata(tmp_path: Path) -> None:
     assert metadata.documentCount == 3
     assert metadata.chunkCount == 3
     assert not hasattr(metadata, "queryHash")
+
+
+def test_idempotent_replay_repairs_vector_index_failure(tmp_path: Path) -> None:
+    db_path = tmp_path / "corpus.db"
+    vector_index = FailOnceVectorIndex()
+    embedding_provider = DeterministicEmbeddingProvider()
+    reranker = DeterministicReranker()
+    service = HistoricalCorpusService(
+        db_path=db_path,
+        vector_index=vector_index,
+        embedding_provider=embedding_provider,
+        reranker=reranker,
+    )
+    try:
+        initial_state = service.index_version()
+        assert initial_state.documentCount == 0
+        assert initial_state.chunkCount == 0
+
+        rights = RightsMetadata(
+            status="public_domain",
+            uri="urn:example:rights:shared",
+            verifiedAt="2024-01-01T00:00:00Z",
+            isExplicitlyReusable=True,
+        )
+        chunk = _chunk(
+            original_text="El teatro romano de Málaga fue construido en época altoimperial y reutilizado en siglos posteriores.",
+            corrected_text="El teatro romano de Málaga fue construido en época altoimperial y reutilizado en siglos posteriores.",
+            page_start=1,
+            page_end=1,
+            section_path=["capitulo", "1"],
+            city_qids=["Q8851"],
+            entity_qids=["Q3849447"],
+            historical_period="roman_to_late_antiquity",
+            ocr_confidence=1.0,
+        )
+        request = IngestRequest(
+            documentId="doc-malaga-theatre",
+            sourceUrl="https://example.org/doc-malaga-theatre",
+            title="Documento Malaga Teatro",
+            author="Autor",
+            edition="1",
+            publicationYear=2026,
+            language="es",
+            countryCode="ES",
+            sourceClass="archive",
+            contentHash="sha256:" + hashlib.sha256(chunk.originalText.encode("utf-8")).hexdigest(),
+            rights=rights,
+            chunks=[chunk],
+        )
+
+        with pytest.raises(RuntimeError):
+            service.ingest(request)
+        assert vector_index.count() == 0
+
+        result = service.ingest(request)
+        assert result.documentId == "doc-malaga-theatre"
+        assert len(result.chunkIds) == 1
+        assert vector_index.count() == 1
+        repaired_state = service.index_version()
+        assert repaired_state.documentCount == 1
+        assert repaired_state.chunkCount == 1
+
+        search_request = SearchRequest(
+            query="reutilización del teatro romano en siglos posteriores",
+            cityQid="Q8851",
+            stopQid=None,
+            languages=["es"],
+            sourceClasses=["archive"],
+            rightsStatuses=["public_domain"],
+            documentIds=None,
+            publicationYearFrom=None,
+            publicationYearTo=None,
+            historicalPeriods=None,
+            minOcrConfidence=None,
+            limit=10,
+        )
+        response = service.search(search_request)
+        assert len(response.hits) == 1
+        hit = response.hits[0]
+        assert hit.documentId == "doc-malaga-theatre"
+        assert hit.chunkId is not None
+        assert hit.denseScore is not None
+        assert hit.denseScore > 0
+    finally:
+        service.close()
