@@ -146,7 +146,7 @@ describe('buildValidatedDossierV8', () => {
     expect(result.status).toBe('curator_contract_failed');
   });
 
-  it('keeps the contiguous prefix of non-contiguous spans', () => {
+  it('rejects non-contiguous spans as curator_contract_failed', () => {
     const c = capture('source-a', 'Párrafo uno.\n\nPárrafo dos.\n\nPárrafo tres.', AUTHORITY_A);
     const spans = spansOf(c);
     const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
@@ -168,9 +168,7 @@ describe('buildValidatedDossierV8', () => {
       },
     }));
 
-    expect(result.status).toBe('ok');
-    if (result.status !== 'ok') return;
-    expect(result.value.dossier.propositions[0].passageIds).toHaveLength(1);
+    expect(result.status).toBe('curator_contract_failed');
   });
 
   it('rejects a support referencing a span from another source', () => {
@@ -227,7 +225,7 @@ describe('buildValidatedDossierV8', () => {
     expect(result.status).toBe('curator_contract_failed');
   });
 
-  it('downgrades a debatable proposition backed by a single publisher to direct', () => {
+  it('rejects a debatable proposition backed by a single publisher as curator_contract_failed', () => {
     const a = capture('source-a', 'Afirmación discutible en la fuente A.', AUTHORITY_A);
     const b = capture('source-a2', 'Otra página de la fuente A.', AUTHORITY_A);
     const spansA = spansOf(a);
@@ -254,9 +252,7 @@ describe('buildValidatedDossierV8', () => {
       },
     }));
 
-    expect(result.status).toBe('ok');
-    if (result.status !== 'ok') return;
-    expect(result.value.dossier.propositions[0].interpretation).toBe('direct');
+    expect(result.status).toBe('curator_contract_failed');
   });
 
   it('accepts a debatable proposition with two publishers and keeps both quotes', () => {
@@ -328,13 +324,11 @@ describe('buildValidatedDossierV8', () => {
     }));
 
     // Wikimedia cuenta una sola vez: dos fuentes wikimedia no son dos
-    // publishers, así que la proposición debatible se acepta como direct.
-    expect(result.status).toBe('ok');
-    if (result.status !== 'ok') return;
-    expect(result.value.dossier.propositions[0].interpretation).toBe('direct');
+    // publishers, así que la proposición debatible se rechaza.
+    expect(result.status).toBe('curator_contract_failed');
   });
 
-  it('filters authorized names and numbers absent from the evidence', () => {
+  it('rejects unsupported authorized names and numbers as curator_contract_failed', () => {
     const c = capture('source-a', 'El puente fue construido en 1840.', AUTHORITY_A);
     const spans = spansOf(c);
     const spanId = spans.get('source-a')![0].evidenceSpanId;
@@ -355,9 +349,7 @@ describe('buildValidatedDossierV8', () => {
         limits: [],
       },
     }));
-    expect(badName.status).toBe('ok');
-    if (badName.status !== 'ok') return;
-    expect(badName.value.dossier.authorizedNames).toEqual([]);
+    expect(badName.status).toBe('curator_contract_failed');
 
     const badNumber = buildValidatedDossierV8(baseInput({
       captures: [c],
@@ -376,9 +368,7 @@ describe('buildValidatedDossierV8', () => {
         limits: [],
       },
     }));
-    expect(badNumber.status).toBe('ok');
-    if (badNumber.status !== 'ok') return;
-    expect(badNumber.value.dossier.authorizedNumbers).toEqual([]);
+    expect(badNumber.status).toBe('curator_contract_failed');
   });
 
   it('accepts an authorized name that matches the evidence after normalization', () => {
