@@ -2367,7 +2367,9 @@ Stop:
 
 ### QW-01 — Dependencias y targets de imagen
 
-- [ ] Pendiente.
+- [x] Completado: imágenes test/ingest verdes, `69 passed`, `pip check` e
+  imports `PyMuPDF 1.28.2`/`PaddleOCR 3.7.0`/`PaddleX 3.7.2` verificados como
+  UID 10001.
 - Depende de: QW-00.
 - Archivos existentes escribibles:
   - `pods/historical-corpus-pod/pyproject.toml`
@@ -2387,8 +2389,11 @@ Requisitos:
    `.[dev,ingest]`.
 5. Añadir target `ingest-runtime` desde `base`, instalando
    `.[ingest]`.
-6. Añadir `PADDLEX_HOME=/model-cache/paddlex`.
-7. Crear y asignar al UID 10001 los directorios de cache necesarios.
+6. Añadir `PADDLEX_HOME=/model-cache/paddlex` y la variable efectiva de
+   PaddleX 3.7.2 `PADDLE_PDX_CACHE_HOME=/model-cache/paddlex`; crear y asignar
+   al UID 10001 los directorios de cache necesarios.
+7. Instalar `libgl1` y `libglib2.0-0`, dependencias nativas mínimas del OpenCV
+   arrastrado por PaddleX en `python:3.12-slim`.
 8. No instalar `paddlepaddle`.
 9. No cambiar los pins de FastAPI, Qwen, Torch, Transformers o TurboVec.
 10. Ejecutar como `10001:10001` en todos los targets finales.
