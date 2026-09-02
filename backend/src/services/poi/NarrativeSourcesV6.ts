@@ -44,10 +44,15 @@ export type NarrativeDnsLookupV6 = (
   hostname: string
 ) => Promise<Array<{ address: string; family: number }>>;
 
+export interface NarrativeSourcePostOptionsV6 {
+  timeoutMs?: number;
+}
+
 export type NarrativeSourcePostV6 = (
   url: string,
   body: Record<string, unknown>,
-  headers: Record<string, string>
+  headers: Record<string, string>,
+  options?: NarrativeSourcePostOptionsV6
 ) => Promise<{ data: unknown }>;
 
 export type NarrativeSourceGetV6 = (
@@ -63,8 +68,8 @@ const defaultLookup: NarrativeDnsLookupV6 = async (hostname) => (
   dnsLookup(hostname, { all: true })
 );
 
-const defaultPost: NarrativeSourcePostV6 = async (url, body, headers) => {
-  const response = await axios.post(url, body, { headers, timeout: 60_000, maxRedirects: 0 });
+const defaultPost: NarrativeSourcePostV6 = async (url, body, headers, options) => {
+  const response = await axios.post(url, body, { headers, timeout: options?.timeoutMs ?? 60_000, maxRedirects: 0 });
   return { data: response.data };
 };
 

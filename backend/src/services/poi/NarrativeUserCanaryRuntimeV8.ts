@@ -1,5 +1,7 @@
 import type { EditorialProviderV6, EditorialPricingV6 } from './EditorialStructuredLlmV6';
 import type { NarrativeConcurrencyV6, NarrativeModelProfileNameV6 } from './NarrativeModelProfilesV6';
+import type { NarrativeWebCaptureRequestClassV8 } from './NarrativeResearchV8';
+import type { NarrativeFirecrawlCaptureOptionsV7 } from './NarrativeSourcesV7';
 import { NARRATIVE_MODEL_PROFILES_V6, QWEN38_CANONICAL_CORE_PROVIDER_V6 } from './NarrativeModelProfilesV6';
 
 export interface NarrativeResearchRuntimeV8 {
@@ -101,6 +103,15 @@ export function narrativeCanaryResearchCheckpointPhaseV8(
     return 'research';
   }
   return 'route';
+}
+
+export function narrativeCanaryFirecrawlCaptureOptionsV8(
+  requestClass: NarrativeWebCaptureRequestClassV8
+): NarrativeFirecrawlCaptureOptionsV7 | undefined {
+  if (requestClass === 'discovered_secondary') {
+    return { timeoutMs: 20_000, maxAttempts: 1 };
+  }
+  return undefined;
 }
 
 export function narrativeCanaryEditorialConcurrencyV8(
@@ -217,4 +228,26 @@ export function assertCompleteEditorialScriptSetV8(
     throw new EditorialScriptSetInvalidErrorV8(diagnostics);
   }
   return diagnostics;
+}
+
+export function createNarrativeCanaryCaptureWebV8<T>(
+  underlying: (url: string, options: NarrativeFirecrawlCaptureOptionsV7 | undefined) => Promise<T>
+): (rawUrl: string, requestClass: NarrativeWebCaptureRequestClassV8) => Promise<T> {
+  const cache = new Map<string, Promise<T>>();
+  return (rawUrl, requestClass) => {
+    const parsed = new URL(rawUrl);
+    parsed.hash = '';
+    const canonicalUrl = parsed.toString();
+    const existing = cache.get(canonicalUrl);
+    if (existing) return existing;
+    const promise = underlying(
+      canonicalUrl,
+      narrativeCanaryFirecrawlCaptureOptionsV8(requestClass)
+    ).catch((error: unknown) => {
+      cache.delete(canonicalUrl);
+      throw error;
+    });
+    cache.set(canonicalUrl, promise);
+    return promise;
+  };
 }

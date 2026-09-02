@@ -26,6 +26,8 @@ import {
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { normalizeNarrativeIdentityTextV8 } from './NarrativeAuthoritiesV7';
 
+export type NarrativeWebCaptureRequestClassV8 = 'place_exact' | 'discovered_secondary';
+
 export const NARRATIVE_RESEARCH_BUDGET_V8 = {
   deterministicQueries: 4,
   mappedDomains: 3,
@@ -121,7 +123,7 @@ export interface NarrativeResearchServicesV8 {
     language: string;
     countryCode: string;
   }): Promise<NarrativeDiscoveryResultV7[]>;
-  captureWeb(input: { url: string }): Promise<NarrativeCapturedSourceV7>;
+  captureWeb(input: { url: string; requestClass: NarrativeWebCaptureRequestClassV8 }): Promise<NarrativeCapturedSourceV7>;
   curate(input: NarrativeCuratorPacketV8): Promise<NarrativeCuratorOutputV8>;
   proposeAdaptiveQueries?(input: {
     stopName: string;
@@ -606,7 +608,7 @@ export async function researchNarrativeStopV8(
     const startedAt = Date.now();
     try {
       webCaptureAttempts += 1;
-      const captured = await services.captureWeb({ url: target });
+      const captured = await services.captureWeb({ url: target, requestClass: phase === 'p856' ? 'place_exact' : 'discovered_secondary' });
       webCaptureResponses += 1;
       let asV8 = classifyWebCaptureV8(captured, registry, input.stopName);
       if (!registered && isWikimediaExternal) {

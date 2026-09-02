@@ -206,6 +206,7 @@ describe('researchNarrativeStopV8', () => {
     ].join('\n\n'));
     let searchCalls = 0;
     let webCaptureCalls = 0;
+    const webCaptureRequestClasses: string[] = [];
     const services: NarrativeResearchServicesV8 = {
       resolveIdentity: async () => ({
         qid: 'Q1',
@@ -224,8 +225,9 @@ describe('researchNarrativeStopV8', () => {
         return [];
       },
       mapOfficialSite: async () => [],
-      captureWeb: async () => {
+      captureWeb: async (input) => {
         webCaptureCalls += 1;
+        webCaptureRequestClasses.push(input.requestClass);
         throw new Error('Firecrawl 403 on Wikimedia HTML');
       },
       curate: async (packet) => {
@@ -259,6 +261,7 @@ describe('researchNarrativeStopV8', () => {
     const result = await researchNarrativeStopV8(BASE_INPUT, services);
 
     expect(webCaptureCalls).toBe(1);
+    expect(webCaptureRequestClasses).toEqual(['place_exact']);
     expect(searchCalls).toBeGreaterThan(0);
     expect(result.stats.capturedSourceCount).toBe(1);
     expect(result.captures.every((capture) => capture.sourceKind === 'wikipedia_api')).toBe(true);
@@ -399,6 +402,7 @@ describe('researchNarrativeStopV8', () => {
       labels: ['Málaga'],
     };
     const webCaptureUrls: string[] = [];
+    const webCaptureRequestClasses: string[] = [];
     const services: NarrativeResearchServicesV8 = {
       resolveIdentity: async () => ({
         qid: 'Q1',
@@ -427,6 +431,7 @@ describe('researchNarrativeStopV8', () => {
       captureWeb: async (input) => {
         const url = input.url;
         webCaptureUrls.push(url);
+        webCaptureRequestClasses.push(input.requestClass);
         if (url.includes('alcazaba')) return official;
         return {
           ...official,
@@ -448,6 +453,7 @@ describe('researchNarrativeStopV8', () => {
     const alcazabaIndex = webCaptureUrls.findIndex((url) => url.includes('alcazaba'));
     const firstDelegationIndex = webCaptureUrls.findIndex((url) => url.includes('delegacion'));
     expect(alcazabaIndex).toBeGreaterThanOrEqual(0);
+    expect(webCaptureRequestClasses[alcazabaIndex]).toBe('discovered_secondary');
     expect(firstDelegationIndex).toBe(-1);
     expect(result.captureLog.some((entry) => (
       entry.phase === 'map'

@@ -113,6 +113,7 @@ import {
   NarrativeResearchRuntimeV8,
   assertCompleteEditorialScriptSetV8,
   assertResearchRuntimeReachableV8,
+  createNarrativeCanaryCaptureWebV8,
   inspectEditorialScriptSetV8,
   narrativeCanaryCoreOpenRouterOptionsV8,
   narrativeCanaryCoreProviderV8,
@@ -578,6 +579,9 @@ async function buildResearchServices(options: {
       + (event.httpStatus === null ? '' : ` | HTTP ${event.httpStatus}`)
     ),
   });
+  const captureWeb = createNarrativeCanaryCaptureWebV8((url, captureOptions) => (
+    capture.capture(url, captureOptions)
+  ));
   const authorities = new WikidataAuthorityProviderV7();
   const curate = await curatorServiceV8({
     apiKey: options.apiKey,
@@ -624,7 +628,7 @@ async function buildResearchServices(options: {
     ),
     search: (input) => discovery.search(input),
     mapOfficialSite: (input) => capture.mapOfficialSite(input),
-    captureWeb: (input) => capture.capture(input.url),
+    captureWeb: (input) => captureWeb(input.url, input.requestClass),
     curate,
     proposeAdaptiveQueries,
   };

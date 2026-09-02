@@ -378,6 +378,30 @@ describe('FirecrawlNarrativeCaptureProviderV7', () => {
     await expect(provider.capture('https://www.barcelona.cat/')).rejects.toThrow('500');
     expect(calls).toBe(2);
   });
+
+  it('passes per-capture timeoutMs as the optional fourth request-options argument to post', async () => {
+    let calls = 0;
+    let recordedOptions: unknown = undefined;
+    const provider = new FirecrawlNarrativeCaptureProviderV7({
+      baseUrl: 'http://127.0.0.1:3007/v2',
+      lookup: PUBLIC_LOOKUP,
+      wait: async () => undefined,
+      post: async (_url: string, _body: unknown, _headers: unknown, options?: unknown) => {
+        calls += 1;
+        recordedOptions = options;
+        const error = new Error('500');
+        (error as { response?: unknown }).response = { status: 500 };
+        throw error;
+      },
+    });
+
+    await expect(provider.capture('https://www.barcelona.cat/secondary', {
+      timeoutMs: 20_000,
+      maxAttempts: 1,
+    })).rejects.toThrow();
+    expect(calls).toBe(1);
+    expect(recordedOptions).toEqual({ timeoutMs: 20_000 });
+  });
 });
 
 describe('WikimediaNarrativeCaptureProviderV7', () => {

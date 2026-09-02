@@ -2,10 +2,12 @@ import {
   EditorialScriptSetInvalidErrorV8,
   assertCompleteEditorialScriptSetV8,
   assertResearchRuntimeReachableV8,
+  createNarrativeCanaryCaptureWebV8,
   narrativeCanaryCoreOpenRouterOptionsV8,
   narrativeCanaryCoreProviderV8,
   narrativeCanaryEditorialConcurrencyV8,
   narrativeCanaryEditorialDispositionV8,
+  narrativeCanaryFirecrawlCaptureOptionsV8,
   narrativeCanaryResearchCheckpointPhaseV8,
   researchRuntimeV8,
 } from './NarrativeUserCanaryRuntimeV8';
@@ -168,5 +170,46 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
       { routeEligible: true },
       { routeEligible: true },
     ])).toBe('research');
+  });
+
+  it('maps capture request class to Firecrawl request options', () => {
+    expect(narrativeCanaryFirecrawlCaptureOptionsV8('place_exact')).toBeUndefined();
+    expect(narrativeCanaryFirecrawlCaptureOptionsV8('discovered_secondary')).toEqual({
+      timeoutMs: 20_000,
+      maxAttempts: 1,
+    });
+  });
+
+  it('deduplicates concurrent canonical URL captures and strips fragments', async () => {
+    const calls: { url: string; options: unknown }[] = [];
+    const underlying = async (url: string, options: unknown) => {
+      calls.push({ url, options });
+      return url;
+    };
+    const capture = createNarrativeCanaryCaptureWebV8(underlying);
+    const [exact, secondary] = await Promise.all([
+      capture('https://example.com/place#one', 'place_exact'),
+      capture('https://example.com/place#two', 'discovered_secondary'),
+    ]);
+    expect(calls).toHaveLength(1);
+    expect(calls[0].options).toBeUndefined();
+    expect(exact).toBe('https://example.com/place');
+    expect(secondary).toBe('https://example.com/place');
+  });
+
+  it('retries the same canonical URL after a transient underlying failure', async () => {
+    let attempts = 0;
+    const underlying = async (url: string, options: unknown) => {
+      attempts += 1;
+      if (attempts === 1) {
+        throw new Error('transient failure');
+      }
+      return url;
+    };
+    const capture = createNarrativeCanaryCaptureWebV8(underlying);
+    await expect(capture('https://example.com/place#one', 'place_exact')).rejects.toThrow('transient failure');
+    const result = await capture('https://example.com/place#one', 'place_exact');
+    expect(result).toBe('https://example.com/place');
+    expect(attempts).toBe(2);
   });
 });

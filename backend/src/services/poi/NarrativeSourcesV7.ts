@@ -164,8 +164,13 @@ export interface NarrativeDiscoveryProviderV7 {
   }): Promise<NarrativeDiscoveryResultV7[]>;
 }
 
+export interface NarrativeFirecrawlCaptureOptionsV7 {
+  timeoutMs?: number;
+  maxAttempts?: number;
+}
+
 export interface NarrativeCaptureProviderV7 {
-  capture(url: string): Promise<NarrativeCapturedSourceV7>;
+  capture(url: string, options?: NarrativeFirecrawlCaptureOptionsV7): Promise<NarrativeCapturedSourceV7>;
 }
 
 export interface NarrativeFirecrawlRetryEventV7 {
@@ -209,10 +214,10 @@ const defaultLookup: NarrativeDnsLookupV6 = async (hostname) => (
   dnsLookup(hostname, { all: true })
 );
 
-const defaultPost: NarrativeSourcePostV6 = async (url, body, headers) => {
+const defaultPost: NarrativeSourcePostV6 = async (url, body, headers, options) => {
   const response = await axios.post(url, body, {
     headers: { ...narrativeHttpHeadersV8(), ...(headers ?? {}) },
-    timeout: 60_000,
+    timeout: options?.timeoutMs ?? 60_000,
     maxRedirects: 0,
   });
   return { data: response.data };
@@ -519,13 +524,20 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
 
   private async request(
     path: '/map' | '/scrape',
-    body: Record<string, unknown>
+    body: Record<string, unknown>,
+    options?: NarrativeFirecrawlCaptureOptionsV7
   ): Promise<{ data: unknown }> {
-    const maxAttempts = 2;
+    const maxAttempts = options?.maxAttempts ?? 2;
+    if (options?.timeoutMs !== undefined && (!Number.isFinite(options.timeoutMs) || options.timeoutMs <= 0)) {
+      throw new Error('timeoutMs must be a positive finite number');
+    }
+    if (options?.maxAttempts !== undefined && (!Number.isInteger(options.maxAttempts) || options.maxAttempts < 1 || options.maxAttempts > 2)) {
+      throw new Error('maxAttempts must be an integer between 1 and 2');
+    }
     for (let retry = 1; retry <= maxAttempts; retry += 1) {
       const startedAt = this.now().getTime();
       try {
-        return await this.post(`${this.baseUrl}${path}`, body, this.headers());
+        return await this.post(`${this.baseUrl}${path}`, body, this.headers(), { timeoutMs: options?.timeoutMs });
       } catch (error) {
         const { classification, status } = classifyNarrativeHttpFailureV7(error);
         if (classification === 'quota') {
@@ -632,14 +644,14 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     return results;
   }
 
-  async capture(rawUrl: string): Promise<NarrativeCapturedSourceV7> {
+  async capture(rawUrl: string, options?: NarrativeFirecrawlCaptureOptionsV7): Promise<NarrativeCapturedSourceV7> {
     const requested = await assertSafeNarrativeUrlV6(rawUrl, this.lookup);
     requested.hash = '';
     const response = await this.request('/scrape', {
       url: requested.toString(),
       formats: ['markdown'],
       onlyMainContent: true,
-    });
+    }, options);
     const root = objectValue(response.data, 'Firecrawl capture response');
     if (root.success !== true) throw new Error('Firecrawl capture was not successful');
     const data = objectValue(root.data, 'Firecrawl capture data');
