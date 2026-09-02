@@ -93,6 +93,16 @@ export function narrativeCanaryEditorialDispositionV8(status: string): Narrative
   return 'failure';
 }
 
+export function narrativeCanaryResearchCheckpointPhaseV8(
+  routeStopCount: number,
+  researchResults: Array<{ routeEligible: boolean }>
+): 'route' | 'research' {
+  if (researchResults.length === routeStopCount && researchResults.every((result) => result.routeEligible)) {
+    return 'research';
+  }
+  return 'route';
+}
+
 export function narrativeCanaryEditorialConcurrencyV8(
   stopCount: number
 ): Partial<NarrativeConcurrencyV6> {

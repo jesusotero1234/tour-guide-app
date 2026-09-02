@@ -788,7 +788,7 @@ export async function researchNarrativeStopV8(
   }
   for (const authority of registry.authorities) {
     if (attemptedUrls.size >= budget.captures) break;
-    if (!authority.url) continue;
+    if (authority.origin !== 'place_p856' || !authority.url) continue;
     await attemptWebCapture(authority.url, 'p856');
   }
 

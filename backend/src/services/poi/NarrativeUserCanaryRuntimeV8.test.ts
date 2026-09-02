@@ -6,6 +6,7 @@ import {
   narrativeCanaryCoreProviderV8,
   narrativeCanaryEditorialConcurrencyV8,
   narrativeCanaryEditorialDispositionV8,
+  narrativeCanaryResearchCheckpointPhaseV8,
   researchRuntimeV8,
 } from './NarrativeUserCanaryRuntimeV8';
 
@@ -152,5 +153,20 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
     });
     expect(options.openRouterApiKey).toBe('openrouter-canary-test-key');
     expect(options.pricing).toBe(pricing);
+  });
+
+  it('selects the research checkpoint phase based on result count and route eligibility', () => {
+    expect(narrativeCanaryResearchCheckpointPhaseV8(3, [
+      { routeEligible: true },
+      { routeEligible: true },
+    ])).toBe('route');
+    expect(narrativeCanaryResearchCheckpointPhaseV8(2, [
+      { routeEligible: true },
+      { routeEligible: false },
+    ])).toBe('route');
+    expect(narrativeCanaryResearchCheckpointPhaseV8(2, [
+      { routeEligible: true },
+      { routeEligible: true },
+    ])).toBe('research');
   });
 });

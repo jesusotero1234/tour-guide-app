@@ -118,6 +118,7 @@ import {
   narrativeCanaryCoreProviderV8,
   narrativeCanaryEditorialConcurrencyV8,
   narrativeCanaryEditorialDispositionV8,
+  narrativeCanaryResearchCheckpointPhaseV8,
   researchRuntimeV8,
 } from '../../src/services/poi/NarrativeUserCanaryRuntimeV8';
 
@@ -1341,8 +1342,9 @@ async function main(): Promise<void> {
       publisherCount: result.stats.publisherCount,
     }));
     checkpointState.research = toJsonValue(research);
-    await persistCheckpoint('research');
-    if (research.length !== route.stops.length || research.some(({ result }) => !result.routeEligible)) {
+    const researchCheckpointPhase = narrativeCanaryResearchCheckpointPhaseV8(route.stops.length, research.map(({ result }) => result));
+    await persistCheckpoint(researchCheckpointPhase);
+    if (researchCheckpointPhase !== 'research') {
       const failedResearch = research.find(({ result }) => result.status === 'failed');
       const failureCode = failedResearch?.result.status === 'failed'
         ? failedResearch.result.failure.code

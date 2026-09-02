@@ -20,8 +20,8 @@ const REGISTRY: NarrativeAuthorityRegistryV7 = {
   authorities: [
     {
       domain: 'www.malaga.es',
-      origin: 'city_p856',
-      qid: 'Q10',
+      origin: 'place_p856',
+      qid: 'Q1',
       wikidataRevision: null,
       url: 'https://www.malaga.es/alcazaba',
     },
@@ -70,7 +70,7 @@ function officialSource(
     authority: {
       tier: 'primary_authority',
       publisherKey: 'www.malaga.es',
-      rule: 'registered_p856:city_p856',
+      rule: 'registered_p856:place_p856',
     },
     containsInstructionLikeText: false,
     finalHttpStatus: 200,
@@ -444,6 +444,7 @@ describe('researchNarrativeStopV8', () => {
     const result = await researchNarrativeStopV8(BASE_INPUT, services);
 
     expect(result.status).toBe('sufficient');
+    expect(webCaptureUrls).not.toContain('https://www.malaga.es/');
     const alcazabaIndex = webCaptureUrls.findIndex((url) => url.includes('alcazaba'));
     const firstDelegationIndex = webCaptureUrls.findIndex((url) => url.includes('delegacion'));
     expect(alcazabaIndex).toBeGreaterThanOrEqual(0);
