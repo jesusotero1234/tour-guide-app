@@ -73,7 +73,7 @@ import {
   EssentialRouteCandidateV8,
 } from '../../src/services/poi/EssentialRouteSelectionV8';
 import {
-  composeTourLegsV8,
+  pruneOptionalStopsForWalkabilityV8,
   tourStopsFromCandidatesV8,
   TourGeometryV8Result,
 } from '../../src/services/poi/TourGeometryV8';
@@ -1047,10 +1047,15 @@ async function main(): Promise<void> {
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
-      const geometry = composeTourLegsV8(
+      const geometry = pruneOptionalStopsForWalkabilityV8(
         tourStopsFromCandidatesV8(selection.route, coreResolution.requiredIds),
-        request.durationMinutes
+        coreResolution.requiredIds,
+        request.durationMinutes,
+        plan.minStops
       );
+      if (geometry.removedOptionalIds.length > 0) {
+        console.log(`[v8-canary] route geometry removed optional stops: ${geometry.removedOptionalIds.join(', ')}`);
+      }
       if (geometry.status !== 'walkable') {
         throw new Error(`geometry blocked: ${geometry.reason ?? geometry.status}`);
       }
@@ -1163,10 +1168,15 @@ async function main(): Promise<void> {
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
-      const geometry = composeTourLegsV8(
+      const geometry = pruneOptionalStopsForWalkabilityV8(
         tourStopsFromCandidatesV8(selection.route, coreResolution.requiredIds),
-        request.durationMinutes
+        coreResolution.requiredIds,
+        request.durationMinutes,
+        plan.minStops
       );
+      if (geometry.removedOptionalIds.length > 0) {
+        console.log(`[v8-canary] route geometry removed optional stops: ${geometry.removedOptionalIds.join(', ')}`);
+      }
       if (geometry.status !== 'walkable') {
         throw new Error(`geometry blocked: ${geometry.reason ?? geometry.status}`);
       }

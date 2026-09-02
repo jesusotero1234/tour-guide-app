@@ -41,6 +41,11 @@ export interface TourGeometryOptionsV8 {
   guidedDurationCeilingRatio?: number;
 }
 
+export interface TourGeometryV8PrunedResult extends TourGeometryV8Result {
+  stops: TourGeometryStopV8[];
+  removedOptionalIds: string[];
+}
+
 function haversineMeters(a: RouteCoordinates, b: RouteCoordinates): number {
   const toRad = (degrees: number) => degrees * (Math.PI / 180);
   const earthRadiusMeters = 6371000;
@@ -247,6 +252,87 @@ function guidedDurationCeilingMinutes(
     total + estimateBlockDurationSeconds(block, stopsByStopId, options)
   ), 0);
   return Math.ceil(totalSeconds / 60);
+}
+
+export function pruneOptionalStopsForWalkabilityV8(
+  stops: TourGeometryStopV8[],
+  requiredIds: string[],
+  requestedDuration: number,
+  minStops: number
+): TourGeometryV8PrunedResult {
+  const requiredSet = new Set(requiredIds);
+  const isRequired = (stop: TourGeometryStopV8): boolean =>
+    stop.required === true || requiredSet.has(stop.stopId);
+
+  let currentStops = [...stops];
+  const removedOptionalIds: string[] = [];
+
+  let result = composeTourLegsV8(currentStops, requestedDuration);
+
+  while (
+    result.status !== 'walkable' &&
+    currentStops.length > minStops &&
+    currentStops.some((stop) => !isRequired(stop))
+  ) {
+    const optionalStops = currentStops.filter((stop) => !isRequired(stop));
+    let bestRemoval: {
+      stopId: string;
+      result: TourGeometryV8Result;
+    } | null = null;
+
+    for (const candidate of optionalStops) {
+      const candidateStops = currentStops.filter((stop) => stop.stopId !== candidate.stopId);
+      const candidateResult = composeTourLegsV8(candidateStops, requestedDuration);
+
+      if (bestRemoval === null) {
+        bestRemoval = { stopId: candidate.stopId, result: candidateResult };
+        continue;
+      }
+
+      const current = bestRemoval.result;
+      const next = candidateResult;
+
+      const currentWalkable = current.status === 'walkable';
+      const nextWalkable = next.status === 'walkable';
+
+      if (nextWalkable !== currentWalkable) {
+        if (nextWalkable) {
+          bestRemoval = { stopId: candidate.stopId, result: candidateResult };
+        }
+        continue;
+      }
+
+      if (next.transferCount !== current.transferCount) {
+        if (next.transferCount < current.transferCount) {
+          bestRemoval = { stopId: candidate.stopId, result: candidateResult };
+        }
+        continue;
+      }
+
+      if (next.guidedDurationMinutes !== current.guidedDurationMinutes) {
+        if (next.guidedDurationMinutes < current.guidedDurationMinutes) {
+          bestRemoval = { stopId: candidate.stopId, result: candidateResult };
+        }
+        continue;
+      }
+
+      if (candidate.stopId < bestRemoval.stopId) {
+        bestRemoval = { stopId: candidate.stopId, result: candidateResult };
+      }
+    }
+
+    if (bestRemoval === null) break;
+
+    removedOptionalIds.push(bestRemoval.stopId);
+    currentStops = currentStops.filter((stop) => stop.stopId !== bestRemoval.stopId);
+    result = bestRemoval.result;
+  }
+
+  return {
+    ...result,
+    stops: currentStops,
+    removedOptionalIds,
+  };
 }
 
 export function tourStopsFromCandidatesV8(

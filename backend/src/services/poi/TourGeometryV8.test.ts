@@ -1,6 +1,7 @@
 import {
   composeTourLegsV8,
   guidedDurationCopyV8,
+  pruneOptionalStopsForWalkabilityV8,
   selfTransferInstructionV8,
   TourGeometryStopV8,
   tourStopsFromCandidatesV8,
@@ -153,5 +154,51 @@ describe('tourStopsFromCandidatesV8', () => {
       required: true,
     });
     expect(stops[1].required).toBe(false);
+  });
+});
+
+describe('pruneOptionalStopsForWalkabilityV8', () => {
+  it('removes only the far optional stop while preserving all required stops', () => {
+    const candidates = [
+      { name: 'Plaza Mayor', wikidataId: 'Q1123493', coordinates: { lat: 40.4154007, lng: -3.7073747 }, category: 'square', fameScore: 95, importance_score: 10 },
+      { name: 'Palacio Real', wikidataId: 'Q171517', coordinates: { lat: 40.417828, lng: -3.714361 }, category: 'square', fameScore: 90, importance_score: 9 },
+      { name: 'Plaza de Cibeles', wikidataId: 'Q1537446', coordinates: { lat: 40.41917, lng: -3.69306 }, category: 'street', fameScore: 85, importance_score: 8 },
+      { name: 'Puerta de Alcalá', wikidataId: 'Q1140634', coordinates: { lat: 40.4199868, lng: -3.6887244 }, category: 'street', fameScore: 80, importance_score: 7 },
+      { name: 'Plaza de Colón', wikidataId: 'Q970525', coordinates: { lat: 40.4252776, lng: -3.6904471 }, category: 'park', fameScore: 70, importance_score: 5 },
+      { name: 'Plaza de España', wikidataId: 'Q1326261', coordinates: { lat: 40.423391666, lng: -3.712233333 }, category: 'museum', fameScore: 75, importance_score: 6 },
+      { name: 'Museo Reina Sofía', wikidataId: 'Q460889', coordinates: { lat: 40.4080445, lng: -3.694595 }, category: 'station', fameScore: 60, importance_score: 4 },
+    ];
+    const requiredIds = ['Q1123493', 'Q171517', 'Q1537446', 'Q1140634'];
+    const route = tourStopsFromCandidatesV8(candidates, requiredIds);
+
+    const result = pruneOptionalStopsForWalkabilityV8(route, requiredIds, 120, 5);
+
+    expect(result.status).toBe('walkable');
+    expect(result.removedOptionalIds).toEqual(['Q460889']);
+    expect(result.stops).toHaveLength(6);
+    const preservedIds = result.stops.map((s) => s.stopId);
+    for (const id of requiredIds) {
+      expect(preservedIds).toContain(id);
+    }
+    expect(preservedIds).not.toContain('Q460889');
+  });
+
+  it('flags route_review_required when required stops are geographically separated and no optional candidates exist', () => {
+    const candidates = [
+      { name: 'North', wikidataId: 'Q100', coordinates: { lat: 40.450, lng: -3.700 }, category: 'landmark', fameScore: 80, importance_score: 8 },
+      { name: 'Center', wikidataId: 'Q200', coordinates: { lat: 40.415, lng: -3.707 }, category: 'landmark', fameScore: 85, importance_score: 9 },
+      { name: 'South', wikidataId: 'Q300', coordinates: { lat: 40.380, lng: -3.700 }, category: 'landmark', fameScore: 75, importance_score: 7 },
+    ];
+    const requiredIds = ['Q100', 'Q200', 'Q300'];
+    const route = tourStopsFromCandidatesV8(candidates, requiredIds);
+
+    const result = pruneOptionalStopsForWalkabilityV8(route, requiredIds, 120, 5);
+
+    expect(result.status).toBe('route_review_required');
+    expect(result.removedOptionalIds).toEqual([]);
+    const preservedIds = result.stops.map((s) => s.stopId);
+    for (const id of requiredIds) {
+      expect(preservedIds).toContain(id);
+    }
   });
 });
