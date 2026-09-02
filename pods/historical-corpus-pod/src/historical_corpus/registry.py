@@ -7,6 +7,7 @@ import sqlite3
 from datetime import datetime, timezone
 from typing import Any, Sequence
 
+from historical_corpus.identity import compute_chunk_id as _compute_chunk_id
 from historical_corpus.models import (
     ChunkInput,
     ChunkRecord,
@@ -16,9 +17,9 @@ from historical_corpus.models import (
     SearchRequest,
 )
 
-_SCHEMA_VERSION = "1"
+_SCHEMA_VERSION = "2"
 _CHUNKING_POLICY_VERSION = "1"
-_SOURCE_REGISTRY_VERSION = "1"
+_SOURCE_REGISTRY_VERSION = "2"
 
 _FTS_TOKEN_RE = re.compile(r"[^\w]+", re.UNICODE)
 
@@ -27,21 +28,34 @@ def _compute_text_hash(original_text: str) -> str:
     return "sha256:" + hashlib.sha256(original_text.encode("utf-8")).hexdigest()
 
 
-def _compute_chunk_id(
-    document_id: str,
-    page_start: int,
-    page_end: int,
-    section_path: list[str],
-    original_text: str,
-) -> str:
-    section_json = json.dumps(section_path, ensure_ascii=False, separators=(",", ":"))
-    payload = f"{document_id}|{page_start}|{page_end}|{section_json}|{original_text}"
-    return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
 def _compute_request_hash(request: IngestRequest) -> str:
+    data = request.model_dump(mode="json")
+    for field in (
+        "workId",
+        "volumeNumber",
+        "repositoryName",
+        "historicalPeriod",
+        "temporalScope",
+        "attribution",
+        "sourceIsExactRecord",
+        "canonicalPdfSha256",
+        "processingFingerprint",
+        "pageInventorySha256",
+        "coverageStatus",
+        "coverageStatement",
+        "coverageAcceptedForProduct",
+        "coverageAcceptedAt",
+    ):
+        if data.get(field) is None:
+            data.pop(field, None)
+    for field in ("observedPrintedRanges", "missingPrintedPages"):
+        if not data.get(field):
+            data.pop(field, None)
+    for chunk in data.get("chunks", []):
+        if chunk.get("entryTitle") is None:
+            chunk.pop("entryTitle", None)
     payload = json.dumps(
-        request.model_dump(mode="json"),
+        data,
         ensure_ascii=False,
         sort_keys=True,
         separators=(",", ":"),
@@ -76,86 +90,71 @@ class CorpusRegistry:
         self._init_schema()
 
     def _init_schema(self) -> None:
-        self._conn.executescript(
-            """
-            CREATE TABLE IF NOT EXISTS documents (
-                document_id TEXT PRIMARY KEY,
-                source_url TEXT NOT NULL,
-                title TEXT NOT NULL,
-                author TEXT NOT NULL,
-                edition TEXT NOT NULL,
-                publication_year INTEGER NOT NULL,
-                language TEXT NOT NULL,
-                country_code TEXT NOT NULL,
-                source_class TEXT NOT NULL,
-                content_hash TEXT NOT NULL,
-                request_hash TEXT NOT NULL,
-                rights_status TEXT NOT NULL,
-                rights_uri TEXT NOT NULL,
-                rights_verified_at TEXT NOT NULL,
-                rights_is_explicitly_reusable INTEGER NOT NULL,
-                created_at TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS chunks (
-                chunk_id TEXT PRIMARY KEY,
-                vector_id INTEGER NOT NULL UNIQUE,
-                document_id TEXT NOT NULL REFERENCES documents(document_id),
-                original_text TEXT NOT NULL,
-                corrected_text TEXT,
-                page_start INTEGER NOT NULL,
-                page_end INTEGER NOT NULL,
-                section_path TEXT NOT NULL,
-                historical_period TEXT NOT NULL,
-                ocr_confidence REAL NOT NULL,
-                text_hash TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS chunk_city_qids (
-                chunk_id TEXT NOT NULL REFERENCES chunks(chunk_id),
-                city_qid TEXT NOT NULL,
-                PRIMARY KEY (chunk_id, city_qid)
-            );
-            CREATE TABLE IF NOT EXISTS chunk_entity_qids (
-                chunk_id TEXT NOT NULL REFERENCES chunks(chunk_id),
-                entity_qid TEXT NOT NULL,
-                PRIMARY KEY (chunk_id, entity_qid)
-            );
-            CREATE TABLE IF NOT EXISTS embeddings (
-                chunk_id TEXT PRIMARY KEY REFERENCES chunks(chunk_id),
-                vector_id INTEGER NOT NULL UNIQUE,
-                vector BLOB NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS index_state (
-                id INTEGER PRIMARY KEY CHECK (id = 1),
-                generation INTEGER NOT NULL,
-                index_version TEXT NOT NULL,
-                corpus_index_version TEXT NOT NULL,
-                embedding_model TEXT NOT NULL,
-                embedding_dimension INTEGER NOT NULL,
-                reranker_model TEXT NOT NULL,
-                chunking_policy_version TEXT NOT NULL,
-                source_registry_version TEXT NOT NULL,
-                document_count INTEGER NOT NULL,
-                chunk_count INTEGER NOT NULL,
-                updated_at TEXT NOT NULL
-            );
-            CREATE VIRTUAL TABLE IF NOT EXISTS chunks_fts USING fts5(
-                chunk_id UNINDEXED,
-                vector_id UNINDEXED,
-                document_id UNINDEXED,
-                searchable_text,
-                section_path UNINDEXED,
-                city_qid UNINDEXED,
-                entity_qid UNINDEXED,
-                language UNINDEXED,
-                source_class UNINDEXED,
-                rights_status UNINDEXED,
-                publication_year UNINDEXED,
-                historical_period UNINDEXED,
-                ocr_confidence UNINDEXED
-            );
-            """
-        )
-        self._conn.commit()
+        statements = [
+            "CREATE TABLE IF NOT EXISTS documents (\n                document_id TEXT PRIMARY KEY,\n                source_url TEXT NOT NULL,\n                title TEXT NOT NULL,\n                author TEXT NOT NULL,\n                edition TEXT NOT NULL,\n                publication_year INTEGER NOT NULL,\n                language TEXT NOT NULL,\n                country_code TEXT NOT NULL,\n                source_class TEXT NOT NULL,\n                content_hash TEXT NOT NULL,\n                request_hash TEXT NOT NULL,\n                rights_status TEXT NOT NULL,\n                rights_uri TEXT NOT NULL,\n                rights_verified_at TEXT NOT NULL,\n                rights_is_explicitly_reusable INTEGER NOT NULL,\n                created_at TEXT NOT NULL\n            )",
+            "CREATE TABLE IF NOT EXISTS chunks (\n                chunk_id TEXT PRIMARY KEY,\n                vector_id INTEGER NOT NULL UNIQUE,\n                document_id TEXT NOT NULL REFERENCES documents(document_id),\n                original_text TEXT NOT NULL,\n                corrected_text TEXT,\n                page_start INTEGER NOT NULL,\n                page_end INTEGER NOT NULL,\n                section_path TEXT NOT NULL,\n                historical_period TEXT NOT NULL,\n                ocr_confidence REAL NOT NULL,\n                text_hash TEXT NOT NULL\n            )",
+            "CREATE TABLE IF NOT EXISTS chunk_city_qids (\n                chunk_id TEXT NOT NULL REFERENCES chunks(chunk_id),\n                city_qid TEXT NOT NULL,\n                PRIMARY KEY (chunk_id, city_qid)\n            )",
+            "CREATE TABLE IF NOT EXISTS chunk_entity_qids (\n                chunk_id TEXT NOT NULL REFERENCES chunks(chunk_id),\n                entity_qid TEXT NOT NULL,\n                PRIMARY KEY (chunk_id, entity_qid)\n            )",
+            "CREATE TABLE IF NOT EXISTS embeddings (\n                chunk_id TEXT PRIMARY KEY REFERENCES chunks(chunk_id),\n                vector_id INTEGER NOT NULL UNIQUE,\n                vector BLOB NOT NULL\n            )",
+            "CREATE TABLE IF NOT EXISTS index_state (\n                id INTEGER PRIMARY KEY CHECK (id = 1),\n                generation INTEGER NOT NULL,\n                index_version TEXT NOT NULL,\n                corpus_index_version TEXT NOT NULL,\n                embedding_model TEXT NOT NULL,\n                embedding_dimension INTEGER NOT NULL,\n                reranker_model TEXT NOT NULL,\n                chunking_policy_version TEXT NOT NULL,\n                source_registry_version TEXT NOT NULL,\n                document_count INTEGER NOT NULL,\n                chunk_count INTEGER NOT NULL,\n                updated_at TEXT NOT NULL\n            )",
+            "CREATE VIRTUAL TABLE IF NOT EXISTS chunks_fts USING fts5(\n                chunk_id UNINDEXED,\n                vector_id UNINDEXED,\n                document_id UNINDEXED,\n                searchable_text,\n                section_path UNINDEXED,\n                city_qid UNINDEXED,\n                entity_qid UNINDEXED,\n                language UNINDEXED,\n                source_class UNINDEXED,\n                rights_status UNINDEXED,\n                publication_year UNINDEXED,\n                historical_period UNINDEXED,\n                ocr_confidence UNINDEXED\n            )",
+        ]
+        try:
+            self._conn.execute("BEGIN IMMEDIATE")
+            for sql in statements:
+                self._execute_migration_statement(sql)
+            self._ensure_column("documents", "work_id", "TEXT")
+            self._ensure_column("documents", "volume_number", "INTEGER")
+            self._ensure_column("documents", "repository_name", "TEXT")
+            self._ensure_column("documents", "historical_period", "TEXT")
+            self._ensure_column("documents", "temporal_scope", "TEXT")
+            self._ensure_column("documents", "attribution", "TEXT")
+            self._ensure_column("documents", "source_is_exact_record", "INTEGER")
+            self._ensure_column("documents", "canonical_pdf_relative_path", "TEXT")
+            self._ensure_column("documents", "canonical_pdf_sha256", "TEXT")
+            self._ensure_column("documents", "processing_fingerprint", "TEXT")
+            self._ensure_column("documents", "page_inventory_sha256", "TEXT")
+            self._ensure_column("documents", "inventory_verified_at", "TEXT")
+            self._ensure_column("documents", "coverage_status", "TEXT")
+            self._ensure_column("documents", "coverage_statement", "TEXT")
+            self._ensure_column("documents", "observed_printed_ranges_json", "TEXT")
+            self._ensure_column("documents", "missing_printed_pages_json", "TEXT")
+            self._ensure_column("documents", "coverage_accepted_for_product", "INTEGER")
+            self._ensure_column("documents", "coverage_accepted_at", "TEXT")
+            self._ensure_column("chunks", "entry_title", "TEXT")
+            self._ensure_column("chunks", "chunk_order", "INTEGER")
+            self._ensure_column("index_state", "vector_index_backend", "TEXT")
+            self._ensure_column("index_state", "vector_index_bit_width", "INTEGER")
+            self._ensure_column("index_state", "authority_sha256", "TEXT")
+            self._ensure_column("index_state", "artifact_sha256", "TEXT")
+            self._execute_migration_statement(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_chunks_document_order ON chunks(document_id, chunk_order) WHERE chunk_order IS NOT NULL"
+            )
+            self._execute_migration_statement(
+                "CREATE TABLE IF NOT EXISTS source_pages (\n                page_id TEXT PRIMARY KEY,\n                document_id TEXT NOT NULL,\n                logical_page_number INTEGER NOT NULL,\n                source_pdf_page_number INTEGER NOT NULL,\n                leaf_side TEXT NOT NULL,\n                continuity_break_before INTEGER NOT NULL,\n                crop_box_json TEXT NOT NULL,\n                printed_page_label TEXT,\n                width_px INTEGER NOT NULL,\n                height_px INTEGER NOT NULL,\n                render_dpi INTEGER NOT NULL,\n                rasterization_policy TEXT NOT NULL,\n                rotation_degrees INTEGER NOT NULL,\n                image_sha256 TEXT NOT NULL,\n                content_class TEXT NOT NULL,\n                foreground_ratio REAL NOT NULL,\n                text_source TEXT NOT NULL,\n                ocr_engine TEXT NOT NULL,\n                ocr_engine_version TEXT NOT NULL,\n                ocr_detection_model TEXT NOT NULL,\n                ocr_recognition_model TEXT NOT NULL,\n                mean_confidence REAL NOT NULL,\n                low_confidence_ratio REAL NOT NULL,\n                quality_score REAL NOT NULL,\n                quality_flags_json TEXT NOT NULL,\n                original_text TEXT NOT NULL,\n                processing_fingerprint TEXT NOT NULL,\n                UNIQUE(document_id, logical_page_number),\n                FOREIGN KEY(document_id) REFERENCES documents(document_id)\n            )"
+            )
+            self._execute_migration_statement(
+                "CREATE TABLE IF NOT EXISTS source_lines (\n                line_id TEXT PRIMARY KEY,\n                page_id TEXT NOT NULL,\n                line_order INTEGER NOT NULL,\n                original_text TEXT NOT NULL,\n                confidence REAL NOT NULL,\n                x0 REAL NOT NULL,\n                y0 REAL NOT NULL,\n                x1 REAL NOT NULL,\n                y1 REAL NOT NULL,\n                orientation_degrees INTEGER,\n                role TEXT NOT NULL,\n                UNIQUE(page_id, line_order),\n                FOREIGN KEY(page_id) REFERENCES source_pages(page_id)\n            )"
+            )
+            self._execute_migration_statement(
+                "CREATE TABLE IF NOT EXISTS chunk_lines (\n                chunk_id TEXT NOT NULL,\n                line_id TEXT NOT NULL,\n                chunk_line_order INTEGER NOT NULL,\n                PRIMARY KEY(chunk_id, line_id),\n                UNIQUE(chunk_id, chunk_line_order),\n                FOREIGN KEY(chunk_id) REFERENCES chunks(chunk_id),\n                FOREIGN KEY(line_id) REFERENCES source_lines(line_id)\n            )"
+            )
+            self._execute_migration_statement(
+                "CREATE TABLE IF NOT EXISTS index_sync_journal (\n                id INTEGER PRIMARY KEY CHECK (id = 1),\n                operation TEXT NOT NULL CHECK (operation IN ('publish', 'http_ingest', 'repair')),\n                target_generation INTEGER NOT NULL,\n                target_index_version TEXT NOT NULL,\n                target_corpus_index_version TEXT NOT NULL,\n                target_authority_sha256 TEXT NOT NULL,\n                embedding_model TEXT NOT NULL,\n                embedding_dimension INTEGER NOT NULL,\n                reranker_model TEXT NOT NULL,\n                vector_index_backend TEXT NOT NULL,\n                vector_index_bit_width INTEGER NOT NULL,\n                chunking_policy_version TEXT NOT NULL,\n                source_registry_version TEXT NOT NULL,\n                document_count INTEGER NOT NULL,\n                chunk_count INTEGER NOT NULL,\n                created_at TEXT NOT NULL\n            )"
+            )
+            self._conn.execute("COMMIT")
+        except Exception:
+            self._conn.rollback()
+            raise
+
+    def _execute_migration_statement(self, sql: str) -> None:
+        self._conn.execute(sql)
+
+    def _ensure_column(self, table: str, column: str, declaration: str) -> None:
+        rows = self._conn.execute(f"PRAGMA table_info({table})").fetchall()
+        existing = {row[1] for row in rows}
+        if column not in existing:
+            self._execute_migration_statement(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
 
     def close(self) -> None:
         self._conn.close()

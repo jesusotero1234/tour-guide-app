@@ -2578,7 +2578,10 @@ Validación:
 
 ### QW-04 — Migración SQLite v1 → v2 y hash legado
 
-- [ ] Pendiente.
+- [x] Completado: migración aditiva y transaccional de SQLite v1 a v2,
+  conservación de datos y hashes v1, esquema fresco idempotente, constraints
+  de procedencia/journal y rollback integral ante fallo. Pasan 5 pruebas
+  focalizadas y 27 de regresión de API/runtime.
 - Depende de: QW-03B.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_registry_migration.py`
