@@ -2670,7 +2670,13 @@ Validación:
 
 ### QW-05B — Autoridad SQLite y journal del índice
 
-- [ ] Pendiente.
+- [x] Completado: autoridad binaria exacta y validada, target tipado, journal
+  transaccional para ambas inserciones, reparación/finalización reanudable con
+  generación estable y estado vacío estricto. Pasan 19 pruebas focalizadas y
+  181 de regresión adicional del pod.
+- Nota de secuencia: la retirada del caller legado de `mark_index_state` queda
+  cerrada por QW-06C, junto con `replace_all`; retirarlo antes dejaría el
+  servicio sin una ruta válida de reconciliación entre QW-05B y QW-06C.
 - Depende de: QW-05A.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_index_sync_journal.py`

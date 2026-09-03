@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 import sqlite3
+import struct
+from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Sequence
+from contextlib import contextmanager
+from typing import Any, Iterator, Sequence
 
 from historical_corpus.identity import compute_chunk_id as _compute_chunk_id
 from historical_corpus.ingest_models import PreparedDocument
@@ -26,6 +30,65 @@ _CHUNKING_POLICY_VERSION = "1"
 _SOURCE_REGISTRY_VERSION = "2"
 
 _FTS_TOKEN_RE = re.compile(r"[^\w]+", re.UNICODE)
+
+
+@dataclass(frozen=True, slots=True)
+class IndexTargetConfig:
+    embedding_model: str
+    embedding_dimension: int
+    reranker_model: str
+    vector_index_backend: str = "turbovec"
+    vector_index_bit_width: int = 4
+    chunking_policy_version: str = _CHUNKING_POLICY_VERSION
+    source_registry_version: str = _SOURCE_REGISTRY_VERSION
+
+    def __post_init__(self) -> None:
+        for field_name, value in (
+            ("embedding_model", self.embedding_model),
+            ("reranker_model", self.reranker_model),
+            ("chunking_policy_version", self.chunking_policy_version),
+            ("source_registry_version", self.source_registry_version),
+        ):
+            if not value:
+                raise ValueError(f"{field_name} must not be empty")
+        if self.embedding_dimension <= 0:
+            raise ValueError("embedding_dimension must be positive")
+        if self.vector_index_backend != "turbovec":
+            raise ValueError("vector_index_backend must be 'turbovec'")
+        if self.vector_index_bit_width not in (2, 3, 4):
+            raise ValueError("vector_index_bit_width must be 2, 3, or 4")
+
+
+@dataclass(frozen=True, slots=True)
+class IndexAuthority:
+    vector_ids: tuple[int, ...]
+    vector_blobs: tuple[bytes, ...]
+    authority_sha256: str
+    document_count: int
+    chunk_count: int
+
+
+@dataclass(frozen=True, slots=True)
+class IndexSyncJournal:
+    operation: str
+    target_generation: int
+    target_index_version: str
+    target_corpus_index_version: str
+    target_authority_sha256: str
+    embedding_model: str
+    embedding_dimension: int
+    reranker_model: str
+    vector_index_backend: str
+    vector_index_bit_width: int
+    chunking_policy_version: str
+    source_registry_version: str
+    document_count: int
+    chunk_count: int
+    created_at: str
+
+    def __post_init__(self) -> None:
+        if self.operation not in ("publish", "http_ingest", "repair"):
+            raise ValueError("operation must be publish, http_ingest, or repair")
 
 
 def _compute_text_hash(original_text: str) -> str:
@@ -92,6 +155,20 @@ class CorpusRegistry:
         self._conn.execute("PRAGMA busy_timeout = 5000")
         self._conn.row_factory = sqlite3.Row
         self._init_schema()
+
+    @contextmanager
+    def _write_transaction(self, immediate: bool) -> Iterator[None]:
+        if not immediate:
+            with self._conn:
+                yield
+            return
+        self._conn.execute("BEGIN IMMEDIATE")
+        try:
+            yield
+            self._conn.commit()
+        except Exception:
+            self._conn.rollback()
+            raise
 
     def _init_schema(self) -> None:
         statements = [
@@ -266,11 +343,15 @@ class CorpusRegistry:
         self,
         request: IngestRequest,
         embeddings: dict[str, bytes],
+        *,
+        target: IndexTargetConfig | None = None,
     ) -> list[str]:
         request_hash = _compute_request_hash(request)
         now = datetime.now(timezone.utc).isoformat()
         chunk_ids: list[str] = []
-        with self._conn:
+        with self._write_transaction(target is not None):
+            if target is not None and self.read_index_sync_journal() is not None:
+                raise RuntimeError("index sync journal already exists")
             self._conn.execute(
                 """
                 INSERT INTO documents (
@@ -328,20 +409,27 @@ class CorpusRegistry:
                     chunk.entityQids,
                     embeddings,
                 )
-        self._update_index_state()
+            if target is not None:
+                self._insert_index_sync_journal('http_ingest', target)
+        if target is None:
+            self._update_index_state()
         return chunk_ids
 
     def atomically_insert_prepared_document(
         self,
         prepared: PreparedDocument,
         embeddings: dict[str, bytes],
+        *,
+        target: IndexTargetConfig | None = None,
     ) -> list[str]:
         metadata = prepared.metadata
         gate = prepared.publicationGate
         coverage = gate.coverage
         now = datetime.now(timezone.utc).isoformat()
         chunk_ids: list[str] = []
-        with self._conn:
+        with self._write_transaction(target is not None):
+            if target is not None and self.read_index_sync_journal() is not None:
+                raise RuntimeError("index sync journal already exists")
             self._conn.execute(
                 """
                 INSERT INTO documents (
@@ -509,7 +597,10 @@ class CorpusRegistry:
                         "INSERT INTO chunk_lines (chunk_id, line_id, chunk_line_order) VALUES (?, ?, ?)",
                         (chunk.chunkId, line_id, line_order),
                     )
-        self._update_index_state()
+            if target is not None:
+                self._insert_index_sync_journal('publish', target)
+        if target is None:
+            self._update_index_state()
         return chunk_ids
 
     def get_document(self, document_id: str) -> DocumentRecord | None:
@@ -926,13 +1017,337 @@ class CorpusRegistry:
             chunkCount=row["chunk_count"],
         )
 
+    def load_embedding_authority(self, target: IndexTargetConfig) -> IndexAuthority:
+        doc_count = self.count_documents()
+        chunk_count = self.count_chunks()
+        chunk_rows = self._conn.execute(
+            "SELECT chunk_id, vector_id FROM chunks ORDER BY vector_id"
+        ).fetchall()
+        embedding_rows = self._conn.execute(
+            "SELECT chunk_id, vector_id, vector FROM embeddings ORDER BY vector_id"
+        ).fetchall()
+        if len(chunk_rows) != chunk_count:
+            raise ValueError("chunk count mismatch")
+        if len(embedding_rows) != chunk_count:
+            raise ValueError("embedding count mismatch")
+        embedding_by_id = {row["chunk_id"]: (row["vector_id"], row["vector"]) for row in embedding_rows}
+        if {row["chunk_id"] for row in chunk_rows} != set(embedding_by_id):
+            raise ValueError("embedding chunk set mismatch")
+        seen_vector_ids: set[int] = set()
+        vector_ids: list[int] = []
+        vector_blobs: list[bytes] = []
+        for row in chunk_rows:
+            chunk_id = row["chunk_id"]
+            chunk_vector_id = row["vector_id"]
+            expected_vector_id = _compute_vector_id(chunk_id)
+            if chunk_vector_id != expected_vector_id:
+                raise ValueError("chunk vector_id mismatch for chunk")
+            stored_vector_id, blob = embedding_by_id[chunk_id]
+            if stored_vector_id != expected_vector_id:
+                raise ValueError("embedding vector_id mismatch for chunk")
+            if stored_vector_id < 0 or stored_vector_id > 0x7FFFFFFFFFFFFFFF:
+                raise ValueError("vector_id outside signed SQLite nonnegative range")
+            if stored_vector_id in seen_vector_ids:
+                raise ValueError("duplicate vector_id")
+            seen_vector_ids.add(stored_vector_id)
+            if len(blob) != target.embedding_dimension * 4:
+                raise ValueError("blob byte length mismatch")
+            floats = struct.unpack(f"<{target.embedding_dimension}f", blob)
+            for f in floats:
+                if not math.isfinite(f):
+                    raise ValueError("non-finite float32 in embedding")
+            vector_ids.append(stored_vector_id)
+            vector_blobs.append(blob)
+        h = hashlib.sha256()
+        for vid, blob in zip(vector_ids, vector_blobs):
+            h.update(struct.pack(">Q", vid))
+            h.update(struct.pack(">Q", len(blob)))
+            h.update(blob)
+        authority_sha256 = "sha256:" + h.hexdigest()
+        return IndexAuthority(
+            vector_ids=tuple(vector_ids),
+            vector_blobs=tuple(vector_blobs),
+            authority_sha256=authority_sha256,
+            document_count=doc_count,
+            chunk_count=chunk_count,
+        )
+
+    def _map_journal_row(self, row: sqlite3.Row) -> IndexSyncJournal:
+        return IndexSyncJournal(
+            operation=row["operation"],
+            target_generation=row["target_generation"],
+            target_index_version=row["target_index_version"],
+            target_corpus_index_version=row["target_corpus_index_version"],
+            target_authority_sha256=row["target_authority_sha256"],
+            embedding_model=row["embedding_model"],
+            embedding_dimension=row["embedding_dimension"],
+            reranker_model=row["reranker_model"],
+            vector_index_backend=row["vector_index_backend"],
+            vector_index_bit_width=row["vector_index_bit_width"],
+            chunking_policy_version=row["chunking_policy_version"],
+            source_registry_version=row["source_registry_version"],
+            document_count=row["document_count"],
+            chunk_count=row["chunk_count"],
+            created_at=row["created_at"],
+        )
+
+    def read_index_sync_journal(self) -> IndexSyncJournal | None:
+        row = self._conn.execute("SELECT * FROM index_sync_journal WHERE id = 1").fetchone()
+        if row is None:
+            return None
+        return self._map_journal_row(row)
+
+    def create_repair_journal(self, target: IndexTargetConfig) -> IndexSyncJournal:
+        with self._write_transaction(True):
+            if self.read_index_sync_journal() is not None:
+                raise RuntimeError("journal already exists")
+            return self._insert_index_sync_journal('repair', target)
+
+    def finalize_index_sync(self, journal: IndexSyncJournal, artifact_sha256: str) -> IndexVersion:
+        if not re.fullmatch(r"sha256:[0-9a-f]{64}", artifact_sha256):
+            raise ValueError("invalid artifact_sha256")
+        target = IndexTargetConfig(
+            embedding_model=journal.embedding_model,
+            embedding_dimension=journal.embedding_dimension,
+            reranker_model=journal.reranker_model,
+            vector_index_backend=journal.vector_index_backend,
+            vector_index_bit_width=journal.vector_index_bit_width,
+            chunking_policy_version=journal.chunking_policy_version,
+            source_registry_version=journal.source_registry_version,
+        )
+        with self._write_transaction(True):
+            stored = self.read_index_sync_journal()
+            if stored is None or stored != journal:
+                raise ValueError("journal mismatch")
+            authority = self.load_embedding_authority(target)
+            corpus_index_version = self._compute_corpus_index_version()
+            index_version = self._compute_index_version(target, corpus_index_version)
+            if (
+                authority.authority_sha256 != journal.target_authority_sha256
+                or corpus_index_version != journal.target_corpus_index_version
+                or index_version != journal.target_index_version
+                or authority.document_count != journal.document_count
+                or authority.chunk_count != journal.chunk_count
+                or target.embedding_model != journal.embedding_model
+                or target.embedding_dimension != journal.embedding_dimension
+                or target.reranker_model != journal.reranker_model
+                or target.vector_index_backend != journal.vector_index_backend
+                or target.vector_index_bit_width != journal.vector_index_bit_width
+                or target.chunking_policy_version != journal.chunking_policy_version
+                or target.source_registry_version != journal.source_registry_version
+            ):
+                raise ValueError("target mismatch")
+            now = datetime.now(timezone.utc).isoformat()
+            self._conn.execute(
+                """
+                INSERT INTO index_state (
+                    id, generation, index_version, corpus_index_version,
+                    embedding_model, embedding_dimension, reranker_model,
+                    chunking_policy_version, source_registry_version,
+                    document_count, chunk_count, updated_at,
+                    vector_index_backend, vector_index_bit_width,
+                    authority_sha256, artifact_sha256
+                ) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    generation = excluded.generation,
+                    index_version = excluded.index_version,
+                    corpus_index_version = excluded.corpus_index_version,
+                    embedding_model = excluded.embedding_model,
+                    embedding_dimension = excluded.embedding_dimension,
+                    reranker_model = excluded.reranker_model,
+                    chunking_policy_version = excluded.chunking_policy_version,
+                    source_registry_version = excluded.source_registry_version,
+                    document_count = excluded.document_count,
+                    chunk_count = excluded.chunk_count,
+                    updated_at = excluded.updated_at,
+                    vector_index_backend = excluded.vector_index_backend,
+                    vector_index_bit_width = excluded.vector_index_bit_width,
+                    authority_sha256 = excluded.authority_sha256,
+                    artifact_sha256 = excluded.artifact_sha256
+                """,
+                (
+                    journal.target_generation,
+                    index_version,
+                    corpus_index_version,
+                    journal.embedding_model,
+                    journal.embedding_dimension,
+                    journal.reranker_model,
+                    journal.chunking_policy_version,
+                    journal.source_registry_version,
+                    authority.document_count,
+                    authority.chunk_count,
+                    now,
+                    journal.vector_index_backend,
+                    journal.vector_index_bit_width,
+                    authority.authority_sha256,
+                    artifact_sha256,
+                ),
+            )
+            self._conn.execute("DELETE FROM index_sync_journal WHERE id = 1")
+        result = self.read_index_state()
+        if result is None:
+            raise ValueError("index_state not found after finalize")
+        return result
+
+    def ensure_empty_index_state(self, target: IndexTargetConfig, artifact_sha256: str) -> IndexVersion:
+        if not re.fullmatch(r"sha256:[0-9a-f]{64}", artifact_sha256):
+            raise ValueError("invalid artifact_sha256")
+        with self._write_transaction(True):
+            if self.read_index_sync_journal() is not None:
+                raise ValueError("journal exists")
+            row_counts = self._conn.execute(
+                """
+                SELECT
+                    (SELECT COUNT(*) FROM documents) AS document_count,
+                    (SELECT COUNT(*) FROM chunks) AS chunk_count,
+                    (SELECT COUNT(*) FROM embeddings) AS embedding_count
+                """
+            ).fetchone()
+            if any(row_counts[name] != 0 for name in ("document_count", "chunk_count", "embedding_count")):
+                raise ValueError("non-empty corpus")
+            corpus_index_version = self._compute_corpus_index_version()
+            index_version = self._compute_index_version(target, corpus_index_version)
+            empty_authority = "sha256:" + hashlib.sha256(b"").hexdigest()
+            existing_row = self._conn.execute("SELECT * FROM index_state WHERE id = 1").fetchone()
+            if existing_row is not None:
+                expected = {
+                    "generation": 0,
+                    "index_version": index_version,
+                    "corpus_index_version": corpus_index_version,
+                    "embedding_model": target.embedding_model,
+                    "embedding_dimension": target.embedding_dimension,
+                    "reranker_model": target.reranker_model,
+                    "chunking_policy_version": target.chunking_policy_version,
+                    "source_registry_version": target.source_registry_version,
+                    "document_count": 0,
+                    "chunk_count": 0,
+                    "vector_index_backend": target.vector_index_backend,
+                    "vector_index_bit_width": target.vector_index_bit_width,
+                    "authority_sha256": empty_authority,
+                    "artifact_sha256": artifact_sha256,
+                }
+                if any(existing_row[name] != value for name, value in expected.items()):
+                    raise ValueError("incompatible existing state")
+                existing = self.read_index_state()
+                if existing is None:
+                    raise ValueError("index_state not found")
+                return existing
+            now = datetime.now(timezone.utc).isoformat()
+            self._conn.execute(
+                """
+                INSERT INTO index_state (
+                    id, generation, index_version, corpus_index_version,
+                    embedding_model, embedding_dimension, reranker_model,
+                    chunking_policy_version, source_registry_version,
+                    document_count, chunk_count, updated_at,
+                    vector_index_backend, vector_index_bit_width,
+                    authority_sha256, artifact_sha256
+                ) VALUES (1, 0, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?)
+                """,
+                (
+                    index_version,
+                    corpus_index_version,
+                    target.embedding_model,
+                    target.embedding_dimension,
+                    target.reranker_model,
+                    target.chunking_policy_version,
+                    target.source_registry_version,
+                    now,
+                    target.vector_index_backend,
+                    target.vector_index_bit_width,
+                    empty_authority,
+                    artifact_sha256,
+                ),
+            )
+        result = self.read_index_state()
+        if result is None:
+            raise ValueError("index_state not found after initialization")
+        return result
+
+    def _insert_index_sync_journal(self, operation: str, target: IndexTargetConfig) -> IndexSyncJournal:
+        if operation not in ("publish", "http_ingest", "repair"):
+            raise ValueError("operation must be publish, http_ingest, or repair")
+        authority = self.load_embedding_authority(target)
+        state = self.read_index_state()
+        generation = (state.generation if state is not None else 0) + 1
+        corpus_index_version = self._compute_corpus_index_version()
+        index_version = self._compute_index_version(target, corpus_index_version)
+        now = datetime.now(timezone.utc).isoformat()
+        self._conn.execute(
+            """
+            INSERT INTO index_sync_journal (
+                id, operation, target_generation, target_index_version,
+                target_corpus_index_version, target_authority_sha256,
+                embedding_model, embedding_dimension, reranker_model,
+                vector_index_backend, vector_index_bit_width,
+                chunking_policy_version, source_registry_version,
+                document_count, chunk_count, created_at
+            ) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                operation,
+                generation,
+                index_version,
+                corpus_index_version,
+                authority.authority_sha256,
+                target.embedding_model,
+                target.embedding_dimension,
+                target.reranker_model,
+                target.vector_index_backend,
+                target.vector_index_bit_width,
+                target.chunking_policy_version,
+                target.source_registry_version,
+                authority.document_count,
+                authority.chunk_count,
+                now,
+            ),
+        )
+        return IndexSyncJournal(
+            operation=operation,
+            target_generation=generation,
+            target_index_version=index_version,
+            target_corpus_index_version=corpus_index_version,
+            target_authority_sha256=authority.authority_sha256,
+            embedding_model=target.embedding_model,
+            embedding_dimension=target.embedding_dimension,
+            reranker_model=target.reranker_model,
+            vector_index_backend=target.vector_index_backend,
+            vector_index_bit_width=target.vector_index_bit_width,
+            chunking_policy_version=target.chunking_policy_version,
+            source_registry_version=target.source_registry_version,
+            document_count=authority.document_count,
+            chunk_count=authority.chunk_count,
+            created_at=now,
+        )
+
     def _compute_corpus_index_version(self) -> str:
         rows = self._conn.execute(
-            "SELECT document_id, content_hash FROM documents ORDER BY document_id"
+            "SELECT document_id, content_hash, request_hash FROM documents ORDER BY document_id"
         ).fetchall()
-        pairs = [f"{row['document_id']}|{row['content_hash']}" for row in rows]
-        payload = "\n".join(pairs)
+        entries = [
+            {
+                "documentId": row["document_id"],
+                "contentHash": row["content_hash"],
+                "requestHash": row["request_hash"],
+            }
+            for row in rows
+        ]
+        payload = json.dumps(entries, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+    def _compute_index_version(self, target: IndexTargetConfig, corpus_index_version: str) -> str:
+        payload = {
+            "corpusIndexVersion": corpus_index_version,
+            "embeddingModel": target.embedding_model,
+            "embeddingDimension": target.embedding_dimension,
+            "rerankerModel": target.reranker_model,
+            "vectorIndexBackend": target.vector_index_backend,
+            "vectorIndexBitWidth": target.vector_index_bit_width,
+            "chunkingPolicyVersion": target.chunking_policy_version,
+            "sourceRegistryVersion": target.source_registry_version,
+        }
+        canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        return "sha256:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
     def mark_index_state(
         self,
