@@ -10,6 +10,7 @@ import {
   NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8,
   buildCuratorPacketV8,
   curatorRoleGuidanceV8,
+  meetsNarrativeRichnessTargetV8,
   researchNarrativeStopV8,
 } from './NarrativeResearchV8';
 import { NarrativeCapturedSourceV8, NarrativeDiscoveryResultV7 } from './NarrativeSourcesV7';
@@ -181,6 +182,50 @@ const BASE_INPUT = {
 };
 
 describe('researchNarrativeStopV8', () => {
+  it('meetsNarrativeRichnessTargetV8 enforces proposition and visual anchor thresholds', () => {
+    const target = {
+      stopId: 'Q1',
+      targetSeconds: 300,
+      targetWords: 700,
+      minPropositions: 7,
+      maxPropositions: 11,
+      minVisualAnchors: 2,
+    };
+
+    const fiveRoles: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+      'distinctive_trait',
+    ];
+    expect(meetsNarrativeRichnessTargetV8(fiveRoles, target)).toBe(false);
+
+    const sevenRolesOneVisual: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+      'chronology_or_transformation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+    ];
+    expect(meetsNarrativeRichnessTargetV8(sevenRolesOneVisual, target)).toBe(false);
+
+    const sevenRolesTwoVisual: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+      'distinctive_trait',
+      'visible_observation',
+      'chronology_or_transformation',
+    ];
+    expect(meetsNarrativeRichnessTargetV8(sevenRolesTwoVisual, target)).toBe(true);
+
+    expect(meetsNarrativeRichnessTargetV8(fiveRoles, undefined)).toBe(true);
+  });
+
   it('shares role semantics with repair curation and adaptive query planning', () => {
     const repairGuidance = curatorRoleGuidanceV8(['tension_or_contrast']).join(' ');
     expect(repairGuidance).toContain('destrucción/reconstrucción');
@@ -609,6 +654,65 @@ describe('researchNarrativeStopV8', () => {
     expect(packet.spans.length).toBeLessThanOrEqual(maxSpans);
     const totalChars = packet.spans.reduce((sum, span) => sum + span.text.length, 0);
     expect(totalChars).toBeLessThanOrEqual(NARRATIVE_RESEARCH_BUDGET_V8.packetMaxCharacters);
+  });
+
+  it('selects spans from first, middle, and final thirds when adaptive narration target is rich', () => {
+    const paragraphs = Array.from({ length: 75 }, (_, index) =>
+      `La Alcazaba de Málaga conserva la torre ${index} y el lienzo de la muralla principal. ` +
+      `El recinto amurallado muestra la transformación histórica del siglo XI y la función de residencia de los gobernadores. ` +
+      `El sistema de doble muralla constituye un rasgo distintivo del monumento en Málaga.`
+    ).join('\n\n');
+    const wiki = wikipediaSource('es-wiki', paragraphs);
+    const wikiSpans = segmentCaptureIntoSpansV7(wiki).spans;
+    const narrationTarget = {
+      stopId: 'Q1',
+      targetSeconds: 360,
+      targetWords: 840,
+      minPropositions: 10,
+      maxPropositions: 14,
+      minVisualAnchors: 3,
+    };
+    const packet = buildCuratorPacketV8({
+      stopId: 'Q1',
+      stopName: 'Alcazaba',
+      language: 'es',
+      captures: [wiki],
+      spansBySource: new Map([[wiki.sourceId, wikiSpans]]),
+      aliases: [],
+      narrationTarget,
+    });
+
+    expect(packet.narrationTarget).toEqual(narrationTarget);
+    expect(packet.spans.length).toBeGreaterThan(40);
+    expect(packet.spans.length).toBeLessThanOrEqual(56);
+
+    const totalSpans = wikiSpans.length;
+    const firstThird = new Set(wikiSpans.slice(0, Math.ceil(totalSpans / 3)).map((span) => span.evidenceSpanId));
+    const middleThird = new Set(wikiSpans.slice(Math.ceil(totalSpans / 3), Math.ceil((2 * totalSpans) / 3)).map((span) => span.evidenceSpanId));
+    const finalThird = new Set(wikiSpans.slice(Math.ceil((2 * totalSpans) / 3)).map((span) => span.evidenceSpanId));
+    const selectedIds = new Set(packet.spans.map((span) => span.evidenceSpanId));
+    expect([...selectedIds].some((id) => firstThird.has(id))).toBe(true);
+    expect([...selectedIds].some((id) => middleThird.has(id))).toBe(true);
+    expect([...selectedIds].some((id) => finalThird.has(id))).toBe(true);
+  });
+
+  it('filters unresolved template expressions from curator packet spans', () => {
+    const wiki = wikipediaSource('es-wiki', [
+      'La Alcazaba de Málaga conserva una torre visible junto a la muralla principal.',
+      'Este párrafo es deliberadamente largo para superar el umbral de longitud y contiene la expresión de plantilla sin resolver ${page.title} dentro del texto capturado de Wikipedia.',
+    ].join('\n\n'));
+    const wikiSpans = segmentCaptureIntoSpansV7(wiki).spans;
+    const packet = buildCuratorPacketV8({
+      stopId: 'Q1',
+      stopName: 'Alcazaba de Málaga',
+      language: 'es',
+      captures: [wiki],
+      spansBySource: new Map([[wiki.sourceId, wikiSpans]]),
+      aliases: [],
+    });
+
+    expect(packet.spans.some((span) => span.text.includes('La Alcazaba de Málaga conserva una torre visible'))).toBe(true);
+    expect(packet.spans.every((span) => !span.text.includes('${'))).toBe(true);
   });
 
   it('ranks equally relevant primary-authority spans ahead of established-source spans', () => {

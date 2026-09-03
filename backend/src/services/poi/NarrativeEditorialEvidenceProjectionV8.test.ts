@@ -152,6 +152,48 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(complete.dossier.sufficiency.isSufficient).toBe(false);
   });
 
+  test('projects an explicit immersive narration target into the write request', () => {
+    const narrationFixture = fixture('malaga-history-stop-05', 'Q3849449', COMPLETE_ROLES);
+    expect(narrationFixture.tier).toBe('C');
+    const narrationAdmitted = admit(narrationFixture);
+    const narrationManifest = manifestFor([narrationAdmitted]);
+    const narrationTarget = {
+      stopId: narrationFixture.routeStopId,
+      targetSeconds: 360,
+      targetWords: 840,
+      minPropositions: 10,
+      maxPropositions: 14,
+      minVisualAnchors: 3,
+    };
+    const narrationTargets = new Map([[narrationFixture.routeStopId, narrationTarget]]);
+    const projector = createNarrativeEditorialRequestProjectorV8(
+      [narrationAdmitted],
+      narrationManifest,
+      arcFor([narrationAdmitted]),
+      narrationTargets
+    );
+
+    const projected = projector({
+      operation: 'write',
+      systemPrompt: 'writer-prefix',
+      input: {
+        stopId: narrationFixture.routeStopId,
+        dossier: narrationFixture.dossier,
+        neighboringStops: [],
+      },
+    });
+
+    const input = projected.input as Record<string, unknown>;
+    expect(input.narrationTarget).toEqual(narrationTarget);
+    expect(projected.systemPrompt).toContain('840 palabras');
+    expect(projected.systemPrompt).toContain('360 segundos');
+    expect(projected.systemPrompt).toContain('orientación visible');
+    expect(projected.systemPrompt).toContain('cambio temporal');
+    expect(projected.systemPrompt).toContain('vida humana');
+    expect(projected.systemPrompt).toContain('contraste/significado');
+    expect(projected.systemPrompt).toContain('transición');
+  });
+
   test('carries partial C restrictions into per-stop and tour requests', () => {
     const partialFixture = fixture('malaga-history-stop-04', 'Q3849448', PARTIAL_ROLES);
     expect(partialFixture.tier).toBe('C');

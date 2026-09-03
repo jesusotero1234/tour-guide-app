@@ -8,6 +8,7 @@ import {
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
+import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -189,7 +190,8 @@ function projectPerStopInput(
   stop: NarrativeAdmittedStopV8,
   arc: NarrativeArcV8,
   arcStop: NarrativeArcV8['stops'][number],
-  authorizedEvidence: AuthorizedEvidenceByStopV8
+  authorizedEvidence: AuthorizedEvidenceByStopV8,
+  narrationTarget: NarrativeNarrationTargetV8 | undefined
 ): JsonRecord {
   const suppliedDossier = record(input.dossier, `${operation} dossier`) as unknown as NarrativeDossierV6;
   if (
@@ -219,6 +221,7 @@ function projectPerStopInput(
       bridgePropositionIds: arcStop.bridgePropositionIds,
     },
     authorizedEvidence,
+    ...(narrationTarget ? { narrationTarget } : {}),
   };
 }
 
@@ -254,13 +257,27 @@ function projectTourInput(
   return projected;
 }
 
-const V8_PROMPT_SUFFIX_WRITER = [
-  'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
-  'Usa únicamente las proposiciones del dossier proyectado y de authorizedEvidence; las de bridge pueden pertenecer a la siguiente parada.',
-  'En nivel B no presentes la evidencia como corroborada por varios publishers.',
-  'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
-  'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
-].join(' ');
+function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefined): string {
+  const base = [
+    'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
+    'Usa únicamente las proposiciones del dossier proyectado y de authorizedEvidence; las de bridge pueden pertenecer a la siguiente parada.',
+    'En nivel B no presentes la evidencia como corroborada por varios publishers.',
+    'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
+    'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
+  ];
+
+  if (narrationTarget) {
+    base.push(
+      `Redacta aproximadamente ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos, con una tolerancia máxima del 10%; este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
+    );
+  }
+
+  base.push(
+    'Construye una secuencia inmersiva respaldada por evidencia: orientación visible, cambio temporal, vida humana, contraste/significado y transición. Si la evidencia no permite uno de esos momentos, omítelo en vez de inventarlo.'
+  );
+
+  return base.join(' ');
+}
 
 const V8_PROMPT_SUFFIX_REPAIR = [
   'Cada replacement.text debe contener una frase completa y no vacía.',
@@ -281,7 +298,8 @@ const V8_PROMPT_SUFFIX_AUDITOR = [
 export function createNarrativeEditorialRequestProjectorV8(
   admittedStops: NarrativeAdmittedStopV8[],
   manifest: NarrativeEvidenceManifestV8,
-  arc: NarrativeArcV8
+  arc: NarrativeArcV8,
+  narrationTargetsByStopId?: ReadonlyMap<string, NarrativeNarrationTargetV8>
 ): NarrativeEditorialRequestProjectorV6 {
   assertManifestMatchesAdmittedStops(admittedStops, manifest);
 
@@ -323,13 +341,15 @@ export function createNarrativeEditorialRequestProjectorV8(
     const stopIndex = admittedStops.findIndex((s) => s.routeStopId === routeStopId);
     const arcStop = arc.stops[stopIndex];
     const authorizedEvidence = authorizedEvidenceByStop[stopIndex];
+    const narrationTarget = narrationTargetsByStopId?.get(routeStopId);
+    const writerSuffix = buildWriterSuffix(narrationTarget);
     const promptSuffix = operation === 'repair'
-      ? `${V8_PROMPT_SUFFIX_WRITER} ${V8_PROMPT_SUFFIX_REPAIR}`
+      ? `${writerSuffix} ${V8_PROMPT_SUFFIX_REPAIR}`
       : operation === 'write'
-        ? V8_PROMPT_SUFFIX_WRITER
+        ? writerSuffix
         : V8_PROMPT_SUFFIX_AUDITOR;
 
-    const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence);
+    const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence, narrationTarget);
     if (operation === 'audit' || operation === 'adjudicate') {
       projectedInput.reviewEvidence = {
         current: {

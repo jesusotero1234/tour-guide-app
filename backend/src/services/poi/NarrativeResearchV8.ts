@@ -25,6 +25,7 @@ import {
 } from './NarrativeSpansV7';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { normalizeNarrativeIdentityTextV8 } from './NarrativeAuthoritiesV7';
+import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
 
 export type NarrativeWebCaptureRequestClassV8 = 'place_exact' | 'discovered_secondary';
 
@@ -55,6 +56,7 @@ export interface NarrativeResearchStopInputV8 {
   countryCode: string;
   language: string;
   required: boolean;
+  narrationTarget?: NarrativeNarrationTargetV8;
 }
 
 export interface NarrativeCuratorPacketV8 {
@@ -65,6 +67,7 @@ export interface NarrativeCuratorPacketV8 {
   publishers: string[];
   excludedSpanCount: number;
   priorityRoles: NarrativeRoleV8[];
+  narrationTarget: NarrativeNarrationTargetV8;
 }
 
 export const NARRATIVE_ROLE_DEFINITIONS_V8 = [
@@ -77,6 +80,13 @@ export const NARRATIVE_ROLE_DEFINITIONS_V8 = [
   'asedio/uso actual o conflicto histórico; no exige una polémica contemporánea.',
   'distinctive_trait: rasgo que diferencia esta parada de las demás.',
 ] as const;
+
+export function meetsNarrativeRichnessTargetV8(roles: NarrativeRoleV8[], target: NarrativeNarrationTargetV8 | undefined): boolean {
+  if (target === undefined) return true;
+  if (roles.length < target.minPropositions) return false;
+  const visualCount = roles.filter((role) => role === 'visible_observation' || role === 'distinctive_trait').length;
+  return visualCount >= target.minVisualAnchors;
+}
 
 export function curatorRoleGuidanceV8(priorityRoles: NarrativeRoleV8[]): string[] {
   return [
@@ -372,19 +382,37 @@ export function buildCuratorPacketV8(input: {
   spansBySource: Map<string, NarrativeEvidenceSpanV7[]>;
   aliases: string[];
   priorityRoles?: NarrativeRoleV8[];
+  narrationTarget?: NarrativeNarrationTargetV8;
 }): NarrativeCuratorPacketV8 {
   const budget = NARRATIVE_RESEARCH_BUDGET_V8;
+  const defaultTarget: NarrativeNarrationTargetV8 = {
+    stopId: input.stopId,
+    targetSeconds: 180,
+    targetWords: 420,
+    minPropositions: 6,
+    maxPropositions: 10,
+    minVisualAnchors: 2,
+  };
+  const target = input.narrationTarget ?? defaultTarget;
+  const dynamicMaxSpans = Math.min(64, Math.max(budget.packetMaxSpans, target.maxPropositions * 4));
+  const dynamicMaxCharacters = Math.min(45000, Math.max(budget.packetMaxCharacters, target.targetWords * 50));
   const nameTerms = [input.stopName, ...input.aliases].map(normalizeNarrativeIdentityTextV8);
   const candidates: Array<{
     span: NarrativeEvidenceSpanV7;
     source: NarrativeCapturedSourceV8;
     score: number;
+    positionBand: 0 | 1 | 2;
   }> = [];
   let filteredSpanCount = 0;
   for (const capture of input.captures) {
     const spans = input.spansBySource.get(capture.sourceId) ?? [];
+    const totalSpans = spans.length;
     spans.forEach((span, index) => {
       if (!usefulCuratorPacketProseV8(span.text)) {
+        filteredSpanCount += 1;
+        return;
+      }
+      if (/\$\{[^}]*\}/u.test(span.text)) {
         filteredSpanCount += 1;
         return;
       }
@@ -392,10 +420,12 @@ export function buildCuratorPacketV8(input: {
       const nameScore = nameTerms.some((term) => term.length > 0 && normalized.includes(term)) ? 4 : 0;
       const authorityScore = capture.authority.tier === 'primary_authority'
         ? 3 : capture.authority.tier === 'established_source' ? 2 : 1;
+      const positionBand: 0 | 1 | 2 = totalSpans <= 1 ? 0 : index < Math.ceil(totalSpans / 3) ? 0 : index < Math.ceil((totalSpans * 2) / 3) ? 1 : 2;
       candidates.push({
         span,
         source: capture,
         score: nameScore + authorityScore + (index === 0 ? 1 : 0),
+        positionBand,
       });
     });
   }
@@ -404,16 +434,27 @@ export function buildCuratorPacketV8(input: {
     || left.source.finalUrl.localeCompare(right.source.finalUrl)
     || left.span.start - right.span.start
   ));
+  const reservedByPublisherBand = new Map<string, number>();
   const reservedByPublisher = new Map<string, number>();
   const tier = new Map<string, number>();
   for (const candidate of candidates) {
     const key = candidate.source.authority.publisherKey;
-    const reserved = reservedByPublisher.get(key) ?? 0;
-    tier.set(candidate.span.evidenceSpanId, reserved < 3 ? 0 : 1);
-    if (reserved < 3) reservedByPublisher.set(key, reserved + 1);
+    const bandKey = `${key}:${candidate.positionBand}`;
+    const bandReserved = reservedByPublisherBand.get(bandKey) ?? 0;
+    const publisherReserved = reservedByPublisher.get(key) ?? 0;
+    if (bandReserved < 1) {
+      tier.set(candidate.span.evidenceSpanId, 0);
+      reservedByPublisherBand.set(bandKey, bandReserved + 1);
+      reservedByPublisher.set(key, publisherReserved + 1);
+    } else if (publisherReserved < 3) {
+      tier.set(candidate.span.evidenceSpanId, 1);
+      reservedByPublisher.set(key, publisherReserved + 1);
+    } else {
+      tier.set(candidate.span.evidenceSpanId, 2);
+    }
   }
   candidates.sort((left, right) => (
-    (tier.get(left.span.evidenceSpanId) ?? 1) - (tier.get(right.span.evidenceSpanId) ?? 1)
+    (tier.get(left.span.evidenceSpanId) ?? 2) - (tier.get(right.span.evidenceSpanId) ?? 2)
     || right.score - left.score
     || left.source.finalUrl.localeCompare(right.source.finalUrl)
     || left.span.start - right.span.start
@@ -422,8 +463,8 @@ export function buildCuratorPacketV8(input: {
   let characters = 0;
   let excludedSpanCount = 0;
   for (const candidate of candidates) {
-    if (spans.length >= budget.packetMaxSpans) break;
-    if (characters + candidate.span.text.length > budget.packetMaxCharacters) break;
+    if (spans.length >= dynamicMaxSpans) break;
+    if (characters + candidate.span.text.length > dynamicMaxCharacters) break;
     spans.push({
       ...candidate.span,
       sourceUrl: candidate.source.finalUrl,
@@ -440,6 +481,7 @@ export function buildCuratorPacketV8(input: {
     publishers: [...new Set(input.captures.map((capture) => capture.authority.publisherKey))],
     excludedSpanCount,
     priorityRoles: input.priorityRoles ?? [],
+    narrationTarget: target,
   };
 }
 
@@ -661,11 +703,15 @@ export async function researchNarrativeStopV8(
     }
   };
 
-  const roundQuality = (round: ResearchRoundV8): [number, number, number, number] => {
+  const roundQuality = (round: ResearchRoundV8): [number, number, number, number, number, number] => {
     const tierRank: Record<NarrativeEvidenceTierV8, number> = { D: 0, C: 1, B: 2, A: 3 };
+    const roles = round.dossier.propositions.map((proposition) => proposition.role);
+    const richnessReady = meetsNarrativeRichnessTargetV8(roles, input.narrationTarget);
     return [
       round.gates.minimumEvidenceReady ? 1 : 0,
       round.gates.writerReady ? 1 : 0,
+      richnessReady ? 1 : 0,
+      roles.length,
       -round.gates.missingWriterRoles.length,
       tierRank[round.tier],
     ];
@@ -798,7 +844,10 @@ export async function researchNarrativeStopV8(
   if (captures.length >= 1) {
     const result = await curate();
     if (result.ok && (result.tier === 'A' || result.tier === 'B')) {
-      return sufficient(state.round!, result.tier);
+      const richnessReady = meetsNarrativeRichnessTargetV8(state.round!.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget);
+      if (state.round!.gates.writerReady && richnessReady) {
+        return sufficient(state.round!, result.tier);
+      }
     }
   }
 
@@ -996,8 +1045,13 @@ export async function researchNarrativeStopV8(
 
 
 
-  // Ronda adaptativa: solo si falta writerReady y queda presupuesto.
-  const needsSemanticDiscovery = state.round === null || !state.round.gates.writerReady;
+  // Ronda adaptativa: solo si falta writerReady o richness readiness y queda presupuesto.
+  const richnessReadyAfterFirst = state.round !== null
+    ? meetsNarrativeRichnessTargetV8(state.round.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget)
+    : false;
+  const needsSemanticDiscovery = state.round === null
+    || !state.round.gates.writerReady
+    || !richnessReadyAfterFirst;
   if (
     needsSemanticDiscovery
     && attemptedUrls.size < budget.captures
@@ -1100,17 +1154,24 @@ export async function researchNarrativeStopV8(
 
   // CURATE #2 también repara roles ausentes con los mismos spans validados.
   const needsRoleRepair = state.round !== null && !state.round.gates.writerReady;
+  const richnessReadyBeforeSecond = state.round !== null
+    ? meetsNarrativeRichnessTargetV8(state.round.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget)
+    : false;
   const shouldCurate2 = curationCount < 2
     && captures.length > 0
     && (
       captures.length > state.lastValidCaptureCount
       || state.round === null
       || needsRoleRepair
+      || !richnessReadyBeforeSecond
     );
   if (shouldCurate2) {
     const result = await curate();
     if (result.ok && (result.tier === 'A' || result.tier === 'B' || result.tier === 'C')) {
-      return sufficient(state.round!, result.tier);
+      const richnessReadyAfterSecond = meetsNarrativeRichnessTargetV8(state.round!.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget);
+      if (richnessReadyAfterSecond) {
+        return sufficient(state.round!, result.tier);
+      }
     }
   }
 
@@ -1122,10 +1183,20 @@ export async function researchNarrativeStopV8(
     reasons.push('curator_contract_failed: ' + state.failure);
   } else if (state.round) {
     evidenceTier = classifyEvidenceTierV8(state.round.dossier, state.round.gates, captures);
-    if (evidenceTier !== 'D') {
+    const roles = state.round.dossier.propositions.map((proposition) => proposition.role);
+    const richnessReady = meetsNarrativeRichnessTargetV8(roles, input.narrationTarget);
+    if (evidenceTier !== 'D' && richnessReady) {
       return sufficient(state.round, evidenceTier);
     }
-    reasons.push('evidence tier D: minimum evidence not ready');
+    if (evidenceTier === 'D') {
+      reasons.push('evidence tier D: minimum evidence not ready');
+    }
+    if (!richnessReady) {
+      const visualCount = roles.filter((role) => role === 'visible_observation' || role === 'distinctive_trait').length;
+      const requiredPropositions = input.narrationTarget?.minPropositions ?? 0;
+      const requiredVisual = input.narrationTarget?.minVisualAnchors ?? 0;
+      reasons.push(`narrative richness not met: current propositions ${roles.length}/${requiredPropositions}, visual anchors ${visualCount}/${requiredVisual}`);
+    }
     for (const role of (finalGates?.missingWriterRoles ?? [])) {
       reasons.push('missing writer role ' + role);
     }
@@ -1205,6 +1276,7 @@ async function curateRoundV8(
     spansBySource,
     aliases: identity.aliases,
     priorityRoles,
+    narrationTarget: input.narrationTarget,
   });
   if (packet.spans.length === 0) return { failure: 'no spans in the curator packet' };
   let output: NarrativeCuratorOutputV8;
