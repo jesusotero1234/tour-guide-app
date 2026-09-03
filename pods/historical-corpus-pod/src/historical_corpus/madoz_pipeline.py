@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -12,6 +13,8 @@ from .identity import canonical_json_bytes
 from .ingest_models import (
     CoverageMetadata,
     FingerprintPayload,
+    OcrEvaluationPageRef,
+    OcrEvaluationSample,
     PageInventoryRecord,
     PreparationReport,
     PreparedChunkInput,
@@ -31,6 +34,7 @@ from .processing_fingerprint import CanonicalPdf, build_processing_fingerprint
 from .staging import (
     load_reusable_staged_page,
     staging_paths,
+    write_evaluation_sample,
     write_preparation_report,
     write_prepared_document,
     write_source_snapshot,
@@ -49,6 +53,13 @@ class PreparationResult:
     source_path: Path
     prepared_document_path: Path
     report_path: Path
+    warnings: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class EvaluationSampleResult:
+    sample: OcrEvaluationSample
+    path: Path
     warnings: tuple[str, ...]
 
 
@@ -325,6 +336,250 @@ def _assemble_and_write(
         report_path=report_path,
         warnings=tuple(warnings),
     )
+
+
+def _assemble_sample_and_write(
+    *,
+    metadata: DocumentMetadata,
+    selected_records: Sequence[PageInventoryRecord],
+    pages: Sequence[SourcePageInput],
+    chunks: Sequence[PreparedChunkInput],
+    processing: FingerprintPayload,
+    processing_fingerprint: str,
+    canonical_pdf: CanonicalPdf,
+    data_root: str | Path,
+    created_at: datetime | None,
+    warnings: Sequence[str],
+    inventory_verified_at: datetime | str,
+) -> EvaluationSampleResult:
+    if len(selected_records) != len(pages):
+        raise PipelineError("selected_records and pages must have equal length")
+    selected_pages: list[OcrEvaluationPageRef] = []
+    for record, page in zip(selected_records, pages):
+        if (
+            record.pdfPage != page.sourcePdfPageNumber
+            or record.side != page.leafSide
+            or record.canonicalSequenceIndex != page.logicalPageNumber
+        ):
+            raise PipelineError("selected record and page do not correspond")
+        selected_pages.append(
+            OcrEvaluationPageRef(
+                pdfPage=record.pdfPage,
+                side=record.side,
+                logicalPageNumber=page.logicalPageNumber,
+            )
+        )
+    timestamp = _as_aware_datetime(
+        created_at or datetime.now(timezone.utc),
+        label="created_at",
+    )
+    inventory_verified = _as_aware_datetime(
+        inventory_verified_at,
+        label="inventory_verified_at",
+    )
+    page_hashes = [_page_artifact_hash(page) for page in pages]
+    sample = OcrEvaluationSample.model_construct(
+        schemaVersion=1,
+        sampleHash="sha256:" + "0" * 64,
+        publishable=False,
+        metadata=metadata,
+        canonicalPdfSha256=canonical_pdf.sha256,
+        pageInventorySha256=processing.selection.pageInventorySha256,
+        inventoryVerifiedAt=inventory_verified,
+        processing=processing,
+        processingFingerprint=processing_fingerprint,
+        canonicalization=processing.selection.canonicalization,
+        selectedPages=selected_pages,
+        selectedInventoryRecords=list(selected_records),
+        pages=list(pages),
+        pageArtifactHashes=page_hashes,
+        chunks=list(chunks),
+        createdAt=timestamp,
+    )
+    sample_payload = sample.model_dump(mode="json", by_alias=True, exclude_none=False)
+    hash_payload = dict(sample_payload)
+    hash_payload.pop("sampleHash")
+    hash_payload.pop("createdAt")
+    sample_hash = "sha256:" + hashlib.sha256(
+        canonical_json_bytes(hash_payload)
+    ).hexdigest()
+    sample_payload["sampleHash"] = sample_hash
+    validated_sample = OcrEvaluationSample.model_validate(sample_payload)
+    path = write_evaluation_sample(data_root, validated_sample)
+    return EvaluationSampleResult(
+        sample=validated_sample,
+        path=path,
+        warnings=tuple(warnings),
+    )
+
+
+def _ordered_sample_pages(
+    selected: Sequence[PageInventoryRecord],
+    pages_by_sequence: Mapping[int, SourcePageInput],
+) -> tuple[list[SourcePageInput], list[SourcePageInput]]:
+    ordered_pages: list[SourcePageInput] = []
+    chunk_pages: list[SourcePageInput] = []
+    previous_sequence: int | None = None
+    for record in selected:
+        sequence = record.canonicalSequenceIndex
+        if sequence is None:
+            raise PipelineError("selected record lacks canonical sequence index")
+        page = pages_by_sequence[sequence]
+        ordered_pages.append(page)
+        if previous_sequence is not None and sequence != previous_sequence + 1:
+            if isinstance(page, BaseModel):
+                page = page.model_copy(update={"continuityBreakBefore": True})
+            else:
+                page = copy.copy(page)
+                setattr(page, "continuityBreakBefore", True)
+        chunk_pages.append(page)
+        previous_sequence = sequence
+    return ordered_pages, chunk_pages
+
+
+def prepare_evaluation_sample(
+    manifest_path: str | Path,
+    refs: Sequence[tuple[int, str]],
+    *,
+    imports_root: str | Path,
+    data_root: str | Path,
+    model_cache_root: str | Path,
+    created_at: datetime | None = None,
+) -> EvaluationSampleResult:
+    if not refs:
+        raise PipelineError("refs must not be empty")
+    if len(refs) > 64:
+        raise PipelineError("refs must not exceed 64")
+    manifest = load_manifest(manifest_path)
+    split_spreads = manifest.selection.splitSpreads
+    seen: set[tuple[int, str]] = set()
+    for ref in refs:
+        if not isinstance(ref, tuple) or len(ref) != 2:
+            raise PipelineError("refs must be tuples of (page, side)")
+        page, side = ref
+        if not isinstance(page, int) or isinstance(page, bool) or not 1 <= page <= 1000:
+            raise PipelineError("ref page must be an integer in 1..1000")
+        if not split_spreads:
+            if side != "full":
+                raise PipelineError("side must be 'full'")
+        else:
+            if side not in {"left", "right"}:
+                raise PipelineError("side must be 'left' or 'right'")
+        if (page, side) in seen:
+            raise PipelineError("refs must not contain duplicates")
+        seen.add((page, side))
+
+    data_path = Path(data_root)
+    warnings: list[str] = []
+
+    with exclusive_lock(data_path / "locks" / "madoz-prepare.lock"):
+        validated = validate_manifest_source(manifest, imports_root)
+        if validated.inventory_sha256 is None:
+            raise PipelineError("verified page inventory hash is required")
+        inventory_sha256 = f"sha256:{validated.inventory_sha256}"
+        inventory_payload = validated.inventory_path.read_bytes()
+        records = load_verified_inventory(inventory_payload, manifest)
+        canonical_pdf = prepare_source(manifest, imports_root, data_path)
+        model_lock = load_model_lock(
+            model_cache_root,
+            manifest.processing.modelLockFile,
+        )
+        processing, processing_fingerprint = build_processing_fingerprint(
+            manifest,
+            canonical_pdf,
+            inventory_sha256,
+            model_lock,
+        )
+
+        records_by_ref: dict[tuple[int, str], PageInventoryRecord] = {}
+        for record in records:
+            key = (record.pdfPage, record.side)
+            if key in records_by_ref:
+                continue
+            records_by_ref[key] = record
+
+        selected: list[PageInventoryRecord] = []
+        for page, side in refs:
+            record = records_by_ref.get((page, side))
+            if record is None:
+                raise PipelineError("ref not found in inventory")
+            if record.canonicalStatus == "pending_review":
+                raise PipelineError("ref is pending")
+            if record.canonicalStatus == "exclude_duplicate":
+                raise PipelineError("ref is excluded")
+            if record.canonicalStatus != "include":
+                raise PipelineError("ref is excluded")
+            if record.canonicalSequenceIndex is None:
+                raise PipelineError("ref not found in inventory")
+            selected.append(record)
+
+        selected.sort(key=lambda record: record.canonicalSequenceIndex)
+
+        pages_by_sequence: dict[int, SourcePageInput] = {}
+        missing: list[PageInventoryRecord] = []
+        for record in selected:
+            sequence = record.canonicalSequenceIndex
+            assert sequence is not None
+            staged = load_reusable_staged_page(
+                data_path,
+                manifest.document.documentId,
+                sequence,
+                processing_fingerprint=processing_fingerprint,
+                canonical_pdf_sha256=canonical_pdf.sha256,
+                page_inventory_sha256=inventory_sha256,
+                on_corrupt=lambda message, number=sequence: warnings.append(
+                    f"logical page {number}: {message}"
+                ),
+            )
+            if staged is None:
+                missing.append(record)
+            else:
+                pages_by_sequence[sequence] = staged.page
+
+        metadata = _build_metadata(
+            manifest,
+            canonical_pdf,
+            inventory_sha256,
+            processing_fingerprint,
+        )
+
+        if missing:
+            with open_processor(manifest, canonical_pdf, model_cache_root) as processor:
+                for record in missing:
+                    sequence = record.canonicalSequenceIndex
+                    assert sequence is not None
+                    page = processor.process_page(record)
+                    staged = _make_staged_page(
+                        page,
+                        canonical_pdf_sha256=canonical_pdf.sha256,
+                        page_inventory_sha256=inventory_sha256,
+                        processing_fingerprint=processing_fingerprint,
+                    )
+                    write_staged_page(data_path, manifest.document.documentId, staged)
+                    pages_by_sequence[sequence] = page
+                ordered_pages, chunk_pages = _ordered_sample_pages(
+                    selected, pages_by_sequence
+                )
+                chunks = processor.build_chunks(metadata, chunk_pages)
+        else:
+            ordered_pages, chunk_pages = _ordered_sample_pages(
+                selected, pages_by_sequence
+            )
+            chunks = _build_chunks(manifest, metadata, chunk_pages)
+
+        return _assemble_sample_and_write(
+            metadata=metadata,
+            selected_records=selected,
+            pages=ordered_pages,
+            chunks=chunks,
+            processing=processing,
+            processing_fingerprint=processing_fingerprint,
+            canonical_pdf=canonical_pdf,
+            data_root=data_path,
+            created_at=created_at,
+            warnings=warnings,
+            inventory_verified_at=manifest.selection.inventoryVerifiedAt,
+        )
 
 
 def prepare_document(

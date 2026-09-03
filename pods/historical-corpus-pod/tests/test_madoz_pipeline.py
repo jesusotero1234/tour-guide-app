@@ -5,9 +5,11 @@ from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from historical_corpus import madoz_pipeline
 from historical_corpus.ingest_models import PreparedDocument
-from historical_corpus.staging import load_prepared_document
+from historical_corpus.staging import load_prepared_document, load_evaluation_sample
 from historical_corpus.processing_fingerprint import CanonicalPdf
 
 
@@ -43,6 +45,7 @@ def _make_manifest(tmp_path: Path) -> SimpleNamespace:
             inventoryVerifiedAt="2026-09-03T10:00:00+00:00",
             candidatePdfPageRanges=(SimpleNamespace(start=10, end=12),),
             canonicalization=SimpleNamespace(),
+            splitSpreads=False,
         ),
         processing=SimpleNamespace(modelLockFile="locks/ppocr.json"),
         coverage=SimpleNamespace(),
@@ -892,3 +895,442 @@ def test_build_metadata_and_assemble_write_match_prepared_document_fixture(
     assert doc_path.read_bytes() == first_doc_bytes
     assert source_path.read_bytes() == first_source_bytes
     assert report_path.read_bytes() == first_report_bytes
+
+
+def _make_eval_manifest_from_fixture(tmp_path: Path) -> SimpleNamespace:
+    fixture_path = Path(__file__).parent / "prepared-document.json"
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    prepared = PreparedDocument.model_validate(fixture)
+
+    return SimpleNamespace(
+        document=SimpleNamespace(
+            documentId=prepared.metadata.documentId,
+            workId=prepared.metadata.workId,
+            title=prepared.metadata.title,
+            edition=prepared.metadata.edition,
+            volumeNumber=prepared.metadata.volumeNumber,
+            author=prepared.metadata.author,
+            language=prepared.metadata.language,
+            countryCode=prepared.metadata.countryCode,
+            publicationYear=prepared.metadata.publicationYear,
+            sourceClass=prepared.metadata.sourceClass,
+            sourceUrl=prepared.metadata.sourceUrl,
+            repositoryName=prepared.metadata.repositoryName,
+            temporalScope=prepared.metadata.temporalScope,
+            attribution=prepared.metadata.attribution,
+            historicalPeriod=prepared.metadata.historicalPeriod,
+        ),
+        source=SimpleNamespace(
+            sourceUrl=prepared.metadata.sourceUrl,
+            repositoryName=prepared.metadata.repositoryName,
+            attribution=prepared.metadata.attribution,
+            isExactRecord=prepared.metadata.sourceIsExactRecord,
+            expectedSha256=prepared.metadata.canonicalPdfSha256.removeprefix("sha256:"),
+            rights=prepared.metadata.rights,
+        ),
+        coverage=SimpleNamespace(
+            status=prepared.metadata.coverageStatus,
+            statement=prepared.metadata.coverageStatement,
+            missingPrintedPages=prepared.metadata.missingPrintedPages,
+            observedPrintedRanges=prepared.metadata.observedPrintedRanges,
+            acceptedAt=prepared.metadata.coverageAcceptedAt,
+            acceptedForProduct=prepared.metadata.coverageAcceptedForProduct,
+        ),
+        selection=SimpleNamespace(
+            expectedPageInventorySha256=prepared.metadata.pageInventorySha256.removeprefix(
+                "sha256:"
+            ),
+            inventoryVerifiedAt=prepared.inventoryVerifiedAt,
+            candidatePdfPageRanges=tuple(
+                SimpleNamespace(start=r.start, end=r.end)
+                for r in prepared.processing.selection.candidatePdfPageRanges
+            ),
+            canonicalization=SimpleNamespace(
+                defaultOrder=prepared.processing.selection.canonicalization.defaultOrder,
+                defaultStatus=prepared.processing.selection.canonicalization.defaultStatus,
+                duplicateDecisions=prepared.processing.selection.canonicalization.duplicateDecisions,
+                pageOverrides=prepared.processing.selection.canonicalization.pageOverrides,
+            ),
+        ),
+        processing=SimpleNamespace(
+            maxChunkChars=prepared.processing.chunking.maxChunkChars,
+            overlapLines=prepared.processing.chunking.overlapLines,
+        ),
+        prepare_allowed=True,
+        publish_allowed=False,
+    )
+
+
+def _make_eval_records() -> list[SimpleNamespace]:
+    return [
+        _record(12, "include", 3),
+        _record(11, "exclude_nonbody", None),
+        _record(10, "include", 1),
+        _record(9, "include", 2),
+        _record(8, "pending_review", None),
+    ]
+
+
+def _patch_eval_common(
+    monkeypatch,
+    tmp_path: Path,
+    manifest: SimpleNamespace,
+    records: list[SimpleNamespace],
+    canonical_pdf: SimpleNamespace,
+    fingerprint_payload: SimpleNamespace,
+    events: list[str],
+    lock_active: list[bool],
+) -> None:
+    inventory_path = tmp_path / "inventory.jsonl"
+
+    @contextmanager
+    def fake_lock(path: Path):
+        assert path == tmp_path / "data" / "locks" / "madoz-prepare.lock"
+        events.append("lock-enter")
+        lock_active[0] = True
+        try:
+            yield
+        finally:
+            events.append("lock-exit")
+            lock_active[0] = False
+
+    def fake_validate(loaded_manifest: object, imports_root: Path) -> SimpleNamespace:
+        assert lock_active[0]
+        assert loaded_manifest is manifest
+        events.append("source-validated")
+        return SimpleNamespace(
+            inventory_path=inventory_path,
+            inventory_sha256="b" * 64,
+            pdf_sha256="a" * 64,
+        )
+
+    def fake_inventory(payload: bytes, loaded_manifest: object) -> list[SimpleNamespace]:
+        assert lock_active[0]
+        assert payload == b"inventory"
+        assert loaded_manifest is manifest
+        events.append("inventory-validated")
+        return records
+
+    def fake_prepare_source(*args: object) -> SimpleNamespace:
+        assert lock_active[0]
+        events.append("source-prepared")
+        return canonical_pdf
+
+    def fake_load_model_lock(*args: object) -> object:
+        assert lock_active[0]
+        events.append("model-lock-validated")
+        return object()
+
+    def fake_fingerprint(*args: object) -> tuple[object, str]:
+        assert lock_active[0]
+        events.append("fingerprint-built")
+        return fingerprint_payload, SHA_C
+
+    monkeypatch.setattr(madoz_pipeline, "load_manifest", lambda path: manifest)
+    monkeypatch.setattr(madoz_pipeline, "exclusive_lock", fake_lock)
+    monkeypatch.setattr(madoz_pipeline, "validate_manifest_source", fake_validate)
+    monkeypatch.setattr(madoz_pipeline, "load_verified_inventory", fake_inventory)
+    monkeypatch.setattr(madoz_pipeline, "prepare_source", fake_prepare_source)
+    monkeypatch.setattr(madoz_pipeline, "load_model_lock", fake_load_model_lock)
+    monkeypatch.setattr(madoz_pipeline, "build_processing_fingerprint", fake_fingerprint)
+    monkeypatch.setattr(madoz_pipeline, "_build_metadata", lambda *a, **kw: object())
+
+
+def test_prepare_evaluation_sample_valid_sparse_refs(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    events: list[str] = []
+    lock_active = [False]
+    manifest = _make_manifest(tmp_path)
+    records = _make_eval_records()
+    canonical_pdf = _make_canonical_pdf(tmp_path)
+    fingerprint_payload = _make_fingerprint_payload()
+    result_sentinel = object()
+
+    refs = [(12, "full"), (10, "full")]
+
+    _patch_eval_common(
+        monkeypatch,
+        tmp_path,
+        manifest,
+        records,
+        canonical_pdf,
+        fingerprint_payload,
+        events,
+        lock_active,
+    )
+
+    cached_page = SimpleNamespace(
+        logicalPageNumber=1,
+        continuityBreakBefore=False,
+    )
+
+    def fake_load_reusable(
+        *args: object,
+        **kwargs: object,
+    ) -> SimpleNamespace | None:
+        assert "page_artifact_hash" not in kwargs
+        assert kwargs["processing_fingerprint"] == SHA_C
+        if args[2] == 1:
+            return SimpleNamespace(page=cached_page)
+        return None
+
+    monkeypatch.setattr(
+        madoz_pipeline,
+        "load_reusable_staged_page",
+        fake_load_reusable,
+    )
+
+    def fake_make_staged_page(
+        page: object,
+        *,
+        canonical_pdf_sha256: str,
+        page_inventory_sha256: str,
+        processing_fingerprint: str,
+    ) -> SimpleNamespace:
+        assert lock_active[0]
+        events.append("staged-made")
+        return SimpleNamespace(
+            schemaVersion=1,
+            canonicalPdfSha256=canonical_pdf_sha256,
+            pageInventorySha256=page_inventory_sha256,
+            processingFingerprint=processing_fingerprint,
+            pageArtifactHash="sha256:" + "e" * 64,
+            page=page,
+        )
+
+    monkeypatch.setattr(madoz_pipeline, "_make_staged_page", fake_make_staged_page)
+
+    def fake_write_staged_page(*args: object) -> Path:
+        assert lock_active[0]
+        events.append("page-staged")
+        return tmp_path / "page.json"
+
+    monkeypatch.setattr(madoz_pipeline, "write_staged_page", fake_write_staged_page)
+
+    processed_pages: list[SimpleNamespace] = []
+
+    class FakeProcessor:
+        def process_page(self, record: SimpleNamespace) -> SimpleNamespace:
+            assert lock_active[0]
+            events.append(f"process-{record.canonicalSequenceIndex}")
+            page = SimpleNamespace(
+                logicalPageNumber=record.canonicalSequenceIndex,
+                continuityBreakBefore=record.continuityBreakBefore,
+            )
+            processed_pages.append(page)
+            return page
+
+        def build_chunks(self, metadata: object, pages: list[SimpleNamespace]) -> list[str]:
+            assert lock_active[0]
+            assert [page.logicalPageNumber for page in pages] == [1, 3]
+            assert [page.continuityBreakBefore for page in pages] == [False, True]
+            events.append("chunks-built")
+            return ["chunk"]
+
+    @contextmanager
+    def fake_open_processor(*args: object):
+        assert lock_active[0]
+        events.append("processor-open")
+        yield FakeProcessor()
+        events.append("processor-close")
+
+    monkeypatch.setattr(madoz_pipeline, "open_processor", fake_open_processor)
+
+    assemble_calls: list[dict[str, object]] = []
+
+    def fake_assemble_sample_and_write(**kwargs: object) -> object:
+        assemble_calls.append(kwargs)
+        events.append("finalize")
+        return result_sentinel
+
+    monkeypatch.setattr(madoz_pipeline, "_assemble_sample_and_write", fake_assemble_sample_and_write)
+
+    assemble_and_write_called = False
+
+    def fake_assemble_and_write(**kwargs: object) -> object:
+        nonlocal assemble_and_write_called
+        assemble_and_write_called = True
+        return object()
+
+    monkeypatch.setattr(madoz_pipeline, "_assemble_and_write", fake_assemble_and_write)
+
+    result = madoz_pipeline.prepare_evaluation_sample(
+        tmp_path / "manifest.yaml",
+        refs,
+        imports_root=tmp_path / "imports",
+        data_root=tmp_path / "data",
+        model_cache_root=tmp_path / "models",
+    )
+
+    assert result is result_sentinel
+    assert not assemble_and_write_called
+    assert len(assemble_calls) == 1
+    assemble_kwargs = assemble_calls[0]
+    assert [page.logicalPageNumber for page in assemble_kwargs["pages"]] == [1, 3]
+    assert [page.continuityBreakBefore for page in assemble_kwargs["pages"]] == [False, False]
+    assert assemble_kwargs["chunks"] == ["chunk"]
+
+    assert [page.logicalPageNumber for page in processed_pages] == [3]
+
+    assert events == [
+        "lock-enter",
+        "source-validated",
+        "inventory-validated",
+        "source-prepared",
+        "model-lock-validated",
+        "fingerprint-built",
+        "processor-open",
+        "process-3",
+        "staged-made",
+        "page-staged",
+        "chunks-built",
+        "processor-close",
+        "finalize",
+        "lock-exit",
+    ]
+
+
+@pytest.mark.parametrize(
+    "refs, expected_error",
+    [
+        ([], "refs must not be empty"),
+        ([(i, "full") for i in range(65)], "refs must not exceed 64"),
+        ([(10, "full"), (10, "full")], "refs must not contain duplicates"),
+        ([(10, "left")], "side must be 'full'"),
+        ([(13, "full")], "ref not found in inventory"),
+        ([(11, "full")], "ref is excluded"),
+        ([(8, "full")], "ref is pending"),
+    ],
+)
+def test_prepare_evaluation_sample_rejects_invalid_refs(
+    tmp_path: Path,
+    monkeypatch,
+    refs: list[tuple[int, str]],
+    expected_error: str,
+) -> None:
+    events: list[str] = []
+    lock_active = [False]
+    manifest = _make_manifest(tmp_path)
+    records = _make_eval_records()
+    canonical_pdf = _make_canonical_pdf(tmp_path)
+    fingerprint_payload = _make_fingerprint_payload()
+
+    _patch_eval_common(
+        monkeypatch,
+        tmp_path,
+        manifest,
+        records,
+        canonical_pdf,
+        fingerprint_payload,
+        events,
+        lock_active,
+    )
+
+    monkeypatch.setattr(madoz_pipeline, "load_reusable_staged_page", lambda *a, **kw: None)
+
+    def fake_open_processor(*args: object) -> NoReturn:
+        raise AssertionError("open_processor must not be called for invalid refs")
+
+    monkeypatch.setattr(madoz_pipeline, "open_processor", fake_open_processor)
+
+    with pytest.raises(Exception) as exc_info:
+        madoz_pipeline.prepare_evaluation_sample(
+            tmp_path / "manifest.yaml",
+            refs,
+            imports_root=tmp_path / "imports",
+            data_root=tmp_path / "data",
+            model_cache_root=tmp_path / "models",
+        )
+
+    assert expected_error in str(exc_info.value)
+    assert "processor-open" not in events
+
+
+def test_assemble_sample_and_write_real_ocr_evaluation_sample_qw14d(
+    tmp_path: Path,
+) -> None:
+    fixture_path = Path(__file__).parent / "prepared-document.json"
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    prepared = PreparedDocument.model_validate(fixture)
+
+    manifest = _make_eval_manifest_from_fixture(tmp_path)
+
+    canonical_pdf = CanonicalPdf(
+        path=tmp_path / prepared.canonicalPdfRelativePath,
+        sha256=prepared.metadata.canonicalPdfSha256,
+    )
+
+    records = prepared.inventoryRecords
+    pages = prepared.pages
+    chunks = prepared.chunks
+    processing = prepared.processing
+    processing_fingerprint = prepared.processingFingerprint
+    prepared_at = prepared.preparedAt
+
+    metadata = madoz_pipeline._build_metadata(
+        manifest,
+        canonical_pdf,
+        prepared.metadata.pageInventorySha256,
+        processing_fingerprint,
+    )
+
+    warning = "test warning for evaluation sample"
+
+    result = madoz_pipeline._assemble_sample_and_write(
+        canonical_pdf=canonical_pdf,
+        metadata=metadata,
+        selected_records=records,
+        inventory_verified_at=prepared.inventoryVerifiedAt,
+        pages=pages,
+        chunks=chunks,
+        processing=processing,
+        processing_fingerprint=processing_fingerprint,
+        data_root=tmp_path,
+        created_at=prepared_at,
+        warnings=[warning],
+    )
+
+    assert isinstance(result, madoz_pipeline.EvaluationSampleResult)
+    assert result.sample.publishable is False
+    assert result.warnings == (warning,)
+
+    sample_path = result.path
+    assert sample_path.exists()
+
+    loaded = load_evaluation_sample(tmp_path, sample_path.relative_to(tmp_path).as_posix())
+    assert loaded == result.sample
+
+    assert len(loaded.selectedPages) == 1
+    sp = loaded.selectedPages[0]
+    assert sp.pdfPage == records[0].pdfPage
+    assert sp.side == records[0].side
+    assert sp.logicalPageNumber == records[0].canonicalSequenceIndex
+
+    assert loaded.selectedInventoryRecords == records
+
+    stage_directory = sample_path.parent.parent
+    assert not (stage_directory / "source.json").exists()
+    assert not (stage_directory / "prepared-document.json").exists()
+    assert not (stage_directory / "preparation-report.json").exists()
+
+    first_bytes = sample_path.read_bytes()
+    first_hash = result.sample.sampleHash
+
+    result2 = madoz_pipeline._assemble_sample_and_write(
+        canonical_pdf=canonical_pdf,
+        metadata=metadata,
+        selected_records=records,
+        inventory_verified_at=prepared.inventoryVerifiedAt,
+        pages=pages,
+        chunks=chunks,
+        processing=processing,
+        processing_fingerprint=processing_fingerprint,
+        data_root=tmp_path,
+        created_at=prepared_at,
+        warnings=[warning],
+    )
+
+    assert result2.sample.sampleHash == first_hash
+    assert sample_path.read_bytes() == first_bytes

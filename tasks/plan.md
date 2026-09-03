@@ -3513,7 +3513,10 @@ Validación:
 
 ### QW-14D — Pipeline de muestra OCR no publicable
 
-- [ ] Pendiente.
+- [x] Completado: selección validada/ordenada de 1..64 refs, resume con el
+  mismo `StagedPage`, cortes de chunk para selecciones dispersas y escritura
+  exclusiva de `OcrEvaluationSample` no publicable; 14 pruebas del pipeline y
+  490 pruebas completas pasan.
 - Depende de: QW-14C.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_madoz_pipeline.py`
