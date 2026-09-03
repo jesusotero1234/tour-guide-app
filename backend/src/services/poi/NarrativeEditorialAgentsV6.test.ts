@@ -176,6 +176,62 @@ describe('narrative v6 editorial agents', () => {
     expect(written.value.text).toContain('poder civil');
   });
 
+  it('retries a writer semantic validation hook and accepts a longer response', async () => {
+    let attempt = 0;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      attempt += 1;
+      const messages = body.messages as Array<{ role: string; content: string }>;
+      if (attempt === 2) {
+        expect(messages[2].content).toContain('writer_length_target_missed');
+        expect(messages[2].content).toContain('accepted=20-40');
+      }
+      const script = attempt === 1
+        ? 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.'
+        : 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después en la siguiente parada del recorrido histórico.';
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'write_narrative_stop_v6',
+        arguments: JSON.stringify({ stop_id: 'palace', script }),
+      } }] } }] } };
+    });
+    const projector = (projection: {
+      operation: 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
+      systemPrompt: string;
+      input: unknown;
+    }) => ({
+      systemPrompt: projection.systemPrompt,
+      input: projection.input,
+    });
+    const validateWriter = (parsed: { text: string }) => {
+      const words = parsed.text.split(/\s+/u).filter((word) => word.trim().length > 0);
+      if (words.length < 20) {
+        throw new Error(`writer_length_target_missed actual=${words.length} accepted=20-40`);
+      }
+    };
+    const agents = createNarrativeEditorialAgentsV6Core(
+      { apiKey: 'test-key', post },
+      projector,
+      { validateWriter },
+    );
+
+    const written = await agents.write({
+      stopId: 'palace', dossier,
+      arc: {
+        promise: 'Entender el poder', contribution: 'Origen',
+        bridge: 'La autoridad religiosa contrasta con el poder civil.',
+      },
+      previousStop: null, nextStop: 'almudena', voiceProfile: ['Español oral'],
+    });
+
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(written.diagnostic.attempts.map((item) => item.status))
+      .toEqual(['semantic_error', 'valid']);
+    expect(written.diagnostic.attempts[0].error).toContain('writer_length_target_missed');
+    expect(written.diagnostic.attempts[0].error).toContain('accepted=20-40');
+    expect(written.value.text).toBe(
+      'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después en la siguiente parada del recorrido histórico.'
+    );
+  });
+
   it('batches long Gemma audits and still returns one complete sentence ledger', async () => {
     const batchSizes: number[] = [];
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {

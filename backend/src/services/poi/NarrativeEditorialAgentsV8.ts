@@ -40,29 +40,22 @@ export function createNarrativeEditorialAgentsV8(
 ): NarrativeEditorialAgentsV8 {
   const core = createNarrativeEditorialAgentsV6Core(
     { ...options, writerRateLimitAttempts: 3 },
-    createNarrativeEditorialRequestProjectorV8(admittedStops, manifest, arc, narrationTargetsByStopId)
+    createNarrativeEditorialRequestProjectorV8(admittedStops, manifest, arc, narrationTargetsByStopId),
+    {
+      validateWriter: (value, input) => {
+        const target = narrationTargetsByStopId?.get(input.stopId);
+        if (!target) return;
+        const validation = validateNarrativeWriterLengthV8(value.text, target);
+        if (!validation.valid) {
+          throw new Error(
+            `writer_length_target_missed stop=${input.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
+          );
+        }
+      },
+    }
   );
-  const originalWrite = core.write;
-  const wrappedWrite = async (
-    input: Parameters<typeof originalWrite>[0],
-    execution?: Parameters<typeof originalWrite>[1]
-  ) => {
-    const result = await originalWrite(input, execution);
-    const target = narrationTargetsByStopId?.get(input.stopId);
-    if (!target) {
-      return result;
-    }
-    const validation = validateNarrativeWriterLengthV8(result.value.text, target);
-    if (!validation.valid) {
-      throw new Error(
-        `writer_length_target_missed stop=${input.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
-      );
-    }
-    return result;
-  };
   return {
     ...core,
-    write: wrappedWrite,
     evidenceManifestFingerprint: manifest.fingerprint,
   };
 }

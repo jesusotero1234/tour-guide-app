@@ -532,6 +532,10 @@ function rawAudit(value: unknown, auditor: NarrativeAuditorV6): NarrativeAuditRe
   };
 }
 
+export interface NarrativeEditorialValidationHooksV6 {
+  validateWriter?(value: { text: string }, input: NarrativeWriterInputV6): void;
+}
+
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
 
 export interface NarrativeEditorialRequestProjectionV6 {
@@ -546,7 +550,8 @@ export type NarrativeEditorialRequestProjectorV6 = (
 
 export function createNarrativeEditorialAgentsV6Core(
   options: NarrativeModelClientOptionsV6,
-  projector: NarrativeEditorialRequestProjectorV6
+  projector: NarrativeEditorialRequestProjectorV6,
+  validationHooks: NarrativeEditorialValidationHooksV6 = {}
 ): NarrativeEditorialAgentsV6 {
   const withExecution = (
     request?: NarrativeAgentExecutionV6
@@ -605,7 +610,11 @@ export function createNarrativeEditorialAgentsV6Core(
         toolDescription: 'Devuelve el guion oral de una parada.',
         inputCharacterLimit: 80_000,
         schemaCharacterLimit: 5_000,
-        validate: (value) => writerValue(value, input),
+        validate: (value) => {
+          const parsed = writerValue(value, input);
+          validationHooks.validateWriter?.(parsed, input);
+          return parsed;
+        },
       });
       return validResult(result);
     },
