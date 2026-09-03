@@ -93,7 +93,7 @@ describe('editorial structured LLM v6 providers', () => {
     expect(candidate.phases.global_auditor).not.toHaveProperty('temperature');
   });
 
-  it('maps the hybrid profile to local Qwen only for bounded execution phases', () => {
+  it('maps the hybrid profile to GPT-5.4 mini writing and local Qwen support phases', () => {
     const hybrid = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid;
 
     expect(hybrid.phases).toMatchObject({
@@ -101,7 +101,11 @@ describe('editorial structured LLM v6 providers', () => {
       curator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
       curator_complex: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4' } },
       architect: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
-      writer: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0.7 },
+      writer: {
+        provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' },
+        reasoning: 'low',
+        maxTokens: 4_000,
+      },
       auditor_a: {
         provider: { kind: 'qwen_local', model: 'qwen-local' },
       },
@@ -110,6 +114,7 @@ describe('editorial structured LLM v6 providers', () => {
       repair: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0 },
       global_auditor: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
     });
+    expect(hybrid.phases.writer).not.toHaveProperty('temperature');
   });
 
   it('maps the multilingual profile to independent, cheaper remote roles', () => {
@@ -138,7 +143,7 @@ describe('editorial structured LLM v6 providers', () => {
   });
 
   it('uses the local Qwen OpenAI-compatible endpoint without credentials or spend', async () => {
-    const phase = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid.phases.writer;
+    const phase = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid.phases.planner;
     const progress: Array<{ event: string; maximumCostUsd?: number }> = [];
     const post = jest.fn(async (
       url: string,
@@ -150,8 +155,8 @@ describe('editorial structured LLM v6 providers', () => {
       expect(body).toMatchObject({
         model: 'qwen-local',
         stream: false,
-        max_tokens: 2_000,
-        temperature: 0.7,
+        max_tokens: 1_200,
+        temperature: 0,
         seed: 42,
         response_format: {
           type: 'json_schema',
