@@ -469,6 +469,31 @@ describe('buildValidatedDossierV8', () => {
     expect(result.status).toBe('curator_contract_failed');
   });
 
+  it('does not treat internal curator numbering or evidence span identifiers as factual numeric claims', () => {
+    const c = capture('source-a', 'El monumento fue inaugurado en 1900.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const spanId = spans.get('source-a')![0].evidenceSpanId;
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [{
+          text: `Según el índice interno 3 y el span ${spanId}, el monumento fue inaugurado.`,
+          role: 'chronology_or_transformation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [spanId] }],
+        }],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('ok');
+  });
+
   it('rejects a high/direct number proposition when the cited span lacks the number but another span contains it', () => {
     const c = capture('source-a', 'La República se proclamó en 1873.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
     const spans = spansOf(c);
