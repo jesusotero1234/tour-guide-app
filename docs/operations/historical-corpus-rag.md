@@ -34,7 +34,23 @@ proves the API, SQLite FTS5, TurboVec persistence, authentication and restart
 path without downloading model weights. Its separate project name keeps the
 deterministic index and volumes isolated from the normal Qwen service.
 
+The verify-mode API intentionally rejects a fresh data directory until
+`repair-index` creates the empty TurboVec/index-state pair; this preserves
+fail-closed startup.
+
 ```bash
+podman compose -p tour-guide-historical-corpus-smoke \
+  -f "$CORPUS_COMPOSE" \
+  -f "$CORPUS_SMOKE_COMPOSE" \
+  --profile ingest \
+  build historical-corpus-ingest
+
+podman compose -p tour-guide-historical-corpus-smoke \
+  -f "$CORPUS_COMPOSE" \
+  -f "$CORPUS_SMOKE_COMPOSE" \
+  --profile ingest \
+  run --rm historical-corpus-ingest repair-index
+
 podman compose -p tour-guide-historical-corpus-smoke \
   -f "$CORPUS_COMPOSE" \
   -f "$CORPUS_SMOKE_COMPOSE" \
@@ -395,7 +411,7 @@ print({key: api[key] for key in keys})
 '
 ```
 
-El filtro imprime únicamente los diez valores no secretos del anchor. API e
+El filtro imprime únicamente los diez valores no secretos del mapping. API e
 ingesta deben coincidir en todos. `publish` usa el servicio de ingesta, por lo
 que una divergencia invalida la publicación.
 

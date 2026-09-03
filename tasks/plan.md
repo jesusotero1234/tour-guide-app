@@ -3951,7 +3951,7 @@ feat: gate historical OCR and retrieval quality
 ### QW-18A — Entorno y Podman Compose
 
 - [x] Completo (2026-09-03): entorno de ejemplo con import privado y ajustes
-  de modelos, anchor compartido por API/ingesta y perfil `ingest` aislado,
+  de modelos, mapping paritario API/ingesta y perfil `ingest` aislado,
   sin puertos ni restart, con mounts y hardening de UID 10001. El Compose y
   su override smoke parsean; la imagen `ingest-runtime` se construye y
   `historical-corpus-ingest --help` se ejecuta correctamente en Podman.
@@ -3990,12 +3990,14 @@ Subllamada 2 — Compose aislado:
    read-only y usar ejemplos trackeados si falta la variable.
 4. Mantener read-only root, tmpfs endurecido, cap drop, no-new-privileges,
    UID 10001, init y pids limit.
-5. Usar el anchor exacto siguiente para que API/publish no diverjan; ingest
-   añade PADDLEX_HOME y conserva HF_HOME.
+5. Usar el mapping exacto siguiente en API e ingest para que no diverjan;
+   ingest añade PADDLEX_HOME y conserva HF_HOME.
 6. No tocar Compose/canario del backend ni socket Podman; el smoke override
-   debe seguir parseando sin editarlo.
+   fija el mismo entorno determinista para API e ingest y debe seguir parseando.
 
-El anchor común contiene exactamente:
+Por compatibilidad con `podman-compose`, que no interpola correctamente valores
+heredados desde un bloque `x-*`, API e ingest repiten explícitamente el mismo
+mapping. La validación de paridad impide que diverjan:
 
 ```text
 HISTORICAL_CORPUS_DATA_DIR=/data
@@ -4011,7 +4013,7 @@ HF_HOME=/model-cache/huggingface
 ```
 
 El API añade su admin token. Ingest añade `PADDLEX_HOME` y el bind de imports.
-Ningún valor de publicación puede divergir del anchor usado por el API.
+Ningún valor de publicación puede divergir del mapping usado por el API.
 
 Validación; cada comando es autocontenido porque `validate` no conserva
 exports entre procesos:
@@ -4239,7 +4241,11 @@ chore: operate Madoz ingestion with Podman
 
 ### QW-20 — Suite completa y revisión
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): 600 pruebas y `pip check` pasan dentro de Podman
+  para test/runtime/ingest; Compose e ingest CLI validan y el smoke parte de un
+  volumen nuevo, inicializa fail-closed con `repair-index`, ingiere, busca,
+  reinicia y conserva el índice. La revisión no encontró secretos, PDFs ni
+  pruebas omitidas en el producto histórico.
 - Depende de: QW-00, QW-01, QW-02, QW-03A, QW-03B, QW-04, QW-05A,
   QW-05B, QW-06A, QW-06B, QW-06C, QW-06D, QW-06E, QW-07, QW-08,
   QW-09, QW-10A, QW-10B, QW-11A, QW-11B, QW-12, QW-13, QW-14A,
@@ -4305,6 +4311,12 @@ bash -euo pipefail -c '
       -f "$CORPUS_SMOKE_COMPOSE" down
   }
   trap cleanup EXIT
+  podman compose -p "$project" -f "$CORPUS_COMPOSE" \
+    -f "$CORPUS_SMOKE_COMPOSE" --profile ingest \
+    build historical-corpus-ingest
+  podman compose -p "$project" -f "$CORPUS_COMPOSE" \
+    -f "$CORPUS_SMOKE_COMPOSE" --profile ingest \
+    run --rm historical-corpus-ingest repair-index >/dev/null
   podman compose -p "$project" -f "$CORPUS_COMPOSE" \
     -f "$CORPUS_SMOKE_COMPOSE" up -d --build
   ready=0
