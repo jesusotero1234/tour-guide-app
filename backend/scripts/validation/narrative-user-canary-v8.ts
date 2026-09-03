@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import axios from 'axios';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { TourRequest } from '../../src/types/api';
 import { requestEditorialStructuredV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
@@ -113,6 +113,7 @@ import { EditorialEntityCandidateV5 } from '../../src/services/poi/EditorialEvid
 import {
   NarrativeResearchRuntimeV8,
   assertCompleteEditorialScriptSetV8,
+  assertNarrativeCanaryRunIdAvailableV8,
   assertResearchRuntimeReachableV8,
   createNarrativeCanaryCaptureWebV8,
   inspectEditorialScriptSetV8,
@@ -783,6 +784,11 @@ async function main(): Promise<void> {
     ?? `narrative-v8-user-${cityKey.toLocaleLowerCase().replace(/[^a-z0-9]+/g, '-')}-`
       + new Date().toISOString().replace(/[:.]/g, '-');
   const directory = resolve(process.cwd(), 'tmp/narrative-v8', runId);
+  assertNarrativeCanaryRunIdAvailableV8(
+    runId,
+    existsSync(directory) && readdirSync(directory).length > 0,
+    resumeOptions !== null
+  );
   mkdirSync(directory, { recursive: true });
   const reviewPath = resolve(directory, 'review.json');
   const privatePath = resolve(directory, 'diagnostics.private.json');

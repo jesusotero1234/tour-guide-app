@@ -230,6 +230,18 @@ export function assertCompleteEditorialScriptSetV8(
   return diagnostics;
 }
 
+export function assertNarrativeCanaryRunIdAvailableV8(
+  runId: string,
+  hasExistingArtifacts: boolean,
+  resumeRequested: boolean
+): void {
+  if (hasExistingArtifacts && !resumeRequested) {
+    throw new Error(
+      `Canary --run-id ${runId} already has artifacts; choose a new --run-id value or pass explicit --resume-from with --resume-checkpoint`
+    );
+  }
+}
+
 export function createNarrativeCanaryCaptureWebV8<T>(
   underlying: (url: string, options: NarrativeFirecrawlCaptureOptionsV7 | undefined) => Promise<T>
 ): (rawUrl: string, requestClass: NarrativeWebCaptureRequestClassV8) => Promise<T> {

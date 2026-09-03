@@ -1,6 +1,7 @@
 import {
   EditorialScriptSetInvalidErrorV8,
   assertCompleteEditorialScriptSetV8,
+  assertNarrativeCanaryRunIdAvailableV8,
   assertResearchRuntimeReachableV8,
   createNarrativeCanaryCaptureWebV8,
   narrativeCanaryCoreOpenRouterOptionsV8,
@@ -211,5 +212,12 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
     const result = await capture('https://example.com/place#one', 'place_exact');
     expect(result).toBe('https://example.com/place');
     expect(attempts).toBe(2);
+  });
+
+  it('rejects accidental reuse of a canary run-id while preserving explicit resume', () => {
+    const runId = 'canary-run-123';
+    expect(() => assertNarrativeCanaryRunIdAvailableV8(runId, true, false)).toThrow(new RegExp(`--run-id ${runId}.*--resume-from`));
+    expect(() => assertNarrativeCanaryRunIdAvailableV8(runId, false, false)).not.toThrow();
+    expect(() => assertNarrativeCanaryRunIdAvailableV8(runId, true, true)).not.toThrow();
   });
 });
