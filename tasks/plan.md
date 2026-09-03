@@ -3550,7 +3550,10 @@ Validación:
 
 ### QW-15A — CLI base, manifiesto e inventario
 
-- [ ] Pendiente.
+- [x] Completado: CLI `argparse` con salida/error JSON y códigos reservados,
+  validación opcional de fuente y construcción de inventario en ruta derivada
+  mediante escritura atómica protegida contra symlinks; 6 pruebas CLI y 496
+  pruebas completas pasan.
 - Depende de: QW-09 y QW-10B.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_ingest_cli.py`
