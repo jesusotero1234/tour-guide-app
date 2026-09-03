@@ -3352,7 +3352,9 @@ feat: prepare Madoz scans with traceable OCR
 
 ### QW-14A — Staging atómico y carga del bundle
 
-- [ ] Pendiente.
+- [x] Completado: rutas derivadas y contenidas, límites previos a lectura, JSON
+  canónico, reemplazo atómico, cache de páginas fail-closed y loaders tipados con
+  validación cruzada; 8 pruebas focalizadas y 468 pruebas completas pasan.
 - Depende de: QW-03B y QW-10B.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_staging.py`
