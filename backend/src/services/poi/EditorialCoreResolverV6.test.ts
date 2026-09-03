@@ -7,6 +7,7 @@ import {
   coreAuditResponseSchemaV6,
   CoreAuditV6,
   resolveCanonicalTourCoreV6,
+  validateCoreAuditOpenRouterV6,
   validateCoreAuditV6,
 } from './EditorialCoreResolverV6';
 import {
@@ -210,27 +211,44 @@ describe('canonical tour core v6', () => {
     expect(result.requiredSets).toEqual(sets.map((set) => [...set].sort()));
   });
 
-  it('verifies simplified OpenRouter schema constraints and strict semantic validation', () => {
+  it('verifies exact QID-keyed OpenRouter wire contract and normalization into CoreAuditV6', () => {
     const request = buildCoreAuditRequestV6(context, entities, snapshot, 'seed-a');
     const schema = coreAuditOpenRouterResponseSchemaV6(request) as Record<string, unknown>;
     const classifications = (schema.properties as Record<string, unknown>).classifications as Record<string, unknown>;
-    const items = classifications.items as Record<string, unknown>;
-    const properties = items.properties as Record<string, unknown>;
 
-    expect(classifications.minItems).toBeUndefined();
-    expect(classifications.maxItems).toBeUndefined();
-    expect((properties.canonicalId as Record<string, unknown>).enum).toBeUndefined();
-    expect((properties.omissionReason as Record<string, unknown>).minLength).toBeUndefined();
-    expect((properties.omissionReason as Record<string, unknown>).maxLength).toBeUndefined();
-    const supportIds = properties.supportIds as Record<string, unknown>;
-    expect(supportIds.minItems).toBeUndefined();
-    expect(supportIds.maxItems).toBeUndefined();
-    expect(supportIds.uniqueItems).toBeUndefined();
-    expect((supportIds.items as Record<string, unknown>).enum).toBeUndefined();
+    expect(classifications.type).toBe('object');
+    expect(classifications.additionalProperties).toBe(false);
+    const sortedIds = request.candidates.map((candidate) => candidate.canonicalId).sort();
+    expect(classifications.required).toEqual(sortedIds);
+    const properties = classifications.properties as Record<string, unknown>;
+    expect(Object.keys(properties).sort()).toEqual(sortedIds);
+    for (const id of sortedIds) {
+      expect(properties[id]).toEqual({ $ref: '#/$defs/classification' });
+    }
+
+    expect(JSON.stringify(schema).length).toBeLessThanOrEqual(CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6);
 
     const valid = auditFor(request, new Set(['Q1', 'Q2']));
-    const missing = structuredClone(valid);
-    missing.classifications.pop();
-    expect(() => validateCoreAuditV6(missing, request)).toThrow(/every candidate/i);
+    const wireResponse = {
+      schemaVersion: valid.schemaVersion,
+      classifications: Object.fromEntries(
+        valid.classifications.map((classification) => {
+          const { canonicalId, ...rest } = classification;
+          return [canonicalId, rest];
+        })
+      ),
+    };
+    expect(validateCoreAuditOpenRouterV6(wireResponse, request)).toEqual(valid);
+
+    const invalid = structuredClone(wireResponse);
+    delete (invalid.classifications as Record<string, unknown>).Q1;
+    (invalid.classifications as Record<string, unknown>).Q999 = {
+      classification: 'optional',
+      reasonCode: null,
+      omissionReason: 'Unexpected candidate.',
+      supportIds: [request.candidates[0].support[0].supportId],
+    };
+    expect(() => validateCoreAuditOpenRouterV6(invalid, request)).toThrow(/missingIds=Q1/);
+    expect(() => validateCoreAuditOpenRouterV6(invalid, request)).toThrow(/unexpectedIds=Q999/);
   });
 });

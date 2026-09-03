@@ -115,6 +115,24 @@ function exactKeys(value: Record<string, unknown>, expected: string[], label: st
   }
 }
 
+function inventoryError(expectedIds: string[], receivedIds: string[]): Error {
+  const expectedSet = new Set(expectedIds);
+  const receivedSet = new Set(receivedIds);
+  const counts = new Map<string, number>();
+  for (const id of receivedIds) counts.set(id, (counts.get(id) ?? 0) + 1);
+  const duplicateIds = [...counts.entries()].filter(([, count]) => count > 1)
+    .map(([id, count]) => `${id}(${count})`).sort();
+  const missingIds = expectedIds.filter((id) => !receivedSet.has(id)).sort();
+  const unexpectedIds = receivedIds.filter((id) => !expectedSet.has(id)).sort();
+  return new Error(
+    `Core audit must classify every candidate ID exactly once ` +
+    `expectedCount=${expectedIds.length} receivedCount=${receivedIds.length} ` +
+    `duplicateIds=${duplicateIds.length ? duplicateIds.join(',') : 'none'} ` +
+    `missingIds=${missingIds.length ? missingIds.join(',') : 'none'} ` +
+    `unexpectedIds=${unexpectedIds.length ? unexpectedIds.join(',') : 'none'}`
+  );
+}
+
 function nonEmptyString(value: unknown, label: string): string {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`${label} is invalid`);
   return value.trim();
@@ -215,7 +233,7 @@ export function validateCoreAuditV6(value: unknown, request: CoreAuditRequestV6)
     || new Set(rawIds as string[]).size !== requestIds.length
     || rawIds.length !== requestIds.length
     || [...rawIds as string[]].sort().join(',') !== [...requestIds].sort().join(',')) {
-    throw new Error('Core audit must classify every candidate ID exactly once');
+    throw inventoryError(requestIds, rawIds as string[]);
   }
   const candidateById = new Map(request.candidates.map((candidate) => [candidate.canonicalId, candidate]));
   const classifications = root.classifications.map((item, index): CoreAuditClassificationV6 => {
@@ -306,21 +324,75 @@ export function coreAuditResponseSchemaV6(request: CoreAuditRequestV6): Record<s
 }
 
 export function coreAuditOpenRouterResponseSchemaV6(request: CoreAuditRequestV6): Record<string, unknown> {
-  const schema = structuredClone(coreAuditResponseSchemaV6(request)) as Record<string, unknown>;
-  const classifications = (schema.properties as Record<string, unknown>).classifications as Record<string, unknown>;
-  delete classifications.minItems;
-  delete classifications.maxItems;
-  const items = classifications.items as Record<string, unknown>;
-  const properties = items.properties as Record<string, unknown>;
-  delete (properties.canonicalId as Record<string, unknown>).enum;
-  delete (properties.omissionReason as Record<string, unknown>).minLength;
-  delete (properties.omissionReason as Record<string, unknown>).maxLength;
-  const supportIds = properties.supportIds as Record<string, unknown>;
-  delete supportIds.minItems;
-  delete supportIds.maxItems;
-  delete supportIds.uniqueItems;
-  delete (supportIds.items as Record<string, unknown>).enum;
+  const candidateIds = request.candidates.map((candidate) => candidate.canonicalId).sort();
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['schemaVersion', 'classifications'],
+    properties: {
+      schemaVersion: { type: 'string', enum: [CORE_AUDIT_SCHEMA_VERSION_V6] },
+      classifications: {
+        type: 'object',
+        additionalProperties: false,
+        required: candidateIds,
+        properties: Object.fromEntries(candidateIds.map((id) => [id, { $ref: '#/$defs/classification' }])),
+      },
+    },
+    $defs: {
+      classification: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['classification', 'reasonCode', 'omissionReason', 'supportIds'],
+        properties: {
+          classification: { type: 'string', enum: ['required', 'optional'] },
+          reasonCode: {
+            enum: [null, 'city_defining', 'first_visit_expectation', 'unique_historical_chapter'],
+          },
+          omissionReason: { type: 'string' },
+          supportIds: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+        },
+      },
+    },
+  };
+  const length = JSON.stringify(schema).length;
+  if (length > CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6) {
+    throw new Error(`Core audit schema exceeds ${CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6} characters (${length})`);
+  }
   return schema;
+}
+
+export function validateCoreAuditOpenRouterV6(value: unknown, request: CoreAuditRequestV6): CoreAuditV6 {
+  const root = objectValue(value, 'core audit');
+  exactKeys(root, ['schemaVersion', 'classifications'], 'core audit');
+  if (root.schemaVersion !== CORE_AUDIT_SCHEMA_VERSION_V6) {
+    throw new Error('Invalid core audit schemaVersion');
+  }
+  const classifications = objectValue(root.classifications, 'classifications');
+  const expectedIds = request.candidates.map((candidate) => candidate.canonicalId);
+  const receivedIds = Object.keys(classifications);
+  if (receivedIds.some((id) => !expectedIds.includes(id))
+    || new Set(receivedIds).size !== expectedIds.length
+    || receivedIds.length !== expectedIds.length) {
+    throw inventoryError(expectedIds, receivedIds);
+  }
+  const normalized = {
+    schemaVersion: CORE_AUDIT_SCHEMA_VERSION_V6,
+    classifications: request.candidates.map((candidate) => {
+      const raw = objectValue(classifications[candidate.canonicalId], `classifications[${candidate.canonicalId}]`);
+      exactKeys(raw, ['classification', 'reasonCode', 'omissionReason', 'supportIds'], `classifications[${candidate.canonicalId}]`);
+      return {
+        canonicalId: candidate.canonicalId,
+        classification: raw.classification,
+        reasonCode: raw.reasonCode,
+        omissionReason: raw.omissionReason,
+        supportIds: raw.supportIds,
+      };
+    }),
+  };
+  return validateCoreAuditV6(normalized, request);
 }
 
 function requiredSet(audit: CoreAuditV6): string[] {
