@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 from datetime import datetime, timezone
+from pathlib import Path
 
 import httpx2
 import pytest
@@ -388,6 +389,87 @@ def test_gate_thresholds_are_inclusive_and_each_failure_blocks() -> None:
         assert not report.passed
 
 
+def test_tracked_synthetic_gold_example_runs_perfect_two_page_evaluation() -> None:
+    gold_path = Path(__file__).parents[1] / "examples" / "ocr-gold.example.jsonl"
+    gold = load_ocr_gold_jsonl(gold_path.read_bytes())
+    assert len(gold) == 2
+    assert [page.logicalPageNumber for page in gold] == [1, 3]
+    assert [page.sourcePdfPageNumber for page in gold] == [1, 3]
+    assert all(page.documentId.startswith("synthetic-") for page in gold)
+    assert any(
+        line.text.endswith(":")
+        for page in gold
+        for line in page.referenceLines
+        if line.role == "body"
+    )
+
+    base = _sample()
+    base_page = base.pages[0]
+    base_ref = base.selectedPages[0]
+
+    pages = []
+    refs = []
+    for index, gold_page in enumerate(gold):
+        lines = [
+            SourceLineInput.model_validate(
+                _line(
+                    lineId="sha256:" + f"{index * 10 + line_index + 1:064x}",
+                    logicalPageNumber=gold_page.logicalPageNumber,
+                    lineOrder=line_index,
+                    originalText=ref_line.text,
+                    role=ref_line.role,
+                )
+            )
+            for line_index, ref_line in enumerate(gold_page.referenceLines)
+        ]
+        page = base_page.model_copy(
+            update={
+                "documentId": gold_page.documentId,
+                "logicalPageNumber": gold_page.logicalPageNumber,
+                "sourcePdfPageNumber": gold_page.sourcePdfPageNumber,
+                "pageId": "sha256:" + f"{index + 1:064x}",
+                "imageSha256": "sha256:" + f"{index + 100:064x}",
+                "contentClass": gold_page.pageClass,
+                "originalText": "\n".join(ref_line.text for ref_line in gold_page.referenceLines),
+                "lines": lines,
+                "printedPageLabel": str(gold_page.logicalPageNumber),
+                "continuityBreakBefore": index == 1,
+            }
+        )
+        ref = base_ref.model_copy(
+            update={
+                "logicalPageNumber": gold_page.logicalPageNumber,
+                "pdfPage": gold_page.sourcePdfPageNumber,
+            }
+        )
+        pages.append(page)
+        refs.append(ref)
+
+    sample = base.model_copy(
+        update={
+            "metadata": base.metadata.model_copy(update={"documentId": gold[0].documentId}),
+            "selectedPages": refs,
+            "pages": pages,
+            "chunks": [],
+        }
+    )
+
+    table_line = next(line for line in pages[0].lines if line.role == "table")
+    assert not any(chunk.lineIds and table_line.lineId in chunk.lineIds for chunk in sample.chunks)
+    assert pages[1].continuityBreakBefore is True
+
+    report = evaluate_ocr(
+        sample,
+        gold,
+        config=OcrGateConfig(expectedPageCount=2),
+        evaluated_at=EVALUATED_AT,
+    )
+    assert report.passed
+    assert report.metrics.failedPages == 0
+    assert report.metrics.boundaryF1 == 1.0
+    assert report.metrics.readingOrderAccuracy == 1.0
+
+
 def test_report_never_serializes_full_ocr_or_gold_text() -> None:
     report = _evaluate()
     serialized = report.model_dump_json()
@@ -579,6 +661,87 @@ def _evaluate_retrieval(
         config=config or RetrievalGateConfig(minimumCaseCount=1),
         evaluated_at=EVALUATED_AT,
     )
+
+
+def test_tracked_synthetic_retrieval_examples_run_evaluation() -> None:
+    example_path = Path(__file__).parents[1] / "examples" / "retrieval-cases.example.jsonl"
+    cases = load_retrieval_cases_jsonl(example_path.read_bytes())
+    assert len(cases) == 2
+    assert all(case.id.startswith("synthetic-") for case in cases)
+    assert all(target.documentId.startswith("synthetic-") for case in cases for target in case.relevantTargets)
+    assert [target.logicalPages[0] for case in cases for target in case.relevantTargets] == [1, 3]
+
+    fake = _FakeRetrievalApi()
+    fake.documents = {}
+    fake.summaries = {}
+    fake.search_hits = []
+    fake.chunks = {}
+    fake.details = {}
+
+    for case in cases:
+        for target in case.relevantTargets:
+            doc_id = target.documentId
+            page_num = target.logicalPages[0]
+            fake.documents.setdefault(
+                doc_id, {"documentId": doc_id, "missingPrintedPages": []}
+            )
+            fake.summaries.setdefault(doc_id, []).append(
+                {
+                    "documentId": doc_id,
+                    "logicalPageNumber": page_num,
+                    "printedPageLabel": target.printedPages[0],
+                }
+            )
+            chunk_id = f"chunk-{case.id}"
+            line_id = f"line-{case.id}"
+            fake.search_hits.append(
+                _hit(
+                    chunk_id,
+                    document_id=doc_id,
+                    page_start=page_num,
+                    page_end=page_num,
+                    entry_title=target.entryTitle,
+                    text=" ".join(case.requiredTerms),
+                )
+            )
+            fake.chunks[chunk_id] = {
+                "chunkId": chunk_id,
+                "documentId": doc_id,
+                "pageStart": page_num,
+                "pageEnd": page_num,
+                "lineIds": [line_id],
+            }
+            fake.details[(doc_id, page_num)] = {
+                "documentId": doc_id,
+                "logicalPageNumber": page_num,
+                "lines": [
+                    {"lineId": line_id, "role": "body"},
+                    {"lineId": f"table-{case.id}", "role": "table"},
+                ],
+            }
+
+    table_line_ids = {
+        line["lineId"]
+        for detail in fake.details.values()
+        for line in detail["lines"]
+        if line["role"] == "table"
+    }
+    assert table_line_ids
+    assert all(
+        table_line_ids.isdisjoint(chunk["lineIds"]) for chunk in fake.chunks.values()
+    )
+
+    report = _evaluate_retrieval(fake, cases, config=RetrievalGateConfig(minimumCaseCount=2))
+    assert report.passed
+    assert report.metrics.recallAt20 == 1.0
+    assert report.metrics.requiredTermPresence == 1.0
+    assert report.metrics.structuralIntegrity == 1.0
+    assert report.metrics.exceptionCases == 0
+    assert report.metrics.mrrAt20 >= 0.75
+
+    doc_paths = [path for _, path, _, _ in fake.calls if path.startswith("/v1/documents/")]
+    assert sum(path == f"/v1/documents/{cases[0].relevantTargets[0].documentId}" for path in doc_paths) == 1
+    assert sum(path == f"/v1/documents/{cases[0].relevantTargets[0].documentId}/pages" for path in doc_paths) == 1
 
 
 def test_retrieval_loader_and_models_are_strict() -> None:

@@ -4194,7 +4194,10 @@ derechos pendientes; no válido para prepare/publish” con código 0.
 
 ### QW-19B — Ejemplos sintéticos de evaluación
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): ejemplos OCR/retrieval totalmente sintéticos con
+  dos casos, límite de entrada, tabla excluida, salto de continuidad y targets
+  documento/entrada/página; las pruebas cargan los JSONL versionados mediante
+  los parsers productivos y ejecutan ambos cálculos sin red.
 - Depende de: QW-19A.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/examples/ocr-gold.example.jsonl`

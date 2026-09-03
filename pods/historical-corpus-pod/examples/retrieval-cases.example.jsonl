@@ -1,0 +1,2 @@
+{"id":"synthetic-retrieval-001","query":"synthetic query for ALFA entry","relevantTargets":[{"documentId":"synthetic-doc-001","entryTitle":"ALFA","logicalPages":[1],"printedPages":["1"]}],"requiredTerms":["synthetic-term-alfa-1","synthetic-term-alfa-2"]}
+{"id":"synthetic-retrieval-002","query":"synthetic query for BETA entry","relevantTargets":[{"documentId":"synthetic-doc-001","entryTitle":"BETA","logicalPages":[3],"printedPages":["3"]}],"requiredTerms":["synthetic-term-beta-1","synthetic-term-beta-2"]}

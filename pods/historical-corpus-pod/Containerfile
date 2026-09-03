@@ -33,6 +33,7 @@ RUN python -m pip install \
 FROM base AS test
 
 COPY tests ./tests
+COPY examples ./examples
 RUN python -m pip install ".[dev,ingest]"
 
 USER 10001:10001
