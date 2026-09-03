@@ -3055,7 +3055,10 @@ Validación:
 
 ### QW-10A — Fuente PDF, copia canónica y split de pliegos
 
-- [ ] Pendiente.
+- [x] Completado: copia canónica verificada y atómica, SHA memoizado con LRU 16,
+  candidatos/split deterministas, render RGB orientado, diagnóstico embebido,
+  raster dominante, dHash y preview 144 DPI; 11 pruebas específicas y 311 del
+  servicio pasan.
 - Depende de: QW-09.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/pdf_source.py`
