@@ -47,6 +47,19 @@ describe('reconcileNarrationTargetsV8', () => {
         targetSeconds: 300,
         targetWords: 600,
       },
+      richness: {
+        supportedCardCount: 10,
+        highPriorityCardCount: 10,
+        distinctPassageCount: 10,
+        distinctPublisherCount: 2,
+        facetCount: 6,
+        visualCardCount: 2,
+        spatialCardCount: 2,
+        duplicateCardCount: 0,
+        groundingReady: true,
+        writerReady: true,
+        richnessReady: true,
+      },
     });
     expect(result.unassignedSeconds).toBe(0);
   });

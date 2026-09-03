@@ -300,6 +300,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const tourInput = tour.input as Record<string, unknown>;
     expect(tourInput).toHaveProperty('scripts');
     expect(tourInput).toHaveProperty('arc');
+    expect(tourInput).toHaveProperty('styleDiagnostics');
     expect(tourInput).not.toHaveProperty('dossiers');
     expect(tourInput).not.toHaveProperty('evidenceManifest');
     expect(tourInput).not.toHaveProperty('evidenceByStop');
@@ -510,6 +511,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const tourInput = tour.input as Record<string, unknown>;
     expect(tourInput).toHaveProperty('scripts');
     expect(tourInput).toHaveProperty('arc');
+    expect(tourInput).toHaveProperty('styleDiagnostics');
     expect(tourInput).not.toHaveProperty('dossiers');
     expect(tourInput).not.toHaveProperty('evidenceManifest');
     expect(tourInput).not.toHaveProperty('evidenceByStop');

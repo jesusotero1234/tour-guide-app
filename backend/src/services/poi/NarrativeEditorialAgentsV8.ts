@@ -61,11 +61,18 @@ export function createNarrativeEditorialAgentsV8(
         if (!plan) return undefined;
         return {
           schema: narrativeWriterResponseSchemaV8(plan),
-          parse: (value: unknown) => {
-            const parsed = parseNarrativeWriterResponseV8(plan, value);
-            return { text: parsed.text };
-          },
+          parse: (value: unknown) => parseNarrativeWriterResponseV8(plan, value),
         };
+      },
+      validateRepair: (patchedScript, input) => {
+        const target = narrationTargetsByStopId?.get(input.script.stopId);
+        if (!target) return;
+        const validation = validateNarrativeWriterLengthV8(patchedScript.text, target);
+        if (!validation.valid) {
+          throw new Error(
+            `repair_length_target_missed stop=${input.script.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
+          );
+        }
       },
     }
   );

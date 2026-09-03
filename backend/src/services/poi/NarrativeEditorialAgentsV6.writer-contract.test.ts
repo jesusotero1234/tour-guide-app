@@ -1,5 +1,6 @@
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { createNarrativeEditorialAgentsV6Core } from './NarrativeEditorialAgentsV6';
+import { assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
 
 const dossier = {
   stopId: 'palace',
@@ -110,5 +111,96 @@ describe('NarrativeEditorialAgentsV6 writer response contract', () => {
       'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.'
     );
     expect(post).toHaveBeenCalledTimes(1);
+  });
+
+  it('validates the fully patched script via an opt-in repair hook', async () => {
+    const originalText = 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.';
+    const script = assignNarrativeSentenceIdsV6('palace', originalText);
+    const objection = {
+      objectionId: 'deepseek:palace-S001:unsupported',
+      sentenceId: 'palace-S001',
+      classification: 'unsupported' as const,
+      reason: 'La afirmación carece de respaldo en el dossier.',
+      propositionIds: [],
+      auditor: 'deepseek' as const,
+    };
+    const adjudication = {
+      objectionId: 'deepseek:palace-S001:unsupported',
+      decision: 'accepted' as const,
+      reason: 'Se acepta la objeción por falta de evidencia.',
+    };
+
+    let attempt = 0;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      attempt += 1;
+      const tools = body.tools as Array<{
+        function: { parameters: Record<string, unknown> };
+      }>;
+      expect(tools[0].function.parameters).toEqual({
+        type: 'object',
+        additionalProperties: false,
+        required: ['replacements'],
+        properties: {
+          replacements: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['sentenceId', 'text'],
+              properties: {
+                sentenceId: { type: 'string' },
+                text: { type: 'string', minLength: 1 },
+              },
+            },
+          },
+        },
+      });
+      const replacements = attempt === 1
+        ? [{ sentenceId: 'palace-S001', text: 'Observa.' }]
+        : [{ sentenceId: 'palace-S001', text: 'Observa la fachada desde la ruta.' }];
+      return {
+        data: {
+          choices: [{
+            message: {
+              tool_calls: [{
+                function: {
+                  name: 'repair_narrative_window_v6',
+                  arguments: JSON.stringify({ replacements }),
+                },
+              }],
+            },
+          }],
+        },
+      };
+    });
+
+    const agents = createNarrativeEditorialAgentsV6Core(
+      { apiKey: 'test-key', post },
+      ({ systemPrompt, input }) => ({ systemPrompt, input }),
+      {
+        validateRepair: (patchedScript) => {
+          const words = patchedScript.text.split(/\s+/u).filter(Boolean);
+          if (words.length < 16) {
+            throw new Error('repair_length_target_missed');
+          }
+        },
+      }
+    );
+
+    const result = await agents.repair({
+      script,
+      dossier,
+      scope: 'factual',
+      objections: [objection],
+      adjudications: [adjudication],
+    });
+
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(result.diagnostic.attempts[0].error).toContain('repair_length_target_missed');
+    expect(result.diagnostic.attempts.map((item) => item.status)).toEqual(['semantic_error', 'valid']);
+    expect(result.diagnostic.status).toBe('valid');
+    expect(result.value.replacements).toEqual([
+      { sentenceId: 'palace-S001', text: 'Observa la fachada desde la ruta.' },
+    ]);
   });
 });

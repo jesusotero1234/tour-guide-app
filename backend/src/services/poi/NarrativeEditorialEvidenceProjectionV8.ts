@@ -10,6 +10,8 @@ import {
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 import { buildNarrativeWriterPlanV8 } from './NarrativeWriterContractV8';
+import type { NarrativeScriptV6 } from './NarrativeEditorialV6';
+import { analyzeNarrativeTourStyleV8 } from './NarrativeTourStyleV8';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -259,6 +261,15 @@ function projectTourInput(
     });
   }
 
+  const scripts = Array.isArray(input.scripts)
+    ? (input.scripts as unknown[]).map((rawScript) => record(rawScript, 'tour audit script') as unknown as NarrativeScriptV6)
+    : [];
+  const contributionsByStopId: Record<string, string> = {};
+  arc.stops.forEach((arcStop) => {
+    contributionsByStopId[arcStop.stopId] = arcStop.contribution;
+  });
+  projected.styleDiagnostics = analyzeNarrativeTourStyleV8(scripts, { contributionsByStopId });
+
   return projected;
 }
 
@@ -303,6 +314,7 @@ const V8_PROMPT_SUFFIX_AUDITOR = [
   'En nivel B no presentes la evidencia como corroborada por varios publishers.',
   'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
   'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
+  'styleDiagnostics contiene diagnósticos deterministas de estilo de todo el tour; usa los issues clasificados como mechanical_repetition como candidatos concretos para revisión localizada y no penalices automáticamente las entradas clasificadas como intentional_motif.',
 ].join(' ');
 
 export type NarrativeTourProjectionModeV8 = 'compactNarrativeAudit' | 'evidenceRichScorecard';

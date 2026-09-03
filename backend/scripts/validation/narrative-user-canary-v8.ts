@@ -65,7 +65,7 @@ import {
 import { NarrativeProgressSpendGuardV6 } from '../../src/services/poi/NarrativeProgressSpendGuardV6';
 import { NarrativeCanaryConsoleReporterV8 } from '../../src/services/poi/NarrativeCanaryConsoleReporterV8';
 import { createNarrativeSchedulerV6 } from '../../src/services/poi/NarrativeSchedulerV6';
-import { EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
+import { EditorialCallResultV6, EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import { loadLiveCityCandidatesV8, LiveCityCandidatesV8Input } from '../../src/services/poi/LiveCityCandidatesV8';
 import { resolveWikidataQidFromWikipediaV8 } from '../../src/services/poi/NarrativeAuthoritiesV7';
 import {
@@ -76,6 +76,7 @@ import {
 import { allocateNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationTargetsV8';
 import { reconcileNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationReconciliationV8';
 import { evaluateNarrativeRichnessV8 } from '../../src/services/poi/NarrativeRichnessV8';
+import { buildNarrativePublicationQualityV8 } from '../../src/services/poi/NarrativePublicationQualityV8';
 import {
   pruneOptionalStopsForWalkabilityV8,
   tourStopsFromCandidatesV8,
@@ -1560,6 +1561,8 @@ async function main(): Promise<void> {
     }
     currentStage = 'editorial_workflow';
     let editorialScripts: NarrativeScriptV6[];
+    let editorialWriterDiagnostics: EditorialCallResultV6<unknown>[] = [];
+    const requireWriterTraceability = shouldExecuteResumePhaseV8(resumeFromPhase, 'editorial');
     let editorialWorkflowStatus: string;
     let editorialIssueFields: EditorialIssueCheckpointFields = checkpointState.editorial
       ? editorialIssueCheckpointFields(checkpointState.editorial)
@@ -1717,6 +1720,7 @@ async function main(): Promise<void> {
         editorial.stops
       );
       editorialScripts = editorial.stops.map((stop) => stop.finalScript);
+      editorialWriterDiagnostics = editorial.privateDiagnostics;
       editorialWorkflowStatus = editorial.run.status;
       checkpointState.editorial = {
         status: editorialWorkflowStatus,
@@ -1774,7 +1778,17 @@ async function main(): Promise<void> {
       suppressFailureMarkdown = true;
       throw new Error('scorecard returned null');
     }
-    const publicationPassed = scorecardResult?.value?.decision === 'Approve';
+    const publicationQuality = buildNarrativePublicationQualityV8({
+      scripts: editorialScripts,
+      targets: durationReconciliation.targets,
+      arcContributions: Object.fromEntries(
+        architectResult.arc.stops.map((stop) => [stop.stopId, stop.contribution])
+      ),
+      writerDiagnostics: editorialWriterDiagnostics,
+      requireWriterTraceability,
+    });
+    const publicationPassed = scorecardResult?.value?.decision === 'Approve'
+      && publicationQuality.passed;
     if (scorecardResult?.value) {
       checkpointState.scorecard = toJsonValue(scorecardResult.value);
       await persistCheckpoint('scorecard');
@@ -1817,6 +1831,7 @@ async function main(): Promise<void> {
       geometry: null,
       research: researchSummary,
       durationReconciliation,
+      publicationQuality,
       evidenceManifest,
       boundaryMigrationPassed: true,
       publicationPassed,
@@ -1846,6 +1861,7 @@ async function main(): Promise<void> {
       scorecardDecision: scorecardResult?.value?.decision ?? null,
       boundaryMigrationPassed: true,
       publicationPassed,
+      publicationQualityPassed: publicationQuality.passed,
       evidenceManifestFingerprint: evidenceManifest.fingerprint,
       review: reviewPath,
       markdown: markdownPath,

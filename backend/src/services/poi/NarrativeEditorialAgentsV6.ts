@@ -540,6 +540,7 @@ export interface NarrativeWriterResponseContractV6 {
 export interface NarrativeEditorialValidationHooksV6 {
   validateWriter?(value: { text: string }, input: NarrativeWriterInputV6): void;
   writerResponseContract?(projectedInput: unknown, input: NarrativeWriterInputV6): NarrativeWriterResponseContractV6 | undefined;
+  validateRepair?(patchedScript: NarrativeScriptV6, input: NarrativeRepairInputV6): void;
 }
 
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
@@ -901,7 +902,8 @@ export function createNarrativeEditorialAgentsV6Core(
               return { sentenceId: item.sentenceId, text: item.text };
             }),
           };
-          applyNarrativeLocalPatchV6(input.script, acceptedSentenceIds, patch);
+          const patchedScript = applyNarrativeLocalPatchV6(input.script, acceptedSentenceIds, patch);
+          validationHooks.validateRepair?.(patchedScript, input);
           return patch;
         },
       });

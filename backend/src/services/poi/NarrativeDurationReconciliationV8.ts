@@ -17,6 +17,20 @@ export interface NarrativeDurationReconciliationStopV8 {
   richness: NarrativeRichnessProfileV8;
 }
 
+export interface NarrativeRichnessSummaryV8 {
+  supportedCardCount: number;
+  highPriorityCardCount: number;
+  distinctPassageCount: number;
+  distinctPublisherCount: number;
+  facetCount: number;
+  visualCardCount: number;
+  spatialCardCount: number;
+  duplicateCardCount: number;
+  groundingReady: boolean;
+  writerReady: boolean;
+  richnessReady: boolean;
+}
+
 export interface NarrativeDurationReconciliationEntryV8 {
   stopId: string;
   required: boolean;
@@ -24,6 +38,7 @@ export interface NarrativeDurationReconciliationEntryV8 {
   initialTargetSeconds: number;
   finalTarget: NarrativeNarrationTargetV8;
   maximumSupportedSeconds: number;
+  richness: NarrativeRichnessSummaryV8;
   reasons: string[];
 }
 
@@ -61,6 +76,20 @@ export function reconcileNarrationTargetsV8(
       disposition = 'shortened';
     }
 
+    const richness: NarrativeRichnessSummaryV8 = {
+      supportedCardCount: stop.richness.supportedCardCount,
+      highPriorityCardCount: stop.richness.highPriorityCardCount,
+      distinctPassageCount: stop.richness.distinctPassageCount,
+      distinctPublisherCount: stop.richness.distinctPublisherCount,
+      facetCount: stop.richness.facetCount,
+      visualCardCount: stop.richness.visualCardCount,
+      spatialCardCount: stop.richness.spatialCardCount,
+      duplicateCardCount: stop.richness.duplicateCardCount,
+      groundingReady: stop.richness.groundingReady,
+      writerReady: stop.richness.writerReady,
+      richnessReady: stop.richness.richnessReady,
+    };
+
     return {
       stopId: stop.stopId,
       required: stop.required,
@@ -68,6 +97,7 @@ export function reconcileNarrationTargetsV8(
       initialTargetSeconds: stop.target.targetSeconds,
       finalTarget,
       maximumSupportedSeconds,
+      richness,
       reasons,
     };
   });
