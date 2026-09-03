@@ -4,13 +4,13 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 
 ## Fase 0 — Inventario físico
 
-- [ ] T0 — Inventariar las 783 páginas y auditar el OCR incrustado.
+- [x] T0 — Inventariar las 783 páginas y auditar el OCR incrustado.
 
 ### Checkpoint inicial
 
-- [ ] 783 filas físicas y hash reproducible.
-- [ ] Páginas sin OCR, duplicados, saltos y huecos resumidos.
-- [ ] Cero publicación y cero material privado en Git.
+- [x] 783 filas físicas y hash reproducible.
+- [x] Páginas sin OCR, duplicados, saltos y huecos resumidos.
+- [x] Cero publicación y cero material privado en Git.
 
 ## Fase 1 — Camino híbrido
 
