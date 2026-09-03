@@ -2,7 +2,9 @@ import asyncio
 import hashlib
 import threading
 import time
+from contextlib import contextmanager
 from pathlib import Path
+from typing import Iterator
 
 import httpx2
 import pytest
@@ -10,8 +12,9 @@ from fastapi.testclient import TestClient
 
 from historical_corpus.app import create_app
 from historical_corpus.backends import DeterministicEmbeddingProvider, DeterministicReranker, InMemoryVectorIndex
+from historical_corpus.locks import CorpusLockError, exclusive_lock, shared_lock
 from historical_corpus.models import ChunkInput, ClaimSearchRequest, IngestRequest, RightsMetadata, SearchRequest, SearchResponse, StopSearchRequest
-from historical_corpus.service import HistoricalCorpusService
+from historical_corpus.service import HistoricalCorpusService, IndexRepairRequiredError
 
 
 def _make_service(tmp_path: Path) -> HistoricalCorpusService:
@@ -419,5 +422,145 @@ def test_slow_search_does_not_block_health(tmp_path: Path) -> None:
 
     try:
         asyncio.run(run_test())
+    finally:
+        service.close()
+
+
+def test_injected_service_no_lifespan_lock(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    app = create_app(service=service, admin_token="test-admin-token", max_body_bytes=65536)
+    try:
+        with TestClient(app) as test_client:
+            response = test_client.get("/health")
+            assert response.status_code == 200
+        assert not (tmp_path / "locks").exists(), "injected service must not create lock directory"
+        assert service.index_version().generation == 0
+    finally:
+        service.close()
+
+
+def test_owned_service_lifespan_lock(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(tmp_path))
+
+    fake_service = _make_service(tmp_path)
+    calls: list[dict] = []
+    close_contention = threading.Event()
+    original_close = fake_service.close
+    close_called = threading.Event()
+
+    def fake_builder(environment=None, *, startup_policy="verify"):
+        calls.append({"startup_policy": startup_policy})
+        with pytest.raises(CorpusLockError):
+            with exclusive_lock(tmp_path / "locks" / "corpus.lock"):
+                pass
+        return fake_service
+
+    monkeypatch.setattr("historical_corpus.runtime.build_service_from_env", fake_builder)
+
+    def wrapped_close():
+        close_contention.set()
+        with pytest.raises(CorpusLockError):
+            with exclusive_lock(tmp_path / "locks" / "corpus.lock"):
+                pass
+        close_called.set()
+        original_close()
+
+    fake_service.close = wrapped_close
+
+    app = create_app()
+    try:
+        with TestClient(app) as test_client:
+            assert len(calls) == 1
+            assert calls[0]["startup_policy"] == "verify"
+            response = test_client.get("/health")
+            assert response.status_code == 200
+            with pytest.raises(CorpusLockError):
+                with exclusive_lock(tmp_path / "locks" / "corpus.lock"):
+                    pass
+    finally:
+        if not close_called.is_set():
+            original_close()
+
+    assert close_contention.is_set(), "exclusive lock must still be held during close"
+    assert close_called.is_set(), "original close must be invoked exactly once"
+    with exclusive_lock(tmp_path / "locks" / "corpus.lock"):
+        pass
+
+
+def test_pre_held_exclusive_lock_raises_corpus_lock_error(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(tmp_path))
+
+    fake_service = _make_service(tmp_path)
+    builder_called = threading.Event()
+
+    def fake_builder(environment=None, *, startup_policy="verify"):
+        builder_called.set()
+        return fake_service
+
+    monkeypatch.setattr("historical_corpus.runtime.build_service_from_env", fake_builder)
+
+    lock_path = tmp_path / "locks" / "corpus.lock"
+    try:
+        with exclusive_lock(lock_path):
+            app = create_app()
+            with pytest.raises(CorpusLockError):
+                with TestClient(app) as test_client:
+                    test_client.get("/health")
+
+        assert not builder_called.is_set(), "builder must not be called when lock is pre-held"
+    finally:
+        fake_service.close()
+
+
+def test_index_repair_required_error_propagates(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(tmp_path))
+
+    fake_service = _make_service(tmp_path)
+    calls: list[dict] = []
+
+    def fake_builder(environment=None, *, startup_policy="verify"):
+        calls.append({"startup_policy": startup_policy})
+        raise IndexRepairRequiredError("index needs repair")
+
+    monkeypatch.setattr("historical_corpus.runtime.build_service_from_env", fake_builder)
+
+    try:
+        app = create_app()
+        with pytest.raises(IndexRepairRequiredError):
+            with TestClient(app) as test_client:
+                test_client.get("/health")
+
+        assert len(calls) == 1
+        assert calls[0]["startup_policy"] == "verify"
+    finally:
+        fake_service.close()
+
+
+def test_explicit_lifespan_lock_injected_service(tmp_path: Path) -> None:
+    service = _make_service(tmp_path)
+    entered = threading.Event()
+    exited = threading.Event()
+
+    @contextmanager
+    def custom_lock() -> Iterator[None]:
+        entered.set()
+        yield
+        exited.set()
+
+    app = create_app(
+        service=service,
+        admin_token="test-admin-token",
+        max_body_bytes=65536,
+        lifespan_lock=custom_lock,
+    )
+    try:
+        with TestClient(app) as test_client:
+            assert entered.is_set(), "lifespan_lock must be entered"
+            response = test_client.get("/health")
+            assert response.status_code == 200
+            assert not exited.is_set(), "lifespan_lock must not be exited during lifespan"
+
+        assert exited.is_set(), "lifespan_lock must be exited after TestClient exits"
+        assert service.index_version().generation == 0
     finally:
         service.close()

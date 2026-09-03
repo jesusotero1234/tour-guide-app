@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hmac
 import os
-from typing import Any
+from contextlib import AbstractContextManager, asynccontextmanager, nullcontext
+from pathlib import Path
+from typing import Any, Callable
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -112,24 +114,38 @@ def create_app(
     service: HistoricalCorpusService | None = None,
     admin_token: str | None = None,
     max_body_bytes: int = 2097152,
+    lifespan_lock: Callable[[], AbstractContextManager[None]] | None = None,
 ) -> FastAPI:
-    from contextlib import asynccontextmanager
-
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         if service is None:
-            from historical_corpus.runtime import build_service_from_env
+            if lifespan_lock is None:
+                from historical_corpus.locks import shared_lock
 
-            app.state.service = build_service_from_env()
+                lock_path = Path(os.environ.get("HISTORICAL_CORPUS_DATA_DIR", "/data")) / "locks" / "corpus.lock"
+                lock_cm = shared_lock(lock_path)
+            else:
+                lock_cm = lifespan_lock()
         else:
-            app.state.service = service
-        app.state.owns_service = service is None
-        app.state.admin_token = admin_token if admin_token is not None else os.environ.get("HISTORICAL_CORPUS_ADMIN_TOKEN")
-        try:
-            yield
-        finally:
-            if app.state.owns_service and app.state.service is not None:
-                app.state.service.close()
+            if lifespan_lock is None:
+                lock_cm = nullcontext()
+            else:
+                lock_cm = lifespan_lock()
+
+        with lock_cm:
+            if service is None:
+                from historical_corpus.runtime import build_service_from_env
+
+                app.state.service = build_service_from_env(startup_policy="verify")
+            else:
+                app.state.service = service
+            app.state.owns_service = service is None
+            app.state.admin_token = admin_token if admin_token is not None else os.environ.get("HISTORICAL_CORPUS_ADMIN_TOKEN")
+            try:
+                yield
+            finally:
+                if app.state.owns_service and app.state.service is not None:
+                    app.state.service.close()
 
     app = FastAPI(
         title="Historical Corpus API",

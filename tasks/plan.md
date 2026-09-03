@@ -2930,7 +2930,10 @@ feat: persist page-level provenance for historical corpus
 
 ### QW-07 — Bloqueos de corpus
 
-- [ ] Pendiente.
+- [x] Completado: context managers shared/exclusive no bloqueantes sobre
+  `fcntl.flock`, permisos 0700/0600, descriptor retenido, error tipado y
+  liberación garantizada. Pasan 7 pruebas, incluidas contenciones
+  multiproceso reales.
 - Depende de: QW-06E.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/locks.py`
@@ -2964,7 +2967,11 @@ Validación:
 
 ### QW-08 — API mantiene bloqueo compartido
 
-- [ ] Pendiente.
+- [x] Completado: la API owned adquiere shared lock antes del builder, arranca
+  solo con `startup_policy="verify"`, conserva el lock durante el lifespan y
+  cierra el servicio antes de liberarlo; la inyección de tests permanece sin
+  acceso implícito al filesystem. Pasan 25 pruebas API, 7 de locks y las 271
+  pruebas completas del pod.
 - Depende de: QW-07.
 - Archivos existentes:
   - `pods/historical-corpus-pod/src/historical_corpus/app.py`
