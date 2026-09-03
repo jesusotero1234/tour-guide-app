@@ -185,6 +185,14 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
 
     const input = projected.input as Record<string, unknown>;
     expect(input.narrationTarget).toEqual(narrationTarget);
+    const writerPlan = input.writerPlan as Record<string, unknown>;
+    expect(writerPlan.version).toBe('segments_v8');
+    expect(writerPlan.routeStopId).toBe(narrationFixture.routeStopId);
+    expect(writerPlan.openingMode).toBe('gaze');
+    expect((writerPlan.evidenceCards as unknown[]).length).toBeGreaterThan(0);
+    expect((writerPlan.beats as unknown[]).length).toBeGreaterThan(0);
+    expect(projected.systemPrompt).toContain('supportCardIds');
+    expect(projected.systemPrompt).toContain('no crear un beat sin evidencia');
     expect(projected.systemPrompt).toContain('600 palabras');
     expect(projected.systemPrompt).toContain('300 segundos');
     expect(projected.systemPrompt).toContain('mínimo de 580');

@@ -9,6 +9,7 @@ import {
 } from './NarrativeEvidenceBoundaryV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
+import { buildNarrativeWriterPlanV8 } from './NarrativeWriterContractV8';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -191,7 +192,8 @@ function projectPerStopInput(
   arc: NarrativeArcV8,
   arcStop: NarrativeArcV8['stops'][number],
   authorizedEvidence: AuthorizedEvidenceByStopV8,
-  narrationTarget: NarrativeNarrationTargetV8 | undefined
+  narrationTarget: NarrativeNarrationTargetV8 | undefined,
+  stopIndex: number
 ): JsonRecord {
   const suppliedDossier = record(input.dossier, `${operation} dossier`) as unknown as NarrativeDossierV6;
   if (
@@ -205,6 +207,15 @@ function projectPerStopInput(
   const dossierProjection = isWriteOrRepair
     ? projectNarrativeDossierForWriterV8(stop.dossier)
     : projectNarrativeDossierForEditorialV8(stop.dossier);
+
+  const writerPlan = operation === 'write' && narrationTarget
+    ? buildNarrativeWriterPlanV8({
+        routeStopId: stop.routeStopId,
+        dossier: stop.dossier,
+        narrationTarget,
+        stopIndex,
+      })
+    : undefined;
 
   return {
     ...input,
@@ -222,6 +233,7 @@ function projectPerStopInput(
     },
     authorizedEvidence,
     ...(narrationTarget ? { narrationTarget } : {}),
+    ...(writerPlan ? { writerPlan } : {}),
   };
 }
 
@@ -265,6 +277,10 @@ function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefin
       `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
     );
   }
+
+  base.push(
+    'Cada segmento declara supportCardIds válidos y debe no crear un beat sin evidencia.'
+  );
 
   base.push(
     'Construye una secuencia inmersiva respaldada por evidencia: orientación visible, cambio temporal, vida humana, contraste/significado y transición. Si la evidencia no permite uno de esos momentos, omítelo en vez de inventarlo.'
@@ -361,7 +377,7 @@ export function createNarrativeEditorialRequestProjectorV8(
         ? writerSuffix
         : V8_PROMPT_SUFFIX_AUDITOR;
 
-    const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence, narrationTarget);
+    const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence, narrationTarget, stopIndex);
     if (operation === 'audit' || operation === 'adjudicate') {
       projectedInput.reviewEvidence = {
         current: {
