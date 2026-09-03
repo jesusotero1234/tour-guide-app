@@ -538,10 +538,7 @@ function rawAudit(value: unknown, auditor: NarrativeAuditorV6): NarrativeAuditRe
         || typeof finding.reason !== 'string') {
         throw new Error(`${auditor} finding ${index} is malformed`);
       }
-      const propositionIds = strings(finding.propositionIds, `${auditor} propositionIds`);
-      if (new Set(propositionIds).size !== propositionIds.length) {
-        throw new Error(`${auditor} finding ${index} repeats propositionIds`);
-      }
+      const propositionIds = [...new Set(strings(finding.propositionIds, `${auditor} propositionIds`))];
       const result: NarrativeAuditReportV6['findings'][number] = {
         sentenceId: finding.sentenceId,
         classification: finding.classification as NarrativeAuditReportV6['findings'][number]['classification'],
@@ -561,10 +558,7 @@ function rawAudit(value: unknown, auditor: NarrativeAuditorV6): NarrativeAuditRe
         result.claimSpan = finding.claimSpan;
       }
       if (finding.passageIds !== undefined) {
-        const passageIds = strings(finding.passageIds, `${auditor} passageIds`);
-        if (new Set(passageIds).size !== passageIds.length) {
-          throw new Error(`${auditor} finding ${index} repeats passageIds`);
-        }
+        const passageIds = [...new Set(strings(finding.passageIds, `${auditor} passageIds`))];
         result.passageIds = passageIds;
       }
       if (finding.conflictType !== undefined) {
@@ -733,6 +727,7 @@ export function createNarrativeEditorialAgentsV6Core(
             'factual comprobable son authorized_inference y no necesitan respaldo explícito del dossier.',
             'No las marques unclear solo porque el dossier no documente la acción del visitante.',
             'Reserva unclear para afirmaciones comprobables ambiguas o para una orientación internamente contradictoria.',
+            'No repitas un mismo propositionId o passageId dentro de un finding.',
             ...(validationHooks.auditAnchorsRequired ? [
               'Incluye sentenceFingerprint, claimSpan, passageIds y conflictType en cada finding.',
               'sentenceFingerprint debe ser el fingerprint de la frase actual del batch.',

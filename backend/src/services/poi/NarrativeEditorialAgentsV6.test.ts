@@ -882,4 +882,75 @@ describe('narrative v6 editorial agents', () => {
     expect(parsedModelInput).not.toHaveProperty('auditCitationPropositionIds');
     expect(result.value.findings[0].propositionIds).toEqual([nextStopPropositionId]);
   });
+
+  it('deduplicates exact audit reference IDs and asks the auditor not to repeat them', async () => {
+    const passageId = 'pass-palace-1';
+    const propositionId = 'prop-palace-1';
+    const dossierWithReferences = {
+      ...dossier,
+      passages: [{
+        passageId,
+        sourceId: 'source-palace-1',
+        quote: 'La fachada puede observarse desde la ruta.',
+      }, {
+        passageId: 'pass-palace-2',
+        sourceId: 'source-palace-2',
+        quote: 'La plaza queda frente a la fachada.',
+      }],
+      propositions: [{
+        ...dossier.propositions[0],
+        sourceIds: ['source-palace-1'],
+        passageIds: [passageId],
+      }, {
+        ...dossier.propositions[0],
+        propositionId: 'prop-palace-2',
+        text: 'La plaza queda frente a la fachada.',
+        sourceIds: ['source-palace-2'],
+        passageIds: ['pass-palace-2'],
+      }],
+    } as NarrativeDossierV6;
+    let duplicateReference: 'passage' | 'proposition' = 'passage';
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const toolName = ((body.tool_choice as { function: { name: string } }).function.name);
+      const args = {
+        findings: [{
+          sentenceId: 'palace-S001',
+          classification: 'supported',
+          reason: 'La afirmación coincide con el dossier.',
+          propositionIds: duplicateReference === 'proposition'
+            ? [propositionId, propositionId]
+            : [propositionId],
+          passageIds: duplicateReference === 'passage'
+            ? [passageId, passageId]
+            : [passageId],
+        }],
+      };
+      return { data: { choices: [{ message: { tool_calls: [{
+        function: { name: toolName, arguments: JSON.stringify(args) },
+      }] } }] } };
+    });
+    const projector = (projection: {
+      operation: 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
+      systemPrompt: string;
+      input: unknown;
+    }) => ({
+      systemPrompt: projection.systemPrompt,
+      input: projection.input,
+    });
+    const agents = createNarrativeEditorialAgentsV6Core({
+      apiKey: 'test-key',
+      post,
+    }, projector);
+    const script = assignNarrativeSentenceIdsV6('palace', 'Mira la fachada.');
+
+    const passageResult = await agents.audit({ script, dossier: dossierWithReferences }, 'deepseek');
+    duplicateReference = 'proposition';
+    const propositionResult = await agents.audit({ script, dossier: dossierWithReferences }, 'deepseek');
+
+    const auditBody = projectPostBody(post.mock.calls[0][1]);
+    expect(auditBody.messages[0].content)
+      .toContain('No repitas un mismo propositionId o passageId dentro de un finding.');
+    expect(passageResult.value.findings[0].passageIds).toEqual([passageId]);
+    expect(propositionResult.value.findings[0].propositionIds).toEqual([propositionId]);
+  });
 });
