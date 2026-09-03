@@ -175,7 +175,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
 
     const projected = projector({
       operation: 'write',
-      systemPrompt: 'writer-prefix',
+      systemPrompt: 'writer-prefix Escribe prosa oral continua de aproximadamente dos o tres minutos, sin rellenar.',
       input: {
         stopId: narrationFixture.routeStopId,
         dossier: narrationFixture.dossier,
@@ -197,6 +197,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(projected.systemPrompt).toContain('300 segundos');
     expect(projected.systemPrompt).toContain('mínimo de 580');
     expect(projected.systemPrompt).toContain('máximo de 660');
+    expect(projected.systemPrompt).not.toContain('Escribe prosa oral continua de aproximadamente dos o tres minutos, sin rellenar.');
     expect(projected.systemPrompt).toContain('orientación visible');
     expect(projected.systemPrompt).toContain('cambio temporal');
     expect(projected.systemPrompt).toContain('vida humana');

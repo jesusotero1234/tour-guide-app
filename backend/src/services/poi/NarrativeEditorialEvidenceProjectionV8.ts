@@ -273,6 +273,17 @@ function projectTourInput(
   return projected;
 }
 
+const V8_INHERITED_DURATION_SENTENCE = 'Escribe prosa oral continua de aproximadamente dos o tres minutos, sin rellenar.';
+const V8_EXPLICIT_NARRATION_SENTENCE = 'Escribe prosa oral continua, natural y sin rellenar.';
+
+function reconcileBaseSystemPrompt(
+  systemPrompt: string,
+  narrationTarget: NarrativeNarrationTargetV8 | undefined
+): string {
+  if (!narrationTarget) return systemPrompt;
+  return systemPrompt.replace(V8_INHERITED_DURATION_SENTENCE, V8_EXPLICIT_NARRATION_SENTENCE);
+}
+
 function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefined): string {
   const base = [
     'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
@@ -388,6 +399,9 @@ export function createNarrativeEditorialRequestProjectorV8(
       : operation === 'write'
         ? writerSuffix
         : V8_PROMPT_SUFFIX_AUDITOR;
+    const reconciledBaseSystemPrompt = (operation === 'write' || operation === 'repair')
+      ? reconcileBaseSystemPrompt(systemPrompt, narrationTarget)
+      : systemPrompt;
 
     const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence, narrationTarget, stopIndex);
     if (operation === 'audit' || operation === 'adjudicate') {
@@ -411,7 +425,7 @@ export function createNarrativeEditorialRequestProjectorV8(
       : undefined;
 
     return {
-      systemPrompt: `${systemPrompt} ${promptSuffix}`,
+      systemPrompt: `${reconciledBaseSystemPrompt} ${promptSuffix}`,
       input: projectedInput,
       ...(auditCitationPropositionIds !== undefined ? { auditCitationPropositionIds } : {}),
     };
