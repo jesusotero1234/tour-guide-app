@@ -15,10 +15,24 @@ from .manifest import (
     load_manifest,
     validate_manifest_source,
 )
+from .locks import CorpusLockError, exclusive_lock
+from .madoz_pipeline import (
+    PipelineError,
+    prepare_document,
+    prepare_evaluation_sample,
+)
+from .madoz_processor import ProcessorError, open_processor, prepare_source
+from .ocr_backend import (
+    OcrBackendError,
+    load_model_lock,
+    prefetch_models,
+    verify_model_lock,
+)
 from .page_inventory import (
     PageInventoryError,
     build_inventory_signals,
     finalize_inventory,
+    load_verified_inventory,
     serialize_inventory_jsonl,
 )
 from .pdf_source import PdfSourceError, iter_rendered_leaves
@@ -63,6 +77,32 @@ def _parser() -> argparse.ArgumentParser:
     inventory.add_argument("--manifest", required=True)
     inventory.add_argument("--imports-root", default="/imports")
     inventory.add_argument("--output-root", default="/inventory-output")
+
+    prefetch = commands.add_parser("prefetch-models")
+    prefetch.add_argument("--manifest", required=True)
+    prefetch.add_argument("--model-cache-root", default="/model-cache/paddlex")
+    prefetch.add_argument("--data-root", default="/data")
+
+    prepare_sample = commands.add_parser("prepare-sample")
+    prepare_sample.add_argument("--manifest", required=True)
+    prepare_sample.add_argument("--pages", required=True)
+    prepare_sample.add_argument("--imports-root", default="/imports")
+    prepare_sample.add_argument("--data-root", default="/data")
+    prepare_sample.add_argument("--model-cache-root", default="/model-cache/paddlex")
+
+    prepare = commands.add_parser("prepare")
+    prepare.add_argument("--manifest", required=True)
+    prepare.add_argument("--imports-root", default="/imports")
+    prepare.add_argument("--data-root", default="/data")
+    prepare.add_argument("--model-cache-root", default="/model-cache/paddlex")
+
+    ocr_smoke = commands.add_parser("ocr-smoke")
+    ocr_smoke.add_argument("--manifest", required=True)
+    ocr_smoke.add_argument("--pdf-page", required=True, type=int)
+    ocr_smoke.add_argument("--side", required=True, choices=("full", "left", "right"))
+    ocr_smoke.add_argument("--imports-root", default="/imports")
+    ocr_smoke.add_argument("--data-root", default="/data")
+    ocr_smoke.add_argument("--model-cache-root", default="/model-cache/paddlex")
     return parser
 
 
@@ -183,6 +223,130 @@ def _build_inventory_command(args: argparse.Namespace) -> dict[str, object]:
     }
 
 
+def _parse_page_refs(raw: str) -> tuple[tuple[int, str], ...]:
+    refs: list[tuple[int, str]] = []
+    seen: set[tuple[int, str]] = set()
+    for item in raw.split(","):
+        if not item:
+            raise CliInputError(f"invalid page reference '{item}'")
+        parts = item.split(":")
+        if len(parts) != 2:
+            raise CliInputError(f"invalid page reference '{item}'")
+        page_text, side = parts
+        if not page_text.isascii() or not page_text.isdigit() or int(page_text) <= 0:
+            raise CliInputError(f"invalid page reference '{item}'")
+        if side not in {"full", "left", "right"}:
+            raise CliInputError(f"invalid page reference '{item}'")
+        ref = (int(page_text), side)
+        if ref in seen:
+            raise CliInputError(f"invalid page reference '{item}'")
+        seen.add(ref)
+        refs.append(ref)
+    if not refs:
+        raise CliInputError("invalid page reference ''")
+    return tuple(refs)
+
+
+def _prepare_sample_command(args: argparse.Namespace) -> dict[str, object]:
+    refs = _parse_page_refs(args.pages)
+    result = prepare_evaluation_sample(
+        Path(args.manifest),
+        refs,
+        imports_root=Path(args.imports_root),
+        data_root=Path(args.data_root),
+        model_cache_root=Path(args.model_cache_root),
+    )
+    return {
+        "ok": True,
+        "command": "prepare-sample",
+        "path": str(result.path),
+        "sampleHash": result.sample.sampleHash,
+        "pageCount": len(result.sample.selectedPages),
+        "warnings": list(result.warnings),
+        "publishable": False,
+    }
+
+
+def _prepare_command(args: argparse.Namespace) -> dict[str, object]:
+    result = prepare_document(
+        Path(args.manifest),
+        imports_root=Path(args.imports_root),
+        data_root=Path(args.data_root),
+        model_cache_root=Path(args.model_cache_root),
+    )
+    return {
+        "ok": True,
+        "command": "prepare",
+        "sourcePath": str(result.source_path),
+        "preparedDocumentPath": str(result.prepared_document_path),
+        "reportPath": str(result.report_path),
+        "preparedDocumentHash": result.prepared_document.preparedDocumentHash,
+        "report": result.report.model_dump(mode="json", by_alias=True, exclude_none=False),
+        "warnings": list(result.warnings),
+    }
+
+
+def _ocr_smoke_command(args: argparse.Namespace) -> dict[str, object]:
+    manifest = load_manifest(args.manifest)
+    pdf_page = args.pdf_page
+    if pdf_page < 1:
+        raise CliInputError(f"pdf-page must be >= 1, got {pdf_page}")
+    imports_root = Path(args.imports_root)
+    data_root = Path(args.data_root)
+    model_cache_root = Path(args.model_cache_root)
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    with exclusive_lock(lock_path):
+        validated = validate_manifest_source(manifest, imports_root)
+        if validated.inventory_path is None:
+            raise CliInputError("verified page inventory is required")
+        payload = validated.inventory_path.read_bytes()
+        records = load_verified_inventory(payload, manifest)
+        record = None
+        for candidate in records:
+            if (
+                candidate.pdfPage == pdf_page
+                and candidate.side == args.side
+                and candidate.canonicalStatus == "include"
+            ):
+                record = candidate
+                break
+        if record is None:
+            raise CliInputError(
+                f"no include record for pdfPage={pdf_page} side={args.side}"
+            )
+        canonical = prepare_source(manifest, imports_root, data_root)
+        returned_lock = load_model_lock(model_cache_root, manifest.processing.modelLockFile)
+        verify_model_lock(model_cache_root, returned_lock)
+        with open_processor(manifest, canonical, model_cache_root) as processor:
+            result = processor.process_page(record)
+    return {
+        "ok": True,
+        "command": "ocr-smoke",
+        "documentId": result.documentId,
+        "pageId": result.pageId,
+        "logicalPageNumber": result.logicalPageNumber,
+        "pdfPage": result.sourcePdfPageNumber,
+        "side": result.leafSide,
+        "lineCount": len(result.lines),
+        "qualityFlags": list(result.qualityFlags),
+        "meanConfidence": result.meanConfidence,
+    }
+
+
+def _prefetch_models_command(args: argparse.Namespace) -> dict[str, object]:
+    manifest = load_manifest(args.manifest)
+    model_cache_root = Path(args.model_cache_root)
+    lock_path = Path(args.data_root) / "locks" / "madoz-prepare.lock"
+    with exclusive_lock(lock_path):
+        returned_lock = prefetch_models(model_cache_root, manifest.processing.modelLockFile)
+    return {
+        "ok": True,
+        "command": "prefetch-models",
+        "lockPath": str(model_cache_root / manifest.processing.modelLockFile),
+        "modelCount": len(returned_lock.models),
+    }
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     try:
         args = _parser().parse_args(argv)
@@ -190,16 +354,37 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = _validate_manifest_command(args)
         elif args.command == "build-inventory":
             result = _build_inventory_command(args)
+        elif args.command == "prefetch-models":
+            result = _prefetch_models_command(args)
+        elif args.command == "prepare-sample":
+            result = _prepare_sample_command(args)
+        elif args.command == "prepare":
+            result = _prepare_command(args)
+        elif args.command == "ocr-smoke":
+            result = _ocr_smoke_command(args)
         else:
             raise CliInputError("unknown command")
     except CliHelp as exc:
         _emit({"ok": True, "command": "help", "help": exc.help_text})
         return EXIT_SUCCESS
+    except CorpusLockError as exc:
+        _emit(
+            {"ok": False, "error": {"code": "LOCKED", "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_LOCK
+    except (OcrBackendError, ProcessorError) as exc:
+        _emit(
+            {"ok": False, "error": {"code": "PROCESSING_ERROR", "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_PROCESSING
     except (
         CliInputError,
         ManifestValidationError,
         PageInventoryError,
         PdfSourceError,
+        PipelineError,
         OSError,
     ) as exc:
         _emit(

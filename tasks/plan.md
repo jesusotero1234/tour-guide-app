@@ -3596,7 +3596,10 @@ Validación:
 
 ### QW-15B — CLI de modelos, smoke, muestra y prepare
 
-- [ ] Pendiente.
+- [x] Completado: `prefetch-models`, `ocr-smoke`, `prepare-sample` y `prepare`
+  respetan ownership del lock, descarga exclusiva, muestra no publicable y
+  preparación reanudable sin SQLite/TurboVec; 13 pruebas CLI y 503 pruebas
+  completas pasan, además de `compileall` y `pip check`.
 - Depende de: QW-11A, QW-14D y QW-15A.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_ingest_cli.py`
