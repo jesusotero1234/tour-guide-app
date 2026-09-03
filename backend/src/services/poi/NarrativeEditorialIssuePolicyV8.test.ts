@@ -222,6 +222,34 @@ describe('buildFinalNarrativeIssueStateV8', () => {
     expect(state.summary.acceptedTour).toBe(1);
   });
 
+  it('canonicalizes unpadded tour objection sentence ID to exact final script ID', () => {
+    const stopId = 'stop-a';
+    const sentences = Array.from({ length: 20 }, (_, i) => `Sentence ${i + 1}.`);
+    const script = makeScript(stopId, sentences);
+    const unpaddedSentenceId = `${stopId}-S20`;
+    const tourObjection = makeObjection(stopId, unpaddedSentenceId, 'distorted', 'tour issue');
+
+    const state = buildFinalNarrativeIssueStateV8(
+      [],
+      [],
+      [tourObjection],
+      [script],
+      { progressionWorks: true, promiseDelivered: true, closingWorks: true, tourFingerprint: 'tour-fp' }
+    );
+
+    const tourIssue = state.issues.find((issue) => issue.source === 'tour');
+    expect(tourIssue?.sentenceIds).toEqual(['stop-a-S020']);
+
+    const unknownObjection = makeObjection(stopId, `${stopId}-S999`, 'distorted', 'unknown');
+    expect(() => buildFinalNarrativeIssueStateV8(
+      [],
+      [],
+      [unknownObjection],
+      [script],
+      { progressionWorks: true, promiseDelivered: true, closingWorks: true, tourFingerprint: 'tour-fp' }
+    )).toThrow('no exact sentence match');
+  });
+
   it('binds every issue to the matching final script fingerprint', () => {
     const stopId = 'stop-a';
     const script = makeScript(stopId, ['One.']);

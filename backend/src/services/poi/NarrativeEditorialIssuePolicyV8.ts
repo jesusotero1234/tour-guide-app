@@ -62,6 +62,19 @@ function uniqueSorted(values: string[]): string[] {
   return [...new Set(values)].sort();
 }
 
+function resolveCanonicalSentenceId(
+  sentenceId: string,
+  sentenceById: Map<string, NarrativeScriptV6>
+): string {
+  if (sentenceById.has(sentenceId)) return sentenceId;
+  const match = sentenceId.match(/^(.*)-S(\d+)$/);
+  if (match) {
+    const paddedId = `${match[1]}-S${match[2].padStart(3, '0')}`;
+    if (sentenceById.has(paddedId)) return paddedId;
+  }
+  throw new Error(`no exact sentence match for ${sentenceId}`);
+}
+
 function acceptedObjectionsForStop(
   stopId: string,
   objections: NarrativeAuditObjectionV6[],
@@ -185,14 +198,14 @@ export function buildFinalNarrativeIssueStateV8(
   }
 
   for (const objection of finalAcceptedFactualObjections) {
-    const script = sentenceById.get(objection.sentenceId);
-    if (!script) throw new Error(`no exact sentence match for factual objection ${objection.objectionId}`);
+    const canonicalSentenceId = resolveCanonicalSentenceId(objection.sentenceId, sentenceById);
+    const script = sentenceById.get(canonicalSentenceId)!;
     issues.push({
       schemaVersion: NARRATIVE_EDITORIAL_ISSUE_SCHEMA_VERSION_V8,
       issueId: objection.objectionId,
       source: 'factual',
       stopId: script.stopId,
-      sentenceIds: [objection.sentenceId],
+      sentenceIds: [canonicalSentenceId],
       code: objection.classification,
       severity: 'hard',
       state: 'open',
@@ -202,8 +215,8 @@ export function buildFinalNarrativeIssueStateV8(
   }
 
   for (const objection of finalAcceptedTourObjections) {
-    const script = sentenceById.get(objection.sentenceId);
-    if (!script) throw new Error(`no exact sentence match for tour objection ${objection.objectionId}`);
+    const canonicalSentenceId = resolveCanonicalSentenceId(objection.sentenceId, sentenceById);
+    const script = sentenceById.get(canonicalSentenceId)!;
     const canonicalId = objection.objectionId.startsWith('tour:')
       ? objection.objectionId
       : `tour:${objection.objectionId}`;
@@ -212,7 +225,7 @@ export function buildFinalNarrativeIssueStateV8(
       issueId: canonicalId,
       source: 'tour',
       stopId: script.stopId,
-      sentenceIds: [objection.sentenceId],
+      sentenceIds: [canonicalSentenceId],
       code: objection.classification,
       severity: 'hard',
       state: 'open',
