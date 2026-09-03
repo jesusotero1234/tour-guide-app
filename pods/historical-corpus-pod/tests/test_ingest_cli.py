@@ -6,9 +6,16 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import httpx2
 import pytest
 
 from historical_corpus import cli
+from historical_corpus.evaluation import (
+    OcrGateConfig,
+    RetrievalGateConfig,
+    evaluate_ocr as run_ocr_evaluation,
+    evaluate_retrieval as run_retrieval_evaluation,
+)
 from historical_corpus.locks import CorpusLockError
 from historical_corpus.manifest import ManifestValidationError
 from historical_corpus.ocr_backend import OcrBackendError
@@ -20,6 +27,8 @@ from historical_corpus.service import (
     RightsNotReusableError,
 )
 from historical_corpus.staging import StagingError
+from test_evaluation import EVALUATED_AT, _FakeRetrievalApi, _gold_payload, _retrieval_case_payload
+from test_ingest_models import _evaluation_sample, _prepared_document
 
 
 def _manifest() -> SimpleNamespace:
@@ -1770,3 +1779,356 @@ def test_repair_index_rejects_blank_runtime_data_dir_before_lock(
         "code": "PROCESSING_ERROR",
         "message": "HISTORICAL_CORPUS_DATA_DIR must be a non-empty string",
     }
+
+
+def _write_evaluation_inputs(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
+    data_root = tmp_path / "data"
+    imports_root = tmp_path / "imports"
+    sample_path = data_root / "staging" / "sample.json"
+    gold_path = imports_root / "gold.jsonl"
+    report_path = data_root / "reports" / "ocr-report.json"
+    sample_path.parent.mkdir(parents=True)
+    imports_root.mkdir()
+    sample_path.write_text(
+        json.dumps(_evaluation_sample(), ensure_ascii=False), encoding="utf-8"
+    )
+    gold_path.write_text(
+        json.dumps(_gold_payload(), ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    return data_root, imports_root, sample_path, gold_path, report_path
+
+
+def _ocr_args(
+    data_root: Path,
+    imports_root: Path,
+    sample_path: Path | str,
+    gold_path: Path | str,
+    report_path: Path | str,
+) -> list[str]:
+    return [
+        "evaluate-ocr",
+        "--sample",
+        str(sample_path),
+        "--gold",
+        str(gold_path),
+        "--report",
+        str(report_path),
+        "--data-root",
+        str(data_root),
+        "--imports-root",
+        str(imports_root),
+    ]
+
+
+def test_evaluate_ocr_cli_success_writes_atomic_text_free_report(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, imports_root, sample_path, gold_path, report_path = (
+        _write_evaluation_inputs(tmp_path)
+    )
+
+    def evaluate_one(sample, gold):
+        return run_ocr_evaluation(
+            sample,
+            gold,
+            config=OcrGateConfig(expectedPageCount=1),
+            evaluated_at=EVALUATED_AT,
+        )
+
+    monkeypatch.setattr(cli, "evaluate_ocr", evaluate_one, raising=False)
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_path)
+    )
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    summary = _json_line(captured.out)
+    assert summary["command"] == "evaluate-ocr"
+    assert summary["passed"] is True
+    assert "ciudad histórica" not in captured.out
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["passed"] is True
+    assert report["metrics"]["cer"] == 0.0
+    assert not [path for path in report_path.parent.iterdir() if path != report_path]
+
+
+def test_evaluate_ocr_cli_gate_failure_writes_report_and_exits_five(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, imports_root, sample_path, gold_path, report_path = (
+        _write_evaluation_inputs(tmp_path)
+    )
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_path)
+    )
+    captured = capsys.readouterr()
+    assert code == 5
+    assert captured.err == ""
+    assert _json_line(captured.out)["passed"] is False
+    assert json.loads(report_path.read_text(encoding="utf-8"))["passed"] is False
+
+
+def test_evaluate_ocr_cli_rejects_divergent_gold_and_disguised_bundle(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, imports_root, sample_path, gold_path, report_path = (
+        _write_evaluation_inputs(tmp_path)
+    )
+    divergent = _gold_payload(logicalPageNumber=2)
+    gold_path.write_text(json.dumps(divergent) + "\n", encoding="utf-8")
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_path)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+    assert not report_path.exists()
+
+    sample_path.write_text(json.dumps(_prepared_document()), encoding="utf-8")
+    gold_path.write_text(json.dumps(_gold_payload()) + "\n", encoding="utf-8")
+    monkeypatch.setattr(
+        cli,
+        "evaluate_ocr",
+        lambda *args: pytest.fail("disguised bundle must be rejected before evaluation"),
+        raising=False,
+    )
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_path)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+
+
+def test_evaluate_ocr_cli_rejects_outside_and_symlink_paths(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, imports_root, sample_path, gold_path, report_path = (
+        _write_evaluation_inputs(tmp_path)
+    )
+    outside = tmp_path / "outside.json"
+    outside.write_text(sample_path.read_text(encoding="utf-8"), encoding="utf-8")
+    unsafe_calls = [
+        _ocr_args(data_root, imports_root, outside, gold_path, report_path),
+        _ocr_args(data_root, imports_root, sample_path, "../gold.jsonl", report_path),
+        _ocr_args(data_root, imports_root, sample_path, gold_path, "outside.json"),
+    ]
+    for args in unsafe_calls:
+        code = cli.main(args)
+        captured = capsys.readouterr()
+        assert code == 2
+        assert captured.out == ""
+        assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+
+    link = data_root / "staging" / "sample-link.json"
+    link.symlink_to(sample_path)
+    code = cli.main(_ocr_args(data_root, imports_root, link, gold_path, report_path))
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+
+    gold_link = imports_root / "gold-link.jsonl"
+    gold_link.symlink_to(gold_path)
+    code = cli.main(_ocr_args(data_root, imports_root, sample_path, gold_link, report_path))
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+
+    gold_directory = imports_root / "gold-directory"
+    gold_directory.mkdir()
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_directory, report_path)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_directory = report_path.parent / "directory.json"
+    report_directory.mkdir()
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_directory)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+
+    outside_report = tmp_path / "outside-report.json"
+    outside_report.write_bytes(b"unchanged")
+    report_link = report_path.parent / "report-link.json"
+    report_link.symlink_to(outside_report)
+    code = cli.main(
+        _ocr_args(data_root, imports_root, sample_path, gold_path, report_link)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert outside_report.read_bytes() == b"unchanged"
+
+
+def test_evaluate_ocr_cli_does_not_overwrite_input_or_partial_report(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, _, sample_path, _, report_path = _write_evaluation_inputs(tmp_path)
+    shared_input = data_root / "reports" / "shared.jsonl"
+    shared_input.parent.mkdir(parents=True)
+    shared_bytes = json.dumps(_gold_payload()).encode() + b"\n"
+    shared_input.write_bytes(shared_bytes)
+    code = cli.main(
+        _ocr_args(data_root, data_root, sample_path, shared_input, shared_input)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert shared_input.read_bytes() == shared_bytes
+
+    report_path.write_bytes(b"old-report\n")
+
+    def evaluate_one(sample, gold):
+        return run_ocr_evaluation(
+            sample,
+            gold,
+            config=OcrGateConfig(expectedPageCount=1),
+            evaluated_at=EVALUATED_AT,
+        )
+
+    monkeypatch.setattr(cli, "evaluate_ocr", evaluate_one, raising=False)
+    import historical_corpus.staging as staging
+
+    def fail_replace(*args: object) -> None:
+        raise OSError("replace failed")
+
+    monkeypatch.setattr(staging.os, "replace", fail_replace)
+    gold_path = tmp_path / "imports" / "gold.jsonl"
+    code = cli.main(
+        _ocr_args(data_root, tmp_path / "imports", sample_path, gold_path, report_path)
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert report_path.read_bytes() == b"old-report\n"
+    assert not [path for path in report_path.parent.iterdir() if path.name.startswith(".ocr-report")]
+
+
+def _write_retrieval_cases(tmp_path: Path) -> tuple[Path, Path, Path]:
+    data_root = tmp_path / "retrieval-data"
+    imports_root = tmp_path / "retrieval-imports"
+    cases_path = imports_root / "cases.jsonl"
+    report_path = data_root / "reports" / "retrieval-report.json"
+    data_root.mkdir()
+    imports_root.mkdir()
+    cases_path.write_text(
+        json.dumps(_retrieval_case_payload(query="SECRET QUERY"), ensure_ascii=False)
+        + "\n",
+        encoding="utf-8",
+    )
+    return data_root, cases_path, report_path
+
+
+def _retrieval_args(
+    data_root: Path,
+    cases_path: Path,
+    report_path: Path,
+    *,
+    url: str = "http://historical-corpus-api:3010",
+) -> list[str]:
+    return [
+        "evaluate-retrieval",
+        "--api-base-url",
+        url,
+        "--cases",
+        str(cases_path),
+        "--report",
+        str(report_path),
+        "--data-root",
+        str(data_root),
+        "--imports-root",
+        str(cases_path.parent),
+    ]
+
+
+def test_evaluate_retrieval_cli_compose_url_fake_transport_and_gate_codes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, cases_path, report_path = _write_retrieval_cases(tmp_path)
+    fake = _FakeRetrievalApi()
+
+    def evaluate_one(url, cases):
+        assert url == "http://historical-corpus-api:3010"
+        return run_retrieval_evaluation(
+            url,
+            cases,
+            transport=httpx2.MockTransport(fake),
+            config=RetrievalGateConfig(minimumCaseCount=1),
+            evaluated_at=EVALUATED_AT,
+        )
+
+    monkeypatch.setattr(cli, "evaluate_retrieval", evaluate_one, raising=False)
+    code = cli.main(_retrieval_args(data_root, cases_path, report_path))
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    assert _json_line(captured.out)["passed"] is True
+    assert "SECRET QUERY" not in captured.out
+    assert json.loads(report_path.read_text(encoding="utf-8"))["passed"] is True
+
+    def evaluate_default(url, cases):
+        return run_retrieval_evaluation(
+            url,
+            cases,
+            transport=httpx2.MockTransport(_FakeRetrievalApi()),
+            evaluated_at=EVALUATED_AT,
+        )
+
+    monkeypatch.setattr(cli, "evaluate_retrieval", evaluate_default, raising=False)
+    code = cli.main(_retrieval_args(data_root, cases_path, report_path))
+    captured = capsys.readouterr()
+    assert code == 5
+    assert captured.err == ""
+    assert _json_line(captured.out)["passed"] is False
+
+
+def test_evaluate_retrieval_cli_rejects_invalid_url_before_transport(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root, cases_path, report_path = _write_retrieval_cases(tmp_path)
+
+    def evaluate_invalid(url, cases):
+        return run_retrieval_evaluation(
+            url,
+            cases,
+            transport=httpx2.MockTransport(
+                lambda request: pytest.fail("invalid URL must not reach transport")
+            ),
+        )
+
+    monkeypatch.setattr(cli, "evaluate_retrieval", evaluate_invalid, raising=False)
+    code = cli.main(
+        _retrieval_args(
+            data_root,
+            cases_path,
+            report_path,
+            url="https://historical-corpus-api:3010",
+        )
+    )
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+    assert not report_path.exists()

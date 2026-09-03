@@ -44,7 +44,22 @@ from .service import (
     IndexRepairRequiredError,
     RightsNotReusableError,
 )
-from .staging import StagingError, load_prepared_document
+from .evaluation import (
+    OcrEvaluationError,
+    RetrievalEvaluationError,
+    evaluate_ocr,
+    evaluate_retrieval,
+    load_ocr_gold_jsonl,
+    load_retrieval_cases_jsonl,
+)
+from .staging import (
+    StagingError,
+    _atomic_write,
+    _canonical_payload,
+    _read_regular_file,
+    load_evaluation_sample,
+    load_prepared_document,
+)
 
 
 EXIT_SUCCESS = 0
@@ -130,6 +145,21 @@ def _parser() -> argparse.ArgumentParser:
     publish.add_argument("--data-root", default="/data")
 
     repair_index = commands.add_parser("repair-index")
+
+    evaluate_ocr = commands.add_parser("evaluate-ocr")
+    evaluate_ocr.add_argument("--sample", required=True)
+    evaluate_ocr.add_argument("--gold", required=True)
+    evaluate_ocr.add_argument("--report", required=True)
+    evaluate_ocr.add_argument("--data-root", default="/data")
+    evaluate_ocr.add_argument("--imports-root", default="/imports")
+
+    evaluate_retrieval = commands.add_parser("evaluate-retrieval")
+    evaluate_retrieval.add_argument("--api-base-url", required=True)
+    evaluate_retrieval.add_argument("--cases", required=True)
+    evaluate_retrieval.add_argument("--report", required=True)
+    evaluate_retrieval.add_argument("--data-root", default="/data")
+    evaluate_retrieval.add_argument("--imports-root", default="/imports")
+
     return parser
 
 
@@ -360,6 +390,66 @@ def _ocr_smoke_command(args: argparse.Namespace) -> dict[str, object]:
     }
 
 
+def _normalize_confined_path(
+    raw: str,
+    root: Path,
+    *,
+    required_first_segment: str | None = None,
+) -> str:
+    if not raw:
+        raise CliInputError("path must not be empty")
+    segments = raw.split("/")
+    for i, segment in enumerate(segments):
+        if not segment:
+            if i == 0 and raw.startswith("/"):
+                continue
+            raise CliInputError("path contains an unsafe segment")
+        if segment in {".", ".."} or "\\" in segment or "\x00" in segment or "%" in segment:
+            raise CliInputError("path contains an unsafe segment")
+    candidate = Path(raw)
+    if candidate.is_absolute():
+        normalized = os.path.normpath(str(candidate))
+        root_normalized = os.path.normpath(str(root))
+        if not normalized.startswith(root_normalized + os.sep):
+            raise CliInputError("path must be beneath the supplied root")
+        relative = Path(normalized[len(root_normalized) + 1:])
+    else:
+        relative = Path(os.path.normpath(str(raw)))
+    parts = relative.parts
+    if not parts:
+        raise CliInputError("path must not be empty")
+    if required_first_segment is not None and parts[0] != required_first_segment:
+        raise CliInputError(f"path must start with {required_first_segment}")
+    return str(relative)
+
+
+def _check_report_collision(
+    report_relative: str,
+    input_relative: str,
+    data_root: Path,
+    input_root: Path,
+) -> None:
+    report_abs = os.path.abspath(data_root / report_relative)
+    input_abs = os.path.abspath(input_root / input_relative)
+    if report_abs == input_abs:
+        raise CliInputError("report path collides with an input path")
+
+
+def _write_evaluation_report(
+    data_root: Path,
+    report_relative: str,
+    report: object,
+) -> Path:
+    payload = _canonical_payload(report) + b"\n"
+    return _atomic_write(
+        data_root,
+        report_relative,
+        payload,
+        max_bytes=8 * 1024 * 1024,
+        limit_label="8 MiB",
+    )
+
+
 def _normalize_prepared_path(raw: str, data_root: Path) -> str:
     candidate = Path(raw)
     if candidate.is_absolute():
@@ -466,6 +556,49 @@ def _repair_index_command(args: argparse.Namespace) -> dict[str, object]:
     }
 
 
+def _evaluate_ocr_command(args: argparse.Namespace) -> dict[str, object]:
+    data_root = Path(args.data_root)
+    imports_root = Path(args.imports_root)
+    sample_relative = _normalize_confined_path(args.sample, data_root, required_first_segment="staging")
+    gold_relative = _normalize_confined_path(args.gold, imports_root)
+    report_relative = _normalize_confined_path(args.report, data_root, required_first_segment="reports")
+    _check_report_collision(report_relative, sample_relative, data_root, data_root)
+    _check_report_collision(report_relative, gold_relative, data_root, imports_root)
+    sample = load_evaluation_sample(data_root, sample_relative)
+    gold_bytes = _read_regular_file(imports_root, gold_relative, max_bytes=8 * 1024 * 1024, limit_label="8 MiB")
+    gold = load_ocr_gold_jsonl(gold_bytes)
+    report = evaluate_ocr(sample, gold)
+    written = _write_evaluation_report(data_root, report_relative, report)
+    return {
+        "ok": report.passed,
+        "command": "evaluate-ocr",
+        "report": str(written),
+        "passed": report.passed,
+        "metrics": report.metrics.model_dump(mode="json"),
+        "gates": dict(report.gates),
+    }
+
+
+def _evaluate_retrieval_command(args: argparse.Namespace) -> dict[str, object]:
+    data_root = Path(args.data_root)
+    imports_root = Path(args.imports_root)
+    cases_relative = _normalize_confined_path(args.cases, imports_root)
+    report_relative = _normalize_confined_path(args.report, data_root, required_first_segment="reports")
+    _check_report_collision(report_relative, cases_relative, data_root, imports_root)
+    cases_bytes = _read_regular_file(imports_root, cases_relative, max_bytes=2 * 1024 * 1024, limit_label="2 MiB")
+    cases = load_retrieval_cases_jsonl(cases_bytes)
+    report = evaluate_retrieval(args.api_base_url, cases)
+    written = _write_evaluation_report(data_root, report_relative, report)
+    return {
+        "ok": report.passed,
+        "command": "evaluate-retrieval",
+        "report": str(written),
+        "passed": report.passed,
+        "metrics": report.metrics.model_dump(mode="json"),
+        "gates": dict(report.gates),
+    }
+
+
 def _prefetch_models_command(args: argparse.Namespace) -> dict[str, object]:
     manifest = load_manifest(args.manifest)
     model_cache_root = Path(args.model_cache_root)
@@ -499,6 +632,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = _publish_command(args)
         elif args.command == "repair-index":
             result = _repair_index_command(args)
+        elif args.command == "evaluate-ocr":
+            result = _evaluate_ocr_command(args)
+        elif args.command == "evaluate-retrieval":
+            result = _evaluate_retrieval_command(args)
         else:
             raise CliInputError("unknown command")
     except CliHelp as exc:
@@ -553,6 +690,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         PdfSourceError,
         PipelineError,
         StagingError,
+        OcrEvaluationError,
+        RetrievalEvaluationError,
         OSError,
     ) as exc:
         _emit(
@@ -561,6 +700,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         return EXIT_INPUT
     _emit(result)
+    if args.command in {"evaluate-ocr", "evaluate-retrieval"} and not result["passed"]:
+        return EXIT_PROCESSING
     return EXIT_SUCCESS
 
 

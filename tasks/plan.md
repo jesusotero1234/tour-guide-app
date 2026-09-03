@@ -3897,7 +3897,11 @@ Validación:
 
 ### QW-17C — CLI de evaluación
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): `evaluate-ocr` y `evaluate-retrieval` cargan
+  exclusivamente inputs regulares dentro de sus raíces, rechazan escapes y
+  symlinks, escriben reportes atómicos bajo `reports/`, no sobrescriben
+  inputs y devuelven 0/5/2 para pass/gate/input. Pasan las 36 pruebas CLI,
+  las 57 de evaluación y las 598 pruebas completas.
 - Depende de: QW-15D y QW-17B.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_ingest_cli.py`
