@@ -242,17 +242,19 @@ export function parseNarrativeWriterResponseV8(
 
     const seenCardIds = new Set<string>();
     const authorizedCardIds = new Set(plan.beats[index].evidenceCardIds);
+    const deduplicatedCardIds: string[] = [];
     for (const cardId of supportCardIds) {
       if (typeof cardId !== 'string' || cardId.length === 0) {
         throw new Error('Support card ids must be non-empty strings.');
       }
       if (seenCardIds.has(cardId)) {
-        throw new Error('Support card ids must be unique within a segment.');
+        continue;
       }
       seenCardIds.add(cardId);
       if (!authorizedCardIds.has(cardId)) {
         throw new Error(`Support card id ${cardId} is not authorized for beat ${beat}.`);
       }
+      deduplicatedCardIds.push(cardId);
       if (plan.highPriorityCardIds.includes(cardId)) {
         usedHighPriorityCardIds.add(cardId);
       }
@@ -264,7 +266,7 @@ export function parseNarrativeWriterResponseV8(
       segmentId,
       beat,
       text,
-      supportCardIds: [...supportCardIds],
+      supportCardIds: deduplicatedCardIds,
       estimatedWords,
     });
   }

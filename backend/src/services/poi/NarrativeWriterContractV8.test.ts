@@ -188,6 +188,24 @@ describe('NarrativeWriterContractV8', () => {
     expect(parsed.wordCount).not.toBe(artificialEstimatedSum);
   });
 
+  it('deduplicates duplicate authorized supportCardIds in a segment', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    const originalIds = [...response.segments[0].supportCardIds];
+    response.segments[0].supportCardIds.push(originalIds[0]);
+
+    const parsed = parseNarrativeWriterResponseV8(plan, response);
+    expect(parsed.segments[0].supportCardIds).toEqual(originalIds);
+    expect(parsed.coverage).toBe(1);
+  });
+
   it('rejects a response that references an unknown supportCardId', () => {
     const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
     const plan = buildNarrativeWriterPlanV8({
