@@ -493,3 +493,84 @@ def test_builder_rejects_unusable_canonical_pdf(tmp_path: Path, case: str) -> No
 
     with pytest.raises(ProcessingFingerprintError):
         _build(_manifest(data), _canonical(path))
+
+
+def _embedded_first_data(
+    *,
+    embedded_min_characters: int = 64,
+    embedded_min_alphabetic_ratio: float = 0.35,
+    embedded_max_token_repetition_ratio: float = 0.20,
+) -> dict[str, object]:
+    data = _manifest_data()
+    processing = data["processing"]
+    assert isinstance(processing, dict)
+    processing["textMode"] = "embedded_first"
+    processing["embeddedPolicy"] = "madoz-embedded-v1"
+    processing["embeddedMinCharacters"] = embedded_min_characters
+    processing["embeddedMinAlphabeticRatio"] = embedded_min_alphabetic_ratio
+    processing["embeddedMaxTokenRepetitionRatio"] = embedded_max_token_repetition_ratio
+    return data
+
+
+def test_embedded_first_payload_contains_text_mode_and_thresholds(tmp_path: Path) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    payload, fingerprint = _build(
+        _manifest(_embedded_first_data()),
+        _canonical(path),
+    )
+
+    ocr = payload.ocr
+    assert ocr.textMode == "embedded_first"
+    assert ocr.embeddedPolicy == "madoz-embedded-v1"
+    assert ocr.embeddedMinCharacters == 64
+    assert ocr.embeddedMinAlphabeticRatio == 0.35
+    assert ocr.embeddedMaxTokenRepetitionRatio == 0.20
+    assert fingerprint == payload.fingerprint()
+
+
+def test_embedded_first_fingerprint_differs_from_equivalent_ocr(tmp_path: Path) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    ocr_payload, ocr_fingerprint = _build(
+        _manifest(),
+        _canonical(path),
+    )
+    embedded_payload, embedded_fingerprint = _build(
+        _manifest(_embedded_first_data()),
+        _canonical(path),
+    )
+
+    assert ocr_payload.ocr.textMode == "ocr"
+    assert embedded_payload.ocr.textMode == "embedded_first"
+    assert embedded_fingerprint != ocr_fingerprint
+
+
+@pytest.mark.parametrize(
+    "field, value",
+    [
+        ("embeddedMinCharacters", 65),
+        ("embeddedMinAlphabeticRatio", 0.40),
+        ("embeddedMaxTokenRepetitionRatio", 0.25),
+    ],
+)
+def test_each_embedded_threshold_change_alters_fingerprint(
+    tmp_path: Path,
+    field: str,
+    value: object,
+) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    baseline_payload, baseline_fingerprint = _build(
+        _manifest(_embedded_first_data()),
+        _canonical(path),
+    )
+
+    data = _embedded_first_data()
+    processing = data["processing"]
+    assert isinstance(processing, dict)
+    processing[field] = value
+    changed_payload, changed_fingerprint = _build(
+        _manifest(data),
+        _canonical(path),
+    )
+
+    assert changed_payload.ocr.textMode == "embedded_first"
+    assert changed_fingerprint != baseline_fingerprint

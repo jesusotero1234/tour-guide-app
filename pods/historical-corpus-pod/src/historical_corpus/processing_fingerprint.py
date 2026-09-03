@@ -13,6 +13,7 @@ from .ingest_models import (
     CandidatePdfPageRange,
     CanonicalizationSnapshot,
     ChunkingFingerprint,
+    EmbeddedFirstOcrFingerprint,
     FingerprintPayload,
     FingerprintSelection,
     FingerprintSource,
@@ -228,6 +229,55 @@ def build_processing_fingerprint(
 
     selection = manifest.selection
     processing = manifest.processing
+    if processing.textMode == "ocr":
+        ocr_fingerprint = OcrFingerprint(
+            textMode=processing.textMode,
+            engine=processing.ocrEngine,
+            device=processing.device,
+            detectionModel=processing.ocrDetectionModel,
+            recognitionModel=processing.ocrRecognitionModel,
+            language=processing.ocrLanguage,
+            documentOrientationClassification=(
+                processing.documentOrientationClassification
+            ),
+            documentUnwarping=processing.documentUnwarping,
+            textLineOrientation=processing.textLineOrientation,
+        )
+    elif processing.textMode == "embedded_first":
+        embedded_policy = processing.embeddedPolicy
+        embedded_min_characters = processing.embeddedMinCharacters
+        embedded_min_alphabetic_ratio = processing.embeddedMinAlphabeticRatio
+        embedded_max_token_repetition_ratio = (
+            processing.embeddedMaxTokenRepetitionRatio
+        )
+        if (
+            embedded_policy is None
+            or embedded_min_characters is None
+            or embedded_min_alphabetic_ratio is None
+            or embedded_max_token_repetition_ratio is None
+        ):
+            raise ProcessingFingerprintError(
+                "embedded_first fingerprint requires all embedded values"
+            )
+        ocr_fingerprint = EmbeddedFirstOcrFingerprint(
+            textMode=processing.textMode,
+            engine=processing.ocrEngine,
+            device=processing.device,
+            detectionModel=processing.ocrDetectionModel,
+            recognitionModel=processing.ocrRecognitionModel,
+            language=processing.ocrLanguage,
+            documentOrientationClassification=(
+                processing.documentOrientationClassification
+            ),
+            documentUnwarping=processing.documentUnwarping,
+            textLineOrientation=processing.textLineOrientation,
+            embeddedPolicy=embedded_policy,
+            embeddedMinCharacters=embedded_min_characters,
+            embeddedMinAlphabeticRatio=embedded_min_alphabetic_ratio,
+            embeddedMaxTokenRepetitionRatio=embedded_max_token_repetition_ratio,
+        )
+    else:
+        raise ProcessingFingerprintError("unsupported textMode")
     try:
         payload = FingerprintPayload(
             fingerprintSchemaVersion=1,
@@ -257,19 +307,7 @@ def build_processing_fingerprint(
                 dpi=processing.renderDpi,
                 rasterizationPolicy=processing.rasterizationPolicy,
             ),
-            ocr=OcrFingerprint(
-                textMode=processing.textMode,
-                engine=processing.ocrEngine,
-                device=processing.device,
-                detectionModel=processing.ocrDetectionModel,
-                recognitionModel=processing.ocrRecognitionModel,
-                language=processing.ocrLanguage,
-                documentOrientationClassification=(
-                    processing.documentOrientationClassification
-                ),
-                documentUnwarping=processing.documentUnwarping,
-                textLineOrientation=processing.textLineOrientation,
-            ),
+            ocr=ocr_fingerprint,
             modelLock=ModelLockFingerprint.from_model_lock(model_lock),
             quality=QualityFingerprint(
                 lowConfidenceThreshold=processing.lowConfidenceThreshold,

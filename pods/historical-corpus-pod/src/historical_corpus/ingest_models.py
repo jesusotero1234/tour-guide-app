@@ -714,6 +714,36 @@ class OcrFingerprint(_FrozenStrictModel):
     textLineOrientation: Literal[True]
 
 
+class EmbeddedFirstOcrFingerprint(_FrozenStrictModel):
+    textMode: Literal["embedded_first"]
+    engine: Literal["transformers"]
+    device: Literal["cpu"]
+    detectionModel: str = Field(min_length=1, max_length=128)
+    recognitionModel: str = Field(min_length=1, max_length=128)
+    language: Literal["es"]
+    documentOrientationClassification: Literal[False]
+    documentUnwarping: Literal[False]
+    textLineOrientation: Literal[True]
+    embeddedPolicy: Literal["madoz-embedded-v1"]
+    embeddedMinCharacters: int = Field(ge=1, le=1000000)
+    embeddedMinAlphabeticRatio: float = Field(ge=0.0, le=1.0)
+    embeddedMaxTokenRepetitionRatio: float = Field(ge=0.0, le=1.0)
+
+    @field_validator(
+        "embeddedMinAlphabeticRatio",
+        "embeddedMaxTokenRepetitionRatio",
+    )
+    @classmethod
+    def _validate_embedded_ratio(cls, value: float) -> float:
+        return _require_finite(value)
+
+
+OcrFingerprintPayload = Annotated[
+    OcrFingerprint | EmbeddedFirstOcrFingerprint,
+    Field(discriminator="textMode"),
+]
+
+
 class QualityFingerprint(_FrozenStrictModel):
     lowConfidenceThreshold: float = Field(ge=0.0, le=1.0)
 
@@ -740,7 +770,7 @@ class FingerprintPayload(_FrozenStrictModel):
     selection: FingerprintSelection
     software: SoftwareVersions
     render: RenderFingerprint
-    ocr: OcrFingerprint
+    ocr: OcrFingerprintPayload
     modelLock: ModelLockFingerprint
     quality: QualityFingerprint
     policies: PolicyFingerprint

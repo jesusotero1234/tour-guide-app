@@ -380,3 +380,80 @@ def test_verified_inventory_has_a_two_mib_limit(tmp_path: Path) -> None:
     manifest = load_manifest(_write_manifest(tmp_path, payload))
     with pytest.raises(ManifestValidationError, match="2097152"):
         validate_manifest_source(manifest, tmp_path)
+
+
+def test_embedded_first_accepts_conditional_contract(tmp_path: Path) -> None:
+    payload = _manifest()
+    processing = payload["processing"]
+    processing["textMode"] = "embedded_first"
+    processing["embeddedPolicy"] = "madoz-embedded-v1"
+    processing["embeddedMinCharacters"] = 64
+    processing["embeddedMinAlphabeticRatio"] = 0.35
+    processing["embeddedMaxTokenRepetitionRatio"] = 0.20
+    manifest = load_manifest(_write_manifest(tmp_path, payload))
+    assert manifest.processing.textMode == "embedded_first"
+    assert manifest.processing.embeddedPolicy == "madoz-embedded-v1"
+    assert manifest.processing.embeddedMinCharacters == 64
+    assert manifest.processing.embeddedMinAlphabeticRatio == 0.35
+    assert manifest.processing.embeddedMaxTokenRepetitionRatio == 0.20
+
+
+@pytest.mark.parametrize(
+    "missing_field",
+    [
+        "embeddedPolicy",
+        "embeddedMinCharacters",
+        "embeddedMinAlphabeticRatio",
+        "embeddedMaxTokenRepetitionRatio",
+    ],
+)
+def test_embedded_first_rejects_missing_required_field(
+    tmp_path: Path, missing_field: str
+) -> None:
+    payload = _manifest()
+    processing = payload["processing"]
+    processing["textMode"] = "embedded_first"
+    processing["embeddedPolicy"] = "madoz-embedded-v1"
+    processing["embeddedMinCharacters"] = 64
+    processing["embeddedMinAlphabeticRatio"] = 0.35
+    processing["embeddedMaxTokenRepetitionRatio"] = 0.20
+    del processing[missing_field]
+    with pytest.raises(ManifestValidationError, match=missing_field):
+        load_manifest(_write_manifest(tmp_path, payload))
+
+
+def test_embedded_fields_rejected_when_text_mode_is_ocr(tmp_path: Path) -> None:
+    payload = _manifest()
+    processing = payload["processing"]
+    processing["embeddedPolicy"] = "madoz-embedded-v1"
+    processing["embeddedMinCharacters"] = 64
+    processing["embeddedMinAlphabeticRatio"] = 0.35
+    processing["embeddedMaxTokenRepetitionRatio"] = 0.20
+    with pytest.raises(ManifestValidationError, match="embeddedPolicy"):
+        load_manifest(_write_manifest(tmp_path, payload))
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("embeddedPolicy", "unknown-policy"),
+        ("embeddedMinCharacters", 0),
+        ("embeddedMinAlphabeticRatio", -0.1),
+        ("embeddedMinAlphabeticRatio", 1.1),
+        ("embeddedMaxTokenRepetitionRatio", -0.1),
+        ("embeddedMaxTokenRepetitionRatio", 1.1),
+    ],
+)
+def test_embedded_first_rejects_out_of_range_values(
+    tmp_path: Path, field: str, value: object
+) -> None:
+    payload = _manifest()
+    processing = payload["processing"]
+    processing["textMode"] = "embedded_first"
+    processing["embeddedPolicy"] = "madoz-embedded-v1"
+    processing["embeddedMinCharacters"] = 64
+    processing["embeddedMinAlphabeticRatio"] = 0.35
+    processing["embeddedMaxTokenRepetitionRatio"] = 0.20
+    processing[field] = value
+    with pytest.raises(ManifestValidationError, match=field):
+        load_manifest(_write_manifest(tmp_path, payload))

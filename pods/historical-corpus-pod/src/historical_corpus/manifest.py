@@ -475,8 +475,12 @@ class ManifestCoverage(_StrictModel):
 
 
 class ManifestProcessing(_StrictModel):
-    textMode: Literal["ocr"]
+    textMode: Literal["ocr", "embedded_first"]
     renderDpi: int = Field(ge=150, le=400)
+    embeddedPolicy: Literal["madoz-embedded-v1"] | None = None
+    embeddedMinCharacters: int | None = Field(default=None, ge=1, le=1000000)
+    embeddedMinAlphabeticRatio: float | None = Field(default=None, ge=0.0, le=1.0)
+    embeddedMaxTokenRepetitionRatio: float | None = Field(default=None, ge=0.0, le=1.0)
     rasterizationPolicy: Literal["pymupdf-page-render-v1"]
     ocrEngine: Literal["transformers"]
     ocrDetectionModel: Literal["PP-OCRv6_medium_det"]
@@ -504,6 +508,31 @@ class ManifestProcessing(_StrictModel):
         if not math.isfinite(value):
             raise ValueError("lowConfidenceThreshold must be finite")
         return value
+
+    @field_validator("embeddedMinAlphabeticRatio", "embeddedMaxTokenRepetitionRatio")
+    @classmethod
+    def _validate_embedded_ratios(cls, value: float | None) -> float | None:
+        if value is not None and not math.isfinite(value):
+            raise ValueError("embedded ratio must be finite")
+        return value
+
+    @model_validator(mode="after")
+    def _validate_text_mode_contract(self) -> "ManifestProcessing":
+        embedded_fields = (
+            "embeddedPolicy",
+            "embeddedMinCharacters",
+            "embeddedMinAlphabeticRatio",
+            "embeddedMaxTokenRepetitionRatio",
+        )
+        if self.textMode == "embedded_first":
+            for name in embedded_fields:
+                if getattr(self, name) is None:
+                    raise ValueError(f"embedded_first requires {name}")
+        else:
+            for name in embedded_fields:
+                if getattr(self, name) is not None:
+                    raise ValueError(f"ocr mode cannot set {name}")
+        return self
 
 
 class MadozManifest(_StrictModel):

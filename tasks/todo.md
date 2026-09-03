@@ -14,7 +14,7 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 
 ## Fase 1 — Camino híbrido
 
-- [ ] T1 — Añadir contrato y fingerprint `embedded_first`.
+- [x] T1 — Añadir contrato y fingerprint `embedded_first`.
 - [ ] T2 — Reconstruir líneas incrustadas con cajas y orden.
 - [ ] T3 — Aplicar gate, contraste y fallback por página.
 
