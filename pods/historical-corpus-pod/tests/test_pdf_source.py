@@ -11,6 +11,7 @@ import pytest
 from historical_corpus.manifest import MadozManifest
 from historical_corpus.pdf_source import (
     CandidateLeaf,
+    EmbeddedWord,
     PdfSourceError,
     RenderedLeaf,
     candidate_leaves,
@@ -18,6 +19,7 @@ from historical_corpus.pdf_source import (
     copy_canonical_pdf,
     crop_box_for_side,
     dhash64,
+    embedded_text_lines,
     iter_rendered_leaves,
     render_preview,
     sha_verification_cache_info,
@@ -364,3 +366,42 @@ def test_dhash_and_preview_are_deterministic(tmp_path: Path) -> None:
     assert preview.width_px == 214
     assert preview.height_px == 144
     assert manifest.processing.renderDpi == 300
+
+
+def test_embedded_text_lines_reconstructs_order_and_groups_deterministically() -> None:
+    words = [
+        EmbeddedWord(text="world", box=(0.5, 0.1, 0.9, 0.2), block_index=0, line_index=0, word_index=1),
+        EmbeddedWord(text="hello", box=(0.1, 0.1, 0.4, 0.2), block_index=0, line_index=0, word_index=0),
+        EmbeddedWord(text="", box=(0.1, 0.3, 0.2, 0.4), block_index=0, line_index=1, word_index=0),
+        EmbeddedWord(text="second", box=(0.1, 0.3, 0.5, 0.4), block_index=0, line_index=1, word_index=1),
+    ]
+    lines = embedded_text_lines(words)
+    assert len(lines) == 2
+    assert lines[0].text == "hello world"
+    assert lines[0].box == (0.1, 0.1, 0.9, 0.2)
+    assert lines[1].text == "second"
+    assert lines[1].box == (0.1, 0.3, 0.5, 0.4)
+
+
+def test_embedded_text_lines_preserves_metadata_from_real_pdf(tmp_path: Path) -> None:
+    document = pymupdf.open()
+    page = document.new_page(width=216, height=72)
+    page.insert_text((12, 20), "first line")
+    page.insert_text((12, 40), "second line")
+    source = tmp_path / "two_lines.pdf"
+    document.save(source)
+    document.close()
+
+    rendered = list(iter_rendered_leaves(source, _manifest()))[0]
+    assert all(word.block_index >= 0 for word in rendered.embedded_words)
+    assert all(word.line_index >= 0 for word in rendered.embedded_words)
+    assert all(word.word_index >= 0 for word in rendered.embedded_words)
+
+    lines = embedded_text_lines(rendered.embedded_words)
+    assert len(lines) == 2
+    assert lines[0].text == "first line"
+    assert lines[1].text == "second line"
+    for line in lines:
+        x0, y0, x1, y1 = line.box
+        assert 0.0 <= x0 < x1 <= 1.0
+        assert 0.0 <= y0 < y1 <= 1.0

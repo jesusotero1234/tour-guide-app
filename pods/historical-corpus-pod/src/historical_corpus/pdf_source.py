@@ -8,7 +8,7 @@ import tempfile
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Sequence
 
 import numpy as np
 import pymupdf
@@ -40,6 +40,17 @@ class CandidateLeaf:
 class EmbeddedWord:
     text: str
     box: tuple[float, float, float, float]
+    block_index: int = 0
+    line_index: int = 0
+    word_index: int = 0
+
+
+@dataclass(frozen=True)
+class EmbeddedTextLine:
+    text: str
+    box: tuple[float, float, float, float]
+    block_index: int
+    line_index: int
 
 
 @dataclass(frozen=True)
@@ -372,9 +383,40 @@ def _embedded_words(page: pymupdf.Page, candidate: CandidateLeaf) -> tuple[Embed
             EmbeddedWord(
                 text=str(raw[4]),
                 box=_rotate_normalized_box(local_box, candidate.rotation_degrees),
+                block_index=int(raw[5]),
+                line_index=int(raw[6]),
+                word_index=int(raw[7]),
             )
         )
     return tuple(words)
+
+
+def embedded_text_lines(
+    words: Sequence[EmbeddedWord],
+) -> tuple[EmbeddedTextLine, ...]:
+    groups: dict[tuple[int, int], list[EmbeddedWord]] = {}
+    for word in words:
+        if not word.text:
+            continue
+        key = (word.block_index, word.line_index)
+        groups.setdefault(key, []).append(word)
+    lines: list[EmbeddedTextLine] = []
+    for (block_index, line_index) in sorted(groups):
+        ordered = sorted(groups[(block_index, line_index)], key=lambda w: w.word_index)
+        text = " ".join(w.text for w in ordered)
+        x0 = min(w.box[0] for w in ordered)
+        y0 = min(w.box[1] for w in ordered)
+        x1 = max(w.box[2] for w in ordered)
+        y1 = max(w.box[3] for w in ordered)
+        lines.append(
+            EmbeddedTextLine(
+                text=text,
+                box=(x0, y0, x1, y1),
+                block_index=block_index,
+                line_index=line_index,
+            )
+        )
+    return tuple(lines)
 
 
 def _optional_positive_float(value: object) -> float | None:
