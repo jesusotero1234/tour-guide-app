@@ -4040,7 +4040,10 @@ env PODMAN_COMPOSE_PROVIDER=podman-compose \
 
 ### QW-18B — Runbook de preparación y evaluación
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): runbook Podman fail-closed en diez fases desde
+  import privado y SHA del PDF hasta inventario verificado, lock de modelos,
+  smoke OCR, muestra/gold de 24 páginas, gate OCR y demostración de resume
+  sobre las 71 hojas. No contiene publicación, repair, canario ni ingesta HTTP.
 - Depende de: QW-18A.
 - Archivo existente:
   - `docs/operations/historical-corpus-rag.md`

@@ -78,6 +78,248 @@ podman compose -p tour-guide-historical-corpus-smoke \
 Add `--volumes` only when the smoke corpus and model cache should be deleted.
 Those volumes belong exclusively to the explicitly named smoke project.
 
+## Preparar sin publicar
+
+Esta sección prepara y evalúa en privado el corpus Madoz Málaga con el perfil
+aislado de ingesta. Se detiene antes de publicar: no usa `publish`,
+`repair-index`, el canario, el stack del backend ni ingesta HTTP externa.
+
+### Requisitos y variables
+
+```bash
+CORPUS_REPO="$(git rev-parse --show-toplevel)"
+CORPUS_COMPOSE="$CORPUS_REPO/deployment/podman/historical-corpus.compose.yml"
+: "${HISTORICAL_CORPUS_ADMIN_TOKEN:?HISTORICAL_CORPUS_ADMIN_TOKEN must be set}"
+: "${HISTORICAL_CORPUS_IMPORT_DIR:?HISTORICAL_CORPUS_IMPORT_DIR must be set}"
+: "${MADOZ_SOURCE_PDF:?MADOZ_SOURCE_PDF must be set}"
+test "${HISTORICAL_CORPUS_IMPORT_DIR#/}" != "$HISTORICAL_CORPUS_IMPORT_DIR"
+test "${MADOZ_SOURCE_PDF#/}" != "$MADOZ_SOURCE_PDF"
+HISTORICAL_CORPUS_IMPORT_DIR="$(realpath -m -- "$HISTORICAL_CORPUS_IMPORT_DIR")"
+MADOZ_SOURCE_PDF="$(realpath -e -- "$MADOZ_SOURCE_PDF")"
+case "$HISTORICAL_CORPUS_IMPORT_DIR" in
+  "$CORPUS_REPO" | "$CORPUS_REPO"/*) exit 1 ;;
+esac
+export PODMAN_COMPOSE_PROVIDER=podman-compose
+: "${HISTORICAL_CORPUS_MODEL_BACKEND:=qwen}"
+: "${HISTORICAL_CORPUS_ALLOW_DETERMINISTIC:=false}"
+: "${HISTORICAL_CORPUS_MODEL_BATCH_SIZE:=8}"
+: "${HISTORICAL_CORPUS_MODEL_MAX_LENGTH:=8192}"
+: "${HISTORICAL_CORPUS_TURBOVEC_BIT_WIDTH:=4}"
+: "${HISTORICAL_CORPUS_DEVICE:=}"
+: "${HISTORICAL_CORPUS_EMBEDDING_MODEL:=Qwen/Qwen3-Embedding-0.6B}"
+: "${HISTORICAL_CORPUS_RERANKER_MODEL:=Qwen/Qwen3-Reranker-0.6B}"
+export HISTORICAL_CORPUS_ADMIN_TOKEN HISTORICAL_CORPUS_IMPORT_DIR
+export HISTORICAL_CORPUS_MODEL_BACKEND HISTORICAL_CORPUS_ALLOW_DETERMINISTIC
+export HISTORICAL_CORPUS_MODEL_BATCH_SIZE HISTORICAL_CORPUS_MODEL_MAX_LENGTH
+export HISTORICAL_CORPUS_TURBOVEC_BIT_WIDTH HISTORICAL_CORPUS_DEVICE
+export HISTORICAL_CORPUS_EMBEDDING_MODEL HISTORICAL_CORPUS_RERANKER_MODEL
+MADOZ_PDF="$HISTORICAL_CORPUS_IMPORT_DIR/Diccionario_geográfico_estadístico_his.pdf"
+MADOZ_MANIFEST="$HISTORICAL_CORPUS_IMPORT_DIR/madoz-t11.private.yml"
+MADOZ_INVENTORY="$HISTORICAL_CORPUS_IMPORT_DIR/madoz-t11.pages.private.jsonl"
+```
+
+- `HISTORICAL_CORPUS_IMPORT_DIR` debe ser una ruta absoluta privada en el host
+  y no puede estar dentro de `CORPUS_REPO`.
+- `MADOZ_SOURCE_PDF` debe ser una ruta absoluta al PDF de origen.
+- El token de administrador debe ser aleatorio y privado.
+- Los valores de modelo conservan cualquier override del operador. Si faltan,
+  toman los defaults de `.env.example`; así el proveedor local nunca recibe
+  expresiones sin resolver.
+
+### Fase 1: Directorio privado de importación
+
+```bash
+install -d -m 0700 "$HISTORICAL_CORPUS_IMPORT_DIR"
+install -m 0600 "$MADOZ_SOURCE_PDF" "$MADOZ_PDF"
+MADOZ_EXPECTED_SHA=d20c9a01f68bd091490a008433e4f1d709dca370181a20b56ca99bbb31bc01ff
+MADOZ_ACTUAL_SHA="$(sha256sum -- "$MADOZ_PDF" | cut -d ' ' -f 1)"
+test "$MADOZ_ACTUAL_SHA" = "$MADOZ_EXPECTED_SHA"
+```
+
+El `test` detiene el flujo si el SHA-256 no coincide exactamente.
+
+### Fase 2: Manifiesto privado
+
+```bash
+install -m 0600 \
+  "$CORPUS_REPO/pods/historical-corpus-pod/examples/madoz-t11-malaga-partial.manifest.example.yml" \
+  "$MADOZ_MANIFEST"
+```
+
+El manifiesto debe requerir:
+
+- Páginas 39-109.
+- `partial_source`.
+- Páginas impresas faltantes: 62, 63, 98, 99, 102, 103.
+- `acceptedForProduct: false`.
+- Derechos pendientes.
+- Hash, estado y marca de tiempo de inventario pendientes.
+
+No añadir a Git el PDF, manifiesto privado, inventario, gold ni reportes.
+
+### Fase 3: Validación del manifiesto
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest build historical-corpus-ingest
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest validate-manifest \
+  --manifest /imports/madoz-t11.private.yml
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest validate-manifest \
+  --manifest /imports/madoz-t11.private.yml \
+  --check-source
+```
+
+### Fase 4-6: Construcción y revisión del inventario
+
+El bind base conserva `/imports` como read-only. El segundo bind expone el
+mismo directorio por una ruta de salida separada y escribible:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  -v "$HISTORICAL_CORPUS_IMPORT_DIR:/inventory-output:Z,U" \
+  historical-corpus-ingest build-inventory \
+  --manifest /imports/madoz-t11.private.yml
+
+MADOZ_STORAGE_KEY="$(printf '%s' \
+  'madoz-1848-t11-malaga-partial-google-books' | sha256sum | cut -d ' ' -f 1)"
+MADOZ_GENERATED_INVENTORY="$HISTORICAL_CORPUS_IMPORT_DIR/$MADOZ_STORAGE_KEY/page-inventory.jsonl"
+install -m 0600 "$MADOZ_GENERATED_INVENTORY" "$MADOZ_INVENTORY"
+```
+
+Stdout también devuelve `path`, `sha256`, `records` y `pendingReview`. Revisar
+solo `anomalyFlags` y decisiones pendientes; no editar el JSONL. Corregir
+`selection.canonicalization.pageOverrides`, manteniendo orden por página y
+lado, y repetir la generación y copia hasta obtener `pendingReview: 0` sin
+anomalías sin resolver.
+
+Antes de congelarlo, verificar la correspondencia física y lógica:
+
+```bash
+python3 - "$MADOZ_INVENTORY" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as handle:
+    rows = [json.loads(line) for line in handle]
+expected_labels = (
+    list(range(32, 62))
+    + list(range(64, 98))
+    + list(range(100, 102))
+    + list(range(104, 109))
+)
+assert len(rows) == 71
+assert all(row["side"] == "full" for row in rows)
+assert all(row["canonicalStatus"] == "include" for row in rows)
+assert [row["canonicalSequenceIndex"] for row in rows] == list(range(1, 72))
+assert [int(row["normalizedPrintedLabel"]) for row in rows] == expected_labels
+assert sorted(set(range(32, 109)) - set(expected_labels)) == [62, 63, 98, 99, 102, 103]
+PY
+
+sha256sum -- "$MADOZ_INVENTORY"
+date --iso-8601=seconds
+```
+
+Copiar al manifiesto el SHA desnudo, fijar
+`inventoryReviewStatus: verified` e `inventoryVerifiedAt` con el timestamp y
+repetir la validación cerrada:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest validate-manifest \
+  --manifest /imports/madoz-t11.private.yml \
+  --check-source
+```
+
+Este último comando debe aceptar exactamente 71 hojas, rangos impresos
+32-61/64-97/100-101/104-108 y los seis huecos declarados.
+
+### Fase 7: Prefetch de modelos
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest prefetch-models \
+  --manifest /imports/madoz-t11.private.yml
+```
+
+Conservar `ppocrv6-medium-transformers/model-lock.json` en el volumen nombrado
+de modelos. Desde aquí, cada OCR verifica el lock cerrado, el inventario de
+archivos y sus hashes locales; si algo falta o cambia, falla en vez de iniciar
+una descarga implícita.
+
+### Fase 8: Humo OCR
+
+```bash
+set -e
+for page in 39 41 42 52 60 68 69 70 89 92 102 108; do
+  podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+    historical-corpus-ingest ocr-smoke \
+    --manifest /imports/madoz-t11.private.yml \
+    --pdf-page "$page" \
+    --side full
+done
+```
+
+Detener en el primer fallo.
+
+### Fase 9: Muestra de evaluación
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest prepare-sample --manifest /imports/madoz-t11.private.yml \
+  --pages 39:full,41:full,42:full,43:full,47:full,52:full,57:full,60:full,68:full,69:full,70:full,71:full,89:full,90:full,91:full,92:full,102:full,103:full,104:full,105:full,106:full,107:full,108:full,109:full
+```
+
+```text
+PDF:     39,41,42,43,47,52,57,60,68,69,70,71,89,90,91,92,102,103,104,105,106,107,108,109
+lógica:   1, 3, 4, 5, 9,14,19,22,30,31,32,33,51,52,53,54, 64, 65, 66, 67, 68, 69, 70, 71
+```
+
+El comando imprime el `path` exacto de una muestra no publicable. Copiar ese
+valor, que debe quedar bajo `/data/staging`, en `OCR_SAMPLE_PATH`. Transcribir
+el gold humano privado únicamente desde los facsímiles; nunca completar los
+huecos ausentes ni usar como verdad la capa OCR de Google.
+
+```bash
+: "${OCR_SAMPLE_PATH:?use the path returned by prepare-sample}"
+case "$OCR_SAMPLE_PATH" in
+  /data/staging/*) ;;
+  *) exit 1 ;;
+esac
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest evaluate-ocr --sample "$OCR_SAMPLE_PATH" \
+  --gold /imports/madoz-t11.gold.private.jsonl \
+  --report /data/reports/madoz-t11-ocr-report.json
+```
+
+El comando escribe el reporte atómicamente bajo `/data/reports`. Un código 5
+o cualquier gate fallido prohíbe ejecutar la preparación completa.
+
+### Fase 10: Preparación completa
+
+Solo después de que la OCR R2 pase:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest prepare \
+  --manifest /imports/madoz-t11.private.yml
+```
+
+- Requerir las 71 hojas, cero páginas fallidas y cero
+  `oversize_body_line`.
+- Ejecutar el mismo comando de preparación una segunda vez:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest prepare \
+  --manifest /imports/madoz-t11.private.yml
+```
+
+- Verificar que el segundo informe demuestra resume/reutilización sin re-OCR
+  de páginas staged válidas.
+
+No continuar con publicación mientras derechos y cobertura sigan pendientes.
+
 ## Start the Qwen service
 
 The base compose uses Qwen3-Embedding-0.6B and Qwen3-Reranker-0.6B by default.
