@@ -298,6 +298,15 @@ function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefin
     base.push(
       `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
     );
+    base.push(
+      'Escribe exactamente un segmento por cada entrada de writerPlan.beats, en el mismo orden, sin repetir ni dividir beats para alargar la narración.'
+    );
+    base.push(
+      'Antes de redactar, distribuye el objetivo de palabras usando targetWords dividido por el número de beats como punto de partida y compensa los segmentos breves en otros segmentos.'
+    );
+    base.push(
+      'Verifica el total usando las palabras reales de segment.text, no estimatedWords.'
+    );
   }
 
   base.push(

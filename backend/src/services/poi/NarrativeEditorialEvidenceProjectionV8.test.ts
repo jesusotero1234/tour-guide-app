@@ -203,6 +203,11 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(projected.systemPrompt).toContain('vida humana');
     expect(projected.systemPrompt).toContain('contraste/significado');
     expect(projected.systemPrompt).toContain('transición');
+    expect(projected.systemPrompt).toContain('exactamente un segmento por cada entrada de writerPlan.beats');
+    expect(projected.systemPrompt).toContain('en el mismo orden');
+    expect(projected.systemPrompt).toContain('sin repetir ni dividir beats');
+    expect(projected.systemPrompt).toContain('targetWords dividido por el número de beats');
+    expect(projected.systemPrompt).toContain('palabras reales de segment.text, no estimatedWords');
   });
 
   test('retains partial C restrictions in per-stop requests while keeping the tour request compact', () => {
