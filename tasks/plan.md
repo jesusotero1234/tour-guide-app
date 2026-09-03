@@ -2797,7 +2797,13 @@ Validación roja esperada:
 
 ### QW-06C — Reconciliación y vía HTTP del servicio
 
-- [ ] Pendiente.
+- [x] Completado: snapshot target tipado, verificación global read-only,
+  reparación por un único pipeline journal→autoridad→replace→verify→finalize,
+  bloqueo estable `INDEX_REPAIR_REQUIRED`, replay HTTP sin escrituras y
+  retirada de `mark_index_state`/upsert del servicio. Pasan las 15 pruebas
+  de reconciliación, 24 de retrieval y 47 regresiones focalizadas; las dos
+  pruebas runtime antiguas quedan rojas exclusivamente por el wiring explícito
+  de política que corresponde a QW-06D.
 - Depende de: QW-06B.
 - Implementación existente:
   - `pods/historical-corpus-pod/src/historical_corpus/service.py`

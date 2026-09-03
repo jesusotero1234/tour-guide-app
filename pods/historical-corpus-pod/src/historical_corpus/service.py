@@ -4,7 +4,7 @@ import hashlib
 import json
 import threading
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 
@@ -20,7 +20,11 @@ from historical_corpus.models import (
     SearchResponse,
 )
 from historical_corpus.registry import (
+    ComputedIndexTarget,
     CorpusRegistry,
+    IndexStateSnapshot,
+    IndexSyncJournal,
+    IndexTargetConfig,
     _compute_chunk_id,
     _compute_request_hash,
 )
@@ -47,6 +51,10 @@ class RecordNotFoundError(HistoricalCorpusError):
     code = "NOT_FOUND"
 
 
+class IndexRepairRequiredError(HistoricalCorpusError):
+    code = "INDEX_REPAIR_REQUIRED"
+
+
 class HistoricalCorpusService:
     def __init__(
         self,
@@ -55,47 +63,216 @@ class HistoricalCorpusService:
         vector_index: VectorIndex,
         embedding_provider: EmbeddingProvider,
         reranker: Reranker,
+        startup_policy: Literal["verify", "repair"] = "verify",
+        vector_index_backend: str = "turbovec",
+        vector_index_bit_width: int = 4,
     ) -> None:
         if embedding_provider.dimension <= 0:
             raise ValueError("embedding dimension must be positive")
         if vector_index.dimension != embedding_provider.dimension:
             raise ValueError("vector index and embedding provider dimensions must match")
+        if startup_policy not in ("verify", "repair"):
+            raise ValueError("startup_policy must be verify or repair")
 
+        target = IndexTargetConfig(
+            embedding_model=embedding_provider.model_id,
+            embedding_dimension=embedding_provider.dimension,
+            reranker_model=reranker.model_id,
+            vector_index_backend=vector_index_backend,
+            vector_index_bit_width=vector_index_bit_width,
+        )
         self._registry = CorpusRegistry(str(db_path))
         self._vector_index = vector_index
         self._embedding_provider = embedding_provider
         self._reranker = reranker
+        self._target = target
         self._lock = threading.RLock()
         self._closed = False
+        self._index_available = False
 
-        state = self._registry.read_index_state()
-        if state is not None and (
-            state.embeddingModel != self._embedding_provider.model_id
-            or state.embeddingDimension != self._embedding_provider.dimension
-        ):
+        try:
+            self._initialize_index(startup_policy)
+        except IndexRepairRequiredError:
             self._registry.close()
-            raise ValueError("stored embeddings do not match the configured embedding model")
-        self._load_stored_embeddings()
+            self._closed = True
+            raise
+        except Exception as exc:
+            self._registry.close()
+            self._closed = True
+            raise IndexRepairRequiredError(
+                "the vector index must be repaired before use"
+            ) from exc
 
     def _assert_open(self) -> None:
         if self._closed:
             raise RuntimeError("historical corpus service is closed")
 
-    def _load_stored_embeddings(self) -> None:
-        stored = self._registry.load_all_embeddings()
-        if not stored:
-            return
-        vector_ids = sorted(stored)
-        vectors = np.stack(
-            [
-                self._decode_embedding(stored[vector_id])
-                for vector_id in vector_ids
-            ]
+    def _assert_index_available(self) -> None:
+        if not self._index_available:
+            raise IndexRepairRequiredError(
+                "the vector index must be repaired before use"
+            )
+
+    def _authority_matrix(self, computed: ComputedIndexTarget) -> np.ndarray:
+        blobs = computed.authority.vector_blobs
+        if not blobs:
+            return np.empty((0, self._target.embedding_dimension), dtype=np.float32)
+        return np.stack([self._decode_embedding(blob) for blob in blobs])
+
+    def _vector_artifact_if_exact(self, computed: ComputedIndexTarget) -> str | None:
+        expected_ids = set(computed.authority.vector_ids)
+        try:
+            if self._vector_index.count() != len(expected_ids):
+                return None
+            if self._vector_index.contains_ids(computed.authority.vector_ids) != expected_ids:
+                return None
+            return self._vector_index.artifact_sha256()
+        except Exception:
+            return None
+
+    def _state_matches(
+        self,
+        snapshot: IndexStateSnapshot | None,
+        computed: ComputedIndexTarget,
+        artifact_sha256: str | None,
+    ) -> bool:
+        if snapshot is None or artifact_sha256 is None:
+            return False
+        state = snapshot.version
+        return (
+            state.indexVersion == computed.index_version
+            and state.corpusIndexVersion == computed.corpus_index_version
+            and state.embeddingModel == self._target.embedding_model
+            and state.embeddingDimension == self._target.embedding_dimension
+            and state.rerankerModel == self._target.reranker_model
+            and state.chunkingPolicyVersion == self._target.chunking_policy_version
+            and state.sourceRegistryVersion == self._target.source_registry_version
+            and state.documentCount == computed.document_count
+            and state.chunkCount == computed.chunk_count
+            and snapshot.vector_index_backend == self._target.vector_index_backend
+            and snapshot.vector_index_bit_width == self._target.vector_index_bit_width
+            and snapshot.authority_sha256 == computed.authority_sha256
+            and snapshot.artifact_sha256 == artifact_sha256
         )
-        self._vector_index.upsert(vector_ids, vectors)
+
+    def _embedding_identity_is_incompatible(
+        self,
+        snapshot: IndexStateSnapshot | None,
+        computed: ComputedIndexTarget,
+    ) -> bool:
+        if snapshot is None or computed.chunk_count == 0:
+            return False
+        state = snapshot.version
+        return (
+            state.embeddingModel != self._target.embedding_model
+            or state.embeddingDimension != self._target.embedding_dimension
+        )
+
+    def _replace_from_authority(self, computed: ComputedIndexTarget) -> str:
+        self._vector_index.replace_all(
+            computed.authority.vector_ids,
+            self._authority_matrix(computed),
+        )
+        artifact_sha256 = self._vector_artifact_if_exact(computed)
+        if artifact_sha256 is None:
+            raise ValueError("vector index replacement did not match SQLite authority")
+        if not self._vector_index.is_persistent and artifact_sha256 != computed.authority_sha256:
+            raise ValueError("nonpersistent artifact does not match SQLite authority")
+        return artifact_sha256
+
+    def _journal_matches_target(
+        self,
+        journal: IndexSyncJournal,
+        computed: ComputedIndexTarget,
+    ) -> bool:
+        return (
+            journal.target_index_version == computed.index_version
+            and journal.target_corpus_index_version == computed.corpus_index_version
+            and journal.target_authority_sha256 == computed.authority_sha256
+            and journal.embedding_model == self._target.embedding_model
+            and journal.embedding_dimension == self._target.embedding_dimension
+            and journal.reranker_model == self._target.reranker_model
+            and journal.vector_index_backend == self._target.vector_index_backend
+            and journal.vector_index_bit_width == self._target.vector_index_bit_width
+            and journal.chunking_policy_version == self._target.chunking_policy_version
+            and journal.source_registry_version == self._target.source_registry_version
+            and journal.document_count == computed.document_count
+            and journal.chunk_count == computed.chunk_count
+        )
+
+    def _reconcile_journal(self, journal: IndexSyncJournal) -> IndexVersion:
+        try:
+            computed = self._registry.compute_index_target(self._target)
+            if not self._journal_matches_target(journal, computed):
+                raise ValueError("journal target no longer matches SQLite authority")
+            artifact_sha256 = self._replace_from_authority(computed)
+            return self._registry.finalize_index_sync(journal, artifact_sha256)
+        except IndexRepairRequiredError:
+            raise
+        except Exception as exc:
+            raise IndexRepairRequiredError(
+                "the vector index must be repaired before use"
+            ) from exc
+
+    def _initialize_index(self, startup_policy: Literal["verify", "repair"]) -> None:
+        try:
+            computed = self._registry.compute_index_target(self._target)
+        except Exception as exc:
+            raise IndexRepairRequiredError(
+                "SQLite embedding authority is invalid"
+            ) from exc
+
+        snapshot = self._registry.read_index_state_snapshot()
+        if self._embedding_identity_is_incompatible(snapshot, computed):
+            raise IndexRepairRequiredError(
+                "stored embeddings do not match the configured embedding model"
+            )
+
+        journal = self._registry.read_index_sync_journal()
+        if journal is not None:
+            if startup_policy != "repair":
+                raise IndexRepairRequiredError(
+                    "an index synchronization journal is pending"
+                )
+            self._reconcile_journal(journal)
+            self._index_available = True
+            return
+
+        if not self._vector_index.is_persistent:
+            artifact_sha256 = self._replace_from_authority(computed)
+            if snapshot is None and computed.document_count == 0 and computed.chunk_count == 0:
+                self._registry.ensure_empty_index_state(self._target, artifact_sha256)
+                snapshot = self._registry.read_index_state_snapshot()
+            if self._state_matches(snapshot, computed, artifact_sha256):
+                self._index_available = True
+                return
+            if startup_policy != "repair":
+                raise IndexRepairRequiredError(
+                    "the in-memory index state does not match SQLite authority"
+                )
+            repair_journal = self._registry.create_repair_journal(self._target)
+            self._reconcile_journal(repair_journal)
+            self._index_available = True
+            return
+
+        artifact_sha256 = self._vector_artifact_if_exact(computed)
+        if snapshot is None and computed.document_count == 0 and computed.chunk_count == 0:
+            if artifact_sha256 is not None:
+                self._registry.ensure_empty_index_state(self._target, artifact_sha256)
+                snapshot = self._registry.read_index_state_snapshot()
+        if self._state_matches(snapshot, computed, artifact_sha256):
+            self._index_available = True
+            return
+        if startup_policy != "repair":
+            raise IndexRepairRequiredError(
+                "the persistent index does not match SQLite authority"
+            )
+        repair_journal = self._registry.create_repair_journal(self._target)
+        self._reconcile_journal(repair_journal)
+        self._index_available = True
 
     def _decode_embedding(self, payload: bytes) -> np.ndarray:
-        vector = np.frombuffer(payload, dtype=np.float32).copy()
+        vector = np.frombuffer(payload, dtype="<f4").astype(np.float32)
         if vector.shape != (self._embedding_provider.dimension,):
             raise ValueError("stored embedding dimension does not match configuration")
         if not np.all(np.isfinite(vector)):
@@ -105,6 +282,7 @@ class HistoricalCorpusService:
     def ingest(self, request: IngestRequest) -> IngestResult:
         with self._lock:
             self._assert_open()
+            self._assert_index_available()
             if not request.rights.isExplicitlyReusable:
                 raise RightsNotReusableError(
                     "source reuse rights are not explicitly verified",
@@ -133,16 +311,6 @@ class HistoricalCorpusService:
                         "stored embeddings or vector IDs are missing for replay",
                         details={"documentId": request.documentId, "missingChunkIds": missing},
                     )
-                vectors = np.stack(
-                    [self._decode_embedding(stored_embeddings[chunk_id]) for chunk_id in chunk_ids]
-                )
-                vector_ids = [vector_id_by_chunk[chunk_id] for chunk_id in chunk_ids]
-                self._vector_index.upsert(vector_ids, vectors)
-                self._registry.mark_index_state(
-                    self._embedding_provider.model_id,
-                    self._embedding_provider.dimension,
-                    self._reranker.model_id,
-                )
                 return IngestResult(documentId=request.documentId, chunkIds=chunk_ids)
 
             searchable_texts = [
@@ -169,21 +337,25 @@ class HistoricalCorpusService:
                 for chunk in request.chunks
             ]
             embedding_payloads = {
-                chunk_id: vectors[index].tobytes(order="C")
+                chunk_id: np.asarray(vectors[index], dtype="<f4").tobytes(order="C")
                 for index, chunk_id in enumerate(chunk_ids)
             }
             stored_chunk_ids = self._registry.atomically_insert_document(
                 request,
                 embedding_payloads,
+                target=self._target,
             )
-            vector_id_by_chunk = self._registry.get_vector_ids_for_chunk_ids(stored_chunk_ids)
-            vector_ids = [vector_id_by_chunk[chunk_id] for chunk_id in stored_chunk_ids]
-            self._vector_index.upsert(vector_ids, vectors)
-            self._registry.mark_index_state(
-                self._embedding_provider.model_id,
-                self._embedding_provider.dimension,
-                self._reranker.model_id,
-            )
+            journal = self._registry.read_index_sync_journal()
+            if journal is None:
+                self._index_available = False
+                raise IndexRepairRequiredError(
+                    "the committed corpus update has no synchronization journal"
+                )
+            try:
+                self._reconcile_journal(journal)
+            except IndexRepairRequiredError:
+                self._index_available = False
+                raise
             return IngestResult(documentId=request.documentId, chunkIds=stored_chunk_ids)
 
     def get_chunk(self, chunk_id: str) -> ChunkRecord:
@@ -211,21 +383,19 @@ class HistoricalCorpusService:
     def index_version(self) -> IndexVersion:
         with self._lock:
             self._assert_open()
+            self._assert_index_available()
             state = self._registry.read_index_state()
             if state is None:
-                self._registry.mark_index_state(
-                    self._embedding_provider.model_id,
-                    self._embedding_provider.dimension,
-                    self._reranker.model_id,
+                self._index_available = False
+                raise IndexRepairRequiredError(
+                    "index state is missing"
                 )
-                state = self._registry.read_index_state()
-            if state is None:
-                raise RuntimeError("index state could not be initialized")
             return state
 
     def search(self, request: SearchRequest) -> SearchResponse:
         with self._lock:
             self._assert_open()
+            self._assert_index_available()
             query_hash = self._query_hash(request)
             state = self.index_version()
             allowed_ids = self._registry.get_filtered_candidate_ids(request)
@@ -375,4 +545,3 @@ class HistoricalCorpusService:
 
     def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> None:
         self.close()
-

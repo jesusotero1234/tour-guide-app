@@ -354,6 +354,35 @@ def test_ensure_empty_index_state_rejects_orphan_embedding(tmp_path: Path) -> No
         registry.close()
 
 
+def test_index_state_snapshot_after_prepared_insert(tmp_path: Path) -> None:
+    registry = CorpusRegistry(str(tmp_path / "snapshot.sqlite"))
+    try:
+        _, blob, vector_id = _valid_insert(registry)
+        journal = registry.read_index_sync_journal()
+        assert journal is not None
+        registry.finalize_index_sync(journal, _ARTIFACT_SHA256)
+        snapshot = registry.read_index_state_snapshot()
+        assert snapshot is not None
+        assert snapshot.version == registry.read_index_state()
+        target = _target()
+        assert snapshot.vector_index_backend == target.vector_index_backend
+        assert snapshot.vector_index_bit_width == target.vector_index_bit_width
+        assert snapshot.authority_sha256 == _authority_hash(vector_id, blob)
+        assert snapshot.artifact_sha256 == _ARTIFACT_SHA256
+
+        computed_target = registry.compute_index_target(_target())
+        assert computed_target.index_version == snapshot.version.indexVersion
+        assert computed_target.corpus_index_version == snapshot.version.corpusIndexVersion
+
+        authority = registry.load_embedding_authority(_target())
+        assert computed_target.authority == authority
+        assert computed_target.authority_sha256 == authority.authority_sha256
+        assert computed_target.document_count == authority.document_count
+        assert computed_target.chunk_count == authority.chunk_count
+    finally:
+        registry.close()
+
+
 def test_finalize_retry_after_index_state_insert_failure(tmp_path: Path) -> None:
     registry = CorpusRegistry(str(tmp_path / "retry.sqlite"))
     try:

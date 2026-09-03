@@ -69,6 +69,34 @@ class IndexAuthority:
 
 
 @dataclass(frozen=True, slots=True)
+class ComputedIndexTarget:
+    index_version: str
+    corpus_index_version: str
+    authority: IndexAuthority
+
+    @property
+    def authority_sha256(self) -> str:
+        return self.authority.authority_sha256
+
+    @property
+    def document_count(self) -> int:
+        return self.authority.document_count
+
+    @property
+    def chunk_count(self) -> int:
+        return self.authority.chunk_count
+
+
+@dataclass(frozen=True, slots=True)
+class IndexStateSnapshot:
+    version: IndexVersion
+    vector_index_backend: str | None
+    vector_index_bit_width: int | None
+    authority_sha256: str | None
+    artifact_sha256: str | None
+
+
+@dataclass(frozen=True, slots=True)
 class IndexSyncJournal:
     operation: str
     target_generation: int
@@ -411,8 +439,6 @@ class CorpusRegistry:
                 )
             if target is not None:
                 self._insert_index_sync_journal('http_ingest', target)
-        if target is None:
-            self._update_index_state()
         return chunk_ids
 
     def atomically_insert_prepared_document(
@@ -599,8 +625,6 @@ class CorpusRegistry:
                     )
             if target is not None:
                 self._insert_index_sync_journal('publish', target)
-        if target is None:
-            self._update_index_state()
         return chunk_ids
 
     def get_document(self, document_id: str) -> DocumentRecord | None:
@@ -1000,22 +1024,32 @@ class CorpusRegistry:
     def count_chunks(self) -> int:
         return self._conn.execute("SELECT COUNT(*) FROM chunks").fetchone()[0]
 
-    def read_index_state(self) -> IndexVersion | None:
+    def read_index_state_snapshot(self) -> IndexStateSnapshot | None:
         row = self._conn.execute("SELECT * FROM index_state WHERE id = 1").fetchone()
         if row is None:
             return None
-        return IndexVersion(
-            generation=row["generation"],
-            indexVersion=row["index_version"],
-            corpusIndexVersion=row["corpus_index_version"],
-            embeddingModel=row["embedding_model"],
-            embeddingDimension=row["embedding_dimension"],
-            rerankerModel=row["reranker_model"],
-            chunkingPolicyVersion=row["chunking_policy_version"],
-            sourceRegistryVersion=row["source_registry_version"],
-            documentCount=row["document_count"],
-            chunkCount=row["chunk_count"],
+        return IndexStateSnapshot(
+            version=IndexVersion(
+                generation=row["generation"],
+                indexVersion=row["index_version"],
+                corpusIndexVersion=row["corpus_index_version"],
+                embeddingModel=row["embedding_model"],
+                embeddingDimension=row["embedding_dimension"],
+                rerankerModel=row["reranker_model"],
+                chunkingPolicyVersion=row["chunking_policy_version"],
+                sourceRegistryVersion=row["source_registry_version"],
+                documentCount=row["document_count"],
+                chunkCount=row["chunk_count"],
+            ),
+            vector_index_backend=row["vector_index_backend"],
+            vector_index_bit_width=row["vector_index_bit_width"],
+            authority_sha256=row["authority_sha256"],
+            artifact_sha256=row["artifact_sha256"],
         )
+
+    def read_index_state(self) -> IndexVersion | None:
+        snapshot = self.read_index_state_snapshot()
+        return None if snapshot is None else snapshot.version
 
     def load_embedding_authority(self, target: IndexTargetConfig) -> IndexAuthority:
         doc_count = self.count_documents()
@@ -1070,6 +1104,15 @@ class CorpusRegistry:
             authority_sha256=authority_sha256,
             document_count=doc_count,
             chunk_count=chunk_count,
+        )
+
+    def compute_index_target(self, target: IndexTargetConfig) -> ComputedIndexTarget:
+        authority = self.load_embedding_authority(target)
+        corpus_index_version = self._compute_corpus_index_version()
+        return ComputedIndexTarget(
+            index_version=self._compute_index_version(target, corpus_index_version),
+            corpus_index_version=corpus_index_version,
+            authority=authority,
         )
 
     def _map_journal_row(self, row: sqlite3.Row) -> IndexSyncJournal:
@@ -1267,11 +1310,12 @@ class CorpusRegistry:
     def _insert_index_sync_journal(self, operation: str, target: IndexTargetConfig) -> IndexSyncJournal:
         if operation not in ("publish", "http_ingest", "repair"):
             raise ValueError("operation must be publish, http_ingest, or repair")
-        authority = self.load_embedding_authority(target)
+        computed = self.compute_index_target(target)
+        authority = computed.authority
         state = self.read_index_state()
         generation = (state.generation if state is not None else 0) + 1
-        corpus_index_version = self._compute_corpus_index_version()
-        index_version = self._compute_index_version(target, corpus_index_version)
+        corpus_index_version = computed.corpus_index_version
+        index_version = computed.index_version
         now = datetime.now(timezone.utc).isoformat()
         self._conn.execute(
             """
@@ -1348,73 +1392,3 @@ class CorpusRegistry:
         }
         canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return "sha256:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-
-    def mark_index_state(
-        self,
-        embedding_model: str,
-        embedding_dimension: int,
-        reranker_model: str,
-    ) -> None:
-        doc_count = self.count_documents()
-        chunk_count = self.count_chunks()
-        generation = 1
-        existing = self._conn.execute("SELECT generation FROM index_state WHERE id = 1").fetchone()
-        if existing is not None:
-            generation = existing["generation"] + 1
-        corpus_index_version = self._compute_corpus_index_version()
-        index_version = "sha256:" + hashlib.sha256(
-            f"{corpus_index_version}|{embedding_model}|{embedding_dimension}|{reranker_model}|{_CHUNKING_POLICY_VERSION}|{_SOURCE_REGISTRY_VERSION}".encode("utf-8")
-        ).hexdigest()
-        now = datetime.now(timezone.utc).isoformat()
-        self._conn.execute(
-            """
-            INSERT INTO index_state (
-                id, generation, index_version, corpus_index_version,
-                embedding_model, embedding_dimension, reranker_model,
-                chunking_policy_version, source_registry_version,
-                document_count, chunk_count, updated_at
-            ) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(id) DO UPDATE SET
-                generation = excluded.generation,
-                index_version = excluded.index_version,
-                corpus_index_version = excluded.corpus_index_version,
-                embedding_model = excluded.embedding_model,
-                embedding_dimension = excluded.embedding_dimension,
-                reranker_model = excluded.reranker_model,
-                chunking_policy_version = excluded.chunking_policy_version,
-                source_registry_version = excluded.source_registry_version,
-                document_count = excluded.document_count,
-                chunk_count = excluded.chunk_count,
-                updated_at = excluded.updated_at
-            """,
-            (
-                generation,
-                index_version,
-                corpus_index_version,
-                embedding_model,
-                embedding_dimension,
-                reranker_model,
-                _CHUNKING_POLICY_VERSION,
-                _SOURCE_REGISTRY_VERSION,
-                doc_count,
-                chunk_count,
-                now,
-            ),
-        )
-        self._conn.commit()
-
-    def _update_index_state(self) -> None:
-        row = self._conn.execute("SELECT * FROM index_state WHERE id = 1").fetchone()
-        if row is None:
-            return
-        doc_count = self.count_documents()
-        chunk_count = self.count_chunks()
-        self._conn.execute(
-            """
-            UPDATE index_state
-            SET document_count = ?, chunk_count = ?, updated_at = ?
-            WHERE id = 1
-            """,
-            (doc_count, chunk_count, datetime.now(timezone.utc).isoformat()),
-        )
-        self._conn.commit()
