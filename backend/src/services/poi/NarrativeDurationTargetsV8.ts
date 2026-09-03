@@ -48,6 +48,30 @@ function normalizeNonNegative(value: number | null | undefined): number {
   return value;
 }
 
+export function narrationTargetForSecondsV8(stopId: string, targetSeconds: number): NarrativeNarrationTargetV8 {
+  const normalizedSeconds = clamp(Math.floor(normalizeNonNegative(targetSeconds)), 0, MAX_NARRATION_SECONDS_PER_STOP);
+
+  const targetWords = Math.round((normalizedSeconds / 60) * SPEAKING_RATE_WORDS_PER_MINUTE);
+  const minPropositions = clamp(Math.round(normalizedSeconds / 35), 6, 12);
+  const maxPropositions = Math.min(16, minPropositions + 4);
+  const minVisualAnchors = clamp(Math.round(normalizedSeconds / 120), 2, 4);
+  const targetEvidenceCards = clamp(Math.ceil(normalizedSeconds / 30), 6, 20);
+  const minFacetCount = normalizedSeconds >= 300 ? 5 : normalizedSeconds >= 240 ? 4 : 3;
+  const minSpatialAnchors = normalizedSeconds >= 240 ? 2 : 1;
+
+  return {
+    stopId,
+    targetSeconds: normalizedSeconds,
+    targetWords,
+    minPropositions,
+    maxPropositions,
+    minVisualAnchors,
+    targetEvidenceCards,
+    minFacetCount,
+    minSpatialAnchors,
+  };
+}
+
 export function allocateNarrationTargetsV8(input: AllocateNarrationTargetsV8Input): NarrativeNarrationTargetV8[] {
   const { durationMinutes, walkingSeconds, stops } = input;
 
@@ -86,25 +110,7 @@ export function allocateNarrationTargetsV8(input: AllocateNarrationTargetsV8Inpu
 
     targetSeconds = clamp(targetSeconds, 0, MAX_NARRATION_SECONDS_PER_STOP);
 
-    const targetWords = Math.round((targetSeconds / 60) * SPEAKING_RATE_WORDS_PER_MINUTE);
-    const minPropositions = clamp(Math.round(targetSeconds / 35), 6, 12);
-    const maxPropositions = Math.min(16, minPropositions + 4);
-    const minVisualAnchors = clamp(Math.round(targetSeconds / 120), 2, 4);
-    const targetEvidenceCards = clamp(Math.ceil(targetSeconds / 30), 6, 20);
-    const minFacetCount = targetSeconds >= 300 ? 5 : targetSeconds >= 240 ? 4 : 3;
-    const minSpatialAnchors = targetSeconds >= 240 ? 2 : 1;
-
-    return {
-      stopId: stop.stopId,
-      targetSeconds,
-      targetWords,
-      minPropositions,
-      maxPropositions,
-      minVisualAnchors,
-      targetEvidenceCards,
-      minFacetCount,
-      minSpatialAnchors,
-    };
+    return narrationTargetForSecondsV8(stop.stopId, targetSeconds);
   });
 
   return targets;

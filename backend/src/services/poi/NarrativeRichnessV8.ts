@@ -125,7 +125,8 @@ function applicableThresholdV8(targetSeconds: number): RichnessThresholdV8 | nul
 
 export function evaluateNarrativeRichnessV8(
   dossier: NarrativeDossierV6,
-  target: NarrativeNarrationTargetV8
+  target: NarrativeNarrationTargetV8,
+  options: { writerReady?: boolean } = {}
 ): NarrativeRichnessProfileV8 {
   const cards = buildNarrativeEvidenceCardsV8(dossier);
   const knownSourceIds = new Set(dossier.sources.map((source) => source.sourceId));
@@ -178,7 +179,7 @@ export function evaluateNarrativeRichnessV8(
     }
   }
 
-  const writerReady = dossier.sufficiency.isSufficient;
+  const writerReady = options.writerReady ?? dossier.sufficiency.isSufficient;
   const richnessReady = groundingReady
     && writerReady
     && maximumSupportedSeconds >= target.targetSeconds;

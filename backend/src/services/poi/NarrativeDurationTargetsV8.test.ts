@@ -1,4 +1,4 @@
-import { allocateNarrationTargetsV8 } from './NarrativeDurationTargetsV8';
+import { allocateNarrationTargetsV8, narrationTargetForSecondsV8 } from './NarrativeDurationTargetsV8';
 
 describe('allocateNarrationTargetsV8', () => {
   const stops = [
@@ -86,5 +86,16 @@ describe('allocateNarrationTargetsV8', () => {
     expect(target!.targetEvidenceCards).toBe(6);
     expect(target!.minFacetCount).toBe(3);
     expect(target!.minSpatialAnchors).toBe(1);
+  });
+
+  it('builds V8 targets from reconciled seconds for stopId Q240', () => {
+    const target = narrationTargetForSecondsV8('Q240', 240);
+    expect(target.targetWords).toBe(480);
+    expect(target.minPropositions).toBe(7);
+    expect(target.maxPropositions).toBe(11);
+    expect(target.minVisualAnchors).toBe(2);
+    expect(target.targetEvidenceCards).toBe(8);
+    expect(target.minFacetCount).toBe(4);
+    expect(target.minSpatialAnchors).toBe(2);
   });
 });
