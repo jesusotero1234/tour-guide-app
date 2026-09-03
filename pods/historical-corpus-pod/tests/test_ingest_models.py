@@ -283,7 +283,6 @@ def test_extracted_lines_and_source_page_are_strict_and_finite() -> None:
         _page(qualityFlags=["blank", "blank"]),
         _page(lines=[_line(lineOrder=1), _line(lineOrder=0, lineId=SHA_3)]),
         _page(lines=[_line(logicalPageNumber=2)]),
-        _page(textSource="embedded"),
         _page(extra="forbidden"),
     ]
     for payload in invalid_pages:
@@ -292,6 +291,42 @@ def test_extracted_lines_and_source_page_are_strict_and_finite() -> None:
 
     with pytest.raises(ValidationError):
         SourceLineInput.model_validate(_line(lineId="0" * 64))
+
+
+def test_source_page_embedded_provenance_is_strict() -> None:
+    embedded_page = _page(
+        textSource="embedded",
+        ocrEngine="pymupdf",
+        ocrEngineVersion="1.28.2",
+        ocrDetectionModel="pdf-text-layer",
+        ocrRecognitionModel="pdf-text-layer",
+    )
+    page = SourcePageInput.model_validate(embedded_page)
+    assert page.textSource == "embedded"
+    assert page.ocrEngine == "pymupdf"
+    assert page.ocrEngineVersion == "1.28.2"
+    assert page.ocrDetectionModel == "pdf-text-layer"
+    assert page.ocrRecognitionModel == "pdf-text-layer"
+
+    crossed_embedded = _page(
+        textSource="embedded",
+        ocrEngine="transformers",
+        ocrEngineVersion="3.7.0",
+        ocrDetectionModel="PP-OCRv6_medium_det",
+        ocrRecognitionModel="PP-OCRv6_medium_rec",
+    )
+    with pytest.raises(ValidationError):
+        SourcePageInput.model_validate(crossed_embedded)
+
+    crossed_ppocrv6 = _page(
+        textSource="ppocrv6",
+        ocrEngine="pymupdf",
+        ocrEngineVersion="1.28.2",
+        ocrDetectionModel="pdf-text-layer",
+        ocrRecognitionModel="pdf-text-layer",
+    )
+    with pytest.raises(ValidationError):
+        SourcePageInput.model_validate(crossed_ppocrv6)
 
 
 def test_inventory_record_enforces_order_and_status_invariants() -> None:
@@ -1175,6 +1210,33 @@ def test_leaf_override_content_class_mismatch_is_rejected() -> None:
     processing = payload["processing"]  # type: ignore[index]
     processing["selection"]["leafOverrides"] = [leaf_override]  # type: ignore[index]
     _recompute_fingerprint_and_rehash(payload)
+    with pytest.raises(ValidationError):
+        PreparedDocument.model_validate(payload)
+
+
+def test_prepared_document_embedded_page_provenance_matches_embedded_first_fingerprint() -> None:
+    payload = _prepared_document()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    page_json["textSource"] = "embedded"  # type: ignore[index]
+    page_json["ocrEngine"] = "pymupdf"  # type: ignore[index]
+    page_json["ocrEngineVersion"] = "1.28.2"  # type: ignore[index]
+    page_json["ocrDetectionModel"] = "pdf-text-layer"  # type: ignore[index]
+    page_json["ocrRecognitionModel"] = "pdf-text-layer"  # type: ignore[index]
+
+    processing = payload["processing"]  # type: ignore[index]
+    processing["ocr"]["textMode"] = "embedded_first"  # type: ignore[index]
+    processing["ocr"]["embeddedPolicy"] = "madoz-embedded-v1"  # type: ignore[index]
+    processing["ocr"]["embeddedMinCharacters"] = 20  # type: ignore[index]
+    processing["ocr"]["embeddedMinAlphabeticRatio"] = 0.4  # type: ignore[index]
+    processing["ocr"]["embeddedMaxTokenRepetitionRatio"] = 0.5  # type: ignore[index]
+
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    _recompute_fingerprint_and_rehash(payload)
+    PreparedDocument.model_validate(payload)
+
+    page_json["ocrEngineVersion"] = "9.9.9"  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    _rehash_prepared(payload)
     with pytest.raises(ValidationError):
         PreparedDocument.model_validate(payload)
 

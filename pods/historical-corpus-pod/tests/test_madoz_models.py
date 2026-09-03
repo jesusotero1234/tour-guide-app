@@ -308,6 +308,22 @@ def test_coverage_metadata_is_coherent_and_ordered() -> None:
         DocumentMetadata.model_validate(overlap)
 
 
+def test_page_summary_embedded_source_contract() -> None:
+    payload = _page_summary_payload()
+    payload["textSource"] = "embedded"
+    summary = PageSummary.model_validate(payload)
+    assert summary.textSource == "embedded"
+
+
+def test_page_summary_ppocrv6_with_embedded_fallback_flag() -> None:
+    payload = _page_summary_payload()
+    payload["textSource"] = "ppocrv6"
+    payload["qualityFlags"] = ["embedded_fallback_missing_text"]
+    summary = PageSummary.model_validate(payload)
+    assert summary.textSource == "ppocrv6"
+    assert summary.qualityFlags == ["embedded_fallback_missing_text"]
+
+
 def test_page_models_validate_provenance_geometry_and_finite_values() -> None:
     line = SourceLineRecord.model_validate(_source_line_payload())
     summary = PageSummary.model_validate(_page_summary_payload())

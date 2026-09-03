@@ -188,11 +188,18 @@ class SourceLineInput(_StrictModel):
 
 QualityFlag = Literal[
     "blank",
+    "embedded_fallback_invalid_box",
+    "embedded_fallback_low_alphabetic_ratio",
+    "embedded_fallback_missing_text",
+    "embedded_fallback_repeated_tokens",
+    "embedded_fallback_special_layout",
+    "embedded_fallback_too_many_lines",
+    "embedded_fallback_too_short",
     "low_confidence",
     "mixed_orientation",
-    "table_heavy",
-    "rotation_applied",
     "oversize_body_line",
+    "rotation_applied",
+    "table_heavy",
 ]
 
 
@@ -213,8 +220,8 @@ class SourcePageInput(_StrictModel):
     imageSha256: str
     contentClass: Literal["normal", "table", "mixed_orientation"]
     foregroundRatio: float = Field(ge=0.0, le=1.0)
-    textSource: Literal["ppocrv6"]
-    ocrEngine: Literal["transformers"]
+    textSource: Literal["ppocrv6", "embedded"]
+    ocrEngine: Literal["transformers", "pymupdf"]
     ocrEngineVersion: str = Field(min_length=1, max_length=64)
     ocrDetectionModel: str = Field(min_length=1, max_length=128)
     ocrRecognitionModel: str = Field(min_length=1, max_length=128)
@@ -254,6 +261,17 @@ class SourcePageInput(_StrictModel):
             raise ValueError("lines must have unique increasing lineOrder")
         if any(line.logicalPageNumber != self.logicalPageNumber for line in self.lines):
             raise ValueError("line logicalPageNumber must match its page")
+        if self.textSource == "ppocrv6":
+            if self.ocrEngine != "transformers":
+                raise ValueError("ppocrv6 textSource requires transformers ocrEngine")
+        elif (
+            self.ocrEngine != "pymupdf"
+            or self.ocrDetectionModel != "pdf-text-layer"
+            or self.ocrRecognitionModel != "pdf-text-layer"
+        ):
+            raise ValueError(
+                "embedded textSource requires pymupdf and pdf-text-layer models"
+            )
         return self
 
 
@@ -780,6 +798,46 @@ class FingerprintPayload(_FrozenStrictModel):
         return "sha256:" + hashlib.sha256(canonical_json_bytes(self.model_dump(mode="json", by_alias=True, exclude_none=False))).hexdigest()
 
 
+def _validate_page_processing_metadata(
+    page: SourcePageInput,
+    processing: FingerprintPayload,
+) -> None:
+    if page.renderDpi != processing.render.dpi:
+        raise ValueError("page renderDpi must equal processing.render.dpi")
+    if page.rasterizationPolicy != processing.render.rasterizationPolicy:
+        raise ValueError(
+            "page rasterizationPolicy must equal processing.render.rasterizationPolicy"
+        )
+    if page.textSource == "ppocrv6":
+        if page.ocrEngine != processing.ocr.engine:
+            raise ValueError("page ocrEngine must equal processing.ocr.engine")
+        if page.ocrDetectionModel != processing.ocr.detectionModel:
+            raise ValueError(
+                "page ocrDetectionModel must equal processing.ocr.detectionModel"
+            )
+        if page.ocrRecognitionModel != processing.ocr.recognitionModel:
+            raise ValueError(
+                "page ocrRecognitionModel must equal processing.ocr.recognitionModel"
+            )
+        if page.ocrEngineVersion != processing.software.paddleocr:
+            raise ValueError(
+                "page ocrEngineVersion must equal processing.software.paddleocr"
+            )
+        return
+
+    if page.ocrEngine != "pymupdf":
+        raise ValueError("embedded page ocrEngine must be pymupdf")
+    if page.ocrEngineVersion != processing.software.pymupdf:
+        raise ValueError(
+            "embedded page ocrEngineVersion must equal processing.software.pymupdf"
+        )
+    if (
+        page.ocrDetectionModel != "pdf-text-layer"
+        or page.ocrRecognitionModel != "pdf-text-layer"
+    ):
+        raise ValueError("embedded page OCR models must identify pdf-text-layer")
+
+
 def _require_aware_datetime(value: datetime) -> datetime:
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("must include a timezone")
@@ -1147,18 +1205,7 @@ class PreparedDocument(_StrictModel):
                 raise ValueError("actual overlap must equal the remaining candidate overlap")
 
         for page in self.pages:
-            if page.renderDpi != self.processing.render.dpi:
-                raise ValueError("page renderDpi must equal processing.render.dpi")
-            if page.rasterizationPolicy != self.processing.render.rasterizationPolicy:
-                raise ValueError("page rasterizationPolicy must equal processing.render.rasterizationPolicy")
-            if page.ocrEngine != self.processing.ocr.engine:
-                raise ValueError("page ocrEngine must equal processing.ocr.engine")
-            if page.ocrDetectionModel != self.processing.ocr.detectionModel:
-                raise ValueError("page ocrDetectionModel must equal processing.ocr.detectionModel")
-            if page.ocrRecognitionModel != self.processing.ocr.recognitionModel:
-                raise ValueError("page ocrRecognitionModel must equal processing.ocr.recognitionModel")
-            if page.ocrEngineVersion != self.processing.software.paddleocr:
-                raise ValueError("page ocrEngineVersion must equal processing.software.paddleocr")
+            _validate_page_processing_metadata(page, self.processing)
 
         if self.processing.software.paddleocr != self.processing.modelLock.paddleOcrVersion:
             raise ValueError("processing.software.paddleocr must equal modelLock.paddleOcrVersion")
@@ -1592,18 +1639,7 @@ class OcrEvaluationSample(_StrictModel):
             raise ValueError("chunks must have unique chunkId")
 
         for page in self.pages:
-            if page.renderDpi != self.processing.render.dpi:
-                raise ValueError("page renderDpi must equal processing.render.dpi")
-            if page.rasterizationPolicy != self.processing.render.rasterizationPolicy:
-                raise ValueError("page rasterizationPolicy must equal processing.render.rasterizationPolicy")
-            if page.ocrEngine != self.processing.ocr.engine:
-                raise ValueError("page ocrEngine must equal processing.ocr.engine")
-            if page.ocrDetectionModel != self.processing.ocr.detectionModel:
-                raise ValueError("page ocrDetectionModel must equal processing.ocr.detectionModel")
-            if page.ocrRecognitionModel != self.processing.ocr.recognitionModel:
-                raise ValueError("page ocrRecognitionModel must equal processing.ocr.recognitionModel")
-            if page.ocrEngineVersion != self.processing.software.paddleocr:
-                raise ValueError("page ocrEngineVersion must equal processing.software.paddleocr")
+            _validate_page_processing_metadata(page, self.processing)
 
         if self.processing.software.paddleocr != self.processing.modelLock.paddleOcrVersion:
             raise ValueError("processing.software.paddleocr must equal modelLock.paddleOcrVersion")

@@ -549,7 +549,7 @@ class PageSummary(_StrictBaseModel):
     continuityBreakBefore: bool
     printedPageLabel: str | None
     contentClass: Literal["normal", "table", "mixed_orientation"]
-    textSource: Literal["ppocrv6"]
+    textSource: Literal["ppocrv6", "embedded"]
     qualityScore: float = Field(ge=0.0, le=1.0)
     qualityFlags: list[str] = Field(default_factory=list, max_length=8)
     workId: str = Field(min_length=1, max_length=128)
@@ -595,7 +595,21 @@ class PageSummary(_StrictBaseModel):
     @field_validator("qualityFlags")
     @classmethod
     def _validate_quality_flags(cls, v: list[str]) -> list[str]:
-        allowed = {"blank", "low_confidence", "mixed_orientation", "table_heavy", "rotation_applied", "oversize_body_line"}
+        allowed = {
+            "blank",
+            "embedded_fallback_invalid_box",
+            "embedded_fallback_low_alphabetic_ratio",
+            "embedded_fallback_missing_text",
+            "embedded_fallback_repeated_tokens",
+            "embedded_fallback_special_layout",
+            "embedded_fallback_too_many_lines",
+            "embedded_fallback_too_short",
+            "low_confidence",
+            "mixed_orientation",
+            "oversize_body_line",
+            "rotation_applied",
+            "table_heavy",
+        }
         if len(v) > 8:
             raise ValueError("qualityFlags must have at most 8 values")
         seen: set[str] = set()
