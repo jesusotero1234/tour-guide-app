@@ -174,6 +174,12 @@ export function parseNarrativeWriterResponseV8(
   }
 
   const record = value as Record<string, unknown>;
+  const allowedRootKeys = new Set(['stop_id', 'segments']);
+  for (const key of Object.keys(record)) {
+    if (!allowedRootKeys.has(key)) {
+      throw new Error(`Narrative writer response contains an unexpected root property: ${key}.`);
+    }
+  }
   if (record.stop_id !== plan.routeStopId) {
     throw new Error('Narrative writer response stop_id does not match plan.');
   }
@@ -198,6 +204,12 @@ export function parseNarrativeWriterResponseV8(
     }
 
     const segment = rawSegment as Record<string, unknown>;
+    const allowedSegmentKeys = new Set(['segmentId', 'beat', 'text', 'supportCardIds', 'estimatedWords']);
+    for (const key of Object.keys(segment)) {
+      if (!allowedSegmentKeys.has(key)) {
+        throw new Error(`Narrative segment contains an unexpected property: ${key}.`);
+      }
+    }
     const segmentId = segment.segmentId;
     const beat = segment.beat;
     const text = segment.text;

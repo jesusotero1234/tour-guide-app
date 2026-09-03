@@ -258,4 +258,34 @@ describe('NarrativeWriterContractV8', () => {
     const beat = segmentProperties.beat as Record<string, unknown>;
     expect(beat.enum).toEqual(plan.beats.map((item) => item.beat));
   });
+
+  it('rejects a response with an unknown root property', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    (response as Record<string, unknown>).unknownRootField = 'value';
+
+    expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
+
+  it('rejects a segment with an unknown property', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    (response.segments[0] as Record<string, unknown>).unknownSegmentField = 'value';
+
+    expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
 });
