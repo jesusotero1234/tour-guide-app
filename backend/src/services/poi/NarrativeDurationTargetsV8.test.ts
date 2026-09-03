@@ -56,4 +56,35 @@ describe('allocateNarrationTargetsV8', () => {
       stops: [],
     })).toEqual([]);
   });
+
+  it('asserts explicit card, facet, and spatial targets for a 300s target in a 120-minute route', () => {
+    const targets = allocateNarrationTargetsV8({
+      durationMinutes: 120,
+      walkingSeconds: 25 * 60,
+      stops,
+    });
+
+    const target = targets.find((t) => t.targetSeconds >= 300);
+    expect(target).toBeDefined();
+    expect(target!.targetEvidenceCards).toBe(10);
+    expect(target!.minFacetCount).toBe(5);
+    expect(target!.minSpatialAnchors).toBe(2);
+  });
+
+  it('asserts explicit card, facet, and spatial targets for a ~180s target', () => {
+    const targets = allocateNarrationTargetsV8({
+      durationMinutes: 20,
+      walkingSeconds: 5 * 60,
+      stops: [
+        { stopId: 'A', required: true },
+        { stopId: 'B', required: false },
+      ],
+    });
+
+    const target = targets.find((t) => t.targetSeconds >= 170 && t.targetSeconds < 180);
+    expect(target).toBeDefined();
+    expect(target!.targetEvidenceCards).toBe(6);
+    expect(target!.minFacetCount).toBe(3);
+    expect(target!.minSpatialAnchors).toBe(1);
+  });
 });

@@ -5,6 +5,9 @@ export interface NarrativeNarrationTargetV8 {
   minPropositions: number;
   maxPropositions: number;
   minVisualAnchors: number;
+  targetEvidenceCards?: number;
+  minFacetCount?: number;
+  minSpatialAnchors?: number;
 }
 
 export interface NarrationStopInput {
@@ -87,6 +90,9 @@ export function allocateNarrationTargetsV8(input: AllocateNarrationTargetsV8Inpu
     const minPropositions = clamp(Math.round(targetSeconds / 35), 6, 12);
     const maxPropositions = Math.min(16, minPropositions + 4);
     const minVisualAnchors = clamp(Math.round(targetSeconds / 120), 2, 4);
+    const targetEvidenceCards = clamp(Math.ceil(targetSeconds / 30), 6, 20);
+    const minFacetCount = targetSeconds >= 300 ? 5 : targetSeconds >= 240 ? 4 : 3;
+    const minSpatialAnchors = targetSeconds >= 240 ? 2 : 1;
 
     return {
       stopId: stop.stopId,
@@ -95,6 +101,9 @@ export function allocateNarrationTargetsV8(input: AllocateNarrationTargetsV8Inpu
       minPropositions,
       maxPropositions,
       minVisualAnchors,
+      targetEvidenceCards,
+      minFacetCount,
+      minSpatialAnchors,
     };
   });
 

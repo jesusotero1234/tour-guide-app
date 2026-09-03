@@ -689,6 +689,9 @@ describe('researchNarrativeStopV8', () => {
       minPropositions: 10,
       maxPropositions: 14,
       minVisualAnchors: 3,
+      targetEvidenceCards: 12,
+      minFacetCount: 5,
+      minSpatialAnchors: 2,
     };
     const packet = buildCuratorPacketV8({
       stopId: 'Q1',
@@ -701,8 +704,9 @@ describe('researchNarrativeStopV8', () => {
     });
 
     expect(packet.narrationTarget).toEqual(narrationTarget);
-    expect(packet.spans.length).toBeGreaterThan(40);
-    expect(packet.spans.length).toBeLessThanOrEqual(56);
+    expect(packet.spans.length).toBeGreaterThan(56);
+    expect(packet.spans.length).toBeLessThanOrEqual(72);
+    expect(packet.spans.reduce((sum, span) => sum + span.text.length, 0)).toBeLessThanOrEqual(42_000);
 
     const totalSpans = wikiSpans.length;
     const firstThird = new Set(wikiSpans.slice(0, Math.ceil(totalSpans / 3)).map((span) => span.evidenceSpanId));

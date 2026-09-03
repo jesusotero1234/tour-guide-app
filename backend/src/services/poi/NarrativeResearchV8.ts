@@ -407,8 +407,12 @@ export function buildCuratorPacketV8(input: {
     minVisualAnchors: 2,
   };
   const target = input.narrationTarget ?? defaultTarget;
-  const dynamicMaxSpans = Math.min(64, Math.max(budget.packetMaxSpans, target.maxPropositions * 4));
-  const dynamicMaxCharacters = Math.min(45000, Math.max(budget.packetMaxCharacters, target.targetWords * 50));
+  const dynamicMaxSpans = target.targetEvidenceCards === undefined
+    ? Math.min(64, Math.max(budget.packetMaxSpans, target.maxPropositions * 4))
+    : Math.min(80, Math.max(budget.packetMaxSpans, target.targetEvidenceCards * 6));
+  const dynamicMaxCharacters = target.targetEvidenceCards === undefined
+    ? Math.min(45_000, Math.max(budget.packetMaxCharacters, target.targetWords * 50))
+    : Math.min(60_000, Math.max(budget.packetMaxCharacters, target.targetEvidenceCards * 3_500));
   const nameTerms = [input.stopName, ...input.aliases].map(normalizeNarrativeIdentityTextV8);
   const candidates: Array<{
     span: NarrativeEvidenceSpanV7;
