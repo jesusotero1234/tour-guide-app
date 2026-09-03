@@ -27,6 +27,7 @@ import {
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { normalizeNarrativeIdentityTextV8 } from './NarrativeAuthoritiesV7';
 import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
+import { evaluateNarrativeRichnessV8 } from './NarrativeRichnessV8';
 
 export type NarrativeWebCaptureRequestClassV8 = 'place_exact' | 'discovered_secondary';
 
@@ -720,10 +721,16 @@ export async function researchNarrativeStopV8(
     }
   };
 
+  const roundRichnessReady = (round: ResearchRoundV8): boolean => {
+    if (input.narrationTarget === undefined) return true;
+    const profile = evaluateNarrativeRichnessV8(round.dossier, input.narrationTarget, { writerReady: round.gates.writerReady });
+    return profile.richnessReady;
+  };
+
   const roundQuality = (round: ResearchRoundV8): [number, number, number, number, number, number] => {
     const tierRank: Record<NarrativeEvidenceTierV8, number> = { D: 0, C: 1, B: 2, A: 3 };
     const roles = round.dossier.propositions.map((proposition) => proposition.role);
-    const richnessReady = meetsNarrativeRichnessTargetV8(roles, input.narrationTarget);
+    const richnessReady = roundRichnessReady(round);
     return [
       round.gates.minimumEvidenceReady ? 1 : 0,
       round.gates.writerReady ? 1 : 0,
@@ -875,7 +882,7 @@ export async function researchNarrativeStopV8(
   if (captures.length >= 1) {
     const result = await curate();
     if (result.ok && (result.tier === 'A' || result.tier === 'B')) {
-      const richnessReady = meetsNarrativeRichnessTargetV8(state.round!.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget);
+      const richnessReady = roundRichnessReady(state.round!);
       if (state.round!.gates.writerReady && richnessReady) {
         return sufficient(state.round!, result.tier);
       }
@@ -1078,7 +1085,7 @@ export async function researchNarrativeStopV8(
 
   // Ronda adaptativa: solo si falta writerReady o richness readiness y queda presupuesto.
   const richnessReadyAfterFirst = state.round !== null
-    ? meetsNarrativeRichnessTargetV8(state.round.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget)
+    ? roundRichnessReady(state.round)
     : false;
   const needsSemanticDiscovery = state.round === null
     || !state.round.gates.writerReady
@@ -1186,7 +1193,7 @@ export async function researchNarrativeStopV8(
   // CURATE #2 también repara roles ausentes con los mismos spans validados.
   const needsRoleRepair = state.round !== null && !state.round.gates.writerReady;
   const richnessReadyBeforeSecond = state.round !== null
-    ? meetsNarrativeRichnessTargetV8(state.round.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget)
+    ? roundRichnessReady(state.round)
     : false;
   const shouldCurate2 = curationCount < 2
     && captures.length > 0
@@ -1199,7 +1206,7 @@ export async function researchNarrativeStopV8(
   if (shouldCurate2) {
     const result = await curate();
     if (result.ok && (result.tier === 'A' || result.tier === 'B' || result.tier === 'C')) {
-      const richnessReadyAfterSecond = meetsNarrativeRichnessTargetV8(state.round!.dossier.propositions.map((proposition) => proposition.role), input.narrationTarget);
+      const richnessReadyAfterSecond = roundRichnessReady(state.round!);
       if (richnessReadyAfterSecond) {
         return sufficient(state.round!, result.tier);
       }
@@ -1215,8 +1222,11 @@ export async function researchNarrativeStopV8(
   } else if (state.round) {
     evidenceTier = classifyEvidenceTierV8(state.round.dossier, state.round.gates, captures);
     const roles = state.round.dossier.propositions.map((proposition) => proposition.role);
-    const richnessReady = meetsNarrativeRichnessTargetV8(roles, input.narrationTarget);
-    if (evidenceTier !== 'D' && richnessReady) {
+    const richnessProfile = input.narrationTarget
+      ? evaluateNarrativeRichnessV8(state.round.dossier, input.narrationTarget, { writerReady: state.round.gates.writerReady })
+      : null;
+    const richnessReady = richnessProfile ? richnessProfile.richnessReady : true;
+    if (evidenceTier !== 'D' && (input.narrationTarget === undefined || state.round.gates.writerReady)) {
       return sufficient(state.round, evidenceTier);
     }
     if (evidenceTier === 'D') {
@@ -1226,7 +1236,13 @@ export async function researchNarrativeStopV8(
       const visualCount = roles.filter((role) => role === 'visible_observation' || role === 'distinctive_trait').length;
       const requiredPropositions = input.narrationTarget?.minPropositions ?? 0;
       const requiredVisual = input.narrationTarget?.minVisualAnchors ?? 0;
-      reasons.push(`narrative richness not met: current propositions ${roles.length}/${requiredPropositions}, visual anchors ${visualCount}/${requiredVisual}`);
+      const profileMetrics = richnessProfile
+        ? `supported cards ${richnessProfile.supportedCardCount}, distinct passages ${richnessProfile.distinctPassageCount}, facets ${richnessProfile.facetCount}, visual cards ${richnessProfile.visualCardCount}, max supported seconds ${richnessProfile.maximumSupportedSeconds}`
+        : '';
+      const profileReasons = richnessProfile && richnessProfile.reasons.length > 0
+        ? ` [${richnessProfile.reasons.join(', ')}]`
+        : '';
+      reasons.push(`narrative richness not met: current propositions ${roles.length}/${requiredPropositions}, visual anchors ${visualCount}/${requiredVisual}${profileMetrics ? `, ${profileMetrics}` : ''}${profileReasons}`);
     }
     for (const role of (finalGates?.missingWriterRoles ?? [])) {
       reasons.push('missing writer role ' + role);

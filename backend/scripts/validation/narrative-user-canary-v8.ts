@@ -74,6 +74,8 @@ import {
   EssentialRouteCandidateV8,
 } from '../../src/services/poi/EssentialRouteSelectionV8';
 import { allocateNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationTargetsV8';
+import { reconcileNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationReconciliationV8';
+import { evaluateNarrativeRichnessV8 } from '../../src/services/poi/NarrativeRichnessV8';
 import {
   pruneOptionalStopsForWalkabilityV8,
   tourStopsFromCandidatesV8,
@@ -1477,8 +1479,42 @@ async function main(): Promise<void> {
     }
     retainedEvidenceManifest = evidenceManifest;
     checkpointState.evidenceManifest = toJsonValue(evidenceManifest);
+    const durationReconciliation = reconcileNarrationTargetsV8(admittedStops.map((stop) => {
+      const target = narrationTargetsByStopId.get(stop.routeStopId);
+      if (!target) {
+        throw new Error(`missing narration target for admitted stop ${stop.routeStopId}`);
+      }
+      return {
+        stopId: stop.routeStopId,
+        required: core.requiredIds.includes(stop.entityQid),
+        target,
+        richness: evaluateNarrativeRichnessV8(stop.dossier, target, {
+          writerReady: stop.evidence.gates.writerReady,
+        }),
+      };
+    }));
+    const blockedDurationStops = durationReconciliation.entries
+      .filter((entry) => entry.disposition === 'blocked')
+      .map((entry) => entry.stopId);
+    if (blockedDurationStops.length > 0) {
+      throw new Error(`duration reconciliation blocked admitted stops: ${blockedDurationStops.join(', ')}`);
+    }
+    const finalNarrationTargetsByStopId = new Map(
+      durationReconciliation.targets.map((target) => [target.stopId, target])
+    );
+    const shortenedStopCount = durationReconciliation.entries
+      .filter((entry) => entry.disposition !== 'kept').length;
+    console.log(
+      `[v8-canary] evidence-backed duration: ${shortenedStopCount} adjusted` +
+      ` | unassigned=${durationReconciliation.unassignedSeconds}s`
+    );
     const dossiers = admittedStops.map((stop) => stop.dossier);
-    writeFileSync(privatePath, `${JSON.stringify({ researchRuntime, research, evidenceManifest }, null, 2)}\n`);
+    writeFileSync(privatePath, `${JSON.stringify({
+      researchRuntime,
+      research,
+      evidenceManifest,
+      durationReconciliation,
+    }, null, 2)}\n`);
     consoleReporter.stageCompleted('boundary', `${admittedStops.length} dossiers admitidos`);
 
     const modelOptions = {
@@ -1552,7 +1588,7 @@ async function main(): Promise<void> {
         admittedStops,
         evidenceManifest,
         architectResult.arc,
-        narrationTargetsByStopId
+        finalNarrationTargetsByStopId
       );
       const workflowResult = await runNarrativeEditorialWorkflowV8({
         runId,
@@ -1780,6 +1816,7 @@ async function main(): Promise<void> {
       route: { stops: route.stops, source: routeSource },
       geometry: null,
       research: researchSummary,
+      durationReconciliation,
       evidenceManifest,
       boundaryMigrationPassed: true,
       publicationPassed,

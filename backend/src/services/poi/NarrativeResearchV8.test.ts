@@ -1490,11 +1490,14 @@ describe('researchNarrativeStopV8', () => {
     };
     const narrationTarget = {
       stopId: 'Q1',
-      targetSeconds: 360,
-      targetWords: 840,
-      minPropositions: 9,
-      maxPropositions: 12,
+      targetSeconds: 300,
+      targetWords: 600,
+      minPropositions: 10,
+      maxPropositions: 14,
       minVisualAnchors: 3,
+      targetEvidenceCards: 10,
+      minFacetCount: 5,
+      minSpatialAnchors: 2,
     };
     const packets: NarrativeCuratorPacketV8[] = [];
     const buildOutput = (packet: NarrativeCuratorPacketV8, roles: NarrativeRoleV8[]): NarrativeCuratorOutputV8 => ({
@@ -1534,6 +1537,7 @@ describe('researchNarrativeStopV8', () => {
       'chronology_or_transformation',
       'human_agency_or_lived_function',
       'tension_or_contrast',
+      'visible_observation',
     ];
     const services = baselineServicesV8({
       resolveAuthorities: async () => registryWithoutUrl,
