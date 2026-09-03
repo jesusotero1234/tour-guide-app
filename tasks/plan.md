@@ -3950,7 +3950,11 @@ feat: gate historical OCR and retrieval quality
 
 ### QW-18A — Entorno y Podman Compose
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): entorno de ejemplo con import privado y ajustes
+  de modelos, anchor compartido por API/ingesta y perfil `ingest` aislado,
+  sin puertos ni restart, con mounts y hardening de UID 10001. El Compose y
+  su override smoke parsean; la imagen `ingest-runtime` se construye y
+  `historical-corpus-ingest --help` se ejecuta correctamente en Podman.
 - Depende de: QW-15D y QW-17C.
 - Archivos existentes:
   - `pods/historical-corpus-pod/.env.example`

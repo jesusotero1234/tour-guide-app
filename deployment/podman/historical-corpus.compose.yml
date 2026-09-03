@@ -1,5 +1,17 @@
 name: tour-guide-historical-corpus
 
+x-historical-corpus-runtime-env: &historical-corpus-runtime-env
+  HISTORICAL_CORPUS_DATA_DIR: /data
+  HISTORICAL_CORPUS_MODEL_BACKEND: "${HISTORICAL_CORPUS_MODEL_BACKEND:-qwen}"
+  HISTORICAL_CORPUS_ALLOW_DETERMINISTIC: "${HISTORICAL_CORPUS_ALLOW_DETERMINISTIC:-false}"
+  HISTORICAL_CORPUS_MODEL_BATCH_SIZE: "${HISTORICAL_CORPUS_MODEL_BATCH_SIZE:-8}"
+  HISTORICAL_CORPUS_MODEL_MAX_LENGTH: "${HISTORICAL_CORPUS_MODEL_MAX_LENGTH:-8192}"
+  HISTORICAL_CORPUS_TURBOVEC_BIT_WIDTH: "${HISTORICAL_CORPUS_TURBOVEC_BIT_WIDTH:-4}"
+  HISTORICAL_CORPUS_DEVICE: "${HISTORICAL_CORPUS_DEVICE:-}"
+  HISTORICAL_CORPUS_EMBEDDING_MODEL: "${HISTORICAL_CORPUS_EMBEDDING_MODEL:-Qwen/Qwen3-Embedding-0.6B}"
+  HISTORICAL_CORPUS_RERANKER_MODEL: "${HISTORICAL_CORPUS_RERANKER_MODEL:-Qwen/Qwen3-Reranker-0.6B}"
+  HF_HOME: /model-cache/huggingface
+
 services:
   historical-corpus-api:
     image: localhost/tour-guide-historical-corpus:local
@@ -12,9 +24,8 @@ services:
     ports:
       - "127.0.0.1:${HISTORICAL_CORPUS_PORT:-3010}:3010"
     environment:
+      <<: *historical-corpus-runtime-env
       HISTORICAL_CORPUS_ADMIN_TOKEN: "${HISTORICAL_CORPUS_ADMIN_TOKEN:?set HISTORICAL_CORPUS_ADMIN_TOKEN}"
-      HISTORICAL_CORPUS_DATA_DIR: /data
-      HF_HOME: /model-cache/huggingface
     volumes:
       - historical-corpus-data:/data:Z,U
       - historical-corpus-model-cache:/model-cache:Z,U
@@ -37,6 +48,37 @@ services:
       timeout: 5s
       retries: 12
       start_period: 20s
+
+  historical-corpus-ingest:
+    image: localhost/tour-guide-historical-corpus-ingest:local
+    build:
+      context: ../../pods/historical-corpus-pod
+      dockerfile: Containerfile
+      target: ingest-runtime
+    profiles:
+      - ingest
+    init: true
+    user: "10001:10001"
+    entrypoint:
+      - historical-corpus-ingest
+    command:
+      - --help
+    environment:
+      <<: *historical-corpus-runtime-env
+      PADDLEX_HOME: /model-cache/paddlex
+    volumes:
+      - historical-corpus-data:/data:Z,U
+      - historical-corpus-model-cache:/model-cache:Z,U
+      - ${HISTORICAL_CORPUS_IMPORT_DIR:-../../pods/historical-corpus-pod/examples}:/imports:ro,Z
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=1073741824
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 512
+    stop_grace_period: 30s
 
 volumes:
   historical-corpus-data:
