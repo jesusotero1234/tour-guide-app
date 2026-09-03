@@ -8,6 +8,7 @@ import {
   NarrativeResearchServicesV8,
   NARRATIVE_RESEARCH_BUDGET_V8,
   NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8,
+  NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8,
   buildCuratorPacketV8,
   curatorRoleGuidanceV8,
   meetsNarrativeRichnessTargetV8,
@@ -232,6 +233,17 @@ describe('researchNarrativeStopV8', () => {
     expect(repairGuidance).toContain('ronda de reparación');
     expect(repairGuidance).toContain('Prioriza primero: tension_or_contrast');
     expect(NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8.join(' ')).toContain('abandono/recuperación');
+
+    const supportGuidance = NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8.join(' ');
+    expect(supportGuidance).toContain('1-3');
+    expect(supportGuidance).toContain('0026');
+    expect(supportGuidance).toContain('0027');
+    expect(supportGuidance).toContain('0030');
+    expect(supportGuidance).toContain('objetos support separados');
+    expect(supportGuidance).toContain('proposiciones atómicas');
+    expect(supportGuidance).toContain('diez');
+    expect(supportGuidance).toContain('10');
+    expect(supportGuidance).toContain('authorizedNumbers');
   });
 
   it('produces API sources when SearXNG returns nothing and Firecrawl would 403 on Wikimedia', async () => {

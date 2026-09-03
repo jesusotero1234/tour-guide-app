@@ -20,6 +20,7 @@ import {
 } from '../../src/services/poi/NarrativeAuthoritiesV7';
 import {
   NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8,
+  NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8,
   NarrativeCuratorPacketV8,
   NarrativeResearchServicesV8,
   NarrativeStopIdentityV8,
@@ -191,7 +192,7 @@ async function curatorServiceV8(options: {
       systemPrompt: [
         'Eres investigador y curador histórico de una parada de tour.',
         'Devuelve proposiciones factuales con soporte en spans literales.',
-        'Cada proposición usa supports con evidenceSpanIds (1-3 contiguos de la misma fuente).',
+        ...NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8,
         ...curatorRoleGuidanceV8(packet.priorityRoles),
         'Una proposición directa necesita un soporte de fuente autorizada; una debatible necesita',
         'dos publishers independientes en sus supports (wikimedia cuenta una sola vez).',

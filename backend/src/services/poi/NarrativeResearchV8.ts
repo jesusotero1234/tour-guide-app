@@ -108,6 +108,13 @@ export const NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8 = [
   'asedio/defensa/transformación, reformas/cambios de función y estado histórico/estado actual.',
 ] as const;
 
+export const NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8 = [
+  'Cada soporte debe usar 1-3 evidenceSpanIds contiguos de una única fuente.',
+  'IDs consecutivos válidos: 0026 + 0027. Ejemplo inválido: 0026 + 0030.',
+  'Para evidencia separada, usa objetos support separados o divide el texto en proposiciones atómicas.',
+  'Requiere authorizedNames/authorizedNumbers literales; no conviertas diez en 10.',
+] as const;
+
 export interface NarrativeResearchServicesV8 {
   resolveIdentity(input: { qid: string; language: string }): Promise<NarrativeStopIdentityV8>;
   resolveAuthorities(input: {
