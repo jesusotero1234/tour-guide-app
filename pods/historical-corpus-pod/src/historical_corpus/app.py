@@ -1,14 +1,19 @@
 from __future__ import annotations
 
+import hashlib
 import hmac
 import os
+import re
+import stat
+import tempfile
 from contextlib import AbstractContextManager, asynccontextmanager, nullcontext
 from pathlib import Path
 from typing import Any, Callable
 
+import pymupdf
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from historical_corpus.models import (
     ChunkRecord,
@@ -17,9 +22,17 @@ from historical_corpus.models import (
     IndexVersion,
     IngestRequest,
     IngestResult,
+    PageRecord,
+    PageSummary,
     SearchRequest,
     SearchResponse,
     StopSearchRequest,
+)
+from historical_corpus.pdf_source import (
+    CandidateLeaf,
+    PdfSourceError,
+    render_preview,
+    verify_pdf_sha256,
 )
 from historical_corpus.service import (
     DocumentConflictError,
@@ -28,6 +41,9 @@ from historical_corpus.service import (
     RecordNotFoundError,
     RightsNotReusableError,
 )
+
+PREVIEW_POLICY_VERSION = "pymupdf-preview-crop-png-v1"
+PREVIEW_DPI = 144
 
 
 class ApiProblem(Exception):
@@ -43,6 +59,72 @@ class ApiProblem(Exception):
         self.code = code
         self.message = message
         self.details = details
+
+
+def _strong_etag(payload: bytes) -> str:
+    digest = hashlib.sha256(payload).hexdigest()
+    return f'"sha256:{digest}"'
+
+
+def _fsync_directory(directory: Path) -> None:
+    flags = os.O_RDONLY
+    if hasattr(os, "O_DIRECTORY"):
+        flags |= os.O_DIRECTORY
+    descriptor = os.open(directory, flags)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
+def _ensure_preview_directory(directory: Path) -> None:
+    try:
+        directory.mkdir(parents=True, exist_ok=True)
+        metadata = directory.lstat()
+    except OSError:
+        raise HistoricalCorpusError(
+            "preview directory is unavailable",
+            details={"reason": "inaccessible"},
+        ) from None
+    if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(metadata.st_mode):
+        raise HistoricalCorpusError(
+            "preview directory is unavailable",
+            details={"reason": "not a directory"},
+        )
+
+
+def _preview_renderer_key(
+    policy_version: str = PREVIEW_POLICY_VERSION,
+    pymupdf_version: str | None = None,
+) -> str:
+    selected_version = pymupdf_version if pymupdf_version is not None else pymupdf.__version__
+    payload = f"{policy_version}\n{selected_version}\n{PREVIEW_DPI}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _render_preview_png(pdf_path: Path, page: Any) -> bytes:
+    candidate = CandidateLeaf(
+        pdf_page=page.sourcePdfPageNumber,
+        side=page.leafSide,
+        crop_box=(
+            page.cropBox.x0,
+            page.cropBox.y0,
+            page.cropBox.x1,
+            page.cropBox.y1,
+        ),
+        rotation_degrees=page.rotationDegrees,
+        content_class=page.contentClass,
+        table_regions=(),
+    )
+    rendered = render_preview(pdf_path, candidate)
+    pixmap = pymupdf.Pixmap(
+        pymupdf.csRGB,
+        rendered.width_px,
+        rendered.height_px,
+        rendered.rgb_bytes,
+        False,
+    )
+    return pixmap.tobytes("png")
 
 
 class _BodyTooLarge(Exception):
@@ -179,6 +261,18 @@ def create_app(
             code_status = status.HTTP_409_CONFLICT
         elif isinstance(exc, RecordNotFoundError):
             code_status = status.HTTP_404_NOT_FOUND
+        elif exc.message == "canonical PDF digest does not match the declared hash":
+            code_status = status.HTTP_409_CONFLICT
+            body: dict[str, Any] = {
+                "code": "CANONICAL_PDF_ERROR",
+                "message": exc.message,
+            }
+            if exc.details:
+                body["details"] = exc.details
+            return JSONResponse(
+                status_code=code_status,
+                content={"error": body},
+            )
         else:
             code_status = status.HTTP_500_INTERNAL_SERVER_ERROR
         body: dict[str, Any] = {"code": exc.code, "message": exc.message}
@@ -241,6 +335,138 @@ def create_app(
     def get_document(document_id: str) -> DocumentRecord:
         svc = _require_service()
         return svc.get_document(document_id)
+
+    @app.get("/v1/documents/{document_id}/pages", response_model=list[PageSummary])
+    def list_document_pages(document_id: str) -> list[PageSummary]:
+        svc = _require_service()
+        return svc.list_document_pages(document_id)
+
+    @app.get("/v1/documents/{document_id}/pages/{logical_page_number}", response_model=PageRecord)
+    def get_document_page(document_id: str, logical_page_number: int) -> PageRecord:
+        svc = _require_service()
+        return svc.get_document_page(document_id, logical_page_number)
+
+    @app.get("/v1/documents/{document_id}/pages/{logical_page_number}/image")
+    def get_document_page_image(
+        document_id: str,
+        logical_page_number: int,
+        request: Request,
+    ) -> Response:
+        if request.query_params:
+            raise ApiProblem(
+                status.HTTP_422_UNPROCESSABLE_CONTENT,
+                "VALIDATION_ERROR",
+                "invalid query parameters",
+            )
+        svc = _require_service()
+        page = svc.get_document_page(document_id, logical_page_number)
+        pdf_path = svc.canonical_pdf_path_for_rendering(document_id)
+
+        page_id_match = re.fullmatch(r"sha256:([0-9a-f]{64})", page.pageId)
+        if not page_id_match:
+            raise HistoricalCorpusError(
+                "page identifier is invalid",
+                details={
+                    "documentId": document_id,
+                    "logicalPageNumber": logical_page_number,
+                },
+            )
+        page_id_hex = page_id_match.group(1)
+
+        renderer_key = _preview_renderer_key()
+
+        data_dir = Path(os.environ.get("HISTORICAL_CORPUS_DATA_DIR", "/data"))
+        preview_dir = data_dir / "previews"
+        cache_path = preview_dir / f"{page_id_hex}-{renderer_key}.png"
+
+        try:
+            verify_pdf_sha256(pdf_path, page.canonicalPdfSha256)
+            _ensure_preview_directory(preview_dir)
+
+            if cache_path.is_symlink():
+                raise ApiProblem(
+                    status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    "INTERNAL_ERROR",
+                    "internal server error",
+                )
+            if cache_path.exists():
+                try:
+                    flags = os.O_RDONLY
+                    if hasattr(os, "O_NOFOLLOW"):
+                        flags |= os.O_NOFOLLOW
+                    descriptor = os.open(cache_path, flags)
+                    try:
+                        metadata = os.fstat(descriptor)
+                        if not stat.S_ISREG(metadata.st_mode):
+                            raise ApiProblem(
+                                status.HTTP_500_INTERNAL_SERVER_ERROR,
+                                "INTERNAL_ERROR",
+                                "internal server error",
+                            )
+                        payload = b""
+                        while True:
+                            chunk = os.read(descriptor, 65536)
+                            if not chunk:
+                                break
+                            payload += chunk
+                    finally:
+                        os.close(descriptor)
+                except OSError:
+                    raise ApiProblem(
+                        status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        "INTERNAL_ERROR",
+                        "internal server error",
+                    ) from None
+            else:
+                payload = _render_preview_png(pdf_path, page)
+
+                descriptor, temp_name = tempfile.mkstemp(
+                    dir=preview_dir,
+                    prefix=f".{cache_path.name}.tmp-",
+                )
+                temp_path = Path(temp_name)
+                try:
+                    os.chmod(temp_path, 0o600)
+                    with os.fdopen(descriptor, "wb") as handle:
+                        handle.write(payload)
+                        handle.flush()
+                        os.fsync(handle.fileno())
+                    os.replace(temp_path, cache_path)
+                    _fsync_directory(preview_dir)
+                except OSError:
+                    raise ApiProblem(
+                        status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        "INTERNAL_ERROR",
+                        "internal server error",
+                    ) from None
+                finally:
+                    try:
+                        temp_path.unlink(missing_ok=True)
+                    except OSError:
+                        pass
+        except PdfSourceError:
+            raise ApiProblem(
+                status.HTTP_409_CONFLICT,
+                "CANONICAL_PDF_ERROR",
+                "canonical PDF error",
+                details={
+                    "documentId": document_id,
+                    "logicalPageNumber": logical_page_number,
+                },
+            )
+
+        etag = _strong_etag(payload)
+        if_none_match = request.headers.get("if-none-match")
+        if if_none_match is not None and if_none_match == etag:
+            return Response(
+                status_code=status.HTTP_304_NOT_MODIFIED,
+                headers={"ETag": etag},
+            )
+        return Response(
+            content=payload,
+            media_type="image/png",
+            headers={"ETag": etag},
+        )
 
     @app.post("/v1/ingest", response_model=IngestResult)
     def ingest(request: Request, payload: IngestRequest) -> IngestResult:

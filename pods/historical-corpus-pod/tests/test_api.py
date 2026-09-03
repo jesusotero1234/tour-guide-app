@@ -4,17 +4,20 @@ import threading
 import time
 from contextlib import contextmanager
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Iterator
 
 import httpx2
+import pymupdf
 import pytest
 from fastapi.testclient import TestClient
 
 from historical_corpus.app import create_app
 from historical_corpus.backends import DeterministicEmbeddingProvider, DeterministicReranker, InMemoryVectorIndex
 from historical_corpus.locks import CorpusLockError, exclusive_lock, shared_lock
-from historical_corpus.models import ChunkInput, ClaimSearchRequest, IngestRequest, RightsMetadata, SearchRequest, SearchResponse, StopSearchRequest
-from historical_corpus.service import HistoricalCorpusService, IndexRepairRequiredError
+from historical_corpus.models import ChunkInput, ClaimSearchRequest, IngestRequest, NormalizedBox, PageRecord, PageSummary, RightsMetadata, SearchRequest, SearchResponse, SourceLineRecord, StopSearchRequest
+from historical_corpus.pdf_source import PdfSourceError
+from historical_corpus.service import HistoricalCorpusError, HistoricalCorpusService, IndexRepairRequiredError, RecordNotFoundError
 
 
 def _make_service(tmp_path: Path) -> HistoricalCorpusService:
@@ -564,3 +567,389 @@ def test_explicit_lifespan_lock_injected_service(tmp_path: Path) -> None:
         assert service.index_version().generation == 0
     finally:
         service.close()
+
+
+def _page_summary_fields(document_id: str, logical_page_number: int) -> dict[str, object]:
+    return {
+        "documentId": document_id,
+        "logicalPageNumber": logical_page_number,
+        "pageId": f"sha256:{logical_page_number - 1:064x}",
+        "sourcePdfPageNumber": logical_page_number,
+        "leafSide": "full",
+        "continuityBreakBefore": False,
+        "printedPageLabel": str(logical_page_number),
+        "contentClass": "normal",
+        "textSource": "ppocrv6",
+        "qualityScore": 0.9,
+        "qualityFlags": [],
+        "workId": "madoz-diccionario",
+        "volumeNumber": 1,
+        "repositoryName": "Biblioteca Digital",
+        "historicalPeriod": "1845-1850",
+        "temporalScope": "España, siglo XIX",
+        "attribution": "Pascual Madoz",
+        "sourceIsExactRecord": True,
+        "canonicalPdfSha256": "sha256:" + "b" * 64,
+        "processingFingerprint": "sha256:" + "c" * 64,
+        "pageInventorySha256": "sha256:" + "d" * 64,
+        "inventoryVerifiedAt": "2024-01-01T00:00:00Z",
+        "sourceUrl": "https://example.test/madoz-record",
+        "rightsStatus": "public_domain",
+        "rightsUri": "https://example.test/rights/public-domain",
+        "rightsVerifiedAt": "2024-01-01T00:00:00Z",
+        "rightsIsExplicitlyReusable": True,
+        "coverageStatus": "unknown",
+        "coverageStatement": None,
+        "observedPrintedRanges": [],
+        "missingPrintedPages": [],
+        "coverageAcceptedForProduct": False,
+        "coverageAcceptedAt": None,
+    }
+
+
+class _FakePageService:
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, tuple]] = []
+        self.missing: bool = False
+
+    def list_document_pages(self, document_id: str) -> list[PageSummary]:
+        self.calls.append(("list_document_pages", (document_id,)))
+        if self.missing:
+            raise RecordNotFoundError("document not found", details={"documentId": document_id})
+        return [
+            PageSummary(**_page_summary_fields(document_id, 1)),
+            PageSummary(**_page_summary_fields(document_id, 2)),
+        ]
+
+    def get_document_page(self, document_id: str, logical_page_number: int) -> PageRecord:
+        self.calls.append(("get_document_page", (document_id, logical_page_number)))
+        if self.missing:
+            raise RecordNotFoundError(
+                "page not found",
+                details={"documentId": document_id, "logicalPageNumber": logical_page_number},
+            )
+        return PageRecord(
+            **_page_summary_fields(document_id, logical_page_number),
+            cropBox=NormalizedBox(x0=0.0, y0=0.0, x1=1.0, y1=1.0),
+            rotationDegrees=0,
+            widthPx=1000,
+            heightPx=1400,
+            renderDpi=300,
+            rasterizationPolicy="crop",
+            imageSha256="sha256:" + "c" * 64,
+            foregroundRatio=0.15,
+            meanConfidence=0.92,
+            lowConfidenceRatio=0.03,
+            ocrEngine="transformers",
+            ocrEngineVersion="4.57.1",
+            ocrDetectionModel="PaddlePaddle/PP-OCRv5_mobile_det",
+            ocrRecognitionModel="PaddlePaddle/PP-OCRv5_server_rec",
+            originalText="line one\nline two",
+            lines=[
+                SourceLineRecord(
+                    lineId="sha256:" + "d" * 64,
+                    lineOrder=0,
+                    originalText="line one",
+                    confidence=0.95,
+                    box=NormalizedBox(x0=0.0, y0=0.0, x1=1.0, y1=0.5),
+                    orientationDegrees=0,
+                    role="body",
+                ),
+                SourceLineRecord(
+                    lineId="sha256:" + "e" * 64,
+                    lineOrder=1,
+                    originalText="line two",
+                    confidence=0.91,
+                    box=NormalizedBox(x0=0.0, y0=0.5, x1=1.0, y1=1.0),
+                    orientationDegrees=0,
+                    role="body",
+                ),
+            ],
+        )
+
+
+def _make_page_client(tmp_path: Path) -> tuple[TestClient, _FakePageService]:
+    fake_service = _FakePageService()
+    app = create_app(service=fake_service, admin_token="test-admin-token", max_body_bytes=65536)
+    return TestClient(app), fake_service
+
+
+def test_list_document_pages_no_auth(tmp_path: Path) -> None:
+    client, fake_service = _make_page_client(tmp_path)
+    try:
+        response = client.get("/v1/documents/doc-1/pages")
+        assert response.status_code == 200
+        data = response.json()
+        assert data[0]["documentId"] == "doc-1"
+        assert data[0]["logicalPageNumber"] == 1
+        assert data[1]["logicalPageNumber"] == 2
+        for item in data:
+            for key, value in item.items():
+                assert key not in ("path",)
+                if isinstance(value, str):
+                    assert "/data" not in value
+                    assert ".pdf" not in value
+        assert fake_service.calls == [("list_document_pages", ("doc-1",))]
+    finally:
+        client.close()
+
+
+def test_get_document_page_detail(tmp_path: Path) -> None:
+    client, fake_service = _make_page_client(tmp_path)
+    try:
+        response = client.get("/v1/documents/doc-1/pages/1")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["documentId"] == "doc-1"
+        assert data["logicalPageNumber"] == 1
+        assert [line["lineOrder"] for line in data["lines"]] == [0, 1]
+        assert [line["originalText"] for line in data["lines"]] == ["line one", "line two"]
+        assert fake_service.calls == [("get_document_page", ("doc-1", 1))]
+    finally:
+        client.close()
+
+
+@pytest.mark.parametrize("path", ["/v1/documents/doc-1/pages", "/v1/documents/doc-1/pages/1"])
+def test_page_missing_404(tmp_path: Path, path: str) -> None:
+    client, fake_service = _make_page_client(tmp_path)
+    try:
+        fake_service.missing = True
+        response = client.get(path)
+        assert response.status_code == 404
+        body = response.json()
+        assert body["error"]["code"] == "NOT_FOUND"
+        assert body["error"]["details"]["documentId"] == "doc-1"
+    finally:
+        client.close()
+
+
+PAGE_ID_HEX = "a" * 64
+CANONICAL_SHA256_HEX = "b" * 64
+
+
+class _FakePreviewService:
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, tuple]] = []
+        self.page = SimpleNamespace(
+            pageId=f"sha256:{PAGE_ID_HEX}",
+            sourcePdfPageNumber=3,
+            leafSide="full",
+            cropBox=SimpleNamespace(x0=0.1, y0=0.2, x1=0.9, y1=0.8),
+            rotationDegrees=0,
+            contentClass="normal",
+            canonicalPdfSha256=f"sha256:{CANONICAL_SHA256_HEX}",
+        )
+
+    def get_document_page(self, document_id: str, logical_page_number: int) -> SimpleNamespace:
+        self.calls.append(("get_document_page", (document_id, logical_page_number)))
+        return self.page
+
+    def canonical_pdf_path_for_rendering(self, document_id: str) -> Path:
+        self.calls.append(("canonical_pdf_path_for_rendering", (document_id,)))
+        return Path("/data/canonical.pdf")
+
+
+def _make_preview_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[TestClient, _FakePreviewService]:
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(tmp_path / "data"))
+    fake_service = _FakePreviewService()
+    app = create_app(service=fake_service, admin_token="test-admin-token", max_body_bytes=65536)
+    return TestClient(app), fake_service
+
+
+def test_preview_success_and_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    client, fake_service = _make_preview_client(tmp_path, monkeypatch)
+    try:
+        deterministic_png = b"PNG-DATA-1"
+        canonical_path = Path("/data/canonical.pdf")
+        fake_page = fake_service.page
+
+        verify_calls: list[tuple] = []
+        render_calls: list[tuple] = []
+
+        def fake_verify(path: Path, sha256: str) -> None:
+            verify_calls.append((path, sha256))
+
+        def fake_render(path: Path, page: SimpleNamespace) -> bytes:
+            render_calls.append((path, page))
+            return deterministic_png
+
+        monkeypatch.setattr("historical_corpus.app.verify_pdf_sha256", fake_verify, raising=False)
+        monkeypatch.setattr("historical_corpus.app._render_preview_png", fake_render, raising=False)
+
+        response = client.get("/v1/documents/doc-1/pages/1/image")
+        assert response.status_code == 200
+        assert response.headers["content-type"] == "image/png"
+        expected_etag = f'"sha256:{hashlib.sha256(deterministic_png).hexdigest()}"'
+        assert response.headers["etag"] == expected_etag
+        assert fake_service.calls == [
+            ("get_document_page", ("doc-1", 1)),
+            ("canonical_pdf_path_for_rendering", ("doc-1",)),
+        ]
+        assert verify_calls == [(canonical_path, f"sha256:{CANONICAL_SHA256_HEX}")]
+        assert render_calls == [(canonical_path, fake_page)]
+
+        cache_dir = tmp_path / "data" / "previews"
+        cache_file = cache_dir / f"{PAGE_ID_HEX}-{hashlib.sha256(('pymupdf-preview-crop-png-v1\n' + pymupdf.__version__ + '\n144').encode('utf-8')).hexdigest()}.png"
+        assert cache_file.exists()
+        assert cache_file.read_bytes() == deterministic_png
+        leftover = [p for p in cache_dir.iterdir() if p.name != cache_file.name]
+        assert not leftover
+
+        response2 = client.get("/v1/documents/doc-1/pages/1/image", headers={"If-None-Match": expected_etag})
+        assert response2.status_code == 304
+        assert response2.content == b""
+        assert response2.headers["etag"] == expected_etag
+        assert fake_service.calls == [
+            ("get_document_page", ("doc-1", 1)),
+            ("canonical_pdf_path_for_rendering", ("doc-1",)),
+            ("get_document_page", ("doc-1", 1)),
+            ("canonical_pdf_path_for_rendering", ("doc-1",)),
+        ]
+        assert verify_calls == [
+            (canonical_path, f"sha256:{CANONICAL_SHA256_HEX}"),
+            (canonical_path, f"sha256:{CANONICAL_SHA256_HEX}"),
+        ]
+        assert render_calls == [(canonical_path, fake_page)]
+    finally:
+        client.close()
+
+
+@pytest.mark.parametrize("query_key", ["path", "crop", "dpi", "filename"])
+def test_preview_invalid_query_422(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, query_key: str) -> None:
+    client, fake_service = _make_preview_client(tmp_path, monkeypatch)
+    try:
+        response = client.get(f"/v1/documents/doc-1/pages/1/image?{query_key}=/etc/passwd")
+        assert response.status_code == 422
+        body = response.json()
+        assert body["error"]["code"] == "VALIDATION_ERROR"
+        assert fake_service.calls == []
+        assert "/etc/passwd" not in response.text
+    finally:
+        client.close()
+
+
+def test_preview_sha_mismatch_409(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    client, fake_service = _make_preview_client(tmp_path, monkeypatch)
+    try:
+        def fake_verify(*args, **kwargs):
+            raise PdfSourceError("sha mismatch")
+
+        monkeypatch.setattr("historical_corpus.app.verify_pdf_sha256", fake_verify, raising=False)
+        response = client.get("/v1/documents/doc-1/pages/1/image")
+        assert response.status_code == 409
+        body = response.json()
+        assert body["error"]["code"] == "CANONICAL_PDF_ERROR"
+        assert response.headers.get("content-type", "").startswith("application/json")
+        assert not (tmp_path / "data" / "previews").exists()
+    finally:
+        client.close()
+
+
+def test_preview_traversal_500(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    client, fake_service = _make_preview_client(tmp_path, monkeypatch)
+    try:
+        def fake_canonical(*args, **kwargs):
+            fake_service.calls.append(("canonical_pdf_path_for_rendering", ("doc-1",)))
+            raise HistoricalCorpusError(
+                "canonical PDF path is not a valid relative layout",
+                details={"documentId": "doc-1"},
+            )
+
+        monkeypatch.setattr(fake_service, "canonical_pdf_path_for_rendering", fake_canonical)
+        response = client.get("/v1/documents/doc-1/pages/1/image")
+        assert response.status_code == 500
+        body = response.json()
+        assert body["error"]["code"] == "HISTORICAL_CORPUS_ERROR"
+        assert "/etc/passwd" not in response.text
+        assert "/data/canonical.pdf" not in response.text
+    finally:
+        client.close()
+
+
+def test_strong_etag_differs_for_different_pngs() -> None:
+    from historical_corpus.app import _strong_etag
+
+    etag1 = _strong_etag(b"PNG-A")
+    etag2 = _strong_etag(b"PNG-B")
+    assert etag1 != etag2
+    assert etag1.startswith('"sha256:')
+    assert etag2.startswith('"sha256:')
+
+
+def test_preview_renderer_key_versioned() -> None:
+    from historical_corpus.app import _preview_renderer_key
+
+    expected = hashlib.sha256(
+        ("pymupdf-preview-crop-png-v1\n" + pymupdf.__version__ + "\n144").encode("utf-8")
+    ).hexdigest()
+    assert _preview_renderer_key() == expected
+
+    key_policy_v2 = _preview_renderer_key(policy_version="v2")
+    assert key_policy_v2 != expected
+
+    key_pymupdf_v99 = _preview_renderer_key(pymupdf_version="99.0.0")
+    assert key_pymupdf_v99 != expected
+
+
+def test_render_preview_png_uses_page_crop(monkeypatch: pytest.MonkeyPatch) -> None:
+    from historical_corpus.app import _render_preview_png
+
+    captured: list[SimpleNamespace] = []
+
+    def fake_render_preview(pdf_path: Path, candidate: SimpleNamespace) -> SimpleNamespace:
+        captured.append(candidate)
+        return SimpleNamespace(width_px=1, height_px=1, rgb_bytes=b"\x00\x00\x00")
+
+    monkeypatch.setattr("historical_corpus.app.render_preview", fake_render_preview, raising=False)
+
+    fake_page = SimpleNamespace(
+        pageId=f"sha256:{PAGE_ID_HEX}",
+        sourcePdfPageNumber=3,
+        leafSide="full",
+        cropBox=SimpleNamespace(x0=0.1, y0=0.2, x1=0.9, y1=0.8),
+        rotationDegrees=0,
+        contentClass="normal",
+        canonicalPdfSha256=f"sha256:{CANONICAL_SHA256_HEX}",
+    )
+
+    pdf_path = Path("/data/canonical.pdf")
+    result = _render_preview_png(pdf_path, fake_page)
+
+    assert result.startswith(b"\x89PNG\r\n\x1a\n")
+    assert len(captured) == 1
+    candidate = captured[0]
+    assert candidate.pdf_page == 3
+    assert candidate.side == "full"
+    assert candidate.crop_box == (0.1, 0.2, 0.9, 0.8)
+    assert candidate.rotation_degrees == 0
+    assert candidate.content_class == "normal"
+    assert candidate.table_regions == ()
+
+
+def test_preview_symlink_hardening_500(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    data_dir = tmp_path / "data"
+    outside_dir = tmp_path / "outside"
+    outside_dir.mkdir()
+    previews_path = data_dir / "previews"
+    data_dir.mkdir()
+    previews_path.symlink_to(outside_dir)
+
+    fake_service = _FakePreviewService()
+    app = create_app(service=fake_service, admin_token="test-admin-token", max_body_bytes=65536)
+    client = TestClient(app)
+    try:
+        monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(data_dir))
+
+        def fake_verify(*args, **kwargs) -> None:
+            pass
+
+        monkeypatch.setattr("historical_corpus.app.verify_pdf_sha256", fake_verify, raising=False)
+
+        response = client.get("/v1/documents/doc-1/pages/1/image")
+        assert response.status_code == 500
+        body = response.json()
+        assert "error" in body
+        assert body["error"]["code"] == "HISTORICAL_CORPUS_ERROR"
+        assert not list(outside_dir.iterdir())
+    finally:
+        client.close()

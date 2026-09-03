@@ -3766,7 +3766,12 @@ feat: add resumable Madoz preparation and publication
 
 ### QW-16 — Endpoints de procedencia
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): los tres GET exponen inventario, detalle OCR y
+  preview PNG fijo a 144 DPI sin autenticación ni parámetros de render. El
+  preview verifica el PDF canónico antes de usar la caché, aplica nombre y
+  clave versionados, escritura atómica, defensa frente a symlinks, ETag fuerte
+  y 304 exacto; los fallos de procedencia conservan errores estructurados sin
+  paths. Pasan las 534 pruebas completas.
 - Depende de: QW-06E, QW-08 y QW-10A.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_api.py`
