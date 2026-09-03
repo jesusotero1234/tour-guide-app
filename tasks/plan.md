@@ -3306,7 +3306,9 @@ Validación:
 
 ### QW-13 — Segmentación de entradas y chunks
 
-- [ ] Pendiente.
+- [x] Completado: detección Unicode compartida, segmentación determinista por entrada,
+  discontinuidades, límites de caracteres/512 IDs, overlap progresivo, confianza
+  ponderada y orden canónico; 29 pruebas focalizadas y 460 pruebas completas pasan.
 - Depende de: QW-12.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/madoz_chunking.py`
