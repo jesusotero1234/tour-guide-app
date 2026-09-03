@@ -971,7 +971,7 @@ def test_publish_live_api_lock_reports_locked(
     data_root = tmp_path / "data"
     rel_path = "staging/doc/fingerprint/prepared-document.json"
     prepared = _publishable_prepared()
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
 
     received_load_args: list[tuple[Path, str]] = []
 
@@ -1138,7 +1138,7 @@ def test_publish_service_errors_map_to_reserved_codes_and_events(
     data_root = tmp_path / "data"
     rel_path = "staging/doc/fingerprint/prepared-document.json"
     prepared = _publishable_prepared()
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     canonical_path = data_root / prepared.canonicalPdfRelativePath
     declared_sha = prepared.metadata.canonicalPdfSha256
 
@@ -1237,7 +1237,7 @@ def test_publish_processing_errors_report_exit_5_and_cleanup(
     data_root = tmp_path / "data"
     rel_path = "staging/doc/fingerprint/prepared-document.json"
     prepared = _publishable_prepared()
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     canonical_path = data_root / prepared.canonicalPdfRelativePath
     declared_sha = prepared.metadata.canonicalPdfSha256
 
@@ -1335,7 +1335,7 @@ def test_publish_success_and_idempotent_replay(
     data_root = tmp_path / "data"
     rel_path = "staging/doc/fingerprint/prepared-document.json"
     prepared = _publishable_prepared()
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     canonical_path = data_root / prepared.canonicalPdfRelativePath
     declared_sha = prepared.metadata.canonicalPdfSha256
 
@@ -1489,7 +1489,7 @@ def test_repair_index_reports_repaired_state_for_repairable_divergence(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     data_root = tmp_path / "data"
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     events: list[str] = []
     received_lock_paths: list[Path] = []
     received_service_args: list[tuple[tuple[object, ...], dict[str, object]]] = []
@@ -1585,7 +1585,7 @@ def test_repair_index_healthy_state_is_a_noop(
 
     @contextlib.contextmanager
     def fake_exclusive_lock(path: Path):
-        assert path == data_root / "locks" / "madoz-prepare.lock"
+        assert path == data_root / "locks" / "corpus.lock"
         events.append("lock_enter")
         try:
             yield
@@ -1633,7 +1633,7 @@ def test_repair_index_live_api_lock_failure_does_not_load_models(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     data_root = tmp_path / "data"
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
 
     def fake_exclusive_lock(path: Path) -> None:
         assert path == lock_path
@@ -1682,7 +1682,7 @@ def test_repair_index_error_can_be_retried_after_lock_cleanup(
 
     @contextlib.contextmanager
     def fake_exclusive_lock(path: Path):
-        assert path == data_root / "locks" / "madoz-prepare.lock"
+        assert path == data_root / "locks" / "corpus.lock"
         events.append("lock_enter")
         try:
             yield

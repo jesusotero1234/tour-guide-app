@@ -386,7 +386,7 @@ def _publish_command(args: argparse.Namespace) -> dict[str, object]:
         raise CliPublicationError("source is not an exact record")
     if not prepared.publicationGate.coverage.acceptedForProduct:
         raise CliPublicationError("coverage has not been accepted for product")
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     with exclusive_lock(lock_path):
         try:
             verify_pdf_sha256(
@@ -439,7 +439,7 @@ def _repair_index_command(args: argparse.Namespace) -> dict[str, object]:
     if not raw_data_dir.strip():
         raise CliProcessingError("HISTORICAL_CORPUS_DATA_DIR must be a non-empty string")
     data_root = Path(raw_data_dir.strip())
-    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    lock_path = data_root / "locks" / "corpus.lock"
     with exclusive_lock(lock_path):
         prior_generation = _read_index_generation(data_root / "corpus.sqlite3")
         try:
