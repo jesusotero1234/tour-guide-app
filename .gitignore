@@ -107,3 +107,12 @@ backend/data/audio/
 
 # private narrative generation diagnostics
 backend/fixtures/narrative-madrid-v5/diagnostics/
+
+# historical corpus pod runtime
+/pods/historical-corpus-pod/imports/
+/pods/historical-corpus-pod/staging/
+/pods/historical-corpus-pod/reports/
+/pods/historical-corpus-pod/**/*.private.yml
+/pods/historical-corpus-pod/**/*.private.jsonl
+/pods/historical-corpus-pod/**/*.pdf
+!/pods/historical-corpus-pod/tests/fixtures/**/*.pdf

@@ -4141,7 +4141,10 @@ git diff --check -- docs/operations/historical-corpus-rag.md
 
 ### QW-19A — Manifiesto/inventario de ejemplo e ignores
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): manifiesto estructural del tomo XI con SHA y
+  metadatos reales pero gates pendientes, inventario de formato con dos filas
+  totalmente sintéticas y ignores acotados para material privado/runtime sin
+  ocultar fixtures PDF de pruebas.
 - Depende de: QW-18C.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/examples/madoz-t11-malaga-partial.manifest.example.yml`

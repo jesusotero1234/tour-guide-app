@@ -1,0 +1,188 @@
+schemaVersion: 1
+document:
+  documentId: madoz-1848-t11-malaga-partial-google-books
+  workId: madoz-diccionario-1845-1850
+  title: Diccionario geográfico-estadístico-histórico de España y sus posesiones de ultramar
+  author: Pascual Madoz
+  edition: Tomo XI
+  volumeNumber: 11
+  publicationYear: 1848
+  language: es
+  countryCode: ES
+  sourceClass: primary_historical
+  historicalPeriod: "1848"
+  temporalScope: España y posesiones de ultramar, siglo XIX
+source:
+  pdfPath: Diccionario_geográfico_estadístico_his.pdf
+  sourceUrl: https://books.google.es/books?id=eboNAAAAIAAJ&hl=es
+  isExactRecord: true
+  repositoryName: Google Books / Stanford University Libraries
+  expectedSha256: d20c9a01f68bd091490a008433e4f1d709dca370181a20b56ca99bbb31bc01ff
+  attribution: Digitalizado por Google a partir del ejemplar de Stanford University; conservar la marca Google
+  rights:
+    status: pending_intended_use_review
+    uri: https://books.google.es/books?id=eboNAAAAIAAJ&hl=es
+    verifiedAt: "2026-09-02T00:00:00+02:00"
+    isExplicitlyReusable: false
+selection:
+  candidatePdfPageRanges:
+    - start: 39
+      end: 109
+  pageInventoryPath: madoz-t11.pages.private.jsonl
+  expectedPageInventorySha256: null
+  inventoryReviewStatus: pending
+  inventoryVerifiedAt: null
+  canonicalization:
+    defaultStatus: include
+    defaultOrder: source_order
+    duplicateDecisions: []
+    pageOverrides:
+      - pdfPage: 91
+        side: full
+        normalizedPrintedLabel: "86"
+        reason: "Lectura visual; la capa embebida confunde 86 con 98"
+      - pdfPage: 107
+        side: full
+        normalizedPrintedLabel: "106"
+        reason: "Lectura visual; la capa embebida confunde 106 con 406"
+  splitSpreads: false
+  gutterRatio: 0.5
+  innerGutterTrimRatio: 0.005
+  leafOverrides:
+    - pdfPage: 40
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.02, 0.06, 0.98, 0.94]
+    - pdfPage: 41
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.08, 0.05, 0.96, 0.72]
+    - pdfPage: 42
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.04, 0.38, 0.95, 0.61]
+        - box: [0.04, 0.62, 0.94, 0.94]
+          ocrRotationDegrees: 90
+    - pdfPage: 52
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 90
+      tableRegions:
+        - box: [0.10, 0.34, 0.93, 0.88]
+    - pdfPage: 60
+      side: full
+      contentClass: normal
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.02, 0.11, 0.98, 0.55]
+    - pdfPage: 70
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.04, 0.68, 0.42, 0.93]
+        - box: [0.45, 0.05, 0.94, 0.94]
+          ocrRotationDegrees: 90
+    - pdfPage: 89
+      side: full
+      contentClass: table
+      rotationDegrees: 90
+      tableRegions: []
+    - pdfPage: 90
+      side: full
+      contentClass: table
+      rotationDegrees: 90
+      tableRegions: []
+    - pdfPage: 91
+      side: full
+      contentClass: table
+      rotationDegrees: 90
+      tableRegions: []
+    - pdfPage: 92
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.04, 0.05, 0.44, 0.94]
+          ocrRotationDegrees: 90
+    - pdfPage: 102
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 103
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 104
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 105
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 106
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 107
+      side: full
+      contentClass: table
+      rotationDegrees: 0
+      tableRegions: []
+    - pdfPage: 108
+      side: full
+      contentClass: mixed_orientation
+      rotationDegrees: 0
+      tableRegions:
+        - box: [0.04, 0.05, 0.96, 0.70]
+coverage:
+  status: partial_source
+  statement: "Solo se conservan 71 hojas de Málaga y faltan seis páginas impresas conocidas."
+  observedPrintedRanges:
+    - start: "32"
+      end: "61"
+    - start: "64"
+      end: "97"
+    - start: "100"
+      end: "101"
+    - start: "104"
+      end: "108"
+  missingPrintedPages:
+    - "62"
+    - "63"
+    - "98"
+    - "99"
+    - "102"
+    - "103"
+  acceptedForProduct: false
+  acceptedAt: null
+processing:
+  textMode: ocr
+  renderDpi: 300
+  rasterizationPolicy: pymupdf-page-render-v1
+  ocrEngine: transformers
+  ocrDetectionModel: PP-OCRv6_medium_det
+  ocrRecognitionModel: PP-OCRv6_medium_rec
+  ocrLanguage: es
+  device: cpu
+  modelLockFile: ppocrv6-medium-transformers/model-lock.json
+  documentOrientationClassification: false
+  documentUnwarping: false
+  textLineOrientation: true
+  lowConfidenceThreshold: 0.60
+  maxChunkChars: 1500
+  overlapLines: 2
+  layoutPolicy: madoz-two-column-v1
+  entryPolicy: madoz-entry-v1
