@@ -295,8 +295,9 @@ function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefin
 
   if (narrationTarget) {
     const { minimumWords, maximumWords } = narrationLengthBoundsV8(narrationTarget.targetWords);
+    const midpoint = Math.round((minimumWords + maximumWords) / 2);
     base.push(
-      `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
+      `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Redacta cerca del centro del intervalo, unas ${midpoint} palabras, para compensar la aproximación del conteo. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
     );
     base.push(
       'Escribe exactamente un segmento por cada entrada de writerPlan.beats, en el mismo orden, sin repetir ni dividir beats para alargar la narración.'
