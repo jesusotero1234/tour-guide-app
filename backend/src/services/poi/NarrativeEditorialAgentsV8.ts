@@ -20,6 +20,8 @@ export interface NarrativeEditorialAgentsV8 extends NarrativeEditorialAgentsV6 {
   readonly evidenceManifestFingerprint: string;
 }
 
+const NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8 = 5;
+
 export function validateNarrativeWriterLengthV8(
   text: string,
   target: NarrativeNarrationTargetV8
@@ -31,6 +33,22 @@ export function validateNarrativeWriterLengthV8(
     valid: wordCount >= minimumWords && wordCount <= maximumWords,
     wordCount,
     minimumWords,
+    maximumWords,
+  };
+}
+
+export function validateNarrativeRepairLengthV8(
+  text: string,
+  target: NarrativeNarrationTargetV8
+): { valid: boolean; wordCount: number; minimumWords: number; maximumWords: number } {
+  const trimmed = text.trim();
+  const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
+  const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
+  const repairMinimumWords = minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8;
+  return {
+    valid: wordCount >= repairMinimumWords && wordCount <= maximumWords,
+    wordCount,
+    minimumWords: repairMinimumWords,
     maximumWords,
   };
 }
@@ -71,7 +89,7 @@ export function createNarrativeEditorialAgentsV8(
       validateRepair: (patchedScript, input) => {
         const target = narrationTargetsByStopId?.get(input.script.stopId);
         if (!target) return;
-        const validation = validateNarrativeWriterLengthV8(patchedScript.text, target);
+        const validation = validateNarrativeRepairLengthV8(patchedScript.text, target);
         if (!validation.valid) {
           throw new Error(
             `repair_length_target_missed stop=${input.script.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
