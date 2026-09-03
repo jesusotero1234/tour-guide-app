@@ -84,6 +84,19 @@ function writerTraceabilityV8(
     && value.coverage <= 1
     ? value.coverage
     : null;
+  const diagnosticInput = objectV8(diagnostic?.input);
+  const writerPlan = objectV8(diagnosticInput?.writerPlan);
+  const plannedBeats = Array.isArray(writerPlan?.beats)
+    ? writerPlan.beats
+    : [];
+  const plannedBeatList = plannedBeats.flatMap((item) => {
+    const record = objectV8(item);
+    const beat = record?.beat;
+    return typeof beat === 'string' && NARRATIVE_BEAT_ORDER_V8.includes(beat as NarrativeBeatV8)
+      ? [beat as NarrativeBeatV8]
+      : [];
+  });
+  const planValid = plannedBeats.length > 0 && plannedBeatList.length === plannedBeats.length;
   const segmentRecords = value.segments.map(objectV8);
   const beats = segmentRecords.flatMap((segment) => {
     const beat = segment?.beat;
@@ -91,9 +104,10 @@ function writerTraceabilityV8(
       ? [beat as NarrativeBeatV8]
       : [];
   });
-  const beatsValid = segmentRecords.length === NARRATIVE_BEAT_ORDER_V8.length
-    && beats.length === NARRATIVE_BEAT_ORDER_V8.length
-    && beats.every((beat, index) => beat === NARRATIVE_BEAT_ORDER_V8[index]);
+  const beatsValid = plannedBeatList.length > 0
+    && segmentRecords.length === plannedBeatList.length
+    && beats.length === plannedBeatList.length
+    && beats.every((beat, index) => beat === plannedBeatList[index]);
   const supportsValid = segmentRecords.every((segment) => (
     segment !== null
     && Array.isArray(segment.supportCardIds)
@@ -105,7 +119,9 @@ function writerTraceabilityV8(
     highPriorityCoverage: coverage,
     beatCount: segmentRecords.length,
     beats,
-    traceabilityPassed: beatsValid && supportsValid && coverage !== null && coverage >= 0.7,
+    traceabilityPassed: planValid
+      ? beatsValid && supportsValid && coverage !== null && coverage >= 0.7
+      : null,
   };
 }
 
