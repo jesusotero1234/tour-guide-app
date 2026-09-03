@@ -228,29 +228,22 @@ function projectPerStopInput(
 function projectTourInput(
   input: JsonRecord,
   admittedStops: NarrativeAdmittedStopV8[],
-  manifest: NarrativeEvidenceManifestV8,
-  arc: NarrativeArcV8,
-  authorizedEvidenceByStop: AuthorizedEvidenceByStopV8[],
-  reviewEvidenceByStop: ReviewEvidenceEnvelopeV8[]
+  arc: NarrativeArcV8
 ): JsonRecord {
+  const { dossiers: _dossiers, ...rest } = input;
   const projected: JsonRecord = {
-    ...input,
-    evidenceManifest: manifest,
-    evidenceByStop: manifest.stops,
+    ...rest,
     arc,
-    authorizedEvidenceByStop,
-    reviewEvidenceByStop,
   };
 
   if (Array.isArray(input.dossiers)) {
     const stopByEntityQid = new Map(admittedStops.map((stop) => [stop.entityQid, stop]));
-    projected.dossiers = input.dossiers.map((rawDossier) => {
+    input.dossiers.forEach((rawDossier) => {
       const dossier = record(rawDossier, 'tour audit dossier') as unknown as NarrativeDossierV6;
       const stop = stopByEntityQid.get(dossier.stopId);
       if (!stop || dossier.fingerprint !== stop.dossier.fingerprint) {
         throw new Error(`tour audit dossier is not admitted: ${dossier.stopId}`);
       }
-      return projectNarrativeDossierForEditorialV8(stop.dossier);
     });
   }
 
@@ -329,7 +322,7 @@ export function createNarrativeEditorialRequestProjectorV8(
     if (operation === 'auditTour') {
       return {
         systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX_AUDITOR}`,
-        input: projectTourInput(inputRecord, admittedStops, manifest, arc, authorizedEvidenceByStop, reviewEvidenceByStop),
+        input: projectTourInput(inputRecord, admittedStops, arc),
       };
     }
 

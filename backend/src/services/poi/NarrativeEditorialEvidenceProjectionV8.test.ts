@@ -196,7 +196,7 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(projected.systemPrompt).toContain('transición');
   });
 
-  test('carries partial C restrictions into per-stop and tour requests', () => {
+  test('retains partial C restrictions in per-stop requests while keeping the tour request compact', () => {
     const partialFixture = fixture('malaga-history-stop-04', 'Q3849448', PARTIAL_ROLES);
     expect(partialFixture.tier).toBe('C');
     expect(partialFixture.gates.writerReady).toBe(false);
@@ -290,18 +290,13 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
       },
     });
     const tourInput = tour.input as Record<string, unknown>;
-    expect(tourInput.evidenceManifest).toBe(manifest);
-    expect(tourInput.evidenceByStop).toBe(manifest.stops);
+    expect(tourInput).toHaveProperty('scripts');
     expect(tourInput).toHaveProperty('arc');
-    const authorizedEvidenceByStop = tourInput.authorizedEvidenceByStop as Record<string, unknown>[];
-    expect(authorizedEvidenceByStop.length).toBe(admitted.length);
-    for (const dossier of tourInput.dossiers as Record<string, unknown>[]) {
-      expect(dossier).toHaveProperty('sources');
-      expect(dossier).toHaveProperty('passages');
-      expect(dossier).not.toHaveProperty('stopId');
-      expect(dossier).not.toHaveProperty('sufficiency');
-      expect(dossier).not.toHaveProperty('fingerprint');
-    }
+    expect(tourInput).not.toHaveProperty('dossiers');
+    expect(tourInput).not.toHaveProperty('evidenceManifest');
+    expect(tourInput).not.toHaveProperty('evidenceByStop');
+    expect(tourInput).not.toHaveProperty('authorizedEvidenceByStop');
+    expect(tourInput).not.toHaveProperty('reviewEvidenceByStop');
   });
 
   test('projects supervisor-only complete current/next review evidence for audit and adjudicate', () => {
@@ -505,24 +500,13 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
       },
     });
     const tourInput = tour.input as Record<string, unknown>;
-    expect(tourInput).toHaveProperty('reviewEvidenceByStop');
-    const reviewEvidenceByStop = tourInput.reviewEvidenceByStop as Record<string, unknown>[];
-    expect(reviewEvidenceByStop.length).toBe(admitted.length);
-    for (let i = 0; i < admitted.length; i++) {
-      const entry = reviewEvidenceByStop[i];
-      expect(entry).not.toBe(admitted[i].dossier);
-      expect(entry).toMatchObject({
-        routeStopId: admitted[i].routeStopId,
-        entityQid: admitted[i].entityQid,
-        dossierFingerprint: admitted[i].dossier.fingerprint,
-      });
-      const dossier = entry.dossier as Record<string, unknown>;
-      expect(dossier).toHaveProperty('sources');
-      expect(dossier).toHaveProperty('passages');
-      expect(dossier).not.toHaveProperty('stopId');
-      expect(dossier).not.toHaveProperty('sufficiency');
-      expect(dossier).not.toHaveProperty('fingerprint');
-    }
+    expect(tourInput).toHaveProperty('scripts');
+    expect(tourInput).toHaveProperty('arc');
+    expect(tourInput).not.toHaveProperty('dossiers');
+    expect(tourInput).not.toHaveProperty('evidenceManifest');
+    expect(tourInput).not.toHaveProperty('evidenceByStop');
+    expect(tourInput).not.toHaveProperty('authorizedEvidenceByStop');
+    expect(tourInput).not.toHaveProperty('reviewEvidenceByStop');
   });
 
   test('rejects a corrupted manifest before any request projection', () => {
