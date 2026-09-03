@@ -206,7 +206,7 @@ export interface EditorialRequestOptionsV6 {
   deepseekStrictTools?: boolean;
   ollamaContextTokens?: number;
   ollamaKeepAlive?: string;
-  requestAttempts?: 1 | 2;
+  requestAttempts?: 1 | 2 | 3;
   rateLimitAttempts?: 1 | 2 | 3;
   requestTimeoutMs?: number;
   pricing?: EditorialPricingV6;

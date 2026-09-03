@@ -541,6 +541,7 @@ export interface NarrativeEditorialValidationHooksV6 {
   validateWriter?(value: { text: string }, input: NarrativeWriterInputV6): void;
   writerResponseContract?(projectedInput: unknown, input: NarrativeWriterInputV6): NarrativeWriterResponseContractV6 | undefined;
   validateRepair?(patchedScript: NarrativeScriptV6, input: NarrativeRepairInputV6): void;
+  writerRequestAttempts?: 1 | 2 | 3;
 }
 
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
@@ -585,7 +586,7 @@ export function createNarrativeEditorialAgentsV6Core(
     profileName: resolveNarrativeModelProfileV6(options.profile).name,
     async write(input, request) {
       const execution = narrativePhaseExecutionV6(
-        withExecution(request), 'writer', input.stopId, 2, options.writerRateLimitAttempts
+        withExecution(request), 'writer', input.stopId, validationHooks.writerRequestAttempts ?? 2, options.writerRateLimitAttempts
       );
       const writerSystemPrompt = [
           'Eres el escritor de una audioguía histórica en español de España.',
