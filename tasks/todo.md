@@ -1,49 +1,59 @@
-# Checklist activo: Madoz Málaga
+# Checklist activo: Madoz tomo XI completo
 
 Autoridad detallada: [tasks/plan.md](./plan.md).
 
-## Fase 1 — Layout del libro
+## Fase 0 — Inventario físico
 
-- [ ] T1 — Contrato opcional de regiones y fingerprint.
-- [ ] T2 — OCR determinista por región y orientación.
-- [ ] T3 — Composición por bandas, columnas y deduplicación.
+- [ ] T0 — Inventariar las 783 páginas y auditar el OCR incrustado.
+
+### Checkpoint inicial
+
+- [ ] 783 filas físicas y hash reproducible.
+- [ ] Páginas sin OCR, duplicados, saltos y huecos resumidos.
+- [ ] Cero publicación y cero material privado en Git.
+
+## Fase 1 — Camino híbrido
+
+- [ ] T1 — Añadir contrato y fingerprint `embedded_first`.
+- [ ] T2 — Reconstruir líneas incrustadas con cajas y orden.
+- [ ] T3 — Aplicar gate, contraste y fallback por página.
 
 ### Checkpoint A
 
+- [ ] Páginas ordinarias reutilizan OCR incrustado.
+- [ ] Páginas ausentes/dudosas activan PP-OCR.
+- [ ] Manifiestos `ocr` conservan su comportamiento.
 - [ ] Pruebas enfocadas verdes.
-- [ ] Smoke privado de PDF 42, 52, 70, 71 y 89–92.
-- [ ] Revisión visual y de privacidad completada.
 
-## Fase 2 — Contenido recuperable y evaluación
+## Fase 2 — Canonización y calidad
 
-- [ ] T4 — Indexación opt-in de tablas.
-- [ ] T5 — Referencia privada con orden medible.
-- [ ] T6 — Gate OCR de 24 páginas aprobado.
+- [ ] T4 — Resolver la secuencia canónica del tomo.
+- [ ] T5 — Resolver layouts y tablas excepcionales.
+- [ ] T6 — Aprobar una muestra estratificada de al menos 48 páginas.
 
 ### Checkpoint B
 
-- [ ] CER ≤ 0,08 y WER ≤ 0,18.
-- [ ] Error de tokens críticos ≤ 0,05.
-- [ ] Boundary F1 ≥ 0,90.
-- [ ] Reading-order ≥ 0,95 con al menos 30 pares.
-- [ ] Cero páginas fallidas o en cuarentena.
+- [ ] Cero filas `pending_review`.
+- [ ] Cero duplicados o huecos sin explicación.
+- [ ] CER ≤ 0,08; WER ≤ 0,18; tokens críticos ≤ 0,05.
+- [ ] Boundary F1 ≥ 0,90 y orden ≥ 0,95 con al menos 60 pares.
 
-## Fase 3 — Corpus Málaga completo disponible
+## Fase 3 — Corpus completo preparado
 
-- [ ] T7 — Preparar las 71 páginas con resume reproducible.
-- [ ] T8 — Aprobar 20 casos de recuperación y citas.
+- [ ] T7 — Preparar todas las filas canónicas con reanudación reproducible.
+- [ ] T8 — Aprobar al menos 40 casos de recuperación y citas.
 
 ### Checkpoint C
 
-- [ ] 71/71 páginas disponibles preparadas.
-- [ ] Tablas y narrativa recuperables por separado.
-- [ ] Seis huecos expuestos sin respuestas inventadas.
+- [ ] Todas las filas incluidas se preparan sin fallos.
+- [ ] Prosa y tablas son recuperables por separado.
 - [ ] Recall@20 ≥ 0,90, MRR@20 ≥ 0,75 e integridad = 1,0.
+- [ ] Preguntas fuera del tomo producen abstención explícita.
 
 ## Fase 4 — Publicación local autorizada
 
 - [ ] Gate humano — Derechos de uso confirmados.
-- [ ] Gate humano — Cobertura parcial aceptada.
+- [ ] Gate humano — Cobertura final aceptada.
 - [ ] T9 — Publicación local, reinicio, reparación y rollback.
 - [ ] T10 — Runbook operativo final.
 
@@ -52,4 +62,4 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 - [ ] Suite completa verde en Podman.
 - [ ] Ningún dato privado o secreto en Git.
 - [ ] Backend, frontend, Narrative y canario intactos.
-- [ ] Revisión y aprobación humana antes de merge o despliegue.
+- [ ] Revisión humana antes de merge o despliegue.

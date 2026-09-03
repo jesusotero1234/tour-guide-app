@@ -1,105 +1,98 @@
-# Plan de ejecución: Madoz Málaga 100 % funcional
+# Plan de ejecución: tomo XI de Madoz completo con OCR híbrido
 
 ## 1. Autoridad, estado y alcance
 
 - Este es el único plan activo para `historical-corpus-pod`.
-- Sustituye el plan amplio anterior del corpus Madoz; Git conserva su historial.
+- Es una ampliación aprobada del plan anterior limitado a Málaga.
 - Rama: `codex/feature/historical-corpus-rag-podman`.
-- Estado: **plan preparado; pendiente de aprobación para ejecutar**.
+- Estado: **en ejecución**.
 - Fecha: 2026-09-03.
-- Codex decide arquitectura, comportamiento, validación y aceptación.
-- Qwen ejecutará solamente cambios mecánicos acotados después de que Codex
-  haya cerrado cada contrato.
+- Codex decide contratos, calidad y aceptación; Qwen ejecuta cambios de código
+  acotados una vez cerrada cada decisión.
 
-El objetivo queda limitado a una sola fuente y un solo producto:
+El producto cubrirá una sola fuente:
 
 ```text
-Fuente: Diccionario geográfico-estadístico-histórico, tomo XI (1848)
-Producto: bloque Málaga disponible en PDF 39–109
-Cobertura física: 71 páginas PDF
-Cobertura bibliográfica: parcial; faltan seis páginas impresas en la fuente
+Obra: Diccionario geográfico-estadístico-histórico
+Volumen: tomo XI, 1848
+Archivo: 783 páginas PDF físicas
+OCR incrustado observado: 772 páginas
 Runtime: servicio independiente con Podman
 Exposición: local y privada
 ```
 
-Quedan fuera de este plan:
+La cobertura será **todo el contenido único disponible en el PDF**, no solo
+Málaga. El tomo comienza en `Madrid de Caderechas`; no contiene la entrada
+general de la ciudad de Madrid. Las consultas sobre Madrid podrán recuperar
+las entradas y menciones que sí existan, pero el producto deberá explicar
+cuando la entrada solicitada pertenece a otro tomo.
 
-- otros libros o tomos, incluido el tomo XVI;
-- un clasificador universal de documentos;
-- backend narrativo, frontend y canario;
-- descargas o llamadas de red durante OCR;
-- reconstruir o inventar páginas ausentes;
-- declarar que el tomo o el artículo Málaga están completos;
+Quedan fuera:
+
+- otros libros y tomos, incluido el tomo que contenga la entrada general de
+  Madrid;
+- backend narrativo, frontend, Narrative y canario;
+- descarga de otras copias sin una decisión posterior;
+- completar texto que no aparezca en ninguna imagen del PDF;
 - corrección silenciosa mediante LLM;
 - despliegue público.
 
 ## 2. Qué significa «100 % funcional»
 
-No significa OCR perfecto carácter por carácter ni completar material que el
-PDF no contiene. Significa que, para las 71 páginas disponibles de Málaga:
+Para este tomo significa:
 
-1. cada página se procesa sin crash y con identidad reproducible;
-2. el texto narrativo conserva el orden de lectura real;
-3. las tablas giradas o mixtas se leen por regiones y no contaminan columnas;
-4. texto y tablas quedan buscables sin perder página, línea ni caja de origen;
-5. una búsqueda devuelve evidencia y preview de la página correcta;
-6. las seis páginas impresas ausentes se exponen como huecos y nunca se
-   sustituyen con una respuesta inventada;
-7. los gates OCR y de recuperación existentes se superan;
-8. preparar, publicar localmente, reiniciar y reparar el índice son
-   reproducibles con Podman;
-9. el servicio sigue aislado y el canario permanece intacto.
+1. inventariar las 783 páginas físicas;
+2. identificar portada, preliminares, cuerpo, páginas vacías y material final;
+3. detectar bloques repetidos, páginas fuera de orden y huecos impresos;
+4. construir una secuencia canónica con cada hoja útil una sola vez;
+5. usar el OCR incrustado cuando sea suficiente y OCR de imagen cuando falte o
+   resulte dudoso;
+6. conservar ambos textos y su procedencia cuando se comparen;
+7. hacer buscables prosa y tablas con página, líneas, cajas y preview;
+8. abstenerse cuando una consulta dependa de una página o tomo ausente;
+9. preparar y reanudar el corpus completo de forma reproducible en Podman;
+10. mantener el servicio privado, aislado y fuera del canario.
 
-La aceptación se divide en dos hitos:
-
-- **Técnicamente listo:** OCR, bundle de 71 páginas y evaluación de búsqueda
-  aprobados en entorno privado.
-- **Producto local publicado:** además requiere que una persona confirme los
-  derechos de uso de la digitalización y acepte expresamente la cobertura
-  parcial. No se debilitará ese gate para terminar antes.
+No significa perfección carácter por carácter ni reconstruir páginas que no
+existen en la fuente. Todo hueco real quedará declarado.
 
 ## 3. Evidencia inicial
 
-### 3.1 Ya implementado
+### 3.1 Fuente comprobada
 
-El servicio independiente ya dispone de:
+La inspección read-only del PDF privado confirmó:
 
-- API FastAPI, SQLite/FTS5, Qwen y TurboVec;
-- contenedores API e ingesta con Podman;
-- manifiesto e inventario estrictos;
+- 783 páginas físicas;
+- 772 páginas con texto incrustado;
+- 11 sin texto incrustado: PDF 2, 3, 4, 6, 7, 756, 757, 770, 771, 781 y 783;
+- el cuerpo visible comienza en PDF 14 con `Madrid de Caderechas`;
+- Málaga ocupa el bloque ya estudiado alrededor de PDF 39–109;
+- existen menciones de Madrid y Málaga fuera de sus encabezados, por lo que
+  una búsqueda literal no basta para decidir límites de artículos.
+
+### 3.2 Servicio existente
+
+Ya existen:
+
+- API FastAPI, SQLite FTS5, Qwen y TurboVec;
+- contenedores separados de API e ingesta con Podman;
+- manifiesto estricto, inventario, hashes visuales/textuales y candidatos de
+  duplicado;
 - preparación reanudable y publicación separada;
-- locks, migración, journal y reparación del índice;
-- procedencia por página/línea/caja y previews;
-- comandos de evaluación OCR y recuperación;
-- suite completa previamente verde con 604 pruebas;
-- fuente, datos, modelos y material de revisión fuera de Git.
+- locks, journal, reparación y rollback del índice;
+- citas por página/línea/caja y previews;
+- evaluación OCR y de recuperación;
+- material privado fuera de Git.
 
-### 3.2 Referencia OCR privada disponible
+El inventario actual ya calcula etiqueta impresa, SHA del texto incrustado,
+SimHash textual, dHash visual y candidatos de duplicado. La preparación,
+sin embargo, usa exclusivamente PP-OCR y descarta el texto incrustado como
+fuente de contenido. Ese es el cambio central de este plan.
 
-La muestra actual contiene 24 páginas y 7.035 líneas:
+### 3.3 Línea base de Málaga
 
-```text
-/home/jesusotero/.local/share/tour-guide/historical-corpus/
-  madoz-t11-ai-review/madoz-t11.ai-assisted.private.jsonl
-```
-
-Estado de revisión:
-
-- 8 páginas adjudicadas visualmente;
-- 15 páginas revisadas mediante consenso de dos OCR y revisión dirigida de
-  cifras;
-- 1 página con tabla densa y advertencia explícita;
-- 24/24 filas válidas contra `OcrGoldPage`;
-- SHA-256 de la referencia:
-  `f608e32668075743bb879c7d040957b36e954136d1202e2aab1e65af70a28c3c`.
-
-No se denomina «gold humano»: es una referencia privada asistida por IA cuya
-autoridad final es el facsímil.
-
-### 3.3 Resultado del OCR actual
-
-La evaluación reproducible actual terminó sin páginas fallidas, pero no
-superó calidad:
+La referencia privada de 24 páginas sigue siendo el primer gate de regresión.
+El OCR de imagen actual no pasa calidad en layouts complejos:
 
 | Métrica | Actual | Gate |
 |---|---:|---:|
@@ -107,527 +100,388 @@ superó calidad:
 | WER | 21,43 % | máximo 18 % |
 | Error de tokens críticos | 53,45 % | máximo 5 % |
 | Boundary F1 | 0,301 | mínimo 0,90 |
-| Páginas fallidas | 0 | máximo 0 |
-| Reading-order pairs | 0 | debe ser no vacío y ≥ 0,95 |
 
-El valor 1,0 de reading-order no es aceptación: actualmente se calculó sobre
-cero pares. Este plan exige anclas suficientes para volverlo significativo.
-
-Los mayores fallos se concentran en PDF 42, 52, 70, 71 y 89–92. La evidencia
-visual demuestra que PP-OCRv6 reconoce bien cuando recibe el recorte y la
-orientación correctos; el problema principal es segmentación, orientación y
-recomposición del layout.
+El OCR incrustado permite reducir trabajo, pero no se tratará como verdad
+absoluta: contiene errores, especialmente en cifras, columnas y tablas.
 
 ## 4. Decisiones técnicas cerradas
 
-### 4.1 No cambiar el motor todavía
+### 4.1 Política `embedded_first`
 
-Se mantiene PP-OCRv6 medium con Transformers en CPU. No se añade otro modelo,
-PaddlePaddle, GPU ni servicio permanente. Solo se reconsiderará el motor si,
-después de corregir layout, el CER por carácter sigue fallando en páginas
-normales correctamente segmentadas.
+Se añadirá un modo explícito y versionado sin cambiar el comportamiento del
+modo legado `ocr`:
 
-### 4.2 Perfil determinista de este libro
+```text
+embedded_first
+  -> extraer líneas y cajas del OCR incrustado
+  -> comprobar suficiencia y coherencia
+  -> aceptar si pasa
+  -> ejecutar PP-OCR solo si falta, falla o la página exige layout especial
+  -> comparar candidatos y conservar la decisión con motivo
+```
 
-No se intentará resolver «cualquier PDF». El manifiesto privado de Madoz será
-la autoridad de layout para las páginas excepcionales.
+No se mezclan palabras de ambos OCR para fabricar silenciosamente una línea.
+Cada línea tendrá una fuente identificable: `embedded`, `image_ocr` o
+`image_ocr_region`. La imagen original sigue siendo la autoridad final.
 
-Se añadirá un contrato opcional de regiones ordenadas por página. Cada región
-declarará:
+### 4.2 Reconstrucción de líneas incrustadas
 
-- caja normalizada dentro de la página;
-- rol `body` o `table`;
-- rotación OCR `0`, `90`, `180` o `270`;
-- número de columnas cuando aplique;
-- orden estable dentro de la página.
+PyMuPDF entrega bloque, línea y posición de palabra. Esos identificadores se
+conservarán al leer el PDF y se usarán para formar líneas deterministas. Las
+cajas se transformarán al mismo sistema normalizado que el OCR de imagen.
 
-Ausencia de regiones conserva el comportamiento anterior. Así no se rompe la
-ingesta existente ni se introducen heurísticas globales basadas solo en este
-libro.
+La lectura seguirá este orden:
 
-Perfil mínimo obligatorio:
+1. páginas por secuencia canónica;
+2. bandas verticales;
+3. columnas izquierda a derecha;
+4. bloques y líneas del OCR incrustado dentro de cada región;
+5. regiones especiales en el orden declarado por el manifiesto.
 
-| PDF | Tratamiento |
-|---:|---|
-| 42 | cuerpo superior a dos columnas, tabla horizontal y tabla inferior girada |
-| 52 | texto superior a tres columnas y tabla inferior girada |
-| 70 | texto/tabla de distancias a la izquierda y tabla municipal girada a la derecha |
-| 71 | dos columnas superiores, tabla central y dos columnas inferiores |
-| 89 | texto superior a tres columnas y tabla inferior |
-| 90–91 | tabla de página completa en orientación corregida |
-| 92 | tabla girada a la izquierda y artículo del cementerio a la derecha |
+### 4.3 Gate automático por página
 
-PDF 39, 41, 60, 68, 69, 102 y 108 permanecen en la muestra para evitar que el
-arreglo de los casos difíciles deteriore páginas normales y tablas ya buenas.
+El OCR incrustado se considera utilizable solo si cumple controles
+deterministas, como mínimo:
 
-### 4.3 Composición y procedencia
+- texto no vacío y cantidad de caracteres razonable;
+- cajas válidas dentro de la hoja;
+- proporción mínima de tokens alfabéticos;
+- ausencia de repetición patológica;
+- encabezado/pie no constituyen la mayor parte del contenido;
+- continuidad de bloques y columnas compatible con el layout;
+- ninguna región especial obligatoria queda sin tratar.
 
-Cada región se OCRiza una sola vez en su orientación efectiva. Después:
+Las cifras no se “corrigen” por plausibilidad. En páginas estadísticas o
+tablas se ejecutará OCR regional de contraste aunque el texto incrustado pase.
 
-1. sus polígonos vuelven al sistema de coordenadas de la página;
-2. las líneas se ordenan dentro de la región;
-3. las regiones se concatenan por su orden declarado;
-4. se eliminan duplicados provenientes del OCR general solapado;
-5. encabezados, pies y marca Google conservan procedencia, pero no forman
-   contenido recuperable;
-6. ningún texto corregido sustituye silenciosamente `originalText`.
+### 4.4 Inventario físico y secuencia canónica
 
-El fingerprint incluirá versión del contrato de layout, cajas, rotaciones,
-columnas y orden. Cambiar cualquier valor invalida la reutilización de páginas
-preparadas incompatibles.
+El inventario tendrá 783 filas físicas. La secuencia canónica se obtiene con:
 
-### 4.4 Tablas buscables mediante opt-in
+- coincidencia exacta de imagen;
+- coincidencia exacta o cercana de texto;
+- etiqueta impresa y continuidad;
+- encabezados alfabéticos;
+- overrides privados explícitos para conflictos.
 
-Actualmente `madoz_chunking._body_lines` excluye todas las líneas `table`.
-Para que este único producto sea funcional también en cifras:
+La automatización puede proponer decisiones, pero ninguna coincidencia débil
+excluirá una página. Los casos ambiguos quedan `pending_review` hasta que Codex
+compare texto e imagen. Una hoja ausente no será reemplazada por una parecida.
 
-- el manifiesto tendrá un opt-in explícito para indexar tablas;
-- el valor por defecto será `false`, preservando compatibilidad;
-- una tabla nunca se fusionará con prosa en el mismo chunk;
-- se crearán chunks de tabla por fila o bloque pequeño, con sus `lineIds`;
-- no se inventarán separadores, celdas ni valores ausentes;
-- búsquedas numéricas deberán devolver preview de la tabla original.
+### 4.5 Layouts y tablas
 
-No se implementará un modelo relacional de tablas. El alcance es recuperación
-de evidencia textual trazable.
+Las páginas ordinarias usarán el OCR incrustado. Se conserva el perfil de
+Málaga para PDF 40–42, 52, 60, 70 y 89–92, 102–108. El inventario completo
+detectará otras páginas giradas o tabulares; únicamente esas recibirán
+regiones adicionales.
 
-### 4.5 Calidad y cuarentena
+Los chunks de tabla serán opt-in, exclusivos de tabla y nunca se mezclarán con
+prosa. Todos conservan `documentId`, página PDF, etiqueta impresa, `lineIds`,
+cajas, fuente textual y preview.
 
-Una página no se aceptará solo por confianza media alta. Se marcará para
-revisión si ocurre cualquiera de estos casos:
+### 4.6 Privacidad y publicación
 
-- faltan tokens críticos;
-- hay cajas inválidas o fuera de página;
-- una región esperada no produce líneas;
-- aparecen duplicados por solapamiento;
-- el orden no satisface sus anclas;
-- la proporción de caracteres de baja confianza supera el gate;
-- el resultado cambia sin cambiar fingerprint.
-
-La preparación completa falla cerrada mientras exista una página pendiente.
+- PDF, manifiesto real, inventario, OCR, referencias y reportes permanecen
+  fuera de Git con permisos privados.
+- No habrá red durante inventario, OCR, evaluación o preparación.
+- Podman es el único runtime de contenedores.
+- Preparar no publica.
+- Publicar localmente sigue bloqueado hasta confirmar derechos y aceptar la
+  cobertura observada.
+- No se modifica el canario.
 
 ## 5. Grafo de ejecución
 
 ```text
-T1 contrato de layout y fingerprint
- ├─> T2 ejecución OCR por regiones
- │    └─> T3 composición, deduplicación y orden
- └─> T4 chunks de tabla opt-in
-
-T2 + T3 + T4
- └─> T5 referencia y evaluación no vacía
-      └─> T6 gate OCR de 24 páginas
-           └─> T7 prepare completo de 71 páginas
-                └─> T8 evaluación de recuperación
-                     └─> T9 publicación local y rollback
-                          └─> T10 cierre operativo
+T0 inventario físico provisional
+ ├─> T1 contrato embedded_first + fingerprint
+ │    └─> T2 líneas incrustadas con procedencia
+ │          └─> T3 gate y fallback de OCR
+ └─> T4 secuencia canónica completa
+              ├─> T5 layouts/tablas excepcionales
+              └─> T6 evaluación representativa
+                         └─> T7 preparación completa
+                                  └─> T8 recuperación y citas
+                                           ├─> T9 publicación local autorizada
+                                           └─> T10 runbook y cierre
 ```
-
-T1–T6 son secuenciales en sus contratos. Los casos de prueba de T2–T4 pueden
-prepararse en paralelo únicamente después de cerrar T1.
 
 ## 6. Tareas de implementación
 
-### T1 — Contrato opcional de regiones de layout
+### T0 — Inventario provisional de las 783 páginas
 
-**Objetivo:** representar en el manifiesto las regiones necesarias para este
-libro sin alterar el comportamiento por defecto.
+**Objetivo:** producir fuera de Git un registro físico reproducible antes de
+modificar el pipeline.
 
-**Cambios previstos:**
+**Acciones:**
 
-- validar cajas, orden, roles, rotación y columnas;
-- rechazar regiones vacías, fuera de rango o con identificadores duplicados;
-- incluir el perfil completo en el processing fingerprint;
-- mantener válidos los manifiestos actuales sin regiones.
+- crear un manifiesto privado `pending` para PDF 1–783;
+- ejecutar `build-inventory` con la imagen de ingesta local y sin red;
+- resumir páginas sin OCR, etiquetas ambiguas, saltos y duplicados candidatos;
+- buscar en todo el volumen las etiquetas que parecían ausentes en Málaga;
+- ubicar comienzo y final del cuerpo mediante encabezado e imagen.
+
+**Aceptación:** 783 filas, hash estable, cero publicación y cero datos privados
+en Git.
+
+**Dependencias:** ninguna. **Tamaño:** S.
+
+### T1 — Contrato `embedded_first` y fingerprint
+
+**Objetivo:** declarar el modo híbrido de forma compatible y reproducible.
 
 **Archivos autorizados:**
 
 - `pods/historical-corpus-pod/src/historical_corpus/manifest.py`
 - `pods/historical-corpus-pod/src/historical_corpus/processing_fingerprint.py`
-- sus pruebas enfocadas correspondientes
+- pruebas correspondientes.
 
 **Aceptación:**
 
-- un manifiesto legado conserva exactamente su fingerprint anterior;
-- dos layouts distintos producen fingerprints distintos;
-- el perfil de PDF 42/52/70/71/89–92 valida y los perfiles ambiguos fallan.
+- manifiestos `ocr` existentes validan sin cambio;
+- `embedded_first` es explícito, no default implícito;
+- política y umbrales alteran el fingerprint;
+- valores desconocidos o incompletos fallan cerrados.
 
-**Verificación:**
+**Verificación:** pruebas enfocadas de manifiesto y fingerprint.
 
-```bash
-python -m pytest -q -p no:cacheprovider \
-  tests/test_manifest.py tests/test_processing_fingerprint.py
-```
+**Dependencias:** T0. **Tamaño:** M.
 
-**Dependencias:** ninguna. **Tamaño:** M.
+### T2 — Extraer líneas incrustadas con cajas y orden
 
-### T2 — OCR determinista por región y orientación
+**Objetivo:** convertir la capa OCR del PDF en líneas utilizables sin perder
+procedencia espacial.
 
-**Objetivo:** OCRizar cada región declarada en la orientación correcta y
-transformar sus cajas a coordenadas de página.
+**Archivos autorizados:**
 
-**Cambios previstos:**
+- `pods/historical-corpus-pod/src/historical_corpus/pdf_source.py`
+- `pods/historical-corpus-pod/src/historical_corpus/madoz_layout.py`
+- pruebas correspondientes.
 
-- render a 300 DPI;
-- rotación explícita 0/90/180/270;
-- transformación inversa de los cuatro vértices;
-- validación de cajas antes de persistir;
-- error cerrado si una región requerida queda vacía.
+**Aceptación:**
+
+- bloque, línea y palabra de PyMuPDF se conservan;
+- palabras se agrupan determinísticamente;
+- cajas, crop, rotación y split de hoja se transforman correctamente;
+- el modo `ocr` produce exactamente la salida anterior.
+
+**Verificación:** pruebas enfocadas de fuente PDF y layout.
+
+**Dependencias:** T1. **Tamaño:** M.
+
+### T3 — Gate, contraste y fallback por página
+
+**Objetivo:** evitar PP-OCR en páginas sanas y usarlo cuando aporta evidencia.
 
 **Archivos autorizados:**
 
 - `pods/historical-corpus-pod/src/historical_corpus/madoz_processor.py`
-- `pods/historical-corpus-pod/tests/test_madoz_processor.py`
-- una fixture sintética nueva si resulta necesaria
-
-Las fixtures deben ser sintéticas. Ninguna imagen, PDF o texto privado del
-libro entra en Git.
+- un módulo pequeño de política solo si reduce complejidad;
+- pruebas del procesador y pipeline.
 
 **Aceptación:**
 
-- los cuatro giros se prueban;
-- las cajas transformadas quedan dentro de la página;
-- las regiones de los ocho casos especiales se procesan sin duplicar OCR.
+- una página incrustada sana no inicializa ni invoca PP-OCR;
+- página sin texto, corrupta o especial usa OCR de imagen;
+- tabla/cifras puede pedir contraste regional;
+- salida declara fuente y motivo de fallback;
+- errores no producen contenido vacío aceptado.
 
-**Verificación:**
-
-```bash
-python -m pytest -q -p no:cacheprovider tests/test_madoz_processor.py
-```
-
-**Dependencias:** T1. **Tamaño:** M.
-
-### T3 — Lectura por bandas, columnas y deduplicación
-
-**Objetivo:** recomponer una página en el orden humano correcto.
-
-**Cambios previstos:**
-
-- ordenar columnas de arriba abajo y de izquierda a derecha;
-- respetar el orden explícito de regiones;
-- impedir que el OCR general duplique líneas de una región especializada;
-- mantener separados `body`, `table`, `header` y `footer`;
-- conservar IDs estables para el mismo contenido y layout.
-
-**Archivos autorizados:**
-
-- `pods/historical-corpus-pod/src/historical_corpus/madoz_layout.py`
-- `pods/historical-corpus-pod/tests/test_madoz_layout.py`
-
-**Aceptación:**
-
-- pruebas sintéticas reproducen las estructuras de PDF 42, 52, 70, 71, 89 y
-  92;
-- ninguna línea desaparece o aparece dos veces;
-- al menos una prueba falla si se vuelve al orden global por coordenada Y.
-
-**Verificación:**
-
-```bash
-python -m pytest -q -p no:cacheprovider tests/test_madoz_layout.py
-```
+**Verificación:** pruebas RED/GREEN de cada rama y smoke privado sin red.
 
 **Dependencias:** T1–T2. **Tamaño:** M.
 
-### Checkpoint A — Layout
+### Checkpoint A — Camino híbrido
 
-- [ ] T1–T3 verdes.
-- [ ] Codex revisa el diff y confirma compatibilidad/fingerprint.
-- [ ] Smoke privado de PDF 42, 52, 70, 71, 89–92 sin red.
-- [ ] Previews comparados con el facsímil.
-- [ ] Ningún archivo privado aparece en `git status`.
+- [ ] T0–T3 verdes.
+- [ ] OCR incrustado aceptado en páginas ordinarias reales.
+- [ ] Fallback demostrado en al menos una de las 11 páginas sin texto.
+- [ ] El modo legado permanece compatible.
+- [ ] Ningún artefacto privado aparece en Git.
 
-### T4 — Recuperación opt-in de tablas
+### T4 — Resolver la secuencia canónica del tomo
 
-**Objetivo:** hacer buscables las tablas de este corpus conservando el default
-seguro de excluirlas.
+**Objetivo:** pasar del inventario físico a contenido único y ordenado.
 
-**Cambios previstos:**
+**Trabajo privado:**
 
-- añadir la opción interna de manifiesto decidida en T1;
-- formar chunks exclusivos de tabla;
-- respetar límites de caracteres y 512 `lineIds`;
-- impedir chunks mixtos body/table y cruces de página o hueco.
+- agrupar duplicados exactos por imagen/texto;
+- usar etiqueta, encabezado y vecinos para proponer orden;
+- revisar visualmente solo grupos ambiguos;
+- excluir preliminares/finales como `exclude_nonbody`;
+- marcar duplicados con destino incluido;
+- declarar todos los huecos reales;
+- verificar y congelar hash del inventario.
 
-**Archivos autorizados:**
+**Código solo si el inventario existente no expresa una decisión necesaria:**
 
-- `pods/historical-corpus-pod/src/historical_corpus/madoz_chunking.py`
-- `pods/historical-corpus-pod/tests/test_madoz_chunking.py`
-- `pods/historical-corpus-pod/tests/test_madoz_pipeline.py`
+- `page_inventory.py`, `ingest_models.py` y sus pruebas.
 
-**Aceptación:**
+**Aceptación:** 783 filas resueltas, cero `pending_review`, índices canónicos
+contiguos y cada exclusión justificada.
 
-- opt-in falso reproduce exactamente los chunks actuales;
-- opt-in verdadero recupera filas/cifras con procedencia;
-- una tabla grande se divide sin pérdida ni mezcla con prosa.
+**Dependencias:** T0. **Tamaño:** M.
 
-**Verificación:**
+### T5 — Resolver layouts y tablas excepcionales
 
-```bash
-python -m pytest -q -p no:cacheprovider \
-  tests/test_madoz_chunking.py tests/test_madoz_pipeline.py
-```
-
-**Dependencias:** T1 y T3. **Tamaño:** M.
-
-### T5 — Convertir la referencia en una evaluación significativa
-
-**Objetivo:** mantener la referencia privada auditable y eliminar métricas
-vacías o anotaciones ambiguas.
-
-**Trabajo privado, no trackeado:**
-
-- añadir `orderAnchor` en transiciones de columnas y regiones;
-- exigir al menos 30 pares de orden distribuidos entre los casos difíciles;
-- confirmar que cada token crítico existe literalmente en el facsímil;
-- conservar entry boundaries solo sobre líneas `body`;
-- completar revisión visual de cualquier línea modificada por consenso;
-- conservar sidecar con método, hash y grado de revisión por página.
-
-**Cambios de código solo si una prueba revela un defecto del evaluador:**
-
-- `pods/historical-corpus-pod/src/historical_corpus/evaluation.py`
-- `pods/historical-corpus-pod/tests/test_evaluation.py`
+**Objetivo:** aplicar OCR de imagen únicamente a páginas donde el OCR
+incrustado no conserva lectura o cifras.
 
 **Aceptación:**
 
-- 24/24 páginas validan;
-- `readingOrderTotalPairs >= 30`;
-- ningún gate puede aprobar de forma vacía;
-- la referencia sigue marcada como asistida por IA, no gold humano.
+- las excepciones de Málaga siguen correctas;
+- las nuevas excepciones del resto del tomo tienen regiones explícitas;
+- narrativa y tabla no contaminan columnas;
+- toda línea conserva caja y fuente;
+- cambiar una región invalida la reutilización por fingerprint.
 
-**Verificación:** validación estricta más `tests/test_evaluation.py`.
+**Verificación:** pruebas de layout más previews de todas las excepciones.
 
-**Dependencias:** T3. **Tamaño:** S/M.
+**Dependencias:** T3–T4. **Tamaño:** M por lote de excepciones.
 
-### T6 — Aprobar el gate OCR de 24 páginas
+### T6 — Gate OCR representativo del tomo
 
-**Objetivo:** demostrar que el pipeline corregido lee la muestra real.
+**Objetivo:** medir calidad sin revisar manualmente 783 páginas.
 
-Se ejecutará en Podman, sin red, contra el mismo sample hash y una ruta de
-reporte nueva. No se ajustará la referencia para perseguir la salida del OCR.
+La referencia privada combinará las 24 páginas existentes con una muestra
+estratificada del resto del tomo: inicio, cuartiles, final, páginas normales,
+tablas, rotadas, sin texto incrustado y conflictos entre OCR. El facsímil será
+la autoridad; el OCR incrustado no podrá evaluarse contra una copia de sí
+mismo.
 
-**Aceptación obligatoria:**
+**Gates:**
 
-- 24 páginas y 0 fallidas;
-- CER ≤ 0,08;
-- WER ≤ 0,18;
+- al menos 48 páginas de referencia;
+- 0 páginas fallidas;
+- CER ≤ 0,08 y WER ≤ 0,18;
 - error de tokens críticos ≤ 0,05;
 - Boundary F1 ≥ 0,90;
-- Reading-order accuracy ≥ 0,95 con al menos 30 pares;
-- ninguna de las ocho páginas especiales queda en cuarentena.
+- orden ≥ 0,95 con al menos 60 pares;
+- 100 % de fallbacks esperados activados;
+- ninguna métrica puede aprobar sobre muestra vacía.
 
-Si falla:
+**Dependencias:** T3–T5. **Tamaño:** M.
 
-1. clasificar por página y causa;
-2. corregir únicamente layout, rol, región o transformación responsable;
-3. cambiar versión/fingerprint si cambia el comportamiento;
-4. repetir primero la página afectada y después el lote de 24;
-5. no ejecutar las 71 páginas hasta aprobar.
+### Checkpoint B — Inventario y calidad
 
-**Dependencias:** T2–T5. **Tamaño:** M.
-
-### Checkpoint B — OCR
-
+- [ ] Secuencia canónica verificada y congelada.
 - [ ] Todos los gates de T6 aprobados.
-- [ ] Informe y hashes guardados fuera de Git.
-- [ ] Comparación visual final de los ocho casos especiales.
-- [ ] Codex confirma que no se maquillaron tokens, boundaries ni gold.
+- [ ] Reportes y hashes privados guardados fuera de Git.
+- [ ] Ausencias reales documentadas, sin texto inventado.
 
-### T7 — Preparar las 71 páginas disponibles
+### T7 — Preparar todo el contenido canónico
 
-**Objetivo:** construir el bundle completo de Málaga sin publicar.
+**Objetivo:** construir el bundle completo sin publicarlo.
 
 **Aceptación:**
 
-- exactamente 71 hojas del inventario verificado;
-- reutilización solo de las 24 páginas cuyo fingerprint coincida;
-- cero páginas fallidas o pendientes;
-- cero cajas inválidas, duplicados u `oversize_body_line`;
-- narrativa y tablas generan chunks separados y trazables;
-- ningún chunk cruza los breaks antes de PDF 69, 103 y 105;
-- bundle declara `partial_source`, tramos observados y seis huecos;
-- segunda ejecución exacta reutiliza resultados y produce los mismos IDs.
-
-**Verificación:** smoke de CLI, hashes, inventario, conteos y replay de
-`prepare` dentro del contenedor de ingesta.
+- se procesan todas y solo las filas `include`;
+- 772 capas OCR se reutilizan cuando pasan el gate;
+- PP-OCR se limita a fallbacks y regiones declaradas;
+- cero fallos, pendientes, cajas inválidas o chunks sin procedencia;
+- prosa y tablas generan chunks separados;
+- ningún chunk cruza página, hueco o salto canónico;
+- un segundo `prepare` reutiliza páginas compatibles y conserva IDs/hashes.
 
 **Dependencias:** Checkpoint B. **Tamaño:** M.
 
 ### T8 — Aprobar recuperación y citas
 
-**Objetivo:** demostrar que el RAG recupera la evidencia útil del libro.
+**Objetivo:** demostrar búsqueda útil a lo largo de todo el tomo.
 
-Se crearán 20 casos privados y auditables:
+Se crearán al menos 40 casos privados distribuidos por cinco bandas
+alfabéticas, con prosa, cifras, tablas, topónimos homónimos y preguntas fuera
+de cobertura. Cada caso define evidencia esperada, no una respuesta generada.
 
-- 4 de provincia/obispado/ciudad;
-- 4 de población y estadísticas;
-- 4 de geografía, clima, caminos o límites;
-- 4 de instituciones, economía o cementerio;
-- 4 que dependan de tablas, fechas o cifras.
+**Gates:**
 
-Cada caso contendrá páginas/chunks relevantes esperados, no una respuesta
-generada. Ningún caso dependerá de las páginas ausentes.
-
-**Aceptación:**
-
-- al menos 20 casos;
 - Recall@20 ≥ 0,90;
 - MRR@20 ≥ 0,75;
 - integridad estructural = 1,0;
 - cero excepciones;
-- ocho resultados revisados visualmente, incluidos cuatro de tabla;
-- consultas sobre huecos devuelven ausencia de cobertura, no evidencia falsa.
-
-**Archivos de código solo si hay un defecto real:**
-
-- `pods/historical-corpus-pod/src/historical_corpus/service.py` para la
-  recuperación;
-- `pods/historical-corpus-pod/src/historical_corpus/evaluation.py` para el
-  cálculo del gate;
-- `pods/historical-corpus-pod/tests/test_retrieval.py`.
-
-Los casos del libro permanecen privados fuera de Git.
+- página, etiqueta, caja y preview correctos;
+- consultas sobre la entrada general de Madrid explican que no está en este
+  tomo en vez de responder con coincidencias incidentales.
 
 **Dependencias:** T7. **Tamaño:** M.
 
 ### T9 — Publicación local aislada y rollback
 
-**Objetivo:** cargar el bundle real en el servicio local y demostrar
-persistencia.
-
-**Bloqueo humano previo:**
-
-- confirmar derechos de uso previstos de la digitalización;
-- aceptar que la cobertura es parcial y contiene seis huecos.
-
-Sin ambas decisiones, el estado máximo será
+**Bloqueo humano previo:** confirmar derechos de uso y aceptar la cobertura
+final observada. Sin ambas decisiones el estado máximo será
 `code_complete_prepared_not_published`.
 
-**Aceptación después de autorización:**
-
-- backup recuperable del volumen;
-- API detenido durante `publish` y lock exclusivo adquirido;
-- primer publish cambia la generación una sola vez;
-- replay exacto no duplica ni cambia generación;
-- API healthy en loopback;
-- búsquedas narrativas y de tabla devuelven página/preview correctos;
-- reinicio conserva documento, chunks y TurboVec;
-- reparación en un clon desechable del volumen funciona;
-- rollback restaura el volumen completo, no tablas manuales.
+**Aceptación después de autorización:** backup completo, publish idempotente,
+API healthy en loopback, persistencia tras reinicio, reparación en clon y
+rollback del volumen completo.
 
 **Dependencias:** T7–T8 y gate humano. **Tamaño:** M.
 
-### T10 — Cierre operativo
+### T10 — Runbook y cierre
 
-**Objetivo:** dejar una operación repetible para este libro.
+**Archivo previsto:** `docs/operations/historical-corpus-rag.md`.
 
-**Archivos previstos:**
+Documentará inventario, política híbrida, preparación, evaluación,
+publicación, diagnóstico, backup, reparación, rollback, cobertura exacta y la
+separación del canario.
 
-- `docs/operations/historical-corpus-rag.md`
-- solo si es necesario, los Compose de `deployment/podman/`.
-
-**Contenido mínimo:**
-
-- rutas privadas y variables sin secretos reales;
-- preparar, evaluar, publicar, reiniciar y reparar;
-- hashes/fingerprints que deben comprobarse;
-- diagnóstico de regiones/layout;
-- backup y rollback;
-- declaración explícita de cobertura parcial;
-- aviso: no conectado al canario.
-
-**Aceptación:** otra sesión puede reproducir el flujo usando únicamente el
-runbook y los artefactos privados autorizados.
-
-**Dependencias:** T9. **Tamaño:** S.
+**Dependencias:** T8; la sección de publicación se valida tras T9. **Tamaño:** S.
 
 ## 7. Validación transversal
 
-Después de cada tarea se ejecutan solo sus pruebas enfocadas. Después de cada
-checkpoint se construye el target de pruebas completo:
+Cada cambio lógico sigue RED → GREEN → revisión → commit. Después de cada
+checkpoint se construye y ejecuta el target de pruebas con Podman. Antes de
+aceptar cualquier commit se comprobará:
 
-```bash
-podman build --target test \
-  --tag localhost/tour-guide-historical-corpus:test \
-  pods/historical-corpus-pod
+- diff limitado a archivos autorizados;
+- ninguna supresión, prueba saltada o umbral debilitado;
+- compatibilidad de manifiestos `ocr` existentes;
+- ausencia de PDF, OCR, modelos, tokens y datos privados;
+- ningún acceso de red durante procesamiento;
+- backend, frontend, Narrative y canario intactos.
 
-podman run --rm localhost/tour-guide-historical-corpus:test
-```
+## 8. Commits previstos
 
-Antes de aceptar cualquier commit, Codex comprobará:
+1. `docs: expand Madoz plan to the full tome XI`
+2. `feat: add embedded-first Madoz processing contract`
+3. `feat: preserve embedded Madoz text lines`
+4. `feat: fall back to image OCR by page quality`
+5. `feat: handle exceptional Madoz layouts`
+6. `test: validate hybrid OCR across tome XI`
+7. `docs: document the private Madoz workflow`
 
-- diff limitado a las rutas autorizadas;
-- ninguna supresión, test saltado o umbral debilitado;
-- compatibilidad de manifiestos y payloads existentes;
-- ausencia de secretos, PDFs, OCR, modelos y datos privados;
-- raíz de contenedor de solo lectura, usuario sin root, sin capacidades y sin
-  red durante OCR;
-- ninguna modificación en backend, frontend, Narrative o canario.
-
-## 8. Estrategia de commits
-
-Commits atómicos previstos:
-
-1. `feat: describe deterministic Madoz page regions`
-2. `feat: compose rotated Madoz OCR regions`
-3. `feat: preserve Madoz reading order across layout bands`
-4. `feat: index Madoz table evidence by opt-in`
-5. `test: make historical OCR ordering gates meaningful`
-6. `docs: document the private Madoz workflow`
-
-Reglas:
-
-- no hacer push sin solicitud explícita;
-- no incluir un commit si su validación está roja;
-- staging por rutas exactas;
-- no incorporar archivos ajenos ya presentes en el worktree;
-- el material privado y los reportes nunca se commitean.
+No se hará push sin solicitud explícita. Cada commit será un punto verde y
+reversible.
 
 ## 9. Riesgos y mitigación
 
-| Riesgo | Impacto | Mitigación |
-|---|---|---|
-| Sobreajuste a Madoz | Medio | Perfil explícito por manifiesto; defaults legados intactos |
-| Gold circular por usar OCR | Alto | Facsímil como autoridad, revisión visual de cambios y dos OCR solo como ayuda |
-| Reading-order aparentemente verde | Alto | Mínimo 30 pares; prohíbe métrica vacía |
-| Tablas producen falsos positivos | Alto | Chunks exclusivos, opt-in y consultas de tabla evaluadas |
-| Cifras erróneas parecen plausibles | Alto | Tokens críticos y preview obligatorio |
-| Fuente incompleta | Alto | `partial_source`, seis huecos y abstención explícita |
-| Derechos no confirmados | Alto | Prepare/evaluación privados; publish bloqueado |
-| Corrupción del índice | Alto | Locks, backup, journal, clon de reparación y rollback completo |
-| Archivos privados en Git | Alto | rutas externas, permisos 0700/0600 y revisión de status/diff |
+| Riesgo | Mitigación |
+|---|---|
+| OCR incrustado incorrecto parece confiable | gate determinista, muestra visual y fallback |
+| Duplicado falso elimina una hoja distinta | exclusión automática solo con evidencia fuerte; ambigüedad se revisa |
+| Orden físico no es orden bibliográfico | secuencia canónica separada y encabezados/etiquetas |
+| Tablas dañan la búsqueda | chunks exclusivos y OCR regional de contraste |
+| Entrada de Madrid fuera del tomo | cobertura explícita y casos de abstención |
+| Fuente realmente incompleta | huecos declarados, nunca reconstruidos |
+| Datos privados en Git | rutas externas, permisos privados y revisión de status |
+| Trabajo demasiado largo | OCR incrustado evita reprocesar 772 páginas normales |
 
-## 10. Intervención humana necesaria
+## 10. Intervención humana y definición de terminado
 
-Durante T1–T8 el usuario no necesita transcribir páginas ni operar comandos.
-Codex realiza la revisión visual y la ejecución.
+El usuario no necesita transcribir ni revisar páginas durante T0–T8. Solo se
+pedirá, antes de T9, confirmar derechos y aceptar la cobertura final.
 
-Antes de T9, el usuario deberá responder únicamente:
+El producto queda terminado cuando:
 
-1. si el uso previsto es compatible con los derechos/condiciones de la
-   digitalización;
-2. si acepta publicar localmente un corpus Málaga parcial con seis páginas
-   impresas ausentes.
+- [ ] las 783 páginas físicas están inventariadas;
+- [ ] la secuencia canónica no contiene pendientes ni duplicados no resueltos;
+- [ ] el OCR híbrido supera todos los gates representativos;
+- [ ] todo el contenido canónico se prepara con cero fallos y de forma
+      reproducible;
+- [ ] los casos de recuperación superan Recall, MRR e integridad;
+- [ ] citas y previews apuntan al facsímil correcto;
+- [ ] derechos y cobertura han sido aceptados para publicación local;
+- [ ] publish, reinicio, reparación y rollback están probados;
+- [ ] no hay datos privados ni cambios de canario en Git.
 
-Investigar qué otros libros se usarán puede continuar en paralelo, pero no
-cambia ni bloquea este plan.
-
-## 11. Definición de terminado
-
-El producto Madoz Málaga queda terminado solo cuando:
-
-- [ ] T1–T10 cumplen sus criterios y pruebas;
-- [ ] las 24 páginas superan todos los gates OCR con orden no vacío;
-- [ ] las 71 páginas se preparan con cero fallos y resultado reproducible;
-- [ ] texto narrativo y tablas son recuperables con citas y preview;
-- [ ] los 20 casos superan Recall@20, MRR e integridad;
-- [ ] derechos y cobertura parcial han sido decididos por el usuario;
-- [ ] publicación local, replay, reinicio, reparación y rollback están probados;
-- [ ] el servicio permanece separado y escuchando solo en loopback;
-- [ ] no hay archivos privados en Git;
-- [ ] no hay cambios de canario.
-
-Al terminar este plan no se inicia automáticamente ningún trabajo para otro
-libro. Ese será un proyecto posterior basado en evidencia, no una condición
-oculta de esta entrega.
+Al cerrar este plan no se inicia automáticamente otro libro o tomo.
