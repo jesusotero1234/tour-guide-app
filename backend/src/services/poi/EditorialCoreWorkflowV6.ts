@@ -172,7 +172,9 @@ function replayCall(
   if (saved.model !== provider.model || JSON.stringify(saved.input) !== JSON.stringify(request)) {
     throw new Error(`Snapshot ${saved.callId} input or model changed`);
   }
-  const schema = coreAuditResponseSchemaV6(request);
+  const schema = provider.kind === 'openrouter'
+    ? coreAuditOpenRouterResponseSchemaV6(request)
+    : coreAuditResponseSchemaV6(request);
   const promptFingerprint = editorialPromptFingerprintV6(
     CORE_RESOLVER_SYSTEM_PROMPT_V6, CORE_AUDIT_TOOL_NAME_V6, schema
   );
@@ -182,7 +184,10 @@ function replayCall(
     || saved.schemaCharacters !== JSON.stringify(schema).length) {
     throw new Error(`Snapshot ${saved.callId} fingerprints or budgets changed`);
   }
-  const value = validateCoreAuditV6(JSON.parse(saved.rawOutput), request);
+  const parsed = JSON.parse(saved.rawOutput);
+  const value = provider.kind === 'openrouter'
+    ? validateCoreAuditOpenRouterV6(parsed, request)
+    : validateCoreAuditV6(parsed, request);
   return { ...saved, value };
 }
 

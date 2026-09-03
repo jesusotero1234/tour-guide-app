@@ -256,5 +256,12 @@ describe('canonical core audit workflow v6', () => {
     if (result.coreResult?.status !== 'approved') throw new Error('Expected approved core');
     expect(result.coreResult.core.requirements.map((requirement) => requirement.canonicalId).sort())
       .toEqual(['Q1', 'Q2']);
+
+    const replay = replayCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      result.snapshot
+    );
+    expect(replay).toEqual(result);
   });
 });
