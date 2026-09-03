@@ -320,6 +320,368 @@ podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
 
 No continuar con publicación mientras derechos y cobertura sigan pendientes.
 
+## Publicar el corpus parcial
+
+Esta sección publica, opera, prueba la recuperación y revierte el corpus Madoz
+parcial ya preparado. Usa exclusivamente Podman y el compose absoluto
+`$CORPUS_COMPOSE`. El comando de API y el de ingesta/publicación deben usar
+los mismos valores de runtime compartidos; validar la configuración Compose
+antes de continuar.
+
+### Fase 1: Aprobación humana y preparación
+
+Requiere aprobación humana escrita para los derechos de uso previsto y la
+cobertura parcial consciente. En el manifiesto privado fijar:
+
+- `rights.status: reviewed_reusable`
+- `rights.verifiedAt` con zona horaria
+- `rights.isExplicitlyReusable: true`
+- `coverage.acceptedForProduct: true`
+- `coverage.acceptedAt` con zona horaria
+
+Conservar `partial_source`, los rangos y los seis huecos (62, 63, 98, 99, 102,
+103). Regenerar el bundle y exigir que las 71 hojas staged se reutilicen sin
+repetir OCR:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest prepare \
+  --manifest /imports/madoz-t11.private.yml
+```
+
+Copiar el `preparedDocumentPath` devuelto en stdout y validarlo antes de
+continuar:
+
+```bash
+: "${PREPARED_PATH:?use preparedDocumentPath returned by prepare}"
+case "$PREPARED_PATH" in
+  /data/staging/*) ;;
+  *) exit 1 ;;
+esac
+```
+
+### Fase 2: Validación de configuración Compose
+
+Comprobar la configuración de runtime común para API e ingesta/publicación.
+Abortar ante cualquier divergencia, backend determinístico o
+`ALLOW_DETERMINISTIC` distinto de `false`.
+
+```bash
+set -o pipefail
+podman compose -f "$CORPUS_COMPOSE" --profile ingest config | /usr/bin/python3 -c '
+import sys
+import yaml
+
+config = yaml.safe_load(sys.stdin)
+services = config["services"]
+api = services["historical-corpus-api"]["environment"]
+ingest = services["historical-corpus-ingest"]["environment"]
+keys = (
+    "HISTORICAL_CORPUS_DATA_DIR",
+    "HISTORICAL_CORPUS_MODEL_BACKEND",
+    "HISTORICAL_CORPUS_ALLOW_DETERMINISTIC",
+    "HISTORICAL_CORPUS_MODEL_BATCH_SIZE",
+    "HISTORICAL_CORPUS_MODEL_MAX_LENGTH",
+    "HISTORICAL_CORPUS_TURBOVEC_BIT_WIDTH",
+    "HISTORICAL_CORPUS_DEVICE",
+    "HISTORICAL_CORPUS_EMBEDDING_MODEL",
+    "HISTORICAL_CORPUS_RERANKER_MODEL",
+    "HF_HOME",
+)
+assert {key: api[key] for key in keys} == {key: ingest[key] for key in keys}
+assert api["HISTORICAL_CORPUS_MODEL_BACKEND"] == "qwen"
+assert api["HISTORICAL_CORPUS_ALLOW_DETERMINISTIC"] == "false"
+print({key: api[key] for key in keys})
+'
+```
+
+El filtro imprime únicamente los diez valores no secretos del anchor. API e
+ingesta deben coincidir en todos. `publish` usa el servicio de ingesta, por lo
+que una divergencia invalida la publicación.
+
+### Fase 3: Parar API y volcado atómico
+
+Detener la API y exportar un backup consistente del estado anterior. Nunca
+usar `down -v`.
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" down
+CORPUS_DATA_VOLUME=tour-guide-historical-corpus_historical-corpus-data
+BACKUP_DIR="$HISTORICAL_CORPUS_IMPORT_DIR/backups"
+install -d -m 0700 "$BACKUP_DIR"
+BACKUP_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+BACKUP_TAR="$BACKUP_DIR/madoz-t11-before-publish-$BACKUP_STAMP.tar"
+BACKUP_TMP="$BACKUP_TAR.tmp"
+podman volume export -o "$BACKUP_TMP" "$CORPUS_DATA_VOLUME"
+chmod 0600 "$BACKUP_TMP"
+mv -- "$BACKUP_TMP" "$BACKUP_TAR"
+BACKUP_SHA="$(sha256sum -- "$BACKUP_TAR" | cut -d ' ' -f 1)"
+CURRENT_IMAGE_ID="$(podman image inspect \
+  localhost/tour-guide-historical-corpus:local --format '{{.Id}}')"
+CURRENT_IMAGE_DIGEST="$(podman image inspect \
+  localhost/tour-guide-historical-corpus:local --format '{{.Digest}}')"
+test -n "$BACKUP_SHA"
+test -n "$CURRENT_IMAGE_ID"
+```
+
+El tar puede contener el PDF canónico y siempre es privado. No guardar el
+backup, sus hashes ni rutas de host dentro de Git.
+
+### Fase 4: Publicar
+
+Ejecutar `publish` mediante el perfil efímero y registrar el `documentId`, los
+`chunkIds` y el `chunkCount` devueltos.
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest publish \
+  --prepared "$PREPARED_PATH"
+```
+
+### Fase 5: Iniciar solo la API
+
+Iniciar únicamente el API. El perfil `ingest` nunca se ejecuta como daemon.
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" up -d historical-corpus-api
+```
+
+### Fase 6: Verificación con curl
+
+Esperar el health y conservar en privado el estado inicial del índice y un
+preview de procedencia:
+
+```bash
+curl --retry 120 --retry-delay 1 --retry-all-errors --fail --silent \
+  http://127.0.0.1:3010/health
+INDEX_AFTER_PUBLISH="$HISTORICAL_CORPUS_IMPORT_DIR/index-after-publish.json"
+curl --fail --silent --output "$INDEX_AFTER_PUBLISH" \
+  http://127.0.0.1:3010/v1/index/version
+chmod 0600 "$INDEX_AFTER_PUBLISH"
+curl --fail --silent http://127.0.0.1:3010/v1/documents/madoz-1848-t11-malaga-partial-google-books
+curl --fail --silent http://127.0.0.1:3010/v1/documents/madoz-1848-t11-malaga-partial-google-books/pages
+curl --fail --silent http://127.0.0.1:3010/v1/documents/madoz-1848-t11-malaga-partial-google-books/pages/1
+PREVIEW_PATH="$HISTORICAL_CORPUS_IMPORT_DIR/madoz-t11-page1-preview.png"
+curl --fail --silent --output "$PREVIEW_PATH" \
+  http://127.0.0.1:3010/v1/documents/madoz-1848-t11-malaga-partial-google-books/pages/1/image
+chmod 0600 "$PREVIEW_PATH"
+curl --fail --silent -H "Content-Type: application/json" \
+  --data-binary \
+  '{"query":"Málaga provincia caminos población","documentIds":["madoz-1848-t11-malaga-partial-google-books"],"limit":20}' \
+  http://127.0.0.1:3010/v1/search
+```
+
+Registrar `indexVersion` y `generation` del JSON. Documento, lista, página e
+imagen deben conservar `partial_source`, numeración y procedencia coherentes.
+
+### Fase 7: Evaluación de recuperación
+
+Ejecutar `evaluate-retrieval` desde el perfil ingest contra exactamente
+`http://historical-corpus-api:3010`, casos bajo `/imports` y reporte bajo
+`/data/reports`; requerir que los casos y la relevancia no dependan de las
+páginas impresas 62, 63, 98, 99, 102, 103 y detener en exit 5/gates fallidos.
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest evaluate-retrieval \
+  --api-base-url http://historical-corpus-api:3010 \
+  --cases /imports/madoz-t11-retrieval-cases.private.jsonl \
+  --report /data/reports/madoz-t11-retrieval-report.json
+```
+
+### Fase 8: Prueba de recuperación
+
+Primero repetir exactamente el mismo publish con el API detenido. El replay
+sano no debe duplicar datos ni cambiar `generation` o `indexVersion`:
+
+```bash
+INDEX_BEFORE_REPLAY="$HISTORICAL_CORPUS_IMPORT_DIR/index-before-replay.json"
+cp -- "$INDEX_AFTER_PUBLISH" "$INDEX_BEFORE_REPLAY"
+chmod 0600 "$INDEX_BEFORE_REPLAY"
+podman compose -f "$CORPUS_COMPOSE" down
+podman compose -f "$CORPUS_COMPOSE" --profile ingest run --rm \
+  historical-corpus-ingest publish --prepared "$PREPARED_PATH"
+podman compose -f "$CORPUS_COMPOSE" up -d historical-corpus-api
+curl --retry 120 --retry-delay 1 --retry-all-errors --fail --silent \
+  http://127.0.0.1:3010/health
+INDEX_AFTER_REPLAY="$HISTORICAL_CORPUS_IMPORT_DIR/index-after-replay.json"
+curl --fail --silent --output "$INDEX_AFTER_REPLAY" \
+  http://127.0.0.1:3010/v1/index/version
+chmod 0600 "$INDEX_AFTER_REPLAY"
+cmp --silent "$INDEX_BEFORE_REPLAY" "$INDEX_AFTER_REPLAY"
+```
+
+La reparación se ensaya solo sobre un clon. Crear primero otro backup
+consistente, esta vez posterior al publish, sin modificar el volumen primario:
+
+```bash
+podman compose -f "$CORPUS_COMPOSE" down
+RECOVERY_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+RECOVERY_BACKUP_TAR="$BACKUP_DIR/madoz-t11-after-publish-$RECOVERY_STAMP.tar"
+RECOVERY_BACKUP_TMP="$RECOVERY_BACKUP_TAR.tmp"
+podman volume export -o "$RECOVERY_BACKUP_TMP" "$CORPUS_DATA_VOLUME"
+chmod 0600 "$RECOVERY_BACKUP_TMP"
+mv -- "$RECOVERY_BACKUP_TMP" "$RECOVERY_BACKUP_TAR"
+podman compose -f "$CORPUS_COMPOSE" up -d historical-corpus-api
+curl --retry 120 --retry-delay 1 --retry-all-errors --fail --silent \
+  http://127.0.0.1:3010/health
+
+RECOVERY_DATA_VOLUME="madoz-t11-recovery-$RECOVERY_STAMP"
+case "$RECOVERY_DATA_VOLUME" in
+  madoz-t11-recovery-*) ;;
+  *) exit 1 ;;
+esac
+export RECOVERY_DATA_VOLUME
+podman volume create "$RECOVERY_DATA_VOLUME"
+podman volume import "$RECOVERY_DATA_VOLUME" "$RECOVERY_BACKUP_TAR"
+RECOVERY_OVERRIDE="$HISTORICAL_CORPUS_IMPORT_DIR/historical-corpus.recovery.private.yml"
+umask 077
+cat >"$RECOVERY_OVERRIDE" <<'YAML'
+services:
+  historical-corpus-api:
+    volumes:
+      - historical-corpus-recovery-data:/data:Z,U
+  historical-corpus-ingest:
+    volumes:
+      - historical-corpus-recovery-data:/data:Z,U
+volumes:
+  historical-corpus-recovery-data:
+    external: true
+    name: "${RECOVERY_DATA_VOLUME}"
+YAML
+RECOVERY_COMPOSE=(
+  podman compose -p tour-guide-historical-corpus-recovery
+  -f "$CORPUS_COMPOSE" -f "$RECOVERY_OVERRIDE"
+)
+"${RECOVERY_COMPOSE[@]}" --profile ingest config >/dev/null
+```
+
+Registrar primero `generation` e `indexVersion` del clon. Después insertar un
+journal pendiente que coincide con su autoridad SQLite. Esta es la única
+mutación simulada y no borra, mueve ni altera `index.tvim`:
+
+```bash
+"${RECOVERY_COMPOSE[@]}" --profile ingest run --rm \
+  --entrypoint python historical-corpus-ingest -c '
+import sqlite3
+db = sqlite3.connect("/data/corpus.sqlite3")
+print(db.execute(
+    "SELECT generation, index_version FROM index_state WHERE id = 1"
+).fetchone())
+db.close()
+'
+
+"${RECOVERY_COMPOSE[@]}" --profile ingest run --rm \
+  --entrypoint python historical-corpus-ingest -c '
+import sqlite3
+from datetime import datetime, timezone
+
+db = sqlite3.connect("/data/corpus.sqlite3")
+with db:
+    assert db.execute(
+        "SELECT COUNT(*) FROM index_sync_journal"
+    ).fetchone() == (0,)
+    inserted = db.execute("""
+        INSERT INTO index_sync_journal (
+            id, operation, target_generation, target_index_version,
+            target_corpus_index_version, target_authority_sha256,
+            embedding_model, embedding_dimension, reranker_model,
+            vector_index_backend, vector_index_bit_width,
+            chunking_policy_version, source_registry_version,
+            document_count, chunk_count, created_at
+        )
+        SELECT 1, 'repair', generation + 1, index_version,
+            corpus_index_version, authority_sha256,
+            embedding_model, embedding_dimension, reranker_model,
+            vector_index_backend, vector_index_bit_width,
+            chunking_policy_version, source_registry_version,
+            document_count, chunk_count, ?
+        FROM index_state WHERE id = 1
+    """, (datetime.now(timezone.utc).isoformat(),))
+    assert inserted.rowcount == 1
+db.close()
+'
+```
+
+El modo `verify` debe rechazar el journal. Si abre, el ensayo falla:
+
+```bash
+if "${RECOVERY_COMPOSE[@]}" --profile ingest run --rm \
+  --entrypoint python historical-corpus-ingest -c '
+from historical_corpus.runtime import build_service_from_env
+service = build_service_from_env(startup_policy="verify")
+service.close()
+'; then
+  exit 1
+fi
+
+REPAIR_REPORT="$HISTORICAL_CORPUS_IMPORT_DIR/recovery-repair.private.log"
+"${RECOVERY_COMPOSE[@]}" --profile ingest run --rm \
+  historical-corpus-ingest repair-index | tee "$REPAIR_REPORT"
+chmod 0600 "$REPAIR_REPORT"
+rg -F '"repaired":true' "$REPAIR_REPORT"
+
+"${RECOVERY_COMPOSE[@]}" --profile ingest run --rm \
+  --entrypoint python historical-corpus-ingest -c '
+import json
+from historical_corpus.runtime import build_service_from_env
+service = build_service_from_env(startup_policy="verify")
+print(json.dumps(service.index_version().model_dump(mode="json"), sort_keys=True))
+service.close()
+'
+```
+
+Comparar la primera tupla con los dos últimos JSON: `indexVersion` debe
+permanecer igual, `generation` aumentar exactamente una vez y el journal
+desaparecer. El volumen aceptado no participa en estas órdenes; conservar el
+clon hasta documentar el resultado.
+
+### Fase 9: Rollback
+
+El rollback nunca importa encima del primario. Usa la imagen anterior
+inmutable y restaura el backup previo a publicación en otro volumen:
+
+```bash
+: "${CORPUS_PREVIOUS_IMAGE:?set a previously recorded image ID or digest}"
+podman compose -f "$CORPUS_COMPOSE" down
+ROLLBACK_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+ROLLBACK_VOLUME="madoz-t11-rollback-$ROLLBACK_STAMP"
+case "$ROLLBACK_VOLUME" in
+  madoz-t11-rollback-*) ;;
+  *) exit 1 ;;
+esac
+podman volume create "$ROLLBACK_VOLUME"
+podman volume import "$ROLLBACK_VOLUME" "$BACKUP_TAR"
+RECOVERY_DATA_VOLUME="$ROLLBACK_VOLUME"
+export RECOVERY_DATA_VOLUME
+podman tag "$CORPUS_PREVIOUS_IMAGE" \
+  localhost/tour-guide-historical-corpus:local
+ROLLBACK_COMPOSE=(
+  podman compose -p tour-guide-historical-corpus
+  -f "$CORPUS_COMPOSE" -f "$RECOVERY_OVERRIDE"
+)
+"${ROLLBACK_COMPOSE[@]}" config >/dev/null
+"${ROLLBACK_COMPOSE[@]}" up -d historical-corpus-api
+curl --retry 120 --retry-delay 1 --retry-all-errors --fail --silent \
+  http://127.0.0.1:3010/health
+curl --fail --silent http://127.0.0.1:3010/v1/index/version
+curl --fail --silent -H "Content-Type: application/json" \
+  --data-binary \
+  '{"query":"Málaga","documentIds":["madoz-1848-t11-malaga-partial-google-books"],"limit":20}' \
+  http://127.0.0.1:3010/v1/search
+```
+
+Comparar health, versión y búsqueda con el estado anterior documentado. No
+borrar el volumen primario, el volumen nuevo ni `CURRENT_IMAGE_ID`: permiten
+deshacer el ensayo. Para volver a la imagen nueva, retaggear explícitamente
+`CURRENT_IMAGE_ID` solo después de decidir qué estado conservar.
+
+Todos los overrides, backups, previews y reportes de estas fases son privados
+y no se versionan. En preparación, publicación y rollback queda prohibido:
+usar Docker, montar el socket Podman, exponer un puerto OCR, publicar el
+directorio de imports, usar `down -v`, o commitear tokens, rutas privadas,
+modelos, PDFs, inventarios, bundles o reportes.
+
 ## Start the Qwen service
 
 The base compose uses Qwen3-Embedding-0.6B and Qwen3-Reranker-0.6B by default.
@@ -360,6 +722,9 @@ The endpoints are:
 - `POST /v1/search-for-claim`
 - `GET /v1/chunks/{chunkId}`
 - `GET /v1/documents/{documentId}`
+- `GET /v1/documents/{documentId}/pages`
+- `GET /v1/documents/{documentId}/pages/{logicalPageNumber}`
+- `GET /v1/documents/{documentId}/pages/{logicalPageNumber}/image`
 - `POST /v1/ingest`
 - `GET /v1/index/version`
 - `GET /health`

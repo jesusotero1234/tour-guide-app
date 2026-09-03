@@ -4097,7 +4097,10 @@ git diff --check -- docs/operations/historical-corpus-rag.md
 
 ### QW-18C — Runbook de publicación, operación y rollback
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): runbook separado de publicación con gates
+  humanos, paridad de configuración, backup atómico, publish/API aislados,
+  pruebas de health/retrieval/provenance, replay idempotente, reparación de
+  journal sobre volumen clonado y rollback recuperable sin `down -v`.
 - Depende de: QW-18B.
 - Archivo existente:
   - `docs/operations/historical-corpus-rag.md`
