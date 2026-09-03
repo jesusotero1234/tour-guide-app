@@ -277,7 +277,7 @@ export function createNarrativeArcArchitectV8(
     async build(input) {
       const projected = validateArcV8Input(input);
       const routeStopIds = input.route.stops.map((stop) => stop.stopId);
-      const execution = narrativePhaseExecutionV6(options, 'architect', undefined, 1);
+      const execution = narrativePhaseExecutionV6(options, 'architect', undefined, 2);
       const result = await requestEditorialStructuredV6<NarrativeArcV8>({
         callId: `narrative-v8-arc-${input.route.caseId}`,
         input: {
@@ -296,6 +296,7 @@ export function createNarrativeArcArchitectV8(
           'bridgePropositionIds debe contener solo IDs de proposiciones de la parada actual o la siguiente.',
           'No debes llenar roles ausentes en C.',
           'No añadas hechos externos.',
+          'El campo bridge debe ser siempre no vacío; la parada final cierra la pregunta central sin anunciar otra parada.',
           `Debes devolver exactamente una entrada de stops para cada parada de la ruta, en el orden exacto de la ruta, usando los valores exactos de stopId de la ruta: ${routeStopIds.join(', ')}.`,
         ].join(' '),
         schema: {
