@@ -237,7 +237,8 @@ function validResult<T>(result: EditorialCallResultV6<T>): NarrativeAgentResultV
   if (result.status !== 'valid' || result.value === null) {
     throw new NarrativeAgentProtocolErrorV6(result);
   }
-  return { value: result.value, diagnostic: result };
+  const value = JSON.parse(JSON.stringify(result.value)) as T;
+  return { value, diagnostic: result };
 }
 
 export async function reviewNarrativeTourScorecardV6Core(
@@ -681,7 +682,7 @@ export function createNarrativeEditorialAgentsV6Core(
               const text = parsed.text.replace(/\s+/gu, ' ').trim();
               if (!text) throw new Error('writer response text is required');
               validateWriterContinuityV6(text, input);
-              return { text };
+              return { ...parsed, text };
             })()
             : writerValue(value, input);
           validationHooks.validateWriter?.(parsed, input);

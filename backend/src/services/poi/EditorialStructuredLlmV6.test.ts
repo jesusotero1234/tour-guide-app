@@ -900,6 +900,40 @@ describe('editorial structured LLM v6 providers', () => {
     expect(clientErrorPost).toHaveBeenCalledTimes(1);
   });
 
+  it('stores an immutable snapshot of the request input in diagnostics', async () => {
+    const input = {
+      script: {
+        sentences: [{ sentenceId: 'stop-S001', text: 'Texto original.' }],
+      },
+    };
+    const result = await requestEditorialStructuredV6({
+      callId: 'input-snapshot',
+      input,
+      provider: { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      options: {
+        apiKey: 'test-key',
+        post: jest.fn().mockResolvedValue(response('submit_test_v6')),
+      },
+      systemPrompt: 'Return valid structured data.',
+      schema: { type: 'object' },
+      toolName: 'submit_test_v6',
+      toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000,
+      schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value,
+    });
+
+    input.script.sentences[0].text = 'Texto mutado.';
+
+    expect(result.status).toBe('valid');
+    expect(result.input).toEqual({
+      script: {
+        sentences: [{ sentenceId: 'stop-S001', text: 'Texto original.' }],
+      },
+    });
+    expect(result.inputCharacters).toBe(JSON.stringify(result.input).length);
+  });
+
   it('honors Retry-After for a transient provider failure within the absolute deadline', async () => {
     const throttled = Object.assign(new Error('provider overloaded'), {
       response: { status: 503, headers: { 'retry-after': '0.02' } },

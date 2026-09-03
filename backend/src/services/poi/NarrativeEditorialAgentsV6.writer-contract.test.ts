@@ -83,11 +83,15 @@ describe('NarrativeEditorialAgentsV6 writer response contract', () => {
             if (root.stop_id !== input.stopId || !Array.isArray(root.segments)) {
               throw new Error('invalid segmented response');
             }
-            return {
-              text: root.segments
+            const text = root.segments
                 .map((segment) => segment.text)
                 .filter((text): text is string => typeof text === 'string')
-                .join(' '),
+                .join(' ');
+            return {
+              text,
+              segments: root.segments.map((segment) => ({ text: segment.text as string })),
+              coverage: 1,
+              wordCount: text.split(/\s+/u).filter(Boolean).length,
             };
           },
         }),
@@ -107,9 +111,30 @@ describe('NarrativeEditorialAgentsV6 writer response contract', () => {
       voiceProfile: ['Español oral'],
     });
 
-    expect(result.value.text).toBe(
+    expect(result.diagnostic.value).not.toBeNull();
+    type WriterShape = {
+      text: string;
+      segments: Array<{ text: string }>;
+      coverage: number;
+      wordCount: number;
+    };
+    const value = result.value as WriterShape;
+    const diagnosticValue = result.diagnostic.value as WriterShape;
+    expect(value.text).toBe(
       'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.'
     );
+    expect(value.segments).toEqual([
+      { text: 'Observa la fachada.' },
+      { text: 'La autoridad religiosa abre el contraste con el poder civil que veremos después.' },
+    ]);
+    expect(value.coverage).toBe(1);
+    expect(value.wordCount).toBe(16);
+    expect(diagnosticValue.text).toBe(value.text);
+    expect(diagnosticValue.segments).toEqual(value.segments);
+    expect(diagnosticValue.coverage).toBe(value.coverage);
+    expect(diagnosticValue.wordCount).toBe(value.wordCount);
+    value.segments[0].text = 'mutated';
+    expect(diagnosticValue.segments[0].text).toBe('Observa la fachada.');
     expect(post).toHaveBeenCalledTimes(1);
   });
 
