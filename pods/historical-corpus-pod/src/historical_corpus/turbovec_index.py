@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import os
+import stat
+import tempfile
 import threading
 from numbers import Integral
 from pathlib import Path
@@ -11,7 +15,16 @@ from turbovec import IdMapIndex
 _UINT64_MAX = (1 << 64) - 1
 
 
+def _lstat_if_present(path: Path) -> os.stat_result | None:
+    try:
+        return os.lstat(path)
+    except FileNotFoundError:
+        return None
+
+
 class TurboVecIndex:
+    is_persistent = True
+
     def __init__(
         self,
         *,
@@ -21,15 +34,18 @@ class TurboVecIndex:
     ) -> None:
         if dimension <= 0 or dimension % 8 != 0:
             raise ValueError("dimension must be positive and divisible by 8")
-        if bit_width <= 0:
-            raise ValueError("bit_width must be positive")
+        if bit_width not in (2, 3, 4):
+            raise ValueError("bit_width must be 2, 3, or 4")
 
         self.dimension = dimension
         self._bit_width = bit_width
         self._path = Path(path)
         self._lock = threading.RLock()
 
-        if self._path.exists():
+        st = _lstat_if_present(self._path)
+        if st is not None:
+            if stat.S_ISLNK(st.st_mode) or not stat.S_ISREG(st.st_mode):
+                raise ValueError("path must be a regular file, not a symlink")
             self._index = IdMapIndex.load(str(self._path))
             if self._index.dim != dimension:
                 raise ValueError("persisted TurboVec dimension does not match configuration")
@@ -80,8 +96,34 @@ class TurboVecIndex:
         return np.ascontiguousarray(query)
 
     def _sync(self) -> None:
+        st = _lstat_if_present(self._path)
+        if st is not None and (stat.S_ISLNK(st.st_mode) or not stat.S_ISREG(st.st_mode)):
+            raise ValueError("path must be a regular file, not a symlink")
         self._path.parent.mkdir(parents=True, exist_ok=True)
         self._index.sync(str(self._path))
+
+    def _fsync_file(self, path: Path) -> None:
+        flags = os.O_RDONLY
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        fd = os.open(str(path), flags)
+        try:
+            st = os.fstat(fd)
+            if not stat.S_ISREG(st.st_mode):
+                raise ValueError("path must be a regular file, not a symlink")
+            os.fsync(fd)
+        finally:
+            os.close(fd)
+
+    def _fsync_dir(self, path: Path) -> None:
+        flags = os.O_RDONLY
+        if hasattr(os, "O_DIRECTORY"):
+            flags |= os.O_DIRECTORY
+        fd = os.open(str(path), flags)
+        try:
+            os.fsync(fd)
+        finally:
+            os.close(fd)
 
     def upsert(self, ids: Sequence[int], vectors: np.ndarray) -> None:
         values = self._validate_ids(ids)
@@ -148,3 +190,89 @@ class TurboVecIndex:
     def count(self) -> int:
         with self._lock:
             return len(self._index)
+
+    def contains_ids(self, ids: Sequence[int]) -> set[int]:
+        values = self._validate_ids(ids)
+        with self._lock:
+            return {value for value in values if value in self._index}
+
+    def replace_all(self, ids: Sequence[int], vectors: np.ndarray) -> None:
+        values = self._validate_ids(ids)
+        matrix = self._validate_vectors(vectors, len(values))
+
+        with self._lock:
+            st = _lstat_if_present(self._path)
+            if st is not None and (stat.S_ISLNK(st.st_mode) or not stat.S_ISREG(st.st_mode)):
+                raise ValueError("path must be a regular file, not a symlink")
+
+            self._path.parent.mkdir(parents=True, exist_ok=True)
+            temp_fd, temp_name = tempfile.mkstemp(
+                prefix=f".{self._path.name}.",
+                suffix=".tmp",
+                dir=self._path.parent,
+            )
+            os.close(temp_fd)
+            temp_path = Path(temp_name)
+
+            try:
+                new_index = IdMapIndex(dim=self.dimension, bit_width=self._bit_width)
+                if values:
+                    external_ids = np.asarray(values, dtype=np.uint64)
+                    new_index.add_with_ids(matrix, external_ids)
+                new_index.sync(str(temp_path))
+
+                try:
+                    temp_st = os.lstat(str(temp_path))
+                except OSError:
+                    raise ValueError("temporary artifact must be a regular file, not a symlink")
+                if stat.S_ISLNK(temp_st.st_mode) or not stat.S_ISREG(temp_st.st_mode):
+                    raise ValueError("temporary artifact must be a regular file, not a symlink")
+
+                reloaded = IdMapIndex.load(str(temp_path))
+                if reloaded.dim != self.dimension:
+                    raise ValueError("reloaded dimension mismatch")
+                if reloaded.bit_width != self._bit_width:
+                    raise ValueError("reloaded bit width mismatch")
+                if len(reloaded) != len(values):
+                    raise ValueError("reloaded count mismatch")
+                present_ids = {value for value in values if value in reloaded}
+                if present_ids != set(values):
+                    raise ValueError("reloaded membership mismatch")
+
+                self._fsync_file(temp_path)
+                final_st = _lstat_if_present(self._path)
+                if final_st is not None and (stat.S_ISLNK(final_st.st_mode) or not stat.S_ISREG(final_st.st_mode)):
+                    raise ValueError("path must be a regular file, not a symlink")
+                os.replace(str(temp_path), str(self._path))
+                self._fsync_dir(self._path.parent)
+                self._index = reloaded
+            except Exception:
+                temp_st = _lstat_if_present(temp_path)
+                if temp_st is not None and stat.S_ISREG(temp_st.st_mode) and not stat.S_ISLNK(temp_st.st_mode):
+                    try:
+                        os.unlink(str(temp_path))
+                    except OSError:
+                        pass
+                raise
+
+    def artifact_sha256(self) -> str:
+        flags = os.O_RDONLY
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        try:
+            fd = os.open(str(self._path), flags)
+        except OSError:
+            raise ValueError("path must be a regular file, not a symlink")
+        try:
+            st = os.fstat(fd)
+            if not stat.S_ISREG(st.st_mode):
+                raise ValueError("path must be a regular file, not a symlink")
+            hasher = hashlib.sha256()
+            while True:
+                chunk = os.read(fd, 65536)
+                if not chunk:
+                    break
+                hasher.update(chunk)
+            return "sha256:" + hasher.hexdigest()
+        finally:
+            os.close(fd)

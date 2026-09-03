@@ -3,10 +3,14 @@ from __future__ import annotations
 import hashlib
 import math
 import re
+import struct
 import unicodedata
+from numbers import Integral
 from typing import Protocol, Sequence
 
 import numpy as np
+
+_UINT64_MAX = (1 << 64) - 1
 
 
 class EmbeddingProvider(Protocol):
@@ -29,6 +33,7 @@ class Reranker(Protocol):
 
 class VectorIndex(Protocol):
     dimension: int
+    is_persistent: bool
 
     def upsert(self, ids: Sequence[int], vectors: np.ndarray) -> None:
         ...
@@ -40,6 +45,15 @@ class VectorIndex(Protocol):
         ...
 
     def count(self) -> int:
+        ...
+
+    def contains_ids(self, ids: Sequence[int]) -> set[int]:
+        ...
+
+    def replace_all(self, ids: Sequence[int], vectors: np.ndarray) -> None:
+        ...
+
+    def artifact_sha256(self) -> str:
         ...
 
 
@@ -107,6 +121,8 @@ class DeterministicReranker:
 
 
 class InMemoryVectorIndex:
+    is_persistent = False
+
     def __init__(self, dimension: int = 1024) -> None:
         if dimension <= 0:
             raise ValueError("dimension must be positive")
@@ -145,3 +161,44 @@ class InMemoryVectorIndex:
 
     def count(self) -> int:
         return len(self._vectors)
+
+    def contains_ids(self, ids: Sequence[int]) -> set[int]:
+        return {int(i) for i in ids if int(i) in self._vectors}
+
+    def replace_all(self, ids: Sequence[int], vectors: np.ndarray) -> None:
+        values: list[int] = []
+        for raw_id in ids:
+            if isinstance(raw_id, bool) or not isinstance(raw_id, Integral):
+                raise ValueError("ids must be integers")
+            value = int(raw_id)
+            if value < 0 or value > _UINT64_MAX:
+                raise ValueError("ids must fit in uint64")
+            values.append(value)
+        if len(values) != len(set(values)):
+            raise ValueError("ids must be unique")
+
+        try:
+            matrix = np.asarray(vectors, dtype=np.float32)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("vectors must be numeric") from exc
+        expected_shape = (len(values), self.dimension)
+        if matrix.shape != expected_shape:
+            raise ValueError(f"vectors must have shape {expected_shape}")
+        if not np.all(np.isfinite(matrix)):
+            raise ValueError("vectors must contain only finite values")
+        matrix = np.ascontiguousarray(matrix)
+
+        new_vectors: dict[int, np.ndarray] = {}
+        for vid, vec in zip(values, matrix):
+            new_vectors[vid] = vec.copy()
+        self._vectors = new_vectors
+
+    def artifact_sha256(self) -> str:
+        stream = bytearray()
+        for vid in sorted(self._vectors):
+            vector = self._vectors[vid]
+            blob = np.asarray(vector, dtype="<f4").tobytes()
+            stream += struct.pack(">Q", vid)
+            stream += struct.pack(">Q", len(blob))
+            stream += blob
+        return "sha256:" + hashlib.sha256(bytes(stream)).hexdigest()

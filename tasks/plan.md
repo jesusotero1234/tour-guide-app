@@ -2718,7 +2718,11 @@ Validación:
 
 ### QW-06A — Reemplazo verificable de índices vectoriales
 
-- [ ] Pendiente.
+- [x] Completado: protocolo común ampliado, reemplazo íntegro/validado en
+  memoria, swap TurboVec atómico mediante temporal exclusivo, recarga y
+  verificación, fsync de archivo/directorio, hash real del artefacto y rechazo
+  fail-closed de symlinks/rutas no regulares. Pasan 35 pruebas focalizadas y
+  186 de regresión adicional del pod.
 - Depende de: QW-05B.
 - Archivos existentes escribibles:
   - `pods/historical-corpus-pod/src/historical_corpus/backends.py`
