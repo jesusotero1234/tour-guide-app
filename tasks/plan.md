@@ -3266,7 +3266,9 @@ Validación:
 
 ### QW-12 — Layout de dos columnas
 
-- [ ] Pendiente.
+- [x] Completado: layout provider-neutral estable con columnas/bandas, roles,
+  tablas rotadas 90/270, IDs y fórmulas de calidad exactas; 13 pruebas
+  focalizadas y 431 pruebas completas pasan.
 - Depende de: QW-11A.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/madoz_layout.py`
