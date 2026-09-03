@@ -43,7 +43,9 @@ export async function reviewNarrativeTourScorecardV8(
   const requestProjector = createNarrativeEditorialRequestProjectorV8(
     input.admittedStops,
     input.evidenceManifest,
-    input.arc
+    input.arc,
+    undefined,
+    'evidenceRichScorecard'
   );
   const result = await reviewNarrativeTourScorecardV6Core(
     options,

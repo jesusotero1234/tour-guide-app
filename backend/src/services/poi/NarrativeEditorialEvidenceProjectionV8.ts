@@ -289,11 +289,14 @@ const V8_PROMPT_SUFFIX_AUDITOR = [
   'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
 ].join(' ');
 
+export type NarrativeTourProjectionModeV8 = 'compactNarrativeAudit' | 'evidenceRichScorecard';
+
 export function createNarrativeEditorialRequestProjectorV8(
   admittedStops: NarrativeAdmittedStopV8[],
   manifest: NarrativeEvidenceManifestV8,
   arc: NarrativeArcV8,
-  narrationTargetsByStopId?: ReadonlyMap<string, NarrativeNarrationTargetV8>
+  narrationTargetsByStopId?: ReadonlyMap<string, NarrativeNarrationTargetV8>,
+  tourProjectionMode: NarrativeTourProjectionModeV8 = 'compactNarrativeAudit'
 ): NarrativeEditorialRequestProjectorV6 {
   assertManifestMatchesAdmittedStops(admittedStops, manifest);
 
@@ -320,9 +323,24 @@ export function createNarrativeEditorialRequestProjectorV8(
   return ({ operation, systemPrompt, input }) => {
     const inputRecord = record(input, `${operation} input`);
     if (operation === 'auditTour') {
+      const compactTourInput = projectTourInput(inputRecord, admittedStops, arc);
+      if (tourProjectionMode === 'evidenceRichScorecard') {
+        const projected: JsonRecord = {
+          ...compactTourInput,
+          dossiers: admittedStops.map((stop) => projectNarrativeDossierForEditorialV8(stop.dossier)),
+          evidenceManifest: manifest,
+          evidenceByStop: manifest.stops,
+          authorizedEvidenceByStop,
+          reviewEvidenceByStop,
+        };
+        return {
+          systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX_AUDITOR}`,
+          input: projected,
+        };
+      }
       return {
         systemPrompt: `${systemPrompt} ${V8_PROMPT_SUFFIX_AUDITOR}`,
-        input: projectTourInput(inputRecord, admittedStops, arc),
+        input: compactTourInput,
       };
     }
 
