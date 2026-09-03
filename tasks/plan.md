@@ -3152,7 +3152,9 @@ Validación:
 
 ### QW-11A — Adapter PP-OCRv6
 
-- [ ] Pendiente.
+- [x] Completado: adapter lazy PP-OCRv6 con los tres modelos reales bloqueados,
+  prefetch atómico, verificación cerrada antes de construir el motor y parser
+  estricto; 47 pruebas focalizadas y 406 pruebas completas pasan.
 - Depende de: QW-10A.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/ocr_backend.py`
