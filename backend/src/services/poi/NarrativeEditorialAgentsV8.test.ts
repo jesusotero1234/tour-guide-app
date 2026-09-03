@@ -38,23 +38,20 @@ describe('validateNarrativeRepairLengthV8', () => {
   };
   const words = (count: number) => Array.from({ length: count }, (_, index) => `palabra${index}`).join(' ');
 
-  it('accepts text within the five-word lower-bound grace and ten-percent upper margin', () => {
+  it('accepts a narrow repair-only margin around the writer bounds', () => {
     expect(validateNarrativeRepairLengthV8(words(575), target)).toMatchObject({
       valid: true,
       wordCount: 575,
       minimumWords: 575,
-      maximumWords: 660,
+      maximumWords: 680,
     });
-    expect(validateNarrativeRepairLengthV8(words(578), target)).toMatchObject({
-      valid: true,
-      wordCount: 578,
-      minimumWords: 575,
-      maximumWords: 660,
-    });
+    expect(validateNarrativeRepairLengthV8(words(578), target).valid).toBe(true);
+    expect(validateNarrativeRepairLengthV8(words(672), target).valid).toBe(true);
+    expect(validateNarrativeRepairLengthV8(words(680), target).valid).toBe(true);
   });
 
-  it('rejects text outside the five-word lower-bound grace and ten-percent upper margin', () => {
+  it('rejects text outside the narrow repair-only margin', () => {
     expect(validateNarrativeRepairLengthV8(words(574), target).valid).toBe(false);
-    expect(validateNarrativeRepairLengthV8(words(661), target).valid).toBe(false);
+    expect(validateNarrativeRepairLengthV8(words(681), target).valid).toBe(false);
   });
 });

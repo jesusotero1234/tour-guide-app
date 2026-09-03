@@ -21,6 +21,7 @@ export interface NarrativeEditorialAgentsV8 extends NarrativeEditorialAgentsV6 {
 }
 
 const NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8 = 5;
+const NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8 = 20;
 
 export function validateNarrativeWriterLengthV8(
   text: string,
@@ -45,11 +46,12 @@ export function validateNarrativeRepairLengthV8(
   const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
   const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
   const repairMinimumWords = minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8;
+  const repairMaximumWords = maximumWords + NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8;
   return {
-    valid: wordCount >= repairMinimumWords && wordCount <= maximumWords,
+    valid: wordCount >= repairMinimumWords && wordCount <= repairMaximumWords,
     wordCount,
     minimumWords: repairMinimumWords,
-    maximumWords,
+    maximumWords: repairMaximumWords,
   };
 }
 
