@@ -48,7 +48,7 @@ function writerDiagnostic(
 describe('NarrativePublicationQualityV8', () => {
   it('approves final length and traceable beat coverage when both pass', () => {
     const quality = buildNarrativePublicationQualityV8({
-      scripts: [script('stop-a', 580)],
+      scripts: [script('stop-a', 575)],
       targets: [narrationTargetForSecondsV8('stop-a', 300)],
       arcContributions: { 'stop-a': 'Explica el origen ceremonial de la plaza.' },
       writerDiagnostics: [writerDiagnostic('stop-a')],
@@ -59,8 +59,8 @@ describe('NarrativePublicationQualityV8', () => {
     expect(quality.stops).toEqual([
       expect.objectContaining({
         stopId: 'stop-a',
-        finalWordCount: 580,
-        minimumWords: 580,
+        finalWordCount: 575,
+        minimumWords: 575,
         lengthPassed: true,
         beatCount: 6,
         highPriorityCoverage: 0.8,
@@ -71,7 +71,7 @@ describe('NarrativePublicationQualityV8', () => {
 
   it('fails publication quality when a repaired final script falls below its reconciled range', () => {
     const quality = buildNarrativePublicationQualityV8({
-      scripts: [script('stop-a', 579)],
+      scripts: [script('stop-a', 574)],
       targets: [narrationTargetForSecondsV8('stop-a', 300)],
       arcContributions: { 'stop-a': 'Explica el origen ceremonial de la plaza.' },
       writerDiagnostics: [writerDiagnostic('stop-a')],
@@ -80,14 +80,14 @@ describe('NarrativePublicationQualityV8', () => {
 
     expect(quality.passed).toBe(false);
     expect(quality.stops[0]).toEqual(expect.objectContaining({
-      finalWordCount: 579,
+      finalWordCount: 574,
       lengthPassed: false,
     }));
   });
 
   it('reports missing writer traceability and fails when a fresh run requires it', () => {
     const quality = buildNarrativePublicationQualityV8({
-      scripts: [script('stop-a', 580)],
+      scripts: [script('stop-a', 575)],
       targets: [narrationTargetForSecondsV8('stop-a', 300)],
       arcContributions: { 'stop-a': 'Explica el origen ceremonial de la plaza.' },
       writerDiagnostics: [],
@@ -104,7 +104,7 @@ describe('NarrativePublicationQualityV8', () => {
   it('passes traceability when the writer plan omits unsupported beats', () => {
     const supportedBeats = NARRATIVE_BEAT_ORDER_V8.slice(0, 4);
     const quality = buildNarrativePublicationQualityV8({
-      scripts: [script('stop-a', 580)],
+      scripts: [script('stop-a', 575)],
       targets: [narrationTargetForSecondsV8('stop-a', 300)],
       arcContributions: { 'stop-a': 'Explica el origen ceremonial de la plaza.' },
       writerDiagnostics: [writerDiagnostic('stop-a', 0.8, supportedBeats)],

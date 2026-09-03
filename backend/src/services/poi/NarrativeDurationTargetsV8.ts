@@ -32,7 +32,7 @@ const SPEAKING_RATE_WORDS_PER_MINUTE = 120;
 
 export function narrationLengthBoundsV8(targetWords: number): { minimumWords: number; maximumWords: number } {
   return {
-    minimumWords: Math.max(0, targetWords - 20),
+    minimumWords: Math.max(0, targetWords - 25),
     maximumWords: Math.floor(targetWords * 1.1),
   };
 }

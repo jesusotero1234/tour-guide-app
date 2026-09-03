@@ -195,9 +195,9 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(projected.systemPrompt).toContain('no crear un beat sin evidencia');
     expect(projected.systemPrompt).toContain('600 palabras');
     expect(projected.systemPrompt).toContain('300 segundos');
-    expect(projected.systemPrompt).toContain('mínimo de 580');
+    expect(projected.systemPrompt).toContain('mínimo de 575');
     expect(projected.systemPrompt).toContain('máximo de 660');
-    expect(projected.systemPrompt).toContain('centro del intervalo, unas 620 palabras');
+    expect(projected.systemPrompt).toContain('centro del intervalo, unas 618 palabras');
     expect(projected.systemPrompt).not.toContain('Escribe prosa oral continua de aproximadamente dos o tres minutos, sin rellenar.');
     expect(projected.systemPrompt).toContain('orientación visible');
     expect(projected.systemPrompt).toContain('cambio temporal');
