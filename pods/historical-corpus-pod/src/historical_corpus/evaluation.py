@@ -82,7 +82,7 @@ class GoldReferenceLine(_StrictModel):
 
 class GoldEntryBoundary(_StrictModel):
     entryTitle: str = Field(min_length=1, max_length=100)
-    lineIndex: int = Field(ge=0, le=499)
+    lineIndex: int = Field(ge=0, le=999)
     charOffset: Literal[0]
 
     @field_validator("entryTitle")
@@ -96,8 +96,8 @@ class OcrGoldPage(_StrictModel):
     logicalPageNumber: int = Field(ge=1, le=2000)
     sourcePdfPageNumber: int = Field(ge=1, le=1000)
     pageClass: Literal["normal", "table", "mixed_orientation", "blank"]
-    referenceLines: list[GoldReferenceLine] = Field(max_length=500)
-    entryBoundaries: list[GoldEntryBoundary] = Field(max_length=500)
+    referenceLines: list[GoldReferenceLine] = Field(max_length=1000)
+    entryBoundaries: list[GoldEntryBoundary] = Field(max_length=1000)
     criticalTokens: list[str] = Field(max_length=128)
 
     @field_validator("documentId")

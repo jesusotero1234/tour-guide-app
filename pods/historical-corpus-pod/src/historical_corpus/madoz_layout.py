@@ -528,8 +528,8 @@ def build_source_page(
     foreground_ratio = _foreground_ratio(rendered_leaf)
     lines = _primary_lines(rendered_leaf, primary_lines)
     lines.extend(_rotated_region_lines(rendered_leaf, rotated_table_lines))
-    if len(lines) > 500:
-        raise LayoutError("page contains more than 500 OCR lines")
+    if len(lines) > 1000:
+        raise LayoutError("page contains more than 1000 OCR lines")
     ordered = _ordered_lines(lines, rendered_leaf)
     mean_confidence, low_confidence_ratio, quality_score, quality_flags = _quality(
         ordered,
@@ -545,13 +545,14 @@ def build_source_page(
         x1=candidate.crop_box[2],
         y1=candidate.crop_box[3],
     )
+    image_sha256 = f"sha256:{rendered_leaf.image_sha256}"
     page_id = compute_page_id(
         manifest.document.documentId,
         candidate.pdf_page,
         candidate.side,
         crop_box,
         candidate.rotation_degrees,
-        rendered_leaf.image_sha256,
+        image_sha256,
     )
     source_lines: list[SourceLineInput] = []
     for line_order, line in enumerate(ordered):
@@ -584,7 +585,7 @@ def build_source_page(
             renderDpi=rendered_leaf.render_dpi,
             rasterizationPolicy=rendered_leaf.rasterization_policy,
             rotationDegrees=candidate.rotation_degrees,
-            imageSha256=rendered_leaf.image_sha256,
+            imageSha256=image_sha256,
             contentClass=candidate.content_class,
             foregroundRatio=foreground_ratio,
             textSource="ppocrv6",

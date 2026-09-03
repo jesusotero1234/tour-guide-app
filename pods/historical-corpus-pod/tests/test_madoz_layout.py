@@ -149,7 +149,7 @@ def _rendered(
         render_dpi=300,
         rasterization_policy="pymupdf-page-render-v1",
         rgb_bytes=rgb if rgb is not None else bytes([255]) * width * height * 3,
-        image_sha256="sha256:" + "a" * 64,
+        image_sha256="a" * 64,
         visual_dhash64="0" * 16,
         embedded_words=(),
         dominant_raster=None,
@@ -495,6 +495,19 @@ def test_discards_empty_original_text_candidates_before_layout() -> None:
     assert page.lowConfidenceRatio == 0.0
     assert page.qualityScore == pytest.approx(0.93)
     assert page.qualityFlags == []
+
+
+def test_rejects_more_than_1000_ocr_lines() -> None:
+    candidates = [
+        _line(f"line {index}", (0.10, 0.10 + index * 0.0001, 0.30, 0.12 + index * 0.0001))
+        for index in range(1000)
+    ]
+    page = build_source_page(_manifest(), _inventory(), _rendered(), candidates)
+    assert len(page.lines) == 1000
+
+    candidates.append(_line("line 1000", (0.10, 0.10 + 1000 * 0.0001, 0.30, 0.12 + 1000 * 0.0001)))
+    with pytest.raises(LayoutError, match="page contains more than 1000 OCR lines"):
+        build_source_page(_manifest(), _inventory(), _rendered(), candidates)
 
 
 def test_rejects_invalid_rgb_and_rotated_region_coverage() -> None:

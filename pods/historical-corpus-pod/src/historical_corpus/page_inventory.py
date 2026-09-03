@@ -99,8 +99,11 @@ def extract_printed_label_candidates(
 ) -> PrintedLabelSignals:
     candidates: list[PrintedLabelCandidate] = []
     for word in words:
+        horizontal_center = (word.box[0] + word.box[2]) / 2.0
         vertical_center = (word.box[1] + word.box[3]) / 2.0
-        if not (vertical_center <= 0.12 or vertical_center >= 0.92):
+        if not (vertical_center <= 0.065 or vertical_center >= 0.92):
+            continue
+        if not (horizontal_center <= 0.25 or horizontal_center >= 0.75):
             continue
         if _PRINTED_LABEL_CANDIDATE_RE.fullmatch(word.text) is None:
             continue

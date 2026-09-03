@@ -196,6 +196,8 @@ def _enumerate_model_files(model_dir: Path) -> list[tuple[str, Path]]:
                 child_stat = child.lstat()
                 if stat.S_ISLNK(child_stat.st_mode) or not stat.S_ISDIR(child_stat.st_mode):
                     raise OcrBackendError("model directories must not contain symlinks")
+            if directory_path == model_dir:
+                directory_names[:] = [name for name in directory_names if name != ".cache"]
             for name in file_names:
                 child = directory_path / name
                 child_stat = child.lstat()
@@ -327,26 +329,46 @@ def _parse_page_results(results: object) -> list[ExtractedLineCandidate]:
     if len(pages) != 1 or not isinstance(pages[0], Mapping):
         raise OcrBackendError("OCR must return exactly one page mapping")
     page = pages[0]
-    field_names = (
-        "rec_texts",
-        "rec_scores",
-        "rec_polys",
-        "textline_orientation_angles",
-    )
+    recognition_field_names = ("rec_texts", "rec_scores", "rec_polys")
     try:
-        arrays = {name: _as_array(page[name], name) for name in field_names}
+        recognition_arrays = {name: _as_array(page[name], name) for name in recognition_field_names}
     except KeyError as exc:
         raise OcrBackendError("OCR result is missing a required field") from exc
-    lengths = {len(value) for value in arrays.values()}
-    if len(lengths) != 1:
-        raise OcrBackendError("OCR result arrays must have identical lengths")
+    recognition_lengths = {len(recognition_arrays[name]) for name in recognition_field_names}
+    if len(recognition_lengths) != 1:
+        raise OcrBackendError("OCR recognition arrays must have identical lengths")
+    if recognition_lengths == {0}:
+        return []
 
+    detection_field_names = ("dt_polys", "textline_orientation_angles")
+    try:
+        detection_arrays = {name: _as_array(page[name], name) for name in detection_field_names}
+    except KeyError as exc:
+        raise OcrBackendError("OCR result is missing a required field") from exc
+    if len(detection_arrays["dt_polys"]) != len(detection_arrays["textline_orientation_angles"]):
+        raise OcrBackendError("OCR detection arrays must have identical lengths")
+
+    dt_polys_parsed: list[list[list[float]]] = []
+    for dt_poly in detection_arrays["dt_polys"]:
+        dt_polys_parsed.append(_parse_polygon(dt_poly))
+
+    dt_orientations: list[int] = []
+    for orientation in detection_arrays["textline_orientation_angles"]:
+        if isinstance(orientation, (bool, np.bool_)) or not isinstance(
+            orientation, (Integral, np.integer)
+        ):
+            raise OcrBackendError("OCR orientation must be a class ID")
+        orientation_class = int(orientation)
+        if orientation_class not in (0, 1):
+            raise OcrBackendError("OCR orientation class must be 0 or 1")
+        dt_orientations.append(orientation_class)
+
+    used: list[bool] = [False] * len(dt_polys_parsed)
     candidates: list[ExtractedLineCandidate] = []
-    for text, score, polygon, orientation in zip(
-        arrays["rec_texts"],
-        arrays["rec_scores"],
-        arrays["rec_polys"],
-        arrays["textline_orientation_angles"],
+    for text, score, polygon in zip(
+        recognition_arrays["rec_texts"],
+        recognition_arrays["rec_scores"],
+        recognition_arrays["rec_polys"],
         strict=True,
     ):
         if not isinstance(text, str) or not text:
@@ -356,20 +378,22 @@ def _parse_page_results(results: object) -> list[ExtractedLineCandidate]:
         confidence = float(score)
         if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
             raise OcrBackendError("OCR confidence must be finite and within 0..1")
-        if isinstance(orientation, (bool, np.bool_)) or not isinstance(
-            orientation, (Integral, np.integer)
-        ):
-            raise OcrBackendError("OCR orientation must be a class ID")
-        orientation_class = int(orientation)
-        if orientation_class not in (0, 1):
-            raise OcrBackendError("OCR orientation class must be 0 or 1")
+        rec_polygon = _parse_polygon(polygon)
+        matched_index = -1
+        for i, dt_poly in enumerate(dt_polys_parsed):
+            if not used[i] and dt_poly == rec_polygon:
+                matched_index = i
+                break
+        if matched_index == -1:
+            raise OcrBackendError("OCR recognition polygon does not match any unused detection polygon")
+        used[matched_index] = True
         try:
             candidates.append(
                 ExtractedLineCandidate(
                     originalText=text,
                     confidence=confidence,
-                    polygon=_parse_polygon(polygon),
-                    correction180=orientation_class * 180,
+                    polygon=rec_polygon,
+                    correction180=dt_orientations[matched_index] * 180,
                 )
             )
         except (ValidationError, ValueError, TypeError) as exc:

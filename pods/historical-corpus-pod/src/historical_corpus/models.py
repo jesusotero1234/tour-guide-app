@@ -667,8 +667,8 @@ class PageRecord(PageSummary):
     ocrEngineVersion: str = Field(min_length=1, max_length=64)
     ocrDetectionModel: str = Field(min_length=1, max_length=128)
     ocrRecognitionModel: str = Field(min_length=1, max_length=128)
-    originalText: str = Field(max_length=2048499)
-    lines: list[SourceLineRecord] = Field(max_length=500)
+    originalText: str = Field(max_length=4096999)
+    lines: list[SourceLineRecord] = Field(max_length=1000)
 
     @field_validator("imageSha256")
     @classmethod

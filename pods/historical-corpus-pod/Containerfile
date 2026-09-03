@@ -28,6 +28,7 @@ COPY src ./src
 RUN python -m pip install \
         --index-url https://download.pytorch.org/whl/cpu \
         "torch==2.13.0+cpu" \
+        "torchvision==0.28.0+cpu" \
     && python -m pip install ".[models,preview]"
 
 FROM base AS test

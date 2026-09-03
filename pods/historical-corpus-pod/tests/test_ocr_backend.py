@@ -46,6 +46,10 @@ def _valid_result() -> dict[str, object]:
             [[1, 2], [11, 2], [11, 7], [1, 7]],
             np.array([[2.5, 8], [12, 8], [12, 13], [2.5, 13]]),
         ],
+        "dt_polys": [
+            [[1, 2], [11, 2], [11, 7], [1, 7]],
+            [[2.5, 8], [12, 8], [12, 13], [2.5, 13]],
+        ],
         "textline_orientation_angles": np.array([0, 1]),
     }
 
@@ -91,7 +95,7 @@ def _prefetch(root: Path) -> tuple[ModelLock, FakeEngine, list[dict[str, Any]]]:
         "rec_texts": [],
         "rec_scores": [],
         "rec_polys": [],
-        "textline_orientation_angles": [],
+        "textline_orientation_angles": [0],
     }])
     calls: list[dict[str, Any]] = []
     lock = prefetch_models(
@@ -130,11 +134,20 @@ def _expected_common_kwargs() -> dict[str, object]:
 
 def test_prefetch_initializes_all_models_and_writes_atomic_lock(tmp_path: Path) -> None:
     model_paths = _populate_model_cache(tmp_path)
+    transient_lock = (
+        model_paths[DETECTION_MODEL]
+        / ".cache"
+        / "huggingface"
+        / "download"
+        / "model.safetensors.lock"
+    )
+    transient_lock.parent.mkdir(parents=True)
+    transient_lock.touch()
     engine = FakeEngine(result=[{
         "rec_texts": [],
         "rec_scores": [],
         "rec_polys": [],
-        "textline_orientation_angles": [],
+        "textline_orientation_angles": [0],
     }])
     calls: list[dict[str, Any]] = []
 
@@ -165,6 +178,7 @@ def test_prefetch_initializes_all_models_and_writes_atomic_lock(tmp_path: Path) 
             path.relative_to(model_paths[model.name]).as_posix()
             for path in model_paths[model.name].rglob("*")
             if path.is_file()
+            and ".cache" not in path.relative_to(model_paths[model.name]).parts
         )
         assert [item.relativePath for item in model.files] == expected_files
         for item in model.files:
@@ -234,6 +248,43 @@ def test_extract_lines_accepts_empty_parallel_arrays(tmp_path: Path) -> None:
     assert backend.extract_lines(np.zeros((1, 1, 3), dtype=np.uint8)) == []
 
 
+def test_extract_lines_maps_orientation_when_detection_filtered(tmp_path: Path) -> None:
+    result = {
+        "rec_texts": ["first", "third"],
+        "rec_scores": [0.9, 0.8],
+        "rec_polys": [
+            [[1, 2], [11, 2], [11, 7], [1, 7]],
+            [[21, 2], [31, 2], [31, 7], [21, 7]],
+        ],
+        "dt_polys": [
+            [[1, 2], [11, 2], [11, 7], [1, 7]],
+            [[11, 2], [21, 2], [21, 7], [11, 7]],
+            [[21, 2], [31, 2], [31, 7], [21, 7]],
+        ],
+        "textline_orientation_angles": [0, 1, 1],
+    }
+    backend, _, _ = _open_backend(tmp_path, result=[result])
+    lines = backend.extract_lines(np.zeros((1, 1, 3), dtype=np.uint8))
+    assert [line.correction180 for line in lines] == [0, 180]
+
+
+def test_extract_lines_rejects_rec_polygon_not_matching_detection(tmp_path: Path) -> None:
+    result = {
+        "rec_texts": ["text"],
+        "rec_scores": [0.9],
+        "rec_polys": [
+            [[1, 2], [11, 2], [11, 7], [1, 7]],
+        ],
+        "dt_polys": [
+            [[100, 100], [110, 100], [110, 105], [100, 105]],
+        ],
+        "textline_orientation_angles": [0],
+    }
+    backend, _, _ = _open_backend(tmp_path, result=[result])
+    with pytest.raises(OcrBackendError):
+        backend.extract_lines(np.zeros((1, 1, 3), dtype=np.uint8))
+
+
 @pytest.mark.parametrize("result", [[], [{}, {}], [object()]])
 def test_extract_lines_rejects_changed_page_result_contract(
     tmp_path: Path,
@@ -250,6 +301,7 @@ def test_extract_lines_rejects_changed_page_result_contract(
         ("rec_texts", "text"),
         ("rec_scores", {"score": 1}),
         ("rec_polys", 1),
+        ("dt_polys", 1),
         ("textline_orientation_angles", None),
     ],
 )
@@ -266,11 +318,17 @@ def test_extract_lines_rejects_non_array_fields(
 
 
 def test_extract_lines_rejects_missing_or_differently_sized_arrays(tmp_path: Path) -> None:
-    missing = _valid_result()
-    missing.pop("rec_polys")
-    unequal = _valid_result()
-    unequal["rec_scores"] = [0.5]
-    for index, result in enumerate((missing, unequal)):
+    missing_rec = _valid_result()
+    missing_rec.pop("rec_polys")
+    missing_dt = _valid_result()
+    missing_dt.pop("dt_polys")
+    unequal_scores = _valid_result()
+    unequal_scores["rec_scores"] = [0.5]
+    unequal_dt = _valid_result()
+    unequal_dt["dt_polys"] = [
+        [[1, 2], [11, 2], [11, 7], [1, 7]],
+    ]
+    for index, result in enumerate((missing_rec, missing_dt, unequal_scores, unequal_dt)):
         backend, _, _ = _open_backend(tmp_path / str(index), result=[result])
         with pytest.raises(OcrBackendError):
             backend.extract_lines(np.zeros((1, 1, 3), dtype=np.uint8))

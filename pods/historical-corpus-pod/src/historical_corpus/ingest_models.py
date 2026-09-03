@@ -168,7 +168,7 @@ class ExtractedLineCandidate(_StrictModel):
 class SourceLineInput(_StrictModel):
     lineId: str
     logicalPageNumber: int = Field(ge=1, le=2000)
-    lineOrder: int = Field(ge=0, le=499)
+    lineOrder: int = Field(ge=0, le=999)
     originalText: str = Field(min_length=1, max_length=4096)
     confidence: float = Field(ge=0.0, le=1.0)
     box: NormalizedBox
@@ -222,8 +222,8 @@ class SourcePageInput(_StrictModel):
     lowConfidenceRatio: float = Field(ge=0.0, le=1.0)
     qualityScore: float = Field(ge=0.0, le=1.0)
     qualityFlags: list[QualityFlag] = Field(default_factory=list, max_length=8)
-    originalText: str = Field(max_length=2048499)
-    lines: list[SourceLineInput] = Field(default_factory=list, max_length=500)
+    originalText: str = Field(max_length=4096999)
+    lines: list[SourceLineInput] = Field(default_factory=list, max_length=1000)
 
     @field_validator("pageId", "imageSha256")
     @classmethod

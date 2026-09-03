@@ -16,6 +16,7 @@ historical-corpus-ingest = "historical_corpus.cli:main"
 [project.optional-dependencies]
 models = [
   "torch==2.13.0",
+  "torchvision==0.28.0",
   "transformers==5.16.1",
 ]
 dev = [

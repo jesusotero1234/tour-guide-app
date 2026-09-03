@@ -245,7 +245,13 @@ def test_embedded_text_fingerprints_have_fixed_vectors() -> None:
 
 def test_printed_label_heuristic_uses_only_page_edges() -> None:
     single = extract_printed_label_candidates(
-        (_word("0032.", 0.02, 0.06), _word("777", 0.4, 0.5), _word("folio", 0.95, 0.98))
+        (
+            _word("0032.", 0.02, 0.06),
+            EmbeddedWord(text="888", box=(0.4, 0.02, 0.5, 0.06)),
+            _word("999", 0.07, 0.08),
+            _word("777", 0.4, 0.5),
+            _word("folio", 0.95, 0.98),
+        )
     )
     assert [candidate.text for candidate in single.candidates] == ["0032."]
     assert single.normalized_label == "32"
