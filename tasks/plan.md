@@ -3818,7 +3818,11 @@ feat: expose page-level historical evidence
 
 ### QW-17A — Evaluación OCR reproducible
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): formato gold JSONL estricto, cobertura exacta de
+  `OcrEvaluationSample`, Levenshtein y alineamiento DP deterministas, métricas
+  micro de OCR/críticos/boundaries/orden/low-confidence, estratos, gates y
+  reporte sin textos completos. Pasan 20 pruebas específicas y las 554
+  pruebas completas.
 - Depende de: QW-14D.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/evaluation.py`
