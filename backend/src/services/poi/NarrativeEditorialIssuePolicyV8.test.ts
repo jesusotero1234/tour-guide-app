@@ -1,13 +1,17 @@
 import {
   NarrativeAdjudicationV6,
   NarrativeAuditObjectionV6,
+  NarrativeAuditReportV6,
   NarrativeProtocolWarningV6,
   NarrativeScriptV6,
+  narrativeSentenceFingerprintV6,
 } from './NarrativeEditorialV6';
 import {
+  buildCurrentNarrativeAuditObjectionsV8,
   buildFinalNarrativeIssueStateV8,
   planNarrativeRepairsV8,
 } from './NarrativeEditorialIssuePolicyV8';
+import { NarrativeDossierV6 } from './NarrativeDossierV6';
 
 function makeScript(stopId: string, sentences: string[]): NarrativeScriptV6 {
   const sentenceRecords = sentences.map((text, index) => ({
@@ -362,5 +366,193 @@ describe('buildFinalNarrativeIssueStateV8', () => {
     const factualIssue = state.issues.find((issue) => issue.source === 'factual');
     expect(factualIssue?.stopId).toBe('malaga-S-sector');
     expect(factualIssue?.scriptFingerprint).toBe(script.fingerprint);
+  });
+});
+
+describe('buildCurrentNarrativeAuditObjectionsV8', () => {
+  const stopId = 'stop-red';
+  const script = makeScript(stopId, ['First sentence.', 'Second sentence.']);
+  const dossier: NarrativeDossierV6 = {
+    stopId,
+    language: 'es',
+    sources: [],
+    passages: [{ passageId: 'passage-1', sourceId: 'src-1', quote: 'quote' }],
+    propositions: [{
+      propositionId: 'prop-1',
+      text: 'A proposition.',
+      role: 'visible_observation',
+      certainty: 'high',
+      interpretation: 'direct',
+      sourceIds: ['src-1'],
+      passageIds: ['passage-1'],
+    }],
+    authorizedNames: [],
+    authorizedNumbers: [],
+    discrepancies: [],
+    limits: [],
+    sufficiency: { isSufficient: true, missingRoles: [], authoritySourceCount: 2, independentPublisherCount: 2 },
+    fingerprint: 'dossier-fp',
+  };
+
+  const fp = narrativeSentenceFingerprintV6(script.sentences[0]);
+
+  it('discards a finding with missing claimSpan', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unsupported',
+        reason: 'unsupported claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: fp,
+        claimSpan: undefined as unknown as string,
+        passageIds: ['passage-1'],
+        conflictType: 'unsupported_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(0);
+  });
+
+  it('discards a finding with an obsolete sentence fingerprint', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unsupported',
+        reason: 'unsupported claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: 'obsolete-fp',
+        claimSpan: 'First sentence',
+        passageIds: ['passage-1'],
+        conflictType: 'unsupported_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(0);
+  });
+
+  it('discards a single isolated unclear finding', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek_pro',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unclear',
+        reason: 'unclear claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: fp,
+        claimSpan: 'First sentence',
+        passageIds: ['passage-1'],
+        conflictType: 'ambiguous_verifiable_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(0);
+  });
+
+  it('admits two independent unclear findings on the same span', () => {
+    const reports: NarrativeAuditReportV6[] = [
+      {
+        auditor: 'deepseek',
+        findings: [{
+          sentenceId: script.sentences[0].sentenceId,
+          classification: 'unclear',
+          reason: 'unclear claim',
+          propositionIds: ['prop-1'],
+          sentenceFingerprint: fp,
+          claimSpan: 'First sentence',
+          passageIds: ['passage-1'],
+          conflictType: 'ambiguous_verifiable_claim',
+        }],
+      },
+      {
+        auditor: 'deepseek_pro',
+        findings: [{
+          sentenceId: script.sentences[0].sentenceId,
+          classification: 'unclear',
+          reason: 'unclear claim',
+          propositionIds: ['prop-1'],
+          sentenceFingerprint: fp,
+          claimSpan: 'First sentence',
+          passageIds: ['passage-1'],
+          conflictType: 'ambiguous_verifiable_claim',
+        }],
+      },
+    ];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(2);
+  });
+
+  it('admits an unsupported finding that is current and evidenced', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unsupported',
+        reason: 'unsupported claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: fp,
+        claimSpan: 'First sentence',
+        passageIds: ['passage-1'],
+        conflictType: 'unsupported_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(1);
+    expect(objections[0].classification).toBe('unsupported');
+  });
+
+  it('discards a finding referencing an unknown passageId', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unsupported',
+        reason: 'unsupported claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: fp,
+        claimSpan: 'First sentence',
+        passageIds: ['unknown-passage'],
+        conflictType: 'unsupported_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(0);
+  });
+
+  it('preserves verified anchors on the final factual issue', () => {
+    const reports: NarrativeAuditReportV6[] = [{
+      auditor: 'deepseek',
+      findings: [{
+        sentenceId: script.sentences[0].sentenceId,
+        classification: 'unsupported',
+        reason: 'unsupported claim',
+        propositionIds: ['prop-1'],
+        sentenceFingerprint: fp,
+        claimSpan: 'First sentence',
+        passageIds: ['passage-1'],
+        conflictType: 'unsupported_claim',
+      }],
+    }];
+    const objections = buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier);
+    expect(objections).toHaveLength(1);
+
+    const state = buildFinalNarrativeIssueStateV8(
+      [],
+      objections,
+      [],
+      [script],
+      { progressionWorks: true, promiseDelivered: true, closingWorks: true, tourFingerprint: 'tour-fp' }
+    );
+
+    const factualIssue = state.issues.find((issue) => issue.source === 'factual');
+    expect(factualIssue).toBeDefined();
+    expect(factualIssue?.scriptFingerprint).toBe(script.fingerprint);
+    expect(factualIssue?.reason).toBe('unsupported claim');
+    expect(factualIssue?.sentenceFingerprint).toBe(fp);
+    expect(factualIssue?.claimSpan).toBe('First sentence');
+    expect(factualIssue?.propositionIds).toEqual(['prop-1']);
+    expect(factualIssue?.passageIds).toEqual(['passage-1']);
+    expect(factualIssue?.conflictType).toBe('unsupported_claim');
   });
 });

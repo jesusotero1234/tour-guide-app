@@ -6,7 +6,7 @@ import {
   NarrativeRepairInputV6,
   NarrativeWriterInputV6,
 } from './NarrativeEditorialAgentsV6';
-import { NarrativeAuditorV6, assignNarrativeSentenceIdsV6 } from './NarrativeEditorialV6';
+import { NarrativeAuditorV6, assignNarrativeSentenceIdsV6, narrativeSentenceFingerprintV6 } from './NarrativeEditorialV6';
 import {
   NarrativeEditorialAgentsV8,
 } from './NarrativeEditorialAgentsV8';
@@ -693,6 +693,10 @@ describe('NarrativeEditorialWorkflowV8', () => {
           classification: isOriginal ? ('unsupported' as const) : ('supported' as const),
           reason: isOriginal ? 'Sin respaldo.' : 'Respaldada.',
           propositionIds: propositionId ? [propositionId] : [],
+          sentenceFingerprint: narrativeSentenceFingerprintV6(sentence),
+          claimSpan: isOriginal ? 'Napoleón' : '',
+          passageIds: [stop.dossier.passages[0].passageId],
+          conflictType: isOriginal ? ('unsupported_claim' as const) : ('none' as const),
         })),
       };
       return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
@@ -1040,6 +1044,10 @@ describe('NarrativeEditorialWorkflowV8', () => {
           classification: repaired ? ('unsupported' as const) : ('supported' as const),
           reason: repaired ? 'Requiere revisión final.' : 'Respaldada.',
           propositionIds: repaired ? [] : [input.dossier.propositions[0].propositionId],
+          sentenceFingerprint: narrativeSentenceFingerprintV6(sentence),
+          claimSpan: repaired ? sentence.text : '',
+          passageIds: [input.dossier.passages[0].passageId],
+          conflictType: repaired ? ('unsupported_claim' as const) : ('none' as const),
         })),
       };
       return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };

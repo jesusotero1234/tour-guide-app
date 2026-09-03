@@ -98,6 +98,7 @@ export function createNarrativeEditorialAgentsV8(
           );
         }
       },
+      auditAnchorsRequired: true,
     }
   );
   return {

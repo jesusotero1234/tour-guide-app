@@ -9,6 +9,12 @@ export type NarrativeAuditClassificationV6 =
 
 export type NarrativeAuditorV6 = 'deepseek' | 'deepseek_pro' | 'gemma';
 
+export type NarrativeAuditConflictTypeV8 =
+  | 'none'
+  | 'unsupported_claim'
+  | 'contradiction'
+  | 'ambiguous_verifiable_claim';
+
 export interface NarrativeSentenceV6 {
   sentenceId: string;
   stopId: string;
@@ -28,6 +34,10 @@ export interface NarrativeAuditFindingV6 {
   classification: NarrativeAuditClassificationV6;
   reason: string;
   propositionIds: string[];
+  sentenceFingerprint?: string;
+  claimSpan?: string;
+  passageIds?: string[];
+  conflictType?: NarrativeAuditConflictTypeV8;
 }
 
 export interface NarrativeAuditReportV6 {
@@ -108,6 +118,17 @@ function scriptFromSentences(stopId: string, texts: string[]): NarrativeScriptV6
   }));
   const script = { stopId, text: texts.join(' '), sentences };
   return { ...script, fingerprint: narrativeFingerprintV6(script) };
+}
+
+export function narrativeSentenceFingerprintV6(
+  sentence: NarrativeSentenceV6
+): string {
+  return narrativeFingerprintV6({
+    sentenceId: sentence.sentenceId,
+    stopId: sentence.stopId,
+    index: sentence.index,
+    text: sentence.text,
+  });
 }
 
 export function assignNarrativeSentenceIdsV6(
@@ -263,7 +284,7 @@ export function auditNarrativeScriptDeterministicallyV6(
     ]);
     const nameConnectors = new Set(['de', 'del', 'la', 'las', 'los']);
     const singleNamePrepositions = new Set(['a', 'al', 'con', 'de', 'del', 'en', 'la', 'por']);
-    const nameCandidateRegex = /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*(?:\s+(?:(?:de|del|la|las|los|y)\s+)*[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*)*/gu;
+    const nameCandidateRegex = /\b[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*(?:\s+(?:(?:de|del|la|las|los|y|e|o|u)\s+)*[A-ZÁÉÍÓÚÜÑ][\p{L}]+(?:-[A-ZÁÉÍÓÚÜÑ][\p{L}]+)*)*/gu;
     const checkedPerSentence = new Map<string, Set<string>>();
     for (const sentence of script.sentences) {
       const sentenceText = sentence.text;
@@ -292,25 +313,49 @@ export function auditNarrativeScriptDeterministicallyV6(
           checkedInSentence.add(normalizedCandidate);
           continue;
         }
-        if (atSentenceStart && candidateWords.length === 1) {
-          checkedInSentence.add(normalizedCandidate);
-          warnings.push({
-            warningId: `${script.stopId}:ambiguous_capitalized_start:${normalizedCandidate}:${sentence.sentenceId}`, stopId: script.stopId,
-            code: 'ambiguous_capitalized_start', severity: 'soft',
-            message: `La palabra inicial ${candidate} podría ser un nombre no autorizado.`,
-            sentenceId: sentence.sentenceId,
-            scriptFingerprint: script.fingerprint,
-          });
-          continue;
+        const segments: string[] = [];
+        const splitRegex = /\s+(?:e|o|u|y)\s+(?=(?:el|la|las|los)?\s*[A-ZÁÉÍÓÚÜÑ][\p{L}]+)/gu;
+        let lastIndex = 0;
+        for (const splitMatch of candidate.matchAll(splitRegex)) {
+          const segment = candidate.slice(lastIndex, splitMatch.index).trim();
+          if (segment) segments.push(segment);
+          lastIndex = splitMatch.index + splitMatch[0].length;
         }
-        checkedInSentence.add(normalizedCandidate);
-        warnings.push({
-          warningId: `${script.stopId}:unauthorized_name:${normalizedCandidate}:${sentence.sentenceId}`, stopId: script.stopId,
-          code: 'unauthorized_name', severity: 'hard',
-          message: `El nombre ${candidate} no está autorizado por el dossier.`,
-          sentenceId: sentence.sentenceId,
-          scriptFingerprint: script.fingerprint,
-        });
+        const tail = candidate.slice(lastIndex).trim();
+        if (tail) segments.push(tail);
+        for (const [segmentIndex, segment] of segments.entries()) {
+          let segmentWords = normalizedWords(segment);
+          if (segmentWords.length > 1 && ['el', 'la', 'las', 'los'].includes(segmentWords[0])) {
+            segmentWords = segmentWords.slice(1);
+          }
+          const normalizedSegment = segmentWords.join(' ');
+          if (!normalizedSegment || /^[ivxlcdm]+$/iu.test(normalizedSegment)
+            || commonSentenceStarts.has(normalizedSegment)
+            || checkedInSentence.has(normalizedSegment)) continue;
+          const segmentAuthorized = authorizedNormalized.some((authText) => ` ${authText} `.includes(` ${normalizedSegment} `));
+          if (segmentAuthorized) {
+            checkedInSentence.add(normalizedSegment);
+            continue;
+          }
+          checkedInSentence.add(normalizedSegment);
+          if (segmentIndex === 0 && atSentenceStart && segmentWords.length === 1) {
+            warnings.push({
+              warningId: `${script.stopId}:ambiguous_capitalized_start:${normalizedSegment}:${sentence.sentenceId}`, stopId: script.stopId,
+              code: 'ambiguous_capitalized_start', severity: 'soft',
+              message: `La palabra inicial ${segment} podría ser un nombre no autorizado.`,
+              sentenceId: sentence.sentenceId,
+              scriptFingerprint: script.fingerprint,
+            });
+          } else {
+            warnings.push({
+              warningId: `${script.stopId}:unauthorized_name:${normalizedSegment}:${sentence.sentenceId}`, stopId: script.stopId,
+              code: 'unauthorized_name', severity: 'hard',
+              message: `El nombre ${segment} no está autorizado por el dossier.`,
+              sentenceId: sentence.sentenceId,
+              scriptFingerprint: script.fingerprint,
+            });
+          }
+        }
       }
     }
   } else {

@@ -10,7 +10,11 @@ import {
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 import { buildNarrativeWriterPlanV8 } from './NarrativeWriterContractV8';
-import type { NarrativeScriptV6 } from './NarrativeEditorialV6';
+import {
+  NarrativeScriptV6,
+  NarrativeSentenceV6,
+  narrativeSentenceFingerprintV6,
+} from './NarrativeEditorialV6';
 import { analyzeNarrativeTourStyleV8 } from './NarrativeTourStyleV8';
 
 type JsonRecord = Record<string, unknown>;
@@ -219,8 +223,23 @@ function projectPerStopInput(
       })
     : undefined;
 
+  const projectedScript = operation === 'audit'
+    ? (() => {
+        const script = record(input.script, 'audit script') as unknown as NarrativeScriptV6;
+        const sentences: NarrativeSentenceV6[] = script.sentences.map((sentence) => ({
+          ...sentence,
+          sentenceFingerprint: narrativeSentenceFingerprintV6(sentence),
+        }));
+        return {
+          ...script,
+          sentences,
+        };
+      })()
+    : input.script;
+
   return {
     ...input,
+    script: projectedScript,
     dossier: dossierProjection,
     routeStopId: stop.routeStopId,
     entityQid: stop.entityQid,

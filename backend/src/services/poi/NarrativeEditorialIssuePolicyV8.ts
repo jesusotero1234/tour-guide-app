@@ -1,9 +1,14 @@
 import {
   NarrativeAdjudicationV6,
+  NarrativeAuditConflictTypeV8,
   NarrativeAuditObjectionV6,
+  NarrativeAuditReportV6,
   NarrativeProtocolWarningV6,
   NarrativeScriptV6,
+  buildNarrativeAuditObjectionsV6,
+  narrativeSentenceFingerprintV6,
 } from './NarrativeEditorialV6';
+import { NarrativeDossierV6 } from './NarrativeDossierV6';
 
 export const NARRATIVE_EDITORIAL_ISSUE_SCHEMA_VERSION_V8 = 'narrative-editorial-issue-v8' as const;
 export const NARRATIVE_EDITORIAL_ISSUE_SUMMARY_SCHEMA_VERSION_V8 = 'narrative-editorial-issue-summary-v8' as const;
@@ -24,6 +29,11 @@ export interface NarrativeEditorialIssueV8 {
   scriptFingerprint: string;
   reason: string;
   sourceIssueIds?: string[];
+  sentenceFingerprint?: string;
+  claimSpan?: string;
+  propositionIds?: string[];
+  passageIds?: string[];
+  conflictType?: NarrativeAuditConflictTypeV8;
 }
 
 export interface NarrativeEditorialIssueSummaryV8 {
@@ -88,6 +98,74 @@ function acceptedObjectionsForStop(
   return objections.filter((objection) => (
     objection.sentenceId.startsWith(`${stopId}-S`) && acceptedIds.has(objection.objectionId)
   ));
+}
+
+const CONFLICT_TYPE_BY_CLASSIFICATION_V8: Record<
+  'unsupported' | 'distorted' | 'unclear',
+  NarrativeAuditConflictTypeV8
+> = {
+  unsupported: 'unsupported_claim',
+  distorted: 'contradiction',
+  unclear: 'ambiguous_verifiable_claim',
+};
+
+function normalizeClaimSpanV8(value: string): string {
+  return value.normalize('NFKC').trim().replace(/\s+/gu, ' ').toLowerCase();
+}
+
+export function buildCurrentNarrativeAuditObjectionsV8(
+  reports: NarrativeAuditReportV6[],
+  script: NarrativeScriptV6,
+  dossier: NarrativeDossierV6
+): NarrativeAuditObjectionV6[] {
+  const baseObjections = buildNarrativeAuditObjectionsV6(reports);
+  const sentenceById = new Map(script.sentences.map((sentence) => [sentence.sentenceId, sentence]));
+  const passageIds = new Set(dossier.passages.map((passage) => passage.passageId));
+  const propositionIds = new Set(dossier.propositions.map((proposition) => proposition.propositionId));
+
+  const filtered: NarrativeAuditObjectionV6[] = [];
+  const unclearGroups = new Map<string, NarrativeAuditObjectionV6[]>();
+
+  for (const objection of baseObjections) {
+    const sentence = sentenceById.get(objection.sentenceId);
+    if (!sentence) continue;
+
+    const expectedFingerprint = narrativeSentenceFingerprintV6(sentence);
+    if (objection.sentenceFingerprint !== expectedFingerprint) continue;
+
+    const claimSpan = objection.claimSpan?.trim();
+    if (!claimSpan) continue;
+    if (!sentence.text.includes(claimSpan)) continue;
+
+    const findingPassageIds = objection.passageIds ?? [];
+    if (findingPassageIds.length === 0) continue;
+    if (!findingPassageIds.every((passageId) => passageIds.has(passageId))) continue;
+
+    if (!objection.propositionIds.every((propositionId) => propositionIds.has(propositionId))) continue;
+
+    const classification = objection.classification;
+    if (classification !== 'unsupported' && classification !== 'distorted' && classification !== 'unclear') continue;
+    const expectedConflictType = CONFLICT_TYPE_BY_CLASSIFICATION_V8[classification];
+    if (objection.conflictType !== expectedConflictType) continue;
+
+    if (objection.classification === 'unclear') {
+      const key = `${objection.sentenceId}|${normalizeClaimSpanV8(claimSpan)}`;
+      const group = unclearGroups.get(key) ?? [];
+      group.push(objection);
+      unclearGroups.set(key, group);
+    } else {
+      filtered.push(objection);
+    }
+  }
+
+  for (const group of unclearGroups.values()) {
+    const distinctAuditors = new Set(group.map((objection) => objection.auditor));
+    if (distinctAuditors.size >= 2) {
+      filtered.push(...group);
+    }
+  }
+
+  return filtered;
 }
 
 export function planNarrativeRepairsV8(
@@ -211,6 +289,11 @@ export function buildFinalNarrativeIssueStateV8(
       state: 'open',
       scriptFingerprint: script.fingerprint,
       reason: objection.reason,
+      sentenceFingerprint: objection.sentenceFingerprint,
+      claimSpan: objection.claimSpan,
+      propositionIds: objection.propositionIds,
+      passageIds: objection.passageIds,
+      conflictType: objection.conflictType,
     });
   }
 

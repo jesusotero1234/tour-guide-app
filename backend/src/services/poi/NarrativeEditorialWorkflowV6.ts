@@ -32,6 +32,7 @@ import {
   createNarrativeSchedulerV6,
 } from './NarrativeSchedulerV6';
 import {
+  buildCurrentNarrativeAuditObjectionsV8,
   buildFinalNarrativeIssueStateV8,
   NarrativeEditorialFinalIssueStateV8,
   planNarrativeRepairsV8,
@@ -318,6 +319,13 @@ export async function runNarrativeEditorialWorkflowCoreV6(
     ? new Set(options.repairStopIds)
     : auditStopIds;
   const isV8Policy = options.editorialIssuePolicy === 'v8';
+  const buildFactualObjections = (
+    reports: NarrativeAuditReportV6[],
+    script: NarrativeScriptV6,
+    dossier: NarrativeDossierV6
+  ): NarrativeAuditObjectionV6[] => isV8Policy
+    ? buildCurrentNarrativeAuditObjectionsV8(reports, script, dossier)
+    : buildNarrativeAuditObjectionsV6(reports);
   const latestAcceptedFactualByStop = new Map<string, NarrativeAuditObjectionV6[]>();
   let acceptedTourObjections: NarrativeAuditObjectionV6[] = [];
   let remainingRepairs = isV8Policy
@@ -445,7 +453,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             result, stopMetrics, stopDiagnostics
           ));
           const audits = initialAudits.map((result) => result.value);
-          const objections = buildNarrativeAuditObjectionsV6(audits);
+          const objections = buildFactualObjections(audits, initialScript, dossier);
           let adjudications: NarrativeAdjudicationV6[] = [];
           if (objections.length > 0) {
             const adjudicated = await scheduler.adjudicate(() => agents.adjudicate({
@@ -533,8 +541,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         ));
         finalAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
         record.audits.push(...finalAudits.map((audit) => audit.value));
-        const finalObjections = buildNarrativeAuditObjectionsV6(
-          finalAudits.map((audit) => audit.value)
+        const finalObjections = buildFactualObjections(
+          finalAudits.map((audit) => audit.value),
+          record.finalScript,
+          dossier
         );
         record.objections.push(...finalObjections);
         if (finalObjections.length === 0) continue;
@@ -618,8 +628,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         result, metrics, privateDiagnostics
       ));
       record.audits.push(...factualAudits.map((result) => result.value));
-      const factualObjections = buildNarrativeAuditObjectionsV6(
-        factualAudits.map((result) => result.value)
+      const factualObjections = buildFactualObjections(
+        factualAudits.map((result) => result.value),
+        record.finalScript,
+        dossier
       );
       record.objections.push(...factualObjections);
       if (factualObjections.length > 0) {
@@ -681,8 +693,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         auditResults.forEach((finalAudits) => {
           finalAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
         });
-        const finalObjectionsByStop = staged.map((entry, index) => buildNarrativeAuditObjectionsV6(
-          auditResults[index].map((audit) => audit.value)
+        const finalObjectionsByStop = staged.map((entry, index) => buildFactualObjections(
+          auditResults[index].map((audit) => audit.value),
+          entry.finalScript,
+          entry.dossier
         ));
         const adjudicationResults = await Promise.all(staged.map((entry, index) => {
           const finalObjections = finalObjectionsByStop[index];
@@ -796,8 +810,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
           ));
           factualAudits.forEach((audit) => appendDiagnostics(audit, metrics, privateDiagnostics));
           entry.record.audits.push(...factualAudits.map((audit) => audit.value));
-          const factualObjections = buildNarrativeAuditObjectionsV6(
-            factualAudits.map((audit) => audit.value)
+          const factualObjections = buildFactualObjections(
+            factualAudits.map((audit) => audit.value),
+            entry.record.finalScript,
+            entry.dossier
           );
           entry.record.objections.push(...factualObjections);
           if (factualObjections.length === 0) {

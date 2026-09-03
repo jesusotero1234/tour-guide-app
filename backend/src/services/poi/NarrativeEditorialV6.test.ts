@@ -167,6 +167,63 @@ describe('narrative v6 editorial protocol', () => {
     ]);
   });
 
+  it('v8 policy: coordinated authorized names produce zero unauthorized_name and a single RED when one is swapped', () => {
+    const authorizedNames = [
+      'Jardines del Descubrimiento',
+      'Descubrimiento de América',
+      'Torres de Colón',
+      'Museo de Artes y Oficios',
+    ];
+    const authorizedPropositionTexts = [
+      'El lugar cuenta con los Jardines del Descubrimiento.',
+      'El monumento recuerda el Descubrimiento de América.',
+      'Las Torres de Colón forman parte del conjunto.',
+      'El Museo de Artes y Oficios conserva piezas históricas.',
+    ];
+
+    const script = assignNarrativeSentenceIdsV6(
+      'lisboa',
+      'El lugar reúne los Jardines del Descubrimiento, el monumento al Descubrimiento de América y las Torres de Colón. ' +
+        'El Museo de Artes y Oficios conserva piezas históricas.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts,
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(warnings).toEqual([]);
+
+    const swappedScript = assignNarrativeSentenceIdsV6(
+      'lisboa',
+      'El lugar reúne los Jardines del Descubrimiento, el monumento al Descubrimiento de América y las Torres de Marte. ' +
+        'El Museo de Artes y Oficios conserva piezas históricas.'
+    );
+    const swappedWarnings = auditNarrativeScriptDeterministicallyV6(swappedScript, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts,
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(swappedWarnings).toHaveLength(1);
+    expect(swappedWarnings[0].message).toContain('Torres de Marte');
+
+    const museumOnly = assignNarrativeSentenceIdsV6(
+      'lisboa',
+      'El Museo de Artes y Oficios conserva piezas históricas.'
+    );
+    const museumWarnings = auditNarrativeScriptDeterministicallyV6(museumOnly, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+      authorizedPropositionTexts,
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(museumWarnings).toEqual([]);
+  });
+
   it('does not treat ordinary capitalized sentence starts as names', () => {
     const starts = [
       'Estás', 'Aunque', 'Mientras', 'Comenzó', 'Así', 'Fíjate', 'Mírale',
@@ -195,10 +252,13 @@ describe('narrative v6 editorial protocol', () => {
       policy: 'v8',
       authorizedPropositionTexts: ['Pío IX fue el papa que visitó el Alcázar.'],
     }).filter((w) => w.code === 'unauthorized_name');
-    expect(warnings).toHaveLength(1);
-    expect(warnings[0].message).toContain('Napoleón');
-    expect(warnings[0].sentenceId).toBe('alcazar-S002');
-    expect(warnings[0].scriptFingerprint).toBe(script.fingerprint);
+    expect(warnings).toHaveLength(2);
+    expect(warnings.map((warning) => warning.message)).toEqual(expect.arrayContaining([
+      expect.stringContaining('Napoleón'),
+      expect.stringContaining('Carlos III'),
+    ]));
+    expect(warnings.every((warning) => warning.sentenceId === 'alcazar-S002')).toBe(true);
+    expect(warnings.every((warning) => warning.scriptFingerprint === script.fingerprint)).toBe(true);
 
     const synthetic = assignNarrativeSentenceIdsV6(
       'alcazar',
@@ -247,6 +307,23 @@ describe('narrative v6 editorial protocol', () => {
     expect(unauthorizedWarnings[0].message).toContain('Hermanas de la Cruz');
     expect(unauthorizedWarnings[1].severity).toBe('hard');
     expect(unauthorizedWarnings[1].message).toContain('María José-García');
+  });
+
+  it('v8 policy: coordinated name second segment is unauthorized_name, not ambiguous_capitalized_start', () => {
+    const script = assignNarrativeSentenceIdsV6(
+      'plaza',
+      'Napoleón y Carlos llegaron a la plaza.'
+    );
+    const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+      language: 'es',
+      authorizedNames: [],
+      authorizedNumbers: [],
+      policy: 'v8',
+    });
+    const carlosWarning = warnings.find((w) => w.message.includes('Carlos'));
+    expect(carlosWarning).toBeDefined();
+    expect(carlosWarning!.code).toBe('unauthorized_name');
+    expect(carlosWarning!.code).not.toBe('ambiguous_capitalized_start');
   });
 
   it('v8 policy: emits ambiguous_capitalized_start for unknown single capitalized word at sentence start', () => {

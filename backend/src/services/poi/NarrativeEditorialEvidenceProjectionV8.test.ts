@@ -9,6 +9,7 @@ import {
   NarrativeEvidenceFixtureResultV8,
 } from './NarrativeEvidenceFixturesV8.test-support';
 import { buildNarrativeDossierV6 } from './NarrativeDossierV6';
+import { assignNarrativeSentenceIdsV6, narrativeSentenceFingerprintV6 } from './NarrativeEditorialV6';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
 import type { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 
@@ -530,6 +531,40 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(tourInput).not.toHaveProperty('evidenceByStop');
     expect(tourInput).not.toHaveProperty('authorizedEvidenceByStop');
     expect(tourInput).not.toHaveProperty('reviewEvidenceByStop');
+  });
+
+  test('projects audit operation with sentenceFingerprint per sentence without mutating the original script', () => {
+    const stopFixture = fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES);
+    expect(stopFixture.tier).toBe('C');
+    const admitted = admit(stopFixture);
+    const manifest = manifestFor([admitted]);
+    const projector = createNarrativeEditorialRequestProjectorV8([admitted], manifest, arcFor([admitted]));
+
+    const originalScript = assignNarrativeSentenceIdsV6(stopFixture.routeStopId, 'Primera frase del guion. Segunda frase del guion.');
+    const originalScriptJson = JSON.stringify(originalScript);
+
+    const audit = projector({
+      operation: 'audit',
+      systemPrompt: 'audit-prefix',
+      input: {
+        script: originalScript,
+        dossier: stopFixture.dossier,
+      },
+    });
+
+    const auditInput = audit.input as Record<string, unknown>;
+    const projectedScript = auditInput.script as Record<string, unknown>;
+    const projectedSentences = projectedScript.sentences as Record<string, unknown>[];
+    expect(projectedSentences.length).toBe(2);
+    for (let i = 0; i < projectedSentences.length; i += 1) {
+      const projectedSentence = projectedSentences[i];
+      const originalSentence = originalScript.sentences[i];
+      expect(projectedSentence.sentenceFingerprint).toBe(narrativeSentenceFingerprintV6(originalSentence));
+    }
+    expect(JSON.stringify(originalScript)).toBe(originalScriptJson);
+    for (const sentence of originalScript.sentences) {
+      expect(sentence).not.toHaveProperty('sentenceFingerprint');
+    }
   });
 
   test('rejects a corrupted manifest before any request projection', () => {
