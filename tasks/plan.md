@@ -3207,7 +3207,9 @@ Gate: al menos diez líneas no vacías, cajas válidas y confianza finita.
 
 ### QW-11B — Processing fingerprint cerrado
 
-- [ ] Pendiente.
+- [x] Completado: builder tipado con `CanonicalPdf`, geometría metadata-only
+  contrastada contra el render, proyección completa del lock y vector golden
+  exacto; 12 pruebas focalizadas y 418 pruebas completas pasan.
 - Depende de: QW-10B y QW-11A.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/processing_fingerprint.py`
