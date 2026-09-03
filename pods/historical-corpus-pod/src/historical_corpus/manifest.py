@@ -233,6 +233,9 @@ class ManifestPageOverride(_StrictModel):
     side: Literal["left", "right", "full"]
     normalizedPrintedLabel: str | None = None
     canonicalStatus: Literal["include", "exclude_nonbody"] | None = None
+    canonicalSequenceIndex: int | None = Field(
+        default=None, ge=1, le=2000, exclude_if=lambda value: value is None
+    )
     reason: str = Field(min_length=1, max_length=512)
 
     @field_validator("normalizedPrintedLabel")
@@ -249,8 +252,14 @@ class ManifestPageOverride(_StrictModel):
 
     @model_validator(mode="after")
     def _validate_override(self) -> "ManifestPageOverride":
-        if self.normalizedPrintedLabel is None and self.canonicalStatus is None:
-            raise ValueError("page override requires a label or status")
+        if (
+            self.normalizedPrintedLabel is None
+            and self.canonicalStatus is None
+            and self.canonicalSequenceIndex is None
+        ):
+            raise ValueError("page override requires a label, status, or sequence index")
+        if self.canonicalStatus == "exclude_nonbody" and self.canonicalSequenceIndex is not None:
+            raise ValueError("exclude_nonbody cannot have canonicalSequenceIndex")
         return self
 
 

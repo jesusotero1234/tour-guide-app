@@ -27,14 +27,14 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 
 ## Fase 2 — Canonización y calidad
 
-- [ ] T4 — Resolver la secuencia canónica del tomo.
+- [x] T4 — Resolver la secuencia canónica del tomo.
 - [ ] T5 — Resolver layouts y tablas excepcionales.
 - [ ] T6 — Aprobar una muestra estratificada de al menos 48 páginas.
 
 ### Checkpoint B
 
-- [ ] Cero filas `pending_review`.
-- [ ] Cero duplicados o huecos sin explicación.
+- [x] Cero filas `pending_review`.
+- [x] Cero duplicados o huecos sin explicación.
 - [ ] CER ≤ 0,08; WER ≤ 0,18; tokens críticos ≤ 0,05.
 - [ ] Boundary F1 ≥ 0,90 y orden ≥ 0,95 con al menos 60 pares.
 

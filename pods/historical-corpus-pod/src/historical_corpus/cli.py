@@ -31,6 +31,7 @@ from .ocr_backend import (
 )
 from .page_inventory import (
     PageInventoryError,
+    apply_duplicate_decisions,
     build_inventory_signals,
     finalize_inventory,
     load_verified_inventory,
@@ -260,7 +261,8 @@ def _build_inventory_command(args: argparse.Namespace) -> dict[str, object]:
     source = validate_manifest_source(manifest, Path(args.imports_root))
     rendered_leaves = iter_rendered_leaves(source.pdf_path, manifest)
     signals = build_inventory_signals(rendered_leaves, manifest)
-    records = finalize_inventory(signals, manifest)
+    decided = apply_duplicate_decisions(signals, manifest)
+    records = finalize_inventory(decided, manifest)
     payload = serialize_inventory_jsonl(records)
     target = _atomic_write_inventory(
         args.output_root,

@@ -368,27 +368,110 @@ def finalize_inventory(
     has_pending = pending_row_exists or pending_pair_exists
 
     result: list[PageInventoryRecord] = []
-    next_index = 1
-    for record in records:
-        key = _physical_key(record)
-        data = record.model_dump(mode="json")
-        status = effective_status[key]
-        if status in ("exclude_nonbody", "exclude_duplicate"):
-            data["canonicalStatus"] = status
-            data["canonicalSequenceIndex"] = None
-            data["continuityBreakBefore"] = False
-        elif has_pending:
-            data["canonicalStatus"] = "pending_review"
-            data["canonicalSequenceIndex"] = None
-            data["continuityBreakBefore"] = break_before[key]
-        else:
-            data["canonicalStatus"] = "include"
-            data["canonicalSequenceIndex"] = next_index
-            data["continuityBreakBefore"] = break_before[key]
-            next_index += 1
-        data["decisionReason"] = effective_reason[key]
-        data["anomalyFlags"] = sorted(flags_by_key[key])
-        result.append(_rebuild(data))
+    if has_pending:
+        for record in records:
+            key = _physical_key(record)
+            data = record.model_dump(mode="json")
+            status = effective_status[key]
+            if status in ("exclude_nonbody", "exclude_duplicate"):
+                data["canonicalStatus"] = status
+                data["canonicalSequenceIndex"] = None
+                data["continuityBreakBefore"] = False
+            else:
+                data["canonicalStatus"] = "pending_review"
+                data["canonicalSequenceIndex"] = None
+                data["continuityBreakBefore"] = break_before[key]
+            data["decisionReason"] = effective_reason[key]
+            data["anomalyFlags"] = sorted(flags_by_key[key])
+            result.append(_rebuild(data))
+    else:
+        include_records: list[PageInventoryRecord] = []
+        for record in records:
+            key = _physical_key(record)
+            if effective_status[key] not in ("exclude_nonbody", "exclude_duplicate"):
+                include_records.append(record)
+        m = len(include_records)
+        include_by_key = {_physical_key(record): record for record in include_records}
+        explicit_position_by_key: dict[tuple[int, int, str], int] = {}
+        explicit_key_by_position: dict[int, tuple[int, int, str]] = {}
+        for record in include_records:
+            key = _physical_key(record)
+            override = overrides.get((record.pdfPage, record.side))
+            if override is not None and override.canonicalSequenceIndex is not None:
+                position = override.canonicalSequenceIndex
+                if position in explicit_key_by_position:
+                    raise PageInventoryError(
+                        f"duplicate explicit canonicalSequenceIndex {position}"
+                    )
+                if not 1 <= position <= m:
+                    raise PageInventoryError(
+                        f"explicit canonicalSequenceIndex {position} exceeds final include count {m}"
+                    )
+                explicit_position_by_key[key] = position
+                explicit_key_by_position[position] = key
+        for record in records:
+            key = _physical_key(record)
+            override = overrides.get((record.pdfPage, record.side))
+            if override is not None and override.canonicalSequenceIndex is not None:
+                if effective_status[key] in ("exclude_nonbody", "exclude_duplicate"):
+                    raise PageInventoryError(
+                        f"canonicalSequenceIndex override on non-final-include page {key}"
+                    )
+        remaining: list[PageInventoryRecord] = []
+        for record in include_records:
+            key = _physical_key(record)
+            if key in explicit_position_by_key:
+                continue
+            remaining.append(record)
+        assigned: dict[int, PageInventoryRecord] = {
+            position: include_by_key[key]
+            for position, key in explicit_key_by_position.items()
+        }
+        next_position = 1
+        for record in remaining:
+            while next_position in assigned:
+                next_position += 1
+            assigned[next_position] = record
+            next_position += 1
+        if len(assigned) != m:
+            raise PageInventoryError(
+                "canonicalSequenceIndex assignment does not cover all includes"
+            )
+        position_by_key = {
+            _physical_key(record): position for position, record in assigned.items()
+        }
+        if explicit_position_by_key:
+            canonical_order: list[PageInventoryRecord] = []
+            for pos in range(1, m + 1):
+                canonical_order.append(assigned[pos])
+            previous_label: int | None = None
+            for record in canonical_order:
+                key = _physical_key(record)
+                break_before[key] = "candidate_range_break" in flags_by_key[key]
+                current_label = (
+                    int(record.normalizedPrintedLabel)
+                    if record.normalizedPrintedLabel is not None
+                    else None
+                )
+                if previous_label is not None and current_label is not None:
+                    if current_label > previous_label + 1:
+                        break_before[key] = True
+                previous_label = current_label
+        for record in records:
+            key = _physical_key(record)
+            data = record.model_dump(mode="json")
+            status = effective_status[key]
+            if status in ("exclude_nonbody", "exclude_duplicate"):
+                data["canonicalStatus"] = status
+                data["canonicalSequenceIndex"] = None
+                data["continuityBreakBefore"] = False
+            else:
+                data["canonicalStatus"] = "include"
+                data["canonicalSequenceIndex"] = position_by_key[key]
+                data["continuityBreakBefore"] = break_before[key]
+            data["decisionReason"] = effective_reason[key]
+            data["anomalyFlags"] = sorted(flags_by_key[key])
+            result.append(_rebuild(data))
 
     if not has_pending:
         include_keys = {
@@ -663,6 +746,8 @@ def load_verified_inventory(
         "label_ambiguous",
     }
     for record in records:
+        if record.canonicalStatus == "exclude_duplicate":
+            continue
         key = _physical_key(record)
         override = overrides.get((record.pdfPage, record.side))
         flags = set(record.anomalyFlags) & unresolved_flags
@@ -697,8 +782,8 @@ def load_verified_inventory(
                 raise PageInventoryError("non-include record must have null canonicalSequenceIndex")
         else:
             raise PageInventoryError(f"unexpected canonicalStatus: {record.canonicalStatus}")
-    if include_indices != list(range(1, len(include_indices) + 1)):
-        raise PageInventoryError("include indices must be exactly 1..M")
+    if sorted(include_indices) != list(range(1, len(include_indices) + 1)):
+        raise PageInventoryError("include indices must be a permutation of 1..M")
     for record in records:
         if record.canonicalStatus == "exclude_duplicate":
             if record.duplicateOf is None:
@@ -717,8 +802,14 @@ def load_verified_inventory(
     coverage = manifest.coverage
     if coverage.status in ("partial_source", "complete_source"):
         included_labels: list[int] = []
-        for record in records:
-            if record.canonicalStatus == "include" and record.normalizedPrintedLabel is not None:
+        include_records = [
+            record
+            for record in records
+            if record.canonicalStatus == "include"
+        ]
+        include_records.sort(key=lambda r: r.canonicalSequenceIndex)
+        for record in include_records:
+            if record.normalizedPrintedLabel is not None:
                 included_labels.append(int(record.normalizedPrintedLabel))
         observed_ranges = coverage.observedPrintedRanges
         flattened: list[int] = []
@@ -749,7 +840,10 @@ def load_verified_inventory(
         if coverage.missingPrintedPages:
             raise PageInventoryError("unknown coverage must have empty missingPrintedPages")
         for record in records:
-            if "label_missing" in record.anomalyFlags:
+            if (
+                record.canonicalStatus != "exclude_duplicate"
+                and "label_missing" in record.anomalyFlags
+            ):
                 key = (record.pdfPage, record.side)
                 override = overrides.get(key)
                 if override is None:
@@ -822,21 +916,41 @@ def apply_duplicate_decisions(
         candidates_by_key[ka].append((kb, reasons))
         candidates_by_key[kb].append((ka, reasons))
 
-    # Validate manifest decisions
+    # Validate manifest decisions and seed manual candidates
     decisions = manifest.selection.canonicalization.duplicateDecisions
     detected_set: set[frozenset[tuple[int, int, str]]] = {
         frozenset([ka, kb]) for ka, kb, _ in candidate_pairs
     }
     decision_by_pair: dict[frozenset[tuple[int, int, str]], ManifestDuplicateDecision] = {}
+    manual_pair_keys: set[frozenset[tuple[int, int, str]]] = set()
     for d in decisions:
         k1 = _ref_to_key(d.first)
         k2 = _ref_to_key(d.second)
+        if k1 not in by_key or k2 not in by_key:
+            raise PageInventoryError(
+                f"manifest duplicate decision references unknown physical rows: {k1} / {k2}"
+            )
         pair_key = frozenset([k1, k2])
         if pair_key not in detected_set:
-            raise PageInventoryError(
-                f"manifest decision is not a detected candidate pair: {k1} / {k2}"
-            )
-        decision_by_pair[pair_key] = d
+            if d.decision == "confirmed_duplicate":
+                if pair_key not in decision_by_pair:
+                    decision_by_pair[pair_key] = d
+                    manual_pair_keys.add(pair_key)
+                    for k in (k1, k2):
+                        other = k2 if k == k1 else k1
+                        if (other, ["manual_review"]) not in candidates_by_key[k]:
+                            candidates_by_key[k].append((other, ["manual_review"]))
+            else:
+                raise PageInventoryError(
+                    f"manifest decision is not a detected candidate pair: {k1} / {k2}"
+                )
+        else:
+            decision_by_pair[pair_key] = d
+
+    if len(detected_set | manual_pair_keys) > 2000:
+        raise PageInventoryError(
+            "duplicate candidates exceed 2000"
+        )
 
     # Build confirmed components from confirmed_duplicate edges only
     confirmed_edges: list[tuple[tuple[int, int, str], tuple[int, int, str], tuple[int, int, str]]] = []

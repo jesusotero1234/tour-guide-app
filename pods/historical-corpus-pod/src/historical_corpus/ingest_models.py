@@ -286,7 +286,11 @@ class InventoryPageRef(_StrictModel):
 
 
 DuplicateReason = Literal[
-    "same_label", "same_embedded_text_sha", "simhash_le_3", "dhash_le_5"
+    "dhash_le_5",
+    "manual_review",
+    "same_embedded_text_sha",
+    "same_label",
+    "simhash_le_3",
 ]
 
 
@@ -459,6 +463,9 @@ class PageOverrideSnapshot(_StrictModel):
     side: Literal["left", "right", "full"]
     normalizedPrintedLabel: str | None = None
     canonicalStatus: Literal["include", "exclude_nonbody"] | None = None
+    canonicalSequenceIndex: int | None = Field(
+        default=None, ge=1, le=2000, exclude_if=lambda value: value is None
+    )
     reason: str = Field(min_length=1, max_length=512)
 
     @field_validator("normalizedPrintedLabel")
@@ -473,8 +480,14 @@ class PageOverrideSnapshot(_StrictModel):
 
     @model_validator(mode="after")
     def _validate_override(self) -> "PageOverrideSnapshot":
-        if self.normalizedPrintedLabel is None and self.canonicalStatus is None:
-            raise ValueError("override requires a label or canonical status")
+        if (
+            self.normalizedPrintedLabel is None
+            and self.canonicalStatus is None
+            and self.canonicalSequenceIndex is None
+        ):
+            raise ValueError("override requires a label, canonical status, or sequence index")
+        if self.canonicalStatus == "exclude_nonbody" and self.canonicalSequenceIndex is not None:
+            raise ValueError("exclude_nonbody cannot have canonicalSequenceIndex")
         return self
 
 
@@ -998,6 +1011,7 @@ class PreparedDocument(_StrictModel):
             raise ValueError("inventory JSONL sha256 must equal pageInventorySha256")
 
         include_records = [record for record in self.inventoryRecords if record.canonicalStatus == "include"]
+        include_records.sort(key=lambda record: record.canonicalSequenceIndex or 0)
         if len(include_records) != len(self.pages):
             raise ValueError("include inventory records must map one-to-one to pages")
         for record, page in zip(include_records, self.pages):
@@ -1237,6 +1251,13 @@ class PreparedDocument(_StrictModel):
                 raise ValueError("canonicalization.pageOverride.normalizedPrintedLabel must equal inventory record")
             if override.canonicalStatus is not None and override.canonicalStatus != record.canonicalStatus:
                 raise ValueError("canonicalization.pageOverride.canonicalStatus must equal inventory record")
+            if (
+                override.canonicalSequenceIndex is not None
+                and override.canonicalSequenceIndex != record.canonicalSequenceIndex
+            ):
+                raise ValueError(
+                    "canonicalization.pageOverride.canonicalSequenceIndex must equal inventory record"
+                )
             if record.decisionReason != override.reason:
                 raise ValueError("canonicalization.pageOverride.reason must equal inventory record decisionReason")
 

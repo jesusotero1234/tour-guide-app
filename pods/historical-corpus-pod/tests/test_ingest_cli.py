@@ -135,6 +135,7 @@ def _patch_inventory_build(
     ]
     rendered = object()
     signals = object()
+    decided = object()
     monkeypatch.setattr(cli, "load_manifest", lambda path: manifest)
     monkeypatch.setattr(cli, "validate_manifest_source", lambda value, root: validated)
     monkeypatch.setattr(cli, "iter_rendered_leaves", lambda path, value: rendered)
@@ -144,12 +145,18 @@ def _patch_inventory_build(
         assert loaded is manifest
         return signals
 
-    def fake_finalize(value: object, loaded: object) -> object:
+    def fake_apply_decisions(value: object, loaded: object) -> object:
         assert value is signals
+        assert loaded is manifest
+        return decided
+
+    def fake_finalize(value: object, loaded: object) -> object:
+        assert value is decided
         assert loaded is manifest
         return records
 
     monkeypatch.setattr(cli, "build_inventory_signals", fake_signals)
+    monkeypatch.setattr(cli, "apply_duplicate_decisions", fake_apply_decisions)
     monkeypatch.setattr(cli, "finalize_inventory", fake_finalize)
     monkeypatch.setattr(cli, "serialize_inventory_jsonl", lambda value: inventory)
     return manifest, inventory

@@ -558,7 +558,7 @@ def test_confirmed_chain_uses_one_human_canonical() -> None:
     assert [len(record.duplicateCandidates) for record in result] == [1, 2, 1]
 
 
-def test_decision_for_undetected_pair_is_rejected() -> None:
+def test_undetected_confirmed_duplicate_is_accepted() -> None:
     records = [
         _duplicate_record(1, label="10", embedded_sha=None, simhash="0" * 16, dhash="0" * 16),
         _duplicate_record(2, label="11", embedded_sha=None, simhash="f" * 16, dhash="f" * 16),
@@ -566,6 +566,31 @@ def test_decision_for_undetected_pair_is_rejected() -> None:
     manifest = _manifest(
         duplicate_decisions=[
             _decision(1, 2, decision="confirmed_duplicate", canonical=1)
+        ]
+    )
+
+    result = apply_duplicate_decisions(records, manifest)
+
+    assert result[0].canonicalStatus == "pending_review"
+    assert result[0].duplicateOf is None
+    assert result[1].canonicalStatus == "exclude_duplicate"
+    assert result[1].duplicateOf is not None
+    assert (result[1].duplicateOf.pdfPage, result[1].duplicateOf.side) == (1, "full")
+    for record in result:
+        candidate = record.duplicateCandidates[0]
+        assert "manual_review" in candidate.reasons
+        assert candidate.decision == "confirmed_duplicate"
+        assert candidate.decisionReason == "Reviewed by a human"
+
+
+def test_undetected_false_positive_is_rejected() -> None:
+    records = [
+        _duplicate_record(1, label="10", embedded_sha=None, simhash="0" * 16, dhash="0" * 16),
+        _duplicate_record(2, label="11", embedded_sha=None, simhash="f" * 16, dhash="f" * 16),
+    ]
+    manifest = _manifest(
+        duplicate_decisions=[
+            _decision(1, 2, decision="false_positive", canonical=None)
         ]
     )
     with pytest.raises(PageInventoryError, match="not a detected candidate"):
@@ -793,6 +818,101 @@ def test_include_override_resolves_row() -> None:
     assert result[1].canonicalStatus == "include"
     assert result[1].canonicalSequenceIndex == 2
     assert "repeat" in result[1].anomalyFlags
+
+
+def test_explicit_canonical_sequence_positions_reorder_includes() -> None:
+    records = [
+        _pending_record(1, label="460", anomaly=None, status="pending_review", duplicate_of=None),
+        _pending_record(2, label="461", anomaly=None, status="pending_review", duplicate_of=None),
+        _pending_record(3, label="458", anomaly=None, status="pending_review", duplicate_of=None),
+        _pending_record(4, label="459", anomaly=None, status="pending_review", duplicate_of=None),
+    ]
+    page_overrides = [
+        {
+            "pdfPage": pdf_page,
+            "side": "full",
+            "normalizedPrintedLabel": None,
+            "canonicalStatus": "include",
+            "canonicalSequenceIndex": canonical_index,
+            "reason": "Human-confirmed printed order",
+        }
+        for pdf_page, canonical_index in ((1, 3), (2, 4), (3, 1), (4, 2))
+    ]
+    coverage = {
+        "status": "complete_source",
+        "statement": "Observed printed pages 458 through 461.",
+        "observedPrintedRanges": [{"start": "458", "end": "461"}],
+        "missingPrintedPages": [],
+        "acceptedForProduct": False,
+        "acceptedAt": None,
+    }
+
+    result = finalize_inventory(
+        records,
+        _manifest(
+            candidate_ranges=[{"start": 1, "end": 4}],
+            page_overrides=page_overrides,
+            coverage=coverage,
+        ),
+    )
+
+    assert [record.pdfPage for record in result] == [1, 2, 3, 4]
+    assert [record.canonicalSequenceIndex for record in result] == [3, 4, 1, 2]
+    assert not any(record.continuityBreakBefore for record in result)
+    canonical = sorted(result, key=lambda record: record.canonicalSequenceIndex or 0)
+    assert [record.normalizedPrintedLabel for record in canonical] == [
+        "458",
+        "459",
+        "460",
+        "461",
+    ]
+
+
+def test_duplicate_explicit_canonical_sequence_positions_are_rejected() -> None:
+    records = [
+        _pending_record(1, label="10", anomaly=None, status="pending_review", duplicate_of=None),
+        _pending_record(2, label="11", anomaly=None, status="pending_review", duplicate_of=None),
+    ]
+    manifest = _manifest(
+        candidate_ranges=[{"start": 1, "end": 2}],
+        page_overrides=[
+            {
+                "pdfPage": pdf_page,
+                "side": "full",
+                "normalizedPrintedLabel": None,
+                "canonicalStatus": "include",
+                "canonicalSequenceIndex": 1,
+                "reason": "Invalid duplicate explicit position",
+            }
+            for pdf_page in (1, 2)
+        ],
+    )
+
+    with pytest.raises(PageInventoryError, match="canonicalSequenceIndex"):
+        finalize_inventory(records, manifest)
+
+
+def test_explicit_canonical_sequence_position_must_fit_include_count() -> None:
+    records = [
+        _pending_record(1, label="10", anomaly=None, status="pending_review", duplicate_of=None),
+        _pending_record(2, label="11", anomaly=None, status="pending_review", duplicate_of=None),
+    ]
+    manifest = _manifest(
+        candidate_ranges=[{"start": 1, "end": 2}],
+        page_overrides=[
+            {
+                "pdfPage": 2,
+                "side": "full",
+                "normalizedPrintedLabel": None,
+                "canonicalStatus": "include",
+                "canonicalSequenceIndex": 3,
+                "reason": "Invalid explicit position",
+            }
+        ],
+    )
+
+    with pytest.raises(PageInventoryError, match="canonicalSequenceIndex"):
+        finalize_inventory(records, manifest)
 
 
 def test_non_includes_have_null_index_and_duplicate_of_targets_final_include() -> None:
@@ -1052,17 +1172,16 @@ def test_verified_confirmed_component_has_exactly_one_included_canonical() -> No
     )
     resolved = apply_duplicate_decisions(_duplicate_chain(), pending_manifest)
     finalized = finalize_inventory(resolved, pending_manifest)
+    finalized = [
+        _revalidated(record, anomalyFlags=["label_missing"])
+        if record.canonicalStatus == "exclude_duplicate"
+        else record
+        for record in finalized
+    ]
     payload = serialize_inventory_jsonl(finalized)
     verified = _verified_manifest(
         payload,
-        coverage={
-            "status": "complete_source",
-            "statement": "One canonical printed page.",
-            "observedPrintedRanges": [{"start": "10", "end": "10"}],
-            "missingPrintedPages": [],
-            "acceptedForProduct": False,
-            "acceptedAt": None,
-        },
+        coverage=_unknown_coverage(),
         duplicate_decisions=decisions,
         candidate_ranges=[{"start": 1, "end": 3}],
     )

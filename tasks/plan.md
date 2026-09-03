@@ -305,11 +305,11 @@ rompe el contrato legado.
 
 ### Checkpoint A — Camino híbrido
 
-- [ ] T0–T3 verdes.
-- [ ] OCR incrustado aceptado en páginas ordinarias reales.
-- [ ] Fallback demostrado en al menos una de las 11 páginas sin texto.
-- [ ] El modo legado permanece compatible.
-- [ ] Ningún artefacto privado aparece en Git.
+- [x] T0–T3 verdes.
+- [x] OCR incrustado aceptado en páginas ordinarias reales.
+- [x] Fallback demostrado en al menos una de las 11 páginas sin texto.
+- [x] El modo legado permanece compatible.
+- [x] Ningún artefacto privado aparece en Git.
 
 ### T4 — Resolver la secuencia canónica del tomo
 
@@ -331,6 +331,20 @@ rompe el contrato legado.
 
 **Aceptación:** 783 filas resueltas, cero `pending_review`, índices canónicos
 contiguos y cada exclusión justificada.
+
+**Resultado verificado (2026-09-04):**
+
+- 783 filas físicas: 710 incluidas, 44 duplicadas y 29 no canónicas;
+- cero filas o candidatos pendientes e índices canónicos 1–710;
+- 707 folios numerados observados entre 7 y 791, con 78 ausencias declaradas
+  en 39 intervalos, más tres páginas canónicas de fe de erratas;
+- el bloque físico PDF 423–426 se ordena canónicamente como 425, 426, 423,
+  424 para restaurar los folios impresos 458–461;
+- `pageOverrides.canonicalSequenceIndex` expresa excepciones de orden sin
+  alterar el orden físico determinista del JSONL;
+- `build-inventory` aplica las decisiones de duplicado antes de finalizar;
+- inventario privado congelado con SHA-256
+  `95b7db48a26cc48df84b1c46e7c85632de97ae6409a20d3f19c60507411a4bd5`.
 
 **Dependencias:** T0. **Tamaño:** M.
 
