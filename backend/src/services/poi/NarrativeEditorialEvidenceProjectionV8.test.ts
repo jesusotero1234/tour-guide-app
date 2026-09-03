@@ -159,8 +159,8 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     const narrationManifest = manifestFor([narrationAdmitted]);
     const narrationTarget = {
       stopId: narrationFixture.routeStopId,
-      targetSeconds: 360,
-      targetWords: 840,
+      targetSeconds: 300,
+      targetWords: 600,
       minPropositions: 10,
       maxPropositions: 14,
       minVisualAnchors: 3,
@@ -185,8 +185,10 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
 
     const input = projected.input as Record<string, unknown>;
     expect(input.narrationTarget).toEqual(narrationTarget);
-    expect(projected.systemPrompt).toContain('840 palabras');
-    expect(projected.systemPrompt).toContain('360 segundos');
+    expect(projected.systemPrompt).toContain('600 palabras');
+    expect(projected.systemPrompt).toContain('300 segundos');
+    expect(projected.systemPrompt).toContain('mínimo de 580');
+    expect(projected.systemPrompt).toContain('máximo de 660');
     expect(projected.systemPrompt).toContain('orientación visible');
     expect(projected.systemPrompt).toContain('cambio temporal');
     expect(projected.systemPrompt).toContain('vida humana');

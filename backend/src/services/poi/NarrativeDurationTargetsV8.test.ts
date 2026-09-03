@@ -26,7 +26,8 @@ describe('allocateNarrationTargetsV8', () => {
     for (const target of targets) {
       expect(target.targetSeconds).toBeGreaterThanOrEqual(120);
       expect(target.targetSeconds).toBeLessThanOrEqual(300);
-      expect(target.targetWords).toBe(Math.round((target.targetSeconds / 60) * 140));
+      expect(target.targetWords).toBe(Math.round((target.targetSeconds / 60) * 120));
+      expect(target.targetWords).toBeLessThanOrEqual(600);
       expect(target.minPropositions).toBeGreaterThanOrEqual(6);
       expect(target.minPropositions).toBeLessThanOrEqual(12);
       expect(target.maxPropositions).toBe(Math.min(16, target.minPropositions + 4));
@@ -40,6 +41,7 @@ describe('allocateNarrationTargetsV8', () => {
       values.reduce((sum, target) => sum + target.targetSeconds, 0) / values.length
     );
     expect(average(required)).toBeGreaterThan(average(optional));
+    expect(targets.some((target) => target.targetWords === 600)).toBe(true);
   });
 
   it('uses a deterministic walking fallback when geometry is unavailable', () => {

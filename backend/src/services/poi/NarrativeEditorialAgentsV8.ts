@@ -9,7 +9,7 @@ import {
 } from './NarrativeEvidenceBoundaryV8';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
-import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
+import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 
 export interface NarrativeEditorialAgentsV8 extends NarrativeEditorialAgentsV6 {
   readonly evidenceManifestFingerprint: string;
@@ -21,8 +21,7 @@ export function validateNarrativeWriterLengthV8(
 ): { valid: boolean; wordCount: number; minimumWords: number; maximumWords: number } {
   const trimmed = text.trim();
   const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
-  const minimumWords = Math.ceil(target.targetWords * 0.9);
-  const maximumWords = Math.floor(target.targetWords * 1.1);
+  const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
   return {
     valid: wordCount >= minimumWords && wordCount <= maximumWords,
     wordCount,

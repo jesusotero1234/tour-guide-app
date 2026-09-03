@@ -25,6 +25,14 @@ const REQUIRED_WEIGHT = 1.2;
 const OPTIONAL_WEIGHT = 1;
 const WALKING_FALLBACK_RATIO = 0.35;
 const MAX_TOTAL_NARRATION_RATIO = 0.3;
+const SPEAKING_RATE_WORDS_PER_MINUTE = 120;
+
+export function narrationLengthBoundsV8(targetWords: number): { minimumWords: number; maximumWords: number } {
+  return {
+    minimumWords: Math.max(0, targetWords - 20),
+    maximumWords: Math.floor(targetWords * 1.1),
+  };
+}
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -75,7 +83,7 @@ export function allocateNarrationTargetsV8(input: AllocateNarrationTargetsV8Inpu
 
     targetSeconds = clamp(targetSeconds, 0, MAX_NARRATION_SECONDS_PER_STOP);
 
-    const targetWords = Math.round((targetSeconds / 60) * 140);
+    const targetWords = Math.round((targetSeconds / 60) * SPEAKING_RATE_WORDS_PER_MINUTE);
     const minPropositions = clamp(Math.round(targetSeconds / 35), 6, 12);
     const maxPropositions = Math.min(16, minPropositions + 4);
     const minVisualAnchors = clamp(Math.round(targetSeconds / 120), 2, 4);

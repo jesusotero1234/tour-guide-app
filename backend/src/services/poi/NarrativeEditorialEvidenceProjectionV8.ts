@@ -8,7 +8,7 @@ import {
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
-import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
+import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 
 type JsonRecord = Record<string, unknown>;
 
@@ -267,8 +267,9 @@ function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefin
   ];
 
   if (narrationTarget) {
+    const { minimumWords, maximumWords } = narrationLengthBoundsV8(narrationTarget.targetWords);
     base.push(
-      `Redacta aproximadamente ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos, con una tolerancia máxima del 10%; este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
+      `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
     );
   }
 
