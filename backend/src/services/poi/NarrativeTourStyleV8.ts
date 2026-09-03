@@ -42,6 +42,16 @@ export interface AnalyzeNarrativeTourStyleOptionsV8 {
   contributionsByStopId?: Readonly<Record<string, string>>;
 }
 
+export interface NarrativeMechanicalStyleAuditIssueV8 {
+  issueId: string;
+  stopId: string;
+  sentenceId: string;
+  severity: 'soft';
+  reason: string;
+  classification: NarrativeTourStyleClassificationV8;
+  phrase: string;
+}
+
 interface SentenceOccurrenceV8 {
   stopId: string;
   sentenceId: string;
@@ -262,6 +272,46 @@ function contributionReportV8(
     distinct: duplicates.length === 0,
     duplicates,
   };
+}
+
+export function buildNarrativeMechanicalStyleAuditIssuesV8(
+  scripts: NarrativeScriptV6[],
+  report: NarrativeTourStyleReportV8
+): NarrativeMechanicalStyleAuditIssueV8[] {
+  const sentenceById = new Map<string, { stopId: string; sentenceId: string }>();
+  for (const script of scripts) {
+    for (const sentence of script.sentences) {
+      sentenceById.set(sentence.sentenceId, { stopId: script.stopId, sentenceId: sentence.sentenceId });
+    }
+  }
+
+  const issues: NarrativeMechanicalStyleAuditIssueV8[] = [];
+  for (const issue of report.issues) {
+    if (issue.classification !== 'mechanical_repetition') continue;
+
+    const uniqueSentenceIds = uniqueInOrderV8(issue.sentenceIds);
+    const targetSentenceIds = issue.occurrences > uniqueSentenceIds.length
+      ? uniqueSentenceIds
+      : uniqueSentenceIds.slice(1);
+
+    for (const sentenceId of targetSentenceIds) {
+      const resolved = sentenceById.get(sentenceId);
+      if (!resolved) continue;
+      const normalizedPhrase = normalizeStyleTextV8(issue.phrase).replace(/\s+/gu, '-');
+      const issueId = `mechanical-style:${issue.category}:${normalizedPhrase}:${sentenceId}`;
+      issues.push({
+        issueId,
+        stopId: resolved.stopId,
+        sentenceId: resolved.sentenceId,
+        severity: 'soft',
+        reason: `La frase repite mecánicamente "${issue.phrase}"; reformula esta aparición sin alterar los hechos.`,
+        classification: issue.classification,
+        phrase: issue.phrase,
+      });
+    }
+  }
+
+  return issues;
 }
 
 export function analyzeNarrativeTourStyleV8(

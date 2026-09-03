@@ -37,6 +37,10 @@ import {
   NarrativeEditorialFinalIssueStateV8,
   planNarrativeRepairsV8,
 } from './NarrativeEditorialIssuePolicyV8';
+import {
+  analyzeNarrativeTourStyleV8,
+  buildNarrativeMechanicalStyleAuditIssuesV8,
+} from './NarrativeTourStyleV8';
 
 export interface NarrativeArcV6 {
   promise: string;
@@ -152,6 +156,53 @@ function throwIfCancelled(signal?: AbortSignal): void {
       ? signal.reason
       : new Error('narrative editorial workflow cancelled');
   }
+}
+
+function mergeMechanicalStyleIssuesIntoTourAuditV8(
+  tourAudit: NarrativeTourAuditV6,
+  scripts: NarrativeScriptV6[]
+): NarrativeTourAuditV6 {
+  const styleReport = analyzeNarrativeTourStyleV8(scripts);
+  const mechanicalIssues = buildNarrativeMechanicalStyleAuditIssuesV8(scripts, styleReport);
+  const existingIssueIds = new Set(tourAudit.issues.map((issue) => issue.issueId));
+  const newIssues = mechanicalIssues.filter((issue) => !existingIssueIds.has(issue.issueId));
+  return {
+    ...tourAudit,
+    issues: [...tourAudit.issues, ...newIssues],
+  };
+}
+
+function acceptMechanicalStyleObjectionsByPolicyV8(
+  objections: NarrativeAuditObjectionV6[],
+  adjudications: NarrativeAdjudicationV6[]
+): NarrativeAdjudicationV6[] {
+  const mechanicalObjectionIds = new Set(
+    objections
+      .filter((objection) => objection.objectionId.startsWith('tour:mechanical-style:'))
+      .map((objection) => objection.objectionId)
+  );
+  const updatedAdjudications = adjudications.map((adjudication) => {
+    if (mechanicalObjectionIds.has(adjudication.objectionId)) {
+      return {
+        ...adjudication,
+        decision: 'accepted' as const,
+        reason: 'La política mecánica de estilo acepta esta objeción determinista.',
+      };
+    }
+    return adjudication;
+  });
+  const adjudicatedIds = new Set(updatedAdjudications.map((item) => item.objectionId));
+  const missingMechanicalObjections = objections.filter(
+    (objection) =>
+      mechanicalObjectionIds.has(objection.objectionId) &&
+      !adjudicatedIds.has(objection.objectionId)
+  );
+  const appendedAdjudications = missingMechanicalObjections.map((objection) => ({
+    objectionId: objection.objectionId,
+    decision: 'accepted' as const,
+    reason: 'La política mecánica de estilo acepta esta objeción determinista.',
+  }));
+  return [...updatedAdjudications, ...appendedAdjudications];
 }
 
 export async function runPairedNarrativeAuditsV6(
@@ -564,6 +615,9 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       promise: input.arc.promise, scripts,
     }, agentExecution));
     appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
+    if (isV8Policy) {
+      tourAuditResult = { ...tourAuditResult, value: mergeMechanicalStyleIssuesIntoTourAuditV8(tourAuditResult.value, scripts) };
+    }
     const rejectedTourIssueIds = new Set<string>();
     let globalRepairUsed = false;
     const tourIssues = tourAuditResult.value.issues;
@@ -593,14 +647,17 @@ export async function runNarrativeEditorialWorkflowCoreV6(
         script: record.finalScript, dossier, objections, scope: 'tour',
       }, agentExecution));
       appendDiagnostics(adjudicated, metrics, privateDiagnostics);
+      const effectiveAdjudications = isV8Policy
+        ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+        : adjudicated.value;
       record.objections.push(...objections);
-      record.adjudications.push(...adjudicated.value);
+      record.adjudications.push(...effectiveAdjudications);
       for (const issue of issues) {
-        if (adjudicated.value.some((item) => (
+        if (effectiveAdjudications.some((item) => (
           item.objectionId === `tour:${issue.issueId}` && item.decision === 'rejected'
         ))) rejectedTourIssueIds.add(issue.issueId);
       }
-      const accepted = objections.filter((objection) => adjudicated.value.some((item) => (
+      const accepted = objections.filter((objection) => effectiveAdjudications.some((item) => (
         item.objectionId === objection.objectionId && item.decision === 'accepted'
       )));
       if (isV8Policy) {
@@ -610,7 +667,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       if (accepted.length === 0) continue;
       if ((repairStopIds && !repairStopIds.has(stopId)) || !consumeRepair()) continue;
       const repaired = await scheduler.write(() => agents.repair({
-        script: record.finalScript, dossier, objections, adjudications: adjudicated.value,
+        script: record.finalScript, dossier, objections, adjudications: effectiveAdjudications,
         scope: 'tour',
       }, agentExecution));
       appendDiagnostics(repaired, metrics, privateDiagnostics);
@@ -734,6 +791,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       }, agentExecution));
       appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
       if (isV8Policy) {
+        tourAuditResult = { ...tourAuditResult, value: mergeMechanicalStyleIssuesIntoTourAuditV8(tourAuditResult.value, scripts) };
         acceptedTourObjections = [];
         const finalTourIssues = tourAuditResult.value.issues;
         const finalRouteStopIds = new Set(input.route.stops.map((stop) => stop.stopId));
@@ -759,9 +817,12 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             script: record.finalScript, dossier, objections, scope: 'tour',
           }, agentExecution));
           appendDiagnostics(adjudicated, metrics, privateDiagnostics);
+          const effectiveAdjudications = isV8Policy
+            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+            : adjudicated.value;
           record.objections.push(...objections);
-          record.adjudications.push(...adjudicated.value);
-          acceptedTourObjections.push(...objections.filter((objection) => adjudicated.value.some((item) => (
+          record.adjudications.push(...effectiveAdjudications);
+          acceptedTourObjections.push(...objections.filter((objection) => effectiveAdjudications.some((item) => (
             item.objectionId === objection.objectionId && item.decision === 'accepted'
           ))));
         }
@@ -781,7 +842,10 @@ export async function runNarrativeEditorialWorkflowCoreV6(
           const dossier = dossierByStop.get(stopId);
           if (!record || !dossier) throw new Error(`tour repair references unknown stop ${stopId}`);
           const objectionIds = new Set(objections.map((objection) => objection.objectionId));
-          const adjudications = record.adjudications.filter((adjudication) => (
+          const effectiveAdjudications = isV8Policy
+            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, record.adjudications)
+            : record.adjudications;
+          const adjudications = effectiveAdjudications.filter((adjudication) => (
             objectionIds.has(adjudication.objectionId) && adjudication.decision === 'accepted'
           ));
           const repaired = await scheduler.write(() => agents.repair({
@@ -842,6 +906,9 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             scripts,
           }, agentExecution));
           appendDiagnostics(tourAuditResult, metrics, privateDiagnostics);
+          if (isV8Policy) {
+            tourAuditResult = { ...tourAuditResult, value: mergeMechanicalStyleIssuesIntoTourAuditV8(tourAuditResult.value, scripts) };
+          }
           acceptedTourObjections = [];
           const lastTourIssues = tourAuditResult.value.issues;
           const lastRouteStopIds = new Set(input.route.stops.map((stop) => stop.stopId));
@@ -871,9 +938,12 @@ export async function runNarrativeEditorialWorkflowCoreV6(
               scope: 'tour',
             }, agentExecution));
             appendDiagnostics(adjudicated, metrics, privateDiagnostics);
+            const effectiveAdjudications = isV8Policy
+              ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+              : adjudicated.value;
             record.objections.push(...objections);
-            record.adjudications.push(...adjudicated.value);
-            acceptedTourObjections.push(...objections.filter((objection) => adjudicated.value.some((item) => (
+            record.adjudications.push(...effectiveAdjudications);
+            acceptedTourObjections.push(...objections.filter((objection) => effectiveAdjudications.some((item) => (
               item.objectionId === objection.objectionId && item.decision === 'accepted'
             ))));
           }

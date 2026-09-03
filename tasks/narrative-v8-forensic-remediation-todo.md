@@ -18,7 +18,7 @@ Plan: [narrative-v8-forensic-remediation-plan.md](./narrative-v8-forensic-remedi
 - [x] Tests focalizados verdes.
 - [x] Build TypeScript verde.
 
-- [ ] T5 — Reparación segura de estilo.
+- [x] T5 — Reparación segura de estilo.
 - [ ] T6 — Replay y cierre local.
 
 ## Cierre

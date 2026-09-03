@@ -1273,4 +1273,113 @@ describe('NarrativeEditorialWorkflowV8', () => {
       'Después llegó el grupo.',
     ]);
   });
+
+  test('repairs deterministic V8 mechanical style findings even when auditTour reports no issues', async () => {
+    const stop1 = admit(evidenceFixture('malaga-mech-01', 'Q9600001', COMPLETE_ROLES));
+    const stop2 = admit(evidenceFixture('malaga-mech-02', 'Q9600002', COMPLETE_ROLES));
+    const stops = [stop1, stop2];
+    const route = routeFor(stops);
+    const manifest = manifestFor(route, stops);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const script1Text = 'La memoria del lugar conserva una huella singular.';
+    const script2Text = 'La memoria del lugar conserva una huella singular.';
+    const suppliedScripts: NarrativeScriptV6[] = [
+      assignNarrativeSentenceIdsV6(stop1.routeStopId, script1Text),
+      assignNarrativeSentenceIdsV6(stop2.routeStopId, script2Text),
+    ];
+
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const propositionId = input.dossier.propositions[0]?.propositionId ?? '';
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported' as const,
+          reason: 'Respaldada.',
+          propositionIds: propositionId ? [propositionId] : [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'rejected' as const,
+        reason: 'No requiere corrección.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    agents.auditTour.mockImplementation(async () => {
+      const value = {
+        issues: [],
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    agents.repair.mockImplementation(async (_input: NarrativeRepairInputV6) => {
+      const laterScript = suppliedScripts[1];
+      const value = {
+        replacements: [{
+          sentenceId: laterScript.sentences[0].sentenceId,
+          text: stop2.dossier.propositions[0].text,
+        }],
+      };
+      return { value, diagnostic: diagnostic('repair', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-mech-style-regression-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: stops,
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Comprender la memoria del lugar.',
+          centralQuestion: '¿Cómo se construyó la memoria?',
+          stops: stops.map((stop, index) => ({
+            stopId: stop.routeStopId,
+            contribution: `Contribución ${index + 1}`,
+            bridge: index + 1 < stops.length ? 'Continuamos.' : 'Cierre del recorrido.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          })),
+        },
+      },
+      voiceProfile: ['Anfitrión local cálido', 'Precisión sin tono de ficha'],
+      privateArtifactPath: '/tmp/narrative-v8-mech-style-regression-test.private.json',
+    }, agents, { scripts: suppliedScripts, maximumRepairCalls: 1 });
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+
+    expect(agents.repair).toHaveBeenCalledTimes(1);
+    const repairInput = agents.repair.mock.calls[0][0] as {
+      script: NarrativeScriptV6;
+      objections: Array<{ objectionId: string; sentenceId: string }>;
+    };
+    expect(repairInput.script.stopId).toBe(stop2.routeStopId);
+    expect(repairInput.objections.some((objection) => objection.objectionId.startsWith('tour:mechanical-style:'))).toBe(true);
+
+    expect(result.editorial.stops[1].finalScript.text).toBe(stop2.dossier.propositions[0].text);
+    expect(result.editorial.stops[0].finalScript.text).toBe(script1Text);
+
+    expect(agents.audit).toHaveBeenCalled();
+    const auditCalls = agents.audit.mock.calls;
+    expect(auditCalls.some((call) => {
+      const input = call[0] as NarrativeAuditInputV6;
+      return input.script.stopId === stop2.routeStopId && input.script.text === stop2.dossier.propositions[0].text;
+    })).toBe(true);
+
+    expect(result.editorial.issueStateV8).toBeDefined();
+    if (!result.editorial.issueStateV8) throw new Error('expected V8 final issue state');
+    expect(result.editorial.issueStateV8.openIssueIds).toEqual([]);
+    expect(result.editorial.tourAudit?.issues).toEqual([]);
+  });
 });

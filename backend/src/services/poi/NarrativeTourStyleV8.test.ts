@@ -1,5 +1,5 @@
 import { NarrativeScriptV6 } from './NarrativeEditorialV6';
-import { analyzeNarrativeTourStyleV8 } from './NarrativeTourStyleV8';
+import { analyzeNarrativeTourStyleV8, buildNarrativeMechanicalStyleAuditIssuesV8 } from './NarrativeTourStyleV8';
 
 function script(stopId: string, sentences: string[]): NarrativeScriptV6 {
   const narrativeSentences = sentences.map((text, index) => ({
@@ -86,5 +86,38 @@ describe('NarrativeTourStyleV8', () => {
       },
     ]);
     expect(report.passed).toBe(false);
+  });
+
+  it('converts deterministic mechanical style findings into localized tour-audit issues', () => {
+    const scripts = [
+      script('stop-a', [
+        'Observa ahora la fachada y sus capas históricas.',
+        'No solo muestra poder: ayuda a entender la transformación de la memoria urbana.',
+      ]),
+      script('stop-b', [
+        'Observa ahora la fachada y sus capas de piedra.',
+        'No solo ordena la plaza: ayuda a entender la transformación de la memoria colectiva.',
+      ]),
+    ];
+    const report = analyzeNarrativeTourStyleV8(scripts);
+    const issues = buildNarrativeMechanicalStyleAuditIssuesV8(scripts, report);
+
+    const mechanicalIssue = issues.find((issue) => issue.issueId.startsWith('mechanical-style:'));
+    expect(mechanicalIssue).toBeDefined();
+    expect(mechanicalIssue?.severity).toBe('soft');
+    expect(mechanicalIssue?.classification).toBe('mechanical_repetition');
+    expect(mechanicalIssue?.stopId).toBe('stop-b');
+    expect(mechanicalIssue?.sentenceId).toBe('stop-b-sentence-1');
+    expect(mechanicalIssue?.phrase).toBe('observa ahora la fachada');
+
+    const intentionalMotifScripts = [
+      script('stop-a', ['Aquí la memoria conserva una huella obrera diferente.']),
+      script('stop-b', ['En esta plaza la memoria introduce el conflicto político.']),
+    ];
+    const intentionalReport = analyzeNarrativeTourStyleV8(intentionalMotifScripts, {
+      intentionalMotifs: ['memoria'],
+    });
+    const intentionalIssues = buildNarrativeMechanicalStyleAuditIssuesV8(intentionalMotifScripts, intentionalReport);
+    expect(intentionalIssues).toEqual([]);
   });
 });
