@@ -46,7 +46,7 @@ export function createNarrativeEditorialAgentsV8(
     { ...options, writerRateLimitAttempts: 3 },
     createNarrativeEditorialRequestProjectorV8(admittedStops, manifest, arc, narrationTargetsByStopId),
     {
-      writerRequestAttempts: 3,
+      writerRequestAttempts: 4,
       writerIncludePreviousResponseOnSemanticRetry: true,
       validateWriter: (value, input) => {
         const target = narrationTargetsByStopId?.get(input.stopId);

@@ -251,7 +251,7 @@ export function narrativePhaseExecutionV6(
   client: NarrativeModelClientOptionsV6,
   phase: NarrativeModelPhaseV6,
   stopId?: string,
-  requestAttempts: 1 | 2 | 3 = 2,
+  requestAttempts: 1 | 2 | 3 | 4 = 2,
   rateLimitAttempts?: 1 | 2 | 3
 ): NarrativePhaseExecutionV6 {
   const profile = resolveNarrativeModelProfileV6(client.profile);

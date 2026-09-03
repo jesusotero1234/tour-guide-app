@@ -541,7 +541,7 @@ export interface NarrativeEditorialValidationHooksV6 {
   validateWriter?(value: { text: string }, input: NarrativeWriterInputV6): void;
   writerResponseContract?(projectedInput: unknown, input: NarrativeWriterInputV6): NarrativeWriterResponseContractV6 | undefined;
   validateRepair?(patchedScript: NarrativeScriptV6, input: NarrativeRepairInputV6): void;
-  writerRequestAttempts?: 1 | 2 | 3;
+  writerRequestAttempts?: 1 | 2 | 3 | 4;
   writerIncludePreviousResponseOnSemanticRetry?: boolean;
 }
 

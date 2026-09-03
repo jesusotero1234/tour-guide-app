@@ -177,7 +177,7 @@ describe('narrative v6 editorial agents', () => {
     expect(written.value.text).toContain('poder civil');
   });
 
-  it('retries three configured semantic writer attempts and accepts the third', async () => {
+  it('retries four configured semantic writer attempts and accepts the fourth', async () => {
     let attempt = 0;
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
       attempt += 1;
@@ -185,7 +185,9 @@ describe('narrative v6 editorial agents', () => {
         ? 'Observa la fachada. Con esto termina nuestro recorrido.'
         : attempt === 2
           ? 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil.'
-          : 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después en la siguiente parada del recorrido histórico.';
+          : attempt === 3
+            ? 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.'
+            : 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después en la siguiente parada del recorrido histórico.';
       return { data: { choices: [{ message: { tool_calls: [{ function: {
         name: 'write_narrative_stop_v6',
         arguments: JSON.stringify({ stop_id: 'palace', script }),
@@ -208,7 +210,7 @@ describe('narrative v6 editorial agents', () => {
     const agents = createNarrativeEditorialAgentsV6Core(
       { apiKey: 'test-key', post },
       projector,
-      { validateWriter, writerRequestAttempts: 3 },
+      { validateWriter, writerRequestAttempts: 4 },
     );
 
     const written = await agents.write({
@@ -220,9 +222,9 @@ describe('narrative v6 editorial agents', () => {
       previousStop: null, nextStop: 'almudena', voiceProfile: ['Español oral'],
     });
 
-    expect(post).toHaveBeenCalledTimes(3);
+    expect(post).toHaveBeenCalledTimes(4);
     expect(written.diagnostic.attempts.map((item) => item.status))
-      .toEqual(['semantic_error', 'semantic_error', 'valid']);
+      .toEqual(['semantic_error', 'semantic_error', 'semantic_error', 'valid']);
     expect(written.value.text).toBe(
       'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después en la siguiente parada del recorrido histórico.'
     );
