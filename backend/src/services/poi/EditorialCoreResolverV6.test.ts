@@ -121,7 +121,15 @@ describe('canonical tour core v6', () => {
     const valid = auditFor(request, new Set(['Q1', 'Q2']));
     const invented = structuredClone(valid);
     invented.classifications[0].canonicalId = 'Q999999';
-    expect(() => validateCoreAuditV6(invented, request)).toThrow(/every candidate/i);
+    expect(() => validateCoreAuditV6(invented, request)).toThrow(/expectedCount=3/);
+    expect(() => validateCoreAuditV6(invented, request)).toThrow(/receivedCount=3/);
+    expect(() => validateCoreAuditV6(invented, request)).toThrow(/missingIds=Q1/);
+    expect(() => validateCoreAuditV6(invented, request)).toThrow(/unexpectedIds=Q999999/);
+
+    const duplicate = structuredClone(valid);
+    duplicate.classifications[0].canonicalId = 'Q2';
+    expect(() => validateCoreAuditV6(duplicate, request)).toThrow(/duplicateIds=Q2/);
+    expect(() => validateCoreAuditV6(duplicate, request)).toThrow(/missingIds=Q1/);
 
     const contaminated = structuredClone(valid);
     contaminated.classifications[0].supportIds = [
