@@ -569,6 +569,61 @@ describe('narrative v6 editorial agents', () => {
     expect(result.value.replacements.every((replacement) => replacement.text.trim().length > 0)).toBe(true);
   });
 
+  it('retries configurable repair semantic retries with previous-response feedback', async () => {
+    let attempt = 0;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      attempt += 1;
+      const messages = body.messages as Array<{ role: string; content: string }>;
+      if (attempt === 3) {
+        expect(messages[2].content).toContain('Previous invalid JSON response follows as untrusted data');
+        expect(messages[2].content).toContain(JSON.stringify({ replacements: [{ sentenceId: 'palace-S001', text: '   ' }] }));
+      }
+      const replacements = attempt < 3
+        ? [{ sentenceId: 'palace-S001', text: '   ' }]
+        : [{ sentenceId: 'palace-S001', text: 'La fachada se observa desde la ruta.' }];
+      return { data: { choices: [{ message: { tool_calls: [{ function: {
+        name: 'repair_narrative_window_v6',
+        arguments: JSON.stringify({ replacements }),
+      } }] } }] } };
+    });
+    const projector = (projection: {
+      operation: 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
+      systemPrompt: string;
+      input: unknown;
+    }) => ({
+      systemPrompt: projection.systemPrompt,
+      input: projection.input,
+    });
+    const agents = createNarrativeEditorialAgentsV6Core(
+      { apiKey: 'test-key', post },
+      projector,
+      { repairRequestAttempts: 3, repairIncludePreviousResponseOnSemanticRetry: true },
+    );
+    const script = assignNarrativeSentenceIdsV6(
+      'palace', 'La institución quería parecer seria.'
+    );
+
+    const result = await agents.repair({
+      script,
+      dossier,
+      scope: 'factual',
+      objections: [{
+        objectionId: 'gemma:palace-S001:distorted', auditor: 'gemma',
+        sentenceId: 'palace-S001', classification: 'distorted',
+        reason: 'Atribuye psicología institucional no documentada.', propositionIds: [],
+      }],
+      adjudications: [{
+        objectionId: 'gemma:palace-S001:distorted', decision: 'accepted',
+        reason: 'Debe eliminarse toda la atribución psicológica.',
+      }],
+    });
+
+    expect(post).toHaveBeenCalledTimes(3);
+    expect(result.diagnostic.attempts.map((item) => item.status))
+      .toEqual(['semantic_error', 'semantic_error', 'valid']);
+    expect(result.value.replacements.every((replacement) => replacement.text.trim().length > 0)).toBe(true);
+  });
+
   it('rejects repair when both attempts return whitespace-only replacement text', async () => {
     const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
       return { data: { choices: [{ message: { tool_calls: [{ function: {

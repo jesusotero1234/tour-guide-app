@@ -48,6 +48,8 @@ export function createNarrativeEditorialAgentsV8(
     {
       writerRequestAttempts: 4,
       writerIncludePreviousResponseOnSemanticRetry: true,
+      repairRequestAttempts: 3,
+      repairIncludePreviousResponseOnSemanticRetry: true,
       validateWriter: (value, input) => {
         const target = narrationTargetsByStopId?.get(input.stopId);
         if (!target) return;

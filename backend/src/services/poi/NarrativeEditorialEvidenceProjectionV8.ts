@@ -326,6 +326,8 @@ const V8_PROMPT_SUFFIX_REPAIR = [
   'Nunca uses una cadena vacía para borrar o fusionar sentenceIds.',
   'Si dos sentenceIds provienen de una frase dividida, conserva ambos IDs y redistribuye el contenido en dos frases completas que eliminen el fragmento.',
   'Nunca copies el mismo texto completo en dos sentenceIds.',
+  'Cada replacement.text debe diferir de la frase inmediatamente anterior y de la frase inmediatamente posterior del guion; no copies ni reproduzcas el texto de una frase vecina.',
+  'Al eliminar redundancia, conserva cada sentenceId con contenido complementario y nunca copies una frase vecina.',
 ].join(' ');
 
 const V8_PROMPT_SUFFIX_AUDITOR = [

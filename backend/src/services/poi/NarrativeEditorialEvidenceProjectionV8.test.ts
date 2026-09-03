@@ -282,6 +282,12 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(repair.systemPrompt).toContain(
       'Nunca copies el mismo texto completo en dos sentenceIds.'
     );
+    expect(repair.systemPrompt).toContain(
+      'debe diferir de la frase inmediatamente anterior y de la frase inmediatamente posterior'
+    );
+    expect(repair.systemPrompt).toContain(
+      'conserva cada sentenceId con contenido complementario'
+    );
 
     const write = projector({
       operation: 'write',

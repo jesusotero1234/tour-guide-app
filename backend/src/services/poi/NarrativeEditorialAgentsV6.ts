@@ -543,6 +543,8 @@ export interface NarrativeEditorialValidationHooksV6 {
   validateRepair?(patchedScript: NarrativeScriptV6, input: NarrativeRepairInputV6): void;
   writerRequestAttempts?: 1 | 2 | 3 | 4;
   writerIncludePreviousResponseOnSemanticRetry?: boolean;
+  repairRequestAttempts?: 1 | 2 | 3 | 4;
+  repairIncludePreviousResponseOnSemanticRetry?: boolean;
 }
 
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
@@ -862,7 +864,7 @@ export function createNarrativeEditorialAgentsV6Core(
 
     async repair(input, request) {
       const execution = narrativePhaseExecutionV6(
-        withExecution(request), 'repair', input.script.stopId, 2
+        withExecution(request), 'repair', input.script.stopId, validationHooks.repairRequestAttempts ?? 2
       );
       const accepted = input.adjudications.filter((item) => item.decision === 'accepted');
       const acceptedObjectionIds = new Set(accepted.map((item) => item.objectionId));
@@ -882,7 +884,10 @@ export function createNarrativeEditorialAgentsV6Core(
         callId: `narrative-v6-repair-${input.script.stopId}`,
         input: repairProjection.input,
         provider: execution.provider,
-        options: execution.options,
+        options: {
+          ...execution.options,
+          includePreviousResponseOnSemanticRetry: validationHooks.repairIncludePreviousResponseOnSemanticRetry,
+        },
         systemPrompt: repairProjection.systemPrompt,
         schema: {
           type: 'object', additionalProperties: false, required: ['replacements'],
