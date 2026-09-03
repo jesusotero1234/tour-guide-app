@@ -5,7 +5,7 @@ import pytest
 
 from historical_corpus.backends import DeterministicEmbeddingProvider, DeterministicReranker, InMemoryVectorIndex
 from historical_corpus.models import ChunkInput, IngestRequest, RightsMetadata, SearchRequest
-from historical_corpus.service import HistoricalCorpusService
+from historical_corpus.service import HistoricalCorpusService, IndexRepairRequiredError
 
 
 class FailOnceVectorIndex(InMemoryVectorIndex):
@@ -13,11 +13,11 @@ class FailOnceVectorIndex(InMemoryVectorIndex):
         super().__init__(dimension=dimension)
         self._failed = False
 
-    def upsert(self, ids, vectors) -> None:
+    def replace_all(self, ids, vectors) -> None:
         if not self._failed and len(ids) > 0:
             self._failed = True
             raise RuntimeError("simulated vector index failure")
-        super().upsert(ids, vectors)
+        super().replace_all(ids, vectors)
 
 
 def _make_service(tmp_path: Path) -> HistoricalCorpusService:
@@ -359,7 +359,7 @@ def test_index_version_metadata(tmp_path: Path) -> None:
     assert not hasattr(metadata, "queryHash")
 
 
-def test_idempotent_replay_repairs_vector_index_failure(tmp_path: Path) -> None:
+def test_failed_replacement_blocks_implicit_replay(tmp_path: Path) -> None:
     db_path = tmp_path / "corpus.db"
     vector_index = FailOnceVectorIndex()
     embedding_provider = DeterministicEmbeddingProvider()
@@ -407,38 +407,14 @@ def test_idempotent_replay_repairs_vector_index_failure(tmp_path: Path) -> None:
             chunks=[chunk],
         )
 
-        with pytest.raises(RuntimeError):
+        with pytest.raises(IndexRepairRequiredError) as exc_info:
             service.ingest(request)
+        assert exc_info.value.code == "INDEX_REPAIR_REQUIRED"
         assert vector_index.count() == 0
 
-        result = service.ingest(request)
-        assert result.documentId == "doc-malaga-theatre"
-        assert len(result.chunkIds) == 1
-        assert vector_index.count() == 1
-        repaired_state = service.index_version()
-        assert repaired_state.documentCount == 1
-        assert repaired_state.chunkCount == 1
-
-        search_request = SearchRequest(
-            query="reutilización del teatro romano en siglos posteriores",
-            cityQid="Q8851",
-            stopQid=None,
-            languages=["es"],
-            sourceClasses=["archive"],
-            rightsStatuses=["public_domain"],
-            documentIds=None,
-            publicationYearFrom=None,
-            publicationYearTo=None,
-            historicalPeriods=None,
-            minOcrConfidence=None,
-            limit=10,
-        )
-        response = service.search(search_request)
-        assert len(response.hits) == 1
-        hit = response.hits[0]
-        assert hit.documentId == "doc-malaga-theatre"
-        assert hit.chunkId is not None
-        assert hit.denseScore is not None
-        assert hit.denseScore > 0
+        with pytest.raises(IndexRepairRequiredError) as exc_info:
+            service.ingest(request)
+        assert exc_info.value.code == "INDEX_REPAIR_REQUIRED"
+        assert vector_index.count() == 0
     finally:
         service.close()

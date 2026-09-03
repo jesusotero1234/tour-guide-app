@@ -2760,7 +2760,12 @@ Validación:
 
 ### QW-06B — Contrato rojo de reconciliación del índice
 
-- [ ] Pendiente.
+- [x] Completado: contrato rojo determinista para corpus vacío, startup
+  persistente sano, journal pendiente, drift de IDs/bytes, autoridad inválida,
+  fallas antes/después del swap, retry de generación, replay HTTP y cambios de
+  configuración/request hash. Los dos módulos de prueba compilan y la
+  colección falla únicamente por la API de reconciliación aún ausente que
+  implementa QW-06C.
 - Depende de: QW-05B y QW-06A.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_index_reconciliation.py`
