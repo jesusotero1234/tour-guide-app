@@ -16,14 +16,14 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 
 - [x] T1 — Añadir contrato y fingerprint `embedded_first`.
 - [x] T2 — Reconstruir líneas incrustadas con cajas y orden.
-- [ ] T3 — Aplicar gate, contraste y fallback por página.
+- [x] T3 — Aplicar gate, contraste y fallback por página.
 
 ### Checkpoint A
 
-- [ ] Páginas ordinarias reutilizan OCR incrustado.
-- [ ] Páginas ausentes/dudosas activan PP-OCR.
-- [ ] Manifiestos `ocr` conservan su comportamiento.
-- [ ] Pruebas enfocadas verdes.
+- [x] Páginas ordinarias reutilizan OCR incrustado.
+- [x] Páginas ausentes/dudosas activan PP-OCR.
+- [x] Manifiestos `ocr` conservan su comportamiento.
+- [x] Pruebas enfocadas verdes.
 
 ## Fase 2 — Canonización y calidad
 

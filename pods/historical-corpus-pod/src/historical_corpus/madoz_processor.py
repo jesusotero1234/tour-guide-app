@@ -7,14 +7,24 @@ from pathlib import Path
 from typing import Protocol
 
 import numpy as np
+import pymupdf
 
-from .ingest_models import PageInventoryRecord, PreparedChunkInput, SourcePageInput
+from .embedded_text_policy import (
+    Reason,
+    assess_embedded_text,
+)
+from .ingest_models import PageInventoryRecord, PreparedChunkInput, QualityFlag, SourcePageInput
 from .madoz_chunking import build_prepared_chunks
-from .madoz_layout import build_source_page
+from .madoz_layout import build_embedded_source_page, build_source_page
 from .manifest import MadozManifest, validate_manifest_source
 from .models import DocumentMetadata
 from .ocr_backend import PpOcrV6Backend
-from .pdf_source import RenderedLeaf, copy_canonical_pdf, iter_rendered_leaves
+from .pdf_source import (
+    RenderedLeaf,
+    copy_canonical_pdf,
+    embedded_text_lines,
+    iter_rendered_leaves,
+)
 from .processing_fingerprint import CanonicalPdf
 
 
@@ -30,6 +40,16 @@ class _OcrBackend(Protocol):
 
 _RenderPage = Callable[[PageInventoryRecord], RenderedLeaf]
 _SIDE_ORDER = {"full": 0, "left": 0, "right": 1}
+
+_REASON_TO_QUALITY_FLAG: dict[Reason, QualityFlag] = {
+    "missing_text": "embedded_fallback_missing_text",
+    "invalid_box": "embedded_fallback_invalid_box",
+    "special_layout": "embedded_fallback_special_layout",
+    "too_many_lines": "embedded_fallback_too_many_lines",
+    "too_short": "embedded_fallback_too_short",
+    "low_alphabetic_ratio": "embedded_fallback_low_alphabetic_ratio",
+    "repeated_tokens": "embedded_fallback_repeated_tokens",
+}
 
 
 def prepare_source(
@@ -63,23 +83,42 @@ class MadozProcessor:
         self,
         manifest: MadozManifest,
         canonical_pdf: CanonicalPdf,
-        backend: _OcrBackend,
+        backend: _OcrBackend | None = None,
         *,
+        backend_factory: Callable[[], _OcrBackend] | None = None,
         render_page: _RenderPage | None = None,
     ) -> None:
         expected_sha256 = f"sha256:{manifest.source.expectedSha256}"
         if canonical_pdf.sha256 != expected_sha256:
             raise ProcessorError("canonical PDF hash does not match manifest")
+        if (backend is None) == (backend_factory is None):
+            raise ProcessorError("exactly one of backend or backend_factory must be provided")
+        if backend is not None:
+            self._validate_backend(backend)
+        self._manifest = manifest
+        self._canonical_pdf = canonical_pdf
+        self._backend = backend
+        self._backend_factory = backend_factory
+        self._render_page = render_page
+        self._rendered_iterator: Iterator[RenderedLeaf] | None = None
+        self._closed = False
+
+    @staticmethod
+    def _validate_backend(backend: _OcrBackend) -> None:
         if not callable(getattr(backend, "extract_lines", None)):
             raise ProcessorError("OCR backend must expose extract_lines")
         if not callable(getattr(backend, "close", None)):
             raise ProcessorError("OCR backend must expose close")
-        self._manifest = manifest
-        self._canonical_pdf = canonical_pdf
-        self._backend = backend
-        self._render_page = render_page
-        self._rendered_iterator: Iterator[RenderedLeaf] | None = None
-        self._closed = False
+
+    def _get_backend(self) -> _OcrBackend:
+        if self._backend is None:
+            if self._backend_factory is None:
+                raise ProcessorError("backend factory is required when backend is not injected")
+            created_backend = self._backend_factory()
+            self._validate_backend(created_backend)
+            self._backend = created_backend
+            self._backend_factory = None
+        return self._backend
 
     @staticmethod
     def _record_key(record: PageInventoryRecord) -> tuple[int, int]:
@@ -160,14 +199,60 @@ class MadozProcessor:
             raise ProcessorError("processor accepts only include inventory records")
 
         rendered = self._render(inventory_record)
+
+        additional_quality_flags: list[QualityFlag] = []
+        if self._manifest.processing.textMode == "embedded_first":
+            min_characters = self._manifest.processing.embeddedMinCharacters
+            min_alphabetic_ratio = self._manifest.processing.embeddedMinAlphabeticRatio
+            max_token_repetition_ratio = self._manifest.processing.embeddedMaxTokenRepetitionRatio
+            if (
+                min_characters is None
+                or min_alphabetic_ratio is None
+                or max_token_repetition_ratio is None
+            ):
+                raise ProcessorError(
+                    "embedded_first requires embeddedMinCharacters, "
+                    "embeddedMinAlphabeticRatio, and embeddedMaxTokenRepetitionRatio"
+                )
+            embedded_lines = embedded_text_lines(rendered.embedded_words)
+            candidate_rotation = rendered.candidate.rotation_degrees
+            content_class: str = (
+                "mixed_orientation"
+                if candidate_rotation != 0
+                else rendered.candidate.content_class
+            )
+            decision = assess_embedded_text(
+                embedded_lines,
+                content_class=content_class,  # type: ignore[arg-type]
+                min_characters=min_characters,
+                min_alphabetic_ratio=min_alphabetic_ratio,
+                max_token_repetition_ratio=max_token_repetition_ratio,
+            )
+            if decision.accepted:
+                return build_embedded_source_page(
+                    self._manifest,
+                    inventory_record,
+                    rendered,
+                    embedded_lines,
+                    confidence=decision.quality_score,
+                    pymupdf_version=pymupdf.__version__,
+                )
+            fallback_flag = _REASON_TO_QUALITY_FLAG.get(decision.reason)
+            if fallback_flag is None:
+                raise ProcessorError(
+                    f"no QualityFlag mapping for embedded rejection reason {decision.reason!r}"
+                )
+            additional_quality_flags = [fallback_flag]
+
         image = self._rgb_image(rendered)
-        primary_lines = self._backend.extract_lines(image)
+        backend = self._get_backend()
+        primary_lines = backend.extract_lines(image)
         rotated_table_lines: dict[int, Sequence[object]] = {}
         for index, region in enumerate(rendered.candidate.table_regions):
             if region.ocrRotationDegrees is None:
                 continue
             rotated_image = self._rotated_region_image(image, rendered, index)
-            rotated_table_lines[index] = self._backend.extract_lines(rotated_image)
+            rotated_table_lines[index] = backend.extract_lines(rotated_image)
 
         return build_source_page(
             self._manifest,
@@ -175,6 +260,7 @@ class MadozProcessor:
             rendered,
             primary_lines,  # type: ignore[arg-type]
             rotated_table_lines=rotated_table_lines,  # type: ignore[arg-type]
+            additional_quality_flags=additional_quality_flags,
         )
 
     def build_chunks(
@@ -205,11 +291,12 @@ class MadozProcessor:
                     close_iterator()
                 except BaseException as exc:
                     first_error = exc
-        try:
-            self._backend.close()
-        except BaseException as exc:
-            if first_error is None:
-                first_error = exc
+        if self._backend is not None:
+            try:
+                self._backend.close()
+            except BaseException as exc:
+                if first_error is None:
+                    first_error = exc
         if first_error is not None:
             raise ProcessorError("processor resources failed to close") from first_error
 
@@ -223,11 +310,23 @@ def open_processor(
     backend: _OcrBackend | None = None
     processor: MadozProcessor | None = None
     try:
-        backend = PpOcrV6Backend.open(
-            model_cache_root,
-            manifest.processing.modelLockFile,
-        )
-        processor = MadozProcessor(manifest, canonical_pdf, backend)
+        if manifest.processing.textMode == "ocr":
+            backend = PpOcrV6Backend.open(
+                model_cache_root,
+                manifest.processing.modelLockFile,
+            )
+            processor = MadozProcessor(manifest, canonical_pdf, backend)
+        else:
+            def backend_factory() -> _OcrBackend:
+                return PpOcrV6Backend.open(
+                    model_cache_root,
+                    manifest.processing.modelLockFile,
+                )
+            processor = MadozProcessor(
+                manifest,
+                canonical_pdf,
+                backend_factory=backend_factory,
+            )
         yield processor
     finally:
         if processor is not None:

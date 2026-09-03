@@ -21,7 +21,7 @@ from historical_corpus.pdf_source import EmbeddedWord
 from test_madoz_chunking import _line as _chunk_line
 from test_madoz_chunking import _metadata as _chunk_metadata
 from test_madoz_chunking import _page as _chunk_page
-from test_madoz_layout import _inventory, _line, _manifest, _rendered
+from test_madoz_layout import _embedded_manifest, _inventory, _line, _manifest, _rendered
 
 
 class FakeBackend:
@@ -256,6 +256,99 @@ def test_ocr_failure_produces_no_page_and_context_still_closes(
     with pytest.raises(RuntimeError, match="OCR failed"):
         with open_processor(manifest, _canonical_pdf(manifest), Path("/models")) as processor:
             processor.process_page(_inventory())
+    assert backend.close_calls == 1
+
+
+def test_embedded_first_processor_uses_embedded_text_and_skips_ocr() -> None:
+    manifest = _embedded_manifest()
+    prose = "The quick brown fox jumps over the lazy dog"
+    rendered = replace(
+        _rendered(),
+        embedded_words=(EmbeddedWord(text=prose, box=(0.1, 0.1, 0.9, 0.2)),),
+    )
+    backend = FakeBackend()
+    processor = MadozProcessor(
+        manifest,
+        _canonical_pdf(manifest),
+        backend,
+        render_page=lambda _record: rendered,
+    )
+
+    page = processor.process_page(_inventory())
+    assert page.originalText == prose
+    assert page.textSource == "embedded"
+    assert backend.images == []
+
+
+def test_embedded_first_special_layout_contrast_falls_back_to_ocr() -> None:
+    manifest = _embedded_manifest()
+    prose = "The quick brown fox jumps over the lazy dog"
+    rendered = replace(
+        _rendered(content_class="table"),
+        embedded_words=(EmbeddedWord(text=prose, box=(0.1, 0.1, 0.9, 0.2)),),
+    )
+    backend = FakeBackend([[_line("OCR TABLE", (0.1, 0.2, 0.4, 0.3))]])
+    processor = MadozProcessor(
+        manifest,
+        _canonical_pdf(manifest),
+        backend,
+        render_page=lambda _record: rendered,
+    )
+
+    page = processor.process_page(_inventory())
+    assert len(backend.images) == 1
+    assert page.textSource == "ppocrv6"
+    assert page.originalText == "OCR TABLE"
+    assert "embedded_fallback_special_layout" in page.qualityFlags
+
+
+def test_embedded_first_lazy_backend_open_and_fallback(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = _embedded_manifest()
+    open_calls: list[tuple[Path, str]] = []
+    backend = FakeBackend([[_line("OCR FALLBACK", (0.1, 0.2, 0.4, 0.3))]])
+
+    def fake_open(root: Path, lock_file: str) -> FakeBackend:
+        open_calls.append((root, lock_file))
+        return backend
+
+    monkeypatch.setattr(
+        "historical_corpus.madoz_processor.PpOcrV6Backend.open",
+        fake_open,
+    )
+
+    healthy = replace(
+        _rendered(),
+        embedded_words=(
+            EmbeddedWord(
+                text="HEALTHY EMBEDDED TEXT LAYER",
+                box=(0.1, 0.1, 0.9, 0.2),
+            ),
+        ),
+    )
+    no_text = _rendered()
+    rendered_pages = [healthy, no_text]
+
+    monkeypatch.setattr(
+        "historical_corpus.madoz_processor.iter_rendered_leaves",
+        lambda _path, _manifest: iter(rendered_pages),
+    )
+
+    model_root = Path("/model-cache/paddlex")
+    with open_processor(manifest, _canonical_pdf(manifest), model_root) as processor:
+        page_one = processor.process_page(_inventory())
+        assert page_one.originalText == "HEALTHY EMBEDDED TEXT LAYER"
+        assert page_one.textSource == "embedded"
+        assert open_calls == []
+
+        page_two = processor.process_page(_inventory())
+        assert open_calls == [(model_root, manifest.processing.modelLockFile)]
+        assert len(backend.images) == 1
+        assert page_two.textSource == "ppocrv6"
+        assert page_two.originalText == "OCR FALLBACK"
+        assert "embedded_fallback_missing_text" in page_two.qualityFlags
+
     assert backend.close_calls == 1
 
 

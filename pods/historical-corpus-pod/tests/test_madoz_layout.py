@@ -7,10 +7,28 @@ import pytest
 
 from historical_corpus.identity import compute_line_id, compute_page_id
 from historical_corpus.ingest_models import ExtractedLineCandidate, PageInventoryRecord
-from historical_corpus.madoz_layout import LayoutError, build_source_page
+from historical_corpus.madoz_layout import (
+    LayoutError,
+    build_embedded_source_page,
+    build_source_page,
+)
 from historical_corpus.manifest import MadozManifest, ManifestTableRegion
 from historical_corpus.models import NormalizedBox
-from historical_corpus.pdf_source import CandidateLeaf, RenderedLeaf
+from historical_corpus.pdf_source import CandidateLeaf, EmbeddedTextLine, RenderedLeaf
+
+
+def _embedded_manifest() -> MadozManifest:
+    values = _manifest().model_dump()
+    values["processing"].update(
+        {
+            "textMode": "embedded_first",
+            "embeddedPolicy": "madoz-embedded-v1",
+            "embeddedMinCharacters": 20,
+            "embeddedMinAlphabeticRatio": 0.4,
+            "embeddedMaxTokenRepetitionRatio": 0.5,
+        }
+    )
+    return MadozManifest.model_validate(values)
 
 
 def _manifest(*, max_chunk_chars: int = 1500) -> MadozManifest:
@@ -508,6 +526,47 @@ def test_rejects_more_than_1000_ocr_lines() -> None:
     candidates.append(_line("line 1000", (0.10, 0.10 + 1000 * 0.0001, 0.30, 0.12 + 1000 * 0.0001)))
     with pytest.raises(LayoutError, match="page contains more than 1000 OCR lines"):
         build_source_page(_manifest(), _inventory(), _rendered(), candidates)
+
+
+def test_embedded_source_page_is_deterministic_for_out_of_order_normalized_lines() -> None:
+    embedded_lines = [
+        EmbeddedTextLine(
+            text="second embedded line with enough characters",
+            box=(0.10, 0.30, 0.40, 0.34),
+            block_index=0,
+            line_index=1,
+        ),
+        EmbeddedTextLine(
+            text="first embedded line with enough characters",
+            box=(0.10, 0.20, 0.40, 0.24),
+            block_index=0,
+            line_index=0,
+        ),
+    ]
+
+    page = build_embedded_source_page(
+        _embedded_manifest(),
+        _inventory(),
+        _rendered(),
+        embedded_lines,
+        confidence=0.82,
+        pymupdf_version="1.28.2",
+    )
+
+    assert page.textSource == "embedded"
+    assert page.ocrEngine == "pymupdf"
+    assert page.ocrEngineVersion == "1.28.2"
+    assert page.ocrDetectionModel == "pdf-text-layer"
+    assert page.ocrRecognitionModel == "pdf-text-layer"
+    assert [line.originalText for line in page.lines] == [
+        "first embedded line with enough characters",
+        "second embedded line with enough characters",
+    ]
+    assert [line.box.model_dump() for line in page.lines] == [
+        {"x0": 0.10, "y0": 0.20, "x1": 0.40, "y1": 0.24},
+        {"x0": 0.10, "y0": 0.30, "x1": 0.40, "y1": 0.34},
+    ]
+    assert [line.confidence for line in page.lines] == [0.82, 0.82]
 
 
 def test_rejects_invalid_rgb_and_rotated_region_coverage() -> None:

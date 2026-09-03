@@ -121,8 +121,10 @@ embedded_first
 ```
 
 No se mezclan palabras de ambos OCR para fabricar silenciosamente una línea.
-Cada línea tendrá una fuente identificable: `embedded`, `image_ocr` o
-`image_ocr_region`. La imagen original sigue siendo la autoridad final.
+`textSource` identifica la fuente uniforme de la página y todas sus líneas;
+cuando PP-OCR repite una región, `role=table`, la caja y la región congelada
+en el fingerprint permiten identificar ese pase regional. La imagen original
+sigue siendo la autoridad final.
 
 ### 4.2 Reconstrucción de líneas incrustadas
 
@@ -276,8 +278,18 @@ procedencia espacial.
 **Archivos autorizados:**
 
 - `pods/historical-corpus-pod/src/historical_corpus/madoz_processor.py`
+- `pods/historical-corpus-pod/src/historical_corpus/madoz_layout.py`
+- `pods/historical-corpus-pod/src/historical_corpus/ingest_models.py`
+- `pods/historical-corpus-pod/src/historical_corpus/models.py`
 - un módulo pequeño de política solo si reduce complejidad;
-- pruebas del procesador y pipeline.
+- pruebas de contrato, layout, procesador y pipeline.
+
+La procedencia seguirá usando el esquema existente de página: `textSource`
+distingue `embedded` de `ppocrv6`; para `embedded`, los campos históricos
+`ocrEngine*` identifican al extractor `pymupdf` y a la capa `pdf-text-layer`.
+Los fallbacks conservan `ppocrv6` y añaden un `qualityFlag` específico con el
+motivo determinista. Así no se atribuye a PP-OCR texto que vino del PDF ni se
+rompe el contrato legado.
 
 **Aceptación:**
 

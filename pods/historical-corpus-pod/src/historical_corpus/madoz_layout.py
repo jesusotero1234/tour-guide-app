@@ -12,12 +12,13 @@ from .identity import compute_line_id, compute_page_id
 from .ingest_models import (
     ExtractedLineCandidate,
     PageInventoryRecord,
+    QualityFlag,
     SourceLineInput,
     SourcePageInput,
 )
 from .manifest import MadozManifest, ManifestTableRegion
 from .models import NormalizedBox
-from .pdf_source import RenderedLeaf
+from .pdf_source import EmbeddedTextLine, RenderedLeaf
 
 
 class LayoutError(RuntimeError):
@@ -444,7 +445,7 @@ def _quality(
     foreground_ratio: float,
     manifest: MadozManifest,
     rendered_leaf: RenderedLeaf,
-) -> tuple[float, float, float, list[str]]:
+) -> tuple[float, float, float, list[QualityFlag]]:
     total_characters = sum(len(line.original_text) for line in lines)
     blank = foreground_ratio < 0.005 and total_characters == 0
     if blank:
@@ -473,7 +474,7 @@ def _quality(
             ),
         )
 
-    flags: list[str] = []
+    flags: list[QualityFlag] = []
     if blank:
         flags.append("blank")
     if mean_confidence < 0.75 or low_confidence_ratio > 0.25:
@@ -515,28 +516,71 @@ def _validate_page_inputs(
     return inventory_record.canonicalSequenceIndex
 
 
-def build_source_page(
+def _embedded_lines(
+    rendered_leaf: RenderedLeaf,
+    embedded_lines: Sequence[EmbeddedTextLine],
+    *,
+    confidence: float,
+) -> list[_LayoutLine]:
+    lines: list[_LayoutLine] = []
+    for embedded in embedded_lines:
+        if not isinstance(embedded, EmbeddedTextLine):
+            raise LayoutError("embedded input must contain EmbeddedTextLine values")
+        if not embedded.text.strip():
+            continue
+        try:
+            x0, y0, x1, y1 = embedded.box
+        except (TypeError, ValueError) as exc:
+            raise LayoutError("embedded box is invalid") from exc
+        try:
+            box = NormalizedBox(x0=float(x0), y0=float(y0), x1=float(x1), y1=float(y1))
+        except (ValidationError, ValueError, TypeError) as exc:
+            raise LayoutError("embedded box is invalid") from exc
+        polygon = ((box.x0, box.y0), (box.x1, box.y0), (box.x1, box.y1), (box.x0, box.y1))
+        role = _classify_role(
+            box=box,
+            orientation=0,
+            content_class=rendered_leaf.candidate.content_class,
+            region_index=None,
+        )
+        lines.append(
+            _LayoutLine(
+                original_text=embedded.text,
+                confidence=float(confidence),
+                correction180=0,
+                polygon=polygon,
+                box=box,
+                orientation=0,
+                role=role,
+                region_index=None,
+                local_sort_box=box,
+            )
+        )
+    return lines
+
+
+def _build_final_page(
     manifest: MadozManifest,
     inventory_record: PageInventoryRecord,
     rendered_leaf: RenderedLeaf,
-    primary_lines: Sequence[ExtractedLineCandidate],
+    ordered: list[_LayoutLine],
     *,
-    rotated_table_lines: Mapping[int, Sequence[ExtractedLineCandidate]] | None = None,
-    ocr_engine_version: str = "3.7.0",
+    logical_page_number: int,
+    foreground_ratio: float,
+    text_source: Literal["ppocrv6", "embedded"],
+    ocr_engine: Literal["transformers", "pymupdf"],
+    ocr_engine_version: str,
+    ocr_detection_model: str,
+    ocr_recognition_model: str,
+    additional_quality_flags: Sequence[QualityFlag] = (),
 ) -> SourcePageInput:
-    logical_page_number = _validate_page_inputs(inventory_record, rendered_leaf)
-    foreground_ratio = _foreground_ratio(rendered_leaf)
-    lines = _primary_lines(rendered_leaf, primary_lines)
-    lines.extend(_rotated_region_lines(rendered_leaf, rotated_table_lines))
-    if len(lines) > 1000:
-        raise LayoutError("page contains more than 1000 OCR lines")
-    ordered = _ordered_lines(lines, rendered_leaf)
     mean_confidence, low_confidence_ratio, quality_score, quality_flags = _quality(
         ordered,
         foreground_ratio,
         manifest,
         rendered_leaf,
     )
+    merged_flags = sorted(set(quality_flags) | set(additional_quality_flags))
 
     candidate = rendered_leaf.candidate
     crop_box = NormalizedBox(
@@ -588,17 +632,96 @@ def build_source_page(
             imageSha256=image_sha256,
             contentClass=candidate.content_class,
             foregroundRatio=foreground_ratio,
-            textSource="ppocrv6",
-            ocrEngine=manifest.processing.ocrEngine,
+            textSource=text_source,
+            ocrEngine=ocr_engine,
             ocrEngineVersion=ocr_engine_version,
-            ocrDetectionModel=manifest.processing.ocrDetectionModel,
-            ocrRecognitionModel=manifest.processing.ocrRecognitionModel,
+            ocrDetectionModel=ocr_detection_model,
+            ocrRecognitionModel=ocr_recognition_model,
             meanConfidence=mean_confidence,
             lowConfidenceRatio=low_confidence_ratio,
             qualityScore=quality_score,
-            qualityFlags=quality_flags,
+            qualityFlags=merged_flags,
             originalText="\n".join(line.originalText for line in source_lines),
             lines=source_lines,
         )
     except (ValidationError, ValueError, TypeError) as exc:
         raise LayoutError("source page layout is invalid") from exc
+
+
+def build_source_page(
+    manifest: MadozManifest,
+    inventory_record: PageInventoryRecord,
+    rendered_leaf: RenderedLeaf,
+    primary_lines: Sequence[ExtractedLineCandidate],
+    *,
+    rotated_table_lines: Mapping[int, Sequence[ExtractedLineCandidate]] | None = None,
+    ocr_engine_version: str = "3.7.0",
+    additional_quality_flags: Sequence[QualityFlag] = (),
+) -> SourcePageInput:
+    logical_page_number = _validate_page_inputs(inventory_record, rendered_leaf)
+    foreground_ratio = _foreground_ratio(rendered_leaf)
+    lines = _primary_lines(rendered_leaf, primary_lines)
+    lines.extend(_rotated_region_lines(rendered_leaf, rotated_table_lines))
+    if len(lines) > 1000:
+        raise LayoutError("page contains more than 1000 OCR lines")
+    ordered = _ordered_lines(lines, rendered_leaf)
+    return _build_final_page(
+        manifest,
+        inventory_record,
+        rendered_leaf,
+        ordered,
+        logical_page_number=logical_page_number,
+        foreground_ratio=foreground_ratio,
+        text_source="ppocrv6",
+        ocr_engine=manifest.processing.ocrEngine,
+        ocr_engine_version=ocr_engine_version,
+        ocr_detection_model=manifest.processing.ocrDetectionModel,
+        ocr_recognition_model=manifest.processing.ocrRecognitionModel,
+        additional_quality_flags=additional_quality_flags,
+    )
+
+
+def build_embedded_source_page(
+    manifest: MadozManifest,
+    inventory_record: PageInventoryRecord,
+    rendered_leaf: RenderedLeaf,
+    embedded_lines: Sequence[EmbeddedTextLine],
+    *,
+    confidence: float,
+    pymupdf_version: str,
+) -> SourcePageInput:
+    logical_page_number = _validate_page_inputs(inventory_record, rendered_leaf)
+    candidate = rendered_leaf.candidate
+    if manifest.processing.textMode != "embedded_first":
+        raise LayoutError("embedded layout requires embedded_first text mode")
+    if candidate.content_class != "normal":
+        raise LayoutError("embedded pages must have normal content class")
+    if candidate.table_regions:
+        raise LayoutError("embedded pages must not declare table regions")
+    if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
+        raise LayoutError("embedded confidence must be a number")
+    if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
+        raise LayoutError("embedded confidence must be finite and within [0, 1]")
+    if not isinstance(pymupdf_version, str) or not pymupdf_version.strip():
+        raise LayoutError("embedded pymupdf version must be a nonblank string")
+
+    foreground_ratio = _foreground_ratio(rendered_leaf)
+    lines = _embedded_lines(rendered_leaf, embedded_lines, confidence=confidence)
+    if not lines:
+        raise LayoutError("embedded page produced no usable lines")
+    if len(lines) > 1000:
+        raise LayoutError("page contains more than 1000 OCR lines")
+    ordered = _ordered_lines(lines, rendered_leaf)
+    return _build_final_page(
+        manifest,
+        inventory_record,
+        rendered_leaf,
+        ordered,
+        logical_page_number=logical_page_number,
+        foreground_ratio=foreground_ratio,
+        text_source="embedded",
+        ocr_engine="pymupdf",
+        ocr_engine_version=pymupdf_version,
+        ocr_detection_model="pdf-text-layer",
+        ocr_recognition_model="pdf-text-layer",
+    )
