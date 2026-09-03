@@ -2878,7 +2878,10 @@ Validación:
 
 ### QW-06E — Ingesta preparada y lecturas de procedencia
 
-- [ ] Pendiente.
+- [x] Completado: ingesta de `PreparedDocument` con gates previos, replay
+  estrictamente read-only, reconciliación compartida, PDF canónico verificado
+  sin symlinks/escape y lecturas tipadas de página/procedencia. Pasan 15
+  pruebas focalizadas y las 259 pruebas completas del pod.
 - Depende de: QW-06D.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_prepared_ingest.py`

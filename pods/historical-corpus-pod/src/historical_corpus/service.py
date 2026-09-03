@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import stat
 import threading
 from pathlib import Path
 from typing import Any, Literal
@@ -15,10 +17,13 @@ from historical_corpus.models import (
     IndexVersion,
     IngestRequest,
     IngestResult,
+    PageRecord,
+    PageSummary,
     SearchHit,
     SearchRequest,
     SearchResponse,
 )
+from historical_corpus.ingest_models import PreparedDocument
 from historical_corpus.registry import (
     ComputedIndexTarget,
     CorpusRegistry,
@@ -66,6 +71,7 @@ class HistoricalCorpusService:
         startup_policy: Literal["verify", "repair"] = "verify",
         vector_index_backend: str = "turbovec",
         vector_index_bit_width: int = 4,
+        data_root: str | Path | None = None,
     ) -> None:
         if embedding_provider.dimension <= 0:
             raise ValueError("embedding dimension must be positive")
@@ -89,6 +95,10 @@ class HistoricalCorpusService:
         self._lock = threading.RLock()
         self._closed = False
         self._index_available = False
+        if data_root is not None:
+            self._data_root = Path(data_root).resolve()
+        else:
+            self._data_root = Path(db_path).resolve().parent
 
         try:
             self._initialize_index(startup_policy)
@@ -279,6 +289,128 @@ class HistoricalCorpusService:
             raise ValueError("stored embedding contains non-finite values")
         return vector
 
+    def _safe_path_hash(
+        self,
+        relative_path: str,
+        expected_sha256: str,
+        document_id: str,
+    ) -> Path:
+        path = Path(relative_path)
+        expected_relative = (
+            "raw/"
+            + hashlib.sha256(document_id.encode("utf-8")).hexdigest()
+            + "/"
+            + expected_sha256.removeprefix("sha256:")
+            + ".pdf"
+        )
+        parts = path.parts
+        if (
+            path.is_absolute()
+            or relative_path != expected_relative
+            or not parts
+            or any(part in ("", ".", "..") for part in parts)
+        ):
+            raise HistoricalCorpusError(
+                "canonical PDF path is not a valid relative layout",
+                details={"documentId": document_id},
+            )
+        current = self._data_root
+        for index, part in enumerate(parts):
+            current = current / part
+            try:
+                st = os.lstat(current)
+            except FileNotFoundError:
+                raise HistoricalCorpusError(
+                    "canonical PDF path is missing",
+                    details={"documentId": document_id},
+                ) from None
+            except OSError:
+                raise HistoricalCorpusError(
+                    "canonical PDF path is inaccessible",
+                    details={"documentId": document_id},
+                ) from None
+            if stat.S_ISLNK(st.st_mode):
+                raise HistoricalCorpusError(
+                    "canonical PDF path contains a symlink component",
+                    details={"documentId": document_id},
+                )
+            expected_type = stat.S_ISREG if index == len(parts) - 1 else stat.S_ISDIR
+            if not expected_type(st.st_mode):
+                raise HistoricalCorpusError(
+                    "canonical PDF path contains an invalid component type",
+                    details={"documentId": document_id},
+                )
+        try:
+            fd = os.open(str(current), os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        except FileNotFoundError:
+            raise HistoricalCorpusError(
+                "canonical PDF is missing",
+                details={"documentId": document_id},
+            ) from None
+        except OSError:
+            raise HistoricalCorpusError(
+                "canonical PDF is inaccessible",
+                details={"documentId": document_id},
+            ) from None
+        try:
+            try:
+                st = os.fstat(fd)
+                if not stat.S_ISREG(st.st_mode):
+                    raise HistoricalCorpusError(
+                        "canonical PDF is not a regular file",
+                        details={"documentId": document_id},
+                    )
+                digest = hashlib.sha256()
+                while block := os.read(fd, 65536):
+                    digest.update(block)
+            except HistoricalCorpusError:
+                raise
+            except OSError:
+                raise HistoricalCorpusError(
+                    "canonical PDF could not be read",
+                    details={"documentId": document_id},
+                ) from None
+        finally:
+            os.close(fd)
+        if digest.hexdigest() != expected_sha256.removeprefix("sha256:"):
+            raise HistoricalCorpusError(
+                "canonical PDF digest does not match the declared hash",
+                details={"documentId": document_id},
+            )
+        return current
+
+    def _verify_canonical_pdf(self, prepared: PreparedDocument) -> Path:
+        expected_relative = (
+            "raw/"
+            + hashlib.sha256(prepared.metadata.documentId.encode("utf-8")).hexdigest()
+            + "/"
+            + prepared.metadata.canonicalPdfSha256.removeprefix("sha256:")
+            + ".pdf"
+        )
+        if prepared.canonicalPdfRelativePath != expected_relative:
+            raise HistoricalCorpusError(
+                "canonicalPdfRelativePath does not match the expected canonical layout",
+                details={"documentId": prepared.metadata.documentId},
+            )
+        return self._safe_path_hash(
+            prepared.canonicalPdfRelativePath,
+            prepared.metadata.canonicalPdfSha256,
+            prepared.metadata.documentId,
+        )
+
+    def _reconcile_committed_journal(self) -> None:
+        journal = self._registry.read_index_sync_journal()
+        if journal is None:
+            self._index_available = False
+            raise IndexRepairRequiredError(
+                "the committed corpus update has no synchronization journal"
+            )
+        try:
+            self._reconcile_journal(journal)
+        except IndexRepairRequiredError:
+            self._index_available = False
+            raise
+
     def ingest(self, request: IngestRequest) -> IngestResult:
         with self._lock:
             self._assert_open()
@@ -345,18 +477,72 @@ class HistoricalCorpusService:
                 embedding_payloads,
                 target=self._target,
             )
-            journal = self._registry.read_index_sync_journal()
-            if journal is None:
-                self._index_available = False
-                raise IndexRepairRequiredError(
-                    "the committed corpus update has no synchronization journal"
-                )
-            try:
-                self._reconcile_journal(journal)
-            except IndexRepairRequiredError:
-                self._index_available = False
-                raise
+            self._reconcile_committed_journal()
             return IngestResult(documentId=request.documentId, chunkIds=stored_chunk_ids)
+
+    def ingest_prepared(self, prepared: PreparedDocument) -> IngestResult:
+        with self._lock:
+            self._assert_open()
+            self._assert_index_available()
+            if not prepared.metadata.rights.isExplicitlyReusable:
+                raise RightsNotReusableError(
+                    "source reuse rights are not explicitly verified",
+                    details={"documentId": prepared.metadata.documentId},
+                )
+            if not prepared.metadata.sourceIsExactRecord or not prepared.publicationGate.sourceIsExactRecord:
+                raise HistoricalCorpusError(
+                    "source is not an exact record",
+                    details={"documentId": prepared.metadata.documentId},
+                )
+            if not prepared.publicationGate.coverage.acceptedForProduct:
+                raise HistoricalCorpusError(
+                    "coverage has not been accepted for product",
+                    details={"documentId": prepared.metadata.documentId},
+                )
+
+            self._verify_canonical_pdf(prepared)
+
+            existing = self._registry.inspect_document(prepared.metadata.documentId)
+            if existing is not None:
+                content_hash, stored_prepared_hash = existing
+                if content_hash != prepared.metadata.contentHash or stored_prepared_hash != prepared.preparedDocumentHash:
+                    raise DocumentConflictError(
+                        "documentId is already bound to different content or metadata",
+                        details={"documentId": prepared.metadata.documentId},
+                    )
+                stored_chunk_ids = self._registry.get_chunk_ids_for_document(prepared.metadata.documentId)
+                expected_chunk_ids = [chunk.chunkId for chunk in prepared.chunks]
+                if stored_chunk_ids != expected_chunk_ids:
+                    raise DocumentConflictError(
+                        "stored chunk order does not match the prepared document",
+                        details={"documentId": prepared.metadata.documentId},
+                    )
+                return IngestResult(documentId=prepared.metadata.documentId, chunkIds=stored_chunk_ids)
+
+            searchable_texts = [
+                chunk.correctedText or chunk.originalText for chunk in prepared.chunks
+            ]
+            vectors = np.asarray(
+                self._embedding_provider.embed_documents(searchable_texts),
+                dtype=np.float32,
+            )
+            expected_shape = (len(prepared.chunks), self._embedding_provider.dimension)
+            if vectors.shape != expected_shape:
+                raise ValueError(f"embedding provider returned {vectors.shape}; expected {expected_shape}")
+            if not np.all(np.isfinite(vectors)):
+                raise ValueError("embedding provider returned non-finite values")
+
+            embedding_payloads = {
+                chunk.chunkId: np.asarray(vectors[index], dtype="<f4").tobytes(order="C")
+                for index, chunk in enumerate(prepared.chunks)
+            }
+            stored_chunk_ids = self._registry.atomically_insert_prepared_document(
+                prepared,
+                embedding_payloads,
+                target=self._target,
+            )
+            self._reconcile_committed_journal()
+            return IngestResult(documentId=prepared.metadata.documentId, chunkIds=stored_chunk_ids)
 
     def get_chunk(self, chunk_id: str) -> ChunkRecord:
         with self._lock:
@@ -379,6 +565,66 @@ class HistoricalCorpusService:
                     details={"documentId": document_id},
                 )
             return record
+
+    def list_document_pages(self, document_id: str) -> list[PageSummary]:
+        with self._lock:
+            self._assert_open()
+            document = self._registry.get_document(document_id)
+            if document is None:
+                raise RecordNotFoundError(
+                    "document was not found",
+                    details={"documentId": document_id},
+                )
+            return self._registry.get_pages_for_document(document_id)
+
+    def get_document_page(self, document_id: str, logical_page_number: int) -> PageRecord:
+        with self._lock:
+            self._assert_open()
+            document = self._registry.get_document(document_id)
+            if document is None:
+                raise RecordNotFoundError(
+                    "document was not found",
+                    details={"documentId": document_id},
+                )
+            pages = self._registry.get_pages_for_document(document_id)
+            page_id = None
+            for summary in pages:
+                if summary.logicalPageNumber == logical_page_number:
+                    page_id = summary.pageId
+                    break
+            if page_id is None:
+                raise RecordNotFoundError(
+                    "page was not found",
+                    details={"documentId": document_id, "logicalPageNumber": logical_page_number},
+                )
+            record = self._registry.get_page(page_id)
+            if record is None:
+                raise RecordNotFoundError(
+                    "page was not found",
+                    details={"documentId": document_id, "logicalPageNumber": logical_page_number},
+                )
+            return record
+
+    def canonical_pdf_path_for_rendering(self, document_id: str) -> Path:
+        with self._lock:
+            self._assert_open()
+            document = self._registry.get_document(document_id)
+            if document is None:
+                raise RecordNotFoundError(
+                    "document was not found",
+                    details={"documentId": document_id},
+                )
+            stored_relative = self._registry.get_canonical_pdf_relative_path(document_id)
+            if stored_relative is None:
+                raise HistoricalCorpusError(
+                    "canonical PDF relative path is not stored",
+                    details={"documentId": document_id},
+                )
+            return self._safe_path_hash(
+                stored_relative,
+                document.canonicalPdfSha256,
+                document_id,
+            )
 
     def index_version(self) -> IndexVersion:
         with self._lock:
