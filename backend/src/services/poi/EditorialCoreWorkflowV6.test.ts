@@ -78,6 +78,35 @@ function response(toolName: string, value: unknown) {
   } }] } }] } };
 }
 
+function openRouterResponse(value: unknown) {
+  return {
+    data: {
+      model: 'openai/gpt-5.4-mini',
+      choices: [{
+        finish_reason: 'stop',
+        message: { content: JSON.stringify(value) },
+      }],
+      usage: {
+        prompt_tokens: 20, completion_tokens: 8, total_tokens: 28,
+        cost: 0.0012,
+        prompt_tokens_details: { cached_tokens: 0 },
+        completion_tokens_details: { reasoning_tokens: 3 },
+      },
+      openrouter_metadata: {
+        requested: 'openai/gpt-5.4-mini',
+        strategy: 'direct',
+        attempt: 1,
+        endpoints: {
+          total: 1,
+          available: [{ provider: 'OpenAI', model: 'openai/gpt-5.4-mini', selected: true }],
+        },
+        attempts: [{ provider: 'OpenAI', model: 'openai/gpt-5.4-mini', status: 200 }],
+        pipeline: [],
+      },
+    },
+  };
+}
+
 describe('canonical core audit workflow v6', () => {
   it('runs three frozen permutations, persists full responses, and replays exactly', async () => {
     const { entities, prominence } = fixture();
@@ -195,5 +224,37 @@ describe('canonical core audit workflow v6', () => {
     expect(rejected.status).toBe('core_review_required');
     expect(rejected.reason).toMatch(/semantic/i);
     expect(semanticPost).toHaveBeenCalledTimes(6);
+  });
+
+  it('normalizes OpenRouter QID-keyed core-audit responses and reaches approved consensus', async () => {
+    const { entities, prominence } = fixture();
+    const required = new Set(['Q1', 'Q2']);
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const request = requestFromBody(body);
+      const auditResult = audit(request, required);
+      const wireValue = {
+        schemaVersion: auditResult.schemaVersion,
+        classifications: Object.fromEntries(
+          auditResult.classifications.map((c) => {
+            const { canonicalId, ...rest } = c;
+            return [canonicalId, rest];
+          })
+        ),
+      };
+      return openRouterResponse(wireValue);
+    });
+
+    const result = await runCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      { kind: 'openrouter', model: 'openai/gpt-5.4-mini', expectedProviderName: 'OpenAI', acceptedModels: ['openai/gpt-5.4-mini'] },
+      { openRouterApiKey: 'test-key', post }
+    );
+
+    expect(result.status).toBe('approved');
+    expect(result.coreResult?.status).toBe('approved');
+    if (result.coreResult?.status !== 'approved') throw new Error('Expected approved core');
+    expect(result.coreResult.core.requirements.map((requirement) => requirement.canonicalId).sort())
+      .toEqual(['Q1', 'Q2']);
   });
 });

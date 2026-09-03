@@ -10,6 +10,7 @@ import {
   CoreBuildResultV6,
   CORE_RESOLVER_SYSTEM_PROMPT_V6,
   resolveCanonicalTourCoreV6,
+  validateCoreAuditOpenRouterV6,
   validateCoreAuditV6,
 } from './EditorialCoreResolverV6';
 import { WikimediaProminenceSnapshotV6 } from './EditorialProminenceV6';
@@ -93,7 +94,9 @@ function requestAudit(
     toolDescription: 'Classify every supplied canonical candidate exactly once as required or optional.',
     inputCharacterLimit: CORE_AUDIT_INPUT_CHARACTER_LIMIT_V6,
     schemaCharacterLimit: CORE_AUDIT_SCHEMA_CHARACTER_LIMIT_V6,
-    validate: (value) => validateCoreAuditV6(value, request),
+    validate: provider.kind === 'openrouter'
+      ? (value) => validateCoreAuditOpenRouterV6(value, request)
+      : (value) => validateCoreAuditV6(value, request),
   });
 }
 
