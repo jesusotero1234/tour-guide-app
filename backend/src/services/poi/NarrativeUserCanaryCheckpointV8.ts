@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
+import type { NarrativeNarrationTargetV8 } from "./NarrativeDurationTargetsV8";
 
 export type JsonValue =
   | null
@@ -43,6 +44,7 @@ export interface NarrativeUserCanaryCheckpointV8 {
   research?: JsonValue;
   evidenceManifest?: JsonValue;
   arc?: JsonValue;
+  narrationTargets?: JsonValue;
   editorial?: {
     status: string;
     scripts: JsonValue[];
@@ -139,6 +141,91 @@ function rejectForbiddenKeys(value: JsonValue): void {
   }
 }
 
+function isNonNegativeInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0;
+}
+
+export function decodeCheckpointNarrationTargetsV8(
+  raw: unknown,
+  expectedStopIds: string[],
+  sourcePath: string
+): NarrativeNarrationTargetV8[] {
+  if (raw === undefined) {
+    throw new Error(
+      `Checkpoint at ${sourcePath} does not contain stable narration targets`
+    );
+  }
+
+  if (!Array.isArray(raw)) {
+    throw new Error(
+      `narrationTargets at ${sourcePath} must be an array`
+    );
+  }
+
+  const expectedSet = new Set(expectedStopIds);
+  const seenStopIds = new Set<string>();
+  const result: NarrativeNarrationTargetV8[] = [];
+
+  for (const item of raw) {
+    if (!isPlainObject(item)) {
+      throw new Error(
+        `narrationTargets items at ${sourcePath} must be plain objects`
+      );
+    }
+
+    const obj = item as JsonObject;
+
+    if (typeof obj.stopId !== "string" || obj.stopId.length === 0) {
+      throw new Error(
+        `narrationTargets items at ${sourcePath} must have stopId as a non-empty string`
+      );
+    }
+
+    const stopId = obj.stopId;
+    if (!expectedSet.has(stopId)) {
+      throw new Error(
+        `narrationTargets at ${sourcePath} contains unexpected stopId: ${stopId}`
+      );
+    }
+    if (seenStopIds.has(stopId)) {
+      throw new Error(
+        `narrationTargets at ${sourcePath} contains duplicate stopId: ${stopId}`
+      );
+    }
+    seenStopIds.add(stopId);
+
+    const requiredIntFields = ["targetSeconds", "targetWords", "minPropositions", "maxPropositions", "minVisualAnchors"] as const;
+    for (const field of requiredIntFields) {
+      if (!isNonNegativeInteger(obj[field])) {
+        throw new Error(
+          `narrationTargets items at ${sourcePath} must have ${field} as a finite nonnegative integer`
+        );
+      }
+    }
+
+    const optionalIntFields = ["targetEvidenceCards", "minFacetCount", "minSpatialAnchors"] as const;
+    for (const field of optionalIntFields) {
+      if (obj[field] !== undefined && !isNonNegativeInteger(obj[field])) {
+        throw new Error(
+          `narrationTargets items at ${sourcePath} must have ${field} as a finite nonnegative integer when present`
+        );
+      }
+    }
+
+    result.push(obj as unknown as NarrativeNarrationTargetV8);
+  }
+
+  for (const stopId of expectedStopIds) {
+    if (!seenStopIds.has(stopId)) {
+      throw new Error(
+        `narrationTargets at ${sourcePath} is missing expected stopId: ${stopId}`
+      );
+    }
+  }
+
+  return result;
+}
+
 export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpointV8 {
   if (!isPlainObject(raw)) {
     throw new Error("Checkpoint must be a plain object");
@@ -178,6 +265,7 @@ export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpoin
     "research",
     "evidenceManifest",
     "arc",
+    "narrationTargets",
     "editorial",
     "scorecard",
   ];
@@ -505,7 +593,7 @@ export function assertCheckpointSupportsResumeV8(
 export function projectCheckpointStateForResumeV8(
   sourceCheckpoint: NarrativeUserCanaryCheckpointV8,
   resumeFrom: ResumeFromV8
-): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "route" | "research" | "evidenceManifest" | "arc" | "editorial" | "scorecard">> {
+): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "route" | "research" | "evidenceManifest" | "arc" | "narrationTargets" | "editorial" | "scorecard">> {
   const clone = <T extends JsonValue>(value: T | undefined): T | undefined =>
     value === undefined ? undefined : JSON.parse(JSON.stringify(value)) as T;
 
@@ -518,6 +606,7 @@ export function projectCheckpointStateForResumeV8(
       return {
         candidates: clone(sourceCheckpoint.candidates),
         route: clone(sourceCheckpoint.route),
+        narrationTargets: clone(sourceCheckpoint.narrationTargets),
       };
     case "arc":
       return {
@@ -525,6 +614,7 @@ export function projectCheckpointStateForResumeV8(
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
+        narrationTargets: clone(sourceCheckpoint.narrationTargets),
       };
     case "editorial":
       return {
@@ -533,6 +623,7 @@ export function projectCheckpointStateForResumeV8(
         research: clone(sourceCheckpoint.research),
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
         arc: clone(sourceCheckpoint.arc),
+        narrationTargets: clone(sourceCheckpoint.narrationTargets),
       };
     case "scorecard":
       return {
@@ -542,6 +633,7 @@ export function projectCheckpointStateForResumeV8(
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
         arc: clone(sourceCheckpoint.arc),
         editorial: clone(sourceCheckpoint.editorial),
+        narrationTargets: clone(sourceCheckpoint.narrationTargets),
       };
   }
 }

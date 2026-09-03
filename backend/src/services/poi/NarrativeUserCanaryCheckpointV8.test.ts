@@ -11,6 +11,7 @@ import {
   assertCheckpointSupportsResumeV8,
   shouldExecuteResumePhaseV8,
   projectCheckpointStateForResumeV8,
+  decodeCheckpointNarrationTargetsV8,
   SCHEMA_VERSION,
 } from "./NarrativeUserCanaryCheckpointV8";
 import type { NarrativeEditorialIssueV8, NarrativeEditorialIssueSummaryV8 } from "./NarrativeEditorialIssuePolicyV8";
@@ -646,6 +647,158 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
       expect(checkpoint.editorial?.issueSummary).toBeUndefined();
       expect(typeof checkpoint.fingerprint).toBe("string");
       expect(checkpoint.fingerprint).toHaveLength(64);
+    });
+  });
+
+  describe("decodeCheckpointNarrationTargetsV8", () => {
+    const validTargets = [
+      {
+        stopId: "stop-1",
+        targetSeconds: 30,
+        targetWords: 100,
+        minPropositions: 2,
+        maxPropositions: 5,
+        minVisualAnchors: 1,
+        targetEvidenceCards: 3,
+        minFacetCount: 2,
+        minSpatialAnchors: 1,
+      },
+      {
+        stopId: "stop-2",
+        targetSeconds: 45,
+        targetWords: 150,
+        minPropositions: 3,
+        maxPropositions: 8,
+        minVisualAnchors: 2,
+      },
+    ];
+    const expectedStopIds = ["stop-1", "stop-2"];
+    const sourcePath = "/tmp/checkpoint.json";
+
+    it("decodes valid narration targets", () => {
+      const result = decodeCheckpointNarrationTargetsV8(validTargets, expectedStopIds, sourcePath);
+      expect(result).toEqual(validTargets);
+      expect(result).toHaveLength(2);
+    });
+
+    it("throws when raw is undefined", () => {
+      expect(() => decodeCheckpointNarrationTargetsV8(undefined, expectedStopIds, sourcePath)).toThrow(
+        "Checkpoint at /tmp/checkpoint.json does not contain stable narration targets"
+      );
+    });
+
+    it("throws when raw is not an array", () => {
+      expect(() => decodeCheckpointNarrationTargetsV8({ stopId: "stop-1" }, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets at /tmp/checkpoint.json must be an array"
+      );
+    });
+
+    it("throws when stopId is missing or empty", () => {
+      expect(() => decodeCheckpointNarrationTargetsV8([{ targetSeconds: 30 }], expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets items at /tmp/checkpoint.json must have stopId as a non-empty string"
+      );
+      expect(() => decodeCheckpointNarrationTargetsV8([{ stopId: "", targetSeconds: 30 }], expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets items at /tmp/checkpoint.json must have stopId as a non-empty string"
+      );
+    });
+
+    it("throws when required integer fields are invalid", () => {
+      const invalid = [{ ...validTargets[0], targetSeconds: -1 }];
+      expect(() => decodeCheckpointNarrationTargetsV8(invalid, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets items at /tmp/checkpoint.json must have targetSeconds as a finite nonnegative integer"
+      );
+      const invalid2 = [{ ...validTargets[0], targetWords: 1.5 }];
+      expect(() => decodeCheckpointNarrationTargetsV8(invalid2, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets items at /tmp/checkpoint.json must have targetWords as a finite nonnegative integer"
+      );
+    });
+
+    it("throws when optional integer fields are invalid when present", () => {
+      const invalid = [{ ...validTargets[0], targetEvidenceCards: -1 }];
+      expect(() => decodeCheckpointNarrationTargetsV8(invalid, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets items at /tmp/checkpoint.json must have targetEvidenceCards as a finite nonnegative integer when present"
+      );
+    });
+
+    it("throws on duplicate stopId", () => {
+      const dup = [
+        { ...validTargets[0] },
+        { ...validTargets[0] },
+      ];
+      expect(() => decodeCheckpointNarrationTargetsV8(dup, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets at /tmp/checkpoint.json contains duplicate stopId: stop-1"
+      );
+    });
+
+    it("throws on unexpected stopId", () => {
+      const unexpected = [{ ...validTargets[0], stopId: "stop-3" }];
+      expect(() => decodeCheckpointNarrationTargetsV8(unexpected, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets at /tmp/checkpoint.json contains unexpected stopId: stop-3"
+      );
+    });
+
+    it("throws when expected stopId is missing", () => {
+      const missing = [{ ...validTargets[0] }];
+      expect(() => decodeCheckpointNarrationTargetsV8(missing, expectedStopIds, sourcePath)).toThrow(
+        "narrationTargets at /tmp/checkpoint.json is missing expected stopId: stop-2"
+      );
+    });
+  });
+
+  describe("projectCheckpointStateForResumeV8 narrationTargets", () => {
+    const narrationTargets = [
+      {
+        stopId: "stop-1",
+        targetSeconds: 30,
+        targetWords: 100,
+        minPropositions: 2,
+        maxPropositions: 5,
+        minVisualAnchors: 1,
+      },
+    ];
+
+    function buildCheckpointWithNarrationTargets(completedPhase: string) {
+      const input = buildInput(completedPhase);
+      input.narrationTargets = narrationTargets;
+      return createCheckpoint(input as any);
+    }
+
+    it("does not include narrationTargets when resuming from route", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "route");
+      expect(projected.narrationTargets).toBeUndefined();
+    });
+
+    it("includes narrationTargets when resuming from research", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "research");
+      expect(projected.narrationTargets).toEqual(narrationTargets);
+    });
+
+    it("includes narrationTargets when resuming from arc", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "arc");
+      expect(projected.narrationTargets).toEqual(narrationTargets);
+    });
+
+    it("includes narrationTargets when resuming from editorial", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "editorial");
+      expect(projected.narrationTargets).toEqual(narrationTargets);
+    });
+
+    it("includes narrationTargets when resuming from scorecard", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "scorecard");
+      expect(projected.narrationTargets).toEqual(narrationTargets);
+    });
+
+    it("deep clones narrationTargets without mutating source", () => {
+      const checkpoint = buildCheckpointWithNarrationTargets("scorecard");
+      const projected = projectCheckpointStateForResumeV8(checkpoint, "scorecard");
+      const projectedTargets = projected.narrationTargets as any[];
+      projectedTargets[0].targetSeconds = 999;
+      expect(checkpoint.narrationTargets).toEqual(narrationTargets);
     });
   });
 

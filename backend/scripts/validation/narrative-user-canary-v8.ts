@@ -88,6 +88,7 @@ import {
   writeCheckpointV8,
   JsonValue,
   NarrativeUserCanaryCheckpointV8,
+  decodeCheckpointNarrationTargetsV8,
   parseResumeOptionsV8,
   readCheckpointV8,
   assertResumeCompatibilityV8,
@@ -866,6 +867,7 @@ async function main(): Promise<void> {
   let checkpointState: {
     candidates?: JsonValue;
     route?: JsonValue;
+    narrationTargets?: JsonValue;
     research?: JsonValue;
     evidenceManifest?: JsonValue;
     arc?: JsonValue;
@@ -1243,14 +1245,22 @@ async function main(): Promise<void> {
       await persistCheckpoint('route');
     }
 
-    const narrationTargets = allocateNarrationTargetsV8({
-      durationMinutes: request.durationMinutes,
-      walkingSeconds: routeWalkingSeconds,
-      stops: route.stops.map((stop) => ({
-        stopId: stop.stopId,
-        required: core.requiredIds.includes(stop.wikidataId),
-      })),
-    });
+    const narrationTargets = !shouldExecuteResumePhaseV8(resumeFromPhase, 'route')
+      ? decodeCheckpointNarrationTargetsV8(
+        sourceCheckpoint?.narrationTargets,
+        route.stops.map((stop) => stop.stopId),
+        resolvedSourcePath ?? checkpointPath
+      )
+      : allocateNarrationTargetsV8({
+        durationMinutes: request.durationMinutes,
+        walkingSeconds: routeWalkingSeconds,
+        stops: route.stops.map((stop) => ({
+          stopId: stop.stopId,
+          required: core.requiredIds.includes(stop.wikidataId),
+        })),
+      });
+    checkpointState.narrationTargets = toJsonValue(narrationTargets);
+    await persistCheckpoint('route');
     const narrationTargetsByStopId = new Map(narrationTargets.map((target) => [target.stopId, target]));
     const totalNarrationMinutes = narrationTargets.reduce((sum, target) => sum + target.targetSeconds, 0) / 60;
     console.log(
