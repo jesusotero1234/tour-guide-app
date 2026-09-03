@@ -11,12 +11,12 @@ Plan: [narrative-v8-forensic-remediation-plan.md](./narrative-v8-forensic-remedi
 - [x] Replay Q112/Q114/Q970 sin falsos hard issues.
 
 - [x] T3 — Trazabilidad del writer y snapshots inmutables.
-- [ ] T4 — Citation closure del dossier.
+- [x] T4 — Citation closure del dossier.
 
 ## Checkpoint B
 
-- [ ] Tests focalizados verdes.
-- [ ] Build TypeScript verde.
+- [x] Tests focalizados verdes.
+- [x] Build TypeScript verde.
 
 - [ ] T5 — Reparación segura de estilo.
 - [ ] T6 — Replay y cierre local.

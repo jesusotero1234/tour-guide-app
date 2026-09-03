@@ -435,6 +435,99 @@ describe('buildValidatedDossierV8', () => {
     expect(result.status).toBe('curator_contract_failed');
   });
 
+  it('rejects a high/direct name proposition when the cited span lacks the name but another span contains it', () => {
+    const c = capture('source-a', 'La República se proclamó en 1873.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          {
+            text: 'La República se proclamó.',
+            role: 'chronology_or_transformation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[1]] }],
+          },
+          {
+            text: 'El texto documenta una proclamación.',
+            role: 'visible_observation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0]] }],
+          },
+        ],
+        authorizedNames: ['República'],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('curator_contract_failed');
+  });
+
+  it('rejects a high/direct number proposition when the cited span lacks the number but another span contains it', () => {
+    const c = capture('source-a', 'La República se proclamó en 1873.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          {
+            text: 'Se proclamó en 1873.',
+            role: 'chronology_or_transformation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[1]] }],
+          },
+          {
+            text: 'El texto documenta una proclamación.',
+            role: 'visible_observation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0]] }],
+          },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: ['1873'],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('curator_contract_failed');
+  });
+
+  it('accepts a high/direct name and number proposition when the cited span contains both anchors', () => {
+    const c = capture('source-a', 'La República se proclamó en 1873.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [{
+          text: 'La República se proclamó en 1873.',
+          role: 'chronology_or_transformation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0]] }],
+        }],
+        authorizedNames: ['República'],
+        authorizedNumbers: ['1873'],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('ok');
+  });
+
   it('rejects a debatable proposition backed by a single publisher as curator_contract_failed', () => {
     const a = capture('source-a', 'Afirmación discutible en la fuente A.', AUTHORITY_A);
     const b = capture('source-a2', 'Otra página de la fuente A.', AUTHORITY_A);

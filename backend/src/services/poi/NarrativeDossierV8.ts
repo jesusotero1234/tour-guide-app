@@ -96,6 +96,59 @@ function normalizeIdentityNameV8(name: string): string {
     .replace(/\s+/gu, ' ');
 }
 
+function includesNormalizedAnchorV8(text: string, anchor: string): boolean {
+  return ` ${text} `.includes(` ${anchor} `);
+}
+
+function canonicalNumericAnchorV8(value: string): string {
+  const compact = value.replace(/[\u00a0\u202f ]/gu, '');
+  const [integer, decimal] = compact.split(',');
+  const normalizedInteger = integer.replace(/\./gu, '');
+  return decimal === undefined ? normalizedInteger : `${normalizedInteger},${decimal}`;
+}
+
+function numericAnchorsV8(text: string): string[] {
+  const matches = text.match(/\b(?:\d{1,3}(?:[.\u00a0\u202f ]\d{3})+|\d+)(?:,\d+)?\b/gu) ?? [];
+  return [...new Set(matches.map(canonicalNumericAnchorV8))];
+}
+
+function isSentenceInitialTokenV8(text: string, index: number): boolean {
+  const prefix = text.slice(0, index);
+  return prefix.trim().length === 0 || /[.!?]\s*$/u.test(prefix);
+}
+
+function propositionNameAnchorsV8(
+  text: string,
+  authorizedNames: string[],
+  identityNames: string[]
+): string[] {
+  const normalizedText = normalizeIdentityNameV8(text);
+  const normalizedIdentityNames = identityNames.map(normalizeIdentityNameV8);
+  const isIdentityAnchor = (anchor: string): boolean => normalizedIdentityNames.some(
+    (identity) => includesNormalizedAnchorV8(identity, anchor)
+  );
+  const anchors = new Set<string>();
+
+  for (const name of authorizedNames) {
+    const normalized = normalizeIdentityNameV8(name);
+    if (normalized && !isIdentityAnchor(normalized)
+      && includesNormalizedAnchorV8(normalizedText, normalized)) {
+      anchors.add(normalized);
+    }
+  }
+
+  const tokenRegex = /\b[\p{Lu}][\p{L}\p{M}-]*/gu;
+  for (const match of text.matchAll(tokenRegex)) {
+    const token = match[0];
+    const normalized = normalizeIdentityNameV8(token);
+    if (!normalized || /^[ivxlcdm]+$/iu.test(normalized) || isIdentityAnchor(normalized)) continue;
+    if (isSentenceInitialTokenV8(text, match.index ?? 0)) continue;
+    anchors.add(normalized);
+  }
+
+  return [...anchors];
+}
+
 function contractFailure(reason: string): NarrativeDossierValidationV8 {
   return { status: 'curator_contract_failed', reason };
 }
@@ -168,6 +221,7 @@ export function buildValidatedDossierV8(
     }
     const sourceIds = new Set<string>();
     const passageIds: string[] = [];
+    const propositionPassageQuotes: string[] = [];
     for (const support of proposition.supports) {
       const capture = captureById.get(support.sourceId);
       if (!capture) return contractFailure(`unknown source ${support.sourceId}`);
@@ -215,6 +269,7 @@ export function buildValidatedDossierV8(
       sourceIds.add(support.sourceId);
       allSourceIds.add(support.sourceId);
       passageQuotes.push(quote);
+      propositionPassageQuotes.push(quote);
     }
     const interpretation = proposition.interpretation;
     if (interpretation === 'debatable') {
@@ -223,6 +278,25 @@ export function buildValidatedDossierV8(
       )));
       if (publishers.size < 2) {
         return contractFailure('debatable proposition lacks two distinct publishers');
+      }
+    }
+    if (proposition.certainty === 'high' && interpretation === 'direct') {
+      const normalizedLocalQuotes = propositionPassageQuotes.map(normalizeIdentityNameV8);
+      const missingName = propositionNameAnchorsV8(
+        text,
+        curatorOutput.authorizedNames,
+        input.authorizedIdentityNames ?? []
+      ).find((anchor) => !normalizedLocalQuotes.some(
+        (quote) => includesNormalizedAnchorV8(quote, anchor)
+      ));
+      if (missingName) {
+        return contractFailure(`citation closure missing name ${missingName}`);
+      }
+
+      const localNumbers = new Set(propositionPassageQuotes.flatMap(numericAnchorsV8));
+      const missingNumber = numericAnchorsV8(text).find((number) => !localNumbers.has(number));
+      if (missingNumber) {
+        return contractFailure(`citation closure missing number ${missingNumber}`);
       }
     }
     propositions.push({
