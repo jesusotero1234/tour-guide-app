@@ -149,6 +149,7 @@ describe('narrative v6 editorial agents', () => {
       const messages = body.messages as Array<{ role: string; content: string }>;
       if (attempt === 2) {
         expect(messages[2].content).toContain('closes the tour even though a next stop exists');
+        expect(messages[2].content).not.toContain('Previous invalid JSON response');
       }
       const script = attempt === 1
         ? 'Observa la fachada. Con esto termina nuestro recorrido.'
@@ -235,6 +236,8 @@ describe('narrative v6 editorial agents', () => {
       if (attempt === 2) {
         expect(messages[2].content).toContain('writer_length_target_missed');
         expect(messages[2].content).toContain('accepted=20-40');
+        expect(messages[2].content).toContain('Previous invalid JSON response');
+        expect(messages[2].content).toContain('Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.');
       }
       const script = attempt === 1
         ? 'Observa la fachada. La autoridad religiosa abre el contraste con el poder civil que veremos después.'
@@ -261,7 +264,7 @@ describe('narrative v6 editorial agents', () => {
     const agents = createNarrativeEditorialAgentsV6Core(
       { apiKey: 'test-key', post },
       projector,
-      { validateWriter },
+      { validateWriter, writerIncludePreviousResponseOnSemanticRetry: true },
     );
 
     const written = await agents.write({

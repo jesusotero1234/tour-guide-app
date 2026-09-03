@@ -47,6 +47,7 @@ export function createNarrativeEditorialAgentsV8(
     createNarrativeEditorialRequestProjectorV8(admittedStops, manifest, arc, narrationTargetsByStopId),
     {
       writerRequestAttempts: 3,
+      writerIncludePreviousResponseOnSemanticRetry: true,
       validateWriter: (value, input) => {
         const target = narrationTargetsByStopId?.get(input.stopId);
         if (!target) return;

@@ -542,6 +542,7 @@ export interface NarrativeEditorialValidationHooksV6 {
   writerResponseContract?(projectedInput: unknown, input: NarrativeWriterInputV6): NarrativeWriterResponseContractV6 | undefined;
   validateRepair?(patchedScript: NarrativeScriptV6, input: NarrativeRepairInputV6): void;
   writerRequestAttempts?: 1 | 2 | 3;
+  writerIncludePreviousResponseOnSemanticRetry?: boolean;
 }
 
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
@@ -606,7 +607,10 @@ export function createNarrativeEditorialAgentsV6Core(
         callId: `narrative-v6-writer-${input.stopId}`,
         input: writerProjection.input,
         provider: execution.provider,
-        options: execution.options,
+        options: {
+          ...execution.options,
+          includePreviousResponseOnSemanticRetry: validationHooks.writerIncludePreviousResponseOnSemanticRetry,
+        },
         systemPrompt: writerProjection.systemPrompt,
         schema: writerContract
           ? writerContract.schema
