@@ -112,8 +112,37 @@ export interface NarrativeStructuredWriterResultV8 {
 export function narrativeWriterResponseSchemaV8(
   plan: NarrativeWriterPlanV8
 ): Record<string, unknown> {
-  const beatEnum = plan.beats.map((item) => item.beat);
-  const cardEnum = plan.evidenceCards.map((card) => card.cardId);
+  const segmentBranches = plan.beats.map((item) => ({
+    type: 'object',
+    additionalProperties: false,
+    required: ['segmentId', 'beat', 'text', 'supportCardIds', 'estimatedWords'],
+    properties: {
+      segmentId: {
+        type: 'string',
+        minLength: 1,
+      },
+      beat: {
+        type: 'string',
+        enum: [item.beat],
+      },
+      text: {
+        type: 'string',
+        minLength: 1,
+      },
+      supportCardIds: {
+        type: 'array',
+        minItems: 1,
+        items: {
+          type: 'string',
+          enum: item.evidenceCardIds,
+        },
+      },
+      estimatedWords: {
+        type: 'integer',
+        minimum: 1,
+      },
+    },
+  }));
 
   return {
     type: 'object',
@@ -129,35 +158,7 @@ export function narrativeWriterResponseSchemaV8(
         minItems: plan.beats.length,
         maxItems: plan.beats.length,
         items: {
-          type: 'object',
-          additionalProperties: false,
-          required: ['segmentId', 'beat', 'text', 'supportCardIds', 'estimatedWords'],
-          properties: {
-            segmentId: {
-              type: 'string',
-              minLength: 1,
-            },
-            beat: {
-              type: 'string',
-              enum: beatEnum,
-            },
-            text: {
-              type: 'string',
-              minLength: 1,
-            },
-            supportCardIds: {
-              type: 'array',
-              minItems: 1,
-              items: {
-                type: 'string',
-                enum: cardEnum,
-              },
-            },
-            estimatedWords: {
-              type: 'integer',
-              minimum: 1,
-            },
-          },
+          anyOf: segmentBranches,
         },
       },
     },

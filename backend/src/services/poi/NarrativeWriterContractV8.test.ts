@@ -254,9 +254,22 @@ describe('NarrativeWriterContractV8', () => {
     const properties = schema.properties as Record<string, unknown>;
     const segments = properties.segments as Record<string, unknown>;
     const items = segments.items as Record<string, unknown>;
-    const segmentProperties = items.properties as Record<string, unknown>;
-    const beat = segmentProperties.beat as Record<string, unknown>;
-    expect(beat.enum).toEqual(plan.beats.map((item) => item.beat));
+    const anyOf = items.anyOf as Array<Record<string, unknown>>;
+    expect(anyOf).toHaveLength(plan.beats.length);
+    for (let index = 0; index < plan.beats.length; index += 1) {
+      const branch = anyOf[index];
+      expect(branch).toMatchObject({
+        type: 'object',
+        additionalProperties: false,
+        required: ['segmentId', 'beat', 'text', 'supportCardIds', 'estimatedWords'],
+      });
+      const branchProperties = branch.properties as Record<string, unknown>;
+      const beat = branchProperties.beat as Record<string, unknown>;
+      expect(beat.enum).toEqual([plan.beats[index].beat]);
+      const supportCardIds = branchProperties.supportCardIds as Record<string, unknown>;
+      const supportItems = supportCardIds.items as Record<string, unknown>;
+      expect(supportItems.enum).toEqual(plan.beats[index].evidenceCardIds);
+    }
   });
 
   it('rejects a response with an unknown root property', () => {
