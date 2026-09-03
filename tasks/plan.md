@@ -3716,7 +3716,10 @@ Validación de la tercera llamada:
 
 ### QW-15D — CLI de reparación offline
 
-- [ ] Pendiente.
+- [x] Completado: `repair-index` usa la configuración runtime y el lock exclusivo
+  compartido, repara con `startup_policy="repair"`, distingue reparación/no-op
+  por generación y devuelve generación, versiones y conteos finales; pasan las
+  29 pruebas CLI y las 519 pruebas completas.
 - Depende de: QW-15C.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_ingest_cli.py`

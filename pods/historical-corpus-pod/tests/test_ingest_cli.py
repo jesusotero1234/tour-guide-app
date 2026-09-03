@@ -1466,3 +1466,307 @@ def test_publish_success_and_idempotent_replay(
     assert received_verify_args == [(canonical_path, declared_sha)]
     assert received_service_args == [((), {"startup_policy": "repair"})]
     assert received_ingest_args == [prepared]
+
+
+def _repair_index_version() -> SimpleNamespace:
+    return SimpleNamespace(
+        generation=5,
+        indexVersion="index-v5",
+        corpusIndexVersion="corpus-v5",
+        documentCount=2,
+        chunkCount=7,
+    )
+
+
+@pytest.mark.parametrize(
+    "repair_scenario",
+    ["journal-after-crash", "missing-vector-id", "extra-vector-id"],
+)
+def test_repair_index_reports_repaired_state_for_repairable_divergence(
+    repair_scenario: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    events: list[str] = []
+    received_lock_paths: list[Path] = []
+    received_service_args: list[tuple[tuple[object, ...], dict[str, object]]] = []
+
+    class FakeService:
+        def __enter__(self) -> "FakeService":
+            events.append("service_enter")
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            events.append("service_exit")
+
+        def index_version(self) -> SimpleNamespace:
+            events.append("index_version")
+            return _repair_index_version()
+
+    @contextlib.contextmanager
+    def fake_exclusive_lock(path: Path):
+        received_lock_paths.append(path)
+        events.append("lock_enter")
+        try:
+            yield
+        finally:
+            events.append("lock_exit")
+
+    def fake_read_index_generation(path: Path) -> int:
+        assert repair_scenario in {
+            "journal-after-crash",
+            "missing-vector-id",
+            "extra-vector-id",
+        }
+        assert path == data_root / "corpus.sqlite3"
+        events.append("read_generation")
+        return 4
+
+    def fake_build_service(*args: object, **kwargs: object) -> FakeService:
+        received_service_args.append((args, kwargs))
+        events.append("build_service")
+        return FakeService()
+
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(data_root))
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock)
+    monkeypatch.setattr(cli, "_read_index_generation", fake_read_index_generation, raising=False)
+    monkeypatch.setattr(cli, "build_service_from_env", fake_build_service)
+
+    code = cli.main(["repair-index"])
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    assert _json_line(captured.out) == {
+        "ok": True,
+        "command": "repair-index",
+        "repaired": True,
+        "generation": 5,
+        "indexVersion": "index-v5",
+        "corpusIndexVersion": "corpus-v5",
+        "documentCount": 2,
+        "chunkCount": 7,
+    }
+    assert received_lock_paths == [lock_path]
+    assert received_service_args == [((), {"startup_policy": "repair"})]
+    assert events == [
+        "lock_enter",
+        "read_generation",
+        "build_service",
+        "service_enter",
+        "index_version",
+        "service_exit",
+        "lock_exit",
+    ]
+
+
+def test_repair_index_healthy_state_is_a_noop(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    events: list[str] = []
+
+    class FakeService:
+        def __enter__(self) -> "FakeService":
+            events.append("service_enter")
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            events.append("service_exit")
+
+        def index_version(self) -> SimpleNamespace:
+            events.append("index_version")
+            return _repair_index_version()
+
+    @contextlib.contextmanager
+    def fake_exclusive_lock(path: Path):
+        assert path == data_root / "locks" / "madoz-prepare.lock"
+        events.append("lock_enter")
+        try:
+            yield
+        finally:
+            events.append("lock_exit")
+
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(data_root))
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock)
+    monkeypatch.setattr(cli, "_read_index_generation", lambda path: 5, raising=False)
+    monkeypatch.setattr(
+        cli,
+        "build_service_from_env",
+        lambda *args, **kwargs: FakeService()
+        if (args, kwargs) == ((), {"startup_policy": "repair"})
+        else pytest.fail("unexpected service arguments"),
+    )
+
+    code = cli.main(["repair-index"])
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    assert _json_line(captured.out) == {
+        "ok": True,
+        "command": "repair-index",
+        "repaired": False,
+        "generation": 5,
+        "indexVersion": "index-v5",
+        "corpusIndexVersion": "corpus-v5",
+        "documentCount": 2,
+        "chunkCount": 7,
+    }
+    assert events == [
+        "lock_enter",
+        "service_enter",
+        "index_version",
+        "service_exit",
+        "lock_exit",
+    ]
+
+
+def test_repair_index_live_api_lock_failure_does_not_load_models(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+
+    def fake_exclusive_lock(path: Path) -> None:
+        assert path == lock_path
+        raise CorpusLockError(path, "exclusive", "busy")
+
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(data_root))
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock)
+    monkeypatch.setattr(
+        cli,
+        "_read_index_generation",
+        lambda path: pytest.fail("must not read SQLite while API lock is held"),
+        raising=False,
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_service_from_env",
+        lambda *args, **kwargs: pytest.fail("must not load models while API lock is held"),
+    )
+
+    code = cli.main(["repair-index"])
+
+    captured = capsys.readouterr()
+    assert code == 4
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "LOCKED"
+
+
+def test_repair_index_error_can_be_retried_after_lock_cleanup(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    events: list[str] = []
+    attempts = 0
+
+    class FakeService:
+        def __enter__(self) -> "FakeService":
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            events.append("service_exit")
+
+        def index_version(self) -> SimpleNamespace:
+            return _repair_index_version()
+
+    @contextlib.contextmanager
+    def fake_exclusive_lock(path: Path):
+        assert path == data_root / "locks" / "madoz-prepare.lock"
+        events.append("lock_enter")
+        try:
+            yield
+        finally:
+            events.append("lock_exit")
+
+    def fake_build_service(*args: object, **kwargs: object) -> FakeService:
+        nonlocal attempts
+        assert (args, kwargs) == ((), {"startup_policy": "repair"})
+        attempts += 1
+        if attempts == 1:
+            raise IndexRepairRequiredError("journal cannot be reconciled")
+        return FakeService()
+
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", str(data_root))
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock)
+    monkeypatch.setattr(cli, "_read_index_generation", lambda path: 4, raising=False)
+    monkeypatch.setattr(cli, "build_service_from_env", fake_build_service)
+
+    first_code = cli.main(["repair-index"])
+    first = capsys.readouterr()
+    second_code = cli.main(["repair-index"])
+    second = capsys.readouterr()
+
+    assert first_code == 5
+    assert first.out == ""
+    assert _json_line(first.err)["error"] == {
+        "code": "INDEX_REPAIR_REQUIRED",
+        "message": "journal cannot be reconciled",
+    }
+    assert second_code == 0
+    assert second.err == ""
+    assert _json_line(second.out)["repaired"] is True
+    assert events == [
+        "lock_enter",
+        "lock_exit",
+        "lock_enter",
+        "service_exit",
+        "lock_exit",
+    ]
+
+
+def test_repair_index_rejects_force_flag_before_service_construction(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setattr(
+        cli,
+        "build_service_from_env",
+        lambda *args, **kwargs: pytest.fail("must not construct service"),
+    )
+
+    code = cli.main(["repair-index", "--force"])
+
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"]["code"] == "INPUT_ERROR"
+
+
+@pytest.mark.parametrize("data_dir", ["", "   "])
+def test_repair_index_rejects_blank_runtime_data_dir_before_lock(
+    data_dir: str,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setenv("HISTORICAL_CORPUS_DATA_DIR", data_dir)
+    monkeypatch.setattr(
+        cli,
+        "exclusive_lock",
+        lambda path: pytest.fail("must not acquire a lock for invalid config"),
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_service_from_env",
+        lambda *args, **kwargs: pytest.fail("must not construct service"),
+    )
+
+    code = cli.main(["repair-index"])
+
+    captured = capsys.readouterr()
+    assert code == 5
+    assert captured.out == ""
+    assert _json_line(captured.err)["error"] == {
+        "code": "PROCESSING_ERROR",
+        "message": "HISTORICAL_CORPUS_DATA_DIR must be a non-empty string",
+    }

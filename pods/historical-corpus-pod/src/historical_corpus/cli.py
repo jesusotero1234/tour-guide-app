@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import sqlite3
 import stat
 import sys
 import tempfile
@@ -127,6 +128,8 @@ def _parser() -> argparse.ArgumentParser:
     publish = commands.add_parser("publish")
     publish.add_argument("--prepared", required=True)
     publish.add_argument("--data-root", default="/data")
+
+    repair_index = commands.add_parser("repair-index")
     return parser
 
 
@@ -407,6 +410,62 @@ def _publish_command(args: argparse.Namespace) -> dict[str, object]:
     }
 
 
+def _read_index_generation(db_path: Path) -> int | None:
+    if not db_path.exists():
+        return None
+    uri = db_path.resolve().as_uri() + "?mode=ro"
+    try:
+        conn = sqlite3.connect(uri, uri=True)
+        try:
+            row = conn.execute("SELECT generation FROM index_state WHERE id = 1").fetchone()
+        finally:
+            conn.close()
+    except sqlite3.OperationalError as exc:
+        if "no such table: index_state" in str(exc):
+            return None
+        raise CliProcessingError(str(exc)) from exc
+    except sqlite3.Error as exc:
+        raise CliProcessingError(str(exc)) from exc
+    if row is None:
+        return None
+    value = row[0]
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise CliProcessingError("index_state.generation must be a non-negative integer")
+    return value
+
+
+def _repair_index_command(args: argparse.Namespace) -> dict[str, object]:
+    raw_data_dir = os.environ.get("HISTORICAL_CORPUS_DATA_DIR", "/data")
+    if not raw_data_dir.strip():
+        raise CliProcessingError("HISTORICAL_CORPUS_DATA_DIR must be a non-empty string")
+    data_root = Path(raw_data_dir.strip())
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    with exclusive_lock(lock_path):
+        prior_generation = _read_index_generation(data_root / "corpus.sqlite3")
+        try:
+            service = build_service_from_env(startup_policy="repair")
+        except (OSError, ValueError) as exc:
+            raise CliProcessingError(str(exc)) from exc
+        with service:
+            index_version = service.index_version()
+            generation = index_version.generation
+            index_version_value = index_version.indexVersion
+            corpus_index_version_value = index_version.corpusIndexVersion
+            document_count = index_version.documentCount
+            chunk_count = index_version.chunkCount
+    repaired = prior_generation is None or prior_generation != generation
+    return {
+        "ok": True,
+        "command": "repair-index",
+        "repaired": repaired,
+        "generation": generation,
+        "indexVersion": index_version_value,
+        "corpusIndexVersion": corpus_index_version_value,
+        "documentCount": document_count,
+        "chunkCount": chunk_count,
+    }
+
+
 def _prefetch_models_command(args: argparse.Namespace) -> dict[str, object]:
     manifest = load_manifest(args.manifest)
     model_cache_root = Path(args.model_cache_root)
@@ -438,6 +497,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = _ocr_smoke_command(args)
         elif args.command == "publish":
             result = _publish_command(args)
+        elif args.command == "repair-index":
+            result = _repair_index_command(args)
         else:
             raise CliInputError("unknown command")
     except CliHelp as exc:
