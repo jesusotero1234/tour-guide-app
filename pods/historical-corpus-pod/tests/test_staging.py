@@ -153,13 +153,37 @@ def test_staged_page_round_trip_stale_values_and_corruption_are_cache_misses(
     ):
         assert load(**{field: "sha256:" + "f" * 64}) is None
 
+    warnings: list[str] = []
+    result = load_reusable_staged_page(
+        tmp_path,
+        "madoz-11",
+        1,
+        processing_fingerprint=staged.processingFingerprint,
+        canonical_pdf_sha256=staged.canonicalPdfSha256,
+        page_inventory_sha256=staged.pageInventorySha256,
+    )
+    assert result == staged
+    assert warnings == []
+
     page_path = staging_paths(
         tmp_path,
         "madoz-11",
         staged.processingFingerprint,
     ).page(1)
     page_path.write_bytes(b"{not-json")
-    assert load() is None
+    result = load_reusable_staged_page(
+        tmp_path,
+        "madoz-11",
+        1,
+        processing_fingerprint=staged.processingFingerprint,
+        canonical_pdf_sha256=staged.canonicalPdfSha256,
+        page_inventory_sha256=staged.pageInventorySha256,
+        on_corrupt=warnings.append,
+    )
+    assert result is None
+    assert len(warnings) == 1
+    assert warnings[0] != ""
+
     page_path.write_bytes(b'{"schemaVersion":1')
     assert load() is None
 

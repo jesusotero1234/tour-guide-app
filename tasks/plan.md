@@ -3448,7 +3448,10 @@ Validación:
 
 ### QW-14C — Pipeline reanudable de preparación
 
-- [ ] Pendiente.
+- [x] Completado: orquestación bloqueada/no bloqueante, validación previa de
+  fuente/inventario/model lock/fingerprint, resume por `StagedPage`, OCR único
+  solo para misses, bundle/reporte/source atómicos y deterministas; 13 pruebas
+  focalizadas y 481 pruebas completas pasan.
 - Depende de: QW-07, QW-09, QW-10B, QW-11B, QW-14A y QW-14B.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_madoz_pipeline.py`

@@ -5,7 +5,7 @@ import os
 import re
 import stat
 import tempfile
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import TypeVar
@@ -370,10 +370,11 @@ def load_reusable_staged_page(
     document_id: str,
     logical_page_number: int,
     *,
-    page_artifact_hash: str,
+    page_artifact_hash: str | None = None,
     processing_fingerprint: str,
     canonical_pdf_sha256: str,
     page_inventory_sha256: str,
+    on_corrupt: Callable[[str], None] | None = None,
 ) -> StagedPage | None:
     paths = staging_paths(data_root, document_id, processing_fingerprint)
     relative = paths.page(logical_page_number).relative_to(Path(data_root)).as_posix()
@@ -385,17 +386,24 @@ def load_reusable_staged_page(
             limit_label="8 MiB",
         )
         staged = _decode_model(data, StagedPage, "staged page")
-    except _InvalidArtifact:
+    except _InvalidArtifact as exc:
+        if on_corrupt is not None:
+            on_corrupt(str(exc))
+        return None
+    computed_hash = _page_artifact_hash(staged)
+    if computed_hash != staged.pageArtifactHash:
+        if on_corrupt is not None:
+            on_corrupt("staged page pageArtifactHash does not match page")
         return None
     if (
-        staged.pageArtifactHash != page_artifact_hash
-        or staged.processingFingerprint != processing_fingerprint
+        staged.processingFingerprint != processing_fingerprint
         or staged.canonicalPdfSha256 != canonical_pdf_sha256
         or staged.pageInventorySha256 != page_inventory_sha256
         or staged.page.documentId != document_id
         or staged.page.logicalPageNumber != logical_page_number
-        or _page_artifact_hash(staged) != staged.pageArtifactHash
     ):
+        return None
+    if page_artifact_hash is not None and staged.pageArtifactHash != page_artifact_hash:
         return None
     return staged
 
