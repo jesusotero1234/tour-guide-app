@@ -3013,7 +3013,10 @@ feat: serialize corpus publication with runtime locks
 
 ### QW-09 — Carga y validación estructural del manifiesto
 
-- [ ] Pendiente.
+- [x] Completado: loader YAML seguro y limitado a 64 KiB, modelos strict
+  `extra=forbid`, gates independientes de prepare/publish, resolución local
+  contenida sin symlinks, hashes streaming e inspección real del PDF. Pasan
+  29 pruebas focalizadas y las 300 pruebas completas del pod.
 - Depende de: QW-03B.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/manifest.py`
