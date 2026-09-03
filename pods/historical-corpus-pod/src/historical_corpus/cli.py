@@ -35,7 +35,15 @@ from .page_inventory import (
     load_verified_inventory,
     serialize_inventory_jsonl,
 )
-from .pdf_source import PdfSourceError, iter_rendered_leaves
+from .pdf_source import PdfSourceError, iter_rendered_leaves, verify_pdf_sha256
+from .runtime import build_service_from_env
+from .service import (
+    DocumentConflictError,
+    HistoricalCorpusError,
+    IndexRepairRequiredError,
+    RightsNotReusableError,
+)
+from .staging import StagingError, load_prepared_document
 
 
 EXIT_SUCCESS = 0
@@ -48,6 +56,18 @@ EXIT_PUBLICATION = 6
 
 class CliInputError(ValueError):
     pass
+
+
+class CliPublicationError(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        self.code = "PUBLICATION_BLOCKED"
+
+
+class CliProcessingError(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        self.code = "PROCESSING_ERROR"
 
 
 class CliHelp(Exception):
@@ -103,6 +123,10 @@ def _parser() -> argparse.ArgumentParser:
     ocr_smoke.add_argument("--imports-root", default="/imports")
     ocr_smoke.add_argument("--data-root", default="/data")
     ocr_smoke.add_argument("--model-cache-root", default="/model-cache/paddlex")
+
+    publish = commands.add_parser("publish")
+    publish.add_argument("--prepared", required=True)
+    publish.add_argument("--data-root", default="/data")
     return parser
 
 
@@ -333,6 +357,56 @@ def _ocr_smoke_command(args: argparse.Namespace) -> dict[str, object]:
     }
 
 
+def _normalize_prepared_path(raw: str, data_root: Path) -> str:
+    candidate = Path(raw)
+    if candidate.is_absolute():
+        normalized = os.path.normpath(str(candidate))
+        root_normalized = os.path.normpath(str(data_root))
+        if not normalized.startswith(root_normalized + os.sep):
+            raise CliInputError("prepared path must be beneath data root")
+        relative = Path(normalized[len(root_normalized) + 1:])
+    else:
+        relative = Path(os.path.normpath(str(candidate)))
+    parts = relative.parts
+    if not parts or parts[0] != "staging":
+        raise CliInputError("prepared path must start with staging")
+    return str(relative)
+
+
+def _publish_command(args: argparse.Namespace) -> dict[str, object]:
+    data_root = Path(args.data_root)
+    relative = _normalize_prepared_path(args.prepared, data_root)
+    prepared = load_prepared_document(data_root, relative)
+    if not prepared.metadata.rights.isExplicitlyReusable:
+        raise RightsNotReusableError("source reuse rights are not explicitly verified")
+    if not prepared.metadata.sourceIsExactRecord or not prepared.publicationGate.sourceIsExactRecord:
+        raise CliPublicationError("source is not an exact record")
+    if not prepared.publicationGate.coverage.acceptedForProduct:
+        raise CliPublicationError("coverage has not been accepted for product")
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    with exclusive_lock(lock_path):
+        try:
+            verify_pdf_sha256(
+                data_root / prepared.canonicalPdfRelativePath,
+                prepared.metadata.canonicalPdfSha256,
+            )
+        except PdfSourceError as exc:
+            raise CliProcessingError(str(exc)) from exc
+        try:
+            service = build_service_from_env(startup_policy="repair")
+        except (OSError, ValueError) as exc:
+            raise CliProcessingError(str(exc)) from exc
+        with service:
+            result = service.ingest_prepared(prepared)
+    return {
+        "ok": True,
+        "command": "publish",
+        "documentId": result.documentId,
+        "chunkIds": list(result.chunkIds),
+        "chunkCount": len(result.chunkIds),
+    }
+
+
 def _prefetch_models_command(args: argparse.Namespace) -> dict[str, object]:
     manifest = load_manifest(args.manifest)
     model_cache_root = Path(args.model_cache_root)
@@ -362,6 +436,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = _prepare_command(args)
         elif args.command == "ocr-smoke":
             result = _ocr_smoke_command(args)
+        elif args.command == "publish":
+            result = _publish_command(args)
         else:
             raise CliInputError("unknown command")
     except CliHelp as exc:
@@ -373,7 +449,37 @@ def main(argv: Sequence[str] | None = None) -> int:
             error=True,
         )
         return EXIT_LOCK
-    except (OcrBackendError, ProcessorError) as exc:
+    except RightsNotReusableError as exc:
+        _emit(
+            {"ok": False, "error": {"code": "REUSE_RIGHTS_NOT_VERIFIED", "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_RIGHTS
+    except CliPublicationError as exc:
+        _emit(
+            {"ok": False, "error": {"code": exc.code, "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_PUBLICATION
+    except DocumentConflictError as exc:
+        _emit(
+            {"ok": False, "error": {"code": exc.code, "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_PUBLICATION
+    except IndexRepairRequiredError as exc:
+        _emit(
+            {"ok": False, "error": {"code": exc.code, "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_PROCESSING
+    except HistoricalCorpusError as exc:
+        _emit(
+            {"ok": False, "error": {"code": exc.code, "message": str(exc)}},
+            error=True,
+        )
+        return EXIT_PROCESSING
+    except (OcrBackendError, ProcessorError, CliProcessingError) as exc:
         _emit(
             {"ok": False, "error": {"code": "PROCESSING_ERROR", "message": str(exc)}},
             error=True,
@@ -385,6 +491,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         PageInventoryError,
         PdfSourceError,
         PipelineError,
+        StagingError,
         OSError,
     ) as exc:
         _emit(

@@ -12,6 +12,14 @@ from historical_corpus import cli
 from historical_corpus.locks import CorpusLockError
 from historical_corpus.manifest import ManifestValidationError
 from historical_corpus.ocr_backend import OcrBackendError
+from historical_corpus.pdf_source import PdfSourceError
+from historical_corpus.service import (
+    DocumentConflictError,
+    HistoricalCorpusError,
+    IndexRepairRequiredError,
+    RightsNotReusableError,
+)
+from historical_corpus.staging import StagingError
 
 
 def _manifest() -> SimpleNamespace:
@@ -784,6 +792,223 @@ def test_ocr_smoke_success_reports_single_leaf_and_never_prepares(
     }
 
 
+def _publishable_prepared() -> SimpleNamespace:
+    return SimpleNamespace(
+        metadata=SimpleNamespace(
+            documentId="madoz-11",
+            canonicalPdfSha256="sha256:" + "f" * 64,
+            rights=SimpleNamespace(isExplicitlyReusable=True),
+            sourceIsExactRecord=True,
+        ),
+        publicationGate=SimpleNamespace(
+            sourceIsExactRecord=True,
+            coverage=SimpleNamespace(acceptedForProduct=True),
+        ),
+        canonicalPdfRelativePath="raw/" + hashlib.sha256("madoz-11".encode("utf-8")).hexdigest() + "/" + "f" * 64 + ".pdf",
+    )
+
+
+def test_publish_precondition_gates_report_correct_exit_and_code(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+
+    cases = [
+        (
+            "rights",
+            SimpleNamespace(
+                metadata=SimpleNamespace(
+                    documentId="madoz-11",
+                    canonicalPdfSha256="sha256:" + "f" * 64,
+                    rights=SimpleNamespace(isExplicitlyReusable=False),
+                    sourceIsExactRecord=True,
+                ),
+                publicationGate=SimpleNamespace(
+                    sourceIsExactRecord=True,
+                    coverage=SimpleNamespace(acceptedForProduct=True),
+                ),
+                canonicalPdfRelativePath=rel_path,
+            ),
+            3,
+            "REUSE_RIGHTS_NOT_VERIFIED",
+            "source reuse rights are not explicitly verified",
+        ),
+        (
+            "metadata_source_exact",
+            SimpleNamespace(
+                metadata=SimpleNamespace(
+                    documentId="madoz-11",
+                    canonicalPdfSha256="sha256:" + "f" * 64,
+                    rights=SimpleNamespace(isExplicitlyReusable=True),
+                    sourceIsExactRecord=False,
+                ),
+                publicationGate=SimpleNamespace(
+                    sourceIsExactRecord=True,
+                    coverage=SimpleNamespace(acceptedForProduct=True),
+                ),
+                canonicalPdfRelativePath=rel_path,
+            ),
+            6,
+            "PUBLICATION_BLOCKED",
+            "source is not an exact record",
+        ),
+        (
+            "gate_source_exact",
+            SimpleNamespace(
+                metadata=SimpleNamespace(
+                    documentId="madoz-11",
+                    canonicalPdfSha256="sha256:" + "f" * 64,
+                    rights=SimpleNamespace(isExplicitlyReusable=True),
+                    sourceIsExactRecord=True,
+                ),
+                publicationGate=SimpleNamespace(
+                    sourceIsExactRecord=False,
+                    coverage=SimpleNamespace(acceptedForProduct=True),
+                ),
+                canonicalPdfRelativePath=rel_path,
+            ),
+            6,
+            "PUBLICATION_BLOCKED",
+            "source is not an exact record",
+        ),
+        (
+            "coverage_accepted",
+            SimpleNamespace(
+                metadata=SimpleNamespace(
+                    documentId="madoz-11",
+                    canonicalPdfSha256="sha256:" + "f" * 64,
+                    rights=SimpleNamespace(isExplicitlyReusable=True),
+                    sourceIsExactRecord=True,
+                ),
+                publicationGate=SimpleNamespace(
+                    sourceIsExactRecord=True,
+                    coverage=SimpleNamespace(acceptedForProduct=False),
+                ),
+                canonicalPdfRelativePath=rel_path,
+            ),
+            6,
+            "PUBLICATION_BLOCKED",
+            "coverage has not been accepted for product",
+        ),
+    ]
+
+    for name, prepared, expected_code, expected_err_code, expected_message in cases:
+        capsys.readouterr()
+        received_load_args: list[tuple[Path, str]] = []
+
+        def fake_load_prepared_document(root: Path, rel: str) -> object:
+            received_load_args.append((root, rel))
+            return prepared
+
+        monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+        monkeypatch.setattr(cli, "build_service_from_env", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+        monkeypatch.setattr(cli, "verify_pdf_sha256", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+        monkeypatch.setattr(cli, "exclusive_lock", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+
+        code = cli.main(
+            [
+                "publish",
+                "--prepared",
+                rel_path,
+                "--data-root",
+                str(data_root),
+            ]
+        )
+
+        captured = capsys.readouterr()
+        assert code == expected_code
+        assert captured.out == ""
+        error = _json_line(captured.err)
+        assert error == {
+            "ok": False,
+            "error": {"code": expected_err_code, "message": expected_message},
+        }
+        assert received_load_args == [(data_root, rel_path)]
+
+
+def test_publish_rejects_invalid_prepared_document(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+
+    def fake_load_prepared_document(root: Path, rel: str) -> object:
+        raise StagingError("prepared document is invalid")
+
+    monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+    monkeypatch.setattr(cli, "build_service_from_env", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+
+    code = cli.main(
+        [
+            "publish",
+            "--prepared",
+            rel_path,
+            "--data-root",
+            str(data_root),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    error = _json_line(captured.err)
+    assert error == {
+        "ok": False,
+        "error": {"code": "INPUT_ERROR", "message": "prepared document is invalid"},
+    }
+
+
+def test_publish_live_api_lock_reports_locked(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+    prepared = _publishable_prepared()
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+
+    received_load_args: list[tuple[Path, str]] = []
+
+    def fake_load_prepared_document(root: Path, rel: str) -> object:
+        received_load_args.append((root, rel))
+        return prepared
+
+    monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+
+    def fake_exclusive_lock(path: Path) -> None:
+        raise CorpusLockError(path, "exclusive", "busy")
+
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock, raising=False)
+    monkeypatch.setattr(cli, "verify_pdf_sha256", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+    monkeypatch.setattr(cli, "build_service_from_env", lambda *a, **k: pytest.fail("must not be called"), raising=False)
+
+    code = cli.main(
+        [
+            "publish",
+            "--prepared",
+            rel_path,
+            "--data-root",
+            str(data_root),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert code == 4
+    assert captured.out == ""
+    error = _json_line(captured.err)
+    assert error == {
+        "ok": False,
+        "error": {"code": "LOCKED", "message": "exclusive lock unavailable for " + str(lock_path) + ": busy"},
+    }
+    assert received_load_args == [(data_root, rel_path)]
+
+
 def test_ocr_smoke_model_lock_failure_reports_processing_error(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -856,3 +1081,388 @@ def test_ocr_smoke_model_lock_failure_reports_processing_error(
         "ok": False,
         "error": {"code": "PROCESSING_ERROR", "message": "broken model lock"},
     }
+
+
+def test_publish_rejects_prepared_paths_outside_data_root_staging(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    bad_paths = [
+        "../prepared-document.json",
+        "other/prepared-document.json",
+        "staging/../prepared-document.json",
+        str(tmp_path / "outside" / "prepared-document.json"),
+    ]
+
+    for bad_path in bad_paths:
+        capsys.readouterr()
+        monkeypatch.setattr(
+            cli, "load_prepared_document", lambda *a, **k: pytest.fail("must not be called"), raising=False
+        )
+        monkeypatch.setattr(
+            cli, "verify_pdf_sha256", lambda *a, **k: pytest.fail("must not be called"), raising=False
+        )
+        monkeypatch.setattr(
+            cli, "exclusive_lock", lambda *a, **k: pytest.fail("must not be called"), raising=False
+        )
+        monkeypatch.setattr(
+            cli, "build_service_from_env", lambda *a, **k: pytest.fail("must not be called"), raising=False
+        )
+
+        code = cli.main(
+            [
+                "publish",
+                "--prepared",
+                bad_path,
+                "--data-root",
+                str(data_root),
+            ]
+        )
+
+        captured = capsys.readouterr()
+        assert code == 2
+        assert captured.out == ""
+        error = _json_line(captured.err)
+        assert error["ok"] is False
+        assert error["error"]["code"] == "INPUT_ERROR"  # type: ignore[index]
+        assert error["error"]["message"]  # type: ignore[index]
+
+
+def test_publish_service_errors_map_to_reserved_codes_and_events(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+    prepared = _publishable_prepared()
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    canonical_path = data_root / prepared.canonicalPdfRelativePath
+    declared_sha = prepared.metadata.canonicalPdfSha256
+
+    cases = [
+        (RightsNotReusableError("rights failed"), 3, "REUSE_RIGHTS_NOT_VERIFIED"),
+        (DocumentConflictError("conflict"), 6, "DOCUMENT_CONFLICT"),
+        (IndexRepairRequiredError("repair required"), 5, "INDEX_REPAIR_REQUIRED"),
+        (HistoricalCorpusError("service failed"), 5, "HISTORICAL_CORPUS_ERROR"),
+    ]
+
+    for error, expected_code, expected_err_code in cases:
+        capsys.readouterr()
+        events: list[str] = []
+        received_lock_paths: list[Path] = []
+        received_load_args: list[tuple[Path, str]] = []
+        received_verify_args: list[tuple[Path, str]] = []
+
+        class FakeService:
+            def __enter__(self) -> "FakeService":
+                events.append("service_enter")
+                return self
+
+            def __exit__(self, exc_type: object, exc_val: object, exc_tb: object) -> None:
+                events.append("service_exit")
+
+            def ingest_prepared(self, prepared_arg: object) -> None:
+                events.append("ingest_prepared")
+                raise error
+
+        @contextlib.contextmanager
+        def fake_exclusive_lock(path: Path) -> object:
+            received_lock_paths.append(path)
+            events.append("lock_enter")
+            try:
+                yield
+            finally:
+                events.append("lock_exit")
+
+        monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock, raising=False)
+
+        def fake_load_prepared_document(root: Path, rel: str) -> object:
+            received_load_args.append((root, rel))
+            return prepared
+
+        monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+
+        def fake_verify_pdf_sha256(path: Path, sha: str) -> None:
+            events.append("verify_pdf_sha256")
+            received_verify_args.append((path, sha))
+
+        monkeypatch.setattr(cli, "verify_pdf_sha256", fake_verify_pdf_sha256, raising=False)
+
+        def fake_build_service_from_env(*args: object, **kwargs: object) -> FakeService:
+            events.append("build_service")
+            return FakeService()
+
+        monkeypatch.setattr(cli, "build_service_from_env", fake_build_service_from_env, raising=False)
+
+        code = cli.main(
+            [
+                "publish",
+                "--prepared",
+                rel_path,
+                "--data-root",
+                str(data_root),
+            ]
+        )
+
+        captured = capsys.readouterr()
+        assert code == expected_code
+        assert captured.out == ""
+        error_payload = _json_line(captured.err)
+        assert error_payload == {
+            "ok": False,
+            "error": {"code": expected_err_code, "message": str(error)},
+        }
+        assert events == [
+            "lock_enter",
+            "verify_pdf_sha256",
+            "build_service",
+            "service_enter",
+            "ingest_prepared",
+            "service_exit",
+            "lock_exit",
+        ]
+        assert received_lock_paths == [lock_path]
+        assert received_load_args == [(data_root, rel_path)]
+        assert received_verify_args == [(canonical_path, declared_sha)]
+
+
+def test_publish_processing_errors_report_exit_5_and_cleanup(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+    prepared = _publishable_prepared()
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    canonical_path = data_root / prepared.canonicalPdfRelativePath
+    declared_sha = prepared.metadata.canonicalPdfSha256
+
+    cases = [
+        (
+            "pdf_source",
+            PdfSourceError("bad canonical PDF"),
+            "verify_pdf_sha256",
+        ),
+        (
+            "runtime_config",
+            ValueError("bad runtime config"),
+            "build_service_from_env",
+        ),
+        (
+            "runtime_storage",
+            OSError("runtime storage unavailable"),
+            "build_service_from_env",
+        ),
+    ]
+
+    for name, error, failing_fn in cases:
+        capsys.readouterr()
+        events: list[str] = []
+        received_lock_paths: list[Path] = []
+        received_load_args: list[tuple[Path, str]] = []
+        received_verify_args: list[tuple[Path, str]] = []
+
+        @contextlib.contextmanager
+        def fake_exclusive_lock(path: Path) -> object:
+            received_lock_paths.append(path)
+            events.append("lock_enter")
+            try:
+                yield
+            finally:
+                events.append("lock_exit")
+
+        monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock, raising=False)
+
+        def fake_load_prepared_document(root: Path, rel: str) -> object:
+            received_load_args.append((root, rel))
+            return prepared
+
+        monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+
+        def fake_verify_pdf_sha256(path: Path, sha: str) -> None:
+            events.append("verify_pdf_sha256")
+            received_verify_args.append((path, sha))
+            if failing_fn == "verify_pdf_sha256":
+                raise error
+
+        monkeypatch.setattr(cli, "verify_pdf_sha256", fake_verify_pdf_sha256, raising=False)
+
+        def fake_build_service_from_env(*args: object, **kwargs: object) -> object:
+            events.append("build_service")
+            if failing_fn == "build_service_from_env":
+                raise error
+            return object()
+
+        monkeypatch.setattr(cli, "build_service_from_env", fake_build_service_from_env, raising=False)
+
+        code = cli.main(
+            [
+                "publish",
+                "--prepared",
+                rel_path,
+                "--data-root",
+                str(data_root),
+            ]
+        )
+
+        captured = capsys.readouterr()
+        assert code == 5
+        assert captured.out == ""
+        error_payload = _json_line(captured.err)
+        assert error_payload == {
+            "ok": False,
+            "error": {"code": "PROCESSING_ERROR", "message": str(error)},
+        }
+        assert received_lock_paths == [lock_path]
+        assert received_load_args == [(data_root, rel_path)]
+        if failing_fn == "verify_pdf_sha256":
+            assert events == ["lock_enter", "verify_pdf_sha256", "lock_exit"]
+            assert received_verify_args == [(canonical_path, declared_sha)]
+        else:
+            assert events == ["lock_enter", "verify_pdf_sha256", "build_service", "lock_exit"]
+            assert received_verify_args == [(canonical_path, declared_sha)]
+
+
+def test_publish_success_and_idempotent_replay(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    data_root = tmp_path / "data"
+    rel_path = "staging/doc/fingerprint/prepared-document.json"
+    prepared = _publishable_prepared()
+    lock_path = data_root / "locks" / "madoz-prepare.lock"
+    canonical_path = data_root / prepared.canonicalPdfRelativePath
+    declared_sha = prepared.metadata.canonicalPdfSha256
+
+    events: list[str] = []
+    received_lock_paths: list[Path] = []
+    received_load_args: list[tuple[Path, str]] = []
+    received_verify_args: list[tuple[Path, str]] = []
+    received_service_args: list[tuple[tuple[object, ...], dict[str, object]]] = []
+    received_ingest_args: list[object] = []
+
+    class FakeService:
+        def __enter__(self) -> "FakeService":
+            events.append("service_enter")
+            return self
+
+        def __exit__(self, exc_type: object, exc_val: object, exc_tb: object) -> None:
+            events.append("service_exit")
+
+        def ingest_prepared(self, prepared_arg: object) -> SimpleNamespace:
+            events.append("ingest_prepared")
+            received_ingest_args.append(prepared_arg)
+            return SimpleNamespace(
+                documentId="madoz-11",
+                chunkIds=["chunk-a", "chunk-b"],
+            )
+
+    @contextlib.contextmanager
+    def fake_exclusive_lock(path: Path) -> object:
+        received_lock_paths.append(path)
+        events.append("lock_enter")
+        yield
+        events.append("lock_exit")
+
+    monkeypatch.setattr(cli, "exclusive_lock", fake_exclusive_lock, raising=False)
+
+    def fake_load_prepared_document(root: Path, rel: str) -> object:
+        received_load_args.append((root, rel))
+        return prepared
+
+    monkeypatch.setattr(cli, "load_prepared_document", fake_load_prepared_document, raising=False)
+
+    def fake_verify_pdf_sha256(path: Path, sha: str) -> None:
+        events.append("verify_pdf_sha256")
+        received_verify_args.append((path, sha))
+
+    monkeypatch.setattr(cli, "verify_pdf_sha256", fake_verify_pdf_sha256, raising=False)
+
+    def fake_build_service_from_env(*args: object, **kwargs: object) -> FakeService:
+        events.append("build_service")
+        received_service_args.append((args, kwargs))
+        return FakeService()
+
+    monkeypatch.setattr(cli, "build_service_from_env", fake_build_service_from_env, raising=False)
+
+    expected_payload = {
+        "ok": True,
+        "command": "publish",
+        "documentId": "madoz-11",
+        "chunkIds": ["chunk-a", "chunk-b"],
+        "chunkCount": 2,
+    }
+
+    expected_events = [
+        "lock_enter",
+        "verify_pdf_sha256",
+        "build_service",
+        "service_enter",
+        "ingest_prepared",
+        "service_exit",
+        "lock_exit",
+    ]
+
+    # First run: relative staging path
+    events.clear()
+    received_lock_paths.clear()
+    received_load_args.clear()
+    received_verify_args.clear()
+    received_service_args.clear()
+    received_ingest_args.clear()
+
+    code = cli.main(
+        [
+            "publish",
+            "--prepared",
+            rel_path,
+            "--data-root",
+            str(data_root),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    assert _json_line(captured.out) == expected_payload
+    assert events == expected_events
+    assert received_lock_paths == [lock_path]
+    assert received_load_args == [(data_root, rel_path)]
+    assert received_verify_args == [(canonical_path, declared_sha)]
+    assert received_service_args == [((), {"startup_policy": "repair"})]
+    assert received_ingest_args == [prepared]
+
+    # Second run: equivalent absolute path beneath data_root
+    abs_path = data_root / rel_path
+    events.clear()
+    received_lock_paths.clear()
+    received_load_args.clear()
+    received_verify_args.clear()
+    received_service_args.clear()
+    received_ingest_args.clear()
+
+    code = cli.main(
+        [
+            "publish",
+            "--prepared",
+            str(abs_path),
+            "--data-root",
+            str(data_root),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.err == ""
+    assert _json_line(captured.out) == expected_payload
+    assert events == expected_events
+    assert received_lock_paths == [lock_path]
+    assert received_load_args == [(data_root, rel_path)]
+    assert received_verify_args == [(canonical_path, declared_sha)]
+    assert received_service_args == [((), {"startup_policy": "repair"})]
+    assert received_ingest_args == [prepared]

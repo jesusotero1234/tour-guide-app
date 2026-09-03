@@ -3647,7 +3647,10 @@ Validación:
 
 ### QW-15C — CLI de publicación y entry point
 
-- [ ] Pendiente.
+- [x] Completado: `publish` carga únicamente un `PreparedDocument` seguro desde
+  `staging`, aplica los gates antes del servicio, verifica el PDF canónico y
+  publica bajo lock con `startup_policy="repair"`; el entry point está instalado,
+  las 20 pruebas CLI y las 510 pruebas completas pasan.
 - Depende de: QW-06E, QW-07, QW-14C y QW-15B.
 - Archivos existentes, primeras llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_ingest_cli.py`
