@@ -3,6 +3,8 @@ import { narrationTargetForSecondsV8 } from './NarrativeDurationTargetsV8';
 import {
   NARRATIVE_BEAT_ORDER_V8,
   buildNarrativeWriterPlanV8,
+  narrativeWriterResponseSchemaV8,
+  parseNarrativeWriterResponseV8,
 } from './NarrativeWriterContractV8';
 
 function dossierWithRoles(
@@ -64,6 +66,20 @@ const RICH_DEFINITIONS: Array<{ role: NarrativeSufficiencyRoleV6; text: string }
   { role: 'distinctive_trait', text: 'Los soportales continuos distinguen este conjunto.' },
   { role: 'distinctive_trait', text: 'La mezcla residencial y cívica define su singularidad.' },
 ];
+
+function buildValidResponseV8(plan: ReturnType<typeof buildNarrativeWriterPlanV8>) {
+  const segments = plan.beats.map((beat, index) => ({
+    segmentId: `segment-${index + 1}`,
+    beat: beat.beat,
+    text: `Texto del segmento ${index + 1} para ${beat.beat}.`,
+    supportCardIds: [...beat.evidenceCardIds],
+    estimatedWords: 12,
+  }));
+  return {
+    stop_id: plan.routeStopId,
+    segments,
+  };
+}
 
 describe('NarrativeWriterContractV8', () => {
   it('builds an ordered, traceable beat plan from admitted evidence cards', () => {
@@ -143,5 +159,103 @@ describe('NarrativeWriterContractV8', () => {
     }).openingMode);
 
     expect(openingModes).toEqual(['gaze', 'movement', 'contrast', 'gaze']);
+  });
+
+  it('parses a valid segmented response, concatenates text in order, and preserves coverage', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    const parsed = parseNarrativeWriterResponseV8(plan, response);
+
+    expect(parsed.text).toBe(
+      plan.beats
+        .map((_, index) => `Texto del segmento ${index + 1} para ${plan.beats[index].beat}.`)
+        .join(' ')
+    );
+    expect(parsed.coverage).toBe(1);
+    expect(parsed.segments).toEqual(response.segments);
+
+    const realWordCount = parsed.text.split(/\s+/).filter(Boolean).length;
+    expect(parsed.wordCount).toBe(realWordCount);
+
+    const artificialEstimatedSum = response.segments.reduce((sum, segment) => sum + segment.estimatedWords, 0);
+    expect(parsed.wordCount).not.toBe(artificialEstimatedSum);
+  });
+
+  it('rejects a response that references an unknown supportCardId', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    response.segments[0].supportCardIds.push('unknown-card-id');
+
+    expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
+
+  it('rejects a segment with no supportCardIds', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    response.segments[0].supportCardIds = [];
+
+    expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
+
+  it('rejects coverage below 0.7 when only the first card of each beat is used', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const response = buildValidResponseV8(plan);
+    response.segments = response.segments.map((segment) => ({
+      ...segment,
+      supportCardIds: [segment.supportCardIds[0]],
+    }));
+
+    expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
+
+  it('enforces a strict root schema requiring stop_id and segments, and enumerates plan beats', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const schema = narrativeWriterResponseSchemaV8(plan);
+    expect(schema).toMatchObject({
+      type: 'object',
+      additionalProperties: false,
+      required: ['stop_id', 'segments'],
+    });
+    const properties = schema.properties as Record<string, unknown>;
+    const segments = properties.segments as Record<string, unknown>;
+    const items = segments.items as Record<string, unknown>;
+    const segmentProperties = items.properties as Record<string, unknown>;
+    const beat = segmentProperties.beat as Record<string, unknown>;
+    expect(beat.enum).toEqual(plan.beats.map((item) => item.beat));
   });
 });

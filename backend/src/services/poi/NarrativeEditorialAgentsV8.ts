@@ -2,6 +2,11 @@ import {
   createNarrativeEditorialAgentsV6Core,
   NarrativeEditorialAgentsV6,
 } from './NarrativeEditorialAgentsV6';
+import {
+  NarrativeWriterPlanV8,
+  narrativeWriterResponseSchemaV8,
+  parseNarrativeWriterResponseV8,
+} from './NarrativeWriterContractV8';
 import { NarrativeModelClientOptionsV6 } from './NarrativeModelProfilesV6';
 import {
   NarrativeAdmittedStopV8,
@@ -50,6 +55,17 @@ export function createNarrativeEditorialAgentsV8(
             `writer_length_target_missed stop=${input.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
           );
         }
+      },
+      writerResponseContract: (projectedInput, input) => {
+        const plan = (projectedInput as Record<string, unknown>).writerPlan as NarrativeWriterPlanV8 | undefined;
+        if (!plan) return undefined;
+        return {
+          schema: narrativeWriterResponseSchemaV8(plan),
+          parse: (value: unknown) => {
+            const parsed = parseNarrativeWriterResponseV8(plan, value);
+            return { text: parsed.text };
+          },
+        };
       },
     }
   );

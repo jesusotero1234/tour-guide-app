@@ -94,6 +94,186 @@ function beatCardsV8(
   }
 }
 
+export interface NarrativeWriterSegmentV8 {
+  segmentId: string;
+  beat: NarrativeBeatV8;
+  text: string;
+  supportCardIds: string[];
+  estimatedWords: number;
+}
+
+export interface NarrativeStructuredWriterResultV8 {
+  text: string;
+  segments: NarrativeWriterSegmentV8[];
+  coverage: number;
+  wordCount: number;
+}
+
+export function narrativeWriterResponseSchemaV8(
+  plan: NarrativeWriterPlanV8
+): Record<string, unknown> {
+  const beatEnum = plan.beats.map((item) => item.beat);
+  const cardEnum = plan.evidenceCards.map((card) => card.cardId);
+
+  return {
+    type: 'object',
+    additionalProperties: false,
+    required: ['stop_id', 'segments'],
+    properties: {
+      stop_id: {
+        type: 'string',
+        const: plan.routeStopId,
+      },
+      segments: {
+        type: 'array',
+        minItems: plan.beats.length,
+        maxItems: plan.beats.length,
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['segmentId', 'beat', 'text', 'supportCardIds', 'estimatedWords'],
+          properties: {
+            segmentId: {
+              type: 'string',
+              minLength: 1,
+            },
+            beat: {
+              type: 'string',
+              enum: beatEnum,
+            },
+            text: {
+              type: 'string',
+              minLength: 1,
+            },
+            supportCardIds: {
+              type: 'array',
+              minItems: 1,
+              uniqueItems: true,
+              items: {
+                type: 'string',
+                enum: cardEnum,
+              },
+            },
+            estimatedWords: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        },
+      },
+    },
+  };
+}
+
+export function parseNarrativeWriterResponseV8(
+  plan: NarrativeWriterPlanV8,
+  value: unknown
+): NarrativeStructuredWriterResultV8 {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    throw new Error('Narrative writer response must be an object.');
+  }
+
+  const record = value as Record<string, unknown>;
+  if (record.stop_id !== plan.routeStopId) {
+    throw new Error('Narrative writer response stop_id does not match plan.');
+  }
+
+  const segments = record.segments;
+  if (!Array.isArray(segments)) {
+    throw new Error('Narrative writer response segments must be an array.');
+  }
+  if (segments.length !== plan.beats.length) {
+    throw new Error('Narrative writer response must contain one segment per planned beat.');
+  }
+
+  const seenSegmentIds = new Set<string>();
+  const usedHighPriorityCardIds = new Set<string>();
+  const parsedSegments: NarrativeWriterSegmentV8[] = [];
+  const normalizedTexts: string[] = [];
+
+  for (let index = 0; index < segments.length; index += 1) {
+    const rawSegment = segments[index];
+    if (typeof rawSegment !== 'object' || rawSegment === null || Array.isArray(rawSegment)) {
+      throw new Error('Each narrative segment must be an object.');
+    }
+
+    const segment = rawSegment as Record<string, unknown>;
+    const segmentId = segment.segmentId;
+    const beat = segment.beat;
+    const text = segment.text;
+    const supportCardIds = segment.supportCardIds;
+    const estimatedWords = segment.estimatedWords;
+
+    if (typeof segmentId !== 'string' || segmentId.length === 0) {
+      throw new Error('Segment segmentId must be a non-empty string.');
+    }
+    if (seenSegmentIds.has(segmentId)) {
+      throw new Error('Segment segmentId must be unique.');
+    }
+    seenSegmentIds.add(segmentId);
+
+    if (typeof beat !== 'string' || beat !== plan.beats[index].beat) {
+      throw new Error('Segment beat must match the planned beat order.');
+    }
+
+    if (typeof text !== 'string' || text.trim().length === 0) {
+      throw new Error('Segment text must be a non-empty string.');
+    }
+
+    if (typeof estimatedWords !== 'number' || !Number.isInteger(estimatedWords) || estimatedWords < 1) {
+      throw new Error('Segment estimatedWords must be a positive integer.');
+    }
+
+    if (!Array.isArray(supportCardIds) || supportCardIds.length === 0) {
+      throw new Error('Segment supportCardIds must be a non-empty array.');
+    }
+
+    const seenCardIds = new Set<string>();
+    const authorizedCardIds = new Set(plan.beats[index].evidenceCardIds);
+    for (const cardId of supportCardIds) {
+      if (typeof cardId !== 'string' || cardId.length === 0) {
+        throw new Error('Support card ids must be non-empty strings.');
+      }
+      if (seenCardIds.has(cardId)) {
+        throw new Error('Support card ids must be unique within a segment.');
+      }
+      seenCardIds.add(cardId);
+      if (!authorizedCardIds.has(cardId)) {
+        throw new Error(`Support card id ${cardId} is not authorized for beat ${beat}.`);
+      }
+      if (plan.highPriorityCardIds.includes(cardId)) {
+        usedHighPriorityCardIds.add(cardId);
+      }
+    }
+
+    const normalizedText = text.replace(/\s+/gu, ' ').trim();
+    normalizedTexts.push(normalizedText);
+    parsedSegments.push({
+      segmentId,
+      beat,
+      text,
+      supportCardIds: [...supportCardIds],
+      estimatedWords,
+    });
+  }
+
+  const totalHighPriority = plan.highPriorityCardIds.length;
+  const coverage = totalHighPriority === 0 ? 1 : usedHighPriorityCardIds.size / totalHighPriority;
+  if (coverage < plan.minimumHighPriorityCoverage) {
+    throw new Error('Narrative writer response coverage is below the required minimum.');
+  }
+
+  const text = normalizedTexts.join(' ');
+  const wordCount = text.length === 0 ? 0 : text.split(/\s+/u).length;
+
+  return {
+    text,
+    segments: parsedSegments,
+    coverage,
+    wordCount,
+  };
+}
+
 export function buildNarrativeWriterPlanV8(
   input: BuildNarrativeWriterPlanInputV8
 ): NarrativeWriterPlanV8 {
