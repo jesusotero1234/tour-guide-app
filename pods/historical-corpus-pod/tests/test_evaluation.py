@@ -4,6 +4,7 @@ import json
 import math
 from datetime import datetime, timezone
 
+import httpx2
 import pytest
 from pydantic import ValidationError
 
@@ -13,10 +14,17 @@ from historical_corpus.evaluation import (
     OcrEvaluationError,
     OcrGateConfig,
     OcrGoldPage,
+    RetrievalCase,
+    RetrievalEvaluationError,
+    RetrievalGateConfig,
+    RetrievalTarget,
     _align_lines,
     evaluate_ocr,
+    evaluate_retrieval,
     levenshtein_distance,
     load_ocr_gold_jsonl,
+    load_retrieval_cases_jsonl,
+    validate_retrieval_api_base_url,
 )
 from historical_corpus.ingest_models import OcrEvaluationSample, PreparedDocument, SourceLineInput
 from test_ingest_models import (
@@ -407,3 +415,501 @@ def test_gold_component_models_are_strict() -> None:
     assert boundary.charOffset == 0
     with pytest.raises(ValidationError):
         GoldReferenceLine.model_validate({"text": "x", "role": "body", "extra": True})
+
+
+def _retrieval_target(**updates: object) -> RetrievalTarget:
+    payload: dict[str, object] = {
+        "documentId": "doc-1",
+        "entryTitle": "MÁLAGA",
+        "logicalPages": [1],
+        "printedPages": ["34"],
+    }
+    payload.update(updates)
+    return RetrievalTarget.model_validate(payload)
+
+
+def _retrieval_case(**updates: object) -> RetrievalCase:
+    payload: dict[str, object] = {
+        "id": "case-1",
+        "query": "historia de Málaga",
+        "relevantTargets": [_retrieval_target().model_dump()],
+        "requiredTerms": ["Málaga"],
+    }
+    payload.update(updates)
+    return RetrievalCase.model_validate(payload)
+
+
+def _retrieval_case_payload(**updates: object) -> dict[str, object]:
+    payload = _retrieval_case().model_dump(mode="json")
+    payload.update(updates)
+    return payload
+
+
+def _retrieval_jsonl(*rows: dict[str, object]) -> bytes:
+    return ("\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n").encode()
+
+
+def _hit(
+    chunk_id: str = "chunk-1",
+    *,
+    document_id: str = "doc-1",
+    page_start: int = 1,
+    page_end: int = 1,
+    entry_title: str = "MÁLAGA",
+    text: str = "Málaga, ciudad histórica",
+) -> dict[str, object]:
+    return {
+        "chunkId": chunk_id,
+        "documentId": document_id,
+        "pageStart": page_start,
+        "pageEnd": page_end,
+        "entryTitle": entry_title,
+        "text": text,
+    }
+
+
+class _FakeRetrievalApi:
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, str, object | None, dict[str, float] | None]] = []
+        self.documents: dict[str, dict[str, object]] = {
+            "doc-1": {"documentId": "doc-1", "missingPrintedPages": []},
+            "doc-2": {"documentId": "doc-2", "missingPrintedPages": []},
+        }
+        self.summaries: dict[str, list[dict[str, object]]] = {
+            "doc-1": [
+                {"documentId": "doc-1", "logicalPageNumber": 1, "printedPageLabel": "34"}
+            ],
+            "doc-2": [
+                {"documentId": "doc-2", "logicalPageNumber": 2, "printedPageLabel": "35"}
+            ],
+        }
+        self.search_hits: list[dict[str, object]] = [_hit()]
+        self.chunks: dict[str, dict[str, object]] = {
+            "chunk-1": {
+                "chunkId": "chunk-1",
+                "documentId": "doc-1",
+                "pageStart": 1,
+                "pageEnd": 1,
+                "lineIds": ["line-1"],
+            }
+        }
+        self.details: dict[tuple[str, int], dict[str, object]] = {
+            ("doc-1", 1): {
+                "documentId": "doc-1",
+                "logicalPageNumber": 1,
+                "lines": [{"lineId": "line-1", "role": "body"}],
+            },
+            ("doc-2", 2): {
+                "documentId": "doc-2",
+                "logicalPageNumber": 2,
+                "lines": [{"lineId": "line-2", "role": "body"}],
+            },
+        }
+        self.search_status = 200
+        self.search_payload: object = None
+        self.timeout_on_search = False
+        self.timeout_paths: set[str] = set()
+        self.not_found_paths: set[str] = set()
+
+    def __call__(self, request: httpx2.Request) -> httpx2.Response:
+        body = json.loads(request.content) if request.content else None
+        timeout = request.extensions.get("timeout")
+        self.calls.append((request.method, request.url.path, body, timeout))
+        path = request.url.path
+        if path in self.timeout_paths:
+            raise httpx2.TimeoutException("timed out", request=request)
+        if path in self.not_found_paths:
+            return httpx2.Response(404, json={"error": "missing"})
+        if request.method == "POST" and path == "/v1/search":
+            if self.timeout_on_search:
+                raise httpx2.TimeoutException("timed out", request=request)
+            if self.search_status != 200:
+                headers = {"location": "/redirected"} if 300 <= self.search_status < 400 else None
+                return httpx2.Response(self.search_status, headers=headers, json={"error": "failed"})
+            payload = self.search_payload
+            return httpx2.Response(
+                200,
+                json=payload if payload is not None else {"hits": self.search_hits},
+            )
+        if request.method == "GET" and path.startswith("/v1/documents/"):
+            parts = path.split("/")
+            document_id = parts[3]
+            if len(parts) == 4:
+                document = self.documents.get(document_id)
+                return (
+                    httpx2.Response(200, json=document)
+                    if document is not None
+                    else httpx2.Response(404, json={"error": "missing"})
+                )
+            if len(parts) == 5 and parts[4] == "pages":
+                summaries = self.summaries.get(document_id)
+                return (
+                    httpx2.Response(200, json=summaries)
+                    if summaries is not None
+                    else httpx2.Response(404, json={"error": "missing"})
+                )
+            if len(parts) == 6 and parts[4] == "pages":
+                detail = self.details.get((document_id, int(parts[5])))
+                return (
+                    httpx2.Response(200, json=detail)
+                    if detail is not None
+                    else httpx2.Response(404, json={"error": "missing"})
+                )
+        if request.method == "GET" and path.startswith("/v1/chunks/"):
+            chunk = self.chunks.get(path.rsplit("/", 1)[-1])
+            return (
+                httpx2.Response(200, json=chunk)
+                if chunk is not None
+                else httpx2.Response(404, json={"error": "missing"})
+            )
+        return httpx2.Response(404, json={"error": "unexpected"})
+
+
+def _evaluate_retrieval(
+    fake: _FakeRetrievalApi,
+    cases: list[RetrievalCase] | None = None,
+    *,
+    config: RetrievalGateConfig | None = None,
+    api_base_url: str = "http://127.0.0.1:3010",
+):
+    return evaluate_retrieval(
+        api_base_url,
+        cases or [_retrieval_case()],
+        transport=httpx2.MockTransport(fake),
+        config=config or RetrievalGateConfig(minimumCaseCount=1),
+        evaluated_at=EVALUATED_AT,
+    )
+
+
+def test_retrieval_loader_and_models_are_strict() -> None:
+    loaded = load_retrieval_cases_jsonl(_retrieval_jsonl(_retrieval_case_payload()))
+    assert loaded == (_retrieval_case(),)
+
+    invalid_targets = [
+        {"documentId": "doc-1", "entryTitle": "MÁLAGA", "logicalPages": [], "printedPages": []},
+        {
+            "documentId": "doc-1",
+            "entryTitle": "MÁLAGA",
+            "logicalPages": [2, 1],
+            "printedPages": ["35", "34"],
+        },
+        {
+            "documentId": "doc-1",
+            "entryTitle": "MÁLAGA",
+            "logicalPages": [1, 1],
+            "printedPages": ["34", "34"],
+        },
+        {
+            "documentId": "doc-1",
+            "entryTitle": "MÁLAGA",
+            "logicalPages": [1],
+            "printedPages": [],
+        },
+    ]
+    for target in invalid_targets:
+        with pytest.raises((ValidationError, RetrievalEvaluationError)):
+            RetrievalTarget.model_validate(target)
+    with pytest.raises(ValidationError):
+        RetrievalCase.model_validate(_retrieval_case_payload(extra=True))
+    with pytest.raises(ValidationError):
+        RetrievalCase.model_validate(_retrieval_case_payload(query="bad\u0000query"))
+    with pytest.raises(ValidationError):
+        RetrievalCase.model_validate(_retrieval_case_payload(query=""))
+
+
+def test_retrieval_loader_enforces_envelope_and_unique_ids() -> None:
+    with pytest.raises(RetrievalEvaluationError, match="LF"):
+        load_retrieval_cases_jsonl(_retrieval_jsonl(_retrieval_case_payload()).rstrip(b"\n"))
+    with pytest.raises(RetrievalEvaluationError, match="UTF-8"):
+        load_retrieval_cases_jsonl(b"\xff\n")
+    with pytest.raises(RetrievalEvaluationError, match="2 MiB"):
+        load_retrieval_cases_jsonl(b"x" * (2 * 1024 * 1024 + 1))
+    with pytest.raises(RetrievalEvaluationError, match="500"):
+        load_retrieval_cases_jsonl(
+            _retrieval_jsonl(
+                *[_retrieval_case_payload(id=f"case-{index}") for index in range(501)]
+            )
+        )
+    with pytest.raises(RetrievalEvaluationError, match="unique"):
+        load_retrieval_cases_jsonl(
+            _retrieval_jsonl(_retrieval_case_payload(), _retrieval_case_payload())
+        )
+
+
+@pytest.mark.parametrize(
+    ("url", "normalized"),
+    [
+        ("http://127.0.0.1:3010", "http://127.0.0.1:3010"),
+        ("http://localhost:3010/", "http://localhost:3010"),
+        ("http://historical-corpus-api:3010", "http://historical-corpus-api:3010"),
+    ],
+)
+def test_retrieval_api_url_allowlist(url: str, normalized: str) -> None:
+    assert validate_retrieval_api_base_url(url) == normalized
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://127.0.0.1:3010",
+        "http://127.0.0.1",
+        "http://127.0.0.1:3011",
+        "http://127.0.0.1.evil:3010",
+        "http://user:pass@localhost:3010",
+        "http://localhost:3010/api",
+        "http://localhost:3010?query=1",
+        "http://localhost:3010/#fragment",
+        "http://localhost:not-a-port",
+        " http://localhost:3010",
+        "http://localhost:3010\n",
+    ],
+)
+def test_retrieval_api_url_rejects_unsafe_values(url: str) -> None:
+    with pytest.raises(RetrievalEvaluationError):
+        validate_retrieval_api_base_url(url)
+
+
+def test_retrieval_request_order_payload_timeout_cache_and_report() -> None:
+    fake = _FakeRetrievalApi()
+    cases = [_retrieval_case(id="case-b"), _retrieval_case(id="case-a")]
+    report = _evaluate_retrieval(fake, cases)
+
+    assert [case.id for case in report.cases] == ["case-a", "case-b"]
+    assert [(method, path) for method, path, _, _ in fake.calls[:3]] == [
+        ("GET", "/v1/documents/doc-1"),
+        ("GET", "/v1/documents/doc-1/pages"),
+        ("POST", "/v1/search"),
+    ]
+    assert sum(path == "/v1/documents/doc-1" for _, path, _, _ in fake.calls) == 1
+    assert sum(path == "/v1/documents/doc-1/pages" for _, path, _, _ in fake.calls) == 1
+    posts = [call for call in fake.calls if call[0] == "POST"]
+    assert [call[2] for call in posts] == [
+        {"query": "historia de Málaga", "limit": 20},
+        {"query": "historia de Málaga", "limit": 20},
+    ]
+    for _, _, _, timeout in posts:
+        assert timeout == {"connect": 3.0, "read": 30.0, "write": 30.0, "pool": 30.0}
+    assert report.evaluatedAt == EVALUATED_AT
+    assert report.metrics.recallAt20 == 1.0
+    assert report.metrics.precisionAt8 == 0.125
+    assert report.metrics.mrrAt20 == 1.0
+    assert report.metrics.requiredTermPresence == 1.0
+    assert report.metrics.structuralIntegrity == 1.0
+    assert report.metrics.exceptionCases == 0
+    assert report.passed
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["missing_page", "null_label", "wrong_label", "declared_gap"],
+)
+def test_retrieval_rejects_invalid_printed_coverage_before_search(mutation: str) -> None:
+    fake = _FakeRetrievalApi()
+    if mutation == "missing_page":
+        fake.summaries["doc-1"] = []
+    elif mutation == "null_label":
+        fake.summaries["doc-1"][0]["printedPageLabel"] = None
+    elif mutation == "wrong_label":
+        fake.summaries["doc-1"][0]["printedPageLabel"] = "999"
+    else:
+        fake.documents["doc-1"]["missingPrintedPages"] = ["34"]
+
+    with pytest.raises(RetrievalEvaluationError):
+        _evaluate_retrieval(fake)
+    assert not any(method == "POST" for method, _, _, _ in fake.calls)
+
+
+def test_retrieval_metrics_multiple_targets_duplicates_terms_and_integrity() -> None:
+    fake = _FakeRetrievalApi()
+    fake.search_hits = [
+        _hit("chunk-1", text="La CIUDAD de Málaga"),
+        _hit("chunk-1", text="Málaga ciudad repetida"),
+        _hit("chunk-3", entry_title="RONDA", text="texto irrelevante"),
+    ]
+    fake.chunks["chunk-3"] = {
+        "chunkId": "chunk-3",
+        "documentId": "doc-1",
+        "pageStart": 1,
+        "pageEnd": 1,
+        "lineIds": ["line-1"],
+    }
+    case = _retrieval_case(
+        relevantTargets=[
+            _retrieval_target().model_dump(),
+            _retrieval_target(
+                documentId="doc-2",
+                entryTitle="GRANADA",
+                logicalPages=[2],
+                printedPages=["35"],
+            ).model_dump(),
+        ],
+        requiredTerms=["ciudad", "ausente"],
+    )
+    report = _evaluate_retrieval(
+        fake,
+        [case],
+        config=RetrievalGateConfig(
+            minimumCaseCount=1,
+            minRecallAt20=0.0,
+            minMrrAt20=0.0,
+        ),
+    )
+    assert report.metrics.recallAt20 == 0.5
+    assert report.metrics.precisionAt8 == 0.25
+    assert report.metrics.mrrAt20 == 1.0
+    assert report.metrics.requiredTermPresence == 0.5
+    assert report.metrics.structuralIntegrity == 1.0
+    assert sum(path == "/v1/chunks/chunk-1" for _, path, _, _ in fake.calls) == 1
+    assert sum(path == "/v1/documents/doc-1/pages/1" for _, path, _, _ in fake.calls) == 1
+
+
+def test_retrieval_zero_hits_and_top_twenty_truncation() -> None:
+    empty = _FakeRetrievalApi()
+    empty.search_hits = []
+    empty_report = _evaluate_retrieval(empty, [_retrieval_case(requiredTerms=[])])
+    assert empty_report.metrics.recallAt20 == 0.0
+    assert empty_report.metrics.precisionAt8 == 0.0
+    assert empty_report.metrics.mrrAt20 == 0.0
+    assert empty_report.metrics.requiredTermPresence == 1.0
+    assert empty_report.metrics.structuralIntegrity == 1.0
+
+    truncated = _FakeRetrievalApi()
+    truncated.search_hits = [
+        _hit("chunk-1", entry_title="RONDA") for _ in range(20)
+    ] + [_hit("chunk-1")]
+    report = _evaluate_retrieval(
+        truncated,
+        config=RetrievalGateConfig(
+            minimumCaseCount=1,
+            minRecallAt20=0.0,
+            minMrrAt20=0.0,
+        ),
+    )
+    assert report.metrics.recallAt20 == 0.0
+    assert report.metrics.mrrAt20 == 0.0
+
+
+def test_retrieval_precision_uses_first_eight_positions_and_terms_do_not_span_hits() -> None:
+    fake = _FakeRetrievalApi()
+    fake.search_hits = [
+        _hit("chunk-1", entry_title="RONDA", text="irrelevante") for _ in range(8)
+    ] + [
+        _hit("chunk-1", text="San"),
+        _hit("chunk-1", text="Pedro"),
+    ]
+    report = _evaluate_retrieval(
+        fake,
+        [_retrieval_case(requiredTerms=["San Pedro"])],
+        config=RetrievalGateConfig(
+            minimumCaseCount=1,
+            minRecallAt20=0.0,
+            minMrrAt20=0.0,
+        ),
+    )
+    assert report.metrics.recallAt20 == 1.0
+    assert report.metrics.precisionAt8 == 0.0
+    assert report.metrics.mrrAt20 == pytest.approx(1 / 9)
+    assert report.metrics.requiredTermPresence == 0.0
+
+
+@pytest.mark.parametrize("failure", ["chunk_404", "chunk_mismatch", "line_missing", "non_body"])
+def test_retrieval_structural_integrity_detects_bad_evidence(failure: str) -> None:
+    fake = _FakeRetrievalApi()
+    if failure == "chunk_404":
+        fake.chunks.clear()
+    elif failure == "chunk_mismatch":
+        fake.chunks["chunk-1"]["pageEnd"] = 2
+    elif failure == "line_missing":
+        fake.details[("doc-1", 1)]["lines"] = []
+    else:
+        fake.details[("doc-1", 1)]["lines"] = [{"lineId": "line-1", "role": "table"}]
+    report = _evaluate_retrieval(
+        fake,
+        config=RetrievalGateConfig(
+            minimumCaseCount=1,
+            minStructuralIntegrity=0.0,
+        ),
+    )
+    assert report.metrics.structuralIntegrity == 0.0
+    assert report.metrics.exceptionCases == 0
+
+
+@pytest.mark.parametrize("failure", ["malformed_chunk", "transport"])
+def test_retrieval_integrity_protocol_failure_marks_exception_case(failure: str) -> None:
+    fake = _FakeRetrievalApi()
+    if failure == "malformed_chunk":
+        fake.chunks["chunk-1"].pop("lineIds")
+    else:
+        fake.timeout_paths.add("/v1/chunks/chunk-1")
+    report = _evaluate_retrieval(fake)
+    assert report.metrics.exceptionCases == 1
+    assert report.metrics.recallAt20 == 0.0
+    assert report.metrics.mrrAt20 == 0.0
+    assert report.metrics.structuralIntegrity == 0.0
+    assert report.cases[0].exception
+    assert not report.passed
+
+
+@pytest.mark.parametrize("failure", ["redirect", "server_error", "schema", "timeout"])
+def test_retrieval_search_failures_do_not_redirect_and_fail_case(failure: str) -> None:
+    fake = _FakeRetrievalApi()
+    if failure == "redirect":
+        fake.search_status = 302
+    elif failure == "server_error":
+        fake.search_status = 500
+    elif failure == "schema":
+        fake.search_payload = {"hits": "not-a-list"}
+    else:
+        fake.timeout_on_search = True
+
+    report = _evaluate_retrieval(fake)
+    assert report.metrics.exceptionCases == 1
+    assert report.metrics.recallAt20 == 0.0
+    assert report.metrics.mrrAt20 == 0.0
+    assert not report.gates["exceptionCases"]
+    assert not report.passed
+    if failure == "redirect":
+        assert not any(path == "/redirected" for _, path, _, _ in fake.calls)
+
+
+def test_retrieval_preflight_timeout_fails_case_before_search() -> None:
+    fake = _FakeRetrievalApi()
+    fake.timeout_paths.add("/v1/documents/doc-1")
+    report = _evaluate_retrieval(fake)
+    assert report.metrics.exceptionCases == 1
+    assert report.metrics.recallAt20 == 0.0
+    assert report.metrics.mrrAt20 == 0.0
+    assert not any(method == "POST" for method, _, _, _ in fake.calls)
+    assert not report.passed
+
+
+def test_retrieval_gate_defaults_are_inclusive() -> None:
+    defaults = RetrievalGateConfig()
+    assert defaults.minimumCaseCount == 20
+    assert defaults.minRecallAt20 == 0.90
+    assert defaults.minMrrAt20 == 0.75
+    assert defaults.minStructuralIntegrity == 1.0
+    assert defaults.maxExceptionCases == 0
+
+    fake = _FakeRetrievalApi()
+    report = _evaluate_retrieval(
+        fake,
+        config=RetrievalGateConfig(
+            minimumCaseCount=1,
+            minRecallAt20=1.0,
+            minMrrAt20=1.0,
+            minStructuralIntegrity=1.0,
+            maxExceptionCases=0,
+        ),
+    )
+    assert report.passed
+    assert all(report.gates.values())
+
+
+def test_retrieval_report_does_not_store_query_or_hit_text() -> None:
+    fake = _FakeRetrievalApi()
+    fake.search_hits = [_hit(text="SECRET HIT TEXT")]
+    report = _evaluate_retrieval(fake, [_retrieval_case(query="SECRET QUERY")])
+    serialized = report.model_dump_json()
+    assert "SECRET QUERY" not in serialized
+    assert "SECRET HIT TEXT" not in serialized

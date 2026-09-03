@@ -3858,7 +3858,11 @@ Validación:
 
 ### QW-17B — Evaluación de recuperación
 
-- [ ] Pendiente.
+- [x] Completo (2026-09-03): casos JSONL estrictos, allow-list SSRF del API
+  local, transporte inyectable sin redirects con timeouts 3/30 s, validación
+  lógica↔impresa, matching exacto de targets, Recall@20/Precision@8/MRR@20,
+  términos e integridad estructural con cachés por ID. Pasan 57 pruebas de
+  evaluación y las 591 pruebas completas.
 - Depende de: QW-16 y QW-17A.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_evaluation.py`

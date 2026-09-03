@@ -6,6 +6,9 @@ import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Literal, Sequence
+from urllib.parse import quote, urlparse
+
+import httpx2
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
@@ -20,6 +23,10 @@ _BOUNDARY_TITLE_DISTANCE_LIMIT = 0.20
 
 
 class OcrEvaluationError(ValueError):
+    pass
+
+
+class RetrievalEvaluationError(ValueError):
     pass
 
 
@@ -227,6 +234,184 @@ class OcrEvaluationReport(_StrictModel):
         return value
 
 
+class RetrievalTarget(_StrictModel):
+    documentId: str = Field(min_length=1, max_length=128)
+    entryTitle: str = Field(min_length=1, max_length=128)
+    logicalPages: list[int] = Field(min_length=1, max_length=64)
+    printedPages: list[str] = Field(min_length=1, max_length=64)
+
+    @field_validator("documentId")
+    @classmethod
+    def _validate_document_id(cls, value: str) -> str:
+        return _validate_text(value, label="documentId")
+
+    @field_validator("entryTitle")
+    @classmethod
+    def _validate_entry_title(cls, value: str) -> str:
+        return _validate_text(value, label="entryTitle")
+
+    @field_validator("logicalPages")
+    @classmethod
+    def _validate_logical_pages(cls, value: list[int]) -> list[int]:
+        if len(value) != len(set(value)):
+            raise ValueError("logicalPages must be unique")
+        for index, page in enumerate(value):
+            if not isinstance(page, int) or isinstance(page, bool) or not 1 <= page <= 2000:
+                raise ValueError("logicalPages must contain integers 1..2000")
+            if index > 0 and page <= value[index - 1]:
+                raise ValueError("logicalPages must be strictly ascending")
+        return value
+
+    @field_validator("printedPages")
+    @classmethod
+    def _validate_printed_pages(cls, value: list[str]) -> list[str]:
+        for label in value:
+            if not isinstance(label, str) or not 1 <= len(label) <= 128:
+                raise ValueError("printedPages must contain 1-128 character strings")
+            _validate_text(label, label="printedPage")
+        return value
+
+    @model_validator(mode="after")
+    def _validate_lengths(self) -> "RetrievalTarget":
+        if len(self.logicalPages) != len(self.printedPages):
+            raise ValueError("logicalPages and printedPages must have equal length")
+        return self
+
+
+class RetrievalCase(_StrictModel):
+    id: str = Field(min_length=1, max_length=128)
+    query: str = Field(min_length=1, max_length=512)
+    relevantTargets: list[RetrievalTarget] = Field(min_length=1, max_length=64)
+    requiredTerms: list[str] = Field(max_length=128)
+
+    @field_validator("id")
+    @classmethod
+    def _validate_id(cls, value: str) -> str:
+        return _validate_text(value, label="id")
+
+    @field_validator("query")
+    @classmethod
+    def _validate_query(cls, value: str) -> str:
+        return _validate_text(value, label="query")
+
+    @field_validator("requiredTerms")
+    @classmethod
+    def _validate_required_terms(cls, value: list[str]) -> list[str]:
+        normalized: set[str] = set()
+        for term in value:
+            if not isinstance(term, str) or not 1 <= len(term) <= 128:
+                raise ValueError("requiredTerms must contain 1-128 character strings")
+            _validate_text(term, label="requiredTerm")
+            key = _normalize_line(term)
+            if key in normalized:
+                raise ValueError("requiredTerms must be unique after normalization")
+            normalized.add(key)
+        return value
+
+
+class RetrievalGateConfig(_StrictModel):
+    minimumCaseCount: int = Field(default=20, ge=1, le=500)
+    minRecallAt20: float = Field(default=0.90, ge=0.0, le=1.0)
+    minMrrAt20: float = Field(default=0.75, ge=0.0, le=1.0)
+    minStructuralIntegrity: float = Field(default=1.0, ge=0.0, le=1.0)
+    maxExceptionCases: int = Field(default=0, ge=0, le=500)
+
+    @field_validator("minRecallAt20", "minMrrAt20", "minStructuralIntegrity")
+    @classmethod
+    def _validate_finite_threshold(cls, value: float) -> float:
+        if not math.isfinite(value):
+            raise ValueError("gate thresholds must be finite")
+        return value
+
+
+class RetrievalMetricSet(_StrictModel):
+    caseCount: int = Field(ge=0)
+    exceptionCases: int = Field(ge=0)
+    recallAt20: float = Field(ge=0.0, le=1.0)
+    precisionAt8: float = Field(ge=0.0, le=1.0)
+    mrrAt20: float = Field(ge=0.0, le=1.0)
+    requiredTermPresence: float = Field(ge=0.0, le=1.0)
+    structuralIntegrity: float = Field(ge=0.0, le=1.0)
+
+
+class RetrievalCaseEvaluation(_StrictModel):
+    id: str
+    exception: bool
+    recallAt20: float
+    precisionAt8: float
+    mrrAt20: float
+    requiredTermPresence: float
+    structuralIntegrity: float
+
+
+class RetrievalEvaluationReport(_StrictModel):
+    schemaVersion: Literal[1]
+    evaluatedAt: datetime
+    config: RetrievalGateConfig
+    metrics: RetrievalMetricSet
+    cases: list[RetrievalCaseEvaluation]
+    gates: dict[str, bool]
+    passed: bool
+
+    @field_validator("evaluatedAt")
+    @classmethod
+    def _validate_evaluated_at(cls, value: datetime) -> datetime:
+        if value.tzinfo is None or value.utcoffset() is None:
+            raise ValueError("evaluatedAt must include a timezone")
+        return value
+
+
+class _AllowExtraModel(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+
+class _RetrievalLookupUnavailable(Exception):
+    pass
+
+
+class _RetrievalProtocolError(Exception):
+    pass
+
+
+class _DocumentView(_AllowExtraModel):
+    documentId: str = Field(min_length=1, max_length=128)
+    missingPrintedPages: list[str] = Field(max_length=4096)
+
+
+class _PageSummaryView(_AllowExtraModel):
+    documentId: str = Field(min_length=1, max_length=128)
+    logicalPageNumber: int = Field(ge=1, le=2000)
+    printedPageLabel: str | None = Field(default=None, min_length=1, max_length=128)
+
+
+class _SearchHitView(_AllowExtraModel):
+    chunkId: str = Field(min_length=1, max_length=128)
+    documentId: str = Field(min_length=1, max_length=128)
+    pageStart: int = Field(ge=1, le=2000)
+    pageEnd: int = Field(ge=1, le=2000)
+    entryTitle: str | None = Field(default=None, min_length=1, max_length=128)
+    text: str = Field(min_length=1, max_length=65536)
+
+
+class _ChunkView(_AllowExtraModel):
+    chunkId: str = Field(min_length=1, max_length=128)
+    documentId: str = Field(min_length=1, max_length=128)
+    pageStart: int = Field(ge=1, le=2000)
+    pageEnd: int = Field(ge=1, le=2000)
+    lineIds: list[str] = Field(max_length=4096)
+
+
+class _PageDetailView(_AllowExtraModel):
+    documentId: str = Field(min_length=1, max_length=128)
+    logicalPageNumber: int = Field(ge=1, le=2000)
+    lines: list[_PageLineView] = Field(max_length=4096)
+
+
+class _PageLineView(_AllowExtraModel):
+    lineId: str = Field(min_length=1, max_length=128)
+    role: Literal["body", "header", "footer", "table", "unknown"]
+
+
 def _reject_json_constant(value: str) -> None:
     raise ValueError(f"invalid JSON constant: {value}")
 
@@ -265,6 +450,80 @@ def load_ocr_gold_jsonl(payload: bytes) -> tuple[OcrGoldPage, ...]:
         keys.add(key)
         pages.append(page)
     return tuple(pages)
+
+
+_MAX_RETRIEVAL_BYTES = 2 * 1024 * 1024
+_MAX_RETRIEVAL_ROWS = 500
+_ALLOWED_RETRIEVAL_HOSTS = {"127.0.0.1", "localhost", "historical-corpus-api"}
+
+
+def load_retrieval_cases_jsonl(payload: bytes) -> tuple[RetrievalCase, ...]:
+    if not isinstance(payload, bytes):
+        raise RetrievalEvaluationError("retrieval input must be bytes")
+    if len(payload) > _MAX_RETRIEVAL_BYTES:
+        raise RetrievalEvaluationError("retrieval input exceeds 2 MiB")
+    if not payload.endswith(b"\n"):
+        raise RetrievalEvaluationError("retrieval input must end with LF")
+    try:
+        decoded = payload.decode("utf-8")
+    except UnicodeDecodeError:
+        raise RetrievalEvaluationError("retrieval input must be valid UTF-8") from None
+
+    rows = decoded.splitlines()
+    if not 1 <= len(rows) <= _MAX_RETRIEVAL_ROWS:
+        raise RetrievalEvaluationError("retrieval input must contain 1..500 rows")
+    if any(not row.strip() for row in rows):
+        raise RetrievalEvaluationError("retrieval input must not contain blank rows")
+
+    cases: list[RetrievalCase] = []
+    seen_ids: set[str] = set()
+    for row in rows:
+        try:
+            value = json.loads(row, parse_constant=_reject_json_constant)
+            if not isinstance(value, dict):
+                raise ValueError("row must be an object")
+            case = RetrievalCase.model_validate(value)
+        except (json.JSONDecodeError, ValidationError, ValueError, TypeError):
+            raise RetrievalEvaluationError("retrieval input contains an invalid row") from None
+        if case.id in seen_ids:
+            raise RetrievalEvaluationError("retrieval case IDs must be unique")
+        seen_ids.add(case.id)
+        cases.append(case)
+    return tuple(cases)
+
+
+def validate_retrieval_api_base_url(url: str) -> str:
+    if (
+        not isinstance(url, str)
+        or not url
+        or url != url.strip()
+        or _contains_control(url)
+    ):
+        raise RetrievalEvaluationError("invalid retrieval API base URL")
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        raise RetrievalEvaluationError("invalid retrieval API base URL") from None
+    if parsed.scheme != "http":
+        raise RetrievalEvaluationError("retrieval API base URL must use http")
+    if parsed.hostname not in _ALLOWED_RETRIEVAL_HOSTS:
+        raise RetrievalEvaluationError("retrieval API base URL host is not allowed")
+    try:
+        port = parsed.port
+        if port is None:
+            raise ValueError("missing port")
+        port = int(port)
+    except (ValueError, TypeError):
+        raise RetrievalEvaluationError("retrieval API base URL must use port 3010") from None
+    if port != 3010:
+        raise RetrievalEvaluationError("retrieval API base URL must use port 3010")
+    if parsed.username or parsed.password:
+        raise RetrievalEvaluationError("retrieval API base URL must not contain credentials")
+    if parsed.query or parsed.fragment:
+        raise RetrievalEvaluationError("retrieval API base URL must not contain query or fragment")
+    if parsed.path not in ("", "/"):
+        raise RetrievalEvaluationError("retrieval API base URL path must be empty or slash")
+    return f"http://{parsed.hostname}:3010"
 
 
 def levenshtein_distance(left: str, right: str) -> int:
@@ -579,6 +838,361 @@ def _validated_gold_pages(
     if not 1 <= len(pages) <= _MAX_GOLD_ROWS:
         raise OcrEvaluationError("gold pages must contain 1..64 rows")
     return tuple(pages)
+
+
+def evaluate_retrieval(
+    api_base_url: str,
+    cases: Sequence[RetrievalCase],
+    *,
+    transport: httpx2.BaseTransport | None = None,
+    config: RetrievalGateConfig | None = None,
+    evaluated_at: datetime | None = None,
+) -> RetrievalEvaluationReport:
+    base_url = validate_retrieval_api_base_url(api_base_url)
+    if not isinstance(cases, Sequence) or isinstance(cases, (str, bytes)):
+        raise RetrievalEvaluationError("cases must be a sequence")
+    case_list: list[RetrievalCase] = []
+    seen_ids: set[str] = set()
+    for value in cases:
+        if not isinstance(value, RetrievalCase):
+            raise RetrievalEvaluationError("cases must contain RetrievalCase values")
+        if value.id in seen_ids:
+            raise RetrievalEvaluationError("case IDs must be unique")
+        seen_ids.add(value.id)
+        case_list.append(value)
+    if not case_list:
+        raise RetrievalEvaluationError("cases must be nonempty")
+    case_list.sort(key=lambda case: case.id)
+    selected_config = config or RetrievalGateConfig()
+    timestamp = evaluated_at or datetime.now(timezone.utc)
+    if timestamp.tzinfo is None or timestamp.utcoffset() is None:
+        raise RetrievalEvaluationError("evaluation timestamp must include a timezone")
+
+    client = httpx2.Client(
+        base_url=base_url,
+        transport=transport,
+        timeout=httpx2.Timeout(30.0, connect=3.0),
+        follow_redirects=False,
+        trust_env=False,
+    )
+    document_cache: dict[str, _DocumentView] = {}
+    summary_cache: dict[str, list[_PageSummaryView]] = {}
+    chunk_cache: dict[str, _ChunkView] = {}
+    detail_cache: dict[tuple[str, int], _PageDetailView] = {}
+
+    def _get_json(path: str) -> Any:
+        try:
+            response = client.get(path)
+        except httpx2.HTTPError:
+            raise _RetrievalProtocolError("retrieval request failed") from None
+        if not 200 <= response.status_code < 300:
+            raise _RetrievalLookupUnavailable("retrieval resource is unavailable")
+        try:
+            return response.json()
+        except (ValueError, TypeError):
+            raise _RetrievalProtocolError("retrieval response is malformed") from None
+
+    def _get_document(document_id: str) -> _DocumentView:
+        if document_id not in document_cache:
+            payload = _get_json(f"/v1/documents/{quote(document_id, safe='')}")
+            try:
+                document_cache[document_id] = _DocumentView.model_validate(payload)
+            except (ValidationError, ValueError, TypeError):
+                raise _RetrievalProtocolError("retrieval document is malformed") from None
+        return document_cache[document_id]
+
+    def _get_summaries(document_id: str) -> list[_PageSummaryView]:
+        if document_id not in summary_cache:
+            payload = _get_json(f"/v1/documents/{quote(document_id, safe='')}/pages")
+            try:
+                if not isinstance(payload, list):
+                    raise TypeError("page summaries must be a list")
+                summary_cache[document_id] = [
+                    _PageSummaryView.model_validate(item) for item in payload
+                ]
+            except (ValidationError, ValueError, TypeError):
+                raise _RetrievalProtocolError("retrieval page summaries are malformed") from None
+        return summary_cache[document_id]
+
+    def _get_chunk(chunk_id: str) -> _ChunkView:
+        if chunk_id not in chunk_cache:
+            payload = _get_json(f"/v1/chunks/{quote(chunk_id, safe='')}")
+            try:
+                chunk_cache[chunk_id] = _ChunkView.model_validate(payload)
+            except (ValidationError, ValueError, TypeError):
+                raise _RetrievalProtocolError("retrieval chunk is malformed") from None
+        return chunk_cache[chunk_id]
+
+    def _get_detail(document_id: str, logical_page: int) -> _PageDetailView:
+        key = (document_id, logical_page)
+        if key not in detail_cache:
+            payload = _get_json(
+                f"/v1/documents/{quote(document_id, safe='')}/pages/{logical_page}"
+            )
+            try:
+                detail_cache[key] = _PageDetailView.model_validate(payload)
+            except (ValidationError, ValueError, TypeError):
+                raise _RetrievalProtocolError("retrieval page detail is malformed") from None
+        return detail_cache[key]
+
+    def _preflight(target: RetrievalTarget) -> None:
+        try:
+            document = _get_document(target.documentId)
+            summaries = _get_summaries(target.documentId)
+        except _RetrievalLookupUnavailable:
+            raise RetrievalEvaluationError("target coverage could not be validated") from None
+        if document.documentId != target.documentId:
+            raise RetrievalEvaluationError("document ID mismatch")
+        summary_by_logical: dict[int, _PageSummaryView] = {}
+        for summary in summaries:
+            if summary.documentId != target.documentId:
+                continue
+            if summary.logicalPageNumber in summary_by_logical:
+                raise RetrievalEvaluationError("duplicate logical page summary")
+            summary_by_logical[summary.logicalPageNumber] = summary
+        for logical_page, printed_label in zip(target.logicalPages, target.printedPages):
+            summary = summary_by_logical.get(logical_page)
+            if summary is None or summary.printedPageLabel != printed_label:
+                raise RetrievalEvaluationError("logical page coverage mismatch")
+        for label in target.printedPages:
+            if label in document.missingPrintedPages:
+                raise RetrievalEvaluationError("expected label is in missingPrintedPages")
+
+    def _hit_relevant(hit: _SearchHitView, target: RetrievalTarget) -> bool:
+        if hit.documentId != target.documentId:
+            return False
+        if hit.entryTitle is None:
+            return False
+        normalized_title = _normalize_line(hit.entryTitle).casefold()
+        normalized_target = _normalize_line(target.entryTitle).casefold()
+        if normalized_title != normalized_target:
+            return False
+        if hit.pageStart > hit.pageEnd:
+            return False
+        hit_pages = set(range(hit.pageStart, hit.pageEnd + 1))
+        if not hit_pages.intersection(target.logicalPages):
+            return False
+        return True
+
+    def _hit_integral(hit: _SearchHitView) -> bool:
+        try:
+            chunk = _get_chunk(hit.chunkId)
+        except _RetrievalLookupUnavailable:
+            return False
+        if (
+            chunk.chunkId != hit.chunkId
+            or chunk.documentId != hit.documentId
+            or chunk.pageStart != hit.pageStart
+            or chunk.pageEnd != hit.pageEnd
+        ):
+            return False
+        if chunk.pageStart > chunk.pageEnd:
+            return False
+        try:
+            document = _get_document(chunk.documentId)
+        except _RetrievalLookupUnavailable:
+            return False
+        if document.documentId != chunk.documentId:
+            return False
+        union_line_ids: set[str] = set()
+        for page in range(chunk.pageStart, chunk.pageEnd + 1):
+            try:
+                detail = _get_detail(chunk.documentId, page)
+            except _RetrievalLookupUnavailable:
+                return False
+            if detail.documentId != chunk.documentId or detail.logicalPageNumber != page:
+                return False
+            for line in detail.lines:
+                if line.role == "body":
+                    union_line_ids.add(line.lineId)
+        for line_id in chunk.lineIds:
+            if line_id not in union_line_ids:
+                return False
+        return True
+
+    case_results: list[RetrievalCaseEvaluation] = []
+    total_recall = 0.0
+    total_precision = 0.0
+    total_mrr = 0.0
+    total_term_presence = 0.0
+    integral_hits = 0
+    total_hits = 0
+    exception_cases = 0
+
+    for case in case_list:
+        try:
+            for target in case.relevantTargets:
+                _preflight(target)
+        except RetrievalEvaluationError:
+            client.close()
+            raise
+        except _RetrievalProtocolError:
+            exception_cases += 1
+            failed_term_presence = 1.0 if not case.requiredTerms else 0.0
+            total_term_presence += failed_term_presence
+            case_results.append(
+                RetrievalCaseEvaluation(
+                    id=case.id,
+                    exception=True,
+                    recallAt20=0.0,
+                    precisionAt8=0.0,
+                    mrrAt20=0.0,
+                    requiredTermPresence=failed_term_presence,
+                    structuralIntegrity=1.0,
+                )
+            )
+            continue
+
+        try:
+            response = client.post(
+                "/v1/search",
+                json={"query": case.query, "limit": 20},
+            )
+        except httpx2.HTTPError:
+            exception_cases += 1
+            failed_term_presence = 1.0 if not case.requiredTerms else 0.0
+            total_term_presence += failed_term_presence
+            case_results.append(
+                RetrievalCaseEvaluation(
+                    id=case.id,
+                    exception=True,
+                    recallAt20=0.0,
+                    precisionAt8=0.0,
+                    mrrAt20=0.0,
+                    requiredTermPresence=failed_term_presence,
+                    structuralIntegrity=1.0,
+                )
+            )
+            continue
+
+        if not 200 <= response.status_code < 300:
+            exception_cases += 1
+            failed_term_presence = 1.0 if not case.requiredTerms else 0.0
+            total_term_presence += failed_term_presence
+            case_results.append(
+                RetrievalCaseEvaluation(
+                    id=case.id,
+                    exception=True,
+                    recallAt20=0.0,
+                    precisionAt8=0.0,
+                    mrrAt20=0.0,
+                    requiredTermPresence=failed_term_presence,
+                    structuralIntegrity=1.0,
+                )
+            )
+            continue
+
+        try:
+            payload = response.json()
+            if not isinstance(payload, dict) or not isinstance(payload.get("hits"), list):
+                raise ValueError("hits must be a list")
+            hits = [_SearchHitView.model_validate(item) for item in payload["hits"]]
+        except (ValidationError, ValueError, TypeError, json.JSONDecodeError):
+            exception_cases += 1
+            failed_term_presence = 1.0 if not case.requiredTerms else 0.0
+            total_term_presence += failed_term_presence
+            case_results.append(
+                RetrievalCaseEvaluation(
+                    id=case.id,
+                    exception=True,
+                    recallAt20=0.0,
+                    precisionAt8=0.0,
+                    mrrAt20=0.0,
+                    requiredTermPresence=failed_term_presence,
+                    structuralIntegrity=1.0,
+                )
+            )
+            continue
+
+        top20 = hits[:20]
+        covered_targets: set[int] = set()
+        relevant_positions: list[int] = []
+        for index, hit in enumerate(top20, start=1):
+            for target_index, target in enumerate(case.relevantTargets):
+                if _hit_relevant(hit, target):
+                    covered_targets.add(target_index)
+                    relevant_positions.append(index)
+                    break
+
+        recall = len(covered_targets) / len(case.relevantTargets) if case.relevantTargets else 0.0
+        precision = sum(1 for position in relevant_positions if position <= 8) / 8.0
+        mrr = 1.0 / relevant_positions[0] if relevant_positions else 0.0
+
+        if case.requiredTerms:
+            relevant_texts = [
+                _normalize_line(hit.text).casefold()
+                for hit in top20
+                if any(_hit_relevant(hit, target) for target in case.relevantTargets)
+            ]
+            present = sum(
+                1
+                for term in case.requiredTerms
+                if any(_normalize_line(term).casefold() in text for text in relevant_texts)
+            )
+            term_presence = present / len(case.requiredTerms)
+        else:
+            term_presence = 1.0
+
+        case_integral = 0
+        integrity_protocol_error = False
+        for hit in top20:
+            total_hits += 1
+            try:
+                if _hit_integral(hit):
+                    case_integral += 1
+                    integral_hits += 1
+            except _RetrievalProtocolError:
+                integrity_protocol_error = True
+
+        if integrity_protocol_error:
+            exception_cases += 1
+            recall = 0.0
+            mrr = 0.0
+
+        case_results.append(
+            RetrievalCaseEvaluation(
+                id=case.id,
+                exception=integrity_protocol_error,
+                recallAt20=recall,
+                precisionAt8=precision,
+                mrrAt20=mrr,
+                requiredTermPresence=term_presence,
+                structuralIntegrity=case_integral / len(top20) if top20 else 1.0,
+            )
+        )
+        total_recall += recall
+        total_precision += precision
+        total_mrr += mrr
+        total_term_presence += term_presence
+
+    case_count = len(case_list)
+    metrics = RetrievalMetricSet(
+        caseCount=case_count,
+        exceptionCases=exception_cases,
+        recallAt20=total_recall / case_count if case_count else 0.0,
+        precisionAt8=total_precision / case_count if case_count else 0.0,
+        mrrAt20=total_mrr / case_count if case_count else 0.0,
+        requiredTermPresence=total_term_presence / case_count if case_count else 0.0,
+        structuralIntegrity=integral_hits / total_hits if total_hits else 1.0,
+    )
+    gates = {
+        "sampleSize": case_count >= selected_config.minimumCaseCount,
+        "recallAt20": metrics.recallAt20 >= selected_config.minRecallAt20,
+        "mrrAt20": metrics.mrrAt20 >= selected_config.minMrrAt20,
+        "structuralIntegrity": metrics.structuralIntegrity >= selected_config.minStructuralIntegrity,
+        "exceptionCases": exception_cases <= selected_config.maxExceptionCases,
+    }
+    report = RetrievalEvaluationReport(
+        schemaVersion=1,
+        evaluatedAt=timestamp,
+        config=selected_config,
+        metrics=metrics,
+        cases=case_results,
+        gates=gates,
+        passed=all(gates.values()),
+    )
+    client.close()
+    return report
 
 
 def evaluate_ocr(
