@@ -4683,27 +4683,27 @@ OCR:
 
 ### Código terminado
 
-- [ ] QW-00, QW-01, QW-02, QW-03A, QW-03B, QW-04, QW-05A, QW-05B,
+- [x] QW-00, QW-01, QW-02, QW-03A, QW-03B, QW-04, QW-05A, QW-05B,
       QW-06A, QW-06B, QW-06C, QW-06D, QW-06E, QW-07, QW-08, QW-09,
       QW-10A, QW-10B, QW-11A, QW-11B, QW-12, QW-13, QW-14A, QW-14B,
       QW-14C, QW-14D, QW-15A, QW-15B, QW-15C, QW-15D, QW-16, QW-17A,
       QW-17B, QW-17C, QW-18A, QW-18B, QW-18C, QW-19A, QW-19B y QW-20
       completos.
-- [ ] Suite completa verde en host/imagen según corresponda.
-- [ ] API e ingest images construyen con Podman.
-- [ ] `pip check` verde.
-- [ ] Migración v1→v2 probada.
-- [ ] Contratos legados sin regresión.
-- [ ] Bloqueo impide publicación con API vivo.
-- [ ] Prepare es reanudable y no toca el índice.
-- [ ] Inventario determinista, hasheado y sin anomalías pendientes.
-- [ ] Publish es idempotente y exige derechos más aceptación de cobertura.
-- [ ] Procedencia página/línea/bbox recuperable.
-- [ ] Preview seguro.
-- [ ] Evaluaciones deterministas.
-- [ ] Sin secretos, PDFs ni datos privados en Git.
-- [ ] Sin cambios de canario.
-- [ ] Diff revisado.
+- [x] Suite completa verde en host/imagen según corresponda.
+- [x] API e ingest images construyen con Podman.
+- [x] `pip check` verde.
+- [x] Migración v1→v2 probada.
+- [x] Contratos legados sin regresión.
+- [x] Bloqueo impide publicación con API vivo.
+- [x] Prepare es reanudable y no toca el índice.
+- [x] Inventario determinista, hasheado y sin anomalías pendientes.
+- [x] Publish es idempotente y exige derechos más aceptación de cobertura.
+- [x] Procedencia página/línea/bbox recuperable.
+- [x] Preview seguro.
+- [x] Evaluaciones deterministas.
+- [x] Sin secretos, PDFs ni datos privados en Git.
+- [x] Sin cambios de canario.
+- [x] Diff revisado.
 
 ### POC técnico terminado sin publicación
 
