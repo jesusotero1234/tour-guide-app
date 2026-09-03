@@ -174,12 +174,13 @@ function mergeMechanicalStyleIssuesIntoTourAuditV8(
 
 function acceptMechanicalStyleObjectionsByPolicyV8(
   objections: NarrativeAuditObjectionV6[],
-  adjudications: NarrativeAdjudicationV6[]
+  adjudications: NarrativeAdjudicationV6[],
+  scripts: NarrativeScriptV6[]
 ): NarrativeAdjudicationV6[] {
+  const styleReport = analyzeNarrativeTourStyleV8(scripts);
+  const mechanicalIssues = buildNarrativeMechanicalStyleAuditIssuesV8(scripts, styleReport);
   const mechanicalObjectionIds = new Set(
-    objections
-      .filter((objection) => objection.objectionId.startsWith('tour:mechanical-style:'))
-      .map((objection) => objection.objectionId)
+    mechanicalIssues.map((issue) => `tour:${issue.issueId}`)
   );
   const updatedAdjudications = adjudications.map((adjudication) => {
     if (mechanicalObjectionIds.has(adjudication.objectionId)) {
@@ -648,7 +649,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
       }, agentExecution));
       appendDiagnostics(adjudicated, metrics, privateDiagnostics);
       const effectiveAdjudications = isV8Policy
-        ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+        ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value, scripts)
         : adjudicated.value;
       record.objections.push(...objections);
       record.adjudications.push(...effectiveAdjudications);
@@ -818,7 +819,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
           }, agentExecution));
           appendDiagnostics(adjudicated, metrics, privateDiagnostics);
           const effectiveAdjudications = isV8Policy
-            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value, scripts)
             : adjudicated.value;
           record.objections.push(...objections);
           record.adjudications.push(...effectiveAdjudications);
@@ -843,7 +844,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
           if (!record || !dossier) throw new Error(`tour repair references unknown stop ${stopId}`);
           const objectionIds = new Set(objections.map((objection) => objection.objectionId));
           const effectiveAdjudications = isV8Policy
-            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, record.adjudications)
+            ? acceptMechanicalStyleObjectionsByPolicyV8(objections, record.adjudications, scripts)
             : record.adjudications;
           const adjudications = effectiveAdjudications.filter((adjudication) => (
             objectionIds.has(adjudication.objectionId) && adjudication.decision === 'accepted'
@@ -939,7 +940,7 @@ export async function runNarrativeEditorialWorkflowCoreV6(
             }, agentExecution));
             appendDiagnostics(adjudicated, metrics, privateDiagnostics);
             const effectiveAdjudications = isV8Policy
-              ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value)
+              ? acceptMechanicalStyleObjectionsByPolicyV8(objections, adjudicated.value, scripts)
               : adjudicated.value;
             record.objections.push(...objections);
             record.adjudications.push(...effectiveAdjudications);

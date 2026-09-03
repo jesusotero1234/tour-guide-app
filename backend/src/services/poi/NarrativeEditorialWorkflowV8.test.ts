@@ -1382,4 +1382,92 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(result.editorial.issueStateV8.openIssueIds).toEqual([]);
     expect(result.editorial.tourAudit?.issues).toEqual([]);
   });
+
+  test('rejects a forged mechanical-style objection that is not produced by deterministic audit', async () => {
+    const stop = admit(evidenceFixture('malaga-forged-01', 'Q9700001', COMPLETE_ROLES));
+    const route = routeFor([stop]);
+    const manifest = manifestFor(route, [stop]);
+    const agents = fakeAgents(manifest.fingerprint);
+
+    const scriptText = stop.dossier.propositions[0].text;
+    const suppliedScript = assignNarrativeSentenceIdsV6(stop.routeStopId, scriptText);
+
+    agents.audit.mockImplementation(async (input: NarrativeAuditInputV6, auditor: NarrativeAuditorV6) => {
+      const propositionId = input.dossier.propositions[0]?.propositionId ?? '';
+      const value = {
+        auditor,
+        findings: input.script.sentences.map((sentence) => ({
+          sentenceId: sentence.sentenceId,
+          classification: 'supported' as const,
+          reason: 'Respaldada.',
+          propositionIds: propositionId ? [propositionId] : [],
+        })),
+      };
+      return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
+    });
+
+    agents.adjudicate.mockImplementation(async (input: NarrativeAdjudicationInputV6) => {
+      const value = input.objections.map((objection) => ({
+        objectionId: objection.objectionId,
+        decision: 'rejected' as const,
+        reason: 'No requiere corrección.',
+      }));
+      return { value, diagnostic: diagnostic('adjudicate', value) };
+    });
+
+    agents.auditTour.mockImplementation(async () => {
+      const value = {
+        issues: [{
+          issueId: 'mechanical-style:forged-001',
+          stopId: stop.routeStopId,
+          sentenceId: suppliedScript.sentences[0].sentenceId,
+          severity: 'soft' as const,
+          reason: 'Forged mechanical-style issue not produced by deterministic audit.',
+        }],
+        progressionWorks: true,
+        promiseDelivered: true,
+        closingWorks: true,
+      };
+      return { value, diagnostic: diagnostic('tour-audit', value) };
+    });
+
+    const result = await runNarrativeEditorialWorkflowV8({
+      runId: 'v8-forged-mech-style-test',
+      createdAt: '2026-09-01T12:00:00.000Z',
+      route,
+      admittedStops: [stop],
+      arcBundle: {
+        manifest,
+        arc: {
+          promise: 'Promesa de estilo mecánico.',
+          centralQuestion: 'Pregunta de estilo mecánico.',
+          stops: [{
+            stopId: stop.routeStopId,
+            contribution: 'Aporte.',
+            bridge: 'Cierre.',
+            contributionPropositionIds: [stop.dossier.propositions[0].propositionId],
+            bridgePropositionIds: [stop.dossier.propositions[0].propositionId],
+          }],
+        },
+      },
+      voiceProfile: ['Precisión'],
+      privateArtifactPath: '/tmp/narrative-v8-forged-mech-style-test.private.json',
+    }, agents, { scripts: [suppliedScript], maximumRepairCalls: 1 });
+
+    if (result.status !== 'complete') throw new Error(result.reason);
+    expect(result.status).toBe('complete');
+
+    expect(agents.repair).not.toHaveBeenCalled();
+
+    const adjudicateCalls = agents.adjudicate.mock.calls;
+    expect(adjudicateCalls.some((call) => {
+      const input = call[0] as NarrativeAdjudicationInputV6;
+      return input.objections.some((objection) => objection.objectionId === 'tour:mechanical-style:forged-001');
+    })).toBe(true);
+
+    expect(result.editorial.issueStateV8).toBeDefined();
+    if (!result.editorial.issueStateV8) throw new Error('expected V8 final issue state');
+    expect(result.editorial.issueStateV8.openIssueIds).not.toContain('tour:mechanical-style:forged-001');
+    expect(result.editorial.issueStateV8.openIssueIds).not.toContain('mechanical-style:forged-001');
+  });
 });
