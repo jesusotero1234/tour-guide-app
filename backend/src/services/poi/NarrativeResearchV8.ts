@@ -1226,7 +1226,7 @@ export async function researchNarrativeStopV8(
       ? evaluateNarrativeRichnessV8(state.round.dossier, input.narrationTarget, { writerReady: state.round.gates.writerReady })
       : null;
     const richnessReady = richnessProfile ? richnessProfile.richnessReady : true;
-    if (evidenceTier !== 'D' && (input.narrationTarget === undefined || state.round.gates.writerReady)) {
+    if (evidenceTier !== 'D' && (input.narrationTarget === undefined || state.round.gates.writerReady || richnessReady)) {
       return sufficient(state.round, evidenceTier);
     }
     if (evidenceTier === 'D') {

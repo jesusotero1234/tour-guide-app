@@ -209,4 +209,26 @@ describe('NarrativeRichnessV8', () => {
     expect(profile.maximumSupportedSeconds).toBe(120);
     expect(profile.richnessReady).toBe(false);
   });
+
+  it('reports a rich dossier as not writer-ready when the writer role is missing', () => {
+    const dossier = makeDossier('plaza-mayor', [
+      { text: 'La plaza presenta soportales visibles en todo su perímetro.', role: 'visible_observation', passageId: 'passage-1' },
+      { text: 'Las fachadas conservan una composición regular y reconocible.', role: 'visible_observation', passageId: 'passage-2' },
+      { text: 'La primera etapa documentada transformó el espacio urbano.', role: 'chronology_or_transformation', passageId: 'passage-3' },
+      { text: 'Una reconstrucción posterior modificó su configuración.', role: 'chronology_or_transformation', passageId: 'passage-4' },
+      { text: 'Los comerciantes ocuparon los soportales durante generaciones.', role: 'human_agency_or_lived_function', passageId: 'passage-5' },
+      { text: 'Las celebraciones públicas reunieron a habitantes y visitantes.', role: 'human_agency_or_lived_function', passageId: 'passage-6' },
+      { text: 'Su uso cotidiano contrastó con las ceremonias oficiales.', role: 'tension_or_contrast', passageId: 'passage-7' },
+      { text: 'Las reformas conservaron la unidad mientras cambiaban los usos.', role: 'tension_or_contrast', passageId: 'passage-8' },
+      { text: 'La continuidad de sus soportales distingue esta plaza.', role: 'distinctive_trait', passageId: 'passage-9' },
+      { text: 'La combinación de vivienda y espacio cívico define su singularidad.', role: 'distinctive_trait', passageId: 'passage-10' },
+    ]);
+
+    const profile = evaluateNarrativeRichnessV8(dossier, target('plaza-mayor'), { writerReady: false });
+
+    expect(profile.maximumSupportedSeconds).toBe(300);
+    expect(profile.richnessReady).toBe(true);
+    expect(profile.writerReady).toBe(false);
+    expect(profile.reasons).toContain('dossier_not_writer_ready');
+  });
 });

@@ -1483,6 +1483,58 @@ describe('researchNarrativeStopV8', () => {
       .toBe('primary_authority');
   });
 
+  it('returns sufficient with writerReady false when one optional narrative role is absent despite rich evidence', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    const narrationTarget = {
+      stopId: 'Q1',
+      targetSeconds: 300,
+      targetWords: 600,
+      minPropositions: 10,
+      maxPropositions: 14,
+      minVisualAnchors: 3,
+      targetEvidenceCards: 10,
+      minFacetCount: 5,
+      minSpatialAnchors: 2,
+    };
+    const wikiContent = Array.from({ length: 12 }, (_, index) =>
+      `La Alcazaba de Málaga conserva la torre ${index} y el lienzo de la muralla principal. ` +
+      `El recinto amurallado muestra la transformación histórica del siglo XI y la función de residencia de los gobernadores. ` +
+      `El sistema de doble muralla constituye un rasgo distintivo del monumento en Málaga.`
+    ).join('\n\n');
+    const wiki = wikipediaSource('es-wiki', wikiContent);
+    const roles: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'distinctive_trait',
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'distinctive_trait',
+      'visible_observation',
+      'chronology_or_transformation',
+    ];
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      captureWikipedia: async () => wiki,
+      curate: async (packet) => curatorForRoles(packet, roles),
+    });
+
+    const result = await researchNarrativeStopV8({
+      ...BASE_INPUT,
+      narrationTarget,
+    }, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.routeEligible).toBe(true);
+    expect(result.gates.writerReady).toBe(false);
+    expect(result.gates.missingWriterRoles).toContain('tension_or_contrast');
+  });
+
   it('repairs visual anchors when writer roles are complete but narration richness is not', async () => {
     const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
       ...REGISTRY,

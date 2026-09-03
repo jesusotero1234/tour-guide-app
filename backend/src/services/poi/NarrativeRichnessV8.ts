@@ -181,7 +181,6 @@ export function evaluateNarrativeRichnessV8(
 
   const writerReady = options.writerReady ?? dossier.sufficiency.isSufficient;
   const richnessReady = groundingReady
-    && writerReady
     && maximumSupportedSeconds >= target.targetSeconds;
   const reasons: string[] = [];
   const targetThreshold = applicableThresholdV8(target.targetSeconds);

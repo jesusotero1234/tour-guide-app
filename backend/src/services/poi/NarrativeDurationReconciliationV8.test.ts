@@ -184,4 +184,36 @@ describe('reconcileNarrationTargetsV8', () => {
     expect(result.unassignedSeconds).toBe(initialSeconds - finalSeconds);
     expect(result.unassignedSeconds).toBe(240);
   });
+
+  it('keeps a rich dossier at full target when only writer readiness is missing', () => {
+    const result = reconcileNarrationTargetsV8([
+      {
+        stopId: 'plaza-mayor',
+        required: true,
+        target: narrationTargetForSecondsV8('plaza-mayor', 300),
+        richness: richness(300, {
+          groundingReady: true,
+          writerReady: false,
+          richnessReady: true,
+          reasons: ['dossier_not_writer_ready'],
+        }),
+      },
+    ]);
+
+    expect(result.entries[0]).toMatchObject({
+      stopId: 'plaza-mayor',
+      disposition: 'kept',
+      initialTargetSeconds: 300,
+      finalTarget: {
+        targetSeconds: 300,
+        targetWords: 600,
+      },
+      richness: {
+        groundingReady: true,
+        writerReady: false,
+        richnessReady: true,
+      },
+    });
+    expect(result.unassignedSeconds).toBe(0);
+  });
 });

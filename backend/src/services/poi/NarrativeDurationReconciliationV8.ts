@@ -52,7 +52,7 @@ export function reconcileNarrationTargetsV8(
   stops: NarrativeDurationReconciliationStopV8[]
 ): NarrativeDurationReconciliationV8 {
   const entries = stops.map((stop): NarrativeDurationReconciliationEntryV8 => {
-    const evidenceUsable = stop.richness.groundingReady && stop.richness.writerReady;
+    const evidenceUsable = stop.richness.groundingReady && (stop.richness.writerReady || stop.richness.richnessReady);
     const maximumSupportedSeconds = evidenceUsable
       ? Math.max(0, stop.richness.maximumSupportedSeconds)
       : 0;
