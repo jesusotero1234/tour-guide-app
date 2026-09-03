@@ -122,7 +122,8 @@ describe('narrative v8 arc architect', () => {
     expect(fixture.dossier.sufficiency.isSufficient).toBe(false);
 
     const call = requester.mock.calls[0][0];
-    expect(call.options.requestAttempts).toBe(2);
+    expect(call.options.requestAttempts).toBe(3);
+    expect(call.options.includePreviousResponseOnSemanticRetry).toBe(true);
     expect(call.systemPrompt).toContain('bridge debe ser siempre no vacío');
     expect(call.systemPrompt).toContain('la parada final cierra la pregunta central sin anunciar otra parada');
     const projected = call.input.admittedStops[0];

@@ -277,7 +277,7 @@ export function createNarrativeArcArchitectV8(
     async build(input) {
       const projected = validateArcV8Input(input);
       const routeStopIds = input.route.stops.map((stop) => stop.stopId);
-      const execution = narrativePhaseExecutionV6(options, 'architect', undefined, 2);
+      const execution = narrativePhaseExecutionV6(options, 'architect', undefined, 3);
       const result = await requestEditorialStructuredV6<NarrativeArcV8>({
         callId: `narrative-v8-arc-${input.route.caseId}`,
         input: {
@@ -285,7 +285,10 @@ export function createNarrativeArcArchitectV8(
           admittedStops: projected,
         },
         provider: execution.provider,
-        options: execution.options,
+        options: {
+          ...execution.options,
+          includePreviousResponseOnSemanticRetry: true,
+        },
         systemPrompt: [
           'Construye la columna vertebral de una audioguía.',
           'Todas las paradas están admitidas de forma determinista.',
