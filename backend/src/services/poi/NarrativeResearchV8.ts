@@ -90,6 +90,7 @@ export function meetsNarrativeRichnessTargetV8(roles: NarrativeRoleV8[], target:
 }
 
 export function curatorRoleGuidanceV8(priorityRoles: NarrativeRoleV8[]): string[] {
+  const hasVisualRole = priorityRoles.some((role) => role === 'visible_observation' || role === 'distinctive_trait');
   return [
     ...NARRATIVE_ROLE_DEFINITIONS_V8,
     'Antes de añadir una segunda proposición para un rol, intenta cubrir una proposición sólida',
@@ -98,6 +99,10 @@ export function curatorRoleGuidanceV8(priorityRoles: NarrativeRoleV8[]): string[
       `Esta es una ronda de reparación. Prioriza primero: ${priorityRoles.join(', ')}.`,
       'Cubre esos roles cuando exista soporte literal; no inventes hechos ni elimines roles ya',
       'cubiertos salvo que carezcan de soporte válido.',
+      ...(hasVisualRole ? [
+        'Existe un déficit de anclajes visuales: la evidencia puede justificar más de una proposición del mismo rol visual.',
+        'No inventes detalles visuales; usa únicamente el soporte literal disponible.',
+      ] : []),
     ] : []),
   ];
 }
@@ -736,6 +741,20 @@ export async function researchNarrativeStopV8(
     return false;
   };
 
+  const computeRepairPriorityRoles = (): NarrativeRoleV8[] => {
+    const roles = [...(state.round?.gates.missingWriterRoles ?? [])];
+    if (state.round && input.narrationTarget) {
+      const visualCount = state.round.dossier.propositions
+        .filter((proposition) => proposition.role === 'visible_observation' || proposition.role === 'distinctive_trait')
+        .length;
+      if (visualCount < input.narrationTarget.minVisualAnchors) {
+        if (!roles.includes('visible_observation')) roles.push('visible_observation');
+        if (!roles.includes('distinctive_trait')) roles.push('distinctive_trait');
+      }
+    }
+    return roles;
+  };
+
   const curate = async (): Promise<
     | { ok: true; dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8; tier: NarrativeEvidenceTierV8 }
     | { ok: false; failure: string }
@@ -749,7 +768,7 @@ export async function researchNarrativeStopV8(
       spansBySource,
       identity,
       registry,
-      state.round?.gates.missingWriterRoles ?? []
+      computeRepairPriorityRoles()
     );
     if (curated && 'dossier' in curated) {
       const tier = classifyEvidenceTierV8(curated.dossier, curated.gates, captures);

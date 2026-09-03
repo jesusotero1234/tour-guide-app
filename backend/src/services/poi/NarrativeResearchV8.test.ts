@@ -232,6 +232,12 @@ describe('researchNarrativeStopV8', () => {
     expect(repairGuidance).toContain('destrucción/reconstrucción');
     expect(repairGuidance).toContain('ronda de reparación');
     expect(repairGuidance).toContain('Prioriza primero: tension_or_contrast');
+    const visualRepairGuidance = curatorRoleGuidanceV8([
+      'visible_observation',
+      'distinctive_trait',
+    ]).join(' ');
+    expect(visualRepairGuidance).toContain('déficit de anclajes visuales');
+    expect(visualRepairGuidance).toContain('más de una proposición del mismo rol visual');
     expect(NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8.join(' ')).toContain('abandono/recuperación');
 
     const supportGuidance = NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8.join(' ');
@@ -1471,5 +1477,80 @@ describe('researchNarrativeStopV8', () => {
     expect(captured).toBeDefined();
     expect(result.captures.find((source) => source.sourceId === 'late-identity')?.authority.tier)
       .toBe('primary_authority');
+  });
+
+  it('repairs visual anchors when writer roles are complete but narration richness is not', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    const narrationTarget = {
+      stopId: 'Q1',
+      targetSeconds: 360,
+      targetWords: 840,
+      minPropositions: 9,
+      maxPropositions: 12,
+      minVisualAnchors: 3,
+    };
+    const packets: NarrativeCuratorPacketV8[] = [];
+    const buildOutput = (packet: NarrativeCuratorPacketV8, roles: NarrativeRoleV8[]): NarrativeCuratorOutputV8 => ({
+      propositions: roles.map((role, index) => {
+        const span = packet.spans[index % packet.spans.length];
+        return {
+          text: `Proposición ${index + 1} de ${role} basada en el fragmento ${span.evidenceSpanId}.`,
+          role,
+          certainty: 'high' as const,
+          interpretation: 'direct' as const,
+          supports: [{ sourceId: span.sourceId, evidenceSpanIds: [span.evidenceSpanId] }],
+        };
+      }),
+      authorizedNames: [],
+      authorizedNumbers: [],
+      discrepancies: [],
+      limits: [],
+    });
+    const firstRoles: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+      'distinctive_trait',
+      'chronology_or_transformation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+    ];
+    const secondRoles: NarrativeRoleV8[] = [
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+      'distinctive_trait',
+      'visible_observation',
+      'chronology_or_transformation',
+      'human_agency_or_lived_function',
+      'tension_or_contrast',
+    ];
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      curate: async (packet) => {
+        packets.push(packet);
+        return packets.length === 1
+          ? buildOutput(packet, firstRoles)
+          : buildOutput(packet, secondRoles);
+      },
+    });
+
+    const result = await researchNarrativeStopV8({
+      ...BASE_INPUT,
+      narrationTarget,
+    }, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.gates.writerReady).toBe(true);
+    expect(result.stats.curationCount).toBe(2);
+    expect(packets).toHaveLength(2);
+    expect(packets[1].priorityRoles).toEqual(['visible_observation', 'distinctive_trait']);
   });
 });
