@@ -64,6 +64,8 @@ class RenderedLeaf:
     visual_dhash64: str
     embedded_words: tuple[EmbeddedWord, ...]
     dominant_raster: DominantRasterMetadata | None
+    media_box: tuple[float, float, float, float]
+    pdf_rotation_degrees: Literal[0, 90, 180, 270]
 
 
 def _validate_expected_sha256(expected_sha256: str) -> None:
@@ -416,6 +418,10 @@ def _render_candidate(
     dpi: int,
     rasterization_policy: str,
 ) -> RenderedLeaf:
+    rotation = page.rotation
+    if rotation not in (0, 90, 180, 270):
+        raise PdfSourceError("unexpected PDF page rotation")
+    media_box = (float(page.mediabox.x0), float(page.mediabox.y0), float(page.mediabox.x1), float(page.mediabox.y1))
     scale = dpi / 72.0
     pixmap = page.get_pixmap(
         matrix=pymupdf.Matrix(scale, scale),
@@ -444,6 +450,8 @@ def _render_candidate(
         visual_dhash64=dhash64(rgb_bytes, width=width, height=height),
         embedded_words=_embedded_words(page, candidate),
         dominant_raster=_dominant_raster(page),
+        media_box=media_box,
+        pdf_rotation_degrees=rotation,
     )
 
 

@@ -280,6 +280,8 @@ def test_intrinsic_rotation_precedes_crop_and_manual_rotation(tmp_path: Path) ->
     assert manual.width_px == normal.height_px
     assert manual.height_px == normal.width_px
     assert manual.image_sha256 != normal.image_sha256
+    assert normal.media_box == (0.0, 0.0, 216.0, 72.0)
+    assert normal.pdf_rotation_degrees == 90
 
 
 def test_invalid_and_encrypted_pdfs_are_rejected(tmp_path: Path) -> None:

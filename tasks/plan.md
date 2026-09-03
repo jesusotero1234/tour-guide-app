@@ -3096,7 +3096,10 @@ Validación:
 
 ### QW-10B — Inventario y canonicalización de páginas
 
-- [ ] Pendiente.
+- [x] Completado: señales e identificadores deterministas, decisiones humanas de
+  duplicados por componentes, secuencia/cobertura, JSONL canónico de hasta 2 MiB
+  y carga verificada fail-closed; 48 pruebas específicas y 359 del servicio
+  pasan.
 - Depende de: QW-09 y QW-10A.
 - Archivos nuevos:
   - `pods/historical-corpus-pod/src/historical_corpus/page_inventory.py`
