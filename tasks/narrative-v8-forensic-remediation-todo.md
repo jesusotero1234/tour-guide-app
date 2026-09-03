@@ -19,10 +19,10 @@ Plan: [narrative-v8-forensic-remediation-plan.md](./narrative-v8-forensic-remedi
 - [x] Build TypeScript verde.
 
 - [x] T5 — Reparación segura de estilo.
-- [ ] T6 — Replay y cierre local.
+- [x] T6 — Replay y cierre local.
 
 ## Cierre
 
-- [ ] Suite backend relevante verde.
-- [ ] Revisión final del diff aprobada.
-- [ ] Comando del próximo canario preparado, sin ejecutarlo.
+- [x] Suite backend relevante verde.
+- [x] Revisión final del diff aprobada.
+- [x] Comando del próximo canario preparado, sin ejecutarlo.
