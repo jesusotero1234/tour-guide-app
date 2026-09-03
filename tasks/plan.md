@@ -3395,7 +3395,9 @@ Validación:
 
 ### QW-14B — Procesador puro de páginas Madoz
 
-- [ ] Pendiente.
+- [x] Completado: copia canónica verificada, backend OCR único y cerrable,
+  procesado body/blank y segundo pase contiguo para regiones 90/270, con layout y
+  chunking delegados; 8 pruebas focalizadas y 476 pruebas completas pasan.
 - Depende de: QW-10A, QW-11A, QW-12 y QW-13.
 - Prueba nueva:
   - `pods/historical-corpus-pod/tests/test_madoz_processor.py`
