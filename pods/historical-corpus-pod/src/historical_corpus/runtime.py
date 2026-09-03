@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from collections.abc import Mapping
 from pathlib import Path
+from typing import Literal
 
 from historical_corpus.backends import (
     DeterministicEmbeddingProvider,
@@ -61,7 +62,11 @@ def _read_integer(
 
 def build_service_from_env(
     environment: Mapping[str, str] | None = None,
+    *,
+    startup_policy: Literal["verify", "repair"] = "verify",
 ) -> HistoricalCorpusService:
+    if startup_policy not in ("verify", "repair"):
+        raise ValueError("startup_policy must be verify or repair")
     values = os.environ if environment is None else environment
 
     backend = _read_text(
@@ -151,4 +156,7 @@ def build_service_from_env(
         vector_index=vector_index,
         embedding_provider=embedding_provider,
         reranker=reranker,
+        startup_policy=startup_policy,
+        vector_index_backend="turbovec",
+        vector_index_bit_width=bit_width,
     )

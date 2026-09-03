@@ -2844,7 +2844,10 @@ Validación:
 
 ### QW-06D — Wiring runtime de política y configuración vectorial
 
-- [ ] Pendiente.
+- [x] Completado: política interna tipada `verify|repair`, default read-only,
+  reparación solo explícita, backend/bit width lógico propagado y ninguna
+  variable de entorno capaz de habilitar repair. Pasan 14 pruebas focalizadas
+  y las 244 pruebas completas del pod.
 - Depende de: QW-06C.
 - Archivos existentes escribibles, en llamadas separadas:
   - `pods/historical-corpus-pod/tests/test_runtime.py`
