@@ -528,6 +528,74 @@ describe('buildValidatedDossierV8', () => {
     expect(result.status).toBe('curator_contract_failed');
   });
 
+  it('rejects a high/direct proposition declaring a year range when its own cited span contains only one endpoint', () => {
+    const c = capture('source-a', 'La obra comenzó en 1790.\n\nLa obra terminó en 1854.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          {
+            text: 'La obra se desarrolló entre 1790-1854.',
+            role: 'chronology_or_transformation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0]] }],
+          },
+          {
+            text: 'El texto documenta la terminación de la obra.',
+            role: 'visible_observation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[1]] }],
+          },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: ['1790', '1854'],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('curator_contract_failed');
+  });
+
+  it('rejects a high/direct proposition declaring a textual phrase when its own citation lacks it but another selected passage contains it', () => {
+    const c = capture('source-a', 'El edificio data del siglo XVI.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c],
+      spansBySource: spans,
+      curatorOutput: {
+        propositions: [
+          {
+            text: 'El edificio data del siglo XVI.',
+            role: 'chronology_or_transformation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[1]] }],
+          },
+          {
+            text: 'El texto documenta la datación del edificio.',
+            role: 'visible_observation',
+            certainty: 'high',
+            interpretation: 'direct',
+            supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0]] }],
+          },
+        ],
+        authorizedNames: [],
+        authorizedNumbers: ['siglo XVI'],
+        discrepancies: [],
+        limits: [],
+      },
+    }));
+
+    expect(result.status).toBe('curator_contract_failed');
+  });
+
   it('accepts a high/direct name and number proposition when the cited span contains both anchors', () => {
     const c = capture('source-a', 'La República se proclamó en 1873.\n\nEl monumento fue inaugurado.', AUTHORITY_A);
     const spans = spansOf(c);

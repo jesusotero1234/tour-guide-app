@@ -108,14 +108,8 @@ function canonicalNumericAnchorV8(value: string): string {
 }
 
 function numericAnchorsV8(text: string): string[] {
-  const pattern = /\b(?:\d{1,3}(?:[.\u00a0\u202f ]\d{3})+|\d+)(?:,\d+)?\b/gu;
-  const anchors: string[] = [];
-  for (const match of text.matchAll(pattern)) {
-    const previousCharacter = text[(match.index ?? 0) - 1] ?? '';
-    if (/[:_/-]/u.test(previousCharacter)) continue;
-    anchors.push(canonicalNumericAnchorV8(match[0]));
-  }
-  return [...new Set(anchors)];
+  const matches = text.match(/\b(?:\d{1,3}(?:[.\u00a0\u202f ]\d{3})+|\d+)(?:,\d+)?\b/gu) ?? [];
+  return [...new Set(matches.map(canonicalNumericAnchorV8))];
 }
 
 function isSentenceInitialTokenV8(text: string, index: number): boolean {
@@ -301,9 +295,16 @@ export function buildValidatedDossierV8(
 
       const localNumbers = new Set(propositionPassageQuotes.flatMap(numericAnchorsV8));
       const declaredNumbers = new Set(curatorOutput.authorizedNumbers.flatMap(numericAnchorsV8));
-      const missingNumber = numericAnchorsV8(text).find((number) => (
+      const missingNumericLiteral = numericAnchorsV8(text).find((number) => (
         declaredNumbers.has(number) && !localNumbers.has(number)
       ));
+      const normalizedProposition = normalizeIdentityNameV8(text);
+      const missingTextualNumber = curatorOutput.authorizedNumbers
+        .filter((number) => numericAnchorsV8(number).length === 0)
+        .map(normalizeIdentityNameV8)
+        .find((number) => includesNormalizedAnchorV8(normalizedProposition, number)
+          && !normalizedLocalQuotes.some((quote) => includesNormalizedAnchorV8(quote, number)));
+      const missingNumber = missingNumericLiteral ?? missingTextualNumber;
       if (missingNumber) {
         return contractFailure(`citation closure missing number ${missingNumber}`);
       }
