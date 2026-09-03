@@ -307,6 +307,158 @@ export function assessNarrativeEvidenceGatesV8(
   };
 }
 
+export interface NarrativeCuratorNormalizationReportV8 {
+  splitSupportCount: number;
+  removedAuthorizedNames: string[];
+  removedAuthorizedNumbers: string[];
+}
+
+export interface NarrativeCuratorNormalizationV8 {
+  output: NarrativeCuratorOutputV8;
+  report: NarrativeCuratorNormalizationReportV8;
+}
+
+export function normalizeNarrativeCuratorOutputV8(
+  input: {
+    output: NarrativeCuratorOutputV8;
+    captures: NarrativeCapturedSourceV8[];
+    spansBySource: ReadonlyMap<string, NarrativeEvidenceSpanV7[]>;
+    authorizedIdentityNames?: string[];
+  }
+): NarrativeCuratorNormalizationV8 {
+  const { output, captures, spansBySource, authorizedIdentityNames } = input;
+  const captureById = new Map(captures.map((capture) => [capture.sourceId, capture]));
+
+  const clonedPropositions: NarrativeCuratorPropositionV8[] = output.propositions.map((proposition) => ({
+    text: proposition.text,
+    role: proposition.role,
+    certainty: proposition.certainty,
+    interpretation: proposition.interpretation,
+    supports: proposition.supports.map((support) => ({
+      sourceId: support.sourceId,
+      evidenceSpanIds: [...support.evidenceSpanIds],
+    })),
+  }));
+
+  let splitSupportCount = 0;
+  const selectedQuotes: string[] = [];
+
+  for (const proposition of clonedPropositions) {
+    const newSupports: NarrativeEvidenceSupportV8[] = [];
+    for (const support of proposition.supports) {
+      const ids = support.evidenceSpanIds;
+      if (ids.length < 1 || ids.length > 3) {
+        newSupports.push({ sourceId: support.sourceId, evidenceSpanIds: [...ids] });
+        continue;
+      }
+      if (new Set(ids).size !== ids.length) {
+        newSupports.push({ sourceId: support.sourceId, evidenceSpanIds: [...ids] });
+        continue;
+      }
+      const capture = captureById.get(support.sourceId);
+      if (!capture) {
+        newSupports.push({ sourceId: support.sourceId, evidenceSpanIds: [...ids] });
+        continue;
+      }
+      const spans = spansBySource.get(support.sourceId) ?? [];
+      const spanById = new Map(spans.map((span) => [span.evidenceSpanId, span]));
+      const selected: NarrativeEvidenceSpanV7[] = [];
+      let valid = true;
+      for (const id of ids) {
+        const span = spanById.get(id);
+        if (!span || span.sourceId !== support.sourceId) {
+          valid = false;
+          break;
+        }
+        selected.push(span);
+      }
+      if (!valid) {
+        newSupports.push({ sourceId: support.sourceId, evidenceSpanIds: [...ids] });
+        continue;
+      }
+      const orderedIds = spans.map((span) => span.evidenceSpanId);
+      const selectedWithIndex = selected.map((span) => ({
+        span,
+        index: orderedIds.indexOf(span.evidenceSpanId),
+      }));
+      if (selectedWithIndex.some(({ index }) => index < 0)) {
+        newSupports.push({ sourceId: support.sourceId, evidenceSpanIds: [...ids] });
+        continue;
+      }
+      selectedWithIndex.sort((left, right) => left.index - right.index);
+      const runs: NarrativeEvidenceSpanV7[][] = [];
+      let current: NarrativeEvidenceSpanV7[] = [selectedWithIndex[0].span];
+      let previousIndex = selectedWithIndex[0].index;
+      for (let i = 1; i < selectedWithIndex.length; i++) {
+        const selectedSpan = selectedWithIndex[i];
+        if (selectedSpan.index === previousIndex + 1) {
+          current.push(selectedSpan.span);
+        } else {
+          runs.push(current);
+          current = [selectedSpan.span];
+        }
+        previousIndex = selectedSpan.index;
+      }
+      runs.push(current);
+      if (runs.length > 1) {
+        splitSupportCount += 1;
+      }
+      for (const run of runs) {
+        newSupports.push({
+          sourceId: support.sourceId,
+          evidenceSpanIds: run.map((span) => span.evidenceSpanId),
+        });
+        const quote = capture.content.slice(run[0].start, run[run.length - 1].end);
+        if (quote) {
+          selectedQuotes.push(quote);
+        }
+      }
+    }
+    proposition.supports = newSupports;
+  }
+
+  const normalizedIdentityNames = (authorizedIdentityNames ?? []).map(normalizeIdentityNameV8);
+  const normalizedQuotes = selectedQuotes.map(normalizeIdentityNameV8);
+
+  const retainedNames: string[] = [];
+  const removedNames: string[] = [];
+  for (const name of output.authorizedNames) {
+    const normalized = normalizeIdentityNameV8(name);
+    if (normalized.length > 0
+      && (normalizedIdentityNames.includes(normalized)
+        || normalizedQuotes.some((quote) => quote.includes(normalized)))) {
+      retainedNames.push(name);
+    } else {
+      removedNames.push(name);
+    }
+  }
+
+  const retainedNumbers: string[] = [];
+  const removedNumbers: string[] = [];
+  for (const number of output.authorizedNumbers) {
+    if (selectedQuotes.some((quote) => quote.includes(number))) {
+      retainedNumbers.push(number);
+    } else {
+      removedNumbers.push(number);
+    }
+  }
+
+  return {
+    output: {
+      propositions: clonedPropositions,
+      authorizedNames: retainedNames,
+      authorizedNumbers: retainedNumbers,
+      discrepancies: [...output.discrepancies],
+      limits: [...output.limits],
+    },
+    report: {
+      splitSupportCount,
+      removedAuthorizedNames: removedNames,
+      removedAuthorizedNumbers: removedNumbers,
+    },
+  };
+}
+
 export function classifyEvidenceTierV8(
   dossier: NarrativeDossierV6,
   gates: NarrativeEvidenceGatesV8,

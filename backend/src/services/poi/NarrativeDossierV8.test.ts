@@ -3,6 +3,7 @@ import {
   NARRATIVE_ROLES_V8,
   buildValidatedDossierV8,
   classifyEvidenceTierV8,
+  normalizeNarrativeCuratorOutputV8,
 } from './NarrativeDossierV8';
 import { NarrativeCapturedSourceV8 } from './NarrativeSourcesV7';
 import {
@@ -169,6 +170,215 @@ describe('buildValidatedDossierV8', () => {
     }));
 
     expect(result.status).toBe('curator_contract_failed');
+  });
+
+  it('splits a support spanning 0, 1, and 3 into two maximal contiguous supports', () => {
+    const c = capture('source-a', 'Párrafo uno.\n\nPárrafo dos.\n\nPárrafo tres.\n\nPárrafo cuatro.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const rawOutput: NarrativeCuratorOutputV8 = {
+      propositions: [{
+        text: 'Salto con hueco.',
+        role: 'visible_observation',
+        certainty: 'high',
+        interpretation: 'direct',
+        supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0], ids[1], ids[3]] }],
+      }],
+      authorizedNames: [],
+      authorizedNumbers: [],
+      discrepancies: [],
+      limits: [],
+    };
+    const rawClone = JSON.parse(JSON.stringify(rawOutput)) as NarrativeCuratorOutputV8;
+    const normalized = normalizeNarrativeCuratorOutputV8({
+      output: rawOutput,
+      captures: [c],
+      spansBySource: spans,
+    });
+    expect(rawOutput).toEqual(rawClone);
+    expect(normalized.output.propositions[0].supports).toEqual([
+      { sourceId: 'source-a', evidenceSpanIds: [ids[0], ids[1]] },
+      { sourceId: 'source-a', evidenceSpanIds: [ids[3]] },
+    ]);
+    expect(normalized.report.splitSupportCount).toBe(1);
+  });
+
+  it('splits a support spanning 0, 2, and 3 into two maximal contiguous supports with the trailing run', () => {
+    const c = capture('source-a', 'Párrafo uno.\n\nPárrafo dos.\n\nPárrafo tres.\n\nPárrafo cuatro.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const ids = spans.get('source-a')!.map((span) => span.evidenceSpanId);
+    const rawOutput: NarrativeCuratorOutputV8 = {
+      propositions: [{
+        text: 'Salto con hueco al inicio.',
+        role: 'visible_observation',
+        certainty: 'high',
+        interpretation: 'direct',
+        supports: [{ sourceId: 'source-a', evidenceSpanIds: [ids[0], ids[2], ids[3]] }],
+      }],
+      authorizedNames: [],
+      authorizedNumbers: [],
+      discrepancies: [],
+      limits: [],
+    };
+    const rawClone = JSON.parse(JSON.stringify(rawOutput)) as NarrativeCuratorOutputV8;
+    const normalized = normalizeNarrativeCuratorOutputV8({
+      output: rawOutput,
+      captures: [c],
+      spansBySource: spans,
+    });
+    expect(rawOutput).toEqual(rawClone);
+    expect(normalized.output.propositions[0].supports).toEqual([
+      { sourceId: 'source-a', evidenceSpanIds: [ids[0]] },
+      { sourceId: 'source-a', evidenceSpanIds: [ids[2], ids[3]] },
+    ]);
+    expect(normalized.report.splitSupportCount).toBe(1);
+  });
+
+  it('filters authorized names and numbers to those present in evidence or identity', () => {
+    const c = capture('source-a', 'El puente fue construido en 1840 y tiene diez arcos.', AUTHORITY_A);
+    const spans = spansOf(c);
+    const spanId = spans.get('source-a')![0].evidenceSpanId;
+    const rawOutput: NarrativeCuratorOutputV8 = {
+      propositions: [{
+        text: 'El puente.',
+        role: 'visible_observation',
+        certainty: 'high',
+        interpretation: 'direct',
+        supports: [{ sourceId: 'source-a', evidenceSpanIds: [spanId] }],
+      }],
+      authorizedNames: ['puente', 'Monumento', 'Inventado'],
+      authorizedNumbers: ['1840', '10'],
+      discrepancies: [],
+      limits: [],
+    };
+    const normalized = normalizeNarrativeCuratorOutputV8({
+      output: rawOutput,
+      captures: [c],
+      spansBySource: spans,
+      authorizedIdentityNames: ['Monumento'],
+    });
+    expect(normalized.output.authorizedNames).toEqual(['puente', 'Monumento']);
+    expect(normalized.output.authorizedNumbers).toEqual(['1840']);
+    expect(normalized.report.removedAuthorizedNames).toEqual(['Inventado']);
+    expect(normalized.report.removedAuthorizedNumbers).toEqual(['10']);
+  });
+
+  it('does not repair unknown, duplicate, cross-source, or over-three-ID supports', () => {
+    const a = capture(
+      'source-a',
+      'Contenido A uno.\n\nContenido A dos.\n\nContenido A tres.\n\nContenido A cuatro.',
+      AUTHORITY_A
+    );
+    const b = capture('source-b', 'Contenido B.', AUTHORITY_B);
+    const spansA = spansOf(a);
+    const spansB = spansOf(b);
+    const spanIdA = spansA.get('source-a')![0].evidenceSpanId;
+    const spanIdB = spansB.get('source-b')![0].evidenceSpanId;
+
+    const idsA = spansA.get('source-a')!.map((span) => span.evidenceSpanId);
+    const unknown = normalizeNarrativeCuratorOutputV8({
+      output: {
+        propositions: [{
+          text: 'Desconocido.',
+          role: 'visible_observation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: ['source-a:span:9999'] }],
+        }],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+      captures: [a],
+      spansBySource: spansA,
+    });
+    expect(unknown.output.propositions[0].supports[0].evidenceSpanIds).toEqual(['source-a:span:9999']);
+
+    const duplicate = normalizeNarrativeCuratorOutputV8({
+      output: {
+        propositions: [{
+          text: 'Duplicado.',
+          role: 'visible_observation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [spanIdA, spanIdA] }],
+        }],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+      captures: [a],
+      spansBySource: spansA,
+    });
+    expect(duplicate.output.propositions[0].supports[0].evidenceSpanIds).toEqual([spanIdA, spanIdA]);
+
+    const crossSource = normalizeNarrativeCuratorOutputV8({
+      output: {
+        propositions: [{
+          text: 'Cruce.',
+          role: 'visible_observation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [spanIdB] }],
+        }],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+      captures: [a, b],
+      spansBySource: new Map([...spansA, ...spansB]),
+    });
+    expect(crossSource.output.propositions[0].supports[0].evidenceSpanIds).toEqual([spanIdB]);
+
+    const overThree = normalizeNarrativeCuratorOutputV8({
+      output: {
+        propositions: [{
+          text: 'Demasiado.',
+          role: 'visible_observation',
+          certainty: 'high',
+          interpretation: 'direct',
+          supports: [{ sourceId: 'source-a', evidenceSpanIds: [idsA[0], idsA[1], idsA[2], idsA[3]] }],
+        }],
+        authorizedNames: [],
+        authorizedNumbers: [],
+        discrepancies: [],
+        limits: [],
+      },
+      captures: [a],
+      spansBySource: spansA,
+    });
+    expect(overThree.output.propositions[0].supports[0].evidenceSpanIds).toEqual([idsA[0], idsA[1], idsA[2], idsA[3]]);
+
+    const unknownResult = buildValidatedDossierV8(baseInput({
+      captures: [a],
+      spansBySource: spansA,
+      curatorOutput: unknown.output,
+    }));
+    expect(unknownResult.status).toBe('curator_contract_failed');
+
+    const duplicateResult = buildValidatedDossierV8(baseInput({
+      captures: [a],
+      spansBySource: spansA,
+      curatorOutput: duplicate.output,
+    }));
+    expect(duplicateResult.status).toBe('curator_contract_failed');
+
+    const crossSourceResult = buildValidatedDossierV8(baseInput({
+      captures: [a, b],
+      spansBySource: new Map([...spansA, ...spansB]),
+      curatorOutput: crossSource.output,
+    }));
+    expect(crossSourceResult.status).toBe('curator_contract_failed');
+
+    const overThreeResult = buildValidatedDossierV8(baseInput({
+      captures: [a],
+      spansBySource: spansA,
+      curatorOutput: overThree.output,
+    }));
+    expect(overThreeResult.status).toBe('curator_contract_failed');
   });
 
   it('rejects a support referencing a span from another source', () => {
