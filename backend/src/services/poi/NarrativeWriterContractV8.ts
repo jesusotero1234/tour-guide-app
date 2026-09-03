@@ -148,7 +148,6 @@ export function narrativeWriterResponseSchemaV8(
             supportCardIds: {
               type: 'array',
               minItems: 1,
-              uniqueItems: true,
               items: {
                 type: 'string',
                 enum: cardEnum,

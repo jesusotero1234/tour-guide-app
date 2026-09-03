@@ -288,4 +288,26 @@ describe('NarrativeWriterContractV8', () => {
 
     expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
   });
+
+  it('does not include uniqueItems anywhere in the writer response schema', () => {
+    const dossier = dossierWithRoles('plaza-mayor', RICH_DEFINITIONS);
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'plaza-mayor',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('plaza-mayor', 300),
+      stopIndex: 0,
+    });
+
+    const schema = narrativeWriterResponseSchemaV8(plan);
+
+    const containsUniqueItems = (node: unknown): boolean => {
+      if (node === null || typeof node !== 'object') return false;
+      if (Array.isArray(node)) return node.some((item) => containsUniqueItems(item));
+      const record = node as Record<string, unknown>;
+      if ('uniqueItems' in record) return true;
+      return Object.values(record).some((value) => containsUniqueItems(value));
+    };
+
+    expect(containsUniqueItems(schema)).toBe(false);
+  });
 });
