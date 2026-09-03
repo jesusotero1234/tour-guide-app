@@ -153,6 +153,41 @@ function contractFailure(reason: string): NarrativeDossierValidationV8 {
   return { status: 'curator_contract_failed', reason };
 }
 
+interface ResolvedSupportV8 {
+  capture: NarrativeCapturedSourceV8;
+  orderedSpans: NarrativeEvidenceSpanV7[];
+  selected: NarrativeEvidenceSpanV7[];
+}
+
+function resolveSupportV8(
+  support: NarrativeEvidenceSupportV8,
+  captureById: Map<string, NarrativeCapturedSourceV8>,
+  spansBySource: ReadonlyMap<string, NarrativeEvidenceSpanV7[]>
+): ResolvedSupportV8 | null {
+  const ids = support.evidenceSpanIds;
+  if (ids.length < 1 || ids.length > 3) return null;
+  if (new Set(ids).size !== ids.length) return null;
+  const capture = captureById.get(support.sourceId);
+  if (!capture) return null;
+  const orderedSpans = spansBySource.get(support.sourceId) ?? [];
+  const spanById = new Map(orderedSpans.map((span) => [span.evidenceSpanId, span]));
+  const selected: NarrativeEvidenceSpanV7[] = [];
+  for (const id of ids) {
+    const span = spanById.get(id);
+    if (!span || span.sourceId !== support.sourceId) return null;
+    selected.push(span);
+  }
+  selected.sort((left, right) => left.start - right.start);
+  const orderedIds = orderedSpans.map((span) => span.evidenceSpanId);
+  const firstIndex = orderedIds.indexOf(selected[0].evidenceSpanId);
+  if (firstIndex < 0) return null;
+  const isContiguous = selected.every((span, index) => (
+    orderedIds[firstIndex + index] === span.evidenceSpanId
+  ));
+  if (!isContiguous) return null;
+  return { capture, orderedSpans, selected };
+}
+
 function uniqueOrFailure(
   values: string[],
   label: string
@@ -425,7 +460,6 @@ export function normalizeNarrativeCuratorOutputV8(
   }));
 
   let splitSupportCount = 0;
-  const selectedQuotes: string[] = [];
 
   for (const proposition of clonedPropositions) {
     const newSupports: NarrativeEvidenceSupportV8[] = [];
@@ -492,13 +526,82 @@ export function normalizeNarrativeCuratorOutputV8(
           sourceId: support.sourceId,
           evidenceSpanIds: run.map((span) => span.evidenceSpanId),
         });
-        const quote = capture.content.slice(run[0].start, run[run.length - 1].end);
-        if (quote) {
-          selectedQuotes.push(quote);
-        }
       }
     }
     proposition.supports = newSupports;
+  }
+
+  const identityNames = authorizedIdentityNames ?? [];
+  const selectedQuotes: string[] = [];
+
+  for (const proposition of clonedPropositions) {
+    if (proposition.certainty !== 'high' || proposition.interpretation !== 'direct') {
+      continue;
+    }
+    if (proposition.supports.length !== 1) {
+      continue;
+    }
+    const support = proposition.supports[0];
+    const resolved = resolveSupportV8(support, captureById, spansBySource);
+    if (!resolved) {
+      continue;
+    }
+    const { capture, orderedSpans, selected } = resolved;
+    const text = proposition.text.trim();
+    const anchors = propositionNameAnchorsV8(
+      text,
+      output.authorizedNames,
+      identityNames
+    );
+    const currentQuote = capture.content.slice(selected[0].start, selected[selected.length - 1].end);
+    const normalizedCurrentQuote = normalizeIdentityNameV8(currentQuote);
+    const missingAnchor = anchors.find(
+      (anchor) => !includesNormalizedAnchorV8(normalizedCurrentQuote, anchor)
+    );
+    if (!missingAnchor) {
+      continue;
+    }
+    const orderedIds = orderedSpans.map((span) => span.evidenceSpanId);
+    const firstIndex = orderedIds.indexOf(selected[0].evidenceSpanId);
+    const lastIndex = orderedIds.indexOf(selected[selected.length - 1].evidenceSpanId);
+    const candidates: NarrativeEvidenceSpanV7[][] = [];
+    if (firstIndex > 0) {
+      candidates.push([orderedSpans[firstIndex - 1], ...selected]);
+    }
+    if (lastIndex < orderedSpans.length - 1) {
+      candidates.push([...selected, orderedSpans[lastIndex + 1]]);
+    }
+    for (const candidate of candidates) {
+      if (candidate.length > 3) {
+        continue;
+      }
+      const candidateQuote = capture.content.slice(candidate[0].start, candidate[candidate.length - 1].end);
+      const normalizedCandidateQuote = normalizeIdentityNameV8(candidateQuote);
+      const stillMissing = anchors.find(
+        (anchor) => !includesNormalizedAnchorV8(normalizedCandidateQuote, anchor)
+      );
+      if (!stillMissing) {
+        proposition.supports = [{
+          sourceId: support.sourceId,
+          evidenceSpanIds: candidate.map((span) => span.evidenceSpanId),
+        }];
+        break;
+      }
+    }
+  }
+
+  for (const proposition of clonedPropositions) {
+    for (const support of proposition.supports) {
+      const resolved = resolveSupportV8(support, captureById, spansBySource);
+      if (!resolved) {
+        continue;
+      }
+      const { capture, selected } = resolved;
+      const quote = capture.content.slice(selected[0].start, selected[selected.length - 1].end);
+      if (quote) {
+        selectedQuotes.push(quote);
+      }
+    }
   }
 
   const normalizedIdentityNames = (authorizedIdentityNames ?? []).map(normalizeIdentityNameV8);
