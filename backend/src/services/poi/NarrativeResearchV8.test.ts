@@ -1299,6 +1299,46 @@ describe('researchNarrativeStopV8', () => {
     expect(new Set(packets[1].spans.map((span) => span.sourceId))).toEqual(new Set(['es-wiki']));
   });
 
+  it('drives targeted second-round role repair from a safely splittable first curator round', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    const packets: NarrativeCuratorPacketV8[] = [];
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      curate: async (packet) => {
+        packets.push(packet);
+        if (packets.length === 1) {
+          const output = curatorForRoles(packet, [
+            'visible_observation',
+            'chronology_or_transformation',
+            'human_agency_or_lived_function',
+            'distinctive_trait',
+          ]);
+          const firstProposition = output.propositions[0];
+          const span0 = packet.spans[0];
+          const span2 = packet.spans[2];
+          firstProposition.supports = [{
+            sourceId: span0.sourceId,
+            evidenceSpanIds: [span0.evidenceSpanId, span2.evidenceSpanId],
+          }];
+          return output;
+        }
+        return curatorFromSpans(packet);
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('sufficient');
+    if (result.status !== 'sufficient') return;
+    expect(result.gates.writerReady).toBe(true);
+    expect(result.stats.curationCount).toBe(2);
+    expect(packets).toHaveLength(2);
+    expect(packets[1].priorityRoles).toEqual(['tension_or_contrast']);
+  });
+
   it('preserves the first valid C when the repair curation fails', async () => {
     const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
       ...REGISTRY,
@@ -1365,6 +1405,32 @@ describe('researchNarrativeStopV8', () => {
 
     expect(captureCalls).toBe(1);
     expect(result.stats.webCaptureAttempts).toBe(1);
+  });
+
+  it('never normalizes unknown curator evidence into acceptance', async () => {
+    const registryWithoutUrl: NarrativeAuthorityRegistryV7 = {
+      ...REGISTRY,
+      authorities: REGISTRY.authorities.map((authority) => ({ ...authority, url: null })),
+    };
+    const services = baselineServicesV8({
+      resolveAuthorities: async () => registryWithoutUrl,
+      curate: async (packet) => {
+        const output = curatorFromSpans(packet);
+        const firstProposition = output.propositions[0];
+        firstProposition.supports = [{
+          sourceId: packet.spans[0].sourceId,
+          evidenceSpanIds: ['unknown:span:9999'],
+        }];
+        return output;
+      },
+    });
+
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+
+    expect(result.status).toBe('evidence_review_required');
+    if (result.status !== 'evidence_review_required') return;
+    expect(result.routeEligible).toBe(false);
+    expect(result.reasons.some((reason) => reason.includes('curator_contract_failed') && reason.includes('unknown span'))).toBe(true);
   });
 
   it('recognizes official identity after the first 500 captured characters', async () => {

@@ -10,6 +10,7 @@ import {
   NarrativeRoleV8,
   buildValidatedDossierV8,
   classifyEvidenceTierV8,
+  normalizeNarrativeCuratorOutputV8,
 } from './NarrativeDossierV8';
 import {
   NarrativeCapturedSourceV7,
@@ -1285,12 +1286,18 @@ async function curateRoundV8(
   } catch (error) {
     return { failure: `curator threw: ${error instanceof Error ? error.message : String(error)}` };
   }
+  const normalized = normalizeNarrativeCuratorOutputV8({
+    output,
+    captures,
+    spansBySource,
+    authorizedIdentityNames: [...identity.labels, ...identity.aliases],
+  });
   const dossierInput: NarrativeDossierInputV8 = {
     stopId: input.stopId,
     stopName: input.stopName,
     qid: input.stopId,
     language: input.language,
-    curatorOutput: output,
+    curatorOutput: normalized.output,
     captures,
     spansBySource,
     authorizedIdentityNames: [...identity.labels, ...identity.aliases],
