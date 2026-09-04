@@ -56,12 +56,18 @@ export const NARRATIVE_WRITER_BENCHMARK_ARMS_V8: readonly NarrativeWriterBenchma
     inputUsdPerMillion: 3,
     outputUsdPerMillion: 15,
   },
+  {
+    model: 'google/gemini-2.5-pro',
+    acceptedModels: ['google/gemini-2.5-pro'],
+    inputUsdPerMillion: 1.25,
+    outputUsdPerMillion: 10,
+  },
 ] as const;
 
 export const NARRATIVE_WRITER_BENCHMARK_TOTAL_CAP_USD_V8 = 2;
 export const NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8 = 0.2;
 
-export type NarrativeWriterBenchmarkArmIdV8 = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+export type NarrativeWriterBenchmarkArmIdV8 = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I';
 
 export interface NarrativeWriterBenchmarkAssignmentV8 {
   armId: NarrativeWriterBenchmarkArmIdV8;
@@ -71,7 +77,7 @@ export interface NarrativeWriterBenchmarkAssignmentV8 {
 export function blindNarrativeWriterBenchmarkArmsV8(seed: string): NarrativeWriterBenchmarkAssignmentV8[] {
   if (!seed) throw new Error('benchmark seed must not be empty');
   const originalArms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.slice(0, 4);
-  const candidateArms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.slice(4, 8);
+  const candidateArms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.slice(4, 9);
 
   const blindCohort = (cohort: readonly NarrativeWriterBenchmarkArmV8[], ids: NarrativeWriterBenchmarkArmIdV8[]): NarrativeWriterBenchmarkAssignmentV8[] => {
     const arms = cohort.map((arm) => ({
@@ -83,7 +89,7 @@ export function blindNarrativeWriterBenchmarkArmsV8(seed: string): NarrativeWrit
   };
 
   const originalAssignments = blindCohort(originalArms, ['A', 'B', 'C', 'D']);
-  const candidateAssignments = blindCohort(candidateArms, ['E', 'F', 'G', 'H']);
+  const candidateAssignments = blindCohort(candidateArms, ['E', 'F', 'G', 'H', 'I']);
 
   return [...originalAssignments, ...candidateAssignments];
 }

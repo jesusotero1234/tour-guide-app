@@ -34,8 +34,8 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       .toThrow('run id');
     expect(() => parseNarrativeWriterBenchmarkArgsV8(['--stop-ids=Q1123493,../../escape']))
       .toThrow('stop id');
-    expect(() => parseNarrativeWriterBenchmarkArgsV8(['--arm-ids=I']))
-      .toThrow('A, B, C, D, E, F, G, or H');
+    expect(() => parseNarrativeWriterBenchmarkArgsV8(['--arm-ids=J']))
+      .toThrow('A, B, C, D, E, F, G, H, or I');
   });
 
   it('plans exactly four blind arms per selected stop within the two-dollar cap', () => {
@@ -79,9 +79,9 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
     expect(plan.maximumReservedSpendUsd).toBeCloseTo(0.4);
   });
 
-  it('parses and plans the four blinded candidate arms E-H over the same two stops', () => {
-    const args = parseNarrativeWriterBenchmarkArgsV8(['--arm-ids=E,F,G,H']);
-    expect(args.armIds).toEqual(['E', 'F', 'G', 'H']);
+  it('parses and plans the five blinded candidate arms E-I over the same two stops', () => {
+    const args = parseNarrativeWriterBenchmarkArgsV8(['--arm-ids=E,F,G,H,I']);
+    expect(args.armIds).toEqual(['E', 'F', 'G', 'H', 'I']);
 
     const plan = buildNarrativeWriterBenchmarkPlanV8(
       ['Q1123493', 'Q1537446'],
@@ -90,12 +90,13 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       args.armIds
     );
 
-    expect(plan.assignments).toHaveLength(4);
-    expect(plan.plannedCalls).toBe(8);
-    expect(plan.maximumReservedSpendUsd).toBeCloseTo(1.6);
+    expect(plan.assignments).toHaveLength(5);
+    expect(plan.plannedCalls).toBe(10);
+    expect(plan.maximumReservedSpendUsd).toBeCloseTo(2.0);
     expect(plan.assignments.map((assignment) => assignment.arm.model).sort()).toEqual([
       'anthropic/claude-sonnet-4',
       'deepseek/deepseek-r1',
+      'google/gemini-2.5-pro',
       'minimax/minimax-m2',
       'qwen/qwen3-235b-a22b-thinking-2507',
     ]);

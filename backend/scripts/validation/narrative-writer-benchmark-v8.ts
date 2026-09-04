@@ -407,7 +407,7 @@ function optionValue(argv: string[], name: string): string | undefined {
   return matches[0]?.slice(name.length + 1);
 }
 
-const VALID_ARM_IDS = new Set(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']);
+const VALID_ARM_IDS = new Set(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']);
 
 export function buildNarrativeWriterBenchmarkSystemPromptV8(explicit: boolean): string {
   if (!explicit) return WRITER_BASE_SYSTEM_PROMPT;
@@ -474,7 +474,7 @@ export function parseNarrativeWriterBenchmarkArgsV8(
   if (armIds.length === 0) throw new Error('arm ids must not be empty');
   if (new Set(armIds).size !== armIds.length) throw new Error('arm ids must be unique');
   if (armIds.some((id) => !VALID_ARM_IDS.has(id))) {
-    throw new Error('each arm id must be A, B, C, D, E, F, G, or H');
+    throw new Error('each arm id must be A, B, C, D, E, F, G, H, or I');
   }
 
   return {
