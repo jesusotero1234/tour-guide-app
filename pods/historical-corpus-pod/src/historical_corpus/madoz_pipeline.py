@@ -28,6 +28,12 @@ from .madoz_chunking import build_prepared_chunks
 from .madoz_processor import open_processor, prepare_source
 from .manifest import MadozManifest, load_manifest, validate_manifest_source
 from .models import DocumentMetadata, RightsMetadata
+from .text_corrections import (
+    CorrectionSetError,
+    LoadedCorrectionSet,
+    apply_corrections,
+    load_correction_set,
+)
 from .ocr_backend import load_model_lock
 from .page_inventory import load_verified_inventory
 from .processing_fingerprint import CanonicalPdf, build_processing_fingerprint
@@ -153,6 +159,35 @@ def _build_metadata(
         coverageAcceptedForProduct=coverage.acceptedForProduct,
         coverageAcceptedAt=coverage.acceptedAt,
     )
+
+
+def _load_corrections(
+    manifest: MadozManifest,
+    imports_root: str | Path,
+) -> LoadedCorrectionSet | None:
+    corrections_config = getattr(manifest.processing, "corrections", None)
+    if corrections_config is None:
+        return None
+    try:
+        return load_correction_set(
+            corrections_config,
+            imports_root,
+            manifest.document.documentId,
+        )
+    except CorrectionSetError as exc:
+        raise PipelineError(f"correction set error: {exc}") from None
+
+
+def _apply_corrections(
+    pages: Sequence[SourcePageInput],
+    correction_set: LoadedCorrectionSet | None,
+) -> list[SourcePageInput]:
+    if correction_set is None:
+        return list(pages)
+    try:
+        return apply_corrections(pages, correction_set)
+    except CorrectionSetError as exc:
+        raise PipelineError(f"correction set error: {exc}") from None
 
 
 def _build_chunks(
@@ -491,6 +526,7 @@ def prepare_evaluation_sample(
             model_cache_root,
             manifest.processing.modelLockFile,
         )
+        corrections = _load_corrections(manifest, imports_root)
         processing, processing_fingerprint = build_processing_fingerprint(
             manifest,
             canonical_pdf,
@@ -564,15 +600,26 @@ def prepare_evaluation_sample(
                     )
                     write_staged_page(data_path, manifest.document.documentId, staged)
                     pages_by_sequence[sequence] = page
-                ordered_pages, chunk_pages = _ordered_sample_pages(
-                    selected, pages_by_sequence
+
+        ordered_pages, chunk_pages = _ordered_sample_pages(
+            selected, pages_by_sequence
+        )
+        if corrections is not None:
+            corrected_chunk_pages = _apply_corrections(chunk_pages, corrections)
+            corrected_by_number = {
+                page.logicalPageNumber: page
+                for page in corrected_chunk_pages
+            }
+            ordered_pages = [
+                page.model_copy(
+                    update={
+                        "lines": corrected_by_number[page.logicalPageNumber].lines,
+                    }
                 )
-                chunks = processor.build_chunks(metadata, chunk_pages)
-        else:
-            ordered_pages, chunk_pages = _ordered_sample_pages(
-                selected, pages_by_sequence
-            )
-            chunks = _build_chunks(manifest, metadata, chunk_pages)
+                for page in ordered_pages
+            ]
+            chunk_pages = corrected_chunk_pages
+        chunks = _build_chunks(manifest, metadata, chunk_pages)
 
         return _assemble_sample_and_write(
             metadata=metadata,
@@ -613,6 +660,7 @@ def prepare_document(
             model_cache_root,
             manifest.processing.modelLockFile,
         )
+        corrections = _load_corrections(manifest, imports_root)
         processing, processing_fingerprint = build_processing_fingerprint(
             manifest,
             canonical_pdf,
@@ -672,11 +720,10 @@ def prepare_document(
                     )
                     write_staged_page(data_path, manifest.document.documentId, staged)
                     pages_by_sequence[sequence] = page
-                pages = [pages_by_sequence[index] for index in range(1, len(included) + 1)]
-                chunks = processor.build_chunks(metadata, pages)
-        else:
-            pages = [pages_by_sequence[index] for index in range(1, len(included) + 1)]
-            chunks = _build_chunks(manifest, metadata, pages)
+
+        pages = [pages_by_sequence[index] for index in range(1, len(included) + 1)]
+        pages = _apply_corrections(pages, corrections)
+        chunks = _build_chunks(manifest, metadata, pages)
 
         return _assemble_and_write(
             manifest=manifest,

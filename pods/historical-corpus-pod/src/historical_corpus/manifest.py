@@ -483,6 +483,23 @@ class ManifestCoverage(_StrictModel):
         return self
 
 
+class ManifestCorrections(_StrictModel):
+    path: str
+    expectedSha256: str
+    authority: Literal["ai_adjudicated"]
+    reviewStatus: Literal["ai_adjudicated_not_human_certified"]
+
+    @field_validator("path")
+    @classmethod
+    def _validate_path(cls, value: str) -> str:
+        return _relative_path(value, "corrections.path")
+
+    @field_validator("expectedSha256")
+    @classmethod
+    def _validate_expected_hash(cls, value: str) -> str:
+        return _bare_sha256(value, "corrections.expectedSha256")
+
+
 class ManifestProcessing(_StrictModel):
     textMode: Literal["ocr", "embedded_first"]
     renderDpi: int = Field(ge=150, le=400)
@@ -505,6 +522,7 @@ class ManifestProcessing(_StrictModel):
     overlapLines: int = Field(ge=0, le=32)
     layoutPolicy: Literal["madoz-two-column-v1"]
     entryPolicy: Literal["madoz-entry-v1"]
+    corrections: ManifestCorrections | None = None
 
     @field_validator("modelLockFile")
     @classmethod

@@ -422,6 +422,68 @@ def test_embedded_first_rejects_missing_required_field(
         load_manifest(_write_manifest(tmp_path, payload))
 
 
+def test_manifest_without_corrections_remains_valid(tmp_path: Path) -> None:
+    manifest = load_manifest(_write_manifest(tmp_path, _manifest()))
+    assert manifest.processing.corrections is None
+
+
+def test_manifest_with_complete_corrections_is_valid(tmp_path: Path) -> None:
+    payload = _manifest()
+    payload["processing"]["corrections"] = {
+        "path": "corrections/page-1.json",
+        "expectedSha256": "a" * 64,
+        "authority": "ai_adjudicated",
+        "reviewStatus": "ai_adjudicated_not_human_certified",
+    }
+    manifest = load_manifest(_write_manifest(tmp_path, payload))
+    assert manifest.processing.corrections is not None
+    assert manifest.processing.corrections.path == "corrections/page-1.json"
+    assert manifest.processing.corrections.expectedSha256 == "a" * 64
+    assert manifest.processing.corrections.authority == "ai_adjudicated"
+    assert (
+        manifest.processing.corrections.reviewStatus
+        == "ai_adjudicated_not_human_certified"
+    )
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "absolute_path",
+        "parent_traversal_path",
+        "invalid_hash",
+        "unsupported_authority",
+        "unsupported_review_status",
+        "partial_object",
+    ],
+)
+def test_manifest_rejects_invalid_correction_entries(
+    tmp_path: Path, mutation: str
+) -> None:
+    payload = _manifest()
+    correction = {
+        "path": "corrections/page-1.json",
+        "expectedSha256": "a" * 64,
+        "authority": "ai_adjudicated",
+        "reviewStatus": "ai_adjudicated_not_human_certified",
+    }
+    if mutation == "absolute_path":
+        correction["path"] = "/tmp/corrections/page-1.json"
+    elif mutation == "parent_traversal_path":
+        correction["path"] = "../corrections/page-1.json"
+    elif mutation == "invalid_hash":
+        correction["expectedSha256"] = "b" * 63
+    elif mutation == "unsupported_authority":
+        correction["authority"] = "human_certified"
+    elif mutation == "unsupported_review_status":
+        correction["reviewStatus"] = "human_certified"
+    elif mutation == "partial_object":
+        del correction["reviewStatus"]
+    payload["processing"]["corrections"] = correction
+    with pytest.raises(ManifestValidationError, match="corrections"):
+        load_manifest(_write_manifest(tmp_path, payload))
+
+
 def test_embedded_fields_rejected_when_text_mode_is_ocr(tmp_path: Path) -> None:
     payload = _manifest()
     processing = payload["processing"]

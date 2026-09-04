@@ -161,14 +161,32 @@ def _collect_entries(
     return entries
 
 
+def _effective_text(line: SourceLineInput) -> str:
+    if line.correctedText is not None:
+        return line.correctedText
+    return line.originalText
+
+
 def _joined_length(lines: Sequence[SourceLineInput]) -> int:
     if not lines:
         return 0
     return sum(len(line.originalText) for line in lines) + len(lines) - 1
 
 
+def _effective_joined_length(lines: Sequence[SourceLineInput]) -> int:
+    if not lines:
+        return 0
+    return sum(len(_effective_text(line)) for line in lines) + len(lines) - 1
+
+
 def _fits(lines: Sequence[SourceLineInput], max_chunk_chars: int) -> bool:
-    return len(lines) <= _MAX_CHUNK_LINE_IDS and _joined_length(lines) <= max_chunk_chars
+    if len(lines) > _MAX_CHUNK_LINE_IDS:
+        return False
+    if _joined_length(lines) > max_chunk_chars:
+        return False
+    if _effective_joined_length(lines) > max_chunk_chars:
+        return False
+    return True
 
 
 def _fragment_entry(
@@ -211,15 +229,11 @@ def _prepared_chunk(
     metadata: DocumentMetadata,
     entry_title: str,
     lines: tuple[SourceLineInput, ...],
-    is_table: bool = False,
 ) -> _BuiltChunk:
     original_text = "\n".join(line.originalText for line in lines)
     page_start = min(line.logicalPageNumber for line in lines)
     page_end = max(line.logicalPageNumber for line in lines)
-    if is_table:
-        section_path = ["Diccionario Madoz", metadata.edition, "tablas"]
-    else:
-        section_path = ["Diccionario Madoz", metadata.edition, entry_title]
+    section_path = ["Diccionario Madoz", metadata.edition, entry_title]
     total_characters = sum(len(line.originalText) for line in lines)
     if total_characters < 1:
         raise ChunkingError("chunk lines must contain text")
@@ -233,11 +247,15 @@ def _prepared_chunk(
         section_path,
         original_text,
     )
+    has_corrected = any(line.correctedText is not None for line in lines)
+    corrected_text = (
+        "\n".join(_effective_text(line) for line in lines) if has_corrected else None
+    )
     try:
         chunk = PreparedChunkInput(
             chunkId=chunk_id,
             originalText=original_text,
-            correctedText=None,
+            correctedText=corrected_text,
             pageStart=page_start,
             pageEnd=page_end,
             sectionPath=section_path,
@@ -280,7 +298,7 @@ def _collect_table_chunks(
         if table_lines:
             current: list[SourceLineInput] = []
             for line in table_lines:
-                if len(line.originalText) > max_chunk_chars:
+                if max(len(line.originalText), len(_effective_text(line))) > max_chunk_chars:
                     raise ChunkingError(
                         "OVERSIZE_TABLE_LINE "
                         f"logicalPageNumber={page.logicalPageNumber} lineId={line.lineId}"
@@ -315,7 +333,7 @@ def build_prepared_chunks(
 
     for active_title, page, lines in table_chunks:
         title = _table_chunk_title(active_title, page)
-        built.append(_prepared_chunk(metadata, title, lines, is_table=True))
+        built.append(_prepared_chunk(metadata, title, lines))
 
     built.sort(
         key=lambda item: (

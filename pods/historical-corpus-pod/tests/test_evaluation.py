@@ -270,6 +270,32 @@ def test_critical_boundary_and_order_errors_are_micro_counted() -> None:
     assert report.metrics.readingOrderAccuracy == 0.5
 
 
+def test_critical_tokens_ignore_typographic_punctuation_equivalents() -> None:
+    first_text = "21 vec. , 64 almas ."
+    second_text = "36°42′48″"
+    page = _page(
+        originalText=f"{first_text}\n{second_text}",
+        lines=[
+            _line(lineId="sha256:" + "d" * 64, lineOrder=0, originalText=first_text),
+            _line(lineId="sha256:" + "e" * 64, lineOrder=1, originalText=second_text),
+        ],
+    )
+    gold = _gold(
+        referenceLines=[
+            {"text": first_text, "role": "body"},
+            {"text": second_text, "role": "body"},
+        ],
+        entryBoundaries=[],
+        criticalTokens=["21 vec., 64 almas.", "36º42'48\""],
+    )
+
+    report = _evaluate(sample=_sample(page), gold=[gold])
+
+    assert report.metrics.criticalTokenAnnotations == 2
+    assert report.metrics.missingCriticalTokens == 0
+    assert report.metrics.criticalTokenError == 0.0
+
+
 def test_low_confidence_ratio_weights_characters_and_pages_are_sorted() -> None:
     base = _sample()
     base_page = base.pages[0]
@@ -468,6 +494,41 @@ def test_tracked_synthetic_gold_example_runs_perfect_two_page_evaluation() -> No
     assert report.metrics.failedPages == 0
     assert report.metrics.boundaryF1 == 1.0
     assert report.metrics.readingOrderAccuracy == 1.0
+
+
+def test_corrected_text_is_measured_and_labeled_separately() -> None:
+    corrected_page = _page(
+        originalText="MALXGA: ciudad historica.",
+        lines=[
+            _line(
+                lineId="sha256:" + "a" * 64,
+                lineOrder=0,
+                originalText="MALXGA: ciudad historica.",
+                correctedText="MÁLAGA: ciudad histórica.",
+            )
+        ],
+    )
+    gold = _gold()
+    report = _evaluate(sample=_sample(corrected_page), gold=[gold])
+    assert report.metrics.cer == 0.0
+    assert report.metrics.wer == 0.0
+    assert report.metrics.criticalTokenError == 0.0
+    assert report.pages[0].textSource == "ppocrv6+corrections"
+    assert report.byTextSource["ppocrv6+corrections"] == report.metrics
+
+    uncorrected_page = _page(
+        originalText="MÁLAGA: ciudad histórica.",
+        lines=[
+            _line(
+                lineId="sha256:" + "b" * 64,
+                lineOrder=0,
+                originalText="MÁLAGA: ciudad histórica.",
+            )
+        ],
+    )
+    uncorrected_report = _evaluate(sample=_sample(uncorrected_page), gold=[gold])
+    assert uncorrected_report.pages[0].textSource == "ppocrv6"
+    assert uncorrected_report.byTextSource["ppocrv6"] == uncorrected_report.metrics
 
 
 def test_report_never_serializes_full_ocr_or_gold_text() -> None:

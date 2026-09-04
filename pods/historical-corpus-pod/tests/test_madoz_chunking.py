@@ -48,12 +48,14 @@ def _line(
     role: str = "body",
     confidence: float = 0.9,
     line_id: str | None = None,
+    corrected_text: str | None = None,
 ) -> SourceLineInput:
     return SourceLineInput(
         lineId=line_id or _sha(f"line:{page}:{order}:{text}"),
         logicalPageNumber=page,
         lineOrder=order,
         originalText=text,
+        correctedText=corrected_text,
         confidence=confidence,
         box=NormalizedBox(x0=0.1, y0=0.1 + order * 0.001, x1=0.9, y1=0.11 + order * 0.001),
         orientationDegrees=0,
@@ -228,6 +230,35 @@ def test_chunk_fields_ids_and_weighted_confidence_are_exact() -> None:
         expected_section,
         expected_text,
     )
+
+
+def test_body_chunk_uses_corrected_text_for_corrected_text_field() -> None:
+    lines = [
+        _line(1, 0, "MALAGA: original text", corrected_text="MALAGA: corrected text"),
+        _line(1, 1, "second line"),
+    ]
+    chunks = build_prepared_chunks(_metadata(), [_page(1, lines)], 1500, 0)
+    assert len(chunks) == 1
+    chunk = chunks[0]
+    assert chunk.originalText == "MALAGA: original text\nsecond line"
+    assert chunk.correctedText == "MALAGA: corrected text\nsecond line"
+    assert chunk.lineIds == [lines[0].lineId, lines[1].lineId]
+    expected_chunk_id = compute_chunk_id(
+        "madoz-test",
+        1,
+        1,
+        ["Diccionario Madoz", "Tomo XI", "MALAGA"],
+        "MALAGA: original text\nsecond line",
+    )
+    assert chunk.chunkId == expected_chunk_id
+
+
+def test_corrected_text_participates_in_max_chunk_chars_fit_check() -> None:
+    original = "MALAGA: " + "x" * 50
+    corrected = "MALAGA: " + "y" * 300
+    line = _line(1, 0, original, corrected_text=corrected)
+    with pytest.raises(ChunkingError, match="OVERSIZE_BODY_LINE"):
+        build_prepared_chunks(_metadata(), [_page(1, [line])], 256, 0)
 
 
 def test_splits_only_between_lines_and_applies_progressive_overlap() -> None:

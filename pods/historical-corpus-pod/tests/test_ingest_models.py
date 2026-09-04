@@ -1442,3 +1442,66 @@ def test_preparation_report_publish_requires_prepare() -> None:
     payload["prepareAllowed"] = False  # type: ignore[index]
     with pytest.raises(ValidationError):
         PreparationReport.model_validate(payload)
+
+
+def test_prepared_document_accepts_corrected_line_and_derived_chunk_text() -> None:
+    payload = _prepared_document()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    _rehash_prepared(payload)
+    doc = PreparedDocument.model_validate(payload)
+    assert doc.chunks[0].correctedText == "MÁLAGA: ciudad histórica corregida."
+    assert doc.pages[0].lines[0].originalText == "MÁLAGA: ciudad histórica."
+    assert doc.pages[0].lines[0].lineId == line_json["lineId"]  # type: ignore[index]
+
+
+def test_prepared_document_rejects_chunk_corrected_text_mismatch() -> None:
+    payload = _prepared_document()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["correctedText"] = "MÁLAGA: ciudad histórica alterada."  # type: ignore[index]
+    _rehash_prepared(payload)
+    with pytest.raises(ValidationError):
+        PreparedDocument.model_validate(payload)
+
+
+def test_ocr_evaluation_sample_accepts_corrected_line_and_derived_chunk_text() -> None:
+    payload = _evaluation_sample()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    _rehash_sample(payload)
+    sample = OcrEvaluationSample.model_validate(payload)
+    assert sample.chunks[0].correctedText == "MÁLAGA: ciudad histórica corregida."
+    assert sample.pages[0].lines[0].originalText == "MÁLAGA: ciudad histórica."
+    assert sample.pages[0].lines[0].lineId == line_json["lineId"]  # type: ignore[index]
+
+
+def test_ocr_evaluation_sample_rejects_chunk_corrected_text_mismatch() -> None:
+    payload = _evaluation_sample()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["correctedText"] = "MÁLAGA: ciudad histórica corregida."  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["correctedText"] = "MÁLAGA: ciudad histórica alterada."  # type: ignore[index]
+    _rehash_sample(payload)
+    with pytest.raises(ValidationError):
+        OcrEvaluationSample.model_validate(payload)
+
+
+def test_source_line_input_rejects_empty_corrected_text_and_accepts_none() -> None:
+    with pytest.raises(ValidationError):
+        SourceLineInput.model_validate(_line(correctedText=""))
+    SourceLineInput.model_validate(_line(correctedText=None))
+    SourceLineInput.model_validate(_line())

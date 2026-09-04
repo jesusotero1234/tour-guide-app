@@ -30,6 +30,7 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 - [x] T4 — Resolver la secuencia canónica del tomo.
 - [x] T5 — Resolver layouts y tablas excepcionales.
 - [ ] T6 — Aprobar una muestra estratificada de al menos 48 páginas.
+- [ ] T6.1 — Aplicar correcciones explícitas con procedencia a cifras críticas.
 
 ### Checkpoint B
 
@@ -41,6 +42,7 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 ## Fase 3 — Corpus completo preparado
 
 - [ ] T7 — Preparar todas las filas canónicas con reanudación reproducible.
+- [ ] T7.1 — Generar chunks separados para todas las líneas de tabla.
 - [ ] T8 — Aprobar al menos 40 casos de recuperación y citas.
 
 ### Checkpoint C

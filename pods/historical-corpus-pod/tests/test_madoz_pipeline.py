@@ -244,14 +244,6 @@ def test_prepare_document_locks_validates_and_processes_only_includes_in_order(
             processed_pages.append(page)
             return page
 
-        def build_chunks(self, metadata: object, pages: list[SimpleNamespace]) -> list[str]:
-            assert lock_active
-            assert [page.logicalPageNumber for page in pages] == [1, 2]
-            assert [page.continuityBreakBefore for page in pages] == [False, True]
-            assert len(processed_pages) == 2
-            events.append("chunks-built")
-            return ["chunk"]
-
     @contextmanager
     def fake_open_processor(*args: object):
         assert lock_active
@@ -261,6 +253,17 @@ def test_prepare_document_locks_validates_and_processes_only_includes_in_order(
 
     monkeypatch.setattr(madoz_pipeline, "open_processor", fake_open_processor)
     monkeypatch.setattr(madoz_pipeline, "_build_metadata", lambda *a, **kw: object())
+
+    def fake_build_chunks(*args: object, **kwargs: object) -> list[str]:
+        assert lock_active
+        pages = kwargs.get("pages") or args[2]
+        assert [page.logicalPageNumber for page in pages] == [1, 2]
+        assert [page.continuityBreakBefore for page in pages] == [False, True]
+        assert len(processed_pages) == 2
+        events.append("chunks-built")
+        return ["chunk"]
+
+    monkeypatch.setattr(madoz_pipeline, "_build_chunks", fake_build_chunks)
 
     def fake_finalize(**kwargs: object) -> object:
         assert lock_active
@@ -292,8 +295,8 @@ def test_prepare_document_locks_validates_and_processes_only_includes_in_order(
         "page-staged",
         "process-2",
         "page-staged",
-        "chunks-built",
         "processor-close",
+        "chunks-built",
         "finalize",
         "lock-exit",
     ]
@@ -528,12 +531,6 @@ def test_prepare_document_cache_corrupt_reprocesses_only_missing_page(
             processed_pages.append(page)
             return page
 
-        def build_chunks(self, metadata: object, pages: list[object]) -> list[str]:
-            assert lock_active[0]
-            assert [page.logicalPageNumber for page in pages] == [1, 2]
-            events.append("chunks-built")
-            return ["chunk"]
-
     @contextmanager
     def fake_open_processor(*args: object):
         assert lock_active[0]
@@ -542,6 +539,15 @@ def test_prepare_document_cache_corrupt_reprocesses_only_missing_page(
         events.append("processor-close")
 
     monkeypatch.setattr(madoz_pipeline, "open_processor", fake_open_processor)
+
+    def fake_build_chunks(*args: object, **kwargs: object) -> list[str]:
+        assert lock_active[0]
+        pages = kwargs.get("pages") or args[2]
+        assert [page.logicalPageNumber for page in pages] == [1, 2]
+        events.append("chunks-built")
+        return ["chunk"]
+
+    monkeypatch.setattr(madoz_pipeline, "_build_chunks", fake_build_chunks)
 
     def fake_make_staged_page(
         page: object,
@@ -606,8 +612,8 @@ def test_prepare_document_cache_corrupt_reprocesses_only_missing_page(
         "process-2",
         "staged-made",
         "page-staged",
-        "chunks-built",
         "processor-close",
+        "chunks-built",
         "finalize",
         "lock-exit",
     ]
@@ -1122,13 +1128,6 @@ def test_prepare_evaluation_sample_valid_sparse_refs(
             processed_pages.append(page)
             return page
 
-        def build_chunks(self, metadata: object, pages: list[SimpleNamespace]) -> list[str]:
-            assert lock_active[0]
-            assert [page.logicalPageNumber for page in pages] == [1, 3]
-            assert [page.continuityBreakBefore for page in pages] == [False, True]
-            events.append("chunks-built")
-            return ["chunk"]
-
     @contextmanager
     def fake_open_processor(*args: object):
         assert lock_active[0]
@@ -1137,6 +1136,16 @@ def test_prepare_evaluation_sample_valid_sparse_refs(
         events.append("processor-close")
 
     monkeypatch.setattr(madoz_pipeline, "open_processor", fake_open_processor)
+
+    def fake_build_chunks(*args: object, **kwargs: object) -> list[str]:
+        assert lock_active[0]
+        pages = kwargs.get("pages") or args[2]
+        assert [page.logicalPageNumber for page in pages] == [1, 3]
+        assert [page.continuityBreakBefore for page in pages] == [False, True]
+        events.append("chunks-built")
+        return ["chunk"]
+
+    monkeypatch.setattr(madoz_pipeline, "_build_chunks", fake_build_chunks)
 
     assemble_calls: list[dict[str, object]] = []
 
@@ -1185,8 +1194,8 @@ def test_prepare_evaluation_sample_valid_sparse_refs(
         "process-3",
         "staged-made",
         "page-staged",
-        "chunks-built",
         "processor-close",
+        "chunks-built",
         "finalize",
         "lock-exit",
     ]

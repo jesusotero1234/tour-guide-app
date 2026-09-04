@@ -50,6 +50,24 @@ def _normalize_line(value: str) -> str:
     return " ".join(unicodedata.normalize("NFC", value).split())
 
 
+def _normalize_critical_token(value: str) -> str:
+    normalized = (
+        unicodedata.normalize("NFC", value).replace("º", "°").replace("ª", "°")
+    )
+    stripped = "".join(
+        " " if unicodedata.category(character).startswith(("P", "S")) else character
+        for character in normalized
+    )
+    return " ".join(stripped.split())
+
+
+def _effective_line_text(line: Any) -> str:
+    corrected = getattr(line, "correctedText", None)
+    if corrected is not None:
+        return corrected
+    return line.originalText
+
+
 def _normalized_page_text(lines: Sequence[str]) -> str:
     return "\n".join(_normalize_line(line) for line in lines)
 
@@ -691,7 +709,7 @@ def _boundary_counts(
     for index, line in enumerate(extracted_lines):
         if line.role != "body":
             continue
-        title = detect_entry_title(line.originalText)
+        title = detect_entry_title(_effective_line_text(line))
         if title is not None:
             predicted.append((index, title))
 
@@ -724,7 +742,7 @@ def _order_counts(extracted_lines: Sequence[Any], gold: OcrGoldPage) -> tuple[in
     if total_pairs == 0:
         return 0, 0
 
-    normalized_extracted = [_normalize_line(line.originalText) for line in extracted_lines]
+    normalized_extracted = [_normalize_line(_effective_line_text(line)) for line in extracted_lines]
     positions: list[int | None] = []
     for anchor in anchors:
         normalized_anchor = _normalize_line(anchor)
@@ -749,6 +767,8 @@ def _page_counts(gold: OcrGoldPage, page: Any | None) -> tuple[_Counts, str, boo
     else:
         extracted_lines = sorted(page.lines, key=lambda line: line.lineOrder)
         text_source = page.textSource
+        if any(getattr(line, "correctedText", None) is not None for line in extracted_lines):
+            text_source = f"{text_source}+corrections"
         failed = (
             page.documentId != gold.documentId
             or page.logicalPageNumber != gold.logicalPageNumber
@@ -756,10 +776,10 @@ def _page_counts(gold: OcrGoldPage, page: Any | None) -> tuple[_Counts, str, boo
         )
 
     extracted_text = _normalized_page_text(
-        [line.originalText for line in extracted_lines]
+        [_effective_line_text(line) for line in extracted_lines]
     )
     extracted_characters = sum(
-        len(_normalize_line(line.originalText)) for line in extracted_lines
+        len(_normalize_line(_effective_line_text(line))) for line in extracted_lines
     )
     counts.extracted_characters = extracted_characters
     if page is not None:
@@ -785,11 +805,13 @@ def _page_counts(gold: OcrGoldPage, page: Any | None) -> tuple[_Counts, str, boo
         counts.word_errors = _levenshtein_sequence(extracted_words, reference_words)
 
     counts.critical_annotations = len(gold.criticalTokens)
+    normalized_extracted = _normalize_critical_token(extracted_text)
     counts.missing_critical_tokens = sum(
-        _normalize_line(token) not in extracted_text for token in gold.criticalTokens
+        _normalize_critical_token(token) not in normalized_extracted
+        for token in gold.criticalTokens
     )
     alignment = _align_lines(
-        [line.originalText for line in extracted_lines],
+        [_effective_line_text(line) for line in extracted_lines],
         [line.text for line in gold.referenceLines],
     )
     counts.boundary_tp, counts.boundary_fp, counts.boundary_fn = _boundary_counts(

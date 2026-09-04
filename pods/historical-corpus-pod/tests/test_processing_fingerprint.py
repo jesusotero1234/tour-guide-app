@@ -512,6 +512,66 @@ def _embedded_first_data(
     return data
 
 
+def test_no_corrections_fingerprint_omits_corrections_key(
+    tmp_path: Path,
+) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    payload, fingerprint = _build(_manifest(), _canonical(path))
+    dumped = payload.model_dump(mode="json")
+    assert "corrections" not in dumped
+    assert fingerprint == payload.fingerprint() == GOLDEN_FINGERPRINT
+
+
+def test_corrections_enabled_fingerprint_includes_correction_fields(
+    tmp_path: Path,
+) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    data = _manifest_data()
+    data["processing"]["corrections"] = {
+        "path": "corrections/page-1.json",
+        "expectedSha256": "a" * 64,
+        "authority": "ai_adjudicated",
+        "reviewStatus": "ai_adjudicated_not_human_certified",
+    }
+    payload, fingerprint = _build(_manifest(data), _canonical(path))
+    dumped = payload.model_dump(mode="json")
+    assert "corrections" in dumped
+    assert dumped["corrections"] == {
+        "setRelativePath": "corrections/page-1.json",
+        "setSha256": f"sha256:{'a' * 64}",
+        "authority": "ai_adjudicated",
+        "reviewStatus": "ai_adjudicated_not_human_certified",
+    }
+    assert fingerprint == payload.fingerprint()
+
+
+def test_changing_only_correction_hash_changes_fingerprint(
+    tmp_path: Path,
+) -> None:
+    path = _pdf(tmp_path / "source.pdf")
+    data = _manifest_data()
+    data["processing"]["corrections"] = {
+        "path": "corrections/page-1.json",
+        "expectedSha256": "a" * 64,
+        "authority": "ai_adjudicated",
+        "reviewStatus": "ai_adjudicated_not_human_certified",
+    }
+    baseline_payload, baseline_fingerprint = _build(
+        _manifest(data), _canonical(path)
+    )
+
+    changed_data = deepcopy(data)
+    changed_data["processing"]["corrections"]["expectedSha256"] = "b" * 64
+    changed_payload, changed_fingerprint = _build(
+        _manifest(changed_data), _canonical(path)
+    )
+
+    assert changed_fingerprint != baseline_fingerprint
+    assert changed_payload.model_dump(mode="json")["corrections"]["setSha256"] == (
+        f"sha256:{'b' * 64}"
+    )
+
+
 def test_embedded_first_payload_contains_text_mode_and_thresholds(tmp_path: Path) -> None:
     path = _pdf(tmp_path / "source.pdf")
     payload, fingerprint = _build(

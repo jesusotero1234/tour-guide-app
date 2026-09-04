@@ -170,6 +170,12 @@ class SourceLineInput(_StrictModel):
     logicalPageNumber: int = Field(ge=1, le=2000)
     lineOrder: int = Field(ge=0, le=999)
     originalText: str = Field(min_length=1, max_length=4096)
+    correctedText: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=4096,
+        exclude_if=lambda value: value is None,
+    )
     confidence: float = Field(ge=0.0, le=1.0)
     box: NormalizedBox
     orientationDegrees: Literal[0, 90, 180, 270] | None
@@ -794,6 +800,23 @@ class ChunkingFingerprint(_FrozenStrictModel):
     overlapLines: int = Field(ge=0, le=32)
 
 
+class CorrectionFingerprint(_FrozenStrictModel):
+    setRelativePath: str = Field(min_length=1, max_length=512)
+    setSha256: str
+    authority: Literal["ai_adjudicated"]
+    reviewStatus: Literal["ai_adjudicated_not_human_certified"]
+
+    @field_validator("setRelativePath")
+    @classmethod
+    def _validate_path(cls, value: str) -> str:
+        return _require_safe_relative_path(value)
+
+    @field_validator("setSha256")
+    @classmethod
+    def _validate_hash(cls, value: str) -> str:
+        return _require_sha256(value)
+
+
 class FingerprintPayload(_FrozenStrictModel):
     fingerprintSchemaVersion: Literal[1]
     manifestSchemaVersion: Literal[1]
@@ -806,6 +829,10 @@ class FingerprintPayload(_FrozenStrictModel):
     quality: QualityFingerprint
     policies: PolicyFingerprint
     chunking: ChunkingFingerprint
+    corrections: CorrectionFingerprint | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
 
     def fingerprint(self) -> str:
         return "sha256:" + hashlib.sha256(canonical_json_bytes(self.model_dump(mode="json", by_alias=True, exclude_none=False))).hexdigest()
@@ -1151,8 +1178,16 @@ class PreparedDocument(_StrictModel):
             expected_section_path = ["Diccionario Madoz", self.metadata.edition, chunk.entryTitle]
             if chunk.sectionPath != expected_section_path:
                 raise ValueError("chunk.sectionPath must equal ['Diccionario Madoz', metadata.edition, entryTitle]")
-            if chunk.correctedText is not None:
-                raise ValueError("chunk.correctedText must be None")
+            expected_corrected_text = "\n".join(
+                line.correctedText or line.originalText for line in referenced_lines
+            )
+            has_corrections = any(line.correctedText is not None for line in referenced_lines)
+            if has_corrections and chunk.correctedText != expected_corrected_text:
+                raise ValueError(
+                    "chunk.correctedText must join correctedText-or-originalText for its lineIds"
+                )
+            if not has_corrections and chunk.correctedText is not None:
+                raise ValueError("chunk.correctedText must be None when its lines are uncorrected")
             if chunk.cityQids != []:
                 raise ValueError("chunk.cityQids must be empty")
             if chunk.entityQids != []:
@@ -1161,6 +1196,13 @@ class PreparedDocument(_StrictModel):
                 raise ValueError("chunk.historicalPeriod must equal metadata.historicalPeriod")
             if len(chunk.originalText) > self.processing.chunking.maxChunkChars:
                 raise ValueError("chunk.originalText length must not exceed processing.chunking.maxChunkChars")
+            if (
+                chunk.correctedText is not None
+                and len(chunk.correctedText) > self.processing.chunking.maxChunkChars
+            ):
+                raise ValueError(
+                    "chunk.correctedText length must not exceed processing.chunking.maxChunkChars"
+                )
 
             expected_chunk_id = compute_chunk_id(
                 self.metadata.documentId,
@@ -1638,8 +1680,16 @@ class OcrEvaluationSample(_StrictModel):
             expected_section_path = ["Diccionario Madoz", self.metadata.edition, chunk.entryTitle]
             if chunk.sectionPath != expected_section_path:
                 raise ValueError("chunk.sectionPath must equal ['Diccionario Madoz', metadata.edition, entryTitle]")
-            if chunk.correctedText is not None:
-                raise ValueError("chunk.correctedText must be None")
+            expected_corrected_text = "\n".join(
+                line.correctedText or line.originalText for line in referenced_lines
+            )
+            has_corrections = any(line.correctedText is not None for line in referenced_lines)
+            if has_corrections and chunk.correctedText != expected_corrected_text:
+                raise ValueError(
+                    "chunk.correctedText must join correctedText-or-originalText for its lineIds"
+                )
+            if not has_corrections and chunk.correctedText is not None:
+                raise ValueError("chunk.correctedText must be None when its lines are uncorrected")
             if chunk.cityQids != []:
                 raise ValueError("chunk.cityQids must be empty")
             if chunk.entityQids != []:
@@ -1648,6 +1698,13 @@ class OcrEvaluationSample(_StrictModel):
                 raise ValueError("chunk.historicalPeriod must equal metadata.historicalPeriod")
             if len(chunk.originalText) > self.processing.chunking.maxChunkChars:
                 raise ValueError("chunk.originalText length must not exceed processing.chunking.maxChunkChars")
+            if (
+                chunk.correctedText is not None
+                and len(chunk.correctedText) > self.processing.chunking.maxChunkChars
+            ):
+                raise ValueError(
+                    "chunk.correctedText length must not exceed processing.chunking.maxChunkChars"
+                )
 
             expected_chunk_id = compute_chunk_id(
                 self.metadata.documentId,

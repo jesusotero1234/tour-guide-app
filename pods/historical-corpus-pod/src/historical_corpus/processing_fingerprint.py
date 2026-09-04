@@ -13,6 +13,7 @@ from .ingest_models import (
     CandidatePdfPageRange,
     CanonicalizationSnapshot,
     ChunkingFingerprint,
+    CorrectionFingerprint,
     EmbeddedFirstOcrFingerprint,
     FingerprintPayload,
     FingerprintSelection,
@@ -229,6 +230,14 @@ def build_processing_fingerprint(
 
     selection = manifest.selection
     processing = manifest.processing
+    corrections = None
+    if processing.corrections is not None:
+        corrections = CorrectionFingerprint(
+            setRelativePath=processing.corrections.path,
+            setSha256=f"sha256:{processing.corrections.expectedSha256}",
+            authority=processing.corrections.authority,
+            reviewStatus=processing.corrections.reviewStatus,
+        )
     if processing.textMode == "ocr":
         ocr_fingerprint = OcrFingerprint(
             textMode=processing.textMode,
@@ -320,6 +329,7 @@ def build_processing_fingerprint(
                 maxChunkChars=processing.maxChunkChars,
                 overlapLines=processing.overlapLines,
             ),
+            corrections=corrections,
         )
     except (ValidationError, ValueError, TypeError) as exc:
         raise ProcessingFingerprintError("processing fingerprint payload is invalid") from exc

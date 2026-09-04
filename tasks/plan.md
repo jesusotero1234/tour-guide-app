@@ -395,6 +395,43 @@ mismo.
 - 100 % de fallbacks esperados activados;
 - ninguna métrica puede aprobar sobre muestra vacía.
 
+**Diagnóstico intermedio (2026-09-04):** la muestra estratificada ya contiene
+48 páginas, 13.105 líneas de referencia, 258 límites y 192 pares de orden. El
+OCR íntegro de imagen obtuvo 0 páginas fallidas, CER 0,00270, WER 0,01112,
+Boundary F1 0,99417 y orden 0,96354. T6 sigue abierto porque fallaron 31 de 154
+tokens críticos (error 0,20130), concentrados en ocho páginas de tablas y
+cifras. Subir de 300 a 350/400 DPI no resolvió la causa. La referencia y el
+reporte son privados y se identifican por los hashes
+`9c7f59948837d675d01f55d937922f76e3dc6916ec81ac9535cf19938cb82121` y
+`1176582952dd4d60f4e5b5f525a3956e7f79f2d0427b8fa0442a04a4d36fb4f0`;
+la referencia es AI-adjudicada, no certificada por una persona.
+
+#### T6.1 — Correcciones explícitas con procedencia
+
+**Objetivo:** hacer recuperables las cifras críticas verificadas contra el
+facsímil sin presentar una corrección como OCR bruto.
+
+**Contrato:**
+
+- el conjunto privado de correcciones será JSONL, tendrá SHA-256 esperado y
+  quedará fuera de Git;
+- cada corrección identificará documento, página física/lógica, línea, hash
+  del texto OCR original, texto corregido, autoridad y fecha de revisión;
+- `originalText` y `lineId` conservarán la evidencia OCR; `correctedText` será
+  un campo separado y será el texto efectivo para evaluación e índice;
+- toda corrección deberá corresponder exactamente a una sola línea; una
+  corrección obsoleta, duplicada o no usada hará fallar la preparación;
+- ruta, hash y estado de revisión entrarán en el fingerprint para invalidar
+  reutilización incompatible;
+- la evaluación distinguirá `ppocrv6` de `ppocrv6+corrections` y conservará
+  una medición auditable del resultado efectivo;
+- no se permite generar correcciones durante la preparación, inventar texto,
+  completar huecos ni aplicar sustituciones silenciosas.
+
+**Pruebas:** manifiesto y fingerprint; carga segura del JSONL; rechazo de
+hash/ruta/línea incorrectos; conservación del OCR bruto; propagación exacta a
+chunks; evaluación de tokens críticos sobre texto efectivo.
+
 **Dependencias:** T3–T5. **Tamaño:** M.
 
 ### Checkpoint B — Inventario y calidad
@@ -411,12 +448,17 @@ mismo.
 **Aceptación:**
 
 - se procesan todas y solo las filas `include`;
-- 772 capas OCR se reutilizan cuando pasan el gate;
-- PP-OCR se limita a fallbacks y regiones declaradas;
+- este tomo usa PP-OCR en las 710 páginas canónicas: la capa incrustada quedó
+  descartada para este volumen después de medir WER 0,26533 en la muestra
+  transversal; el servicio conserva `embedded_first` para libros futuros;
 - cero fallos, pendientes, cajas inválidas o chunks sin procedencia;
-- prosa y tablas generan chunks separados;
+- toda línea `body` o `table` queda asignada; prosa y tablas generan chunks
+  separados y ningún chunk mezcla ambos roles;
+- los chunks de tabla permanecen dentro de una sola página y se rotulan de
+  forma determinista con la entrada activa y la página impresa/lógica;
 - ningún chunk cruza página, hueco o salto canónico;
-- un segundo `prepare` reutiliza páginas compatibles y conserva IDs/hashes.
+- la primera preparación reutiliza las páginas compatibles ya evaluadas;
+- un segundo `prepare` reutiliza las 710 páginas y conserva IDs/hashes.
 
 **Dependencias:** Checkpoint B. **Tamaño:** M.
 
