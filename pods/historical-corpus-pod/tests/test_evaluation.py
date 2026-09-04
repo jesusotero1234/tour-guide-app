@@ -340,6 +340,13 @@ def test_low_confidence_ratio_weights_characters_and_pages_are_sorted() -> None:
     assert math.isclose(report.metrics.lowConfidenceRatio, 0.625)
     assert [page.logicalPageNumber for page in report.pages] == [1, 2]
 
+    above_minimum = _evaluate(
+        sample=sample,
+        gold=[gold_second, gold_first],
+        config=OcrGateConfig(expectedPageCount=1),
+    )
+    assert above_minimum.gates["sampleSize"]
+
 
 def test_blank_and_missing_embedded_pages_are_failed_deterministically() -> None:
     blank_gold = _gold(

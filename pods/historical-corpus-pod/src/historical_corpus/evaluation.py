@@ -173,7 +173,7 @@ class OcrGoldPage(_StrictModel):
 
 
 class OcrGateConfig(_StrictModel):
-    expectedPageCount: int = Field(default=24, ge=1, le=64)
+    expectedPageCount: int = Field(default=48, ge=1, le=64)
     maxFailedPages: int = Field(default=0, ge=0, le=64)
     maxCer: float = Field(default=0.08, ge=0.0, le=1.0)
     maxWer: float = Field(default=0.18, ge=0.0, le=1.0)
@@ -1278,7 +1278,7 @@ def evaluate_ocr(
     if timestamp.tzinfo is None or timestamp.utcoffset() is None:
         raise OcrEvaluationError("evaluation timestamp must include a timezone")
     gates = {
-        "sampleSize": report_metrics.pageCount == selected_config.expectedPageCount,
+        "sampleSize": report_metrics.pageCount >= selected_config.expectedPageCount,
         "failedPages": report_metrics.failedPages <= selected_config.maxFailedPages,
         "cer": report_metrics.cer <= selected_config.maxCer,
         "wer": report_metrics.wer <= selected_config.maxWer,
