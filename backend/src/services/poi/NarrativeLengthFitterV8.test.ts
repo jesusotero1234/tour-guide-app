@@ -706,4 +706,53 @@ describe('NarrativeLengthFitterV8', () => {
 
     expect(chooseCloserNarrativeDraftV8(current, candidate, plan.narrationTarget)).toBe(candidate);
   });
+
+  it('retains a 551-word compression miss and recovers it to 600 words with a second expansion attempt', async () => {
+    const plan = writerPlan();
+    const counts = [140, 126, 163, 70, 117, 68];
+    const draft = draftWithCounts(plan, counts, counts);
+
+    const firstPatch = JSON.stringify({
+      replacements: [
+        { segmentId: 'segment-3', text: words(80, 'compressed-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-2', text: words(76, 'compressed-'), supportCardIds: ['card-2'] },
+      ],
+    });
+    const secondPatch = JSON.stringify({
+      additions: [
+        { segmentId: 'segment-2', text: words(20, 'add-a-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(15, 'add-b-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(14, 'add-c-'), supportCardIds: ['card-3'] },
+      ],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch))
+      .mockResolvedValueOnce(openRouterResponse(secondPatch));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value.wordCount).toBe(600);
+    expect(result).toMatchObject({ lengthStatus: 'within_bounds' });
+    expect(result.diagnostics).toHaveLength(2);
+    expect(post).toHaveBeenCalledTimes(2);
+
+    const secondRequest = post.mock.calls[1][1];
+    const secondUserMessage = secondRequest.messages.find((message: { role: string }) => message.role === 'user');
+    const secondRawJson = secondUserMessage.content.split('\n').slice(1).join('\n');
+    const secondParsedInput = JSON.parse(secondRawJson);
+    expect(secondParsedInput.direction).toBe('expand');
+    expect(secondParsedInput.currentWords).toBe(551);
+    expect(secondParsedInput.previousAttempt).toEqual({
+      direction: 'compress',
+      requestedResultWords: 600,
+      measuredResultWords: 551,
+      acceptedWords: { minimum: 575, maximum: 660 },
+    });
+  });
 });

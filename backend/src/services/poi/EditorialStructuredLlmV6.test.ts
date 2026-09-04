@@ -882,7 +882,7 @@ describe('editorial structured LLM v6 providers', () => {
 
     expect(result.status).toBe('transport_error');
     expect(result.attempts).toHaveLength(1);
-    expect(result.attempts[0]).toMatchObject({ timedOut: true });
+    expect(result.attempts[0]).toMatchObject({ timedOut: true, providerRequestStarted: true });
     expect(seenSignals).toHaveLength(1);
     expect(seenSignals[0].aborted).toBe(true);
   });

@@ -217,4 +217,49 @@ describe('createNarrativeEditorialAgentsV8 length fitting', () => {
       maximumWords: 660,
     });
   });
+
+  it('preserves an accepted residual baseline in the repair validator hook', () => {
+    const baselineText = words(553);
+    const writtenDraft = draft(553);
+    const writerDiagnostic = diagnostic('writer', writtenDraft);
+    const { core } = fakeCore(writtenDraft, writerDiagnostic);
+    mockedCreateCore.mockReturnValue(core);
+
+    const agents = createNarrativeEditorialAgentsV8(
+      { profile: 'qwen38_hybrid', openRouterApiKey: 'test-key' },
+      admittedStops,
+      manifest,
+      arc,
+      targetMap
+    );
+
+    const hooks = mockedCreateCore.mock.calls[0][2] as NarrativeEditorialValidationHooksV6;
+    type ValidateRepair = NonNullable<NarrativeEditorialValidationHooksV6['validateRepair']>;
+    const input = {
+      script: {
+        stopId: 'stop-a',
+        text: baselineText,
+        sentences: [],
+        fingerprint: 'baseline-fingerprint',
+      },
+    } as unknown as Parameters<ValidateRepair>[1];
+
+    const acceptedPatch = {
+      stopId: 'stop-a',
+      text: words(553),
+      sentences: [],
+      fingerprint: 'accepted-fingerprint',
+    } as Parameters<ValidateRepair>[0];
+
+    expect(() => hooks.validateRepair?.(acceptedPatch, input)).not.toThrow();
+
+    const rejectedPatch = {
+      stopId: 'stop-a',
+      text: words(552),
+      sentences: [],
+      fingerprint: 'rejected-fingerprint',
+    } as Parameters<ValidateRepair>[0];
+
+    expect(() => hooks.validateRepair?.(rejectedPatch, input)).toThrow('repair_length_target_missed');
+  });
 });
