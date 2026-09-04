@@ -117,6 +117,24 @@ describe('editorial structured LLM v6 providers', () => {
     expect(hybrid.phases.writer).not.toHaveProperty('temperature');
   });
 
+  it('maps the qwen38_gemini25pro_writer profile to Gemini 2.5 Pro writing with hybrid support phases', () => {
+    const profile = NARRATIVE_MODEL_PROFILES_V6.qwen38_gemini25pro_writer;
+    const hybrid = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid;
+
+    expect(profile.name).toBe('qwen38_gemini25pro_writer');
+    expect(profile.phases.writer).toEqual({
+      provider: { kind: 'openrouter', model: 'google/gemini-2.5-pro', acceptedModels: ['google/gemini-2.5-pro'], zeroDataRetention: true },
+      reasoning: 'low',
+      maxTokens: 4_000,
+    });
+
+    for (const phase of Object.keys(hybrid.phases) as Array<keyof typeof hybrid.phases>) {
+      if (phase === 'writer') continue;
+      expect(profile.phases[phase]).toEqual(hybrid.phases[phase]);
+    }
+    expect(profile.concurrency).toEqual(hybrid.concurrency);
+  });
+
   it('maps the multilingual profile to independent, cheaper remote roles', () => {
     const profile = NARRATIVE_MODEL_PROFILES_V6.multilingual_openrouter;
 

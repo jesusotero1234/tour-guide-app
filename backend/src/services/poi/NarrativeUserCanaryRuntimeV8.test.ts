@@ -140,6 +140,12 @@ describe('NarrativeUserCanaryRuntimeV8', () => {
     });
   });
 
+  it('resolves the canonical core provider for qwen38_gemini25pro_writer to the same GPT-5.4 mini OpenRouter provider as qwen38_hybrid', () => {
+    expect(narrativeCanaryCoreProviderV8('qwen38_gemini25pro_writer', {})).toEqual(
+      narrativeCanaryCoreProviderV8('qwen38_hybrid', {})
+    );
+  });
+
   it('passes the OpenRouter API key and the pricing entry for the selected model to the canonical core', () => {
     const pricing = {
       inputUsdPerToken: 0.00000025,

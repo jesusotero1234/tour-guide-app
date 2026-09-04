@@ -70,7 +70,7 @@ export function narrativeCanaryCoreProviderV8(
     }
     throw new Error(`Allowed providers are deepseek, ollama, and oneprovider; got ${explicitProvider}`);
   }
-  if (profile === 'qwen38_hybrid') {
+  if (profile === 'qwen38_hybrid' || profile === 'qwen38_gemini25pro_writer') {
     return { ...QWEN38_CANONICAL_CORE_PROVIDER_V6 };
   }
   const auditorA = NARRATIVE_MODEL_PROFILES_V6[profile].phases.auditor_a.provider;

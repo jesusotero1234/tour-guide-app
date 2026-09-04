@@ -763,9 +763,9 @@ async function main(): Promise<void> {
   const resumeFromPhase = resumeOptions?.resumeFrom ?? null;
   const researchRuntime = researchRuntimeV8();
   const requestedProfile = option('--profile') ?? 'qwen38_hybrid';
-  if (!['qwen38_hybrid', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
+  if (!['qwen38_hybrid', 'qwen38_gemini25pro_writer', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
     throw new Error(
-      'narrative user canary V8 requires --profile=qwen38_hybrid, balanced_openrouter, or multilingual_openrouter'
+      'narrative user canary V8 requires --profile=qwen38_hybrid, qwen38_gemini25pro_writer, balanced_openrouter, or multilingual_openrouter'
     );
   }
   const profile = requestedProfile as NarrativeModelProfileNameV6;
@@ -939,7 +939,7 @@ async function main(): Promise<void> {
     }
     currentStage = 'preflight';
     consoleReporter.stageStarted('preflight', 'comprobando modelos y proveedores');
-    if (profile === 'qwen38_hybrid' || profile === 'multilingual_openrouter') {
+    if (profile === 'qwen38_hybrid' || profile === 'qwen38_gemini25pro_writer' || profile === 'multilingual_openrouter') {
       const qwenModelsUrl = `${qwenLocalBaseUrl.replace(/\/$/, '')}/models`;
       const qwenResponse = await axios.get(qwenModelsUrl, {
         headers: { Accept: 'application/json' }, timeout: 5_000, signal: abortController.signal,

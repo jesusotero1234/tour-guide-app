@@ -11,6 +11,7 @@ export const NARRATIVE_MODEL_PROFILE_NAMES_V6 = [
   'deepseek_control',
   'balanced_openrouter',
   'qwen38_hybrid',
+  'qwen38_gemini25pro_writer',
   'multilingual_openrouter',
 ] as const;
 
@@ -118,6 +119,10 @@ const gemini25FlashLite: EditorialProviderV6 = {
   ...openRouterProvider('google/gemini-2.5-flash-lite'),
   zeroDataRetention: true,
 };
+const gemini25Pro: EditorialProviderV6 = {
+  ...openRouterProvider('google/gemini-2.5-pro', ['google/gemini-2.5-pro']),
+  zeroDataRetention: true,
+};
 const openAiNano = openRouterProvider(
   'openai/gpt-5.4-nano',
   ['openai/gpt-5.4-nano-20260317']
@@ -191,6 +196,32 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
+      auditor_a: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
+      adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
+      repair: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
+      global_auditor: { provider: openAiMini, reasoning: 'high', maxTokens: 20_000 },
+    },
+    concurrency: {
+      researchStops: 2,
+      searches: 6,
+      captures: 2,
+      curations: 3,
+      editorialStops: 1,
+      writers: 1,
+      auditStops: 1,
+      adjudications: 3,
+      globalAudits: 1,
+    },
+  },
+  qwen38_gemini25pro_writer: {
+    name: 'qwen38_gemini25pro_writer',
+    phases: {
+      planner: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 1_200 },
+      curator: { provider: openAiMini, reasoning: 'low', maxTokens: 16_000 },
+      curator_complex: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
+      architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
+      writer: { provider: gemini25Pro, reasoning: 'low', maxTokens: 4_000 },
       auditor_a: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
