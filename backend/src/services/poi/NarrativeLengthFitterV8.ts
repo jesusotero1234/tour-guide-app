@@ -16,6 +16,10 @@ export interface NarrativeLengthFitPlanV8 {
   maximumChangeWords: number;
   desiredChangeWords: number;
   editableSegmentIds: string[];
+  editableWindowWords: number;
+  minimumReplacementWords: number;
+  maximumReplacementWords: number;
+  desiredReplacementWords: number;
 }
 
 export interface NarrativeLengthFitPatchV8 {
@@ -107,6 +111,21 @@ export function planNarrativeLengthFitV8(
   }
 
   const editableSegmentIds = selected.map((i) => draft.segments[i].segmentId);
+  const editableWindowWords = selected.reduce((sum, i) => sum + countWordsV8(draft.segments[i].text), 0);
+
+  let minimumReplacementWords: number;
+  let maximumReplacementWords: number;
+  let desiredReplacementWords: number;
+
+  if (direction === 'expand') {
+    minimumReplacementWords = editableWindowWords + minimumChangeWords;
+    maximumReplacementWords = editableWindowWords + maximumChangeWords;
+    desiredReplacementWords = maximumReplacementWords;
+  } else {
+    minimumReplacementWords = editableWindowWords - maximumChangeWords;
+    maximumReplacementWords = editableWindowWords - minimumChangeWords;
+    desiredReplacementWords = minimumReplacementWords;
+  }
 
   return {
     direction,
@@ -117,6 +136,10 @@ export function planNarrativeLengthFitV8(
     maximumChangeWords,
     desiredChangeWords,
     editableSegmentIds,
+    editableWindowWords,
+    minimumReplacementWords,
+    maximumReplacementWords,
+    desiredReplacementWords,
   };
 }
 
@@ -127,8 +150,12 @@ export function applyNarrativeLengthFitPatchV8(
   patch: NarrativeLengthFitPatchV8
 ): NarrativeStructuredWriterResultV8 {
   const replacements = patch.replacements;
-  if (replacements.length < 1 || replacements.length > fitPlan.editableSegmentIds.length) {
-    throw new Error('Replacement count must be between 1 and the number of editable segments.');
+  if (replacements.length !== fitPlan.editableSegmentIds.length) {
+    const suppliedIds = new Set(replacements.map((replacement) => replacement.segmentId));
+    const missingIds = fitPlan.editableSegmentIds.filter((segmentId) => !suppliedIds.has(segmentId));
+    throw new Error(
+      `Patch must include every editable segment exactly once; missing: ${missingIds.join(', ') || 'none'}.`
+    );
   }
 
   const seenSegmentIds = new Set<string>();
@@ -140,6 +167,11 @@ export function applyNarrativeLengthFitPatchV8(
     if (!fitPlan.editableSegmentIds.includes(replacement.segmentId)) {
       throw new Error('Replacement segmentId is outside the selected length-fit window.');
     }
+  }
+
+  const missingSegmentIds = fitPlan.editableSegmentIds.filter((segmentId) => !seenSegmentIds.has(segmentId));
+  if (missingSegmentIds.length > 0) {
+    throw new Error(`Every editable segment must be replaced exactly once; missing: ${missingSegmentIds.join(', ')}.`);
   }
 
   const replacementMap = new Map<string, { text: string; supportCardIds: string[] }>();

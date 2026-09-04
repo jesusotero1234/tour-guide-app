@@ -140,6 +140,10 @@ describe('NarrativeLengthFitterV8', () => {
       minimumChangeWords: 16,
       maximumChangeWords: 101,
       desiredChangeWords: 41,
+      editableWindowWords: 186,
+      minimumReplacementWords: 202,
+      maximumReplacementWords: 287,
+      desiredReplacementWords: 287,
     });
     expect(fit?.editableSegmentIds.length).toBeGreaterThan(0);
     expect(draft.wordCount).toBe(559);
@@ -157,6 +161,10 @@ describe('NarrativeLengthFitterV8', () => {
       minimumChangeWords: 30,
       maximumChangeWords: 115,
       desiredChangeWords: 90,
+      editableWindowWords: 230,
+      minimumReplacementWords: 115,
+      maximumReplacementWords: 200,
+      desiredReplacementWords: 115,
     });
   });
 
@@ -188,22 +196,26 @@ describe('NarrativeLengthFitterV8', () => {
     const draft = draftWithCounts(plan, counts, wrongEstimates);
     const fit = planNarrativeLengthFitV8(plan, draft);
     expect(fit).not.toBeNull();
-    const selectedId = fit!.editableSegmentIds[0];
-    const selected = draft.segments.find((segment) => segment.segmentId === selectedId)!;
-    const replacementWords = selected.text.split(/\s+/u).length + 61;
+    const selectedIds = fit!.editableSegmentIds;
+    const firstSelectedId = selectedIds[0];
+    const firstSelected = draft.segments.find((segment) => segment.segmentId === firstSelectedId)!;
+    const firstReplacementWords = firstSelected.text.split(/\s+/u).length + 61;
 
-    const patched = applyNarrativeLengthFitPatchV8(plan, draft, fit!, {
-      replacements: [{
-        segmentId: selectedId,
-        text: words(replacementWords, 'expanded-'),
-        supportCardIds: selected.supportCardIds,
-      }],
+    const replacements = selectedIds.map((segmentId, index) => {
+      const segment = draft.segments.find((item) => item.segmentId === segmentId)!;
+      return {
+        segmentId,
+        text: index === 0 ? words(firstReplacementWords, 'expanded-') : segment.text,
+        supportCardIds: segment.supportCardIds,
+      };
     });
+
+    const patched = applyNarrativeLengthFitPatchV8(plan, draft, fit!, { replacements });
 
     expect(patched.wordCount).toBe(600);
     for (const segment of patched.segments) {
       const original = draft.segments.find((item) => item.segmentId === segment.segmentId)!;
-      if (segment.segmentId !== selectedId) {
+      if (segment.segmentId !== firstSelectedId) {
         expect(segment.text).toBe(original.text);
         expect(segment.beat).toBe(original.beat);
         expect(segment.supportCardIds).toEqual(original.supportCardIds);
@@ -213,20 +225,46 @@ describe('NarrativeLengthFitterV8', () => {
     expect(patched.text).toBe(patched.segments.map((segment) => segment.text).join(' '));
   });
 
+  it('rejects a patch missing any selected segment with an error mentioning every editable segment', () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 559);
+    const fit = planNarrativeLengthFitV8(plan, draft)!;
+    const missingId = fit.editableSegmentIds[1];
+    const presentId = fit.editableSegmentIds[0];
+    const presentSegment = draft.segments.find((segment) => segment.segmentId === presentId)!;
+
+    expect(() => applyNarrativeLengthFitPatchV8(plan, draft, fit, {
+      replacements: [{
+        segmentId: presentId,
+        text: presentSegment.text,
+        supportCardIds: presentSegment.supportCardIds,
+      }],
+    })).toThrow(new RegExp(`every editable segment.*${missingId}`));
+  });
+
   it('rejects a replacement outside the selected edit window', () => {
     const plan = writerPlan();
     const draft = draftWithWords(plan, 539);
     const fit = planNarrativeLengthFitV8(plan, draft)!;
+    const validId = fit.editableSegmentIds[0];
+    const validSegment = draft.segments.find((segment) => segment.segmentId === validId)!;
     const forbidden = draft.segments.find(
       (segment) => !fit.editableSegmentIds.includes(segment.segmentId)
     )!;
 
     expect(() => applyNarrativeLengthFitPatchV8(plan, draft, fit, {
-      replacements: [{
-        segmentId: forbidden.segmentId,
-        text: forbidden.text,
-        supportCardIds: forbidden.supportCardIds,
-      }],
+      replacements: [
+        {
+          segmentId: validId,
+          text: validSegment.text,
+          supportCardIds: validSegment.supportCardIds,
+        },
+        {
+          segmentId: forbidden.segmentId,
+          text: forbidden.text,
+          supportCardIds: forbidden.supportCardIds,
+        },
+      ],
     })).toThrow('outside the selected length-fit window');
   });
 
@@ -243,19 +281,36 @@ describe('NarrativeLengthFitterV8', () => {
   it('expands a 539-word draft to 600 words through two localized segment-2 patches', async () => {
     const plan = writerPlan();
     const draft = draftWithWords(plan, 539);
+    const fit = planNarrativeLengthFitV8(plan, draft)!;
+    const segment2 = draft.segments.find((segment) => segment.segmentId === 'segment-2')!;
+    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
     const firstPatch = JSON.stringify({
-      replacements: [{
-        segmentId: 'segment-2',
-        text: words(110, 'expanded-'),
-        supportCardIds: ['card-2'],
-      }],
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(110, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
     });
     const secondPatch = JSON.stringify({
-      replacements: [{
-        segmentId: 'segment-2',
-        text: words(151, 'expanded-'),
-        supportCardIds: ['card-2'],
-      }],
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(151, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
     });
     const post = jest.fn()
       .mockResolvedValueOnce(openRouterResponse(firstPatch))
@@ -275,6 +330,16 @@ describe('NarrativeLengthFitterV8', () => {
     expect(post.mock.calls[0][1]).not.toHaveProperty('temperature');
     expect(JSON.stringify(post.mock.calls[0][1])).not.toContain('"uniqueItems"');
     expect(draft.wordCount).toBe(539);
+
+    const firstRequest = post.mock.calls[0][1];
+    const userMessage = firstRequest.messages.find((message: { role: string }) => message.role === 'user');
+    const rawJson = userMessage.content.split('\n').slice(1).join('\n');
+    const parsedInput = JSON.parse(rawJson);
+    expect(parsedInput.editableWindowWords).toBe(180);
+    expect(parsedInput.acceptedReplacementWords).toEqual({ minimum: 216, maximum: 301 });
+    expect(parsedInput.requestedReplacementWords).toBe(301);
+    expect(firstRequest.response_format.json_schema.schema.properties.replacements.minItems).toBe(2);
+    expect(firstRequest.response_format.json_schema.schema.properties.replacements.maxItems).toBe(2);
   });
 
   it('returns the same draft without calling post when it is already in range', async () => {
@@ -314,19 +379,34 @@ describe('NarrativeLengthFitterV8', () => {
   it('rejects with exhaustion when two valid responses worsen the draft to 539 words', async () => {
     const plan = writerPlan(600);
     const draft = draftWithWords(plan, 559);
+    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
     const firstPatch = JSON.stringify({
-      replacements: [{
-        segmentId: 'segment-2',
-        text: words(73, 'expanded-'),
-        supportCardIds: ['card-2'],
-      }],
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(73, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
     });
     const secondPatch = JSON.stringify({
-      replacements: [{
-        segmentId: 'segment-2',
-        text: words(73, 'expanded-'),
-        supportCardIds: ['card-2'],
-      }],
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(73, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
     });
     const post = jest.fn()
       .mockResolvedValueOnce(openRouterResponse(firstPatch))
