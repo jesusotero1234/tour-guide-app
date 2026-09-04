@@ -10,9 +10,35 @@ import {
   chooseCloserNarrativeDraftV8,
   planNarrativeLengthFitV8,
 } from './NarrativeLengthFitterV8';
+import { fitNarrativeWriterLengthV8 } from './NarrativeLengthFitterAgentV8';
 
 function words(count: number, prefix = 'palabra'): string {
   return Array.from({ length: count }, (_, index) => `${prefix}${index + 1}`).join(' ');
+}
+
+function openRouterResponse(content: string) {
+  return { data: {
+    model: 'openai/gpt-5.4-mini',
+    choices: [{ finish_reason: 'stop', message: { content } }],
+    usage: {
+      prompt_tokens: 20,
+      completion_tokens: 8,
+      total_tokens: 28,
+      cost: 0.0012,
+      prompt_tokens_details: { cached_tokens: 0 },
+      completion_tokens_details: { reasoning_tokens: 3 },
+    },
+    openrouter_metadata: {
+      requested: 'openai/gpt-5.4-mini',
+      strategy: 'direct',
+      attempt: 1,
+      endpoints: { total: 1, available: [{
+        provider: 'OpenAI', model: 'openai/gpt-5.4-mini', selected: true,
+      }] },
+      attempts: [{ provider: 'OpenAI', model: 'openai/gpt-5.4-mini', status: 200 }],
+      pipeline: [],
+    },
+  } };
 }
 
 function target(targetWords = 600): NarrativeNarrationTargetV8 {
@@ -212,5 +238,106 @@ describe('NarrativeLengthFitterV8', () => {
 
     expect(chooseCloserNarrativeDraftV8(current, farther, plan.narrationTarget)).toBe(current);
     expect(chooseCloserNarrativeDraftV8(current, closer, plan.narrationTarget)).toBe(closer);
+  });
+
+  it('expands a 539-word draft to 600 words through two localized segment-2 patches', async () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 539);
+    const firstPatch = JSON.stringify({
+      replacements: [{
+        segmentId: 'segment-2',
+        text: words(110, 'expanded-'),
+        supportCardIds: ['card-2'],
+      }],
+    });
+    const secondPatch = JSON.stringify({
+      replacements: [{
+        segmentId: 'segment-2',
+        text: words(151, 'expanded-'),
+        supportCardIds: ['card-2'],
+      }],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch))
+      .mockResolvedValueOnce(openRouterResponse(secondPatch));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value.wordCount).toBe(600);
+    expect(result.diagnostics).toHaveLength(2);
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(draft.wordCount).toBe(539);
+  });
+
+  it('returns the same draft without calling post when it is already in range', async () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 600);
+    const post = jest.fn(async () => openRouterResponse('{}'));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value).toBe(draft);
+    expect(result.diagnostics).toEqual([]);
+    expect(post).not.toHaveBeenCalled();
+  });
+
+  it('plans a localized expansion for a 260-word draft targeting 300 words', () => {
+    const plan = writerPlan(300);
+    const draft = draftWithWords(plan, 260);
+
+    const fit = planNarrativeLengthFitV8(plan, draft);
+
+    expect(fit).toMatchObject({
+      direction: 'expand',
+      wordCount: 260,
+      minimumWords: 275,
+      maximumWords: 330,
+      minimumChangeWords: 15,
+      desiredChangeWords: 40,
+    });
+  });
+
+  it('rejects with exhaustion when two valid responses worsen the draft to 539 words', async () => {
+    const plan = writerPlan(600);
+    const draft = draftWithWords(plan, 559);
+    const firstPatch = JSON.stringify({
+      replacements: [{
+        segmentId: 'segment-2',
+        text: words(73, 'expanded-'),
+        supportCardIds: ['card-2'],
+      }],
+    });
+    const secondPatch = JSON.stringify({
+      replacements: [{
+        segmentId: 'segment-2',
+        text: words(73, 'expanded-'),
+        supportCardIds: ['card-2'],
+      }],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch))
+      .mockResolvedValueOnce(openRouterResponse(secondPatch));
+
+    await expect(fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    })).rejects.toThrow('length_fit_exhausted stop=stop-generic actual=559 accepted=575-660');
+
+    expect(post).toHaveBeenCalledTimes(2);
   });
 });

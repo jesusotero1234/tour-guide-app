@@ -3,10 +3,13 @@ import {
   NarrativeEditorialAgentsV6,
 } from './NarrativeEditorialAgentsV6';
 import {
+  NarrativeStructuredWriterResultV8,
   NarrativeWriterPlanV8,
+  buildNarrativeWriterPlanV8,
   narrativeWriterResponseSchemaV8,
   parseNarrativeWriterResponseV8,
 } from './NarrativeWriterContractV8';
+import { fitNarrativeWriterLengthV8 } from './NarrativeLengthFitterAgentV8';
 import { NarrativeModelClientOptionsV6 } from './NarrativeModelProfilesV6';
 import {
   NarrativeAdmittedStopV8,
@@ -70,16 +73,6 @@ export function createNarrativeEditorialAgentsV8(
       writerIncludePreviousResponseOnSemanticRetry: true,
       repairRequestAttempts: 3,
       repairIncludePreviousResponseOnSemanticRetry: true,
-      validateWriter: (value, input) => {
-        const target = narrationTargetsByStopId?.get(input.stopId);
-        if (!target) return;
-        const validation = validateNarrativeWriterLengthV8(value.text, target);
-        if (!validation.valid) {
-          throw new Error(
-            `writer_length_target_missed stop=${input.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
-          );
-        }
-      },
       writerResponseContract: (projectedInput, input) => {
         const plan = (projectedInput as Record<string, unknown>).writerPlan as NarrativeWriterPlanV8 | undefined;
         if (!plan) return undefined;
@@ -101,8 +94,48 @@ export function createNarrativeEditorialAgentsV8(
       auditAnchorsRequired: true,
     }
   );
+  const coreWrite = core.write;
   return {
     ...core,
     evidenceManifestFingerprint: manifest.fingerprint,
+    async write(input, execution) {
+      const written = await coreWrite(input, execution);
+      const target = narrationTargetsByStopId?.get(input.stopId);
+      if (!target) return written;
+
+      const stopIndex = admittedStops.findIndex((stop) => stop.routeStopId === input.stopId);
+      if (stopIndex < 0) {
+        throw new Error(`unknown editorial route stop ${input.stopId}`);
+      }
+      const admittedStop = admittedStops[stopIndex];
+      const plan = buildNarrativeWriterPlanV8({
+        routeStopId: input.stopId,
+        dossier: admittedStop.dossier,
+        narrationTarget: target,
+        stopIndex,
+      });
+
+      const signals = [options.signal, execution?.signal]
+        .filter((signal): signal is AbortSignal => signal !== undefined);
+      const signal = signals.length > 1 ? AbortSignal.any(signals) : signals[0];
+      const onProgress = execution?.onProgress ?? options.onProgress;
+
+      const fitResult = await fitNarrativeWriterLengthV8({
+        ...options,
+        ...(signal ? { signal } : {}),
+        ...(onProgress ? { onProgress } : {}),
+        plan,
+        draft: written.value as NarrativeStructuredWriterResultV8,
+      });
+
+      return {
+        value: fitResult.value,
+        diagnostic: written.diagnostic,
+        diagnostics: [
+          ...(written.diagnostics ?? [written.diagnostic]),
+          ...fitResult.diagnostics,
+        ],
+      };
+    },
   };
 }
