@@ -503,9 +503,10 @@ def test_discards_empty_original_text_candidates_before_layout() -> None:
         polygon=[[10, 20], [40, 20], [40, 24], [10, 24]],
         correction180=0,
     )
+    whitespace = _line("   \t  ", (0.1, 0.3, 0.4, 0.34))
     valid = _line("body", (0.1, 0.2, 0.4, 0.25))
 
-    page = build_source_page(_manifest(), _inventory(), _rendered(), [invalid, valid])
+    page = build_source_page(_manifest(), _inventory(), _rendered(), [invalid, whitespace, valid])
 
     assert [line.originalText for line in page.lines] == ["body"]
     assert page.originalText == "body"

@@ -344,7 +344,7 @@ contiguos y cada exclusión justificada.
   alterar el orden físico determinista del JSONL;
 - `build-inventory` aplica las decisiones de duplicado antes de finalizar;
 - inventario privado congelado con SHA-256
-  `95b7db48a26cc48df84b1c46e7c85632de97ae6409a20d3f19c60507411a4bd5`.
+  `cf2e60a9dcac1bd2c236354d431e7a0e0e98b3a2af0c31b66782beee563973d1`.
 
 **Dependencias:** T0. **Tamaño:** M.
 
@@ -362,6 +362,15 @@ incrustado no conserva lectura o cifras.
 - cambiar una región invalida la reutilización por fingerprint.
 
 **Verificación:** pruebas de layout más previews de todas las excepciones.
+
+**Resultado (2026-09-04):** las 710 páginas canónicas fueron examinadas. Se
+congelaron 134 excepciones (17 de la referencia de Málaga y 117 nuevas con
+regiones explícitas), 145 regiones de tabla y 95 regiones rotadas. Todas las
+excepciones se revisaron en siete hojas de contacto; un smoke real de seis
+páginas representativas pasó con cajas válidas, orden continuo y líneas no
+vacías. El inventario se regeneró sin alterar decisiones ni orden canónico y
+se guardaron el reporte, los previews y los hashes fuera de Git. No se usó red,
+no se publicó y no se modificó el canario.
 
 **Dependencias:** T3–T4. **Tamaño:** M por lote de excepciones.
 
@@ -390,7 +399,7 @@ mismo.
 
 ### Checkpoint B — Inventario y calidad
 
-- [ ] Secuencia canónica verificada y congelada.
+- [x] Secuencia canónica verificada y congelada.
 - [ ] Todos los gates de T6 aprobados.
 - [ ] Reportes y hashes privados guardados fuera de Git.
 - [ ] Ausencias reales documentadas, sin texto inventado.

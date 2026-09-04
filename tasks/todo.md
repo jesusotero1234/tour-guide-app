@@ -28,7 +28,7 @@ Autoridad detallada: [tasks/plan.md](./plan.md).
 ## Fase 2 — Canonización y calidad
 
 - [x] T4 — Resolver la secuencia canónica del tomo.
-- [ ] T5 — Resolver layouts y tablas excepcionales.
+- [x] T5 — Resolver layouts y tablas excepcionales.
 - [ ] T6 — Aprobar una muestra estratificada de al menos 48 páginas.
 
 ### Checkpoint B

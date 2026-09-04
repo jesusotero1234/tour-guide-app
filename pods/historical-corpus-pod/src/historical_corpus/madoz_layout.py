@@ -60,7 +60,7 @@ def _deduplicate(
     for candidate in candidates:
         if not isinstance(candidate, ExtractedLineCandidate):
             raise LayoutError("layout input must contain ExtractedLineCandidate values")
-        if candidate.originalText == "":
+        if not candidate.originalText.strip():
             continue
         unique.setdefault(_raw_candidate_key(candidate), candidate)
     return list(unique.values())
