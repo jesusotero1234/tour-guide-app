@@ -30,6 +30,14 @@ export interface NarrativeLengthFitPatchV8 {
   }[];
 }
 
+export interface NarrativeLengthExpansionPatchV8 {
+  additions: {
+    segmentId: string;
+    text: string;
+    supportCardIds: string[];
+  }[];
+}
+
 function countWordsV8(text: string): number {
   const trimmed = text.trim();
   if (trimmed.length === 0) return 0;
@@ -191,6 +199,136 @@ export function applyNarrativeLengthFitPatchV8(
       beat: segment.beat,
       text,
       supportCardIds,
+      estimatedWords: countWordsV8(text),
+    };
+  });
+
+  const rawResponse = {
+    stop_id: plan.routeStopId,
+    segments: newSegments.map((segment) => ({
+      segmentId: segment.segmentId,
+      beat: segment.beat,
+      text: segment.text,
+      supportCardIds: segment.supportCardIds,
+      estimatedWords: segment.estimatedWords,
+    })),
+  };
+
+  return parseNarrativeWriterResponseV8(plan, rawResponse);
+}
+
+export function applyNarrativeLengthExpansionPatchV8(
+  plan: NarrativeWriterPlanV8,
+  draft: NarrativeStructuredWriterResultV8,
+  patch: NarrativeLengthExpansionPatchV8
+): NarrativeStructuredWriterResultV8 {
+  const fitPlan = planNarrativeLengthFitV8(plan, draft);
+  if (!fitPlan || fitPlan.direction !== 'expand') {
+    throw new Error('Expansion patch requires an expand direction fit plan.');
+  }
+
+  const additions = patch.additions;
+  if (additions.length < 1 || additions.length > 12) {
+    throw new Error('Expansion patch must contain between 1 and 12 nonblank additions.');
+  }
+
+  const editableSet = new Set(fitPlan.editableSegmentIds);
+  const beatCardMap = new Map<string, Set<string>>();
+  for (const beat of plan.beats) {
+    beatCardMap.set(beat.beat, new Set(beat.evidenceCardIds));
+  }
+
+  const segmentBeatMap = new Map<string, string>();
+  for (const segment of draft.segments) {
+    segmentBeatMap.set(segment.segmentId, segment.beat);
+  }
+
+  for (const addition of additions) {
+    if (addition.text.trim().length === 0) {
+      throw new Error('Expansion addition text must be nonblank.');
+    }
+    if (!editableSet.has(addition.segmentId)) {
+      throw new Error(`Expansion addition segmentId ${addition.segmentId} is outside-window.`);
+    }
+    if (addition.supportCardIds.length === 0) {
+      throw new Error('Expansion addition must have at least one supportCardId.');
+    }
+    const beat = segmentBeatMap.get(addition.segmentId)!;
+    const authorized = beatCardMap.get(beat)!;
+    for (const cardId of addition.supportCardIds) {
+      if (!authorized.has(cardId)) {
+        throw new Error(`Support card id ${cardId} is not authorized for beat ${beat}.`);
+      }
+    }
+  }
+
+  const n = additions.length;
+  const totalMasks = 1 << n;
+  const targetWords = plan.narrationTarget.targetWords;
+  const baseWordCount = draft.wordCount;
+
+  let bestMask = -1;
+  let bestDistance = Infinity;
+  let bestTargetDistance = Infinity;
+  let bestUnitCount = Infinity;
+
+  for (let mask = 1; mask < totalMasks; mask += 1) {
+    let addedWords = 0;
+    for (let i = 0; i < n; i += 1) {
+      if (mask & (1 << i)) {
+        addedWords += countWordsV8(additions[i].text);
+      }
+    }
+    const total = baseWordCount + addedWords;
+    const distance = distanceToRangeV8(total, fitPlan.minimumWords, fitPlan.maximumWords);
+    const targetDistance = Math.abs(total - targetWords);
+    const unitCount = mask.toString(2).replace(/0/g, '').length;
+
+    if (
+      distance < bestDistance ||
+      (distance === bestDistance && targetDistance < bestTargetDistance) ||
+      (distance === bestDistance && targetDistance === bestTargetDistance && unitCount < bestUnitCount) ||
+      (distance === bestDistance && targetDistance === bestTargetDistance && unitCount === bestUnitCount && mask < bestMask)
+    ) {
+      bestDistance = distance;
+      bestTargetDistance = targetDistance;
+      bestUnitCount = unitCount;
+      bestMask = mask;
+    }
+  }
+
+  const selectedIndices: number[] = [];
+  for (let i = 0; i < n; i += 1) {
+    if (bestMask & (1 << i)) {
+      selectedIndices.push(i);
+    }
+  }
+
+  const appendMap = new Map<string, { text: string; supportCardIds: string[] }[]>();
+  for (const index of selectedIndices) {
+    const addition = additions[index];
+    const existing = appendMap.get(addition.segmentId) || [];
+    existing.push({ text: addition.text, supportCardIds: addition.supportCardIds });
+    appendMap.set(addition.segmentId, existing);
+  }
+
+  const newSegments = draft.segments.map((segment) => {
+    const appends = appendMap.get(segment.segmentId);
+    let text = segment.text;
+    const mergedCardIds = new Set(segment.supportCardIds);
+    if (appends) {
+      for (const append of appends) {
+        text = `${text} ${append.text}`;
+        for (const cardId of append.supportCardIds) {
+          mergedCardIds.add(cardId);
+        }
+      }
+    }
+    return {
+      segmentId: segment.segmentId,
+      beat: segment.beat,
+      text,
+      supportCardIds: Array.from(mergedCardIds),
       estimatedWords: countWordsV8(text),
     };
   });

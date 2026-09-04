@@ -6,6 +6,7 @@ import {
 } from './NarrativeWriterContractV8';
 import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
 import {
+  applyNarrativeLengthExpansionPatchV8,
   applyNarrativeLengthFitPatchV8,
   chooseCloserNarrativeDraftV8,
   planNarrativeLengthFitV8,
@@ -278,38 +279,21 @@ describe('NarrativeLengthFitterV8', () => {
     expect(chooseCloserNarrativeDraftV8(current, closer, plan.narrationTarget)).toBe(closer);
   });
 
-  it('expands a 539-word draft to 600 words through two localized segment-2 patches', async () => {
+  it('expands a 539-word draft to 600 words through two reservoir addition responses', async () => {
     const plan = writerPlan();
     const draft = draftWithWords(plan, 539);
-    const fit = planNarrativeLengthFitV8(plan, draft)!;
-    const segment2 = draft.segments.find((segment) => segment.segmentId === 'segment-2')!;
-    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
     const firstPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(110, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(10, 'add-a-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(5, 'add-b-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(5, 'add-c-'), supportCardIds: ['card-3'] },
       ],
     });
     const secondPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(151, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(20, 'add-d-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(10, 'add-e-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(11, 'add-f-'), supportCardIds: ['card-3'] },
       ],
     });
     const post = jest.fn()
@@ -335,11 +319,14 @@ describe('NarrativeLengthFitterV8', () => {
     const userMessage = firstRequest.messages.find((message: { role: string }) => message.role === 'user');
     const rawJson = userMessage.content.split('\n').slice(1).join('\n');
     const parsedInput = JSON.parse(rawJson);
-    expect(parsedInput.editableWindowWords).toBe(180);
-    expect(parsedInput.acceptedReplacementWords).toEqual({ minimum: 216, maximum: 301 });
-    expect(parsedInput.requestedReplacementWords).toBe(301);
-    expect(firstRequest.response_format.json_schema.schema.properties.replacements.minItems).toBe(2);
-    expect(firstRequest.response_format.json_schema.schema.properties.replacements.maxItems).toBe(2);
+    expect(parsedInput.expansionReservoir).toEqual({
+      requiredUnits: 3,
+      desiredTotalWords: 100,
+      approximateWordsPerUnit: 34,
+      maximumUsefulUnitWords: 85,
+    });
+    expect(firstRequest.response_format.json_schema.schema.properties.additions.minItems).toBe(3);
+    expect(firstRequest.response_format.json_schema.schema.properties.additions.maxItems).toBe(3);
     expect(firstRequest.max_tokens).toBe(2_400);
   });
 
@@ -377,36 +364,22 @@ describe('NarrativeLengthFitterV8', () => {
     });
   });
 
-  it('accepts a tiny improved residual of 538 words after two bounded localized length-fit attempts for target 566', async () => {
+  it('accepts a tiny improved residual of 538 words after two bounded reservoir addition attempts for target 566', async () => {
     const plan = writerPlan(566);
     const draft = draftWithWords(plan, 469);
-    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
     const firstPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(129, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(15, 'add-a-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(15, 'add-b-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(10, 'add-c-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(11, 'add-d-'), supportCardIds: ['card-3'] },
       ],
     });
     const secondPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(147, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(8, 'add-e-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(5, 'add-f-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(5, 'add-g-'), supportCardIds: ['card-3'] },
       ],
     });
     const post = jest.fn()
@@ -429,69 +402,46 @@ describe('NarrativeLengthFitterV8', () => {
     const firstUserMessage = firstRequest.messages.find((message: { role: string }) => message.role === 'user');
     const firstRawJson = firstUserMessage.content.split('\n').slice(1).join('\n');
     const firstParsedInput = JSON.parse(firstRawJson);
-    expect(firstParsedInput.editableWindowWords).toBe(156);
-    expect(firstParsedInput.acceptedReplacementWords).toEqual({ minimum: 228, maximum: 309 });
-    expect(firstParsedInput.requestedReplacementWords).toBe(309);
-    expect(firstRequest.response_format.json_schema.schema.properties.replacements.minItems).toBe(2);
-    expect(firstRequest.response_format.json_schema.schema.properties.replacements.maxItems).toBe(2);
+    expect(firstParsedInput.expansionReservoir).toEqual({
+      requiredUnits: 4,
+      desiredTotalWords: 133,
+      approximateWordsPerUnit: 34,
+      maximumUsefulUnitWords: 81,
+    });
+    expect(firstRequest.response_format.json_schema.schema.properties.additions.minItems).toBe(4);
+    expect(firstRequest.response_format.json_schema.schema.properties.additions.maxItems).toBe(4);
 
     const secondRequest = post.mock.calls[1][1];
     const secondUserMessage = secondRequest.messages.find((message: { role: string }) => message.role === 'user');
     const secondRawJson = secondUserMessage.content.split('\n').slice(1).join('\n');
     const secondParsedInput = JSON.parse(secondRawJson);
-    expect(secondParsedInput.editableWindowWords).toBe(207);
-    expect(secondParsedInput.acceptedReplacementWords).toEqual({ minimum: 228, maximum: 309 });
-    expect(secondParsedInput.requestedReplacementWords).toBe(309);
-
-    for (const call of post.mock.calls) {
-      const request = call[1];
-      const userMessage = request.messages.find((message: { role: string }) => message.role === 'user');
-      const rawJson = userMessage.content.split('\n').slice(1).join('\n');
-      const parsedInput = JSON.parse(rawJson);
-      const segmentIds = parsedInput.editableSegments.map((segment: { segmentId: string }) => segment.segmentId);
-      expect(segmentIds).toContain('segment-2');
-      expect(segmentIds).toContain('segment-3');
-      expect(segmentIds.filter((id: string) => id === 'segment-2')).toHaveLength(1);
-      expect(segmentIds.filter((id: string) => id === 'segment-3')).toHaveLength(1);
-      for (const segment of parsedInput.editableSegments) {
-        const expectedCardId = segment.segmentId === 'segment-2' ? 'card-2' : 'card-3';
-        expect(segment.supportCardIds).toEqual([expectedCardId]);
-      }
-    }
+    expect(secondParsedInput.expansionReservoir).toEqual({
+      requiredUnits: 3,
+      desiredTotalWords: 82,
+      approximateWordsPerUnit: 28,
+      maximumUsefulUnitWords: 81,
+    });
+    expect(secondRequest.response_format.json_schema.schema.properties.additions.minItems).toBe(3);
+    expect(secondRequest.response_format.json_schema.schema.properties.additions.maxItems).toBe(3);
 
     expect(draft.wordCount).toBe(469);
   });
 
-  it('rejects with exhaustion when two valid responses worsen the draft to 539 words', async () => {
+  it('rejects with exhaustion when two valid reservoir responses overshoot farther from target 600', async () => {
     const plan = writerPlan(600);
     const draft = draftWithWords(plan, 559);
-    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
     const firstPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(73, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(200, 'add-a-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(200, 'add-b-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(200, 'add-c-'), supportCardIds: ['card-3'] },
       ],
     });
     const secondPatch = JSON.stringify({
-      replacements: [
-        {
-          segmentId: 'segment-2',
-          text: words(73, 'expanded-'),
-          supportCardIds: ['card-2'],
-        },
-        {
-          segmentId: 'segment-3',
-          text: segment3.text,
-          supportCardIds: segment3.supportCardIds,
-        },
+      additions: [
+        { segmentId: 'segment-2', text: words(200, 'add-d-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(200, 'add-e-'), supportCardIds: ['card-3'] },
+        { segmentId: 'segment-3', text: words(200, 'add-f-'), supportCardIds: ['card-3'] },
       ],
     });
     const post = jest.fn()
@@ -507,5 +457,123 @@ describe('NarrativeLengthFitterV8', () => {
     })).rejects.toThrow('length_fit_exhausted stop=stop-generic actual=559 accepted=575-660');
 
     expect(post).toHaveBeenCalledTimes(2);
+  });
+
+  it('selects the two 20-word expansion units deterministically and appends exact text to the selected segments', () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 539);
+    const segment2 = draft.segments.find((segment) => segment.segmentId === 'segment-2')!;
+    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
+    const segment4 = draft.segments.find((segment) => segment.segmentId === 'segment-4')!;
+    const segment5 = draft.segments.find((segment) => segment.segmentId === 'segment-5')!;
+    const segment6 = draft.segments.find((segment) => segment.segmentId === 'segment-6')!;
+
+    const additions = [
+      {
+        segmentId: 'segment-2',
+        text: words(20, 'add-a-'),
+        supportCardIds: ['card-2'],
+      },
+      {
+        segmentId: 'segment-3',
+        text: words(20, 'add-b-'),
+        supportCardIds: ['card-3'],
+      },
+      {
+        segmentId: 'segment-2',
+        text: words(100, 'add-c-'),
+        supportCardIds: ['card-2'],
+      },
+    ];
+
+    const patched = applyNarrativeLengthExpansionPatchV8(plan, draft, {
+      additions,
+    });
+
+    expect(patched.wordCount).toBe(579);
+
+    const patchedSegment2 = patched.segments.find((segment) => segment.segmentId === 'segment-2')!;
+    const patchedSegment3 = patched.segments.find((segment) => segment.segmentId === 'segment-3')!;
+
+    expect(patchedSegment2.text).toBe(`${segment2.text} ${words(20, 'add-a-')}`);
+    expect(patchedSegment3.text).toBe(`${segment3.text} ${words(20, 'add-b-')}`);
+
+    expect(patchedSegment2.supportCardIds).toEqual(['card-2']);
+    expect(patchedSegment3.supportCardIds).toEqual(['card-3']);
+
+    const patchedSegment4 = patched.segments.find((segment) => segment.segmentId === 'segment-4')!;
+    const patchedSegment5 = patched.segments.find((segment) => segment.segmentId === 'segment-5')!;
+    const patchedSegment6 = patched.segments.find((segment) => segment.segmentId === 'segment-6')!;
+
+    expect(patchedSegment4.text).toBe(segment4.text);
+    expect(patchedSegment5.text).toBe(segment5.text);
+    expect(patchedSegment6.text).toBe(segment6.text);
+
+    expect(patchedSegment4.beat).toBe(segment4.beat);
+    expect(patchedSegment5.beat).toBe(segment5.beat);
+    expect(patchedSegment6.beat).toBe(segment6.beat);
+
+    expect(patchedSegment4.supportCardIds).toEqual(segment4.supportCardIds);
+    expect(patchedSegment5.supportCardIds).toEqual(segment5.supportCardIds);
+    expect(patchedSegment6.supportCardIds).toEqual(segment6.supportCardIds);
+  });
+
+  it('rejects an expansion unit assigned to a non-editable segment with an outside-window error', () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 539);
+
+    expect(() => applyNarrativeLengthExpansionPatchV8(plan, draft, {
+      additions: [
+        {
+          segmentId: 'segment-1',
+          text: words(20, 'add-'),
+          supportCardIds: ['card-1'],
+        },
+      ],
+    })).toThrow('outside-window');
+  });
+
+  it('rejects an expansion unit with a supportCardId not authorized for its segment', () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 539);
+
+    expect(() => applyNarrativeLengthExpansionPatchV8(plan, draft, {
+      additions: [
+        {
+          segmentId: 'segment-2',
+          text: words(20, 'add-'),
+          supportCardIds: ['card-5'],
+        },
+      ],
+    })).toThrow('not authorized');
+  });
+
+  it('compresses a 690-word draft to 600 words through full segment replacements', async () => {
+    const plan = writerPlan();
+    const draft = draftWithWords(plan, 690);
+    const firstPatch = JSON.stringify({
+      replacements: [
+        { segmentId: 'segment-2', text: words(70, 'compressed-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(70, 'compressed-'), supportCardIds: ['card-3'] },
+      ],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value.wordCount).toBe(600);
+    expect(result.diagnostics).toHaveLength(1);
+    expect(post).toHaveBeenCalledTimes(1);
+
+    const firstRequest = post.mock.calls[0][1];
+    expect(firstRequest.response_format.json_schema.schema.properties.replacements).toBeDefined();
+    expect(firstRequest.response_format.json_schema.schema.properties.additions).toBeUndefined();
   });
 });
