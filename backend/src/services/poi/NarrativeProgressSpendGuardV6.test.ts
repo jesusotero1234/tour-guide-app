@@ -46,6 +46,48 @@ describe('NarrativeProgressSpendGuardV6', () => {
     }
   });
 
+  it('settles providerRequestStarted diagnostic signal with zero usage', () => {
+    const directory = mkdtempSync(resolve(tmpdir(), 'narrative-progress-spend-'));
+    try {
+      const guard = new NarrativeProgressSpendGuardV6({
+        limitUsd: 2, historicalSpendUsd: 0.4, path: resolve(directory, 'ledger.jsonl'),
+      });
+
+      guard.record(event('attempt_started', { maximumCostUsd: 0.2 }));
+      const afterNoProviderRequest = guard.record(event('attempt_finished', {
+        diagnostic: {
+          attempt: 1, status: 'transport_error', latencyMs: 10,
+          rawOutput: null, error: 'no provider request', providerRequestStarted: false,
+        },
+      }));
+      expect(afterNoProviderRequest).toMatchObject({
+        runReportedCostUsd: 0,
+        runUnverifiedExposureUsd: 0,
+        reservedUsd: 0,
+      });
+
+      guard.record(event('attempt_started', {
+        callId: 'call-2', maximumCostUsd: 0.3,
+      }));
+      const afterProviderRequest = guard.record(event('attempt_finished', {
+        callId: 'call-2',
+        diagnostic: {
+          attempt: 1, status: 'transport_error', latencyMs: 10,
+          rawOutput: null, error: 'provider started', providerRequestStarted: true,
+        },
+      }));
+      expect(afterProviderRequest).toMatchObject({
+        runReportedCostUsd: 0,
+        runUnverifiedExposureUsd: 0.3,
+        reservedUsd: 0,
+      });
+
+      expect(() => guard.assertSettled()).not.toThrow();
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
   it('releases rejected rate-limited requests but keeps ambiguous failures separate', () => {
     const directory = mkdtempSync(resolve(tmpdir(), 'narrative-progress-spend-'));
     try {

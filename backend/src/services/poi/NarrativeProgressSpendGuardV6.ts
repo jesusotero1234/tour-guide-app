@@ -59,7 +59,11 @@ export class NarrativeProgressSpendGuardV6 {
       throw new Error(`invalid billed cost for ${key}`);
     }
     if (actualCostUsd === undefined
-      && (event.diagnostic?.rateLimited === true || event.diagnostic?.httpStatus === 429)) {
+      && (
+        event.diagnostic?.providerRequestStarted === false
+        || event.diagnostic?.rateLimited === true
+        || event.diagnostic?.httpStatus === 429
+      )) {
       this.ledger.release(reservation);
       return;
     }

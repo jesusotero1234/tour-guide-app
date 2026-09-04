@@ -407,6 +407,7 @@ describe('editorial structured LLM v6 providers', () => {
       usage: { inputTokens: 20, outputTokens: 8, costUsd: 0.0012 },
       finishReason: 'stop', actualModel: 'openai/gpt-5.4-mini', actualProvider: 'OpenAI',
       routing: { fallback: false },
+      providerRequestStarted: true,
     });
     expect(JSON.stringify(result)).not.toContain('openrouter-test-key');
   });
@@ -1118,6 +1119,29 @@ describe('editorial structured LLM v6 providers', () => {
     ]);
     expect(result.attempts[0]).toMatchObject({ httpStatus: 429, rateLimited: true });
     expect(result.attempts[1]).toMatchObject({ httpStatus: 429, rateLimited: true });
+  });
+
+  it('reports providerRequestStarted:false when OpenRouter transport fails before the provider request', async () => {
+    const post = jest.fn();
+
+    const result = await requestEditorialStructuredV6({
+      callId: 'openrouter-no-key', input: {},
+      provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' },
+      options: { post, requestAttempts: 1 },
+      systemPrompt: 'Return valid structured data.',
+      schema: {
+        type: 'object', additionalProperties: false, required: ['ok'],
+        properties: { ok: { type: 'boolean' } },
+      },
+      toolName: 'submit_test_v6', toolDescription: 'Submit the test result.',
+      inputCharacterLimit: 1_000, schemaCharacterLimit: 1_000,
+      validate: (value: unknown) => value as { ok: true },
+    });
+
+    expect(result.status).toBe('transport_error');
+    expect(post).not.toHaveBeenCalled();
+    expect(result.attempts).toHaveLength(1);
+    expect(result.attempts[0]).toMatchObject({ providerRequestStarted: false });
   });
 
   it('uses the documented OneProvider OpenAI-compatible tool endpoint without persisting its key', async () => {

@@ -34,6 +34,7 @@ export interface EditorialAttemptV6 {
   actualModel?: string;
   actualProvider?: string | null;
   routing?: EditorialRoutingV6;
+  providerRequestStarted?: boolean;
 }
 
 export interface EditorialUsageV6 {
@@ -680,6 +681,7 @@ export async function requestEditorialStructuredV6<T>(config: {
     Object.assign(error, { code: 'ETIMEDOUT' });
     deadlineController.abort(error);
   }, requestTimeoutMs);
+  let providerRequestStarted = false;
   const postWithinDeadline: EditorialPostV6 = (url, body, headers, request) => (
     new Promise((resolve, reject) => {
       const rejectOnAbort = () => reject(
@@ -691,7 +693,10 @@ export async function requestEditorialStructuredV6<T>(config: {
       }
       deadlineController.signal.addEventListener('abort', rejectOnAbort, { once: true });
       Promise.resolve()
-        .then(() => post(url, body, headers, request))
+        .then(() => {
+          providerRequestStarted = true;
+          return post(url, body, headers, request);
+        })
         .then(resolve, reject)
         .finally(() => {
           deadlineController.signal.removeEventListener('abort', rejectOnAbort);
@@ -731,8 +736,9 @@ export async function requestEditorialStructuredV6<T>(config: {
   const heartbeatTimer = setInterval(() => progress('heartbeat'), 15_000);
   heartbeatTimer.unref?.();
   const recordAttempt = (diagnostic: EditorialAttemptV6): void => {
-    attempts.push(diagnostic);
-    progress('attempt_finished', { attempt: diagnostic.attempt, diagnostic });
+    const completedDiagnostic = { ...diagnostic, providerRequestStarted };
+    attempts.push(completedDiagnostic);
+    progress('attempt_finished', { attempt: completedDiagnostic.attempt, diagnostic: completedDiagnostic });
   };
   try {
     const attemptCeiling = Math.max(requestAttempts, rateLimitAttempts);
@@ -740,6 +746,7 @@ export async function requestEditorialStructuredV6<T>(config: {
     if (deadlineController.signal.aborted) {
       throw deadlineController.signal.reason ?? new Error('editorial request cancelled');
     }
+    providerRequestStarted = false;
     progress('attempt_started', { attempt });
     const startedAt = Date.now();
     let response: { data: unknown; status?: number; headers?: Record<string, unknown> };
