@@ -273,6 +273,7 @@ describe('NarrativeLengthFitterV8', () => {
     expect(result.diagnostics).toHaveLength(2);
     expect(post).toHaveBeenCalledTimes(2);
     expect(post.mock.calls[0][1]).not.toHaveProperty('temperature');
+    expect(JSON.stringify(post.mock.calls[0][1])).not.toContain('"uniqueItems"');
     expect(draft.wordCount).toBe(539);
   });
 

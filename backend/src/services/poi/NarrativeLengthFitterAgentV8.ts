@@ -64,7 +64,6 @@ function lengthFitSchemaV8(
         supportCardIds: {
           type: 'array',
           minItems: 1,
-          uniqueItems: true,
           items: {
             type: 'string',
             enum: plan.beats[segmentIndex].evidenceCardIds,
