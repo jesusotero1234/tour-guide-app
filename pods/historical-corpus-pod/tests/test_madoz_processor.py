@@ -280,6 +280,39 @@ def test_embedded_first_processor_uses_embedded_text_and_skips_ocr() -> None:
     assert backend.images == []
 
 
+def test_embedded_first_normal_page_with_table_region_falls_back_to_ocr() -> None:
+    manifest = _embedded_manifest()
+    prose = "The quick brown fox jumps over the lazy dog"
+    region = ManifestTableRegion(
+        box=[0.2, 0.25, 0.8, 0.75],
+        ocrRotationDegrees=None,
+    )
+    rendered = replace(
+        _rendered(content_class="normal"),
+        embedded_words=(EmbeddedWord(text=prose, box=(0.1, 0.1, 0.9, 0.2)),),
+    )
+    rendered = replace(
+        rendered,
+        candidate=replace(
+            rendered.candidate,
+            table_regions=(region,),
+        ),
+    )
+    backend = FakeBackend([[_line("OCR NORMAL TABLE", (0.1, 0.2, 0.4, 0.3))]])
+    processor = MadozProcessor(
+        manifest,
+        _canonical_pdf(manifest),
+        backend,
+        render_page=lambda _record: rendered,
+    )
+
+    page = processor.process_page(_inventory())
+    assert len(backend.images) == 1
+    assert page.textSource == "ppocrv6"
+    assert page.originalText == "OCR NORMAL TABLE"
+    assert "embedded_fallback_special_layout" in page.qualityFlags
+
+
 def test_embedded_first_special_layout_contrast_falls_back_to_ocr() -> None:
     manifest = _embedded_manifest()
     prose = "The quick brown fox jumps over the lazy dog"

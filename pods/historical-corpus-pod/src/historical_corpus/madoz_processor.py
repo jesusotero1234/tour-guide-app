@@ -218,7 +218,7 @@ class MadozProcessor:
             candidate_rotation = rendered.candidate.rotation_degrees
             content_class: str = (
                 "mixed_orientation"
-                if candidate_rotation != 0
+                if candidate_rotation != 0 or rendered.candidate.table_regions
                 else rendered.candidate.content_class
             )
             decision = assess_embedded_text(
