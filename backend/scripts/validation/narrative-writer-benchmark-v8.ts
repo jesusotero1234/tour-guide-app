@@ -71,6 +71,8 @@ export interface NarrativeWriterBenchmarkArgsV8 {
   seed: string;
   priorSpendUsd: number;
   runId: string;
+  explicitJsonInstruction: boolean;
+  armIds: Array<'A' | 'B' | 'C' | 'D'>;
 }
 
 export interface NarrativeWriterBenchmarkPlanV8 {
@@ -203,7 +205,8 @@ function writerInputForStopV8(
 
 function buildFrozenWriterCasesV8(
   checkpoint: NarrativeWriterBenchmarkCheckpointV8,
-  selectedStopIds: string[]
+  selectedStopIds: string[],
+  explicitJsonInstruction: boolean
 ): {
   cases: NarrativeWriterBenchmarkFrozenCaseV8[];
   checkpointFingerprint: string;
@@ -235,7 +238,7 @@ function buildFrozenWriterCasesV8(
     if (!target) throw new Error(`selected stop has no narration target: ${stopId}`);
     const projection = projector({
       operation: 'write',
-      systemPrompt: WRITER_BASE_SYSTEM_PROMPT,
+      systemPrompt: buildNarrativeWriterBenchmarkSystemPromptV8(explicitJsonInstruction),
       input: writerInputForStopV8(checkpoint.route, admittedStop, checkpoint.arc),
     });
     const projectedInput = requiredRecord(projection.input, `projected writer input ${stopId}`);
@@ -259,16 +262,24 @@ function optionValue(argv: string[], name: string): string | undefined {
   return matches[0]?.slice(name.length + 1);
 }
 
+const VALID_ARM_IDS = new Set(['A', 'B', 'C', 'D']);
+
+export function buildNarrativeWriterBenchmarkSystemPromptV8(explicit: boolean): string {
+  if (!explicit) return WRITER_BASE_SYSTEM_PROMPT;
+  return `${WRITER_BASE_SYSTEM_PROMPT} Devuelve exclusivamente un único objeto JSON válido. La raíz debe contener las claves stop_id y segments. Cada beat de writerPlan debe tener un segmento en orden con los campos segmentId, beat, text, supportCardIds y estimatedWords. No incluyas Markdown, prólogo ni texto fuera del JSON.`;
+}
+
 export function parseNarrativeWriterBenchmarkArgsV8(
   argv: string[]
 ): NarrativeWriterBenchmarkArgsV8 {
   const known = new Set([
     '--execute', '--checkpoint', '--stop-ids', '--seed', '--prior-spend-usd', '--run-id',
+    '--explicit-json-instruction', '--arm-ids',
   ]);
   for (const argument of argv) {
     const name = argument.split('=', 1)[0];
     if (!known.has(name)) throw new Error(`unknown benchmark argument ${argument}`);
-    if (name !== '--execute' && !argument.includes('=')) {
+    if (name !== '--execute' && name !== '--explicit-json-instruction' && !argument.includes('=')) {
       throw new Error(`benchmark option requires a value: ${name}`);
     }
   }
@@ -295,6 +306,17 @@ export function parseNarrativeWriterBenchmarkArgsV8(
     throw new Error('benchmark run id must be a safe artifact identifier');
   }
 
+  const explicitJsonInstruction = argv.includes('--explicit-json-instruction');
+  const armIdsValue = optionValue(argv, '--arm-ids');
+  const armIds = armIdsValue === undefined
+    ? ['A', 'B', 'C', 'D']
+    : armIdsValue.split(',').map((value) => value.trim()).filter(Boolean);
+  if (armIds.length === 0) throw new Error('arm ids must not be empty');
+  if (new Set(armIds).size !== armIds.length) throw new Error('arm ids must be unique');
+  if (armIds.some((id) => !VALID_ARM_IDS.has(id))) {
+    throw new Error('each arm id must be A, B, C, or D');
+  }
+
   return {
     execute: argv.includes('--execute'),
     checkpoint: resolve(optionValue(argv, '--checkpoint') ?? DEFAULT_CHECKPOINT),
@@ -302,15 +324,21 @@ export function parseNarrativeWriterBenchmarkArgsV8(
     seed,
     priorSpendUsd,
     runId,
+    explicitJsonInstruction,
+    armIds: armIds as Array<'A' | 'B' | 'C' | 'D'>,
   };
 }
 
 export function buildNarrativeWriterBenchmarkPlanV8(
   stopIds: string[],
   seed: string,
-  priorSpendUsd: number
+  priorSpendUsd: number,
+  selectedArmIds?: Array<'A' | 'B' | 'C' | 'D'>
 ): NarrativeWriterBenchmarkPlanV8 {
-  const assignments = blindNarrativeWriterBenchmarkArmsV8(seed);
+  const allAssignments = blindNarrativeWriterBenchmarkArmsV8(seed);
+  const assignments = selectedArmIds
+    ? allAssignments.filter((assignment) => selectedArmIds.includes(assignment.armId))
+    : allAssignments;
   const plannedCalls = stopIds.length * assignments.length;
   const maximumReservedSpendUsd = plannedCalls
     * NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8;
@@ -598,9 +626,9 @@ async function executeNarrativeWriterBenchmarkV8(input: {
 
 async function main(): Promise<void> {
   const args = parseNarrativeWriterBenchmarkArgsV8(process.argv.slice(2));
-  const plan = buildNarrativeWriterBenchmarkPlanV8(args.stopIds, args.seed, args.priorSpendUsd);
+  const plan = buildNarrativeWriterBenchmarkPlanV8(args.stopIds, args.seed, args.priorSpendUsd, args.armIds);
   const checkpoint = loadNarrativeWriterBenchmarkCheckpointV8(args.checkpoint);
-  const frozen = buildFrozenWriterCasesV8(checkpoint, args.stopIds);
+  const frozen = buildFrozenWriterCasesV8(checkpoint, args.stopIds, args.explicitJsonInstruction);
   frozen.cases.forEach(validateFrozenWriterCaseLimitsV8);
   if (args.execute) {
     await executeNarrativeWriterBenchmarkV8({ args, plan, frozen });
@@ -613,6 +641,7 @@ async function main(): Promise<void> {
     runId: args.runId,
     stopIds: args.stopIds,
     armIds: plan.assignments.map((assignment) => assignment.armId),
+    protocol: args.explicitJsonInstruction ? 'explicit_json' : 'baseline',
     plannedCalls: plan.plannedCalls,
     maximumReservedSpendUsd: plan.maximumReservedSpendUsd,
     totalCapUsd: NARRATIVE_WRITER_BENCHMARK_TOTAL_CAP_USD_V8,

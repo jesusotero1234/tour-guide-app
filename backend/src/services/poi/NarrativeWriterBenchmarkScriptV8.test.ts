@@ -1,5 +1,6 @@
 import {
   buildNarrativeWriterBenchmarkPlanV8,
+  buildNarrativeWriterBenchmarkSystemPromptV8,
   buildPublicNarrativeWriterBenchmarkSummaryV8,
   parseNarrativeWriterBenchmarkArgsV8,
 } from '../../../scripts/validation/narrative-writer-benchmark-v8';
@@ -40,6 +41,28 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       'madrid-writer-benchmark-v8',
       0.41
     )).toThrow('benchmark budget exceeded');
+  });
+
+  it('parses --explicit-json-instruction and --arm-ids=D and plans a single D arm over two stops', () => {
+    const args = parseNarrativeWriterBenchmarkArgsV8([
+      '--explicit-json-instruction',
+      '--arm-ids=D',
+    ]);
+    expect(args).toMatchObject({
+      explicitJsonInstruction: true,
+      armIds: ['D'],
+    });
+
+    const plan = buildNarrativeWriterBenchmarkPlanV8(
+      ['Q1123493', 'Q1537446'],
+      'madrid-writer-benchmark-v8',
+      0,
+      ['D']
+    );
+    expect(plan.assignments).toHaveLength(1);
+    expect(plan.assignments[0].armId).toBe('D');
+    expect(plan.plannedCalls).toBe(2);
+    expect(plan.maximumReservedSpendUsd).toBeCloseTo(0.4);
   });
 
   it('keeps model identity and narrative text out of the public summary', () => {
@@ -84,5 +107,13 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       oneShotPassed: true,
       budgetChargeUsd: 0.05,
     });
+  });
+
+  it('adds an explicit-JSON sentence only when the opt-in flag is set', () => {
+    const explicitPrompt = buildNarrativeWriterBenchmarkSystemPromptV8(true);
+    const normalPrompt = buildNarrativeWriterBenchmarkSystemPromptV8(false);
+
+    expect(explicitPrompt).toContain('Devuelve exclusivamente un único objeto JSON válido.');
+    expect(normalPrompt).not.toContain('Devuelve exclusivamente un único objeto JSON válido.');
   });
 });
