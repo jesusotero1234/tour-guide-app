@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import type { NarrativeArcV8 } from '../../src/services/poi/NarrativeArcArchitectV8';
+import type { NarrativeBeatV8 } from '../../src/services/poi/NarrativeWriterContractV8';
 import type { NarrativeRouteBriefV6 } from '../../src/services/poi/NarrativeContractsV6';
 import type { NarrativeWriterInputV6 } from '../../src/services/poi/NarrativeEditorialAgentsV6';
 import { createNarrativeEditorialRequestProjectorV8 } from '../../src/services/poi/NarrativeEditorialEvidenceProjectionV8';
@@ -126,6 +127,134 @@ export interface NarrativeWriterBenchmarkPublicResultV8 {
   budgetChargeUsd: number;
   providerCostVerified: boolean;
   latencyMs: number;
+}
+
+export interface NarrativeWriterBenchmarkBeatLengthV8 {
+  beat: NarrativeBeatV8;
+  minimumWords: number;
+  targetWords: number;
+  maximumWords: number;
+}
+
+export interface NarrativeWriterBenchmarkLengthContractV8 {
+  beats: NarrativeWriterBenchmarkBeatLengthV8[];
+  minimumWords: number;
+  targetWords: number;
+  maximumWords: number;
+}
+
+const NARRATIVE_BEAT_ROLE_WEIGHTS_V8: Record<NarrativeBeatV8, number> = {
+  arrival_and_orientation: 1.0,
+  visible_anchor: 1.0,
+  time_shift: 1.15,
+  human_scene_or_use: 0.9,
+  contrast_or_consequence: 1.1,
+  takeaway_and_transition: 0.85,
+};
+
+export function buildNarrativeWriterBenchmarkLengthContractV8(
+  plan: NarrativeWriterPlanV8,
+  minimumWords: number,
+  maximumWords: number
+): NarrativeWriterBenchmarkLengthContractV8 {
+  if (!Number.isInteger(minimumWords) || minimumWords <= 0) {
+    throw new Error('minimumWords must be a finite positive integer');
+  }
+  if (!Number.isInteger(maximumWords) || maximumWords <= 0) {
+    throw new Error('maximumWords must be a finite positive integer');
+  }
+  if (minimumWords > maximumWords) {
+    throw new Error('minimumWords must not exceed maximumWords');
+  }
+  if (plan.beats.length === 0) {
+    throw new Error('plan beats must not be empty');
+  }
+
+  const targetWords = Math.round((minimumWords + maximumWords) / 2);
+  const totalWeight = plan.beats.reduce(
+    (sum, beat) => sum + NARRATIVE_BEAT_ROLE_WEIGHTS_V8[beat.beat],
+    0
+  );
+  const weightedTargets = plan.beats.map((beat) => ({
+    beat,
+    raw: (targetWords * NARRATIVE_BEAT_ROLE_WEIGHTS_V8[beat.beat]) / totalWeight,
+  }));
+  const floors = weightedTargets.map((entry) => Math.floor(entry.raw));
+  const floorSum = floors.reduce((sum, value) => sum + value, 0);
+  const remainder = targetWords - floorSum;
+  const remainders = weightedTargets.map((entry, index) => ({
+    index,
+    remainder: entry.raw - floors[index],
+  }));
+  remainders.sort((a, b) => {
+    if (b.remainder !== a.remainder) return b.remainder - a.remainder;
+    return a.index - b.index;
+  });
+  const targets = [...floors];
+  for (let i = 0; i < remainder; i += 1) {
+    targets[remainders[i].index] += 1;
+  }
+
+  const beats: NarrativeWriterBenchmarkBeatLengthV8[] = plan.beats.map((beat, index) => ({
+    beat: beat.beat,
+    minimumWords: Math.max(1, Math.floor(targets[index] * 0.7)),
+    targetWords: targets[index],
+    maximumWords: Math.ceil(targets[index] * 1.3),
+  }));
+
+  return { beats, minimumWords, targetWords, maximumWords };
+}
+
+export function applyNarrativeWriterBenchmarkLengthSchemaV8(
+  schema: Record<string, unknown>,
+  contract: NarrativeWriterBenchmarkLengthContractV8
+): Record<string, unknown> {
+  const cloned = JSON.parse(JSON.stringify(schema)) as Record<string, unknown>;
+  const properties = cloned.properties as Record<string, unknown> | undefined;
+  if (!properties) {
+    throw new Error('benchmark length schema mismatch: missing root properties');
+  }
+  const segments = properties.segments as Record<string, unknown> | undefined;
+  if (!segments) {
+    throw new Error('benchmark length schema mismatch: missing segments property');
+  }
+  const items = segments.items as Record<string, unknown> | undefined;
+  if (!items) {
+    throw new Error('benchmark length schema mismatch: missing segments.items');
+  }
+  const anyOf = items.anyOf as Array<Record<string, unknown>> | undefined;
+  if (!Array.isArray(anyOf)) {
+    throw new Error('benchmark length schema mismatch: missing segments.items.anyOf');
+  }
+  if (anyOf.length !== contract.beats.length) {
+    throw new Error(
+      `benchmark length schema mismatch: expected ${contract.beats.length} beat branches, found ${anyOf.length}`
+    );
+  }
+
+  for (let i = 0; i < contract.beats.length; i += 1) {
+    const branch = anyOf[i];
+    const branchProperties = branch.properties as Record<string, unknown> | undefined;
+    if (!branchProperties) {
+      throw new Error(`benchmark length schema mismatch: missing properties in beat branch ${i}`);
+    }
+    const beatValue = branchProperties.beat as Record<string, unknown> | undefined;
+    if (!beatValue) {
+      throw new Error(`benchmark length schema mismatch: missing beat property in branch ${i}`);
+    }
+    const beatEnum = beatValue.enum as Array<unknown> | undefined;
+    if (!Array.isArray(beatEnum) || beatEnum.length !== 1 || beatEnum[0] !== contract.beats[i].beat) {
+      throw new Error(`benchmark length schema mismatch: beat order mismatch at branch ${i}`);
+    }
+    const estimatedWords = branchProperties.estimatedWords as Record<string, unknown> | undefined;
+    if (!estimatedWords) {
+      throw new Error(`benchmark length schema mismatch: missing estimatedWords in branch ${i}`);
+    }
+    estimatedWords.minimum = contract.beats[i].minimumWords;
+    estimatedWords.maximum = contract.beats[i].maximumWords;
+  }
+
+  return cloned;
 }
 
 interface NarrativeWriterBenchmarkCheckpointV8 {

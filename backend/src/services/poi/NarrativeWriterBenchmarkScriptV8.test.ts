@@ -1,9 +1,15 @@
 import {
+  buildNarrativeWriterBenchmarkLengthContractV8,
   buildNarrativeWriterBenchmarkPlanV8,
   buildNarrativeWriterBenchmarkSystemPromptV8,
   buildPublicNarrativeWriterBenchmarkSummaryV8,
+  applyNarrativeWriterBenchmarkLengthSchemaV8,
   parseNarrativeWriterBenchmarkArgsV8,
 } from '../../../scripts/validation/narrative-writer-benchmark-v8';
+import {
+  narrativeWriterResponseSchemaV8,
+  type NarrativeWriterPlanV8,
+} from './NarrativeWriterContractV8';
 
 describe('narrative-writer-benchmark-v8 script contract', () => {
   it('defaults to a dry run over Plaza Mayor and Cibeles with no prior spend', () => {
@@ -115,5 +121,76 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
 
     expect(explicitPrompt).toContain('Devuelve exclusivamente un único objeto JSON válido.');
     expect(normalPrompt).not.toContain('Devuelve exclusivamente un único objeto JSON válido.');
+  });
+
+  describe('per-beat word budget and schema overlay', () => {
+    const fixture: NarrativeWriterPlanV8 = {
+      version: 'segments_v8',
+      routeStopId: 'Q1123493',
+      openingMode: 'gaze',
+      narrationTarget: {
+        stopId: 'Q1123493',
+        targetSeconds: 300,
+        targetWords: 600,
+        minPropositions: 8,
+        maxPropositions: 12,
+        minVisualAnchors: 3,
+      },
+      evidenceCards: [],
+      beats: [
+        { beat: 'arrival_and_orientation', evidenceCardIds: ['card-1'] },
+        { beat: 'visible_anchor', evidenceCardIds: ['card-2'] },
+        { beat: 'time_shift', evidenceCardIds: ['card-3'] },
+        { beat: 'human_scene_or_use', evidenceCardIds: ['card-4'] },
+        { beat: 'contrast_or_consequence', evidenceCardIds: ['card-5'] },
+        { beat: 'takeaway_and_transition', evidenceCardIds: ['card-6'] },
+      ],
+      highPriorityCardIds: [],
+      minimumHighPriorityCoverage: 0.7,
+    };
+
+    it('builds a length contract with midpoint target 618 and per-beat bounds', () => {
+      const contract = buildNarrativeWriterBenchmarkLengthContractV8(fixture, 575, 660);
+
+      expect(contract.targetWords).toBe(618);
+      expect(contract.beats.map((beat) => beat.targetWords)).toEqual([103, 103, 118, 93, 113, 88]);
+      expect(contract.beats.reduce((sum, beat) => sum + beat.targetWords, 0)).toBe(618);
+
+      for (const beat of contract.beats) {
+        expect(beat.minimumWords).toBeLessThanOrEqual(beat.targetWords);
+        expect(beat.targetWords).toBeLessThanOrEqual(beat.maximumWords);
+      }
+    });
+
+    it('applies the contract to the response schema with per-beat estimatedWords bounds', () => {
+      const contract = buildNarrativeWriterBenchmarkLengthContractV8(fixture, 575, 660);
+      const originalSchema = narrativeWriterResponseSchemaV8(fixture);
+      const overlaidSchema = applyNarrativeWriterBenchmarkLengthSchemaV8(originalSchema, contract);
+
+      expect(overlaidSchema).not.toBe(originalSchema);
+
+      const segmentsItems = (overlaidSchema as Record<string, unknown>).properties as Record<string, unknown>;
+      const segments = segmentsItems.segments as Record<string, unknown>;
+      const anyOf = (segments.items as Record<string, unknown>).anyOf as Array<Record<string, unknown>>;
+
+      expect(anyOf).toHaveLength(6);
+
+      for (let i = 0; i < 6; i += 1) {
+        const branch = anyOf[i];
+        const properties = branch.properties as Record<string, unknown>;
+        const estimatedWords = properties.estimatedWords as Record<string, unknown>;
+        expect(estimatedWords.minimum).toBe(contract.beats[i].minimumWords);
+        expect(estimatedWords.maximum).toBe(contract.beats[i].maximumWords);
+      }
+
+      const originalSegmentsItems = (originalSchema as Record<string, unknown>).properties as Record<string, unknown>;
+      const originalSegments = originalSegmentsItems.segments as Record<string, unknown>;
+      const originalAnyOf = (originalSegments.items as Record<string, unknown>).anyOf as Array<Record<string, unknown>>;
+      for (const branch of originalAnyOf) {
+        const properties = branch.properties as Record<string, unknown>;
+        const estimatedWords = properties.estimatedWords as Record<string, unknown>;
+        expect(estimatedWords.minimum).toBe(1);
+      }
+    });
   });
 });
