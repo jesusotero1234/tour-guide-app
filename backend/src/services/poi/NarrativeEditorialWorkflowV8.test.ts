@@ -129,6 +129,7 @@ type FakeAgentsV8 = NarrativeEditorialAgentsV8 & {
   adjudicate: jest.Mock;
   repair: jest.Mock;
   auditTour: jest.Mock;
+  narrationLengthOutcome: jest.Mock;
 };
 
 function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
@@ -172,6 +173,7 @@ function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
     };
     return { value, diagnostic: diagnostic('tour-audit', value) };
   });
+  const narrationLengthOutcome = jest.fn(() => null);
   return {
     evidenceManifestFingerprint: manifestFingerprint,
     write,
@@ -179,6 +181,7 @@ function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
     adjudicate,
     repair,
     auditTour,
+    narrationLengthOutcome,
   };
 }
 

@@ -9,7 +9,7 @@ import {
   narrativeWriterResponseSchemaV8,
   parseNarrativeWriterResponseV8,
 } from './NarrativeWriterContractV8';
-import { fitNarrativeWriterLengthV8 } from './NarrativeLengthFitterAgentV8';
+import { fitNarrativeWriterLengthV8, NarrativeLengthFitStatusV8 } from './NarrativeLengthFitterAgentV8';
 import { NarrativeModelClientOptionsV6 } from './NarrativeModelProfilesV6';
 import {
   NarrativeAdmittedStopV8,
@@ -19,8 +19,18 @@ import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorial
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
 import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 
+export interface NarrativeLengthOutcomeV8 {
+  stopId: string;
+  lengthStatus: NarrativeLengthFitStatusV8;
+  targetWords: number;
+  actualWords: number;
+  minimumWords: number;
+  maximumWords: number;
+}
+
 export interface NarrativeEditorialAgentsV8 extends NarrativeEditorialAgentsV6 {
   readonly evidenceManifestFingerprint: string;
+  narrationLengthOutcome(stopId: string, text: string): NarrativeLengthOutcomeV8 | null;
 }
 
 const NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8 = 20;
@@ -43,13 +53,23 @@ export function validateNarrativeWriterLengthV8(
 
 export function validateNarrativeRepairLengthV8(
   text: string,
-  target: NarrativeNarrationTargetV8
+  target: NarrativeNarrationTargetV8,
+  baselineText?: string
 ): { valid: boolean; wordCount: number; minimumWords: number; maximumWords: number } {
   const trimmed = text.trim();
   const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
   const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
-  const repairMinimumWords = Math.max(0, minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8);
-  const repairMaximumWords = maximumWords + NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8;
+  let repairMinimumWords = Math.max(0, minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8);
+  let repairMaximumWords = maximumWords + NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8;
+  if (baselineText !== undefined) {
+    const baselineTrimmed = baselineText.trim();
+    const baselineWordCount = baselineTrimmed.length === 0 ? 0 : baselineTrimmed.split(/\s+/u).length;
+    if (baselineWordCount < repairMinimumWords) {
+      repairMinimumWords = baselineWordCount;
+    } else if (baselineWordCount > repairMaximumWords) {
+      repairMaximumWords = baselineWordCount;
+    }
+  }
   return {
     valid: wordCount >= repairMinimumWords && wordCount <= repairMaximumWords,
     wordCount,
@@ -84,7 +104,7 @@ export function createNarrativeEditorialAgentsV8(
       validateRepair: (patchedScript, input) => {
         const target = narrationTargetsByStopId?.get(input.script.stopId);
         if (!target) return;
-        const validation = validateNarrativeRepairLengthV8(patchedScript.text, target);
+        const validation = validateNarrativeRepairLengthV8(patchedScript.text, target, input.script.text);
         if (!validation.valid) {
           throw new Error(
             `repair_length_target_missed stop=${input.script.stopId} actual=${validation.wordCount} accepted=${validation.minimumWords}-${validation.maximumWords}`
@@ -98,6 +118,19 @@ export function createNarrativeEditorialAgentsV8(
   return {
     ...core,
     evidenceManifestFingerprint: manifest.fingerprint,
+    narrationLengthOutcome(stopId: string, text: string): NarrativeLengthOutcomeV8 | null {
+      const target = narrationTargetsByStopId?.get(stopId);
+      if (!target) return null;
+      const validation = validateNarrativeWriterLengthV8(text, target);
+      return {
+        stopId,
+        lengthStatus: validation.valid ? 'within_bounds' : 'accepted_with_residual',
+        targetWords: target.targetWords,
+        actualWords: validation.wordCount,
+        minimumWords: validation.minimumWords,
+        maximumWords: validation.maximumWords,
+      };
+    },
     async write(input, execution) {
       const written = await coreWrite(input, execution);
       const target = narrationTargetsByStopId?.get(input.stopId);

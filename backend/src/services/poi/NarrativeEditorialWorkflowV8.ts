@@ -1,7 +1,7 @@
 import { validateNarrativeArcShapeV6 } from './NarrativeArcArchitectV6';
 import { NarrativeArcBundleV8 } from './NarrativeArcArchitectV8';
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
-import { NarrativeEditorialAgentsV8 } from './NarrativeEditorialAgentsV8';
+import { NarrativeEditorialAgentsV8, NarrativeLengthOutcomeV8 } from './NarrativeEditorialAgentsV8';
 import {
   NarrativeAdmittedStopV8,
   NarrativeEvidenceManifestV8,
@@ -28,6 +28,7 @@ export type NarrativeEditorialWorkflowResultV8 =
       status: 'complete';
       evidenceManifest: NarrativeEvidenceManifestV8;
       editorial: NarrativeEditorialWorkflowResultV6;
+      lengthOutcomes: NarrativeLengthOutcomeV8[];
     }
   | {
       status: 'protocol_failed';
@@ -96,6 +97,20 @@ function validateWorkflowBoundaryV8(
   return null;
 }
 
+export function collectNarrativeLengthOutcomesV8(
+  editorial: NarrativeEditorialWorkflowResultV6,
+  agents: NarrativeEditorialAgentsV8
+): NarrativeLengthOutcomeV8[] {
+  const outcomes: NarrativeLengthOutcomeV8[] = [];
+  for (const stop of editorial.stops) {
+    const outcome = agents.narrationLengthOutcome(stop.stopId, stop.finalScript.text);
+    if (outcome !== null) {
+      outcomes.push(outcome);
+    }
+  }
+  return outcomes;
+}
+
 export async function runNarrativeEditorialWorkflowV8(
   input: NarrativeEditorialWorkflowInputV8,
   agents: NarrativeEditorialAgentsV8,
@@ -128,9 +143,12 @@ export async function runNarrativeEditorialWorkflowV8(
     { ...options, allowPartialScripts: true, deterministicAuditPolicy: 'v8', editorialIssuePolicy: 'v8' }
   );
 
+  const lengthOutcomes = collectNarrativeLengthOutcomesV8(editorial, agents);
+
   return {
     status: 'complete',
     evidenceManifest: input.arcBundle.manifest,
     editorial,
+    lengthOutcomes,
   };
 }

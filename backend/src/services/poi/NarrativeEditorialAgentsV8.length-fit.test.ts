@@ -192,4 +192,29 @@ describe('createNarrativeEditorialAgentsV8 length fitting', () => {
     expect(result.value).toBe(writtenDraft);
     expect(mockedFitLength).not.toHaveBeenCalled();
   });
+
+  it('reports accepted_with_residual for a 553-word draft against a 600-word target', () => {
+    const writtenDraft = draft(553);
+    const writerDiagnostic = diagnostic('writer', writtenDraft);
+    const { core } = fakeCore(writtenDraft, writerDiagnostic);
+    mockedCreateCore.mockReturnValue(core);
+
+    const agents = createNarrativeEditorialAgentsV8(
+      { profile: 'qwen38_hybrid', openRouterApiKey: 'test-key' },
+      admittedStops,
+      manifest,
+      arc,
+      targetMap
+    );
+    const result = agents.narrationLengthOutcome('stop-a', writtenDraft.text);
+
+    expect(result).toEqual({
+      stopId: 'stop-a',
+      lengthStatus: 'accepted_with_residual',
+      targetWords: 600,
+      actualWords: 553,
+      minimumWords: 575,
+      maximumWords: 660,
+    });
+  });
 });

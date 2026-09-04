@@ -54,4 +54,15 @@ describe('validateNarrativeRepairLengthV8', () => {
     expect(validateNarrativeRepairLengthV8(words(569), target).valid).toBe(false);
     expect(validateNarrativeRepairLengthV8(words(681), target).valid).toBe(false);
   });
+
+  it('preserves an already accepted residual without allowing regression', () => {
+    const baseline = words(553);
+    expect(validateNarrativeRepairLengthV8(words(553), target, baseline)).toMatchObject({
+      valid: true,
+      wordCount: 553,
+      minimumWords: 553,
+    });
+    expect(validateNarrativeRepairLengthV8(words(552), target, baseline).valid).toBe(false);
+    expect(validateNarrativeRepairLengthV8(words(570), target, baseline).valid).toBe(true);
+  });
 });
