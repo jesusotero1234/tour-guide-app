@@ -30,6 +30,7 @@ import {
   buildNarrativeWriterBenchmarkRequestV8,
   evaluateNarrativeWriterBenchmarkResultV8,
   resolveNarrativeWriterBenchmarkCostV8,
+  type NarrativeWriterBenchmarkArmIdV8,
   type NarrativeWriterBenchmarkAssignmentV8,
   type NarrativeWriterBenchmarkResultV8,
 } from '../../src/services/poi/NarrativeWriterBenchmarkV8';
@@ -74,7 +75,7 @@ export interface NarrativeWriterBenchmarkArgsV8 {
   runId: string;
   explicitJsonInstruction: boolean;
   lengthAwareContract: boolean;
-  armIds: Array<'A' | 'B' | 'C' | 'D'>;
+  armIds: NarrativeWriterBenchmarkArmIdV8[];
 }
 
 export interface NarrativeWriterBenchmarkPlanV8 {
@@ -84,7 +85,7 @@ export interface NarrativeWriterBenchmarkPlanV8 {
 }
 
 export interface NarrativeWriterBenchmarkPrivateResultV8 {
-  armId: 'A' | 'B' | 'C' | 'D';
+  armId: NarrativeWriterBenchmarkArmIdV8;
   stopId: string;
   model: string;
   actualModel: string | null;
@@ -114,7 +115,7 @@ export interface NarrativeWriterBenchmarkPrivateSummaryV8 {
 }
 
 export interface NarrativeWriterBenchmarkPublicResultV8 {
-  armId: 'A' | 'B' | 'C' | 'D';
+  armId: NarrativeWriterBenchmarkArmIdV8;
   stopId: string;
   textFile: string;
   status: string;
@@ -406,7 +407,7 @@ function optionValue(argv: string[], name: string): string | undefined {
   return matches[0]?.slice(name.length + 1);
 }
 
-const VALID_ARM_IDS = new Set(['A', 'B', 'C', 'D']);
+const VALID_ARM_IDS = new Set(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']);
 
 export function buildNarrativeWriterBenchmarkSystemPromptV8(explicit: boolean): string {
   if (!explicit) return WRITER_BASE_SYSTEM_PROMPT;
@@ -473,7 +474,7 @@ export function parseNarrativeWriterBenchmarkArgsV8(
   if (armIds.length === 0) throw new Error('arm ids must not be empty');
   if (new Set(armIds).size !== armIds.length) throw new Error('arm ids must be unique');
   if (armIds.some((id) => !VALID_ARM_IDS.has(id))) {
-    throw new Error('each arm id must be A, B, C, or D');
+    throw new Error('each arm id must be A, B, C, D, E, F, G, or H');
   }
 
   return {
@@ -485,7 +486,7 @@ export function parseNarrativeWriterBenchmarkArgsV8(
     runId,
     explicitJsonInstruction,
     lengthAwareContract,
-    armIds: armIds as Array<'A' | 'B' | 'C' | 'D'>,
+    armIds: armIds as NarrativeWriterBenchmarkArmIdV8[],
   };
 }
 
@@ -493,12 +494,12 @@ export function buildNarrativeWriterBenchmarkPlanV8(
   stopIds: string[],
   seed: string,
   priorSpendUsd: number,
-  selectedArmIds?: Array<'A' | 'B' | 'C' | 'D'>
+  selectedArmIds?: NarrativeWriterBenchmarkArmIdV8[]
 ): NarrativeWriterBenchmarkPlanV8 {
   const allAssignments = blindNarrativeWriterBenchmarkArmsV8(seed);
   const assignments = selectedArmIds
     ? allAssignments.filter((assignment) => selectedArmIds.includes(assignment.armId))
-    : allAssignments;
+    : allAssignments.filter((assignment) => ['A', 'B', 'C', 'D'].includes(assignment.armId));
   const plannedCalls = stopIds.length * assignments.length;
   const maximumReservedSpendUsd = plannedCalls
     * NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8;
@@ -694,7 +695,7 @@ function writeBenchmarkProgressV8(input: {
   outputDir: string;
   privateSummary: NarrativeWriterBenchmarkPrivateSummaryV8;
   diagnostics: Array<{
-    armId: 'A' | 'B' | 'C' | 'D';
+    armId: NarrativeWriterBenchmarkArmIdV8;
     stopId: string;
     diagnostic: NarrativeWriterBenchmarkDiagnosticsV8;
   }>;
@@ -756,7 +757,7 @@ async function executeNarrativeWriterBenchmarkV8(input: {
     results: [],
   };
   const diagnostics: Array<{
-    armId: 'A' | 'B' | 'C' | 'D';
+    armId: NarrativeWriterBenchmarkArmIdV8;
     stopId: string;
     diagnostic: NarrativeWriterBenchmarkDiagnosticsV8;
   }> = [];

@@ -32,25 +32,60 @@ export const NARRATIVE_WRITER_BENCHMARK_ARMS_V8: readonly NarrativeWriterBenchma
     inputUsdPerMillion: 0.75,
     outputUsdPerMillion: 3.75,
   },
+  {
+    model: 'deepseek/deepseek-r1',
+    acceptedModels: ['deepseek/deepseek-r1'],
+    inputUsdPerMillion: 0.70,
+    outputUsdPerMillion: 2.50,
+  },
+  {
+    model: 'qwen/qwen3-235b-a22b-thinking-2507',
+    acceptedModels: ['qwen/qwen3-235b-a22b-thinking-2507'],
+    inputUsdPerMillion: 0.45,
+    outputUsdPerMillion: 3.50,
+  },
+  {
+    model: 'minimax/minimax-m2',
+    acceptedModels: ['minimax/minimax-m2'],
+    inputUsdPerMillion: 0.30,
+    outputUsdPerMillion: 1.20,
+  },
+  {
+    model: 'anthropic/claude-3.5-sonnet',
+    acceptedModels: ['anthropic/claude-3.5-sonnet'],
+    inputUsdPerMillion: 3,
+    outputUsdPerMillion: 15,
+  },
 ] as const;
 
 export const NARRATIVE_WRITER_BENCHMARK_TOTAL_CAP_USD_V8 = 2;
 export const NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8 = 0.2;
 
+export type NarrativeWriterBenchmarkArmIdV8 = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+
 export interface NarrativeWriterBenchmarkAssignmentV8 {
-  armId: 'A' | 'B' | 'C' | 'D';
+  armId: NarrativeWriterBenchmarkArmIdV8;
   arm: NarrativeWriterBenchmarkArmV8;
 }
 
 export function blindNarrativeWriterBenchmarkArmsV8(seed: string): NarrativeWriterBenchmarkAssignmentV8[] {
   if (!seed) throw new Error('benchmark seed must not be empty');
-  const arms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.map((arm) => ({
-    arm,
-    key: createHash('sha256').update(`${seed}:${arm.model}`).digest('hex'),
-  }));
-  arms.sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
-  const ids: Array<'A' | 'B' | 'C' | 'D'> = ['A', 'B', 'C', 'D'];
-  return arms.map((entry, index) => ({ armId: ids[index], arm: entry.arm }));
+  const originalArms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.slice(0, 4);
+  const candidateArms = NARRATIVE_WRITER_BENCHMARK_ARMS_V8.slice(4, 8);
+
+  const blindCohort = (cohort: readonly NarrativeWriterBenchmarkArmV8[], ids: NarrativeWriterBenchmarkArmIdV8[]): NarrativeWriterBenchmarkAssignmentV8[] => {
+    const arms = cohort.map((arm) => ({
+      arm,
+      key: createHash('sha256').update(`${seed}:${arm.model}`).digest('hex'),
+    }));
+    arms.sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
+    return arms.map((entry, index) => ({ armId: ids[index], arm: entry.arm }));
+  };
+
+  const originalAssignments = blindCohort(originalArms, ['A', 'B', 'C', 'D']);
+  const candidateAssignments = blindCohort(candidateArms, ['E', 'F', 'G', 'H']);
+
+  return [...originalAssignments, ...candidateAssignments];
 }
 
 export interface NarrativeWriterBenchmarkRequestV8 {
