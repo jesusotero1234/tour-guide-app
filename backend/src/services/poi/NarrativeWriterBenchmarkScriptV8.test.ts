@@ -19,6 +19,10 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       .toThrow('prior spend');
     expect(() => parseNarrativeWriterBenchmarkArgsV8(['--stop-ids=']))
       .toThrow('stop ids');
+    expect(() => parseNarrativeWriterBenchmarkArgsV8(['--run-id=../escape']))
+      .toThrow('run id');
+    expect(() => parseNarrativeWriterBenchmarkArgsV8(['--stop-ids=Q1123493,../../escape']))
+      .toThrow('stop id');
   });
 
   it('plans exactly four blind arms per selected stop within the two-dollar cap', () => {
