@@ -93,13 +93,28 @@ export function planNarrativeLengthFitV8(
 
   let selected: number[];
   if (direction === 'compress') {
-    selected = [...candidates]
-      .sort((a, b) => {
-        const diff = countWordsV8(draft.segments[b].text) - countWordsV8(draft.segments[a].text);
-        if (diff !== 0) return diff;
-        return a - b;
-      })
-      .slice(0, 2);
+    const sorted = [...candidates].sort((a, b) => {
+      const diff = countWordsV8(draft.segments[b].text) - countWordsV8(draft.segments[a].text);
+      if (diff !== 0) return diff;
+      return a - b;
+    });
+    const minimumPrefix = Math.min(2, sorted.length);
+    let prefixLength = 0;
+    for (let i = minimumPrefix; i <= sorted.length; i += 1) {
+      const removable = sorted.slice(0, i).reduce((sum, idx) => sum + countWordsV8(draft.segments[idx].text) - 1, 0);
+      if (removable >= desiredChangeWords) {
+        prefixLength = i;
+        break;
+      }
+    }
+    if (prefixLength === 0) {
+      const totalRemovable = sorted.reduce((sum, idx) => sum + countWordsV8(draft.segments[idx].text) - 1, 0);
+      if (totalRemovable < minimumChangeWords) {
+        return null;
+      }
+      prefixLength = sorted.length;
+    }
+    selected = sorted.slice(0, prefixLength);
   } else {
     const usedCardIds = new Set<string>();
     for (const segment of draft.segments) {
@@ -128,11 +143,14 @@ export function planNarrativeLengthFitV8(
   if (direction === 'expand') {
     minimumReplacementWords = editableWindowWords + minimumChangeWords;
     maximumReplacementWords = editableWindowWords + maximumChangeWords;
-    desiredReplacementWords = maximumReplacementWords;
+    desiredReplacementWords = Math.min(maximumReplacementWords, Math.max(minimumReplacementWords, editableWindowWords + desiredChangeWords));
   } else {
-    minimumReplacementWords = editableWindowWords - maximumChangeWords;
+    minimumReplacementWords = Math.max(selected.length, editableWindowWords - maximumChangeWords);
     maximumReplacementWords = editableWindowWords - minimumChangeWords;
-    desiredReplacementWords = minimumReplacementWords;
+    if (maximumReplacementWords < minimumReplacementWords) {
+      return null;
+    }
+    desiredReplacementWords = Math.min(maximumReplacementWords, Math.max(minimumReplacementWords, editableWindowWords - desiredChangeWords));
   }
 
   return {
@@ -357,6 +375,14 @@ export function chooseCloserNarrativeDraftV8(
   const candidateDistance = distanceToRangeV8(candidate.wordCount, minimumWords, maximumWords);
 
   if (candidateDistance < currentDistance) {
+    return candidate;
+  }
+  if (candidateDistance > currentDistance) {
+    return current;
+  }
+  const currentTargetDistance = Math.abs(current.wordCount - target.targetWords);
+  const candidateTargetDistance = Math.abs(candidate.wordCount - target.targetWords);
+  if (candidateTargetDistance < currentTargetDistance) {
     return candidate;
   }
   return current;

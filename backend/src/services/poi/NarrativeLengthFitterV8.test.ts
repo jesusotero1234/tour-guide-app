@@ -144,7 +144,7 @@ describe('NarrativeLengthFitterV8', () => {
       editableWindowWords: 186,
       minimumReplacementWords: 202,
       maximumReplacementWords: 287,
-      desiredReplacementWords: 287,
+      desiredReplacementWords: 227,
     });
     expect(fit?.editableSegmentIds.length).toBeGreaterThan(0);
     expect(draft.wordCount).toBe(559);
@@ -165,7 +165,7 @@ describe('NarrativeLengthFitterV8', () => {
       editableWindowWords: 230,
       minimumReplacementWords: 115,
       maximumReplacementWords: 200,
-      desiredReplacementWords: 115,
+      desiredReplacementWords: 140,
     });
   });
 
@@ -575,5 +575,67 @@ describe('NarrativeLengthFitterV8', () => {
     const firstRequest = post.mock.calls[0][1];
     expect(firstRequest.response_format.json_schema.schema.properties.replacements).toBeDefined();
     expect(firstRequest.response_format.json_schema.schema.properties.additions).toBeUndefined();
+  });
+
+  it('plans a compression with actual segment word counts and selects the two longest intermediate segments', () => {
+    const plan = writerPlan();
+    const counts = [140, 126, 163, 70, 117, 68];
+    const draft = draftWithCounts(plan, counts, counts);
+
+    const fit = planNarrativeLengthFitV8(plan, draft);
+
+    expect(fit).toMatchObject({
+      direction: 'compress',
+      wordCount: 684,
+      minimumWords: 575,
+      maximumWords: 660,
+      minimumChangeWords: 24,
+      maximumChangeWords: 109,
+      desiredChangeWords: 84,
+      editableWindowWords: 289,
+      minimumReplacementWords: 180,
+      maximumReplacementWords: 265,
+      desiredReplacementWords: 205,
+    });
+    expect(fit?.editableSegmentIds).toEqual(['segment-3', 'segment-2']);
+  });
+
+  it('adaptively selects three intermediate segments for a short-target compression', () => {
+    const plan = writerPlan(150);
+    const counts = [40, 45, 45, 45, 45, 40];
+    const draft = draftWithCounts(plan, counts, counts);
+
+    const fit = planNarrativeLengthFitV8(plan, draft);
+
+    expect(fit).toMatchObject({
+      direction: 'compress',
+      wordCount: 260,
+      minimumWords: 125,
+      maximumWords: 165,
+      minimumChangeWords: 95,
+      maximumChangeWords: 135,
+      desiredChangeWords: 110,
+      editableWindowWords: 135,
+      minimumReplacementWords: 3,
+      maximumReplacementWords: 40,
+      desiredReplacementWords: 25,
+    });
+    expect(fit?.editableSegmentIds).toEqual(['segment-2', 'segment-3', 'segment-4']);
+  });
+
+  it('returns null for an infeasible compression where intermediate segments cannot remove the minimum required words', () => {
+    const plan = writerPlan(150);
+    const counts = [110, 10, 10, 10, 10, 110];
+    const draft = draftWithCounts(plan, counts, counts);
+
+    expect(planNarrativeLengthFitV8(plan, draft)).toBeNull();
+  });
+
+  it('selects the closer candidate when band distance ties and the candidate is nearer to target', () => {
+    const plan = writerPlan();
+    const current = draftWithWords(plan, 684);
+    const candidate = draftWithWords(plan, 551);
+
+    expect(chooseCloserNarrativeDraftV8(current, candidate, plan.narrationTarget)).toBe(candidate);
   });
 });
