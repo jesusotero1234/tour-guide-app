@@ -102,6 +102,22 @@ def _body_lines(page: SourcePageInput) -> list[SourceLineInput]:
     return [line for line in page.lines if line.role == "body"]
 
 
+def _table_lines(page: SourcePageInput) -> list[SourceLineInput]:
+    return [line for line in page.lines if line.role == "table"]
+
+
+def _table_chunk_title(active_entry: str | None, page: SourcePageInput) -> str:
+    label = page.printedPageLabel if page.printedPageLabel else str(page.logicalPageNumber)
+    suffix = f" — tabla p. {label}"
+    if active_entry is None:
+        return f"TABLA — p. {label}"
+    max_prefix = 100 - len(suffix)
+    if max_prefix < 0:
+        max_prefix = 0
+    entry_title = active_entry[:max_prefix]
+    return f"{entry_title}{suffix}"
+
+
 def _collect_entries(
     pages: Sequence[SourcePageInput],
     max_chunk_chars: int,
@@ -195,11 +211,15 @@ def _prepared_chunk(
     metadata: DocumentMetadata,
     entry_title: str,
     lines: tuple[SourceLineInput, ...],
+    is_table: bool = False,
 ) -> _BuiltChunk:
     original_text = "\n".join(line.originalText for line in lines)
     page_start = min(line.logicalPageNumber for line in lines)
     page_end = max(line.logicalPageNumber for line in lines)
-    section_path = ["Diccionario Madoz", metadata.edition, entry_title]
+    if is_table:
+        section_path = ["Diccionario Madoz", metadata.edition, "tablas"]
+    else:
+        section_path = ["Diccionario Madoz", metadata.edition, entry_title]
     total_characters = sum(len(line.originalText) for line in lines)
     if total_characters < 1:
         raise ChunkingError("chunk lines must contain text")
@@ -238,6 +258,43 @@ def _prepared_chunk(
     )
 
 
+def _collect_table_chunks(
+    pages: Sequence[SourcePageInput],
+    max_chunk_chars: int,
+) -> list[tuple[str | None, SourcePageInput, tuple[SourceLineInput, ...]]]:
+    chunks: list[tuple[str | None, SourcePageInput, tuple[SourceLineInput, ...]]] = []
+    active_title: str | None = None
+
+    for page in pages:
+        page_title_at_first_table: str | None = None
+        for line in page.lines:
+            if line.role == "body":
+                entry_title = detect_entry_title(line.originalText)
+                if entry_title is not None:
+                    active_title = entry_title
+            elif line.role == "table":
+                if page_title_at_first_table is None:
+                    page_title_at_first_table = active_title
+
+        table_lines = _table_lines(page)
+        if table_lines:
+            current: list[SourceLineInput] = []
+            for line in table_lines:
+                if len(line.originalText) > max_chunk_chars:
+                    raise ChunkingError(
+                        "OVERSIZE_TABLE_LINE "
+                        f"logicalPageNumber={page.logicalPageNumber} lineId={line.lineId}"
+                    )
+                if current and not _fits([*current, line], max_chunk_chars):
+                    chunks.append((page_title_at_first_table, page, tuple(current)))
+                    current = []
+                current.append(line)
+            if current:
+                chunks.append((page_title_at_first_table, page, tuple(current)))
+
+    return chunks
+
+
 def build_prepared_chunks(
     metadata: DocumentMetadata,
     pages: Sequence[SourcePageInput],
@@ -249,11 +306,17 @@ def build_prepared_chunks(
         raise ChunkingError("metadata.historicalPeriod is required")
     ordered_pages, _line_lookup = _ordered_pages(metadata, pages)
     entries = _collect_entries(ordered_pages, max_chunk_chars)
+    table_chunks = _collect_table_chunks(ordered_pages, max_chunk_chars)
 
     built: list[_BuiltChunk] = []
     for entry in entries:
         for fragment in _fragment_entry(entry, max_chunk_chars, overlap_lines):
             built.append(_prepared_chunk(metadata, entry.title, fragment))
+
+    for active_title, page, lines in table_chunks:
+        title = _table_chunk_title(active_title, page)
+        built.append(_prepared_chunk(metadata, title, lines, is_table=True))
+
     built.sort(
         key=lambda item: (
             item.first_position[0],

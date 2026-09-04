@@ -1111,10 +1111,12 @@ class PreparedDocument(_StrictModel):
                 if line_id not in line_lookup:
                     raise ValueError("chunk lineIds must reference existing lines")
                 line, logical_page_number = line_lookup[line_id]
-                if line.role != "body":
-                    raise ValueError("chunk lineIds must reference only body lines")
+                if line.role not in {"body", "table"}:
+                    raise ValueError("chunk lineIds must reference only body or table lines")
                 referenced_lines.append(line)
                 referenced_positions.append((logical_page_number, line.lineOrder))
+            if len({line.role for line in referenced_lines}) != 1:
+                raise ValueError("chunk lineIds must reference role-homogeneous lines")
             if referenced_positions != sorted(set(referenced_positions)):
                 raise ValueError("chunk lineIds must reference sorted unique positions")
 
@@ -1596,10 +1598,12 @@ class OcrEvaluationSample(_StrictModel):
                 if line_id not in line_lookup:
                     raise ValueError("chunk lineIds must reference existing lines")
                 line, logical_page_number = line_lookup[line_id]
-                if line.role != "body":
-                    raise ValueError("chunk lineIds must reference only body lines")
+                if line.role not in {"body", "table"}:
+                    raise ValueError("chunk lineIds must reference only body or table lines")
                 referenced_lines.append(line)
                 referenced_positions.append((logical_page_number, line.lineOrder))
+            if len({line.role for line in referenced_lines}) != 1:
+                raise ValueError("chunk lineIds must reference role-homogeneous lines")
             if referenced_positions != sorted(set(referenced_positions)):
                 raise ValueError("chunk lineIds must reference sorted unique positions")
 
@@ -1719,6 +1723,7 @@ class PreparationReport(_StrictModel):
     ocrPages: int = Field(ge=0)
     lowQualityPages: list[int] = Field(default_factory=list, max_length=2000)
     unassignedBodyLines: int = Field(ge=0)
+    unassignedTableLines: int = Field(default=0, ge=0)
     chunks: int = Field(ge=0)
     stageRelativePath: str
     preparedAt: datetime

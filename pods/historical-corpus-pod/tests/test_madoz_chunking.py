@@ -136,15 +136,38 @@ def test_chunks_entries_and_ignores_prefix_and_non_body_roles() -> None:
 
     chunks = build_prepared_chunks(_metadata(), [_page(1, lines)], 1500, 2)
 
-    assert len(chunks) == 2
+    assert len(chunks) == 3
     assert chunks[0].entryTitle == "MALAGA"
     assert chunks[0].lineIds == [lines[2].lineId, lines[3].lineId]
     assert chunks[0].originalText == "MALAGA: primera entrada\ncontinuación"
-    assert chunks[1].entryTitle == "MARBELLA"
-    assert chunks[1].lineIds == [lines[5].lineId, lines[6].lineId]
+    assert chunks[1].entryTitle == "MALAGA — tabla p. 1"
+    assert chunks[1].lineIds == [lines[4].lineId]
+    assert chunks[1].originalText == "tabla"
+    assert chunks[2].entryTitle == "MARBELLA"
+    assert chunks[2].lineIds == [lines[5].lineId, lines[6].lineId]
     assert all("unassigned" not in chunk.originalText for chunk in chunks)
     assert all("header" not in chunk.originalText for chunk in chunks)
-    assert all("tabla" not in chunk.originalText for chunk in chunks)
+    assert all("pie" not in chunk.originalText for chunk in chunks)
+
+
+def test_table_only_page_yields_table_chunk() -> None:
+    lines = [_line(1, 0, "tabla", role="table")]
+    chunks = build_prepared_chunks(_metadata(), [_page(1, lines)], 1500, 0)
+    assert len(chunks) == 1
+    assert chunks[0].entryTitle == "TABLA — p. 1"
+    assert chunks[0].lineIds == [lines[0].lineId]
+    assert chunks[0].originalText == "tabla"
+
+
+def test_table_lines_on_consecutive_pages_yield_separate_table_chunks() -> None:
+    page_one = _page(1, [_line(1, 0, "tabla", role="table")])
+    page_two = _page(2, [_line(2, 0, "tabla", role="table")])
+    chunks = build_prepared_chunks(_metadata(), [page_one, page_two], 1500, 0)
+    assert len(chunks) == 2
+    assert chunks[0].entryTitle == "TABLA — p. 1"
+    assert chunks[0].lineIds == [page_one.lines[0].lineId]
+    assert chunks[1].entryTitle == "TABLA — p. 2"
+    assert chunks[1].lineIds == [page_two.lines[0].lineId]
 
 
 def test_entry_continues_only_across_consecutive_pages_without_break() -> None:

@@ -1334,3 +1334,87 @@ def test_assemble_sample_and_write_real_ocr_evaluation_sample_qw14d(
 
     assert result2.sample.sampleHash == first_hash
     assert sample_path.read_bytes() == first_bytes
+
+
+def test_prepare_document_table_lines_assigned_and_reported_losslessly(
+    tmp_path: Path,
+) -> None:
+    fixture_path = Path(__file__).parent / "prepared-document.json"
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    prepared = PreparedDocument.model_validate(fixture)
+
+    manifest = _make_eval_manifest_from_fixture(tmp_path)
+
+    canonical_pdf = CanonicalPdf(
+        path=tmp_path / prepared.canonicalPdfRelativePath,
+        sha256=prepared.metadata.canonicalPdfSha256,
+    )
+
+    records = prepared.inventoryRecords
+    processing = prepared.processing
+    processing_fingerprint = prepared.processingFingerprint
+    prepared_at = prepared.preparedAt
+
+    metadata = madoz_pipeline._build_metadata(
+        manifest,
+        canonical_pdf,
+        prepared.metadata.pageInventorySha256,
+        processing_fingerprint,
+    )
+
+    chunk = prepared.chunks[0]
+    table_line_id = chunk.lineIds[0]
+
+    modified_pages = []
+    for page in prepared.pages:
+        modified_lines = []
+        for line in page.lines:
+            if line.lineId == table_line_id:
+                modified_lines.append(line.model_copy(update={"role": "table"}))
+            else:
+                modified_lines.append(line)
+        modified_pages.append(page.model_copy(update={"lines": modified_lines}))
+
+    result = madoz_pipeline._assemble_and_write(
+        manifest=manifest,
+        canonical_pdf=canonical_pdf,
+        metadata=metadata,
+        records=records,
+        pages=modified_pages,
+        chunks=[chunk],
+        processing=processing,
+        processing_fingerprint=processing_fingerprint,
+        data_root=tmp_path,
+        prepared_at=prepared_at,
+        warnings=[],
+    )
+
+    assert isinstance(result, madoz_pipeline.PreparationResult)
+    assert result.report is not None
+
+    doc = result.prepared_document
+
+    table_lines = [
+        line
+        for page in doc.pages
+        for line in page.lines
+        if line.role == "table"
+    ]
+    assert len(table_lines) >= 1
+
+    table_line_ids = {line.lineId for line in table_lines}
+
+    table_chunks = []
+    for chunk in doc.chunks:
+        if set(chunk.lineIds) & table_line_ids:
+            table_chunks.append(chunk)
+
+    assert len(table_chunks) >= 1
+
+    for chunk in table_chunks:
+        assert set(chunk.lineIds) <= table_line_ids
+
+    for line in table_lines:
+        assert any(line.lineId in chunk.lineIds for chunk in table_chunks)
+
+    assert result.report.unassignedTableLines == 0

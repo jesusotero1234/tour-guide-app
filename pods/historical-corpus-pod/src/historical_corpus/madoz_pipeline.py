@@ -269,6 +269,12 @@ def _assemble_and_write(
         for line in page.lines
         if line.role == "body"
     }
+    table_line_ids = {
+        line.lineId
+        for page in page_list
+        for line in page.lines
+        if line.role == "table"
+    }
     assigned_line_ids = {line_id for chunk in chunk_list for line_id in chunk.lineIds}
     blank_pages = sorted(
         page.logicalPageNumber for page in page_list if "blank" in page.qualityFlags
@@ -305,6 +311,7 @@ def _assemble_and_write(
         ocrPages=len(page_list),
         lowQualityPages=low_quality_pages,
         unassignedBodyLines=len(body_line_ids - assigned_line_ids),
+        unassignedTableLines=len(table_line_ids - assigned_line_ids),
         chunks=len(chunk_list),
         stageRelativePath=stage_relative_path,
         preparedAt=timestamp,

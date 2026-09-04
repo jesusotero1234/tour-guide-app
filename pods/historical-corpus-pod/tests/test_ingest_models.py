@@ -1073,9 +1073,111 @@ def _preparation_report() -> dict[str, object]:
     }
 
 
+def test_prepared_document_accepts_homogeneous_table_chunk() -> None:
+    payload = _prepared_document()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["role"] = "table"  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    _rehash_prepared(payload)
+    PreparedDocument.model_validate(payload)
+
+
+def test_prepared_document_rejects_mixed_body_and_table_chunk() -> None:
+    payload = _prepared_document()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["role"] = "body"  # type: ignore[index]
+    page_id = page_json["pageId"]  # type: ignore[index]
+    second_line = _line(
+        lineOrder=1,
+        originalText="tabla",
+        role="table",
+    )
+    second_line["lineId"] = compute_line_id(
+        page_id=page_id,  # type: ignore[arg-type]
+        line_order=1,
+        original_text="tabla",
+        box=NormalizedBox.model_validate(second_line["box"]),  # type: ignore[arg-type]
+    )
+    page_json["lines"].append(second_line)  # type: ignore[union-attr]
+    page_json["originalText"] = "MÁLAGA: ciudad histórica.\ntabla"  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["originalText"] = "MÁLAGA: ciudad histórica.\ntabla"
+    chunk["entryTitle"] = "MÁLAGA"
+    chunk["sectionPath"] = ["Diccionario Madoz", "Tomo XI", "MÁLAGA"]
+    chunk["lineIds"] = [line_json["lineId"], second_line["lineId"]]  # type: ignore[index]
+    chunk["chunkId"] = compute_chunk_id(
+        "madoz-11",
+        1,
+        1,
+        chunk["sectionPath"],  # type: ignore[arg-type]
+        chunk["originalText"],  # type: ignore[arg-type]
+    )
+    _rehash_prepared(payload)
+    with pytest.raises(ValidationError):
+        PreparedDocument.model_validate(payload)
+
+
+def test_ocr_evaluation_sample_accepts_homogeneous_table_chunk() -> None:
+    payload = _evaluation_sample()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["role"] = "table"  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    _rehash_sample(payload)
+    OcrEvaluationSample.model_validate(payload)
+
+
+def test_ocr_evaluation_sample_rejects_mixed_body_and_table_chunk() -> None:
+    payload = _evaluation_sample()
+    page_json = payload["pages"][0]  # type: ignore[index]
+    line_json = page_json["lines"][0]  # type: ignore[index]
+    line_json["role"] = "body"  # type: ignore[index]
+    page_id = page_json["pageId"]  # type: ignore[index]
+    second_line = _line(
+        lineOrder=1,
+        originalText="tabla",
+        role="table",
+    )
+    second_line["lineId"] = compute_line_id(
+        page_id=page_id,  # type: ignore[arg-type]
+        line_order=1,
+        original_text="tabla",
+        box=NormalizedBox.model_validate(second_line["box"]),  # type: ignore[arg-type]
+    )
+    page_json["lines"].append(second_line)  # type: ignore[union-attr]
+    page_json["originalText"] = "MÁLAGA: ciudad histórica.\ntabla"  # type: ignore[index]
+    payload["pageArtifactHashes"][0] = _canonical_hash(page_json)  # type: ignore[index]
+    chunk = payload["chunks"][0]  # type: ignore[index]
+    chunk["originalText"] = "MÁLAGA: ciudad histórica.\ntabla"
+    chunk["entryTitle"] = "MÁLAGA"
+    chunk["sectionPath"] = ["Diccionario Madoz", "Tomo XI", "MÁLAGA"]
+    chunk["lineIds"] = [line_json["lineId"], second_line["lineId"]]  # type: ignore[index]
+    chunk["chunkId"] = compute_chunk_id(
+        "madoz-11",
+        1,
+        1,
+        chunk["sectionPath"],  # type: ignore[arg-type]
+        chunk["originalText"],  # type: ignore[arg-type]
+    )
+    _rehash_sample(payload)
+    with pytest.raises(ValidationError):
+        OcrEvaluationSample.model_validate(payload)
+
+
 def test_preparation_report_shape_is_valid() -> None:
     report = PreparationReport.model_validate(_preparation_report())
     assert report.documentId == "madoz-11"
+    assert report.unassignedTableLines == 0
+
+    omitted = {**report.model_dump(mode="json")}
+    omitted.pop("unassignedTableLines")
+    assert PreparationReport.model_validate(omitted).unassignedTableLines == 0
+
+    with pytest.raises(ValidationError):
+        PreparationReport.model_validate({**report.model_dump(mode="json"), "unassignedTableLines": -1})
 
     with pytest.raises(ValidationError):
         PreparationReport.model_validate({**report.model_dump(mode="json"), "extra": "forbidden"})
