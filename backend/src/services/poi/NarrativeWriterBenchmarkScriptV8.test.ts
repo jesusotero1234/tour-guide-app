@@ -48,6 +48,7 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       sourceCheckpoint: '/private/checkpoint.json',
       priorSpendUsd: 0,
       spentUsd: 0.05,
+      accountedSpendUsd: 0.25,
       results: [{
         armId: 'A',
         stopId: 'Q1123493',
@@ -64,6 +65,7 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
         coverage: 1,
         retryCount: 0,
         costUsd: 0.05,
+        budgetChargeUsd: 0.05,
         providerCostVerified: true,
         latencyMs: 1000,
       }],
@@ -73,11 +75,14 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
     expect(serialized).not.toContain('secret/model');
     expect(serialized).not.toContain('secret-provider');
     expect(serialized).not.toContain('Texto narrativo ciego');
+    expect(summary.spentUsd).toBe(0.05);
+    expect(summary.accountedSpendUsd).toBe(0.25);
     expect(summary.results[0]).toMatchObject({
       armId: 'A',
       stopId: 'Q1123493',
       textFile: 'texts/A-Q1123493.md',
       oneShotPassed: true,
+      budgetChargeUsd: 0.05,
     });
   });
 });

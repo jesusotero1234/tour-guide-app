@@ -94,7 +94,8 @@ export interface NarrativeWriterBenchmarkPrivateResultV8 {
   wordCount: number | null;
   coverage: number | null;
   retryCount: number;
-  costUsd: number;
+  costUsd: number | null;
+  budgetChargeUsd: number;
   providerCostVerified: boolean;
   latencyMs: number;
 }
@@ -104,6 +105,7 @@ export interface NarrativeWriterBenchmarkPrivateSummaryV8 {
   sourceCheckpoint: string;
   priorSpendUsd: number;
   spentUsd: number;
+  accountedSpendUsd: number;
   results: NarrativeWriterBenchmarkPrivateResultV8[];
 }
 
@@ -118,7 +120,8 @@ export interface NarrativeWriterBenchmarkPublicResultV8 {
   wordCount: number | null;
   coverage: number | null;
   retryCount: number;
-  costUsd: number;
+  costUsd: number | null;
+  budgetChargeUsd: number;
   providerCostVerified: boolean;
   latencyMs: number;
 }
@@ -321,6 +324,7 @@ export function buildPublicNarrativeWriterBenchmarkSummaryV8(
   runId: string;
   priorSpendUsd: number;
   spentUsd: number;
+  accountedSpendUsd: number;
   totalCapUsd: number;
   results: NarrativeWriterBenchmarkPublicResultV8[];
 } {
@@ -328,6 +332,7 @@ export function buildPublicNarrativeWriterBenchmarkSummaryV8(
     runId: input.runId,
     priorSpendUsd: input.priorSpendUsd,
     spentUsd: input.spentUsd,
+    accountedSpendUsd: input.accountedSpendUsd,
     totalCapUsd: NARRATIVE_WRITER_BENCHMARK_TOTAL_CAP_USD_V8,
     results: input.results.map((result) => ({
       armId: result.armId,
@@ -341,6 +346,7 @@ export function buildPublicNarrativeWriterBenchmarkSummaryV8(
       coverage: result.coverage,
       retryCount: result.retryCount,
       costUsd: result.costUsd,
+      budgetChargeUsd: result.budgetChargeUsd,
       providerCostVerified: result.providerCostVerified,
       latencyMs: result.latencyMs,
     })),
@@ -407,10 +413,9 @@ export async function executeFrozenWriterBenchmarkCallV8(
   const evaluation = evaluateNarrativeWriterBenchmarkResultV8(benchmarkResult);
   const cost = callResult.usage
     ? resolveNarrativeWriterBenchmarkCostV8(assignment.arm, callResult.usage)
-    : {
-      costUsd: NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8,
-      providerVerified: false,
-    };
+    : null;
+  const costUsd = cost ? cost.costUsd : null;
+  const budgetChargeUsd = cost ? cost.costUsd : NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8;
 
   const result: NarrativeWriterBenchmarkPrivateResultV8 = {
     armId: assignment.armId,
@@ -427,8 +432,9 @@ export async function executeFrozenWriterBenchmarkCallV8(
     wordCount: evaluation.schemaPassed ? wordCount : null,
     coverage: parsed?.coverage ?? null,
     retryCount: benchmarkResult.retryCount,
-    costUsd: cost.costUsd,
-    providerCostVerified: cost.providerVerified,
+    costUsd,
+    budgetChargeUsd,
+    providerCostVerified: cost ? cost.providerVerified : false,
     latencyMs: callResult.attempts.reduce((total, attempt) => total + attempt.latencyMs, 0),
   };
 
@@ -522,6 +528,7 @@ async function executeNarrativeWriterBenchmarkV8(input: {
     sourceCheckpoint: input.args.checkpoint,
     priorSpendUsd: input.args.priorSpendUsd,
     spentUsd: input.args.priorSpendUsd,
+    accountedSpendUsd: input.args.priorSpendUsd,
     results: [],
   };
   const diagnostics: Array<{
@@ -534,7 +541,7 @@ async function executeNarrativeWriterBenchmarkV8(input: {
   for (const frozenCase of input.frozen.cases) {
     for (const assignment of input.plan.assignments) {
       assertNarrativeWriterBenchmarkBudgetV8(
-        privateSummary.spentUsd,
+        privateSummary.accountedSpendUsd,
         NARRATIVE_WRITER_BENCHMARK_CALL_RESERVATION_USD_V8
       );
       const executed = await executeFrozenWriterBenchmarkCallV8(
@@ -545,8 +552,11 @@ async function executeNarrativeWriterBenchmarkV8(input: {
       );
       const textFile = `texts/${assignment.armId}-${frozenCase.stopId}.md`;
       const result = { ...executed.result, textFile };
-      privateSummary.spentUsd += result.costUsd;
-      assertNarrativeWriterBenchmarkBudgetV8(privateSummary.spentUsd, 0);
+      if (result.costUsd !== null) {
+        privateSummary.spentUsd += result.costUsd;
+      }
+      privateSummary.accountedSpendUsd += result.budgetChargeUsd;
+      assertNarrativeWriterBenchmarkBudgetV8(privateSummary.accountedSpendUsd, 0);
       privateSummary.results.push(result);
       diagnostics.push({
         armId: assignment.armId,
@@ -570,7 +580,8 @@ async function executeNarrativeWriterBenchmarkV8(input: {
         oneShotPassed: result.oneShotPassed,
         wordCount: result.wordCount,
         costUsd: result.costUsd,
-        accountedSpendUsd: privateSummary.spentUsd,
+        budgetChargeUsd: result.budgetChargeUsd,
+        accountedSpendUsd: privateSummary.accountedSpendUsd,
       }));
     }
   }
@@ -580,7 +591,7 @@ async function executeNarrativeWriterBenchmarkV8(input: {
     mode: 'executed',
     runId: input.args.runId,
     completedCalls: privateSummary.results.length,
-    accountedSpendUsd: privateSummary.spentUsd,
+    accountedSpendUsd: privateSummary.accountedSpendUsd,
     reviewFile: resolve(outputDir, 'review.json'),
   }, null, 2));
 }
