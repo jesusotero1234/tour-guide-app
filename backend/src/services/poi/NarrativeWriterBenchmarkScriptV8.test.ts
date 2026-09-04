@@ -1,13 +1,16 @@
 import {
   buildNarrativeWriterBenchmarkLengthContractV8,
+  buildNarrativeWriterBenchmarkLengthPromptV8,
   buildNarrativeWriterBenchmarkPlanV8,
   buildNarrativeWriterBenchmarkSystemPromptV8,
   buildPublicNarrativeWriterBenchmarkSummaryV8,
   applyNarrativeWriterBenchmarkLengthSchemaV8,
   parseNarrativeWriterBenchmarkArgsV8,
+  validateNarrativeWriterBenchmarkBeatLengthsV8,
 } from '../../../scripts/validation/narrative-writer-benchmark-v8';
 import {
   narrativeWriterResponseSchemaV8,
+  type NarrativeStructuredWriterResultV8,
   type NarrativeWriterPlanV8,
 } from './NarrativeWriterContractV8';
 
@@ -18,6 +21,7 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
       priorSpendUsd: 0,
       stopIds: ['Q1123493', 'Q1537446'],
       seed: 'madrid-writer-benchmark-v8',
+      lengthAwareContract: false,
     });
   });
 
@@ -49,13 +53,15 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
     )).toThrow('benchmark budget exceeded');
   });
 
-  it('parses --explicit-json-instruction and --arm-ids=D and plans a single D arm over two stops', () => {
+  it('parses --explicit-json-instruction, --length-aware-contract and --arm-ids=D and plans a single D arm over two stops', () => {
     const args = parseNarrativeWriterBenchmarkArgsV8([
       '--explicit-json-instruction',
+      '--length-aware-contract',
       '--arm-ids=D',
     ]);
     expect(args).toMatchObject({
       explicitJsonInstruction: true,
+      lengthAwareContract: true,
       armIds: ['D'],
     });
 
@@ -191,6 +197,49 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
         const estimatedWords = properties.estimatedWords as Record<string, unknown>;
         expect(estimatedWords.minimum).toBe(1);
       }
+    });
+
+    it('builds a length prompt that references writerLengthContract, the global bounds 575, 618 and 660, and actual segment.text words', () => {
+      const contract = buildNarrativeWriterBenchmarkLengthContractV8(fixture, 575, 660);
+      const prompt = buildNarrativeWriterBenchmarkLengthPromptV8(contract);
+
+      expect(prompt).toContain('writerLengthContract');
+      expect(prompt).toContain('575');
+      expect(prompt).toContain('618');
+      expect(prompt).toContain('660');
+      expect(prompt).toContain('segment.text');
+    });
+
+    it('validates actual segment text counts against the experimental beat budget', () => {
+      const contract = buildNarrativeWriterBenchmarkLengthContractV8(fixture, 575, 660);
+      const targets = contract.beats.map((beat) => beat.targetWords);
+      const validResult: NarrativeStructuredWriterResultV8 = {
+        text: '',
+        segments: contract.beats.map((beat, index) => ({
+          segmentId: `seg-${index + 1}`,
+          beat: beat.beat,
+          text: Array.from({ length: targets[index] }, (_, i) => `word${i + 1}`).join(' '),
+          supportCardIds: [fixture.beats[index].evidenceCardIds[0]],
+          estimatedWords: targets[index],
+        })),
+        coverage: 1,
+        wordCount: 618,
+      };
+
+      expect(validateNarrativeWriterBenchmarkBeatLengthsV8(validResult, contract)).toBe(validResult);
+
+      const invalidResult: NarrativeStructuredWriterResultV8 = {
+        ...validResult,
+        segments: validResult.segments.map((segment, index) =>
+          index === 0
+            ? { ...segment, text: Array.from({ length: contract.beats[0].minimumWords - 1 }, (_, i) => `word${i + 1}`).join(' ') }
+            : segment
+        ),
+      };
+
+      expect(() => validateNarrativeWriterBenchmarkBeatLengthsV8(invalidResult, contract)).toThrow(
+        /beat_length_target_missed.*arrival_and_orientation/u
+      );
     });
   });
 });

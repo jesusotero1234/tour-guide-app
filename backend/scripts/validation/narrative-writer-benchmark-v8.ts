@@ -73,6 +73,7 @@ export interface NarrativeWriterBenchmarkArgsV8 {
   priorSpendUsd: number;
   runId: string;
   explicitJsonInstruction: boolean;
+  lengthAwareContract: boolean;
   armIds: Array<'A' | 'B' | 'C' | 'D'>;
 }
 
@@ -272,6 +273,7 @@ export interface NarrativeWriterBenchmarkFrozenCaseV8 {
   schema: Record<string, unknown>;
   plan: NarrativeWriterPlanV8;
   bounds: { minimumWords: number; maximumWords: number };
+  lengthContract: NarrativeWriterBenchmarkLengthContractV8 | null;
 }
 
 function requiredRecord(value: unknown, label: string): Record<string, unknown> {
@@ -335,7 +337,8 @@ function writerInputForStopV8(
 function buildFrozenWriterCasesV8(
   checkpoint: NarrativeWriterBenchmarkCheckpointV8,
   selectedStopIds: string[],
-  explicitJsonInstruction: boolean
+  explicitJsonInstruction: boolean,
+  lengthAwareContract: boolean
 ): {
   cases: NarrativeWriterBenchmarkFrozenCaseV8[];
   checkpointFingerprint: string;
@@ -373,13 +376,25 @@ function buildFrozenWriterCasesV8(
     const projectedInput = requiredRecord(projection.input, `projected writer input ${stopId}`);
     const plan = projectedInput.writerPlan as NarrativeWriterPlanV8 | undefined;
     if (!plan) throw new Error(`projected writer input has no writerPlan: ${stopId}`);
+    const bounds = narrationLengthBoundsV8(target.targetWords);
+    let finalInput = projectedInput;
+    let finalSystemPrompt = projection.systemPrompt;
+    let finalSchema = narrativeWriterResponseSchemaV8(plan);
+    let lengthContract: NarrativeWriterBenchmarkLengthContractV8 | null = null;
+    if (lengthAwareContract) {
+      lengthContract = buildNarrativeWriterBenchmarkLengthContractV8(plan, bounds.minimumWords, bounds.maximumWords);
+      finalInput = { ...projectedInput, writerLengthContract: lengthContract };
+      finalSystemPrompt = `${projection.systemPrompt} ${buildNarrativeWriterBenchmarkLengthPromptV8(lengthContract)}`;
+      finalSchema = applyNarrativeWriterBenchmarkLengthSchemaV8(finalSchema, lengthContract);
+    }
     return {
       stopId,
-      systemPrompt: projection.systemPrompt,
-      input: projectedInput,
-      schema: narrativeWriterResponseSchemaV8(plan),
+      systemPrompt: finalSystemPrompt,
+      input: finalInput,
+      schema: finalSchema,
       plan,
-      bounds: narrationLengthBoundsV8(target.targetWords),
+      bounds,
+      lengthContract,
     };
   });
   return { cases, checkpointFingerprint: boundary.manifest.fingerprint };
@@ -398,17 +413,31 @@ export function buildNarrativeWriterBenchmarkSystemPromptV8(explicit: boolean): 
   return `${WRITER_BASE_SYSTEM_PROMPT} Devuelve exclusivamente un único objeto JSON válido. La raíz debe contener las claves stop_id y segments. Cada beat de writerPlan debe tener un segmento en orden con los campos segmentId, beat, text, supportCardIds y estimatedWords. No incluyas Markdown, prólogo ni texto fuera del JSON.`;
 }
 
+export function buildNarrativeWriterBenchmarkLengthPromptV8(
+  contract: NarrativeWriterBenchmarkLengthContractV8
+): string {
+  const beatLines = contract.beats
+    .map((beat) => `beat ${beat.beat}: mínimo ${beat.minimumWords}, objetivo ${beat.targetWords}, máximo ${beat.maximumWords}`)
+    .join('; ');
+  return `writerLengthContract: mínimo global ${contract.minimumWords}, objetivo global ${contract.targetWords}, máximo global ${contract.maximumWords}. Presupuestos por beat: ${beatLines}. Los límites se aplican al conteo real de palabras de segment.text; estimatedWords debe reportar ese conteo real.`;
+}
+
 export function parseNarrativeWriterBenchmarkArgsV8(
   argv: string[]
 ): NarrativeWriterBenchmarkArgsV8 {
   const known = new Set([
     '--execute', '--checkpoint', '--stop-ids', '--seed', '--prior-spend-usd', '--run-id',
-    '--explicit-json-instruction', '--arm-ids',
+    '--explicit-json-instruction', '--length-aware-contract', '--arm-ids',
   ]);
   for (const argument of argv) {
     const name = argument.split('=', 1)[0];
     if (!known.has(name)) throw new Error(`unknown benchmark argument ${argument}`);
-    if (name !== '--execute' && name !== '--explicit-json-instruction' && !argument.includes('=')) {
+    if (
+      name !== '--execute' &&
+      name !== '--explicit-json-instruction' &&
+      name !== '--length-aware-contract' &&
+      !argument.includes('=')
+    ) {
       throw new Error(`benchmark option requires a value: ${name}`);
     }
   }
@@ -436,6 +465,7 @@ export function parseNarrativeWriterBenchmarkArgsV8(
   }
 
   const explicitJsonInstruction = argv.includes('--explicit-json-instruction');
+  const lengthAwareContract = argv.includes('--length-aware-contract');
   const armIdsValue = optionValue(argv, '--arm-ids');
   const armIds = armIdsValue === undefined
     ? ['A', 'B', 'C', 'D']
@@ -454,6 +484,7 @@ export function parseNarrativeWriterBenchmarkArgsV8(
     priorSpendUsd,
     runId,
     explicitJsonInstruction,
+    lengthAwareContract,
     armIds: armIds as Array<'A' | 'B' | 'C' | 'D'>,
   };
 }
@@ -510,6 +541,37 @@ export function buildPublicNarrativeWriterBenchmarkSummaryV8(
   };
 }
 
+export function validateNarrativeWriterBenchmarkBeatLengthsV8(
+  result: NarrativeStructuredWriterResultV8,
+  contract: NarrativeWriterBenchmarkLengthContractV8
+): NarrativeStructuredWriterResultV8 {
+  if (result.segments.length !== contract.beats.length) {
+    throw new Error(
+      `beat_length_target_missed: segment count ${result.segments.length} does not match contract beat count ${contract.beats.length}`
+    );
+  }
+
+  for (let i = 0; i < contract.beats.length; i += 1) {
+    const expectedBeat = contract.beats[i].beat;
+    const segment = result.segments[i];
+    if (segment.beat !== expectedBeat) {
+      throw new Error(
+        `beat_length_target_missed: segment ${i} beat ${segment.beat} does not match contract beat ${expectedBeat}`
+      );
+    }
+    const actualWords = segment.text.trim().split(/\s+/u).filter(Boolean).length;
+    const minimumWords = contract.beats[i].minimumWords;
+    const maximumWords = contract.beats[i].maximumWords;
+    if (actualWords < minimumWords || actualWords > maximumWords) {
+      throw new Error(
+        `beat_length_target_missed: beat ${expectedBeat} actual ${actualWords} outside accepted ${minimumWords}-${maximumWords}`
+      );
+    }
+  }
+
+  return result;
+}
+
 interface NarrativeWriterBenchmarkDiagnosticsV8 {
   status: string;
   actualModel: string | null;
@@ -554,7 +616,12 @@ export async function executeFrozenWriterBenchmarkCallV8(
     toolDescription: 'Devuelve un único guion oral estructurado para una parada.',
     inputCharacterLimit: 80_000,
     schemaCharacterLimit: 5_000,
-    validate: (value) => parseNarrativeWriterResponseV8(frozenCase.plan, value),
+    validate: (value) => {
+      const parsed = parseNarrativeWriterResponseV8(frozenCase.plan, value);
+      return frozenCase.lengthContract === null
+        ? parsed
+        : validateNarrativeWriterBenchmarkBeatLengthsV8(parsed, frozenCase.lengthContract);
+    },
   });
 
   const parsed = callResult.value;
@@ -757,7 +824,7 @@ async function main(): Promise<void> {
   const args = parseNarrativeWriterBenchmarkArgsV8(process.argv.slice(2));
   const plan = buildNarrativeWriterBenchmarkPlanV8(args.stopIds, args.seed, args.priorSpendUsd, args.armIds);
   const checkpoint = loadNarrativeWriterBenchmarkCheckpointV8(args.checkpoint);
-  const frozen = buildFrozenWriterCasesV8(checkpoint, args.stopIds, args.explicitJsonInstruction);
+  const frozen = buildFrozenWriterCasesV8(checkpoint, args.stopIds, args.explicitJsonInstruction, args.lengthAwareContract);
   frozen.cases.forEach(validateFrozenWriterCaseLimitsV8);
   if (args.execute) {
     await executeNarrativeWriterBenchmarkV8({ args, plan, frozen });
@@ -770,7 +837,13 @@ async function main(): Promise<void> {
     runId: args.runId,
     stopIds: args.stopIds,
     armIds: plan.assignments.map((assignment) => assignment.armId),
-    protocol: args.explicitJsonInstruction ? 'explicit_json' : 'baseline',
+    protocol: args.lengthAwareContract && args.explicitJsonInstruction
+      ? 'length_aware_explicit_json'
+      : args.lengthAwareContract
+        ? 'length_aware'
+        : args.explicitJsonInstruction
+          ? 'explicit_json'
+          : 'baseline',
     plannedCalls: plan.plannedCalls,
     maximumReservedSpendUsd: plan.maximumReservedSpendUsd,
     totalCapUsd: NARRATIVE_WRITER_BENCHMARK_TOTAL_CAP_USD_V8,
