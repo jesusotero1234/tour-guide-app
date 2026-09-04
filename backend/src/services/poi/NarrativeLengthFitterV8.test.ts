@@ -340,6 +340,7 @@ describe('NarrativeLengthFitterV8', () => {
     expect(parsedInput.requestedReplacementWords).toBe(301);
     expect(firstRequest.response_format.json_schema.schema.properties.replacements.minItems).toBe(2);
     expect(firstRequest.response_format.json_schema.schema.properties.replacements.maxItems).toBe(2);
+    expect(firstRequest.max_tokens).toBe(2_400);
   });
 
   it('returns the same draft without calling post when it is already in range', async () => {

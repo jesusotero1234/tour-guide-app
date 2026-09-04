@@ -19,7 +19,6 @@ import {
 } from './NarrativeLengthFitterV8';
 
 const NARRATIVE_LENGTH_FIT_ATTEMPTS_V8 = 2;
-const NARRATIVE_LENGTH_FIT_MAX_TOKENS_V8 = 1_200;
 
 export type FitNarrativeWriterLengthInputV8 = NarrativeModelClientOptionsV6 & {
   plan: NarrativeWriterPlanV8;
@@ -198,8 +197,8 @@ export async function fitNarrativeWriterLengthV8(
       options: {
         ...execution.options,
         maxTokens: Math.min(
-          execution.options.maxTokens ?? NARRATIVE_LENGTH_FIT_MAX_TOKENS_V8,
-          NARRATIVE_LENGTH_FIT_MAX_TOKENS_V8
+          Math.max(2400, 1600 + 2 * currentFitPlan.desiredReplacementWords),
+          execution.options.maxTokens ?? Number.POSITIVE_INFINITY
         ),
         requestAttempts: 1,
       },
