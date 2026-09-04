@@ -94,7 +94,7 @@ describe('narrative-writer-benchmark-v8 script contract', () => {
     expect(plan.plannedCalls).toBe(8);
     expect(plan.maximumReservedSpendUsd).toBeCloseTo(1.6);
     expect(plan.assignments.map((assignment) => assignment.arm.model).sort()).toEqual([
-      'anthropic/claude-3.5-sonnet',
+      'anthropic/claude-sonnet-4',
       'deepseek/deepseek-r1',
       'minimax/minimax-m2',
       'qwen/qwen3-235b-a22b-thinking-2507',

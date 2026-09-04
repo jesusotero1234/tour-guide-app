@@ -51,8 +51,8 @@ export const NARRATIVE_WRITER_BENCHMARK_ARMS_V8: readonly NarrativeWriterBenchma
     outputUsdPerMillion: 1.20,
   },
   {
-    model: 'anthropic/claude-3.5-sonnet',
-    acceptedModels: ['anthropic/claude-3.5-sonnet'],
+    model: 'anthropic/claude-sonnet-4',
+    acceptedModels: ['anthropic/claude-4-sonnet-20250522', 'anthropic/claude-sonnet-4'],
     inputUsdPerMillion: 3,
     outputUsdPerMillion: 15,
   },
