@@ -145,6 +145,11 @@ describe('createNarrativeEditorialAgentsV8 length fitting', () => {
     mockedFitLength.mockResolvedValue({
       value: fittedDraft,
       diagnostics: [fitDiagnostic],
+      lengthStatus: 'within_bounds',
+      targetWords: 600,
+      actualWords: 600,
+      minimumWords: 575,
+      maximumWords: 660,
     });
 
     const agents = createNarrativeEditorialAgentsV8(

@@ -344,6 +344,13 @@ describe('NarrativeLengthFitterV8', () => {
     });
 
     expect(result.value).toBe(draft);
+    expect(result).toMatchObject({
+      lengthStatus: 'within_bounds',
+      targetWords: 600,
+      actualWords: 600,
+      minimumWords: 575,
+      maximumWords: 660,
+    });
     expect(result.diagnostics).toEqual([]);
     expect(post).not.toHaveBeenCalled();
   });
@@ -395,6 +402,13 @@ describe('NarrativeLengthFitterV8', () => {
     });
 
     expect(result.value.wordCount).toBe(538);
+    expect(result).toMatchObject({
+      lengthStatus: 'accepted_with_residual',
+      targetWords: 566,
+      actualWords: 538,
+      minimumWords: 541,
+      maximumWords: 622,
+    });
     expect(result.diagnostics).toHaveLength(2);
     expect(post).toHaveBeenCalledTimes(2);
 
@@ -427,7 +441,7 @@ describe('NarrativeLengthFitterV8', () => {
     expect(draft.wordCount).toBe(469);
   });
 
-  it('rejects with exhaustion when two valid reservoir responses overshoot farther from target 600', async () => {
+  it('returns the best residual when two valid reservoir responses overshoot farther from target 600', async () => {
     const plan = writerPlan(600);
     const draft = draftWithWords(plan, 559);
     const firstPatch = JSON.stringify({
@@ -448,14 +462,23 @@ describe('NarrativeLengthFitterV8', () => {
       .mockResolvedValueOnce(openRouterResponse(firstPatch))
       .mockResolvedValueOnce(openRouterResponse(secondPatch));
 
-    await expect(fitNarrativeWriterLengthV8({
+    const result = await fitNarrativeWriterLengthV8({
       plan,
       draft,
       profile: 'qwen38_hybrid',
       openRouterApiKey: 'test-key',
       post,
-    })).rejects.toThrow('length_fit_exhausted stop=stop-generic actual=559 accepted=575-660');
+    });
 
+    expect(result.value).toBe(draft);
+    expect(result).toMatchObject({
+      lengthStatus: 'accepted_with_residual',
+      targetWords: 600,
+      actualWords: 559,
+      minimumWords: 575,
+      maximumWords: 660,
+    });
+    expect(result.diagnostics).toHaveLength(2);
     expect(post).toHaveBeenCalledTimes(2);
   });
 
@@ -575,6 +598,51 @@ describe('NarrativeLengthFitterV8', () => {
     const firstRequest = post.mock.calls[0][1];
     expect(firstRequest.response_format.json_schema.schema.properties.replacements).toBeDefined();
     expect(firstRequest.response_format.json_schema.schema.properties.additions).toBeUndefined();
+  });
+
+  it('starts a second compression attempt from the improved draft with explicit previous-attempt measurements', async () => {
+    const plan = writerPlan(600);
+    const draft = draftWithWords(plan, 690);
+    const firstPatch = JSON.stringify({
+      replacements: [
+        { segmentId: 'segment-2', text: words(105, 'compressed-'), supportCardIds: ['card-2'] },
+        { segmentId: 'segment-3', text: words(105, 'compressed-'), supportCardIds: ['card-3'] },
+      ],
+    });
+    const secondPatch = JSON.stringify({
+      replacements: [
+        { segmentId: 'segment-4', text: words(80, 'compressed-'), supportCardIds: ['card-4'] },
+        { segmentId: 'segment-5', text: words(80, 'compressed-'), supportCardIds: ['card-5'] },
+      ],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch))
+      .mockResolvedValueOnce(openRouterResponse(secondPatch));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value.wordCount).toBe(600);
+    expect(result).toMatchObject({ lengthStatus: 'within_bounds' });
+    expect(result.diagnostics).toHaveLength(2);
+    expect(post).toHaveBeenCalledTimes(2);
+
+    const secondRequest = post.mock.calls[1][1];
+    const secondUserMessage = secondRequest.messages.find((message: { role: string }) => message.role === 'user');
+    const secondRawJson = secondUserMessage.content.split('\n').slice(1).join('\n');
+    const secondParsedInput = JSON.parse(secondRawJson);
+    expect(secondParsedInput.currentWords).toBe(670);
+    expect(secondParsedInput.previousAttempt).toEqual({
+      direction: 'compress',
+      requestedResultWords: 600,
+      measuredResultWords: 670,
+      acceptedWords: { minimum: 575, maximum: 660 },
+    });
   });
 
   it('plans a compression with actual segment word counts and selects the two longest intermediate segments', () => {
