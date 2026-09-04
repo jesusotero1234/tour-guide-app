@@ -377,6 +377,91 @@ describe('NarrativeLengthFitterV8', () => {
     });
   });
 
+  it('accepts a tiny improved residual of 538 words after two bounded localized length-fit attempts for target 566', async () => {
+    const plan = writerPlan(566);
+    const draft = draftWithWords(plan, 469);
+    const segment3 = draft.segments.find((segment) => segment.segmentId === 'segment-3')!;
+    const firstPatch = JSON.stringify({
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(129, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
+    });
+    const secondPatch = JSON.stringify({
+      replacements: [
+        {
+          segmentId: 'segment-2',
+          text: words(147, 'expanded-'),
+          supportCardIds: ['card-2'],
+        },
+        {
+          segmentId: 'segment-3',
+          text: segment3.text,
+          supportCardIds: segment3.supportCardIds,
+        },
+      ],
+    });
+    const post = jest.fn()
+      .mockResolvedValueOnce(openRouterResponse(firstPatch))
+      .mockResolvedValueOnce(openRouterResponse(secondPatch));
+
+    const result = await fitNarrativeWriterLengthV8({
+      plan,
+      draft,
+      profile: 'qwen38_hybrid',
+      openRouterApiKey: 'test-key',
+      post,
+    });
+
+    expect(result.value.wordCount).toBe(538);
+    expect(result.diagnostics).toHaveLength(2);
+    expect(post).toHaveBeenCalledTimes(2);
+
+    const firstRequest = post.mock.calls[0][1];
+    const firstUserMessage = firstRequest.messages.find((message: { role: string }) => message.role === 'user');
+    const firstRawJson = firstUserMessage.content.split('\n').slice(1).join('\n');
+    const firstParsedInput = JSON.parse(firstRawJson);
+    expect(firstParsedInput.editableWindowWords).toBe(156);
+    expect(firstParsedInput.acceptedReplacementWords).toEqual({ minimum: 228, maximum: 309 });
+    expect(firstParsedInput.requestedReplacementWords).toBe(309);
+    expect(firstRequest.response_format.json_schema.schema.properties.replacements.minItems).toBe(2);
+    expect(firstRequest.response_format.json_schema.schema.properties.replacements.maxItems).toBe(2);
+
+    const secondRequest = post.mock.calls[1][1];
+    const secondUserMessage = secondRequest.messages.find((message: { role: string }) => message.role === 'user');
+    const secondRawJson = secondUserMessage.content.split('\n').slice(1).join('\n');
+    const secondParsedInput = JSON.parse(secondRawJson);
+    expect(secondParsedInput.editableWindowWords).toBe(207);
+    expect(secondParsedInput.acceptedReplacementWords).toEqual({ minimum: 228, maximum: 309 });
+    expect(secondParsedInput.requestedReplacementWords).toBe(309);
+
+    for (const call of post.mock.calls) {
+      const request = call[1];
+      const userMessage = request.messages.find((message: { role: string }) => message.role === 'user');
+      const rawJson = userMessage.content.split('\n').slice(1).join('\n');
+      const parsedInput = JSON.parse(rawJson);
+      const segmentIds = parsedInput.editableSegments.map((segment: { segmentId: string }) => segment.segmentId);
+      expect(segmentIds).toContain('segment-2');
+      expect(segmentIds).toContain('segment-3');
+      expect(segmentIds.filter((id: string) => id === 'segment-2')).toHaveLength(1);
+      expect(segmentIds.filter((id: string) => id === 'segment-3')).toHaveLength(1);
+      for (const segment of parsedInput.editableSegments) {
+        const expectedCardId = segment.segmentId === 'segment-2' ? 'card-2' : 'card-3';
+        expect(segment.supportCardIds).toEqual([expectedCardId]);
+      }
+    }
+
+    expect(draft.wordCount).toBe(469);
+  });
+
   it('rejects with exhaustion when two valid responses worsen the draft to 539 words', async () => {
     const plan = writerPlan(600);
     const draft = draftWithWords(plan, 559);

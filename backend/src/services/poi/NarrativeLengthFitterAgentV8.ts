@@ -19,6 +19,7 @@ import {
 } from './NarrativeLengthFitterV8';
 
 const NARRATIVE_LENGTH_FIT_ATTEMPTS_V8 = 2;
+const NARRATIVE_LENGTH_FIT_RESIDUAL_TOLERANCE_RATIO_V8 = 0.01;
 
 export type FitNarrativeWriterLengthInputV8 = NarrativeModelClientOptionsV6 & {
   plan: NarrativeWriterPlanV8;
@@ -233,6 +234,11 @@ export async function fitNarrativeWriterLengthV8(
     }
     fitPlan = planNarrativeLengthFitV8(plan, bestDraft);
     if (!fitPlan) return { value: bestDraft, diagnostics };
+  }
+
+  const toleranceWords = Math.ceil(plan.narrationTarget.targetWords * NARRATIVE_LENGTH_FIT_RESIDUAL_TOLERANCE_RATIO_V8);
+  if (bestDraft !== draft && fitPlan.minimumChangeWords <= toleranceWords) {
+    return { value: bestDraft, diagnostics };
   }
 
   throw new NarrativeLengthFitExhaustedErrorV8(
