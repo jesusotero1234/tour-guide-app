@@ -192,7 +192,6 @@ export async function fitNarrativeWriterLengthV8(
       provider: execution.provider,
       options: {
         ...execution.options,
-        temperature: 0,
         maxTokens: Math.min(
           execution.options.maxTokens ?? NARRATIVE_LENGTH_FIT_MAX_TOKENS_V8,
           NARRATIVE_LENGTH_FIT_MAX_TOKENS_V8
