@@ -258,10 +258,15 @@ export function validateNarrativeArcV8(
       }
     }
 
+    let finalBridge = bridge;
+    if (nextStopId && nextPropositionIds && !bridgePropositionIds.some((id) => nextPropositionIds!.has(id))) {
+      finalBridge = route.stops.find((s) => s.stopId === nextStopId)!.name;
+    }
+
     resultStops.push({
       stopId,
       contribution,
-      bridge,
+      bridge: finalBridge,
       contributionPropositionIds,
       bridgePropositionIds,
     });
@@ -297,6 +302,8 @@ export function createNarrativeArcArchitectV8(
           'Para cada parada, incluye contributionPropositionIds y bridgePropositionIds.',
           'contributionPropositionIds debe contener solo IDs de proposiciones de la parada actual.',
           'bridgePropositionIds debe contener solo IDs de proposiciones de la parada actual o la siguiente.',
+          'Los hechos de la siguiente parada deben citar proposiciones de su propio dossier; si no hay soporte, usa solo su nombre como puente neutro.',
+          'Evita anuncios de entrar, salir, visibilidad o acceso para recorridos exteriores no documentados.',
           'No debes llenar roles ausentes en C.',
           'No añadas hechos externos.',
           'El campo bridge debe ser siempre no vacío; la parada final cierra la pregunta central sin anunciar otra parada.',

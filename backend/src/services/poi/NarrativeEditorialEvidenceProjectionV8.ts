@@ -8,7 +8,7 @@ import {
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
-import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
+import { NarrativeNarrationTargetV8, narrationLengthBoundsV8, validateNarrativeRepairLengthV8 } from './NarrativeDurationTargetsV8';
 import { buildNarrativeWriterPlanV8 } from './NarrativeWriterContractV8';
 import {
   NarrativeScriptV6,
@@ -44,16 +44,21 @@ export function projectNarrativeDossierForEditorialV8(
 
 function projectNarrativeDossierForWriterV8(
   dossier: NarrativeDossierV6
-): Omit<NarrativeDossierV6, 'stopId' | 'sufficiency' | 'fingerprint' | 'sources' | 'passages'> {
+): Omit<NarrativeDossierV6, 'stopId' | 'sufficiency' | 'fingerprint' | 'sources' | 'passages'> & {
+  writerEvidencePassages: NarrativeDossierV6['passages'];
+} {
   const {
     stopId: _stopId,
     sufficiency: _sufficiency,
     fingerprint: _fingerprint,
     sources: _sources,
-    passages: _passages,
+    passages,
     ...projected
   } = dossier;
-  return projected;
+  return {
+    ...projected,
+    writerEvidencePassages: passages,
+  };
 }
 
 function assertManifestMatchesAdmittedStops(
@@ -303,29 +308,30 @@ function reconcileBaseSystemPrompt(
   return systemPrompt.replace(V8_INHERITED_DURATION_SENTENCE, V8_EXPLICIT_NARRATION_SENTENCE);
 }
 
-function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefined): string {
-  const base = [
-    'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
-    'Usa únicamente las proposiciones del dossier proyectado y de authorizedEvidence; las de bridge pueden pertenecer a la siguiente parada.',
-    'En nivel B no presentes la evidencia como corroborada por varios publishers.',
-    'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
-    'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
-  ];
+const V8_FACTUAL_PERMISSIONS_PREFIX = [
+  'El boundary determinista V8 ya ha admitido todas las paradas como A, B o C.',
+  'Usa las proposiciones locales y authorizedEvidence como selección base. Puedes desarrollar detalles explícitos de writerEvidencePassages locales; de la siguiente parada solo los hechos del bridge autorizado.',
+  'No uses memoria, fuentes fuera del paquete, ni resuelvas discrepancias por cuenta propia.',
+  'historicalContext fecha el testimonio del pasaje: atribuye los usos o descripciones de época y no los presentes como estado actual ni confundas publicación con construcción.',
+  'Desarrolla cada hecho principal una sola vez, en su beat asignado; los demás segmentos deben aportar evidencia distinta, no volver a resumir sus fechas o su importancia.',
+  'En nivel B no presentes la evidencia como corroborada por varios publishers.',
+  'En nivel C redacta de forma conservadora y limita cada afirmación a soporte explícito.',
+  'Los missingWriterRoles son prohibiciones: no los inventes ni los completes.',
+].join(' ');
+
+function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefined, language: string): string {
+  const base = [V8_FACTUAL_PERMISSIONS_PREFIX];
 
   if (narrationTarget) {
     const { minimumWords, maximumWords } = narrationLengthBoundsV8(narrationTarget.targetWords);
-    const midpoint = Math.round((minimumWords + maximumWords) / 2);
     base.push(
-      `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Redacta cerca del centro del intervalo, unas ${midpoint} palabras, para compensar la aproximación del conteo. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
+      `Apunta a unas ${narrationTarget.targetWords} palabras para ${narrationTarget.targetSeconds} segundos; se acepta un mínimo de ${minimumWords} palabras y un máximo de ${maximumWords} palabras. Prioriza una narración natural y respaldada, sin repetir ni estirar afirmaciones para alcanzar la cifra. Este objetivo sustituye cualquier pauta genérica de dos o tres minutos.`
     );
     base.push(
       'Escribe exactamente un segmento por cada entrada de writerPlan.beats, en el mismo orden, sin repetir ni dividir beats para alargar la narración.'
     );
     base.push(
-      'Antes de redactar, distribuye el objetivo de palabras usando targetWords dividido por el número de beats como punto de partida y compensa los segmentos breves en otros segmentos.'
-    );
-    base.push(
-      'Verifica el total usando las palabras reales de segment.text, no estimatedWords.'
+      'La extensión de cada segmento puede variar según el contenido disponible; no distribuyas cuotas fijas de palabras ni cuentes mentalmente para igualar segmentos.'
     );
   }
 
@@ -334,13 +340,30 @@ function buildWriterSuffix(narrationTarget: NarrativeNarrationTargetV8 | undefin
   );
 
   base.push(
-    'Construye una secuencia inmersiva respaldada por evidencia: orientación visible, cambio temporal, vida humana, contraste/significado y transición. Si la evidencia no permite uno de esos momentos, omítelo en vez de inventarlo.'
+    `Construye una secuencia inmersiva respaldada por evidencia en ${language}: detalle exterior concreto, uso humano documentado y transformación o consecuencia sustentada. No asumas posición exacta, no trates interiores o cifras de superficie como observables desde calle, y señala interpretaciones de forma modesta sin inventar causalidad. Si la evidencia no permite uno de esos momentos, omítelo en vez de inventarlo.`
   );
 
   return base.join(' ');
 }
 
+function buildRepairSuffix(
+  narrationTarget: NarrativeNarrationTargetV8 | undefined,
+  baselineText: string
+): string {
+  const parts: string[] = [V8_FACTUAL_PERMISSIONS_PREFIX, V8_PROMPT_SUFFIX_REPAIR];
+
+  if (narrationTarget) {
+    const validation = validateNarrativeRepairLengthV8(baselineText, narrationTarget, baselineText);
+    parts.push(
+      `El texto completo resultante debe tener entre ${validation.minimumWords} y ${validation.maximumWords} palabras. Apunta a unas ${narrationTarget.targetWords} palabras como preferencia, sin inventar ni repetir contenido para alcanzarla. La aceptación editorial no garantiza la publicación ni la duración final.`
+    );
+  }
+
+  return parts.join(' ');
+}
+
 const V8_PROMPT_SUFFIX_REPAIR = [
+  'Devuelve únicamente replacements para los sentenceIds autorizados; no redactes un guion nuevo.',
   'Cada replacement.text debe contener una frase completa y no vacía.',
   'Nunca uses una cadena vacía para borrar o fusionar sentenceIds.',
   'Si dos sentenceIds provienen de una frase dividida, conserva ambos IDs y redistribuye el contenido en dos frases completas que eliminen el fragmento.',
@@ -424,14 +447,18 @@ export function createNarrativeEditorialRequestProjectorV8(
     const arcStop = arc.stops[stopIndex];
     const authorizedEvidence = authorizedEvidenceByStop[stopIndex];
     const narrationTarget = narrationTargetsByStopId?.get(routeStopId);
-    const writerSuffix = buildWriterSuffix(narrationTarget);
+    const writerSuffix = buildWriterSuffix(narrationTarget, stop.dossier.language);
     const promptSuffix = operation === 'repair'
-      ? `${writerSuffix} ${V8_PROMPT_SUFFIX_REPAIR}`
+      ? buildRepairSuffix(narrationTarget, (inputRecord.script as Record<string, unknown>).text as string)
       : operation === 'write'
         ? writerSuffix
         : V8_PROMPT_SUFFIX_AUDITOR;
     const reconciledBaseSystemPrompt = (operation === 'write' || operation === 'repair')
       ? reconcileBaseSystemPrompt(systemPrompt, narrationTarget)
+        .replace('Usa exclusivamente las proposiciones, nombres y números autorizados del dossier.',
+          'Usa solo proposiciones autorizadas y detalles explícitos de writerEvidencePassages locales; de la siguiente parada, solo el bridge autorizado.')
+        .replace('Eres el escritor de una audioguía histórica en español de España.',
+          `Eres el escritor de una audioguía histórica en el idioma ${stop.dossier.language}.`)
       : systemPrompt;
 
     const projectedInput = projectPerStopInput(operation, inputRecord, stop, arc, arcStop, authorizedEvidence, narrationTarget, stopIndex);

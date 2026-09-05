@@ -135,22 +135,11 @@ describe('createNarrativeEditorialAgentsV8 length fitting', () => {
     mockedBuildPlan.mockReturnValue(plan);
   });
 
-  it('fits a short structured draft without asking the core writer to regenerate it', async () => {
+  it('preserves a short draft without automatic fitter', async () => {
     const writtenDraft = draft(559);
-    const fittedDraft = draft(600);
     const writerDiagnostic = diagnostic('writer', writtenDraft);
-    const fitDiagnostic = diagnostic('length-fit', fittedDraft);
     const { core, write } = fakeCore(writtenDraft, writerDiagnostic);
     mockedCreateCore.mockReturnValue(core);
-    mockedFitLength.mockResolvedValue({
-      value: fittedDraft,
-      diagnostics: [fitDiagnostic],
-      lengthStatus: 'within_bounds',
-      targetWords: 600,
-      actualWords: 600,
-      minimumWords: 575,
-      maximumWords: 660,
-    });
 
     const agents = createNarrativeEditorialAgentsV8(
       { profile: 'qwen38_hybrid', openRouterApiKey: 'test-key' },
@@ -163,16 +152,14 @@ describe('createNarrativeEditorialAgentsV8 length fitting', () => {
     const result = await agents.write(input);
 
     expect(write).toHaveBeenCalledTimes(1);
-    expect(mockedFitLength).toHaveBeenCalledWith(expect.objectContaining({
-      plan,
-      draft: writtenDraft,
-      profile: 'qwen38_hybrid',
-    }));
-    expect(result.value).toBe(fittedDraft);
-    expect(result.diagnostics).toEqual([writerDiagnostic, fitDiagnostic]);
+    expect(mockedFitLength).not.toHaveBeenCalled();
+    expect(result.value).toBe(writtenDraft);
+    expect(result.diagnostic).toBe(writerDiagnostic);
 
     const hooks = mockedCreateCore.mock.calls[0][2] as NarrativeEditorialValidationHooksV6;
-    expect(() => hooks.validateWriter?.({ text: words(559) }, input)).not.toThrow();
+    expect(hooks.writerRequestAttempts).toBe(1);
+    expect(hooks.repairRequestAttempts).toBe(1);
+    expect(mockedCreateCore.mock.calls[0][0].writerRateLimitAttempts).toBe(1);
   });
 
   it('keeps the core writer behavior when a stop has no narration target', async () => {

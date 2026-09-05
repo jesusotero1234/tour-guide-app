@@ -26,6 +26,25 @@ export const COMPLETED_PHASES = [
 
 export type CompletedPhase = (typeof COMPLETED_PHASES)[number];
 
+export type NarrativeCheckpointCoreV8 = {
+  requiredIds: string[];
+  coverageRatio: number;
+  disagreement: boolean;
+};
+
+/** Legacy checkpoints remain readable, but cannot skip core reconstruction. */
+export function decodeCheckpointCoreV8(raw: unknown, sourcePath: string): NarrativeCheckpointCoreV8 {
+  if (!isPlainObject(raw)) throw new Error(`Missing or invalid core at ${sourcePath}; restart with --resume-from=route`);
+  if (Object.keys(raw).some(key => !['requiredIds', 'coverageRatio', 'disagreement'].includes(key))
+    || !Array.isArray(raw.requiredIds)
+    || raw.requiredIds.some(id => typeof id !== 'string' || !/^Q\d+$/u.test(id))
+    || new Set(raw.requiredIds).size !== raw.requiredIds.length
+    || typeof raw.coverageRatio !== 'number' || !Number.isFinite(raw.coverageRatio)
+    || raw.coverageRatio < 0 || raw.coverageRatio > 1
+    || typeof raw.disagreement !== 'boolean') throw new Error(`Invalid core at ${sourcePath}`);
+  return { requiredIds: [...raw.requiredIds] as string[], coverageRatio: raw.coverageRatio, disagreement: raw.disagreement };
+}
+
 export interface NarrativeUserCanaryCheckpointV8 {
   schemaVersion: typeof SCHEMA_VERSION;
   completedPhase: CompletedPhase;
@@ -40,6 +59,7 @@ export interface NarrativeUserCanaryCheckpointV8 {
     priorSpendUsd: number;
   };
   candidates?: JsonValue;
+  core?: NarrativeCheckpointCoreV8;
   route?: JsonValue;
   research?: JsonValue;
   evidenceManifest?: JsonValue;
@@ -53,6 +73,7 @@ export interface NarrativeUserCanaryCheckpointV8 {
     openIssueIds?: string[];
     issues?: JsonValue[];
     issueSummary?: JsonValue;
+    stageState?: JsonValue;
   };
   scorecard?: JsonValue;
   fingerprint: string;
@@ -259,8 +280,11 @@ export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpoin
     }
   }
 
+  if (obj.core !== undefined) decodeCheckpointCoreV8(obj.core, "checkpoint");
+
   const cumulativeFields: (keyof NarrativeUserCanaryCheckpointV8)[] = [
     "candidates",
+    "core",
     "route",
     "research",
     "evidenceManifest",
@@ -353,6 +377,11 @@ export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpoin
         if (typeof byStop[key] !== "number" || !Number.isFinite(byStop[key] as number)) {
           throw new Error(`editorial.issueSummary.byStop values must be finite numbers`);
         }
+      }
+    }
+    if (editorial.stageState !== undefined) {
+      if (!isPlainObject(editorial.stageState)) {
+        throw new Error("editorial.stageState must be a plain object when present");
       }
     }
   }
@@ -579,6 +608,7 @@ export function assertCheckpointSupportsResumeV8(
   checkpoint: NarrativeUserCanaryCheckpointV8,
   resumeFrom: ResumeFromV8
 ): void {
+  if (resumeFrom !== "route") decodeCheckpointCoreV8(checkpoint.core, "resume checkpoint");
   const requiredCompletedPhase = RESUME_FROM_TO_COMPLETED_PHASE[resumeFrom];
   const requiredIndex = PHASE_INDEX[requiredCompletedPhase];
   const actualIndex = PHASE_INDEX[checkpoint.completedPhase];
@@ -593,10 +623,11 @@ export function assertCheckpointSupportsResumeV8(
 export function projectCheckpointStateForResumeV8(
   sourceCheckpoint: NarrativeUserCanaryCheckpointV8,
   resumeFrom: ResumeFromV8
-): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "route" | "research" | "evidenceManifest" | "arc" | "narrationTargets" | "editorial" | "scorecard">> {
+): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "core" | "route" | "research" | "evidenceManifest" | "arc" | "narrationTargets" | "editorial" | "scorecard">> {
   const clone = <T extends JsonValue>(value: T | undefined): T | undefined =>
     value === undefined ? undefined : JSON.parse(JSON.stringify(value)) as T;
 
+  if (resumeFrom !== "route") decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint");
   switch (resumeFrom) {
     case "route":
       return {
@@ -605,12 +636,14 @@ export function projectCheckpointStateForResumeV8(
     case "research":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         narrationTargets: clone(sourceCheckpoint.narrationTargets),
       };
     case "arc":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
@@ -619,15 +652,20 @@ export function projectCheckpointStateForResumeV8(
     case "editorial":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),
         arc: clone(sourceCheckpoint.arc),
         narrationTargets: clone(sourceCheckpoint.narrationTargets),
+        ...(sourceCheckpoint.editorial?.stageState !== undefined
+          ? { editorial: clone(sourceCheckpoint.editorial) }
+          : {}),
       };
     case "scorecard":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
         evidenceManifest: clone(sourceCheckpoint.evidenceManifest),

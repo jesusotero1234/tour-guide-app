@@ -9,15 +9,22 @@ import {
   narrativeWriterResponseSchemaV8,
   parseNarrativeWriterResponseV8,
 } from './NarrativeWriterContractV8';
-import { fitNarrativeWriterLengthV8, NarrativeLengthFitStatusV8 } from './NarrativeLengthFitterAgentV8';
-import { NarrativeModelClientOptionsV6 } from './NarrativeModelProfilesV6';
+import { NarrativeLengthFitStatusV8 } from './NarrativeLengthFitterAgentV8';
+import { NarrativeModelClientOptionsV6, resolveNarrativeModelProfileV6 } from './NarrativeModelProfilesV6';
+import { narrativeFingerprintV6 } from './NarrativeContractsV6';
+import { NarrativeAuditInputV6, NarrativeAgentExecutionV6, NarrativeAgentResultV6 } from './NarrativeEditorialAgentsV6';
+import { NarrativeAuditReportV6 } from './NarrativeEditorialV6';
+import { verifyNarrativeCompactV8, NarrativeBridgeEvidenceV8 } from './NarrativeCompactVerificationV8';
+import { editNarrativeSegmentsV8 } from './NarrativeSegmentEditV8';
 import {
   NarrativeAdmittedStopV8,
   NarrativeEvidenceManifestV8,
 } from './NarrativeEvidenceBoundaryV8';
 import { createNarrativeEditorialRequestProjectorV8 } from './NarrativeEditorialEvidenceProjectionV8';
 import { NarrativeArcV8 } from './NarrativeArcArchitectV8';
-import { NarrativeNarrationTargetV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
+import { NarrativeNarrationTargetV8, narrationLengthBoundsV8, validateNarrativeRepairLengthV8 } from './NarrativeDurationTargetsV8';
+
+export { validateNarrativeRepairLengthV8 };
 
 export interface NarrativeLengthOutcomeV8 {
   stopId: string;
@@ -30,11 +37,12 @@ export interface NarrativeLengthOutcomeV8 {
 
 export interface NarrativeEditorialAgentsV8 extends NarrativeEditorialAgentsV6 {
   readonly evidenceManifestFingerprint: string;
+  readonly policyFingerprint: string;
   narrationLengthOutcome(stopId: string, text: string): NarrativeLengthOutcomeV8 | null;
+  writerPlan(stopId: string): NarrativeWriterPlanV8 | null;
+  verify(input: NarrativeAuditInputV6, execution?: NarrativeAgentExecutionV6): Promise<NarrativeAgentResultV6<NarrativeAuditReportV6>>;
+  edit(stopId: string, draft: NarrativeStructuredWriterResultV8, sentenceIds: string[], reasons: string[], execution?: NarrativeAgentExecutionV6): Promise<NarrativeAgentResultV6<NarrativeStructuredWriterResultV8>>;
 }
-
-const NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8 = 20;
-const NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8 = 5;
 
 export function validateNarrativeWriterLengthV8(
   text: string,
@@ -51,33 +59,6 @@ export function validateNarrativeWriterLengthV8(
   };
 }
 
-export function validateNarrativeRepairLengthV8(
-  text: string,
-  target: NarrativeNarrationTargetV8,
-  baselineText?: string
-): { valid: boolean; wordCount: number; minimumWords: number; maximumWords: number } {
-  const trimmed = text.trim();
-  const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
-  const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
-  let repairMinimumWords = Math.max(0, minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8);
-  let repairMaximumWords = maximumWords + NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8;
-  if (baselineText !== undefined) {
-    const baselineTrimmed = baselineText.trim();
-    const baselineWordCount = baselineTrimmed.length === 0 ? 0 : baselineTrimmed.split(/\s+/u).length;
-    if (baselineWordCount < repairMinimumWords) {
-      repairMinimumWords = baselineWordCount;
-    } else if (baselineWordCount > repairMaximumWords) {
-      repairMaximumWords = baselineWordCount;
-    }
-  }
-  return {
-    valid: wordCount >= repairMinimumWords && wordCount <= repairMaximumWords,
-    wordCount,
-    minimumWords: repairMinimumWords,
-    maximumWords: repairMaximumWords,
-  };
-}
-
 export function createNarrativeEditorialAgentsV8(
   options: NarrativeModelClientOptionsV6,
   admittedStops: NarrativeAdmittedStopV8[],
@@ -85,14 +66,21 @@ export function createNarrativeEditorialAgentsV8(
   arc: NarrativeArcV8,
   narrationTargetsByStopId?: ReadonlyMap<string, NarrativeNarrationTargetV8>
 ): NarrativeEditorialAgentsV8 {
+  const policyFingerprint = narrativeFingerprintV6({
+    policy: 'staged-v8-4-sentence-local',
+    profile: resolveNarrativeModelProfileV6(options.profile),
+    targets: Array.from(narrationTargetsByStopId ?? []),
+    qwenEndpoint: options.qwenLocalBaseUrl ?? null,
+    ollamaHost: options.ollamaHost ?? null,
+  });
   const core = createNarrativeEditorialAgentsV6Core(
-    { ...options, writerRateLimitAttempts: 3 },
+    { ...options, writerRateLimitAttempts: 1 },
     createNarrativeEditorialRequestProjectorV8(admittedStops, manifest, arc, narrationTargetsByStopId),
     {
-      writerRequestAttempts: 4,
-      writerIncludePreviousResponseOnSemanticRetry: true,
-      repairRequestAttempts: 3,
-      repairIncludePreviousResponseOnSemanticRetry: true,
+      writerRequestAttempts: 1,
+      writerIncludePreviousResponseOnSemanticRetry: false,
+      repairRequestAttempts: 1,
+      repairIncludePreviousResponseOnSemanticRetry: false,
       writerResponseContract: (projectedInput, input) => {
         const plan = (projectedInput as Record<string, unknown>).writerPlan as NarrativeWriterPlanV8 | undefined;
         if (!plan) return undefined;
@@ -112,12 +100,44 @@ export function createNarrativeEditorialAgentsV8(
         }
       },
       auditAnchorsRequired: true,
+      tourAuditRequestAttempts: 1,
     }
   );
-  const coreWrite = core.write;
+  const mergedOptions = (execution?: NarrativeAgentExecutionV6): NarrativeModelClientOptionsV6 => {
+    const signals = [options.signal, execution?.signal]
+      .filter((signal): signal is AbortSignal => signal !== undefined);
+    const signal = signals.length > 1 ? AbortSignal.any(signals) : signals[0];
+    const onProgress = execution?.onProgress ?? options.onProgress;
+    return {
+      ...options,
+      ...(signal ? { signal } : {}),
+      ...(onProgress ? { onProgress } : {}),
+    };
+  };
+  const bridgeEvidenceFor = (stopIndex: number): NarrativeBridgeEvidenceV8 => {
+    const nextIndex = stopIndex + 1;
+    const nextStop = admittedStops[nextIndex];
+    const arcStop = arc.stops[stopIndex];
+    const bridgePropositionIds = new Set(arcStop.bridgePropositionIds);
+    const bridgePropositions = nextStop
+      ? nextStop.dossier.propositions.filter((p) => bridgePropositionIds.has(p.propositionId))
+      : [];
+    const bridgePassageIds = new Set(
+      bridgePropositions.flatMap((p) => p.passageIds ?? [])
+    );
+    const bridgePassages = nextStop
+      ? nextStop.dossier.passages.filter((p) => bridgePassageIds.has(p.passageId))
+      : [];
+    return {
+      propositions: bridgePropositions,
+      passages: bridgePassages,
+      ...(nextStop ? { nextStop: { stopId: nextStop.routeStopId, authorizedNames: nextStop.dossier.authorizedNames } } : {}),
+    };
+  };
   return {
     ...core,
     evidenceManifestFingerprint: manifest.fingerprint,
+    policyFingerprint,
     narrationLengthOutcome(stopId: string, text: string): NarrativeLengthOutcomeV8 | null {
       const target = narrationTargetsByStopId?.get(stopId);
       if (!target) return null;
@@ -131,44 +151,44 @@ export function createNarrativeEditorialAgentsV8(
         maximumWords: validation.maximumWords,
       };
     },
-    async write(input, execution) {
-      const written = await coreWrite(input, execution);
-      const target = narrationTargetsByStopId?.get(input.stopId);
-      if (!target) return written;
-
-      const stopIndex = admittedStops.findIndex((stop) => stop.routeStopId === input.stopId);
+    writerPlan(stopId: string): NarrativeWriterPlanV8 | null {
+      const stopIndex = admittedStops.findIndex((stop) => stop.routeStopId === stopId);
       if (stopIndex < 0) {
-        throw new Error(`unknown editorial route stop ${input.stopId}`);
+        throw new Error(`unknown editorial route stop ${stopId}`);
       }
+      const target = narrationTargetsByStopId?.get(stopId);
+      if (!target) return null;
       const admittedStop = admittedStops[stopIndex];
-      const plan = buildNarrativeWriterPlanV8({
-        routeStopId: input.stopId,
+      return buildNarrativeWriterPlanV8({
+        routeStopId: stopId,
         dossier: admittedStop.dossier,
         narrationTarget: target,
         stopIndex,
       });
-
-      const signals = [options.signal, execution?.signal]
-        .filter((signal): signal is AbortSignal => signal !== undefined);
-      const signal = signals.length > 1 ? AbortSignal.any(signals) : signals[0];
-      const onProgress = execution?.onProgress ?? options.onProgress;
-
-      const fitResult = await fitNarrativeWriterLengthV8({
-        ...options,
-        ...(signal ? { signal } : {}),
-        ...(onProgress ? { onProgress } : {}),
-        plan,
-        draft: written.value as NarrativeStructuredWriterResultV8,
-      });
-
-      return {
-        value: fitResult.value,
-        diagnostic: written.diagnostic,
-        diagnostics: [
-          ...(written.diagnostics ?? [written.diagnostic]),
-          ...fitResult.diagnostics,
-        ],
-      };
+    },
+    async verify(input: NarrativeAuditInputV6, execution?: NarrativeAgentExecutionV6): Promise<NarrativeAgentResultV6<NarrativeAuditReportV6>> {
+      const stopIndex = admittedStops.findIndex((stop) => stop.routeStopId === input.script.stopId);
+      if (stopIndex < 0) {
+        throw new Error(`unknown editorial route stop ${input.script.stopId}`);
+      }
+      if (narrativeFingerprintV6(input.dossier) !== narrativeFingerprintV6(admittedStops[stopIndex].dossier)) {
+        throw new Error(`verification dossier mismatch for ${input.script.stopId}`);
+      }
+      const merged = mergedOptions(execution);
+      return verifyNarrativeCompactV8(merged, input, bridgeEvidenceFor(stopIndex));
+    },
+    async edit(stopId: string, draft: NarrativeStructuredWriterResultV8, sentenceIds: string[], reasons: string[], execution?: NarrativeAgentExecutionV6): Promise<NarrativeAgentResultV6<NarrativeStructuredWriterResultV8>> {
+      const plan = this.writerPlan(stopId);
+      if (!plan) {
+        throw new Error(`no writer plan for stop ${stopId}`);
+      }
+      const stopIndex = admittedStops.findIndex((stop) => stop.routeStopId === stopId);
+      if (stopIndex < 0) {
+        throw new Error(`unknown editorial route stop ${stopId}`);
+      }
+      const dossier = admittedStops[stopIndex].dossier;
+      const merged = mergedOptions(execution);
+      return editNarrativeSegmentsV8(merged, plan, draft, sentenceIds, reasons, dossier, bridgeEvidenceFor(stopIndex));
     },
   };
 }

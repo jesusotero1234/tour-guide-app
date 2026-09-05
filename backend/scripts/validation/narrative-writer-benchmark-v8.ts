@@ -284,7 +284,7 @@ function requiredRecord(value: unknown, label: string): Record<string, unknown> 
   return value as Record<string, unknown>;
 }
 
-function loadNarrativeWriterBenchmarkCheckpointV8(
+export function loadNarrativeWriterBenchmarkCheckpointV8(
   checkpointPath: string
 ): NarrativeWriterBenchmarkCheckpointV8 {
   let parsed: unknown;
@@ -335,7 +335,7 @@ function writerInputForStopV8(
   };
 }
 
-function buildFrozenWriterCasesV8(
+export function buildFrozenWriterCasesV8(
   checkpoint: NarrativeWriterBenchmarkCheckpointV8,
   selectedStopIds: string[],
   explicitJsonInstruction: boolean,

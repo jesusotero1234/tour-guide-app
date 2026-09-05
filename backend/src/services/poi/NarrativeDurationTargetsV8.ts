@@ -28,12 +28,42 @@ const REQUIRED_WEIGHT = 1.2;
 const OPTIONAL_WEIGHT = 1;
 const WALKING_FALLBACK_RATIO = 0.35;
 const MAX_TOTAL_NARRATION_RATIO = 0.3;
-const SPEAKING_RATE_WORDS_PER_MINUTE = 120;
+export const SPEAKING_RATE_WORDS_PER_MINUTE = 120;
 
 export function narrationLengthBoundsV8(targetWords: number): { minimumWords: number; maximumWords: number } {
   return {
     minimumWords: Math.max(0, targetWords - 25),
     maximumWords: Math.floor(targetWords * 1.1),
+  };
+}
+
+const NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8 = 20;
+const NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8 = 5;
+
+export function validateNarrativeRepairLengthV8(
+  text: string,
+  target: NarrativeNarrationTargetV8,
+  baselineText?: string
+): { valid: boolean; wordCount: number; minimumWords: number; maximumWords: number } {
+  const trimmed = text.trim();
+  const wordCount = trimmed.length === 0 ? 0 : trimmed.split(/\s+/u).length;
+  const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
+  let repairMinimumWords = Math.max(0, minimumWords - NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8);
+  let repairMaximumWords = maximumWords + NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8;
+  if (baselineText !== undefined) {
+    const baselineTrimmed = baselineText.trim();
+    const baselineWordCount = baselineTrimmed.length === 0 ? 0 : baselineTrimmed.split(/\s+/u).length;
+    if (baselineWordCount < repairMinimumWords) {
+      repairMinimumWords = baselineWordCount;
+    } else if (baselineWordCount > repairMaximumWords) {
+      repairMaximumWords = baselineWordCount;
+    }
+  }
+  return {
+    valid: wordCount >= repairMinimumWords && wordCount <= repairMaximumWords,
+    wordCount,
+    minimumWords: repairMinimumWords,
+    maximumWords: repairMaximumWords,
   };
 }
 

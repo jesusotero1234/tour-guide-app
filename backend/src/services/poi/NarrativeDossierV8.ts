@@ -58,6 +58,14 @@ export interface NarrativeEvidenceGatesV8 {
   missingWriterRoles: NarrativeRoleV8[];
 }
 
+export interface NarrativePropositionAdmissionV8 {
+  inputCount: number;
+  acceptedCount: number;
+  rejectedPropositions: { index: number; text: string; reason: string }[];
+  removedAuthorizedNames: string[];
+  removedAuthorizedNumbers: string[];
+}
+
 export interface NarrativeDossierInputV8 {
   stopId: string;
   stopName: string;
@@ -67,6 +75,7 @@ export interface NarrativeDossierInputV8 {
   captures: NarrativeCapturedSourceV8[];
   spansBySource: Map<string, NarrativeEvidenceSpanV7[]>;
   authorizedIdentityNames?: string[];
+  admissionMode?: 'strict' | 'independent';
 }
 
 export interface NarrativeValidatedDossierV8 {
@@ -76,8 +85,8 @@ export interface NarrativeValidatedDossierV8 {
 }
 
 export type NarrativeDossierValidationV8 =
-  | { status: 'ok'; value: NarrativeValidatedDossierV8 }
-  | { status: 'curator_contract_failed'; reason: string };
+  | { status: 'ok'; value: NarrativeValidatedDossierV8; admission?: NarrativePropositionAdmissionV8 }
+  | { status: 'curator_contract_failed'; reason: string; admission?: NarrativePropositionAdmissionV8 };
 
 function deterministicIdV8(seed: string): string {
   return createHash('sha256').update(seed).digest('hex').slice(0, 20);
@@ -240,43 +249,46 @@ export function buildValidatedDossierV8(
   const passages: NarrativeDossierProposalV6['passages'] = [];
   const propositions: NarrativeDossierProposalV6['propositions'] = [];
   const passageQuotes: string[] = [];
-  const allSourceIds = new Set<string>();
+  const admissionMode = input.admissionMode ?? 'strict';
+  const rejectedPropositions: { index: number; text: string; reason: string }[] = [];
 
-  for (const proposition of curatorOutput.propositions) {
+  const validateProposition = (
+    proposition: NarrativeCuratorPropositionV8
+  ): { status: 'curator_contract_failed'; reason: string } | null => {
     if (!NARRATIVE_ROLES_V8.includes(proposition.role)) {
-      return contractFailure(`invalid role ${String(proposition.role)}`);
+      return { status: 'curator_contract_failed', reason: `invalid role ${String(proposition.role)}` };
     }
     const text = proposition.text.trim();
-    if (!text) return contractFailure('proposition has empty text');
+    if (!text) return { status: 'curator_contract_failed', reason: 'proposition has empty text' };
     if (text.length > NARRATIVE_CURATOR_PROPOSITION_MAX_TEXT_V8) {
-      return contractFailure('proposition text exceeds the length limit');
+      return { status: 'curator_contract_failed', reason: 'proposition text exceeds the length limit' };
     }
     if (proposition.supports.length === 0) {
-      return contractFailure('proposition has no supports');
+      return { status: 'curator_contract_failed', reason: 'proposition has no supports' };
     }
     const sourceIds = new Set<string>();
     const passageIds: string[] = [];
     const propositionPassageQuotes: string[] = [];
     for (const support of proposition.supports) {
       const capture = captureById.get(support.sourceId);
-      if (!capture) return contractFailure(`unknown source ${support.sourceId}`);
+      if (!capture) return { status: 'curator_contract_failed', reason: `unknown source ${support.sourceId}` };
       if (!authorizedSourceIds.has(support.sourceId)) {
-        return contractFailure(`source ${support.sourceId} is discovery_only`);
+        return { status: 'curator_contract_failed', reason: `source ${support.sourceId} is discovery_only` };
       }
       if (support.evidenceSpanIds.length < 1 || support.evidenceSpanIds.length > 3) {
-        return contractFailure('supports require between one and three spans');
+        return { status: 'curator_contract_failed', reason: 'supports require between one and three spans' };
       }
       if (new Set(support.evidenceSpanIds).size !== support.evidenceSpanIds.length) {
-        return contractFailure('support repeats a span id');
+        return { status: 'curator_contract_failed', reason: 'support repeats a span id' };
       }
       const spans = spansBySource.get(support.sourceId) ?? [];
       const spanById = new Map(spans.map((span) => [span.evidenceSpanId, span]));
       let selected: NarrativeEvidenceSpanV7[] = [];
       for (const id of support.evidenceSpanIds) {
         const span = spanById.get(id);
-        if (!span) return contractFailure(`unknown span ${id}`);
+        if (!span) return { status: 'curator_contract_failed', reason: `unknown span ${id}` };
         if (span.sourceId !== support.sourceId) {
-          return contractFailure(`span ${id} belongs to another source`);
+          return { status: 'curator_contract_failed', reason: `span ${id} belongs to another source` };
         }
         selected.push(span);
       }
@@ -284,27 +296,43 @@ export function buildValidatedDossierV8(
       const orderedIds = spans.map((span) => span.evidenceSpanId);
       const firstIndex = orderedIds.indexOf(selected[0].evidenceSpanId);
       if (firstIndex < 0) {
-        return contractFailure('supports reference a span from an unknown position');
+        return { status: 'curator_contract_failed', reason: 'supports reference a span from an unknown position' };
       }
       const isContiguous = selected.every((span, index) => (
         orderedIds[firstIndex + index] === span.evidenceSpanId
       ));
       if (!isContiguous) {
-        return contractFailure('supports reference non-contiguous spans');
+        return { status: 'curator_contract_failed', reason: 'supports reference non-contiguous spans' };
       }
       const quote = capture.content.slice(selected[0].start, selected[selected.length - 1].end);
-      if (!quote) return contractFailure('empty reconstructed quote');
+      if (!quote) return { status: 'curator_contract_failed', reason: 'empty reconstructed quote' };
       const passageId = `p-${deterministicIdV8(
         `${support.sourceId}\n${selected[0].start}:${selected[selected.length - 1].end}`
       )}`;
       if (!passages.some((passage) => passage.passageId === passageId)) {
-        passages.push({ passageId, sourceId: support.sourceId, quote });
+        const historicalContext = capture.sourceKind === 'historical_corpus' && capture.historicalCorpus
+          ? {
+              publicationYear: capture.historicalCorpus.publicationYear,
+              historicalPeriod: capture.historicalCorpus.historicalPeriod,
+              sourceTitle: capture.title,
+              sectionPath: [...capture.historicalCorpus.sectionPath],
+            }
+          : undefined;
+        passages.push({
+          passageId,
+          sourceId: support.sourceId,
+          quote,
+          ...(historicalContext ? { historicalContext } : {}),
+        });
       }
       passageIds.push(passageId);
       sourceIds.add(support.sourceId);
-      allSourceIds.add(support.sourceId);
       passageQuotes.push(quote);
       propositionPassageQuotes.push(quote);
+    }
+    if (proposition.role === 'visible_observation'
+      && [...sourceIds].every(id => captureById.get(id)?.sourceKind === 'historical_corpus')) {
+      return { status: 'curator_contract_failed', reason: 'historical-only evidence cannot establish current visible_observation' };
     }
     const interpretation = proposition.interpretation;
     if (interpretation === 'debatable') {
@@ -312,7 +340,7 @@ export function buildValidatedDossierV8(
         captureById.get(sourceId)?.authority.publisherKey
       )));
       if (publishers.size < 2) {
-        return contractFailure('debatable proposition lacks two distinct publishers');
+        return { status: 'curator_contract_failed', reason: 'debatable proposition lacks two distinct publishers' };
       }
     }
     if (proposition.certainty === 'high' && interpretation === 'direct') {
@@ -325,7 +353,7 @@ export function buildValidatedDossierV8(
         (quote) => includesNormalizedAnchorV8(quote, anchor)
       ));
       if (missingName) {
-        return contractFailure(`citation closure missing name ${missingName}`);
+        return { status: 'curator_contract_failed', reason: `citation closure missing name ${missingName}` };
       }
 
       const localNumbers = new Set(propositionPassageQuotes.flatMap(numericAnchorsV8));
@@ -341,7 +369,7 @@ export function buildValidatedDossierV8(
           && !normalizedLocalQuotes.some((quote) => includesNormalizedAnchorV8(quote, number)));
       const missingNumber = missingNumericLiteral ?? missingTextualNumber;
       if (missingNumber) {
-        return contractFailure(`citation closure missing number ${missingNumber}`);
+        return { status: 'curator_contract_failed', reason: `citation closure missing number ${missingNumber}` };
       }
     }
     propositions.push({
@@ -355,46 +383,138 @@ export function buildValidatedDossierV8(
       sourceIds: [...sourceIds].sort(),
       passageIds,
     });
+    return null;
+  };
+
+  for (let i = 0; i < curatorOutput.propositions.length; i++) {
+    const proposition = curatorOutput.propositions[i];
+    const snapshotPassages = passages.length;
+    const snapshotPassageQuotes = passageQuotes.length;
+    const failure = validateProposition(proposition);
+    if (failure) {
+      if (admissionMode === 'independent') {
+        passages.length = snapshotPassages;
+        passageQuotes.length = snapshotPassageQuotes;
+        rejectedPropositions.push({ index: i, text: proposition.text.trim(), reason: failure.reason });
+        continue;
+      }
+      return failure;
+    }
   }
 
-  if (propositions.length === 0) {
-    return contractFailure('curator output has no propositions');
-  }
+  if (propositions.length === 0 && admissionMode === 'strict') return contractFailure('curator output has no propositions');
   const identityNames = input.authorizedIdentityNames ?? [];
   const normalizedIdentityNames = identityNames.map(normalizeIdentityNameV8);
   const normalizedQuotes = passageQuotes.map(normalizeIdentityNameV8);
-  for (const name of curatorOutput.authorizedNames) {
-    const normalized = normalizeIdentityNameV8(name);
-    if (normalized.length === 0
-      || !(normalizedIdentityNames.includes(normalized)
-        || normalizedQuotes.some((quote) => quote.includes(normalized)))) {
-      return contractFailure(`unsupported authorized name ${name}`);
+  const retainedAuthorizedNames: string[] = [];
+  const removedAuthorizedNames: string[] = [];
+  const retainedAuthorizedNumbers: string[] = [];
+  const removedAuthorizedNumbers: string[] = [];
+
+  if (admissionMode === 'independent') {
+    for (const name of curatorOutput.authorizedNames) {
+      const normalized = normalizeIdentityNameV8(name);
+      if (normalized.length === 0
+        || !(normalizedIdentityNames.includes(normalized)
+          || normalizedQuotes.some((quote) => quote.includes(normalized)))) {
+        removedAuthorizedNames.push(name);
+      } else {
+        retainedAuthorizedNames.push(name);
+      }
+    }
+    for (const number of curatorOutput.authorizedNumbers) {
+      if (!passageQuotes.some((quote) => quote.includes(number))) {
+        removedAuthorizedNumbers.push(number);
+      } else {
+        retainedAuthorizedNumbers.push(number);
+      }
+    }
+  } else {
+    for (const name of curatorOutput.authorizedNames) {
+      const normalized = normalizeIdentityNameV8(name);
+      if (normalized.length === 0
+        || !(normalizedIdentityNames.includes(normalized)
+          || normalizedQuotes.some((quote) => quote.includes(normalized)))) {
+        return contractFailure(`unsupported authorized name ${name}`);
+      }
+    }
+    for (const number of curatorOutput.authorizedNumbers) {
+      if (!passageQuotes.some((quote) => quote.includes(number))) {
+        return contractFailure(`unsupported authorized number ${number}`);
+      }
     }
   }
-  for (const number of curatorOutput.authorizedNumbers) {
-    if (!passageQuotes.some((quote) => quote.includes(number))) {
-      return contractFailure(`unsupported authorized number ${number}`);
+
+  const acceptedSourceIds = new Set<string>();
+  for (const proposition of propositions) {
+    for (const sourceId of proposition.sourceIds) {
+      acceptedSourceIds.add(sourceId);
     }
   }
 
   const proposal: NarrativeDossierProposalV6 = {
     stopId: input.stopId,
     language: input.language,
-    sources: [...allSourceIds].sort(),
+    sources: [...acceptedSourceIds].sort(),
     passages,
     propositions,
-    authorizedNames: curatorOutput.authorizedNames,
-    authorizedNumbers: curatorOutput.authorizedNumbers,
+    authorizedNames: admissionMode === 'independent' ? retainedAuthorizedNames : curatorOutput.authorizedNames,
+    authorizedNumbers: admissionMode === 'independent' ? retainedAuthorizedNumbers : curatorOutput.authorizedNumbers,
     discrepancies: curatorOutput.discrepancies,
     limits: curatorOutput.limits,
   };
+
+  if (propositions.length === 0) {
+    if (admissionMode === 'independent') {
+      return {
+        status: 'curator_contract_failed',
+        reason: 'curator output has no propositions' + (rejectedPropositions.length ? '; first rejection: ' + rejectedPropositions[0].reason : ''),
+        admission: {
+          inputCount: curatorOutput.propositions.length,
+          acceptedCount: 0,
+          rejectedPropositions,
+          removedAuthorizedNames,
+          removedAuthorizedNumbers,
+        },
+      };
+    }
+    return contractFailure('curator output has no propositions');
+  }
+
   let dossier: NarrativeDossierV6;
   try {
     dossier = buildNarrativeDossierV6(proposal, captures);
   } catch (error) {
-    return contractFailure(`dossier adapter rejected the proposal: ${error instanceof Error ? error.message : String(error)}`);
+    const reason = `dossier adapter rejected the proposal: ${error instanceof Error ? error.message : String(error)}`;
+    if (admissionMode === 'independent') {
+      return {
+        status: 'curator_contract_failed',
+        reason,
+        admission: {
+          inputCount: curatorOutput.propositions.length,
+          acceptedCount: propositions.length,
+          rejectedPropositions,
+          removedAuthorizedNames,
+          removedAuthorizedNumbers,
+        },
+      };
+    }
+    return contractFailure(reason);
   }
   const gates = assessNarrativeEvidenceGatesV8(dossier, input.qid);
+  if (admissionMode === 'independent') {
+    return {
+      status: 'ok',
+      value: { dossier, gates, passageQuotes },
+      admission: {
+        inputCount: curatorOutput.propositions.length,
+        acceptedCount: propositions.length,
+        rejectedPropositions,
+        removedAuthorizedNames,
+        removedAuthorizedNumbers,
+      },
+    };
+  }
   return { status: 'ok', value: { dossier, gates, passageQuotes } };
 }
 

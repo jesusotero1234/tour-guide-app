@@ -183,6 +183,99 @@ const BASE_INPUT = {
 };
 
 describe('researchNarrativeStopV8', () => {
+  it('admits good propositions and persists per-round local rejections without extra curation', async () => {
+    const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      curate: async packet => {
+        const output = curatorFromSpans(packet);
+        output.propositions.push({ ...output.propositions[0], text: 'Una afirmación sin cita.',
+          supports: [{ sourceId: 'es-wiki', evidenceSpanIds: ['missing-span'] }] });
+        return output;
+      },
+    }));
+    expect(result.status).toBe('sufficient');
+    expect(result.stats.curationCount).toBe(1);
+    expect(result.stats.curatorAdmissions).toHaveLength(1);
+    expect(result.stats.curatorAdmissions![0]).toMatchObject({ round: 1, inputCount: 6, acceptedCount: 5,
+      rejectedPropositions: [{ index: 5, text: 'Una afirmación sin cita.', reason: 'unknown span missing-span' }] });
+    if (result.status === 'sufficient') expect(result.dossier.propositions).toHaveLength(5);
+    expect(JSON.parse(JSON.stringify(result)).stats.curatorAdmissions).toEqual(result.stats.curatorAdmissions);
+  });
+
+  it('keeps all-rejected research blocked and records each bounded round', async () => {
+    const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      curate: async packet => ({ ...curatorFromSpans(packet), propositions: [{
+        text: 'Una afirmación sin cita.', role: 'visible_observation', certainty: 'high', interpretation: 'direct',
+        supports: [{ sourceId: 'es-wiki', evidenceSpanIds: ['missing-span'] }],
+      }] }),
+    }));
+    expect(result.routeEligible).toBe(false);
+    expect(result.stats.curationCount).toBeLessThanOrEqual(2);
+    expect(result.stats.curatorAdmissions).toHaveLength(result.stats.curationCount);
+    expect(result.stats.curatorAdmissions!.every(report => report.acceptedCount === 0 && report.rejectedPropositions.length === 1)).toBe(true);
+  });
+  it('keeps off mode without historical calls or metadata', async () => {
+    const packets: NarrativeCuratorPacketV8[] = [];
+    const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      curate: async packet => { packets.push(packet); return curatorFromSpans(packet); },
+    }));
+    expect(result.stats.historicalCorpus).toBeUndefined();
+    expect(packets.every(packet => packet.historicalSources === undefined)).toBe(true);
+    expect(result.captureLog.some(log => log.phase === 'historical_corpus')).toBe(false);
+  });
+
+  it('passes historical candidates through spans, curator and cited dossier sources with provenance', async () => {
+    const historical = officialSource('source-corpus-test', 'En 1848 la Alcazaba de Málaga alojaba una guarnición que utilizaba el recinto fortificado.');
+    historical.sourceKind = 'historical_corpus';
+    historical.authority = { tier: 'established_source', publisherKey: 'books.example', rule: 'historical_corpus_reviewed' };
+    historical.publisherKey = 'books.example';
+    historical.historicalCorpus = {
+      indexVersion: 'sha256:' + 'a'.repeat(64), documentId: 'book', chunkId: 'sha256:' + 'b'.repeat(64),
+      textHash: 'sha256:' + 'c'.repeat(64), contentHash: 'sha256:' + 'd'.repeat(64),
+      sourceUrl: historical.finalUrl, publicationYear: 1848, historicalPeriod: '1848', sectionPath: ['Alcazaba'], entryTitle: 'Alcazaba', pageStart: 1, pageEnd: 1,
+      rightsStatus: 'reviewed_reusable', rightsVerifiedAt: '2026-09-04T00:00:00Z', rightsIsExplicitlyReusable: true,
+      coverageStatus: 'partial_source', coverageAcceptedForProduct: true, coverageStatement: 'Partial',
+      ocrConfidence: 0.98, attribution: 'Madoz',
+    };
+    const retrieveHistorical = jest.fn(async () => ({
+      captures: [historical], queries: 2, hits: 4, rejected: 3, indexVersion: historical.historicalCorpus!.indexVersion,
+      error: null, elapsedMs: 10,
+    }));
+    const packets: NarrativeCuratorPacketV8[] = [];
+    const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      retrieveHistorical,
+      curate: async packet => {
+        packets.push(packet);
+        const output = curatorFromSpans(packet);
+        const span = packet.spans.find(span => span.sourceId === historical.sourceId)!;
+        output.propositions.push({ text: span.text, role: 'chronology_or_transformation', certainty: 'high',
+          interpretation: 'direct', supports: [{sourceId: span.sourceId, evidenceSpanIds: [span.evidenceSpanId]}] });
+        output.authorizedNumbers.push('1848');
+        return output;
+      },
+    }));
+    expect(retrieveHistorical).toHaveBeenCalledTimes(1);
+    expect(result.stats.historicalCorpus).toMatchObject({ queries: 2, hits: 4, acceptedCaptures: 1 });
+    expect(packets[0].historicalSources?.[0]).toMatchObject({ sourceId: historical.sourceId, publicationYear: 1848 });
+    expect(result.captureLog.some(log => log.phase === 'historical_corpus' && log.outcome === 'capture_accepted')).toBe(true);
+    expect('dossier' in result && result.dossier?.sources.some(source => source.sourceId === historical.sourceId)).toBe(true);
+    const saved = JSON.parse(JSON.stringify(result));
+    expect(saved.captures.find((capture: NarrativeCapturedSourceV8) => capture.sourceId === historical.sourceId).historicalCorpus.chunkId)
+      .toBe(historical.historicalCorpus.chunkId);
+  });
+
+  it('continues ordinary research on RAG failure and propagates cancellation', async () => {
+    const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      retrieveHistorical: async () => { throw new Error('RAG unavailable'); },
+    }));
+    expect(result.stats.historicalCorpus?.error).toBe('RAG unavailable');
+    expect(result.captures.length).toBeGreaterThan(0);
+    expect(result.captureLog.some(log => log.phase === 'historical_corpus' && log.outcome === 'provider_failed')).toBe(true);
+    const abort = new Error('cancelled'); abort.name = 'AbortError';
+    await expect(researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
+      retrieveHistorical: async () => { throw abort; },
+    }))).rejects.toThrow('cancelled');
+  });
+
   it('meetsNarrativeRichnessTargetV8 enforces proposition and visual anchor thresholds', () => {
     const target = {
       stopId: 'Q1',
@@ -1452,7 +1545,10 @@ describe('researchNarrativeStopV8', () => {
     expect(result.status).toBe('evidence_review_required');
     if (result.status !== 'evidence_review_required') return;
     expect(result.routeEligible).toBe(false);
-    expect(result.reasons.some((reason) => reason.includes('curator_contract_failed') && reason.includes('unknown span'))).toBe(true);
+    expect(result.stats.curatorAdmissions?.some(report => report.rejectedPropositions.some(rejection => rejection.reason.includes('unknown span')))).toBe(true);
+    expect(result.dossier?.propositions).toHaveLength(4);
+    expect(result.dossier?.propositions.some(proposition => proposition.role === 'visible_observation')).toBe(false);
+    expect(result.gates.minimumEvidenceReady).toBe(false);
   });
 
   it('recognizes official identity after the first 500 captured characters', async () => {

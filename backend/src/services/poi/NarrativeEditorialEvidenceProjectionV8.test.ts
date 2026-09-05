@@ -198,18 +198,20 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     expect(projected.systemPrompt).toContain('300 segundos');
     expect(projected.systemPrompt).toContain('mínimo de 575');
     expect(projected.systemPrompt).toContain('máximo de 660');
-    expect(projected.systemPrompt).toContain('centro del intervalo, unas 618 palabras');
     expect(projected.systemPrompt).not.toContain('Escribe prosa oral continua de aproximadamente dos o tres minutos, sin rellenar.');
-    expect(projected.systemPrompt).toContain('orientación visible');
-    expect(projected.systemPrompt).toContain('cambio temporal');
-    expect(projected.systemPrompt).toContain('vida humana');
-    expect(projected.systemPrompt).toContain('contraste/significado');
-    expect(projected.systemPrompt).toContain('transición');
+    expect(projected.systemPrompt).toContain('detalle exterior concreto');
+    expect(projected.systemPrompt).toContain('uso humano documentado');
+    expect(projected.systemPrompt).toContain('transformación');
+    expect(projected.systemPrompt).toContain('consecuencia sustentada');
+    expect(projected.systemPrompt).toContain('bridge autorizado');
     expect(projected.systemPrompt).toContain('exactamente un segmento por cada entrada de writerPlan.beats');
     expect(projected.systemPrompt).toContain('en el mismo orden');
     expect(projected.systemPrompt).toContain('sin repetir ni dividir beats');
-    expect(projected.systemPrompt).toContain('targetWords dividido por el número de beats');
-    expect(projected.systemPrompt).toContain('palabras reales de segment.text, no estimatedWords');
+    expect(projected.systemPrompt).not.toContain('targetWords dividido por el número de beats');
+    expect(projected.systemPrompt).not.toContain('palabras reales de segment.text, no estimatedWords');
+    expect((input.dossier as Record<string, unknown>).writerEvidencePassages).toEqual(narrationFixture.dossier.passages);
+    expect(projected.systemPrompt).toContain('No uses memoria');
+    expect(projected.systemPrompt).not.toContain('captura');
   });
 
   test('retains partial C restrictions in per-stop requests while keeping the tour request compact', () => {
@@ -565,6 +567,83 @@ describe('NarrativeEditorialEvidenceProjectionV8', () => {
     for (const sentence of originalScript.sentences) {
       expect(sentence).not.toHaveProperty('sentenceFingerprint');
     }
+  });
+
+  test.each([
+    [549, 536, 642],
+    [515, 515, 642],
+    [700, 536, 700],
+  ])('repair prompt enforces effective word band for targetWords=566 with baseline %i', (baselineWords, minWords, maxWords) => {
+    const stopFixture = fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES);
+    expect(stopFixture.tier).toBe('C');
+    const admitted = admit(stopFixture);
+    const manifest = manifestFor([admitted]);
+    const narrationTarget = {
+      stopId: stopFixture.routeStopId,
+      targetSeconds: 300,
+      targetWords: 566,
+      minPropositions: 10,
+      maxPropositions: 14,
+      minVisualAnchors: 3,
+    };
+    const narrationTargets = new Map([[stopFixture.routeStopId, narrationTarget]]);
+    const projector = createNarrativeEditorialRequestProjectorV8(
+      [admitted],
+      manifest,
+      arcFor([admitted]),
+      narrationTargets
+    );
+
+    const baselineText = Array.from({ length: baselineWords }, (_, i) => `palabra${i}`).join(' ');
+    const repair = projector({
+      operation: 'repair',
+      systemPrompt: 'repair-prefix',
+      input: {
+        script: { stopId: stopFixture.routeStopId, sentences: [], text: baselineText },
+        objections: [],
+        adjudications: [],
+        dossier: stopFixture.dossier,
+      },
+    });
+
+    expect(repair.systemPrompt).toContain(`El texto completo resultante debe tener entre ${minWords} y ${maxWords} palabras`);
+    expect(repair.systemPrompt).toContain('La aceptación editorial no garantiza la publicación ni la duración final.');
+    expect(repair.systemPrompt).not.toContain('writerPlan.beats');
+    expect(repair.systemPrompt).not.toContain('supportCardIds');
+    expect(repair.systemPrompt).not.toContain('estimatedWords');
+    expect(repair.systemPrompt).not.toContain('targetWords dividido por el número de beats');
+    expect(repair.systemPrompt).toContain('missingWriterRoles');
+    expect(repair.systemPrompt).toContain('authorizedEvidence');
+    expect(repair.systemPrompt).toContain('Nunca uses una cadena vacía para borrar o fusionar sentenceIds.');
+  });
+
+  test('repair without narration target omits writer instructions and numeric band', () => {
+    const stopFixture = fixture('malaga-history-stop-03', 'Q3849447', COMPLETE_ROLES);
+    expect(stopFixture.tier).toBe('C');
+    const admitted = admit(stopFixture);
+    const manifest = manifestFor([admitted]);
+    const projector = createNarrativeEditorialRequestProjectorV8(
+      [admitted],
+      manifest,
+      arcFor([admitted])
+    );
+
+    const repair = projector({
+      operation: 'repair',
+      systemPrompt: 'repair-prefix',
+      input: {
+        script: { stopId: stopFixture.routeStopId, sentences: [], text: 'texto base' },
+        objections: [],
+        adjudications: [],
+        dossier: stopFixture.dossier,
+      },
+    });
+
+    expect(repair.systemPrompt).not.toContain('writerPlan');
+    expect(repair.systemPrompt).not.toContain('supportCardIds');
+    expect(repair.systemPrompt).not.toContain('estimatedWords');
+    expect(repair.systemPrompt).not.toContain('palabras');
+    expect(repair.systemPrompt).toContain('Nunca uses una cadena vacía para borrar o fusionar sentenceIds.');
   });
 
   test('rejects a corrupted manifest before any request projection', () => {

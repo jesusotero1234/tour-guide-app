@@ -158,7 +158,7 @@ function throwIfCancelled(signal?: AbortSignal): void {
   }
 }
 
-function mergeMechanicalStyleIssuesIntoTourAuditV8(
+export function mergeMechanicalStyleIssuesIntoTourAuditV8(
   tourAudit: NarrativeTourAuditV6,
   scripts: NarrativeScriptV6[]
 ): NarrativeTourAuditV6 {
@@ -288,7 +288,7 @@ function agentDiagnostics(result: {
   return result.diagnostics ?? [result.diagnostic];
 }
 
-function appendDiagnostics(
+export function appendDiagnostics(
   result: {
     diagnostic: EditorialCallResultV6<unknown>;
     diagnostics?: EditorialCallResultV6<unknown>[];

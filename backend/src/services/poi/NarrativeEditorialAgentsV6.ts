@@ -587,6 +587,7 @@ export interface NarrativeEditorialValidationHooksV6 {
   repairRequestAttempts?: 1 | 2 | 3 | 4;
   repairIncludePreviousResponseOnSemanticRetry?: boolean;
   auditAnchorsRequired?: boolean;
+  tourAuditRequestAttempts?: 1 | 2;
 }
 
 export type NarrativeEditorialOperationV6 = 'write' | 'audit' | 'adjudicate' | 'repair' | 'auditTour';
@@ -697,7 +698,11 @@ export function createNarrativeEditorialAgentsV6Core(
           2
         );
       const baseCallId = `narrative-v6-${auditor}-audit-${input.script.stopId}`;
-      const batchSize = auditor === 'gemma' || auditor === 'deepseek' ? 6 : 16;
+      const baseBatchSize = auditor === 'gemma' || auditor === 'deepseek' ? 6 : 16;
+      // ponytail: provisional 250 tokens/finding; retain truncation splitting until a compact audit contract is validated.
+      const batchSize = validationHooks.auditAnchorsRequired
+        ? Math.min(baseBatchSize, Math.max(1, Math.floor((execution?.options.maxTokens ?? 2000) / 250)))
+        : baseBatchSize;
       const sentenceBatches = Array.from(
         { length: Math.ceil(input.script.sentences.length / batchSize) },
         (_, index) => input.script.sentences.slice(index * batchSize, (index + 1) * batchSize)
@@ -975,7 +980,7 @@ export function createNarrativeEditorialAgentsV6Core(
 
     async auditTour(input, request) {
       const execution = narrativePhaseExecutionV6(
-        withExecution(request), 'global_auditor', undefined, 2
+        withExecution(request), 'global_auditor', undefined, validationHooks.tourAuditRequestAttempts ?? 2
       );
       const auditTourSystemPrompt = [
           'Audita el tour completo: progresión, entrega de la promesa, puentes, repetición y cierre.',

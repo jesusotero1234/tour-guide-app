@@ -25,6 +25,7 @@ export interface NarrativeDossierProposalV6 {
     sourceId: string;
     chunkId?: string;
     quote: string;
+    historicalContext?: { publicationYear: number; historicalPeriod: string; sourceTitle: string; sectionPath?: string[] };
   }>;
   propositions: Array<{
     propositionId: string;

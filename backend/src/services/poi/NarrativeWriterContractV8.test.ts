@@ -121,10 +121,16 @@ describe('NarrativeWriterContractV8', () => {
 
     expect(plan.beats.map((beat) => beat.beat)).toEqual([
       'arrival_and_orientation',
-      'visible_anchor',
       'time_shift',
     ]);
     expect(plan.beats.every((beat) => beat.evidenceCardIds.length > 0)).toBe(true);
+
+    const allCardIds = plan.beats.flatMap((beat) => beat.evidenceCardIds);
+    expect(new Set(allCardIds).size).toBe(allCardIds.length);
+
+    const visualBeats = plan.beats.filter((beat) => beat.beat === 'arrival_and_orientation' || beat.beat === 'visible_anchor');
+    expect(visualBeats.length).toBe(1);
+    expect(visualBeats[0].beat).toBe('arrival_and_orientation');
   });
 
   it('does not offer duplicate claims to the writer', () => {
@@ -318,6 +324,26 @@ describe('NarrativeWriterContractV8', () => {
     (response.segments[0] as Record<string, unknown>).unknownSegmentField = 'value';
 
     expect(() => parseNarrativeWriterResponseV8(plan, response)).toThrow();
+  });
+
+  it('assigns each cardId exactly once across the plan and does not invent visual orientation for stops without visual evidence', () => {
+    const dossier = dossierWithRoles('no-visual-stop', [
+      { role: 'chronology_or_transformation', text: 'El edificio fue restaurado en el siglo XIX.' },
+      { role: 'human_agency_or_lived_function', text: 'Los vecinos usaban el patio para reuniones.' },
+    ]);
+
+    const plan = buildNarrativeWriterPlanV8({
+      routeStopId: 'no-visual-stop',
+      dossier,
+      narrationTarget: narrationTargetForSecondsV8('no-visual-stop', 120),
+      stopIndex: 0,
+    });
+
+    const allCardIds = plan.beats.flatMap((beat) => beat.evidenceCardIds);
+    expect(new Set(allCardIds).size).toBe(allCardIds.length);
+
+    const visualBeats = plan.beats.filter((beat) => beat.beat === 'arrival_and_orientation' || beat.beat === 'visible_anchor');
+    expect(visualBeats.length).toBe(0);
   });
 
   it('does not include uniqueItems anywhere in the writer response schema', () => {

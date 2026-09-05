@@ -77,20 +77,22 @@ function cardsWithFacetV8(
 
 function beatCardsV8(
   beat: NarrativeBeatV8,
-  cards: NarrativeEvidenceCardV8[]
+  cards: NarrativeEvidenceCardV8[],
+  assignedCardIds: Set<string>
 ): string[] {
   switch (beat) {
     case 'arrival_and_orientation':
+      return cardsWithFacetV8(cards, 'visual').filter((cardId) => !assignedCardIds.has(cardId)).slice(0, 1);
     case 'visible_anchor':
-      return cardsWithFacetV8(cards, 'visual');
+      return cardsWithFacetV8(cards, 'visual').slice(1).filter((cardId) => !assignedCardIds.has(cardId));
     case 'time_shift':
-      return cardsWithFacetV8(cards, 'chronology');
+      return cardsWithFacetV8(cards, 'chronology').filter((cardId) => !assignedCardIds.has(cardId));
     case 'human_scene_or_use':
-      return cardsWithFacetV8(cards, 'human');
+      return cardsWithFacetV8(cards, 'human').filter((cardId) => !assignedCardIds.has(cardId));
     case 'contrast_or_consequence':
-      return cardsWithFacetV8(cards, 'contrast');
+      return cardsWithFacetV8(cards, 'contrast').filter((cardId) => !assignedCardIds.has(cardId));
     case 'takeaway_and_transition':
-      return cardsWithFacetV8(cards, 'distinctive');
+      return cardsWithFacetV8(cards, 'distinctive').filter((cardId) => !assignedCardIds.has(cardId));
   }
 }
 
@@ -294,11 +296,13 @@ export function buildNarrativeWriterPlanV8(
   const evidenceCards = uniqueCardsV8(
     buildNarrativeEvidenceCardsV8(input.dossier)
   );
+  const assignedCardIds = new Set<string>();
   const beats = NARRATIVE_BEAT_ORDER_V8
-    .map((beat): NarrativeBeatPlanItemV8 => ({
-      beat,
-      evidenceCardIds: beatCardsV8(beat, evidenceCards),
-    }))
+    .map((beat): NarrativeBeatPlanItemV8 => {
+      const cardIds = beatCardsV8(beat, evidenceCards, assignedCardIds);
+      cardIds.forEach((cardId) => assignedCardIds.add(cardId));
+      return { beat, evidenceCardIds: cardIds };
+    })
     .filter((beat) => beat.evidenceCardIds.length > 0);
   const normalizedStopIndex = Number.isFinite(input.stopIndex)
     ? Math.max(0, Math.floor(input.stopIndex))

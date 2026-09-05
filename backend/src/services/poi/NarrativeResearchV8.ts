@@ -5,6 +5,7 @@ import {
 import {
   NarrativeCuratorOutputV8,
   NarrativeDossierInputV8,
+  NarrativePropositionAdmissionV8,
   NarrativeEvidenceGatesV8,
   NarrativeEvidenceTierV8,
   NarrativeRoleV8,
@@ -16,6 +17,7 @@ import {
   NarrativeCapturedSourceV7,
   NarrativeCapturedSourceV8,
   NarrativeDiscoveryResultV7,
+  NarrativeHistoricalProvenanceV8,
   NarrativeSourceKindV8,
   classifyNarrativeSourceAuthorityV7,
   classifyWikipediaCaptureV8,
@@ -70,6 +72,7 @@ export interface NarrativeCuratorPacketV8 {
   excludedSpanCount: number;
   priorityRoles: NarrativeRoleV8[];
   narrationTarget: NarrativeNarrationTargetV8;
+  historicalSources?: Array<{ sourceId: string } & NarrativeHistoricalProvenanceV8>;
 }
 
 export const NARRATIVE_ROLE_DEFINITIONS_V8 = [
@@ -158,6 +161,18 @@ export interface NarrativeResearchServicesV8 {
     usedQueries: string[];
     missingRoles: NarrativeRoleV8[];
   }): Promise<string[]>;
+  retrieveHistorical?(input: NarrativeResearchStopInputV8 & { aliases: string[] }): Promise<{
+    captures: NarrativeCapturedSourceV8[];
+    queries: number;
+    hits: number;
+    rejected: number;
+    rejectionReasons?: Record<string, number>;
+    queueWaitMs?: number;
+    pageRequests?: number;
+    indexVersion: string | null;
+    error: string | null;
+    elapsedMs: number;
+  }>;
 }
 
 export type NarrativeResearchStopResultV8 =
@@ -212,6 +227,19 @@ export interface NarrativeResearchStopStatsV8 {
   capturedSourceCount: number;
   publisherCount: number;
   curationCount: number;
+  curatorAdmissions?: Array<NarrativePropositionAdmissionV8 & { round: number }>;
+  historicalCorpus?: {
+    queries: number;
+    hits: number;
+    rejected: number;
+    acceptedCaptures: number;
+    rejectionReasons?: Record<string, number>;
+    queueWaitMs?: number;
+    pageRequests?: number;
+    indexVersion: string | null;
+    error: string | null;
+    elapsedMs: number;
+  };
 }
 
 export type NarrativeCaptureOutcomeV8 =
@@ -224,7 +252,7 @@ export type NarrativeCaptureOutcomeV8 =
 
 export interface NarrativeCaptureAttemptV8 {
   stopId: string;
-  phase: 'p856' | 'deterministic_search' | 'map' | 'adaptive_search' | 'wikipedia';
+  phase: 'p856' | 'deterministic_search' | 'map' | 'adaptive_search' | 'wikipedia' | 'historical_corpus';
   requestedUrl: string;
   finalUrl: string;
   authorityBeforeCapture: string;
@@ -557,6 +585,8 @@ export async function researchNarrativeStopV8(
   let webCaptureResponses = 0;
   let infrastructureFailureCount = 0;
   let curationCount = 0;
+  const curatorAdmissions: Array<NarrativePropositionAdmissionV8 & { round: number }> = [];
+  let historicalCorpusStats: NarrativeResearchStopStatsV8['historicalCorpus'] | undefined;
   type ResearchRoundV8 = {
     dossier: NarrativeDossierV6;
     gates: NarrativeEvidenceGatesV8;
@@ -590,6 +620,8 @@ export async function researchNarrativeStopV8(
     capturedSourceCount: captures.length,
     publisherCount: publisherCount(),
     curationCount,
+    curatorAdmissions: [...curatorAdmissions],
+    ...(historicalCorpusStats ? { historicalCorpus: historicalCorpusStats } : {}),
   });
 
   const recordInfrastructureFailure = (error: unknown): void => {
@@ -781,6 +813,7 @@ export async function researchNarrativeStopV8(
       registry,
       computeRepairPriorityRoles()
     );
+    if (curated?.admission) curatorAdmissions.push({ round: curationCount, ...curated.admission });
     if (curated && 'dossier' in curated) {
       const tier = classifyEvidenceTierV8(curated.dossier, curated.gates, captures);
       const candidate = { ...curated, tier };
@@ -876,6 +909,75 @@ export async function researchNarrativeStopV8(
     if (attemptedUrls.size >= budget.captures) break;
     if (authority.origin !== 'place_p856' || !authority.url) continue;
     await attemptWebCapture(authority.url, 'p856');
+  }
+
+  if (services.retrieveHistorical) {
+    const deduplicatedAliases = [...new Set([...identity.labels, ...identity.aliases, identity.wikipediaTitle ?? input.stopName])];
+    const historicalStartedAt = Date.now();
+    try {
+      const historicalResult = await services.retrieveHistorical({ ...input, aliases: deduplicatedAliases });
+      const elapsedMs = Date.now() - historicalStartedAt;
+      historicalCorpusStats = {
+        queries: historicalResult.queries,
+        hits: historicalResult.hits,
+        rejected: historicalResult.rejected,
+        rejectionReasons: historicalResult.rejectionReasons,
+        queueWaitMs: historicalResult.queueWaitMs,
+        pageRequests: historicalResult.pageRequests,
+        acceptedCaptures: 0,
+        indexVersion: historicalResult.indexVersion,
+        error: historicalResult.error,
+        elapsedMs,
+      };
+      const historicalCaptures = historicalResult.captures.filter(c => c.sourceKind === 'historical_corpus' && c.historicalCorpus).slice(0, 3);
+      for (const capture of historicalCaptures) {
+        const accepted = addCapturedSource(capture);
+        captureLog.push({
+          stopId: input.stopId,
+          phase: 'historical_corpus',
+          requestedUrl: capture.requestedUrl,
+          finalUrl: capture.finalUrl,
+          authorityBeforeCapture: 'historical_corpus',
+          authorityAfterCapture: capture.authority.tier,
+          publisherKey: capture.authority.publisherKey,
+          outcome: accepted ? 'capture_accepted' : 'capture_rejected',
+          httpStatus: capture.finalHttpStatus,
+          errorClassification: null,
+          attempt: attemptedUrls.size,
+          elapsedMs,
+        });
+        if (accepted) {
+          historicalCorpusStats.acceptedCaptures += 1;
+        }
+      }
+    } catch (error) {
+      const elapsedMs = Date.now() - historicalStartedAt;
+      const isAbort = error instanceof Error && (error.name === 'AbortError' || error.name === 'CanceledError' || (error as { code?: string }).code === 'ERR_CANCELED');
+      if (isAbort) throw error;
+      historicalCorpusStats = {
+        queries: 0,
+        hits: 0,
+        rejected: 0,
+        acceptedCaptures: 0,
+        indexVersion: null,
+        error: error instanceof Error ? error.message : String(error),
+        elapsedMs,
+      };
+      captureLog.push({
+        stopId: input.stopId,
+        phase: 'historical_corpus',
+        requestedUrl: '',
+        finalUrl: '',
+        authorityBeforeCapture: 'historical_corpus',
+        authorityAfterCapture: 'error',
+        publisherKey: null,
+        outcome: 'provider_failed',
+        httpStatus: null,
+        errorClassification: errorCodeV8(error),
+        attempt: attemptedUrls.size,
+        elapsedMs,
+      });
+    }
   }
 
   // Primera curación (ronda 1) con al menos una captura aceptada.
@@ -1311,8 +1413,8 @@ async function curateRoundV8(
   registry: NarrativeAuthorityRegistryV7,
   priorityRoles: NarrativeRoleV8[]
 ): Promise<
-  | { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8 }
-  | { failure: string }
+  | { dossier: NarrativeDossierV6; gates: NarrativeEvidenceGatesV8; admission?: NarrativePropositionAdmissionV8 }
+  | { failure: string; admission?: NarrativePropositionAdmissionV8 }
 > {
   if (captures.length === 0) return { failure: 'no captures in this round' };
   const packet = buildCuratorPacketV8({
@@ -1325,6 +1427,19 @@ async function curateRoundV8(
     priorityRoles,
     narrationTarget: input.narrationTarget,
   });
+  const historicalCaptures = captures.filter((capture) => capture.sourceKind === 'historical_corpus' && capture.historicalCorpus);
+  if (historicalCaptures.length > 0) {
+    const selectedSourceIds = new Set(packet.spans.map((span) => span.sourceId));
+    const historicalSources = historicalCaptures
+      .filter((capture) => selectedSourceIds.has(capture.sourceId))
+      .map((capture) => ({
+        sourceId: capture.sourceId,
+        ...capture.historicalCorpus!,
+      }));
+    if (historicalSources.length > 0) {
+      packet.historicalSources = historicalSources;
+    }
+  }
   if (packet.spans.length === 0) return { failure: 'no spans in the curator packet' };
   let output: NarrativeCuratorOutputV8;
   try {
@@ -1344,13 +1459,14 @@ async function curateRoundV8(
     qid: input.stopId,
     language: input.language,
     curatorOutput: normalized.output,
+    admissionMode: 'independent',
     captures,
     spansBySource,
     authorizedIdentityNames: [...identity.labels, ...identity.aliases],
   };
   const validation = buildValidatedDossierV8(dossierInput);
-  if (validation.status !== 'ok') return { failure: validation.reason };
-  return { dossier: validation.value.dossier, gates: validation.value.gates };
+  if (validation.status !== 'ok') return { failure: validation.reason, admission: validation.admission };
+  return { dossier: validation.value.dossier, gates: validation.value.gates, admission: validation.admission };
 }
 
 function sufficientResultV8(

@@ -42,12 +42,43 @@ export type NarrativeSourceKindV8 =
   | 'official_web'
   | 'wikipedia_api'
   | 'wikidata_api'
-  | 'other_web';
+  | 'other_web'
+  | 'historical_corpus';
+
+export interface NarrativeHistoricalProvenanceV8 {
+  indexVersion: string;
+  documentId: string;
+  chunkId: string;
+  textHash: string;
+  contentHash: string;
+  sourceUrl: string;
+  publicationYear: number;
+  historicalPeriod: string;
+  sectionPath: string[];
+  entryTitle: string | null;
+  pageStart: number;
+  pageEnd: number;
+  rightsStatus: string;
+  rightsVerifiedAt: string;
+  rightsIsExplicitlyReusable: boolean;
+  coverageStatus: string;
+  coverageAcceptedForProduct: boolean;
+  coverageStatement: string | null;
+  ocrConfidence: number;
+  attribution: string | null;
+  pageContext?: {
+    pageId: string;
+    logicalPageNumber: number;
+    headerLineId: string;
+    headerText: string;
+  };
+}
 
 export interface NarrativeCapturedSourceV8 extends NarrativeCapturedSourceV7 {
   sourceKind: NarrativeSourceKindV8;
   entityQid: string | null;
   publisherKey: string;
+  historicalCorpus?: NarrativeHistoricalProvenanceV8;
 }
 
 export function classifyWikipediaCaptureV8(input: {

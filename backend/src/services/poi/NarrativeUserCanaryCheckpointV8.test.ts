@@ -67,6 +67,7 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
       schemaVersion: SCHEMA_VERSION,
       completedPhase,
       run: { ...baseRun },
+      core: { requiredIds: ['Q1'], coverageRatio: 1, disagreement: false },
       ...overrides,
     };
     if (completedPhase === "candidates") {
@@ -119,6 +120,7 @@ describe("NarrativeUserCanaryCheckpointV8", () => {
 
       // Create input B with different key order
       const inputB: Record<string, unknown> = {
+        core: inputA.core,
         scorecard: baseScorecard,
         editorial: baseEditorial,
         arc: baseArc,

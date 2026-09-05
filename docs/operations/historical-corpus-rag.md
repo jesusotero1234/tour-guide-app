@@ -5,8 +5,51 @@ rights and OCR provenance. Its results are discovery candidates only: they do
 not become authorized Narrative V8 evidence until the existing curator,
 support, boundary and manifest checks accept them.
 
-The service is intentionally absent from the shared Podman stack and every
-canary. It starts only when its dedicated compose file is named explicitly.
+The service is intentionally absent from the shared Podman stack and is not
+started by a canary. Start it explicitly with its dedicated compose file.
+Narrative V8 can optionally query the running service with `--rag=on`; its
+default `--rag=off` makes no corpus requests.
+
+## Narrative V8: optional evidence
+
+Add `--rag=on` to the normal `quality:narrative:v8:user-canary` command.
+Use `--rag=off` (the default) for the baseline. The optional
+`--rag-base-url=http://127.0.0.1:3010` or `HISTORICAL_CORPUS_BASE_URL`
+selects the already-running local service; only HTTP loopback origins are
+accepted. No ingest, index repair or model/provider changes occur.
+
+Retrieval runs before the first curator round. At most two searches and three
+accepted chunks per stop are allowed. Untagged corpora use a bounded textual
+fallback requiring city and stop identity; a retrieval score alone is not
+identity evidence. Current policy admits reviewed reusable, coverage-accepted,
+exact-record primary historical sources with OCR confidence at least 0.9 and
+reranker score at least 0.5. These conservative cutoffs are provisional, not
+a guarantee of semantic relevance.
+
+The curator receives catalogue metadata separately from the original OCR.
+Historical evidence alone cannot establish a current visible observation.
+Each chunk keeps its provenance and a distinct source URL fragment; chunks
+from the same hostname do not count as independent publishers. The fragment
+identifies the corpus chunk, not a claimed Google Books page anchor. Logical
+page numbers, source URL, section, year and hashes remain in checkpoint
+capture metadata.
+
+A missing/down corpus degrades to ordinary sources and records the error;
+`off` makes no corpus requests. Inspect
+`review.research[].historicalCorpus`, `historicalSourceIdsUsed` and
+`historicalPropositionCount` to distinguish retrieval from actual dossier
+use. Full provenance is saved under research captures' `historicalCorpus`.
+Publication checks are unchanged.
+
+Use different run IDs for comparisons. The research mode is part of the
+request fingerprint: an off checkpoint can switch to on only with
+`--resume-from=research` and the same base request. This preserves route and
+narration targets but rebuilds research, arc and narration; editorial/scorecard
+resumes cannot reuse old approvals under a changed RAG mode. The corpus index
+version is recorded with every accepted capture.
+
+Keep `--prior-spend-usd` cumulative across trials of one authorized budget;
+do not reset it to zero between the off/on runs.
 
 ## Prerequisites
 

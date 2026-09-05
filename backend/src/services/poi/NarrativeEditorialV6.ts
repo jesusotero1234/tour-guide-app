@@ -41,6 +41,7 @@ export interface NarrativeAuditFindingV6 {
 }
 
 export interface NarrativeAuditReportV6 {
+  provenance?: { transport: string; requestedModel: string; actualModel: string | null; actualProvider: string | null };
   auditor: NarrativeAuditorV6;
   findings: NarrativeAuditFindingV6[];
 }

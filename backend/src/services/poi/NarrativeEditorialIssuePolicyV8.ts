@@ -235,9 +235,9 @@ export function buildFinalNarrativeIssueStateV8(
   finalAcceptedTourObjections: NarrativeAuditObjectionV6[],
   finalScripts: NarrativeScriptV6[],
   tourBooleanFailures: {
-    progressionWorks: boolean;
-    promiseDelivered: boolean;
-    closingWorks: boolean;
+    progressionWorks: boolean | null;
+    promiseDelivered: boolean | null;
+    closingWorks: boolean | null;
     tourFingerprint: string;
   }
 ): NarrativeEditorialFinalIssueStateV8 {
@@ -318,14 +318,34 @@ export function buildFinalNarrativeIssueStateV8(
   }
 
   const booleanFailures: Array<{ id: string; reason: string }> = [];
-  if (!tourBooleanFailures.progressionWorks) {
+  if (tourBooleanFailures.progressionWorks === false) {
     booleanFailures.push({ id: 'tour:progressionWorks', reason: 'Tour progression does not work' });
   }
-  if (!tourBooleanFailures.promiseDelivered) {
+  if (tourBooleanFailures.promiseDelivered === false) {
     booleanFailures.push({ id: 'tour:promiseDelivered', reason: 'Tour promise not delivered' });
   }
-  if (!tourBooleanFailures.closingWorks) {
+  if (tourBooleanFailures.closingWorks === false) {
     booleanFailures.push({ id: 'tour:closingWorks', reason: 'Tour closing does not work' });
+  }
+
+  const hasNullTourBoolean =
+    tourBooleanFailures.progressionWorks === null ||
+    tourBooleanFailures.promiseDelivered === null ||
+    tourBooleanFailures.closingWorks === null;
+
+  if (hasNullTourBoolean) {
+    issues.push({
+      schemaVersion: NARRATIVE_EDITORIAL_ISSUE_SCHEMA_VERSION_V8,
+      issueId: 'tour:global_review_pending',
+      source: 'tour',
+      stopId: 'tour',
+      sentenceIds: [],
+      code: 'global_review_pending',
+      severity: 'hard',
+      state: 'open',
+      scriptFingerprint: tourBooleanFailures.tourFingerprint,
+      reason: 'Revisión global pendiente',
+    });
   }
 
   for (const failure of booleanFailures) {

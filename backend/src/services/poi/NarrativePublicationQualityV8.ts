@@ -8,7 +8,8 @@ import {
   NarrativeTourStyleReportV8,
   analyzeNarrativeTourStyleV8,
 } from './NarrativeTourStyleV8';
-import { NARRATIVE_BEAT_ORDER_V8, NarrativeBeatV8 } from './NarrativeWriterContractV8';
+import { NARRATIVE_BEAT_ORDER_V8, NarrativeBeatV8, parseNarrativeWriterResponseV8 } from './NarrativeWriterContractV8';
+import type { NarrativeFinalWriterTraceV8 } from './NarrativeEditorialStageStateV8';
 
 export interface NarrativePublicationStopQualityV8 {
   stopId: string;
@@ -29,6 +30,7 @@ export interface NarrativePublicationQualityV8 {
   lengthPassed: boolean;
   traceabilityPassed: boolean | null;
   stylePassed: boolean;
+  stageVerificationPassed: boolean | null;
   stops: NarrativePublicationStopQualityV8[];
   style: NarrativeTourStyleReportV8;
 }
@@ -39,6 +41,8 @@ export interface BuildNarrativePublicationQualityInputV8 {
   arcContributions: Readonly<Record<string, string>>;
   writerDiagnostics: EditorialCallResultV6<unknown>[];
   requireWriterTraceability: boolean;
+  finalWriterTraces?: Readonly<Record<string, NarrativeFinalWriterTraceV8>>;
+  stageVerificationPassed?: boolean;
 }
 
 interface WriterTraceabilityV8 {
@@ -57,6 +61,48 @@ function objectV8(value: unknown): Record<string, unknown> | null {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
     ? value as Record<string, unknown>
     : null;
+}
+
+function traceWriterTraceabilityV8(
+  stopId: string,
+  script: NarrativeScriptV6,
+  trace: NarrativeFinalWriterTraceV8 | undefined
+): WriterTraceabilityV8 {
+  if (!trace || !trace.plan || !trace.draft || trace.scriptFingerprint !== script.fingerprint || trace.plan.routeStopId !== script.stopId) {
+    return {
+      highPriorityCoverage: null,
+      beatCount: 0,
+      beats: [],
+      traceabilityPassed: false,
+    };
+  }
+  try {
+    const parsed = parseNarrativeWriterResponseV8(trace.plan, {
+      stop_id: script.stopId,
+      segments: trace.draft.segments,
+    });
+    if (parsed.text !== script.text) {
+      return {
+        highPriorityCoverage: null,
+        beatCount: 0,
+        beats: [],
+        traceabilityPassed: false,
+      };
+    }
+    return {
+      highPriorityCoverage: parsed.coverage,
+      beatCount: parsed.segments.length,
+      beats: parsed.segments.map((segment) => segment.beat),
+      traceabilityPassed: true,
+    };
+  } catch {
+    return {
+      highPriorityCoverage: null,
+      beatCount: 0,
+      beats: [],
+      traceabilityPassed: false,
+    };
+  }
 }
 
 function writerTraceabilityV8(
@@ -149,7 +195,9 @@ export function buildNarrativePublicationQualityV8(
     }
     const { minimumWords, maximumWords } = narrationLengthBoundsV8(target.targetWords);
     const finalWordCount = wordCountV8(script.text);
-    const traceability = writerTraceabilityV8(script.stopId, input.writerDiagnostics);
+    const traceability = input.finalWriterTraces !== undefined
+      ? traceWriterTraceabilityV8(script.stopId, script, input.finalWriterTraces[script.stopId])
+      : writerTraceabilityV8(script.stopId, input.writerDiagnostics);
     return {
       stopId: script.stopId,
       targetSeconds: target.targetSeconds,
@@ -180,11 +228,13 @@ export function buildNarrativePublicationQualityV8(
       && traceabilityPassed === true
     );
 
+  const stageVerificationPassed = input.stageVerificationPassed ?? null;
   return {
-    passed: lengthPassed && style.passed && requiredTraceabilityPassed,
+    passed: lengthPassed && style.passed && requiredTraceabilityPassed && input.stageVerificationPassed !== false,
     lengthPassed,
     traceabilityPassed,
     stylePassed: style.passed,
+    stageVerificationPassed,
     stops,
     style,
   };

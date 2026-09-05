@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import axios from 'axios';
-import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { TourRequest } from '../../src/types/api';
 import { requestEditorialStructuredV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
@@ -36,6 +36,7 @@ import {
   validateNarrativeArcV8,
 } from '../../src/services/poi/NarrativeArcArchitectV8';
 import { NarrativeScriptV6 } from '../../src/services/poi/NarrativeEditorialV6';
+import { NarrativeFinalWriterTraceV8 } from '../../src/services/poi/NarrativeEditorialStageStateV8';
 import {
   createNarrativeEditorialAgentsV8,
 } from '../../src/services/poi/NarrativeEditorialAgentsV8';
@@ -65,7 +66,7 @@ import {
 import { NarrativeProgressSpendGuardV6 } from '../../src/services/poi/NarrativeProgressSpendGuardV6';
 import { NarrativeCanaryConsoleReporterV8 } from '../../src/services/poi/NarrativeCanaryConsoleReporterV8';
 import { createNarrativeSchedulerV6 } from '../../src/services/poi/NarrativeSchedulerV6';
-import { EditorialCallResultV6, EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
+import { EditorialCallResultV6, EditorialProgressCallbackV6, EditorialProgressEventV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import { loadLiveCityCandidatesV8, LiveCityCandidatesV8Input } from '../../src/services/poi/LiveCityCandidatesV8';
 import { resolveWikidataQidFromWikipediaV8 } from '../../src/services/poi/NarrativeAuthoritiesV7';
 import {
@@ -73,7 +74,9 @@ import {
   selectEssentialRouteV8,
   EssentialRouteCandidateV8,
 } from '../../src/services/poi/EssentialRouteSelectionV8';
-import { allocateNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationTargetsV8';
+import { allocateNarrationTargetsV8, SPEAKING_RATE_WORDS_PER_MINUTE } from '../../src/services/poi/NarrativeDurationTargetsV8';
+import { summarizeNarrativeCallsV8 } from '../../src/services/poi/NarrativeCallSummaryV8';
+import { historicalCorpusOriginV8, narrativeRagResumeRequestFingerprintV8, retrieveNarrativeHistoricalCorpusV8 } from '../../src/services/poi/NarrativeHistoricalCorpusV8';
 import { reconcileNarrationTargetsV8 } from '../../src/services/poi/NarrativeDurationReconciliationV8';
 import { evaluateNarrativeRichnessV8 } from '../../src/services/poi/NarrativeRichnessV8';
 import { buildNarrativePublicationQualityV8 } from '../../src/services/poi/NarrativePublicationQualityV8';
@@ -89,6 +92,8 @@ import {
   JsonValue,
   NarrativeUserCanaryCheckpointV8,
   decodeCheckpointNarrationTargetsV8,
+  decodeCheckpointCoreV8,
+  NarrativeCheckpointCoreV8,
   parseResumeOptionsV8,
   readCheckpointV8,
   assertResumeCompatibilityV8,
@@ -130,7 +135,7 @@ import {
   researchRuntimeV8,
 } from '../../src/services/poi/NarrativeUserCanaryRuntimeV8';
 
-const SPEND_LIMIT_USD = 2;
+const SPEND_LIMIT_USD = Number(option('--spend-limit-usd') ?? 2);
 const DEADLINE_MS = 30 * 60 * 1_000;
 
 function option(name: string): string | undefined {
@@ -150,7 +155,7 @@ function safeError(error: unknown, secrets: string[]): string {
   );
 }
 
-async function curatorServiceV8(options: {
+export async function curatorServiceV8(options: {
   apiKey: string;
   openRouterApiKey: string;
   openRouterPricing?: Record<string, EditorialPricingV6>;
@@ -190,12 +195,18 @@ async function curatorServiceV8(options: {
         })),
         publishers: packet.publishers,
         priorityRoles: packet.priorityRoles,
+        ...(packet.historicalSources?.length ? { historicalSources: packet.historicalSources } : {}),
       },
       provider: execution.provider,
       options: execution.options,
       systemPrompt: [
         'Eres investigador y curador histórico de una parada de tour.',
         'Devuelve proposiciones factuales con soporte en spans literales.',
+        ...(packet.historicalSources?.length ? [
+          'historicalSources son testimonios de época: conserva su atribución y fecha; no los conviertas en descripciones actuales ni en hechos indiscutibles cuando difieran de fuentes modernas.',
+          'El año de publicación no es una fecha de construcción. Los metadatos de catálogo se distinguen del OCR literal. No inventes correcciones de cifras OCR dudosas.',
+          'Nunca uses solo fuentes históricas para visible_observation. Úsalas para cronología, usos documentados o contrastes históricos con contexto explícito.',
+        ] : []),
         ...NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8,
         ...curatorRoleGuidanceV8(packet.priorityRoles),
         'Una proposición directa necesita un soporte de fuente autorizada; una debatible necesita',
@@ -534,9 +545,9 @@ function decodeCheckpointRoute(value: unknown, checkpointPath: string): Narrativ
   return { ...briefWithoutFingerprint, fingerprint: expectedFingerprint };
 }
 
-async function loadReplayRoute(artifactPath: string): Promise<{
+export async function loadReplayRoute(artifactPath: string): Promise<{
   route: NarrativeRouteBriefV6;
-  coreCoverageVerified: boolean;
+  core: NarrativeCheckpointCoreV8;
 }> {
   const artifact = JSON.parse(require('fs').readFileSync(artifactPath, 'utf8')) as {
     route?: NarrativeRouteBriefV6;
@@ -561,7 +572,7 @@ async function loadReplayRoute(artifactPath: string): Promise<{
   const briefWithoutFingerprint = { ...artifact.route, stops };
   return {
     route: { ...briefWithoutFingerprint, fingerprint: narrativeFingerprintV6(briefWithoutFingerprint) },
-    coreCoverageVerified: Boolean(artifact.core),
+    core: decodeCheckpointCoreV8(artifact.core, artifactPath),
   };
 }
 
@@ -574,6 +585,8 @@ async function buildResearchServices(options: {
   runId: string;
   cityQid: string;
   runtime: NarrativeResearchRuntimeV8;
+  ragBaseUrl?: string | null;
+  signal?: AbortSignal;
   onProgress?: EditorialProgressCallbackV6;
 }): Promise<NarrativeResearchServicesV8> {
   const discovery = new SearxngNarrativeDiscoveryProviderV7({
@@ -638,6 +651,8 @@ async function buildResearchServices(options: {
     search: (input) => discovery.search(input),
     mapOfficialSite: (input) => capture.mapOfficialSite(input),
     captureWeb: (input) => captureWeb(input.url, input.requestClass),
+    ...(options.ragBaseUrl ? { retrieveHistorical: (input: Parameters<typeof retrieveNarrativeHistoricalCorpusV8>[0]) =>
+      retrieveNarrativeHistoricalCorpusV8(input, { baseUrl: options.ragBaseUrl!, signal: options.signal }) } : {}),
     curate,
     proposeAdaptiveQueries,
   };
@@ -762,6 +777,10 @@ async function main(): Promise<void> {
   const resumeOptions = parseResumeOptionsV8(process.argv);
   const resumeFromPhase = resumeOptions?.resumeFrom ?? null;
   const researchRuntime = researchRuntimeV8();
+  const ragMode = option('--rag') ?? 'off';
+  if (ragMode !== 'off' && ragMode !== 'on') throw new Error('--rag must be off or on');
+  const ragBaseUrl = ragMode === 'on' ? historicalCorpusOriginV8(option('--rag-base-url') ?? process.env.HISTORICAL_CORPUS_BASE_URL) : null;
+  const ragConfig = { mode: ragMode, baseUrl: ragBaseUrl, policy: 'historical-corpus-v8-3' };
   const requestedProfile = option('--profile') ?? 'qwen38_hybrid';
   if (!['qwen38_hybrid', 'qwen38_gemini25pro_writer', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
     throw new Error(
@@ -772,9 +791,12 @@ async function main(): Promise<void> {
   const qwenLocalBaseUrl = option('--qwen-base-url')
     ?? process.env.QWEN_LOCAL_BASE_URL?.trim()
     ?? 'http://127.0.0.1:8080/v1';
+  if (!Number.isFinite(SPEND_LIMIT_USD) || SPEND_LIMIT_USD <= 0) {
+    throw new Error('--spend-limit-usd must be a finite positive cumulative limit');
+  }
   const priorSpendUsd = Number(option('--prior-spend-usd'));
   if (!Number.isFinite(priorSpendUsd) || priorSpendUsd < 0 || priorSpendUsd > SPEND_LIMIT_USD) {
-    throw new Error('--prior-spend-usd is required and must preserve the cumulative spend below $2');
+    throw new Error('--prior-spend-usd is required and must preserve cumulative spend within --spend-limit-usd (default $2)');
   }
   const cityKey = option('--city') ?? 'Málaga';
   const request: TourRequest = {
@@ -823,6 +845,11 @@ async function main(): Promise<void> {
     new Error(`${cityKey} user canary V8 exceeded ${DEADLINE_MS}ms`)
   ), DEADLINE_MS);
   deadline.unref?.();
+  // Run-local history includes completed attempts from explicit resumes as well.
+  const summarizeCalls = () => summarizeNarrativeCallsV8(existsSync(progressPath)
+    ? readFileSync(progressPath, 'utf8').split('\n').filter(line => line.trim())
+      .map(line => JSON.parse(line) as EditorialProgressEventV6)
+    : []);
   const onProgress: EditorialProgressCallbackV6 = (event) => {
     spendGuard.record(event);
     const budget = spendGuard.snapshot();
@@ -843,7 +870,7 @@ async function main(): Promise<void> {
     | 'scorecard'
     | 'artifact_write' = 'preflight';
   const checkpointCreatedAt = new Date().toISOString();
-  const requestFingerprint = narrativeFingerprintV6({
+  const requestIdentity = {
     schemaVersion: 'narrative-route-brief-v6' as const,
     caseId: `${cityKey}-${request.theme}-${request.language}-${request.durationMinutes}`,
     city: request.city,
@@ -852,6 +879,10 @@ async function main(): Promise<void> {
     theme: request.theme,
     durationMinutes: request.durationMinutes,
     stops: [],
+  };
+  const baselineRequestFingerprint = narrativeFingerprintV6(requestIdentity);
+  const requestFingerprint = narrativeFingerprintV6({ ...requestIdentity,
+    ...(ragMode === 'on' ? { historicalCorpus: ragConfig } : {}),
   });
   let checkpointCityQid = '';
   const checkpointRun = {
@@ -866,20 +897,13 @@ async function main(): Promise<void> {
   };
   let checkpointState: {
     candidates?: JsonValue;
+    core?: NarrativeCheckpointCoreV8;
     route?: JsonValue;
     narrationTargets?: JsonValue;
     research?: JsonValue;
     evidenceManifest?: JsonValue;
     arc?: JsonValue;
-    editorial?: {
-      status: string;
-      scripts: JsonValue[];
-      failureReason?: string;
-      retryableLater?: boolean;
-      openIssueIds?: string[];
-      issues?: JsonValue[];
-      issueSummary?: JsonValue;
-    };
+    editorial?: NarrativeUserCanaryCheckpointV8['editorial'];
     scorecard?: JsonValue;
   } = {};
   const toJsonValue = (value: unknown): JsonValue => JSON.parse(JSON.stringify(value)) as JsonValue;
@@ -990,7 +1014,9 @@ async function main(): Promise<void> {
         city: cityKey,
         cityQid,
         language: request.language,
-        requestFingerprint,
+        requestFingerprint: narrativeRagResumeRequestFingerprintV8({ enabled: ragMode === 'on',
+          fromPhase: resumeOptions.resumeFrom, saved: sourceCheckpoint.run.requestFingerprint,
+          baseline: baselineRequestFingerprint, current: requestFingerprint }),
         priorSpendUsd,
       });
       assertCheckpointSupportsResumeV8(sourceCheckpoint, resumeOptions.resumeFrom);
@@ -1013,15 +1039,12 @@ async function main(): Promise<void> {
     if (routeArtifactPath) {
       const replayed = await loadReplayRoute(routeArtifactPath);
       route = replayed.route;
-      core = {
-        requiredIds: [],
-        coverageRatio: replayed.coreCoverageVerified ? 1 : 0,
-        disagreement: false,
-      };
+      core = replayed.core;
     } else if (!shouldExecuteResumePhaseV8(resumeFromPhase, 'route') && sourceCheckpoint && resolvedSourcePath) {
       const decodedRoute = decodeCheckpointRoute(sourceCheckpoint.route, resolvedSourcePath);
       route = decodedRoute;
-      core = { requiredIds: [], coverageRatio: 1, disagreement: false };
+      core = decodeCheckpointCoreV8(sourceCheckpoint.core, resolvedSourcePath);
+      checkpointState.core = decodeCheckpointCoreV8(core, 'route core');
       checkpointState.route = toJsonValue(route);
       await persistCheckpoint('route');
     } else if (shouldExecuteResumePhaseV8(resumeFromPhase, 'route') && sourceCheckpoint && resolvedSourcePath) {
@@ -1117,6 +1140,7 @@ async function main(): Promise<void> {
         ...briefWithoutFingerprint,
         fingerprint: narrativeFingerprintV6(briefWithoutFingerprint),
       };
+      checkpointState.core = decodeCheckpointCoreV8(core, 'route core');
       checkpointState.route = toJsonValue(route);
       await persistCheckpoint('route');
     } else {
@@ -1241,6 +1265,7 @@ async function main(): Promise<void> {
         ...briefWithoutFingerprint,
         fingerprint: narrativeFingerprintV6(briefWithoutFingerprint),
       };
+      checkpointState.core = decodeCheckpointCoreV8(core, 'route core');
       checkpointState.route = toJsonValue(route);
       await persistCheckpoint('route');
     }
@@ -1298,6 +1323,8 @@ async function main(): Promise<void> {
         runId,
         cityQid,
         runtime: researchRuntime,
+        ragBaseUrl,
+        signal: abortController.signal,
         onProgress,
       });
       research = [];
@@ -1399,6 +1426,9 @@ async function main(): Promise<void> {
       attemptedUrlCount: result.stats.attemptedUrlCount,
       capturedSourceCount: result.stats.capturedSourceCount,
       publisherCount: result.stats.publisherCount,
+      historicalCorpus: result.stats.historicalCorpus ?? null,
+      historicalSourceIdsUsed: 'dossier' in result && result.dossier ? result.dossier.sources.filter(s => s.sourceId.startsWith('source-corpus-')).map(s => s.sourceId) : [],
+      historicalPropositionCount: 'dossier' in result && result.dossier ? result.dossier.propositions.filter(p => p.sourceIds.some(id => id.startsWith('source-corpus-'))).length : 0,
     }));
     checkpointState.research = toJsonValue(research);
     const researchCheckpointPhase = narrativeCanaryResearchCheckpointPhaseV8(route.stops.length, research.map(({ result }) => result));
@@ -1419,7 +1449,7 @@ async function main(): Promise<void> {
         .join('; ');
       writeFileSync(privatePath, `${JSON.stringify({ researchRuntime, research }, null, 2)}\n`);
       writeFileSync(reviewPath, `${JSON.stringify({
-        schemaVersion: 'narrative-user-canary-v8',
+        schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
         runId,
         request,
         status: failedResearch ? 'failed' : 'blocked',
@@ -1455,7 +1485,7 @@ async function main(): Promise<void> {
         : boundary.reason;
       writeFileSync(privatePath, `${JSON.stringify({ researchRuntime, research }, null, 2)}\n`);
       writeFileSync(reviewPath, `${JSON.stringify({
-        schemaVersion: 'narrative-user-canary-v8',
+        schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
         runId,
         request,
         status: boundary.status === 'blocked' ? 'blocked' : 'failed',
@@ -1479,8 +1509,9 @@ async function main(): Promise<void> {
       throw new Error(reason);
     }
     const { admittedStops, manifest: evidenceManifest } = boundary;
-    if (sourceCheckpoint?.evidenceManifest) {
-      const savedManifest = sourceCheckpoint.evidenceManifest as { fingerprint?: unknown };
+    // Only compare retained evidence: research resume deliberately invalidates the old manifest.
+    if (checkpointState.evidenceManifest) {
+      const savedManifest = checkpointState.evidenceManifest as { fingerprint?: unknown };
       if (typeof savedManifest.fingerprint !== 'string' || !savedManifest.fingerprint) {
         throw new Error('source checkpoint evidenceManifest must be an object with a string fingerprint');
       }
@@ -1572,29 +1603,19 @@ async function main(): Promise<void> {
     currentStage = 'editorial_workflow';
     let editorialScripts: NarrativeScriptV6[];
     let editorialWriterDiagnostics: EditorialCallResultV6<unknown>[] = [];
-    const requireWriterTraceability = shouldExecuteResumePhaseV8(resumeFromPhase, 'editorial');
+    const requireWriterTraceability = true;
+    const resumeEditorialOnly = !shouldExecuteResumePhaseV8(resumeFromPhase, 'editorial');
+    let finalWriterTraces: Record<string, NarrativeFinalWriterTraceV8> = {};
+    let stageVerificationPassed = false;
+    let editorialStageSummary: JsonValue = null;
     let editorialWorkflowStatus: string;
     let editorialIssueFields: EditorialIssueCheckpointFields = checkpointState.editorial
       ? editorialIssueCheckpointFields(checkpointState.editorial)
       : {};
-    if (!shouldExecuteResumePhaseV8(resumeFromPhase, 'editorial')) {
-      editorialScripts = savedEditorialScripts;
-      editorialWorkflowStatus = 'ready_for_human_gate';
-      checkpointState.editorial = {
-        status: editorialWorkflowStatus,
-        scripts: savedEditorialScripts.map((script) => toJsonValue(script)),
-        ...editorialIssueFields,
-      };
-      await persistCheckpoint('editorial');
-      consoleReporter.stageSkipped(
-        'editorial_workflow',
-        `checkpoint=${resolvedSourcePath ?? checkpointPath} · ${savedEditorialScripts.length} guiones`
-      );
-    } else {
+    {
       consoleReporter.stageStarted(
         'editorial_workflow',
-        `${route.stops.length} paradas · hasta ${scheduler.limits.editorialStops} pipelines; `
-          + `1 writer; hasta ${scheduler.limits.auditStops} pares de auditoría`
+        `${route.stops.length} paradas · escritura única, verificación compacta y hasta una edición por parada`
       );
       const agents = createNarrativeEditorialAgentsV8(
         modelOptions,
@@ -1623,11 +1644,24 @@ async function main(): Promise<void> {
         onProgress,
         maximumRepairCalls: route.stops.length,
         scripts: savedEditorialScripts,
+        resumeOnly: resumeEditorialOnly,
+        resumeState: !shouldExecuteResumePhaseV8(resumeFromPhase, 'arc')
+          ? sourceCheckpoint?.editorial?.stageState
+          : undefined,
+        onCheckpoint: async (stageState) => {
+          checkpointState.editorial = {
+            ...checkpointState.editorial,
+            status: 'draft_review_required',
+            scripts: stageState.stops.flatMap(stop => stop.script ? [toJsonValue(stop.script)] : []),
+            stageState: toJsonValue(stageState),
+          };
+          await persistCheckpoint('arc');
+        },
       });
       if (workflowResult.status === 'protocol_failed') {
         writeFileSync(privatePath, `${JSON.stringify({ researchRuntime, research, evidenceManifest }, null, 2)}\n`);
         writeFileSync(reviewPath, `${JSON.stringify({
-          schemaVersion: 'narrative-user-canary-v8',
+          schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
           runId,
           request,
           status: 'failed',
@@ -1651,6 +1685,21 @@ async function main(): Promise<void> {
         throw new Error(workflowResult.reason);
       }
       const editorial = workflowResult.editorial;
+      finalWriterTraces = workflowResult.finalWriterTraces;
+      editorialStageSummary = toJsonValue({
+        stops: workflowResult.stageState.stops.map(stop => ({ stopId: stop.stopId,
+          draftSaved: stop.script !== null, writeAttempted: stop.writeAttempted,
+          firstPassVerified: stop.firstPassVerified, editAttempted: stop.editAttempted,
+          editDecision: stop.editComparison?.decision ?? null, editReason: stop.editComparison?.reason ?? null,
+          verificationCurrent: stop.verification !== null && stop.verification.scriptFingerprint === stop.script?.fingerprint,
+          error: stop.error,
+        })),
+        globalReviewsAttempted: workflowResult.stageState.globalReviewsAttempted,
+        globalError: workflowResult.stageState.globalError,
+        lengthOutcomes: workflowResult.lengthOutcomes,
+        callsThisInvocation: editorial.metrics.length,
+      });
+      stageVerificationPassed = editorial.run.status === 'ready_for_human_gate';
       editorialIssueFields = workflowIssueStateToCheckpointFields({ issueStateV8: editorial.issueStateV8 });
       const editorialScriptSet = inspectEditorialScriptSetV8(
         route.stops.map((stop) => stop.stopId),
@@ -1662,6 +1711,7 @@ async function main(): Promise<void> {
         evidenceManifest,
         arc: architectResult,
         editorialRun: editorial.run,
+        stageSummary: editorialStageSummary,
         ...editorialScriptSet,
         ...editorialIssueFields,
         privateDiagnostics: editorial.privateDiagnostics,
@@ -1688,7 +1738,7 @@ async function main(): Promise<void> {
           privateDiagnostics: editorial.privateDiagnostics,
         }, null, 2)}\n`);
         writeFileSync(reviewPath, `${JSON.stringify({
-          schemaVersion: 'narrative-user-canary-v8',
+          schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
           runId,
           request,
           status: 'failed',
@@ -1725,6 +1775,48 @@ async function main(): Promise<void> {
         await persistCheckpoint('arc');
         throw new Error(reason);
       }
+      if (editorial.stops.length !== route.stops.length) {
+        checkpointState.editorial = {
+          ...checkpointState.editorial,
+          status: 'draft_review_required',
+          scripts: editorial.stops.map(stop => toJsonValue(stop.finalScript)),
+          ...editorialIssueFields,
+        };
+        await persistCheckpoint('arc');
+        const partialMarkdown = [
+          `# ${request.city} — borrador parcial\n\nNo publicable: hay etapas pendientes. El texto guardado se conserva para reanudar.\n`,
+          ...route.stops.map(stop => {
+            const saved = editorial.stops.find(item => item.stopId === stop.stopId);
+            const stage = workflowResult.stageState.stops.find(item => item.stopId === stop.stopId);
+            const sources = admittedStops.find(item => item.routeStopId === stop.stopId)?.dossier.sources ?? [];
+            return `## ${stop.name}\n\n${saved?.finalScript.text ?? 'Pendiente de redactar.'}\n\n`
+              + `Estado: ${stage?.error?.message ?? (!stage?.verification ? 'Verificación pendiente.' : 'Revisión global pendiente.')}\n\n`
+              + sources.map(source => `- [${source.title}](${source.finalUrl})`).join('\n');
+          }),
+        ].join('\n\n');
+        writeFileSync(markdownPath, `${partialMarkdown}\n`);
+        writeFileSync(reviewPath, `${JSON.stringify({
+          schemaVersion: 'narrative-user-canary-v8', rag: ragConfig, runId, request,
+          calls: summarizeCalls(),
+          status: 'review_required', completedStage: 'editorial_workflow', failure: null,
+          boundaryMigrationPassed: true, publicationPassed: false, evidenceManifest,
+          editorial: {
+            workflowStatus: editorial.run.status,
+            scriptStopIds: editorial.stops.map(stop => stop.stopId),
+            missingStopIds: route.stops.filter(stop => !editorial.stops.some(item => item.stopId === stop.stopId)).map(stop => stop.stopId),
+            stageSummary: editorialStageSummary,
+            ...editorialIssueFields,
+          },
+          budget: spendGuard.snapshot(),
+        }, null, 2)}\n`);
+        consoleReporter.runCompleted({
+          status: 'review_required', elapsedMs: Date.now() - runStartedAt,
+          checkpointPath, diagnosticsPath: privatePath, progressPath, budget: spendGuard.snapshot(),
+        });
+        process.stdout.write(`${JSON.stringify({ runId, status: 'review_required', publicationPassed: false,
+          review: reviewPath, markdown: markdownPath, checkpoint: checkpointPath, budget: spendGuard.snapshot() }, null, 2)}\n`);
+        return;
+      }
       assertCompleteEditorialScriptSetV8(
         route.stops.map((stop) => stop.stopId),
         editorial.stops
@@ -1733,6 +1825,7 @@ async function main(): Promise<void> {
       editorialWriterDiagnostics = editorial.privateDiagnostics;
       editorialWorkflowStatus = editorial.run.status;
       checkpointState.editorial = {
+        ...checkpointState.editorial,
         status: editorialWorkflowStatus,
         scripts: editorialScripts.map((script) => toJsonValue(script)),
         ...editorialIssueFields,
@@ -1780,6 +1873,7 @@ async function main(): Promise<void> {
       : null;
     if (scorecardResult !== null && scorecardResult.value === null) {
       checkpointState.editorial = {
+        ...checkpointState.editorial,
         status: editorialWorkflowStatus,
         scripts: editorialScripts.map((script) => toJsonValue(script)),
         ...editorialIssueFields,
@@ -1796,8 +1890,11 @@ async function main(): Promise<void> {
       ),
       writerDiagnostics: editorialWriterDiagnostics,
       requireWriterTraceability,
+      finalWriterTraces,
+      stageVerificationPassed,
     });
-    const publicationPassed = scorecardResult?.value?.decision === 'Approve'
+    const publicationPassed = stageVerificationPassed
+      && scorecardResult?.value?.decision === 'Approve'
       && publicationQuality.passed;
     if (scorecardResult?.value) {
       checkpointState.scorecard = toJsonValue(scorecardResult.value);
@@ -1806,6 +1903,7 @@ async function main(): Promise<void> {
     }
     currentStage = 'artifact_write';
     consoleReporter.stageStarted('artifact_write', 'guardando resultados');
+    const callSummary = summarizeCalls();
     const markdown = renderNarrativeTourMarkdownV6({
       request,
       route,
@@ -1820,9 +1918,10 @@ async function main(): Promise<void> {
       centralQuestion: architectResult.arc.centralQuestion,
       scripts: editorialScripts,
       dossiers,
-      workflowStatus: editorialWorkflowStatus,
+      workflowStatus: publicationPassed ? editorialWorkflowStatus : 'draft_review_required',
       scorecard: scorecardResult?.value ?? null,
-      calls: [],
+      calls: callSummary,
+      speakingRateWordsPerMinute: SPEAKING_RATE_WORDS_PER_MINUTE,
       budget: spendGuard.snapshot(),
     });
     writeFileSync(markdownPath, `${markdown}\n`);
@@ -1830,7 +1929,7 @@ async function main(): Promise<void> {
       ? 'review_required'
       : publicationPassed ? 'approved' : 'request_changes';
     writeFileSync(reviewPath, `${JSON.stringify({
-      schemaVersion: 'narrative-user-canary-v8',
+      schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
       runId,
       request,
       status: canaryResultStatus,
@@ -1849,8 +1948,10 @@ async function main(): Promise<void> {
         workflowStatus: editorialWorkflowStatus,
         scriptStopIds: editorialScripts.map((script) => script.stopId),
         scorecardDecision: scorecardResult?.value?.decision ?? null,
+        stageSummary: editorialStageSummary,
         ...editorialIssueFields,
       },
+      calls: callSummary,
       budget: spendGuard.snapshot(),
     }, null, 2)}\n`);
     consoleReporter.stageCompleted('artifact_write', 'resultados guardados');
@@ -1899,7 +2000,7 @@ async function main(): Promise<void> {
     }
     if (!existsSync(reviewPath)) {
       writeFileSync(reviewPath, `${JSON.stringify({
-        schemaVersion: 'narrative-user-canary-v8',
+        schemaVersion: 'narrative-user-canary-v8', rag: ragConfig,
         runId,
         request,
         status: isMaxlagExhausted ? 'blocked' : 'failed',

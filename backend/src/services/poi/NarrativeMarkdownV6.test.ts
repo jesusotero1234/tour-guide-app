@@ -4,6 +4,7 @@ import {
   renderNarrativeTourMarkdownV6,
 } from './NarrativeMarkdownV6';
 import { NarrativeTourScorecardV6 } from './NarrativeEditorialAgentsV6';
+import { SPEAKING_RATE_WORDS_PER_MINUTE } from './NarrativeDurationTargetsV8';
 
 const scorecard: NarrativeTourScorecardV6 = {
   decision: 'Approve', overallBand: 'Good', weightedScore: 8.95,
@@ -42,46 +43,48 @@ describe('narrative v6 Markdown renderers', () => {
     expect(markdown).toContain('`issue-1`');
   });
 
-  it('renders a complete user-readable tour without the internal weighted score', () => {
-    const markdown = renderNarrativeTourMarkdownV6({
-      request: {
-        city: 'Barcelona', country: 'España', theme: 'history', language: 'es',
-        durationMinutes: 120,
-      },
-      route: {
-        schemaVersion: 'narrative-route-brief-v6', caseId: 'barcelona-history-es-120',
-        city: 'Barcelona', country: 'España', theme: 'history', language: 'es',
-        durationMinutes: 120, fingerprint: 'f'.repeat(64),
-        stops: [{
-          stopId: 'parada', position: 0, name: 'Parada', narrativeRole: 'abrir',
-          wikidataId: 'Q1', wikidataUrl: 'https://www.wikidata.org/wiki/Q1',
-          wikipediaUrl: null, coordinates: { lat: 41.38, lng: 2.17 },
-          previousStopId: null, nextStopId: null,
-        }],
-      },
-      routeDiagnostics: {
-        estimatedTourMinutes: 120, requestedDuration: 120, coverageRatio: 1,
-        degraded: false, degradationReason: null,
-      },
-      promise: 'Leer la ciudad.', centralQuestion: '¿Cómo cambió?',
-      scripts: [{
-        stopId: 'parada', text: 'Observa la plaza.', fingerprint: 's'.repeat(64),
-        sentences: [{
-          sentenceId: 'parada-S001', stopId: 'parada', index: 0,
-          text: 'Observa la plaza.',
-        }],
+  const tourInput: Parameters<typeof renderNarrativeTourMarkdownV6>[0] = {
+    request: {
+      city: 'Barcelona', country: 'España', theme: 'history', language: 'es',
+      durationMinutes: 120,
+    },
+    route: {
+      schemaVersion: 'narrative-route-brief-v6', caseId: 'barcelona-history-es-120',
+      city: 'Barcelona', country: 'España', theme: 'history', language: 'es',
+      durationMinutes: 120, fingerprint: 'f'.repeat(64),
+      stops: [{
+        stopId: 'parada', position: 0, name: 'Parada', narrativeRole: 'abrir',
+        wikidataId: 'Q1', wikidataUrl: 'https://www.wikidata.org/wiki/Q1',
+        wikipediaUrl: null, coordinates: { lat: 41.38, lng: 2.17 },
+        previousStopId: null, nextStopId: null,
       }],
-      dossiers: [], workflowStatus: 'ready_for_human_gate', scorecard,
-      calls: [{ model: 'gpt', provider: 'OpenAI', calls: 1, latencyMs: 1000, costUsd: 0.01 }],
-      budget: {
-        limitUsd: 2,
-        historicalSpentUsd: 0.8,
-        runReportedCostUsd: 0.15,
-        runUnverifiedExposureUsd: 0.05,
-        spentUsd: 1,
-        remainingUsd: 1,
-      },
-    });
+    },
+    routeDiagnostics: {
+      estimatedTourMinutes: 120, requestedDuration: 120, coverageRatio: 1,
+      degraded: false, degradationReason: null,
+    },
+    promise: 'Leer la ciudad.', centralQuestion: '¿Cómo cambió?',
+    scripts: [{
+      stopId: 'parada', text: 'Observa la plaza.', fingerprint: 's'.repeat(64),
+      sentences: [{
+        sentenceId: 'parada-S001', stopId: 'parada', index: 0,
+        text: 'Observa la plaza.',
+      }],
+    }],
+    dossiers: [], workflowStatus: 'ready_for_human_gate', scorecard,
+    calls: [{ model: 'gpt', provider: 'OpenAI', calls: 1, latencyMs: 1000, costUsd: 0.01 }],
+    budget: {
+      limitUsd: 2,
+      historicalSpentUsd: 0.8,
+      runReportedCostUsd: 0.15,
+      runUnverifiedExposureUsd: 0.05,
+      spentUsd: 1,
+      remainingUsd: 1,
+    },
+  };
+
+  it('renders a complete user-readable tour without the internal weighted score', () => {
+    const markdown = renderNarrativeTourMarkdownV6(tourInput);
 
     expect(markdown).toContain('# Tour de Barcelona — history');
     expect(markdown).toContain('## Guiones');
@@ -90,5 +93,27 @@ describe('narrative v6 Markdown renderers', () => {
     expect(markdown).toContain('Exposición sin verificar de esta ejecución: $0.0500');
     expect(markdown).toContain('Gasto contabilizado anterior: $0.8000');
     expect(markdown).not.toContain('8.95');
+  });
+
+  it('computes Escucha estimate from speakingRateWordsPerMinute with V6 default 140', () => {
+    const words = Array.from({ length: 250 }, (_, i) => `w${i + 1}`).join(' ');
+    const input = {
+      ...tourInput,
+      scripts: [{
+        stopId: 'parada', text: words, fingerprint: 's'.repeat(64),
+        sentences: [{
+          sentenceId: 'parada-S001', stopId: 'parada', index: 0,
+          text: words,
+        }],
+      }],
+    };
+
+    const defaultMarkdown = renderNarrativeTourMarkdownV6(input);
+    expect(defaultMarkdown).toContain('unas 2 min (250 palabras)');
+
+    const rateMarkdown = renderNarrativeTourMarkdownV6({ ...input, speakingRateWordsPerMinute: SPEAKING_RATE_WORDS_PER_MINUTE });
+    expect(rateMarkdown).toContain('unas 3 min (250 palabras)');
+
+    expect(() => renderNarrativeTourMarkdownV6({ ...input, speakingRateWordsPerMinute: 0 })).toThrow();
   });
 });

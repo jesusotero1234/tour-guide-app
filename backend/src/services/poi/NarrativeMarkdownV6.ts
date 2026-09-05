@@ -146,6 +146,7 @@ export function renderNarrativeTourMarkdownV6(input: {
     runReportedCostUsd?: number;
     runUnverifiedExposureUsd?: number;
   };
+  speakingRateWordsPerMinute?: number;
 }): string {
   const scriptByStopId = new Map(input.scripts.map((script) => [script.stopId, script]));
   const missingScripts = input.route.stops.filter((stop) => !scriptByStopId.has(stop.stopId));
@@ -153,6 +154,10 @@ export function renderNarrativeTourMarkdownV6(input: {
     throw new Error(`tour Markdown is missing scripts: ${missingScripts.map((stop) => stop.stopId).join(', ')}`);
   }
   const totalWords = input.scripts.reduce((total, script) => total + wordCount(script.text), 0);
+  const speakingRate = input.speakingRateWordsPerMinute ?? 140;
+  if (!Number.isFinite(speakingRate) || speakingRate <= 0) {
+    throw new Error('speakingRateWordsPerMinute must be a positive finite number');
+  }
   const status = input.workflowStatus === 'ready_for_human_gate'
     && input.scorecard?.decision === 'Approve'
     ? `aprobado — ${input.scorecard.overallBand}`
@@ -184,7 +189,7 @@ export function renderNarrativeTourMarkdownV6(input: {
     `> **Estado:** ${status}.`,
     `> **Petición:** ${input.request.city}, ${input.request.country} · ${input.request.durationMinutes} min · ${input.request.language}.`,
     `> **Ruta seleccionada:** ${input.route.stops.length} paradas · cobertura ${(input.routeDiagnostics.coverageRatio * 100).toFixed(1)}% · estimación estructural ${Math.round(input.routeDiagnostics.estimatedTourMinutes)} min.`,
-    `> **Escucha:** unas ${Math.ceil(totalWords / 140)} min (${totalWords} palabras); el resto corresponde al recorrido, observación y pausas.`,
+    `> **Escucha:** unas ${Math.ceil(totalWords / speakingRate)} min (${totalWords} palabras); el resto corresponde al recorrido, observación y pausas.`,
     '',
     '## Promesa y pregunta central',
     '',

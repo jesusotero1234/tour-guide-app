@@ -23,7 +23,9 @@ import {
   NarrativeEvidenceFixtureResultV8,
 } from './NarrativeEvidenceFixturesV8.test-support';
 import { createNarrativeArcArchitectV8 } from './NarrativeArcArchitectV8';
-import { runNarrativeEditorialWorkflowV8 } from './NarrativeEditorialWorkflowV8';
+import { runNarrativeEditorialWorkflowV8, NarrativeEditorialWorkflowInputV8, NarrativeEditorialWorkflowResultV8 } from './NarrativeEditorialWorkflowV8';
+import { runNarrativeEditorialWorkflowCoreV6, NarrativeEditorialWorkflowOptionsV6 } from './NarrativeEditorialWorkflowV6';
+import { createNarrativeStageStateV8 } from './NarrativeEditorialStageStateV8';
 import { NarrativeScriptV6 } from './NarrativeEditorialV6';
 import { createNarrativeSchedulerV6 } from './NarrativeSchedulerV6';
 
@@ -130,6 +132,9 @@ type FakeAgentsV8 = NarrativeEditorialAgentsV8 & {
   repair: jest.Mock;
   auditTour: jest.Mock;
   narrationLengthOutcome: jest.Mock;
+  verify: jest.Mock;
+  edit: jest.Mock;
+  writerPlan: jest.Mock;
 };
 
 function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
@@ -148,6 +153,7 @@ function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
         classification: 'supported' as const,
         reason: 'Respaldada.',
         propositionIds: propositionId ? [propositionId] : [],
+        passageIds: [input.dossier.passages[0].passageId],
       })),
     };
     return { value, diagnostic: diagnostic(`audit-${auditor}`, value) };
@@ -174,14 +180,21 @@ function fakeAgents(manifestFingerprint: string): FakeAgentsV8 {
     return { value, diagnostic: diagnostic('tour-audit', value) };
   });
   const narrationLengthOutcome = jest.fn(() => null);
+  const verify = jest.fn((input: NarrativeAuditInputV6) => audit(input, 'deepseek_pro'));
+  const edit = jest.fn();
+  const writerPlan = jest.fn(() => null);
   return {
     evidenceManifestFingerprint: manifestFingerprint,
+    policyFingerprint: 'test-policy',
     write,
     audit,
     adjudicate,
     repair,
     auditTour,
     narrationLengthOutcome,
+    verify,
+    edit,
+    writerPlan,
   };
 }
 
@@ -208,6 +221,19 @@ function routeFor(stops: NarrativeAdmittedStopV8[]): NarrativeRouteBriefV6 {
       nextStopId: index + 1 < stops.length ? stops[index + 1].routeStopId : null,
     })),
   };
+}
+
+// Historical compatibility coverage only. The canonical V8 workflow does not use this engine.
+async function runLegacyV8PolicyWorkflow(
+  input: NarrativeEditorialWorkflowInputV8, agents: NarrativeEditorialAgentsV8,
+  options: NarrativeEditorialWorkflowOptionsV6 = {}
+): Promise<NarrativeEditorialWorkflowResultV8> {
+  const editorial = await runNarrativeEditorialWorkflowCoreV6({
+    ...input, dossiers: input.admittedStops.map(s => s.dossier), arc: input.arcBundle.arc,
+    coreStops: input.admittedStops.map(s => ({ routeStopId: s.routeStopId, dossier: s.dossier })),
+  }, agents, { ...options, allowPartialScripts: true, deterministicAuditPolicy: 'v8', editorialIssuePolicy: 'v8' });
+  return { status: 'complete', editorial, evidenceManifest: input.arcBundle.manifest,
+    lengthOutcomes: [], stageState: createNarrativeStageStateV8('legacy-test-only', []), finalWriterTraces: {} };
 }
 
 describe('NarrativeEditorialWorkflowV8', () => {
@@ -460,12 +486,7 @@ describe('NarrativeEditorialWorkflowV8', () => {
     const manifest = manifestFor(route, [stop1, stop2]);
     const agents = fakeAgents(manifest.fingerprint);
 
-    const suppliedScript: NarrativeScriptV6 = {
-      stopId: stop1.routeStopId,
-      text: 'Script supplied for stop 1.',
-      fingerprint: 'supplied-stop-1-fingerprint',
-      sentences: [{ sentenceId: 's1', stopId: stop1.routeStopId, index: 0, text: 'Script supplied for stop 1.' }],
-    };
+    const suppliedScript = assignNarrativeSentenceIdsV6(stop1.routeStopId, 'Script supplied for stop 1.', { sentenceBoundaryPolicy: 'v8' });
 
     const result = await runNarrativeEditorialWorkflowV8({
       runId: 'v8-partial-resume-test',
@@ -560,11 +581,9 @@ describe('NarrativeEditorialWorkflowV8', () => {
       privateArtifactPath: '/tmp/narrative-v8-dup-partial.private.json',
     }, agents, { scripts: [script1, script1Dup] });
 
-    expect(result.status).toBe('complete');
-    if (result.status !== 'complete') throw new Error(result.reason);
-    expect(result.editorial.run.status).toBe('protocol_failed');
-    if (result.editorial.run.status !== 'protocol_failed') throw new Error('Expected inner protocol failure');
-    expect(result.editorial.run.reason).toContain('duplicate supplied script stopId');
+    expect(result.status).toBe('protocol_failed');
+    if (result.status !== 'protocol_failed') throw new Error('Expected outer protocol failure');
+    expect(result.reason).toContain('duplicate supplied script');
     expect(agents.write).not.toHaveBeenCalled();
     expect(agents.audit).not.toHaveBeenCalled();
     expect(agents.adjudicate).not.toHaveBeenCalled();
@@ -607,7 +626,9 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(result.status).toBe('complete');
 
     expect(auditSpy).toHaveBeenCalled();
-    const expectedPropositionTexts = stop.dossier.propositions.map((p) => p.text);
+    const localPropositionTexts = stop.dossier.propositions.map((p) => p.text);
+    const localPassageQuotes = stop.dossier.passages.map((p) => p.quote);
+    const expectedPropositionTexts = [...localPropositionTexts, ...localPassageQuotes];
     for (const call of auditSpy.mock.calls) {
       const input = call[1] as { policy?: 'v8'; authorizedPropositionTexts?: string[] };
       expect(input.policy).toBe('v8');
@@ -662,11 +683,9 @@ describe('NarrativeEditorialWorkflowV8', () => {
       privateArtifactPath: '/tmp/narrative-v8-unknown-partial.private.json',
     }, agents, { scripts: [unknownScript] });
 
-    expect(result.status).toBe('complete');
-    if (result.status !== 'complete') throw new Error(result.reason);
-    expect(result.editorial.run.status).toBe('protocol_failed');
-    if (result.editorial.run.status !== 'protocol_failed') throw new Error('Expected inner protocol failure');
-    expect(result.editorial.run.reason).toContain('is not in the route');
+    expect(result.status).toBe('protocol_failed');
+    if (result.status !== 'protocol_failed') throw new Error('Expected outer protocol failure');
+    expect(result.reason).toContain('unknown supplied script');
     expect(agents.write).not.toHaveBeenCalled();
     expect(agents.audit).not.toHaveBeenCalled();
     expect(agents.adjudicate).not.toHaveBeenCalled();
@@ -674,7 +693,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(agents.auditTour).not.toHaveBeenCalled();
   });
 
-  test('combines deterministic, factual, and tour issues into at most one repair call per stop', async () => {
+  test('legacy core compatibility: combines deterministic, factual, and tour issues into at most one repair call per stop', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop = admit(evidenceFixture('malaga-repair-01', 'Q9000001', COMPLETE_ROLES));
     const route = routeFor([stop]);
     const manifest = manifestFor(route, [stop]);
@@ -808,7 +828,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(issueState.summary.acceptedTour).toBe(1);
   });
 
-  test('uses remaining budget to repair an issue first discovered by the post-repair global audit', async () => {
+  test('legacy core compatibility: uses remaining budget to repair an issue first discovered by the post-repair global audit', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop = admit(evidenceFixture('malaga-final-repair-01', 'Q9300001', COMPLETE_ROLES));
     const route = routeFor([stop]);
     const manifest = manifestFor(route, [stop]);
@@ -912,7 +933,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(result.editorial.issueStateV8?.openIssueIds).not.toContain('tour:I2');
   });
 
-  test('generates and validates all planned repair patches before any repaired stop is re-audited', async () => {
+  test('legacy core compatibility: generates and validates all planned repair patches before any repaired stop is re-audited', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop1 = admit(evidenceFixture('malaga-red-01', 'Q9100001', COMPLETE_ROLES));
     const stop2 = admit(evidenceFixture('malaga-red-02', 'Q9100002', COMPLETE_ROLES));
     const route = routeFor([stop1, stop2]);
@@ -1018,7 +1040,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(agents.auditTour).toHaveBeenCalledTimes(1);
   });
 
-  test('re-audits and adjudicates repaired stops in parallel while preserving route order', async () => {
+  test('legacy core compatibility: re-audits and adjudicates repaired stops in parallel while preserving route order', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop1 = admit(evidenceFixture('malaga-parallel-01', 'Q9200001', COMPLETE_ROLES));
     const stop2 = admit(evidenceFixture('malaga-parallel-02', 'Q9200002', COMPLETE_ROLES));
     const stops = [stop1, stop2];
@@ -1146,7 +1169,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(result.editorial.stops.map((stop) => stop.finalScript.sentences.length)).toEqual([1, 1]);
   });
 
-  test('repairs split era abbreviations without empty replacements or changing sentence cardinality', async () => {
+  test('legacy core compatibility: repairs split era abbreviations without empty replacements or changing sentence cardinality', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop = admit(evidenceFixture('malaga-era-repair-01', 'Q3849447', COMPLETE_ROLES));
     const route = routeFor([stop]);
     const manifest = manifestFor(route, [stop]);
@@ -1277,7 +1301,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     ]);
   });
 
-  test('repairs deterministic V8 mechanical style findings even when auditTour reports no issues', async () => {
+  test('legacy core compatibility: repairs deterministic V8 mechanical style findings even when auditTour reports no issues', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop1 = admit(evidenceFixture('malaga-mech-01', 'Q9600001', COMPLETE_ROLES));
     const stop2 = admit(evidenceFixture('malaga-mech-02', 'Q9600002', COMPLETE_ROLES));
     const stops = [stop1, stop2];
@@ -1386,7 +1411,8 @@ describe('NarrativeEditorialWorkflowV8', () => {
     expect(result.editorial.tourAudit?.issues).toEqual([]);
   });
 
-  test('rejects a forged mechanical-style objection that is not produced by deterministic audit', async () => {
+  test('legacy core compatibility: rejects a forged mechanical-style objection that is not produced by deterministic audit', async () => {
+    const runNarrativeEditorialWorkflowV8 = runLegacyV8PolicyWorkflow;
     const stop = admit(evidenceFixture('malaga-forged-01', 'Q9700001', COMPLETE_ROLES));
     const route = routeFor([stop]);
     const manifest = manifestFor(route, [stop]);

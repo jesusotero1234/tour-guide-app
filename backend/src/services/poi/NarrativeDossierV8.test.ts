@@ -68,6 +68,28 @@ const AUTHORITY_B = {
 };
 
 describe('buildValidatedDossierV8', () => {
+  it.each(['visible_observation', 'chronology_or_transformation'] as const)('treats historical-only %s according to temporal scope', role => {
+    const c = capture('historical', 'La fortaleza tenía una torre en 1848.', AUTHORITY_A);
+    c.sourceKind = 'historical_corpus';
+    // This fixture isolates metadata propagation; corpus admission is tested separately.
+    c.historicalCorpus = { publicationYear: 1848, historicalPeriod: 'siglo XIX', sectionPath: ['Málaga', 'Gibralfaro'] } as NonNullable<NarrativeCapturedSourceV8['historicalCorpus']>;
+    const spans = spansOf(c);
+    const result = buildValidatedDossierV8(baseInput({
+      captures: [c], spansBySource: spans,
+      curatorOutput: { propositions: [{
+        text: c.content, role, certainty: 'high', interpretation: 'direct',
+        supports: [{ sourceId: c.sourceId, evidenceSpanIds: [spans.get(c.sourceId)![0].evidenceSpanId] }],
+      }], authorizedNames: [], authorizedNumbers: ['1848'], discrepancies: [], limits: [] },
+    }));
+    expect(result.status).toBe(role === 'visible_observation' ? 'curator_contract_failed' : 'ok');
+    if (result.status === 'ok') {
+      const passage = result.value.dossier.passages[0];
+      expect(passage.quote).toBe(c.content);
+      expect(passage.historicalContext).toEqual({ publicationYear: 1848, historicalPeriod: 'siglo XIX', sourceTitle: c.title, sectionPath: ['Málaga', 'Gibralfaro'] });
+      expect(passage.historicalContext?.sectionPath).not.toBe(c.historicalCorpus.sectionPath);
+    }
+  });
+
   it('accepts a literal span from an authorized source and reconstructs the exact quote', () => {
     const c = capture('source-a', 'La torre norte quedó inacabada en 1782.', AUTHORITY_A);
     const spans = spansOf(c);
