@@ -80,7 +80,12 @@ describe('Narrative V8 factual audit contract', () => {
     });
   });
 
-  it.each([true, false])('caps audit batches by maxTokens and covers all sentences once (anchors: %s)', async (anchors) => {
+  it.each([
+    { profile: 'balanced_openrouter', anchors: true, expectedBatches: [8, 8, 1] },
+    { profile: 'balanced_openrouter', anchors: false, expectedBatches: [16, 1] },
+    { profile: 'qwen38_hybrid', anchors: true, expectedBatches: [16, 1] },
+    { profile: 'qwen38_hybrid', anchors: false, expectedBatches: [16, 1] },
+  ])('caps audit batches by maxTokens and covers all sentences once (profile: $profile, anchors: $anchors)', async ({ profile, anchors, expectedBatches }) => {
     const sentences = Array.from({ length: 17 }, (_, i) => `Frase ${i + 1} del recorrido.`);
     const script = assignNarrativeSentenceIdsV6('stop-b', sentences.join(' '));
     const dossier = {
@@ -157,7 +162,7 @@ describe('Narrative V8 factual audit contract', () => {
     });
 
     const agents = createNarrativeEditorialAgentsV6Core(
-      { openRouterApiKey: 'test-key', post, profile: 'qwen38_hybrid' },
+      { openRouterApiKey: 'test-key', post, profile },
       ({ systemPrompt, input }) => ({ systemPrompt, input }),
       { auditAnchorsRequired: anchors }
     );
@@ -167,9 +172,9 @@ describe('Narrative V8 factual audit contract', () => {
     expect(result.value.findings).toHaveLength(17);
     const seenSentenceIds = new Set(result.value.findings.map((f) => f.sentenceId));
     expect(seenSentenceIds).toEqual(new Set(script.sentences.map(s => s.sentenceId)));
-    expect(batchSizes).toEqual(anchors ? [8, 8, 1] : [16, 1]);
-    expect((result.diagnostics ?? [])).toHaveLength(anchors ? 3 : 2);
+    expect(batchSizes).toEqual(expectedBatches);
+    expect((result.diagnostics ?? [])).toHaveLength(expectedBatches.length);
     expect((result.diagnostics ?? []).every((d) => d.status === 'valid')).toBe(true);
-    expect(post).toHaveBeenCalledTimes(anchors ? 3 : 2);
+    expect(post).toHaveBeenCalledTimes(expectedBatches.length);
   });
 });

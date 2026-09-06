@@ -7,6 +7,7 @@ const walkingRouteRequests = new Map<string, Promise<WalkingRoute>>();
 export type { TourListParams } from '@/types/api';
 
 export type ApiRequestError = Error & {
+  status?: number;
   code?: string;
   details?: unknown;
 };
@@ -305,7 +306,11 @@ export async function getGenerationJob(id: string): Promise<GenerationJob> {
   const response = await fetch(`${FRONTEND_TOUR_API}/generation-jobs/${encodeURIComponent(id)}`, {
     cache: 'no-store',
   });
-  const data = await response.json();
-  if (!response.ok) throw createApiRequestError(data, 'Failed to load generation progress');
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = createApiRequestError(data, 'Failed to load generation progress');
+    error.status = response.status;
+    throw error;
+  }
   return data as GenerationJob;
 }

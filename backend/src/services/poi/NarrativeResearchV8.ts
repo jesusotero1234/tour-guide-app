@@ -48,6 +48,7 @@ export interface NarrativeStopIdentityV8 {
   labels: string[];
   aliases: string[];
   wikipediaTitle: string | null;
+  wikipediaLanguage?: string;
   revision: { revisionId: number; timestamp: string } | null;
 }
 
@@ -863,7 +864,7 @@ export async function researchNarrativeStopV8(
     try {
       const wikipedia = await services.captureWikipedia({
         title: identity.wikipediaTitle,
-        language: input.language,
+        language: identity.wikipediaLanguage ?? input.language,
         expectedQid: input.stopId,
       });
       if (wikipedia) {
@@ -892,7 +893,7 @@ export async function researchNarrativeStopV8(
       captureLog.push({
         stopId: input.stopId,
         phase: 'wikipedia',
-        requestedUrl: 'https://' + input.language + '.wikipedia.org/wiki/' + identity.wikipediaTitle,
+        requestedUrl: 'https://' + (identity.wikipediaLanguage ?? input.language) + '.wikipedia.org/wiki/' + identity.wikipediaTitle,
         finalUrl: '',
         authorityBeforeCapture: 'registered',
         authorityAfterCapture: 'error',
@@ -1021,10 +1022,19 @@ export async function researchNarrativeStopV8(
   const targetedDomains = [...officialDomains, ...corroboratedDomains]
     .filter((domain, index, domains) => domains.indexOf(domain) === index)
     .slice(0, 2);
+  const terms: Record<string, [string, string]> = {
+    es: ['historia transformación', 'arquitectura función uso'],
+    fr: ['histoire transformation', 'architecture fonction usage'],
+    it: ['storia trasformazione', 'architettura funzione uso'],
+    en: ['history transformation', 'architecture function use'],
+    de: ['Geschichte Wandel', 'Architektur Funktion Nutzung'],
+    pt: ['história transformação', 'arquitetura função uso'],
+    ja: ['歴史 変遷', '建築 用途'],
+  };
+  const searchTerms = terms[input.language] ?? terms.en;
   const deterministicQueries = [
     ...targetedDomains.map((domain) => `site:${domain} ${searchName}${citySuffix}`),
-    `${searchName}${citySuffix} historia transformación`,
-    `${searchName}${citySuffix} arquitectura función uso`,
+    ...searchTerms.map(term => `${searchName}${citySuffix} ${term}`),
   ];
   const cappedDeterministicQueries = deterministicQueries.slice(0, budget.deterministicQueries);
   for (const query of cappedDeterministicQueries) {

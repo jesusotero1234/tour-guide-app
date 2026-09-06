@@ -184,26 +184,53 @@ function median(values: number[]): number {
   return sorted[Math.floor(sorted.length / 2)];
 }
 
+function isValidCoordinate(lat: number, lng: number): boolean {
+  return Number.isFinite(lat) && Number.isFinite(lng)
+    && lat >= -90 && lat <= 90
+    && lng >= -180 && lng <= 180;
+}
+
+// Nearby POIs support an anchor; this is neither a tour radius nor proof of city identity.
+// Check all sources before fame ranking so an outlying cluster cannot displace local support.
+const LOCAL_GEOGRAPHIC_CORROBORATION_RADIUS_METERS = 1000;
+const GEOCODED_MEDIAN_FALLBACK_RADIUS_METERS = 2500;
+
 export function resolveEditorialCityCenter(
   sources: EditorialCandidateSource[],
   geocodedCenter?: { lat: number; lng: number }
 ): { lat: number; lng: number } | undefined {
-  const notable = [...sources]
-    .filter((source) => Number.isFinite(source.lat) && Number.isFinite(source.lng))
+  const validSources = sources.filter((source) => isValidCoordinate(source.lat, source.lng));
+  const hasValidGeocodedCenter = geocodedCenter && isValidCoordinate(geocodedCenter.lat, geocodedCenter.lng);
+
+  if (hasValidGeocodedCenter) {
+    const geocoded = geocodedCenter as { lat: number; lng: number };
+    const hasLocalSupport = validSources.length === 0
+      || validSources.some((source) => distanceMeters(source, geocoded) <= LOCAL_GEOGRAPHIC_CORROBORATION_RADIUS_METERS);
+    if (hasLocalSupport) {
+      return geocoded;
+    }
+  }
+
+  const notable = [...validSources]
     .sort((left, right) => (right.fameScore ?? 0) - (left.fameScore ?? 0))
     .slice(0, 20);
   if (notable.length === 0) {
-    return geocodedCenter;
+    return undefined;
   }
 
-  const landmarkCenter = {
+  const medianCenter = {
     lat: median(notable.map((source) => source.lat)),
     lng: median(notable.map((source) => source.lng)),
   };
-  if (geocodedCenter && distanceMeters(geocodedCenter, landmarkCenter) <= 2500) {
-    return geocodedCenter;
+
+  if (hasValidGeocodedCenter) {
+    const geocoded = geocodedCenter as { lat: number; lng: number };
+    if (distanceMeters(geocoded, medianCenter) <= GEOCODED_MEDIAN_FALLBACK_RADIUS_METERS) {
+      return geocoded;
+    }
   }
-  return landmarkCenter;
+
+  return medianCenter;
 }
 
 function belongsToSameCluster(left: CandidateRecord, right: CandidateRecord): boolean {

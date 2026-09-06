@@ -23,6 +23,8 @@ export interface TourGeometryStopV8 {
 }
 
 export interface TourGeometryV8Result {
+  timingSource?: 'walking_graph' | 'geometric';
+  durationFit?: 'within_target' | 'short' | 'long' | 'unknown';
   status: 'walkable' | 'route_review_required';
   reason: 'too_many_self_transfers' | 'guided_duration_infeasible' | null;
   blocks: Array<{ stopIds: string[] }>;

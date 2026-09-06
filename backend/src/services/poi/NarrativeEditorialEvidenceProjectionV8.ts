@@ -420,10 +420,20 @@ export function createNarrativeEditorialRequestProjectorV8(
       if (tourProjectionMode === 'evidenceRichScorecard') {
         const projected: JsonRecord = {
           ...compactTourInput,
-          dossiers: admittedStops.map((stop) => projectNarrativeDossierForEditorialV8(stop.dossier)),
+          // Each sentence and full evidence dossier appear once; permissions reference
+          // those same propositions rather than serializing them a second/third time.
+          scripts: (inputRecord.scripts as NarrativeScriptV6[]).map(script => ({
+            stopId: script.stopId, sentences: script.sentences,
+          })),
           evidenceManifest: manifest,
-          evidenceByStop: manifest.stops,
-          authorizedEvidenceByStop,
+          authorizedEvidenceByStop: authorizedEvidenceByStop.map(stop => ({
+            routeStopId: stop.routeStopId,
+            localPropositionIds: stop.localPropositions.map(entry => entry.proposition.propositionId),
+            contributionPropositionIds: stop.contributionPropositions.map(entry => entry.proposition.propositionId),
+            bridgePropositions: stop.bridgePropositions.map(entry => ({
+              ownerRouteStopId: entry.ownerRouteStopId, propositionId: entry.proposition.propositionId,
+            })),
+          })),
           reviewEvidenceByStop,
         };
         return {

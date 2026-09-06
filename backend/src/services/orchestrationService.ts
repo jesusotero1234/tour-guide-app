@@ -30,7 +30,7 @@ import { CityNotAvailableError } from '../domain/errors/CityNotAvailableError';
 import { CityQualityNotAvailableError } from '../domain/errors/CityQualityNotAvailableError';
 import { TourDurationNotRecommendedError } from '../domain/errors/TourDurationNotRecommendedError';
 import { buildNarration } from './narrative/NarrativeBuilder';
-import { composeWalkingRoute, estimateRouteMetrics, buildDiversePrefix, orderRouteCandidates, RouteDiagnostics, RouteSelectionResult } from './poi/RouteSelection';
+import { composeWalkingRoute, estimateRouteMetrics, RouteDiagnostics, RouteSelectionResult } from './poi/RouteSelection';
 import { getDurationPlan } from './poi/DurationPlanning';
 import { assessHistoryTourPreflight, HistoryTourPreflight } from './poi/HistoryTourCapacity';
 import { fetchWikidataLandmarkMetadata, tierPoisByLandmarkFame } from './poi/LandmarkTiering';
@@ -43,6 +43,7 @@ import { attemptTourQualityRepair, getTourQualityRepairMode } from './tourQualit
 import { evaluateTourContentReadiness } from './tourReadiness/contentReadiness';
 import { getConceptDisplayCopy } from './cityIntelligence/conceptDisplayCopy';
 import { auditTourText, buildTourIntroduction, buildTourNarrativePlan } from './narrative/TourTextQuality';
+import { isPublishedTourReady } from './tourReadiness/publicationReadiness';
 
 export interface StructuralTourPlace {
   poi: EnrichedPoi;
@@ -134,7 +135,6 @@ async function mapWithConcurrency<T, R>(
  */
 export class OrchestrationService {
   private llmServiceUrl: string;
-  private descriptionServiceUrl: string;
   private voxcpmServiceUrl?: string;
   private kokoroServiceUrl: string;
   private readonly audioStorage: AudioStorage;
@@ -155,14 +155,12 @@ export class OrchestrationService {
     if (useServiceNames) {
       // Production mode: use service discovery via container names
       this.llmServiceUrl = process.env.LLM_SERVICE_URL || 'http://llm-pod:3002';
-      this.descriptionServiceUrl = process.env.DESCRIPTION_SERVICE_URL || 'http://description-pod:3004';
       this.voxcpmServiceUrl = process.env.TTS_POD_URL;
       this.kokoroServiceUrl = process.env.TTS_SERVICE_URL || 'http://tts-pod:3005';
     } else {
       // Development mode with network issues: use special DNS name for host
       const hostName = process.env.HOST_SYSTEM || 'localhost';
       this.llmServiceUrl = `http://${hostName}:3002`;
-      this.descriptionServiceUrl = `http://${hostName}:3004`;
       this.voxcpmServiceUrl = process.env.TTS_POD_URL;
       this.kokoroServiceUrl = process.env.TTS_SERVICE_URL || `http://${hostName}:3005`;
     }
@@ -170,7 +168,6 @@ export class OrchestrationService {
     console.log(`Running in ${env} mode with ${useServiceNames ? 'service names' : 'host access'}`);
     console.log('Using service URLs:');
     console.log(`LLM: ${this.llmServiceUrl}`);
-    console.log(`Description: ${this.descriptionServiceUrl}`);
     console.log(`TTS primary (VoxCPM): ${this.voxcpmServiceUrl || 'not configured'}`);
     console.log(`TTS fallback (Kokoro): ${this.kokoroServiceUrl}`);
   }
@@ -920,18 +917,23 @@ export class OrchestrationService {
   }
 
   private async findPublishedTextTour(request: TourRequest): Promise<TourResponse | null> {
-    const tours = await this.tourRepository.list({
-      city: request.city,
-      countryCode: request.countryCode,
-      theme: request.theme,
-      language: request.language || 'en',
-      durationMinutes: request.durationMinutes || request.duration || 240,
-      status: 'published',
-      limit: 1,
-    });
-    if (tours.length === 0) return null;
-    const hydrated = await this.retrieveTour(tours[0].id);
-    return this.isReadyForBrowse(hydrated) ? hydrated : null;
+    const limit = 25;
+    for (let offset = 0; ; offset += limit) {
+      const tours = await this.tourRepository.list({
+        city: request.city,
+        countryCode: request.countryCode,
+        theme: request.theme,
+        language: request.language || 'en',
+        durationMinutes: request.durationMinutes || request.duration || 240,
+        status: 'published',
+        limit,
+        offset,
+      });
+      for (const tour of tours) {
+        if (isPublishedTourReady(tour)) return this.retrieveTour(tour.id);
+      }
+      if (tours.length < limit) return null;
+    }
   }
 
   async generateTourFromConcept(request: ConceptTourRequest): Promise<TourResponse> {
@@ -1511,6 +1513,16 @@ export class OrchestrationService {
         requestedDurationMinutes: tour.metadata?.requestedDurationMinutes,
         recommendedDurationMinutes: tour.metadata?.recommendedDurationMinutes,
         durationAdapted: tour.metadata?.durationAdapted,
+        reviewSummary: tour.metadata?.codexAuthor ? {
+          findingCount: tour.metadata.codexAuthor.findingCount,
+          languageFindingCount: tour.metadata.codexAuthor.languageFindingCount,
+          narrationMinutes: tour.metadata.codexAuthor.narrationMinutes,
+          durationMeasured: tour.metadata.codexAuthor.durationMeasured,
+          narrationWithinTarget: tour.metadata.codexAuthor.narrationWithinTarget,
+          guidedDurationMinutes: tour.metadata.codexAuthor.guidedDurationMinutes,
+          transferCount: tour.metadata.codexAuthor.transferCount,
+          durationFit: tour.metadata.codexAuthor.durationFit,
+        } : undefined,
         createdAt: tour.createdAt,
         updatedAt: tour.updatedAt
       };
@@ -1531,7 +1543,7 @@ export class OrchestrationService {
 
       for (const tour of tours) {
         const hydrated = await this.retrieveTour(tour.id);
-        if (!this.isReadyForBrowse(hydrated)) {
+        if (!isPublishedTourReady(tour) || !this.isReadyForBrowse(hydrated)) {
           continue;
         }
 
@@ -1796,14 +1808,6 @@ export class OrchestrationService {
     return { minStops: plan.minStops, maxStops: plan.maxStops };
   }
 
-  private getImportanceScore(place: any): number {
-    return place.importanceScore ?? place.importance_score ?? 0;
-  }
-
-  private getCategory(place: any): string {
-    return place.category || 'other';
-  }
-
   private inferPoiCategory(poi: EnrichedPoi): string {
     return classifyPoiTags(poi.tags);
   }
@@ -1817,24 +1821,6 @@ export class OrchestrationService {
     }
 
     return { lat, lng };
-  }
-
-  private estimateRouteMetrics(orderedPlaces: any[], maxSegmentMeters = 1200): {
-    walkingMeters: number;
-    walkingMinutes: number;
-    estimatedTourMinutes: number;
-    outOfIdealSegments: number;
-    hasOverMaxSegment: boolean;
-  } {
-    return estimateRouteMetrics(orderedPlaces, maxSegmentMeters);
-  }
-
-  private buildDiversePrefix(candidates: any[], stopCount: number, maxCategoryRatio: number): any[] {
-    return buildDiversePrefix(candidates, stopCount, maxCategoryRatio);
-  }
-
-  private orderVerifiedPlaces(candidates: any[]): any[] {
-    return orderRouteCandidates(candidates);
   }
 
   private getQualityStatus(request: TourRequest): TourQualityStatus {
@@ -2187,36 +2173,6 @@ export class OrchestrationService {
   }
 
   /**
-   * Generate initial places using the LLM pod
-   */
-  private async generateInitialPlaces(city: string, country: string, countryCode: string, theme: string, language: string, duration?: number): Promise<any[]> {
-    try {
-      const requestedDuration = duration || 240;
-      const candidateCount = this.getCandidateCount(requestedDuration);
-      console.log('Candidate count requested:', candidateCount);
-
-      const response = await axios.post(`${this.llmServiceUrl}/generate/places`, {
-        city,
-        country,
-        countryCode,
-        language,
-        duration: requestedDuration,
-        maxStops: candidateCount,
-        interests: theme ? [theme] : []
-      });
-
-      if (!response.data || !response.data.places || !Array.isArray(response.data.places)) {
-        throw new Error('Invalid response from LLM service');
-      }
-
-      return response.data.places;
-    } catch (error) {
-      console.error('LLM service error:', error);
-      throw new Error(`LLM service error: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
-  }
-
-  /**
    * Verify places using the Verification pod with parallel requests
    */
   private async verifyPlaces(places: any[], city: string, country: string, countryCode: string): Promise<any[]> {
@@ -2308,95 +2264,6 @@ export class OrchestrationService {
       console.error('Error fetching images:', error);
       // Return the original places if there's an error
       return places;
-    }
-  }
-
-  /**
-   * Generate descriptions using the Description pod
-   */
-  private async generateDescriptions(places: any[], theme: string, language: string, city: string, country: string, expectedDuration: number): Promise<any[]> {
-    try {
-      const placesWithDescriptions = [];
-
-
-      // Create tour narrative structure with positional context for each place
-      const totalPlaces = places.length;
-      console.log(`Setting up narrative positions for ${totalPlaces} places`);
-
-      for (let i = 0; i < places.length; i++) {
-        const place = places[i];
-
-        // Determine position in the tour
-        let position: 'first' | 'middle' | 'last' = 'middle';
-        if (i === 0) position = 'first';
-        else if (i === places.length - 1) position = 'last';
-
-        // Create next/previous places lists for context
-        const previousStops = places.slice(0, i).map(p => ({
-          name: p.name,
-          category: p.category || ''
-        }));
-        const nextStops = places.slice(i + 1).map(p => ({
-          name: p.name,
-          category: p.category || ''
-        }));
-
-        // Build tour context
-        const tourContext = {
-          position,
-          tourTheme: theme,
-          tourName: `${city} ${theme} Tour`,
-          previousStops,
-          nextStops,
-          expectedDuration: expectedDuration
-        };
-
-        console.log(`Place ${i+1}/${totalPlaces}: ${place.name} has position: ${position}`);
-
-        // Add required city and country fields to the place object
-        const enrichedPlace = {
-          ...place,
-          city,
-          country
-        };
-
-        try {
-          const response = await axios.post(`${this.descriptionServiceUrl}/generate/description`, {
-            place: enrichedPlace,
-            theme,
-            language,
-            tourContext // Add tour context to the request
-          });
-
-          // Log the full response structure to debug
-          console.log(`Description response for ${place.name}:`, JSON.stringify(response.data));
-
-          // Fix data path: response.data.data.description instead of response.data.description
-          if (!response.data || !response.data.success || !response.data.data || !response.data.data.description) {
-            console.warn(`No description generated for ${place.name}, using fallback`);
-            placesWithDescriptions.push({
-              ...place,
-              description: `Visit ${place.name}, a notable location in this area.`
-            });
-          } else {
-            placesWithDescriptions.push({
-              ...place,
-              description: response.data.data.description
-            });
-          }
-        } catch (error) {
-          console.warn(`Description generation failed for ${place.name}, using fallback:`, error);
-          placesWithDescriptions.push({
-            ...place,
-            description: `Visit ${place.name}, a notable location in this area.`
-          });
-        }
-      }
-
-      return placesWithDescriptions;
-    } catch (error) {
-      console.error('Description service error:', error);
-      throw new Error(`Description service error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
@@ -2599,19 +2466,6 @@ export class OrchestrationService {
     // Re-sort the places by position to ensure they remain in proper order
     placesWithAudio.sort((a, b) => (a.position || 0) - (b.position || 0));
     return placesWithAudio;
-  }
-
-  /**
-   * Helper method to get audio URL for a place
-   */
-  private async getAudioUrlForPlace(placeId: string): Promise<string> {
-    try {
-      const asset = await this.audioAssetRepository.findByPlaceId(placeId);
-      return asset?.audioUrl || '';
-    } catch (error) {
-      console.error(`Failed to fetch audio URL for place ${placeId}:`, error);
-      return '';
-    }
   }
 
   private async resolveVoxCpmVoiceReference(language: string, voiceProfile: string): Promise<string | null> {

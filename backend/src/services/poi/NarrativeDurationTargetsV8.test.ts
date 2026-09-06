@@ -1,4 +1,4 @@
-import { allocateNarrationTargetsV8, narrationTargetForSecondsV8 } from './NarrativeDurationTargetsV8';
+import { allocateNarrationTargetsV8, evaluateNarrationDeliveryV8, narrationTargetForSecondsV8 } from './NarrativeDurationTargetsV8';
 
 describe('allocateNarrationTargetsV8', () => {
   const stops = [
@@ -97,5 +97,58 @@ describe('allocateNarrationTargetsV8', () => {
     expect(target.targetEvidenceCards).toBe(8);
     expect(target.minFacetCount).toBe(4);
     expect(target.minSpatialAnchors).toBe(2);
+  });
+});
+
+describe('evaluateNarrationDeliveryV8', () => {
+  it('passes when a single stop is within local and aggregate bounds', () => {
+    const result = evaluateNarrationDeliveryV8([{ targetWords: 600, actualWords: 580 }]);
+    expect(result.localPassed).toBe(true);
+    expect(result.aggregatePassed).toBe(true);
+    expect(result.passed).toBe(true);
+  });
+
+  it('passes local and aggregate when individual stops are within bounds and sum is within bounds', () => {
+    const result = evaluateNarrationDeliveryV8([
+      { targetWords: 600, actualWords: 480 },
+      { targetWords: 600, actualWords: 720 },
+    ]);
+    expect(result.localPassed).toBe(true);
+    expect(result.aggregatePassed).toBe(true);
+    expect(result.passed).toBe(true);
+  });
+
+  it('fails local when individual stops are outside bounds even if aggregate is compensated', () => {
+    const result = evaluateNarrationDeliveryV8([
+      { targetWords: 600, actualWords: 479 },
+      { targetWords: 600, actualWords: 721 },
+    ]);
+    expect(result.localPassed).toBe(false);
+    expect(result.aggregatePassed).toBe(true);
+    expect(result.passed).toBe(false);
+  });
+
+  it('fails aggregate when all stops are at the lower local bound', () => {
+    const result = evaluateNarrationDeliveryV8([
+      { targetWords: 600, actualWords: 480 },
+      { targetWords: 600, actualWords: 480 },
+    ]);
+    expect(result.localPassed).toBe(true);
+    expect(result.aggregatePassed).toBe(false);
+    expect(result.passed).toBe(false);
+  });
+
+  it('fails for an empty list', () => {
+    const result = evaluateNarrationDeliveryV8([]);
+    expect(result.localPassed).toBe(false);
+    expect(result.aggregatePassed).toBe(false);
+    expect(result.passed).toBe(false);
+  });
+
+  it('fails for invalid numbers', () => {
+    const result = evaluateNarrationDeliveryV8([{ targetWords: NaN, actualWords: 500 }]);
+    expect(result.localPassed).toBe(false);
+    expect(result.aggregatePassed).toBe(false);
+    expect(result.passed).toBe(false);
   });
 });

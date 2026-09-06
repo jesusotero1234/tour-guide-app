@@ -64,6 +64,7 @@ export class CityIdentityReviewRequiredErrorV8 extends Error {
 }
 
 export interface ResolveCityIdentityV8Input {
+  requireSettlement?: boolean;
   cityName: string;
   language: string;
   countryCode?: string;
@@ -72,7 +73,7 @@ export interface ResolveCityIdentityV8Input {
 }
 
 export type CityIdentityResolutionV8 =
-  | { status: 'ok'; qid: string }
+  | { status: 'ok'; qid: string; countryQid?: string }
   | { status: 'city_identity_review_required'; reason: string };
 
 function claimEntityIdValuesV8(claims: Record<string, unknown>, propId: string): string[] {
@@ -119,7 +120,6 @@ async function fetchCityEntitiesV8(
         action: 'wbgetentities',
         ids: batch.join('|'),
         props: 'labels|aliases|claims',
-        languages: 'en',
         format: 'json',
         formatversion: '2',
         origin: '*',
@@ -282,7 +282,38 @@ export async function resolveCityIdentityV8(
     const code = countryQid ? countryCodes.get(countryQid) : undefined;
     return code === expectedCode;
   });
-  if (matches.length === 1) return { status: 'ok', qid: matches[0] };
+  if (input.requireSettlement) {
+    // A matching name and country can also describe a newspaper, region or football club.
+    // Follow the instance/subclass graph; never pick the first search result.
+    const roots = new Set(['Q486972', 'Q515', 'Q15284']); // settlement, city, municipality
+    const types = new Map(matches.map(qid => [qid,
+      claimEntityIdValuesV8((entities.get(qid)?.claims ?? {}) as Record<string, unknown>, 'P31')]));
+    const graph = new Map<string, string[]>();
+    let pending = [...new Set([...types.values()].flat())];
+    for (let depth = 0; depth < 6 && pending.length; depth++) {
+      const ids = pending.filter(qid => !roots.has(qid) && !graph.has(qid));
+      if (!ids.length) break;
+      if (graph.size + ids.length > 150) return { status: 'city_identity_review_required', reason: 'city classification exceeds bounded verification' };
+      const classes = await fetchCityEntitiesV8(ids, get, wait);
+      pending = [];
+      for (const id of ids) {
+        const parents = claimEntityIdValuesV8((classes.get(id)?.claims ?? {}) as Record<string, unknown>, 'P279');
+        graph.set(id, parents); pending.push(...parents);
+      }
+      pending = [...new Set(pending)];
+    }
+    const isSettlement = (id: string, seen = new Set<string>()): boolean => {
+      if (roots.has(id)) return true;
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return (graph.get(id) ?? []).some(parent => isSettlement(parent, seen));
+    };
+    for (let i = matches.length - 1; i >= 0; i--) {
+      if (!types.get(matches[i])!.some(id => isSettlement(id))) matches.splice(i, 1);
+    }
+  }
+  if (matches.length === 1) return { status: 'ok', qid: matches[0],
+    ...(input.requireSettlement ? { countryQid: countryQidByCandidate.get(matches[0]) } : {}) };
   return {
     status: 'city_identity_review_required',
     reason: matches.length === 0
@@ -663,6 +694,7 @@ export class WikidataAuthorityProviderV7 {
     language: string;
   }): Promise<{
     title: string | null;
+    language: string;
     revision: { revisionId: number; timestamp: string } | null;
   }> {
     const response = await requestMediaWikiWithMaxlagPolicyV8(
@@ -689,7 +721,7 @@ export class WikidataAuthorityProviderV7 {
       ? stringValue((raw as { title?: unknown }).title)
       : null;
     const revision = (await this.revisionsOf([input.qid])).get(input.qid) ?? null;
-    return { title, revision };
+    return { title, revision, language: sitelinks[`${input.language}wiki`] ? input.language : sitelinks.enwiki ? 'en' : input.language };
   }
 }
 

@@ -175,6 +175,125 @@ describe('EditorialCandidate', () => {
     expect(result.candidates.filter((candidate) => candidate.tier === 'essential')).toHaveLength(0);
   });
 
+  describe('resolveEditorialCityCenter', () => {
+    it('preserves a valid geocoded center even when remote high-fame POIs dominate', () => {
+      const origins = [
+        { lat: 40.416775, lng: -3.70379 },
+        { lat: -33.45, lng: 150.27 },
+      ];
+
+      for (const origin of origins) {
+        const nearby = [
+          source({ osmId: 1, lat: origin.lat + 0.001, lng: origin.lng + 0.001, fameScore: 10 }),
+          source({ osmId: 2, lat: origin.lat - 0.001, lng: origin.lng - 0.001, fameScore: 12 }),
+        ];
+        const remote = Array.from({ length: 12 }, (_, index) => source({
+          osmId: 100 + index,
+          lat: origin.lat + 0.04,
+          lng: origin.lng + 0.04,
+          fameScore: 90 + index,
+        }));
+
+        const all = [...nearby, ...remote];
+        const shuffled = [...all].reverse();
+
+        expect(resolveEditorialCityCenter(all, origin)).toEqual(origin);
+        expect(resolveEditorialCityCenter(shuffled, origin)).toEqual(origin);
+      }
+    });
+
+    it('handles edge cases for geocoded centers and source coordinates', () => {
+      const validCenter = { lat: 0, lng: 0 };
+      const validSource = source({ osmId: 1, lat: 10, lng: 20, fameScore: 50 });
+      const invalidSource = source({ osmId: 2, lat: NaN, lng: 20, fameScore: 60 });
+      const outOfRangeSource = source({ osmId: 3, lat: 91, lng: 20, fameScore: 70 });
+
+      expect(resolveEditorialCityCenter([], validCenter)).toEqual(validCenter);
+      expect(resolveEditorialCityCenter([validSource], undefined)).toEqual({ lat: 10, lng: 20 });
+      expect(resolveEditorialCityCenter([validSource, invalidSource, outOfRangeSource], undefined)).toEqual({ lat: 10, lng: 20 });
+      expect(resolveEditorialCityCenter([invalidSource, outOfRangeSource], undefined)).toBeUndefined();
+
+      const invalidCenters: Array<{ lat: number; lng: number }> = [
+        { lat: NaN, lng: 0 },
+        { lat: Infinity, lng: 0 },
+        { lat: 91, lng: 0 },
+        { lat: 0, lng: 181 },
+        { lat: 0, lng: NaN },
+        { lat: 0, lng: Infinity },
+        { lat: -91, lng: 0 },
+        { lat: 0, lng: -181 },
+      ];
+      expect(resolveEditorialCityCenter([])).toBeUndefined();
+      for (const center of invalidCenters) {
+        const unusableSource = source({ ...center, fameScore: 100 });
+        expect(resolveEditorialCityCenter([validSource], center)).toEqual({ lat: 10, lng: 20 });
+        expect(resolveEditorialCityCenter([validSource, unusableSource])).toEqual({ lat: 10, lng: 20 });
+        expect(resolveEditorialCityCenter([unusableSource], center)).toBeUndefined();
+        expect(resolveEditorialCityCenter([], center)).toBeUndefined();
+      }
+    });
+
+    it('computes median of top-20 valid sources when no geocoded center is available', () => {
+      const sources = Array.from({ length: 21 }, (_, index) => source({
+        osmId: index + 1,
+        lat: 10 + index,
+        lng: 20 + index,
+        fameScore: index,
+      }));
+      const invalidHighFame = source({
+        osmId: 999,
+        lat: NaN,
+        lng: 20,
+        fameScore: 100,
+      });
+
+      expect(resolveEditorialCityCenter(sources, undefined)).toEqual({ lat: 21, lng: 31 });
+      expect(resolveEditorialCityCenter([...sources, invalidHighFame], undefined)).toEqual({ lat: 21, lng: 31 });
+    });
+
+    it('falls back to median when geocoded center is a remote municipal centroid with no local support', () => {
+      const centroid = { lat: 40.4, lng: -3.7 };
+      const farPois = Array.from({ length: 25 }, (_, index) => source({
+        osmId: index + 1,
+        lat: 40.44,
+        lng: -3.66,
+        fameScore: 50 + index,
+      }));
+
+      expect(resolveEditorialCityCenter(farPois, centroid)).toEqual({ lat: 40.44, lng: -3.66 });
+    });
+
+    it('preserves geocoded center when one low-fame POI is within local corroboration radius despite far high-fame POIs', () => {
+      const centroid = { lat: 40.4, lng: -3.7 };
+      const nearbyLowFame = source({
+        osmId: 1,
+        lat: 40.4005,
+        lng: -3.6995,
+        fameScore: 5,
+      });
+      const farHighFame = Array.from({ length: 24 }, (_, index) => source({
+        osmId: index + 2,
+        lat: 40.44,
+        lng: -3.66,
+        fameScore: 80 + index,
+      }));
+
+      expect(resolveEditorialCityCenter([nearbyLowFame, ...farHighFame], centroid)).toEqual(centroid);
+    });
+
+    it('preserves geocoded center when POIs are near the median but not within local corroboration radius', () => {
+      const centroid = { lat: 40.4, lng: -3.7 };
+      const pois = Array.from({ length: 10 }, (_, index) => source({
+        osmId: index + 1,
+        lat: 40.415,
+        lng: -3.685,
+        fameScore: 30 + index,
+      }));
+
+      expect(resolveEditorialCityCenter(pois, centroid)).toEqual(centroid);
+    });
+  });
+
   it('surfaces the complete Madrid calibration core from frozen sources without using the oracle as input', async () => {
     const pool = JSON.parse(readFileSync(join(FIXTURES, 'pools', 'madrid-history.json'), 'utf8')) as {
       rawPois: RawPoi[];

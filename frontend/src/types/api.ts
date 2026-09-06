@@ -113,6 +113,7 @@ export interface FlexiblePassQuoteResponse {
 }
 
 export interface Tour {
+  reviewSummary?: { findingCount: number; guidedDurationMinutes: number; transferCount: number; durationFit: string; languageFindingCount?: number; narrationMinutes?: number; durationMeasured?: boolean; narrationWithinTarget?: boolean };
   id: string;
   city: string;
   country: string;
@@ -149,6 +150,7 @@ export interface GenerationJob {
     durationAdapted?: boolean;
     requestedDurationMinutes?: number;
     recommendedDurationMinutes?: number;
+    reviewRequired?: boolean;
   };
   error?: {
     code: string;

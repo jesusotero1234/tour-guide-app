@@ -139,15 +139,29 @@ describe('verified edit selection V8', () => {
     expect(result.decision).toBe('rejected');
     expect(result.reason).toBe('La lista de frases objetivo contiene duplicados.');
   });
-  it('rejects new objection in non-target sentence even if target resolved', () => {
+  it('accepts new objection in non-target sentence when target resolved', () => {
     const beforeText = 'Primera frase. Segunda frase.';
     const candidateText = 'Primera frase corregida. Segunda frase.';
     const before = buildVersion(beforeText, ['unsupported', 'supported']);
     const candidate = buildVersion(candidateText, ['supported', 'unsupported']);
     const targetIds = [before.script.sentences[0].sentenceId];
     const result = decideNarrativeEditV8(before, candidate, undefined, targetIds);
-    expect(result.decision).toBe('rejected');
-    expect(result.reason).toBe('Una frase previamente soportada ahora tiene una objeción nueva.');
+    expect(result.decision).toBe('accepted');
+    const reports = reconcileNarrativeEditReportsV8(before, candidate);
+    expect(reports.candidate.findings[1].classification).toBe('unsupported');
+    expect(candidate.verification!.report.findings[1].classification).toBe('unsupported');
+  });
+  it('accepts late distorted finding on protected neighbor with corrected supported target', () => {
+    const beforeText = 'Primera frase. Segunda frase.';
+    const candidateText = 'Primera frase corregida. Segunda frase.';
+    const before = buildVersion(beforeText, ['unsupported', 'supported']);
+    const candidate = buildVersion(candidateText, ['supported', 'distorted']);
+    const targetIds = [before.script.sentences[0].sentenceId];
+    const result = decideNarrativeEditV8(before, candidate, undefined, targetIds);
+    expect(result.decision).toBe('accepted');
+    const reports = reconcileNarrativeEditReportsV8(before, candidate);
+    expect(reports.candidate.findings[1].classification).toBe('distorted');
+    expect(candidate.verification!.report.findings[1].classification).toBe('distorted');
   });
   it('rejects exact repetition of a new sentence', () => {
     const beforeText = 'Primera frase. Segunda frase.';
@@ -158,5 +172,28 @@ describe('verified edit selection V8', () => {
     const result = decideNarrativeEditV8(before, candidate, undefined, targetIds);
     expect(result.decision).toBe('rejected');
     expect(result.reason).toBe('La edición introduce una repetición exacta de frases normalizadas.');
+  });
+  it('accepts scoped factual correction within local duration band', () => {
+    const before = version(539, ['unsupported']);
+    const candidate = version(525, ['supported']);
+    const targetIds = [before.script.sentences[0].sentenceId];
+    const result = decideNarrativeEditV8(before, candidate, 570, targetIds);
+    expect(result.decision).toBe('accepted');
+  });
+  it('accepts scoped correction within local band and rejects just outside', () => {
+    const before = version(600, ['unsupported']);
+    const candidateAccepted = version(480, ['supported']);
+    const candidateRejected = version(479, ['supported']);
+    const targetIds = [before.script.sentences[0].sentenceId];
+    expect(decideNarrativeEditV8(before, candidateAccepted, 600, targetIds).decision).toBe('accepted');
+    expect(decideNarrativeEditV8(before, candidateRejected, 600, targetIds).decision).toBe('rejected');
+  });
+  it('rejects unsupported target even inside local band', () => {
+    const before = version(600, ['unsupported']);
+    const candidate = version(500, ['unsupported']);
+    const targetIds = [before.script.sentences[0].sentenceId];
+    const result = decideNarrativeEditV8(before, candidate, 600, targetIds);
+    expect(result.decision).toBe('rejected');
+    expect(result.reason).toBe('Una frase objetivo no está soportada o autorizada en la auditoría del candidato.');
   });
 });

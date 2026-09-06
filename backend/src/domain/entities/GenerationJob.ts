@@ -25,6 +25,7 @@ export interface GenerationJobResult {
   durationAdapted?: boolean;
   requestedDurationMinutes?: number;
   recommendedDurationMinutes?: number;
+  reviewRequired?: boolean;
 }
 
 export interface GenerationJob {
@@ -39,6 +40,9 @@ export interface GenerationJob {
   errorCode?: string;
   errorMessage?: string;
   errorDetails?: unknown;
+  attemptCount?: number;
+  accountedSpendUsd?: number;
+  spendLimitUsd?: number;
   createdAt: string;
   updatedAt: string;
   startedAt?: string;

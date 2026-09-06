@@ -105,6 +105,7 @@ export async function editNarrativeSegmentsV8(
       'Edita exclusivamente las frases objetivo de esta audioguía en su idioma original.',
       'Cada reemplazo debe contener exactamente una frase completa; no borres, fusiones ni fracciones frases ni reescribas segmentos.',
       'Si una frase mixta contiene información válida junto a una afirmación sin soporte, conserva la información válida y corrige solo la afirmación sin soporte.',
+      'Los reasons describen el defecto factual que debes resolver en cada frase objetivo, no basta reformularla. Si la objeción identifica una fecha, cantidad o detalle incierto por contradicción de la fuente, omite ese detalle y conserva el resto respaldado; no repitas el dato cuestionado solo porque figura en un pasaje, ni inventes un sustituto. Las etapas históricas compatibles no son contradicciones.',
       'No cuentes palabras ni rellenes la parada; la duración es solo contexto.',
       'No cambies el resto del relato ni inventes soporte. Usa solo los hechos de las tarjetas del beat o detalles explícitos de los pasajes locales.',
       'Los hechos de transición hacia la siguiente parada están autorizados exclusivamente por las proposiciones de bridgeEvidence; usa los pasajes locales para detalles locales.',

@@ -69,7 +69,7 @@ describe('NarrativePublicationQualityV8', () => {
     ]);
   });
 
-  it('fails publication quality when a repaired final script falls below its reconciled range', () => {
+  it('passes duration for a 574-word script against a 600-word target while keeping lengthPassed false', () => {
     const quality = buildNarrativePublicationQualityV8({
       scripts: [script('stop-a', 574)],
       targets: [narrationTargetForSecondsV8('stop-a', 300)],
@@ -78,7 +78,8 @@ describe('NarrativePublicationQualityV8', () => {
       requireWriterTraceability: true,
     });
 
-    expect(quality.passed).toBe(false);
+    expect(quality.duration.passed).toBe(true);
+    expect(quality.passed).toBe(true);
     expect(quality.stops[0]).toEqual(expect.objectContaining({
       finalWordCount: 574,
       lengthPassed: false,
@@ -116,5 +117,26 @@ describe('NarrativePublicationQualityV8', () => {
       beatCount: supportedBeats.length,
       traceabilityPassed: true,
     }));
+  });
+
+  it('fails publication when 7 stops of 480 words against a 600-word target have valid traceability but fail aggregate duration', () => {
+    const stopIds = Array.from({ length: 7 }, (_, index) => `stop-${index + 1}`);
+    const scripts = stopIds.map((stopId) => script(stopId, 480));
+    const targets = stopIds.map((stopId) => narrationTargetForSecondsV8(stopId, 300));
+    const arcContributions = Object.fromEntries(stopIds.map((stopId) => [stopId, `Explica el origen ceremonial de ${stopId}.`]));
+    const writerDiagnostics = stopIds.map((stopId) => writerDiagnostic(stopId));
+
+    const quality = buildNarrativePublicationQualityV8({
+      scripts,
+      targets,
+      arcContributions,
+      writerDiagnostics,
+      requireWriterTraceability: true,
+    });
+
+    expect(quality.passed).toBe(false);
+    expect(quality.duration.localPassed).toBe(true);
+    expect(quality.duration.aggregatePassed).toBe(false);
+    expect(quality.stops.every((stop) => stop.traceabilityPassed === true)).toBe(true);
   });
 });

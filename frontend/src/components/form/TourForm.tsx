@@ -1,25 +1,20 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../common/Button';
 import { Select } from '../common/Select';
 import { Language, LocationData, Theme, TourRequest } from '@/types/api';
-import { createGenerationJob, listTours } from '@/lib/api';
+import { createGenerationJob } from '@/lib/api';
 import { LocationPicker } from './LocationPicker';
 
 const themeOptions = [
   { value: 'history', label: 'History' },
-  { value: 'architecture', label: 'Architecture' },
-  { value: 'food', label: 'Food & Culture' },
 ];
 
 const languageOptions = [
   { value: 'es', label: 'Spanish' },
-  { value: 'en', label: 'English' },
   { value: 'fr', label: 'French' },
-  { value: 'de', label: 'German' },
-  { value: 'it', label: 'Italian' },
 ];
 
 const durationOptions = [
@@ -37,11 +32,34 @@ export const TourForm = () => {
   const [duration, setDuration] = useState('120');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [enabledLanguages, setEnabledLanguages] = useState<string[]>(['es']);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/backend/generation-capabilities', { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) return;
+        return res.json();
+      })
+      .then((data) => {
+        if (!data?.languages) return;
+        const supported = data.languages.filter((l: string) => l === 'es' || l === 'fr');
+        if (!supported.includes('es')) return;
+        setEnabledLanguages(supported);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (isLoading) return;
     if (!location?.countryCode) {
       setError('Choose a city from the suggestions first.');
+      return;
+    }
+    if (!enabledLanguages.includes(language)) {
+      setError('The selected language is not available.');
       return;
     }
 
@@ -57,20 +75,6 @@ export const TourForm = () => {
     };
 
     try {
-      const existing = await listTours({
-        city: request.city,
-        countryCode: request.countryCode,
-        theme,
-        language,
-        readyOnly: true,
-        limit: 1,
-      });
-      const exact = existing.find((tour) => tour.durationMinutes === request.durationMinutes);
-      if (exact) {
-        router.push(`/tours/${exact.id}`);
-        return;
-      }
-
       const job = await createGenerationJob(request);
       if (job.status === 'completed' && job.result?.tourId) {
         router.push(`/tours/${job.result.tourId}`);
@@ -79,7 +83,8 @@ export const TourForm = () => {
       router.push(`/generation/${job.id}`);
     } catch (requestError) {
       console.error('Failed to find or create tour:', requestError);
-      setError('We could not start this tour right now. Please try again.');
+      const message = requestError instanceof Error ? requestError.message : 'We could not start this tour right now. Please try again.';
+      setError(message);
       setIsLoading(false);
     }
   };
@@ -97,7 +102,7 @@ export const TourForm = () => {
         />
         <Select
           label="Language"
-          options={languageOptions}
+          options={languageOptions.filter((o) => enabledLanguages.includes(o.value))}
           value={language}
           onChange={(event) => setLanguage(event.target.value as Language)}
         />
@@ -111,7 +116,7 @@ export const TourForm = () => {
       />
 
       <div className="rounded-xl border border-darkBrown/10 bg-surface p-4 text-sm leading-6 text-darkBrown/70">
-        If a reviewed tour already exists, it opens immediately. Otherwise we build a new route and guide text in the background. You can leave the progress page and return later.
+        If a current tour is available in your selected language, it opens. Otherwise, we reuse available route research and write and audit a new version in your language. New text remains a draft pending review, and you can return later.
       </div>
 
       {isLoading && (

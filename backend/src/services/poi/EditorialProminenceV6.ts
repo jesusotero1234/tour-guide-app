@@ -23,7 +23,8 @@ export interface WikimediaProminenceCandidateV6 {
   localName: string;
   wikipediaTitle: string | null;
   cityWikipediaLinked: boolean;
-  wikivoyageSeeMentioned: boolean;
+  // null: the city guide is confirmed missing; false: a present guide has no mention.
+  wikivoyageSeeMentioned: boolean | null;
   wikivoyageSectionTitle: string | null;
   sitelinks: number;
   pageviews365: number | null;
@@ -142,7 +143,7 @@ export function validateWikimediaProminenceSnapshotV6(
     if (typeof candidate.localName !== 'string' || !candidate.localName.trim()
       || (candidate.wikipediaTitle !== null && typeof candidate.wikipediaTitle !== 'string')
       || typeof candidate.cityWikipediaLinked !== 'boolean'
-      || typeof candidate.wikivoyageSeeMentioned !== 'boolean'
+      || (candidate.wikivoyageSeeMentioned !== null && typeof candidate.wikivoyageSeeMentioned !== 'boolean')
       || (candidate.wikivoyageSectionTitle !== null && typeof candidate.wikivoyageSectionTitle !== 'string')
       || !Number.isInteger(candidate.sitelinks) || (candidate.sitelinks as number) < 0
       || (candidate.pageviews365 !== null && (!Number.isFinite(candidate.pageviews365)
@@ -153,7 +154,10 @@ export function validateWikimediaProminenceSnapshotV6(
       || !Array.isArray(candidate.support) || candidate.support.length < 1) {
       throw new Error(`candidates[${index}] is invalid`);
     }
-    if (candidate.wikivoyageSeeMentioned !== (candidate.wikivoyageSectionTitle !== null)) {
+    if (candidate.wikivoyageSeeMentioned === null
+      ? candidate.wikivoyageSectionTitle !== null
+        || sourceRevisions.some(revision => revision.project === `${context.language}.wikivoyage.org`)
+      : candidate.wikivoyageSeeMentioned !== (candidate.wikivoyageSectionTitle !== null)) {
       throw new Error(`candidates[${index}] Wikivoyage signal is inconsistent`);
     }
     const support = candidate.support.map((item, supportIndex): WikimediaProminenceSupportV6 => {
@@ -169,6 +173,10 @@ export function validateWikimediaProminenceSnapshotV6(
       allSupportIds.add(fact.supportId);
       return fact as unknown as WikimediaProminenceSupportV6;
     });
+    if (candidate.wikivoyageSeeMentioned === null
+      && support.some(item => item.type === 'wikivoyage_see_mention')) {
+      throw new Error(`candidates[${index}] unavailable Wikivoyage cannot supply support`);
+    }
     return { ...candidate, support } as unknown as WikimediaProminenceCandidateV6;
   });
   if (typeof root.fingerprint !== 'string') throw new Error('Wikimedia prominence fingerprint is invalid');

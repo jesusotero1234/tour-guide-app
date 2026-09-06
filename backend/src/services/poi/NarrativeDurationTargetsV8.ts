@@ -37,6 +37,21 @@ export function narrationLengthBoundsV8(targetWords: number): { minimumWords: nu
   };
 }
 
+// Provisional delivery tolerance until measured TTS: local variation must not
+// accumulate into a short/long tour. The narrower writing target stays unchanged.
+export function evaluateNarrationDeliveryV8(items: ReadonlyArray<{ targetWords: number; actualWords: number }>): {
+  localPassed: boolean; aggregatePassed: boolean; passed: boolean;
+} {
+  const valid = items.length > 0 && items.every(item => Number.isFinite(item.targetWords)
+    && item.targetWords > 0 && Number.isFinite(item.actualWords) && item.actualWords >= 0);
+  const localPassed = valid && items.every(item => item.actualWords >= Math.ceil(item.targetWords * 0.8)
+    && item.actualWords <= Math.floor(item.targetWords * 1.2));
+  const target = items.reduce((sum, item) => sum + item.targetWords, 0);
+  const actual = items.reduce((sum, item) => sum + item.actualWords, 0);
+  const aggregatePassed = valid && actual >= Math.ceil(target * 0.9) && actual <= Math.floor(target * 1.1);
+  return { localPassed, aggregatePassed, passed: localPassed && aggregatePassed };
+}
+
 const NARRATIVE_REPAIR_UPPER_BOUND_GRACE_WORDS_V8 = 20;
 const NARRATIVE_REPAIR_LOWER_BOUND_GRACE_WORDS_V8 = 5;
 

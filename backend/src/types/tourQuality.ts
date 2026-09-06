@@ -59,4 +59,25 @@ export interface TourMetadata {
   narrativePlan?: import('../services/narrative/TourTextQuality').TourNarrativePlan;
   textAudit?: import('../services/narrative/TourTextQuality').TourTextAudit;
   routeDiagnostics?: import('../services/poi/RouteSelection').RouteDiagnostics;
+  generationPipeline?: string;
+  codexAuthor?: {
+    runId: string;
+    publicationPassed: false;
+    findingCount: number;
+    durationFit: string;
+    guidedDurationMinutes: number;
+    transferCount: number;
+    legs: import('../services/poi/TourGeometryV8').TourLegV8[];
+    languageFindingCount?: number;
+    narrationPolicyVersion?: string;
+    narrationMinutes?: number;
+    durationMeasured?: false;
+    narrationWithinTarget?: boolean;
+    blueprintFingerprint?: string;
+    stopReviews?: Array<{
+      stopId: string;
+      findings: Array<{ sentenceId: string; classification: string; reason?: string }>;
+      languageReview?: { matchesRequestedLanguage: boolean; naturalForListening: boolean; issues: string[] };
+    }>;
+  };
 }

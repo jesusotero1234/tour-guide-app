@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "rootDir": ".", "outDir": "./dist-generation", "sourceMap": false },
+  "include": ["scripts/validation/narrative-user-canary-v8.ts", "scripts/validation/narrative-blueprint-author-v8.ts"],
+  "exclude": ["node_modules", "**/*.test.ts", "dist", "dist-generation"]
+}

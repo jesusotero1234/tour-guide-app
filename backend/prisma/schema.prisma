@@ -18,11 +18,14 @@ model Tour {
   status          String          @default("draft")
   introduction    String?
   metadata        Json            @default("{}")
+  blueprintId     String?         @map("blueprint_id") @db.Uuid
+  blueprint       TourBlueprint?  @relation(fields: [blueprintId], references: [id], onDelete: Restrict)
   createdAt       DateTime        @default(now()) @map("created_at")
   updatedAt       DateTime        @default(now()) @updatedAt @map("updated_at")
   places          Place[]
   generationJobs  GenerationJob[]
 
+  @@index([blueprintId, language])
   @@map("tours")
 }
 
@@ -91,10 +94,15 @@ model GenerationJob {
   errorCode    String?   @map("error_code")
   errorMessage String?   @map("error_message")
   errorDetails Json?     @map("error_details")
+  attemptCount Int       @default(0) @map("attempt_count")
+  accountedSpendUsd Float @default(0) @map("accounted_spend_usd")
+  spendLimitUsd Float?   @map("spend_limit_usd")
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at")
   startedAt    DateTime? @map("started_at")
   finishedAt   DateTime? @map("finished_at")
+  leaseOwner   String?   @map("lease_owner")
+  leaseExpiresAt DateTime? @map("lease_expires_at")
   tour         Tour?     @relation(fields: [tourId], references: [id], onDelete: SetNull)
 
   @@map("generation_jobs")
@@ -176,4 +184,25 @@ model TourConcept {
 
   @@unique([city, countryCode, language, slug])
   @@map("tour_concepts")
+}
+
+model TourBlueprint {
+  id                String   @id @default(uuid()) @db.Uuid
+  baseKey           String   @map("base_key")
+  revision          Int
+  status            String
+  snapshot          Json?
+  revalidateAfter   DateTime? @map("revalidate_after")
+  leaseOwner        String?   @map("lease_owner")
+  leaseExpiresAt    DateTime? @map("lease_expires_at")
+  attemptCount      Int       @default(0) @map("attempt_count")
+  accountedSpendUsd Float     @default(0) @map("accounted_spend_usd")
+  spendLimitUsd     Float     @map("spend_limit_usd")
+  error             String?
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @default(now()) @updatedAt @map("updated_at")
+  tours             Tour[]
+
+  @@unique([baseKey, revision])
+  @@map("tour_blueprints")
 }

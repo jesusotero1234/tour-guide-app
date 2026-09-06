@@ -2,6 +2,7 @@ import { assignNarrativeSentenceIdsV6, narrativeSentenceFingerprintV6 } from './
 import { compactNarrativeAuditSchemaV8, parseCompactNarrativeAuditV8, verifyNarrativeCompactV8 } from './NarrativeCompactVerificationV8';
 import * as llm from './EditorialStructuredLlmV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
+import { NARRATIVE_MODEL_PROFILES_V6 } from './NarrativeModelProfilesV6';
 
 const script = assignNarrativeSentenceIdsV6('stop', 'La fachada tiene dos torres. Observa su silueta.');
 const checks = () => script.sentences.map((s, i) => ({
@@ -21,11 +22,13 @@ describe('compact factual verification V8', () => {
       const result = await verifyNarrativeCompactV8({ profile: 'qwen38_hybrid', openRouterApiKey: 'offline-test' },
         { script, dossier }, { propositions: [], passages: [] });
       expect(request).toHaveBeenCalledTimes(1);
-      expect(request.mock.calls[0][0].provider).toMatchObject({ kind: 'openrouter', model: 'openai/gpt-5.4-mini' });
-      expect(request.mock.calls[0][0].options).toMatchObject({ phase: 'auditor_b', requestAttempts: 1, rateLimitAttempts: 1 });
+      expect(request.mock.calls[0][0].provider).toMatchObject({ kind: 'openrouter', model: 'openai/gpt-5.4' });
+      expect(request.mock.calls[0][0].options).toMatchObject({ phase: 'auditor_b', requestAttempts: 1, rateLimitAttempts: 1, reasoning: 'medium', maxTokens: 8000 });
       expect(result.value.findings).toHaveLength(2);
-      expect(result.value.provenance).toEqual({ transport: 'openrouter', requestedModel: 'openai/gpt-5.4-mini', actualModel: null, actualProvider: null });
+      expect(result.value.provenance).toEqual({ transport: 'openrouter', requestedModel: 'openai/gpt-5.4', actualModel: null, actualProvider: null });
       expect(result.diagnostic.value).toEqual(result.value);
+      expect(NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid.phases.writer.provider).toMatchObject({ kind: 'openrouter', model: 'openai/gpt-5.4-mini' });
+      expect(NARRATIVE_MODEL_PROFILES_V6.balanced_openrouter.phases.auditor_b.provider).toMatchObject({ kind: 'openrouter', model: 'openai/gpt-5.4-mini' });
     } finally { request.mockRestore(); }
   });
 
@@ -106,8 +109,9 @@ describe('compact factual verification V8', () => {
       expect(result.diagnostic.value).toEqual(result.value);
       expect(request.mock.calls[0][0].input).toMatchObject({ bridgeEvidence: { nextStop: { stopId: 'next-stop', authorizedNames: ['Next Stop'] } } });
       expect(request.mock.calls[0][0].systemPrompt).toContain('bridgeEvidence.nextStop');
-      expect(request.mock.calls[0][0].systemPrompt).toContain('Pero la plaza no habla solo del monumento original');
-      expect(request.mock.calls[0][0].systemPrompt).toContain('La plaza fue diseñada para controlar a la población');
+      expect(request.mock.calls[0][0].systemPrompt).toContain('Si la frase solo invita a observar, enlaza temas o expresa una valoración narrativa sin añadir hechos, clasifica authorized_inference.');
+      expect(request.mock.calls[0][0].systemPrompt).toContain('Si una frase mezcla una parte válida y una afirmación factual no sustentada, no apruebes la frase entera.');
+      expect(request.mock.calls[0][0].systemPrompt).toContain('Una descripción histórica atribuida puede ser válida; historicalContext no demuestra estado actual ni fecha de construcción.');
     } finally { request.mockRestore(); }
   });
   it('rejects extra fields and unbounded explanations', () => {

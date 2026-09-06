@@ -277,6 +277,53 @@ export default function TourDetailPage() {
                 </div>
               </div>
 
+              {(tour.status === 'review' || tour.status === 'draft') && (
+                <div className="rounded-2xl border border-mutedGold/40 bg-surface-elevated p-5 shadow-sm sm:p-6">
+                  <h2 className="font-serif text-xl font-semibold text-darkBrown">
+                    Draft — pending review
+                  </h2>
+                  <p className="mt-2 max-w-3xl text-sm leading-6 text-darkBrown/75 sm:text-base">
+                    This text has not been approved for publication. Review its facts and route before using it as a guide.
+                  </p>
+                </div>
+              )}
+
+              {tour.reviewSummary && (
+                <div className="rounded-2xl border border-mutedGold/40 bg-surface-elevated p-5 shadow-sm sm:p-6">
+                  <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">
+                    Review summary
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs text-darkBrown/70">
+                    <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                      {tour.reviewSummary.findingCount} factual findings to review
+                    </span>
+                    <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                      {tour.reviewSummary.guidedDurationMinutes} estimated guided minutes
+                    </span>
+                    {tour.reviewSummary.languageFindingCount !== undefined && (
+                      <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                        {tour.reviewSummary.languageFindingCount} language findings to review
+                      </span>
+                    )}
+                    {tour.reviewSummary.narrationMinutes !== undefined && (
+                      <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                        {tour.reviewSummary.narrationMinutes} estimated narration minutes (provisional; audio not measured)
+                      </span>
+                    )}
+                    {(tour.reviewSummary.durationFit !== 'within_target' || tour.reviewSummary.narrationWithinTarget === false) && (
+                      <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                        duration needs review
+                      </span>
+                    )}
+                    {tour.reviewSummary.transferCount > 0 && (
+                      <span className="rounded-full border border-darkBrown/12 bg-surface px-3 py-1">
+                        transfer time excluded
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {tour.durationAdapted && tour.requestedDurationMinutes && tour.recommendedDurationMinutes && (
                 <div className="relative overflow-hidden rounded-2xl border border-mutedGold/40 bg-surface-elevated p-5 shadow-sm sm:p-6">
                   <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-mutedGold/15" />

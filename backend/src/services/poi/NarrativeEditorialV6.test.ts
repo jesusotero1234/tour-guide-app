@@ -344,6 +344,64 @@ describe('narrative v6 editorial protocol', () => {
     expect(ambiguous[0].scriptFingerprint).toBe(script.fingerprint);
   });
 
+  it('v8 policy: strips sentence-initial locative adverbs before authorized names without weakening unknown-name detection', () => {
+    const locatives = ['Aquí', 'Allí', 'Hoy', 'Ahora'];
+    const authorizedNames = ['Puerta de Alcalá', 'Alcazaba', 'Catedral de Toledo'];
+
+    for (const locative of locatives) {
+      for (const name of authorizedNames) {
+        const script = assignNarrativeSentenceIdsV6('madrid', `${locative} la ${name} se ve desde la plaza.`);
+        const warnings = auditNarrativeScriptDeterministicallyV6(script, {
+          language: 'es',
+          authorizedNames,
+          authorizedNumbers: [],
+          policy: 'v8',
+        }).filter((w) => w.code === 'unauthorized_name');
+        expect(warnings).toEqual([]);
+      }
+    }
+
+    const singleUnknown = auditNarrativeScriptDeterministicallyV6(
+      assignNarrativeSentenceIdsV6('test-city', 'Aquí Zorro saluda al grupo.'),
+      { language: 'es', authorizedNames, authorizedNumbers: [], policy: 'v8' }
+    );
+    expect(singleUnknown).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'unauthorized_name', severity: 'hard' }),
+    ]));
+    expect(singleUnknown.some(w => w.code === 'ambiguous_capitalized_start')).toBe(false);
+
+    const unknownScript = assignNarrativeSentenceIdsV6('madrid', 'Aquí la Torre Inventada se ve desde la plaza.');
+    const unknownWarnings = auditNarrativeScriptDeterministicallyV6(unknownScript, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(unknownWarnings).toHaveLength(1);
+    expect(unknownWarnings[0].severity).toBe('hard');
+    expect(unknownWarnings[0].message).toContain('Torre Inventada');
+
+    const mixedScript = assignNarrativeSentenceIdsV6('madrid', 'Aquí la Alcazaba y Torre Inventada se ven desde la plaza.');
+    const mixedWarnings = auditNarrativeScriptDeterministicallyV6(mixedScript, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(mixedWarnings).toHaveLength(1);
+    expect(mixedWarnings[0].message).toContain('Torre Inventada');
+
+    const arbitraryScript = assignNarrativeSentenceIdsV6('madrid', 'Aquí Juan Pérez llegó al museo.');
+    const arbitraryWarnings = auditNarrativeScriptDeterministicallyV6(arbitraryScript, {
+      language: 'es',
+      authorizedNames,
+      authorizedNumbers: [],
+      policy: 'v8',
+    }).filter((w) => w.code === 'unauthorized_name');
+    expect(arbitraryWarnings).toHaveLength(1);
+    expect(arbitraryWarnings[0].message).toContain('Juan Pérez');
+  });
+
   it('v8 policy: repeated unauthorized names carry distinct sentence IDs', () => {
     const script = assignNarrativeSentenceIdsV6(
       'alcazar',

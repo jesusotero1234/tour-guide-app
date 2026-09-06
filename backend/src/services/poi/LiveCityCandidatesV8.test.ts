@@ -391,6 +391,47 @@ describe('loadLiveCityCandidatesV8', () => {
     }, { get, fetchPois })).rejects.toThrow(/runtime error: Query timed out/);
   });
 
+  it('preserves city center and excludes remote archaeological POIs from entities', async () => {
+    const remotePois: RawPoi[] = Array.from({ length: 12 }, (_, index) => ({
+      osmType: 'node',
+      osmId: 5000 + index,
+      name: `Yacimiento Arqueológico ${index + 1}`,
+      lat: CITY_CENTER.lat + 0.04,
+      lng: CITY_CENTER.lng + 0.04,
+      tags: {
+        name: `Yacimiento Arqueológico ${index + 1}`,
+        wikidata: `Q7${String(100_000 + index)}`,
+        wikipedia: `es:Yacimiento Arqueológico ${index + 1}`,
+        historic: 'archaeological_site',
+        tourism: 'attraction',
+      },
+    }));
+
+    const { get, fetchPois } = scriptedGetV8();
+    const existingPois = await fetchPois(CITY_CENTER, 'history');
+    const allPois = [...existingPois, ...remotePois];
+
+    const result = await loadLiveCityCandidatesV8({
+      city: 'Synthetic Heritage Town',
+      cityKey: 'synthetic-heritage-town',
+      theme: 'history',
+      language: 'es',
+      durationMinutes: 60,
+      countryCode: 'ES',
+    }, { get, fetchPois: async () => allPois });
+
+    expect(result.cityCenter).toEqual(CITY_CENTER);
+    const readyIds = result.readyEntities.map((entity) => entity.canonicalId);
+    expect(readyIds).toContain('Q246428');
+    expect(readyIds).toContain('Q3123400');
+
+    const entityIds = result.entities.map((entity) => entity.canonicalId);
+    for (const poi of remotePois) {
+      expect(entityIds).not.toContain(poi.tags.wikidata);
+    }
+    expect(result.prefilteredCount).toBe(15);
+  });
+
   it('rejects invalid inputs with strict validation', async () => {
     const { get } = scriptedGetV8();
     await expect(loadLiveCityCandidatesV8({

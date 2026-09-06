@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getGenerationJob } from '@/lib/api';
+import { getGenerationJob, type ApiRequestError } from '@/lib/api';
 import { GenerationJob } from '@/types/api';
 
 const stageLabels: Record<GenerationJob['step'], string> = {
@@ -23,8 +23,12 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
   const router = useRouter();
   const [job, setJob] = useState<GenerationJob | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [terminalError, setTerminalError] = useState<string | null>(null);
 
   useEffect(() => {
+    setJob(null);
+    setLoadError(null);
+    setTerminalError(null);
     let cancelled = false;
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
@@ -34,14 +38,22 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
         if (cancelled) return;
         setJob(nextJob);
         setLoadError(null);
-        if (nextJob.status === 'completed' && nextJob.result?.tourId) {
-          router.replace(`/tours/${nextJob.result.tourId}`);
+        if (nextJob.status === 'completed') {
+          if (nextJob.result?.tourId) router.replace(`/tours/${nextJob.result.tourId}`);
+          else setTerminalError('This generation finished without an available tour.');
           return;
         }
         if (nextJob.status !== 'failed') timeoutId = setTimeout(poll, 2000);
       } catch (error) {
         if (cancelled) return;
         console.error('Failed to poll generation job:', error);
+        const apiError = error as ApiRequestError;
+        if ([400, 401, 403, 404, 410].includes(apiError.status ?? 0)
+          || apiError.code === 'GENERATION_JOB_NOT_FOUND') {
+          setLoadError(null);
+          setTerminalError('This generation is unavailable. Please start a new tour.');
+          return;
+        }
         setLoadError('We could not refresh the progress. We will try again shortly.');
         timeoutId = setTimeout(poll, 5000);
       }
@@ -56,17 +68,22 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
 
   const progress = job?.progress;
   const percentage = progress?.totalStops
-    ? Math.round((progress.completedStops / progress.totalStops) * 100)
+    ? Math.max(0, Math.min(100, Math.round((progress.completedStops / progress.totalStops) * 100)))
     : 0;
 
   return (
     <div className="mx-auto max-w-2xl rounded-[1.75rem] border border-darkBrown/12 bg-surface-elevated p-6 shadow-md sm:p-8">
       <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">Text tour generation</p>
       <h1 className="mt-3 text-3xl font-serif font-bold text-darkBrown">
-        {job ? stageLabels[job.step] : 'Loading generation progress'}
+        {terminalError ? 'Generation unavailable' : job ? stageLabels[job.step] : 'Loading generation progress'}
       </h1>
 
-      {job?.status === 'failed' ? (
+      {terminalError ? (
+        <div className="mt-6 text-danger" role="alert">
+          <p>{terminalError}</p>
+          <Link href="/" className="mt-4 inline-flex underline">Start a new tour</Link>
+        </div>
+      ) : job?.status === 'failed' ? (
         <div className="mt-6 rounded-xl border border-danger/20 bg-danger-surface p-5 text-danger" role="alert">
           <p className="font-medium">We did not publish this tour.</p>
           <p className="mt-2 text-sm leading-6">

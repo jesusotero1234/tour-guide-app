@@ -1,4 +1,4 @@
-import { generateTour, getWalkingRoute, listTours } from './tours';
+import { generateTour, getTour, getWalkingRoute, listTours } from './tours';
 import { CityQualityNotAvailableError } from '../../domain/errors/CityQualityNotAvailableError';
 import {
   InvalidTourRouteError,
@@ -46,6 +46,23 @@ function createResponse() {
   return res;
 }
 
+describe('audited draft delivery', () => {
+  beforeEach(()=>jest.clearAllMocks());
+  it('opens an audited review draft without relabeling it as published',async()=>{
+    const draft={id:'draft-fr',language:'fr',status:'review',reviewSummary:{findingCount:4}};
+    orchestrationService.retrieveTour.mockResolvedValue(draft);
+    const res=createResponse();
+    await getTour({params:{id:'draft-fr'}} as any,res as any);
+    expect(res.status).not.toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith(draft);
+  });
+  it.each(['draft','review','archived'])('keeps an ordinary %s without an audit summary unavailable',async status=>{
+    orchestrationService.retrieveTour.mockResolvedValue({id:'draft',status});
+    const res=createResponse();
+    await getTour({params:{id:'draft'}} as any,res as any);
+    expect(res.status).toHaveBeenCalledWith(404);
+  });
+});
 describe('generateTour controller', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -92,6 +109,7 @@ describe('generateTour controller', () => {
           reasons: ['category_collapse', 'route_degraded'],
           stage: 'output',
           score: 0.48,
+          signals: { degraded: true, routeMaxCategoryShare: 0.88 },
         },
       },
     });

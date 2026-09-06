@@ -25,6 +25,7 @@ export interface NarrativeDiscoveryResultV7 {
 }
 
 export interface NarrativeCapturedSourceV7 {
+  sourceLanguage?: string | null;
   sourceId: string;
   requestedUrl: string;
   finalUrl: string;
@@ -158,6 +159,7 @@ export async function captureWikipediaArticleV8(
   const finalUrl = `${origin}/wiki/${encodeURIComponent(input.title.replace(/ /g, '_'))}`;
   const source: NarrativeCapturedSourceV7 = {
     sourceId: `source-wiki-${input.language}`,
+    sourceLanguage: input.language,
     requestedUrl: finalUrl,
     finalUrl,
     title: typeof page.title === 'string' ? page.title : input.title,
@@ -719,6 +721,8 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
       authority: classifyNarrativeSourceAuthorityV7(finalUrl.toString()),
       containsInstructionLikeText: instructionLikeText(content),
       finalHttpStatus: finalStatus,
+      sourceLanguage: typeof metadata.language === 'string' && /^[a-z]{2,3}(?:-[a-z0-9]+)*$/i.test(metadata.language)
+        ? metadata.language.toLowerCase() : null,
     };
   }
 }

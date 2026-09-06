@@ -44,6 +44,7 @@ export interface NarrativeDossierProposalV6 {
 
 export interface NarrativeDossierV6 extends Omit<NarrativeDossierProposalV6, 'sources'> {
   sources: Array<{
+    sourceLanguage?: string | null;
     sourceId: string;
     finalUrl: string;
     title: string;
@@ -200,6 +201,7 @@ export function buildNarrativeDossierV6(
       capturedAt: capture.capturedAt,
       fingerprint: capture.fingerprint,
       authority: capture.authority,
+      ...(capture.sourceLanguage !== undefined ? { sourceLanguage: capture.sourceLanguage } : {}),
       ...(capture.wikimediaRevision
         ? { wikimediaRevision: capture.wikimediaRevision }
         : {}),

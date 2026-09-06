@@ -48,6 +48,7 @@ import {
 } from '../../src/services/poi/NarrativeEditorialWorkflowV8';
 import {
   renderNarrativeTourMarkdownV6,
+  renderNarrativeCheckpointPreviewV8,
 } from '../../src/services/poi/NarrativeMarkdownV6';
 import {
   NarrativeRouteBriefV6,
@@ -71,7 +72,6 @@ import { loadLiveCityCandidatesV8, LiveCityCandidatesV8Input } from '../../src/s
 import { resolveWikidataQidFromWikipediaV8 } from '../../src/services/poi/NarrativeAuthoritiesV7';
 import {
   requiredCanonicalIdsFromCoreV8,
-  selectEssentialRouteV8,
   EssentialRouteCandidateV8,
 } from '../../src/services/poi/EssentialRouteSelectionV8';
 import { allocateNarrationTargetsV8, SPEAKING_RATE_WORDS_PER_MINUTE } from '../../src/services/poi/NarrativeDurationTargetsV8';
@@ -81,11 +81,12 @@ import { reconcileNarrationTargetsV8 } from '../../src/services/poi/NarrativeDur
 import { evaluateNarrativeRichnessV8 } from '../../src/services/poi/NarrativeRichnessV8';
 import { buildNarrativePublicationQualityV8 } from '../../src/services/poi/NarrativePublicationQualityV8';
 import {
-  pruneOptionalStopsForWalkabilityV8,
-  tourStopsFromCandidatesV8,
+  composeTourLegsV8,
   TourGeometryV8Result,
 } from '../../src/services/poi/TourGeometryV8';
 import { getDurationPlan } from '../../src/services/poi/DurationPlanning';
+import { WalkingRouteService, WalkingRouteUnavailableError } from '../../src/services/WalkingRouteService';
+import { planNarrativeWalkingRouteV8, measureNarrativeWalkingRouteV8 } from '../../src/services/poi/NarrativeWalkingPlanV8';
 import {
   createCheckpoint,
   writeCheckpointV8,
@@ -134,6 +135,11 @@ import {
   narrativeCanaryResearchCheckpointPhaseV8,
   researchRuntimeV8,
 } from '../../src/services/poi/NarrativeUserCanaryRuntimeV8';
+
+import { prepareAuthorCanaryMaterialV8 } from './narrative-author-canary-material-v8';
+import { codexWriterTransportV8, preflightCodexLiveV8, runCodexLiveNarrationV8 } from './narrative-codex-live-v8';
+import { createTourBlueprintSnapshot } from '../../src/services/TourBlueprint';
+import { TourDestination } from '../../src/services/TourDestinationResolver';
 
 const SPEND_LIMIT_USD = Number(option('--spend-limit-usd') ?? 2);
 const DEADLINE_MS = 30 * 60 * 1_000;
@@ -349,7 +355,7 @@ async function adaptiveQueryServiceV8(options: {
       options: execution.options,
       systemPrompt: [
         'Propón hasta cuatro consultas de búsqueda adaptativas para una parada de tour.',
-        'Usa el nombre, aliases, idioma y país reales; omite consultas ya usadas.',
+        'Usa el nombre, aliases, idioma y país reales; omite consultas ya usadas. Escribe los términos de búsqueda en input.language, conserva los nombres locales y no copies el español de estas instrucciones.',
         ...NARRATIVE_ADAPTIVE_QUERY_GUIDANCE_V8,
         'Rechaza consultas vacías, duplicadas o de más de 500 caracteres.',
       ].join(' '),
@@ -638,6 +644,7 @@ async function buildResearchServices(options: {
         labels: registry.labels,
         aliases: registry.aliases,
         wikipediaTitle: sitelink.title,
+        wikipediaLanguage: sitelink.language,
         revision: sitelink.revision,
       };
       identityCache.set(qid, identity);
@@ -648,7 +655,16 @@ async function buildResearchServices(options: {
     captureWikipedia: async ({ title, language, expectedQid }) => (
       captureWikipediaArticleV8({ title, language, expectedQid })
     ),
-    search: (input) => discovery.search(input),
+    search: async (input) => {
+      const languages = (option('--research-languages') ?? input.language).split(',');
+      if (languages.length > 3 || languages.some(lang => !/^[a-z]{2,3}$/.test(lang))) throw new Error('Invalid research languages');
+      const found = new Map<string, Awaited<ReturnType<typeof discovery.search>>[number]>();
+      for (const language of languages) {
+        for (const item of await discovery.search({ ...input, language })) if (!found.has(item.url)) found.set(item.url, item);
+        if (found.size >= input.limit) break;
+      }
+      return [...found.values()].slice(0, input.limit);
+    },
     mapOfficialSite: (input) => capture.mapOfficialSite(input),
     captureWeb: (input) => captureWeb(input.url, input.requestClass),
     ...(options.ragBaseUrl ? { retrieveHistorical: (input: Parameters<typeof retrieveNarrativeHistoricalCorpusV8>[0]) =>
@@ -729,7 +745,12 @@ async function loadCoreV8(
       resolution: replayed.snapshot,
     };
   }
+  const destinationFile = option('--destination-file');
+  const destination = destinationFile ? JSON.parse(readFileSync(destinationFile, 'utf8')) as TourDestination : undefined;
+  const pages = destination?.wikimediaPages;
+  if (pages && !pages.wikipedia) throw new Error('DESTINATION_REVIEW_REQUIRED: no city Wikipedia sitelink in research languages');
   const prominence = await captureWikimediaProminenceV6({
+    ...(pages ? { wikipediaPage: pages.wikipedia!, wikivoyagePage: pages.wikivoyage } : {}),
     cityKey: context.cityKey,
     cityTitle: option('--city-title') ?? context.cityKey,
     language: option('--language') ?? 'es',
@@ -788,6 +809,8 @@ async function main(): Promise<void> {
     );
   }
   const profile = requestedProfile as NarrativeModelProfileNameV6;
+  const writerTransport = codexWriterTransportV8(option('--writer-transport'), profile, resumeOptions !== null);
+  let codexAuthorDocuments: Awaited<ReturnType<typeof preflightCodexLiveV8>> | null = null;
   const qwenLocalBaseUrl = option('--qwen-base-url')
     ?? process.env.QWEN_LOCAL_BASE_URL?.trim()
     ?? 'http://127.0.0.1:8080/v1';
@@ -825,10 +848,11 @@ async function main(): Promise<void> {
   const markdownPath = resolve(directory, 'tour.md');
   const checkpointPath = resolve(directory, 'checkpoint.private.json');
   writeFileSync(progressPath, '');
+  writeFileSync(resolve(directory, 'budget.private.json'), JSON.stringify({ spentUsd: priorSpendUsd, reservedUsd: 0 }), { mode: 0o600 });
 
-  const apiKey = requiredSecret('DEEPSEEK_API_KEY');
+  const apiKey = writerTransport === 'codex' ? (process.env.DEEPSEEK_API_KEY?.trim() ?? '') : requiredSecret('DEEPSEEK_API_KEY');
   const openRouterApiKey = requiredSecret('OPENROUTER_API_KEY');
-  const secrets = [apiKey, openRouterApiKey];
+  const secrets = [apiKey, openRouterApiKey].filter(Boolean);
   const spendGuard = new NarrativeProgressSpendGuardV6({
     limitUsd: SPEND_LIMIT_USD,
     historicalSpendUsd: priorSpendUsd,
@@ -841,6 +865,12 @@ async function main(): Promise<void> {
   });
   consoleReporter.runStarted({ city: cityKey, runId, profile });
   const abortController = new AbortController();
+  const interruptCodexRun = () => { process.exitCode = 130; abortController.abort(new Error('canary interrupted')); };
+  const terminateCodexRun = () => { process.exitCode = 143; abortController.abort(new Error('canary terminated')); };
+  if (writerTransport === 'codex') {
+    process.once('SIGINT', interruptCodexRun);
+    process.once('SIGTERM', terminateCodexRun);
+  }
   const deadline = setTimeout(() => abortController.abort(
     new Error(`${cityKey} user canary V8 exceeded ${DEADLINE_MS}ms`)
   ), DEADLINE_MS);
@@ -853,10 +883,13 @@ async function main(): Promise<void> {
   const onProgress: EditorialProgressCallbackV6 = (event) => {
     spendGuard.record(event);
     const budget = spendGuard.snapshot();
+    writeFileSync(resolve(directory, 'budget.private.json'), JSON.stringify(budget), { mode: 0o600 });
     writeFileSync(progressPath, `${JSON.stringify({ ...event, budget })}\n`, { flag: 'a' });
     consoleReporter.onProgress(event, budget);
   };
   let retainedEvidenceManifest: NarrativeEvidenceManifestV8 | null = null;
+  let routeGeometry: TourGeometryV8Result | null = null;
+  const walkingRouteService = new WalkingRouteService();
   let suppressFailureMarkdown = false;
   let currentStage:
     | 'research_preflight'
@@ -955,6 +988,12 @@ async function main(): Promise<void> {
   };
 
   try {
+    if (writerTransport === 'codex') {
+      currentStage = 'preflight';
+      consoleReporter.stageStarted('preflight', 'comprobando Codex / ChatGPT antes de consumir API');
+      codexAuthorDocuments = await preflightCodexLiveV8();
+      consoleReporter.stageCompleted('preflight', 'escritor Codex / Astra low disponible; preparación y auditoría en OpenRouter');
+    }
     if (shouldExecuteResumePhaseV8(resumeFromPhase, 'research')) {
       currentStage = 'research_preflight';
       consoleReporter.stageStarted('research_preflight', 'comprobando servicios locales');
@@ -1081,21 +1120,15 @@ async function main(): Promise<void> {
         throw new Error(`core_disagreement: ${coreResolution.reason ?? 'core review required'}`);
       }
       const plan = getDurationPlan(request.durationMinutes);
-      const selection = selectEssentialRouteV8(
-        candidates,
-        coreResolution.requiredIds,
-        plan.maxStops,
-        { requestedDuration: request.durationMinutes, theme: request.theme }
-      );
+      const { selection, geometry } = await planNarrativeWalkingRouteV8({
+        candidates, requiredIds: coreResolution.requiredIds, durationMinutes: request.durationMinutes,
+        minStops: plan.minStops, preferredStops: plan.maxStops, theme: request.theme,
+      }, walkingRouteService, abortController.signal);
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
-      const geometry = pruneOptionalStopsForWalkabilityV8(
-        tourStopsFromCandidatesV8(selection.route, coreResolution.requiredIds),
-        coreResolution.requiredIds,
-        request.durationMinutes,
-        plan.minStops
-      );
+
+      routeGeometry = geometry;
       if (geometry.removedOptionalIds.length > 0) {
         console.log(`[v8-canary] route geometry removed optional stops: ${geometry.removedOptionalIds.join(', ')}`);
       }
@@ -1206,21 +1239,15 @@ async function main(): Promise<void> {
         throw new Error(`core_disagreement: ${coreResolution.reason ?? 'core review required'}`);
       }
       const plan = getDurationPlan(request.durationMinutes);
-      const selection = selectEssentialRouteV8(
-        candidates,
-        coreResolution.requiredIds,
-        plan.maxStops,
-        { requestedDuration: request.durationMinutes, theme: request.theme }
-      );
+      const { selection, geometry } = await planNarrativeWalkingRouteV8({
+        candidates, requiredIds: coreResolution.requiredIds, durationMinutes: request.durationMinutes,
+        minStops: plan.minStops, preferredStops: plan.maxStops, theme: request.theme,
+      }, walkingRouteService, abortController.signal);
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
-      const geometry = pruneOptionalStopsForWalkabilityV8(
-        tourStopsFromCandidatesV8(selection.route, coreResolution.requiredIds),
-        coreResolution.requiredIds,
-        request.durationMinutes,
-        plan.minStops
-      );
+
+      routeGeometry = geometry;
       if (geometry.removedOptionalIds.length > 0) {
         console.log(`[v8-canary] route geometry removed optional stops: ${geometry.removedOptionalIds.join(', ')}`);
       }
@@ -1268,6 +1295,34 @@ async function main(): Promise<void> {
       checkpointState.core = decodeCheckpointCoreV8(core, 'route core');
       checkpointState.route = toJsonValue(route);
       await persistCheckpoint('route');
+    }
+
+    // Measure the saved order; never silently change resumed stops or audio targets.
+    if (routeGeometry === null) {
+      const savedStops = route.stops.map((stop) => ({
+        stopId: stop.stopId,
+        name: stop.name,
+        coordinates: stop.coordinates,
+        required: core.requiredIds.includes(stop.wikidataId),
+      }));
+      try {
+        routeGeometry = await measureNarrativeWalkingRouteV8(
+          savedStops, request.durationMinutes, walkingRouteService, abortController.signal);
+      } catch (error) {
+        abortController.signal.throwIfAborted();
+        if (!(error instanceof WalkingRouteUnavailableError)) throw error;
+        const reconstructed = composeTourLegsV8(savedStops, request.durationMinutes);
+        const orderedIds = reconstructed.blocks.flatMap((block) => block.stopIds);
+        if (orderedIds.length === route.stops.length
+          && orderedIds.every((id, index) => id === route.stops[index].stopId)) {
+          routeGeometry = { ...reconstructed, timingSource: 'geometric', durationFit: 'unknown' };
+        }
+      }
+      if (routeGeometry) {
+        routeWalkingSeconds = routeGeometry.legs.reduce((sum, leg) => (
+          sum + (leg.type === 'walking' ? leg.durationSeconds : 0)
+        ), 0);
+      }
     }
 
     const narrationTargets = !shouldExecuteResumePhaseV8(resumeFromPhase, 'route')
@@ -1462,7 +1517,7 @@ async function main(): Promise<void> {
         },
         core,
         route: { stops: route.stops, source: routeSource },
-        geometry: null,
+        geometry: routeGeometry,
         research: researchSummary,
         evidenceManifest: null,
         boundaryMigrationPassed: false,
@@ -1498,7 +1553,7 @@ async function main(): Promise<void> {
         },
         core,
         route: { stops: route.stops, source: routeSource },
-        geometry: null,
+        geometry: routeGeometry,
         research: researchSummary,
         evidenceManifest: null,
         boundaryMigrationPassed: false,
@@ -1594,6 +1649,74 @@ async function main(): Promise<void> {
       await persistCheckpoint('arc');
       consoleReporter.stageCompleted('arc', 'arco narrativo guardado');
     }
+    if (process.argv.includes('--prepare-blueprint')) {
+      if (!routeGeometry) throw new Error('Blueprint requires route geometry');
+      const destinationFile = option('--destination-file');
+      if (!destinationFile) throw new Error('Blueprint requires resolved destination');
+      const destination = JSON.parse(readFileSync(destinationFile, 'utf8')) as TourDestination;
+      if (destination.qid !== cityQid || destination.countryCode !== request.countryCode) throw new Error('Blueprint destination mismatch');
+      const snapshot = createTourBlueprintSnapshot({
+        destination, geometry: routeGeometry,
+        checkpoint: { route, research, evidenceManifest, arc: architectResult.arc, narrationTargets: durationReconciliation.targets },
+      });
+      spendGuard.assertSettled();
+      writeFileSync(resolve(directory, 'blueprint.private.json'), JSON.stringify(snapshot), { mode: 0o600 });
+      writeFileSync(resolve(directory, 'budget.private.json'), JSON.stringify(spendGuard.snapshot()), { mode: 0o600 });
+      return;
+    }
+    if (writerTransport === 'codex') {
+      if (!codexAuthorDocuments) throw new Error('Codex preflight was not completed');
+      currentStage = 'editorial_workflow';
+      consoleReporter.stageStarted('editorial_workflow', 'Codex / Astra low: un texto y una auditoría por parada, sin reparaciones');
+      const materials = prepareAuthorCanaryMaterialV8({
+        route, research, evidenceManifest, arc: architectResult.arc,
+        narrationTargets: durationReconciliation.targets,
+      }, codexAuthorDocuments.template, codexAuthorDocuments.reference, codexAuthorDocuments.referenceStopId);
+      checkpointState.narrationTargets = toJsonValue(durationReconciliation.targets);
+      const author = await runCodexLiveNarrationV8({
+        materials, directory, city: request.city, durationMinutes: request.durationMinutes,
+        openRouterApiKey, pricing: openRouterPricing, runId, onProgress, signal: abortController.signal,
+        budget: () => spendGuard.snapshot(), sanitize: error => safeError(error, secrets),
+        onUpdate: async state => {
+          checkpointState.editorial = {
+            status: 'draft_review_required',
+            scripts: state.stops.flatMap(stop => stop.script ? [toJsonValue(stop.script)] : []),
+          };
+          await persistCheckpoint(state.status === 'complete_needs_review' ? 'editorial' : 'arc');
+          writeFileSync(reviewPath, JSON.stringify({
+            schemaVersion: 'narrative-user-canary-v8', runId, request, rag: ragConfig, profile,
+            status: state.status === 'complete_needs_review' ? 'review_required' : state.status,
+            publicationPassed: false, boundaryMigrationPassed: true,
+            writerTransport, writer: state.writer, auditor: state.auditor,
+            writerAttempts: state.writerAttempts, auditAttempts: state.auditAttempts,
+            route: { stops: route.stops, source: routeSource }, geometry: routeGeometry,
+            research: researchSummary, durationReconciliation, narrationDelivery: state.delivery,
+            routeDurationPassed: routeGeometry?.timingSource === 'walking_graph' && routeGeometry.durationFit === 'within_target',
+            missingStopIds: state.missingStopIds, error: state.error ?? null,
+            editorial: state.stops.map(stop => ({
+              stopId: stop.stopId, status: stop.status, wordCount: stop.wordCount, targetWords: stop.targetWords,
+              error: stop.error ?? null, auditStatus: stop.audit?.status ?? 'not_run',
+              findings: stop.audit?.value?.findings ?? null,
+            })),
+            globalScorecard: 'not_run', calls: summarizeCalls(), budget: spendGuard.snapshot(),
+          }, null, 2) + '\n', { mode: 0o600 });
+        },
+      });
+      spendGuard.assertSettled();
+      consoleReporter.stageCompleted('editorial_workflow',
+        author.status + ' · Codex=' + author.writerAttempts + ' · auditorías=' + author.auditAttempts);
+      if (author.status === 'partial') process.exitCode = 1;
+      consoleReporter.runCompleted({
+        status: 'review_required', elapsedMs: Date.now() - runStartedAt,
+        checkpointPath, diagnosticsPath: privatePath, progressPath, budget: spendGuard.snapshot(),
+      });
+      process.stdout.write(JSON.stringify({
+        runId, status: author.status, publicationPassed: false, writerTransport,
+        writerAttempts: author.writerAttempts, auditAttempts: author.auditAttempts,
+        markdown: markdownPath, review: reviewPath, checkpoint: checkpointPath, budget: spendGuard.snapshot(),
+      }, null, 2) + '\n');
+      return;
+    }
     const savedEditorialScripts = !shouldExecuteResumePhaseV8(resumeFromPhase, 'arc')
       ? decodeCheckpointEditorialScripts(sourceCheckpoint?.editorial?.scripts, route, resolvedSourcePath ?? checkpointPath)
       : [];
@@ -1656,6 +1779,18 @@ async function main(): Promise<void> {
             stageState: toJsonValue(stageState),
           };
           await persistCheckpoint('arc');
+          const preview = renderNarrativeCheckpointPreviewV8({
+            request, route, geometry: routeGeometry,
+            routeDiagnostics: {
+              estimatedTourMinutes: routeGeometry?.guidedDurationMinutes ?? request.durationMinutes,
+              requestedDuration: request.durationMinutes, coverageRatio: core.coverageRatio,
+              degraded: false, degradationReason: null,
+            },
+            promise: architectResult.arc.promise, centralQuestion: architectResult.arc.centralQuestion,
+            dossiers, calls: summarizeCalls(), speakingRateWordsPerMinute: SPEAKING_RATE_WORDS_PER_MINUTE,
+            budget: spendGuard.snapshot(),
+          }, stageState.stops);
+          if (preview !== null) writeFileSync(markdownPath, `${preview}\n`);
         },
       });
       if (workflowResult.status === 'protocol_failed') {
@@ -1674,7 +1809,7 @@ async function main(): Promise<void> {
           },
           core,
           route: { stops: route.stops, source: routeSource },
-          geometry: null,
+          geometry: routeGeometry,
           research: researchSummary,
           evidenceManifest,
           boundaryMigrationPassed: true,
@@ -1751,7 +1886,7 @@ async function main(): Promise<void> {
           },
           core,
           route: { stops: route.stops, source: routeSource },
-          geometry: null,
+          geometry: routeGeometry,
           research: researchSummary,
           evidenceManifest,
           boundaryMigrationPassed: true,
@@ -1855,6 +1990,21 @@ async function main(): Promise<void> {
         ...editorialIssueFields,
       }, null, 2)}\n`);
     }
+    const tourMarkdownInput: Parameters<typeof renderNarrativeTourMarkdownV6>[0] = {
+      request, route, geometry: routeGeometry,
+      routeDiagnostics: {
+        estimatedTourMinutes: routeGeometry?.guidedDurationMinutes ?? request.durationMinutes,
+        requestedDuration: request.durationMinutes, coverageRatio: core.coverageRatio,
+        degraded: false, degradationReason: null,
+      },
+      promise: architectResult.arc.promise, centralQuestion: architectResult.arc.centralQuestion,
+      scripts: editorialScripts, dossiers, workflowStatus: 'draft_review_required', scorecard: null,
+      calls: summarizeCalls(), speakingRateWordsPerMinute: SPEAKING_RATE_WORDS_PER_MINUTE,
+      budget: spendGuard.snapshot(),
+    };
+    // Save the complete, explicitly unapproved draft before the optional final judge.
+    // A transport/size/budget failure must not replace seven saved scripts with an error page.
+    writeFileSync(markdownPath, `${renderNarrativeTourMarkdownV6(tourMarkdownInput)}\n`);
     currentStage = 'scorecard';
     const shouldRunScorecard = narrativeCanaryEditorialDispositionV8(editorialWorkflowStatus) === 'scorecard';
     if (shouldRunScorecard) {
@@ -1893,7 +2043,9 @@ async function main(): Promise<void> {
       finalWriterTraces,
       stageVerificationPassed,
     });
-    const publicationPassed = stageVerificationPassed
+    const routeDurationPassed = routeGeometry?.timingSource === 'walking_graph'
+      && routeGeometry.durationFit === 'within_target';
+    const publicationPassed = routeDurationPassed && stageVerificationPassed
       && scorecardResult?.value?.decision === 'Approve'
       && publicationQuality.passed;
     if (scorecardResult?.value) {
@@ -1905,23 +2057,10 @@ async function main(): Promise<void> {
     consoleReporter.stageStarted('artifact_write', 'guardando resultados');
     const callSummary = summarizeCalls();
     const markdown = renderNarrativeTourMarkdownV6({
-      request,
-      route,
-      routeDiagnostics: {
-        estimatedTourMinutes: request.durationMinutes,
-        requestedDuration: request.durationMinutes,
-        coverageRatio: core.coverageRatio,
-        degraded: false,
-        degradationReason: null,
-      },
-      promise: architectResult.arc.promise,
-      centralQuestion: architectResult.arc.centralQuestion,
-      scripts: editorialScripts,
-      dossiers,
+      ...tourMarkdownInput,
       workflowStatus: publicationPassed ? editorialWorkflowStatus : 'draft_review_required',
       scorecard: scorecardResult?.value ?? null,
       calls: callSummary,
-      speakingRateWordsPerMinute: SPEAKING_RATE_WORDS_PER_MINUTE,
       budget: spendGuard.snapshot(),
     });
     writeFileSync(markdownPath, `${markdown}\n`);
@@ -1937,10 +2076,11 @@ async function main(): Promise<void> {
       failure: null,
       core,
       route: { stops: route.stops, source: routeSource },
-      geometry: null,
+      geometry: routeGeometry,
       research: researchSummary,
       durationReconciliation,
       publicationQuality,
+      routeDurationPassed,
       evidenceManifest,
       boundaryMigrationPassed: true,
       publicationPassed,
@@ -1973,6 +2113,7 @@ async function main(): Promise<void> {
       boundaryMigrationPassed: true,
       publicationPassed,
       publicationQualityPassed: publicationQuality.passed,
+      routeDurationPassed,
       evidenceManifestFingerprint: evidenceManifest.fingerprint,
       review: reviewPath,
       markdown: markdownPath,
@@ -2019,7 +2160,7 @@ async function main(): Promise<void> {
         },
         core: null,
         route: null,
-        geometry: null,
+        geometry: routeGeometry,
         research: [],
         evidenceManifest: retainedEvidenceManifest,
         boundaryMigrationPassed: retainedEvidenceManifest !== null,
@@ -2047,6 +2188,10 @@ async function main(): Promise<void> {
     process.exitCode = 1;
   } finally {
     clearTimeout(deadline);
+    if (writerTransport === 'codex') {
+      process.removeListener('SIGINT', interruptCodexRun);
+      process.removeListener('SIGTERM', terminateCodexRun);
+    }
   }
 }
 

@@ -183,6 +183,16 @@ const BASE_INPUT = {
 };
 
 describe('researchNarrativeStopV8', () => {
+  it('uses Italian search terms for Italian research without copying Spanish prompt vocabulary', async () => {
+    const queries: string[] = [];
+    await researchNarrativeStopV8({...BASE_INPUT,language:'it',countryCode:'IT'}, baselineServicesV8({
+      resolveAuthorities:async()=>({...REGISTRY,authorities:[]}),
+      search:async input=>{queries.push(input.query);return [];},
+    }));
+    expect(queries.some(query=>query.includes('storia trasformazione'))).toBe(true);
+    expect(queries.some(query=>query.includes('architettura funzione uso'))).toBe(true);
+    expect(queries.some(query=>query.includes('historia transformación'))).toBe(false);
+  });
   it('admits good propositions and persists per-round local rejections without extra curation', async () => {
     const result = await researchNarrativeStopV8(BASE_INPUT, baselineServicesV8({
       curate: async packet => {

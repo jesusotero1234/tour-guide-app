@@ -26,6 +26,9 @@ export interface Place {
 }
 
 export interface TourRequest {
+  /** Server-resolved identity; never trusted from a public request body. */
+  destination?: import('../services/TourDestinationResolver').TourDestination;
+  blueprintRevision?: number;
   city: string;
   country: string;         // Country name (e.g., "Spain")
   countryCode: string;     // ISO country code (e.g., "ES")
@@ -45,6 +48,7 @@ export interface ConceptTourRequest {
 }
 
 export interface TourResponse {
+  reviewSummary?: { findingCount: number; guidedDurationMinutes: number; transferCount: number; durationFit: string; languageFindingCount?: number; narrationMinutes?: number; durationMeasured?: boolean; narrationWithinTarget?: boolean };
   id: string;
   city: string;
   country: string;
@@ -84,6 +88,7 @@ export interface GenerationJobResponse {
   };
   result?: {
     tourId: string;
+    reviewRequired?: boolean;
     durationAdapted?: boolean;
     requestedDurationMinutes?: number;
     recommendedDurationMinutes?: number;

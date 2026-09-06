@@ -1,3 +1,4 @@
+import { evaluateNarrationDeliveryV8 } from './NarrativeDurationTargetsV8';
 import { validateNarrativeArcShapeV6 } from './NarrativeArcArchitectV6';
 import { NarrativeArcBundleV8 } from './NarrativeArcArchitectV8';
 import { NarrativeRouteBriefV6, narrativeFingerprintV6, narrativeTourFingerprintV6, NARRATIVE_EDITORIAL_RUN_SCHEMA_VERSION_V6 } from './NarrativeContractsV6';
@@ -353,7 +354,7 @@ export async function runNarrativeEditorialWorkflowV8(
     }).filter(w => w.code !== 'duration_outlier').map(w => ({ ...w, scriptFingerprint: stop.script!.fingerprint }));
     const length = agents.narrationLengthOutcome(stop.stopId, stop.script.text);
     if (length && length.lengthStatus !== 'within_bounds') warnings.push({
-      warningId: `${stop.stopId}:duration_outlier`, stopId: stop.stopId, code: 'duration_outlier', severity: 'hard',
+      warningId: `${stop.stopId}:duration_outlier`, stopId: stop.stopId, code: 'duration_outlier', severity: evaluateNarrationDeliveryV8([length]).localPassed ? 'soft' : 'hard',
       message: `Narración ${length.actualWords} palabras; banda ${length.minimumWords}-${length.maximumWords}.`,
       scriptFingerprint: stop.script.fingerprint,
     });
@@ -367,7 +368,7 @@ export async function runNarrativeEditorialWorkflowV8(
       || stop.editAttempted || editsRemaining <= 0 || (options.repairStopIds && !options.repairStopIds.includes(stop.stopId))) continue;
     const objections = buildNarrativeAuditObjectionsV6([stop.verification.report]);
     const warnings = warningsFor(index).filter(w => w.severity === 'hard' && w.code !== 'duration_outlier');
-    const tourIssues = reviewBeforeEdits.issues.filter(issue => issue.stopId === stop.stopId);
+    const tourIssues = reviewBeforeEdits.issues.filter(issue => issue.stopId === stop.stopId && issue.severity === 'hard');
     const combined = [
       ...objections.map(item => ({ sentenceId: item.sentenceId, reason: item.reason })),
       ...tourIssues.map(item => ({ sentenceId: item.sentenceId, reason: item.reason })),
@@ -442,7 +443,7 @@ export async function runNarrativeEditorialWorkflowV8(
   const tourAudit = editorial.tourAudit;
   const issueState = buildFinalNarrativeIssueStateV8(editorial.warnings, editorial.stops.flatMap(s => s.objections),
     (tourAudit?.issues ?? []).map(issue => ({ objectionId: `tour:${issue.issueId}`, auditor: 'deepseek_pro' as const,
-      sentenceId: issue.sentenceId, classification: 'unclear' as const, reason: issue.reason, propositionIds: [] })), scripts,
+      sentenceId: issue.sentenceId, classification: 'unclear' as const, severity: issue.severity, reason: issue.reason, propositionIds: [] })), scripts,
     { progressionWorks: tourAudit?.progressionWorks ?? null, promiseDelivered: tourAudit?.promiseDelivered ?? null,
       closingWorks: tourAudit?.closingWorks ?? null, tourFingerprint });
   for (const stop of state.stops) {

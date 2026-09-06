@@ -67,6 +67,12 @@ app.listen(config.port, () => {
   void generationJobService.resumePending().catch((error) => {
     logger.error('Failed to resume pending generation jobs', { error });
   });
+  const recoveryInterval = setInterval(() => {
+    void generationJobService.resumePending().catch((error) => {
+      logger.error('Failed to resume pending generation jobs during recovery', { error });
+    });
+  }, 30000);
+  recoveryInterval.unref();
 });
 
 export default app;

@@ -78,6 +78,13 @@ function snapshotResult(
   };
 }
 
+function coreAuditSystemPrompt(request: CoreAuditRequestV6): string {
+  // Preserve the original prompt/fingerprint for saved requests with boolean signals.
+  if (!request.candidates.some(candidate => candidate.signals.wikivoyageSee === null)) return CORE_RESOLVER_SYSTEM_PROMPT_V6;
+  return CORE_RESOLVER_SYSTEM_PROMPT_V6
+    + '\nA null wikivoyageSee signal means the city guide is unavailable because its page does not exist. It is unknown, not a negative signal of historical or visitor importance. Use the remaining supplied signals and candidate-owned support; never invent a Wikivoyage mention or citation.';
+}
+
 function requestAudit(
   request: CoreAuditRequestV6,
   provider: EditorialProviderV6,
@@ -86,7 +93,7 @@ function requestAudit(
   return requestEditorialStructuredV6({
     callId: `core-audit:${request.candidatePermutationSeed}`,
     input: request, provider, options,
-    systemPrompt: CORE_RESOLVER_SYSTEM_PROMPT_V6,
+    systemPrompt: coreAuditSystemPrompt(request),
     schema: provider.kind === 'openrouter'
       ? coreAuditOpenRouterResponseSchemaV6(request)
       : coreAuditResponseSchemaV6(request),
@@ -176,7 +183,7 @@ function replayCall(
     ? coreAuditOpenRouterResponseSchemaV6(request)
     : coreAuditResponseSchemaV6(request);
   const promptFingerprint = editorialPromptFingerprintV6(
-    CORE_RESOLVER_SYSTEM_PROMPT_V6, CORE_AUDIT_TOOL_NAME_V6, schema
+    coreAuditSystemPrompt(request), CORE_AUDIT_TOOL_NAME_V6, schema
   );
   if (saved.promptFingerprint !== promptFingerprint
     || saved.responseFingerprint !== editorialResponseFingerprintV6(saved.rawOutput)

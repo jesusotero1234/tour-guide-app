@@ -15,6 +15,7 @@ export interface Tour {
   introduction?: string;
   places: Place[];
   metadata?: TourMetadata;
+  blueprintId?: string;
   createdAt: string;
   updatedAt: string;
 }

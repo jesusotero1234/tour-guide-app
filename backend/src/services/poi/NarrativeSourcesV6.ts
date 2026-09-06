@@ -23,6 +23,7 @@ export interface NarrativeSourceSearchResultV6 {
 }
 
 export interface NarrativeCapturedSourceV6 {
+  sourceLanguage?: string | null;
   sourceId: string;
   requestedUrl: string;
   finalUrl: string;

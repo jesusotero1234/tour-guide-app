@@ -232,7 +232,7 @@ export function planNarrativeRepairsV8(
 export function buildFinalNarrativeIssueStateV8(
   finalWarnings: NarrativeProtocolWarningV6[],
   finalAcceptedFactualObjections: NarrativeAuditObjectionV6[],
-  finalAcceptedTourObjections: NarrativeAuditObjectionV6[],
+  finalAcceptedTourObjections: Array<NarrativeAuditObjectionV6 & { severity?: 'hard' | 'soft' }>,
   finalScripts: NarrativeScriptV6[],
   tourBooleanFailures: {
     progressionWorks: boolean | null;
@@ -310,8 +310,8 @@ export function buildFinalNarrativeIssueStateV8(
       stopId: script.stopId,
       sentenceIds: [canonicalSentenceId],
       code: objection.classification,
-      severity: 'hard',
-      state: 'open',
+      severity: objection.severity ?? 'hard',
+      state: objection.severity === 'soft' ? 'observation' : 'open',
       scriptFingerprint: script.fingerprint,
       reason: objection.reason,
     });

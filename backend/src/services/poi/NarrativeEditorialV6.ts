@@ -326,6 +326,12 @@ export function auditNarrativeScriptDeterministicallyV6(
         if (tail) segments.push(tail);
         for (const [segmentIndex, segment] of segments.entries()) {
           let segmentWords = normalizedWords(segment);
+          let locativeStripped = false;
+          if (segmentIndex === 0 && atSentenceStart && segmentWords.length > 1
+            && ['aqui', 'alli', 'hoy', 'ahora'].includes(segmentWords[0])) {
+            segmentWords = segmentWords.slice(1);
+            locativeStripped = true;
+          }
           if (segmentWords.length > 1 && ['el', 'la', 'las', 'los'].includes(segmentWords[0])) {
             segmentWords = segmentWords.slice(1);
           }
@@ -339,7 +345,7 @@ export function auditNarrativeScriptDeterministicallyV6(
             continue;
           }
           checkedInSentence.add(normalizedSegment);
-          if (segmentIndex === 0 && atSentenceStart && segmentWords.length === 1) {
+          if (segmentIndex === 0 && atSentenceStart && segmentWords.length === 1 && !locativeStripped) {
             warnings.push({
               warningId: `${script.stopId}:ambiguous_capitalized_start:${normalizedSegment}:${sentence.sentenceId}`, stopId: script.stopId,
               code: 'ambiguous_capitalized_start', severity: 'soft',

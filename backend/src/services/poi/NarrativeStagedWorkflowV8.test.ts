@@ -311,7 +311,8 @@ describe('canonical V8 staged workflow', () => {
     expect(first.editorial.run.status).toBe('draft_review_required');
     expect(f.edit).toHaveBeenCalledTimes(1); expect(f.verify).toHaveBeenCalledTimes(2);
     const comp = first.stageState.stops[0].editComparison!;
-    expect(comp.decision).toBe('rejected');
+    expect(comp.decision).toBe('accepted');
+    expect(first.stageState.stops[0].script!.text).toBe(comp.candidate.script.text);
     expect(comp.before.script.text).toBe(first.stageState.stops[0].initialScript!.text);
     const resumed = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents, { resumeState: first.stageState }));
     expect(resumed.editorial.run.status).toBe('draft_review_required');
@@ -431,13 +432,22 @@ describe('canonical V8 staged workflow', () => {
     expect(buildNarrativePublicationQualityV8({ ...base, scripts: [changed] }).passed).toBe(false);
   });
 
+  it('keeps a material per-stop duration defect open without a word-fitting loop', async () => {
+    const f = fixture();
+    f.agents.narrationLengthOutcome = () => ({ stopId: 'stop-0', lengthStatus: 'accepted_with_residual', targetWords: 600, actualWords: 479, minimumWords: 575, maximumWords: 660 });
+    const result = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents));
+    expect(f.edit).not.toHaveBeenCalled();
+    expect(result.editorial.run.status).toBe('draft_review_required');
+    expect(result.editorial.warnings.some(w => w.code === 'duration_outlier' && w.severity === 'hard')).toBe(true);
+  });
+
   it('does not call edit when only duration outlier is present', async () => {
     const f = fixture();
     f.agents.narrationLengthOutcome = () => ({ stopId: 'stop-0', lengthStatus: 'accepted_with_residual', targetWords: 600, actualWords: 550, minimumWords: 575, maximumWords: 660 });
     const result = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents));
     expect(f.edit).not.toHaveBeenCalled();
-    expect(result.editorial.run.status).toBe('draft_review_required');
-    expect(result.editorial.warnings.some(w => w.code === 'duration_outlier')).toBe(true);
+    expect(result.editorial.run.status).toBe('ready_for_human_gate');
+    expect(result.editorial.warnings.some(w => w.code === 'duration_outlier' && w.severity === 'soft')).toBe(true);
   });
 
   it('authorizes only the first sentence when duration and first objection coexist, leaving a warning', async () => {
@@ -452,7 +462,8 @@ describe('canonical V8 staged workflow', () => {
     expect(f.edit.mock.calls[0][2]).toEqual(['stop-0-S001']);
     expect(result.editorial.run.status).toBe('draft_review_required');
     const issueIds = result.editorial.issueStateV8?.openIssueIds ?? [];
-    expect(issueIds.some(id => id.includes('duration'))).toBe(true);
+    expect(issueIds.some(id => id.includes('duration'))).toBe(false);
+    expect(result.editorial.issueStateV8?.issues.some(issue => issue.code === 'duration_outlier' && issue.state === 'observation')).toBe(true);
   });
 
   it('preserves before and does not re-verify when candidate modifies a protected sentence', async () => {
@@ -485,5 +496,74 @@ describe('canonical V8 staged workflow', () => {
     expect(f.write).toHaveBeenCalledTimes(1);
     expect(f.verify).toHaveBeenCalledTimes(1);
     expect(f.edit).not.toHaveBeenCalled();
+  });
+
+  it('preserves a soft sentence-anchored global audit issue with supported factual reports in Toledo', async () => {
+    const f = fixture('Toledo');
+    f.agents.auditTour = jest.fn(async () => {
+      const value = { issues: [{ issueId: 'global-soft-1', stopId: 'stop-0', sentenceId: 'stop-0-S001',
+        severity: 'soft' as const, reason: 'Style note.' }], progressionWorks: true, promiseDelivered: true, closingWorks: true };
+      return { value, diagnostic: diagnostic('global', value) };
+    });
+    const result = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents));
+    expect(result.editorial.run.status).toBe('ready_for_human_gate');
+    expect(f.write).toHaveBeenCalledTimes(1);
+    expect(f.verify).toHaveBeenCalledTimes(1);
+    expect(f.edit).not.toHaveBeenCalled();
+    expect(f.agents.auditTour).toHaveBeenCalledTimes(1);
+    const issue = result.editorial.issueStateV8?.issues.find(i => i.issueId === 'tour:global-soft-1');
+    expect(issue).toBeDefined();
+    expect(issue!.severity).toBe('soft');
+    expect(issue!.source).toBe('tour');
+    expect(issue!.state).toBe('observation');
+    expect(result.editorial.issueStateV8!.openIssueIds).not.toContain(issue!.issueId);
+  });
+
+  it('attempts edit for a hard global audit issue and remains open if still reported in Toledo', async () => {
+    const f = fixture('Toledo');
+    f.agents.auditTour = jest.fn(async () => {
+      const value = { issues: [{ issueId: 'global-hard-1', stopId: 'stop-0', sentenceId: 'stop-0-S001',
+        severity: 'hard' as const, reason: 'Factual gap.' }], progressionWorks: true, promiseDelivered: true, closingWorks: true };
+      return { value, diagnostic: diagnostic('global', value) };
+    });
+    const result = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents));
+    expect(result.editorial.run.status).toBe('draft_review_required');
+    expect(f.write).toHaveBeenCalledTimes(1);
+    expect(f.verify).toHaveBeenCalledTimes(2);
+    expect(f.edit).toHaveBeenCalledTimes(1);
+    expect(f.agents.auditTour).toHaveBeenCalledTimes(2);
+    const issue = result.editorial.issueStateV8?.issues.find(i => i.issueId === 'tour:global-hard-1');
+    expect(issue).toBeDefined();
+    expect(issue!.severity).toBe('hard');
+    expect(issue!.state).toBe('open');
+    expect(result.editorial.issueStateV8!.openIssueIds).toContain(issue!.issueId);
+  });
+
+  it('triggers exactly one factual repair for soft global issue plus unsupported first sentence in Toledo', async () => {
+    const f = fixture('Toledo');
+    f.agents.auditTour = jest.fn(async () => {
+      const value = { issues: [{ issueId: 'global-soft-2', stopId: 'stop-0', sentenceId: 'stop-0-S001',
+        severity: 'soft' as const, reason: 'Style note.' }], progressionWorks: true, promiseDelivered: true, closingWorks: true };
+      return { value, diagnostic: diagnostic('global', value) };
+    });
+    f.verify.mockImplementation(async auditInput => {
+      const value = f.report(auditInput, 'unsupported');
+      return { value, diagnostic: diagnostic('verify', value) };
+    });
+    const result = complete(await runNarrativeEditorialWorkflowV8(f.input, f.agents));
+    expect(f.edit).toHaveBeenCalledTimes(1);
+    expect(f.edit.mock.calls[0][2]).toEqual(['stop-0-S001']);
+    expect(f.verify).toHaveBeenCalledTimes(2);
+    expect(f.agents.auditTour).toHaveBeenCalledTimes(1);
+    const softIssue = result.editorial.issueStateV8?.issues.find(i => i.issueId === 'tour:global-soft-2');
+    expect(softIssue).toBeDefined();
+    expect(softIssue!.severity).toBe('soft');
+    expect(softIssue!.state).toBe('observation');
+    expect(result.editorial.issueStateV8!.openIssueIds).not.toContain(softIssue!.issueId);
+    const factualIssue = result.editorial.issueStateV8?.issues.find(i => i.source === 'factual');
+    expect(factualIssue).toBeDefined();
+    expect(factualIssue!.severity).toBe('hard');
+    expect(factualIssue!.state).toBe('open');
+    expect(result.editorial.run.status).toBe('draft_review_required');
   });
 });

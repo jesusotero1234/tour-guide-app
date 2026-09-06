@@ -6,6 +6,7 @@ import {
 import { NarrativeRouteBriefV6 } from './NarrativeContractsV6';
 import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { NarrativeScriptV6 } from './NarrativeEditorialV6';
+import type { TourGeometryV8Result } from './TourGeometryV8';
 
 const SCORECARD_LABELS_V6: Record<NarrativeScorecardDimensionV6, string> = {
   accuracyGrounding: 'Exactitud y grounding',
@@ -122,6 +123,24 @@ export interface NarrativeTourCallSummaryV6 {
   costUsd: number | null;
 }
 
+/** Preserve readable drafts without treating an unfinished edit as a verified result. */
+export function renderNarrativeCheckpointPreviewV8(
+  input: Omit<Parameters<typeof renderNarrativeTourMarkdownV6>[0], 'scripts' | 'workflowStatus' | 'scorecard'>,
+  stops: ReadonlyArray<{ script: NarrativeScriptV6 | null;
+    editComparison?: { decision: string; before: { script: NarrativeScriptV6 } } }>
+): string | null {
+  const selected = stops.map(stop => stop.editComparison?.decision === 'pending'
+    ? stop.editComparison.before.script : stop.script);
+  if (!input.route.stops.length || selected.some(script => !script)) return null;
+  const scripts = selected as NarrativeScriptV6[];
+  const ids = new Set(scripts.map(script => script.stopId));
+  if (scripts.length !== input.route.stops.length || ids.size !== scripts.length
+    || new Set(input.route.stops.map(stop => stop.stopId)).size !== scripts.length
+    || input.route.stops.some(stop => !ids.has(stop.stopId))) return null;
+  return '> Vista provisional del checkpoint: proceso y revisión incompletos; no aprobado para publicación.\n\n'
+    + renderNarrativeTourMarkdownV6({ ...input, scripts, workflowStatus: 'draft_review_required', scorecard: null });
+}
+
 export function renderNarrativeTourMarkdownV6(input: {
   request: {
     city: string; country: string; theme: string; language: string; durationMinutes: number;
@@ -147,6 +166,7 @@ export function renderNarrativeTourMarkdownV6(input: {
     runUnverifiedExposureUsd?: number;
   };
   speakingRateWordsPerMinute?: number;
+  geometry?: TourGeometryV8Result | null;
 }): string {
   const scriptByStopId = new Map(input.scripts.map((script) => [script.stopId, script]));
   const missingScripts = input.route.stops.filter((stop) => !scriptByStopId.has(stop.stopId));
@@ -173,6 +193,33 @@ export function renderNarrativeTourMarkdownV6(input: {
     ? renderNarrativeScorecardMarkdownV6({ city: input.request.city, scorecard: input.scorecard })
       .replace(/^# Scorecard editorial[^\n]*\n/u, '## Scorecard editorial\n')
     : '## Scorecard editorial\n\nNo ejecutado: el workflow no superó las condiciones automáticas.';
+  const geometry = input.geometry;
+  const structuralEstimate = geometry !== undefined && geometry !== null
+    ? `${Math.round(geometry.guidedDurationMinutes)} min (incluye estancias planificadas en paradas; excluye traslados propios)`
+    : geometry === null
+      ? 'desconocida'
+      : `${Math.round(input.routeDiagnostics.estimatedTourMinutes)} min`;
+  const timingSourceNote = geometry !== undefined && geometry !== null && geometry.timingSource
+    ? geometry.timingSource === 'walking_graph'
+      ? 'Fuente de tiempos: grafo peatonal; tiempos estimados, no medición en campo.'
+      : 'Fuente de tiempos: geometría aproximada; servicio peatonal no disponible.'
+    : '';
+  const durationFitNote = geometry !== undefined && geometry !== null && geometry.durationFit
+    ? geometry.durationFit === 'short'
+      ? 'Aviso: la estimación de la ruta seleccionada está por debajo de la duración solicitada; requiere revisión de ruta.'
+      : geometry.durationFit === 'long'
+        ? 'Aviso: la estimación de la ruta seleccionada está por encima de la duración solicitada; requiere revisión de ruta.'
+        : geometry.durationFit === 'unknown'
+          ? 'Aviso: no hay ajuste de duración confirmado para la ruta seleccionada.'
+          : 'Ajuste de duración: ajuste aproximado planificado, no garantía medida.'
+    : '';
+  const walkingLegs = geometry !== undefined && geometry !== null
+    ? geometry.legs.filter((leg): leg is Extract<typeof leg, { type: 'walking' }> => leg.type === 'walking')
+    : [];
+  const totalWalkingSeconds = walkingLegs.reduce((total, leg) => total + leg.durationSeconds, 0);
+  const selfTransferCount = geometry !== undefined && geometry !== null
+    ? geometry.legs.filter((leg) => leg.type === 'self_transfer').length
+    : 0;
   const budgetLines = input.budget.runReportedCostUsd === undefined
     ? [
       `Presupuesto acumulado: $${input.budget.spentUsd.toFixed(4)} de $${input.budget.limitUsd.toFixed(2)}; quedan $${input.budget.remainingUsd.toFixed(4)}.`,
@@ -188,8 +235,10 @@ export function renderNarrativeTourMarkdownV6(input: {
     '',
     `> **Estado:** ${status}.`,
     `> **Petición:** ${input.request.city}, ${input.request.country} · ${input.request.durationMinutes} min · ${input.request.language}.`,
-    `> **Ruta seleccionada:** ${input.route.stops.length} paradas · cobertura ${(input.routeDiagnostics.coverageRatio * 100).toFixed(1)}% · estimación estructural ${Math.round(input.routeDiagnostics.estimatedTourMinutes)} min.`,
-    `> **Escucha:** unas ${Math.ceil(totalWords / speakingRate)} min (${totalWords} palabras); el resto corresponde al recorrido, observación y pausas.`,
+    `> **Ruta seleccionada:** ${input.route.stops.length} paradas · cobertura ${(input.routeDiagnostics.coverageRatio * 100).toFixed(1)}% · estimación estructural ${structuralEstimate}.`,
+    ...(timingSourceNote ? [`> ${timingSourceNote}`] : []),
+    ...(durationFitNote ? [`> ${durationFitNote}`] : []),
+    `> **Escucha:** unas ${Math.ceil(totalWords / speakingRate)} min (${totalWords} palabras) a ${speakingRate} palabras/min (estimación de tasa de habla, no medición TTS).${geometry !== undefined && geometry !== null ? ` Caminata aproximada: ${Math.round(totalWalkingSeconds / 60)} min; ${selfTransferCount} traslado(s) propio(s) sin tiempo estimado.` : ''}`,
     '',
     '## Promesa y pregunta central',
     '',

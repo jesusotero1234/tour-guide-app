@@ -5,8 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",
+    "predev": "tsc -p tsconfig.generation-worker.json",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
+    "build": "tsc && tsc -p tsconfig.generation-worker.json",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
@@ -35,6 +36,7 @@
     "quality:narrative:v6:user-canary": "node -r ts-node/register scripts/validation/narrative-user-canary-v6.ts",
     "quality:narrative:v8:canary": "node -r ts-node/register scripts/validation/narrative-canary-v8.ts",
     "quality:narrative:v8:user-canary": "node -r ts-node/register scripts/validation/narrative-user-canary-v8.ts",
+    "quality:narrative:v8:codex-author": "node -r ts-node/register scripts/validation/narrative-codex-author-v8.ts",
     "quality:core:v6": "node -r ts-node/register scripts/validation/resolve-editorial-core-v6.ts",
     "quality:core:v6:evaluate": "node -r ts-node/register scripts/validation/evaluate-editorial-core-v6.ts",
     "quality:benchmark:editorial": "node -r ts-node/register scripts/validation/benchmark-editorial-curators.ts",

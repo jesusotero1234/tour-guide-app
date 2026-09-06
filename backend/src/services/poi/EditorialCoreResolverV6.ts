@@ -21,7 +21,7 @@ export interface CoreAuditCandidateV6 {
   category: string;
   signals: {
     cityPageLink: boolean;
-    wikivoyageSee: boolean;
+    wikivoyageSee: boolean | null;
     sitelinks: number;
     pageviewPercentile: number | null;
     heritage: boolean;

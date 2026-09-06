@@ -159,10 +159,15 @@ describe('NarrativeTourScorecardV8', () => {
     expect(result.evidenceManifest).toBe(manifest);
     const projected = projectedInput as Record<string, unknown>;
     expect(projected.evidenceManifest).toBe(manifest);
-    expect(projected.evidenceByStop).toBe(manifest.stops);
+    expect(projected).not.toHaveProperty('evidenceByStop');
+    expect(projected).not.toHaveProperty('dossiers');
+    expect(projected.scripts).toEqual([{ stopId: script.stopId, sentences: script.sentences }]);
     expect(projected.arc).toBe(arc);
     expect(projected.authorizedEvidenceByStop).toHaveLength(1);
-    const dossier = (projected.dossiers as Record<string, unknown>[])[0];
+    const dossier = (projected.reviewEvidenceByStop as Array<{ dossier: Record<string, unknown> }>)[0].dossier;
+    expect(dossier.passages).toEqual(admitted.dossier.passages);
+    expect(dossier.propositions).toEqual(admitted.dossier.propositions);
+    expect(dossier.sources).toEqual(admitted.dossier.sources);
     expect(dossier).not.toHaveProperty('stopId');
     expect(dossier).not.toHaveProperty('sufficiency');
     expect(dossier).not.toHaveProperty('fingerprint');

@@ -14,7 +14,7 @@ import { NarrativeModelClientOptionsV6, resolveNarrativeModelProfileV6 } from '.
 import { narrativeFingerprintV6 } from './NarrativeContractsV6';
 import { NarrativeAuditInputV6, NarrativeAgentExecutionV6, NarrativeAgentResultV6 } from './NarrativeEditorialAgentsV6';
 import { NarrativeAuditReportV6 } from './NarrativeEditorialV6';
-import { verifyNarrativeCompactV8, NarrativeBridgeEvidenceV8 } from './NarrativeCompactVerificationV8';
+import { verifyNarrativeCompactV8, NarrativeBridgeEvidenceV8, NARRATIVE_COMPACT_AUDIT_PROMPT_V8 } from './NarrativeCompactVerificationV8';
 import { editNarrativeSegmentsV8 } from './NarrativeSegmentEditV8';
 import {
   NarrativeAdmittedStopV8,
@@ -67,11 +67,12 @@ export function createNarrativeEditorialAgentsV8(
   narrationTargetsByStopId?: ReadonlyMap<string, NarrativeNarrationTargetV8>
 ): NarrativeEditorialAgentsV8 {
   const policyFingerprint = narrativeFingerprintV6({
-    policy: 'staged-v8-4-sentence-local',
+    policy: 'staged-v8-9-repair-reasons',
     profile: resolveNarrativeModelProfileV6(options.profile),
     targets: Array.from(narrationTargetsByStopId ?? []),
     qwenEndpoint: options.qwenLocalBaseUrl ?? null,
     ollamaHost: options.ollamaHost ?? null,
+    compactAuditPrompt: NARRATIVE_COMPACT_AUDIT_PROMPT_V8,
   });
   const core = createNarrativeEditorialAgentsV6Core(
     { ...options, writerRateLimitAttempts: 1 },

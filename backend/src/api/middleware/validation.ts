@@ -68,6 +68,28 @@ export function validateTourRequest(req: Request, res: Response, next: NextFunct
   next();
 }
 
+export function validateCodexTourRequest(req: Request, res: Response, next: NextFunction) {
+  const { tourLocale, enabledTourLanguages } = require('../../services/tourReadiness/TourLanguage') as typeof import('../../services/tourReadiness/TourLanguage');
+  const supported = enabledTourLanguages();
+  const body = req.body as Partial<TourRequest>;
+  let language: string;
+  try { language = tourLocale(typeof body.language === 'string' ? body.language : ''); }
+  catch { language = ''; }
+  if (typeof body.city !== 'string' || !body.city.trim()
+    || typeof body.country !== 'string' || !body.country.trim()
+    || body.theme !== 'history' || ![60, 120, 180, 240].includes(body.durationMinutes ?? 0)
+    || !supported.some(value => value === language)) {
+    return res.status(400).json({ error: {
+      code: 'UNSUPPORTED_TOUR_REQUEST',
+      message: 'Choose a city and country, history, a supported duration (60, 120, 180 or 240 minutes), and language: ' + supported.join(', ') + '.',
+    } });
+  }
+  req.body.language = language;
+  delete req.body.destination;
+  delete req.body.blueprintRevision;
+  next();
+}
+
 export function validateConceptTourRequest(req: Request, res: Response, next: NextFunction) {
   const body = req.body as Partial<ConceptTourRequest>;
   const { conceptSlug, city, country, countryCode, language } = body;

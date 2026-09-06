@@ -21,6 +21,8 @@ export type WikimediaGetV6 = (
 ) => Promise<{ data: unknown }>;
 
 export interface CaptureWikimediaProminenceOptionsV6 {
+  wikipediaPage?: { language: string; title: string };
+  wikivoyagePage?: { language: string; title: string } | null;
   cityKey: string;
   cityTitle: string;
   language: string;
@@ -40,11 +42,18 @@ export type WikimediaProminenceStageV6 =
   | 'candidate_wikipedia_revisions'
   | 'candidate_pageviews';
 
+class MissingWikimediaPageErrorV6 extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'MissingWikimediaPageErrorV6';
+  }
+}
+
 export type WikimediaProminenceProgressV6 =
   | {
     event: 'stage_finished';
     stage: WikimediaProminenceStageV6;
-    status: 'completed' | 'failed';
+    status: 'completed' | 'failed' | 'unavailable';
     durationMs: number;
   }
   | {
@@ -156,7 +165,7 @@ async function captureStage<T>(
   try {
     const result = await operation();
     onProgress?.({
-      event: 'stage_finished', stage, status: 'completed', durationMs: Date.now() - startedAt,
+      event: 'stage_finished', stage, status: result === null ? 'unavailable' : 'completed', durationMs: Date.now() - startedAt,
     });
     return result;
   } catch (error) {
@@ -223,8 +232,14 @@ async function requestActionRevision(
     headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
   });
   const pages = actionPages(response.data, `${project} revision response`);
-  if (pages.length !== 1 || pages[0].missing !== undefined) {
-    throw new Error(`Missing Wikimedia page ${project}:${title}`);
+  if (pages.length === 1 && pages[0].missing === true) {
+    const pageTitle = pages[0].title;
+    if (typeof pageTitle === 'string' && pageTitle.trim() !== '' && !('invalid' in pages[0]) && !('revisions' in pages[0])) {
+      throw new MissingWikimediaPageErrorV6(`Missing Wikimedia page ${project}:${title}`);
+    }
+  }
+  if (pages.length !== 1 || 'missing' in pages[0] || 'invalid' in pages[0]) {
+    throw new Error(`Invalid or incomplete Wikimedia page ${project}:${title}`);
   }
   return revisionFromPage(pages[0], `${sourcePrefix}:${pages[0].title as string}`, project);
 }
@@ -448,34 +463,47 @@ export async function captureWikimediaProminenceV6(
   const start = new Date(end.getTime() - (364 * 86_400_000));
   const date = (value: Date) => value.toISOString().slice(0, 10);
   const pageviewWindow = options.pageviewWindow ?? { start: date(start), end: date(end) };
-  const wikipediaProject = `${options.language}.wikipedia.org`;
-  const wikivoyageProject = `${options.language}.wikivoyage.org`;
+  const wikipediaLanguage = options.wikipediaPage?.language ?? options.language;
+  const wikipediaTitle = options.wikipediaPage?.title ?? options.cityTitle;
+  const wikivoyageLanguage = options.wikivoyagePage?.language ?? options.language;
+  const wikivoyageTitle = options.wikivoyagePage?.title ?? options.cityTitle;
+  const wikipediaProject = `${wikipediaLanguage}.wikipedia.org`;
+  const wikivoyageProject = `${wikivoyageLanguage}.wikivoyage.org`;
   const wikipediaEndpoint = `https://${wikipediaProject}/w/api.php`;
   const wikivoyageEndpoint = `https://${wikivoyageProject}/w/api.php`;
-  const wikipediaSourcePrefix = `${options.language}wiki`;
-  const wikivoyageSourcePrefix = `${options.language}wikivoyage`;
+  const wikipediaSourcePrefix = `${wikipediaLanguage}wiki`;
+  const wikivoyageSourcePrefix = `${wikivoyageLanguage}wikivoyage`;
   const wikidata = await captureStage('wikidata_entities', options.onProgress, () => (
     requestWikidataEntities(get, options.entities.map((entity) => entity.canonicalId))
   ));
   const cityRevision = await captureStage('city_wikipedia_revision', options.onProgress, () => (
     requestActionRevision(
-      get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix, options.cityTitle
+      get, wikipediaEndpoint, wikipediaProject, wikipediaSourcePrefix, wikipediaTitle
     )
   ));
   const cityLinkedIds = await captureStage('city_wikipedia_links', options.onProgress, () => (
-    requestCityWikipediaLinks(get, wikipediaEndpoint, options.cityTitle)
+    requestCityWikipediaLinks(get, wikipediaEndpoint, wikipediaTitle)
   ));
   const wikivoyageRevision = await captureStage(
-    'city_wikivoyage_revision', options.onProgress, () => requestActionRevision(
-      get, wikivoyageEndpoint, wikivoyageProject, wikivoyageSourcePrefix, options.cityTitle
-    )
+    'city_wikivoyage_revision', options.onProgress, async () => {
+      if (options.wikivoyagePage === null) return null;
+      try {
+        return await requestActionRevision(
+          get, wikivoyageEndpoint, wikivoyageProject, wikivoyageSourcePrefix, wikivoyageTitle
+        );
+      } catch (error) {
+        if (error instanceof MissingWikimediaPageErrorV6) return null;
+        throw error;
+      }
+    }
   );
-  const seeSections = await captureStage('wikivoyage_sections', options.onProgress, () => (
-    requestWikivoyageSeeSections(get, wikivoyageEndpoint, options.cityTitle)
-  ));
+  const seeSections = wikivoyageRevision === null ? []
+    : await captureStage('wikivoyage_sections', options.onProgress, () => (
+      requestWikivoyageSeeSections(get, wikivoyageEndpoint, wikivoyageTitle)
+    ));
   const wikipediaTitles = new Map(options.entities.map((entity) => {
     const sitelinks = wikidata.get(entity.canonicalId)?.sitelinks ?? {};
-    return [entity.canonicalId, sitelinks[`${options.language}wiki`]?.title ?? null] as const;
+    return [entity.canonicalId, sitelinks[`${wikipediaLanguage}wiki`]?.title ?? null] as const;
   }));
   const candidateRevisions = await captureStage(
     'candidate_wikipedia_revisions', options.onProgress, () => requestWikipediaRevisions(
@@ -529,7 +557,7 @@ export async function captureWikimediaProminenceV6(
       value: `${options.cityTitle} links to ${wikipediaTitle ?? entity.localName}`,
       sourceRef: cityRevision.sourceId,
     });
-    if (sectionTitle) add({
+    if (sectionTitle && wikivoyageRevision !== null) add({
       supportId: `${entity.canonicalId}:wikivoyage-see`, type: 'wikivoyage_see_mention',
       value: `${entity.localName} appears in Wikivoyage section ${sectionTitle}`,
       sourceRef: wikivoyageRevision.sourceId,
@@ -563,7 +591,7 @@ export async function captureWikimediaProminenceV6(
     return {
       canonicalId: entity.canonicalId, localName: entity.localName, wikipediaTitle,
       cityWikipediaLinked: cityLinkedIds.has(entity.canonicalId),
-      wikivoyageSeeMentioned: sectionTitle !== null,
+      wikivoyageSeeMentioned: wikivoyageRevision === null ? null : sectionTitle !== null,
       wikivoyageSectionTitle: sectionTitle,
       sitelinks: wikidataEntity ? Object.keys(wikidataEntity.sitelinks).length : 0,
       pageviews365: pageviews[index], pageviewPercentile: percentiles[index],
@@ -581,7 +609,7 @@ export async function captureWikimediaProminenceV6(
     capturedAt,
     pageviewWindow,
     sourceRevisions: [
-      ...wikidataRevisions, cityRevision, wikivoyageRevision, ...candidateRevisions,
+      ...wikidataRevisions, cityRevision, ...(wikivoyageRevision !== null ? [wikivoyageRevision] : []), ...candidateRevisions,
     ].sort((left, right) => left.sourceId.localeCompare(right.sourceId)),
     candidates,
   } satisfies Omit<WikimediaProminenceSnapshotV6, 'fingerprint'>;

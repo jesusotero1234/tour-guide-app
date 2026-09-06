@@ -3,6 +3,7 @@ import type { NarrativeScriptV6 } from './NarrativeEditorialV6';
 import {
   NarrativeNarrationTargetV8,
   narrationLengthBoundsV8,
+  evaluateNarrationDeliveryV8,
 } from './NarrativeDurationTargetsV8';
 import {
   NarrativeTourStyleReportV8,
@@ -27,6 +28,7 @@ export interface NarrativePublicationStopQualityV8 {
 
 export interface NarrativePublicationQualityV8 {
   passed: boolean;
+  duration: ReturnType<typeof evaluateNarrationDeliveryV8>;
   lengthPassed: boolean;
   traceabilityPassed: boolean | null;
   stylePassed: boolean;
@@ -228,9 +230,12 @@ export function buildNarrativePublicationQualityV8(
       && traceabilityPassed === true
     );
 
+  const duration = evaluateNarrationDeliveryV8(stops.map(stop => ({ targetWords: stop.targetWords, actualWords: stop.finalWordCount })));
   const stageVerificationPassed = input.stageVerificationPassed ?? null;
   return {
-    passed: lengthPassed && style.passed && requiredTraceabilityPassed && input.stageVerificationPassed !== false,
+    // Mechanical style/target warnings remain visible; material global issues are verified separately.
+    passed: duration.passed && requiredTraceabilityPassed && input.stageVerificationPassed !== false,
+    duration,
     lengthPassed,
     traceabilityPassed,
     stylePassed: style.passed,

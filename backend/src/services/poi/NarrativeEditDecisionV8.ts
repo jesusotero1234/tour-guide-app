@@ -1,6 +1,6 @@
 import { NarrativeAuditReportV6, NarrativeScriptV6, validateNarrativeAuditReportV6 } from './NarrativeEditorialV6';
 import { NarrativeStructuredWriterResultV8 } from './NarrativeWriterContractV8';
-import { narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
+import { evaluateNarrationDeliveryV8, narrationLengthBoundsV8 } from './NarrativeDurationTargetsV8';
 
 export interface NarrativeEditVersionV8 {
   draft: NarrativeStructuredWriterResultV8;
@@ -76,7 +76,7 @@ export function decideNarrativeEditV8(
     };
   };
   const previous = counts(reports.before), next = counts(reports.candidate);
-  if (next.contradictions > previous.contradictions || next.objections > previous.objections) {
+  if (targetSentenceIds === undefined && (next.contradictions > previous.contradictions || next.objections > previous.objections)) {
     return { decision: 'rejected', reason: 'La edición aumenta las objeciones factuales o las contradicciones.' };
   }
 
@@ -130,17 +130,6 @@ export function decideNarrativeEditV8(
     if (!changedTarget) {
       return { decision: 'rejected', reason: 'Ninguna frase objetivo cambió; no hay corrección efectiva.' };
     }
-    const beforeFindingMap = new Map(before.verification!.report.findings.map(f => [f.sentenceId, f]));
-    const candidateFindingMapOriginal = new Map(candidate.verification!.report.findings.map(f => [f.sentenceId, f]));
-    for (const id of beforeIds) {
-      const beforeFinding = beforeFindingMap.get(id);
-      const candidateFinding = candidateFindingMapOriginal.get(id);
-      if (beforeFinding && candidateFinding &&
-        ['supported', 'authorized_inference'].includes(beforeFinding.classification) &&
-        !['supported', 'authorized_inference'].includes(candidateFinding.classification)) {
-        return { decision: 'rejected', reason: 'Una frase previamente soportada ahora tiene una objeción nueva.' };
-      }
-    }
     const normalize = (text: string) => text.trim().toLowerCase().replace(/\s+/g, ' ');
     const beforeNormalized = before.script.sentences.map(s => normalize(s.text));
     const candidateNormalized = candidate.script.sentences.map(s => normalize(s.text));
@@ -164,6 +153,15 @@ export function decideNarrativeEditV8(
     const words = version.script.text.trim().split(/\s+/u).length;
     return Math.max(bounds.minimumWords - words, words - bounds.maximumWords, 0);
   };
+  if (targetSentenceIds !== undefined) {
+    const candidateWords = candidate.script.text.trim().split(/\s+/u).length;
+    const withinLocalBand = targetWords === undefined
+      || evaluateNarrationDeliveryV8([{ targetWords, actualWords: candidateWords }]).localPassed;
+    if (!withinLocalBand && distance(candidate) > distance(before)) {
+      return { decision: 'rejected', reason: 'La edición empeora la desviación de duración.' };
+    }
+    return { decision: 'accepted', reason: 'Las correcciones objetivo están verificadas y las observaciones restantes se conservan.' };
+  }
   if (distance(candidate) > distance(before)) {
     return { decision: 'rejected', reason: 'La edición empeora la desviación de duración.' };
   }

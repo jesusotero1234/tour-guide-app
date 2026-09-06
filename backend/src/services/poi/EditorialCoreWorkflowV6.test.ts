@@ -3,7 +3,7 @@ import {
   replayCanonicalCoreResolutionV6,
   runCanonicalCoreResolutionV6,
 } from './EditorialCoreWorkflowV6';
-import { CoreAuditRequestV6 } from './EditorialCoreResolverV6';
+import { CoreAuditRequestV6, CORE_RESOLVER_SYSTEM_PROMPT_V6 } from './EditorialCoreResolverV6';
 import { WikimediaProminenceSnapshotV6 } from './EditorialProminenceV6';
 
 function entity(index: number): EditorialEntityCandidateV5 {
@@ -256,6 +256,78 @@ describe('canonical core audit workflow v6', () => {
     if (result.coreResult?.status !== 'approved') throw new Error('Expected approved core');
     expect(result.coreResult.core.requirements.map((requirement) => requirement.canonicalId).sort())
       .toEqual(['Q1', 'Q2']);
+
+    const replay = replayCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      result.snapshot
+    );
+    expect(replay).toEqual(result);
+  });
+
+  it('handles missing Wikivoyage signals with null surviving and unknown-not-negative prompt', async () => {
+    const { entities } = fixture();
+    const prominence: WikimediaProminenceSnapshotV6 = {
+      ...fixture().prominence,
+      candidates: fixture().prominence.candidates.map((candidate) => ({
+        ...candidate,
+        wikivoyageSeeMentioned: null,
+        wikivoyageSectionTitle: null,
+        support: candidate.support.filter((s) => s.type !== 'wikivoyage_see_mention'),
+      })),
+    };
+    const required = new Set(['Q1', 'Q2', 'Q3']);
+    let capturedSystem: string | null = null;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const request = requestFromBody(body);
+      expect(request.candidates.every(candidate => candidate.signals.wikivoyageSee === null)).toBe(true);
+      capturedSystem = (body.messages as Array<{ content: string }>)[0].content;
+      const result = audit(request, required);
+      return openRouterResponse({ schemaVersion: result.schemaVersion, classifications: Object.fromEntries(
+        result.classifications.map(({ canonicalId, ...classification }) => [canonicalId, classification])
+      ) });
+    });
+
+    const result = await runCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      { kind: 'openrouter', model: 'openai/gpt-5.4-mini', expectedProviderName: 'OpenAI', acceptedModels: ['openai/gpt-5.4-mini'] },
+      { openRouterApiKey: 'test-key', post }
+    );
+
+    expect(result.status).toBe('approved');
+    expect(post).toHaveBeenCalledTimes(3);
+    expect(capturedSystem).toContain('unknown');
+    expect(capturedSystem).toContain('not a negative signal');
+
+    const replay = replayCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      result.snapshot
+    );
+    expect(replay).toEqual(result);
+  });
+
+  it('uses exactly CORE_RESOLVER_SYSTEM_PROMPT_V6 for boolean fixture and replays exactly', async () => {
+    const { entities, prominence } = fixture();
+    const required = new Set(['Q1', 'Q2']);
+    let capturedSystem: string | null = null;
+    const post = jest.fn(async (_url: string, body: Record<string, unknown>) => {
+      const request = requestFromBody(body);
+      capturedSystem = (body.messages as Array<{ content: string }>)[0].content;
+      const toolName = ((body.tools as any[])[0].function.name) as string;
+      return response(toolName, audit(request, required));
+    });
+
+    const result = await runCanonicalCoreResolutionV6(
+      entities, prominence,
+      { cityKey: 'madrid', theme: 'history', durationMinutes: 120 },
+      { kind: 'deepseek', model: 'deepseek-v4-flash' },
+      { apiKey: 'test-key', post }
+    );
+
+    expect(result.status).toBe('approved');
+    expect(capturedSystem).toBe(CORE_RESOLVER_SYSTEM_PROMPT_V6);
 
     const replay = replayCanonicalCoreResolutionV6(
       entities, prominence,

@@ -27,6 +27,24 @@ export async function createGenerationJob(req: Request, res: Response) {
     const job = await generationJobService.create(req.body as TourRequest);
     return res.status(job.status === 'completed' ? 200 : 202).json(toResponse(job));
   } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.startsWith('DESTINATION_REVIEW_REQUIRED')) {
+        return res.status(422).json({
+          error: {
+            code: 'DESTINATION_REVIEW_REQUIRED',
+            message: 'Choose a city and country that identify one destination.',
+          },
+        });
+      }
+      if (error.message.startsWith('UNSUPPORTED_TOUR')) {
+        return res.status(400).json({
+          error: {
+            code: 'UNSUPPORTED_TOUR_REQUEST',
+            message: error.message,
+          },
+        });
+      }
+    }
     console.error('Failed to create generation job:', error);
     return res.status(500).json({
       error: { code: 'GENERATION_JOB_CREATE_ERROR', message: 'Failed to start tour generation' },
@@ -35,6 +53,9 @@ export async function createGenerationJob(req: Request, res: Response) {
 }
 
 export async function getGenerationJob(req: Request, res: Response) {
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(req.params.id)) {
+    return res.status(400).json({ error: { code: 'INVALID_GENERATION_JOB_ID', message: 'Invalid generation job identifier' } });
+  }
   try {
     const job = await generationJobService.get(req.params.id);
     if (!job) {

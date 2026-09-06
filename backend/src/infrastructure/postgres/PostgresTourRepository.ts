@@ -30,6 +30,7 @@ type PrismaTour = {
   status: string;
   introduction: string | null;
   metadata: unknown;
+  blueprintId: string | null;
   createdAt: Date;
   updatedAt: Date;
   places: PrismaPlace[];
@@ -84,6 +85,7 @@ function mapTour(t: PrismaTour): Tour {
     status: (t.status || 'draft') as TourStatus,
     introduction: t.introduction ?? undefined,
     metadata: mapTourMetadata(t.metadata),
+    blueprintId: t.blueprintId ?? undefined,
     places: t.places.map(p => mapPlace(p, t.id)),
     createdAt: t.createdAt.toISOString(),
     updatedAt: t.updatedAt.toISOString()
@@ -106,7 +108,8 @@ export class PostgresTourRepository implements TourRepository {
         durationMinutes: tour.durationMinutes,
         status: tour.status ?? 'draft',
         introduction: tour.introduction ?? null,
-        metadata: tour.metadata ?? {}
+        metadata: tour.metadata ?? {},
+        blueprintId: tour.blueprintId ?? null
       };
       if (tour.id) {
         tourData.id = tour.id;

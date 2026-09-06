@@ -1,15 +1,19 @@
 import { Router } from 'express';
 import { generateTour, generateTourFromConcept, getTour, getWalkingRoute, listTours } from '../controllers/tours';
-import { validateConceptTourRequest, validateTourRequest } from '../middleware/validation';
+import { validateConceptTourRequest, validateTourRequest, validateCodexTourRequest } from '../middleware/validation';
 import { createGenerationJob, getGenerationJob } from '../controllers/generationJobs';
 
 const router = Router();
 
 // List tours (with optional filtering)
 router.get('/', listTours);
+router.get('/generation-capabilities', (_req, res) => {
+  const { enabledTourLanguages } = require('../../services/tourReadiness/TourLanguage') as typeof import('../../services/tourReadiness/TourLanguage');
+  res.json({ languages: enabledTourLanguages(), themes: ['history'], durations: [60, 120, 180, 240] });
+});
 
 // Persistent text-only generation. Keep before /:id so "generation-jobs" is not treated as a tour id.
-router.post('/generation-jobs', validateTourRequest, createGenerationJob);
+router.post('/generation-jobs', validateTourRequest, validateCodexTourRequest, createGenerationJob);
 router.get('/generation-jobs/:id', getGenerationJob);
 
 // Generate a new tour
