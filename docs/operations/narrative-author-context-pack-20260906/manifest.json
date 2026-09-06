@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "narrative-author-context-pack-v1",
+  "createdOn": "2026-09-06",
+  "status": "prepared_not_executed",
+  "externalResearchRequestsForPack": 0,
+  "paidModelCallsForPack": 0,
+  "productionChanges": false,
+  "repositoryHead": "ef55a94ddbd58fb95b77b7e99f55f66d86303ed1",
+  "provenance": {
+    "madrid": {
+      "path": "backend/tmp/narrative-v8/madrid-v8-goal-final-20260905-1/checkpoint.private.json",
+      "sha256": "91d3d7069eb8744744efe1f01295163893aae517064ffd558d024e0cedc73d2a"
+    },
+    "malaga": {
+      "path": "backend/tmp/narrative-v8/malaga-v8-goal-material-20260905-2/checkpoint.private.json",
+      "sha256": "c8cca80a3e3cab221a87ee6d2c07ac29f0c47eb788cc15eaadcfc2e8ee9dd682"
+    },
+    "malaguetaInput": {
+      "path": "backend/tmp/narrative-plain-writer-pilot-v8/malagueta-plain-gemini-20260905-1/inputs.private.json",
+      "sha256": "7e909e06db3f7b635e52bf31a9632ed037ad8f39bca4ac74ec4348379cd1214a"
+    },
+    "mayorInput": {
+      "path": "backend/tmp/narrative-writer-briefing-pilot-v8/editorial-first-mayor-identity-20260905-1/inputs.private.json",
+      "sha256": "3803fbdbd61de831730b4dedfcd9090871cb2e16bb2b467759fdf969c507ee2d"
+    },
+    "reference": {
+      "path": "docs/operations/narrative-plaza-mayor-reference-20260905.md",
+      "sha256": "0f56db4391e6c52767f68630385cfc1e18717941796cd2261ee8c41bbe24c5ba"
+    },
+    "brief": {
+      "path": "docs/operations/narrative-malagueta-plain-brief-20260905.md",
+      "sha256": "4aba7ee1894aac6cd4644c24090a5ff75f9f2856420ea84cd2195ec27113ca38"
+    }
+  },
+  "files": {
+    "guide": "../narrative-author-context-20260906.md",
+    "singleStop": "malagueta-oneshot.md",
+    "fullTour": "madrid-full-tour-oneshot.md"
+  },
+  "cases": {
+    "malagueta": {
+      "stopId": "Q523311",
+      "passageIds": [
+        "p-12e8b0e48af815a5abcb",
+        "p-290b41aeb84f5105bd38",
+        "p-aebe305f9d89512817eb",
+        "p-5198e9686ecf85bf7a46",
+        "p-22dadac996b76060fc14",
+        "p-e1a5b7e6dd3068568c13",
+        "p-732addd2b5a7c52107f1"
+      ],
+      "targetWords": 562,
+      "targetSeconds": 281,
+      "referenceStopId": "Q1123493",
+      "comparison": "same seven passages as plain Gemini run; changed editorial context; no previous Malagueta answer included",
+      "heldOut": false
+    },
+    "madrid": {
+      "requestedTourMinutes": 120,
+      "targetNarrationWords": 4080,
+      "targetNarrationSeconds": 2040,
+      "totalTourDurationVerified": false,
+      "referenceStopId": "Q1123493",
+      "referenceOverlapsTarget": true,
+      "route": [
+        {
+          "stopId": "Q1123493",
+          "position": 0,
+          "name": "Plaza Mayor de Madrid",
+          "previousStopId": null,
+          "nextStopId": "Q2193218"
+        },
+        {
+          "stopId": "Q2193218",
+          "position": 1,
+          "name": "plaza de Oriente",
+          "previousStopId": "Q1123493",
+          "nextStopId": "Q171517"
+        },
+        {
+          "stopId": "Q171517",
+          "position": 2,
+          "name": "Palacio Real de Madrid",
+          "previousStopId": "Q2193218",
+          "nextStopId": "Q1326261"
+        },
+        {
+          "stopId": "Q1326261",
+          "position": 3,
+          "name": "plaza de España",
+          "previousStopId": "Q171517",
+          "nextStopId": "Q1537446"
+        },
+        {
+          "stopId": "Q1537446",
+          "position": 4,
+          "name": "plaza de Cibeles",
+          "previousStopId": "Q1326261",
+          "nextStopId": "Q1140634"
+        },
+        {
+          "stopId": "Q1140634",
+          "position": 5,
+          "name": "Puerta de Alcalá",
+          "previousStopId": "Q1537446",
+          "nextStopId": "Q970525"
+        },
+        {
+          "stopId": "Q970525",
+          "position": 6,
+          "name": "plaza de Colón",
+          "previousStopId": "Q1140634",
+          "nextStopId": null
+        }
+      ],
+      "targets": [
+        {
+          "stopId": "Q1123493",
+          "targetWords": 600,
+          "targetSeconds": 300
+        },
+        {
+          "stopId": "Q2193218",
+          "targetWords": 570,
+          "targetSeconds": 285
+        },
+        {
+          "stopId": "Q171517",
+          "targetWords": 600,
+          "targetSeconds": 300
+        },
+        {
+          "stopId": "Q1326261",
+          "targetWords": 570,
+          "targetSeconds": 285
+        },
+        {
+          "stopId": "Q1537446",
+          "targetWords": 570,
+          "targetSeconds": 285
+        },
+        {
+          "stopId": "Q1140634",
+          "targetWords": 600,
+          "targetSeconds": 300
+        },
+        {
+          "stopId": "Q970525",
+          "targetWords": 570,
+          "targetSeconds": 285
+        }
+      ],
+      "passagesByStop": [
+        {
+          "stopId": "Q1123493",
+          "passageIds": [
+            "p-466c9393d048fce44700",
+            "p-a6dce545bbf06d696cc2",
+            "p-43b252144e6911418bad",
+            "p-b9f8d9d96096011f6736",
+            "p-d2d998261ebd4e5186a6",
+            "p-062d16088cc45e23f98b",
+            "p-74c8f2d236e95a272c9d",
+            "p-e7ebb926f985359ae2ff"
+          ]
+        },
+        {
+          "stopId": "Q2193218",
+          "passageIds": [
+            "p-f64ff6b20c51692fd239",
+            "p-6d218df011f3a1e53ee0",
+            "p-e2b1690fb6fb019dc2f0",
+            "p-219882b44378565ddfdd",
+            "p-713814e02585bcf30ab5",
+            "p-04fae66b80a66fec20cf",
+            "p-9568677067edfd0a410d",
+            "p-ce8a99825c478633867a",
+            "p-040de90621adbec53ec3",
+            "p-0a71e36629919b609081",
+            "p-7a4cb878db3f330611c3",
+            "p-762faa09adbf1ec492be"
+          ]
+        },
+        {
+          "stopId": "Q171517",
+          "passageIds": [
+            "p-1e1320271e3dc405cb77",
+            "p-7ca09484459b531e93ae",
+            "p-1566475c057a5dbc97c3",
+            "p-a43f4d8b5bcf0ffd9b35",
+            "p-fc6b94a553e975762a1a",
+            "p-180652e689a44b197c17",
+            "p-bff6480a40fcefc9eeaf",
+            "p-8b523f3765ecf560f804",
+            "p-fac052fc20e5564248d7",
+            "p-e81db96c12eb7405ab7b"
+          ]
+        },
+        {
+          "stopId": "Q1326261",
+          "passageIds": [
+            "p-7e45b3ddde8d752cc550",
+            "p-a08c701a28581cb408da",
+            "p-92fa3a62a5aa23584f3f",
+            "p-abe5a017e616d8434923",
+            "p-cbacc1328517870a1725",
+            "p-b02fefff2151d1606606",
+            "p-699b9c8f8ce1357c67e6",
+            "p-d715c93fb6d2c00f938d",
+            "p-4461ad6b1467f09b3143",
+            "p-855d6eedbf2fa78f6b83",
+            "p-55630f9e58f2c3c46c2d",
+            "p-6211e335c4fe987be99e",
+            "p-6db7217c3d3653a63156"
+          ]
+        },
+        {
+          "stopId": "Q1537446",
+          "passageIds": [
+            "p-4314437ec63512a240ea",
+            "p-3d9b85b4d87000e489ce",
+            "p-8279bd13bb798c29c1d9",
+            "p-f933837c752b5f8a22ee",
+            "p-d6ce69f106dd1b71c484",
+            "p-6563c9746f62fc652dcc",
+            "p-928d8cc02ce0b6be6df9",
+            "p-c06ca5acf6076160df44",
+            "p-8caade5647d5f0a42d97",
+            "p-a51611ee8ce6f83e9d0b",
+            "p-94321ab01152a6b55188"
+          ]
+        },
+        {
+          "stopId": "Q1140634",
+          "passageIds": [
+            "p-f52c229a5eab14124300",
+            "p-5815dd94e31e0ee4afd1",
+            "p-b8fd6c2c6e820926f10d",
+            "p-ea4b491f6d628b6dfd7d",
+            "p-b1f9fdfe42395a6b2dd2",
+            "p-c73d2502846e14f9fae0",
+            "p-e5e6584ebdedd3cb1e99",
+            "p-a8f7e7a74fea30a5109d",
+            "p-a4f2b1af67de07fffb13"
+          ]
+        },
+        {
+          "stopId": "Q970525",
+          "passageIds": [
+            "p-dad0491b829683f454ab",
+            "p-c061fb96fb334288ba4d",
+            "p-eb1443783cb258268f46",
+            "p-3eecabc42338df74f29a",
+            "p-9ae862611a36c0eca409",
+            "p-b29a189b6ced9b88b029",
+            "p-8e1b8afd92e50ad3ca98",
+            "p-fd5facee6384ba857f63",
+            "p-569b49576dec2c4a4032"
+          ]
+        }
+      ],
+      "selection": "Plaza Mayor: eight curated passages; other six stops: complete dossier passages; not candidate list, propositions, arc, or previous drafts",
+      "heldOut": false
+    }
+  },
+  "limitations": [
+    "No new independent verification of historical facts or current access/activities.",
+    "Editorial warnings incorporate observed failures; these are development cases, not held-out evaluation.",
+    "A same-context new-model comparison must rerun a baseline with these exact inputs.",
+    "The full Madrid prompt is not an isolated model-only comparison with prior per-stop runs.",
+    "Approved style reference is not an independently fact-checked gold answer.",
+    "No new provider, API configuration, budget reset, or production routing is included."
+  ],
+  "referenceWordCount": 599
+}

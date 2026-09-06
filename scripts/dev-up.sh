@@ -284,7 +284,6 @@ main() {
   start_ollama_if_available
 
   ensure_npm_deps "$ROOT_DIR/pods/llm-pod" "llm-pod"
-  ensure_npm_deps "$ROOT_DIR/pods/tts-pod" "tts-pod"
   ensure_npm_deps "$ROOT_DIR/backend" "backend"
   ensure_npm_deps "$ROOT_DIR/frontend" "frontend"
   ensure_voxcpm_env
@@ -306,17 +305,10 @@ main() {
     env PORT=3002 OLLAMA_HOST="$ollama_url" OLLAMA_MODEL="$OLLAMA_MODEL" NARRATIVE_MODEL="$NARRATIVE_MODEL" NARRATIVE_BRIEF_ENABLED=true npm run dev
   wait_for_url "http://localhost:3002/health" "llm-pod" 90
 
-  start_managed "voxcpm-pod" 3006 "$ROOT_DIR/pods/voxcpm-pod" \
-    env PYTHONPATH=src .venv/bin/uvicorn server:app --host 0.0.0.0 --port 3006
-  wait_for_url "http://localhost:3006/healthz" "voxcpm-pod" 120
-
-  start_managed "tts-pod" 3005 "$ROOT_DIR/pods/tts-pod" \
-    env PORT=3005 npm run dev
-  wait_for_url "http://localhost:3005/health" "tts-pod" 90
-
+  # Backend supervises on-demand VoxCPM2 after saving tour text.
   start_managed "backend" 3001 "$ROOT_DIR/backend" \
     env PORT=3001 NODE_ENV=development API_KEYS="$API_KEY" DATABASE_URL="$DATABASE_URL" \
-      LLM_SERVICE_URL=http://localhost:3002 TTS_POD_URL=http://localhost:3006 TTS_SERVICE_URL=http://localhost:3005 npm run dev
+      LLM_SERVICE_URL=http://localhost:3002 npm run dev
   wait_for_url "http://localhost:3001/health" "backend" 90
 
   # Only clean .next when we are about to start a fresh frontend process.
@@ -336,8 +328,7 @@ main() {
   printf 'Backend:     http://%s:3001/health\n' "$browser_access_host"
   printf 'LLM pod:     http://localhost:3002/health\n'
   printf 'RAG enrich:  http://localhost:11435/health\n'
-  printf 'Kokoro:      http://localhost:3005/health\n'
-  printf 'VoxCPM:      http://localhost:3006/healthz\n'
+  printf 'VoxCPM2:     on demand from the completed tour\n'
   printf 'Logs:        %s\n' "$LOG_DIR"
   printf '\nStop managed services with: ./scripts/dev-down.sh\n'
 }

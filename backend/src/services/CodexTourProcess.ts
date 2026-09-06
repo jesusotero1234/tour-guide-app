@@ -58,7 +58,7 @@ const executeTourPhase: TourPhaseRunner = async (input, progress, signal) => {
   try {
     await new Promise<void>((done, reject) => {
       const child = spawn(process.execPath, args, { cwd: root, shell: false,
-        env: { ...process.env, NARRATIVE_AUTHOR_ASSET_ROOT: assetRoot }, stdio: ['ignore', 'ignore', 'ignore'] });
+        env: { ...process.env, NARRATIVE_AUTHOR_ASSET_ROOT: assetRoot }, stdio: ['ignore', process.env.TOUR_VERBOSE === '1' ? 'inherit' : 'ignore', process.env.TOUR_VERBOSE === '1' ? 'inherit' : 'ignore'] });
       started = true;
       let failure: Error | undefined, killTimer: NodeJS.Timeout | undefined, reading = false;
       const stop = (error: Error) => {

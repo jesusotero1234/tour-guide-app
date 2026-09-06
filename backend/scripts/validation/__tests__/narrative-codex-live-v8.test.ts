@@ -55,23 +55,170 @@ describe('live Codex narration: offline, no paid inference', () => {
       expect(write.mock.calls[1][0]).not.toContain('Evidencia stop-0');
     }
   });
-  test('persists current text before audit and keeps earlier results on provider/budget failure', async () => {
-    const o = options(3);
-    const audit = jest.fn().mockResolvedValueOnce(validAudit()).mockImplementationOnce(async () => {
-      expect(readFileSync(resolve(directory, 'tour.md'), 'utf8')).toContain('Lugar 1');
+  function deferred<T = void>() {
+    let resolve!: (value: T) => void, reject!: (reason: unknown) => void;
+    const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; });
+    return { promise, resolve, reject };
+  }
+  test('audit failure preserves a saved lookahead without starting further work', async () => {
+    const secondAudit = deferred<any>(), thirdSaved = deferred();
+    const o = options(4);
+    const audit = jest.fn(async (material: any) => {
       const saved = JSON.parse(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8'));
-      expect(saved.stops[1].status).toBe('audit_pending');
-      expect(saved.stops[1].script.text).toBe(narration);
-      throw new Error('budget exhausted');
+      expect(saved.stops.find((s: any) => s.stopId === material.stopId).script.text).toBe(narration);
+      return material.stopId === 'stop-1' ? secondAudit.promise : validAudit();
     });
     const write = jest.fn().mockResolvedValue({ text: narration });
-    const state = await runCodexLiveNarrationV8(o, { write, audit });
+    const pending = runCodexLiveNarrationV8({
+      ...o, onUpdate: async snapshot => { if (snapshot.stops[2]?.script) thirdSaved.resolve(); },
+    }, { write, audit });
+    await thirdSaved.promise;
+    expect(audit).toHaveBeenCalledTimes(2);
+    secondAudit.reject(new Error('budget exhausted'));
+    const state = await pending;
     expect(state.status).toBe('partial');
-    expect(state.stops.map(s => s.status)).toEqual(['audited', 'audit_failed']);
-    expect(state.missingStopIds).toEqual(['stop-2']);
-    expect(state.stops[1].script?.text).toBe(narration);
-    expect(write).toHaveBeenCalledTimes(2);
+    expect(state.stops.map(s => s.status)).toEqual(['audited', 'audit_failed', 'audit_pending']);
+    expect(state.missingStopIds).toEqual(['stop-3']);
+    expect(state.stops[2].script?.text).toBe(narration);
+    expect(state.stops[2].error).toBeUndefined();
+    expect(write).toHaveBeenCalledTimes(3);
+    expect(audit).toHaveBeenCalledTimes(2);
     expect(state.delivery.passed).toBe(false);
+    expect(JSON.parse(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8')).status).toBe('partial');
+  });
+  test('overlaps only the next writer, preserves history and waits for the final audit', async () => {
+    const gates = [deferred<any>(), deferred<any>(), deferred<any>()];
+    const started = [deferred(), deferred(), deferred()];
+    const secondSaved = deferred(), thirdSaved = deferred();
+    let writers = 0, auditors = 0, maxWriters = 0, maxAuditors = 0, finished = false;
+    const write = jest.fn(async (_prompt: string) => {
+      maxWriters = Math.max(maxWriters, ++writers);
+      await Promise.resolve();
+      writers--;
+      return { text: narration };
+    });
+    const audit = jest.fn(async (m: any) => {
+      const index = Number(m.stopId.split('-')[1]);
+      maxAuditors = Math.max(maxAuditors, ++auditors);
+      started[index].resolve();
+      try { return await gates[index].promise; } finally { auditors--; }
+    });
+    const pending = runCodexLiveNarrationV8({
+      ...options(3), onUpdate: async s => {
+        if (s.stops[1]?.script) secondSaved.resolve();
+        if (s.stops[2]?.script) thirdSaved.resolve();
+      },
+    }, { write, audit }).then(s => { finished = true; return s; });
+    await secondSaved.promise;
+    expect(audit).toHaveBeenCalledTimes(1);
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(auditors).toBe(1);
+    expect(finished).toBe(false);
+    expect(write.mock.calls[1][0]).toContain('Historial de estilo — NO es evidencia factual');
+    gates[0].resolve(validAudit());
+    await thirdSaved.promise;
+    expect(write).toHaveBeenCalledTimes(3);
+    expect(audit).toHaveBeenCalledTimes(2);
+    gates[1].resolve(validAudit());
+    await started[2].promise;
+    expect(finished).toBe(false);
+    gates[2].resolve(validAudit());
+    const state = await pending;
+    expect(state.status).toBe('complete_needs_review');
+    expect(state.stops.map(s => s.script?.text)).toEqual([narration, narration, narration]);
+    expect(state.stops.every(s => s.status === 'audited')).toBe(true);
+    expect([maxWriters, maxAuditors, writers, auditors]).toEqual([1, 1, 0, 0]);
+  });
+  test('writer failure drains the pending audit before saving the final partial state', async () => {
+    const auditGate = deferred<any>(), writerFailed = deferred();
+    let finished = false;
+    const audit = jest.fn(() => auditGate.promise);
+    const write = jest.fn().mockResolvedValueOnce({ text: narration }).mockImplementationOnce(async () => {
+      writerFailed.resolve();
+      throw new Error('writer failed');
+    });
+    const pending = runCodexLiveNarrationV8(options(3), { write, audit })
+      .then(s => { finished = true; return s; });
+    await writerFailed.promise;
+    expect(finished).toBe(false);
+    expect(audit).toHaveBeenCalledTimes(1);
+    auditGate.resolve(validAudit());
+    const state = await pending;
+    expect(state.stops.map(s => s.status)).toEqual(['audited', 'writer_failed']);
+    expect(state.status).toBe('partial');
+    expect(state.missingStopIds).toEqual(['stop-1', 'stop-2']);
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(audit).toHaveBeenCalledTimes(1);
+  });
+  test('parent cancellation settles both active calls and prevents later work', async () => {
+    const controller = new AbortController(), bothStarted = deferred();
+    let active = 0, settled = 0;
+    const untilAbort = (signal: AbortSignal) => new Promise<never>((_yes, no) => {
+      expect(signal).toBe(controller.signal);
+      signal.addEventListener('abort', () => { active--; settled++; no(new Error('cancelled')); }, { once: true });
+      if (++active === 2) bothStarted.resolve();
+    });
+    const audit = jest.fn((_m: unknown, _s: unknown, o: any) => untilAbort(o.signal));
+    const write = jest.fn().mockResolvedValueOnce({ text: narration })
+      .mockImplementationOnce((_p: string, _d: string, signal: AbortSignal) => untilAbort(signal));
+    const pending = runCodexLiveNarrationV8({ ...options(3), signal: controller.signal }, { write, audit });
+    await bothStarted.promise;
+    controller.abort();
+    const state = await pending;
+    expect(state.status).toBe('partial');
+    expect(state.stops[0].script?.text).toBe(narration);
+    expect([active, settled]).toEqual([0, 2]);
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(audit).toHaveBeenCalledTimes(1);
+    const saved = readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8');
+    await Promise.resolve();
+    expect(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8')).toBe(saved);
+  });
+  test('serializes asynchronous updates and detaches their snapshots', async () => {
+    const auditGate = deferred<any>(), writerGate = deferred<any>();
+    const updateEntered = deferred(), releaseUpdate = deferred(), secondWritten = deferred();
+    const snapshots: any[] = [];
+    let active = 0, maximum = 0;
+    jest.mocked(console.log).mockImplementation(message => {
+      if (String(message).includes('stop-1 · writer_completed')) secondWritten.resolve();
+    });
+    const write = jest.fn().mockResolvedValueOnce({ text: narration }).mockImplementationOnce(() => writerGate.promise);
+    const audit = jest.fn().mockImplementationOnce(() => auditGate.promise).mockResolvedValueOnce(validAudit());
+    const pending = runCodexLiveNarrationV8({
+      ...options(2), onUpdate: async snapshot => {
+        maximum = Math.max(maximum, ++active);
+        snapshots.push(snapshot);
+        if (snapshot.stops[0]?.status === 'audited' && !snapshot.stops[1]?.script) {
+          updateEntered.resolve();
+          await releaseUpdate.promise;
+        }
+        active--;
+      },
+    }, { write, audit });
+    auditGate.resolve(validAudit());
+    await updateEntered.promise;
+    const held = snapshots[snapshots.length - 1], before = JSON.stringify(held);
+    writerGate.resolve({ text: narration });
+    await secondWritten.promise;
+    expect(active).toBe(1);
+    expect(JSON.stringify(held)).toBe(before);
+    releaseUpdate.resolve();
+    expect((await pending).status).toBe('complete_needs_review');
+    expect(maximum).toBe(1);
+    expect(snapshots[0].stops).toEqual([]);
+    expect(snapshots[snapshots.length - 1].status).toBe('complete_needs_review');
+  });
+  test('a transient checkpoint update failure does not poison the final partial save', async () => {
+    let updates = 0;
+    const audit = jest.fn();
+    const state = await runCodexLiveNarrationV8({
+      ...options(2), onUpdate: async () => { if (++updates === 2) throw new Error('checkpoint unavailable'); },
+    }, { write: jest.fn().mockResolvedValue({ text: narration }), audit });
+    expect(state.status).toBe('partial');
+    expect(state.stops[0].script?.text).toBe(narration);
+    expect(updates).toBe(3);
+    expect(audit).not.toHaveBeenCalled();
+    expect(JSON.parse(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8')).status).toBe('partial');
   });
   test('writer failure does not invoke auditor, fallback or retries', async () => {
     const write = jest.fn().mockRejectedValue(new Error('quota unavailable'));
@@ -138,6 +285,30 @@ describe('live Codex narration: offline, no paid inference', () => {
     expect(() => codexWriterTransportV8('typo', 'qwen38_hybrid', false)).toThrow();
     expect(() => codexWriterTransportV8('codex', 'balanced_openrouter', false)).toThrow();
     expect(() => codexWriterTransportV8('codex', 'qwen38_hybrid', true)).toThrow('resume');
+  });
+  test.each([false, true])('preserves paragraph sequence through live narration, save, and Markdown on %s audit failure', async auditFails => {
+    const paragraphText = 'Primera frase. Otra frase.\n\nSegundo párrafo.\n\nÚltimo párrafo.';
+    const expectedSentences = assignNarrativeSentenceIdsV6('stop-0', paragraphText, { sentenceBoundaryPolicy: 'v8' }).sentences;
+    const write = jest.fn().mockResolvedValue({ text: paragraphText });
+    const audit = jest.fn().mockImplementation(async (_material: unknown, script: any) => {
+      expect(script.text).toBe(paragraphText);
+      expect(script.sentences).toEqual(expectedSentences);
+      if (auditFails) throw new Error('audit failed');
+      return validAudit();
+    });
+    const state = await runCodexLiveNarrationV8(options(1), { write, audit });
+    expect(state.status).toBe(auditFails ? 'partial' : 'complete_needs_review');
+    expect(state.stops[0].script?.text).toBe(paragraphText);
+    const saved = JSON.parse(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8'));
+    expect(saved.stops[0].script.text).toBe(paragraphText);
+    const tour = readFileSync(resolve(directory, 'tour.md'), 'utf8');
+    expect(tour).toContain(paragraphText);
+    expect(tour).toContain('Segundo párrafo.');
+    expect(tour).toContain('Último párrafo.');
+    expect(tour.indexOf('Primera frase. Otra frase.')).toBeLessThan(tour.indexOf('Segundo párrafo.'));
+    expect(tour.indexOf('Segundo párrafo.')).toBeLessThan(tour.indexOf('Último párrafo.'));
+    expect(write).toHaveBeenCalledTimes(1);
+    expect(audit).toHaveBeenCalledTimes(1);
   });
   test('pre-aborted Codex subprocess does not spawn', async () => {
     const controller = new AbortController(); controller.abort();

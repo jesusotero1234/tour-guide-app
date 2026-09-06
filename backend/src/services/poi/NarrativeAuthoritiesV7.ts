@@ -5,6 +5,7 @@ import {
   narrativeHttpHeadersV8,
   requestMediaWikiWithMaxlagPolicyV8,
 } from './MediaWikiRequestPolicyV8';
+import { resolveWikidataEntityV8 } from './WikidataIdentityV8';
 
 export interface NarrativeWikidataIdentityV7 {
   qid: string;
@@ -64,6 +65,8 @@ export class CityIdentityReviewRequiredErrorV8 extends Error {
 }
 
 export interface ResolveCityIdentityV8Input {
+  /** A Wikidata link verified by the server against the selected OSM object. */
+  candidateQid?: string;
   requireSettlement?: boolean;
   cityName: string;
   language: string;
@@ -89,11 +92,12 @@ async function fetchEntityV8(
   get: NarrativeAuthorityV7Get,
   wait: NarrativeAuthorityV7Wait
 ): Promise<Record<string, unknown> | null> {
+  const fullProps = props.includes('info') ? props : `${props}|info`;
   const response = await requestMediaWikiWithMaxlagPolicyV8(
     () => get('https://www.wikidata.org/w/api.php', {
       action: 'wbgetentities',
       ids: qid,
-      props,
+      props: fullProps,
       languages: 'en',
       format: 'json',
       formatversion: '2',
@@ -101,10 +105,9 @@ async function fetchEntityV8(
     }),
     wait
   );
-  const root = objectValue(response.data, 'Wikidata entity response');
-  const entities = objectValue(root.entities, 'Wikidata entities');
-  const entity = (entities as Record<string, unknown>)[qid];
-  return entity && typeof entity === 'object' ? entity as Record<string, unknown> : null;
+  const resolved = resolveWikidataEntityV8(response.data, qid);
+  if (resolved.status === 'missing') return null;
+  return resolved.entity;
 }
 
 async function fetchCityEntitiesV8(
@@ -119,20 +122,17 @@ async function fetchCityEntitiesV8(
       () => get('https://www.wikidata.org/w/api.php', {
         action: 'wbgetentities',
         ids: batch.join('|'),
-        props: 'labels|aliases|claims',
+        props: 'labels|aliases|claims|info',
         format: 'json',
         formatversion: '2',
         origin: '*',
       }),
       wait
     );
-    const root = objectValue(response.data, 'Wikidata city entities response');
-    const entities = objectValue(root.entities, 'Wikidata city entities');
-    const record = entities as Record<string, unknown>;
     for (const qid of batch) {
-      const entity = record[qid];
-      if (entity && typeof entity === 'object' && !Array.isArray(entity)) {
-        result.set(qid, entity as Record<string, unknown>);
+      const resolved = resolveWikidataEntityV8(response.data, qid);
+      if (resolved.status === 'resolved') {
+        result.set(qid, resolved.entity);
       }
     }
   }
@@ -224,9 +224,14 @@ export async function resolveCityIdentityV8(
   input: ResolveCityIdentityV8Input
 ): Promise<CityIdentityResolutionV8> {
   if (!input.cityName.trim()) throw new Error('city name is required');
+  if (input.candidateQid !== undefined && !/^Q[1-9][0-9]*$/u.test(input.candidateQid)) {
+    throw new Error('invalid verified city QID');
+  }
   const get = input.get ?? defaultAuthorityGetV7;
   const wait = input.wait ?? defaultAuthorityWaitV7;
-  const response = await requestMediaWikiWithMaxlagPolicyV8(
+  const response = input.candidateQid
+    ? { data: { search: [{ id: input.candidateQid }] } }
+    : await requestMediaWikiWithMaxlagPolicyV8(
     () => get('https://www.wikidata.org/w/api.php', {
       action: 'wbsearchentities',
       search: input.cityName,
@@ -312,8 +317,12 @@ export async function resolveCityIdentityV8(
       if (!types.get(matches[i])!.some(id => isSettlement(id))) matches.splice(i, 1);
     }
   }
-  if (matches.length === 1) return { status: 'ok', qid: matches[0],
-    ...(input.requireSettlement ? { countryQid: countryQidByCandidate.get(matches[0]) } : {}) };
+  const canonicalMatches = new Map(matches.map(id => [String(entities.get(id)!.id), id]));
+  if (canonicalMatches.size === 1) {
+    const [canonicalId, requestedId] = [...canonicalMatches.entries()][0];
+    return { status: 'ok', qid: canonicalId,
+      ...(input.requireSettlement ? { countryQid: countryQidByCandidate.get(requestedId) } : {}) };
+  }
   return {
     status: 'city_identity_review_required',
     reason: matches.length === 0
@@ -442,18 +451,19 @@ export class WikidataAuthorityProviderV7 {
     props: string,
     languages: string[]
   ): Promise<Record<string, unknown>> {
+    const fullProps = props.includes('info') ? props : `${props}|info`;
     const unique = [...new Set(qids.filter((qid) => /^Q\d+$/u.test(qid)))];
     const result: Record<string, unknown> = {};
     for (let offset = 0; offset < unique.length; offset += 50) {
       const batch = unique.slice(offset, offset + 50);
-      const cacheKey = (qid: string): string => `${qid}|${props}`;
+      const cacheKey = (qid: string): string => `${qid}|${fullProps}`;
       const missing = batch.filter((qid) => !this.entityCache.has(cacheKey(qid)));
       if (missing.length > 0) {
         const response = await requestMediaWikiWithMaxlagPolicyV8(
           () => this.get('https://www.wikidata.org/w/api.php', {
             action: 'wbgetentities',
             ids: missing.join('|'),
-            props,
+            props: fullProps,
             languages: languages.join('|'),
             format: 'json',
             formatversion: '2',
@@ -461,14 +471,10 @@ export class WikidataAuthorityProviderV7 {
           }),
           this.wait
         );
-        const root = objectValue(response.data, 'Wikibase response');
-        if (root.error) {
-          throw new Error(`Wikibase error: ${JSON.stringify(root.error)}`);
-        }
-        const entities = objectValue(root.entities, 'Wikibase entities');
-        for (const [qid, entity] of Object.entries(entities)) {
-          if (entity && typeof entity === 'object' && !Array.isArray(entity)) {
-            this.entityCache.set(cacheKey(qid), entity as Record<string, unknown>);
+        for (const qid of missing) {
+          const resolved = resolveWikidataEntityV8(response.data, qid);
+          if (resolved.status === 'resolved') {
+            this.entityCache.set(cacheKey(qid), resolved.entity);
           }
         }
       }
@@ -578,6 +584,7 @@ export class WikidataAuthorityProviderV7 {
       level: number;
       domains: Array<{ domain: string; origin: string; url: string }>;
     }> = [];
+    const seen = new Set<string>([placeQid]);
     let level = 0;
     let cursor = [...new Set(qids.filter((qid) => qid !== placeQid))];
     while (cursor.length > 0 && level < 3) {
@@ -587,15 +594,18 @@ export class WikidataAuthorityProviderV7 {
       for (const rawQid of cursor) {
         if (entities[rawQid] === undefined) continue;
         const entity = objectValue(entities[rawQid], `${rawQid} entity`);
-        const identity = this.identityFromEntity(rawQid, entity);
+        const canonicalQid = String(entity.id);
+        if (seen.has(canonicalQid)) continue;
+        seen.add(canonicalQid);
+        const identity = this.identityFromEntity(canonicalQid, entity);
         ancestors.push({
-          qid: rawQid,
+          qid: canonicalQid,
           level,
           domains: identity.officialDomains,
         });
         for (const parent of identity.administrativeAncestors) {
-          if (parent !== rawQid && parent !== placeQid && !next.has(parent)
-            && !ancestors.some((ancestor) => ancestor.qid === parent)) {
+          if (parent !== canonicalQid && parent !== placeQid && !next.has(parent)
+            && !seen.has(parent)) {
             next.add(parent);
           }
         }
@@ -613,25 +623,25 @@ export class WikidataAuthorityProviderV7 {
     if (!/^Q\d+$/u.test(input.qid)) throw new Error('place QID is required');
     if (!/^Q\d+$/u.test(input.cityQid)) throw new Error('city QID is required');
     if (!input.language.trim()) throw new Error('language is required');
-    const placeIdentity = await this.identityFromEntity(
-      input.qid,
-      objectValue((await this.wbGetEntities(
-        [input.qid],
-        'labels|aliases|claims',
-        [input.language, 'en']
-      ))[input.qid],
-        `${input.qid} entity`)
+    const placeEntities = await this.wbGetEntities(
+      [input.qid],
+      'labels|aliases|claims',
+      [input.language, 'en']
     );
-    const cityEntity = objectValue((await this.wbGetEntities(
+    const placeEntity = objectValue(placeEntities[input.qid], `${input.qid} entity`);
+    const placeQid = String(placeEntity.id);
+    const cityEntities = await this.wbGetEntities(
       [input.cityQid],
       'labels|aliases|claims',
       [input.language, 'en']
-    ))[input.cityQid],
-      `${input.cityQid} entity`);
-    const cityIdentity = this.identityFromEntity(input.cityQid, cityEntity);
+    );
+    const cityEntity = objectValue(cityEntities[input.cityQid], `${input.cityQid} entity`);
+    const cityQid = String(cityEntity.id);
+    const placeIdentity = this.identityFromEntity(placeQid, placeEntity);
+    const cityIdentity = this.identityFromEntity(cityQid, cityEntity);
     const ancestors = await this.resolveAdminAncestors(
-      cityIdentity.administrativeAncestors.filter((qid) => qid !== input.cityQid),
-      input.cityQid
+      cityIdentity.administrativeAncestors.filter((qid) => qid !== cityQid),
+      cityQid
     );
 
     const authorities: NarrativeAuthorityV7[] = [];
@@ -644,12 +654,12 @@ export class WikidataAuthorityProviderV7 {
       ...placeIdentity.officialDomains.map((item) => ({
         ...item,
         origin: 'place_p856' as const,
-        qid: input.qid,
+        qid: placeQid,
       })),
       ...cityIdentity.officialDomains.map((item) => ({
         ...item,
         origin: 'city_p856' as const,
-        qid: input.cityQid,
+        qid: cityQid,
       })),
       ...ancestors.flatMap((ancestor) => (
         ancestor.domains.map((item) => ({
@@ -673,8 +683,8 @@ export class WikidataAuthorityProviderV7 {
     }
 
     const revisions = await this.revisionsOf([
-      input.qid,
-      input.cityQid,
+      placeQid,
+      cityQid,
       ...ancestors.map((ancestor) => ancestor.qid),
     ]);
     for (const authority of authorities) {
@@ -701,7 +711,7 @@ export class WikidataAuthorityProviderV7 {
       () => this.get('https://www.wikidata.org/w/api.php', {
         action: 'wbgetentities',
         ids: input.qid,
-        props: 'labels|aliases|claims|sitelinks',
+        props: 'labels|aliases|claims|sitelinks|info',
         languages: [input.language, 'en'].join('|'),
         format: 'json',
         formatversion: '2',
@@ -709,10 +719,11 @@ export class WikidataAuthorityProviderV7 {
       }),
       this.wait
     );
-    const root = objectValue(response.data, 'Wikibase sitelink response');
-    if (root.error) throw new Error(`Wikibase error: ${JSON.stringify(root.error)}`);
-    const entities = objectValue(root.entities, 'Wikibase sitelink entities');
-    const entity = objectValue((entities as Record<string, unknown>)[input.qid], `${input.qid} entity`);
+    const resolved = resolveWikidataEntityV8(response.data, input.qid);
+    if (resolved.status === 'missing') {
+      return { title: null, language: input.language, revision: null };
+    }
+    const entity = resolved.entity;
     const sitelinks = (entity.sitelinks && typeof entity.sitelinks === 'object')
       ? entity.sitelinks as Record<string, unknown>
       : {};
@@ -720,7 +731,7 @@ export class WikidataAuthorityProviderV7 {
     const title = raw && typeof raw === 'object'
       ? stringValue((raw as { title?: unknown }).title)
       : null;
-    const revision = (await this.revisionsOf([input.qid])).get(input.qid) ?? null;
+    const revision = (await this.revisionsOf([resolved.identity.canonicalId])).get(resolved.identity.canonicalId) ?? null;
     return { title, revision, language: sitelinks[`${input.language}wiki`] ? input.language : sitelinks.enwiki ? 'en' : input.language };
   }
 }

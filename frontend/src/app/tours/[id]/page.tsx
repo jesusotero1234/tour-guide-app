@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
 import { PlaceCard } from '@/components/tour/PlaceCard';
+import { TourAudioPanel } from '@/components/tour/TourAudioPanel';
 import { getDistanceLabel, getMapsUrl, haversineDistanceMeters } from '@/lib/geo';
 import { getTour } from '@/lib/api';
 import { useTourStore } from '@/lib/store';
@@ -442,6 +443,13 @@ export default function TourDetailPage() {
                       </div>
                     </div>
 
+                    <TourAudioPanel
+                      key={tour.id}
+                      tourId={tour.id}
+                      language={tour.language}
+                      currentPlaceId={currentPlace.id}
+                      currentPlaceName={currentPlace.name}
+                    />
                     <div id="guide-text">
                       <PlaceCard place={currentPlace} language={tour.language} />
                     </div>

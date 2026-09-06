@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { resolve } from 'path';
 import { TourRequest } from '../../src/types/api';
 import { requestEditorialStructuredV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
+import { createNarrativeReferenceServicesV8 } from '../../src/services/poi/NarrativeReferencesV8';
 import {
   NARRATIVE_MODEL_PROFILES_V6,
   NarrativeModelProfileNameV6,
@@ -168,7 +169,9 @@ export async function curatorServiceV8(options: {
   profile: string;
   runId: string;
   onProgress?: EditorialProgressCallbackV6;
+  maxTokens?: number;
 }): Promise<NarrativeResearchServicesV8['curate']> {
+  if (options.maxTokens !== undefined && (!Number.isInteger(options.maxTokens) || options.maxTokens < 1)) throw new Error('curator maxTokens must be a positive integer');
   const execution = narrativePhaseExecutionV6(
     {
       apiKey: options.apiKey,
@@ -186,6 +189,7 @@ export async function curatorServiceV8(options: {
     const sourceIds = [...new Set(packet.spans.map((span) => span.sourceId))];
     const spanIds = packet.spans.map((span) => span.evidenceSpanId);
     const hasMultiplePublishers = new Set(packet.publishers).size >= 2;
+    const allowSecondaryContrast = packet.priorityRoles.includes('tension_or_contrast');
     const result = await requestEditorialStructuredV6({
       callId: `narrative-v8-curator-${packet.stopId}`,
       input: {
@@ -202,9 +206,10 @@ export async function curatorServiceV8(options: {
         publishers: packet.publishers,
         priorityRoles: packet.priorityRoles,
         ...(packet.historicalSources?.length ? { historicalSources: packet.historicalSources } : {}),
+        ...(packet.referenceSources?.length ? { referenceSources: packet.referenceSources } : {}),
       },
       provider: execution.provider,
-      options: execution.options,
+      options: { ...execution.options, ...(options.maxTokens ? { maxTokens: Math.min(options.maxTokens, execution.options.maxTokens ?? 16_000) } : {}) },
       systemPrompt: [
         'Eres investigador y curador histórico de una parada de tour.',
         'Devuelve proposiciones factuales con soporte en spans literales.',
@@ -215,8 +220,15 @@ export async function curatorServiceV8(options: {
         ] : []),
         ...NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8,
         ...curatorRoleGuidanceV8(packet.priorityRoles),
+        ...(allowSecondaryContrast ? [
+          'En esta reparación puedes declarar secondaryContrast solamente en un hecho direct cuyo rol principal sea distinctive_trait y que YA exprese una comparación documentada.',
+          'No cambies su rol principal ni dupliques el hecho. Si cubre también el contraste pendiente, indica left y right: dos fragmentos distintos de 2 o más palabras y 6-200 caracteres cada uno.',
+          'Ambos fragmentos deben aparecer literalmente tanto en el texto de esa proposición como juntos en una de SUS citas. Entre left y right debe haber un conector explícito de comparación en ambos textos, por ejemplo a diferencia de o en contraste con.',
+          'No basta con ser único, antiguo, restaurado ni con poner la palabra contraste. No inventes comparaciones ni tomes evidencia de otro hecho. Usa secondaryContrast: null en todos los demás casos.',
+        ] : []),
         'Una proposición directa necesita un soporte de fuente autorizada; una debatible necesita',
         'dos publishers independientes en sus supports (wikimedia cuenta una sola vez).',
+        'Una página de Wikipedia y las fuentes de sus propias referencias no son corroboraciones independientes; conserva discrepancias e incertidumbres.',
         'Si una afirmación solo puede apoyarse con spans de un publisher, márcala como direct',
         '(si es sólida) u omítela; nunca la marques debatable sin dos publishers en sus supports.',
         hasMultiplePublishers
@@ -242,7 +254,7 @@ export async function curatorServiceV8(options: {
             items: {
               type: 'object',
               additionalProperties: false,
-              required: ['text', 'role', 'certainty', 'interpretation', 'supports'],
+              required: ['text', 'role', 'certainty', 'interpretation', 'supports', ...(allowSecondaryContrast ? ['secondaryContrast'] : [])],
               properties: {
                 text: { type: 'string' },
                 role: { type: 'string', enum: [
@@ -251,6 +263,13 @@ export async function curatorServiceV8(options: {
                 ] },
                 certainty: { type: 'string', enum: ['high', 'medium', 'low'] },
                 interpretation: { type: 'string', enum: ['direct', 'debatable'] },
+                ...(allowSecondaryContrast ? { secondaryContrast: {
+                  anyOf: [
+                    { type: 'null' },
+                    { type: 'object', additionalProperties: false, required: ['left', 'right'],
+                      properties: { left: { type: 'string', minLength: 6, maxLength: 200 }, right: { type: 'string', minLength: 6, maxLength: 200 } } },
+                  ],
+                } } : {}),
                 supports: {
                   type: 'array',
                   items: {
@@ -630,6 +649,8 @@ async function buildResearchServices(options: {
   });
   const identityCache = new Map<string, NarrativeStopIdentityV8>();
   return {
+    references: createNarrativeReferenceServicesV8({ ...options.runtime,
+      apiKey: process.env.FIRECRAWL_API_KEY?.trim() || undefined }),
     resolveIdentity: async ({ qid, language }) => {
       const cached = identityCache.get(qid);
       if (cached) return cached;
@@ -992,7 +1013,7 @@ async function main(): Promise<void> {
       currentStage = 'preflight';
       consoleReporter.stageStarted('preflight', 'comprobando Codex / ChatGPT antes de consumir API');
       codexAuthorDocuments = await preflightCodexLiveV8();
-      consoleReporter.stageCompleted('preflight', 'escritor Codex / Astra low disponible; preparación y auditoría en OpenRouter');
+      consoleReporter.stageCompleted('preflight', 'escritor y auditor Codex / Astra low disponibles; preparación en OpenRouter');
     }
     if (shouldExecuteResumePhaseV8(resumeFromPhase, 'research')) {
       currentStage = 'research_preflight';
@@ -1186,6 +1207,9 @@ async function main(): Promise<void> {
         countryCode: request.countryCode,
       };
       const loaded = await loadLiveCityCandidatesV8(liveInput);
+      const redirected = (loaded.identityResolutions ?? []).filter(identity => identity.redirectChain.length > 1).length;
+      const excluded = loaded.identityExclusions?.length ?? 0;
+      if (redirected || excluded) console.log(`[v8-canary] Wikidata: ${redirected} redirecciones verificadas; ${excluded} candidatos inexistentes excluidos`);
       const candidates: EssentialRouteCandidateV8[] = [];
       for (const entity of loaded.readyEntities) {
         let wikidataId = /^Q\d+$/u.test(entity.canonicalId) ? entity.canonicalId : null;
@@ -1205,14 +1229,16 @@ async function main(): Promise<void> {
           importance_score: entity.recognitionScore,
         });
       }
-      if (candidates.length === 0) {
-        throw new Error(`no live candidates with a real QID for ${cityKey}`);
-      }
       checkpointState.candidates = toJsonValue({
         readyEntities: loaded.readyEntities,
         candidates,
+        identityResolutions: loaded.identityResolutions ?? [],
+        identityExclusions: loaded.identityExclusions ?? [],
       });
       await persistCheckpoint('candidates');
+      if (candidates.length === 0) {
+        throw new Error(`no live candidates with a real QID for ${cityKey}`);
+      }
       const coreResolution = await loadCoreV8(
         { cityKey, theme: request.theme, durationMinutes: request.durationMinutes },
         loaded.readyEntities,

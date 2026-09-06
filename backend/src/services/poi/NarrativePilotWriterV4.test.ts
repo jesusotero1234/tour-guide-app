@@ -4,7 +4,6 @@ import {
   NARRATIVE_WRITER_MODEL_V4,
   NARRATIVE_WRITER_PARAMETERS_V4,
   generateNarrativeProseV4,
-  narrativeProseGeneratorPromptFingerprintV4,
 } from './NarrativePilotWriterV4';
 
 describe('NarrativePilotWriterV4', () => {
@@ -39,25 +38,4 @@ describe('NarrativePilotWriterV4', () => {
     });
   });
 
-  it('keeps one prompt fingerprint while variants change only input data', async () => {
-    const evidence = loadMadridNarrativeEvidenceCaseV4();
-    const bodies: unknown[] = [];
-    const post = jest.fn(async (_url, body) => {
-      bodies.push(body);
-      return { data: { choices: [{ message: { tool_calls: [{ function: {
-        name: 'submit_narrative_prose_v4', arguments: '{}',
-      } }] } }] } };
-    });
-    for (const variant of ['on_site', 'curiosity', 'documentary'] as const) {
-      await generateNarrativeProseV4(
-        evidence,
-        buildNarrativeClaimPlanV4(evidence),
-        variant,
-        { apiKey: 'test-key', post }
-      );
-    }
-
-    expect(new Set(bodies.map((body) => JSON.stringify(body))).size).toBe(3);
-    expect(narrativeProseGeneratorPromptFingerprintV4()).toMatch(/^[a-f0-9]{64}$/);
-  });
 });

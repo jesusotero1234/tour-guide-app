@@ -1,5 +1,5 @@
 import { NarrativeDossierV6, NarrativeDossierProposalV6 } from './NarrativeDossierV6';
-import { NarrativeEvidenceGatesV8, assessNarrativeEvidenceGatesV8, classifyEvidenceTierV8 } from './NarrativeDossierV8';
+import { NarrativeEvidenceGatesV8, assessNarrativeEvidenceGatesV8, classifyEvidenceTierV8, finalizeNarrativeDossierV8 } from './NarrativeDossierV8';
 import { NarrativeResearchStopResultV8 } from './NarrativeResearchV8';
 import { NarrativeRouteBriefV6, narrativeFingerprintV6 } from './NarrativeContractsV6';
 import { buildNarrativeDossierV6 } from './NarrativeDossierV6';
@@ -71,7 +71,7 @@ function rebuildDossierV8(
   proposal: NarrativeDossierProposalV6,
   captures: NarrativeCapturedSourceV8[]
 ): NarrativeDossierV6 {
-  return buildNarrativeDossierV6(proposal, captures);
+  return finalizeNarrativeDossierV8(buildNarrativeDossierV6(proposal, captures), captures);
 }
 
 function dossiersAreEqualV8(left: NarrativeDossierV6, right: NarrativeDossierV6): boolean {

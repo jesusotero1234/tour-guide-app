@@ -26,6 +26,7 @@ export interface Place {
 }
 
 export interface TourRequest {
+  location?: import('../services/TourLocationSelection').TourLocationSelection;
   /** Server-resolved identity; never trusted from a public request body. */
   destination?: import('../services/TourDestinationResolver').TourDestination;
   blueprintRevision?: number;

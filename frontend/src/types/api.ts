@@ -1,6 +1,13 @@
 export type Language = 'en' | 'es' | 'fr' | 'de' | 'it';
 
+export interface LocationSource {
+  provider: 'nominatim';
+  osmType: 'node' | 'way' | 'relation';
+  osmId: number;
+}
+
 export interface LocationData {
+  source?: LocationSource;
   city: string;
   country: string;
   countryCode?: string;  // ISO country code (e.g., "es")
@@ -11,6 +18,7 @@ export interface LocationData {
 }
 
 export interface TourRequest {
+  location?: { source: LocationSource; coordinates: LocationData['coordinates'] };
   city: string;
   country: string;
   countryCode: string; // ISO country code (e.g., "ES")
@@ -172,6 +180,7 @@ export interface WalkingRoute {
 }
 
 export interface Place {
+  metadata?: { tourImages?: import('./tourImages').TourImageSet };
   id: string;
   name: string;
   nameInTourLanguage?: string;

@@ -1,0 +1,679 @@
+{
+  "version": 1,
+  "repository": "/home/jesusotero/coding/tour-guide-app",
+  "archive": "/home/jesusotero/coding/tour-guide-app-archive/narrative-cleanup-20260906-1",
+  "entries": [
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-1",
+      "sha256": "619b8f9bca9f51da0afc519a15ce67421589477cb05eae82702c2f6b4ed3b293",
+      "bytes": 1307,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-2",
+      "sha256": "ef321a64b42aca49e3c29b27ad702c492e84f48205d284e5c72e4a35ad59d265",
+      "bytes": 378099,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-3",
+      "sha256": "c02cd7ff69db05aabaac11f4b303025172767b1de0e2b0dfb07dcb79502522f0",
+      "bytes": 489442,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-4",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-4",
+      "sha256": "b1419d4dd41f80b1e7e8cbd596428e7af1bfb4f048c55cfdf6f261b2afa56426",
+      "bytes": 1289,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-5",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-5",
+      "sha256": "97455aa5ee9f9dafcb1fbf263868a525c58b10d494eb487de02017c573032484",
+      "bytes": 1382119,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-6",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-20260904-6",
+      "sha256": "6b1ee2370c45314eca16ae07dcd0e841349966fc0b9e838c38c556da4c8bc478",
+      "bytes": 927140,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-source-20260904",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-gemini25pro-writer-source-20260904",
+      "sha256": "39003a80c3885d00f8b23de7817b610fbaf49a53d6afeca806e161d244f74839",
+      "bytes": 494622,
+      "files": 1
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-1",
+      "sha256": "d92424017e58dfde520db9d6881cd72dafd4c193bdc92bbe28b21bb4acec1d2b",
+      "bytes": 1419,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-2",
+      "sha256": "19cc8594852b0be95d4e99a8fc20a16232d29949a4c444908035aced564e2499",
+      "bytes": 870556,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-3",
+      "sha256": "cf88f71a3926c5e8f2180ca780028b7776a104ddfdebf5ddb5fa87791469e7c4",
+      "bytes": 1341001,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-4",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-4",
+      "sha256": "b6164f90e4c13b700116b2ab46ba46c8c5c941bb1084cbaf1f8358ff029a34ae",
+      "bytes": 967867,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-5",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-5",
+      "sha256": "6657dd290ee2a895704cc8e9a667b73f18fc78528aaba08801d3bdc3e92d071b",
+      "bytes": 987401,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-6",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-6",
+      "sha256": "2b5ca3d2653f622fa19693cd0d811cdd9f7595994bc8773a8219da552abfd447",
+      "bytes": 8350453,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-7",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-curator-recovery-20260903-7",
+      "sha256": "5f339bdad105b5636843b7e157f4412e505ed8431507fa9b7695b17065bf7203",
+      "bytes": 6756017,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-full-20260902-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-full-20260902-1",
+      "sha256": "c6ecebb07203b5d3ca064af8defd89f2beca54ff41ce982b67f78c11a127ae69",
+      "bytes": 1349,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-full-20260902-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-full-20260902-2",
+      "sha256": "c563de6739f2b2e8363ef85af9c070dcf0fbeff5d8b0e47db72ba523a839c244",
+      "bytes": 972957,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-1",
+      "sha256": "0129a036758a19613ad221ce6efbbe3c1c5884c0c34f4b85a74f4851e0052e3b",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-2",
+      "sha256": "4254e3e157bde18d87642ffc28610b3b506fd47935405b53c61c713cd303fc1e",
+      "bytes": 605669,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260902-3",
+      "sha256": "684e17711bfe1089dce595cd824f7d59b641aff5490f663adf40e71e91a6c41a",
+      "bytes": 4346587,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260903-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260903-1",
+      "sha256": "29636e1605e305f938242ebf86e8450f510198ac96fc62e8bb92c21dc2ae02bd",
+      "bytes": 836035,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260903-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260903-2",
+      "sha256": "b8b4856faf6cc7a5af33dca0582ef1d44907fce380326936146c529cc93d85b7",
+      "bytes": 5306615,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260904-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-gpt54mini-20260904-3",
+      "sha256": "3a6c5e30d878ecbd312f92d9c3ff585b25e4009225517933740fa76a4d0f48c5",
+      "bytes": 1390018,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-immersive-20260903-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-immersive-20260903-1",
+      "sha256": "c7022e1a6873d5beb9f6433f7239021625889914445a03984106a727819ffc2e",
+      "bytes": 389449,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-20260904-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-20260904-1",
+      "sha256": "ffbb53326da4ae4af8067fd0a03aea3c6834f28cce0cce1de54953c486618fbb",
+      "bytes": 1112627,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-1",
+      "sha256": "a2b6ade76e572c61d58f0b4a2bb607e12a7504f54b373e655e2700615f50abae",
+      "bytes": 791096,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-10",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-10",
+      "sha256": "70b62eb6e890c968b2e43e70efd5093a228cce31bdbf89012d2ead517fa3192d",
+      "bytes": 2013367,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-11",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-11",
+      "sha256": "b51ce044300568e2f3eeea708bc3055068e7f29cb70e145c85726b1653968276",
+      "bytes": 10197190,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-2",
+      "sha256": "256b8202738c76f5a2aecdfaa1c2769ef68051cbe48e2806bf539c3608cc03cc",
+      "bytes": 792010,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-3",
+      "sha256": "104e4a6d655b3a0d5ba1a58fa32da368bdc82ed88df754af63f627eaddd74379",
+      "bytes": 1294,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-4",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-4",
+      "sha256": "a07e55cec4ef49576e1cfb25ce8b79a7e3cc8d9add1018de15e3d8c18f8cb19e",
+      "bytes": 1294,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-5",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-5",
+      "sha256": "b3a0e6fb6c66cf00f805f69eed929c002b4f08600cba389c53bdee5986a0a496",
+      "bytes": 1039279,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-6",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-6",
+      "sha256": "b39b669008749314d32e5189082972bf9acd80ea55f859aff1233a7c1afa62a9",
+      "bytes": 1335454,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-7",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-7",
+      "sha256": "fdfb854bb19364bc8df3166947ac8dc3617f70298f2fa8e260b541bd291c4abb",
+      "bytes": 1396359,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-8",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-8",
+      "sha256": "e02c8b0399fe3aae183fefeb5617fc1e5d5330578d8b973005b79733882fb963",
+      "bytes": 793367,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-9",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-lengthfit-resume-20260904-9",
+      "sha256": "0d01aa2b00b3aa167751f8b9aeb2c8d2143176727e3897c4c4edaa2ef577b4a5",
+      "bytes": 1999806,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-qid-schema-20260903-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-qid-schema-20260903-1",
+      "sha256": "e1d2f2c0d5963ca1c83e36e7761ae320b51c98ae5466f2aa4271c66710e3d36b",
+      "bytes": 1381,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-qwen38-qid-schema-20260903-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-qwen38-qid-schema-20260903-2",
+      "sha256": "b3a989e4e6c8f3947ea596c2221f7156bd9f804d68f2bcbbf963502b70037583",
+      "bytes": 555189,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-20260903-1",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-20260903-1",
+      "sha256": "d55900394dc8f6252125b15a71ae306d5ebba5b8684448d19b0c15df1261d3e4",
+      "bytes": 1454,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-20260903-2",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-20260903-2",
+      "sha256": "0060b2d8f766010a905903f66ee3d78a3d0915fd20855ede09a164a73250ef16",
+      "bytes": 1467,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-arc-resume-20260903-13",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-arc-resume-20260903-13",
+      "sha256": "13ba2128f3e82a55f74ff4c115f304c2421c1adf08560ec58b7fb1e8d67eed8f",
+      "bytes": 1241100,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-clean-final-20260903-18",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-clean-final-20260903-18",
+      "sha256": "33695524a31c53442033f4b5c19061b69191a86e094c11e97eab713251c35569",
+      "bytes": 9447955,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-20",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-20",
+      "sha256": "389e52d63ebba7cd9c64cf48fddef4ce29dc70c10769e5bd8f7da283b1130ab8",
+      "bytes": 9582069,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-21",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-21",
+      "sha256": "b8e50e07a60ad427b9125cc2cf2d179a82e44885a8fae67492440af1c54cbb1f",
+      "bytes": 9793036,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-22",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-22",
+      "sha256": "7691c55c0e739bf25e0b05d4eea82436c35c2d241f95076a1b0bef4e14770d00",
+      "bytes": 897200,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-23",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-23",
+      "sha256": "bfa400199a091be6ebfd3f6083aca058cad8ac6b039221303d564a922ec04455",
+      "bytes": 1257788,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-24",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-24",
+      "sha256": "70d33454c272bc05d3494a3b4c166b5a6f12918ed2a7e282306b5fc6a54f9a6f",
+      "bytes": 497937,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-25",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-25",
+      "sha256": "b3a661aa60f726a730b203fd52eecf14ba0ab77779958c8b23d67ed84a767196",
+      "bytes": 2479967,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-26",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-26",
+      "sha256": "c43e41b0efa47f57e15a57e47c864e99b8295de2795626057a5ef7efdf382afa",
+      "bytes": 12644188,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-27",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-27",
+      "sha256": "0aa9d3a4814e7c3982417dfe0d0fc693ec7f70cb0b8b8c1c996b4d3f1ff0970e",
+      "bytes": 7325069,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-28",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-28",
+      "sha256": "7d336fe4c9082d6c878d163772590e04bebe4173832a8edd18c2832300dc7d0f",
+      "bytes": 9944593,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-29",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-29",
+      "sha256": "46d1f7e775a93f6a0cf06b135a7ef5dbf0e45e2da9d33d37b39f17a596ef8648",
+      "bytes": 7940388,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-30",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-complete-20260903-30",
+      "sha256": "9785dc1f7a6c03cc437dc77ff66ac4ef260a7377eb23d3360c78b8331a3621f6",
+      "bytes": 1565245,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-contextual-retry-20260903-16",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-contextual-retry-20260903-16",
+      "sha256": "22f34bf6a8c159582fb337185f5f6bdfd57cf5b736cebf9d82259492efb52ba2",
+      "bytes": 2768601,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-10",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-10",
+      "sha256": "bda80aa12600788c7ec5c1d5bdef4e407b13b2ec23ab2bfeeaa3f0c6c52f59c2",
+      "bytes": 1049056,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-7",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-7",
+      "sha256": "91e94e9af7fcb8629c94cc32067760e4ead63c27f45ff8df77cb8848e6c8a201",
+      "bytes": 1022977,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-8",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-8",
+      "sha256": "bb5a4eece5408d85c00edfcf215c899c96ba82d732bc173fc28130784316a0b3",
+      "bytes": 1025382,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-9",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-20260903-9",
+      "sha256": "ca6d0fe178fc15c1af2bef83af1d782ba7bc43422e6fbad1fd95fa20c729d717",
+      "bytes": 1167255,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-final-20260903-15",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-final-20260903-15",
+      "sha256": "8119938fb1d02930a240fd599eb7684b4bb5b0ac59ec9a9ce2c247932e8a9afb",
+      "bytes": 1033547,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-resume-20260903-14",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-editorial-resume-20260903-14",
+      "sha256": "4bb53d65369ceb846d8908247c468f230361206b40c832fee7219d0b51316ac7",
+      "bytes": 1521404,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-final-20260903-11",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-final-20260903-11",
+      "sha256": "bc308bc7609fe54b953a8df207bb62eb8eaf6559f585b0c789b75f0f3277535c",
+      "bytes": 1485,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-final-normalization-20260903-17",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-final-normalization-20260903-17",
+      "sha256": "c316858181c1b3380610b81316bdfbe5676ee4818e9f3def5b136bb494f319f2",
+      "bytes": 12150306,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-repair-recovery-20260903-19",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-repair-recovery-20260903-19",
+      "sha256": "8ed5161ddbd18c0b843a112e4975f0255def27075bd100d4d22d44f0dd109a3a",
+      "bytes": 13876343,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-resume-20260903-3",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-resume-20260903-3",
+      "sha256": "5821c2245ac592fa3bbcbef4ef5455d2875450466b72cdb6956cc36625e591ff",
+      "bytes": 1424,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-resume-20260903-4",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-resume-20260903-4",
+      "sha256": "f36f51cfcf3e3b5fc2299817357353e2446f39980ea5c41ead7f8dcde90be1f7",
+      "bytes": 481870,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-resume-research-20260903-5",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-resume-research-20260903-5",
+      "sha256": "8516ce6c3eb253cd4f23f6c78900145ff48d1b8ec1dff350ac23e244971fd063",
+      "bytes": 326668,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-resume-research-20260903-6",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-resume-research-20260903-6",
+      "sha256": "e4949257c631eff81a0cae86511a55bed53cce877e95f93e893c926d8e2b74e4",
+      "bytes": 1155927,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/madrid-v8-richness-route-replay-20260903-12",
+      "destination": "backend/tmp/narrative-v8/madrid-v8-richness-route-replay-20260903-12",
+      "sha256": "ced4294e0eb0b3bd07d5c1f26e55548e2e9b9bbd8785f08c12db2f75e45853b2",
+      "bytes": 474482,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-baseline-editorial-20260901-1",
+      "destination": "backend/tmp/narrative-v8/malaga-model-baseline-editorial-20260901-1",
+      "sha256": "83694e7d299012ddf32c319067e5e1bfab141ff2bd1acda8d93ad489c45e418f",
+      "bytes": 1247001,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-baseline-editorial-20260901-2",
+      "destination": "backend/tmp/narrative-v8/malaga-model-baseline-editorial-20260901-2",
+      "sha256": "9b3f97daf346038ad1cad88cd2057becf9afd5b39875698d9232b5572e976775",
+      "bytes": 3642067,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-baseline-qwen38-20260901-1",
+      "destination": "backend/tmp/narrative-v8/malaga-model-baseline-qwen38-20260901-1",
+      "sha256": "e195d12fd389ca9d64208ffec4ac9c87ec074b7a77d2e9911c376a36ef87171c",
+      "bytes": 657892,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-1",
+      "destination": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-1",
+      "sha256": "a9f6247d9f5fb9309e9fa279ad891cad7bd6605f8d1e612a549135d3275afd26",
+      "bytes": 653531,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-2",
+      "destination": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-2",
+      "sha256": "2e06170c3ba0f3c1a0f97db0e94159c07c9b6bc9902824a00a981b771488b9c0",
+      "bytes": 660968,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-3",
+      "destination": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-3",
+      "sha256": "4cd11db236949e5e89290f76d23d44d47da48039e77ec4f23abe36ab18e6ae3d",
+      "bytes": 858651,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-4",
+      "destination": "backend/tmp/narrative-v8/malaga-model-benchmark-20260901-4",
+      "sha256": "a81feb0bc89dae4ad790f8ad6411a1b861d66585964647ff74e232fac2d6c882",
+      "bytes": 3512808,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-boundary-final-20260901-2",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-boundary-final-20260901-2",
+      "sha256": "9fff98cb8e44171cf943a34e14f42a4436a32a0e55cd689ebfd5831788ccefcc",
+      "bytes": 530511,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-boundary-final-20260901-3",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-boundary-final-20260901-3",
+      "sha256": "75a196f859cde052deb6c942a8cbad321ac00769c14a3c534a1cfd75cfcfcae9",
+      "bytes": 650618,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-live-20260901-2",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-live-20260901-2",
+      "sha256": "67bbff382e81364866eaa4d1c3a63e4059d27878602f59ebd923e4da0d20cbbc",
+      "bytes": 102209,
+      "files": 3
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-live-20260901-3",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-live-20260901-3",
+      "sha256": "b0b14a4c713f5106db634a14fb78b5b7e2181cab3594d4489d5059b4aed15fdb",
+      "bytes": 2035294,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-live-20260901-4",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-live-20260901-4",
+      "sha256": "a26478325539d36417fa445fa74809eb6f89dcbd794baba002238b5beebf8384",
+      "bytes": 1470672,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-live-20260901-5",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-live-20260901-5",
+      "sha256": "bf3378c03703613d81249028afbd344e0eb65fc4f423071b8ba39a5527bb901d",
+      "bytes": 3157376,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-plan68-preflight-20260901-1",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-plan68-preflight-20260901-1",
+      "sha256": "99378576fd36f003d810243f0b815ef7ecc7dba03391f628c829961c15edc99e",
+      "bytes": 1215,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-2",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-2",
+      "sha256": "cda78354f4342d070d3fae2b0e9ca29f9d856fd46bbba5e1211ac9465cf1d2e8",
+      "bytes": 1382,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-3",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-3",
+      "sha256": "93ea99be8270b3373d0b9705fea2529f6fb831658e7c5b95225771b96ed38dab",
+      "bytes": 5583223,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-4",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-4",
+      "sha256": "92a143e0ec244d14f3a1de7cbbcdd99a105d402943f479ec70eb9b5764aaf3b0",
+      "bytes": 1970201,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-5",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-5",
+      "sha256": "41e6c7fa9e587a9494ed1646bcc0747af71d21ed6e6c75a908d573977c7873fb",
+      "bytes": 4182233,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-6",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-6",
+      "sha256": "64d5827017e4b63e7b542e73791f1a0b2ec447a30a5c713744d12fd12783e5db",
+      "bytes": 1617404,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-7",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-editorial-20260902-7",
+      "sha256": "dd7a3a0db045bdf8564a9223c160c417b19c1b490ed397dda5a536ddce1dba39",
+      "bytes": 5425929,
+      "files": 5
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-full-20260902-8",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-full-20260902-8",
+      "sha256": "0d84a39255635820fbea25b7f41e387ad8a66a3ee685d1bd31432adce5ab5359",
+      "bytes": 1355,
+      "files": 4
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-full-20260902-9",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-full-20260902-9",
+      "sha256": "024b84fc0cb8ed6b65186c8228ba290097a86b88b3b8aa7e4e6660a715147c8d",
+      "bytes": 3406177,
+      "files": 7
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-live-20260901-1",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-live-20260901-1",
+      "sha256": "6985b7ebbd5e377791e61b4fbec12f3f08afdfadc7bb372571a03c78a7f50dd2",
+      "bytes": 4998558,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-qwen38-live-20260902-1",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-qwen38-live-20260902-1",
+      "sha256": "83336cf92fefebc02fdf90c5083474e9c9a3e545b5c58ab9f07a293d55da62c1",
+      "bytes": 1348998,
+      "files": 6
+    },
+    {
+      "source": "backend/tmp/narrative-v8/malaga-v8-research-analysis-files-20260901.zip",
+      "destination": "backend/tmp/narrative-v8/malaga-v8-research-analysis-files-20260901.zip",
+      "sha256": "1eb44ba987008180715b568da3b4b9de4ac624c95be63d74337c2459279fd378",
+      "bytes": 202227,
+      "files": 1
+    },
+    {
+      "source": "backend/tmp/narrative-v8/qwen38-real-replay-20260901",
+      "destination": "backend/tmp/narrative-v8/qwen38-real-replay-20260901",
+      "sha256": "b9712d0585cd242390f07ed2621bfefea33bed35a59c9137bc62ad1884c4d7fb",
+      "bytes": 68111,
+      "files": 2
+    },
+    {
+      "source": "madrid-v8-pro-review-20260902.zip",
+      "destination": "madrid-v8-pro-review-20260902.zip",
+      "sha256": "c6923dcdaf5ee84a7e7262d29b25d3747ff3cc9973110aee11f8ec8aeb184bd5",
+      "bytes": 321206,
+      "files": 1
+    },
+    {
+      "source": "narrative-v8-gemini-length-fit-investigation-20260904.zip",
+      "destination": "narrative-v8-gemini-length-fit-investigation-20260904.zip",
+      "sha256": "289e73d6dc8a9fdf537e3fec2a2fb9067152d2018b177977122d88553eb1fdfd",
+      "bytes": 145486,
+      "files": 1
+    },
+    {
+      "source": "narrative-v8-oneshot-model-research-pro-20260904.zip",
+      "destination": "narrative-v8-oneshot-model-research-pro-20260904.zip",
+      "sha256": "e2fd4a4dfad22e24ce2c316485a687b307c3496fc9722228659314338cc177df",
+      "bytes": 2801039,
+      "files": 1
+    }
+  ]
+}

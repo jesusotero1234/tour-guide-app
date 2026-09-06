@@ -50,6 +50,7 @@ export interface EditorialEntityCandidateV5 {
   evidenceFacts: EvidenceFact[];
   readiness: EditorialEvidenceReadinessV5;
   visitConflictGroup: string | null;
+  wikidataIdentities?: import('./WikidataIdentityV8').WikidataIdentityResolutionV8[];
 }
 
 function normalize(value: string): string {

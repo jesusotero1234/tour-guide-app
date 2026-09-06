@@ -8,7 +8,7 @@ import useDebounce from "@/hooks/useDebounce";
 
 interface LocationPickerProps {
   value?: LocationData;
-  onChange: (location: LocationData) => void;
+  onChange: (location: LocationData | undefined) => void;
 }
 
 export function LocationPicker({ value, onChange }: LocationPickerProps) {
@@ -69,6 +69,7 @@ export function LocationPicker({ value, onChange }: LocationPickerProps) {
         value={searchText}
         onChange={(e) => {
           setSearchText(e.target.value);
+          onChange(undefined);
           setShowSuggestions(true);
         }}
         onFocus={() => setShowSuggestions(true)}

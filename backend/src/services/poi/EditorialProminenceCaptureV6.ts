@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { EditorialEntityCandidateV5 } from './EditorialEvidenceV5';
+import { resolveWikidataEntityV8 } from './WikidataIdentityV8';
 import {
   WikimediaProminenceCandidateV6,
   WikimediaProminenceSnapshotV6,
@@ -81,6 +82,9 @@ interface WikidataEntityV6 {
   lastrevid: number;
   modified: string;
   sitelinks: Record<string, { title: string }>;
+  requestedId: string;
+  canonicalId: string;
+  redirectChain: string[];
 }
 
 const WIKIMEDIA_HEADERS_V6 = {
@@ -259,12 +263,13 @@ async function requestWikidataEntities(
       },
       headers: WIKIMEDIA_HEADERS_V6, timeout: 30_000,
     });
-    const root = objectValue(response.data, 'Wikidata response');
-    if (root.success !== 1) throw new Error('Wikidata response was not successful');
-    const rawEntities = objectValue(root.entities, 'Wikidata entities');
     for (const id of qids.slice(offset, offset + 50)) {
-      const raw = objectValue(rawEntities[id], `Wikidata entity ${id}`);
-      if (raw.id !== id || !Number.isInteger(raw.lastrevid) || typeof raw.modified !== 'string') {
+      const resolved = resolveWikidataEntityV8(response.data, id);
+      if (resolved.status === 'missing') {
+        throw new Error(`Wikidata candidate ${id} missing; candidate identity review required`);
+      }
+      const raw = resolved.entity;
+      if (!resolved.identity.revision || typeof raw.modified !== 'string') {
         throw new Error(`Wikidata entity ${id} is incomplete`);
       }
       const rawSitelinks = objectValue(raw.sitelinks, `Wikidata entity ${id} sitelinks`);
@@ -275,8 +280,8 @@ async function requestWikidataEntities(
         sitelinks[site] = { title: sitelink.title };
       }
       result.set(id, {
-        id, lastrevid: raw.lastrevid as number, modified: raw.modified,
-        sitelinks,
+        id: resolved.identity.canonicalId, lastrevid: raw.lastrevid as number, modified: raw.modified,
+        sitelinks, requestedId: id, canonicalId: resolved.identity.canonicalId, redirectChain: resolved.identity.redirectChain,
       });
     }
   }
@@ -552,7 +557,15 @@ export async function captureWikimediaProminenceV6(
     const sectionTitle = wikivoyageSectionById.get(entity.canonicalId) ?? null;
     const support: WikimediaProminenceSupportV6[] = [];
     const add = (item: WikimediaProminenceSupportV6) => support.push(item);
-    if (cityLinkedIds.has(entity.canonicalId)) add({
+    const verifiedIds = new Set([
+      entity.canonicalId,
+      ...(wikidataEntity?.redirectChain ?? []),
+      ...(entity.wikidataIdentities ?? [])
+        .filter(identity => identity.canonicalId === entity.canonicalId)
+        .flatMap(identity => identity.redirectChain),
+    ]);
+    const isCityLinked = [...verifiedIds].some(id => cityLinkedIds.has(id));
+    if (isCityLinked) add({
       supportId: `${entity.canonicalId}:city-wikipedia-link`, type: 'city_wikipedia_link',
       value: `${options.cityTitle} links to ${wikipediaTitle ?? entity.localName}`,
       sourceRef: cityRevision.sourceId,
@@ -565,7 +578,7 @@ export async function captureWikimediaProminenceV6(
     if (wikidataEntity) add({
       supportId: `${entity.canonicalId}:wikidata-sitelinks`, type: 'wikidata_sitelinks',
       value: `${Object.keys(wikidataEntity.sitelinks).length} Wikimedia sitelinks`,
-      sourceRef: `wikidata:${entity.canonicalId}`,
+      sourceRef: `wikidata:${wikidataEntity.id}`,
     });
     if (pageviews[index] !== null) add({
       supportId: `${entity.canonicalId}:wikipedia-pageviews`, type: 'wikipedia_pageviews',
@@ -590,7 +603,7 @@ export async function captureWikimediaProminenceV6(
     if (support.length === 0) throw new Error(`Candidate ${entity.canonicalId} has no own prominence support`);
     return {
       canonicalId: entity.canonicalId, localName: entity.localName, wikipediaTitle,
-      cityWikipediaLinked: cityLinkedIds.has(entity.canonicalId),
+      cityWikipediaLinked: isCityLinked,
       wikivoyageSeeMentioned: wikivoyageRevision === null ? null : sectionTitle !== null,
       wikivoyageSectionTitle: sectionTitle,
       sitelinks: wikidataEntity ? Object.keys(wikidataEntity.sitelinks).length : 0,
@@ -598,10 +611,13 @@ export async function captureWikimediaProminenceV6(
       heritageDesignation: hasHeritage, support,
     };
   });
-  const wikidataRevisions: WikimediaSourceRevisionV6[] = [...wikidata.values()].map((entity) => ({
-    sourceId: `wikidata:${entity.id}`, project: 'www.wikidata.org', title: entity.id,
-    revisionId: entity.lastrevid, revisionTimestamp: entity.modified,
-  }));
+  const wikidataRevisions: WikimediaSourceRevisionV6[] = [...new Set([...wikidata.values()].map((entity) => entity.id))].map((id) => {
+    const entity = [...wikidata.values()].find((e) => e.id === id)!;
+    return {
+      sourceId: `wikidata:${id}`, project: 'www.wikidata.org', title: id,
+      revisionId: entity.lastrevid, revisionTimestamp: entity.modified,
+    };
+  });
   const withoutFingerprint = {
     schemaVersion: WIKIMEDIA_PROMINENCE_SCHEMA_VERSION_V6,
     cityKey: options.cityKey,

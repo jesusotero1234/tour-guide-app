@@ -47,6 +47,7 @@ export type NarrativeDnsLookupV6 = (
 
 export interface NarrativeSourcePostOptionsV6 {
   timeoutMs?: number;
+  signal?: AbortSignal;
 }
 
 export type NarrativeSourcePostV6 = (

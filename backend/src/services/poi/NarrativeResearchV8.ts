@@ -30,6 +30,9 @@ import { NarrativeDossierV6 } from './NarrativeDossierV6';
 import { normalizeNarrativeIdentityTextV8 } from './NarrativeAuthoritiesV7';
 import { NarrativeNarrationTargetV8 } from './NarrativeDurationTargetsV8';
 import { evaluateNarrativeRichnessV8 } from './NarrativeRichnessV8';
+import { NarrativeReferenceServicesV8, NarrativeReferenceV8, NarrativeReferenceProvenanceV8,
+  NARRATIVE_REFERENCE_BUDGET_V8, extractWikipediaReferencesV8, rankReferencesV8,
+  associatedReferenceDocumentV8, referenceUrlV8 } from './NarrativeReferencesV8';
 
 export type NarrativeWebCaptureRequestClassV8 = 'place_exact' | 'discovered_secondary';
 
@@ -74,6 +77,7 @@ export interface NarrativeCuratorPacketV8 {
   priorityRoles: NarrativeRoleV8[];
   narrationTarget: NarrativeNarrationTargetV8;
   historicalSources?: Array<{ sourceId: string } & NarrativeHistoricalProvenanceV8>;
+  referenceSources?: Array<{ sourceId: string } & NarrativeReferenceProvenanceV8>;
 }
 
 export const NARRATIVE_ROLE_DEFINITIONS_V8 = [
@@ -126,6 +130,7 @@ export const NARRATIVE_CURATOR_SUPPORT_GUIDANCE_V8 = [
 ] as const;
 
 export interface NarrativeResearchServicesV8 {
+  references?: NarrativeReferenceServicesV8;
   resolveIdentity(input: { qid: string; language: string }): Promise<NarrativeStopIdentityV8>;
   resolveAuthorities(input: {
     qid: string;
@@ -215,6 +220,7 @@ export type NarrativeResearchStopResultV8 =
   };
 
 export interface NarrativeResearchStopStatsV8 {
+  referenceExpansion?: { candidates: number; captures: number; accepted: number; queries: number; elapsedMs: number; timedOut: boolean };
   searchQueries: number;
   searchQueryAttempts: number;
   searchQuerySuccesses: number;
@@ -253,7 +259,7 @@ export type NarrativeCaptureOutcomeV8 =
 
 export interface NarrativeCaptureAttemptV8 {
   stopId: string;
-  phase: 'p856' | 'deterministic_search' | 'map' | 'adaptive_search' | 'wikipedia' | 'historical_corpus';
+  phase: 'p856' | 'deterministic_search' | 'map' | 'adaptive_search' | 'wikipedia' | 'historical_corpus' | 'wikipedia_references' | 'reference_capture' | 'reference_search';
   requestedUrl: string;
   finalUrl: string;
   authorityBeforeCapture: string;
@@ -264,6 +270,7 @@ export interface NarrativeCaptureAttemptV8 {
   errorClassification: string | null;
   attempt: number;
   elapsedMs: number;
+  referenceProvenance?: NarrativeReferenceProvenanceV8;
 }
 
 function normalizeUrlV8(raw: string): string {
@@ -412,6 +419,11 @@ function curatorPacketProseV8(value: string): string {
 
 function usefulCuratorPacketProseV8(value: string): boolean {
   const prose = curatorPacketProseV8(value);
+  // Segmentation can split an embedded SVG/data URI into fragments that no
+  // longer start with a URL. They are not prose even if they contain spaces.
+  if ((prose.match(/%[0-9a-f]{2}/giu)?.length ?? 0) >= 5) return false;
+  if (/^(?:To navigate the map|Map data|Map DataMap|Click to toggle|Keyboard shortcuts)/iu.test(prose)
+    || /Move left.*Move right.*Zoom in/iu.test(prose)) return false;
   return prose.length >= 40
     && prose.split(/\s+/u).length >= 7
     && /\p{L}/u.test(prose);
@@ -467,11 +479,19 @@ export function buildCuratorPacketV8(input: {
       const nameScore = nameTerms.some((term) => term.length > 0 && normalized.includes(term)) ? 4 : 0;
       const authorityScore = capture.authority.tier === 'primary_authority'
         ? 3 : capture.authority.tier === 'established_source' ? 2 : 1;
+      const repairPatterns: Partial<Record<NarrativeRoleV8, RegExp>> = {
+        tension_or_contrast: /contrast|pero |aunque |sin embargo|paraliz|abandon|recuper|restaur|transform|sustit|a diferencia|no hay pruebas|parado|however|although|restor|replac|autrefois|pourtant|tuttavia|wieder|fruher/u,
+        human_agency_or_lived_function: /habit|famil|campaner|reloj|prision|consejo|municipal|uso |funcion|vivien|lived|council|clock|prison|fonction|famille/u,
+        chronology_or_transformation: /constru|restaur|siglo|reform|transform|century|built|siecle|jahrhundert/u,
+        visible_observation: /fachada|planta|escalera|sala |puerta|ventana|cubierta|facade|stair|door|window/u,
+        distinctive_trait: /singular|unico|distint|a diferencia|unique|distinct/u,
+      };
+      const repairScore = (input.priorityRoles ?? []).some(role => repairPatterns[role]?.test(normalized)) ? 6 : 0;
       const positionBand: 0 | 1 | 2 = totalSpans <= 1 ? 0 : index < Math.ceil(totalSpans / 3) ? 0 : index < Math.ceil((totalSpans * 2) / 3) ? 1 : 2;
       candidates.push({
         span,
         source: capture,
-        score: nameScore + authorityScore + (index === 0 ? 1 : 0),
+        score: nameScore + authorityScore + repairScore + (index === 0 ? 1 : 0),
         positionBand,
       });
     });
@@ -529,6 +549,7 @@ export function buildCuratorPacketV8(input: {
     excludedSpanCount,
     priorityRoles: input.priorityRoles ?? [],
     narrationTarget: target,
+    ...(input.captures.some(c => c.referenceProvenance) ? { referenceSources: input.captures.flatMap(c => c.referenceProvenance ? [{ sourceId: c.sourceId, ...c.referenceProvenance }] : []) } : {}),
   };
 }
 
@@ -586,6 +607,7 @@ export async function researchNarrativeStopV8(
   let webCaptureResponses = 0;
   let infrastructureFailureCount = 0;
   let curationCount = 0;
+  let referenceExpansion: NarrativeResearchStopStatsV8['referenceExpansion'];
   const curatorAdmissions: Array<NarrativePropositionAdmissionV8 & { round: number }> = [];
   let historicalCorpusStats: NarrativeResearchStopStatsV8['historicalCorpus'] | undefined;
   type ResearchRoundV8 = {
@@ -621,6 +643,7 @@ export async function researchNarrativeStopV8(
     capturedSourceCount: captures.length,
     publisherCount: publisherCount(),
     curationCount,
+    ...(referenceExpansion ? { referenceExpansion } : {}),
     curatorAdmissions: [...curatorAdmissions],
     ...(historicalCorpusStats ? { historicalCorpus: historicalCorpusStats } : {}),
   });
@@ -984,7 +1007,7 @@ export async function researchNarrativeStopV8(
   // Primera curación (ronda 1) con al menos una captura aceptada.
   if (captures.length >= 1) {
     const result = await curate();
-    if (result.ok && (result.tier === 'A' || result.tier === 'B')) {
+    if (result.ok && result.tier !== 'D') {
       const richnessReady = roundRichnessReady(state.round!);
       if (state.round!.gates.writerReady && richnessReady) {
         return sufficient(state.round!, result.tier);
@@ -992,6 +1015,130 @@ export async function researchNarrativeStopV8(
     }
   }
 
+  // Conditional bibliography repair. It shares the existing capture/query and
+  // two-curation budgets; useful direct material replaces broad discovery.
+  const wikiSeed = captures.find(c => c.sourceKind === 'wikipedia_api' && c.entityQid === input.stopId);
+  if (wikiSeed && services.references && attemptedUrls.size < budget.captures) {
+    const referenceServices = services.references;
+    const limits = NARRATIVE_REFERENCE_BUDGET_V8;
+    const started = Date.now();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), limits.elapsedMs);
+    referenceExpansion = { candidates: 0, captures: 0, accepted: 0, queries: 0, elapsedMs: 0, timedOut: false };
+    const expansion = referenceExpansion;
+    const bounded = async <T>(operation: Promise<T>): Promise<T> => {
+      if (controller.signal.aborted) throw new Error('reference_deadline');
+      let rejectOnAbort: () => void = () => undefined;
+      const aborted = new Promise<never>((_, reject) => {
+        rejectOnAbort = () => reject(new Error('reference_deadline'));
+        controller.signal.addEventListener('abort', rejectOnAbort, { once: true });
+      });
+      try { return await Promise.race([operation, aborted]); }
+      finally { controller.signal.removeEventListener('abort', rejectOnAbort); }
+    };
+    const provenance = (ref: NarrativeReferenceV8, parentUrl?: string): NarrativeReferenceProvenanceV8 => ({
+      wikipediaSourceId: wikiSeed.sourceId, wikipediaUrl: wikiSeed.finalUrl,
+      revisionId: wikiSeed.wikimediaRevision?.revisionId ?? null,
+      citationUrl: ref.url, citationTitle: ref.title, ...(parentUrl ? { parentUrl } : {}),
+    });
+    const captureReference = async (url: string, origin: NarrativeReferenceProvenanceV8): Promise<NarrativeCapturedSourceV8 | null> => {
+      const target = referenceUrlV8(url);
+      if (!target || attemptedUrls.has(target) || controller.signal.aborted
+        || attemptedUrls.size >= budget.captures || expansion.captures >= limits.captures) return null;
+      attemptedUrls.add(target);
+      expansion.captures += 1;
+      webCaptureAttempts += 1;
+      const captureStarted = Date.now();
+      let log: Omit<NarrativeCaptureAttemptV8, 'stopId' | 'attempt' | 'elapsedMs'> = {
+        phase: 'reference_capture', requestedUrl: target, finalUrl: target,
+        authorityBeforeCapture: 'citation_lead', authorityAfterCapture: 'discovery_only',
+        publisherKey: null, outcome: 'capture_failed', httpStatus: null, errorClassification: null,
+        referenceProvenance: origin,
+      };
+      try {
+        const captured = await bounded(referenceServices.capture({ url: target, signal: controller.signal }));
+        webCaptureResponses += 1;
+        const final = referenceUrlV8(captured.finalUrl);
+        // A citation cannot authorize an unrelated redirect or just a search snippet.
+        if (!final || new URL(final).hostname.replace(/^www\./u, '') !== new URL(target).hostname.replace(/^www\./u, '')) throw new Error('reference_redirect_mismatch');
+        log = { ...log, finalUrl: final, httpStatus: captured.finalHttpStatus, outcome: 'capture_rejected' };
+        const identityProse = curatorPacketProseV8(captured.content);
+        const associatedIdentity = origin.parentUrl && new URL(origin.parentUrl).hostname === new URL(final).hostname
+          && mapResultMatchesIdentityV8({ url: '', title: '', description: identityProse, engine: 'associated_document', authority: captured.authority }, input.stopName, input.cityName, identity);
+        if (!hasIdentityTermV8(identityProse, input.stopName, identity) && !associatedIdentity) throw new Error('reference_identity_mismatch');
+        const oldProse = captures.map(c => curatorPacketProseV8(c.content));
+        const novel = segmentCaptureIntoSpansV7(captured).spans.some(span => {
+          const prose = curatorPacketProseV8(span.text);
+          return usefulCuratorPacketProseV8(span.text) && prose.length >= 80 && !oldProse.some(old => old.includes(prose));
+        });
+        if (!novel) throw new Error('reference_no_new_passages');
+        let classified = classifyWebCaptureV8(captured, registry, input.stopName);
+        if (classified.authority.tier === 'discovery_only') classified = { ...classified,
+          authority: { ...classified.authority, tier: 'established_source', rule: 'wikipedia_citation_identity_verified' } };
+        classified = { ...classified, referenceProvenance: origin };
+        const accepted = addCapturedSource(classified);
+        log = { ...log, outcome: accepted ? 'capture_accepted' : 'capture_rejected', authorityAfterCapture: classified.authority.tier, publisherKey: classified.authority.publisherKey };
+        if (accepted) { expansion.accepted += 1; return classified; }
+      } catch (error) {
+        log.errorClassification = errorCodeV8(error) ?? (error instanceof Error ? error.message : 'reference_failed');
+        log.httpStatus = errorHttpStatusV8(error) ?? log.httpStatus;
+      } finally {
+        captureLog.push({ ...log, stopId: input.stopId, attempt: attemptedUrls.size, elapsedMs: Date.now() - captureStarted });
+      }
+      return null;
+    };
+    try {
+      let refs = extractWikipediaReferencesV8(wikiSeed.content);
+      if (!refs.some(ref => ref.url)) {
+        const html = await bounded(referenceServices.load({ capture: wikiSeed, signal: controller.signal }));
+        const parsed = extractWikipediaReferencesV8(html);
+        if (parsed.length) refs = parsed;
+      }
+      refs = rankReferencesV8(refs, [input.stopName, ...identity.labels, ...identity.aliases], registry.authorities.map(a => a.domain), computeRepairPriorityRoles());
+      expansion.candidates = refs.length;
+      const direct = refs.filter((ref): ref is NarrativeReferenceV8 & { url: string } => !!ref.url && !attemptedUrls.has(ref.url));
+      const first = await Promise.all(direct.slice(0, limits.concurrency).map(ref => captureReference(ref.url, provenance(ref))));
+      const parent = first.find(c => c && associatedReferenceDocumentV8(c));
+      const document = parent ? associatedReferenceDocumentV8(parent) : null;
+      if (document?.url && parent) {
+        await captureReference(document.url, { ...parent.referenceProvenance!, parentUrl: parent.finalUrl });
+      } else if (first.some(Boolean) && direct[2]) {
+        await captureReference(direct[2].url, provenance(direct[2]));
+      }
+      // Search only when direct citations did not deliver useful passages. Verify
+      // site: on the actual destination, since the engine can ignore the filter.
+      for (const ref of refs.slice(0, limits.queries)) {
+        if (expansion.accepted || controller.signal.aborted || expansion.captures >= limits.captures || attemptedUrls.size >= budget.captures) break;
+        const host = ref.url ? new URL(ref.url).hostname : null;
+        const query = [host ? 'site:' + host : '', input.stopName, input.cityName, ref.title.slice(0, 180)].filter(Boolean).join(' ').slice(0, budget.maxQueryLength);
+        if (usedQueries.includes(query)) continue;
+        usedQueries.push(query); searchQueryAttempts += 1; expansion.queries += 1;
+        const searchStarted = Date.now();
+        try {
+          const results = await bounded(referenceServices.search({ query, language: input.language, countryCode: input.countryCode, signal: controller.signal }));
+          searchQuerySuccesses += 1;
+          recordAttempt({ phase: 'reference_search', requestedUrl: query, finalUrl: '', authorityBeforeCapture: 'search', authorityAfterCapture: 'search', publisherKey: null, outcome: 'discovered', httpStatus: null, errorClassification: null });
+          for (const result of results) {
+            const url = referenceUrlV8(result.url);
+            if (!url || (host && new URL(url).hostname !== host) || !mapResultMatchesIdentityV8(result, input.stopName, input.cityName, identity)) continue;
+            // Untargeted bibliography searches may discover only already registered authorities.
+            if (!host && !registry.authorities.some(a => new URL(url).hostname === a.domain || new URL(url).hostname.endsWith('.' + a.domain))) continue;
+            if (await captureReference(url, provenance(ref))) break;
+          }
+        } catch (error) {
+          captureLog.push({ stopId: input.stopId, phase: 'reference_search', requestedUrl: query, finalUrl: '', authorityBeforeCapture: 'search', authorityAfterCapture: 'error', publisherKey: null, outcome: 'provider_failed', httpStatus: errorHttpStatusV8(error), errorClassification: errorCodeV8(error) ?? 'reference_search_failed', attempt: attemptedUrls.size, elapsedMs: Date.now() - searchStarted });
+        }
+      }
+    } catch (error) {
+      recordAttempt({ phase: 'wikipedia_references', requestedUrl: wikiSeed.finalUrl, finalUrl: '', authorityBeforeCapture: 'wikimedia', authorityAfterCapture: 'error', publisherKey: 'wikimedia', outcome: 'provider_failed', httpStatus: errorHttpStatusV8(error), errorClassification: errorCodeV8(error) ?? 'reference_lookup_failed' });
+    } finally {
+      clearTimeout(timeout);
+      expansion.elapsedMs = Date.now() - started;
+      expansion.timedOut = controller.signal.aborted;
+    }
+  }
+
+  if (!referenceExpansion?.accepted) {
   // Descubrimiento: reunir resultados, deduplicar, priorizar y capturar.
   const authorityOriginRank: Record<string, number> = {
     place_p856: 0,
@@ -1036,7 +1183,7 @@ export async function researchNarrativeStopV8(
     ...targetedDomains.map((domain) => `site:${domain} ${searchName}${citySuffix}`),
     ...searchTerms.map(term => `${searchName}${citySuffix} ${term}`),
   ];
-  const cappedDeterministicQueries = deterministicQueries.slice(0, budget.deterministicQueries);
+  const cappedDeterministicQueries = deterministicQueries.filter(query => !usedQueries.includes(query)).slice(0, Math.max(0, budget.deterministicQueries - searchQueryAttempts));
   for (const query of cappedDeterministicQueries) {
     if (attemptedUrls.size >= budget.captures) break;
     searchQueryAttempts += 1;
@@ -1278,6 +1425,8 @@ export async function researchNarrativeStopV8(
         }
       }
     }
+  }
+
   }
 
   if (externalInfrastructureUnavailable()) {

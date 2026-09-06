@@ -100,8 +100,10 @@ temp/
 # generated/local audio files
 
 backend/data/audio/
+backend/data/audio-jobs/
 
 *.wav
+!pods/voxcpm-pod/presets/guide-es-a.wav
 
 *.mp3
 

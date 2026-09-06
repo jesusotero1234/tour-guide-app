@@ -1,3 +1,5 @@
+import { TourImageSet } from './TourImage';
+
 export interface PlaceSourcePoiMetadata {
   osmType?: 'node' | 'way' | 'relation';
   osmId?: number;
@@ -19,6 +21,7 @@ export interface PlaceMetadata {
   localizedFromLanguage?: string;
   descriptionSections?: Record<string, string>;
   nameInTourLanguage?: string;
+  tourImages?: TourImageSet;
 }
 
 export interface Place {

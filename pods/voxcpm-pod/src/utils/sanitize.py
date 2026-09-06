@@ -40,12 +40,11 @@ def sanitize_text(text: str) -> str:
     cleaned = re.sub(r"^\s*>\s+", "", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", cleaned)
     cleaned = re.sub(r"\r\n?", "\n", cleaned)
+    cleaned = re.sub(r"[^\S\n]+", " ", cleaned)
+    cleaned = re.sub(r"\n[^\S\n]+", "\n", cleaned)
+    cleaned = re.sub(r"[^\S\n]+\n", "\n", cleaned)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     cleaned = re.sub(r"([^\n])\n([^\n])", r"\1 \2", cleaned)
-    cleaned = re.sub(r"[^\S\n]+", " ", cleaned)
-    cleaned = re.sub(r"\n\s+", "\n", cleaned)
-    cleaned = re.sub(r"\s+\n", "\n", cleaned)
-    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
 
 

@@ -68,6 +68,23 @@ const AUTHORITY_B = {
 };
 
 describe('buildValidatedDossierV8', () => {
+  it.each(['direct', 'debatable'] as const)('treats Wikipedia and its cited original as dependent for %s propositions', interpretation => {
+    const a = capture('wiki', 'La función histórica de la torre cambió con el paso del tiempo.', { ...AUTHORITY_A, tier: 'established_source', publisherKey: 'wikimedia' });
+    const b = capture('original', a.content, AUTHORITY_B);
+    b.referenceProvenance = { wikipediaSourceId: 'wiki', wikipediaUrl: a.finalUrl, revisionId: 1, citationUrl: b.finalUrl, citationTitle: 'Historia' };
+    const allSpans = new Map([...spansOf(a), ...spansOf(b)]);
+    const result = buildValidatedDossierV8(baseInput({ captures: [a, b], spansBySource: allSpans,
+      curatorOutput: { propositions: [{ text: a.content, role: 'tension_or_contrast', certainty: 'medium', interpretation,
+        supports: [a, b].map(c => ({ sourceId: c.sourceId, evidenceSpanIds: [allSpans.get(c.sourceId)![0].evidenceSpanId] })) }],
+        authorizedNames: [], authorizedNumbers: [], discrepancies: [], limits: [] } }));
+    if (interpretation === 'debatable') expect(result.status).toBe('curator_contract_failed');
+    else {
+      expect(result.status).toBe('ok');
+      if (result.status !== 'ok') return;
+      expect(result.value.dossier.sufficiency.independentPublisherCount).toBe(1);
+      expect(JSON.parse(JSON.stringify(result.value.dossier.sources)).find((s: { sourceId: string }) => s.sourceId === 'original').referenceProvenance).toEqual(b.referenceProvenance);
+    }
+  });
   it.each(['visible_observation', 'chronology_or_transformation'] as const)('treats historical-only %s according to temporal scope', role => {
     const c = capture('historical', 'La fortaleza tenía una torre en 1848.', AUTHORITY_A);
     c.sourceKind = 'historical_corpus';

@@ -4,6 +4,7 @@ import {
   assignNarrativeSentenceIdsV6,
   narrativeSentenceFingerprintV6,
 } from './NarrativeEditorialV6';
+import { NARRATIVE_MODEL_PROFILES_V6 } from './NarrativeModelProfilesV6';
 
 describe('Narrative V8 factual audit contract', () => {
   it('requires current literal evidence anchors for every audit finding', async () => {
@@ -80,10 +81,13 @@ describe('Narrative V8 factual audit contract', () => {
     });
   });
 
+  const qwen38AuditorBMaxTokens = NARRATIVE_MODEL_PROFILES_V6.qwen38_hybrid.phases.auditor_b.maxTokens;
+  const qwen38AnchorsBatches = qwen38AuditorBMaxTokens === 2000 ? [8, 8, 1] : [16, 1];
+
   it.each([
     { profile: 'balanced_openrouter', anchors: true, expectedBatches: [8, 8, 1] },
     { profile: 'balanced_openrouter', anchors: false, expectedBatches: [16, 1] },
-    { profile: 'qwen38_hybrid', anchors: true, expectedBatches: [16, 1] },
+    { profile: 'qwen38_hybrid', anchors: true, expectedBatches: qwen38AnchorsBatches },
     { profile: 'qwen38_hybrid', anchors: false, expectedBatches: [16, 1] },
   ])('caps audit batches by maxTokens and covers all sentences once (profile: $profile, anchors: $anchors)', async ({ profile, anchors, expectedBatches }) => {
     const sentences = Array.from({ length: 17 }, (_, i) => `Frase ${i + 1} del recorrido.`);

@@ -10,7 +10,7 @@ function world(city = 'Madrid', code = 'ES', language = 'es', qid = 'Q2807') {
   const search = [qid];
   const get = jest.fn(async (_url: string, p: Record<string, string>) => ({
     data: p.action === 'wbsearchentities' ? { search: search.map(id => ({ id })) }
-      : { entities: Object.fromEntries((p.ids ?? '').split('|').map(id => [id, entities[id]])) },
+      : { entities: Object.fromEntries((p.ids ?? '').split('|').map(id => [id, entities[id] ? { id, ...entities[id] } : { id, missing: true }])) },
     status: 200,
   }));
   return { entities, search, get };
@@ -76,5 +76,182 @@ describe('canonical destination and research languages', () => {
     w.entities.Q102 = { claims: { P218: claim('it') } };
     w.entities.Q2807.sitelinks.frwiki = { title:'Madrid' };
     expect((await resolveTourDestination({ city:'Madrid',countryCode:'ES' },w.get)).researchLanguages).toEqual(['fr','de','en']);
+  });
+});
+
+describe('Seville OSM link resolves ambiguity without bypassing Wikidata checks', () => {
+  it('requires review when no location is provided despite multiple Seville candidates', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    w.entities.Q55893348 = {
+      labels: { en: { value: 'Seville' } },
+      aliases: { es: [{ value: 'Sevilla' }] },
+      claims: { P17: claim({ id: 'Q29' }), P31: claim({ id: 'Q515' }) },
+      sitelinks: { eswiki: { title: 'Sevilla' } },
+    };
+    w.search.push('Q55893348');
+    await expect(resolveTourDestination({ city: 'Seville', countryCode: 'ES' }, w.get)).rejects.toThrow('DESTINATION_REVIEW_REQUIRED');
+  });
+
+  it('resolves Seville via OSM link and verifies Wikidata entity without bypassing checks', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    w.entities.Q55893348 = {
+      labels: { en: { value: 'Seville' } },
+      aliases: { es: [{ value: 'Sevilla' }] },
+      claims: { P17: claim({ id: 'Q29' }), P31: claim({ id: 'Q515' }) },
+      sitelinks: { eswiki: { title: 'Sevilla' } },
+    };
+    w.search.push('Q55893348');
+
+    const originalGet = w.get;
+    const mockGet = jest.fn(async (url: string, params: Record<string, string>) => {
+      if (url.includes('nominatim.openstreetmap.org/lookup')) {
+        return {
+          data: [{
+            osm_type: 'relation',
+            osm_id: 342563,
+            addresstype: 'city',
+            name: 'Seville',
+            lat: '37.3886303',
+            lon: '-5.9953403',
+            address: { country_code: 'ES', city: 'Seville' },
+            extratags: { wikidata: 'Q8717' },
+          }],
+          status: 200,
+        };
+      }
+      return originalGet(url, params);
+    });
+
+    const result = await resolveTourDestination({
+      city: 'Seville',
+      countryCode: 'ES',
+      location: { source: { provider: 'nominatim', osmType: 'relation', osmId: 342563 }, coordinates: { lat: 37.3886303, lng: -5.9953403 } },
+    }, mockGet);
+
+    expect(result).toMatchObject({ qid: 'Q8717', countryCode: 'ES' });
+    expect(mockGet.mock.calls.some(([, p]) => p.action === 'wbsearchentities')).toBe(false);
+    expect(mockGet.mock.calls.some(([, p]) => p.action === 'wbgetentities' && p.ids === 'Q8717')).toBe(true);
+  });
+
+  it('rejects provider-linked Wikidata entity of non-settlement type', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    w.entities.Q55893348 = {
+      labels: { en: { value: 'Seville' } },
+      aliases: { es: [{ value: 'Sevilla' }] },
+      claims: { P17: claim({ id: 'Q29' }), P31: claim({ id: 'Q515' }) },
+      sitelinks: { eswiki: { title: 'Sevilla' } },
+    };
+    w.search.push('Q55893348');
+
+    const originalGet = w.get;
+    const mockGet = jest.fn(async (url: string, params: Record<string, string>) => {
+      if (url.includes('nominatim.openstreetmap.org/lookup')) {
+        return {
+          data: [{
+            osm_type: 'relation',
+            osm_id: 342563,
+            addresstype: 'city',
+            name: 'Seville',
+            lat: '37.3886303',
+            lon: '-5.9953403',
+            address: { country_code: 'ES', city: 'Seville' },
+            extratags: { wikidata: 'Q8717' },
+          }],
+          status: 200,
+        };
+      }
+      return originalGet(url, params);
+    });
+
+    w.entities.Q8717.claims.P31 = claim({ id: 'Q11032' });
+
+    await expect(resolveTourDestination({
+      city: 'Seville',
+      countryCode: 'ES',
+      location: { source: { provider: 'nominatim', osmType: 'relation', osmId: 342563 }, coordinates: { lat: 37.3886303, lng: -5.9953403 } },
+    }, mockGet)).rejects.toThrow('DESTINATION_REVIEW_REQUIRED');
+  });
+
+  it('rejects when Wikidata country P297 disagrees with ES even if provider country is ES', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    w.entities.Q55893348 = {
+      labels: { en: { value: 'Seville' } },
+      aliases: { es: [{ value: 'Sevilla' }] },
+      claims: { P17: claim({ id: 'Q29' }), P31: claim({ id: 'Q515' }) },
+      sitelinks: { eswiki: { title: 'Sevilla' } },
+    };
+    w.search.push('Q55893348');
+
+    const originalGet = w.get;
+    const mockGet = jest.fn(async (url: string, params: Record<string, string>) => {
+      if (url.includes('nominatim.openstreetmap.org/lookup')) {
+        return {
+          data: [{
+            osm_type: 'relation',
+            osm_id: 342563,
+            addresstype: 'city',
+            name: 'Seville',
+            lat: '37.3886303',
+            lon: '-5.9953403',
+            address: { country_code: 'ES', city: 'Seville' },
+            extratags: { wikidata: 'Q8717' },
+          }],
+          status: 200,
+        };
+      }
+      return originalGet(url, params);
+    });
+
+    w.entities.Q142 = { claims: { P297: claim('FR') } };
+    w.entities.Q8717.claims.P17 = claim({ id: 'Q142' });
+
+    await expect(resolveTourDestination({
+      city: 'Seville',
+      countryCode: 'ES',
+      location: { source: { provider: 'nominatim', osmType: 'relation', osmId: 342563 }, coordinates: { lat: 37.3886303, lng: -5.9953403 } },
+    }, mockGet)).rejects.toThrow('DESTINATION_REVIEW_REQUIRED');
+  });
+
+  it('rejects ambiguous candidates when verified provider has no wikidata tag', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    w.entities.Q55893348 = {
+      labels: { en: { value: 'Seville' } },
+      aliases: { es: [{ value: 'Sevilla' }] },
+      claims: { P17: claim({ id: 'Q29' }), P31: claim({ id: 'Q515' }) },
+      sitelinks: { eswiki: { title: 'Sevilla' } },
+    };
+    w.search.push('Q55893348');
+
+    const originalGet = w.get;
+    const mockGet = jest.fn(async (url: string, params: Record<string, string>) => {
+      if (url.includes('nominatim.openstreetmap.org/lookup')) {
+        return {
+          data: [{
+            osm_type: 'relation',
+            osm_id: 342563,
+            addresstype: 'city',
+            name: 'Seville',
+            lat: '37.3886303',
+            lon: '-5.9953403',
+            address: { country_code: 'ES', city: 'Seville' },
+            extratags: {},
+          }],
+          status: 200,
+        };
+      }
+      return originalGet(url, params);
+    });
+
+    await expect(resolveTourDestination({
+      city: 'Seville',
+      countryCode: 'ES',
+      location: { source: { provider: 'nominatim', osmType: 'relation', osmId: 342563 }, coordinates: { lat: 37.3886303, lng: -5.9953403 } },
+    }, mockGet)).rejects.toThrow('DESTINATION_REVIEW_REQUIRED');
+  });
+
+  it('preserves existing compatibility for unique candidate without provider', async () => {
+    const w = world('Seville', 'ES', 'es', 'Q8717');
+    const result = await resolveTourDestination({ city: 'Seville', countryCode: 'ES' }, w.get);
+    expect(result).toMatchObject({ qid: 'Q8717', countryCode: 'ES' });
   });
 });

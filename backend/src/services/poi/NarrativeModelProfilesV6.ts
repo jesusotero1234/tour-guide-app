@@ -197,7 +197,7 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       architect: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       writer: { provider: openAiMini, reasoning: 'low', maxTokens: 4_000 },
       auditor_a: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
-      auditor_b: { provider: openAiMini, reasoning: 'low', maxTokens: 2_000 },
+      auditor_b: { provider: openAiFull, reasoning: 'medium', maxTokens: 8_000 },
       adjudicator: { provider: openAiMini, reasoning: 'medium', maxTokens: 4_000 },
       repair: { provider: qwenLocal, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       global_auditor: { provider: openAiMini, reasoning: 'high', maxTokens: 20_000 },

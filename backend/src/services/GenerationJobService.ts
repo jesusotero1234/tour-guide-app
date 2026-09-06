@@ -238,6 +238,7 @@ export class GenerationJobService {
       let tourId: string;
       let reviewRequired = false;
       let durationResult: Pick<NonNullable<GenerationJob['result']>, 'durationAdapted' | 'requestedDurationMinutes' | 'recommendedDurationMinutes'> = {};
+      let lastLoggedProgressKey: string | null = null;
       try {
         const generated = await this.generator.generateTextTour(job.request, async (progress) => {
           if (leaseLost) throw new Error('Lease lost');
@@ -253,6 +254,13 @@ export class GenerationJobService {
             leaseLost = true;
             abortController.abort();
             throw new Error('Lease lost');
+          }
+          if (process.env.TOUR_VERBOSE === '1') {
+            const key = `${progress.step}|${progress.completedStops}|${progress.totalStops}|${progress.message}`;
+            if (lastLoggedProgressKey !== key) {
+              lastLoggedProgressKey = key;
+              console.log(`[TOUR] Job ${id} step=${progress.step} completedStops=${progress.completedStops} totalStops=${progress.totalStops} message="${progress.message}"`);
+            }
           }
         }, abortController.signal, this.generator.usesBudget ? { limitUsd: budgetRemainingUsd! } : undefined);
         tourId = generated.id;

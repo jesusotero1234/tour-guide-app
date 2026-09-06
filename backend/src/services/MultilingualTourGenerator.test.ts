@@ -90,6 +90,20 @@ describe('multilingual generation from shared evidence', () => {
     await expect(s.generator.generateTextTour(await s.generator.prepareRequest(s.request))).rejects.toThrow('changed the prepared route');
     expect(s.tours.save).not.toHaveBeenCalled();
   });
+  it('passes the selected OSM location for verification and keeps the canonical request', async () => {
+    const s = setup();
+    const location: NonNullable<TourRequest['location']> = {
+      source: { provider: 'nominatim', osmType: 'relation', osmId: 342563 },
+      coordinates: { lat: 37.3886303, lng: -5.9953403 },
+    };
+    const result = await s.generator.prepareRequest({ ...s.request, location });
+    expect(s.resolver).toHaveBeenCalledWith({
+      city: s.request.city, countryCode: s.request.countryCode, location,
+    });
+    expect(result.location).toBeUndefined();
+    expect(result.destination?.qid).toBe('Q2807');
+    expect(s.run).not.toHaveBeenCalled();
+  });
   it('does not trust a destination supplied by the caller',async()=>{
     const s=setup();
     const r=await s.generator.prepareRequest({...s.request,destination:{...madridDestination,qid:'Q99'},blueprintRevision:99});
@@ -102,5 +116,32 @@ describe('multilingual generation from shared evidence', () => {
     const tour:any={blueprintId:'base-1',metadata:{generationPipeline:s.generator.pipelineVersion,codexAuthor:{blueprintFingerprint:s.snapshot.fingerprint}}};
     expect(await s.generator.isReusableTour(tour)).toBe(true);
     s.invalidate();expect(await s.generator.isReusableTour(tour)).toBe(false);
+  });
+  it('proves image enrichment reaches saved draft', async () => {
+    const s = setup(true);
+    const enrich = jest.fn(async (tour: Tour) => ({
+      ...tour,
+      places: tour.places.map(p => ({
+        ...p,
+        metadata: {
+          ...p.metadata,
+          tourImages: {
+            version: 1 as const,
+            sourceText: p.description,
+            status: 'unavailable' as const,
+            reason: 'no-candidates',
+            images: []
+          }
+        }
+      }))
+    }));
+    const generator = new MultilingualTourGenerator(s.tours as any, s.bases, s.run, s.resolver, enrich as any);
+    const request = await generator.prepareRequest(s.request);
+    const result = await generator.generateTextTour(request);
+    const saved = s.tours.save.mock.calls[0][0];
+    expect(saved.places[0].metadata.tourImages).toBeDefined();
+    expect(saved.places[0].metadata.tourImages.sourceText).toBe(saved.places[0].description);
+    expect(saved.places[0].metadata.sourcePoi.wikidata).toBe(s.snapshot.checkpoint.route.stops[0].wikidataId);
+    expect(result.reviewRequired).toBe(true);
   });
 });

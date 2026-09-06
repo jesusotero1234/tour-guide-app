@@ -8,6 +8,7 @@ import {
   requestMediaWikiWithMaxlagPolicyV8,
 } from './poi/MediaWikiRequestPolicyV8';
 import { RESEARCH_POLICY_VERSION } from './tourReadiness/TourLanguage';
+import { resolveSelectedTourLocation, TourLocationSelection } from './TourLocationSelection';
 
 export interface TourDestination {
   qid: string;
@@ -174,7 +175,7 @@ function canonicalLabel(labels: EntityRecord, preferred: string): string | null 
 }
 
 export async function resolveTourDestination(
-  input: { city: string; countryCode: string },
+  input: { city: string; countryCode: string; location?: TourLocationSelection },
   get?: NarrativeAuthorityV7Get
 ): Promise<TourDestination> {
   const countryCode = input.countryCode.toUpperCase();
@@ -185,7 +186,11 @@ export async function resolveTourDestination(
   const resolvedGet = get ?? defaultGet;
   const wait = defaultWait;
 
+  const selected = input.location !== undefined
+    ? await resolveSelectedTourLocation({ city: input.city, countryCode, location: input.location }, resolvedGet)
+    : undefined;
   const identity = await resolveCityIdentityV8({
+    ...(selected?.wikidataQid ? { candidateQid: selected.wikidataQid } : {}),
     cityName: input.city.trim(),
     requireSettlement: true,
     countryCode,

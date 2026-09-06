@@ -1,0 +1,651 @@
+{
+  "createdAt": "2026-09-06T12:29:31.601Z",
+  "source": "fixtures/tours/madrid-history-es-candidate.json",
+  "mode": "sample-only",
+  "elapsedMs": 1,
+  "paragraphCount": 40,
+  "editorialReviewCompleted": false,
+  "note": "Model opinion does not constitute independent editorial/legal validation. Usage billed separately from narration.",
+  "sample": [
+    {
+      "place": "Puerta del Sol",
+      "entityId": "Q427163",
+      "paragraphIndex": 0,
+      "text": "Imagina que hace décadas, alguien llegaba a este punto exacto para buscar noticias del resto del país. Estamos parados en la Puerta del Sol, el inicio de nuestro recorrido por trece paradas que nos tomarán unos 240 minutos. Fíjate cómo este espacio invita a preguntarse cómo Madrid logra reinventar su vida pública manteniendo huellas de cada era pasada. Este lugar es el punto de partida para entender las capas de tiempo que habitan nuestra ciudad.",
+      "sourceTextHash": "cb4fe9378d99f80ce9729ea95622a55fd61558ab615d7f222d5bfd5279efe098",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta del Sol",
+      "entityId": "Q427163",
+      "paragraphIndex": 1,
+      "text": "Observa la Real Casa de Correos, erigida entre 1766 y 1768 por Jaime Marquet. Este edificio comenzó a definir el espacio actual cuando la plaza ocupaba apenas la mitad de su extensión presente. Si miras hacia arriba, notarás el reloj donado en el siglo XIX por José Rodríguez de Losada. Sus campanadas conectan el pasado con la tradición moderna, pues desde 1962 se televisan cada fin de año, uniendo a toda una nación en este punto exacto.",
+      "sourceTextHash": "cb4fe9378d99f80ce9729ea95622a55fd61558ab615d7f222d5bfd5279efe098",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta del Sol",
+      "entityId": "Q427163",
+      "paragraphIndex": 2,
+      "text": "Este rincón funciona como el latido que conecta todas las rutas del país. Fíjate en el suelo, pues aquí late el kilómetro cero de las carreteras radiales, un punto donde la geografía española converge. Al observar este centro neurálgico, comprendes cómo Madrid organiza su expansión hacia el exterior. La plaza no es solo un lugar de paso, sino el origen físico de la comunicación nacional, estableciendo la base para entender cómo cada nueva capa urbana se expande desde este núcleo.",
+      "sourceTextHash": "cb4fe9378d99f80ce9729ea95622a55fd61558ab615d7f222d5bfd5279efe098",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta del Sol",
+      "entityId": "Q427163",
+      "paragraphIndex": 3,
+      "text": "Tras comprender cómo este núcleo organiza la expansión de toda una nación, deja que esa idea de convergencia te guíe. Sigue el rastro de estas rutas hacia la Plaza Mayor, donde las capas de tiempo que acabas de vislumbrar se revelan con una intensidad distinta.",
+      "sourceTextHash": "cb4fe9378d99f80ce9729ea95622a55fd61558ab615d7f222d5bfd5279efe098",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Plaza Mayor de Madrid",
+      "entityId": "Q1123493",
+      "paragraphIndex": 0,
+      "text": "Si crees que el bullicio de la Puerta del Sol es intenso, fíjate cómo al doblar la calle Mayor el espacio se transforma por completo. Aquí, lo que antes era un flujo de paso se detiene para encerrarse en este recinto cerrado. Observa cómo los edificios rodean el vacío central, creando una frontera clara entre la calle y la plaza. Esta estructura delimita un escenario donde la ciudad se repliega sobre sí misma, preparándote para entender su pasado.",
+      "sourceTextHash": "75fb4bd5917f314731890b203d5438d8d7e34931fdb27fc12b5f60acf2e84408",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Plaza Mayor de Madrid",
+      "entityId": "Q1123493",
+      "paragraphIndex": 1,
+      "text": "Antes de que la corte llegara en 1561, este lugar era solo el mercado del Arrabal, un punto de encuentro entre los caminos de Toledo y Atocha. Fíjate cómo la necesidad de orden transformó el caos comercial; Felipe II encargó a Juan de Herrera una remodelación que derribó las antiguas casas para dar paso a algo nuevo. Tras años de cambios, Juan Gómez de Mora concluyó la estructura en 1619. Esta plaza ha renacido tras incendios en 1631, 1672 y 1790, demostrando una resistencia constante.",
+      "sourceTextHash": "75fb4bd5917f314731890b203d5438d8d7e34931fdb27fc12b5f60acf2e84408",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Plaza Mayor de Madrid",
+      "entityId": "Q1123493",
+      "paragraphIndex": 2,
+      "text": "Al dejar atrás el flujo ininterrumpido de la Puerta del Sol, notas que este recinto te obliga a mirar hacia adentro. Fíjate cómo la plaza funciona como un corazón cerrado que protege su propia memoria frente al exterior. Cada vez que los incendios de 1631, 1672 o 1790 intentaron borrarla, la estructura se reconstruyó para mantener viva esta función de encuentro. Esta capacidad de resistir y redefinirse es el primer gran ejemplo de cómo Madrid reinventa su vida pública.",
+      "sourceTextHash": "75fb4bd5917f314731890b203d5438d8d7e34931fdb27fc12b5f60acf2e84408",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Plaza Mayor de Madrid",
+      "entityId": "Q1123493",
+      "paragraphIndex": 3,
+      "text": "Esa capacidad de resistir y redefinirse que acabas de presenciar marca el pulso de nuestra ciudad. Si sigues este rastro de reconstrucciones constantes, verás cómo la memoria se desplaza hacia otros rincones donde el poder antiguo aún respira con fuerza, aguardando en la Plaza de la Villa.",
+      "sourceTextHash": "75fb4bd5917f314731890b203d5438d8d7e34931fdb27fc12b5f60acf2e84408",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de la Villa",
+      "entityId": "Q2711992",
+      "paragraphIndex": 0,
+      "text": "¿Te has preguntado alguna vez dónde latía el verdadero corazón de la antigua Madrid? Fíjate cómo las calles que rodean este espacio parecen converger en un punto único. Si observas con atención, verás que aquí se encuentran las tres vías que conforman el trazado medieval original: la del Codo, la del Cordón y la de Madrid.",
+      "sourceTextHash": "2bd384b14522149c61ddd1935da69363d011961fa157aba78f734978576c871e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de la Villa",
+      "entityId": "Q2711992",
+      "paragraphIndex": 1,
+      "text": "Antes de que este espacio se llamara Plaza de la Villa, lo conocías como plaza de San Salvador. Fíjate cómo su identidad cambió en el siglo XV, cuando Madrid recibió el título de Noble y Leal Villa por manos del rey Enrique IV. Si miras hacia el este, verás la Casa y Torre de los Lujanes; sus muros gótico-mudéjar del siglo XV nos recuerdan que este era un núcleo vital entre las antiguas puertas de Guadalajara y la Vega. ¿Te imaginas cómo estas piedras guardan secretos antes de avanzar hacia el poder real?",
+      "sourceTextHash": "2bd384b14522149c61ddd1935da69363d011961fa157aba78f734978576c871e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de la Villa",
+      "entityId": "Q2711992",
+      "paragraphIndex": 2,
+      "text": "Esta plaza no es solo un espacio abierto; funciona como el nexo donde las tres calles medievales —del Codo, del Cordón y de Madrid— se entrelazan para sostener la memoria fundacional. Observa este contraste: mientras otros lugares celebran la expansión, aquí la ciudad se repliega sobre su origen más íntimo. Este rincón preserva la esencia de lo que fuimos antes de que el poder real transformara todo.",
+      "sourceTextHash": "2bd384b14522149c61ddd1935da69363d011961fa157aba78f734978576c871e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de la Villa",
+      "entityId": "Q2711992",
+      "paragraphIndex": 3,
+      "text": "Tras contemplar este núcleo donde la ciudad se repliega sobre su origen más íntimo, deja que tu mirada busque esa transformación definitiva. Si los muros de esta villa guardan la memoria fundacional, el siguiente paso nos revelará cómo aquel poder real terminó por redefinir todo el horizonte madrileño.",
+      "sourceTextHash": "2bd384b14522149c61ddd1935da69363d011961fa157aba78f734978576c871e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio Real de Madrid",
+      "entityId": "Q171517",
+      "paragraphIndex": 0,
+      "text": "Si te acercas a los muros del Palacio Real de Madrid, notarás su escala monumental que domina el entorno. Este edificio alberga 3418 habitaciones, una cifra que supera con creces la extensión de Versalles o Buckingham. Aunque hoy no es la vivienda de la familia real, sus muros custodian instrumentos Stradivarius Palatinos y tesoros artísticos. Observa cómo esta estructura marca un cambio de jerarquía en nuestra historia.",
+      "sourceTextHash": "3b54cc4fb89cca5aa72a839f92e99ed8e87c33506dcd096bfdc75d2bbed32786",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio Real de Madrid",
+      "entityId": "Q171517",
+      "paragraphIndex": 1,
+      "text": "Imagina el desconcierto tras el incendio de 1734 que consumió el antiguo Real Alcázar. Aquel fuego permitió al rey Felipe V tomar una decisión decisiva: sustituir la vieja estructura por algo acorde a su época. La construcción comenzó en 1738, aprovechando incluso algunos cimientos del edificio anterior. Fíjate cómo los planos originales de Filippo Juvara tuvieron que ser adaptados por Sachetti para encajar en el solar existente. Esta transformación arquitectónica nos prepara para entender la importancia política que pronto verás en el Senado.",
+      "sourceTextHash": "3b54cc4fb89cca5aa72a839f92e99ed8e87c33506dcd096bfdc75d2bbed32786",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio Real de Madrid",
+      "entityId": "Q171517",
+      "paragraphIndex": 2,
+      "text": "Fíjate que este espacio no es solo un monumento, sino el escenario donde el Estado se manifiesta en sus actos más oficiales y ceremonias. Aunque la familia real reside actualmente en la Zarzuela, estas paredes mantienen viva la función pública del poder. Observa cómo su inmensidad, con miles de habitaciones, custodia tesoros como los Stradivarius Palatinos, conectando nuestra ruta con el siguiente capítulo institucional: el Senado.",
+      "sourceTextHash": "3b54cc4fb89cca5aa72a839f92e99ed8e87c33506dcd096bfdc75d2bbed32786",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio Real de Madrid",
+      "entityId": "Q171517",
+      "paragraphIndex": 3,
+      "text": "Deja que la magnitud de estas paredes te haga reflexionar sobre el peso del poder. Si observas cómo esta estructura custodia tesoros y ceremonias oficiales, entenderás la importancia de las instituciones. Esa misma relevancia política nos conduce ahora hacia el lugar donde se debate el futuro en el Senado de España.",
+      "sourceTextHash": "3b54cc4fb89cca5aa72a839f92e99ed8e87c33506dcd096bfdc75d2bbed32786",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Senado de España",
+      "entityId": "Q855343",
+      "paragraphIndex": 0,
+      "text": "Dicen los vecinos que este lugar guarda el eco de las decisiones más importantes de la ciudad. Al acercarte, observa la escala de sus muros y cómo se asienta frente a la calle, marcando un cambio en el ritmo del paseo. Este edificio gubernamental nos prepara para entender cómo Madrid transforma sus espacios de poder.",
+      "sourceTextHash": "c40cdeb5e53b1a308b7b8c90a07a4430e61f761f5d4de94bca83a72946cd20b1",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Senado de España",
+      "entityId": "Q855343",
+      "paragraphIndex": 1,
+      "text": "Aquí, el Senado de España representa esa transición donde las decisiones dejan de ser privadas para ocupar un espacio público y visible. Observa su presencia en la calle; es el reflejo de una ciudad que decidió transformar sus estructuras de mando en instituciones abiertas a la mirada de todos, preparando el camino hacia los grandes ensanches que verás más adelante.",
+      "sourceTextHash": "c40cdeb5e53b1a308b7b8c90a07a4430e61f761f5d4de94bca83a72946cd20b1",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Senado de España",
+      "entityId": "Q855343",
+      "paragraphIndex": 2,
+      "text": "El Senado de España ocupa este espacio con una disposición que integra la actividad política en el tejido urbano de Madrid. Esta estructura marca el paso de los recintos cerrados a las sedes de debate público, estableciendo un precedente para la apertura de los grandes ejes que encontrarás al avanzar hacia Plaza de España.",
+      "sourceTextHash": "c40cdeb5e53b1a308b7b8c90a07a4430e61f761f5d4de94bca83a72946cd20b1",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de España",
+      "entityId": "Q1326261",
+      "paragraphIndex": 0,
+      "text": "Al dejar atrás la sobriedad del Senado, te encuentras ante la amplitud de la Plaza de España, un espacio que redefine el horizonte urbano con su escala monumental. Fíjate cómo los edificios circundantes rodean este gran vacío, marcando una transición hacia una zona donde la ciudad se expande y se abre. Observa la disposición de sus calles, pues aquí la estructura urbana parece prepararse para algo mucho más dinámico.",
+      "sourceTextHash": "af042bb5301bcdcc705823ffeca0144a5e1a055dadf01e658cb8932236f6edfd",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de España",
+      "entityId": "Q1326261",
+      "paragraphIndex": 1,
+      "text": "Observa cómo este espacio rompe con la densidad de las calles anteriores para ofrecer una perspectiva distinta. Si te fijas en su amplitud, notarás que el diseño busca integrar nuevas dimensiones al tejido urbano, transformando lo que antes era un límite en un punto de encuentro. Esta apertura refleja una voluntad de expandir la vida pública hacia horizontes más despejados, preparando el camino para el bullicio que aguarda en Plaza de Callao.",
+      "sourceTextHash": "af042bb5301bcdcc705823ffeca0144a5e1a055dadf01e658cb8932236f6edfd",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de España",
+      "entityId": "Q1326261",
+      "paragraphIndex": 2,
+      "text": "Al caminar por este espacio, notas cómo la escala de los edificios cambia tu percepción del entorno urbano. La amplitud de sus avenidas rompe con el trazado estrecho que recorrimos anteriormente, permitiendo que el flujo de personas y vehículos se reorganice bajo una lógica distinta. Esta transición hacia un diseño más abierto marca el inicio de una transformación en la estructura de Madrid, dejando atrás la densidad para avanzar hacia la energía de Plaza de Callao.",
+      "sourceTextHash": "af042bb5301bcdcc705823ffeca0144a5e1a055dadf01e658cb8932236f6edfd",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza del Callao",
+      "entityId": "Q2099125",
+      "paragraphIndex": 0,
+      "text": "Fíjate cómo el ritmo cambia al dejar atrás la amplitud de Plaza de España para entrar en este corazón vibrante. Al situarte aquí, notas que la calle Preciados se divide en dos tramos, marcando el inicio del tercer segmento de la Gran Vía. Observa cómo este espacio actúa como un nudo donde convergen múltiples caminos de Madrid. Si sigues con la mirada hacia la calle del Carmen, entenderás que estás ante un punto de transición fundamental antes de explorar su pasado.",
+      "sourceTextHash": "956d287371ae47d4b168752fc966163518878c364dbead28316648753f05ca4e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza del Callao",
+      "entityId": "Q2099125",
+      "paragraphIndex": 1,
+      "text": "Observa cómo este espacio se transformó radicalmente entre 1917 y 1922 con las obras de la Gran Vía. Antes de esa reforma, te encontrarías en el antiguo arrabal de San Martín, una zona mucho más pequeña. Fíjate que hubo tensiones urbanísticas, pues existió un proyecto para ensanchar la calle Preciados que terminó olvidado por el plan actual. Tras la guerra, en 1939, Antonio Rodilla comenzó su historia repostera aquí mismo. Esta evolución de la plaza nos prepara para ver cómo cambia la identidad del barrio al acercarnos a Chueca.",
+      "sourceTextHash": "956d287371ae47d4b168752fc966163518878c364dbead28316648753f05ca4e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza del Callao",
+      "entityId": "Q2099125",
+      "paragraphIndex": 2,
+      "text": "Fíjate en la división que genera la calle Preciados al partirse en dos tramos; esa fragmentación define el carácter de este nodo. Al conectar con el tercer segmento de la Gran Vía, la plaza deja de ser un simple cruce para convertirse en una articulación urbana. La ausencia del proyecto original para ensanchar Preciados altera la fisonomía que hoy recorres. Esta configuración técnica marca el paso hacia una nueva dinámica social, preparando tu llegada a las calles de Chueca.",
+      "sourceTextHash": "956d287371ae47d4b168752fc966163518878c364dbead28316648753f05ca4e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza del Callao",
+      "entityId": "Q2099125",
+      "paragraphIndex": 3,
+      "text": "Esta configuración técnica marca el paso hacia una nueva dinámica social. Si dejas atrás la fragmentación que define este nodo urbano, notarás cómo la esencia del entorno se transforma nuevamente. Camina conmigo para descubrir qué nuevas identidades aguardan al entrar en Plaza de Chueca.",
+      "sourceTextHash": "956d287371ae47d4b168752fc966163518878c364dbead28316648753f05ca4e",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de Chueca",
+      "entityId": "Q24944157",
+      "paragraphIndex": 0,
+      "text": "Mientras que en Callao te encuentras rodeado de grandes avenidas y movimiento constante, aquí la escala se reduce para ofrecerte un respiro. Fíjate cómo el espacio se estrecha entre las calles Gravina y Augusto Figueroa, creando un rincón más íntimo. Al asomarte a este pequeño enclave peatonal del barrio de Justicia, notarás que la amplitud desaparece para dar paso a una configuración mucho más contenida.",
+      "sourceTextHash": "fa85f8da1b89ce1b8733195bee4525b754a58b7c7803f075da91a458d6ca1b81",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de Chueca",
+      "entityId": "Q24944157",
+      "paragraphIndex": 1,
+      "text": "Si retrocedemos a 1861, verás que este rincón ni siquiera existía en los mapas de Mesonero Romanos. En aquel entonces, el terreno albergaba la prisión de mujeres La Galera y los huertos de los duques de Frías. Observa cómo la ciudad transformó ese pasado sombrío mediante la apertura de las calles Gravina y Augusto Figueroa.",
+      "sourceTextHash": "fa85f8da1b89ce1b8733195bee4525b754a58b7c7803f075da91a458d6ca1b81",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de Chueca",
+      "entityId": "Q24944157",
+      "paragraphIndex": 2,
+      "text": "Observa cómo la identidad de este rincón se reinventa al alejarse del bullicio comercial. Si antes caminabas por la monumentalidad de Callao, aquí la historia se vuelve personal y melódica. Esta transformación convierte un antiguo terreno de huertos en un refugio cultural. Ahora, la ciudad nos prepara para descubrir la elegancia contenida que aguarda cerca del Palacio de Buenavista.",
+      "sourceTextHash": "fa85f8da1b89ce1b8733195bee4525b754a58b7c7803f075da91a458d6ca1b81",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "plaza de Chueca",
+      "entityId": "Q24944157",
+      "paragraphIndex": 3,
+      "text": "Deja que esa calma de los antiguos huertos guíe tus pasos hacia una nueva escala. Prepárate para descubrir qué secretos guarda el Palacio de Buenavista mientras avanzamos por esta historia de contrastes.",
+      "sourceTextHash": "fa85f8da1b89ce1b8733195bee4525b754a58b7c7803f075da91a458d6ca1b81",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Buenavista",
+      "entityId": "Q3889284",
+      "paragraphIndex": 0,
+      "text": "Al dejar atrás el ambiente vibrante de Chueca, tu mirada se encuentra con este imponente perímetro vallado. Fíjate cómo el edificio se asienta sobre un promontorio ajardinado, elevándose con una sobriedad distinta a la del resto de la ciudad. Esta estructura, que hoy funciona como Cuartel General del Ejército de Tierra, te invita a observar su escala civil y su carácter de castillo urbano.",
+      "sourceTextHash": "f738590e85aecad95e809db798864cf0cae7a9be8bd60004e3c4cd17d9a272ad",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Buenavista",
+      "entityId": "Q3889284",
+      "paragraphIndex": 1,
+      "text": "Todo comenzó en el siglo XVI, cuando Gaspar de Quiroga regaló esta finca al rey Felipe II para establecer la corte en Madrid. Tras pasar por manos de Isabel de Farnesio entre 1759 y 1766, la propiedad llegó a la casa de Alba. Fíjate cómo la ambición de la duquesa Cayetana transformó el lugar; ella ordenó derribar la antigua estructura para construir este palacio en 1777. Sus muros albergaron obras de Velázquez y Rafael, hasta que los incendios de 1795 alteraron su interior para siempre.",
+      "sourceTextHash": "f738590e85aecad95e809db798864cf0cae7a9be8bd60004e3c4cd17d9a272ad",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Buenavista",
+      "entityId": "Q3889284",
+      "paragraphIndex": 2,
+      "text": "Al dejar atrás la vitalidad de Chueca, este perímetro vallado introduce una sobriedad distinta en tu recorrido. El uso actual como Cuartel General del Ejército de Tierra transforma la antigua residencia de la casa de Alba en un centro de mando institucional. Si observas su posición sobre el promontorio ajardinado de Cibeles, notarás cómo la ciudad pasa de lo social a lo administrativo.",
+      "sourceTextHash": "f738590e85aecad95e809db798864cf0cae7a9be8bd60004e3c4cd17d9a272ad",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Buenavista",
+      "entityId": "Q3889284",
+      "paragraphIndex": 3,
+      "text": "Tras contemplar este cambio hacia lo institucional y administrativo, tu mente aún procesa la sobriedad de estos muros militares. Sin embargo, esa transformación del poder también tiene otros matices.",
+      "sourceTextHash": "f738590e85aecad95e809db798864cf0cae7a9be8bd60004e3c4cd17d9a272ad",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Linares",
+      "entityId": "Q2628455",
+      "paragraphIndex": 0,
+      "text": "Fíjate en los relieves que adornan su fachada principal. Observa cómo la piedra se vuelve protagonista aquí, cubriendo cada superficie disponible. Esta transición hacia una presencia más decorativa marca un cambio en el pulso de la ciudad, preparándote para lo que encontrarás al caminar hacia la siguiente gran puerta.",
+      "sourceTextHash": "e455406f4ee47a5d455735384b26292fb9faa053ab2900be344c0196c3b91f67",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Linares",
+      "entityId": "Q2628455",
+      "paragraphIndex": 1,
+      "text": "Al dejar atrás la sobriedad de Buenavista, notas cómo el Palacio de Linares introduce una nueva intención en el paisaje urbano. Observa esa transición hacia lo ornamental; es como si la ciudad decidiera mostrar sus capas más decorativas para transformar su propia identidad. Este cambio de ritmo te prepara para entender cómo Madrid ha sabido reinventarse, dejando atrás estructuras austeras para dar paso a espacios que buscan cautivar la mirada antes de alcanzar la Puerta de Alcalá.",
+      "sourceTextHash": "e455406f4ee47a5d455735384b26292fb9faa053ab2900be344c0196c3b91f67",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Palacio de Linares",
+      "entityId": "Q2628455",
+      "paragraphIndex": 2,
+      "text": "Al contemplar este palacio, notas que la ciudad ya no solo busca protegerse o administrar, sino también exhibirse. Fíjate cómo el Palacio de Linares eleva la apuesta de nuestro recorrido al integrar una ornamentación que desafía la sobriedad anterior. Esta transformación sugiere que Madrid aprendió a usar su arquitectura como un lenguaje de prestigio, preparando tu mirada para el encuentro con la monumental Puerta de Alcalá.",
+      "sourceTextHash": "e455406f4ee47a5d455735384b26292fb9faa053ab2900be344c0196c3b91f67",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta de Alcalá",
+      "entityId": "Q1140634",
+      "paragraphIndex": 0,
+      "text": "Dicen los vecinos que por este arco aún se siente el paso de los antiguos viajeros que llegaban desde Aragón o Francia. Fíjate cómo esta estructura se alza ahora en el centro de la rotonda, marcando el cruce donde convergen las calles Alcalá, Serrano y Alfonso XII. Observa su presencia junto a los jardines del Retiro, justo antes de que descubramos quién diseñó este monumento.",
+      "sourceTextHash": "e68eb6af8d6ada30be6e1f186797a79b4cc554515c27c9ee9074ab9ad0e7aebe",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta de Alcalá",
+      "entityId": "Q1140634",
+      "paragraphIndex": 1,
+      "text": "El rey Carlos III buscaba renovar la antigua entrada del siglo XVI y para ello organizó una competencia de proyectos. Observa cómo el diseño del italiano Francesco Sabatini se impuso sobre las propuestas de Ventura Rodríguez y José de Hermosilla tras la elección personal del monarca. Esta estructura, erigida en 1778, dejó de ser una frontera exterior para integrarse al corazón urbano durante el ensanche del siglo XIX. Ahora, este monumento histórico-artístico nos prepara para entender la siguiente etapa hacia la Plaza de Colón.",
+      "sourceTextHash": "e68eb6af8d6ada30be6e1f186797a79b4cc554515c27c9ee9074ab9ad0e7aebe",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    },
+    {
+      "place": "Puerta de Alcalá",
+      "entityId": "Q1140634",
+      "paragraphIndex": 2,
+      "text": "Fíjate en su posición actual, rodeada por las calles Alcalá, Serrano y Alfonso XII; ya no funciona como un límite para los viajeros que venían de Aragón o Francia. Al quedar integrada en la rotonda de la Plaza de la Independencia, esta estructura dejó de ser una frontera exterior para convertirse en un punto de encuentro urbano. Su ubicación junto a las puertas del Retiro marca el cierre de este recorrido por las capas históricas, antes de avanzar hacia la Plaza de Colón.",
+      "sourceTextHash": "e68eb6af8d6ada30be6e1f186797a79b4cc554515c27c9ee9074ab9ad0e7aebe",
+      "imageStatus": "not-run",
+      "omissionReason": "sample-preparation-only",
+      "selectedImages": [],
+      "editorialReview": {
+        "correctIdentity": null,
+        "usefulView": null,
+        "rightsDocumented": null,
+        "notes": ""
+      }
+    }
+  ]
+}

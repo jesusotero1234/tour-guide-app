@@ -182,10 +182,127 @@ const BASE_INPUT = {
   required: false,
 };
 
+describe('conditional reference repair', () => {
+  const prose = 'Alcazaba conserva su muralla y las estancias utilizadas por sus antiguos habitantes. La restauración permitió recuperar los espacios que habían quedado abandonados durante años.';
+  function fixture(ready = false) {
+    const refs = { load: jest.fn(async () => '<li id="cite_note-1"><a href="https://museum.es/alcazaba">Alcazaba historia</a></li><li id="cite_note-2"><a href="https://specialist.es/alcazaba">Alcazaba historia</a></li>'),
+      capture: jest.fn(async ({ url }: { url: string; signal: AbortSignal }) => ({ ...officialSource(url, prose + ' ' + url), requestedUrl: url, finalUrl: url,
+        content: prose + ' Estudio documental de ' + new URL(url).hostname + new URL(url).pathname + (url === 'https://museum.es/alcazaba' ? '\n\n[Guía histórica](https://museum.es/history.pdf)' : '') })),
+      search: jest.fn(async () => [] as NarrativeDiscoveryResultV7[]) };
+    let rounds = 0;
+    const services = baselineServicesV8({ references: refs,
+      resolveAuthorities: async () => ({ ...REGISTRY, authorities: [] }),
+      search: jest.fn(async () => []), mapOfficialSite: jest.fn(async () => []), proposeAdaptiveQueries: jest.fn(async () => []),
+      curate: jest.fn(async packet => ++rounds === 1 && !ready
+        ? curatorForRoles(packet, NARRATIVE_ROLES_V8.slice(0, 3)) : curatorFromSpans(packet)),
+    });
+    return { services, refs };
+  }
+  it('does no expansion or generic discovery for ready single-source C_FULL', async () => {
+    const { services, refs } = fixture(true);
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    expect(result.evidenceTier).toBe('C');
+    expect(result.stats.curationCount).toBe(1);
+    expect(refs.load).not.toHaveBeenCalled(); expect(refs.capture).not.toHaveBeenCalled();
+    expect(services.search).not.toHaveBeenCalled(); expect(services.mapOfficialSite).not.toHaveBeenCalled();
+  });
+  it('captures two citations and one associated PDF in one batch, then uses only curator two', async () => {
+    const { services, refs } = fixture();
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    expect(refs.capture).toHaveBeenCalledTimes(3);
+    expect(refs.capture.mock.calls[2][0].url).toBe('https://museum.es/history.pdf');
+    expect(result.stats.referenceExpansion).toMatchObject({ captures: 3, accepted: 3, queries: 0 });
+    expect(result.stats.curationCount).toBe(2);
+    expect(services.search).not.toHaveBeenCalled(); expect(services.mapOfficialSite).not.toHaveBeenCalled();
+    expect(services.proposeAdaptiveQueries).not.toHaveBeenCalled();
+    expect(result.captures[1].authority.tier).toBe('established_source');
+    expect(result.captures[3].referenceProvenance).toMatchObject({ wikipediaSourceId: 'es-wiki', citationUrl: 'https://museum.es/alcazaba', parentUrl: 'https://museum.es/alcazaba' });
+  });
+  it('deduplicates references already in the captured article without fetching its HTML', async () => {
+    const { services, refs } = fixture();
+    const wiki = await services.captureWikipedia({ title: 'Alcazaba', language: 'es', expectedQid: 'Q1' });
+    wiki!.content += '\n\n## References\n[History](https://museum.es/alcazaba)\n[Again](https://museum.es/alcazaba#cite)';
+    services.captureWikipedia = async () => wiki;
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    expect(refs.load).not.toHaveBeenCalled();
+    expect(result.stats.referenceExpansion?.candidates).toBe(1);
+    expect(refs.capture.mock.calls.filter(call => call[0].url === 'https://museum.es/alcazaba')).toHaveLength(1);
+  });
+  it('uses bounded search for broken citations and verifies the actual site destination', async () => {
+    const { services, refs } = fixture();
+    refs.capture.mockImplementation(async ({ url }) => {
+      if (url !== 'https://museum.es/repaired') throw new Error('404');
+      return { ...officialSource('repair', prose), requestedUrl: url, finalUrl: url, content: prose };
+    });
+    refs.search.mockResolvedValue([
+      { url: 'https://unrelated.es/alcazaba', title: 'Alcazaba', description: '', engine: 'test', authority: { tier: 'discovery_only', publisherKey: 'unrelated.es', rule: '' } },
+      { url: 'https://museum.es/repaired', title: 'Alcazaba', description: '', engine: 'test', authority: { tier: 'discovery_only', publisherKey: 'museum.es', rule: '' } },
+    ]);
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    expect(result.stats.referenceExpansion).toMatchObject({ captures: 3, accepted: 1, queries: 1 });
+    expect(refs.capture.mock.calls.some(call => call[0].url.includes('unrelated'))).toBe(false);
+    expect(services.search).not.toHaveBeenCalled();
+  });
+  it('rejects identity mismatches and unrelated redirects without treating a citation as official', async () => {
+    const { services, refs } = fixture();
+    refs.capture.mockImplementation(async ({ url }) => ({ ...officialSource('bad', prose), requestedUrl: url,
+      finalUrl: url.includes('museum') ? 'https://unrelated.es/alcazaba' : url, content: 'Una página administrativa sin información del monumento.' }));
+    const result = await researchNarrativeStopV8(BASE_INPUT, services);
+    expect(result.stats.referenceExpansion).toMatchObject({ accepted: 0, queries: 2 });
+    expect(result.captures).toHaveLength(1);
+    expect(result.stats.searchQueryAttempts).toBeLessThanOrEqual(4);
+    expect(result.captureLog.map(log => log.errorClassification)).toEqual(expect.arrayContaining(['reference_redirect_mismatch', 'reference_identity_mismatch']));
+    expect(result.stats.curationCount).toBe(2);
+  });
+  it('ends a stalled reference expansion at 60 seconds and ignores late captures', async () => {
+    jest.useFakeTimers();
+    try {
+      const { services, refs } = fixture();
+      refs.capture.mockImplementation(() => new Promise(() => undefined));
+      const pending = researchNarrativeStopV8(BASE_INPUT, services);
+      await jest.advanceTimersByTimeAsync(60_001);
+      const result = await pending;
+      expect(result.stats.referenceExpansion).toMatchObject({ accepted: 0, timedOut: true, elapsedMs: 60_000 });
+      expect(result.captures).toHaveLength(1);
+      expect(refs.capture.mock.calls.every(call => call[0].signal.aborted)).toBe(true);
+    } finally { jest.useRealTimers(); }
+  });
+  it('admits a same-site associated document using the distinctive name without its article', async () => {
+    const { services, refs } = fixture();
+    const originalCapture = refs.capture.getMockImplementation()!;
+    refs.capture.mockImplementation(async input => {
+      const capture = await originalCapture(input);
+      return input.url.endsWith('.pdf') ? { ...capture, content: 'El nombre de alcazaba alude a la fortificación. La sala del reloj conserva su maquinaria antigua, aunque hoy está parada y el mecanismo moderno funciona mediante un ordenador.' } : capture;
+    });
+    const result = await researchNarrativeStopV8({ ...BASE_INPUT, stopName: 'La Alcazaba' }, {
+      ...services, resolveIdentity: async () => ({ qid: 'Q1', labels: ['La Alcazaba'], aliases: [], wikipediaTitle: 'La Alcazaba', revision: null }),
+      // The parent must still satisfy the full identity check.
+      references: { ...refs, capture: async input => {
+        const c = await refs.capture(input);
+        return input.url.endsWith('.pdf') ? c : { ...c, content: 'La Alcazaba. ' + c.content };
+      } },
+    });
+    expect(result.captures.some(c => c.finalUrl.endsWith('.pdf'))).toBe(true);
+  });
+  it('filters SVG/map debris and selects missing-role passages without expanding packet limits', () => {
+    const wiki = wikipediaSource('wiki', Array.from({ length: 70 }, (_, i) => `El edificio tiene una fachada visible y una torre, descripción repetida del cuerpo ${i}.`).join('\n\n'));
+    const doc = officialSource('guide', 'No hay pruebas documentales de que la prisión llegara a utilizarse; esta sala se destinó después a otro uso.');
+    const junk = officialSource('map', '12%2012%2024%2022%2014%2020%2032%2040 Move left Move right Zoom in Map data Google.');
+    const sources = [wiki, doc, junk];
+    const packet = buildCuratorPacketV8({ stopId: 'Q1', stopName: 'El edificio', language: 'es', captures: sources,
+      spansBySource: new Map(sources.map(c => [c.sourceId, segmentCaptureIntoSpansV7(c).spans])), aliases: [], priorityRoles: ['tension_or_contrast'] });
+    expect(packet.spans.some(s => s.sourceId === 'guide')).toBe(true);
+    expect(packet.spans.some(s => s.sourceId === 'map')).toBe(false);
+    expect(packet.spans.length).toBeLessThanOrEqual(40);
+    expect(packet.spans.reduce((sum, s) => sum + s.text.length, 0)).toBeLessThanOrEqual(30_000);
+  });
+});
+
 describe('researchNarrativeStopV8', () => {
   it('uses Italian search terms for Italian research without copying Spanish prompt vocabulary', async () => {
     const queries: string[] = [];
     await researchNarrativeStopV8({...BASE_INPUT,language:'it',countryCode:'IT'}, baselineServicesV8({
+      curate: async packet => curatorForRoles(packet, NARRATIVE_ROLES_V8.slice(0, 3)),
       resolveAuthorities:async()=>({...REGISTRY,authorities:[]}),
       search:async input=>{queries.push(input.query);return [];},
     }));
@@ -1320,6 +1437,7 @@ describe('researchNarrativeStopV8', () => {
     };
     const services = baselineServicesV8({
       search: async () => unavailable(),
+      curate: async packet => curatorForRoles(packet, NARRATIVE_ROLES_V8.slice(0, 3)),
       mapOfficialSite: async () => unavailable(),
       captureWeb: async () => unavailable(),
     });
@@ -1355,6 +1473,7 @@ describe('researchNarrativeStopV8', () => {
         if (searchCalls === 1) return [];
         throw Object.assign(new Error('provider stopped'), { code: 'ECONNREFUSED' });
       },
+      curate: async packet => curatorForRoles(packet, NARRATIVE_ROLES_V8.slice(0, 3)),
     });
 
     const result = await researchNarrativeStopV8(BASE_INPUT, services);

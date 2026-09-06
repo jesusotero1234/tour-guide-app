@@ -43,11 +43,16 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
           else setTerminalError('This generation finished without an available tour.');
           return;
         }
-        if (nextJob.status !== 'failed') timeoutId = setTimeout(poll, 2000);
+        if (nextJob.status !== 'failed') timeoutId = setTimeout(poll, 15000);
       } catch (error) {
         if (cancelled) return;
-        console.error('Failed to poll generation job:', error);
         const apiError = error as ApiRequestError;
+        if (apiError.status === 429 || apiError.code === 'RATE_LIMIT_EXCEEDED') {
+          setLoadError('Progress updates are temporarily paused. They will resume automatically.');
+          timeoutId = setTimeout(poll, Math.min(2147483647, Math.max(15000, apiError.retryAfterMs ?? 60000)));
+          return;
+        }
+        console.error('Failed to poll generation job:', error);
         if ([400, 401, 403, 404, 410].includes(apiError.status ?? 0)
           || apiError.code === 'GENERATION_JOB_NOT_FOUND') {
           setLoadError(null);
@@ -55,7 +60,7 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
           return;
         }
         setLoadError('We could not refresh the progress. We will try again shortly.');
-        timeoutId = setTimeout(poll, 5000);
+        timeoutId = setTimeout(poll, 15000);
       }
     };
 

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ConceptTourRequest, TourRequest } from '../../types/api';
+import { isTourLocationSelection } from '../../services/TourLocationSelection';
 
 export function validateTourRequest(req: Request, res: Response, next: NextFunction) {
   const body = req.body as Partial<TourRequest> & { duration?: number; durationMinutes?: number };
@@ -82,6 +83,12 @@ export function validateCodexTourRequest(req: Request, res: Response, next: Next
     return res.status(400).json({ error: {
       code: 'UNSUPPORTED_TOUR_REQUEST',
       message: 'Choose a city and country, history, a supported duration (60, 120, 180 or 240 minutes), and language: ' + supported.join(', ') + '.',
+    } });
+  }
+  if (body.location !== undefined && !isTourLocationSelection(body.location)) {
+    return res.status(400).json({ error: {
+      code: 'INVALID_LOCATION_SELECTION',
+      message: 'Choose a city from the suggestions again.',
     } });
   }
   req.body.language = language;

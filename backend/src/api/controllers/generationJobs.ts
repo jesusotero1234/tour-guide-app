@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { GenerationJob } from '../../domain/entities/GenerationJob';
 import { generationJobService } from '../../services/generationJobServiceInstance';
+import { tourAudioService } from '../../services/tourAudioServiceInstance';
+import { TourAudioError } from '../../services/TourAudioService';
 import { GenerationJobResponse, TourRequest } from '../../types/api';
 
 function toResponse(job: GenerationJob): GenerationJobResponse {
@@ -24,9 +26,12 @@ function toResponse(job: GenerationJob): GenerationJobResponse {
 
 export async function createGenerationJob(req: Request, res: Response) {
   try {
-    const job = await generationJobService.create(req.body as TourRequest);
+    const job = await tourAudioService.withTextGeneration(() => generationJobService.create(req.body as TourRequest));
     return res.status(job.status === 'completed' ? 200 : 202).json(toResponse(job));
   } catch (error) {
+    if (error instanceof TourAudioError) {
+      return res.status(error.status).json({ error: { code: error.code, message: error.message } });
+    }
     if (error instanceof Error) {
       if (error.message.startsWith('DESTINATION_REVIEW_REQUIRED')) {
         return res.status(422).json({

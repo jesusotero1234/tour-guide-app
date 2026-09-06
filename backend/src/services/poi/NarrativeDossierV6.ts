@@ -35,6 +35,7 @@ export interface NarrativeDossierProposalV6 {
     interpretation: NarrativeInterpretationV6;
     sourceIds: string[];
     passageIds: string[];
+    secondaryContrast?: { left: string; right: string };
   }>;
   authorizedNames: string[];
   authorizedNumbers: string[];

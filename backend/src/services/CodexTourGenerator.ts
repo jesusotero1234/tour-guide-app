@@ -35,7 +35,7 @@ export const runCodexTour: CodexRun = async (request, runId, progress, signal) =
   await new Promise<void>((resolveRun, rejectRun) => {
     const child = spawn(process.execPath, args, {
       cwd: root, shell: false, env: { ...process.env, NARRATIVE_AUTHOR_ASSET_ROOT: assetRoot },
-      stdio: ['ignore', 'ignore', 'ignore'],
+      stdio: ['ignore', process.env.TOUR_VERBOSE === '1' ? 'inherit' : 'ignore', process.env.TOUR_VERBOSE === '1' ? 'inherit' : 'ignore'],
     });
     let failure: Error | undefined, reading = false, killTimer: NodeJS.Timeout | undefined;
     const stop = (reason: Error) => {

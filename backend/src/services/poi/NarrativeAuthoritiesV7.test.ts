@@ -120,6 +120,55 @@ describe('resolveCityQidV7', () => {
 
     expect(resolution.status).toBe('city_identity_review_required');
   });
+
+  it('resolves two search IDs to the same canonical actual id without ambiguity', async () => {
+    const get = async (url: string, params: Record<string, string>) => {
+      if (String(params.action) === 'wbsearchentities') {
+        return { data: { search: [
+          { id: 'Q1', label: 'Málaga' },
+          { id: 'Q2', label: 'Málaga' },
+        ] } };
+      }
+      if (String(params.action) === 'wbgetentities') {
+        const ids = String(params.ids ?? '').split('|');
+        const entities: Record<string, Record<string, unknown>> = {};
+        for (const id of ids) {
+          if (id === 'Q1' || id === 'Q2') {
+            entities[id] = {
+              id: 'Q100', lastrevid: 100, modified: '2026-08-05T00:00:00Z',
+              labels: { en: { value: 'Málaga' } },
+              aliases: {},
+              claims: { P17: [{ mainsnak: { snaktype: 'value', datavalue: { value: { id: 'Q87' } } } }] },
+              redirects: [{ from: id, to: 'Q100' }],
+            };
+          } else if (id === 'Q100') {
+            entities[id] = {
+              id: 'Q100',
+              labels: { en: { value: 'Málaga' } },
+              aliases: {},
+              claims: { P17: [{ mainsnak: { snaktype: 'value', datavalue: { value: { id: 'Q87' } } } }] },
+            };
+          } else if (id === 'Q87') {
+            entities[id] = {
+              id,
+              claims: { P297: [{ mainsnak: { snaktype: 'value', datavalue: { value: 'ES' } } }] },
+            };
+          }
+        }
+        return { data: { entities } };
+      }
+      return { data: {} };
+    };
+
+    const resolution = await resolveCityIdentityV8({
+      cityName: 'Málaga',
+      language: 'es',
+      countryCode: 'ES',
+      get,
+    });
+
+    expect(resolution).toMatchObject({ status: 'ok', qid: 'Q100' });
+  });
 });
 
 describe('resolveWikidataQidFromWikipediaV8', () => {
@@ -545,6 +594,107 @@ describe('WikidataAuthorityProviderV7', () => {
     const sitelink = await provider.resolveWikipediaSitelinkV8({ qid: 'Q1', language: 'es' });
 
     expect(sitelink.title).toBe('Alcazaba de Málaga');
+  });
+
+  it('returns title through explicit redirect but rejects mismatched id without proof', async () => {
+    const provider = new WikidataAuthorityProviderV7({
+      get: async (_url, params): Promise<{ data: unknown }> => {
+        if (params.action === 'wbgetentities') {
+          const ids = String(params.ids ?? '').split('|');
+          const entities: Record<string, Record<string, unknown>> = {};
+          for (const qid of ids) {
+            if (qid === 'Q1') {
+              entities[qid] = {
+                id: 'Q2', lastrevid: 42, modified: '2026-08-01T10:00:00Z',
+                labels: { es: { value: 'Alcazaba' } },
+                aliases: {},
+                claims: {},
+                sitelinks: { eswiki: { site: 'eswiki', title: 'Alcazaba de Málaga' } },
+                redirects: { from: 'Q1', to: 'Q2' },
+              };
+            } else if (qid === 'Q2') {
+              entities[qid] = {
+                id: 'Q2',
+                labels: { es: { value: 'Alcazaba' } },
+                aliases: {},
+                claims: {},
+                sitelinks: { eswiki: { site: 'eswiki', title: 'Alcazaba de Málaga' } },
+              };
+            }
+          }
+          return { data: { entities } };
+        }
+        return { data: { query: { pages: [{ revisions: [{ revid: 42, timestamp: '2026-08-01T10:00:00Z' }] }] } } };
+      },
+    });
+
+    const sitelink = await provider.resolveWikipediaSitelinkV8({ qid: 'Q1', language: 'es' });
+    expect(sitelink.title).toBe('Alcazaba de Málaga');
+
+    const mismatchedProvider = new WikidataAuthorityProviderV7({
+      get: async (_url, params): Promise<{ data: unknown }> => {
+        if (params.action === 'wbgetentities') {
+          const ids = String(params.ids ?? '').split('|');
+          const entities: Record<string, Record<string, unknown>> = {};
+          for (const qid of ids) {
+            if (qid === 'Q1') {
+              entities[qid] = {
+                id: 'Q3', lastrevid: 42, modified: '2026-08-01T10:00:00Z',
+                labels: { es: { value: 'Alcazaba' } },
+                aliases: {},
+                claims: {},
+                sitelinks: { eswiki: { site: 'eswiki', title: 'Alcazaba de Málaga' } },
+              };
+            } else if (qid === 'Q3') {
+              entities[qid] = {
+                id: 'Q3',
+                labels: { es: { value: 'Other' } },
+                aliases: {},
+                claims: {},
+                sitelinks: { eswiki: { site: 'eswiki', title: 'Other' } },
+              };
+            }
+          }
+          return { data: { entities } };
+        }
+        return { data: { query: { pages: [{ revisions: [{ revid: 42, timestamp: '2026-08-01T10:00:00Z' }] }] } } };
+      },
+    });
+
+    await expect(mismatchedProvider.resolveWikipediaSitelinkV8({ qid: 'Q1', language: 'es' }))
+      .rejects.toThrow(/mismatch|identity/i);
+  });
+
+  it('uses verified canonical IDs for authority origins and revisions without alias ancestor loops', async () => {
+    const redirects: Record<string, string> = { Q1: 'Q2', Q10: 'Q20', Q90: 'Q91' };
+    const revisionRequests: string[] = [];
+    const provider = new WikidataAuthorityProviderV7({ get: async (_url, params) => {
+      if (params.action === 'wbgetentities') {
+        return { data: { entities: Object.fromEntries(String(params.ids).split('|').map(requested => {
+          const id = redirects[requested] ?? requested;
+          return [requested, wikibaseEntity(id, {
+            lastrevid: 42, modified: '2026-08-01T10:00:00Z',
+            ...(id !== requested ? { redirects: { from: requested, to: id } } : {}),
+            claims: {
+              P856: [{ rank: 'normal', mainsnak: { snaktype: 'value', datavalue: { value: `https://${id.toLowerCase()}.example` } } }],
+              ...(id !== 'Q2' ? { P131: [{ rank: 'normal', mainsnak: { snaktype: 'value', datavalue: { value: { id: 'Q90' } } } }] } : {}),
+            },
+          })];
+        })) } };
+      }
+      const titles = String(params.titles).split('|');
+      revisionRequests.push(...titles);
+      return { data: { query: { pages: titles.map(title => ({ title,
+        revisions: [{ revid: 42, timestamp: '2026-08-01T10:00:00Z' }],
+      })) } } };
+    } });
+    const input = { qid: 'Q1', cityQid: 'Q10', language: 'es' };
+    const registry = await provider.resolveAuthorities(input);
+    expect(input).toEqual({ qid: 'Q1', cityQid: 'Q10', language: 'es' });
+    expect(registry.authorities.map(authority => authority.qid).sort()).toEqual(['Q2', 'Q20', 'Q91']);
+    expect(registry.authorities.find(authority => authority.origin === 'admin_level_1')?.qid).toBe('Q91');
+    expect(revisionRequests.sort()).toEqual(['Q2', 'Q20', 'Q91']);
+    expect(registry.authorities.every(authority => authority.wikidataRevision?.revisionId === 42)).toBe(true);
   });
 });
 

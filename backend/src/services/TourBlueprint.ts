@@ -74,6 +74,7 @@ export function createTourBlueprintSnapshot(input: Omit<TourBlueprintSnapshot, '
           entityQid: c.entityQid, publisherKey: c.publisherKey,
           ...(c.wikimediaRevision ? { wikimediaRevision: c.wikimediaRevision } : {}),
           ...(c.historicalCorpus ? { historicalCorpus: c.historicalCorpus } : {}),
+          ...(c.referenceProvenance ? { referenceProvenance: c.referenceProvenance } : {}),
           ...('sourceLanguage' in c ? { sourceLanguage: c.sourceLanguage } : {}),
         })),
       },

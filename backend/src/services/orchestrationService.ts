@@ -136,7 +136,6 @@ async function mapWithConcurrency<T, R>(
 export class OrchestrationService {
   private llmServiceUrl: string;
   private voxcpmServiceUrl?: string;
-  private kokoroServiceUrl: string;
   private readonly audioStorage: AudioStorage;
   private readonly audioSectionOrder = ['arrival', 'history', 'significance', 'transition'];
 
@@ -156,20 +155,17 @@ export class OrchestrationService {
       // Production mode: use service discovery via container names
       this.llmServiceUrl = process.env.LLM_SERVICE_URL || 'http://llm-pod:3002';
       this.voxcpmServiceUrl = process.env.TTS_POD_URL;
-      this.kokoroServiceUrl = process.env.TTS_SERVICE_URL || 'http://tts-pod:3005';
     } else {
       // Development mode with network issues: use special DNS name for host
       const hostName = process.env.HOST_SYSTEM || 'localhost';
       this.llmServiceUrl = `http://${hostName}:3002`;
       this.voxcpmServiceUrl = process.env.TTS_POD_URL;
-      this.kokoroServiceUrl = process.env.TTS_SERVICE_URL || `http://${hostName}:3005`;
     }
 
     console.log(`Running in ${env} mode with ${useServiceNames ? 'service names' : 'host access'}`);
     console.log('Using service URLs:');
     console.log(`LLM: ${this.llmServiceUrl}`);
     console.log(`TTS primary (VoxCPM): ${this.voxcpmServiceUrl || 'not configured'}`);
-    console.log(`TTS fallback (Kokoro): ${this.kokoroServiceUrl}`);
   }
 
   private buildTourQualityRequestFingerprint(request: TourRequest): string {
@@ -2303,16 +2299,6 @@ export class OrchestrationService {
     }
     console.log(`Tour language: ${language}, VoxCPM voice profile: ${voxcpmVoice}`);
 
-    let kokoroAvailable = false;
-    if (this.kokoroServiceUrl) {
-      try {
-        await axios.get(`${this.kokoroServiceUrl}/health`, { timeout: 3000 });
-        kokoroAvailable = true;
-      } catch {
-        console.warn('Kokoro TTS pod is not reachable — excluding from fallback chain');
-      }
-    }
-
     const voxcpmReferenceId = this.voxcpmServiceUrl
       ? await this.resolveVoxCpmVoiceReference(language, voxcpmVoice)
       : null;
@@ -2356,7 +2342,6 @@ export class OrchestrationService {
 
         // Step 1: Generate audio with TTS pod - include position metadata
         console.log(`Generating audio for place: ${place.name} (position: ${position})`);
-        const kokoroVoice = process.env.TTS_DEFAULT_VOICE || 'af_sarah';
         const baseTtsPayload = {
           text: narrationText,
           language,
@@ -2368,28 +2353,23 @@ export class OrchestrationService {
           }
         };
 
-        const providers = [
-          ...(this.voxcpmServiceUrl ? [{ name: 'VoxCPM', url: this.voxcpmServiceUrl }] : []),
-          ...(kokoroAvailable ? [{ name: 'Kokoro', url: this.kokoroServiceUrl }] : [])
-        ];
+        const providers = this.voxcpmServiceUrl ? [{ name: 'VoxCPM', url: this.voxcpmServiceUrl }] : [];
         const voxcpmTtsTimeoutMs = Number(process.env.VOXCPM_TTS_TIMEOUT_MS || '900000');
-        const kokoroTtsTimeoutMs = Number(process.env.KOKORO_TTS_TIMEOUT_MS || '180000');
 
         let ttsData: any | null = null;
         let providerUsed = '';
-        let fallbackReason = '';
 
         for (const provider of providers) {
           try {
             const ttsPayload = {
               ...baseTtsPayload,
-              voice: provider.name === 'VoxCPM' ? voxcpmVoice : kokoroVoice,
-              ...(provider.name === 'VoxCPM' && voxcpmReferenceId ? { referenceId: voxcpmReferenceId } : {}),
+              voice: voxcpmVoice,
+              ...(voxcpmReferenceId ? { referenceId: voxcpmReferenceId } : {}),
             };
             if (provider.name === 'VoxCPM') {
               console.log(`VoxCPM voice profile for ${place.name}: ${voxcpmVoice} (seed: unsupported, referenceId: ${voxcpmReferenceId || 'none'})`);
             }
-            const timeout = provider.name === 'VoxCPM' ? voxcpmTtsTimeoutMs : kokoroTtsTimeoutMs;
+            const timeout = voxcpmTtsTimeoutMs;
             const response = await axios.post(`${provider.url}/tts/generate`, ttsPayload, { timeout });
             if (!response.data || !response.data.success || !response.data.audioData) {
               throw new Error('unsuccessful-or-empty-audio');
@@ -2399,24 +2379,14 @@ export class OrchestrationService {
             break;
           } catch (error) {
             let reason = error instanceof Error ? error.message : 'unknown-error';
-            let fatal = false;
             if (axios.isAxiosError(error)) {
               const status = error.response?.status;
               const data = error.response?.data as { error?: string; fatal?: boolean } | undefined;
               if (typeof status === 'number') {
                 reason = `status ${status}${data?.error ? `: ${data.error}` : ''}`;
               }
-              fatal = data?.fatal === true;
             }
-            if (provider.name === 'VoxCPM') {
-              fallbackReason = reason;
-              console.warn(`VoxCPM audio failed for ${place.name}, falling back to Kokoro: ${reason}`);
-              if (fatal) {
-                console.warn(`VoxCPM fatal error detected for ${place.name}; backend will use fallback provider if available.`);
-              }
-              continue;
-            }
-            console.warn(`Kokoro audio failed for ${place.name}: ${reason}`);
+            console.warn(`VoxCPM audio failed for ${place.name}: ${reason}`);
           }
         }
 
@@ -2430,7 +2400,7 @@ export class OrchestrationService {
           continue;
         }
 
-        console.log(`Audio provider used for ${place.name}: ${providerUsed}${fallbackReason ? ` (fallback reason: ${fallbackReason})` : ''}`);
+        console.log(`Audio provider used for ${place.name}: ${providerUsed}`);
 
         // Step 2: Save audio to local filesystem and record metadata in Postgres
         console.log(`Saving audio locally for place: ${place.name}`);

@@ -4,6 +4,7 @@ import { GeocodedCity } from '../../domain/geocoder/GeocoderTypes';
 import { Theme, THEME_TAG_MAP } from '../../domain/poi/themeTags';
 import { dedupeByWikidata } from '../../domain/poi/dedupePois';
 import { fetchCanonicalWikidataPois, mergeCanonicalWikidataPois } from './WikidataCanonicalPoiFetcher';
+import { overpassQueryCache } from './OverpassQueryCache';
 
 const USER_AGENT = 'tour-guide-app/1.0 (contact: jesusoteo1234@gmail.com)';
 const OVERPASS_BASE = 'https://overpass-api.de/api/interpreter';
@@ -41,6 +42,7 @@ interface OverpassElement {
 
 interface OverpassResponse {
   elements: OverpassElement[];
+  remark?: string;
 }
 
 function partitionFiltersByType(filters: string[]): { areaFilters: string[]; nodeFilters: string[] } {
@@ -98,64 +100,76 @@ function isLowValueHistoryPoi(poi: RawPoi): boolean {
 
 async function fetchPoisForFilters(city: GeocodedCity, theme: Theme, filters: string[], areaLimit = AREA_FETCH_LIMIT, nodeLimit = NODE_FETCH_LIMIT): Promise<RawPoi[]> {
   const query = buildQuery(city, theme, filters, areaLimit, nodeLimit);
+  const cityKey = city.wikidataId || `${city.osmType}:${city.osmId}`;
 
-  for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
-    await enforceRateLimit();
+  return overpassQueryCache.getOrFetch(cityKey, query, async () => {
+    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
+      await enforceRateLimit();
 
-    try {
-      const response = await axios.post<OverpassResponse>(OVERPASS_BASE, query, {
-        headers: {
-          'User-Agent': USER_AGENT,
-          'Content-Type': 'text/plain',
-        },
-        timeout: (OVERPASS_QUERY_TIMEOUT_S + 10) * 1000,
-      });
+      try {
+        const response = await axios.post<OverpassResponse>(OVERPASS_BASE, query, {
+          headers: {
+            'User-Agent': USER_AGENT,
+            'Content-Type': 'text/plain',
+          },
+          timeout: (OVERPASS_QUERY_TIMEOUT_S + 10) * 1000,
+        });
 
-      return (response.data?.elements ?? [])
-        .map(elementToRawPoi)
-        .filter((p): p is RawPoi => p !== null);
-    } catch (err) {
-      const axiosErr = err as AxiosError;
-      const status = axiosErr.response?.status;
-      // 429 (rate limit), 504/502/503 (gateway/overload), and network errors are
-      // transient: a dropped group silently shrinks the candidate pool and changes
-      // results run-to-run, so retry with backoff before giving up.
-      const retriable = !axiosErr.response || status === 429 || status === 502 || status === 503 || status === 504;
-
-      if (retriable && attempt < MAX_FETCH_RETRIES) {
-        // On 429, respect Retry-After header if present; otherwise exponential backoff.
-        // Retry-After can be seconds (integer) or HTTP-date (RFC 7231).
-        let backoffMs = MIN_INTERVAL_MS * Math.pow(2, attempt);
-        let minBackoffMs = 0;
-        if (status === 429) {
-          const retryAfter = axiosErr.response?.headers?.['retry-after'];
-          if (retryAfter) {
-            const asSeconds = parseInt(retryAfter, 10);
-            if (!isNaN(asSeconds)) {
-              minBackoffMs = asSeconds * 1000;
-            } else {
-              const asDate = Date.parse(retryAfter);
-              if (!isNaN(asDate)) {
-                minBackoffMs = Math.max(0, asDate - Date.now());
-              }
-            }
-            backoffMs = Math.max(backoffMs, minBackoffMs);
-          }
+        const elements = response.data?.elements;
+        if (!Array.isArray(elements)) {
+          throw new Error('Overpass response missing elements array');
         }
-        // Jitter (+0-20%) but never drop below Retry-After minimum
-        const jitter = backoffMs * (1.0 + Math.random() * 0.2);
-        const waitMs = Math.max(Math.round(jitter), minBackoffMs);
-        console.warn(`[OverpassPoiFetcher] ${status ?? 'network'} error; retrying in ${waitMs}ms (attempt ${attempt + 1}/${MAX_FETCH_RETRIES})`);
-        await new Promise(resolve => setTimeout(resolve, waitMs));
-        continue;
+        if (response.data?.remark && response.data.remark.trim() !== '') {
+          throw new Error(`Overpass partial runtime failure: ${response.data.remark}`);
+        }
+
+        return elements
+          .map(elementToRawPoi)
+          .filter((p): p is RawPoi => p !== null);
+      } catch (err) {
+        const axiosErr = err as AxiosError;
+        const status = axiosErr.response?.status;
+        // 429 (rate limit), 504/502/503 (gateway/overload), and network errors are
+        // transient: a dropped group silently shrinks the candidate pool and changes
+        // results run-to-run, so retry with backoff before giving up.
+        const retriable = !axiosErr.response || status === 429 || status === 502 || status === 503 || status === 504;
+
+        if (retriable && attempt < MAX_FETCH_RETRIES) {
+          // On 429, respect Retry-After header if present; otherwise exponential backoff.
+          // Retry-After can be seconds (integer) or HTTP-date (RFC 7231).
+          let backoffMs = MIN_INTERVAL_MS * Math.pow(2, attempt);
+          let minBackoffMs = 0;
+          if (status === 429) {
+            const retryAfter = axiosErr.response?.headers?.['retry-after'];
+            if (retryAfter) {
+              const asSeconds = parseInt(retryAfter, 10);
+              if (!isNaN(asSeconds)) {
+                minBackoffMs = asSeconds * 1000;
+              } else {
+                const asDate = Date.parse(retryAfter);
+                if (!isNaN(asDate)) {
+                  minBackoffMs = Math.max(0, asDate - Date.now());
+                }
+              }
+              backoffMs = Math.max(backoffMs, minBackoffMs);
+            }
+          }
+          // Jitter (+0-20%) but never drop below Retry-After minimum
+          const jitter = backoffMs * (1.0 + Math.random() * 0.2);
+          const waitMs = Math.max(Math.round(jitter), minBackoffMs);
+          console.warn(`[OverpassPoiFetcher] ${status ?? 'network'} error; retrying in ${waitMs}ms (attempt ${attempt + 1}/${MAX_FETCH_RETRIES})`);
+          await new Promise(resolve => setTimeout(resolve, waitMs));
+          continue;
+        }
+
+        const reason = status ? `server error ${status}` : `network error ${axiosErr.message}`;
+        console.error(`[OverpassPoiFetcher] Giving up after ${attempt + 1} attempt(s): ${reason}`);
+        throw new Error(`Overpass acquisition failed after ${attempt + 1} attempt(s): ${reason}`);
       }
-
-      console.error(`[OverpassPoiFetcher] Giving up after ${attempt + 1} attempt(s): ${status ? `server error ${status}` : `network error ${axiosErr.message}`}`);
-      return [];
     }
-  }
 
-  return [];
+    throw new Error('Overpass acquisition failed: exhausted retries');
+  });
 }
 
 function elementToRawPoi(el: OverpassElement): RawPoi | null {

@@ -23,6 +23,7 @@ import {
   narrativeHttpHeadersV8,
   requestMediaWikiWithMaxlagPolicyV8,
 } from './MediaWikiRequestPolicyV8';
+import { resolveWikidataEntityV8, WikidataIdentityResolutionV8 } from './WikidataIdentityV8';
 
 const NOMINATIM_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
 const WIKIDATA_API_URL = 'https://www.wikidata.org/w/api.php';
@@ -65,6 +66,8 @@ export interface LiveCityCandidatesV8Result {
   prefilteredCount: number;
   evidenceGaps: Array<{ canonicalId: string; name: string; missing: string[] }>;
   cityCenter: { lat: number; lng: number };
+  identityResolutions?: WikidataIdentityResolutionV8[];
+  identityExclusions?: Array<{ requestedId: string; sourceId: string; reason: 'wikidata_missing' }>;
 }
 
 export interface LiveCityCandidatesV8RequestOptions {
@@ -100,6 +103,7 @@ interface WikidataEntityV8 {
   labels?: unknown;
   claims?: unknown;
   sitelinks?: unknown;
+  identityResolution?: WikidataIdentityResolutionV8;
 }
 
 interface LiveWikidataStoreV8 {
@@ -523,28 +527,27 @@ export async function fetchWikidataEntitiesV8(
       () => get(WIKIDATA_API_URL, {
         action: 'wbgetentities',
         ids: batch.join('|'),
-        props: 'labels|claims|sitelinks',
+        props: 'info|labels|claims|sitelinks',
         maxlag: 30,
         format: 'json',
         formatversion: 2,
       }),
       wait
     );
-    const root = objectValue(response.data, 'Wikidata entities response');
-    if (typeof root.error === 'string' || root.error !== undefined) {
-      throw new Error(`Wikidata entities request failed: ${JSON.stringify(root.error)}`);
-    }
-    const rawEntities = objectValue(root.entities, 'Wikidata entities');
-    const entries: Array<[string, WikidataEntityV8]> = Array.isArray(rawEntities)
-      ? rawEntities
-        .filter((entity): entity is WikidataEntityV8 => Boolean(entity?.id))
-        .map((entity) => [entity.id as string, entity])
-      : Object.entries(rawEntities as Record<string, unknown>)
-        .filter((entry): entry is [string, WikidataEntityV8] => (
-          Boolean(entry[1]) && typeof entry[1] === 'object'
-        ));
-    for (const [id, entity] of entries) {
-      result.set(id, entity);
+    for (const requestedId of batch) {
+      const resolved = resolveWikidataEntityV8(response.data, requestedId);
+      if (resolved.status === 'missing') {
+        result.set(requestedId, {
+          id: resolved.identity.canonicalId,
+          missing: true,
+          identityResolution: resolved.identity,
+        });
+      } else {
+        result.set(requestedId, {
+          ...(resolved.entity as unknown as WikidataEntityV8),
+          identityResolution: resolved.identity,
+        });
+      }
     }
   }
   return result;
@@ -564,7 +567,7 @@ export async function fetchWikidataLabelsV8(
       () => get(WIKIDATA_API_URL, {
         action: 'wbgetentities',
         ids: batch.join('|'),
-        props: 'labels',
+        props: 'info|labels',
         languages: [language, 'en'].join('|'),
         maxlag: 30,
         format: 'json',
@@ -572,19 +575,11 @@ export async function fetchWikidataLabelsV8(
       }),
       wait
     );
-    const root = objectValue(response.data, 'Wikidata labels response');
-    const rawEntities = objectValue(root.entities, 'Wikidata labels entities');
-    const entries: Array<[string, WikidataEntityV8]> = Array.isArray(rawEntities)
-      ? rawEntities
-        .filter((entity): entity is WikidataEntityV8 => Boolean(entity?.id))
-        .map((entity) => [entity.id as string, entity])
-      : Object.entries(rawEntities as Record<string, unknown>)
-        .filter((entry): entry is [string, WikidataEntityV8] => (
-          Boolean(entry[1]) && typeof entry[1] === 'object'
-        ));
-    for (const [id, entity] of entries) {
-      const labels = entityLabelMapV8(entity);
-      result.set(id, labels[language] ?? labels.en ?? id);
+    for (const requestedId of batch) {
+      const resolved = resolveWikidataEntityV8(response.data, requestedId);
+      if (resolved.status === 'missing') continue;
+      const labels = entityLabelMapV8(resolved.entity as unknown as WikidataEntityV8);
+      result.set(requestedId, labels[language] ?? labels.en ?? requestedId);
     }
   }
   return result;
@@ -610,12 +605,13 @@ export async function enrichLivePoisV8(
   pois: RawPoi[],
   language: string,
   get: LiveCityCandidatesV8Get,
-  wait: LiveCityCandidatesV8Wait = defaultSleepV8
+  wait: LiveCityCandidatesV8Wait = defaultSleepV8,
+  preloadedEntities?: Map<string, WikidataEntityV8>
 ): Promise<LiveWikidataStoreV8> {
   const qids = Array.from(new Set(pois
     .map((poi) => poi.tags.wikidata)
     .filter((qid): qid is string => typeof qid === 'string' && qid.length > 0)));
-  const entitiesByQid = await fetchWikidataEntitiesV8(qids, get, wait);
+  const entitiesByQid = preloadedEntities ?? await fetchWikidataEntitiesV8(qids, get, wait);
 
   const referencedIds = new Set<string>();
   for (const entity of entitiesByQid.values()) {
@@ -756,10 +752,47 @@ export async function loadLiveCityCandidatesV8(
   const city = await geocodeCityCenterV8(validated.city, validated.countryCode, get, wait);
   const fetchedPois = await fetchPois(city, validated.theme);
   const pois = fetchedPois.filter((poi) => poi.tags.wikidata || poi.tags.wikipedia);
-  const store = await enrichLivePoisV8(pois, validated.language, get, wait);
+  const qids = Array.from(new Set(pois
+    .map((poi) => poi.tags.wikidata)
+    .filter((qid): qid is string => typeof qid === 'string' && qid.length > 0)));
+  const entitiesByQid = await fetchWikidataEntitiesV8(qids, get, wait);
+  const identityResolutions: WikidataIdentityResolutionV8[] = [];
+  const identityExclusions: Array<{ requestedId: string; sourceId: string; reason: 'wikidata_missing' }> = [];
+  const canonicalEntities = new Map<string, WikidataEntityV8>();
+  const normalizedPois: RawPoi[] = [];
+  for (const poi of pois) {
+    const requestedId = poi.tags.wikidata;
+    if (requestedId) {
+      const entity = entitiesByQid.get(requestedId);
+      if (!entity?.identityResolution) {
+        throw new Error(`Missing identity resolution for requested QID ${requestedId}`);
+      }
+      if (entity.missing) {
+        identityExclusions.push({
+          requestedId,
+          sourceId: `${poi.osmType}:${poi.osmId}`,
+          reason: 'wikidata_missing',
+        });
+        continue;
+      }
+      const canonicalId = entity.identityResolution.canonicalId;
+      if (!canonicalEntities.has(canonicalId)) {
+        canonicalEntities.set(canonicalId, entity);
+      }
+      normalizedPois.push({ ...poi, tags: { ...poi.tags, wikidata: canonicalId } });
+    } else {
+      normalizedPois.push(poi);
+    }
+  }
+  for (const entity of entitiesByQid.values()) {
+    if (entity.identityResolution) {
+      identityResolutions.push(entity.identityResolution);
+    }
+  }
+  const store = await enrichLivePoisV8(normalizedPois, validated.language, get, wait, canonicalEntities);
 
   const tiered = tierPoisByLandmarkFame(
-    pois, store.sitelinksByWikidataId, validated.theme, store.wikidataMetadataById
+    normalizedPois, store.sitelinksByWikidataId, validated.theme, store.wikidataMetadataById
   );
   const shortlisted = tiered.slice(0, SHORTLIST_LIMIT);
   const shortlistTags = effectiveWikipediaTagsV8(shortlisted, store.entitiesByQid, validated.language);
@@ -775,9 +808,14 @@ export async function loadLiveCityCandidatesV8(
   const cityCenter = resolveEditorialCityCenter(sources, { lat: city.lat, lng: city.lng })
     ?? { lat: city.lat, lng: city.lng };
   const maximumDistance = maximumCandidateDistanceV8(validated.durationMinutes);
-  const entities = buildEditorialEntitiesV5(sources, validated.language).filter((entity) => (
-    editorialDistanceMetersV5(entity.coordinates, cityCenter) <= maximumDistance
-  ));
+  const entities = buildEditorialEntitiesV5(sources, validated.language)
+    .filter((entity) => (
+      editorialDistanceMetersV5(entity.coordinates, cityCenter) <= maximumDistance
+    ))
+    .map((entity) => {
+      const matching = identityResolutions.filter((resolution) => resolution.canonicalId === entity.canonicalId);
+      return matching.length > 0 ? { ...entity, wikidataIdentities: matching } : entity;
+    });
   const readyEntities = selectReadyCandidatesV8(
     entities.filter((entity) => entity.readiness.ready), READY_CANDIDATE_LIMIT
   );
@@ -791,5 +829,7 @@ export async function loadLiveCityCandidatesV8(
       missing: entity.readiness.missing,
     })),
     cityCenter,
+    identityResolutions,
+    identityExclusions,
   };
 }

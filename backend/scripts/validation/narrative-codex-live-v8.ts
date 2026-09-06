@@ -152,14 +152,20 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
     auditor: CODEX_AUDITOR_V8.model, auditorTransport: CODEX_AUDITOR_V8.transport, auditorReasoning: CODEX_AUDITOR_V8.reasoning, auditorBilling: CODEX_AUDITOR_V8.billing, writerAttempts: 0, auditAttempts: 0, stops: [],
     missingStopIds: materials.map(m => m.stopId), delivery: evaluateNarrationDeliveryV8([]),
   };
-  const save = async () => {
-    state.missingStopIds = materials.filter(m => !state.stops.some(s => s.stopId === m.stopId && s.script)).map(m => m.stopId);
-    state.delivery = evaluateNarrationDeliveryV8(materials.map(m => ({
-      targetWords: m.targetWords, actualWords: state.stops.find(s => s.stopId === m.stopId)?.wordCount ?? 0,
-    })));
-    writeFileSync(resolve(directory, 'codex-author-review.private.json'), JSON.stringify({ ...state, budget: options.budget() }, null, 2) + '\n', { mode: 0o600 });
-    writeFileSync(resolve(directory, 'tour.md'), renderCodexLiveTourV8(materials, state, options.city, options.durationMinutes), { mode: 0o600 });
-    await options.onUpdate?.(state);
+  let saveTail: Promise<void> = Promise.resolve();
+  const save = () => {
+    const pendingSave = saveTail.then(async () => {
+      state.missingStopIds = materials.filter(m => !state.stops.some(s => s.stopId === m.stopId && s.script)).map(m => m.stopId);
+      state.delivery = evaluateNarrationDeliveryV8(materials.map(m => ({
+        targetWords: m.targetWords, actualWords: state.stops.find(s => s.stopId === m.stopId)?.wordCount ?? 0,
+      })));
+      const snapshot = structuredClone(state);
+      writeFileSync(resolve(directory, 'codex-author-review.private.json'), JSON.stringify({ ...snapshot, budget: options.budget() }, null, 2) + '\n', { mode: 0o600 });
+      writeFileSync(resolve(directory, 'tour.md'), renderCodexLiveTourV8(materials, snapshot, options.city, options.durationMinutes), { mode: 0o600 });
+      await options.onUpdate?.(snapshot);
+    });
+    saveTail = pendingSave.catch(() => {}); // A failed update must not poison the final partial save.
+    return pendingSave;
   };
   const record = (stopId: string, stage: string) => {
     appendFileSync(resolve(directory, 'codex-author-progress.private.jsonl'), JSON.stringify({ at: new Date().toISOString(), stopId, stage }) + '\n', { mode: 0o600 });
@@ -176,10 +182,31 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
   });
   const writerRoot = resolve(directory, 'codex-author');
   mkdirSync(writerRoot, { mode: 0o700 }); // Run IDs cannot overwrite an existing author run.
+  const runAudit = async (material: Material, stop: CodexLiveStopV8) => {
+    state.auditAttempts++;
+    record(material.stopId, 'audit_started');
+    stop.audit = await (deps.audit ?? auditCodexNarrationV8)(material, stop.script!, options);
+    if (stop.audit.status !== 'valid' || !stop.audit.value) throw new Error('audit failed: ' + stop.audit.status);
+    if (options.requireLanguageReview) {
+      const lr = (stop.audit.value as Record<string, unknown>).languageReview;
+      if (!lr || typeof lr !== 'object' || Array.isArray(lr)) throw new Error('audit failed: missing languageReview');
+      const lrObj = lr as Record<string, unknown>;
+      if (typeof lrObj.matchesRequestedLanguage !== 'boolean' || lrObj.matchesRequestedLanguage === false) throw new Error('audit failed: languageReview.matchesRequestedLanguage is false');
+    }
+    stop.status = 'audited';
+    record(material.stopId, 'audit_completed');
+    await save();
+  };
   await save();
+  let previousAudit: Promise<void> | null = null;
+  const auditFailure: { value?: { error: unknown } } = {};
+  const assertAuditSucceeded = () => {
+    if (auditFailure.value) throw auditFailure.value.error;
+  };
   try {
     for (const [index, material] of materials.entries()) {
       signal.throwIfAborted();
+      assertAuditSucceeded();
       const stop: CodexLiveStopV8 = { stopId: material.stopId, name: material.name, targetWords: material.targetWords, wordCount: 0, status: 'writing' };
       state.stops.push(stop);
       try {
@@ -188,37 +215,36 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
         record(material.stopId, 'writer_started');
         const result = await write(appendAuthorStyleHistoryV8(material.authorPrompt, history), resolve(writerRoot, String(index + 1)), signal);
         if (!result.text.trim()) throw new Error('Codex writer returned empty narration');
-        stop.script = assignNarrativeSentenceIdsV6(material.stopId, result.text, { sentenceBoundaryPolicy: 'v8' });
+        stop.script = assignNarrativeSentenceIdsV6(material.stopId, result.text, { sentenceBoundaryPolicy: 'v8', preserveParagraphs: true });
         stop.wordCount = result.text.trim().split(/\s+/u).length;
         stop.usage = result.usage;
         stop.status = 'audit_pending';
         record(material.stopId, 'writer_completed');
-        await save(); // Preserve text even when a budget/provider failure prevents its audit.
-        signal.throwIfAborted();
-        state.auditAttempts++;
-        record(material.stopId, 'audit_started');
-        stop.audit = await (deps.audit ?? auditCodexNarrationV8)(material, stop.script, options);
-        if (stop.audit.status !== 'valid' || !stop.audit.value) throw new Error('audit failed: ' + stop.audit.status);
-        if (options.requireLanguageReview) {
-          const lr = (stop.audit.value as Record<string, unknown>).languageReview;
-          if (!lr || typeof lr !== 'object' || Array.isArray(lr)) throw new Error('audit failed: missing languageReview');
-          const lrObj = lr as Record<string, unknown>;
-          if (typeof lrObj.matchesRequestedLanguage !== 'boolean' || lrObj.matchesRequestedLanguage === false) throw new Error('audit failed: languageReview.matchesRequestedLanguage is false');
-        }
-        stop.status = 'audited';
-        record(material.stopId, 'audit_completed');
-        await save();
+        await save(); // Preserve the lookahead text even if the previous audit fails.
       } catch (error) {
-        stop.status = stop.script ? 'audit_failed' : 'writer_failed';
+        stop.status = 'writer_failed';
         stop.error = options.sanitize(error);
         throw error;
       }
+      // Only writing the next stop overlaps: never queue a second audit or a second lookahead.
+      await previousAudit;
+      assertAuditSucceeded();
+      signal.throwIfAborted();
+      previousAudit = runAudit(material, stop).catch(error => {
+        auditFailure.value = { error };
+        stop.status = 'audit_failed';
+        stop.error = options.sanitize(error);
+      });
     }
+    await previousAudit;
+    assertAuditSucceeded();
+    signal.throwIfAborted();
     state.status = 'complete_needs_review';
   } catch (error) {
     state.status = 'partial';
     state.error = options.sanitize(error);
   } finally {
+    await previousAudit; // No background audit may overwrite the final state after return.
     await save();
   }
   return state;

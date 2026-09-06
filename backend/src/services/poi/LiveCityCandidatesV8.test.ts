@@ -167,7 +167,7 @@ function scriptedGetV8(options: ScriptedGetV8Options = {}): {
           ])),
         } };
       }
-      return { data: { entities: Object.fromEntries(ids.map((id) => [id, WIKIDATA_LABEL_ENTITIES[id]])) } };
+      return { data: { entities: Object.fromEntries(ids.map((id) => [id, WIKIDATA_LABEL_ENTITIES[id] ?? { id, missing: true }])) } };
     }
     if (url.includes('wikipedia.org')) {
       const titles = String(params.titles ?? '').split('|').filter(Boolean);
@@ -252,8 +252,8 @@ describe('loadLiveCityCandidatesV8', () => {
     }, { get, fetchPois });
 
     const wikidataCalls = calls.filter((call) => call.url.includes('wikidata.org'));
-    expect(wikidataCalls.some((call) => call.params.props === 'labels|claims|sitelinks')).toBe(true);
-    expect(wikidataCalls.some((call) => call.params.props === 'labels')).toBe(true);
+    expect(wikidataCalls.some((call) => call.params.props === 'info|labels|claims|sitelinks')).toBe(true);
+    expect(wikidataCalls.some((call) => call.params.props === 'info|labels')).toBe(true);
 
     const wikipediaCalls = calls.filter((call) => call.url.includes('wikipedia.org'));
     expect(wikipediaCalls.length).toBeGreaterThan(0);
@@ -430,6 +430,86 @@ describe('loadLiveCityCandidatesV8', () => {
       expect(entityIds).not.toContain(poi.tags.wikidata);
     }
     expect(result.prefilteredCount).toBe(15);
+  });
+
+  it('collapses nested alias redirects into one canonical entity with both sourceIds and identities', async () => {
+    const oldPoi: RawPoi = {
+      osmType: 'node', osmId: 9001, name: 'Catedral de Valencia (alias)', lat: 39.47, lng: -0.376,
+      tags: { name: 'Catedral de Valencia (alias)', wikidata: 'Q999', wikipedia: 'es:Catedral de Valencia', tourism: 'attraction' },
+    };
+    const newPoi: RawPoi = {
+      osmType: 'node', osmId: 9002, name: 'Catedral de Valencia', lat: 39.47, lng: -0.376,
+      tags: { name: 'Catedral de Valencia', wikidata: 'Q246428', wikipedia: 'es:Catedral de Valencia', tourism: 'attraction' },
+    };
+    const pois = [oldPoi, newPoi];
+    const originalPois = structuredClone(pois);
+    const base = scriptedGetV8();
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      if (url.includes('wikidata.org')) {
+        const ids = String(params.ids ?? '').split('|');
+        if (ids.includes('Q999')) {
+          const canonical = { ...WIKIDATA_MAIN_ENTITIES.Q246428, lastrevid: 101, modified: '2026-08-05T00:00:00Z' };
+          return { data: {
+            entities: {
+              Q999: { ...canonical, redirects: { from: 'Q999', to: 'Q246428' } },
+              Q246428: canonical,
+            },
+          } };
+        }
+      }
+      return base.get(url, params, options);
+    };
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120, countryCode: 'ES',
+    }, { get, fetchPois: async () => pois });
+
+    const canonical = result.entities.find((entity) => entity.canonicalId === 'Q246428');
+    expect(canonical).toBeDefined();
+    expect(canonical?.sourceIds).toEqual(expect.arrayContaining(['node:9001', 'node:9002']));
+    expect(canonical?.wikidataIdentities?.map((identity) => identity.requestedId))
+      .toEqual(expect.arrayContaining(['Q999', 'Q246428']));
+    expect(canonical?.evidenceFacts.some((fact) => fact.source === 'wikidata')).toBe(true);
+    expect(result.entities.filter((entity) => entity.canonicalId === 'Q246428')).toHaveLength(1);
+    expect(pois).toEqual(originalPois);
+  });
+
+  it('excludes explicit missing candidates and rejects unmatched or omitted responses', async () => {
+    const pois: RawPoi[] = [
+      { osmType: 'node', osmId: 9101, name: 'Missing', lat: 39.47, lng: -0.376, tags: { name: 'Missing', wikidata: 'Q9999', tourism: 'attraction' } },
+      { osmType: 'node', osmId: 9102, name: 'Valid', lat: 39.47, lng: -0.376, tags: { name: 'Valid', wikidata: 'Q246428', tourism: 'attraction', building: 'cathedral', heritage: '2' } },
+    ];
+    const base = scriptedGetV8();
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      if (url.includes('wikidata.org')) {
+        const ids = String(params.ids ?? '').split('|');
+        if (ids.includes('Q9999')) {
+          return { data: { entities: { Q9999: { id: 'Q9999', missing: true }, Q246428: WIKIDATA_MAIN_ENTITIES.Q246428 } } };
+        }
+      }
+      return base.get(url, params, options);
+    };
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120, countryCode: 'ES',
+    }, { get, fetchPois: async () => pois });
+
+    const missing = result.entities.find((entity) => entity.canonicalId === 'Q9999');
+    expect(missing).toBeUndefined();
+    expect(result.identityExclusions).toEqual([{ requestedId: 'Q9999', sourceId: 'node:9101', reason: 'wikidata_missing' }]);
+    expect(result.readyEntities.every((entity) => entity.canonicalId !== 'Q9999')).toBe(true);
+    expect(result.readyEntities.some((entity) => entity.canonicalId === 'Q246428')).toBe(true);
+
+    const getOmitted: LiveCityCandidatesV8Get = async (url, params, options) => {
+      if (url.includes('wikidata.org')) {
+        const ids = String(params.ids ?? '').split('|');
+        if (ids.includes('Q9999')) {
+          return { data: { entities: {} } };
+        }
+      }
+      return base.get(url, params, options);
+    };
+    await expect(loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120, countryCode: 'ES',
+    }, { get: getOmitted, fetchPois: async () => pois })).rejects.toThrow(/omitted|identity mismatch/);
   });
 
   it('rejects invalid inputs with strict validation', async () => {

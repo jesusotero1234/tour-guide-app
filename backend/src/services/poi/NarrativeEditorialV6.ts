@@ -110,14 +110,14 @@ function splitSentences(text: string, policy?: 'legacy' | 'v8'): string[] {
   return reduced;
 }
 
-function scriptFromSentences(stopId: string, texts: string[]): NarrativeScriptV6 {
+function scriptFromSentences(stopId: string, texts: string[], displayText?: string): NarrativeScriptV6 {
   const sentences = texts.map((text, index) => ({
     sentenceId: `${stopId}-S${String(index + 1).padStart(3, '0')}`,
     stopId,
     index,
     text,
   }));
-  const script = { stopId, text: texts.join(' '), sentences };
+  const script = { stopId, text: displayText ?? texts.join(' '), sentences };
   return { ...script, fingerprint: narrativeFingerprintV6(script) };
 }
 
@@ -135,12 +135,22 @@ export function narrativeSentenceFingerprintV6(
 export function assignNarrativeSentenceIdsV6(
   stopId: string,
   text: string,
-  options?: { sentenceBoundaryPolicy?: 'legacy' | 'v8' }
+  options?: { sentenceBoundaryPolicy?: 'legacy' | 'v8'; preserveParagraphs?: boolean }
 ): NarrativeScriptV6 {
   if (!stopId.trim()) throw new Error('script stopId is required');
-  const sentences = splitSentences(text, options?.sentenceBoundaryPolicy ?? 'legacy');
+  let displayText: string | undefined;
+  let input = text;
+  if (options?.preserveParagraphs) {
+    input = text.replace(/\r\n/gu, '\n').replace(/\r/gu, '\n');
+    const paragraphs = input.split(/\n\s*\n/)
+      .map((paragraph) => paragraph.replace(/\s+/gu, ' ').trim())
+      .filter(Boolean);
+    if (paragraphs.length === 0) throw new Error(`script ${stopId} has no sentences`);
+    displayText = paragraphs.join('\n\n');
+  }
+  const sentences = splitSentences(input, options?.sentenceBoundaryPolicy ?? 'legacy');
   if (sentences.length === 0) throw new Error(`script ${stopId} has no sentences`);
-  return scriptFromSentences(stopId, sentences);
+  return scriptFromSentences(stopId, sentences, displayText);
 }
 
 export function validateNarrativeAuditReportV6(

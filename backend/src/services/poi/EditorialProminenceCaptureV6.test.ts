@@ -144,6 +144,64 @@ describe('Wikimedia prominence capture v6', () => {
     });
   });
 
+  it.each([null, 'Q1', 'Q11'])('preserves identity and only counts actual city links: %s', async (linkedId) => {
+    const selected = [entities[0]];
+    const originalEntities = structuredClone(selected);
+    const get: WikimediaGetV6 = async (url, options) => {
+      const params = options.params as Record<string, string>;
+      if (url.includes('wikidata.org')) {
+        expect(params.props).toBe('info|sitelinks');
+        return { data: { success: 1, entities: {
+          Q1: { id: 'Q11', lastrevid: 111, modified: '2026-08-05T00:00:00Z',
+            redirects: { from: 'Q1', to: 'Q11' }, sitelinks: { eswiki: { title: 'Candidate 11' } } },
+        } } };
+      }
+      if (url.startsWith('https://es.wikipedia.org/')) {
+        if (params.generator === 'links') {
+          return { data: { batchcomplete: true, query: { pages: linkedId
+            ? [{ pageid: 99, ns: 0, title: 'Candidate 11', pageprops: { wikibase_item: linkedId } }] : [] } } };
+        }
+        if (params.titles === 'Madrid') {
+          return { data: { batchcomplete: true, query: { pages: [actionPage('Madrid', 201)] } } };
+        }
+        return { data: { batchcomplete: true, query: { pages: [actionPage('Candidate 11', 311)] } } };
+      }
+      if (url.includes('es.wikivoyage.org')) {
+        if (params.action === 'parse' && params.prop === 'sections') {
+          return { data: { parse: { title: 'Madrid', sections: [] } } };
+        }
+        if (params.action === 'parse' && params.prop === 'wikitext') {
+          return { data: { parse: { title: 'Madrid', wikitext: { '*': '' } } } };
+        }
+        return { data: { batchcomplete: true, query: { pages: [actionPage('Madrid', 401)] } } };
+      }
+      if (url.includes('wikimedia.org/api/rest_v1')) {
+        return { data: { items: [{ views: 100 }, { views: 200 }] } };
+      }
+      throw new Error(`Unexpected request ${url}`);
+    };
+
+    const snapshot = await captureWikimediaProminenceV6({
+      cityKey: 'madrid', cityTitle: 'Madrid', language: 'es', entities: selected, wikivoyagePage: null,
+      capturedAt: '2026-08-07T00:00:00.000Z',
+      pageviewWindow: { start: '2025-08-07', end: '2026-08-06' },
+      get,
+    });
+
+    const candidate = snapshot.candidates.find((candidate) => candidate.canonicalId === 'Q1');
+    expect(candidate).toBeDefined();
+    expect(candidate?.canonicalId).toBe('Q1');
+    expect(candidate?.cityWikipediaLinked).toBe(linkedId !== null);
+    expect(candidate?.wikivoyageSeeMentioned).toBeNull();
+    const sourceRef = candidate?.support.find((support) => support.type === 'wikidata_sitelinks');
+    expect(sourceRef).toMatchObject({ supportId: 'Q1:wikidata-sitelinks', sourceRef: 'wikidata:Q11' });
+    expect(snapshot.sourceRevisions.find((revision) => revision.sourceId === 'wikidata:Q11')?.revisionId).toBe(111);
+    expect(selected).toEqual(originalEntities);
+    expect(validateWikimediaProminenceSnapshotV6(snapshot, originalEntities, {
+      cityKey: 'madrid', language: 'es',
+    })).toEqual(snapshot);
+  });
+
   it('rejects changed fingerprints and support IDs assigned to another identity', async () => {
     const get: WikimediaGetV6 = async (url, options) => {
       const params = options.params as Record<string, string>;

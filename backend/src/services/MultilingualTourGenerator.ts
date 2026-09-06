@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { enrichTourImages } from './enrichTourImages';
 import { setTimeout as delay } from 'node:timers/promises';
 import { TourRepository } from '../domain/repositories/TourRepository';
 import { Tour } from '../domain/entities/Tour';
@@ -19,12 +20,14 @@ export class MultilingualTourGenerator {
     private readonly bases: TourBlueprintRepository,
     private readonly run: TourPhaseRunner = runTourPhase,
     private readonly resolveDestination = resolveTourDestination,
+    private readonly enrichImages = enrichTourImages,
   ) {}
   async prepareRequest(request: TourRequest): Promise<TourRequest> {
     const language = tourLocale(request.language);
     if (request.theme !== 'history' || ![60, 120, 180, 240].includes(request.durationMinutes)) throw new Error('UNSUPPORTED_TOUR_REQUEST');
     // Resolve afresh; client-supplied QIDs or source languages are never authoritative.
-    const destination = await this.resolveDestination({ city: request.city, countryCode: request.countryCode });
+    const destination = await this.resolveDestination({ city: request.city, countryCode: request.countryCode,
+      ...(request.location !== undefined ? { location: request.location } : {}) });
     const blueprintRevision = await this.bases.revisionForRequest(tourBaseKey(destination, request));
     return { city: destination.city, country: destination.country, countryCode: destination.countryCode,
       language, theme: request.theme, durationMinutes: request.durationMinutes, destination, blueprintRevision };
@@ -119,8 +122,9 @@ export class MultilingualTourGenerator {
       const draft = mapCodexTourArtifact(normalized, runId, result.review, result.author);
       draft.blueprintId = base.id;
       draft.metadata = { ...draft.metadata, generationPipeline: this.pipelineVersion };
+      const enrichedDraft = await this.enrichImages(draft, signal);
       signal?.throwIfAborted();
-      const saved = await this.tours.save(draft);
+      const saved = await this.tours.save(enrichedDraft);
       return { id: saved.id, reviewRequired: true, accountedUsd: spent };
     } catch (error) {
       throw new TourGenerationAttemptError(error instanceof Error ? error.message : 'Generation failed', spent);

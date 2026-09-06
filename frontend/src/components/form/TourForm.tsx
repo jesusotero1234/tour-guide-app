@@ -54,7 +54,7 @@ export const TourForm = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (isLoading) return;
-    if (!location?.countryCode) {
+    if (!location?.countryCode || !location.source) {
       setError('Choose a city from the suggestions first.');
       return;
     }
@@ -69,6 +69,7 @@ export const TourForm = () => {
       city: location.city,
       country: location.country,
       countryCode: location.countryCode.toUpperCase(),
+      location: { source: location.source, coordinates: location.coordinates },
       theme,
       language,
       durationMinutes: Number(duration),

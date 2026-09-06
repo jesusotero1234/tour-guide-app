@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { generateTour, generateTourFromConcept, getTour, getWalkingRoute, listTours } from '../controllers/tours';
+import { createTourAudio, getTourAudio, playTourAudio } from '../controllers/tourAudio';
 import { validateConceptTourRequest, validateTourRequest, validateCodexTourRequest } from '../middleware/validation';
 import { createGenerationJob, getGenerationJob } from '../controllers/generationJobs';
 
@@ -19,6 +20,11 @@ router.get('/generation-jobs/:id', getGenerationJob);
 // Generate a new tour
 router.post('/generate', validateTourRequest, generateTour);
 router.post('/generate-from-concept', validateConceptTourRequest, generateTourFromConcept);
+
+// Tour audio endpoints
+router.post('/:id/audio', createTourAudio);
+router.get('/:id/audio', getTourAudio);
+router.get('/:id/audio/:placeId', playTourAudio);
 
 // Get an existing tour
 router.get('/:id/walking-route', getWalkingRoute);

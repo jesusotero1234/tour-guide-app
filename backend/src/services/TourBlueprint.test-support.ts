@@ -2,7 +2,7 @@ import { createTourBlueprintSnapshot, TourBlueprintSnapshot } from './TourBluepr
 import { TourDestination } from './TourDestinationResolver';
 import { buildNarrativeEvidenceFixtureV8 } from './poi/NarrativeEvidenceFixturesV8.test-support';
 import { buildNarrativeDossierV6 } from './poi/NarrativeDossierV6';
-import { assessNarrativeEvidenceGatesV8, classifyEvidenceTierV8 } from './poi/NarrativeDossierV8';
+import { assessNarrativeEvidenceGatesV8, classifyEvidenceTierV8, finalizeNarrativeDossierV8 } from './poi/NarrativeDossierV8';
 import { buildNarrativeEvidenceBoundaryV8, NarrativeResearchHandoffStopV8 } from './poi/NarrativeEvidenceBoundaryV8';
 import { narrativeFingerprintV6, NarrativeRouteBriefV6 } from './poi/NarrativeContractsV6';
 import { narrationTargetForSecondsV8 } from './poi/NarrativeDurationTargetsV8';
@@ -34,10 +34,15 @@ export function blueprintFixture(destination = madridDestination): TourBlueprint
       sources: [{ sourceId: id + '-official', publisherKey: 'official.example', authorityTier: 'primary_authority' },
         { sourceId: id + '-museum', publisherKey: 'museum.example', authorityTier: 'established_source' }],
     });
-    const captures = fixture.captures.map(c => ({ ...c, sourceLanguage: 'es' }));
+    const captures = fixture.captures.map((c, index) => ({ ...c, sourceLanguage: 'es',
+      ...(index === 0 ? { referenceProvenance: {
+        wikipediaSourceId: id + '-wiki', wikipediaUrl: 'https://es.wikipedia.org/wiki/' + id,
+        revisionId: 12345, citationUrl: c.finalUrl, citationTitle: 'Citation ' + id,
+      } } : {}),
+    }));
     const { fingerprint, sufficiency, sources, ...proposal } = fixture.dossier;
-    const dossier = buildNarrativeDossierV6({ ...proposal, language: route.language,
-      sources: captures.map(c => c.sourceId) }, captures);
+    const dossier = finalizeNarrativeDossierV8(buildNarrativeDossierV6({ ...proposal, language: route.language,
+      sources: captures.map(c => c.sourceId) }, captures), captures);
     const gates = assessNarrativeEvidenceGatesV8(dossier, id);
     const evidenceTier = classifyEvidenceTierV8(dossier, gates, captures);
     if (evidenceTier === 'D') throw new Error('Invalid fixture');

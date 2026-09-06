@@ -10,23 +10,17 @@ import {
 } from './NarrativeWriterBenchmarkV8';
 
 describe('NarrativeWriterBenchmarkV8', () => {
-  it('defines the current writer control and three challengers exactly once', () => {
-    expect(NARRATIVE_WRITER_BENCHMARK_ARMS_V8.map((arm) => arm.model)).toEqual([
-      'openai/gpt-5.4-mini',
-      'openai/gpt-5.4',
-      'anthropic/claude-sonnet-5',
-      'google/gemini-3.8-flash',
-    ]);
-    expect(new Set(NARRATIVE_WRITER_BENCHMARK_ARMS_V8.map((arm) => arm.model))).toHaveProperty('size', 4);
-  });
-
   it('creates deterministic blind arm IDs without exposing model names publicly', () => {
     const first = blindNarrativeWriterBenchmarkArmsV8('madrid-seed');
     const second = blindNarrativeWriterBenchmarkArmsV8('madrid-seed');
 
     expect(first).toEqual(second);
-    expect(first.map((assignment) => assignment.armId).sort()).toEqual(['A', 'B', 'C', 'D']);
-    expect(new Set(first.map((assignment) => assignment.arm.model))).toHaveProperty('size', 4);
+    expect(first.map((assignment) => assignment.arm.model).sort()).toEqual(
+      NARRATIVE_WRITER_BENCHMARK_ARMS_V8.map((arm) => arm.model).sort()
+    );
+    expect(first.every((assignment) => /^[A-Z]+$/.test(assignment.armId))).toBe(true);
+    expect(new Set(first.map((assignment) => assignment.armId))).toHaveProperty('size', NARRATIVE_WRITER_BENCHMARK_ARMS_V8.length);
+    expect(new Set(first.map((assignment) => assignment.arm.model))).toHaveProperty('size', NARRATIVE_WRITER_BENCHMARK_ARMS_V8.length);
     expect(first.map((assignment) => ({ armId: assignment.armId }))).toEqual(
       expect.not.arrayContaining([
         expect.objectContaining({ model: expect.anything() }),

@@ -6,6 +6,7 @@ import {
   narrativeRepetitionWarningsV6,
   validateNarrativeAuditReportV6,
 } from './NarrativeEditorialV6';
+import { narrativeFingerprintV6 } from './NarrativeContractsV6';
 
 describe('narrative v6 editorial protocol', () => {
   const script = assignNarrativeSentenceIdsV6(
@@ -520,5 +521,42 @@ describe('narrative v6 editorial protocol', () => {
       'C.',
       'Después llegó el grupo.',
     ]);
+  });
+
+  it('preserveParagraphs: normalizes CRLF, blank lines, and multiple spaces while preserving paragraph layout', () => {
+    const input = 'First paragraph line one.\r\nFirst paragraph line two.\r\n\r\nSecond paragraph\twith\tmultiple\tspaces.\r\nSecond paragraph line two.';
+    const script = assignNarrativeSentenceIdsV6('test', input, { preserveParagraphs: true, sentenceBoundaryPolicy: 'v8' });
+    expect(script.text).toBe('First paragraph line one. First paragraph line two.\n\nSecond paragraph with multiple spaces. Second paragraph line two.');
+    expect(script.sentences.map((s) => s.text)).toEqual([
+      'First paragraph line one.',
+      'First paragraph line two.',
+      'Second paragraph with multiple spaces.',
+      'Second paragraph line two.',
+    ]);
+    expect(script.fingerprint).toBe(narrativeFingerprintV6({ stopId: 'test', text: script.text, sentences: script.sentences }));
+  });
+
+  it('preserveParagraphs: exact sentences equality vs existing flattened V8 path including era abbreviation', () => {
+    const text = 'El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C.\n\nDespués llegó el grupo.';
+    const preserved = assignNarrativeSentenceIdsV6('alcazar', text, { preserveParagraphs: true, sentenceBoundaryPolicy: 'v8' });
+    const flattened = assignNarrativeSentenceIdsV6('alcazar', text, { sentenceBoundaryPolicy: 'v8' });
+    expect(preserved.sentences.map((s) => s.text)).toEqual(flattened.sentences.map((s) => s.text));
+    expect(preserved.sentences.map((s) => s.sentenceId)).toEqual(flattened.sentences.map((s) => s.sentenceId));
+    expect(preserved.sentences.map((s) => s.index)).toEqual(flattened.sentences.map((s) => s.index));
+    expect(preserved.text).toBe('El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C.\n\nDespués llegó el grupo.');
+    expect(flattened.text).toBe('El templo se construyó en el siglo II a. C. y se amplió en el siglo I d. C. Después llegó el grupo.');
+  });
+
+  it('preserveParagraphs: default is still flattened', () => {
+    const text = 'First line.\n\nSecond line.';
+    const script = assignNarrativeSentenceIdsV6('test', text);
+    expect(script.text).toBe('First line. Second line.');
+  });
+
+  it('preserveParagraphs: single paragraph equivalent and empty input still rejects', () => {
+    const single = assignNarrativeSentenceIdsV6('test', 'Only one paragraph here.', { preserveParagraphs: true });
+    expect(single.text).toBe('Only one paragraph here.');
+    expect(single.sentences).toHaveLength(1);
+    expect(() => assignNarrativeSentenceIdsV6('test', '   \n  \n  ', { preserveParagraphs: true })).toThrow('script test has no sentences');
   });
 });

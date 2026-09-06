@@ -13,6 +13,34 @@ const PUBLIC_LOOKUP = async (hostname: string) => (
     : [{ address: '93.184.216.34', family: 4 }]
 );
 
+describe('bounded reference document capture', () => {
+  const limits = { maxPages: 12, maxTextBytes: 256 };
+  const response = (numPages: unknown, markdown = 'Texto documental de una guía histórica local.') => ({ data: { success: true,
+    data: { markdown, metadata: { url: 'https://museum.es/guide.pdf', statusCode: 200, numPages } } } });
+  it.each([undefined, 13, -1, 1.5])('rejects unknown or invalid PDF page counts: %s', async numPages => {
+    const provider = new FirecrawlNarrativeCaptureProviderV7({ lookup: PUBLIC_LOOKUP, post: async () => response(numPages) });
+    await expect(provider.capture('https://museum.es/guide.pdf', { referenceLimits: limits, maxAttempts: 1 })).rejects.toThrow('reference_pdf_page_limit_or_unknown');
+  });
+  it('accepts a small PDF with real page metadata and forwards cancellation', async () => {
+    const post = jest.fn(async () => response(10));
+    const provider = new FirecrawlNarrativeCaptureProviderV7({ lookup: PUBLIC_LOOKUP, post });
+    const signal = new AbortController().signal;
+    await expect(provider.capture('https://museum.es/guide.pdf', { referenceLimits: limits, maxAttempts: 1, timeoutMs: 20_000, signal })).resolves.toMatchObject({ finalHttpStatus: 200 });
+    expect(post).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ timeout: 20_000 }), expect.any(Object), { timeoutMs: 20_000, signal });
+  });
+  it('bounds UTF-8 bytes rather than JavaScript string length', async () => {
+    const provider = new FirecrawlNarrativeCaptureProviderV7({ lookup: PUBLIC_LOOKUP, post: async () => response(10, 'é'.repeat(200)) });
+    await expect(provider.capture('https://museum.es/guide.pdf', { referenceLimits: limits, maxAttempts: 1 })).rejects.toThrow('reference_text_size_exceeded');
+  });
+  it('retains SSRF and final redirect checks for reference captures', async () => {
+    const post = jest.fn(async () => ({ data: { success: true, data: { markdown: 'Historical information', metadata: { url: 'https://private.example/', statusCode: 200 } } } }));
+    const provider = new FirecrawlNarrativeCaptureProviderV7({ lookup: PUBLIC_LOOKUP, post });
+    await expect(provider.capture('https://private.example/', { referenceLimits: limits })).rejects.toThrow();
+    expect(post).not.toHaveBeenCalled();
+    await expect(provider.capture('https://museum.es/guide', { referenceLimits: limits })).rejects.toThrow();
+  });
+});
+
 describe('classifyNarrativeHttpFailureV7', () => {
   it('retries timeouts, 429 and 5xx', () => {
     expect(classifyNarrativeHttpFailureV7(

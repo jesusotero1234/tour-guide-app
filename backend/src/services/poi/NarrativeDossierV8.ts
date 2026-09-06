@@ -1,4 +1,6 @@
 import { createHash } from 'crypto';
+import { narrativeFingerprintV6 } from './NarrativeContractsV6';
+import { independentReferencePublisherCountV8 } from './NarrativeReferencesV8';
 import { NarrativeEvidenceSpanV7 } from './NarrativeSpansV7';
 import { NarrativeCapturedSourceV8 } from './NarrativeSourcesV7';
 import {
@@ -6,6 +8,7 @@ import {
   NarrativeDossierProposalV6,
   buildNarrativeDossierV6,
 } from './NarrativeDossierV6';
+import { NarrativeSecondaryContrastV8, validatesSecondaryContrastV8 } from './NarrativeContrastCoverageV8';
 
 export type NarrativeRoleV8 =
   | 'visible_observation'
@@ -39,6 +42,7 @@ export interface NarrativeCuratorPropositionV8 {
   certainty: 'high' | 'medium' | 'low';
   interpretation: 'direct' | 'debatable';
   supports: NarrativeEvidenceSupportV8[];
+  secondaryContrast?: NarrativeSecondaryContrastV8 | null;
 }
 
 export interface NarrativeCuratorOutputV8 {
@@ -336,10 +340,8 @@ export function buildValidatedDossierV8(
     }
     const interpretation = proposition.interpretation;
     if (interpretation === 'debatable') {
-      const publishers = new Set([...sourceIds].map((sourceId) => (
-        captureById.get(sourceId)?.authority.publisherKey
-      )));
-      if (publishers.size < 2) {
+      const supportCaptures = [...sourceIds].map(id => captureById.get(id)!).filter(Boolean);
+      if (independentReferencePublisherCountV8(supportCaptures) < 2) {
         return { status: 'curator_contract_failed', reason: 'debatable proposition lacks two distinct publishers' };
       }
     }
@@ -372,6 +374,14 @@ export function buildValidatedDossierV8(
         return { status: 'curator_contract_failed', reason: `citation closure missing number ${missingNumber}` };
       }
     }
+    const secondaryContrastValid = proposition.secondaryContrast !== null && proposition.secondaryContrast !== undefined
+      && validatesSecondaryContrastV8({
+        text,
+        role: proposition.role,
+        interpretation,
+        coverage: proposition.secondaryContrast,
+        quotes: propositionPassageQuotes,
+      });
     propositions.push({
       propositionId: `prop-${deterministicIdV8(
         `${proposition.role}\n${normalizePropositionTextV8(text)}`
@@ -382,6 +392,7 @@ export function buildValidatedDossierV8(
       interpretation,
       sourceIds: [...sourceIds].sort(),
       passageIds,
+      ...(secondaryContrastValid ? { secondaryContrast: { left: proposition.secondaryContrast!.left, right: proposition.secondaryContrast!.right } } : {}),
     });
     return null;
   };
@@ -452,12 +463,23 @@ export function buildValidatedDossierV8(
     }
   }
 
+  const coveredRoles = new Set(propositions.map((p) => p.role));
+  const missingRoles = NARRATIVE_ROLES_V8.filter((role) => !coveredRoles.has(role));
+  const retainSecondaryContrast = missingRoles.length === 1 && missingRoles[0] === 'tension_or_contrast';
+  const finalPropositions = propositions.map((p) => {
+    if (!retainSecondaryContrast) {
+      const { secondaryContrast: _removed, ...rest } = p;
+      return rest;
+    }
+    return p;
+  });
+
   const proposal: NarrativeDossierProposalV6 = {
     stopId: input.stopId,
     language: input.language,
     sources: [...acceptedSourceIds].sort(),
     passages,
-    propositions,
+    propositions: finalPropositions,
     authorizedNames: admissionMode === 'independent' ? retainedAuthorizedNames : curatorOutput.authorizedNames,
     authorizedNumbers: admissionMode === 'independent' ? retainedAuthorizedNumbers : curatorOutput.authorizedNumbers,
     discrepancies: curatorOutput.discrepancies,
@@ -483,7 +505,7 @@ export function buildValidatedDossierV8(
 
   let dossier: NarrativeDossierV6;
   try {
-    dossier = buildNarrativeDossierV6(proposal, captures);
+    dossier = finalizeNarrativeDossierV8(buildNarrativeDossierV6(proposal, captures), captures);
   } catch (error) {
     const reason = `dossier adapter rejected the proposal: ${error instanceof Error ? error.message : String(error)}`;
     if (admissionMode === 'independent') {
@@ -529,6 +551,29 @@ export function assessNarrativeEvidenceGatesV8(
     'tension_or_contrast',
     'distinctive_trait',
   ];
+  const missingRoles = NARRATIVE_ROLES_V8.filter((role) => !covered.has(role));
+  if (missingRoles.length === 1 && missingRoles[0] === 'tension_or_contrast') {
+    for (const proposition of dossier.propositions) {
+      if (proposition.role !== 'distinctive_trait') continue;
+      const secondaryContrast = proposition.secondaryContrast;
+      if (secondaryContrast === null || secondaryContrast === undefined) continue;
+      const propositionPassageIds = new Set(proposition.passageIds);
+      const propositionSourceIds = new Set(proposition.sourceIds);
+      const relevantQuotes = dossier.passages
+        .filter((passage) => propositionPassageIds.has(passage.passageId) && propositionSourceIds.has(passage.sourceId))
+        .map((passage) => passage.quote);
+      if (validatesSecondaryContrastV8({
+        text: proposition.text,
+        role: proposition.role,
+        interpretation: proposition.interpretation,
+        coverage: secondaryContrast,
+        quotes: relevantQuotes,
+      })) {
+        covered.add('tension_or_contrast');
+        break;
+      }
+    }
+  }
   const missingMinimumRoles = [
     ...(['visible_observation', 'chronology_or_transformation'] as NarrativeRoleV8[])
       .filter((role) => !covered.has(role)),
@@ -577,6 +622,9 @@ export function normalizeNarrativeCuratorOutputV8(
       sourceId: support.sourceId,
       evidenceSpanIds: [...support.evidenceSpanIds],
     })),
+    ...(proposition.secondaryContrast !== null && proposition.secondaryContrast !== undefined
+      ? { secondaryContrast: structuredClone(proposition.secondaryContrast) }
+      : {}),
   }));
 
   let splitSupportCount = 0;
@@ -764,6 +812,30 @@ export function normalizeNarrativeCuratorOutputV8(
       removedAuthorizedNumbers: removedNumbers,
     },
   };
+}
+
+export function finalizeNarrativeDossierV8(
+  dossier: NarrativeDossierV6,
+  captures: NarrativeCapturedSourceV8[]
+): NarrativeDossierV6 {
+  const selectedSourceIds = new Set(dossier.sources.map(source => source.sourceId));
+  const selected = captures.filter(c => selectedSourceIds.has(c.sourceId));
+  if (!selected.some(c => c.referenceProvenance)) return dossier;
+  const captureById = new Map(captures.map((capture) => [capture.sourceId, capture]));
+  const independentPublisherCount = independentReferencePublisherCountV8(selected);
+  const decoratedSources = dossier.sources.map(source => {
+    if (!selectedSourceIds.has(source.sourceId)) return source;
+    const provenance = captureById.get(source.sourceId)?.referenceProvenance;
+    return provenance ? { ...source, referenceProvenance: provenance } : source;
+  });
+  const decoratedSufficiency = {
+    ...dossier.sufficiency,
+    independentPublisherCount,
+    isSufficient: dossier.sufficiency.isSufficient && independentPublisherCount >= 2,
+  };
+  const decorated = { ...dossier, sources: decoratedSources, sufficiency: decoratedSufficiency };
+  const { fingerprint: _previous, ...body } = decorated;
+  return { ...decorated, fingerprint: narrativeFingerprintV6(body) };
 }
 
 export function classifyEvidenceTierV8(

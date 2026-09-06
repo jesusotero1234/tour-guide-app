@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "repository": "/home/jesusotero/coding/tour-guide-app",
+  "archive": "/home/jesusotero/coding/tour-guide-app-archive/backend-history-20260906-2",
+  "entries": [
+    {
+      "source": "backend/malaga-canary.log",
+      "destination": "backend/malaga-canary.log",
+      "sha256": "43db5566e9a1b34483a54bd9db22e6cde1bdd581483b7e40244c1d4664549c24",
+      "files": 1,
+      "bytes": 1814
+    },
+    {
+      "source": "backend/malaga-canary-maxlag-fix.log",
+      "destination": "backend/malaga-canary-maxlag-fix.log",
+      "sha256": "3b1912e673614b482c1382b8741720e10ecc1416fc32ceb179076ac63b67d8bc",
+      "files": 1,
+      "bytes": 1095
+    },
+    {
+      "source": "backend/malaga-quick-tour.log",
+      "destination": "backend/malaga-quick-tour.log",
+      "sha256": "f22ea5555ba2188647e4f703c3150ece7f84ba729896e9c8d4154306b53f0094",
+      "files": 1,
+      "bytes": 5201
+    },
+    {
+      "source": "backend/malaga-user-canary-openrouter.log",
+      "destination": "backend/malaga-user-canary-openrouter.log",
+      "sha256": "9f3e862d0abe315b104399bb79868742653228b639c443ec04d96dbc5467efc5",
+      "files": 1,
+      "bytes": 10442
+    },
+    {
+      "source": "backend/malaga-v8-live1.log",
+      "destination": "backend/malaga-v8-live1.log",
+      "sha256": "9e3d3e75fee59bfc50c94bf4b65798a8726879e0389f30d3da085c46c90e95b8",
+      "files": 1,
+      "bytes": 622
+    },
+    {
+      "source": "backend/malaga-v8-live2.log",
+      "destination": "backend/malaga-v8-live2.log",
+      "sha256": "371fcce1d8721a6e51d73ba94c0c13fa741c310b916996d277355a2e537773c5",
+      "files": 1,
+      "bytes": 423
+    },
+    {
+      "source": "backend/malaga-v8-replay.log",
+      "destination": "backend/malaga-v8-replay.log",
+      "sha256": "b114d98a269f1c43bf78d3ec9e260836bfebabf921186d3fcaa6e6c03ca0a4d9",
+      "files": 1,
+      "bytes": 667
+    },
+    {
+      "source": "backend/malaga-v8-replay2.log",
+      "destination": "backend/malaga-v8-replay2.log",
+      "sha256": "b114d98a269f1c43bf78d3ec9e260836bfebabf921186d3fcaa6e6c03ca0a4d9",
+      "files": 1,
+      "bytes": 667
+    },
+    {
+      "source": "backend/malaga-v8-replay3.log",
+      "destination": "backend/malaga-v8-replay3.log",
+      "sha256": "097a5ed67a76ab7375151c0dab20494ee6904bdfebd05aa82ec12d17d5a8dd7a",
+      "files": 1,
+      "bytes": 638
+    },
+    {
+      "source": "backend/malaga-v8-replay4.log",
+      "destination": "backend/malaga-v8-replay4.log",
+      "sha256": "53c8a41d3f7107a4ec5461ace808facc3a8c46a396d60d1260f14ddc4f0810dd",
+      "files": 1,
+      "bytes": 687
+    },
+    {
+      "source": "backend/malaga-v8-replay5.log",
+      "destination": "backend/malaga-v8-replay5.log",
+      "sha256": "216b04ee313bfb023b3765178580dbb96c2e4254fc1fd276449546702188b668",
+      "files": 1,
+      "bytes": 37
+    },
+    {
+      "source": "backend/malaga-v8-replay7.log",
+      "destination": "backend/malaga-v8-replay7.log",
+      "sha256": "054310151aab6f550bb56721305ec3bac51af39375d5709b283e93f44e70dba7",
+      "files": 1,
+      "bytes": 1572
+    },
+    {
+      "source": "backend/malaga-v8-replay8.log",
+      "destination": "backend/malaga-v8-replay8.log",
+      "sha256": "daa851ac2d944a3bee894740b0b72907565a0cc8a294eabb6d94905c25550076",
+      "files": 1,
+      "bytes": 1781
+    },
+    {
+      "source": "backend/malaga-v8-replay9.log",
+      "destination": "backend/malaga-v8-replay9.log",
+      "sha256": "36e8f902b7114e24d2bba35d1f9e9ad2ed77691586c0278fb8f2209e79a1ad3e",
+      "files": 1,
+      "bytes": 300
+    },
+    {
+      "source": "backend/malaga-v8-replay10.log",
+      "destination": "backend/malaga-v8-replay10.log",
+      "sha256": "17955791f925462e33c2c8717692e671e75751bae7b60dcadc886285c052ad88",
+      "files": 1,
+      "bytes": 321
+    },
+    {
+      "source": "backend/malaga-v8-replay11.log",
+      "destination": "backend/malaga-v8-replay11.log",
+      "sha256": "36e8f902b7114e24d2bba35d1f9e9ad2ed77691586c0278fb8f2209e79a1ad3e",
+      "files": 1,
+      "bytes": 300
+    },
+    {
+      "source": "backend/tmp/review-bundles",
+      "destination": "backend/tmp/review-bundles",
+      "sha256": "656091c0e8cfe9a7bed3061320e1f961fb62f6de8dbce12c0683b21eb19113a3",
+      "files": 38,
+      "bytes": 623041
+    },
+    {
+      "source": "backend/tmp/diagnostic-bundles",
+      "destination": "backend/tmp/diagnostic-bundles",
+      "sha256": "21ed3ab2b7556e1ed281e6b73e984aeb1bd08e8688f7f1434ca33c28a2dbef68",
+      "files": 40,
+      "bytes": 7914760
+    },
+    {
+      "source": "backend/tmp/pro-packages",
+      "destination": "backend/tmp/pro-packages",
+      "sha256": "5bc8d8b43fc8cc793024de4c86087419e0b950f3cbedfa2d0eeb61718ad3c7c1",
+      "files": 432,
+      "bytes": 15568692
+    },
+    {
+      "source": "backend/tmp/madrid-v8-pro-forensic-20260903-31",
+      "destination": "backend/tmp/madrid-v8-pro-forensic-20260903-31",
+      "sha256": "694651113a57b6615815b93bdfb26be513b9656ffdbdfbdf0c3c3d4f602128d1",
+      "files": 299,
+      "bytes": 30966431
+    },
+    {
+      "source": "backend/tmp/madrid-v8-immersive-pro-review-20260902",
+      "destination": "backend/tmp/madrid-v8-immersive-pro-review-20260902",
+      "sha256": "7093f15a44e6075de88b9cb30e8a8729d9b22f1c19d0d2da2d89a55416e48534",
+      "files": 40,
+      "bytes": 1313056
+    },
+    {
+      "source": "backend/tmp/madrid-v8-pro-forensic-20260903-31.zip",
+      "destination": "backend/tmp/madrid-v8-pro-forensic-20260903-31.zip",
+      "sha256": "3ea20c5347af4cab7155921cb8178b44d292146332449638bd9bef9b10f2dc7e",
+      "files": 1,
+      "bytes": 4870327
+    },
+    {
+      "source": "backend/tmp/madrid-v8-immersive-pro-review-20260902.zip",
+      "destination": "backend/tmp/madrid-v8-immersive-pro-review-20260902.zip",
+      "sha256": "264c86be28445bb4d92843987b3fecdefac88d12209025f3ad4a1f286dab01ba",
+      "files": 1,
+      "bytes": 292318
+    },
+    {
+      "source": "backend/tmp/narrative-audit-calibration-v8",
+      "destination": "backend/tmp/narrative-audit-calibration-v8",
+      "sha256": "5ee104e62b4e99dd684935a753c23f7dc9c8478e198881839310667c04f4536e",
+      "files": 103,
+      "bytes": 2242578
+    },
+    {
+      "source": "backend/tmp/narrative-editorial-first-v8",
+      "destination": "backend/tmp/narrative-editorial-first-v8",
+      "sha256": "7c2649f9bc7ce3aee375b6823af87cc7a4964f8c2f37e0daf516496e40e6e0c1",
+      "files": 8,
+      "bytes": 44610
+    },
+    {
+      "source": "backend/tmp/narrative-editorial-local-pilot-v8",
+      "destination": "backend/tmp/narrative-editorial-local-pilot-v8",
+      "sha256": "51659006cc0fc428dbd9f76adb4524c56731803bfb38a0a1fbb1a39cce886ac2",
+      "files": 6,
+      "bytes": 245509
+    },
+    {
+      "source": "backend/tmp/narrative-local-repair-replay-v8",
+      "destination": "backend/tmp/narrative-local-repair-replay-v8",
+      "sha256": "1620d40b318e6db7a58fe798723aef5d0dace7d2aae4484fa4f1e678231816b9",
+      "files": 6,
+      "bytes": 219471
+    },
+    {
+      "source": "backend/tmp/narrative-oneshot-ab",
+      "destination": "backend/tmp/narrative-oneshot-ab",
+      "sha256": "c0571ec0d70888cfd4b3b4980cf8557edeba44c2b9dec0cdcee8b82d6dcf51f7",
+      "files": 14,
+      "bytes": 58612
+    },
+    {
+      "source": "backend/tmp/narrative-oneshot-experiment-v8",
+      "destination": "backend/tmp/narrative-oneshot-experiment-v8",
+      "sha256": "76c74d5d2f93d7eb5e9b134123fc3708537dce3cb186b7e910220dd65388d9ff",
+      "files": 53,
+      "bytes": 2658058
+    },
+    {
+      "source": "backend/tmp/narrative-writer-benchmark-v8",
+      "destination": "backend/tmp/narrative-writer-benchmark-v8",
+      "sha256": "6e4df1362a1e0b7eeb2de07bf79d16997a5229d332a1fe541e7d06b616abac20",
+      "files": 41,
+      "bytes": 907859
+    },
+    {
+      "source": "backend/tmp/narrative-writer-briefing-pilot-v8",
+      "destination": "backend/tmp/narrative-writer-briefing-pilot-v8",
+      "sha256": "426d8cd8fd4f7f9e7251f6442dae221b3237415227cd4348cc9459112b3ed68b",
+      "files": 120,
+      "bytes": 3526288
+    }
+  ]
+}

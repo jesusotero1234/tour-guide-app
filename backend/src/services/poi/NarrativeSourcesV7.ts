@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { NarrativeReferenceProvenanceV8 } from './NarrativeReferencesV8';
 import { createHash } from 'crypto';
 import { lookup as dnsLookup } from 'dns/promises';
 import { isIP } from 'net';
@@ -80,6 +81,7 @@ export interface NarrativeCapturedSourceV8 extends NarrativeCapturedSourceV7 {
   entityQid: string | null;
   publisherKey: string;
   historicalCorpus?: NarrativeHistoricalProvenanceV8;
+  referenceProvenance?: NarrativeReferenceProvenanceV8;
 }
 
 export function classifyWikipediaCaptureV8(input: {
@@ -200,6 +202,8 @@ export interface NarrativeDiscoveryProviderV7 {
 export interface NarrativeFirecrawlCaptureOptionsV7 {
   timeoutMs?: number;
   maxAttempts?: number;
+  signal?: AbortSignal;
+  referenceLimits?: { maxPages: number; maxTextBytes: number };
 }
 
 export interface NarrativeCaptureProviderV7 {
@@ -251,6 +255,7 @@ const defaultPost: NarrativeSourcePostV6 = async (url, body, headers, options) =
   const response = await axios.post(url, body, {
     headers: { ...narrativeHttpHeadersV8(), ...(headers ?? {}) },
     timeout: options?.timeoutMs ?? 60_000,
+    signal: options?.signal,
     maxRedirects: 0,
   });
   return { data: response.data };
@@ -385,6 +390,15 @@ function isSelfHostedSearxngHost(hostname: string): boolean {
   return !hostname.includes('.');
 }
 
+export function assertSelfHostedSearxngUrlV7(raw: string): string {
+  const url = new URL(raw);
+  const hostname = url.hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || !isSelfHostedSearxngHost(hostname)) {
+    throw new Error('SearXNG must be self-hosted; public instances are not allowed');
+  }
+  return hostname;
+}
+
 export class SearxngNarrativeDiscoveryProviderV7 implements NarrativeDiscoveryProviderV7 {
   private readonly baseUrl: string;
   private readonly hostname: string;
@@ -406,10 +420,7 @@ export class SearxngNarrativeDiscoveryProviderV7 implements NarrativeDiscoveryPr
     this.lookup = options.lookup ?? defaultLookup;
     this.now = options.now ?? (() => new Date());
     this.wait = options.wait ?? defaultWait;
-    const hostname = new URL(this.baseUrl).hostname.toLowerCase().replace(/^\[|\]$/g, '');
-    if (!isSelfHostedSearxngHost(hostname)) {
-      throw new Error('SearXNG must be self-hosted; public instances are not allowed');
-    }
+    const hostname = assertSelfHostedSearxngUrlV7(this.baseUrl);
     this.hostname = hostname;
     this.throttle = createHostnameThrottleV7({ now: this.now, wait: this.wait });
   }
@@ -570,7 +581,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     for (let retry = 1; retry <= maxAttempts; retry += 1) {
       const startedAt = this.now().getTime();
       try {
-        return await this.post(`${this.baseUrl}${path}`, body, this.headers(), { timeoutMs: options?.timeoutMs });
+        return await this.post(`${this.baseUrl}${path}`, body, this.headers(), { timeoutMs: options?.timeoutMs, ...(options?.signal ? { signal: options.signal } : {}) });
       } catch (error) {
         const { classification, status } = classifyNarrativeHttpFailureV7(error);
         if (classification === 'quota') {
@@ -684,6 +695,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
       url: requested.toString(),
       formats: ['markdown'],
       onlyMainContent: true,
+      ...(options?.referenceLimits ? { timeout: options.timeoutMs ?? 20_000 } : {}),
     }, options);
     const root = objectValue(response.data, 'Firecrawl capture response');
     if (root.success !== true) throw new Error('Firecrawl capture was not successful');
@@ -707,6 +719,19 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     const finalUrl = await assertSafeNarrativeUrlV6(finalRaw, this.lookup);
     finalUrl.hash = '';
     const content = data.markdown.trim();
+    if (options?.referenceLimits) {
+      if (Buffer.byteLength(content, 'utf8') > options.referenceLimits.maxTextBytes) {
+        throw new Error('reference_text_size_exceeded');
+      }
+      // Do not pass maxPages: v2.8 reports the capped count even when its local
+      // parser reads the whole PDF. Check the real count and reject large PDFs.
+      const pages = metadata.numPages;
+      const isPdf = /\.pdf$/iu.test(requested.pathname) || /\.pdf$/iu.test(finalUrl.pathname)
+        || pages !== undefined || /pdf/iu.test(String(metadata.contentType ?? ''));
+      if (isPdf && (typeof pages !== 'number' || !Number.isInteger(pages) || pages < 1 || pages > options.referenceLimits.maxPages)) {
+        throw new Error('reference_pdf_page_limit_or_unknown');
+      }
+    }
     const sourceFingerprint = fingerprint(finalUrl.toString(), content);
     return {
       sourceId: `source-${sourceFingerprint.slice(0, 16)}`,

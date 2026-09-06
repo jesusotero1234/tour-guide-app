@@ -1,0 +1,17 @@
+{
+  "name": "Guía español — voz A",
+  "reference": "guide-es-a.wav",
+  "referenceText": "Bienvenidos. Soy su guía local para este recorrido; hablaré con claridad, calma y un ritmo constante.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {
+    "1248": "mil doscientos cuarenta y ocho",
+    "1249": "mil doscientos cuarenta y nueve",
+    "siglo XI": "siglo once",
+    "siglo XIV": "siglo catorce",
+    "Alfonso X": "Alfonso décimo",
+    "Pedro I": "Pedro primero"
+  }
+}

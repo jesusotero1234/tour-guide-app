@@ -9,6 +9,12 @@ describe('durable tour evidence', () => {
     expect(s.checkpoint.research.every(r => r.result.captureLog.length === 0)).toBe(true);
     expect(s.checkpoint.research[0].result).toHaveProperty('dossier.sources.0.sourceLanguage', 'es');
   });
+  it('preserves referenceProvenance through snapshot serialization', () => {
+    const s = blueprintFixture();
+    const roundtripped = parseTourBlueprintSnapshot(JSON.parse(JSON.stringify(s)));
+    expect(roundtripped.checkpoint.research[0].result.captures[0]).toHaveProperty('referenceProvenance');
+    expect(roundtripped.checkpoint.research[0].result.captures[0].referenceProvenance).toEqual(s.checkpoint.research[0].result.captures[0].referenceProvenance);
+  });
   it('rejects tampering even when only the outer digest is recomputed', () => {
     const s: any = blueprintFixture();
     s.checkpoint.research[0].result.dossier.passages[0].quote = 'Invented history';

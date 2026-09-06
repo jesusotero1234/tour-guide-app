@@ -8,6 +8,7 @@ export type { TourListParams } from '@/types/api';
 
 export type ApiRequestError = Error & {
   status?: number;
+  retryAfterMs?: number;
   code?: string;
   details?: unknown;
 };
@@ -310,6 +311,12 @@ export async function getGenerationJob(id: string): Promise<GenerationJob> {
   if (!response.ok) {
     const error = createApiRequestError(data, 'Failed to load generation progress');
     error.status = response.status;
+    const retryAfter = response.headers.get('retry-after')?.trim();
+    if (retryAfter) {
+      const delay = /^\d+$/.test(retryAfter) ? Number(retryAfter) * 1000
+        : /[a-z]/i.test(retryAfter) ? Date.parse(retryAfter) - Date.now() : NaN;
+      if (Number.isFinite(delay)) error.retryAfterMs = Math.max(0, delay);
+    }
     throw error;
   }
   return data as GenerationJob;

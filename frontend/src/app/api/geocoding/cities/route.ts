@@ -6,6 +6,8 @@ interface NominatimResult {
   lon: string;
   display_name: string;
   addresstype: string;
+  osm_type: 'node' | 'way' | 'relation';
+  osm_id: number;
   address: {
     city?: string;
     town?: string;
@@ -45,12 +47,24 @@ export async function GET(request: NextRequest) {
 
   const results = (await response.json()) as NominatimResult[];
   const cities = results
-    .filter((result) =>
-      ['city', 'town', 'village'].includes(result.addresstype) ||
-      result.address.city ||
-      result.address.town ||
-      result.address.village
-    )
+    .filter((result) => {
+      const validAddresstype = ['city', 'town', 'village'].includes(result.addresstype);
+      const validOsmType = ['node', 'way', 'relation'].includes(result.osm_type);
+      const validOsmId = Number.isSafeInteger(result.osm_id) && result.osm_id > 0;
+      const lat = Number(result.lat);
+      const lng = Number(result.lon);
+      const validCoords =
+        typeof result.lat === 'string' && result.lat.trim() !== '' &&
+        typeof result.lon === 'string' && result.lon.trim() !== '' &&
+        Number.isFinite(lat) &&
+        Number.isFinite(lng) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lng >= -180 &&
+        lng <= 180;
+
+      return validAddresstype && validOsmType && validOsmId && validCoords;
+    })
     .map((result) => {
       const cityName = result.address.city || result.address.town || result.address.village;
 
@@ -59,8 +73,13 @@ export async function GET(request: NextRequest) {
         country: result.address.country || '',
         countryCode: result.address.country_code?.toUpperCase() || '',
         coordinates: {
-          lat: parseFloat(result.lat),
-          lng: parseFloat(result.lon),
+          lat: Number(result.lat),
+          lng: Number(result.lon),
+        },
+        source: {
+          provider: 'nominatim',
+          osmType: result.osm_type,
+          osmId: result.osm_id,
         },
       };
     })
