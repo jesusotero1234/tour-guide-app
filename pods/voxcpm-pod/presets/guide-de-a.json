@@ -1,0 +1,11 @@
+{
+  "name": "Guía alemán — voz A",
+  "language": "de",
+  "reference": "guide-de-a.wav",
+  "referenceText": "Willkommen. Ich begleite Sie als lokaler Guide mit klarer, ruhiger und gleichmäßiger Stimme.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {}
+}

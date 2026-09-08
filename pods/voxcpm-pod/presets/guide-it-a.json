@@ -1,0 +1,11 @@
+{
+  "name": "Guía italiano — voz A",
+  "language": "it",
+  "reference": "guide-it-a.wav",
+  "referenceText": "Benvenuti. Sarò la vostra guida locale con una voce chiara, calma e dal ritmo costante.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {}
+}

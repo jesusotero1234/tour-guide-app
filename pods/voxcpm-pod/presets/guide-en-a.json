@@ -1,0 +1,11 @@
+{
+  "name": "Guía inglés — voz A",
+  "language": "en",
+  "reference": "guide-en-a.wav",
+  "referenceText": "Welcome. I will be your local guide for this tour, speaking clearly, calmly, and at a steady pace.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {}
+}
