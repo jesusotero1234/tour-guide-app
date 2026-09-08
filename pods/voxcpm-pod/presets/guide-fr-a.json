@@ -1,0 +1,11 @@
+{
+  "name": "Guía francés — voz A",
+  "language": "fr",
+  "reference": "guide-fr-a.wav",
+  "referenceText": "Bonjour et bienvenue. Prenons le temps de regarder cette façade. La lumière révèle les détails de la pierre, tandis que la ville s'éveille autour de nous.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {}
+}
