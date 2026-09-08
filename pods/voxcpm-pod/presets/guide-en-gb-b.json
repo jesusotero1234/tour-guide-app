@@ -1,0 +1,11 @@
+{
+  "name": "Guía inglés británico — voz B",
+  "language": "en",
+  "reference": "guide-en-gb-b.wav",
+  "referenceText": "Hello, it's lovely to have you with us. We'll start in the square, take a look at the old market, and then carry on towards the gardens.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {}
+}

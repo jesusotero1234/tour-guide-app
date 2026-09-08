@@ -20,7 +20,7 @@ Las referencias deben ser independientes y estar habladas en el idioma de destin
 - Español: preset existente `guide-es-a`.
 - Francés: variante A elegida por Jesús, conservada como `guide-fr-a`.
 - Inglés, alemán e italiano: muestras aprobadas conservadas como `guide-en-a`, `guide-de-a` y `guide-it-a`.
-- Inglés británico: candidato nuevo, pendiente de elección auditiva; no sustituye todavía al inglés aprobado.
+- Inglés británico: el primer candidato fue rechazado por su timbre ronco. De las cinco alternativas siguientes, Jesús eligió el timbre de la B, conservado como `guide-en-gb-b`. Está pendiente ajustar la reverberación que percibe; las pruebas B1/B2 no reemplazan automáticamente esa referencia.
 
 Los presets permanentes están en `pods/voxcpm-pod/presets/`. Cada uno conserva su audio de referencia, transcripción y parámetros. El candidato británico está en `backend/tmp/audio-pilot-british-english-20260908/`: usa una referencia sintética creada con instrucciones explícitas de acento británico, no una grabación española. La muestra de Plaza Mayor dura 80,418 segundos. Se verificaron el archivo, su referencia, la identidad del texto respecto al inglés anterior y el idioma mediante transcripción automática; esa comprobación no certifica el acento.
 
@@ -37,6 +37,14 @@ Pendientes antes de producir el catálogo:
 5. Validar Madrid completo en los cinco idiomas: bienvenida una vez, misma voz durante cada versión, pronunciación de nombres, transiciones, cierre y reproducción. Probar una parada voluntaria al final de la ciudad y un corte inesperado con reanudación.
 
 El estado duradero debe identificar ciudad, idioma y bloque completado, junto con la identidad de sus entradas. No se deben reutilizar audios cuando cambien el texto o la referencia. Sólo una ciudad con sus cinco versiones completas cuenta como terminada.
+
+## Prioridad de presupuesto tras las pruebas
+
+Jesús indicó que no dispone del presupuesto propuesto para OpenRouter. Se prioriza un piloto con la suscripción de Codex ya disponible, Qwen local y audio local, sin gasto adicional de API. Las cifras de OpenRouter de abajo se conservan como comparación hipotética, no como gasto comprometido. Si se agota la cuota incluida, la propuesta es esperar al reinicio y reanudar; nunca pasar automáticamente a una API de pago.
+
+Se compararon GPT-5.3-Codex-Spark mediante Codex y Qwen local con el mismo dossier, una narración española, una francesa y un texto de control con errores. Ambos detectaron los errores de control. Spark mezcló español en la narración francesa; Qwen incumplió el mínimo de palabras e introdujo algunas precisiones sin respaldo. Ninguno queda aprobado para publicar sin revisión. Las muestras y evaluación están en `backend/tmp/model-comparison-spark-qwen-20260908/comparison.md`. Estos ensayos no cambian los proveedores configurados ni demuestran que la cuota alcance para el catálogo completo.
+
+También se generó la primera parada completa en francés con un audio aportado por Jesús, únicamente como experimento, en `backend/tmp/audio-pilot-french-user-reference-20260908/`. La referencia francesa A permanece elegida.
 
 ## Estimación de textos mediante OpenRouter
 
