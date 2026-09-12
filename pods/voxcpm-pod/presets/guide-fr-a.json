@@ -1,11 +1,14 @@
 {
-  "name": "Guía francés — voz A",
+  "name": "Guía francés — voz recuperada",
   "language": "fr",
-  "reference": "guide-fr-a.wav",
-  "referenceText": "Bonjour et bienvenue. Prenons le temps de regarder cette façade. La lumière révèle les détails de la pierre, tandis que la ville s'éveille autour de nous.",
+  "reference": "guide-fr-recovered.wav",
+  "referenceText": "La vie quotidienne et des événements qu'on imagine difficilement ensemble ont partagé ce même espace. Comment un seul lieu peut-il accueillir des usages aussi différents ?",
   "seed": 42,
   "paragraphPauseMs": 750,
   "sentencePauseMs": 220,
   "singleNewlineParagraphs": true,
-  "textReplacements": {}
+  "textReplacements": {},
+  "speed": 0.9,
+  "modelId": "openbmb/VoxCPM2",
+  "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d"
 }

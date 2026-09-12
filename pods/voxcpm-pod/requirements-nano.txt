@@ -1,0 +1,3 @@
+# Install with the CUDA-compatible torch and FlashAttention build for the host GPU.
+nano-vllm-voxcpm==2.0.4
+av==17.1.0

@@ -64,11 +64,11 @@ export class TourAudioService {
     if (!['es', 'fr'].includes(tour.language)) {
       throw new TourAudioError('AUDIO_LANGUAGE_UNSUPPORTED', 'Audio is available for Spanish and French tours.', 422);
     }
-    const presetPath = resolve(process.env.VOXCPM_PRESET_PATH || join(tourProjectRoot(), 'pods/voxcpm-pod/presets/guide-es-a.json'));
+    const presetPath = resolve(process.env.VOXCPM_PRESET_PATH || join(tourProjectRoot(), `pods/voxcpm-pod/presets/guide-${tour.language}-a.json`));
     const presetBytes = await readFile(presetPath);
     const preset = JSON.parse(presetBytes.toString('utf8')) as { reference: string };
     const reference = await readFile(resolve(dirname(presetPath), preset.reference));
-    const rendererKey = hash('voxcpm2-voice-a-chunked-v1:' + hash(presetBytes) + hash(reference));
+    const rendererKey = hash('nano-vllm-voxcpm-2.0.4-tempo-v1:' + hash(presetBytes) + hash(reference));
     const stops = tour.places.map(place => ({ id: place.id, text: place.description.trim() }));
     if (!stops.length || stops.length > 40 || stops.some(stop => !stop.text || stop.text.length > 50000)) {
       throw new TourAudioError('NARRATION_NOT_READY', 'Every stop needs a complete narration before adding audio.', 422);

@@ -120,3 +120,6 @@ backend/fixtures/narrative-madrid-v5/diagnostics/
 /pods/historical-corpus-pod/**/*.private.jsonl
 /pods/historical-corpus-pod/**/*.pdf
 !/pods/historical-corpus-pod/tests/fixtures/**/*.pdf
+
+/pods/voxcpm-pod/.nano-deps/
+!pods/voxcpm-pod/presets/guide-fr-recovered.wav

@@ -25,6 +25,11 @@ def prepare_input(input_path: Path, preset_path: Path) -> dict:
     preset = json.loads(preset_path.read_text(encoding="utf-8"))
     if not isinstance(preset, dict):
         raise ValueError("Invalid voice preset")
+    speed = preset.get("speed", 1.0)
+    if isinstance(speed, bool) or not isinstance(speed, (int, float)) or not 0.5 <= speed <= 2.0:
+        raise ValueError("Invalid preset speed")
+    if preset.get("language", data["language"]) != data["language"]:
+        raise ValueError("Voice preset language does not match tour")
     for key, maximum in (("seed", 2**32 - 1), ("paragraphPauseMs", 5000), ("sentencePauseMs", 5000)):
         if type(preset.get(key)) is not int or not 0 <= preset[key] <= maximum:
             raise ValueError(f"Invalid preset {key}")

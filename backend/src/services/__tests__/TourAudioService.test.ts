@@ -71,6 +71,16 @@ describe('post-tour audio lifecycle', () => {
     expect(render).toHaveBeenCalledTimes(1);
   }
 
+  it('selects the French reference by default instead of the Spanish voice', async () => {
+    delete process.env.VOXCPM_PRESET_PATH;
+    tour.language = 'fr';
+    await service.create(tourId);
+    await started();
+    expect(render.mock.calls[0][0].language).toBe('fr');
+    release();
+    expect((await until('completed')).status).toBe('completed');
+  });
+
   it('generates only after explicit POST, deduplicates requests, and publishes after restoration', async () => {
     expect((await service.get(tourId)).status).toBe('idle');
     expect(render).not.toHaveBeenCalled();

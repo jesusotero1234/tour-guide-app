@@ -24,8 +24,12 @@ def main():
         progress.update(fields)
         write_progress(args.progress, progress)
 
+    model = None
     try:
-        prepared = prepare_input(args.input, Path(os.environ.get("VOXCPM_PRESET_PATH", POD / "presets/guide-es-a.json")))
+        language = json.loads(args.input.read_text()).get("language")
+        if language not in ("es", "fr"):
+            raise ValueError("Audio language must be es or fr")
+        prepared = prepare_input(args.input, Path(os.environ.get("VOXCPM_PRESET_PATH", POD / f"presets/guide-{language}-a.json")))
         preset, reference, stops = prepared["preset"], prepared["reference"], prepared["stops"]
         update(totalStops=len(stops), stopPlans=[
             {"id": stop["id"], "chunkCount": len(stop["chunks"]),
@@ -43,11 +47,14 @@ def main():
         import soundfile as sf
         import torch
         from huggingface_hub import snapshot_download
-        from voxcpm import VoxCPM
+        from services.nano import VoxCPM, change_tempo
         from services.voxcpm import join_audio_chunks, normalize_audio
 
+        revision = preset.get("modelRevision", "bffb3df5a29440629464e5e839f4d214c8714c3d")
         model_path = Path(os.environ.get("VOXCPM_MODEL_PATH") or snapshot_download(
-            "openbmb/VoxCPM2", local_files_only=True))
+            "openbmb/VoxCPM2", revision=revision, local_files_only=True)).resolve()
+        if model_path.name != revision or model_path.parent.name != "snapshots":
+            raise ValueError("Model path must identify the pinned snapshot")
         if json.loads((model_path / "config.json").read_text()).get("architecture") != "voxcpm2":
             raise ValueError("Expected a VoxCPM2 checkpoint")
         if not torch.cuda.is_available():
@@ -74,7 +81,7 @@ def main():
                     raise RuntimeError("A narration chunk is empty, invalid or silent")
                 generated.append((samples, chunk))
                 update(completedChunks=index + 1)
-            audio = normalize_audio(join_audio_chunks(generated, sample_rate))
+            audio = normalize_audio(change_tempo(join_audio_chunks(generated, sample_rate), sample_rate, preset.get("speed", 1.0)))
             filename = stop["id"] + ".mp3"
             target = args.output / filename
             temporary = target.with_suffix(".tmp")
@@ -90,6 +97,10 @@ def main():
         update(phase="failed", error=str(error))
         print(str(error), file=sys.stderr, flush=True)
         return 1
+
+    finally:
+        if model is not None:
+            model.close()
 
 
 if __name__ == "__main__":
