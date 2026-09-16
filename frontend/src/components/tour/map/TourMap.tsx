@@ -6,8 +6,9 @@ import { getWalkingRoute } from '@/lib/api';
 import { WalkingRoute } from '@/types/api';
 import { createNumberedMarkerIcon } from './markerIcons';
 import { TourMapStop } from './types';
+import { listeningCopy } from '../listeningCopy';
 
-const DEFAULT_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const DEFAULT_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const DEFAULT_TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const tileUrl = process.env.NEXT_PUBLIC_TILE_URL || DEFAULT_TILE_URL;
@@ -15,6 +16,8 @@ const tileAttribution = process.env.NEXT_PUBLIC_TILE_ATTRIBUTION || DEFAULT_TILE
 
 interface TourMapProps {
   tourId: string;
+  compact?: boolean;
+  language?: string;
   stops: TourMapStop[];
   currentIndex: number;
   onStopSelect: (index: number) => void;
@@ -32,7 +35,8 @@ function formatWalkingDistance(meters: number): string {
     : `${(meters / 1000).toFixed(1)} km`;
 }
 
-export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocation }: TourMapProps) {
+export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocation, compact = false, language = 'en' }: TourMapProps) {
+  const t = listeningCopy(language);
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.Marker[]>([]);
@@ -111,7 +115,9 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
       center,
       zoom: 14,
       scrollWheelZoom: true,
-      touchZoom: false,
+      touchZoom: true,
+      // Avoid Leaflet's delayed zoom callback firing after the compact view closes.
+      zoomAnimation: !compact,
     });
     mapRef.current = map;
 
@@ -126,7 +132,7 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
       polylineRef.current = null;
       userMarkerRef.current = null;
     };
-  }, [center, validStops.length]);
+  }, [center, validStops.length, compact]);
 
   // The real geometry drives the bounds when available; stops remain visible
   // during loading and provider failures.
@@ -137,9 +143,17 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
     const visiblePoints = streetRoute.length > 1
       ? [...streetRoute, ...stopPoints]
       : stopPoints;
-    const bounds = L.latLngBounds(userPoint ? [...visiblePoints, userPoint] : visiblePoints);
-    map.fitBounds(bounds, { padding: [24, 24], maxZoom: 16 });
-  }, [stopPoints, streetRoute, userPoint]);
+    const bounds = L.latLngBounds(visiblePoints);
+    const fit = () => {
+      map.invalidateSize({ pan: false });
+      map.fitBounds(bounds, { padding: [24, 24], maxZoom: 16, animate: false });
+    };
+    fit();
+    // Permission/status messages and device rotation change the available map height.
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(fit);
+    observer?.observe(map.getContainer());
+    return () => observer?.disconnect();
+  }, [stopPoints, streetRoute]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -160,7 +174,10 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
       }).addTo(map);
     }
 
-    validStops.forEach((stop, index) => {
+    validStops.forEach((stop) => {
+      const index = stops.indexOf(stop);
+      const tooltip = document.createElement('span');
+      tooltip.textContent = stop.name;
       const marker = L.marker([stop.latitude, stop.longitude], {
         icon: createNumberedMarkerIcon(
           index + 1,
@@ -168,7 +185,7 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
         ),
       })
         .addTo(map)
-        .bindTooltip(stop.name, { direction: 'top' })
+        .bindTooltip(tooltip, { direction: 'top' })
         .on('click', () => onStopSelect(index));
 
       markersRef.current.push(marker);
@@ -189,26 +206,26 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
         }),
       })
         .addTo(map)
-        .bindTooltip('Your location', { direction: 'top' });
+        .bindTooltip(t.yourLocation, { direction: 'top' });
     }
-  }, [validStops, streetRoute, currentIndex, onStopSelect, userPoint]);
+  }, [validStops, stops, streetRoute, currentIndex, onStopSelect, userPoint, t.yourLocation]);
 
   if (validStops.length === 0) {
     return (
       <div className="flex h-[38vh] min-h-72 items-center justify-center rounded-2xl border border-darkBrown/12 bg-surface-elevated text-darkBrown/70 shadow-sm lg:h-[50vh]">
-        Map unavailable for this tour.
+        {t.noMap}
       </div>
     );
   }
 
   return (
-    <div aria-busy={routeStatus === 'loading'}>
-      <div className="relative">
+    <div className={compact ? 'tour-map-compact' : undefined} aria-busy={routeStatus === 'loading'}>
+      <div className="relative map-frame">
         <div
           ref={containerRef}
           role="region"
-          aria-label="Walking tour map"
-          className="h-[38vh] min-h-72 overflow-hidden rounded-2xl border border-darkBrown/12 shadow-sm lg:h-[70vh]"
+          aria-label={t.mapLabel}
+          className="map-canvas h-[38vh] min-h-72 overflow-hidden rounded-2xl border border-darkBrown/12 shadow-sm lg:h-[70vh]"
         />
         {userPoint && (
           <button
@@ -217,22 +234,22 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
               const map = mapRef.current as (L.Map & { setView?: (center: [number, number], zoom?: number) => void }) | null;
               map?.setView?.(userPoint, 16);
             }}
-            className="absolute right-3 top-3 rounded-full border border-darkBrown/12 bg-surface/95 px-3 py-2 text-xs font-medium text-darkBrown shadow-sm backdrop-blur"
+            className="map-center absolute left-3 bottom-8 rounded-full border border-darkBrown/12 bg-surface/95 px-3 py-2 text-xs font-medium text-darkBrown shadow-sm backdrop-blur"
           >
-            Center me
+            {t.locate}
           </button>
         )}
       </div>
 
-      <div className="mt-3 rounded-xl border border-darkBrown/12 bg-surface-elevated px-4 py-3 text-sm text-ink-muted shadow-sm">
+      <div className={compact ? 'map-route-status' : 'mt-3 rounded-xl border border-darkBrown/12 bg-surface-elevated px-4 py-3 text-sm text-ink-muted shadow-sm'}>
         <p role="status" aria-live="polite">
-          {routeStatus === 'loading' && 'Loading street route…'}
-          {routeStatus === 'error' && 'Street route unavailable; stop markers are still accurate.'}
+          {routeStatus === 'loading' && t.routeLoading}
+          {routeStatus === 'error' && t.routeError}
           {routeStatus === 'ready' && walkingRoute && (
-            `${formatWalkingDistance(walkingRoute.distanceMeters)} · ${Math.round(walkingRoute.durationSeconds / 60)} min walk`
+            `${formatWalkingDistance(walkingRoute.distanceMeters)} · ${Math.round(walkingRoute.durationSeconds / 60)} min ${t.walk}`
           )}
         </p>
-        <p className="mt-1 text-xs text-ink-muted">
+        {<p className="mt-1 text-xs text-ink-muted">
           Walking route:{' '}
           <a
             href="https://routing.openstreetmap.de/about.html"
@@ -247,7 +264,7 @@ export function TourMap({ tourId, stops, currentIndex, onStopSelect, userLocatio
           >
             Fix the map
           </a>
-        </p>
+        </p>}
       </div>
     </div>
   );

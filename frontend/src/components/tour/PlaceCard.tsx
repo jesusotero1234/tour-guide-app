@@ -34,7 +34,7 @@ const isVerifiedImage = (image: TourImage, paragraphs: string[]): boolean => {
   return true;
 };
 
-export const PlaceCard = ({ place, language }: PlaceCardProps) => {
+export const getVerifiedTourImages = (place: Place): TourImage[] => {
   const paragraphs = place.description.split(/\n\s*\n/).map((p) => p.trim()).filter((p) => p.length > 0);
   const set: TourImageSet | undefined = place.metadata?.tourImages;
   const verifiedImages: TourImage[] = [];
@@ -56,8 +56,12 @@ export const PlaceCard = ({ place, language }: PlaceCardProps) => {
   const detail = primary
     ? verifiedImages.find((i) => i.role === 'detail' && i.id !== primary.id && i.url !== primary.url)
     : undefined;
-  const selected = primary ? [primary, ...(detail ? [detail] : [])] : [];
+  return primary ? [primary, ...(detail ? [detail] : [])] : [];
+};
 
+export const PlaceCard = ({ place, language }: PlaceCardProps) => {
+  const paragraphs = place.description.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  const selected = getVerifiedTourImages(place);
   return (
     <article className="mb-4 rounded-2xl border border-darkBrown/12 bg-surface-elevated p-5 shadow-sm sm:p-6">
       <div className="mb-4 border-b border-darkBrown/15 pb-3">

@@ -121,6 +121,9 @@ export interface FlexiblePassQuoteResponse {
 }
 
 export interface Tour {
+  cityNames?: Partial<Record<Language, string>>;
+  localReview?: boolean;
+  pilot?: { reviewedAt: string; version: string; scriptLicense: string; changes: string };
   reviewSummary?: { findingCount: number; guidedDurationMinutes: number; transferCount: number; durationFit: string; languageFindingCount?: number; narrationMinutes?: number; durationMeasured?: boolean; narrationWithinTarget?: boolean };
   id: string;
   city: string;
@@ -135,6 +138,7 @@ export interface Tour {
   durationMinutes: number;
   status: 'draft' | 'review' | 'published' | 'archived';
   introduction?: string;
+  introductionAudio?: { status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number };
   requestedDurationMinutes?: number;
   recommendedDurationMinutes?: number;
   durationAdapted?: boolean;
@@ -180,7 +184,11 @@ export interface WalkingRoute {
 }
 
 export interface Place {
-  metadata?: { tourImages?: import('./tourImages').TourImageSet };
+  audioVersion?: string;
+  metadata?: { tourImages?: import('./tourImages').TourImageSet; sourceCredits?: {
+    version: string; items: Array<{ sourceId: string; title: string; url: string; attribution: string;
+      capturedAt: string; revisionUrl?: string; license?: string; licenseUrl?: string; status: string; usage: string }>;
+  } };
   id: string;
   name: string;
   nameInTourLanguage?: string;

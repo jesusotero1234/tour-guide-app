@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getGenerationJob, type ApiRequestError } from '@/lib/api';
+import { getTourAudio, TourAudioState } from '@/lib/tourAudio';
 import { GenerationJob } from '@/types/api';
 
 const stageLabels: Record<GenerationJob['step'], string> = {
@@ -22,11 +23,13 @@ const stageLabels: Record<GenerationJob['step'], string> = {
 export function GenerationProgress({ jobId }: { jobId: string }) {
   const router = useRouter();
   const [job, setJob] = useState<GenerationJob | null>(null);
+  const [audioState, setAudioState] = useState<TourAudioState | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [terminalError, setTerminalError] = useState<string | null>(null);
 
   useEffect(() => {
     setJob(null);
+    setAudioState(null);
     setLoadError(null);
     setTerminalError(null);
     let cancelled = false;
@@ -39,8 +42,29 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
         setJob(nextJob);
         setLoadError(null);
         if (nextJob.status === 'completed') {
-          if (nextJob.result?.tourId) router.replace(`/tours/${nextJob.result.tourId}`);
-          else setTerminalError('This generation finished without an available tour.');
+          if (nextJob.result?.tourId) {
+            const tourId = nextJob.result.tourId;
+            try {
+              const audio = await getTourAudio(tourId);
+              if (cancelled) return;
+              setAudioState(audio);
+              if (audio.status === 'completed' || audio.status === 'failed' || audio.status === 'unavailable') {
+                router.replace(`/tours/${tourId}`);
+              } else {
+                timeoutId = setTimeout(poll, 15000);
+              }
+            } catch (audioError) {
+              if (cancelled) return;
+              const apiError = audioError as ApiRequestError;
+              if (apiError.status === 422) {
+                router.replace(`/tours/${tourId}`);
+              } else {
+                throw audioError;
+              }
+            }
+          } else {
+            setTerminalError('This generation finished without an available tour.');
+          }
           return;
         }
         if (nextJob.status !== 'failed') timeoutId = setTimeout(poll, 15000);
@@ -75,12 +99,13 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
   const percentage = progress?.totalStops
     ? Math.max(0, Math.min(100, Math.round((progress.completedStops / progress.totalStops) * 100)))
     : 0;
+  const audioPending = job?.status === 'completed' && !!job.result?.tourId && (!audioState || ['idle', 'queued', 'running'].includes(audioState.status));
 
   return (
     <div className="mx-auto max-w-2xl rounded-[1.75rem] border border-darkBrown/12 bg-surface-elevated p-6 shadow-md sm:p-8">
-      <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">Text tour generation</p>
+      <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">Tour generation</p>
       <h1 className="mt-3 text-3xl font-serif font-bold text-darkBrown">
-        {terminalError ? 'Generation unavailable' : job ? stageLabels[job.step] : 'Loading generation progress'}
+        {terminalError ? 'Generation unavailable' : audioPending ? 'Preparing your audio guide' : job ? stageLabels[job.step] : 'Loading generation progress'}
       </h1>
 
       {terminalError ? (
@@ -98,6 +123,25 @@ export function GenerationProgress({ jobId }: { jobId: string }) {
             Try another option
           </Link>
         </div>
+      ) : audioPending ? (
+        <>
+          <p className="mt-3 text-sm leading-6 text-darkBrown/70">
+            Your text tour is ready. Audio is being prepared automatically.
+          </p>
+          <Link href={`/tours/${job?.result?.tourId}`} className="mt-4 inline-flex text-sm font-medium text-darkBrown underline underline-offset-4">
+            Read your tour now
+          </Link>
+          <div className="mt-6 h-2 overflow-hidden rounded-full bg-darkBrown/10">
+            <div
+              className={`h-full rounded-full bg-mutedGold transition-[width] duration-500 ${(audioState?.completedStops ?? 0) === 0 ? 'w-1/4 animate-pulse' : ''}`}
+              style={(audioState?.totalStops ?? 0) > 0 ? { width: `${Math.round(((audioState?.completedStops ?? 0) / (audioState?.totalStops ?? 1)) * 100)}%` } : undefined}
+            />
+          </div>
+          <div className="mt-3 flex items-center justify-between text-xs text-darkBrown/60">
+            <span>{audioState?.completedStops ?? 0}/{audioState?.totalStops ?? 0} stops recorded</span>
+            <span>{(audioState?.totalStops ?? 0) > 0 ? `${Math.round(((audioState?.completedStops ?? 0) / (audioState?.totalStops ?? 1)) * 100)}%` : 'In progress'}</span>
+          </div>
+        </>
       ) : (
         <>
           <p className="mt-3 text-sm leading-6 text-darkBrown/70">

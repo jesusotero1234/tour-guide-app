@@ -1,3 +1,4 @@
+import { pilotEnabled } from '@/lib/pilotMode';
 import { NextRequest, NextResponse } from 'next/server';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3001';
@@ -7,6 +8,7 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
+  if (pilotEnabled()) return new NextResponse(null, { status: 404, headers: { 'Cache-Control': 'private, no-store' } });
   try {
     const { id: placeId } = await params;
 

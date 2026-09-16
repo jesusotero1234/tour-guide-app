@@ -6,6 +6,7 @@ import { TourImage } from '@/types/tourImages';
 interface TourPhotoProps {
   photo: TourImage;
   language?: string;
+  hero?: boolean;
 }
 
 const STRINGS: Record<string, Record<string, string>> = {
@@ -51,7 +52,7 @@ const STRINGS: Record<string, Record<string, string>> = {
   },
 };
 
-export function TourPhoto({ photo, language }: TourPhotoProps) {
+export function TourPhoto({ photo, language, hero = false }: TourPhotoProps) {
   const lang = (language || 'en').toLowerCase().split('-')[0];
   const t = STRINGS[lang] || STRINGS.en;
   const dialogId = useId();
@@ -139,7 +140,7 @@ export function TourPhoto({ photo, language }: TourPhotoProps) {
     </div>
   );
 
-  const isDetail = photo.role === 'detail';
+  const isDetail = photo.role === 'detail' && !hero;
 
   const renderImage = () => {
     if (imgError) {

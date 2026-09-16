@@ -1,3 +1,4 @@
+import { pilotEnabled } from '@/lib/pilotMode';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MadridNarrativePilot } from '@/components/pilot/MadridNarrativePilot';
@@ -34,7 +35,7 @@ export default async function MadridHistoryPilotPage({
 }: {
   searchParams: Promise<{ stop?: string }>;
 }) {
-  if (process.env.ENABLE_NARRATIVE_PILOT !== 'true') notFound();
+  if (pilotEnabled() || process.env.ENABLE_NARRATIVE_PILOT !== 'true') notFound();
   const loaded = loadNarrativePilotPreviewV5();
   if (!loaded.ok) return <PilotFixtureError kind={loaded.kind} message={loaded.message} />;
   const rawStop = Number.parseInt((await searchParams).stop ?? '', 10);

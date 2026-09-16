@@ -1,300 +1,151 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { ListeningProgress, readListeningProgress, saveListeningProgress } from '@/lib/tourProgress';
+import { listeningCopy } from './listeningCopy';
+import { attachAudioAnalytics } from '@/lib/analytics';
 
 interface AudioPlayerProps {
   audioUrl: string;
   title?: string;
+  compact?: boolean;
+  language?: string;
+  progressKey?: string;
+  tourId?: string;
+  placeId?: string;
+  onProgress?: (progress: ListeningProgress) => void;
   onError?: (error: string) => void;
   onPlaybackStateChange?: (state: { isPlaying: boolean; isLoading: boolean; currentTime: number; duration: number }) => void;
 }
 
-export const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl, title, onError, onPlaybackStateChange }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [playbackRate, setPlaybackRate] = useState(1);
+const time = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 
-  // Stable ref for onError so the audio useEffect doesn't re-run every render
-  // when the parent passes an inline function.
-  const onErrorRef = useRef(onError);
-  useEffect(() => { onErrorRef.current = onError; }, [onError]);
+export function AudioPlayer({ audioUrl, title, compact = false, language = 'en', progressKey, tourId, placeId, onProgress, onError, onPlaybackStateChange }: AudioPlayerProps) {
+  const t = listeningCopy(language);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const callbacks = useRef({ onProgress, onError, onPlaybackStateChange });
+  const [state, setState] = useState({ isPlaying: false, isLoading: true, currentTime: 0, duration: 0 });
+  const [error, setError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => { callbacks.current = { onProgress, onError, onPlaybackStateChange }; }, [onProgress, onError, onPlaybackStateChange]);
 
   useEffect(() => {
-    onPlaybackStateChange?.({ isPlaying, isLoading, currentTime, duration });
-  }, [isPlaying, isLoading, currentTime, duration, onPlaybackStateChange]);
+    const audio = audioRef.current;
+    if (!audio || !tourId || !placeId) return;
+    const detach = attachAudioAnalytics(audio, { tour_id: tourId, place_id: placeId, language });
+    return detach;
+  }, [tourId, placeId, language, audioUrl, attempt]);
 
-  const getMediaErrorLabel = (code?: number) => {
-    switch (code) {
-      case 1:
-        return 'MEDIA_ERR_ABORTED';
-      case 2:
-        return 'MEDIA_ERR_NETWORK';
-      case 3:
-        return 'MEDIA_ERR_DECODE';
-      case 4:
-        return 'MEDIA_ERR_SRC_NOT_SUPPORTED';
-      default:
-        return 'MEDIA_ERR_UNKNOWN';
-    }
-  };
-  
-  // Initialize audio element
   useEffect(() => {
-    if (!audioUrl) {
-      if (onErrorRef.current) onErrorRef.current('No audio URL provided');
-      setIsLoading(false);
-      return;
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+    let disposed = false;
+    let ready = false;
+    let loading = true;
+    let lastSave = 0;
+    let progress = progressKey ? readListeningProgress(progressKey) : { position: 0, duration: 0, completed: false };
+    const savedPosition = progress.position;
+    setError(false);
+    setState({ isPlaying: false, isLoading: true, currentTime: savedPosition, duration: progress.duration });
 
-    const audio = new Audio(audioUrl);
-    audioRef.current = audio;
-    
-    // Setup event listeners
-    const setAudioData = () => {
-      setDuration(audio.duration);
-      setIsLoading(false);
+    const save = () => { if (progressKey) saveListeningProgress(progressKey, progress); };
+    const sync = (persist = false) => {
+      if (disposed) return;
+      if (ready) progress = { ...progress, position: audio.currentTime, duration: Number.isFinite(audio.duration) ? audio.duration : 0 };
+      const next = { isPlaying: !audio.paused && !audio.ended, isLoading: loading, currentTime: progress.position, duration: progress.duration };
+      setState(next);
+      callbacks.current.onPlaybackStateChange?.(next);
+      callbacks.current.onProgress?.(progress);
+      if (persist || Date.now() - lastSave > 1000) { save(); lastSave = Date.now(); }
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = next.isPlaying ? 'playing' : 'paused';
+        try {
+          if (progress.duration > 0) navigator.mediaSession.setPositionState?.({ duration: progress.duration, position: Math.min(progress.position, progress.duration), playbackRate: audio.playbackRate });
+        } catch { /* Some browsers expose Media Session without position support. */ }
+      }
     };
-    
-    const setAudioTime = () => {
-      setCurrentTime(audio.currentTime);
+    const metadata = () => {
+      ready = true;
+      audio.currentTime = Math.min(savedPosition, Number.isFinite(audio.duration) ? audio.duration : savedPosition);
+      sync();
     };
-    
-    const handleAudioEnd = () => {
-      setIsPlaying(false);
-      setCurrentTime(0);
-    };
-    
-    const handleAudioError = () => {
-      const mediaError = audio.error;
-      const errorLabel = getMediaErrorLabel(mediaError?.code);
-
-      // Use console.warn — console.error is intercepted by Next.js dev overlay
-      // and shown as a full-page crash even for recoverable media errors.
-      console.warn('AudioPlayer load failed:', {
-        audioUrl,
-        currentSrc: audio.currentSrc,
-        code: mediaError?.code,
-        error: errorLabel,
-        networkState: audio.networkState,
-        readyState: audio.readyState,
-      });
-
-      setIsLoading(false);
-      if (onErrorRef.current) onErrorRef.current(`Failed to load audio: ${errorLabel}`);
-    };
-    
-    // Add event listeners
-    audio.addEventListener('loadeddata', setAudioData);
-    audio.addEventListener('timeupdate', setAudioTime);
-    audio.addEventListener('ended', handleAudioEnd);
-    audio.addEventListener('error', handleAudioError);
-    
-    // Cleanup function
+    const updated = () => sync();
+    const paused = () => sync(true);
+    const waiting = () => { loading = true; sync(); };
+    const available = () => { loading = false; sync(); };
+    const ended = () => { progress.completed = true; loading = false; sync(true); };
+    const failed = () => { loading = false; setError(true); callbacks.current.onError?.('Audio unavailable'); sync(true); };
+    const background = () => { if (document.visibilityState === 'hidden') sync(true); };
+    const events = { loadedmetadata: metadata, timeupdate: updated, play: updated, pause: paused, waiting, canplay: available, ended, error: failed, seeked: paused };
+    Object.entries(events).forEach(([name, handler]) => audio.addEventListener(name, handler));
+    document.addEventListener('visibilitychange', background);
+    window.addEventListener('pagehide', paused);
+    audio.src = audioUrl;
+    audio.load();
     return () => {
-      audio.removeEventListener('loadeddata', setAudioData);
-      audio.removeEventListener('timeupdate', setAudioTime);
-      audio.removeEventListener('ended', handleAudioEnd);
-      audio.removeEventListener('error', handleAudioError);
-      
+      sync(true);
+      disposed = true;
+      Object.entries(events).forEach(([name, handler]) => audio.removeEventListener(name, handler));
+      document.removeEventListener('visibilitychange', background);
+      window.removeEventListener('pagehide', paused);
       audio.pause();
-      audio.src = '';
+      audio.removeAttribute('src');
+      audio.load();
     };
-  }, [audioUrl]); // onError intentionally excluded — stable via onErrorRef
-  
-  // Handle play/pause
-  const togglePlay = useCallback(() => {
-    if (!audioRef.current) return;
-    
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(error => {
-          console.warn('Error playing audio:', error);
-          if (onErrorRef.current) onErrorRef.current(`Failed to play audio: ${error.message}`);
-        });
+  }, [audioUrl, progressKey, attempt]);
+
+  const play = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setError(false);
+    if (audio.ended) audio.currentTime = 0;
+    void audio.play().catch(() => { if (audio.isConnected && audio.getAttribute('src')) setError(true); });
+  };
+  const seek = (position: number) => {
+    const audio = audioRef.current;
+    if (audio && Number.isFinite(audio.duration)) audio.currentTime = Math.max(0, Math.min(position, audio.duration));
+  };
+  const controls = useRef({ play, seek });
+  useEffect(() => { controls.current = { play, seek }; });
+  useEffect(() => {
+    if (!('mediaSession' in navigator)) return;
+    const session = navigator.mediaSession;
+    if (typeof MediaMetadata !== 'undefined') session.metadata = new MediaMetadata({ title: title || '' });
+    const handlers: Partial<Record<MediaSessionAction, MediaSessionActionHandler>> = {
+      play: () => controls.current.play(),
+      pause: () => audioRef.current?.pause(),
+      seekbackward: (event) => controls.current.seek((audioRef.current?.currentTime || 0) - (event.seekOffset || 15)),
+      seekforward: (event) => controls.current.seek((audioRef.current?.currentTime || 0) + (event.seekOffset || 15)),
+      seekto: (event) => { if (event.seekTime !== undefined) controls.current.seek(event.seekTime); },
+    };
+    for (const [action, handler] of Object.entries(handlers)) {
+      try { session.setActionHandler(action as MediaSessionAction, handler); } catch { /* Optional action. */ }
     }
-  }, [isPlaying]);
-  
-  // Handle seek
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!audioRef.current) return;
-    
-    const seekTime = Number(e.target.value);
-    audioRef.current.currentTime = seekTime;
-    setCurrentTime(seekTime);
-  };
-  
-  // Handle volume change
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!audioRef.current) return;
-    
-    const newVolume = Number(e.target.value);
-    audioRef.current.volume = newVolume;
-    setVolume(newVolume);
-  };
-  
-  // Handle playback rate change
-  const handlePlaybackRateChange = (rate: number) => {
-    if (!audioRef.current) return;
-    
-    audioRef.current.playbackRate = rate;
-    setPlaybackRate(rate);
-  };
-
-  const jumpBy = useCallback((seconds: number) => {
-    if (!audioRef.current) return;
-
-    const nextTime = Math.min(Math.max(audioRef.current.currentTime + seconds, 0), duration || 0);
-    audioRef.current.currentTime = nextTime;
-    setCurrentTime(nextTime);
-  }, [duration]);
-  
-  // Format time to mm:ss
-  const formatTime = (seconds: number) => {
-    if (isNaN(seconds) || seconds === Infinity) return '00:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
+    return () => {
+      for (const action of Object.keys(handlers)) {
+        try { session.setActionHandler(action as MediaSessionAction, null); } catch { /* Optional action. */ }
+      }
+      session.metadata = null;
+      session.playbackState = 'none';
+    };
+  }, [title, audioUrl]);
 
   return (
-    <div className="mt-4 w-full rounded-xl border border-darkBrown/15 bg-surface p-4 shadow-sm">
-      {title && <div className="mb-2 text-sm font-medium text-darkBrown">{title}</div>}
-      <div className="mb-3 flex items-center justify-between gap-3 rounded-lg border border-darkBrown/10 bg-surface-elevated px-3 py-2">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-mutedGold">
-            Tour mode
-          </p>
-          <p className="text-sm text-darkBrown/75">
-            {isPlaying ? 'Narration is playing while you walk.' : 'Press play when you reach this stop.'}
-          </p>
-        </div>
-        <div className="rounded-full border border-darkBrown/15 bg-surface px-2.5 py-1 text-xs font-medium text-darkBrown">
-          Speed {playbackRate}x
-        </div>
+    <div className={`listening-player${compact ? ' compact' : ''}`} data-testid="audio-player">
+      <audio ref={audioRef} preload="metadata" data-testid="tour-audio" />
+      <div className="player-title">{title}</div>
+      <input className="player-progress" type="range" aria-label={t.seek} min={0} max={state.duration || 1} step="0.1" value={Math.min(state.currentTime, state.duration || 1)} disabled={!state.duration} onChange={(event) => seek(Number(event.target.value))} />
+      {!compact && <div className="player-times"><span>{time(state.currentTime)}</span><span>{state.duration ? time(state.duration) : '—'}</span></div>}
+      <div className="player-controls">
+        {!compact && <button className="player-skip" aria-label={t.rewind} disabled={!state.duration} onClick={() => seek((audioRef.current?.currentTime || 0) - 15)}>↶ <span>15</span></button>}
+        <button type="button" className="player-play" aria-label={state.isPlaying ? t.pause : t.play} onClick={() => audioRef.current?.paused ? play() : audioRef.current?.pause()}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+            {state.isPlaying ? <><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></> : <path d="M8 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 8 4.5Z" />}
+          </svg>
+        </button>
+        {!compact && <button className="player-skip" aria-label={t.forward} disabled={!state.duration} onClick={() => seek((audioRef.current?.currentTime || 0) + 15)}><span>15</span> ↷</button>}
       </div>
-      
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center">
-          <span className="w-10 text-xs text-darkBrown">{formatTime(currentTime)}</span>
-          <div className="mx-2 flex-grow">
-            <div className="relative h-1.5 w-full rounded-full bg-darkBrown/15 focus-within:ring-2 focus-within:ring-accent/50 focus-within:ring-offset-2 focus-within:ring-offset-surface">
-              <div
-                className="absolute left-0 top-0 h-1.5 rounded-full bg-mutedGold"
-                style={{ width: `${Math.min((currentTime / (duration || 1)) * 100, 100)}%` }}
-              ></div>
-              <input
-                type="range"
-                min={0}
-                max={duration || 100}
-                value={currentTime}
-                onChange={handleSeek}
-                disabled={isLoading}
-                className="absolute left-0 top-0 h-1.5 w-full cursor-pointer opacity-0"
-              />
-            </div>
-          </div>
-          <span className="w-10 text-xs text-darkBrown">{formatTime(duration)}</span>
-        </div>
-
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-          <div className="flex justify-start">
-            <button
-              type="button"
-              onClick={() => jumpBy(-10)}
-              disabled={isLoading}
-              className="rounded-full border border-darkBrown/15 bg-surface-elevated px-3 py-2 text-xs font-medium text-darkBrown transition-colors hover:bg-surface disabled:opacity-50"
-              aria-label="Go back 10 seconds"
-            >
-              −10s
-            </button>
-          </div>
-
-          <button
-            onClick={togglePlay}
-            disabled={isLoading}
-            className={`mx-auto inline-flex min-h-16 min-w-16 items-center justify-center rounded-full px-5 text-surface shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${isLoading ? 'bg-darkBrown/35' : 'bg-darkBrown hover:bg-darkBrown/90'}`}
-            aria-label={isPlaying ? 'Pause audio narration' : 'Play audio narration'}
-          >
-            {isLoading ? (
-              <svg className="h-7 w-7 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            ) : isPlaying ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            )}
-          </button>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => jumpBy(10)}
-              disabled={isLoading}
-              className="rounded-full border border-darkBrown/15 bg-surface-elevated px-3 py-2 text-xs font-medium text-darkBrown transition-colors hover:bg-surface disabled:opacity-50"
-              aria-label="Go forward 10 seconds"
-            >
-              +10s
-            </button>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between gap-3">
-          <div className="hidden items-center space-x-1 sm:flex">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-darkBrown" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-            </svg>
-            <div className="relative h-1 w-16 rounded-full bg-darkBrown/15 focus-within:ring-2 focus-within:ring-accent/50 focus-within:ring-offset-2 focus-within:ring-offset-surface">
-              <div 
-                className="absolute top-0 left-0 h-1 rounded-full bg-mutedGold" 
-                style={{ width: `${volume * 100}%` }}
-              ></div>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.01}
-                value={volume}
-                onChange={handleVolumeChange}
-                className="absolute top-0 left-0 h-1 w-full cursor-pointer opacity-0"
-              />
-            </div>
-          </div>
-
-          <div className="ml-auto flex items-center gap-2">
-            <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-darkBrown/55 sm:hidden">
-              Speed
-            </span>
-            <select
-              value={playbackRate}
-              onChange={(e) => handlePlaybackRateChange(Number(e.target.value))}
-              className="rounded-full border border-darkBrown/20 bg-surface px-3 py-1.5 text-xs text-darkBrown focus:outline-none focus:ring-2 focus:ring-accent/60"
-              aria-label="Playback speed"
-            >
-              <option value={0.5}>0.5x</option>
-              <option value={0.75}>0.75x</option>
-              <option value={1}>1x</option>
-              <option value={1.25}>1.25x</option>
-              <option value={1.5}>1.5x</option>
-              <option value={2}>2x</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      {error ? <div className="player-error" role="alert">{t.audioError} <button onClick={() => setAttempt(value => value + 1)}>{t.retry}</button></div> : state.isLoading && <p className="player-status" role="status">{t.loadingAudio}</p>}
     </div>
   );
-};
+}

@@ -15,6 +15,9 @@ const themeOptions = [
 const languageOptions = [
   { value: 'es', label: 'Spanish' },
   { value: 'fr', label: 'French' },
+  { value: 'en', label: 'English' },
+  { value: 'de', label: 'German' },
+  { value: 'it', label: 'Italian' },
 ];
 
 const durationOptions = [
@@ -32,7 +35,7 @@ export const TourForm = () => {
   const [duration, setDuration] = useState('120');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [enabledLanguages, setEnabledLanguages] = useState<string[]>(['es']);
+  const [enabledLanguages, setEnabledLanguages] = useState<string[]>(languageOptions.map(option => option.value));
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,8 +45,8 @@ export const TourForm = () => {
         return res.json();
       })
       .then((data) => {
-        if (!data?.languages) return;
-        const supported = data.languages.filter((l: string) => l === 'es' || l === 'fr');
+        if (!Array.isArray(data?.languages)) return;
+        const supported = data.languages.filter((l: string) => languageOptions.some(option => option.value === l));
         if (!supported.includes('es')) return;
         setEnabledLanguages(supported);
       })

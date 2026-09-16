@@ -58,3 +58,57 @@ h1, h2, h3, h4, h5, h6 {
   background: color-mix(in srgb, var(--accent) 55%, white 45%);
   color: var(--ink);
 }
+
+.legal-page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.legal-page h1 {
+  font-size: 1.75rem;
+  margin-bottom: 16px;
+}
+
+.legal-page h2 {
+  font-size: 1.375rem;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.legal-page h3 {
+  font-size: 1.125rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.legal-page p {
+  line-height: 1.65;
+  margin: 16px 0;
+}
+
+.legal-page a {
+  text-decoration: underline;
+}
+
+.legal-page a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tour-info-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tour-info-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+body[data-pilot="true"] header a[href="/"],
+body[data-pilot="true"] header a[href="/passes"] {
+  display: none;
+}

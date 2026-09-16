@@ -9,6 +9,10 @@ export interface TourAudioState {
   totalChunks?: number;
   currentStopId?: string;
   audioUrls: Record<string, string>;
+  audioVersions?: Record<string, string>;
+  transcripts?: Record<string, string>;
+  introduction?: { status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number };
+  canGenerate?: boolean;
   error?: { code: string; message: string };
 }
 

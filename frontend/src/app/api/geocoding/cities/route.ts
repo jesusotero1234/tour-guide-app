@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { pilotEnabled } from '@/lib/pilotMode';
 
 interface NominatimResult {
   place_id: number;
@@ -22,6 +23,7 @@ const NOMINATIM_BASE_URL = 'https://nominatim.openstreetmap.org';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
+  if (pilotEnabled()) return NextResponse.json({ error: 'La prueba utiliza rutas preparadas.' }, { status: 404 });
   const query = request.nextUrl.searchParams.get('q')?.trim();
 
   if (!query) {

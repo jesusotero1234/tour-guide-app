@@ -1,5 +1,5 @@
-import { Header } from '@/components/layout/Header';
 import Link from 'next/link';
+import { InfoLinks } from '@/components/legal/InfoLinks';
 
 interface DataSource {
   name: string;
@@ -60,18 +60,66 @@ const DATA_SOURCES: DataSource[] = [
   },
 ];
 
-export default function DataSourcesPage() {
+export default async function DataSourcesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const params = await searchParams;
+  const lang = params.lang === 'fr' ? 'fr' : 'es';
+
+  const t = {
+    es: {
+      heading: 'Fuentes de datos',
+      notice1:
+        'Esta aplicación utiliza datos geográficos y enciclopédicos abiertos. Los artículos y revisiones consultados están enlazados en cada parada del recorrido; esta lista de proveedores describe las herramientas y los datos, y no constituye prueba a nivel de frase para cada hecho individual.',
+      notice2:
+        'Los guiones adaptados por IA para los recorridos admitidos se ofrecen bajo CC BY-SA 4.0, con enlace a la licencia y los cambios indicados en la información del recorrido.',
+      notice3:
+        'Los créditos de Wikimedia Commons son específicos de cada archivo.',
+      notice4:
+        'Nominatim está desactivado en este piloto; el recorrido peatonal de FOSSGIS OSRM se guarda antes de revisarlo y las llamadas a teselas se realizan solo cuando se carga el mapa.',
+    },
+    fr: {
+      heading: 'Sources de données',
+      notice1:
+        'Cette application utilise des données géographiques et encyclopédiques ouvertes. Les articles et révisions consultés sont liés à chaque étape du parcours ; cette liste de fournisseurs décrit les outils et les données, et ne constitue pas une preuve au niveau de la phrase pour chaque fait individuel.',
+      notice2:
+        'Les scripts adaptés par IA pour les parcours admis sont proposés sous CC BY-SA 4.0, avec lien vers la licence et les modifications indiquées dans les informations du parcours.',
+      notice3:
+        'Les crédits de Wikimedia Commons sont spécifiques à chaque fichier.',
+      notice4:
+        'Nominatim est désactivé pour ce pilote ; le parcours piéton de FOSSGIS OSRM est enregistré avant sa vérification et les appels de tuiles sont effectués uniquement lorsque la carte est chargée.',
+    },
+  };
+
+  const strings = t[lang];
+
   return (
     <div className="min-h-screen bg-surface">
-      <Header />
+      <nav aria-label={lang === 'fr' ? 'Navigation' : 'Navegación'} className="mx-auto max-w-3xl px-4 pt-6 sm:px-6 lg:px-8">
+        <Link href="/tours" className="inline-flex min-h-11 items-center text-sm text-darkBrown underline underline-offset-4">
+          {lang === 'fr' ? '← Retour aux visites' : '← Volver a los tours'}
+        </Link>
+      </nav>
       <main className="max-w-3xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-serif font-bold text-darkBrown mb-2">
-          Data Sources
+          {strings.heading}
         </h1>
-        <p className="text-darkBrown/70 mb-8">
-          This application uses open geographic and encyclopaedic data. All sources are
-          credited below with their applicable licenses.
+        <p className="text-darkBrown/70 mb-4">{strings.notice1}</p>
+        <p className="text-darkBrown/70 mb-4">
+          {strings.notice2}
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-darkBrown"
+          >
+            CC BY-SA 4.0
+          </a>
         </p>
+        <p className="text-darkBrown/70 mb-4">{strings.notice3}</p>
+        <p className="text-darkBrown/70 mb-8">{strings.notice4}</p>
 
         <div className="space-y-6">
           {DATA_SOURCES.map((source) => (
@@ -106,11 +154,10 @@ export default function DataSourcesPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-xs text-darkBrown/50">
-          <Link href="/" className="underline hover:text-darkBrown">
-            ← Back to tour generator
-          </Link>
-        </p>
+        <div className="mt-10">
+          <Link href="/tours">{lang === 'fr' ? 'Retour aux visites' : 'Volver a los tours'}</Link>
+          <InfoLinks language={lang} />
+        </div>
       </main>
     </div>
   );

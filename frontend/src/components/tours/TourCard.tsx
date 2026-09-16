@@ -1,72 +1,28 @@
 'use client';
 
+import Link from 'next/link';
 import { Tour } from '@/types/api';
-import { useRouter } from 'next/navigation';
+import { usePageLanguage } from '@/components/layout/PageLanguage';
+import { browseCopy } from '@/lib/browseCopy';
 
-interface TourCardProps {
-  tour: Tour;
-}
-
-export const TourCard = ({ tour }: TourCardProps) => {
-  const router = useRouter();
-  
-  const handleClick = () => {
-    router.push(`/tours/${tour.id}`);
-  };
-  
-  // Format creation date
-  const formattedDate = new Date(tour.createdAt ?? tour.created_at ?? new Date().toISOString()).toLocaleDateString();
-  const previewStops = tour.previewStopNames?.join(' · ');
-  
+export const TourCard = ({ tour }: { tour: Tour }) => {
+  const { language } = usePageLanguage();
+  const t = browseCopy(language);
+  const city = tour.cityNames?.[language] || tour.city;
+  const country = /^[A-Z]{2}$/i.test(tour.countryCode ?? '')
+    ? new Intl.DisplayNames([language], { type: 'region' }).of(tour.countryCode.toUpperCase()) || tour.country
+    : tour.country;
   return (
-    <div 
-      className="cursor-pointer rounded-2xl border border-darkBrown/12 bg-surface-elevated p-5 shadow-sm transition-shadow hover:shadow-md"
-      onClick={handleClick}
-    >
-      <div className="mb-2 flex items-start justify-between gap-3">
-        <div>
-          <h3 className="text-lg font-serif font-medium text-darkBrown">
-            {tour.title || `${tour.city}, ${tour.country}`}
-          </h3>
-          <p className="mt-1 text-sm text-darkBrown/65">
-            {tour.city}, {tour.country}
-          </p>
-          {tour.subtitle && (
-            <p className="mt-2 text-sm leading-6 text-darkBrown/75">
-              {tour.subtitle}
-            </p>
-          )}
-        </div>
-        <div className="flex gap-2">
-          {tour.experienceLabel && (
-            <span className="inline-flex items-center rounded-full border border-darkBrown/20 bg-surface px-2.5 py-1 text-xs font-medium text-darkBrown">
-              {tour.experienceLabel}
-            </span>
-          )}
-          <span className="inline-flex items-center rounded-full bg-mutedGold/20 px-2.5 py-1 text-xs font-medium text-darkBrown">
-            {tour.language.toUpperCase()} guide
-          </span>
-        </div>
-      </div>
-      
-      <div className="mb-3 text-sm text-darkBrown/60">
-        Created {formattedDate}
-      </div>
-
-      {previewStops && (
-        <div className="mb-4 text-sm text-darkBrown/75">
-          {previewStops}
-        </div>
-      )}
-      
-      <div className="flex items-center justify-between">
-        <div className="text-sm text-darkBrown/80">
-          {tour.places.length} {tour.places.length === 1 ? 'stop' : 'stops'}
-        </div>
-        <div className="text-sm font-medium text-mutedGold hover:text-darkBrown transition-colors">
-          Open walk →
-        </div>
-      </div>
-    </div>
-  );
+  <article className="rounded-2xl border border-darkBrown/15 bg-surface-elevated p-5 text-darkBrown">
+    {tour.localReview && <p className="mb-2 text-xs font-medium text-darkBrown/70">{t.privateReview}</p>}
+    <h2 className="font-serif text-xl" lang={tour.title ? tour.language : language}>{tour.title || `${city}, ${country}`}</h2>
+    <p className="mt-2 text-sm text-darkBrown/70">{city}, {country}</p>
+    {tour.subtitle && <p lang={tour.language} className="mt-3 text-sm leading-relaxed text-darkBrown/75">{tour.subtitle}</p>}
+    <p className="my-4 text-sm text-darkBrown/75">
+      {tour.durationMinutes > 0 && <>{tour.durationMinutes} min · </>}
+      {t.stopsCount(tour.places.length)} · {tour.language.toUpperCase()}
+    </p>
+    <Link href={`/tours/${tour.id}`} className="flex min-h-12 items-center justify-center rounded-xl bg-darkBrown px-4 py-3 text-base font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-darkBrown">{t.viewTour}</Link>
+  </article>
+);
 };

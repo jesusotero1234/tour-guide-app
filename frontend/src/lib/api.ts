@@ -1,6 +1,5 @@
 import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language, WalkingRoute } from '@/types/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 const FRONTEND_TOUR_API = '/api/backend';
 const walkingRouteRequests = new Map<string, Promise<WalkingRoute>>();
 
@@ -56,14 +55,11 @@ function isWalkingRoute(value: unknown): value is WalkingRoute {
 
 export async function generateTour(request: TourRequest): Promise<Tour> {
   try {
-    console.log(`Generating tour for ${request.city}, theme: ${request.theme}, duration: ${request.duration || 'default'}`);
-    console.log('Full tour request:', request);
     
-    const response = await fetch(`${API_BASE_URL}/v1/tours/generate`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/tours/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       },
       body: JSON.stringify(request),
     });
@@ -89,9 +85,8 @@ export async function generateTour(request: TourRequest): Promise<Tour> {
 export async function getCityConcepts(city: string, countryCode: string, language: Language): Promise<CityConceptDiscoveryResult> {
   try {
     const queryParams = new URLSearchParams({ countryCode, language });
-    const response = await fetch(`${API_BASE_URL}/v1/cities/${encodeURIComponent(city)}/concepts?${queryParams.toString()}`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/cities/${encodeURIComponent(city)}/concepts?${queryParams.toString()}`, {
       headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       }
     });
 
@@ -113,11 +108,10 @@ export async function getCityConcepts(city: string, countryCode: string, languag
 
 export async function generateTourFromConcept(request: ConceptTourRequest): Promise<Tour> {
   try {
-    const response = await fetch(`${API_BASE_URL}/v1/tours/generate-from-concept`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/tours/generate-from-concept`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       },
       body: JSON.stringify(request),
     });
@@ -138,9 +132,8 @@ export async function generateTourFromConcept(request: ConceptTourRequest): Prom
 export async function listFlexiblePassCities(language: Language): Promise<FlexiblePassCitySummary[]> {
   try {
     const queryParams = new URLSearchParams({ language });
-    const response = await fetch(`${API_BASE_URL}/v1/passes/flexible/cities?${queryParams.toString()}`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/passes/flexible/cities?${queryParams.toString()}`, {
       headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       }
     });
 
@@ -160,9 +153,8 @@ export async function listFlexiblePassCities(language: Language): Promise<Flexib
 export async function getFlexiblePassOptions(city: string, countryCode: string, language: Language): Promise<FlexiblePassOptionsResponse> {
   try {
     const queryParams = new URLSearchParams({ city, countryCode, language });
-    const response = await fetch(`${API_BASE_URL}/v1/passes/flexible/options?${queryParams.toString()}`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/passes/flexible/options?${queryParams.toString()}`, {
       headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       }
     });
 
@@ -181,11 +173,10 @@ export async function getFlexiblePassOptions(city: string, countryCode: string, 
 
 export async function quoteFlexiblePass(request: FlexiblePassQuoteRequest): Promise<FlexiblePassQuoteResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/v1/passes/flexible/quote`, {
+    const response = await fetch(`${FRONTEND_TOUR_API}/passes/flexible/quote`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': process.env.NEXT_PUBLIC_API_KEY || 'development-api-key'
       },
       body: JSON.stringify(request),
     });
@@ -256,7 +247,7 @@ export function getWalkingRoute(id: string): Promise<WalkingRoute> {
   return request;
 }
 
-export async function listTours(params?: TourListParams): Promise<Tour[]> {
+export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<Tour[]> {
   try {
     console.log('Fetching tours with params:', params);
     
@@ -273,7 +264,7 @@ export async function listTours(params?: TourListParams): Promise<Tour[]> {
     const queryString = queryParams.toString();
     const url = `${FRONTEND_TOUR_API}/tours${queryString ? `?${queryString}` : ''}`;
     
-    const response = await fetch(url);
+    const response = await fetch(url, { signal });
     
     if (!response.ok) {
       const errorData = await response.json();
@@ -287,6 +278,7 @@ export async function listTours(params?: TourListParams): Promise<Tour[]> {
     
     return tours;
   } catch (error) {
+    if (signal?.aborted) throw error;
     console.error('Error listing tours:', error);
     throw new Error('Failed to fetch tours. Please try again.');
   }

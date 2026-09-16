@@ -1,29 +1,25 @@
 'use client';
 
-import { Header } from '@/components/layout/Header';
+import Link from 'next/link';
 import { ToursList } from '@/components/tours/ToursList';
+import { PageLanguageSelect } from '@/components/layout/PageLanguage';
 
 export default function ToursPage() {
   return (
-    <div className="min-h-screen bg-beige">
-      <Header />
-      <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-8 text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-mutedGold">
-              Published city walks
-            </p>
-            <h2 className="text-3xl font-serif font-bold tracking-tight text-darkBrown sm:text-4xl">
-              Guided Walks Ready To Explore
-            </h2>
-            <p className="mt-4 text-lg text-darkBrown/80">
-              Browse finished walking tours with a coherent story, grounded stops, and route guidance.
-            </p>
-          </div>
-          
-          <ToursList />
-        </div>
+    <div className="tour-entry bg-surface">
+      <main className="mx-auto max-w-md px-5 py-6">
+        <header className="mb-7 flex items-center justify-between gap-3">
+          <Link href="/tours" className="inline-flex min-h-11 items-center font-serif text-xl text-darkBrown">AI Tour Guide</Link>
+          <PageLanguageSelect />
+        </header>
+        <ToursList />
       </main>
+      <style jsx global>{`
+        body:has(.tour-entry) > div.min-h-screen { min-height: 0; }
+        body:has(.tour-entry) > footer { background: var(--surface); }
+        body:has(.tour-entry) > footer > div { max-width: 28rem; }
+        body:has(.tour-entry) .tour-info-links { justify-content: center; gap: 0 1rem; font-size: 0.75rem; }
+      `}</style>
     </div>
   );
 }
