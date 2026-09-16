@@ -1,5 +1,7 @@
 {
   "name": "Guía español — voz A",
+  "modelId": "openbmb/VoxCPM2",
+  "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
   "reference": "guide-es-a.wav",
   "referenceText": "Bienvenidos. Soy su guía local para este recorrido; hablaré con claridad, calma y un ritmo constante.",
   "seed": 42,

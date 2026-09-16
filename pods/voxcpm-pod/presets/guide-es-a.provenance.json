@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "reference": "guide-es-a.wav",
+  "referenceSha256": "475753e08fe9bb194991fd4d7b50b62a0d65d9e371b94db43a28567160ab65bb",
+  "referenceText": "Bienvenidos. Soy su guía local para este recorrido; hablaré con claridad, calma y un ritmo constante.",
+  "modelId": "openbmb/VoxCPM2",
+  "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+  "modelLicense": "Apache-2.0",
+  "modelLicenseSource": "https://huggingface.co/openbmb/VoxCPM2",
+  "observedOn": "2026-09-08",
+  "originalCreationDate": null,
+  "originStatus": "owner-reported-voxcpm2-example-input-method-pending",
+  "ownerStatement": {
+  "recordedOn": "2026-09-08",
+  "statement": "Las he creado con ejemplo del mismo VOXCPM2; ahora estamos creando ejemplos.",
+  "source": "Declaración del responsable en esta conversación",
+  "inputMethod": "Pendiente precisar si el ejemplo se ejecutó solo con texto o con un WAV de ejemplo como entrada",
+  "codeEvidence": "src/services/voxcpm.py::_resolve_voice_reference permite crear referencias mediante model.generate(text=bootstrap_text), sin audio de entrada"
+},
+  "evidence": {
+    "matchingCachedReference": "cache/voice_references/0880582a-949f-4c27-bd10-cd94cdf26d6c.wav",
+    "interpretation": "La coincidencia de bytes con una referencia de caché sintética es evidencia técnica, no prueba independiente del origen histórico ni de todos los derechos."
+  },
+  "releaseCondition": "Conservar la declaración de creación con VoxCPM2 y precisar las entradas utilizadas. Para ejemplos nuevos, registrar texto, modelo/revisión, parámetros y SHA-256 de salida; si existe audio de entrada, registrar también su procedencia y licencia. No es necesario regenerar la referencia solo por faltar un registro histórico. La declaración no constituye una evaluación jurídica del marcado de IA.",
+  "scope": "La licencia del modelo no asigna automáticamente licencia a referencias, guiones o audios generados."
+}

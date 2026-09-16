@@ -127,6 +127,7 @@ def main():
     import torch
     from voxcpm import VoxCPM
     from utils.sanitize import chunk_text, sanitize_text
+    from utils.audio_provenance import capture_generation, combine_generations, model_revision, write_audio_record
     from services.voxcpm import VOICE_PROFILES, join_audio_chunks, normalize_audio
     metrics["importSeconds"] = round(time.monotonic() - import_started, 3)
     metrics["versions"] = {name: importlib.metadata.version(name) for name in ("voxcpm", "torch", "torchaudio", "transformers")}
@@ -160,7 +161,7 @@ def main():
         torch.manual_seed(seed_val)
         np.random.seed(seed_val)
         if preset is not None:
-            return np.asarray(model.generate(
+            wav, event = capture_generation(model, model_id="openbmb/VoxCPM2", revision=model_revision(args.model), seed=seed_val,
                 text=text,
                 reference_wav_path=str(args.reference),
                 prompt_wav_path=str(args.reference),
@@ -169,15 +170,17 @@ def main():
                 inference_timesteps=10,
                 max_len=4096,
                 retry_badcase=False,
-            )).reshape(-1)
-        return np.asarray(model.generate(
+            )
+            return np.asarray(wav).reshape(-1), event
+        wav, event = capture_generation(model, model_id="openbmb/VoxCPM2", revision=model_revision(args.model), seed=seed_val, description=description,
             text=f"({description}){text}",
             reference_wav_path=str(args.reference),
             cfg_value=2.0,
             inference_timesteps=10,
             max_len=4096,
             retry_badcase=False,
-        )).reshape(-1)
+        )
+        return np.asarray(wav).reshape(-1), event
 
     save("warming_up", modelLoadSeconds=metrics["modelLoadSeconds"])
     warmup_started = time.monotonic()
@@ -197,25 +200,34 @@ def main():
         torch.cuda.reset_peak_memory_stats()
         started = time.monotonic()
         chunk_results = []
+        events = []
         if name == "whole":
-            wav = generate(" ".join(cleaned.split()), seed)
+            wav, event = generate(" ".join(cleaned.split()), seed)
+            events.append(event)
         else:
             generated = []
             chunks_dir = args.output / "chunks"
             chunks_dir.mkdir(parents=True, exist_ok=True)
             for index, chunk in enumerate(chunks):
                 chunk_started = time.monotonic()
-                part = generate(chunk.text, seed if preset is not None else 42 + index)
+                part, event = generate(chunk.text, seed if preset is not None else 42 + index)
+                events.append(event)
                 torch.cuda.synchronize()
                 generated.append((part, chunk))
                 chunk_path = chunks_dir / f"{index + 1:03d}.wav"
-                sf.write(chunk_path, part, sample_rate, subtype="PCM_16")
+                with chunk_path.open("xb") as stream:
+                    sf.write(stream, part, sample_rate, format="WAV", subtype="PCM_16")
+                provenance = write_audio_record(chunk_path, {
+                    **event, "kind": "narration_chunk", "modelOptions": {"load_denoiser": False, "optimize": args.optimize, "device": "cuda"},
+                    "postProcessing": {"sampleRate": sample_rate, "format": "WAV", "subtype": "PCM_16"},
+                })
                 entry = {
                     "index": index + 1, "chars": len(chunk.text),
                     "seconds": round(time.monotonic() - chunk_started, 3),
                     "audioSeconds": round(len(part) / sample_rate, 3),
                     "boundary": chunk.boundary,
                     "path": str(chunk_path.resolve()),
+                    "provenance": str(provenance),
                 }
                 chunk_results.append(entry)
                 print(json.dumps({"stage": "chunk_finished", **entry}), flush=True)
@@ -226,7 +238,22 @@ def main():
             raise RuntimeError(f"{name}: empty, non-finite or silent audio")
         wav = normalize_audio(wav)
         target = args.output / f"{name}.wav"
-        sf.write(target, wav, sample_rate, subtype="PCM_16")
+        with target.open("xb") as stream:
+            sf.write(stream, wav, sample_rate, format="WAV", subtype="PCM_16")
+        provenance_metadata = {
+            **combine_generations(events), "kind": "narration", "spokenText": cleaned,
+            "sourceSha256": metrics["sourceSha256"],
+            "modelOptions": {"load_denoiser": False, "optimize": args.optimize, "device": "cuda"},
+            "postProcessing": {
+                "sampleRate": sample_rate, "normalizationPeak": 0.95, "chunkChars": args.chunk_chars,
+                "sentencePauseMs": int(os.getenv("VOXCPM_SENTENCE_PAUSE_MS", "180")),
+                "paragraphPauseMs": int(os.getenv("VOXCPM_PARAGRAPH_PAUSE_MS", "420")),
+                "crossfadeMs": int(os.getenv("VOXCPM_CHUNK_CROSSFADE_MS", "18")),
+                "trimEdgeSilenceMs": int(os.getenv("VOXCPM_TRIM_EDGE_SILENCE_MS", "120")),
+                "silenceThreshold": float(os.getenv("VOXCPM_SILENCE_THRESHOLD", "0.003")),
+            },
+        }
+        provenance = write_audio_record(target, {**provenance_metadata, "encoding": {"format": "WAV", "subtype": "PCM_16"}})
         duration = len(wav) / sample_rate
         entry = {
             "name": name, "path": str(target.resolve()),
@@ -237,15 +264,21 @@ def main():
             "peakReservedGiB": round(torch.cuda.max_memory_reserved() / 2**30, 3),
             "rms": round(float(np.sqrt(np.mean(wav.astype(np.float64)**2))), 6),
             "chunks": chunk_results,
+            "provenance": str(provenance),
         }
         if shutil.which("ffmpeg"):
             mp3 = target.with_suffix(".mp3")
-            subprocess.run(["ffmpeg", "-v", "error", "-i", str(target), "-codec:a", "libmp3lame", "-q:a", "3", str(mp3)], check=True)
+            subprocess.run(["ffmpeg", "-n", "-v", "error", "-i", str(target), "-codec:a", "libmp3lame", "-q:a", "3", str(mp3)], check=True)
+            encoding = {"format": "MP3", "encoder": "libmp3lame", "quality": 3}
             entry["mp3"] = str(mp3.resolve())
         elif "MP3" in sf.available_formats():
             mp3 = target.with_suffix(".mp3")
-            sf.write(mp3, wav, sample_rate, format="MP3", bitrate_mode="VARIABLE", compression_level=0.8)
+            with mp3.open("xb") as stream:
+                sf.write(stream, wav, sample_rate, format="MP3", bitrate_mode="VARIABLE", compression_level=0.8)
+            encoding = {"format": "MP3", "bitrateMode": "VARIABLE", "compressionLevel": 0.8}
             entry["mp3"] = str(mp3.resolve())
+        if "mp3" in entry:
+            entry["mp3Provenance"] = str(write_audio_record(mp3, {**provenance_metadata, "encoding": encoding}))
         metrics["cases"].append(entry)
         save(f"finished_{name}", lastCase=entry)
     save("complete")

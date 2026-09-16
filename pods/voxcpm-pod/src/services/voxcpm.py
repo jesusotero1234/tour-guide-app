@@ -12,6 +12,7 @@ import torch
 from voxcpm import VoxCPM
 
 from config import env
+from utils.audio_provenance import capture_generation, combine_generations, write_audio_record, model_revision, sha256_file, record_path
 from utils.logger import logger
 from utils.sanitize import TextChunk, chunk_text, sanitize_text
 
@@ -170,15 +171,22 @@ def normalize_audio(audio: np.ndarray, peak: float = 0.95) -> np.ndarray:
 class VoxCpmService:
     def __init__(self) -> None:
         self._model = None
+        self._model_path = None
         self._generation_lock = threading.Lock()
         self._fatal_error: str | None = None
+        self._generation_events: list[dict] = []
 
     @property
     def model(self):
         if self._model is None:
             logger.info("Loading VoxCPM model", extra={"model": env.MODEL_ID})
+            model_path = Path(env.MODEL_ID)
+            if not model_path.is_dir():
+                import huggingface_hub
+                model_path = Path(huggingface_hub.snapshot_download(env.MODEL_ID))
+            self._model_path = str(model_path)
             self._model = VoxCPM.from_pretrained(
-                env.MODEL_ID,
+                self._model_path,
                 load_denoiser=False,
                 optimize=env.OPTIMIZE,
                 device=env.DEVICE,
@@ -243,6 +251,7 @@ class VoxCpmService:
             chunk_max_chars = _int_env("VOXCPM_CHUNK_MAX_CHARS", 360)
             chunks = chunk_text(cleaned, max_chars=chunk_max_chars)
             generated_chunks = []
+            self._generation_events = []
             reference = self._resolve_voice_reference(language, voice_profile, desc, reference_id, reference_wav_path)
 
             logger.info(
@@ -270,8 +279,13 @@ class VoxCpmService:
                         "VoxCPM reference mode failed; falling back to Voice Design",
                         extra={"voiceProfile": voice_profile, "referenceId": reference["id"], "error": str(error)},
                     )
+                    self._generation_events = []
+                    reference = None
 
             if not generated_chunks:
+                self._generation_events = []
+                mode = "voice-design"
+                reference = None
                 generated_chunks = self._generate_with_voice_design(chunks, desc)
 
             if not generated_chunks:
@@ -280,7 +294,38 @@ class VoxCpmService:
             sample_rate = self.model.tts_model.sample_rate
             audio = normalize_audio(join_audio_chunks(generated_chunks, sample_rate))
             output_path = self._output_path(audio_format)
-            sf.write(output_path, audio, sample_rate)
+            with output_path.open("xb") as stream:
+                sf.write(stream, audio, sample_rate, format="WAV")
+
+            combined = combine_generations(self._generation_events)
+            post_processing = {
+                "pauses": {
+                    "sentencePauseMs": _int_env("VOXCPM_SENTENCE_PAUSE_MS", 180),
+                    "paragraphPauseMs": _int_env("VOXCPM_PARAGRAPH_PAUSE_MS", 420),
+                },
+                "trim": {
+                    "edgeSilenceMs": _int_env("VOXCPM_TRIM_EDGE_SILENCE_MS", 120),
+                    "threshold": _silence_threshold(audio),
+                },
+                "crossfadeMs": _int_env("VOXCPM_CHUNK_CROSSFADE_MS", 18),
+                "normalizationPeak": 0.95,
+                "chunkMaxChars": chunk_max_chars,
+                "sampleRate": sample_rate,
+                "format": "WAV",
+            }
+            metadata = {
+                **combined,
+                "kind": "narration",
+                "language": language,
+                "voiceProfile": voice_profile,
+                "modelOptions": {
+                    "load_denoiser": False,
+                    "optimize": env.OPTIMIZE,
+                    "device": env.DEVICE,
+                },
+                "postProcessing": post_processing,
+            }
+            provenance_path = write_audio_record(output_path, metadata)
 
             audio_bytes = output_path.read_bytes()
             logger.info(
@@ -291,6 +336,7 @@ class VoxCpmService:
                     "voiceProfile": voice_profile,
                     "generationMode": mode,
                     "referenceId": reference["id"] if reference else None,
+                    "provenance": str(provenance_path),
                 },
             )
             return {
@@ -300,6 +346,7 @@ class VoxCpmService:
                 "format": "wav",
                 "generationMode": mode,
                 "referenceId": reference["id"] if reference else None,
+                "provenance": str(provenance_path),
             }
         except Exception as error:
             if self._is_cuda_fatal_error(error):
@@ -308,6 +355,17 @@ class VoxCpmService:
         finally:
             if self._generation_lock.locked():
                 self._generation_lock.release()
+
+    def _generate_recorded(self, desc: str, **kwargs):
+        audio, event = capture_generation(
+            self.model,
+            model_id=env.MODEL_ID,
+            revision=model_revision(self._model_path),
+            description=desc,
+            **kwargs,
+        )
+        self._generation_events.append(event)
+        return audio
 
     def _generate_with_voice_design(self, chunks: list[TextChunk], desc: str) -> list[tuple[np.ndarray, TextChunk]]:
         wav_chunks = []
@@ -330,7 +388,7 @@ class VoxCpmService:
                         if sub_estimated > 500:
                             continue
                         prompt = f"({desc}){sub_part}"
-                        wav = self.model.generate(text=prompt, cfg_value=cfg_value, inference_timesteps=inference_timesteps)
+                        wav = self._generate_recorded(desc, text=prompt, cfg_value=cfg_value, inference_timesteps=inference_timesteps)
                         logger.info(
                             "Generated VoxCPM sub-chunk",
                             extra={
@@ -346,7 +404,7 @@ class VoxCpmService:
                         wav_chunks.append((np.asarray(wav), sub_chunk))
                 continue
             prompt = f"({desc}){part}"
-            wav = self.model.generate(text=prompt, cfg_value=cfg_value, inference_timesteps=inference_timesteps)
+            wav = self._generate_recorded(desc, text=prompt, cfg_value=cfg_value, inference_timesteps=inference_timesteps)
             logger.info(
                 "Generated VoxCPM chunk",
                 extra={
@@ -394,7 +452,8 @@ class VoxCpmService:
         cfg_value = _float_env("VOXCPM_CFG_VALUE", 2.0)
         inference_timesteps = _int_env("VOXCPM_INFERENCE_TIMESTEPS", 10)
         prompt = f"({desc}){text}"
-        wav = self.model.generate(
+        wav = self._generate_recorded(
+            desc,
             text=prompt,
             reference_wav_path=reference["path"],
             cfg_value=cfg_value,
@@ -438,12 +497,36 @@ class VoxCpmService:
         if not path.exists():
             try:
                 bootstrap_text = self._bootstrap_text(lang, desc)
-                wav = self.model.generate(
+                cfg_value = _float_env("VOXCPM_CFG_VALUE", 2.0)
+                inference_timesteps = _int_env("VOXCPM_INFERENCE_TIMESTEPS", 10)
+                wav, event = capture_generation(
+                    self.model,
+                    model_id=env.MODEL_ID,
+                    revision=model_revision(self._model_path),
+                    description=desc,
                     text=bootstrap_text,
-                    cfg_value=_float_env("VOXCPM_CFG_VALUE", 2.0),
-                    inference_timesteps=_int_env("VOXCPM_INFERENCE_TIMESTEPS", 10),
+                    cfg_value=cfg_value,
+                    inference_timesteps=inference_timesteps,
                 )
-                sf.write(path, normalize_audio(np.asarray(wav)), self.model.tts_model.sample_rate)
+                sample_rate = self.model.tts_model.sample_rate
+                with path.open("xb") as stream:
+                    sf.write(stream, normalize_audio(np.asarray(wav)), sample_rate, format="WAV")
+                metadata = {
+                    **event,
+                    "kind": "voice_reference",
+                    "language": lang,
+                    "voiceProfile": profile_key,
+                    "modelOptions": {
+                        "load_denoiser": False,
+                        "optimize": env.OPTIMIZE,
+                        "device": env.DEVICE,
+                    },
+                    "postProcessing": {
+                        "normalizationPeak": 0.95,
+                        "sampleRate": sample_rate,
+                    },
+                }
+                write_audio_record(path, metadata)
                 logger.info("Created VoxCPM voice reference", extra={"referenceId": stable_id, "path": str(path), "voiceProfile": profile_key})
             except Exception as error:
                 logger.warning("Failed to create VoxCPM voice reference", extra={"referenceId": stable_id, "error": str(error)})
@@ -466,7 +549,8 @@ class VoxCpmService:
         manifest_path = refs_dir / "manifest.json"
         try:
             manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
-            manifest[reference_id] = {
+            existing = manifest.get(reference_id, {})
+            entry = {
                 "provider": "voxcpm",
                 "model": model_key,
                 "language": language,
@@ -474,9 +558,26 @@ class VoxCpmService:
                 "path": str(path),
                 "updatedAtMs": int(time.time() * 1000),
             }
+            entry.update(existing)
+            entry["updatedAtMs"] = int(time.time() * 1000)
+            sidecar = record_path(path)
+            if sidecar.is_file():
+                entry["referenceSha256"] = sha256_file(path)
+                entry["provenance"] = str(sidecar)
+            else:
+                historical = {
+                    "kind": "voice_reference",
+                    "recordKind": "historical_observation",
+                    "observedConfig": {"language": language, "voiceProfile": voice_profile, "modelKey": model_key},
+                }
+                write_audio_record(path, historical)
+                entry["referenceSha256"] = sha256_file(path)
+                entry["provenance"] = str(sidecar)
+            manifest[reference_id] = entry
             manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True))
         except Exception as error:
             logger.warning("Failed to audit VoxCPM voice reference", extra={"referenceId": reference_id, "error": str(error)})
+            raise
 
     def _output_path(self, audio_format: str) -> Path:
         return env.AUDIO_CACHE / f"{int(time.time() * 1000)}.{audio_format}"

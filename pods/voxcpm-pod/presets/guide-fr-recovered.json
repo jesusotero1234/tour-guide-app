@@ -1,0 +1,11 @@
+{
+  "kind": "recovered_synthetic_voice_reference",
+  "sourceFilename": "WhatsApp Audio 2026-09-08 at 17.38.08.mpeg",
+  "sourceSha256": "a15b087b5c82e782bd3fc752cb5452a39f929d049a90032f3d8b75e25e07940c",
+  "referenceSha256": "ef2f9dbdf01a3b396cc7a23367e1d92401950ae5a1736f2281870c964fe47154",
+  "excerptStartSeconds": 18.3,
+  "excerptEndSeconds": 28.4,
+  "referenceText": "La vie quotidienne et des événements qu'on imagine difficilement ensemble ont partagé ce même espace. Comment un seul lieu peut-il accueillir des usages aussi différents ?",
+  "userStatement": "User identified the supplied audio as an earlier generated voice and selected its Nano sample at 0.9x on 2026-09-12.",
+  "originalGenerationDetails": "Not recovered; no claim of original seed or model revision."
+}
