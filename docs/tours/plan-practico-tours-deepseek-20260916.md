@@ -1,6 +1,6 @@
 # Plan práctico: tours con DeepSeek que sean suficientemente buenos
 
-Fecha: 16 de septiembre de 2026. Estado: plan preparado; nueva ejecución pendiente.
+Fecha: 16 de septiembre de 2026. Estado: T1–T3 ejecutadas; audio entregado y valoración del usuario pendiente. [Escucha e informe](valencia-deepseek-practico-escucha-20260916.md).
 
 ## Objetivo y decisión
 
@@ -77,22 +77,22 @@ El plan y su lista de tareas quedan juntos en este documento de `docs/tours`, si
 
 ### T1. Preparar el encargo breve
 
-- [ ] Extraer literalmente las referencias elegidas del guion aceptado; mantener sus créditos y separarlas de la evidencia de Valencia.
-- [ ] Preparar las dos fichas breves con los episodios anteriores, sus pasajes utilizables y los detalles descartados. Conservar el dossier completo para revisión.
+- [x] Extraer literalmente las referencias elegidas del guion aceptado; mantener sus créditos y separarlas de la evidencia de Valencia.
+- [x] Preparar las dos fichas breves con los episodios anteriores, sus pasajes utilizables y los detalles descartados. Conservar el dossier completo para revisión.
 
 **Verificación:** lectura de las fichas contra las fuentes; el texto del ejemplo no aparece como evidencia de otra parada. **Dependencias:** ninguna. **Alcance:** pequeño, un paquete de entrada dentro de una nueva carpeta de ejecución en `backend/tmp/`, sin cambios de aplicación.
 
 ### T2. Escribir y revisar las dos paradas
 
-- [ ] DeepSeek escribe el palacio; Codex revisa hechos y comprensión. Después se escribe Serranos con el contexto de la parada anterior.
-- [ ] Si hay un problema real, pedir una corrección concreta de la pieza afectada, como máximo una por pieza. Comprobar la corrección y conservar las partes que ya sirven.
+- [x] DeepSeek escribe el palacio; Codex revisa hechos y comprensión. Después se escribe Serranos con el contexto de la parada anterior.
+- [x] Si hay un problema real, pedir una corrección concreta de la pieza afectada, como máximo una por pieza. Comprobar la corrección y conservar las partes que ya sirven.
 
 **Verificación:** textos completos, episodio reconocible y sin errores históricos pendientes. La revisión señala qué frase cambia el significado y qué evidencia lo demuestra; no devuelve una lista de gustos personales. **Dependencia:** T1. **Alcance:** pequeño, reutilización del cliente y de los registros existentes; como mucho un ejecutor local breve si el actual no permite este encargo.
 
 ### T3. Cerrar el texto y generar audio
 
-- [ ] DeepSeek escribe una bienvenida breve usando las dos paradas aceptadas; revisar que no añada hechos ni prometa algo ausente. Una corrección si hace falta, con el mismo criterio.
-- [ ] Generar los capítulos y su unión con VoxCPM2 y la misma voz de Madrid. Entregar audio reproducible y guion final; verificar correspondencia, integridad y duración real.
+- [x] DeepSeek escribe una bienvenida breve usando las dos paradas aceptadas; revisar que no añada hechos ni prometa algo ausente. Una corrección si hace falta, con el mismo criterio.
+- [x] Generar los capítulos y su unión con VoxCPM2 y la misma voz de Madrid. Entregar audio reproducible y guion final; verificar correspondencia, integridad y duración real.
 
 **Verificación:** bienvenida y dos paradas completas, sin errores pendientes, con créditos y procedencia. **Dependencia:** T2. **Alcance:** pequeño, archivos de texto y audio en la carpeta de ejecución; sin integración nueva.
 
@@ -121,4 +121,4 @@ Si funciona, el siguiente paso es ampliar ese mismo concepto aprovechando más f
 
 Para tours actuales, conservar los guiones que ya funcionan. La misma referencia de estilo servirá para corregir únicamente los pasajes que resulten pesados o confusos; no se prevé una reescritura masiva.
 
-La nueva prueba aún no se ha ejecutado. Este encargo termina con el plan y deja como siguiente tarea concreta preparar las dos fichas y redactar la primera parada.
+La prueba produjo las dos paradas y la bienvenida a la primera, con tres llamadas de DeepSeek, sin reparaciones ni retoques manuales. El audio de 3:18 y el guion revisado están en el [informe de escucha](valencia-deepseek-practico-escucha-20260916.md). Se registraron consumo e intervención editorial; queda pendiente la valoración real del usuario para completar T4.
