@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { citySearchAliases } from '../../domain/cityNames';
 import { ListToursOptions, TourRepository } from '../../domain/repositories/TourRepository';
 import { Tour, TourStatus } from '../../domain/entities/Tour';
 import { Place, PlaceMetadata } from '../../domain/entities/Place';
@@ -175,17 +176,21 @@ export class PostgresTourRepository implements TourRepository {
   }
 
   async list(options: ListToursOptions): Promise<Tour[]> {
-    const where: {
-      city?: string;
-      countryCode?: string;
-      theme?: string;
-      language?: string;
-      durationMinutes?: number;
-      status?: string;
-    } = {};
+    const where: Prisma.TourWhereInput = {};
 
     if (options.city) {
-      where.city = options.city;
+      // Catalogue search accepts fragments; generation and reuse keep exact city matching.
+      if (options.cityMatch === 'contains') {
+        where.OR = [
+          { city: { contains: options.city.replace(/[\\%_]/g, '\\$&'), mode: 'insensitive' } },
+          ...citySearchAliases(options.city).map(entry => ({
+            countryCode: entry.countryCode,
+            city: { in: entry.names, mode: 'insensitive' as const },
+          })),
+        ];
+      } else {
+        where.city = { equals: options.city, mode: 'insensitive' };
+      }
     }
     if (options.countryCode) {
       where.countryCode = options.countryCode;

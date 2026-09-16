@@ -38,7 +38,7 @@ const executeTourPhase: TourPhaseRunner = async (input, progress, signal) => {
   if (input.mode === 'narrate' && !input.snapshot) throw new Error('Blueprint required');
   await writeFile(inputFile, JSON.stringify(input.mode === 'prepare' ? destination : { snapshot: input.snapshot, request: input.request }), { mode: 0o600, flag: 'wx' });
   const args = input.mode === 'prepare'
-    ? [worker, '--generate', '--allow-external', '--profile=qwen38_hybrid', '--writer-transport=codex',
+    ? [worker, '--generate', '--allow-external', '--profile=deepseek_control', '--writer-transport=codex',
       '--prepare-blueprint', '--destination-file=' + inputFile, '--city-qid=' + destination!.qid,
       '--city=' + input.request.city, '--country=' + input.request.country, '--country-code=' + input.request.countryCode,
       '--theme=' + input.request.theme, '--language=' + destination!.researchLanguages[0],

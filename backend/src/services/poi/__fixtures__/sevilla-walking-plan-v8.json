@@ -1,0 +1,168 @@
+{
+  "provenance": "Sevilla 2026-09-12: frozen candidate scores/coordinates and recorded walking legs. Reduced to the six final stops, the excluded human identity, and Casa de Pilatos.",
+  "requiredIds": [
+    "Q231606",
+    "Q498261",
+    "Q834479",
+    "Q956018"
+  ],
+  "excludedHumanId": "Q338824",
+  "candidates": [
+    {
+      "name": "Reales Alcázares",
+      "wikidataId": "Q498261",
+      "coordinates": {
+        "lat": 37.3832454,
+        "lng": -5.9902534
+      },
+      "category": "palace_castle",
+      "fameScore": 31.913766555032915,
+      "importance_score": 63.83
+    },
+    {
+      "name": "plaza de España",
+      "wikidataId": "Q956018",
+      "coordinates": {
+        "lat": 37.3769774,
+        "lng": -5.9870447
+      },
+      "category": "square_civic",
+      "fameScore": 29.67206476617281,
+      "importance_score": 59.34
+    },
+    {
+      "name": "Catedral de Santa María de la Sede de Sevilla",
+      "wikidataId": "Q231606",
+      "coordinates": {
+        "lat": 37.3859155,
+        "lng": -5.9931531
+      },
+      "category": "religious",
+      "fameScore": 26.7,
+      "importance_score": 60
+    },
+    {
+      "name": "Palacio de San Telmo",
+      "wikidataId": "Q2665595",
+      "coordinates": {
+        "lat": 37.3801915,
+        "lng": -5.9934226
+      },
+      "category": "palace_castle",
+      "fameScore": 26.71578428466209,
+      "importance_score": 53.43
+    },
+    {
+      "name": "plaza de toros de la Real Maestranza",
+      "wikidataId": "Q2274061",
+      "coordinates": {
+        "lat": 37.385958507,
+        "lng": -5.998406636
+      },
+      "category": "square_civic",
+      "fameScore": 27.07068586817104,
+      "importance_score": 54.14
+    },
+    {
+      "name": "Giralda",
+      "wikidataId": "Q834479",
+      "coordinates": {
+        "lat": 37.386189,
+        "lng": -5.9925531
+      },
+      "category": "other",
+      "fameScore": 29.225559288989025,
+      "importance_score": 58.45
+    },
+    {
+      "name": "Casa de Pilatos",
+      "wikidataId": "Q1046529",
+      "coordinates": {
+        "lat": 37.3902459,
+        "lng": -5.9870988
+      },
+      "category": "palace_castle",
+      "fameScore": 25.96578428466209,
+      "importance_score": 51.93
+    },
+    {
+      "name": "Imre Makovecz",
+      "wikidataId": "Q338824",
+      "coordinates": {
+        "lat": 37.4064816,
+        "lng": -6.0047081
+      },
+      "category": "other",
+      "fameScore": 28.00488750216347,
+      "importance_score": 56.01
+    }
+  ],
+  "legs": [
+    {
+      "type": "walking",
+      "fromStopId": "Q498261",
+      "toStopId": "Q834479",
+      "durationSeconds": 391
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q834479",
+      "toStopId": "Q231606",
+      "durationSeconds": 166
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q231606",
+      "toStopId": "Q2274061",
+      "durationSeconds": 410
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q2274061",
+      "toStopId": "Q2665595",
+      "durationSeconds": 755
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q2665595",
+      "toStopId": "Q956018",
+      "durationSeconds": 765
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q956018",
+      "toStopId": "Q338824",
+      "durationSeconds": 4002
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q2274061",
+      "toStopId": "Q956018",
+      "durationSeconds": 1437
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q956018",
+      "toStopId": "Q1046529",
+      "durationSeconds": 1510
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q1046529",
+      "toStopId": "Q498261",
+      "durationSeconds": 971
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q498261",
+      "toStopId": "Q1046529",
+      "durationSeconds": 971
+    },
+    {
+      "type": "walking",
+      "fromStopId": "Q1046529",
+      "toStopId": "Q834479",
+      "durationSeconds": 613
+    }
+  ]
+}

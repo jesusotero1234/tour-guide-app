@@ -186,6 +186,7 @@ describe('listTours controller', () => {
 
     expect(orchestrationService.listTours).toHaveBeenCalledWith({
       city: 'Madrid',
+      cityMatch: 'contains',
       countryCode: 'ES',
       theme: undefined,
       language: 'es',

@@ -49,6 +49,7 @@ export interface ConceptTourRequest {
 }
 
 export interface TourResponse {
+  cityNames?: import('../domain/cityNames').CityNames;
   reviewSummary?: { findingCount: number; guidedDurationMinutes: number; transferCount: number; durationFit: string; languageFindingCount?: number; narrationMinutes?: number; durationMeasured?: boolean; narrationWithinTarget?: boolean };
   id: string;
   city: string;

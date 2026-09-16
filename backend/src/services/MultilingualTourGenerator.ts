@@ -1,4 +1,6 @@
 import { randomUUID } from 'node:crypto';
+import { buildSourceCredits, assertBlueprintSources } from './SourceCredits';
+import { pilotEnabled } from '../config/pilot';
 import { enrichTourImages } from './enrichTourImages';
 import { setTimeout as delay } from 'node:timers/promises';
 import { TourRepository } from '../domain/repositories/TourRepository';
@@ -11,7 +13,7 @@ import { TourGenerationAttemptError, TourPhaseRunner, runTourPhase } from './Cod
 import { mapCodexTourArtifact } from './CodexTourArtifact';
 import { tourLocale, NARRATION_POLICY_VERSION } from './tourReadiness/TourLanguage';
 
-export const MULTILINGUAL_TOUR_PIPELINE = 'codex-blueprint-app-2-astra-audit-' + NARRATION_POLICY_VERSION;
+export const MULTILINGUAL_TOUR_PIPELINE = 'codex-blueprint-app-3-welcome-audit-auto-publish-' + NARRATION_POLICY_VERSION;
 export class MultilingualTourGenerator {
   readonly pipelineVersion = MULTILINGUAL_TOUR_PIPELINE;
   readonly usesBudget = true;
@@ -39,7 +41,7 @@ export class MultilingualTourGenerator {
     return !!base?.snapshot && tour.metadata.codexAuthor?.blueprintFingerprint === base.snapshot.fingerprint;
   }
   async generateTextTour(request: TourRequest, progress?: (value: CodexProgress) => Promise<void>,
-    signal?: AbortSignal, budget?: { limitUsd: number }): Promise<{ id: string; reviewRequired: true; accountedUsd: number }> {
+    signal?: AbortSignal, budget?: { limitUsd: number }): Promise<{ id: string; reviewRequired: false; accountedUsd: number }> {
     let spent = 0;
     const limit = budget?.limitUsd ?? Number(process.env.TOUR_GENERATION_SPEND_LIMIT_USD ?? '2');
     if (!Number.isFinite(limit) || limit <= 0) throw new Error('Invalid generation budget');
@@ -108,6 +110,7 @@ export class MultilingualTourGenerator {
       }
       if (!base.snapshot || !await this.bases.isCurrent(base.id)) throw new Error('BLUEPRINT_UNAVAILABLE');
       const snapshot = parseTourBlueprintSnapshot(base.snapshot);
+      if (pilotEnabled()) assertBlueprintSources(snapshot);
       const runId = 'app-' + randomUUID();
       const remaining = limit - spent;
       if (remaining <= 1e-9) throw new Error('TOUR_BUDGET_EXHAUSTED');
@@ -121,11 +124,14 @@ export class MultilingualTourGenerator {
         || JSON.stringify(review.geometry) !== JSON.stringify(snapshot.geometry)) throw new Error('Narration changed the prepared route');
       const draft = mapCodexTourArtifact(normalized, runId, result.review, result.author);
       draft.blueprintId = base.id;
+      for (const place of draft.places) {
+        place.metadata = { ...place.metadata, sourceCredits: buildSourceCredits(snapshot, place.metadata!.sourcePoi!.wikidata!) };
+      }
       draft.metadata = { ...draft.metadata, generationPipeline: this.pipelineVersion };
       const enrichedDraft = await this.enrichImages(draft, signal);
       signal?.throwIfAborted();
       const saved = await this.tours.save(enrichedDraft);
-      return { id: saved.id, reviewRequired: true, accountedUsd: spent };
+      return { id: saved.id, reviewRequired: false, accountedUsd: spent };
     } catch (error) {
       throw new TourGenerationAttemptError(error instanceof Error ? error.message : 'Generation failed', spent);
     }

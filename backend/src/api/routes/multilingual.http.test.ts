@@ -23,37 +23,30 @@ afterAll(async () => {
   if (oldFlag === undefined) delete process.env.TOUR_FRENCH_ENABLED; else process.env.TOUR_FRENCH_ENABLED = oldFlag;
   await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
 });
-beforeEach(() => { jest.clearAllMocks(); delete process.env.TOUR_FRENCH_ENABLED; });
+beforeEach(() => { jest.clearAllMocks(); process.env.TOUR_FRENCH_ENABLED = 'false'; });
 const post = (body = request) => fetch(origin + '/tours/generation-jobs', {
   method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body),
 });
-it('keeps the French rollout off and rejects before creating work', async () => {
-  expect(await (await fetch(origin + '/tours/generation-capabilities')).json()).toMatchObject({languages:['es']});
-  expect((await post()).status).toBe(400);
-  expect(generationJobService.create).not.toHaveBeenCalled();
+it('advertises all five languages even when the old French flag is disabled', async () => {
+  expect(await (await fetch(origin + '/tours/generation-capabilities')).json()).toMatchObject({languages:['es','fr','en','de','it']});
 });
-it('advertises French when enabled, normalizes its locale and strips internal identities', async () => {
-  process.env.TOUR_FRENCH_ENABLED = 'true';
+it.each([['es-ES','es'], ['fr-FR','fr'], ['EN_gb','en'], ['de-DE','de'], ['it-IT','it']])('accepts %s, normalizes its locale and strips internal identities', async (input, language) => {
   (generationJobService.create as jest.Mock).mockResolvedValue({id:'job',status:'queued'});
-  expect(await (await fetch(origin + '/tours/generation-capabilities')).json()).toMatchObject({languages:['es','fr']});
-  const response = await post({...request, destination:{qid:'Q999'}, blueprintRevision:99} as any);
+  const response = await post({...request, language:input, destination:{qid:'Q999'}, blueprintRevision:99} as any);
   expect(response.status).toBe(202);
-  expect(generationJobService.create).toHaveBeenCalledWith({...request,language:'fr'});
+  expect(generationJobService.create).toHaveBeenCalledWith({...request,language});
 });
 it('returns a destination review error instead of starting an ambiguous tour', async () => {
-  process.env.TOUR_FRENCH_ENABLED = 'true';
   (generationJobService.create as jest.Mock).mockRejectedValue(new Error('DESTINATION_REVIEW_REQUIRED: ambiguous city'));
   expect((await post()).status).toBe(422);
 });
 it('returns completed review drafts without claiming publication', async () => {
-  process.env.TOUR_FRENCH_ENABLED = 'true';
   (generationJobService.create as jest.Mock).mockResolvedValue({id:'job',status:'completed',result:{tourId:'tour',reviewRequired:true}});
   const response = await post();
   expect(response.status).toBe(200);
   expect(await response.json()).toMatchObject({result:{tourId:'tour',reviewRequired:true}});
 });
-it('rejects unsupported locales even with French enabled', async () => {
-  process.env.TOUR_FRENCH_ENABLED = 'true';
+it('rejects unsupported locales before creating work', async () => {
   expect((await post({...request,language:'ja'})).status).toBe(400);
   expect(generationJobService.create).not.toHaveBeenCalled();
 });

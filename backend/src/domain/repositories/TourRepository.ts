@@ -2,6 +2,7 @@ import { Tour, TourStatus } from '../entities/Tour';
 
 export type ListToursOptions = {
   city?: string;
+  cityMatch?: 'contains';
   countryCode?: string;
   theme?: string;
   language?: string;

@@ -3,7 +3,7 @@ import { TourRequest } from '../types/api';
 import { TourLegV8 } from './poi/TourGeometryV8';
 import { draftIntroduction, transferInstruction, NARRATION_RATES, NARRATION_POLICY_VERSION, tourLocale } from './tourReadiness/TourLanguage';
 
-export const CODEX_TOUR_PIPELINE = 'codex-author-v8-app-1';
+export const CODEX_TOUR_PIPELINE = 'codex-author-v8-app-2-auto-publish';
 
 function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid Codex artifact object');
@@ -35,6 +35,8 @@ export function mapCodexTourArtifact(request: TourRequest, runId: string, rawRev
     check(recorded[key] === request[key], 'request mismatch: ' + key);
   }
   check(author.status === 'complete_needs_review' && author.publicationPassed === false, 'incomplete author result');
+  const delivery = object(author.delivery);
+  check(typeof delivery.passed === 'boolean' && delivery.passed === true, 'delivery audit not passed');
   check(array(author.missingStopIds).length === 0, 'missing stops');
   const route = array(object(review.route).stops).map(object);
   const scripts = array(author.stops).map(object);
@@ -88,9 +90,7 @@ export function mapCodexTourArtifact(request: TourRequest, runId: string, rawRev
     });
     const languageReview = auditValue.languageReview;
     let validatedLanguageReview: { matchesRequestedLanguage: boolean; naturalForListening: boolean; issues: string[] } | undefined;
-    if (review.blueprintFingerprint !== undefined) {
-      check(languageReview !== undefined, 'missing languageReview');
-    }
+    check(languageReview !== undefined, 'missing languageReview');
     if (languageReview !== undefined) {
       const lr = object(languageReview);
       check(typeof lr.matchesRequestedLanguage === 'boolean' && lr.matchesRequestedLanguage === true, 'languageReview matchesRequestedLanguage must be true');
@@ -116,6 +116,8 @@ export function mapCodexTourArtifact(request: TourRequest, runId: string, rawRev
     if (legs[index]?.type === 'self_transfer') description += '\n\n' + transferInstruction(string(route[index + 1].name), request.language);
     return { id: '', tourId: '', name: string(stop.name), description, latitude, longitude, position: index, metadata: { sourcePoi: { wikidata } } };
   });
+  if (findingCount > 0) throw new Error('factual audit not passed');
+  if (languageFindingCount > 0) throw new Error('language audit not passed');
   const allScriptText = places.map(place => place.description).join(' ');
   const wordCount = allScriptText.trim().split(/\s+/).filter(w => w.length > 0).length;
   const locale = tourLocale(request.language);
@@ -125,16 +127,16 @@ export function mapCodexTourArtifact(request: TourRequest, runId: string, rawRev
   return {
     id: '', city: request.city, country: request.country, countryCode: request.countryCode,
     theme: request.theme, language: request.language || 'es', durationMinutes: request.durationMinutes,
-    status: 'review', introduction: draftIntroduction(request.city, request.language),
+    status: 'draft', introduction: draftIntroduction(request.city, request.language),
     places, createdAt: now, updatedAt: now,
     metadata: { generationPipeline: CODEX_TOUR_PIPELINE, codexAuthor: {
-      runId, publicationPassed: false, findingCount, durationFit: string(geometry.durationFit),
+      runId, publicationPassed: true, findingCount, durationFit: string(geometry.durationFit),
       guidedDurationMinutes, transferCount, legs,
       languageFindingCount,
       narrationPolicyVersion: NARRATION_POLICY_VERSION,
       narrationMinutes,
       durationMeasured: false,
-      narrationWithinTarget: author.delivery && typeof object(author.delivery).passed === 'boolean' ? object(author.delivery).passed as boolean : undefined,
+      narrationWithinTarget: true,
       blueprintFingerprint: review.blueprintFingerprint !== undefined ? string(review.blueprintFingerprint) : undefined,
       stopReviews,
     } },

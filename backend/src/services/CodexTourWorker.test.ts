@@ -24,6 +24,7 @@ describe('isolated Codex worker protocol', () => {
     const [executable, args, options] = spawned.mock.calls[0];
     expect(executable).toBe(process.execPath);
     expect(args).toContain('--writer-transport=codex');
+    expect(args).toContain('--profile=deepseek_control');
     expect(args).toContain('--city=City; echo forbidden');
     expect(args).toContain('--prior-spend-usd=0');
     expect(options.shell).toBe(false);

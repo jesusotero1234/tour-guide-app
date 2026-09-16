@@ -123,6 +123,10 @@ export async function preflightNarrativeOpenRouterV6(options: {
   signal?: AbortSignal;
 } = {}): Promise<OpenRouterPreflightResultV6> {
   const profile = options.profile ?? 'balanced_openrouter';
+  if (requirements(profile).length === 0) {
+    const normalized = { checks: [], issues: [] };
+    return { status: 'ready', fingerprint: createHash('sha256').update(JSON.stringify(normalized)).digest('hex'), ...normalized };
+  }
   const baseUrl = (options.baseUrl ?? 'https://openrouter.ai/api/v1').replace(/\/$/, '');
   const get = options.get ?? defaultGet;
   const issues: string[] = [];

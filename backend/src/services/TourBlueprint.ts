@@ -1,4 +1,6 @@
 import { createHash } from 'node:crypto';
+import { pilotEnabled } from '../config/pilot';
+import { assertBlueprintSources } from './SourceCredits';
 import { TourRequest } from '../types/api';
 import { TourDestination } from './TourDestinationResolver';
 import { NarrativeRouteBriefV6, narrativeFingerprintV6 } from './poi/NarrativeContractsV6';
@@ -136,5 +138,6 @@ export function parseTourBlueprintSnapshot(value: unknown): TourBlueprintSnapsho
     requireCondition(leg.type === 'self_transfer' ? leg.durationSeconds === null
       : leg.type === 'walking' && Number.isFinite(leg.durationSeconds) && leg.durationSeconds >= 0, 'leg duration');
   });
+  if (pilotEnabled()) assertBlueprintSources(snapshot);
   return snapshot;
 }

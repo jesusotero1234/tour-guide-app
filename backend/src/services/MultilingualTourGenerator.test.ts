@@ -35,9 +35,10 @@ describe('multilingual generation from shared evidence', () => {
     const request=await s.generator.prepareRequest(s.request);
     const result=await s.generator.generateTextTour(request, undefined, undefined, {limitUsd:2});
     expect(s.run.mock.calls.map(([i])=>i.mode)).toEqual(['prepare','narrate']);
-    expect(result).toEqual({id:'tour-fr',reviewRequired:true,accountedUsd:0.5});
-    expect(s.tours.save.mock.calls[0][0]).toMatchObject({status:'review',language:'fr',blueprintId:'base-1'});
-    expect(s.tours.save.mock.calls[0][0].introduction).toContain('En attente de révision');
+    expect(result).toEqual({id:'tour-fr',reviewRequired:false,accountedUsd:0.5});
+    expect(s.tours.save.mock.calls[0][0]).toMatchObject({status:'draft',language:'fr',blueprintId:'base-1'});
+    expect(s.tours.save.mock.calls[0][0].introduction).toContain('Découvrez');
+    expect(s.tours.save.mock.calls[0][0].introduction).not.toContain('En attente de révision');
   });
   it('reuses an existing Spanish base without researching or changing the route', async () => {
     const s=setup(true); const original=JSON.stringify(s.snapshot);
@@ -142,6 +143,6 @@ describe('multilingual generation from shared evidence', () => {
     expect(saved.places[0].metadata.tourImages).toBeDefined();
     expect(saved.places[0].metadata.tourImages.sourceText).toBe(saved.places[0].description);
     expect(saved.places[0].metadata.sourcePoi.wikidata).toBe(s.snapshot.checkpoint.route.stops[0].wikidataId);
-    expect(result.reviewRequired).toBe(true);
+    expect(result.reviewRequired).toBe(false);
   });
 });

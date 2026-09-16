@@ -2,7 +2,14 @@ import { PrismaClient } from '@prisma/client';
 import { createHash, randomUUID } from 'crypto';
 import { access, mkdir, readFile, rename, stat, writeFile } from 'fs/promises';
 import { dirname, join, resolve } from 'path';
+import { setTimeout as delay } from 'timers/promises';
 import { AudioRenderInput, runLocalVoxCpm, readRenderProgress, tourProjectRoot } from './LocalVoxCpmRenderer';
+import { audioDisclosure, audioIdentity } from './AudioProvenance';
+import { activeIntroduction } from './IntroductionAudio';
+
+export interface IntroductionAudioState {
+  status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number;
+}
 
 export interface TourAudioState {
   tourId: string;
@@ -15,6 +22,10 @@ export interface TourAudioState {
   totalChunks?: number;
   currentStopId?: string;
   audioUrls: Record<string, string>;
+  audioVersions?: Record<string, string>;
+  transcripts?: Record<string, string>;
+  introduction?: IntroductionAudioState;
+  canGenerate?: boolean;
   error?: { code: string; message: string };
 }
 interface StoredJob {
@@ -27,12 +38,15 @@ export class TourAudioError extends Error {
 }
 const hash = (text: string | Buffer) => createHash('sha256').update(text).digest('hex');
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-type Snapshot = AudioRenderInput & { requestHash: string; rendererKey: string; hashes: Record<string, string> };
+type Snapshot = AudioRenderInput & { requestHash: string; rendererKey: string; hashes: Record<string, string>;
+  introductionText: string; introductionHash: string;
+  introduction?: IntroductionAudioState; introductionPath?: string };
 
 export class TourAudioService {
   private reservedTourId: string | null = null;
   private textAdmissions = 0;
   private readonly submissions = new Map<string, Promise<TourAudioState>>();
+  private readonly enqueuedTourIds = new Set<string>();
   private readonly storageDir: string;
   private readonly jobsDir: string;
 
@@ -52,7 +66,7 @@ export class TourAudioService {
     try { return await create(); } finally { this.textAdmissions -= 1; }
   }
 
-  private async snapshot(tourId: string): Promise<Snapshot> {
+  async snapshot(tourId: string, separateIntroduction = false): Promise<Snapshot> {
     if (!uuid.test(tourId)) throw new TourAudioError('TOUR_NOT_FOUND', 'Tour not found.', 404);
     const tour = await this.client.tour.findUnique({
       where: { id: tourId }, include: { places: { orderBy: { position: 'asc' } } },
@@ -61,23 +75,42 @@ export class TourAudioService {
     if (!tour || !(tour.status === 'published' || (tour.status === 'review' && metadata?.codexAuthor))) {
       throw new TourAudioError('TOUR_NOT_READY', 'Finish creating the tour before adding audio.', 404);
     }
-    if (!['es', 'fr'].includes(tour.language)) {
-      throw new TourAudioError('AUDIO_LANGUAGE_UNSUPPORTED', 'Audio is available for Spanish and French tours.', 422);
+    if (!['es', 'fr', 'en', 'de', 'it'].includes(tour.language)) {
+      throw new TourAudioError('AUDIO_LANGUAGE_UNSUPPORTED', 'Audio is available for Spanish, French, English, German and Italian tours.', 422);
     }
-    const presetPath = resolve(process.env.VOXCPM_PRESET_PATH || join(tourProjectRoot(), 'pods/voxcpm-pod/presets/guide-es-a.json'));
+    const presetPath = resolve(process.env.VOXCPM_PRESET_PATH || join(tourProjectRoot(), `pods/voxcpm-pod/presets/guide-${tour.language}-a.json`));
     const presetBytes = await readFile(presetPath);
     const preset = JSON.parse(presetBytes.toString('utf8')) as { reference: string };
     const reference = await readFile(resolve(dirname(presetPath), preset.reference));
-    const rendererKey = hash('voxcpm2-voice-a-chunked-v1:' + hash(presetBytes) + hash(reference));
-    const stops = tour.places.map(place => ({ id: place.id, text: place.description.trim() }));
-    if (!stops.length || stops.length > 40 || stops.some(stop => !stop.text || stop.text.length > 50000)) {
+    const identity = audioIdentity(presetBytes, reference);
+    const rendererKey = hash('nano-vllm-voxcpm-2.0.4-tempo-v1:' + JSON.stringify(identity));
+    const introductionText = tour.introduction?.trim() ? [audioDisclosure(tour.language), tour.introduction.trim()].join('\n\n') : '';
+    const introductionHash = hash(tour.language + rendererKey + introductionText);
+    const active = tour.places[0] && introductionText ? await activeIntroduction(this.client, this.storageDir, tour, {
+      rendererKey, sourceHash: introductionHash, firstId: tour.places[0].id,
+      firstHash: hash(tour.language + rendererKey + tour.places[0].description.trim()),
+    }) : null;
+    const split = separateIntroduction || !!active;
+    const stops = tour.places.map((place, index) => ({
+      id: place.id,
+      text: index === 0 && !split
+        ? [audioDisclosure(tour.language), tour.introduction?.trim(), place.description.trim()].filter(Boolean).join('\n\n')
+        : place.description.trim(),
+    }));
+    if (!stops.length || stops.length > 40 || tour.places.some(place => !place.description.trim()) || stops.some(stop => !stop.text || stop.text.length > 50000)) {
       throw new TourAudioError('NARRATION_NOT_READY', 'Every stop needs a complete narration before adding audio.', 422);
     }
     const hashes = Object.fromEntries(stops.map(stop => [stop.id, hash(tour.language + rendererKey + stop.text)]));
-    return { language: tour.language, stops, hashes, rendererKey, requestHash: hash(JSON.stringify(hashes)) };
+    const version = active ? introductionHash + '.' + (active.metadata as Record<string, unknown>).fileSha256 : undefined;
+    return { language: tour.language, identity, stops, hashes, rendererKey, introductionText, introductionHash,
+      requestHash: hash(JSON.stringify(hashes)),
+      ...(active ? { introductionPath: active.storagePath, introduction: { status: 'completed' as const,
+        text: introductionText, audioUrl: '/api/backend/tours/' + tourId + '/audio/introduction?v=' + version,
+        version: version!, durationSeconds: active.durationSeconds ?? undefined } } : {}),
+    };
   }
 
-  private async assets(snapshot: Snapshot) {
+  async assets(snapshot: Snapshot) {
     const rows = await this.client.audioAsset.findMany({
       where: { placeId: { in: snapshot.stops.map(stop => stop.id) }, language: snapshot.language },
       orderBy: { createdAt: 'desc' },
@@ -90,7 +123,8 @@ export class TourAudioService {
           !/^voxcpm2\/[0-9a-f-]{36}\/[0-9a-f-]{36}\.mp3$/.test(row.storagePath)) continue;
       try {
         const info = await stat(join(this.storageDir, row.storagePath));
-        if (info.isFile() && info.size > 0) valid.set(row.placeId, row);
+        // ponytail: hash files directly for the small pilot; cache verified file identities if inventory grows.
+        if (info.isFile() && info.size > 0 && metadata.fileSha256 === hash(await readFile(join(this.storageDir, row.storagePath)))) valid.set(row.placeId, row);
       } catch { /* Missing audio must be generated again. */ }
     }
     return valid;
@@ -112,18 +146,21 @@ export class TourAudioService {
     await rename(temporary, target);
   }
 
-  async get(tourId: string): Promise<TourAudioState> {
+  async get(tourId: string, readOnly = false): Promise<TourAudioState> {
     const snapshot = await this.snapshot(tourId);
     const assets = await this.assets(snapshot);
     const audioUrls = Object.fromEntries([...assets.keys()].map(id => [
-      id, '/api/backend/tours/' + tourId + '/audio/' + id + '?v=' + snapshot.hashes[id],
+      id, '/api/backend/tours/' + tourId + '/audio/' + id + '?v=' + snapshot.hashes[id] + '.' + (assets.get(id)!.metadata as Record<string, unknown>).fileSha256,
     ]));
     const base: TourAudioState = { tourId, status: 'idle', phase: 'idle', completedStops: assets.size,
-      totalStops: snapshot.stops.length, audioUrls };
+      totalStops: snapshot.stops.length, audioUrls,
+      audioVersions: Object.fromEntries([...assets].map(([id, row]) => [id, snapshot.hashes[id] + '.' + (row.metadata as Record<string, unknown>).fileSha256])),
+      transcripts: Object.fromEntries(snapshot.stops.map(stop => [stop.id, stop.text])),
+      ...(snapshot.introduction ? { introduction: snapshot.introduction } : {}), canGenerate: true };
     const job = await this.readJob(tourId);
     if (assets.size === snapshot.stops.length) return { ...base, id: job?.id, status: 'completed', phase: 'completed' };
     if (!job || job.requestHash !== snapshot.requestHash) return base;
-    if (['queued', 'running'].includes(job.status) && this.reservedTourId !== tourId) {
+    if (!readOnly && ['queued', 'running'].includes(job.status) && this.reservedTourId !== tourId) {
       job.status = 'failed';
       job.error = { code: 'AUDIO_INTERRUPTED', message: 'Audio generation was interrupted. Please try again.' };
       await this.saveJob(job);
@@ -185,7 +222,7 @@ export class TourAudioService {
       job.status = 'running';
       await this.saveJob(job);
       const outputDir = join(this.storageDir, 'voxcpm2', job.id);
-      const result = await this.render({ language: snapshot.language, stops: missing }, join(this.jobsDir, job.id), outputDir);
+      const result = await this.render({ language: snapshot.language, identity: snapshot.identity, stops: missing }, join(this.jobsDir, job.id), outputDir);
       const current = await this.snapshot(job.tourId);
       if (current.requestHash !== snapshot.requestHash) throw new Error('Tour narration changed during rendering');
       if (result.results.length !== missing.length || new Set(result.results.map(row => row.id)).size !== missing.length) {
@@ -196,12 +233,18 @@ export class TourAudioService {
             !Number.isFinite(row.durationSeconds) || row.durationSeconds <= 0) throw new Error('Invalid audio result');
         await access(join(outputDir, row.filename));
       }
+      const fileHashes = Object.fromEntries(await Promise.all(result.results.map(async row => [row.id, hash(await readFile(join(outputDir, row.filename)))])));
+      if (result.results.some(row => (row.sha256 && row.sha256 !== fileHashes[row.id]) ||
+        (row.modelRevision && row.modelRevision !== snapshot.identity?.modelRevision))) throw new Error('Audio provenance mismatch');
+      await writeFile(join(outputDir, 'provenance.json'), JSON.stringify({ version: 1, tourId: job.tourId,
+        identity: snapshot.identity, files: result.results.map(row => ({ placeId: row.id, fileSha256: fileHashes[row.id], sourceHash: snapshot.hashes[row.id] })) }), { mode: 0o600 });
       await this.client.audioAsset.createMany({ data: result.results.map(row => ({
         placeId: row.id, language: snapshot.language, format: 'mp3',
         storagePath: 'voxcpm2/' + job.id + '/' + row.filename,
         durationSeconds: Math.round(row.durationSeconds),
         metadata: { provider: 'VoxCPM2', voice: 'A', rendererKey: snapshot.rendererKey,
-          sourceHash: snapshot.hashes[row.id], audioJobId: job.id },
+          sourceHash: snapshot.hashes[row.id], audioJobId: job.id, fileSha256: fileHashes[row.id],
+          identity: { ...snapshot.identity } },
       })) });
       job.status = 'completed';
       delete job.error;
@@ -213,10 +256,65 @@ export class TourAudioService {
     await this.saveJob(job);
   }
 
-  async audioFile(tourId: string, placeId: string): Promise<string> {
+  async audioFile(tourId: string, placeId: string, expectedVersion?: string): Promise<string> {
     const snapshot = await this.snapshot(tourId);
+    if (placeId === 'introduction') {
+      if (!snapshot.introduction || !snapshot.introductionPath) throw new TourAudioError('AUDIO_NOT_FOUND', 'Introduction audio is not ready.', 404);
+      if (expectedVersion && expectedVersion !== snapshot.introduction.version) throw new TourAudioError('AUDIO_VERSION_CHANGED', 'Audio version changed.', 409);
+      return join(this.storageDir, snapshot.introductionPath);
+    }
     const asset = (await this.assets(snapshot)).get(placeId);
     if (!asset) throw new TourAudioError('AUDIO_NOT_FOUND', 'Audio is not ready for this stop.', 404);
+    const version = snapshot.hashes[placeId] + '.' + (asset.metadata as Record<string, unknown>).fileSha256;
+    if (expectedVersion && expectedVersion !== version) throw new TourAudioError('AUDIO_VERSION_CHANGED', 'Audio version changed.', 409);
     return join(this.storageDir, asset.storagePath);
+  }
+
+  enqueue(tourId: string): void {
+    if (this.enqueuedTourIds.has(tourId)) return;
+    this.enqueuedTourIds.add(tourId);
+    setImmediate(() => {
+      void this.scheduleAudio(tourId).finally(() => {
+        this.enqueuedTourIds.delete(tourId);
+      });
+    });
+  }
+
+  private async scheduleAudio(tourId: string): Promise<void> {
+    const startedAt = Date.now();
+    const maxWaitMs = 2 * 60 * 60 * 1000;
+    while (true) {
+      if (Date.now() - startedAt > maxWaitMs) {
+        console.error('[tour-audio] Automatic scheduling timed out', { tourId });
+        return;
+      }
+      let state: TourAudioState;
+      try {
+        state = await this.get(tourId);
+      } catch (error) {
+        console.error('[tour-audio] Failed to get tour audio state', { tourId, error });
+        return;
+      }
+      if (state.status === 'completed' || state.status === 'queued' || state.status === 'running') {
+        return;
+      }
+      if (state.status === 'failed') {
+        if (state.error?.code !== 'AUDIO_INTERRUPTED') {
+          return;
+        }
+      }
+      try {
+        await this.create(tourId);
+        return;
+      } catch (error) {
+        const code = (error as TourAudioError).code;
+        if (code === 'GENERATION_BUSY' || code === 'TEXT_GENERATION_BUSY' || code === 'AUDIO_BUSY') {
+          await delay(15000);
+          continue;
+        }
+        console.error('[tour-audio] Automatic scheduling failed', { tourId, error });
+        return;
+      }
+    }
   }
 }

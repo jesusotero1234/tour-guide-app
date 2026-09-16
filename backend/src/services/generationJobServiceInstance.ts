@@ -4,6 +4,7 @@ import { PostgresTourRepository } from '../infrastructure/postgres/PostgresTourR
 import { GenerationJobService } from './GenerationJobService';
 import { MultilingualTourGenerator } from './MultilingualTourGenerator';
 import { PostgresTourBlueprintRepository } from '../infrastructure/postgres/PostgresTourBlueprintRepository';
+import { tourAudioService } from './tourAudioServiceInstance';
 
 const tourRepository = new PostgresTourRepository(prismaClient);
 
@@ -11,4 +12,5 @@ export const generationJobService = new GenerationJobService(
   new PostgresGenerationJobRepository(prismaClient),
   tourRepository,
   new MultilingualTourGenerator(tourRepository, new PostgresTourBlueprintRepository(prismaClient)),
+  (tourId) => tourAudioService.enqueue(tourId),
 );

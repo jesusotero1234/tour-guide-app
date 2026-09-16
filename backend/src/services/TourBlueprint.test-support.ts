@@ -75,7 +75,7 @@ export function narratedFixture(snapshot: TourBlueprintSnapshot, request: TourRe
   return {
     review: { runId, request, writerTransport: 'codex', boundaryMigrationPassed: true,
       blueprintFingerprint: snapshot.fingerprint, route: { stops: snapshot.checkpoint.route.stops }, geometry: snapshot.geometry },
-    author: { status: 'complete_needs_review', publicationPassed: false, missingStopIds: [],
+    author: { status: 'complete_needs_review', publicationPassed: false, missingStopIds: [], delivery: { passed: true },
       stops: snapshot.checkpoint.route.stops.map(stop => ({
         stopId: stop.stopId, status: 'audited',
         script: { stopId: stop.stopId, text: request.language === 'fr' ? 'Cette façade possède quatre tours.' : 'La fachada tiene cuatro torres.',

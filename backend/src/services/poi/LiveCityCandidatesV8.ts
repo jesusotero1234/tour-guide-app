@@ -58,6 +58,7 @@ export interface LiveCityCandidatesV8Input {
   language: string;
   durationMinutes: number;
   countryCode?: string;
+  cityQid?: string;
 }
 
 export interface LiveCityCandidatesV8Result {
@@ -67,7 +68,7 @@ export interface LiveCityCandidatesV8Result {
   evidenceGaps: Array<{ canonicalId: string; name: string; missing: string[] }>;
   cityCenter: { lat: number; lng: number };
   identityResolutions?: WikidataIdentityResolutionV8[];
-  identityExclusions?: Array<{ requestedId: string; sourceId: string; reason: 'wikidata_missing' }>;
+  identityExclusions?: Array<{ requestedId: string; sourceId: string; reason: 'wikidata_missing' | 'wikidata_human' }>;
 }
 
 export interface LiveCityCandidatesV8RequestOptions {
@@ -243,6 +244,7 @@ export function validateLiveCityCandidatesInputV8(
 ): LiveCityCandidatesV8Input {
   if (!input.city.trim()) throw new Error('LiveCityCandidatesV8 requires a non-empty city name');
   if (!input.cityKey.trim()) throw new Error('LiveCityCandidatesV8 requires a non-empty city key');
+  if (input.cityQid !== undefined && !/^Q\d+$/.test(input.cityQid)) throw new Error('Invalid city QID');
   if (!SUPPORTED_THEMES.has(input.theme)) {
     throw new Error(`LiveCityCandidatesV8 requires a supported theme (${[...SUPPORTED_THEMES].join(', ')})`);
   }
@@ -750,6 +752,18 @@ export async function loadLiveCityCandidatesV8(
   const wait = options.wait ?? defaultSleepV8;
 
   const city = await geocodeCityCenterV8(validated.city, validated.countryCode, get, wait);
+  let canonicalCenter: { lat: number; lng: number } | undefined;
+  if (validated.cityQid) {
+    const entity = (await fetchWikidataEntitiesV8([validated.cityQid], get, wait)).get(validated.cityQid);
+    const claims = entity?.claims as Record<string, Array<{ rank?: string; mainsnak?: {
+      datavalue?: { value?: { latitude?: unknown; longitude?: unknown } };
+    } }>> | undefined;
+    const statements = Array.isArray(claims?.P625) ? claims.P625 : [];
+    const coordinate = (statements.find(row => row.rank === 'preferred')
+      ?? statements.find(row => row.rank !== 'deprecated'))?.mainsnak?.datavalue?.value;
+    const lat = numberValue(coordinate?.latitude), lng = numberValue(coordinate?.longitude);
+    if (lat !== null && lng !== null && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) canonicalCenter = { lat, lng };
+  }
   const fetchedPois = await fetchPois(city, validated.theme);
   const pois = fetchedPois.filter((poi) => poi.tags.wikidata || poi.tags.wikipedia);
   const qids = Array.from(new Set(pois
@@ -757,7 +771,7 @@ export async function loadLiveCityCandidatesV8(
     .filter((qid): qid is string => typeof qid === 'string' && qid.length > 0)));
   const entitiesByQid = await fetchWikidataEntitiesV8(qids, get, wait);
   const identityResolutions: WikidataIdentityResolutionV8[] = [];
-  const identityExclusions: Array<{ requestedId: string; sourceId: string; reason: 'wikidata_missing' }> = [];
+  const identityExclusions: NonNullable<LiveCityCandidatesV8Result['identityExclusions']> = [];
   const canonicalEntities = new Map<string, WikidataEntityV8>();
   const normalizedPois: RawPoi[] = [];
   for (const poi of pois) {
@@ -772,6 +786,16 @@ export async function loadLiveCityCandidatesV8(
           requestedId,
           sourceId: `${poi.osmType}:${poi.osmId}`,
           reason: 'wikidata_missing',
+        });
+        continue;
+      }
+      const claims = entity.claims;
+      if (claims && typeof claims === 'object' && !Array.isArray(claims)
+        && claimEntityIdsV8(claims as Record<string, unknown>, 'P31').includes('Q5')) {
+        identityExclusions.push({
+          requestedId,
+          sourceId: `${poi.osmType}:${poi.osmId}`,
+          reason: 'wikidata_human',
         });
         continue;
       }
@@ -805,7 +829,8 @@ export async function loadLiveCityCandidatesV8(
   store.cache.setWikipediaExtracts(wikipediaExtracts);
   const enriched = await enrichShortlistedPois(shortlisted, validated.language, store.cache, ENRICHMENT_BATCH_SIZE);
   const sources = toSourcesV8(enriched, shortlisted);
-  const cityCenter = resolveEditorialCityCenter(sources, { lat: city.lat, lng: city.lng })
+  // A municipal polygon's representative point can lie outside the urban centre.
+  const cityCenter = canonicalCenter ?? resolveEditorialCityCenter(sources, { lat: city.lat, lng: city.lng })
     ?? { lat: city.lat, lng: city.lng };
   const maximumDistance = maximumCandidateDistanceV8(validated.durationMinutes);
   const entities = buildEditorialEntitiesV5(sources, validated.language)

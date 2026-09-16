@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { assertWebCaptureAllowed } from './SourceUsePolicy';
 import type { NarrativeReferenceProvenanceV8 } from './NarrativeReferencesV8';
 import { createHash } from 'crypto';
 import { lookup as dnsLookup } from 'dns/promises';
@@ -571,6 +572,7 @@ export class FirecrawlNarrativeCaptureProviderV7 implements NarrativeCaptureProv
     body: Record<string, unknown>,
     options?: NarrativeFirecrawlCaptureOptionsV7
   ): Promise<{ data: unknown }> {
+    assertWebCaptureAllowed(String(body.url ?? ''));
     const maxAttempts = options?.maxAttempts ?? 2;
     if (options?.timeoutMs !== undefined && (!Number.isFinite(options.timeoutMs) || options.timeoutMs <= 0)) {
       throw new Error('timeoutMs must be a positive finite number');

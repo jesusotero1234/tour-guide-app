@@ -33,15 +33,7 @@ export function errorHandler(
   next: NextFunction
 ): void {
   // Log all errors
-  logger.error('API Error', { 
-    error: error.message,
-    stack: error.stack,
-    path: req.path,
-    method: req.method,
-    body: req.body,
-    query: req.query,
-    params: req.params
-  });
+  logger.error('API Error', { method: req.method, statusCode: error instanceof AppError ? error.statusCode : 500 });
   
   // Format the response based on error type
   let response: ApiError;
@@ -97,7 +89,7 @@ export function errorHandler(
  * This handles requests to non-existent routes
  */
 export function notFoundHandler(req: Request, res: Response): void {
-  logger.warn(`Route not found: ${req.method} ${req.path}`);
+  logger.warn('Route not found', { method: req.method });
   
   res.status(404).json({
     error: {

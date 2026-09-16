@@ -12,8 +12,6 @@ import { walkingRouteService } from '../../services/walkingRouteServiceInstance'
 export async function generateTour(req: Request, res: Response) {
   try {
     const tourRequest = req.body as TourRequest;
-    console.log(`Received tour generation request for ${tourRequest.city}, theme: ${tourRequest.theme}, durationMinutes: ${tourRequest.durationMinutes || tourRequest.duration || 'default'}`);
-    console.log('Full request body:', req.body);
 
     // Use orchestration service to generate the complete tour
     const tour = await orchestrationService.generateCompleteTour(tourRequest);
@@ -59,8 +57,6 @@ export async function generateTour(req: Request, res: Response) {
 export async function generateTourFromConcept(req: Request, res: Response) {
   try {
     const conceptRequest = req.body as ConceptTourRequest;
-    console.log(`Received concept tour generation request for ${conceptRequest.city}, concept: ${conceptRequest.conceptSlug}, durationMinutes: ${conceptRequest.durationMinutes || 'default'}`);
-    console.log('Full concept request body:', req.body);
 
     const tour = await orchestrationService.generateTourFromConcept(conceptRequest);
     res.status(201).json(tour);
@@ -104,7 +100,6 @@ export async function generateTourFromConcept(req: Request, res: Response) {
 export async function getTour(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    console.log(`Retrieving tour with ID: ${id}`);
     
     // Use orchestration service to retrieve the tour
     try {
@@ -191,11 +186,11 @@ export async function getWalkingRoute(req: Request, res: Response) {
 
 export async function listTours(req: Request, res: Response) {
   try {
-    console.log('Listing tours with query:', req.query);
     
     // Extract filter parameters from query string
     const filters = {
       city: req.query.city as string,
+      cityMatch: 'contains' as const,
       countryCode: req.query.countryCode as string,
       theme: req.query.theme as string,
       language: req.query.language as string,

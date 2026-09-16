@@ -14,6 +14,7 @@ export interface PlaceSourcePoiMetadata {
 }
 
 export interface PlaceMetadata {
+  sourceCredits?: import('../../services/SourceCredits').SourceCredits;
   sourcePoi?: PlaceSourcePoiMetadata;
   narrationMeta?: Record<string, unknown>;
   localizedFromPlaceId?: string;

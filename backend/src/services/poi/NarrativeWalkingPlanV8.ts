@@ -1,5 +1,6 @@
 import { WalkingRouteService, WalkingRouteUnavailableError } from '../WalkingRouteService';
 import { EssentialRouteCandidateV8, EssentialRouteSelectionResultV8, selectEssentialRouteV8 } from './EssentialRouteSelectionV8';
+import { editorialDistanceMetersV5 } from './EditorialEvidenceV5';
 import { TourGeometryStopV8, TourGeometryV8PrunedResult, orderTourStopsByProximityV8, pruneOptionalStopsForWalkabilityV8, tourStopsFromCandidatesV8 } from './TourGeometryV8';
 
 type WalkingService = Pick<WalkingRouteService, 'getRoute'>;
@@ -50,6 +51,51 @@ function durationFit(minutes: number, requested: number): NarrativeWalkingPlanV8
   return minutes < requested * 0.9 ? 'short' : minutes > requested * 1.1 ? 'long' : 'within_target';
 }
 
+async function refineWalkingOrder(
+  plan: NarrativeWalkingPlanV8, service: WalkingService, signal?: AbortSignal,
+): Promise<NarrativeWalkingPlanV8> {
+  const stops = plan.geometry.stops;
+  if (plan.timingSource !== 'walking_graph' || plan.durationFit === 'short' || stops.length < 3) return plan;
+  const distance = (order: TourGeometryStopV8[]) => order.slice(1).reduce((sum, stop, index) =>
+    sum + editorialDistanceMetersV5(order[index].coordinates, stop.coordinates), 0);
+  const originalDistance = distance(stops);
+  const seen = new Set([JSON.stringify(stops.map(stop => stop.stopId))]);
+  const alternatives: Array<{ stops: TourGeometryStopV8[]; distance: number }> = [];
+  for (let from = 0; from < stops.length; from++) {
+    for (let to = 0; to < stops.length; to++) {
+      if (from === to) continue;
+      const order = [...stops];
+      order.splice(to, 0, order.splice(from, 1)[0]);
+      const key = JSON.stringify(order.map(stop => stop.stopId));
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const meters = distance(order);
+      if (meters < originalDistance) alternatives.push({ stops: order, distance: meters });
+    }
+  }
+  let best = plan;
+  const walkingSeconds = (geometry: TourGeometryV8PrunedResult) =>
+    geometry.legs.reduce((sum, leg) => sum + (leg.durationSeconds ?? 0), 0);
+  // One pass only: use coordinates to shortlist, real streets to choose.
+  for (const alternative of alternatives.sort((a, b) => a.distance - b.distance).slice(0, 2)) {
+    signal?.throwIfAborted();
+    let geometry: TourGeometryV8PrunedResult;
+    try {
+      geometry = await measureNarrativeWalkingRouteV8(alternative.stops, plan.geometry.requestedDuration, service, signal);
+    } catch (error) {
+      signal?.throwIfAborted();
+      if (error instanceof WalkingRouteUnavailableError) break; // Retain the measured route already available.
+      throw error;
+    }
+    if (geometry.durationFit !== 'within_target' || geometry.status !== 'walkable'
+      || walkingSeconds(geometry) >= walkingSeconds(best.geometry)) continue;
+    const byId = new Map(plan.selection.route.map(stop => [stop.wikidataId, stop]));
+    const route = geometry.stops.map((stop, position) => ({ ...byId.get(stop.stopId)!, position }));
+    best = { ...plan, selection: { ...plan.selection, route }, geometry, durationFit: 'within_target' };
+  }
+  return best;
+}
+
 export async function planNarrativeWalkingRouteV8(input: {
   candidates: EssentialRouteCandidateV8[]; requiredIds: string[];
   durationMinutes: number; minStops: number; preferredStops: number; theme: string;
@@ -59,8 +105,10 @@ export async function planNarrativeWalkingRouteV8(input: {
     || !Number.isInteger(input.minStops) || input.minStops < 2
     || !Number.isInteger(input.preferredStops) || input.preferredStops < input.minStops
     || input.preferredStops > 12) throw new Error('invalid walking plan input');
-  const select = (count: number) => {
-    const selection = selectEssentialRouteV8(input.candidates, input.requiredIds, count,
+  const select = (count: number, excludedId?: string) => {
+    const candidates = excludedId
+      ? input.candidates.filter(candidate => candidate.wikidataId !== excludedId) : input.candidates;
+    const selection = selectEssentialRouteV8(candidates, input.requiredIds, count,
       { requestedDuration: input.durationMinutes, theme: input.theme });
     if (selection.missingRequiredIds.length) {
       throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
@@ -88,7 +136,7 @@ export async function planNarrativeWalkingRouteV8(input: {
     // Explicit cast: assignment happens in the awaited closure, outside TS flow analysis.
     const first = best as NarrativeWalkingPlanV8 | null;
     if (!first) throw new Error('walking route has no measurable selection');
-    if (first.durationFit === 'within_target') return first;
+    if (first.durationFit === 'within_target') return await refineWalkingOrder(first, service, signal);
     const counts = first.durationFit === 'short'
       ? [input.preferredStops + 1, input.preferredStops + 2].filter(count => count <= 12)
       : Array.from({ length: input.preferredStops - input.minStops }, (_, index) => input.preferredStops - index - 1);
@@ -96,9 +144,22 @@ export async function planNarrativeWalkingRouteV8(input: {
       signal?.throwIfAborted();
       await attempt(select(count));
       const current = best as NarrativeWalkingPlanV8 | null;
-      if (current?.durationFit === 'within_target') break;
+      if (current?.durationFit === 'within_target') return await refineWalkingOrder(current, service, signal);
     }
-    return best!;
+    // Try replacing at most two low-priority optionals, without accumulating exclusions.
+    const initialIds = new Set(initial.route.map(stop => stop.wikidataId));
+    const optionals = initial.route.filter(stop => stop.wikidataId
+      && initial.optionalIds.includes(stop.wikidataId)
+      && !input.requiredIds.includes(stop.wikidataId)).reverse().slice(0, 2);
+    for (const optional of optionals) {
+      signal?.throwIfAborted();
+      const replacement = select(input.preferredStops, optional.wikidataId);
+      if (!replacement.route.some(stop => !initialIds.has(stop.wikidataId))) continue;
+      await attempt(replacement);
+      const current = best as NarrativeWalkingPlanV8 | null;
+      if (current?.durationFit === 'within_target') return await refineWalkingOrder(current, service, signal);
+    }
+    return await refineWalkingOrder(best!, service, signal);
   } catch (error) {
     signal?.throwIfAborted();
     if (!(error instanceof WalkingRouteUnavailableError)) throw error;

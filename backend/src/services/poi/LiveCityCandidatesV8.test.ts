@@ -261,6 +261,35 @@ describe('loadLiveCityCandidatesV8', () => {
     expect(wikipediaCalls.every((call) => call.params.maxlag === 30)).toBe(true);
   });
 
+  it('uses the resolved city coordinate when the municipal point is supported only by an outlying landmark', async () => {
+    const scripted = scriptedGetV8();
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      if (url.includes('nominatim')) return { data: [{ ...NOMINATIM_RESPONSE[0], lat: '39.41' }] };
+      if (url.includes('wikidata.org') && params.ids === 'Q8818') return { data: { entities: {
+        Q8818: wikidataEntity('Q8818', { claims: { P625: [{ mainsnak: { datavalue: {
+          value: { latitude: CITY_CENTER.lat, longitude: CITY_CENTER.lng },
+        } } }] } }),
+      } } };
+      return scripted.get(url, params, options);
+    };
+    const fetchPois = async (city: { lat: number; lng: number }, theme: string) => [
+      ...await scripted.fetchPois(city, theme),
+      { osmType: 'node' as const, osmId: 9000, name: 'Santuario periférico', lat: 39.41, lng: CITY_CENTER.lng,
+        tags: { wikidata: 'Q9000', wikipedia: 'es:Artículo de Q9000', historic: 'monument' } },
+    ];
+    const result = await loadLiveCityCandidatesV8({ city: 'Valencia', cityKey: 'Valencia', cityQid: 'Q8818',
+      theme: 'history', language: 'es', durationMinutes: 120 }, { get, fetchPois, wait: async () => {} });
+    expect(result.cityCenter).toEqual(CITY_CENTER);
+    expect(result.readyEntities.map(entity => entity.canonicalId).sort()).toEqual(['Q246428', 'Q3123400']);
+  });
+
+  it('retains the existing centre fallback when the city has no coordinate', async () => {
+    const scripted = scriptedGetV8();
+    const result = await loadLiveCityCandidatesV8({ city: 'Valencia', cityKey: 'Valencia', cityQid: 'Q8818',
+      theme: 'history', language: 'es', durationMinutes: 120 }, { ...scripted, wait: async () => {} });
+    expect(result.cityCenter).toEqual(CITY_CENTER);
+  });
+
   it('keeps a small serial Wikipedia budget when the pool is much larger than the shortlist', async () => {
     const { get, calls } = scriptedGetV8();
     const manyPois: RawPoi[] = Array.from({ length: 251 }, (_, index) => ({
@@ -510,6 +539,60 @@ describe('loadLiveCityCandidatesV8', () => {
     await expect(loadLiveCityCandidatesV8({
       city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120, countryCode: 'ES',
     }, { get: getOmitted, fetchPois: async () => pois })).rejects.toThrow(/omitted|identity mismatch/);
+  });
+
+  it.each([false, true])('excludes a human before ranking, including a canonical redirect (%s)', async (redirect) => {
+    const base = scriptedGetV8();
+    const requestedId = redirect ? 'Q999' : 'Q338824';
+    const human = wikidataEntity('Q338824', {
+      lastrevid: 101, modified: '2026-09-12T00:00:00Z',
+      labels: { en: { language: 'en', value: 'Famous architect' } },
+      sitelinks: Object.fromEntries(['en', 'es', 'fr', 'de', 'it'].map(lang =>
+        [lang + 'wiki', { site: lang + 'wiki', title: 'Famous architect' }])),
+      claims: { P31: ['Q1000', 'Q5'].map(id => ({ mainsnak: { datavalue: { value: { id } } } })) },
+    });
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      const response = await base.get(url, params, options);
+      if (url.includes('wikidata.org') && String(params.props).includes('sitelinks')) {
+        const entities = (response.data as { entities: Record<string, unknown> }).entities;
+        if (requestedId in entities) entities[requestedId] = redirect
+          ? { ...human, redirects: { from: requestedId, to: 'Q338824' } } : human;
+      }
+      return response;
+    };
+    const building: RawPoi = { osmType: 'way', osmId: 72144798, name: 'Historic building',
+      lat: 39.47, lng: -0.376, tags: { name: 'Historic building', wikidata: requestedId,
+        building: 'yes', historic: 'monument', heritage: '2', tourism: 'attraction' } };
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120,
+    }, { get, fetchPois: async (city, theme) => [...await base.fetchPois(city, theme), building], wait: async () => {} });
+    expect(result.identityExclusions).toContainEqual({ requestedId, sourceId: 'way:72144798', reason: 'wikidata_human' });
+    expect(result.entities.some(entity => entity.canonicalId === 'Q338824')).toBe(false);
+    expect(result.readyEntities.some(entity => entity.canonicalId === 'Q246428')).toBe(true);
+    expect(base.calls.filter(call => call.url.includes('wikipedia.org'))
+      .some(call => String(call.params.titles).includes('Famous architect'))).toBe(false);
+  });
+
+  it.each(['missing', 'unknown'])('does not reject a valid place with %s P31', async (kind) => {
+    const base = scriptedGetV8();
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      const response = await base.get(url, params, options);
+      if (url.includes('wikidata.org') && String(params.props).includes('sitelinks')) {
+        const entities = (response.data as { entities: Record<string, Record<string, unknown>> }).entities;
+        if (entities.Q246428) {
+          const claims = { ...entities.Q246428.claims as Record<string, unknown> };
+          if (kind === 'missing') delete claims.P31;
+          else claims.P31 = [{ mainsnak: { datavalue: { value: { id: 'Q999999' } } } }];
+          entities.Q246428 = { ...entities.Q246428, claims };
+        }
+      }
+      return response;
+    };
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120,
+    }, { get, fetchPois: base.fetchPois, wait: async () => {} });
+    expect(result.identityExclusions).toEqual([]);
+    expect(result.readyEntities.some(entity => entity.canonicalId === 'Q246428')).toBe(true);
   });
 
   it('rejects invalid inputs with strict validation', async () => {

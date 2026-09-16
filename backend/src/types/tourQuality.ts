@@ -43,6 +43,8 @@ export interface TourHistoryPreflightMetadata {
 }
 
 export interface TourMetadata {
+  pilotRelease?: import('../services/PilotRelease').PilotRelease;
+  pilotWalkingRoute?: import('../services/WalkingRouteService').WalkingRouteData;
   qualityStatus?: TourQualityStatus;
   confidence?: TourConfidence;
   repair?: TourQualityRepairMetadata;
@@ -60,9 +62,20 @@ export interface TourMetadata {
   textAudit?: import('../services/narrative/TourTextQuality').TourTextAudit;
   routeDiagnostics?: import('../services/poi/RouteSelection').RouteDiagnostics;
   generationPipeline?: string;
+  deepseekAuthor?: {
+    runId: string;
+    model: string;
+    sourceLanguage: 'es';
+    masterSha256: string;
+    reviewStatus: 'SUFFICIENT_IN_REVIEW_SCOPE';
+    reviewArtifactSha256: string;
+    blueprintFingerprint: string;
+    durationFit: string;
+    guidedDurationMinutes: number;
+  };
   codexAuthor?: {
     runId: string;
-    publicationPassed: false;
+    publicationPassed: boolean;
     findingCount: number;
     durationFit: string;
     guidedDurationMinutes: number;

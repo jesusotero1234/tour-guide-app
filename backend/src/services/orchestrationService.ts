@@ -1,3 +1,4 @@
+import { getCityNames } from '../domain/cityNames';
 import axios from 'axios';
 import { createHash, randomUUID } from 'crypto';
 import { ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, FlexiblePassTourSummary, TourRequest, TourResponse } from '../types/api';
@@ -1479,6 +1480,7 @@ export class OrchestrationService {
       return {
         id: tour.id,
         city: tour.city,
+        cityNames: getCityNames(tour.city, tour.countryCode),
         theme: tour.theme,
         ...this.buildTourDisplayCopy(tour),
         country: tour.country,
@@ -1587,6 +1589,7 @@ export class OrchestrationService {
           return {
             id: tour.id,
             city: tour.city,
+            cityNames: getCityNames(tour.city, tour.countryCode),
             country: tour.country,
             countryCode: tour.countryCode,
             theme: tour.theme,

@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "predev": "tsc -p tsconfig.generation-worker.json",
+    "predev": "bash ../scripts/firecrawl-local.sh up && bash ../scripts/searxng-local.sh up && tsc -p tsconfig.generation-worker.json",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc && tsc -p tsconfig.generation-worker.json",
     "test": "jest",

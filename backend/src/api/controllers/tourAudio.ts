@@ -24,7 +24,8 @@ export async function getTourAudio(req: Request, res: Response) {
 
 export async function playTourAudio(req: Request, res: Response) {
   try {
-    const path = await tourAudioService.audioFile(req.params.id, req.params.placeId);
+    const path = await tourAudioService.audioFile(req.params.id, req.params.placeId,
+      typeof req.query.v === 'string' ? req.query.v : undefined);
     res.setHeader('Cache-Control', 'private, no-cache');
     return res.sendFile(path, error => {
       if (error && !res.headersSent) fail(res, error);

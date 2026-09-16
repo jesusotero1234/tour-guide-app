@@ -78,7 +78,7 @@ export interface NarrativePhaseExecutionV6 {
 
 const deepseekFlash = {
   kind: 'deepseek' as const,
-  model: 'deepseek-v4-flash',
+  model: 'deepseek-flash',
 };
 const deepseekPro = {
   kind: 'deepseek' as const,
@@ -140,9 +140,9 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
     name: 'deepseek_control',
     phases: {
       planner: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 1_200 },
-      curator: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 8_000 },
+      curator: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 16_000 },
       curator_complex: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 8_000 },
-      architect: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 4_000 },
+      architect: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 8_000 },
       writer: { provider: deepseekFlash, reasoning: 'none', temperature: 0.7, maxTokens: 2_000 },
       auditor_a: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
       auditor_b: { provider: deepseekPro, reasoning: 'none', temperature: 0, maxTokens: 2_000 },
@@ -151,14 +151,14 @@ export const NARRATIVE_MODEL_PROFILES_V6: Record<
       global_auditor: { provider: deepseekFlash, reasoning: 'none', temperature: 0, maxTokens: 4_000 },
     },
     concurrency: {
-      researchStops: 1,
-      searches: 1,
-      captures: 1,
-      curations: 1,
+      researchStops: 2,
+      searches: 6,
+      captures: 2,
+      curations: 3,
       editorialStops: 1,
       writers: 1,
       auditStops: 1,
-      adjudications: 1,
+      adjudications: 3,
       globalAudits: 1,
     },
   },

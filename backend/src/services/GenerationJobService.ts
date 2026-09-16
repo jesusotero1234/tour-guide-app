@@ -34,6 +34,7 @@ export class GenerationJobService {
     private readonly jobs: GenerationJobRepository,
     private readonly tours: TourRepository,
     private readonly generator: TextTourGenerator,
+    private readonly onTourReady?: (tourId: string) => void,
   ) {}
 
   private async isReusableResult(job: GenerationJob, tour: Tour | null): Promise<boolean> {
@@ -59,6 +60,15 @@ export class GenerationJobService {
       return true;
     }
     return isPublishedTourReady(tour);
+  }
+
+  private notifyTourReady(tourId: string): void {
+    if (!this.onTourReady) return;
+    try {
+      this.onTourReady(tourId);
+    } catch (error) {
+      console.error(`Failed to schedule audio for tour ${tourId}:`, error);
+    }
   }
 
   private buildIdempotencyKey(request: TourRequest): string {
@@ -102,6 +112,7 @@ export class GenerationJobService {
         if (job.result?.tourId) {
           const tour = await this.tours.findById(job.result.tourId);
           if (await this.isReusableResult(job, tour)) {
+            this.notifyTourReady(job.result.tourId);
             return job;
           }
         }
@@ -141,6 +152,7 @@ export class GenerationJobService {
           errorMessage: 'The generated tour is not available for publication.',
         };
       }
+      this.notifyTourReady(job.result.tourId);
     }
     if (job.status === 'queued' || job.status === 'running') {
       this.schedule(job.id);
@@ -355,6 +367,8 @@ export class GenerationJobService {
         });
         if (!completed) {
           leaseLost = true;
+        } else {
+          this.notifyTourReady(tourId);
         }
       } else {
         const reasons = publicationProblems(draft);
@@ -398,6 +412,8 @@ export class GenerationJobService {
         });
         if (!completed) {
           leaseLost = true;
+        } else {
+          this.notifyTourReady(tourId);
         }
       }
     } catch (error) {

@@ -24,6 +24,7 @@ model Tour {
   updatedAt       DateTime        @default(now()) @updatedAt @map("updated_at")
   places          Place[]
   generationJobs  GenerationJob[]
+  introductionAudios TourIntroductionAudio[]
 
   @@index([blueprintId, language])
   @@map("tours")
@@ -62,6 +63,22 @@ model AudioAsset {
   place           Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
 
   @@map("audio_assets")
+}
+
+model TourIntroductionAudio {
+  id              String   @id @default(uuid()) @db.Uuid
+  tourId          String   @map("tour_id") @db.Uuid
+  language        String
+  format          String   @default("mp3")
+  storagePath     String   @map("storage_path")
+  durationSeconds Int?     @map("duration_seconds")
+  metadata        Json     @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+  tour            Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@index([tourId, language])
+  @@map("tour_introduction_audio")
 }
 
 model VoiceReferenceAudio {

@@ -9,6 +9,12 @@ import { apiLimiter } from './middleware/rate-limit';
 import { errorHandler, notFoundHandler } from './middleware/error-handler';
 import logger from './utils/logger';
 import { generationJobService } from './services/generationJobServiceInstance';
+import { pilotEnabled } from './config/pilot';
+import { createPilotRouter } from './api/routes/pilot';
+import { prismaClient } from './infrastructure/db/prismaClient';
+import { PostgresTourRepository } from './infrastructure/postgres/PostgresTourRepository';
+import { PostgresTourBlueprintRepository } from './infrastructure/postgres/PostgresTourBlueprintRepository';
+import { tourAudioService } from './services/tourAudioServiceInstance';
 
 
 const app = express();
@@ -25,12 +31,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   
   res.on('finish', () => {
     const duration = Date.now() - startTime;
-    logger.info(`${req.method} ${req.path}`, { 
+    logger.info('HTTP request', {
       method: req.method,
-      path: req.path,
       statusCode: res.statusCode,
       duration,
-      ip: req.ip
     });
   });
   
@@ -43,9 +47,10 @@ import conceptRoutes from './api/routes/concepts';
 import passRoutes from './api/routes/passes';
 
 // Serve locally stored audio files
-app.use('/audio', express.static(audioStoragePath));
+if (!pilotEnabled()) app.use('/audio', validateApiKey, express.static(audioStoragePath));
 
 // API routes
+app.use('/api/v1/pilot', apiLimiter, createPilotRouter(new PostgresTourRepository(prismaClient), new PostgresTourBlueprintRepository(prismaClient), tourAudioService));
 app.use('/api/v1/tours', apiLimiter, validateApiKey, tourRoutes);
 app.use('/api/v1/cities', apiLimiter, validateApiKey, conceptRoutes);
 app.use('/api/v1/passes', apiLimiter, validateApiKey, passRoutes);
@@ -62,7 +67,7 @@ app.use(errorHandler);
 app.use(notFoundHandler);
 
 // Start server
-app.listen(config.port, () => {
+app.listen(config.port, process.env.BIND_HOST || '127.0.0.1', () => {
   logger.info(`Server running on port ${config.port} in ${config.env} mode`);
   void generationJobService.resumePending().catch((error) => {
     logger.error('Failed to resume pending generation jobs', { error });

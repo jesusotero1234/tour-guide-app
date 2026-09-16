@@ -60,7 +60,7 @@ export function narrativeCanaryCoreProviderV8(
   const explicitProvider = options.provider?.trim();
   if (explicitProvider) {
     if (explicitProvider === 'deepseek') {
-      return { kind: 'deepseek', model: options.model?.trim() || 'deepseek-v4-flash' };
+      return { kind: 'deepseek', model: options.model?.trim() || 'deepseek-flash' };
     }
     if (explicitProvider === 'ollama') {
       return { kind: 'ollama', model: options.model?.trim() || 'qwen2.5:14b' };

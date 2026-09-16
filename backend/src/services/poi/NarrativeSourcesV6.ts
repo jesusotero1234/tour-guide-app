@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { assertWebCaptureAllowed } from './SourceUsePolicy';
 import { createHash } from 'crypto';
 import { lookup as dnsLookup } from 'dns/promises';
 import { isIP } from 'net';
@@ -333,6 +334,7 @@ export class FirecrawlNarrativeSourceProviderV6 implements NarrativeSourceProvid
     url: string,
     body: Record<string, unknown>
   ): Promise<{ data: unknown }> {
+    assertWebCaptureAllowed(String(body.url ?? ''));
     for (let retry = 1; retry <= 6; retry += 1) {
       try {
         return await this.post(url, body, this.headers());

@@ -76,6 +76,11 @@ export const DEEPSEEK_PRICING_V6 = {
       offPeak: { inputCacheHit: 0.022, inputCacheMiss: 0.66, output: 1.98 },
       peak: { inputCacheHit: 0.044, inputCacheMiss: 1.32, output: 3.96 },
     },
+    'deepseek-flash': {
+      effectiveDate: '2026-09-10T04:00:00Z',
+      offPeak: { inputCacheHit: 0.003, inputCacheMiss: 0.15, output: 0.6 },
+      peak: { inputCacheHit: 0.006, inputCacheMiss: 0.3, output: 1.2 },
+    },
   },
 } as const;
 
@@ -93,8 +98,9 @@ export function deepseekPricingAtV6(
     model as keyof typeof DEEPSEEK_PRICING_V6.models
   ];
   if (!modelPricing || !Number.isFinite(at.getTime())) return undefined;
-  if (at.getTime() < Date.parse(DEEPSEEK_PRICING_V6.effectiveDate)) {
-    return modelPricing.previous;
+  const effectiveDate = 'effectiveDate' in modelPricing ? modelPricing.effectiveDate : DEEPSEEK_PRICING_V6.effectiveDate;
+  if (at.getTime() < Date.parse(effectiveDate)) {
+    return 'previous' in modelPricing ? modelPricing.previous : undefined;
   }
   const utcMinute = at.getUTCHours() * 60 + at.getUTCMinutes();
   const peak = DEEPSEEK_PRICING_V6.peakUtc.weekdays.includes(
@@ -794,7 +800,7 @@ export async function requestEditorialStructuredV6<T>(config: {
         });
       } else if (config.provider.kind === 'deepseek') {
         if (!options.apiKey) throw new Error('DEEPSEEK_API_KEY is required');
-        response = await postWithinDeadline(`${(options.deepseekBaseUrl ?? 'https://api.deepseek.com/beta').replace(/\/$/, '')}/chat/completions`, {
+        response = await postWithinDeadline(`${(options.deepseekBaseUrl ?? (options.deepseekStrictTools ? 'https://api.deepseek.com/beta' : 'https://api.deepseek.com')).replace(/\/$/, '')}/chat/completions`, {
           model: config.provider.model, messages,
           max_tokens: options.maxTokens ?? 8_000, temperature: temperature ?? 0,
           thinking: { type: 'disabled' },

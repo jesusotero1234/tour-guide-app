@@ -2,9 +2,11 @@ import { spawn } from 'child_process';
 import { closeSync, openSync } from 'fs';
 import { access, mkdir, readFile, writeFile } from 'fs/promises';
 import { join, resolve } from 'path';
+import type { AudioIdentity } from './AudioProvenance';
 
 export interface AudioRenderInput {
   language: string;
+  identity?: AudioIdentity;
   stops: Array<{ id: string; text: string }>;
 }
 export interface AudioRenderProgress {
@@ -14,7 +16,7 @@ export interface AudioRenderProgress {
   currentStopId?: string;
   completedChunks?: number;
   totalChunks?: number;
-  results: Array<{ id: string; filename: string; durationSeconds: number }>;
+  results: Array<{ id: string; filename: string; durationSeconds: number; sha256?: string; modelRevision?: string }>;
   error?: string;
 }
 

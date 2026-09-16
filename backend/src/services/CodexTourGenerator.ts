@@ -25,7 +25,7 @@ export const runCodexTour: CodexRun = async (request, runId, progress, signal) =
   const limit = Number(process.env.TOUR_GENERATION_SPEND_LIMIT_USD || '2');
   if (!Number.isFinite(limit) || limit <= 0) throw new Error('Invalid tour generation budget');
   if (Number(process.versions.node.split('.')[0]) < 22) throw new Error('Codex generation requires Node 22 or later');
-  const args = [worker, '--generate', '--allow-external', '--profile=qwen38_hybrid', '--writer-transport=codex',
+  const args = [worker, '--generate', '--allow-external', '--profile=deepseek_control', '--writer-transport=codex',
     '--city=' + request.city, '--country=' + request.country, '--country-code=' + request.countryCode,
     '--theme=' + request.theme, '--language=' + request.language, '--duration=' + request.durationMinutes,
     '--rag=off', '--prior-spend-usd=0', '--spend-limit-usd=' + limit, '--run-id=' + runId];
@@ -87,7 +87,7 @@ export const runCodexTour: CodexRun = async (request, runId, progress, signal) =
 export class CodexTourGenerator {
   readonly pipelineVersion = CODEX_TOUR_PIPELINE;
   constructor(private readonly tours: TourRepository, private readonly run: CodexRun = runCodexTour) {}
-  async generateTextTour(request: TourRequest, progress?: (value: CodexProgress) => Promise<void>, signal?: AbortSignal): Promise<{ id: string; reviewRequired: true }> {
+  async generateTextTour(request: TourRequest, progress?: (value: CodexProgress) => Promise<void>, signal?: AbortSignal): Promise<{ id: string; reviewRequired: false }> {
     if (request.theme !== 'history' || request.language !== 'es') throw new Error('Codex tours currently support history in Spanish');
     signal?.throwIfAborted();
     const runId = 'app-' + randomUUID();
@@ -95,6 +95,6 @@ export class CodexTourGenerator {
     signal?.throwIfAborted();
     const draft = mapCodexTourArtifact(request, runId, artifacts.review, artifacts.author);
     const saved = await this.tours.save(draft);
-    return { id: saved.id, reviewRequired: true };
+    return { id: saved.id, reviewRequired: false };
   }
 }
