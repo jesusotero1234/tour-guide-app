@@ -3,6 +3,8 @@ import { tmpdir } from 'os';
 import { resolve } from 'path';
 import { EventEmitter } from 'events';
 import { prepareAuthorCanaryMaterialV8 } from '../narrative-author-canary-material-v8';
+import { prepareTourWelcomeV8 } from '../narrative-tour-welcome-v8';
+import { NARRATIVE_COMPACT_AUDIT_PROMPT_V8 } from '../../../src/services/poi/NarrativeCompactVerificationV8';
 import { auditCodexNarrationV8, codexWriterTransportV8, loadCodexAuthorDocumentsV8, runCodexLiveNarrationV8 } from '../narrative-codex-live-v8';
 import { runCodex } from '../narrative-codex-author-v8';
 import { assignNarrativeSentenceIdsV6 } from '../../../src/services/poi/NarrativeEditorialV6';
@@ -328,5 +330,109 @@ describe('live Codex narration: offline, no paid inference', () => {
     expect((await pending).error).toBe('Codex cancelled');
     expect(child.kill).toHaveBeenCalledWith('SIGTERM');
     expect(remove).toHaveBeenCalledWith('abort', expect.any(Function));
+  });
+  test('generateIntroduction: welcome last, count+1 calls', async () => {
+    const count = 3;
+    const welcomeText = 'Bienvenido a Villa de Prueba.\n\nEste recorrido conecta sus lugares.';
+    const write = jest.fn().mockImplementation(async (_prompt: string, outputDirectory: string) => ({ text: outputDirectory.endsWith('/welcome') ? welcomeText : narration }));
+    const audit = jest.fn().mockResolvedValue(validAudit());
+    const state = await runCodexLiveNarrationV8({ ...options(count), generateIntroduction: true }, { write, audit });
+    expect(state.status).toBe('complete_needs_review');
+    expect(state.writerAttempts).toBe(count + 1);
+    expect(state.auditAttempts).toBe(count + 1);
+    expect(write).toHaveBeenCalledTimes(count + 1);
+    expect(audit).toHaveBeenCalledTimes(count + 1);
+    expect(state.introduction).toBeDefined();
+    expect(state.introduction?.stopId).toBe('tour-welcome');
+    expect(state.introduction?.status).toBe('audited');
+    expect(state.introduction?.script?.text).toBe(welcomeText);
+    expect(state.stops.map(s => s.stopId)).toEqual(['stop-0', 'stop-1', 'stop-2']);
+    expect(state.missingStopIds).toEqual([]);
+    const tour = readFileSync(resolve(directory, 'tour.md'), 'utf8');
+    expect(tour).toContain('## Welcome');
+    expect(tour).toContain(welcomeText);
+    const lastPrompt = write.mock.calls[count][0];
+    expect(lastPrompt).toContain('Villa de Prueba');
+    expect(lastPrompt).toContain('Lugar 0');
+    expect(lastPrompt).toContain('Lugar 1');
+    expect(lastPrompt).toContain('Lugar 2');
+    expect(lastPrompt.indexOf('Lugar 0')).toBeLessThan(lastPrompt.indexOf('Lugar 1'));
+    expect(lastPrompt.indexOf('Lugar 1')).toBeLessThan(lastPrompt.indexOf('Lugar 2'));
+    expect(lastPrompt).toContain('Evidencia stop-0');
+    expect(lastPrompt).toContain('Evidencia stop-1');
+    expect(lastPrompt).toContain('Evidencia stop-2');
+    expect(state.introduction?.script?.text).toBe('Bienvenido a Villa de Prueba.\n\nEste recorrido conecta sus lugares.');
+  });
+  test('welcome unsupported finding causes partial', async () => {
+    const count = 2;
+    const welcomeText = 'Bienvenido.';
+    const write = jest.fn().mockImplementation(async (_prompt: string, outputDirectory: string) => ({ text: outputDirectory.endsWith('/welcome') ? welcomeText : narration }));
+    const audit = jest.fn().mockImplementation(async (material: any) => {
+      if (material.stopId === 'tour-welcome') {
+        return { status: 'valid', value: { findings: [{ classification: 'unsupported', sentenceId: 's1' }] } } as any;
+      }
+      return validAudit();
+    });
+    const state = await runCodexLiveNarrationV8({ ...options(count), generateIntroduction: true }, { write, audit });
+    expect(state.status).toBe('partial');
+    expect(state.introduction?.status).toBe('audit_failed');
+    expect(state.introduction?.error).toBeDefined();
+    expect(state.stops[0].script?.text).toBe(narration);
+    expect(state.stops[1].script?.text).toBe(narration);
+    expect(state.stops[0].status).toBe('audited');
+    expect(state.stops[1].status).toBe('audited');
+    expect(write).toHaveBeenCalledTimes(count + 1);
+    expect(audit).toHaveBeenCalledTimes(count + 1);
+  });
+  test('languageReview false on welcome causes partial', async () => {
+    const count = 1;
+    const welcomeText = 'Bienvenido.';
+    const write = jest.fn().mockImplementation(async (_prompt: string, outputDirectory: string) => ({ text: outputDirectory.endsWith('/welcome') ? welcomeText : narration }));
+    const audit = jest.fn().mockImplementation(async (material: any) => {
+      if (material.stopId === 'tour-welcome') {
+        return { status: 'valid', value: { findings: [], languageReview: { matchesRequestedLanguage: false, naturalForListening: true, issues: [] } } } as any;
+      }
+      return { status: 'valid', value: { findings: [], languageReview: { matchesRequestedLanguage: true, naturalForListening: true, issues: [] } } } as any;
+    });
+    const state = await runCodexLiveNarrationV8({ ...options(count), generateIntroduction: true, requireLanguageReview: true }, { write, audit });
+    expect(state.status).toBe('partial');
+    expect(state.introduction?.status).toBe('audit_failed');
+    expect(state.stops[0].status).toBe('audited');
+    expect(state.stops[0].script?.text).toBe(narration);
+  });
+  test('prepareTourWelcomeV8 shared passageId namespaced', () => {
+    const mats = materials(2);
+    mats[0].frozen.inputs[0].auditInput.passages[0].passageId = 'shared';
+    mats[1].frozen.inputs[0].auditInput.passages[0].passageId = 'shared';
+    const welcome = prepareTourWelcomeV8(mats);
+    const passages = welcome.frozen.inputs[0].auditInput.passages;
+    expect(passages.length).toBe(2);
+    expect(passages[0].passageId).toBe('stop-0:shared');
+    expect(passages[1].passageId).toBe('stop-1:shared');
+    expect(passages[0].quote).toBe('Evidencia stop-0');
+    expect(passages[1].quote).toBe('Evidencia stop-1');
+    expect(() => prepareTourWelcomeV8([])).toThrow();
+  });
+  test('welcome audit validates greeting, route, cited and uncited historical sentences', async () => {
+    const mats = materials(2);
+    const welcome = prepareTourWelcomeV8(mats);
+    const welcomeText = 'Bienvenidos al recorrido. Comenzamos en Lugar 0. La ciudad fue fundada en 1500. El río atraviesa el centro.';
+    const script = assignNarrativeSentenceIdsV6('tour-welcome', welcomeText, { sentenceBoundaryPolicy: 'v8', preserveParagraphs: true });
+    const passageIds = welcome.frozen.inputs[0].auditInput.passages.map(p => p.passageId);
+    const request = jest.spyOn(codexAuditor, 'requestCodexAuditV8').mockImplementation(async (r: any) => {
+      return { status: 'valid', value: r.validate({
+        checks: script.sentences.map((sentence, index) => ({
+          sentenceId: sentence.sentenceId,
+          classification: index < 2 ? 'authorized_inference' : 'supported',
+          passageIds: index === 2 ? [passageIds[0]] : [],
+          reason: index < 2 ? 'Greeting or canonical route transition' : 'Historical claim',
+        })),
+        languageReview: { matchesRequestedLanguage: true, naturalForListening: true, issues: [] },
+      }) } as any;
+    });
+    const result = await auditCodexNarrationV8(welcome, script, { ...options(2), requireLanguageReview: true, pricing: {}, openRouterApiKey: '' });
+    expect(result.value!.findings.map(f => f.classification)).toEqual(['authorized_inference', 'authorized_inference', 'supported', 'unclear']);
+    expect(request.mock.calls[0][0].systemPrompt).toContain(NARRATIVE_COMPACT_AUDIT_PROMPT_V8);
+    expect(request.mock.calls[0][0].systemPrompt).toContain('welcome');
   });
 });

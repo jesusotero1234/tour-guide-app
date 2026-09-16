@@ -7,6 +7,7 @@ import { evaluateNarrationDeliveryV8 } from '../../src/services/poi/NarrativeDur
 import { CODEX_AUDITOR_V8, requestCodexAuditV8 } from './narrative-codex-auditor-v8';
 import { EditorialPricingV6, EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import { compactNarrativeAuditSchemaV8, parseCompactNarrativeAuditV8 } from '../../src/services/poi/NarrativeCompactVerificationV8';
+import { prepareTourWelcomeV8 } from './narrative-tour-welcome-v8';
 
 type Material = ReturnType<typeof prepareAuthorCanaryMaterialV8>[number];
 type Script = ReturnType<typeof assignNarrativeSentenceIdsV6>;
@@ -27,14 +28,15 @@ export interface CodexLiveStateV8 {
   auditorBilling?: 'ChatGPT quota';
   writerAttempts: number; auditAttempts: number;
   stops: CodexLiveStopV8[];
+  introduction?: CodexLiveStopV8;
   missingStopIds: string[];
   delivery: ReturnType<typeof evaluateNarrationDeliveryV8>;
   error?: string;
 }
 export function codexWriterTransportV8(value: string | undefined, profile: string, hasResume: boolean) {
-  const transport = value ?? 'openrouter';
+  const transport = value ?? (profile === 'deepseek_control' ? 'codex' : 'openrouter');
   if (transport !== 'openrouter' && transport !== 'codex') throw new Error('--writer-transport must be openrouter or codex');
-  if (transport === 'codex' && profile !== 'qwen38_hybrid') throw new Error('Codex live canary currently requires --profile=qwen38_hybrid');
+  if (transport === 'codex' && !['deepseek_control', 'qwen38_hybrid'].includes(profile)) throw new Error('Codex live canary requires --profile=deepseek_control or qwen38_hybrid');
   if (transport === 'codex' && hasResume) throw new Error('Codex live canary requires a new run; resume is not supported yet');
   return transport;
 }
@@ -114,6 +116,11 @@ export async function auditCodexNarrationV8(material: Material, script: Script, 
 }
 export function renderCodexLiveTourV8(materials: Material[], state: CodexLiveStateV8, city: string, minutes: number) {
   const words = state.stops.reduce((sum, s) => sum + s.wordCount, 0);
+  const welcomeLines = state.introduction?.script ? [
+    '## Welcome',
+    state.introduction.script.text,
+    '> Auditoría: ' + (state.introduction.audit?.status ?? 'no completada') + (state.introduction.error ? '. ' + state.introduction.error : ''),
+  ] : [];
   return [
     '# Tour de ' + city + ' — Codex / Astra low',
     '> Estado: ' + state.status + '. Borrador para revisión, no publicado.',
@@ -121,6 +128,7 @@ export function renderCodexLiveTourV8(materials: Material[], state: CodexLiveSta
     '> Narración generada: ' + words + ' palabras, ~' + (words / 120).toFixed(1) + ' min a 120 palabras/minuto. TTS no medido.',
     '> Ajuste a los objetivos narrativos: ' + (state.delivery.passed ? 'dentro de tolerancia' : 'pendiente / fuera de tolerancia') + '. Consulte review.json para ruta y tiempo total.',
     '> Primeras respuestas, sin reparaciones automáticas. Auditorías detalladas: codex-author-review.private.json.',
+    ...welcomeLines,
     ...materials.flatMap((m, index) => {
       const stop = state.stops.find(s => s.stopId === m.stopId);
       const objections = stop?.audit?.value?.findings.filter(f => !['supported', 'authorized_inference'].includes(f.classification)).length;
@@ -139,6 +147,7 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
   materials: Material[]; directory: string; city: string; durationMinutes: number;
   budget: () => unknown; sanitize: (error: unknown) => string;
   onUpdate?: (state: CodexLiveStateV8) => Promise<void>;
+  generateIntroduction?: boolean;
 }, deps: {
   write?: (prompt: string, outputDirectory: string, signal: AbortSignal) => Promise<WriterResult>;
   audit?: (material: Material, script: Script, options: AuditOptions) => Promise<Audit>;
@@ -239,6 +248,33 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
     await previousAudit;
     assertAuditSucceeded();
     signal.throwIfAborted();
+    if (options.generateIntroduction) {
+      signal.throwIfAborted();
+      const welcomeMaterial = prepareTourWelcomeV8(materials);
+      const intro: CodexLiveStopV8 = { stopId: 'tour-welcome', name: 'Welcome', targetWords: welcomeMaterial.targetWords, wordCount: 0, status: 'writing' };
+      state.introduction = intro;
+      try {
+        state.writerAttempts++;
+        record('tour-welcome', 'writer_started');
+        const result = await write(welcomeMaterial.authorPrompt, resolve(writerRoot, 'welcome'), signal);
+        if (!result.text.trim()) throw new Error('Codex writer returned empty welcome');
+        intro.script = assignNarrativeSentenceIdsV6('tour-welcome', result.text, { sentenceBoundaryPolicy: 'v8', preserveParagraphs: true });
+        intro.wordCount = result.text.trim().split(/\s+/u).length;
+        intro.usage = result.usage;
+        intro.status = 'audit_pending';
+        record('tour-welcome', 'writer_completed');
+        await save();
+        signal.throwIfAborted();
+        await runAudit(welcomeMaterial, intro);
+        signal.throwIfAborted();
+        const findings = intro.audit!.value!.findings;
+        if (findings.some(f => !['supported', 'authorized_inference'].includes(f.classification))) throw new Error('welcome audit rejected: unsupported finding');
+      } catch (error) {
+        intro.status = intro.script ? 'audit_failed' : 'writer_failed';
+        intro.error = options.sanitize(error);
+        throw error;
+      }
+    }
     state.status = 'complete_needs_review';
   } catch (error) {
     state.status = 'partial';

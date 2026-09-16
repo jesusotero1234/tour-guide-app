@@ -26,7 +26,7 @@ export async function narrateTourBlueprint(input: {
   const materials = prepareAuthorCanaryMaterialV8(snapshot.checkpoint, docs.template, docs.reference, docs.referenceStopId, request.language);
   const author = await runCodexLiveNarrationV8({
     materials, directory: input.directory, city: request.city, durationMinutes: request.durationMinutes,
-    openRouterApiKey: '', pricing: {}, runId: input.runId, signal: input.signal, requireLanguageReview: true,
+    openRouterApiKey: '', pricing: {}, runId: input.runId, signal: input.signal, requireLanguageReview: true, generateIntroduction: true,
     onProgress: event => { guard.record(event); saveBudget(); },
     budget: () => guard.snapshot(),
     sanitize: () => 'Author error',

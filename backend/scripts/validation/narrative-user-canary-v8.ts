@@ -823,10 +823,10 @@ async function main(): Promise<void> {
   if (ragMode !== 'off' && ragMode !== 'on') throw new Error('--rag must be off or on');
   const ragBaseUrl = ragMode === 'on' ? historicalCorpusOriginV8(option('--rag-base-url') ?? process.env.HISTORICAL_CORPUS_BASE_URL) : null;
   const ragConfig = { mode: ragMode, baseUrl: ragBaseUrl, policy: 'historical-corpus-v8-3' };
-  const requestedProfile = option('--profile') ?? 'qwen38_hybrid';
-  if (!['qwen38_hybrid', 'qwen38_gemini25pro_writer', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
+  const requestedProfile = option('--profile') ?? 'deepseek_control';
+  if (!['deepseek_control', 'qwen38_hybrid', 'qwen38_gemini25pro_writer', 'balanced_openrouter', 'multilingual_openrouter'].includes(requestedProfile)) {
     throw new Error(
-      'narrative user canary V8 requires --profile=qwen38_hybrid, qwen38_gemini25pro_writer, balanced_openrouter, or multilingual_openrouter'
+      'narrative user canary V8 requires --profile=deepseek_control, qwen38_hybrid, qwen38_gemini25pro_writer, balanced_openrouter, or multilingual_openrouter'
     );
   }
   const profile = requestedProfile as NarrativeModelProfileNameV6;
@@ -871,8 +871,9 @@ async function main(): Promise<void> {
   writeFileSync(progressPath, '');
   writeFileSync(resolve(directory, 'budget.private.json'), JSON.stringify({ spentUsd: priorSpendUsd, reservedUsd: 0 }), { mode: 0o600 });
 
-  const apiKey = writerTransport === 'codex' ? (process.env.DEEPSEEK_API_KEY?.trim() ?? '') : requiredSecret('DEEPSEEK_API_KEY');
-  const openRouterApiKey = requiredSecret('OPENROUTER_API_KEY');
+  const apiKey = writerTransport === 'codex' && profile !== 'deepseek_control' ? (process.env.DEEPSEEK_API_KEY?.trim() ?? '') : requiredSecret('DEEPSEEK_API_KEY');
+  const needsOpenRouter = Object.values(NARRATIVE_MODEL_PROFILES_V6[profile].phases).some(phase => phase.provider.kind === 'openrouter');
+  const openRouterApiKey = needsOpenRouter ? requiredSecret('OPENROUTER_API_KEY') : '';
   const secrets = [apiKey, openRouterApiKey].filter(Boolean);
   const spendGuard = new NarrativeProgressSpendGuardV6({
     limitUsd: SPEND_LIMIT_USD,
@@ -1013,7 +1014,7 @@ async function main(): Promise<void> {
       currentStage = 'preflight';
       consoleReporter.stageStarted('preflight', 'comprobando Codex / ChatGPT antes de consumir API');
       codexAuthorDocuments = await preflightCodexLiveV8();
-      consoleReporter.stageCompleted('preflight', 'escritor y auditor Codex / Astra low disponibles; preparación en OpenRouter');
+      consoleReporter.stageCompleted('preflight', 'escritor y auditor Codex / Astra low disponibles; preparación con ' + (profile === 'deepseek_control' ? 'DeepSeek directo' : 'OpenRouter'));
     }
     if (shouldExecuteResumePhaseV8(resumeFromPhase, 'research')) {
       currentStage = 'research_preflight';
@@ -1023,6 +1024,17 @@ async function main(): Promise<void> {
     }
     currentStage = 'preflight';
     consoleReporter.stageStarted('preflight', 'comprobando modelos y proveedores');
+    if (profile === 'deepseek_control') {
+      const response = await axios.get('https://api.deepseek.com/models', {
+        headers: { Authorization: `Bearer ${apiKey}`, Accept: 'application/json' },
+        timeout: 15_000, signal: abortController.signal,
+      });
+      const models = (response.data as { data?: Array<{ id?: unknown }> })?.data;
+      const model = NARRATIVE_MODEL_PROFILES_V6.deepseek_control.phases.curator.provider.model;
+      if (!Array.isArray(models) || !models.some(item => item.id === model)) {
+        throw new Error(`DeepSeek direct preflight did not find ${model}`);
+      }
+    }
     if (profile === 'qwen38_hybrid' || profile === 'qwen38_gemini25pro_writer' || profile === 'multilingual_openrouter') {
       const qwenModelsUrl = `${qwenLocalBaseUrl.replace(/\/$/, '')}/models`;
       const qwenResponse = await axios.get(qwenModelsUrl, {
@@ -1201,6 +1213,7 @@ async function main(): Promise<void> {
       const liveInput: LiveCityCandidatesV8Input = {
         city: cityKey,
         cityKey,
+        cityQid: cityQid ?? undefined,
         theme: request.theme as LiveCityCandidatesV8Input['theme'],
         language: request.language,
         durationMinutes: request.durationMinutes,
@@ -1209,7 +1222,7 @@ async function main(): Promise<void> {
       const loaded = await loadLiveCityCandidatesV8(liveInput);
       const redirected = (loaded.identityResolutions ?? []).filter(identity => identity.redirectChain.length > 1).length;
       const excluded = loaded.identityExclusions?.length ?? 0;
-      if (redirected || excluded) console.log(`[v8-canary] Wikidata: ${redirected} redirecciones verificadas; ${excluded} candidatos inexistentes excluidos`);
+      if (redirected || excluded) console.log(`[v8-canary] Wikidata: ${redirected} redirecciones verificadas; ${excluded} candidatos con identidad no apta excluidos`);
       const candidates: EssentialRouteCandidateV8[] = [];
       for (const entity of loaded.readyEntities) {
         let wikidataId = /^Q\d+$/u.test(entity.canonicalId) ? entity.canonicalId : null;
@@ -1379,7 +1392,9 @@ async function main(): Promise<void> {
       name: stop.name,
       wikidataId: stop.wikidataId,
     })));
-    consoleReporter.stageCompleted('route', `${route.stops.length} paradas · origen=${routeSource}`);
+    consoleReporter.stageCompleted('route', `${route.stops.length} paradas · origen=${routeSource}`
+      + ` · solicitados=${request.durationMinutes} min · estimados=${routeGeometry?.guidedDurationMinutes ?? 'sin estimación'}`
+      + ` · ajuste=${routeGeometry?.durationFit ?? 'unknown'}`);
 
     currentStage = 'research';
     let research: NarrativeResearchHandoffStopV8[];
