@@ -1,0 +1,19 @@
+# Required environment: PILOT_HOST, PILOT_USER, PILOT_PASSWORD_HASH, PILOT_PROXY_TOKEN.
+# Origins run on loopback. Never expose Next/backend/database/pods directly.
+{$PILOT_HOST} {
+    basic_auth {
+        {$PILOT_USER} {$PILOT_PASSWORD_HASH}
+    }
+    header {
+        Cache-Control "private, no-store"
+        X-Robots-Tag "noindex, nofollow"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    reverse_proxy 127.0.0.1:3000 {
+        header_up X-Pilot-Proxy-Token {$PILOT_PROXY_TOKEN}
+        header_up -Authorization
+        header_up -X-Middleware-Subrequest
+        header_up -X-API-Key
+    }
+    # Access logging intentionally disabled; credentials never enter access logs.
+}

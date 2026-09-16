@@ -211,12 +211,23 @@ smoke() {
 }
 
 up() {
-  require_commands git openssl podman podman-compose ss rg stat
+  require_commands git openssl podman podman-compose ss rg stat curl
+  if curl --fail --silent --max-time 3 http://127.0.0.1:3007/ >/dev/null 2>&1; then
+    log "Firecrawl already running on 127.0.0.1:$PORT"
+    return
+  fi
   assert_port_available
   ensure_checkout
   ensure_env_file
   log "Building and starting Firecrawl on 127.0.0.1:$PORT"
   compose up --detach --build
+  log "Waiting for Firecrawl HTTP readiness on 127.0.0.1:$PORT"
+  curl --fail --silent --show-error \
+    --retry 30 --retry-connrefused --retry-all-errors \
+    --retry-delay 1 --retry-max-time 90 \
+    --connect-timeout 2 --max-time 3 \
+    http://127.0.0.1:3007/ >/dev/null \
+    || fail "Firecrawl did not become HTTP-ready within 90 seconds"
   log "Firecrawl started; run '$0 smoke' before use"
 }
 

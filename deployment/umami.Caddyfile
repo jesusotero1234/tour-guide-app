@@ -1,0 +1,12 @@
+# Import into the host Caddy configuration AFTER changing Umami's default admin password.
+# Required environment: UMAMI_HOST (e.g. stats.example.org).
+# Keep the existing pilot access controls intact.
+{$UMAMI_HOST} {
+    header {
+        X-Robots-Tag "noindex, nofollow"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    reverse_proxy 127.0.0.1:3002
+    # No access log: avoid retaining raw IPs and request payloads here.
+    # Umami authenticates dashboard users; script.js and api/send must remain public.
+}

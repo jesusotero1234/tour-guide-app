@@ -165,7 +165,13 @@ status() {
 }
 
 up() {
-  require_commands openssl podman podman-compose ss rg stat mktemp
+  require_commands openssl podman podman-compose ss rg stat mktemp curl jq
+  local json
+  json=$(search_json)
+  if [[ -n "$json" ]] && jq -e '.results | type == "array"' <<<"$json" >/dev/null 2>&1; then
+    log "SearXNG already running at $BASE_URL"
+    return
+  fi
   assert_port_available
   ensure_env_file
 
