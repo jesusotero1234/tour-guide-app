@@ -43,6 +43,23 @@ describe('live Codex narration: offline, no paid inference', () => {
     openRouterApiKey: 'test-not-a-key', pricing: {}, runId: 'test', signal: new AbortController().signal,
     onProgress: jest.fn(), budget: () => ({ spentUsd: 0.4 }), sanitize: (e: unknown) => e instanceof Error ? e.message : 'failed',
   });
+  test('persists the selected rule and shares it with the actual writer and audit requests', async () => {
+    const previous = process.env.NARRATIVE_TEMPORAL_RULE;
+    try {
+      process.env.NARRATIVE_TEMPORAL_RULE = 'selected';
+      const input = options(1), rule = input.materials[0].temporalRule!;
+      const write = jest.fn().mockResolvedValue({ text: narration });
+      const audit = jest.fn().mockResolvedValue(validAudit());
+      const state = await runCodexLiveNarrationV8({ ...input, generateIntroduction: true }, { write, audit });
+      expect(state.status).toBe('complete_needs_review');
+      for (const call of write.mock.calls) expect(call[0]).toContain(rule.text);
+      for (const call of audit.mock.calls) expect(call[0].frozen.auditPrompt).toContain(rule.text);
+      expect(JSON.parse(readFileSync(resolve(directory, 'codex-author-review.private.json'), 'utf8')).temporalRuleFingerprint).toBe(rule.fingerprint);
+    } finally {
+      if (previous === undefined) delete process.env.NARRATIVE_TEMPORAL_RULE;
+      else process.env.NARRATIVE_TEMPORAL_RULE = previous;
+    }
+  });
   test.each([1, 2, 3])('%i-stop material generates one text and one audit per stop without city rules', async count => {
     const write = jest.fn().mockResolvedValue({ text: narration });
     const audit = jest.fn().mockResolvedValue(validAudit());

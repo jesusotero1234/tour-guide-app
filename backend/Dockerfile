@@ -8,11 +8,14 @@ WORKDIR /app
 RUN apk add --no-cache openssl
 
 # Copy package files and install dependencies
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm install
 
 # Copy source files
-COPY . .
+COPY backend/ .
+COPY docs/operations/narrative-author-context-pack-20260906/malagueta-oneshot.md /docs/operations/narrative-author-context-pack-20260906/
+COPY docs/operations/narrative-plaza-mayor-reference-20260905.md /docs/operations/
+COPY docs/tours/regla-editorial-fechas-audioguias.md /docs/tours/
 
 # Build the application
 RUN npm run build

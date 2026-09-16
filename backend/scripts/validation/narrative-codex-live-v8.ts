@@ -8,6 +8,7 @@ import { CODEX_AUDITOR_V8, requestCodexAuditV8 } from './narrative-codex-auditor
 import { EditorialPricingV6, EditorialProgressCallbackV6 } from '../../src/services/poi/EditorialStructuredLlmV6';
 import { compactNarrativeAuditSchemaV8, parseCompactNarrativeAuditV8 } from '../../src/services/poi/NarrativeCompactVerificationV8';
 import { prepareTourWelcomeV8 } from './narrative-tour-welcome-v8';
+import { narrativeAuthorAssetRootV8, loadNarrativeTemporalRuleV8 } from './narrative-temporal-rule-v8';
 
 type Material = ReturnType<typeof prepareAuthorCanaryMaterialV8>[number];
 type Script = ReturnType<typeof assignNarrativeSentenceIdsV6>;
@@ -31,6 +32,7 @@ export interface CodexLiveStateV8 {
   introduction?: CodexLiveStopV8;
   missingStopIds: string[];
   delivery: ReturnType<typeof evaluateNarrationDeliveryV8>;
+  temporalRuleFingerprint?: string | null;
   error?: string;
 }
 export function codexWriterTransportV8(value: string | undefined, profile: string, hasResume: boolean) {
@@ -42,12 +44,13 @@ export function codexWriterTransportV8(value: string | undefined, profile: strin
 }
 export function loadCodexAuthorDocumentsV8() {
   // These are style/instruction assets, never city selection rules or evidence.
-  const root = process.env.NARRATIVE_AUTHOR_ASSET_ROOT || resolve(__dirname, '../../../docs/operations');
+  const root = narrativeAuthorAssetRootV8();
   const template = readFileSync(resolve(root, 'narrative-author-context-pack-20260906/malagueta-oneshot.md'), 'utf8');
   const reference = readFileSync(resolve(root, 'narrative-plaza-mayor-reference-20260905.md'), 'utf8');
   if (!template.includes('## Caso y objetivo de esta respuesta')
     || !reference.includes('## Guion para narrar') || !reference.includes('## Notas de revisión')) throw new Error('invalid Codex author documents');
-  return { template, reference, referenceStopId: 'Q1123493' };
+  const temporalRule = loadNarrativeTemporalRuleV8(root);
+  return { template, reference, referenceStopId: 'Q1123493', temporalRule };
 }
 export async function preflightCodexLiveV8() {
   const documents = loadCodexAuthorDocumentsV8();
@@ -155,11 +158,14 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
   const { materials, directory, signal } = options;
   if (!materials.length || new Set(materials.map(m => m.stopId)).size !== materials.length
     || materials.some(m => !m.authorPrompt.trim() || !Number.isFinite(m.targetWords) || m.targetWords <= 0)) throw new Error('invalid author materials');
+  const firstFingerprint = materials[0].temporalRule?.fingerprint ?? null;
+  if (materials.some(m => (m.temporalRule?.fingerprint ?? null) !== firstFingerprint)) throw new Error('Inconsistent temporal rule fingerprint');
   const state: CodexLiveStateV8 = {
     status: 'running', publicationPassed: false,
     writer: { transport: 'codex_cli', model: 'gpt-6-astra', reasoning: 'low', billing: 'ChatGPT quota' },
     auditor: CODEX_AUDITOR_V8.model, auditorTransport: CODEX_AUDITOR_V8.transport, auditorReasoning: CODEX_AUDITOR_V8.reasoning, auditorBilling: CODEX_AUDITOR_V8.billing, writerAttempts: 0, auditAttempts: 0, stops: [],
     missingStopIds: materials.map(m => m.stopId), delivery: evaluateNarrationDeliveryV8([]),
+    temporalRuleFingerprint: firstFingerprint,
   };
   let saveTail: Promise<void> = Promise.resolve();
   const save = () => {
@@ -256,7 +262,11 @@ export async function runCodexLiveNarrationV8(options: AuditOptions & {
       try {
         state.writerAttempts++;
         record('tour-welcome', 'writer_started');
-        const result = await write(welcomeMaterial.authorPrompt, resolve(writerRoot, 'welcome'), signal);
+        const welcomeHistory = state.stops.flatMap(s => s.script ? [{ name: s.name, text: s.script.text }] : []);
+        const welcomePrompt = welcomeMaterial.temporalRule
+          ? appendAuthorStyleHistoryV8(welcomeMaterial.authorPrompt, welcomeHistory)
+          : welcomeMaterial.authorPrompt;
+        const result = await write(welcomePrompt, resolve(writerRoot, 'welcome'), signal);
         if (!result.text.trim()) throw new Error('Codex writer returned empty welcome');
         intro.script = assignNarrativeSentenceIdsV6('tour-welcome', result.text, { sentenceBoundaryPolicy: 'v8', preserveParagraphs: true });
         intro.wordCount = result.text.trim().split(/\s+/u).length;

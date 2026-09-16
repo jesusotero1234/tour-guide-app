@@ -5,9 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "predev": "bash ../scripts/firecrawl-local.sh up && bash ../scripts/searxng-local.sh up && tsc -p tsconfig.generation-worker.json",
+    "predev": "bash ../scripts/firecrawl-local.sh up && bash ../scripts/searxng-local.sh up && tsc -p tsconfig.generation-worker.json && node scripts/build-narrative-assets.cjs",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc && tsc -p tsconfig.generation-worker.json",
+    "build": "tsc && tsc -p tsconfig.generation-worker.json && node scripts/build-narrative-assets.cjs",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",

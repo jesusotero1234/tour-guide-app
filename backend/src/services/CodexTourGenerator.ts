@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
 import { access, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -19,9 +20,11 @@ export const runCodexTour: CodexRun = async (request, runId, progress, signal) =
   const root = resolve(__dirname, '../..');
   const worker = resolve(root, 'dist-generation/scripts/validation/narrative-user-canary-v8.js');
   await access(worker);
-  const assetRoot = process.env.NARRATIVE_AUTHOR_ASSET_ROOT || resolve(root, '../docs/operations');
+  const bundledAssets = resolve(root, 'dist-generation/docs/operations');
+  const assetRoot = process.env.NARRATIVE_AUTHOR_ASSET_ROOT || (existsSync(bundledAssets) ? bundledAssets : resolve(root, '../docs/operations'));
   await access(resolve(assetRoot, 'narrative-author-context-pack-20260906/malagueta-oneshot.md'));
   await access(resolve(assetRoot, 'narrative-plaza-mayor-reference-20260905.md'));
+  await access(resolve(assetRoot, '../tours/regla-editorial-fechas-audioguias.md'));
   const limit = Number(process.env.TOUR_GENERATION_SPEND_LIMIT_USD || '2');
   if (!Number.isFinite(limit) || limit <= 0) throw new Error('Invalid tour generation budget');
   if (Number(process.versions.node.split('.')[0]) < 22) throw new Error('Codex generation requires Node 22 or later');

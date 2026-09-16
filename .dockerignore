@@ -1,0 +1,19 @@
+# The backend build uses the repository root to include its canonical editorial assets.
+**
+!backend
+!backend/**
+backend/node_modules
+backend/tmp
+backend/dist
+backend/dist-generation
+backend/data
+backend/logs
+backend/.env
+backend/.env.*
+!docs
+!docs/operations
+!docs/operations/narrative-author-context-pack-20260906
+!docs/operations/narrative-author-context-pack-20260906/malagueta-oneshot.md
+!docs/operations/narrative-plaza-mayor-reference-20260905.md
+!docs/tours
+!docs/tours/regla-editorial-fechas-audioguias.md

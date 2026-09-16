@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { access, readFile, stat, mkdir, writeFile, unlink } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { TourRequest } from '../types/api';
@@ -25,10 +26,12 @@ const executeTourPhase: TourPhaseRunner = async (input, progress, signal) => {
   const root = resolve(__dirname, '../..');
   const name = input.mode === 'prepare' ? 'narrative-user-canary-v8' : 'narrative-blueprint-author-v8';
   const worker = resolve(root, 'dist-generation/scripts/validation/' + name + '.js');
-  const assetRoot = process.env.NARRATIVE_AUTHOR_ASSET_ROOT || resolve(root, '../docs/operations');
+  const bundledAssets = resolve(root, 'dist-generation/docs/operations');
+  const assetRoot = process.env.NARRATIVE_AUTHOR_ASSET_ROOT || (existsSync(bundledAssets) ? bundledAssets : resolve(root, '../docs/operations'));
   await access(worker);
   await access(resolve(assetRoot, 'narrative-author-context-pack-20260906/malagueta-oneshot.md'));
   await access(resolve(assetRoot, 'narrative-plaza-mayor-reference-20260905.md'));
+  await access(resolve(assetRoot, '../tours/regla-editorial-fechas-audioguias.md'));
   const inputRoot = resolve(root, 'tmp/blueprint-inputs'), directory = resolve(root, 'tmp/narrative-v8', input.runId);
   await mkdir(inputRoot, { recursive: true, mode: 0o700 });
   await mkdir(resolve(root, 'tmp/narrative-v8'), { recursive: true, mode: 0o700 });

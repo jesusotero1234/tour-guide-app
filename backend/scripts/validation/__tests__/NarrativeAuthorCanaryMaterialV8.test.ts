@@ -1,4 +1,6 @@
 import { prepareAuthorCanaryMaterialV8, appendAuthorStyleHistoryV8 } from '../narrative-author-canary-material-v8';
+import { prepareTourWelcomeV8 } from '../narrative-tour-welcome-v8';
+import { loadNarrativeTemporalRuleV8 } from '../narrative-temporal-rule-v8';
 
 const template = '# Ejemplo\n\nEscribe una historia fiel e inmersiva.\n\n## Caso y objetivo de esta respuesta\nCASO_ANTIGUO_NO_IMPORTAR';
 const reference = '# Voz\n\n## Guion para narrar\nREFERENCIA_SOLO_ESTILO\n## Notas de revisión\nNotas';
@@ -16,9 +18,28 @@ const fixture = (): any => ({
   } } })),
   arc: { stops: ['A', 'B'].map(stopId => ({ stopId, bridgePropositionIds: [] })) }, evidenceManifest: {}
 });
-const prepare = (c = fixture()) => prepareAuthorCanaryMaterialV8(c, template, reference, 'A');
+const prepare = (c = fixture()) => prepareAuthorCanaryMaterialV8(c, template, reference, 'A', undefined, loadNarrativeTemporalRuleV8());
 
 describe('author canary material, offline and city independent', () => {
+  test('shares one temporal policy with every writer and auditor, including welcome', () => {
+    const rule = loadNarrativeTemporalRuleV8(), stops = prepare();
+    for (const material of [...stops, prepareTourWelcomeV8(stops)]) {
+      expect(material.authorPrompt).toContain(rule.text);
+      expect(material.frozen.auditPrompt).toContain(rule.text);
+      expect(material).toHaveProperty('temporalRule.fingerprint', rule.fingerprint);
+      expect(material.authorPrompt).not.toContain('700 palabras');
+    }
+  });
+  test('keeps a control arm and rejects mixed policies before welcome generation', () => {
+    const control = prepareAuthorCanaryMaterialV8(fixture(), template, reference, 'A', 'es', null);
+    const rule = loadNarrativeTemporalRuleV8();
+    for (const m of [...control, prepareTourWelcomeV8(control)]) {
+      expect(m.temporalRule).toBeNull();
+      expect(m.authorPrompt).not.toContain(rule.text);
+      expect(m.frozen.auditPrompt).not.toContain(rule.text);
+    }
+    expect(() => prepareTourWelcomeV8([prepare()[0], control[1]])).toThrow('Inconsistent temporal rule');
+  });
   test('preserves order, original targets, quotations, source isolation and checkpoint', () => {
     const c = fixture(), before = JSON.stringify(c), m = prepare(c);
     expect(m.map(s => s.stopId)).toEqual(['A', 'B']);
