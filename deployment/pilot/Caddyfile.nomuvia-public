@@ -1,0 +1,17 @@
+nomuvia.com {
+    header {
+        Cache-Control "private, no-store"
+        X-Robots-Tag "noindex, nofollow"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    reverse_proxy 127.0.0.1:3000 {
+        header_up X-Pilot-Proxy-Token {$PILOT_PROXY_TOKEN}
+        header_up -Authorization
+        header_up -X-Middleware-Subrequest
+        header_up -X-API-Key
+    }
+}
+www.nomuvia.com {
+    redir https://nomuvia.com{uri} permanent
+}

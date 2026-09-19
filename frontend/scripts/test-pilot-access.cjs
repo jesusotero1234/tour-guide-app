@@ -1,7 +1,7 @@
 // Requires a production build; CADDY_BIN points to a local Caddy executable.
 // Uses loopback-only temporary servers, fake credentials and a mock backend; no real database/provider calls.
 const assert = require('node:assert/strict');
-const { createServer } = require('node:http');
+const { createServer, request: httpRequest } = require('node:http');
 const { spawn, execFileSync } = require('node:child_process');
 const { mkdtemp, readFile, writeFile, rm } = require('node:fs/promises');
 const { tmpdir } = require('node:os');
@@ -36,6 +36,16 @@ async function port() { const s=createServer();s.listen(0,'127.0.0.1');await onc
     const caddy=launch(process.env.CADDY_BIN,['run','--config',configPath,'--adapter','caddyfile'],caddyEnv);
     await wait(entry+'/about',caddy);
     const auth={Authorization:'Basic '+Buffer.from('tester:test-invitation-password').toString('base64')};
+    const publicRedirect = await new Promise((resolve,reject) => {
+      const req = httpRequest(origin+'/', {headers:{Host:'nomuvia.example','X-Pilot-Proxy-Token':proxyToken}}, response => { response.resume(); resolve(response.headers.location); });
+      req.on('error',reject); req.end();
+    });
+    assert.equal(publicRedirect,'http://nomuvia.example/tours','Public host must not inherit the internal port');
+    for (const path of ['/', '/passes', '/passes/example']) {
+      const response = await fetch(entry + path, {headers:auth, redirect:'manual'});
+      assert.equal(response.status,307);
+      assert.equal(new URL(response.headers.get('location'),entry).href,entry+'/tours','Redirect must stay on the public origin');
+    }
     for(const path of ['/about','/tours','/api/backend/tours','/api/backend/tours/11111111-1111-4111-8111-111111111111/audio/22222222-2222-4222-8222-222222222222']) {
       assert.equal((await fetch(entry+path)).status,401);
       assert.equal((await fetch(entry+path,{headers:{'X-Pilot-Proxy-Token':proxyToken,'X-Middleware-Subrequest':'middleware:middleware:middleware:middleware:middleware',Range:'bytes=0-3'}})).status,401);

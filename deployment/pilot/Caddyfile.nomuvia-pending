@@ -1,0 +1,15 @@
+# Temporary closed site while the private pilot is prepared.
+# No application, API, research material or audio is exposed by this configuration.
+nomuvia.com {
+    header {
+        Cache-Control "private, no-store"
+        X-Robots-Tag "noindex, nofollow"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    respond "Nomuvia. La beta privada esta en preparacion." 503
+}
+
+www.nomuvia.com {
+    redir https://nomuvia.com{uri} permanent
+}

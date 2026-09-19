@@ -6,8 +6,8 @@ export default async function About({ searchParams }: { searchParams: Promise<{ 
   const notice = await readPilotNotice();
   return <main lang={fr ? 'fr' : 'es'} className="legal-page">
     <Link href="/tours">{fr ? 'Retour aux visites' : 'Volver a los tours'}</Link>
-    <h1>{fr ? 'À propos du prototype' : 'Sobre el prototipo'}</h1>
-    <p>{fr ? 'Essai privé, gratuit et sur invitation. Les textes sont préparés avec une IA et peuvent contenir des erreurs. Les visites accessibles sont relues avant leur mise à disposition.' : 'Prueba privada, gratuita y por invitación. Los textos se preparan con IA y pueden contener errores. Los tours accesibles se revisan antes de ofrecerlos a participantes.'}</p>
+    <h1>{fr ? 'À propos de Nomuvia' : 'Sobre Nomuvia'}</h1>
+    <p>{fr ? 'Audioguides expérimentaux gratuits et en accès ouvert. Les textes et les voix sont produits avec une IA et peuvent contenir des erreurs.' : 'Audioguías experimentales gratuitas y de acceso abierto. Los textos y las voces se producen con IA y pueden contener errores.'}</p>
     <h2 id="voice">{fr ? 'Voix générée par IA' : 'Voz generada por IA'}</h2>
     <p>{fr ? 'La narration est une voix artificielle produite localement avec VoxCPM2, et non l’enregistrement d’un guide sur place. Le lecteur propose le texte de la narration. Chaque version associe le texte, le modèle et le fichier audio pour permettre leur vérification.' : 'La narración es una voz artificial producida localmente con VoxCPM2. No es una grabación de un guía en el lugar. El reproductor ofrece el texto de la narración. Cada versión vincula texto, modelo y archivo de audio para permitir su comprobación.'}</p>
     <h2>{fr ? 'Pendant la promenade' : 'Durante el paseo'}</h2>

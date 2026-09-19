@@ -69,6 +69,8 @@ app.use(notFoundHandler);
 // Start server
 app.listen(config.port, process.env.BIND_HOST || '127.0.0.1', () => {
   logger.info(`Server running on port ${config.port} in ${config.env} mode`);
+  // The production pilot only serves reviewed content; never resume generation jobs.
+  if (pilotEnabled()) return;
   void generationJobService.resumePending().catch((error) => {
     logger.error('Failed to resume pending generation jobs', { error });
   });

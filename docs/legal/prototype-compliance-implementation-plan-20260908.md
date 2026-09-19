@@ -306,3 +306,18 @@ Verificación realizada:
 - Caddy y Next de producción en servidores temporales de loopback con credenciales ficticias: invitación, cabeceras falsas, origen privado, clave de participante y operaciones prohibidas. La prueba es HTTP local; el certificado/dominio HTTPS y los puertos del despliegue final siguen pendientes.
 
 Las casillas externas se dejan abiertas intencionadamente: el código no identifica al responsable, contrata proveedores, concede derechos, realiza una inspección física ni emite un dictamen jurídico. No se ha desplegado ni anunciado cumplimiento legal total.
+
+
+## Actualización del 19 de septiembre: cookies y estadísticas
+
+La integración posterior de Umami modifica el supuesto original de piloto sin
+analítica. Se añade consentimiento previo para la medición opcional, con rechazo
+equivalente, ajustes permanentes, retirada entre pestañas y elección válida durante
+180 días. El idioma y el progreso se explican separadamente en `/privacy`; el GPS
+conserva su permiso independiente. Sin Umami configurado no aparece un banner de
+estadísticas. Véase [operación de Umami](../../deployment/UMAMI.md).
+
+Orden acordado: terminar cookies y preferencias; después preparar el plan de
+alojamiento en Hetzner. El responsable confirma que aún no dispone de dominio ni
+alojamiento. No se ha contratado ni publicado nada en este paso. Las comprobaciones
+de despliegue y los datos reales del aviso siguen pendientes.

@@ -112,3 +112,81 @@ body[data-pilot="true"] header a[href="/"],
 body[data-pilot="true"] header a[href="/passes"] {
   display: none;
 }
+
+/* Privacy uses the same paper and ink palette as the walking guide. */
+.privacy-settings-link {
+  display: block;
+  margin: .5rem auto 0;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: .875rem;
+}
+.privacy-banner {
+  position: fixed;
+  z-index: 1500;
+  inset: auto 1rem 1rem;
+  margin-inline: auto;
+  max-width: 64rem;
+  max-height: 80dvh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 1rem;
+  background: var(--surface-elevated);
+  color: var(--ink);
+  box-shadow: 0 12px 48px #4a3f3526;
+  text-align: left;
+}
+.privacy-banner h2, .privacy-dialog h2 { font-size: clamp(1.6rem, 4vw, 2rem); line-height: 1.15; margin-bottom: .75rem; }
+.privacy-banner p, .privacy-dialog p { line-height: 1.55; }
+.privacy-eyebrow { font-size: .75rem; letter-spacing: .09em; text-transform: uppercase; margin-bottom: .65rem; }
+.privacy-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.privacy-actions button {
+  flex: 1 1 10rem;
+  min-height: 48px;
+  padding: .65rem 1rem;
+  border: 1px solid var(--ink);
+  border-radius: .5rem;
+  background: var(--surface-elevated);
+  color: var(--ink);
+  font-size: .95rem;
+}
+.privacy-actions button:hover { background: var(--surface); }
+.privacy-actions .privacy-text-action { border-color: transparent; text-decoration: underline; text-underline-offset: 4px; }
+.privacy-dialog {
+  margin: auto;
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 1.5rem;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface-elevated);
+  color: var(--ink);
+  text-align: left;
+}
+.privacy-dialog::backdrop { background: #241e18a6; }
+.privacy-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.privacy-dialog-heading button { min-width: 44px; min-height: 44px; font-size: 1.75rem; }
+.privacy-dialog section { padding-block: 1rem; border-top: 1px solid var(--border); }
+.privacy-dialog h3, .privacy-toggle { font-weight: 600; font-size: 1.125rem; margin-bottom: .5rem; }
+.privacy-toggle { display: flex; align-items: center; justify-content: space-between; min-height: 44px; gap: 1rem; }
+.privacy-toggle input { width: 24px; height: 24px; accent-color: var(--ink); }
+.privacy-dialog a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+:is(.privacy-banner, .privacy-dialog, footer) :is(button, input, a):focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (min-width: 800px) {
+  .privacy-banner { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 2rem; padding: 1.75rem 2rem; }
+  .privacy-banner .privacy-actions { margin-top: 0; }
+}
+
+/* Keep the first-visit notice compact on a phone without changing its choices. */
+@media (max-width: 600px) {
+  .privacy-banner { inset: auto 12px max(12px, env(safe-area-inset-bottom)); padding: 16px; border-top-width: 2px; border-radius: 14px; max-width: 416px; }
+  .privacy-banner .privacy-eyebrow { display: none; }
+  .privacy-banner h2 { font-size: 20px; margin-bottom: 8px; }
+  .privacy-banner p { font-size: 12px; line-height: 1.55; }
+  .privacy-banner .privacy-actions { gap: 6px; margin-top: 12px; }
+  .privacy-banner .privacy-actions button { flex: 1 1 7rem; min-height: 44px; padding: 8px; font-size: 12px; }
+}

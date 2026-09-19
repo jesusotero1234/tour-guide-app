@@ -1,6 +1,6 @@
 # Valencia: edificios que cambiaron de oficio — escucha con DeepSeek
 
-Fecha: 16 de septiembre de 2026. Estado: **audio entregado; valoración del usuario pendiente**.
+Fecha: 16 de septiembre de 2026. Estado: **muestra de audio aceptada por el usuario; solicita imágenes de los edificios**.
 
 Se ejecutó el [plan práctico](plan-practico-tours-deepseek-20260916.md) hasta entregar la muestra para escuchar: bienvenida, Palacio de la Generalidad y Torres de Serranos. **DeepSeek escribió las tres piezas a la primera; no hubo llamadas de corrección ni edición manual de sus frases.** Codex seleccionó la evidencia, preparó los encargos y revisó los textos completos.
 
@@ -33,7 +33,7 @@ La revisión comprobó hechos y comprensión, sin exigir una cuota de palabras o
 
 La estimación usa el consumo de las tres respuestas y las [tarifas oficiales consultadas el 16/09/2026](https://api-docs.deepseek.com/quick_start/pricing/). Quedó dentro del tope de exposición de 1 USD y no quedaron reservas abiertas. No es una factura ni incluye Codex, preparación editorial, revisión, infraestructura, electricidad o impuestos. Los tiempos no representan todo el trabajo editorial de la sesión.
 
-**Evaluación editorial: apto para esta escucha supervisada, sin errores importantes detectados pendientes.** La valoración de si resulta ameno y útil corresponde al usuario; aún no se ha recibido. Este caso era conocido y la evidencia fue seleccionada por Codex. El resultado no demuestra fiabilidad general ni ahorro total frente a otro flujo.
+**Evaluación editorial: apto para esta escucha supervisada, sin errores importantes detectados pendientes. Valoración del usuario: usable como muestra de audio, con imágenes solicitadas.** Este caso era conocido y la evidencia fue seleccionada por Codex. El resultado no demuestra fiabilidad general ni ahorro total frente a otro flujo.
 
 ## Capítulos
 
@@ -44,6 +44,17 @@ La estimación usa el consumo de las tres respuestas y las [tarifas oficiales co
 | 2:05 | De puerta a prisión y depósito de arte | 1:12 |
 
 Hay dos segundos de separación entre capítulos. La duración del archivo corresponde al audio, no al paseo.
+
+## Fotografías para acompañar la escucha
+
+Se localizaron fotografías reales mediante el buscador de Commons que ya existe en la aplicación. Las fichas identifican los edificios y conservan autoría y licencia. La vista previa remota falló; se entregan enlaces a las fotografías, sin dar por verificado visualmente el encuadre ni por completada su integración en la app.
+
+| Capítulo | Fotografía | Crédito y licencia declarados en Commons |
+| --- | --- | --- |
+| 0:32 · Palacio de la Generalidad | [Ver fotografía del palacio](https://commons.wikimedia.org/wiki/File:Palau_del_la_Generalitat_P1390956.JPG) | Pere López · [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
+| 2:05 · Torres de Serranos | [Ver fotografía de las torres](https://commons.wikimedia.org/wiki/File:Puerta_de_los_Serranos,_Valencia,_Espa%C3%B1a,_2014-06-30,_DD_86.JPG) | Diego Delso, [delso.photo](https://delso.photo) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+
+No se han editado estas imágenes. La selección y sus metadatos quedan disponibles en el [registro de candidatos](../../backend/tmp/valencia-deepseek-practico-20260916/photo-candidates.json). Para la presentación del tour, usar una vista reconocible del edificio con crédito junto a la imagen; una fotografía actual no representa necesariamente el aspecto que tenía en el episodio narrado.
 
 ## Guion y créditos
 
@@ -70,7 +81,7 @@ Mira ahora hacia las Torres de Serranos. Después de la parada anterior, aquí r
 
 Se verificaron las entradas congeladas, los extractos literales y los ejemplos exactos, la identidad y respuesta del modelo y la coincidencia de todos los textos finales con sus salidas. Los tres capítulos y la unión se decodifican, tienen señal y conservan huellas y procedencia vinculada. La identidad de voz coincide con Madrid. El consumo coincide con el registro de gasto y el servicio que ocupaba la GPU quedó restaurado.
 
-La correspondencia verificada es la del texto enviado al sintetizador y su procedencia; no se ha hecho transcripción automática ni escucha humana de control del audio generado. La escucha del usuario queda pendiente.
+La correspondencia verificada es la del texto enviado al sintetizador y su procedencia; no se ha hecho transcripción automática ni una auditoría humana palabra por palabra del audio generado. El usuario ya ha valorado positivamente la muestra.
 
 - [Entradas, selección y referencias](../../backend/tmp/valencia-deepseek-practico-20260916/inputs.json) y [protocolo de esta ejecución](../../backend/tmp/valencia-deepseek-practico-20260916/protocol.json).
 - [Guion final](../../backend/tmp/valencia-deepseek-practico-20260916/master.json) y [evaluación, consumo y audio](../../backend/tmp/valencia-deepseek-practico-20260916/evaluation.json).
@@ -79,6 +90,10 @@ La correspondencia verificada es la del texto enviado al sintetizador y su proce
 
 Los artefactos locales de ejecución y audio están fuera de Git; hay que conservar esa carpeta para mantener los enlaces y reproducir la inspección. El cambio de esta entrega se limita a documentación y artefactos locales; no se modificó código de la app.
 
-## Valoración pendiente
+## Valoración del usuario y decisión
 
-Solo falta tu impresión al escucharlo: si te sirve como audioguía, si se entiende qué pasó y si hay algún tramo pesado o confuso. Se registrará como «usable», «necesita un cambio concreto» o «no sirve». Hasta recibirla, T4 permanece pendiente; T1–T3 están terminadas.
+El usuario respondió: «me gusta full solo q tendria q tener los edificios en imagenes pero esta cool, me gusta». Se registra como **usable como muestra de audio**, con fotografías como mejora solicitada, sin petición de reescritura. T1–T4 están completadas. Esta valoración no equivale a respuestas separadas a todas las preguntas orientativas ni a una evaluación de otros oyentes.
+
+Los archivos originales de evaluación y guion conservan el estado que tenían al entregar el audio, cuando aún no había respuesta. Esta sección registra la valoración posterior; no se cambian el audio, sus huellas ni los resultados de experimentos anteriores.
+
+Las fotografías se han enlazado arriba; su presentación integrada sigue pendiente. Las [propuestas siguientes](propuestas-tours-historicos-20260916.md) reutilizan el mismo método supervisado.

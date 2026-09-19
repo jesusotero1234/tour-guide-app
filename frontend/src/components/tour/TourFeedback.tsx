@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useState, useEffect, useRef } from 'react';
+import { analyticsAllowed, CONSENT_EVENT } from '@/lib/consent';
 import { trackEvent } from '@/lib/analytics';
 
 type Language = 'fr' | 'es' | 'en';
@@ -69,13 +70,16 @@ export function TourFeedback({
   const sentRef = useRef(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.umami) {
-      setReady(true);
-      return;
-    }
-    const handler = () => setReady(true);
-    window.addEventListener('umami-ready', handler);
-    return () => window.removeEventListener('umami-ready', handler);
+    const sync = () => setReady(analyticsAllowed() && !!window.umami);
+    sync();
+    window.addEventListener('umami-ready', sync);
+    window.addEventListener(CONSENT_EVENT, sync);
+    window.addEventListener('storage', sync);
+    return () => {
+      window.removeEventListener('umami-ready', sync);
+      window.removeEventListener(CONSENT_EVENT, sync);
+      window.removeEventListener('storage', sync);
+    };
   }, []);
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+import { analyticsAllowed, CONSENT_EVENT } from './consent';
+
 export type AnalyticsData = Record<string, string | number | boolean>;
 
 declare global {
@@ -36,7 +38,16 @@ function isUmamiDisabled(): boolean {
 }
 
 export async function trackEvent(name: string, data?: AnalyticsData): Promise<boolean> {
+  return sendAnalytics(name, data);
+}
+
+export async function trackPageView(): Promise<boolean> {
+  return sendAnalytics();
+}
+
+async function sendAnalytics(name?: string, data?: AnalyticsData): Promise<boolean> {
   if (isSSR()) return false;
+  if (!analyticsAllowed()) return false;
   if (isDNTEnabled()) return false;
   if (isUmamiDisabled()) return false;
 
@@ -129,7 +140,8 @@ export function attachAudioAnalytics(audio: HTMLAudioElement, data: AnalyticsDat
     const now = performance.now();
     const currentTime = audio.currentTime;
 
-    if (active && !audio.seeking) {
+    if (!analyticsAllowed()) seconds = 0;
+    if (analyticsAllowed() && active && !audio.seeking) {
       const delta = currentTime - lastPosition;
       if (delta > 0) {
         const elapsedWall = (now - lastNow) / 1000;
@@ -231,6 +243,8 @@ export function attachAudioAnalytics(audio: HTMLAudioElement, data: AnalyticsDat
     }
   };
 
+  const resetConsent = () => { seconds = 0; baseline(); };
+
   const cleanup = () => {
     if (disposed) return;
     sample();
@@ -248,6 +262,8 @@ export function attachAudioAnalytics(audio: HTMLAudioElement, data: AnalyticsDat
     audio.removeEventListener('error', handleError);
     audio.removeEventListener('timeupdate', handleTimeUpdate);
     window.removeEventListener('pagehide', handlePageHide);
+    window.removeEventListener(CONSENT_EVENT, resetConsent);
+    window.removeEventListener('storage', resetConsent);
     document.removeEventListener('visibilitychange', handleVisibilityChange);
   };
 
@@ -262,6 +278,8 @@ export function attachAudioAnalytics(audio: HTMLAudioElement, data: AnalyticsDat
   audio.addEventListener('error', handleError);
   audio.addEventListener('timeupdate', handleTimeUpdate);
   window.addEventListener('pagehide', handlePageHide);
+  window.addEventListener(CONSENT_EVENT, resetConsent);
+  window.addEventListener('storage', resetConsent);
   document.addEventListener('visibilitychange', handleVisibilityChange);
 
   return cleanup;

@@ -3,7 +3,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { TourRepository } from '../../domain/repositories/TourRepository';
 import { TourBlueprintRepository } from '../../services/TourBlueprint';
 import { TourAudioService } from '../../services/TourAudioService';
-import { admittedToPilot, presentPilotTour, validWalkingRoute } from '../../services/PilotRelease';
+import { admittedToPilot, presentPilotTour, validWalkingRoute, ownerAuthorized } from '../../services/PilotRelease';
 import { assertBlueprintSources, buildSourceCredits } from '../../services/SourceCredits';
 import { sha256 } from '../../services/AudioProvenance';
 import { pilotLaunchReady } from '../../config/pilotLaunch';
@@ -40,6 +40,10 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (localReviewIds && tour.status === 'published') {
       const state = await audio.get(id, true);
       return { tour, state };
+    }
+    if (ownerAuthorized(tour)) {
+      const state = await audio.get(id, true);
+      return admittedToPilot(tour, state) ? { tour, state } : null;
     }
     if (!tour?.blueprintId || tour.metadata?.pilotRelease?.status !== 'approved') return null;
     if (!await bases.isCurrent(tour.blueprintId)) return null;

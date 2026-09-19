@@ -123,7 +123,7 @@ export interface FlexiblePassQuoteResponse {
 export interface Tour {
   cityNames?: Partial<Record<Language, string>>;
   localReview?: boolean;
-  pilot?: { reviewedAt: string; version: string; scriptLicense: string; changes: string };
+  pilot?: { approvalMode?: 'owner-authorized' | 'human-reviewed'; reviewedAt: string; version: string; scriptLicense: string; changes: string };
   reviewSummary?: { findingCount: number; guidedDurationMinutes: number; transferCount: number; durationFit: string; languageFindingCount?: number; narrationMinutes?: number; durationMeasured?: boolean; narrationWithinTarget?: boolean };
   id: string;
   city: string;

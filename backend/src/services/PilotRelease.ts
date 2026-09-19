@@ -7,6 +7,8 @@ import { SOURCE_POLICY_VERSION, sourceUse } from './poi/SourceUsePolicy';
 
 export interface PilotRelease {
   version: 1;
+  approvalMode?: 'owner-authorized';
+  authorizationReference?: string;
   status: 'approved' | 'withdrawn';
   reviewedBy: string;
   reviewedAt: string;
@@ -33,6 +35,11 @@ export function validWalkingRoute(value: unknown): value is WalkingRouteData {
     && Number.isFinite(route.durationSeconds) && route.durationSeconds >= 0;
 }
 
+export function ownerAuthorized(tour: Tour): boolean {
+  const release = tour.metadata?.pilotRelease;
+  return release?.approvalMode === 'owner-authorized' && !!release.authorizationReference?.trim();
+}
+
 export function validatePilotMaterial(tour: Tour, audio: TourAudioState): void {
   if (tour.status !== 'published' || !tour.introduction?.trim() || tour.places.length < 2 || tour.places.length > 40
     || !validWalkingRoute(tour.metadata?.pilotWalkingRoute)) throw new Error('PILOT_MATERIAL_INCOMPLETE');
@@ -47,7 +54,8 @@ export function validatePilotMaterial(tour: Tour, audio: TourAudioState): void {
       };
       if (pictures.version !== 1 || pictures.status !== 'ready' || pictures.sourceText !== place.description
         || pictures.images.some(p => ![p.author,p.attribution,p.license,p.changes,p.alt].every(v => typeof v === 'string' && v.trim())
-          || !safeUrl(p.url, 'upload.wikimedia.org', /^\//)
+          || !(safeUrl(p.url, 'upload.wikimedia.org', /^\//)
+            || safeUrl(p.url, 'thumb.wikimedia.org', /^\/wikipedia\/commons\/thumb\//))
           || !safeUrl(p.sourceUrl, 'commons.wikimedia.org', /^\/wiki\/File:/)
           || !safeUrl(p.licenseUrl, 'creativecommons.org', /^\/(licenses|publicdomain)\//))) throw new Error('PILOT_IMAGE_CREDITS_PENDING');
     }
@@ -55,7 +63,9 @@ export function validatePilotMaterial(tour: Tour, audio: TourAudioState): void {
     if (!place.description.trim() || !credits || credits.version !== SOURCE_POLICY_VERSION || !credits.items.length) throw new Error('PILOT_SOURCES_INCOMPLETE');
     for (const credit of credits.items) {
       const use = sourceUse(credit.url);
-      if (credit.status !== 'permitted' || use.status !== 'permitted' || credit.license !== use.license
+      const ownerResearch = ownerAuthorized(tour) && credit.status === 'pending' && use.status === 'pending'
+        && (() => { try { const u = new URL(credit.url); return u.protocol === 'https:' && !u.username && !u.password && !u.port; } catch { return false; } })();
+      if ((!ownerResearch && (credit.status !== 'permitted' || use.status !== 'permitted')) || credit.license !== use.license
         || credit.licenseUrl !== use.licenseUrl || !credit.attribution.trim() || !credit.title.trim()
         || !Number.isFinite(Date.parse(credit.capturedAt))) throw new Error('PILOT_SOURCE_USE_PENDING');
     }
@@ -68,6 +78,7 @@ export function pilotFingerprint(tour: Tour, audio: TourAudioState): string {
     blueprintFingerprint: tour.metadata?.codexAuthor?.blueprintFingerprint,
     city: tour.city, country: tour.country, countryCode: tour.countryCode, language: tour.language,
     theme: tour.theme, durationMinutes: tour.durationMinutes, introduction: tour.introduction,
+    ...(tour.metadata?.catalogTitle ? { catalogTitle: tour.metadata.catalogTitle } : {}),
     ...(audio.introduction ? { introductionAudio: { version: audio.introduction.version, text: audio.introduction.text } } : {}),
     geometry: tour.metadata?.pilotWalkingRoute,
     places: [...tour.places].sort((a, b) => a.position - b.position).map(place => ({
@@ -87,7 +98,7 @@ export function admittedToPilot(tour: Tour, audio: TourAudioState): boolean {
       && review.sourcePolicy === SOURCE_POLICY_VERSION && review.scriptLicense === 'CC BY-SA 4.0'
       && !!review.reviewedBy?.trim() && !!review.changes?.trim()
       && Number.isFinite(Date.parse(review.reviewedAt)) && Date.parse(review.reviewedAt) <= Date.now()
-      && ['text', 'audio', 'route', 'rights'].every(key => review.checks?.[key as keyof PilotRelease['checks']] === true)
+      && (ownerAuthorized(tour) || ['text', 'audio', 'route', 'rights'].every(key => review.checks?.[key as keyof PilotRelease['checks']] === true))
       && review.fingerprint === pilotFingerprint(tour, audio);
   } catch { return false; }
 }
@@ -99,9 +110,10 @@ export function presentPilotTour(tour: Tour, audio: TourAudioState, localReview 
     id: tour.id, city: tour.city, country: tour.country, countryCode: tour.countryCode,
     cityNames: getCityNames(tour.city, tour.countryCode),
     theme: tour.theme, language: tour.language, durationMinutes: tour.durationMinutes,
+    ...(tour.metadata?.catalogTitle ? { title: tour.metadata.catalogTitle } : {}),
     status: tour.status, introduction: tour.introduction, createdAt: tour.createdAt, updatedAt: tour.updatedAt,
     ...(audio.introduction ? { introductionAudio: audio.introduction } : {}),
-    pilot: localReview ? undefined : { reviewedAt: release!.reviewedAt, version: release!.fingerprint,
+    pilot: localReview ? undefined : { approvalMode: release!.approvalMode ?? 'human-reviewed', reviewedAt: release!.reviewedAt, version: release!.fingerprint,
       scriptLicense: release!.scriptLicense, changes: release!.changes },
     localReview,
     places: tour.places.map(place => ({

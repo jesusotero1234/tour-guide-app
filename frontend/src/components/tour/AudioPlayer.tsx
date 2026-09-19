@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ListeningProgress, readListeningProgress, saveListeningProgress } from '@/lib/tourProgress';
 import { listeningCopy } from './listeningCopy';
 import { attachAudioAnalytics } from '@/lib/analytics';
+import { mobileTourCopy } from '@/lib/mobileTourCopy';
+import { supportedLanguage } from '@/lib/browseCopy';
 
 interface AudioPlayerProps {
   audioUrl: string;
@@ -22,11 +24,13 @@ const time = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.flo
 
 export function AudioPlayer({ audioUrl, title, compact = false, language = 'en', progressKey, tourId, placeId, onProgress, onError, onPlaybackStateChange }: AudioPlayerProps) {
   const t = listeningCopy(language);
+  const mobile = mobileTourCopy(supportedLanguage(language) || 'en');
   const audioRef = useRef<HTMLAudioElement>(null);
   const callbacks = useRef({ onProgress, onError, onPlaybackStateChange });
   const [state, setState] = useState({ isPlaying: false, isLoading: true, currentTime: 0, duration: 0 });
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [speed, setSpeed] = useState(1);
   useEffect(() => { callbacks.current = { onProgress, onError, onPlaybackStateChange }; }, [onProgress, onError, onPlaybackStateChange]);
 
   useEffect(() => {
@@ -76,7 +80,7 @@ export function AudioPlayer({ audioUrl, title, compact = false, language = 'en',
     const ended = () => { progress.completed = true; loading = false; sync(true); };
     const failed = () => { loading = false; setError(true); callbacks.current.onError?.('Audio unavailable'); sync(true); };
     const background = () => { if (document.visibilityState === 'hidden') sync(true); };
-    const events = { loadedmetadata: metadata, timeupdate: updated, play: updated, pause: paused, waiting, canplay: available, ended, error: failed, seeked: paused };
+    const events = { loadedmetadata: metadata, timeupdate: updated, play: updated, pause: paused, waiting, canplay: available, ended, error: failed, seeked: paused, ratechange: updated };
     Object.entries(events).forEach(([name, handler]) => audio.addEventListener(name, handler));
     document.addEventListener('visibilitychange', background);
     window.addEventListener('pagehide', paused);
@@ -134,6 +138,11 @@ export function AudioPlayer({ audioUrl, title, compact = false, language = 'en',
     <div className={`listening-player${compact ? ' compact' : ''}`} data-testid="audio-player">
       <audio ref={audioRef} preload="metadata" data-testid="tour-audio" />
       <div className="player-title">{title}</div>
+      {!compact && <div className="player-options"><span>{mobile.listenLabel}</span><button type="button" aria-label={`${mobile.speed}: ${speed}×`} onClick={() => {
+        const next = speed === 1 ? 1.25 : speed === 1.25 ? 1.5 : speed === 1.5 ? 2 : 1;
+        setSpeed(next);
+        if (audioRef.current) audioRef.current.playbackRate = next;
+      }}>{speed}×</button></div>}
       <input className="player-progress" type="range" aria-label={t.seek} min={0} max={state.duration || 1} step="0.1" value={Math.min(state.currentTime, state.duration || 1)} disabled={!state.duration} onChange={(event) => seek(Number(event.target.value))} />
       {!compact && <div className="player-times"><span>{time(state.currentTime)}</span><span>{state.duration ? time(state.duration) : '—'}</span></div>}
       <div className="player-controls">

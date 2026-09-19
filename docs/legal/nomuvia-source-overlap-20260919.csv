@@ -1,0 +1,36 @@
+ciudad,tour_id,blueprint_id,fuente,parada_con_mayor_coincidencia,parrafo,palabras_consecutivas
+Palma,e63f0172-cf23-548a-89cf-7545d2ce6333,e6752b02-88c7-5876-8223-3ba16581aeec,https://castillomuseosancarlos.com/,Fuerte de San Carlos,2,52
+Las Palmas de Gran Canaria,06dbd9b3-85d8-5ab0-8fa7-43a5a78ec42f,d00abc27-c0bc-590d-8b2d-b08036546bf3,https://web.archive.org/web/20110308090034/http://www.grancanariaactualidad.com/index.php/turismo-vacaciones-viajes/isla-de-gran-canaria/patrimonio-cultural-de-gran-canaria/29821-parroquia-san-francisco-de-asis.html,iglesia San Francisco de Asís,6,48
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://eduwp.edu.gva.es/patrimonio-cultural/ficha-inmueble.php?id=1385&lang=es,Torres de Quart,3,47
+Alicante,a06a198b-fdff-59bd-8bba-db22b36c7caa,4b7355f2-3b50-519e-8c6f-cf9fbcc6d91e,https://www.marqalicante.com/,Museo Arqueológico de Alicante,4,34
+Madrid,5b393fef-f58b-5e42-861e-b3baafbb3a8a,f3799e97-c6d9-5415-83d5-ab4296e2a7ef,https://www.patrimonionacional.es/visita/palacio-real-de-madrid,Palacio Real de Madrid,5,31
+Castellón de la Plana,0be24ddf-eefe-5180-89b1-3cce2f95ed20,48796666-d452-5ac3-85ae-33ec83518a01,https://mucc.castello.es/wp-content/uploads/2023/01/el-campanar-de-la-vila_CAS.pdf,El Fadrí,4,27
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://polipapers.upv.es/index.php/EGA/article/download/1363/1386,Mercado Central de Valencia,3,21
+Sevilla,f19adc02-7d66-57dd-8c73-20f82a6ead79,8b2c4440-8b32-5518-83e4-63f5a69a6c45,https://www.fundacionmedinaceli.org/monumentos/pilatos/,Casa de Pilatos,2,17
+Barcelona,64b9fb35-cfb5-59e1-8028-fe173a9564b2,3c293dec-fb63-5ba6-821a-52baa706a8dd,https://ccaa.elpais.com/ccaa/2017/05/04/catalunya/1493920308_500722.html,Palacio Güell,5,16
+Málaga,307add2e-dc2a-53cf-8573-2f66a8e56d6f,7ccbfeef-fd82-5b93-8ccb-8fbdde36cfe3,https://malagacatedral.com/,Iglesia Catedral de la Encarnación,4,14
+Barcelona,64b9fb35-cfb5-59e1-8028-fe173a9564b2,3c293dec-fb63-5ba6-821a-52baa706a8dd,https://www.elnacional.cat/es/barcelona/palau-guell-amplia-adquisicion-fincas-vecinas_733122_102.html,Palacio Güell,2,14
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://www.catedraldevalencia.es/,Catedral de Santa María de Valencia,5,11
+Castellón de la Plana,0be24ddf-eefe-5180-89b1-3cce2f95ed20,48796666-d452-5ac3-85ae-33ec83518a01,https://mucc.castello.es/es/sedes/el-fadri/,El Fadrí,6,10
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://www.arquitectosdevalencia.es/arquitectura-de-valencia/1910-1935/mercado-central,Mercado Central de Valencia,2,10
+Madrid,b1fbcc6c-22ca-4795-9ee2-b1292fc3dfb0,c6ffac55-e6ff-4d7f-83f6-cc026d3cec91,https://www.patrimonionacional.es/visita/palacio-real-de-madrid,Palacio Real de Madrid,2,9
+Seville,612a437d-5858-4b7e-bbab-97b63dbbccf6,f434aebc-a8d7-4e34-af17-725c642a1fd5,https://www.catedraldesevilla.es/,Catedral de Santa María de la Sede de Sevilla,7,8
+Seville,612a437d-5858-4b7e-bbab-97b63dbbccf6,f434aebc-a8d7-4e34-af17-725c642a1fd5,https://www.fundacionmedinaceli.org/monumentos/pilatos/,Casa de Pilatos,2,8
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://www.mercadocentralvalencia.es/,Mercado Central de Valencia,5,8
+Seville,612a437d-5858-4b7e-bbab-97b63dbbccf6,f434aebc-a8d7-4e34-af17-725c642a1fd5,https://www.iaph.es/patrimonio-inmueble-andalucia/resumen.do?id=i19489,Catedral de Santa María de la Sede de Sevilla,9,7
+Seville,612a437d-5858-4b7e-bbab-97b63dbbccf6,f434aebc-a8d7-4e34-af17-725c642a1fd5,https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-16637,plaza de España,2,6
+Zaragoza,e87c1eac-b45a-5068-8c3a-e974746ab7d4,5fc0bb11-d0e3-5999-8cce-89ac34e30c65,https://catedraldezaragoza.es/,Catedral-Basílica de Nuestra Señora del Pilar de Zaragoza,1,6
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://museobellasartesvalencia.gva.es/,Torres de Serranos,6,6
+Castellón de la Plana,0be24ddf-eefe-5180-89b1-3cce2f95ed20,48796666-d452-5ac3-85ae-33ec83518a01,https://www.uji.es/cultura/base/espais-culturals/llotja-del-canem/info/historia/,Lonja del Cáñamo,1,5
+Las Palmas de Gran Canaria,06dbd9b3-85d8-5ab0-8fa7-43a5a78ec42f,d00abc27-c0bc-590d-8b2d-b08036546bf3,https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=RI-51-0008709,Casa de Colón,1,5
+Las Palmas de Gran Canaria,06dbd9b3-85d8-5ab0-8fa7-43a5a78ec42f,d00abc27-c0bc-590d-8b2d-b08036546bf3,https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=RI-51-0002334,Casa de Colón,1,5
+Seville,612a437d-5858-4b7e-bbab-97b63dbbccf6,f434aebc-a8d7-4e34-af17-725c642a1fd5,https://www.alcazarsevilla.org/,Reales Alcázares,9,4
+Murcia,ee796d29-c061-50b5-8749-e25441a8a845,e6eb2ea0-eb17-5d58-8eec-f700b9cafa72,https://www.teatroromea.es/,Casa Díaz-Cassou,3,4
+Castellón de la Plana,0be24ddf-eefe-5180-89b1-3cce2f95ed20,48796666-d452-5ac3-85ae-33ec83518a01,https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=RI-51-0012165,Palacio Episcopal de Castellón,1,4
+Valencia,63271cc7-7cff-5a72-839a-ddc06900ff4e,5e481940-ae55-56d5-8901-21bbf0dd33c8,https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=RI-51-0000970,Palacio de la Generalidad Valenciana,4,4
+Las Palmas de Gran Canaria,06dbd9b3-85d8-5ab0-8fa7-43a5a78ec42f,d00abc27-c0bc-590d-8b2d-b08036546bf3,https://www.elmuseocanario.com/,Casa de Colón,2,4
+Barcelona,64b9fb35-cfb5-59e1-8028-fe173a9564b2,3c293dec-fb63-5ba6-821a-52baa706a8dd,https://sagradafamilia.org/,Templo Expiatorio de la Sagrada Familia,1,4
+Barcelona,64b9fb35-cfb5-59e1-8028-fe173a9564b2,3c293dec-fb63-5ba6-821a-52baa706a8dd,https://inici.palauguell.cat/ca,Palacio Güell,2,4
+Castellón de la Plana,0be24ddf-eefe-5180-89b1-3cce2f95ed20,48796666-d452-5ac3-85ae-33ec83518a01,https://www.concatedral.com/index.php,Mercado Central de Castellón,1,3
+Málaga,307add2e-dc2a-53cf-8573-2f66a8e56d6f,7ccbfeef-fd82-5b93-8ccb-8fbdde36cfe3,https://www.cementerioinglesmalaga.org/en/,Palacio de la Aduana,2,2
+Las Palmas de Gran Canaria,06dbd9b3-85d8-5ab0-8fa7-43a5a78ec42f,d00abc27-c0bc-590d-8b2d-b08036546bf3,https://casadecolon.grancanaria.com/,Casa de Colón,4,2

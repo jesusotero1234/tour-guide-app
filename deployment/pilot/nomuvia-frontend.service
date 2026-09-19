@@ -1,0 +1,35 @@
+[Unit]
+Description=Nomuvia private pilot frontend
+After=network.target nomuvia-backend.service
+
+[Service]
+Type=simple
+User=tour-pilot
+Group=tour-pilot
+WorkingDirectory=/srv/tour-guide/current/frontend
+EnvironmentFile=/etc/tour-guide/frontend.env
+ExecStart=/opt/nomuvia-node/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3000
+Restart=on-failure
+RestartSec=5
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/srv/tour-guide/current/frontend/.next/cache
+MemoryMax=768M
+TasksMax=128
+StandardOutput=append:/var/log/tour-pilot/frontend.log
+StandardError=append:/var/log/tour-pilot/frontend.log
+
+[Install]
+WantedBy=multi-user.target

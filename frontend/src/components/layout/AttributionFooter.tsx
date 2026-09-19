@@ -1,10 +1,11 @@
 'use client';
 
+import { PrivacyPreferences } from '@/components/legal/PrivacyPreferences';
 import { InfoLinks } from '@/components/legal/InfoLinks';
 import { usePageLanguage } from './PageLanguage';
 import { browseCopy } from '@/lib/browseCopy';
 
-export const AttributionFooter = () => {
+export const AttributionFooter = ({ scriptUrl, websiteId }: { scriptUrl: string; websiteId: string }) => {
   const { language } = usePageLanguage();
   const t = browseCopy(language);
   return (
@@ -19,6 +20,7 @@ export const AttributionFooter = () => {
         <div className="mt-3 flex justify-center">
           <InfoLinks language={language} />
         </div>
+        <PrivacyPreferences scriptUrl={scriptUrl} websiteId={websiteId} />
       </div>
     </footer>
   );

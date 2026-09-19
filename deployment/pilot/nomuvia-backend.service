@@ -1,0 +1,37 @@
+[Unit]
+Description=Nomuvia private pilot backend
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=tour-pilot
+Group=tour-pilot
+WorkingDirectory=/srv/tour-guide/current/backend
+EnvironmentFile=/etc/tour-guide/backend.env
+ExecStart=/opt/nomuvia-node/bin/node dist/server.js
+Restart=on-failure
+RestartSec=5
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+IPAddressDeny=any
+IPAddressAllow=localhost
+MemoryMax=768M
+TasksMax=128
+StandardOutput=append:/var/log/tour-pilot/backend.log
+StandardError=append:/var/log/tour-pilot/backend.log
+
+[Install]
+WantedBy=multi-user.target

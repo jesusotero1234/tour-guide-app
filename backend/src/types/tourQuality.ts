@@ -43,6 +43,7 @@ export interface TourHistoryPreflightMetadata {
 }
 
 export interface TourMetadata {
+  catalogTitle?: string;
   pilotRelease?: import('../services/PilotRelease').PilotRelease;
   pilotWalkingRoute?: import('../services/WalkingRouteService').WalkingRouteData;
   qualityStatus?: TourQualityStatus;

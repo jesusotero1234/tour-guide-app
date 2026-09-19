@@ -2,7 +2,9 @@
 
 La integración está desactivada mientras el proceso del frontend no tenga
 UMAMI_SCRIPT_URL y UMAMI_WEBSITE_ID válidos. Umami es un servicio separado.
-El software no tiene cuota por evento; consume recursos del servidor y necesita
+Además de configurarla, cada visitante debe aceptar las estadísticas desde el panel
+de privacidad. Sin decisión, con rechazo o tras retirarlo no se carga el tracker
+ni se envían eventos nuevos. El software no tiene cuota por evento; consume recursos del servidor y necesita
 copias de seguridad y actualizaciones.
 
 ## Instalación
@@ -77,7 +79,7 @@ El contador normal de duración de visita de Umami no sustituye estas mediciones
   Para volver a medir: localStorage.removeItem('umami.disabled') y recargar.
 - No se envían GPS, cuentas, identificadores propios de persona ni URLs de audio.
 - Se excluyen búsquedas y fragmentos de URL. Por ello las campañas UTM no se
-  desglosan en esta primera integración; sí se conserva la procedencia del tracker.
+  desglosan en esta integración. Tampoco se envía el referente de navegación.
 - País significa país aproximado de conexión, no nacionalidad. Verificarlo desde
   una conexión externa tras configurar el proxy; una prueba local no comprueba geolocalización.
 - Lectura es una estimación: página visible y actividad en los últimos 60 segundos.
@@ -119,3 +121,24 @@ esas comprobaciones quedan para el servidor y dominio definitivos.
 
 Fuentes: https://docs.umami.is/docs/install y
 https://github.com/umami-software/umami/releases/tag/v3.3.1
+
+## Consentimiento (19 de septiembre de 2026)
+
+Panel disponible en los cinco idiomas de la interfaz, con aceptar/rechazar al mismo
+nivel y ajustes permanentes en el pie. Sin configuración de Umami no se muestra
+el aviso inicial; los ajustes siguen accesibles. La elección versionada se guarda
+en `tour-privacy-v1` y caduca a los 180 días; no se reutiliza una elección inválida.
+Si el almacenamiento está bloqueado, no se activa la medición. El rechazo y la
+retirada no impiden leer ni escuchar tours, ni cambian el permiso independiente de GPS.
+
+El tracker utiliza `data-auto-track="false"`; las visitas y eventos salen por el
+mismo control de consentimiento. Se comprueba el permiso en cada envío y se
+sincroniza su retirada entre pestañas. No se recuperan tiempos de lectura o escucha
+anteriores a la aceptación. Retirar el permiso no borra datos ya recibidos.
+Configuración según la [documentación de Umami](https://docs.umami.is/docs/tracker-configuration).
+
+Verificación adicional: `node frontend/scripts/test-consent-browser.cjs`, con las
+mismas variables del smoke de analítica y un servidor de prueba configurado.
+Comprueba bloqueo inicial, rechazo persistente, aceptación, retirada entre pestañas,
+caducidad, almacenamiento bloqueado, DNT, elección corrupta y navegación por teclado.
+El colector está simulado: queda por verificar la instancia real al desplegar.

@@ -67,6 +67,19 @@ test('image rights must be complete and private image assessment stays private',
   tour.metadata!.pilotRelease!.fingerprint = pilotFingerprint(tour, audio);
   expect(admittedToPilot(tour, audio)).toBe(true);
   expect(JSON.stringify(presentPilotTour(tour, audio))).not.toContain('PRIVATE IMAGE ASSESSMENT');
+  const photo = place.metadata!.tourImages.images[0];
+  for (const [url, allowed] of [
+    ['https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Example.jpg/800px-Example.jpg', true],
+    ['https://thumb.wikimedia.org.evil.example/wikipedia/commons/thumb/a/ab/Example.jpg', false],
+    ['https://user@thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Example.jpg', false],
+    ['http://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Example.jpg', false],
+    ['https://thumb.wikimedia.org/unrelated/Example.jpg', false],
+  ] as const) {
+    photo.url = url;
+    tour.metadata!.pilotRelease!.fingerprint = pilotFingerprint(tour, audio);
+    expect(admittedToPilot(tour, audio)).toBe(allowed);
+  }
+  photo.url = 'https://upload.wikimedia.org/example.jpg';
   place.metadata!.tourImages.images[0].author = '';
   tour.metadata!.pilotRelease!.fingerprint = pilotFingerprint(tour, audio);
   expect(admittedToPilot(tour, audio)).toBe(false);
@@ -77,4 +90,37 @@ test('ignores object key ordering and volatile timestamps', () => {
   const cloned = JSON.parse(JSON.stringify(tour));
   cloned.metadata.pilotWalkingRoute = { durationSeconds: 120, distanceMeters: 100, geometry: { coordinates: [[-3,40],[-3.01,40.01]], type: 'LineString' }, provider: 'fossgis-osrm-foot' };
   expect(admittedToPilot(cloned, audio)).toBe(true);
+});
+
+test('owner authorization binds material without claiming manual review or permitting restricted sources', () => {
+  const { tour, audio } = pilotFixture();
+  const release = tour.metadata!.pilotRelease!;
+  release.checks = { text: false, audio: false, route: false, rights: false };
+  expect(admittedToPilot(tour, audio)).toBe(false);
+  release.approvalMode = 'owner-authorized';
+  expect(admittedToPilot(tour, audio)).toBe(false);
+  release.authorizationReference = 'Explicit owner instruction';
+  const credit = tour.places[0].metadata!.sourceCredits!.items[0];
+  credit.url = 'https://example.org/history'; credit.status = 'pending';
+  delete credit.license; delete credit.licenseUrl;
+  release.fingerprint = pilotFingerprint(tour, audio);
+  expect(admittedToPilot(tour, audio)).toBe(true);
+  expect(presentPilotTour(tour, audio).pilot?.approvalMode).toBe('owner-authorized');
+  tour.places[0].description += ' changed';
+  expect(admittedToPilot(tour, audio)).toBe(false);
+  for (const url of ['https://catedraldesevilla.es/', 'http://example.org/history']) {
+    credit.url = url; release.fingerprint = pilotFingerprint(tour, audio);
+    expect(admittedToPilot(tour, audio)).toBe(false);
+  }
+});
+
+test('thematic title is public and changing it invalidates release approval', () => {
+  const { tour, audio } = pilotFixture();
+  tour.metadata!.catalogTitle = 'Barcelona y el mar';
+  expect(admittedToPilot(tour, audio)).toBe(false);
+  tour.metadata!.pilotRelease!.fingerprint = pilotFingerprint(tour, audio);
+  expect(admittedToPilot(tour, audio)).toBe(true);
+  expect(presentPilotTour(tour, audio).title).toBe('Barcelona y el mar');
+  tour.metadata!.catalogTitle = 'Another tour';
+  expect(admittedToPilot(tour, audio)).toBe(false);
 });

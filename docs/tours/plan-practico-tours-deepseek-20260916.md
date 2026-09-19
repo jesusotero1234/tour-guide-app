@@ -1,6 +1,6 @@
 # Plan práctico: tours con DeepSeek que sean suficientemente buenos
 
-Fecha: 16 de septiembre de 2026. Estado: T1–T3 ejecutadas; audio entregado y valoración del usuario pendiente. [Escucha e informe](valencia-deepseek-practico-escucha-20260916.md).
+Fecha: 16 de septiembre de 2026. Estado: T1–T4 completadas; muestra de audio aceptada por el usuario. Pide incorporar imágenes de los edificios. [Escucha e informe](valencia-deepseek-practico-escucha-20260916.md).
 
 ## Objetivo y decisión
 
@@ -100,8 +100,8 @@ El plan y su lista de tareas quedan juntos en este documento de `docs/tours`, si
 
 ### T4. Decidir con la escucha y cerrar la prueba
 
-- [ ] Recoger tu impresión: «¿me sirve como audioguía?», «¿se entiende qué pasó?» y «¿hay algún tramo pesado o confuso?». Tu pareja puede aportar su preferencia; no exigimos unanimidad sobre las fechas.
-- [ ] Registrar una decisión sencilla: usable, necesita un cambio concreto o no sirve. Conservar número de llamadas, consumo, correcciones e intervención humana real.
+- [x] Recoger tu impresión: «¿me sirve como audioguía?», «¿se entiende qué pasó?» y «¿hay algún tramo pesado o confuso?». Tu pareja puede aportar su preferencia; no exigimos unanimidad sobre las fechas.
+- [x] Registrar una decisión sencilla: usable, necesita un cambio concreto o no sirve. Conservar número de llamadas, consumo, correcciones e intervención humana real.
 
 **Verificación:** un comentario real del oyente y una decisión asociada. **Dependencia:** T3 y la respuesta del usuario; mientras no llegue, estado «audio entregado, valoración pendiente», sin inventar aceptación. **Alcance:** pequeño, un informe junto a este plan.
 
@@ -121,4 +121,4 @@ Si funciona, el siguiente paso es ampliar ese mismo concepto aprovechando más f
 
 Para tours actuales, conservar los guiones que ya funcionan. La misma referencia de estilo servirá para corregir únicamente los pasajes que resulten pesados o confusos; no se prevé una reescritura masiva.
 
-La prueba produjo las dos paradas y la bienvenida a la primera, con tres llamadas de DeepSeek, sin reparaciones ni retoques manuales. El audio de 3:18 y el guion revisado están en el [informe de escucha](valencia-deepseek-practico-escucha-20260916.md). Se registraron consumo e intervención editorial; queda pendiente la valoración real del usuario para completar T4.
+La prueba produjo las dos paradas y la bienvenida a la primera, con tres llamadas de DeepSeek, sin reparaciones ni retoques manuales. El audio de 3:18 y el guion revisado están en el [informe de escucha](valencia-deepseek-practico-escucha-20260916.md). Se registraron consumo e intervención editorial. El usuario respondió «me gusta full solo q tendria q tener los edificios en imagenes pero esta cool, me gusta»: decisión **usable como muestra de audio**, con fotografías como mejora solicitada. T4 queda completada; esto permite continuar con el proceso supervisado, sin atribuirle autonomía ni validación en otras ciudades. Las siguientes opciones están en las [propuestas de tours](propuestas-tours-historicos-20260916.md).

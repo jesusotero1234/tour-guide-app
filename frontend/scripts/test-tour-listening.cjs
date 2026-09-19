@@ -36,6 +36,8 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     return route.fulfill({status: range ? 206 : 200, headers: {'Content-Type': 'audio/wav', 'Accept-Ranges': 'bytes', ...(range ? {'Content-Range': 'bytes ' + start + '-' + end + '/' + wav.length} : {})}, body: wav.subarray(start, end + 1)});
   });
   const start = async (target = page, showNotice = false) => {
+    const privacyNotice = target.locator('.privacy-banner');
+    if (await privacyNotice.isVisible()) await privacyNotice.getByRole('button', {name: 'Entendido', exact: true}).click();
     if (showNotice) { const b = target.getByRole('button', {name:'Entendido, empezar',exact:true}); await b.waitFor(); await b.click(); }
     else { await target.locator('.listening-header').waitFor(); assert.equal(await target.locator('.tour-safety h1').count(), 0); }
   };
@@ -46,7 +48,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
   const select = async i => {await menu(); await page.locator('[data-stop="' + i + '"]').click(); await ready();};
   const back = async () => {await button('← Volver').click(); await page.locator('main[data-view="photos"]').waitFor();};
   const finish = async () => {await page.locator('audio').evaluate(a => {a.currentTime = 19.8; return a.play();}); await page.locator('.stop-finished').waitFor();};
-  const url = (process.env.BASE_URL || 'http://127.0.0.1:3100') + '/tours/' + tour.id;
+  const url = (process.env.BASE_URL || 'http://127.0.0.1:3100') + '/tours/' + tour.id + '?listen=1';
   try {
     if (process.env.WELCOME_ONLY === '1') {
       tour.introduction = 'Bienvenido a Sevilla. Vamos a descubrir sus plazas y sus historias.\n\n' + 'Miraremos la ciudad a nuestro ritmo. '.repeat(60);
@@ -65,7 +67,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
       assert.equal(await page.locator('audio').evaluate(a => a.currentTime), 0, 'New first audio does not inherit seconds from the legacy combined narration');
       assert.equal(await page.locator('.player-play svg path').count(), 1);
       assert.equal(await page.locator('.player-play').textContent(), '');
-      await button('Texto').click();
+      await button('Leer').click();
       assert.equal(await page.locator('.listening-story').innerText().then(t => t.includes('Bienvenido a Sevilla')), false);
       await select(1);
       assert.equal(await page.locator('.listening-story h1').textContent(), 'Église de la Giralda');
@@ -92,7 +94,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
       assert.equal(await page.evaluate(() => window.gpsCalls || 0), 0);
       const other = await context.newPage();
       tour.id = 'another-welcome-test'; tour.language = 'fr';
-      await other.goto(new URL('/tours/' + tour.id, url).href);
+      await other.goto(new URL('/tours/' + tour.id + '?listen=1', url).href);
       await other.getByRole('heading', {name:'Bienvenue dans cette visite',exact:true}).waitFor();
       assert.equal(await other.locator('.tour-safety').count(), 0);
       await other.getByRole('button', {name:'Aller à la première étape →',exact:true}).click();
@@ -121,7 +123,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
       await page.getByText('Tu ubicación es opcional. Las fotos vienen de Wikimedia y los mapas de OpenStreetMap.', {exact: true}).waitFor();
       const other = await context.newPage();
       const firstId = tour.id; tour.id = 'another-notice-test';
-      await other.goto(new URL('/tours/' + tour.id, url).href); await start(other);
+      await other.goto(new URL('/tours/' + tour.id + '?listen=1', url).href); await start(other);
       assert.equal(await other.evaluate(() => window.gpsCalls || 0), 0);
       tour.id = firstId;
       await other.goto(new URL('/privacy?lang=es', url).href);
@@ -152,10 +154,10 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     await button('Reproducir narración').click();
     await page.waitForFunction(() => document.querySelector('audio').currentTime > .2);
     await page.evaluate(() => {window.testAudio = document.querySelector('audio');});
-    await button('Texto').click(); await same();
+    await button('Leer').click(); await same();
     assert.equal(await page.locator('.listening-tabs button').count(), 3);
-    assert.deepEqual(await page.locator('.listening-tabs button').evaluateAll(b => b.map(x => x.textContent.trim())), ['Fotos','Texto','Mapa']);
-    assert.equal(await page.locator('.listening-tabs button[aria-pressed="true"]').evaluate(e => e.textContent.trim()), 'Texto');
+    assert.deepEqual(await page.locator('.listening-tabs button').evaluateAll(b => b.map(x => x.textContent.trim())), ['Mirar','Leer','Mapa']);
+    assert.equal(await page.locator('.listening-tabs button[aria-pressed="true"]').evaluate(e => e.textContent.trim()), 'Leer');
     assert.equal(await page.locator('.audio-transcript').count(), 0);
     await page.locator('.listening-story .source-credits summary').click();
     assert.equal(await page.locator('.listening-story .source-credits a').first().getAttribute('href'),'https://es.wikipedia.org/wiki/Giralda');
@@ -191,7 +193,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     assert.equal(await page.evaluate(() => window.gpsCalls || 0), 1);
     const mapHeight = await page.locator('.map-canvas').evaluate(e => e.getBoundingClientRect().height);
     assert.ok(mapHeight >= collapsedHeight - 2);
-    await back(); await button('Texto').click();
+    await back(); await button('Leer').click();
     assert.equal(await page.locator('.listening-story').evaluate(e => e.scrollTop), 350); await back();
     await menu(); await page.mouse.click(8, 500); await page.locator('.stop-popover[data-open="false"]').waitFor({state: 'attached'}); await same();
     await menu(); await page.keyboard.press('Escape'); await same();
@@ -221,7 +223,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     await page.waitForFunction(() => document.querySelector('.audio-preparation button') !== null); assert.equal(posts, 1);
     unavailable = false; await page.setViewportSize({width: 320, height: 568}); await page.reload(); await start(); await ready();
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-    await button('Texto').click();
+    await button('Leer').click();
     assert.equal(await page.locator('.listening-tabs button').count(), 3);
     await button('Mapa').click();
     assert.equal(await page.locator('.listening-tabs button').count(), 3);
@@ -245,7 +247,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     const destinationBox = await page.locator('details.map-options select').boundingBox();
     const footerBox = await page.locator('.listening-footer').boundingBox();
     assert.ok(destinationBox.y + destinationBox.height <= footerBox.y, 'Expanded options must be reachable above the player');
-    await button('Fotos').click();
+    await button('Mirar').click();
     await button('Reproducir narración').click(); await button('Pausar narración').waitFor();
     const box = await page.locator('.player-play').boundingBox(); assert.ok(box.y >= 0 && box.y + box.height <= 568);
     const fallback = await context.newPage();
@@ -284,7 +286,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     await privacy.getByRole('heading',{name:'Privacidad',exact:true}).waitFor();
     await privacy.evaluate(()=>{localStorage.setItem('tour-listening:test','test');localStorage.setItem('keep-unrelated','yes');});
     await privacy.getByRole('button',{name:'Borrar progreso y preferencias',exact:true}).click();
-    assert.deepEqual(await privacy.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tour-'))),[]);
+    assert.deepEqual(await privacy.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('tour-') && k !== 'tour-privacy-v1')),[]);
     assert.equal(await privacy.evaluate(()=>localStorage.getItem('keep-unrelated')),'yes');
     await privacy.goto(new URL('/about?lang=fr',url).href);
     await privacy.getByRole('heading',{name:'Voix générée par IA',exact:true}).waitFor();

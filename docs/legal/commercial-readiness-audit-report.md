@@ -1,5 +1,7 @@
 # Commercial Readiness Audit Report
 
+> Historical snapshot: current Nomuvia findings supersede this inventory. See [the September review](nomuvia-launch-review-20260919.md), especially image attribution and OSM tile usage.
+
 Status: **initial report generated from repository inventory**.
 
 Date: 2026-05-31

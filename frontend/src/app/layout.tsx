@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AttributionFooter } from "@/components/layout/AttributionFooter";
 import { pilotEnabled } from '@/lib/pilotMode';
-import { UmamiAnalytics } from "@/components/layout/UmamiAnalytics";
 import { cookies, headers } from 'next/headers';
 import { preferredLanguage } from '@/lib/browseCopy';
 import { PageLanguageProvider } from '@/components/layout/PageLanguage';
@@ -10,8 +9,9 @@ import { PageLanguageProvider } from '@/components/layout/PageLanguage';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "AI Tour Guide",
-  description: "Generate coherent, mobile-friendly walking tours for cities around the world.",
+  title: "Nomuvia",
+  applicationName: "Nomuvia",
+  description: "Discover cities at your own pace with multilingual audio walking tours.",
 };
 
 export default async function RootLayout({
@@ -40,9 +40,8 @@ export default async function RootLayout({
       <body className="antialiased" data-pilot={pilotEnabled() ? 'true' : 'false'}>
         <PageLanguageProvider initialLanguage={language}>
           <div className="min-h-screen flex flex-col">{children}</div>
-          <AttributionFooter />
+          <AttributionFooter scriptUrl={showUmami ? umamiScriptUrl : ""} websiteId={showUmami ? umamiWebsiteId : ""} />
         </PageLanguageProvider>
-        {showUmami && <UmamiAnalytics scriptUrl={umamiScriptUrl} websiteId={umamiWebsiteId} />}
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 # Plan: tours temáticos con fuentes y usos documentados
 
 Fecha: 16 de septiembre de 2026.
-Estado: propuesta de producto y arquitectura; ensayo de leyendas ejecutado y nuevo experimento de historia narrativa en curso.
+Estado: propuesta de producto y arquitectura; ensayos documentales de leyendas y Madrid de los Austrias ejecutados.
 
 ## Objetivo
 
@@ -25,7 +25,7 @@ El registro actual es una base útil, pero el permiso de un dominio no demuestra
 
 ## Decisiones de producto
 
-1. Cada concepto tiene identidad, intención narrativa y revisión propias: una ciudad puede tener varios tours de misterio.
+1. Cada concepto tiene identidad, intención narrativa y revisión propias: una ciudad puede tener varios tours por época, transformación o conflicto histórico.
 2. El tema guía la búsqueda de historias y emplazamientos antes de ordenar las paradas.
 3. Cada afirmación se identifica como hecho, leyenda atribuida, interpretación o cuestión disputada. La existencia de un relato no demuestra que sus sucesos ocurrieran.
 4. Una candidatura necesita material suficiente, usos resueltos y un recorrido viable. Una puntuación editorial alta no compensa derechos pendientes.
@@ -58,7 +58,7 @@ El modelo puede proponer metadatos y detectar cuestiones. La admisión se apoya 
 
 | Fase | Entregable | Condición para avanzar |
 | --- | --- | --- |
-| A. Ensayo documental | Tres leyendas; matriz de fuentes, usos y afirmaciones | Al menos dos historias con núcleo defendible y una vía concreta de uso resuelta o condicionada a obligaciones explícitas |
+| A. Ensayo documental | Antecedente de tres leyendas; nuevo ensayo de cinco episodios de los Austrias | Material histórico suficiente, base de uso identificada y selección localizable; criterios concretos en cada protocolo |
 | B. Piloto de contenido | Fichas admitidas, propuesta de paradas y muestras breves | Revisión factual y de derechos de cada pieza; ningún relato presentado con más certeza que sus fuentes |
 | C. Integración mínima | Concepto/tema en selección, investigación, identidad del blueprint y admisión de fuentes | No mezclar conceptos en caché; conservar bloqueos existentes; fallar de forma explicable ante usos pendientes |
 | D. Tour de prueba | Recorrido comprobado, guion completo, audio y créditos | Validación de duración y paseo; revisión editorial y de usos; publicación autorizada en su momento |
@@ -76,6 +76,12 @@ El ensayo A no certifica B–D. Tres casos tampoco prueban que un catálogo ente
 El alcance y las reglas previas están en [el protocolo del experimento](experimento-madrid-leyendas-protocolo-20260916.md). Los hallazgos están en [su informe de resultados](experimento-madrid-leyendas-resultados-20260916.md).
 
 Resultado de la fase A: tres relatos identificados, tres muestras breves con vía CC BY-SA y dos casos recomendados para desarrollar primero. Se detectaron contradicciones y condiciones NC/ND en fuentes institucionales. No se validaron todavía originales antiguos como base directa, integración, recorrido ni publicación.
+
+## Ejecución de la dirección histórica elegida
+
+El [experimento de Madrid de los Austrias](experimento-madrid-austrias-20260916.md) reunió cinco episodios, cinco muestras con créditos CC BY-SA y contraste mediante publicaciones institucionales y una investigación basada en acuerdos municipales. Se ejecutó el servicio peatonal existente: 2.119,6 m y aproximadamente 29 minutos de marcha, sin incluir narración. El [registro](experimento-madrid-austrias-ruta-20260916.json) conserva la respuesta y los puntos propuestos.
+
+Decisión: continuar como piloto editorial. La búsqueda de sede del concejo aporta un conflicto especialmente concreto; las otras muestras permiten evaluar el hilo de construcción de una capital. La [continuación para escuchar](madrid-austrias-escucha-deepseek-20260916.md) ya incluye una versión compacta de 5:14, voz local y consumo real de DeepSeek con coste estimado. Siguen pendientes escucha con usuarios, ampliación del guion e inspección presencial. Estas pruebas no cambian el comportamiento de la app ni constituyen publicación del tour.
 
 ## Referencias de la decisión
 

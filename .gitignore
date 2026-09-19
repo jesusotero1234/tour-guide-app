@@ -123,3 +123,7 @@ backend/fixtures/narrative-madrid-v5/diagnostics/
 
 /pods/voxcpm-pod/.nano-deps/
 !pods/voxcpm-pod/presets/guide-fr-recovered.wav
+
+# Local instruction backups and provenance sidecars for ignored runtime audio.
+/AGENTS.md.backup-*
+/pods/voxcpm-pod/cache/**/*.wav.provenance.json

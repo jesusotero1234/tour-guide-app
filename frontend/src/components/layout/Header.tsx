@@ -13,7 +13,7 @@ export const Header = () => {
           <div className="flex items-center">
             <Link href="/">
               <h1 className="cursor-pointer text-xl font-serif font-bold text-darkBrown transition-colors hover:text-mutedGold sm:text-2xl">
-                AI Tour Guide
+                Nomuvia
               </h1>
             </Link>
           </div>

@@ -1,10 +1,13 @@
 'use client';
 
+import { readingParagraphs } from '@/lib/readingParagraphs';
+
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Tour } from '@/types/api';
 import { readTourSelection, saveTourSelection, TourSelection } from '@/lib/tourSelection';
+import { analyticsAllowed, CONSENT_EVENT } from '@/lib/consent';
 import { trackEvent } from '@/lib/analytics';
 import { TourFeedback } from './TourFeedback';
 import { ListeningProgress, listeningKey, readListeningProgress } from '@/lib/tourProgress';
@@ -12,6 +15,7 @@ import { getVerifiedTourImages } from './PlaceCard';
 import { TourPhoto } from './TourPhoto';
 import { TourAudioPanel } from './TourAudioPanel';
 import { listeningCopy } from './listeningCopy';
+import { mobileTourCopy } from '@/lib/mobileTourCopy';
 import { InfoLinks } from '@/components/legal/InfoLinks';
 import { SourceCredits } from '@/components/legal/SourceCredits';
 import './TourExperience.css';
@@ -37,6 +41,7 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
     }),
   }), [sourceTour]);
   const t = listeningCopy(tour.language);
+  const mobile = mobileTourCopy(tour.language);
   const [started, setStarted] = useState<boolean | null>(null);
   const progressVersion = tour.pilot?.version ?? tour.places.map(p => p.audioVersion ?? 'unversioned').join('|');
   const tourProgressKey = 'tour-progress:' + tour.id + ':' + progressVersion;
@@ -165,7 +170,7 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
     let baseline = performance.now();
     let accumulated = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
-    const isActive = () => document.visibilityState === 'visible' && performance.now() - lastActivity <= 60000;
+    const isActive = () => analyticsAllowed() && document.visibilityState === 'visible' && performance.now() - lastActivity <= 60000;
     const flush = () => {
       if (accumulated >= 0.001) {
         const seconds = Math.round(accumulated * 1000) / 1000;
@@ -201,6 +206,9 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
       sample();
       flush();
     };
+    const resetConsent = () => { accumulated = 0; baseline = performance.now(); };
+    window.addEventListener(CONSENT_EVENT, resetConsent);
+    window.addEventListener('storage', resetConsent);
     timer = setInterval(sample, 1000);
     document.addEventListener('pointerdown', onActivity, { capture: true });
     document.addEventListener('keydown', onActivity, { capture: true });
@@ -208,6 +216,8 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
     document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('pagehide', onPageHide);
     return () => {
+      window.removeEventListener(CONSENT_EVENT, resetConsent);
+      window.removeEventListener('storage', resetConsent);
       if (timer) clearInterval(timer);
       sample();
       flush();
@@ -271,7 +281,7 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
   if (!started) return <main className="tour-safety" lang={tour.language}>
     <p className="pilot-badge">{tour.localReview ? (tour.language === 'fr' ? 'En révision privée' : 'En revisión privada') : t.experimental}</p><h1>{t.beforeStarting}</h1>
     <p>{t.safety}</p><p>{t.locationChoice}</p>
-    {tour.pilot && <p>{t.humanReviewed} {tour.pilot.reviewedAt.slice(0, 10)}</p>}
+    {tour.pilot && <p>{tour.pilot.approvalMode === 'owner-authorized' ? ({ es: 'Publicado', en: 'Published', fr: 'Publié', de: 'Veröffentlicht', it: 'Pubblicato' }[tour.language as 'es' | 'en' | 'fr' | 'de' | 'it'] ?? 'Published') : t.humanReviewed} {tour.pilot.reviewedAt.slice(0, 10)}</p>}
     <button className="safety-start" onClick={() => { saveNumber(TOUR_NOTICE_KEY, 1); setStarted(true); }}>{t.startSafely}</button>
     <p>{t.rememberNotice}</p>
     <Link href="/tours">← {t.back}</Link><InfoLinks language={tour.language} />
@@ -283,9 +293,9 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
 
   return <main className="tour-experience" lang={tour.language} data-view={isIntroduction ? 'story' : view} data-segment={selection.kind}>
     <header className="listening-header">
-      <p className="pilot-badge">{tour.localReview ? (tour.language === 'fr' ? 'En révision privée' : 'En revisión privada') : t.experimental}</p>
-      {isIntroduction || view === 'photos' ? <Link href="/tours" className="listening-back">← {t.back}</Link> : <button className="listening-back" onClick={backToPhotos}>← {t.back}</button>}
+      {isIntroduction || view === 'photos' ? <Link href={`/tours/${tour.id}`} className="listening-back">← {mobile.overview}</Link> : <button className="listening-back" onClick={backToPhotos}>← {t.back}</button>}
       <button ref={triggerRef} className="stop-selector" onClick={openMenu} aria-expanded={menuOpen} aria-controls={menuId} aria-haspopup="dialog">{stopLabel} <span aria-hidden="true">☷</span></button>
+      {!isIntroduction && view === 'photos' && <div className="listening-heading"><p>{tour.title || tour.city}</p><h1>{place.nameInTourLanguage || place.name}</h1></div>}
     </header>
     <div ref={menuRef} id={menuId} className="stop-popover" data-open={menuOpen}
       role="dialog" aria-label={t.stops}
@@ -309,7 +319,7 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
     </div>
 
     <nav hidden={isIntroduction} className="listening-tabs" aria-label={tour.city}>
-      {(['photos', 'story', 'map'] as View[]).map(mode => <button key={mode} aria-pressed={view === mode} onClick={() => openView(mode)}>{t[mode]}</button>)}
+      {(['photos', 'story', 'map'] as View[]).map(mode => <button key={mode} aria-pressed={view === mode} onClick={() => openView(mode)}>{mode === 'photos' ? mobile.look : mode === 'story' ? mobile.read : t.map}</button>)}
     </nav>
 
     <div className="listening-content">
@@ -327,7 +337,7 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
       </section>}
       {(isIntroduction || view === 'story') && <article ref={storyRef} className="listening-story" tabIndex={0} aria-label={t.story}>
         <p className="story-eyebrow">{isIntroduction ? t.introduction : t.story} · {tour.cityNames?.[tour.language] || tour.city}</p><h1>{isIntroduction ? t.welcome : place.nameInTourLanguage || place.name}</h1>
-        {(isIntroduction ? tour.introduction || '' : [currentIndex === 0 && !introductionAudio ? tour.introduction : '', place.description].filter(Boolean).join('\n\n')).split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+        {readingParagraphs(isIntroduction ? tour.introduction || '' : [currentIndex === 0 && !introductionAudio ? tour.introduction : '', place.description].filter(Boolean).join('\n\n'), tour.theme === 'thematic').map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         {!isIntroduction && <SourceCredits place={place} language={tour.language} />}
       </article>}
       {!isIntroduction && view === 'map' && <section className="listening-map" aria-label={t.map}>
@@ -357,10 +367,12 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
       </div>}
       {isIntroduction && <button className="introduction-continue" onClick={() => selectStop(0)}>{t.firstStop} →</button>}
       <TourAudioPanel introduction={isIntroduction} onIntroductionReady={setIntroductionAudio} tourId={tour.id} language={tour.language} currentPlaceId={place.id} currentPlaceName={isIntroduction ? t.introduction : place.nameInTourLanguage || place.name} compact={isIntroduction || view !== 'photos'} onProgress={onProgress} />
+      {!isIntroduction && !ended && next && <button className="listening-next" onClick={() => selectStop(currentIndex + 1)}><span><small>{mobile.next}</small><strong>{next.nameInTourLanguage || next.name}</strong></span><span aria-hidden="true">→</span></button>}
       <TourFeedback key={tour.id} tourId={tour.id} language={tour.language} />
       <details className="tour-information"><summary>{t.aboutTour}</summary>
+        <p>{t.experimental}</p>
         {tour.introduction?.trim() && <button type="button" className="welcome-reopen" onClick={selectIntroduction}>{t.introduction}</button>}
-        {tour.pilot && <p>{t.humanReviewed} {tour.pilot.reviewedAt.slice(0, 10)} · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">{tour.pilot.scriptLicense}</a><br />{tour.pilot.changes}</p>}
+        {tour.pilot && <p>{tour.pilot.approvalMode === 'owner-authorized' ? ({ es: 'Publicado', en: 'Published', fr: 'Publié', de: 'Veröffentlicht', it: 'Pubblicato' }[tour.language as 'es' | 'en' | 'fr' | 'de' | 'it'] ?? 'Published') : t.humanReviewed} {tour.pilot.reviewedAt.slice(0, 10)} · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">{tour.pilot.scriptLicense}</a><br />{tour.pilot.changes}</p>}
         <p>{t.safety}</p><p>{t.locationChoice}</p>
         {!isIntroduction && <SourceCredits place={place} language={tour.language} />}<InfoLinks language={tour.language} />
         <Link href={'/about?lang=' + tour.language + '#contact'}>{t.reportIssue}</Link>

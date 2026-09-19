@@ -5,7 +5,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 (async()=>{
  const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{})});
  try {
-  const context=await browser.newContext({viewport:{width:390,height:844}});
+  const context=await browser.newContext({locale:'es-ES',viewport:{width:390,height:844}});
   const page=await context.newPage(),events=[],errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   let failRating=true;
@@ -19,6 +19,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   const tour={id:'analytics-test',city:'Sevilla',country:'España',language:'es',status:'review',places:[{id:'stop-one',name:'Giralda',description:'La historia de este lugar.',position:1,latitude:37.38,longitude:-5.99}]};
   await context.route('**/api/backend/**',r=>r.fulfill({contentType:'application/json',body:JSON.stringify(r.request().url().endsWith('/audio')?{status:'unavailable',audioUrls:{},supported:false}:tour)}));
   await page.goto((process.env.BASE_URL||'http://127.0.0.1:3102')+'/tours/analytics-test');
+  await page.getByRole('button',{name:'Aceptar estadísticas',exact:true}).click();
   await page.waitForFunction(()=>!!window.umami);
   await page.locator('.safety-start').click();
   await page.getByText('Valorar este tour',{exact:true}).click();
