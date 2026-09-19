@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ToursList } from '@/components/tours/ToursList';
 import { PageLanguageSelect } from '@/components/layout/PageLanguage';
 import '@/components/tours/MobileTours.css';
@@ -10,7 +11,7 @@ export default function ToursPage() {
     <div className="tour-entry bg-surface">
       <main className="mobile-tour-shell">
         <header className="mobile-tour-header">
-          <Link href="/tours" className="nomuvia-wordmark">nomuvia<span aria-hidden="true">↗</span></Link>
+          <Link href="/tours" className="nomuvia-wordmark"><Image src="/icon.png" unoptimized alt="" width={40} height={40} className="nomuvia-brand-icon" />nomuvia</Link>
           <PageLanguageSelect />
         </header>
         <ToursList />

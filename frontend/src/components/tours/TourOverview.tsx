@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Tour, WalkingRoute } from '@/types/api';
 import { getWalkingRoute } from '@/lib/api';
 import { browseCopy, languageNames } from '@/lib/browseCopy';
@@ -40,7 +41,7 @@ export function TourOverview({ tour }: { tour: Tour }) {
   };
 
   return <main className="tour-entry tour-overview">
-    <header className="mobile-tour-header"><Link className="nomuvia-wordmark" href="/tours">nomuvia<span aria-hidden="true">↗</span></Link><PageLanguageSelect /></header>
+    <header className="mobile-tour-header"><Link className="nomuvia-wordmark" href="/tours"><Image src="/icon.png" unoptimized alt="" width={40} height={40} className="nomuvia-brand-icon" />nomuvia</Link><PageLanguageSelect /></header>
     <div className="overview-back"><Link href="/tours">← {t.allWalks}</Link><span>{city}</span></div>
     <TourCover tour={tour} />
     <section className="overview-body" aria-labelledby="overview-title">

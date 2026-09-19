@@ -1,6 +1,7 @@
 # Servidor de la beta en Hetzner
 
-**Último ajuste de interfaz:** `20260919-mobile-design`, catálogo visual móvil,
+**Último ajuste de interfaz:** `20260919-brand-header-v2`, logo original en la cabecera.
+Diseño base: `20260919-mobile-design`, catálogo visual móvil,
 ficha previa del paseo y reproductor actualizado. Publicado y comprobado sobre
 HTTPS el 19 de septiembre. Catálogo y audios sin cambios. Detalles y reversión:
 `docs/operations/nomuvia-mobile-design-20260919.md`.

@@ -41,3 +41,14 @@ El registro previo y el manifiesto están en
 `/root/nomuvia-before-mobile-design-20260919/`. Para revertir, restaurar
 atómicamente `/srv/tour-guide/current` a la release anterior y reiniciar solo
 `nomuvia-frontend`. No hay cambios de base de datos que revertir.
+
+## Corrección de marca
+
+La cabecera del catálogo y de la ficha usa el símbolo original entregado por
+el responsable (`frontend/src/app/icon.png`) junto al nombre. Se eliminó la
+flecha decorativa, que no formaba parte del logo. La imagen se sirve directamente
+desde `/icon.png`, igual que el icono de pestaña.
+
+Release: `/srv/tour-guide/releases/20260919-brand-header-v2`.
+Para revertir este ajuste, restaurar `20260919-mobile-design` y reiniciar solo
+`nomuvia-frontend`. El backend, los datos y los audios no cambian.
