@@ -2,6 +2,7 @@
 """CPU regression tests for saved-tour audio preparation."""
 import json
 import hashlib
+import importlib.util
 from pathlib import Path
 import subprocess
 import sys
@@ -174,6 +175,155 @@ class TourInputTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(progress.read_text())["phase"], "prepared")
         self.assertFalse((Path(self.temp.name) / "audio").exists())
+
+
+class ResumeTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.directory = Path(self.temp.name)
+        self.input = self.directory / "input.json"
+        self.output = self.directory / "audio"
+        self.output.mkdir()
+        self.progress = self.directory / "progress.json"
+        self.current = "33333333-3333-4333-8333-333333333333"
+        preset_path = POD / "presets/guide-es-a.json"
+        preset = json.loads(preset_path.read_text())
+        identity = {"modelId": "openbmb/VoxCPM2", "modelRevision": preset["modelRevision"],
+                    "presetSha256": hashlib.sha256(preset_path.read_bytes()).hexdigest(),
+                    "referenceSha256": hashlib.sha256((preset_path.parent / preset["reference"]).read_bytes()).hexdigest()}
+        self.input.write_text(json.dumps({"language": "es", "identity": identity,
+            "stops": [{"id": STOP, "text": "Bienvenidos al patio."},
+                      {"id": self.current, "text": "Seguimos hacia el jardín."}]}))
+        self.prepared = prepare_input(self.input, preset_path)
+        spec = importlib.util.spec_from_file_location("renderer", POD / "scripts/render-tour.py")
+        self.renderer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.renderer)
+        first = self.write_clip(self.prepared["stops"][0])
+        self.progress.write_text(json.dumps({"phase": "generating", "completedStops": 1,
+            "totalStops": 2, "currentStopId": self.current, "completedChunks": 1,
+            "results": [first], "inputSha256": hashlib.sha256(self.input.read_bytes()).hexdigest()}))
+
+    def write_clip(self, stop):
+        import numpy as np
+        import soundfile as sf
+        from utils.audio_provenance import combine_generations, input_audio, write_audio_record
+        from utils.narration_audio import NARRATION_POST_PROCESSING
+        preset, identity = self.prepared["preset"], self.prepared["identity"]
+        target = self.output / (stop["id"] + ".mp3")
+        sf.write(target, 0.1 * np.sin(np.arange(96000) * 0.07), 48000, format="MP3")
+        events = []
+        for chunk in stop["chunks"]:
+            args = generation_arguments(chunk.text, preset, self.prepared["reference"])
+            events.append({"recordKind": "generation", "generatedAt": "2026-09-20T00:00:00Z",
+                "inputMode": "reference_audio", "modelId": identity["modelId"],
+                "modelRevision": identity["modelRevision"], "text": args["text"],
+                "referenceText": args.get("prompt_text"), "parameters": {"seed": preset["seed"],
+                    "cfg_value": 2.0, "inference_timesteps": 10, "max_len": 4096, "retry_badcase": False},
+                "inputs": [input_audio(value, role=key) for key, value in args.items()
+                           if key in ("reference_wav_path", "prompt_wav_path")]})
+        write_audio_record(target, {**combine_generations(events), "kind": "narration", "identity": identity,
+            "stopId": stop["id"], "spokenText": stop["spoken"],
+            "postProcessing": {**NARRATION_POST_PROCESSING, "paragraphPauseMs": preset["paragraphPauseMs"],
+                "sentencePauseMs": preset["sentencePauseMs"], "speed": preset.get("speed", 1.0),
+                "sampleRate": 48000, "format": "MP3", "compressionLevel": preset.get("mp3CompressionLevel", 0.8),
+                "bitrateMode": "VARIABLE", "crossfadeMs": 18, "trimEdgeSilenceMs": 120, "silenceThreshold": 0.003},
+            "modelOptions": {"engine": "nano-vllm-voxcpm", "mode": preset.get("generationMode", "continuation"),
+                "stylePrompt": preset.get("stylePrompt"), "inference_timesteps": 10, "temperature": 1.0,
+                "device": "cuda"}}, destination=target.with_suffix(".provenance.json"))
+        return {"id": stop["id"], "filename": target.name, "durationSeconds": sf.info(target).duration,
+                "sha256": hashlib.sha256(target.read_bytes()).hexdigest(), "modelRevision": identity["modelRevision"]}
+
+    def cli(self, *flags):
+        return subprocess.run([sys.executable, str(POD / "scripts/render-tour.py"),
+            "--input", str(self.input), "--output", str(self.output), "--progress", str(self.progress),
+            "--resume", *flags], capture_output=True, text=True)
+
+    def inspect(self):
+        return self.renderer.inspect_resume(self.input, self.output, self.progress, self.prepared)
+
+    def test_prepare_resume_preserves_progress_and_unfinished_chunks(self):
+        incomplete = self.output / (self.current + ".tmp")
+        incomplete.write_bytes(b"unfinished chunk")
+        before = {p: p.read_bytes() for p in [self.input, self.progress, *self.output.iterdir()]}
+        result = self.cli("--prepare-only")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["completedStops"], 1)
+        self.assertEqual(json.loads(result.stdout)["quarantineFiles"], 1)
+        self.assertEqual(before, {p: p.read_bytes() for p in before})
+        self.assertFalse((self.directory / "resume-history").exists())
+
+    def test_complete_current_sidecar_recovers_without_gpu_or_rewriting_clips(self):
+        self.write_clip(self.prepared["stops"][1])
+        before = {p: p.read_bytes() for p in self.output.iterdir()}
+        original_progress = self.progress.read_bytes()
+        result = self.cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        checkpoint = json.loads(self.progress.read_text())
+        self.assertEqual((checkpoint["phase"], checkpoint["completedStops"]), ("rendered", 2))
+        self.assertEqual(before, {p: p.read_bytes() for p in before})
+        archived = list((self.directory / "resume-history").glob("*/progress.json"))
+        self.assertEqual(archived[0].read_bytes(), original_progress)
+        self.assertEqual(len(self.inspect()["results"]), 2)
+
+    def test_corrupt_completed_evidence_fails_without_changing_progress(self):
+        sidecar = self.output / (STOP + ".provenance.json")
+        original, checkpoint = sidecar.read_bytes(), self.progress.read_bytes()
+        for field, value in [("spokenText", "Otro guion."), ("modelRevision", "0" * 40),
+                             ("identity", {}), ("segments", []), ("fileSha256", "0" * 64)]:
+            with self.subTest(field=field):
+                record = json.loads(original)
+                record[field] = value
+                sidecar.write_text(json.dumps(record))
+                result = self.cli("--prepare-only")
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("Completed chapter requires inspection", result.stderr)
+                self.assertEqual(self.progress.read_bytes(), checkpoint)
+                self.assertTrue(sidecar.exists())
+        sidecar.write_bytes(original)
+
+    def test_incomplete_current_sidecar_is_quarantined_with_its_audio(self):
+        self.write_clip(self.prepared["stops"][1])
+        sidecar = self.output / (self.current + ".provenance.json")
+        record = json.loads(sidecar.read_text())
+        record["segments"] = []
+        sidecar.write_text(json.dumps(record))
+        preserved = {p.name: p.read_bytes() for p in self.output.glob(self.current + ".*")}
+        first = (self.output / (STOP + ".mp3")).read_bytes()
+        inspected = self.inspect()
+        self.assertEqual(len(inspected["results"]), 1)
+        self.assertEqual(len(inspected["quarantine"]), 2)
+        self.renderer.preserve_resume_history(self.progress, inspected)
+        quarantined = list((self.directory / "resume-history").glob("*/unfinished/*"))
+        self.assertEqual({p.name: p.read_bytes() for p in quarantined}, preserved)
+        self.assertEqual((self.output / (STOP + ".mp3")).read_bytes(), first)
+
+    def test_silent_completed_audio_is_rejected_even_with_matching_hashes(self):
+        import numpy as np
+        import soundfile as sf
+        target = self.output / (STOP + ".mp3")
+        sf.write(target, np.zeros(96000), 48000, format="MP3")
+        digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        sidecar = target.with_suffix(".provenance.json")
+        record = json.loads(sidecar.read_text())
+        record["fileSha256"] = digest
+        sidecar.write_text(json.dumps(record))
+        checkpoint = json.loads(self.progress.read_text())
+        checkpoint["results"][0]["sha256"] = digest
+        self.progress.write_text(json.dumps(checkpoint))
+        before = self.progress.read_bytes()
+        result = self.cli("--prepare-only")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("audio is invalid, silent", result.stderr)
+        self.assertEqual(self.progress.read_bytes(), before)
+
+    def test_changed_input_hash_fails_before_any_checkpoint_write(self):
+        checkpoint = self.progress.read_bytes()
+        self.input.write_text(self.input.read_text() + "\n")
+        result = self.cli("--prepare-only")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("input hash changed", result.stderr)
+        self.assertEqual(self.progress.read_bytes(), checkpoint)
 
 
 if __name__ == "__main__":

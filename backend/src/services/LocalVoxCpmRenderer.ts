@@ -1,7 +1,8 @@
 import { spawn } from 'child_process';
-import { closeSync, openSync } from 'fs';
+import { closeSync, existsSync, openSync } from 'fs';
 import { access, mkdir, readFile, writeFile } from 'fs/promises';
 import { join, resolve } from 'path';
+import { isDeepStrictEqual } from 'util';
 import type { AudioIdentity } from './AudioProvenance';
 
 export interface AudioRenderInput {
@@ -61,6 +62,7 @@ async function run(command: string, args: string[], cwd: string, logPath: string
 
 export async function runLocalVoxCpm(
   input: AudioRenderInput, jobDir: string, outputDir: string,
+  options: { resume?: boolean } = {},
 ): Promise<AudioRenderProgress> {
   const root = tourProjectRoot();
   const python = process.env.VOXCPM_PYTHON || join(root, 'pods/voxcpm-pod/.venv/bin/python');
@@ -69,8 +71,23 @@ export async function runLocalVoxCpm(
   await Promise.all([access(python), access(script), access(supervisor), mkdir(jobDir, { recursive: true }),
     mkdir(outputDir, { recursive: true })]);
   const inputPath = join(jobDir, 'input.json');
-  await writeFile(inputPath, JSON.stringify(input), 'utf8');
+  if (options.resume) {
+    let saved: string;
+    try {
+      saved = await readFile(inputPath, 'utf8');
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+      // A partial job without its original input cannot be resumed safely.
+      if (existsSync(join(jobDir, 'progress.json'))) throw new Error('Saved audio input is missing before resume');
+      await writeFile(inputPath, JSON.stringify(input), { encoding: 'utf8', flag: 'wx' });
+      saved = JSON.stringify(input);
+    }
+    if (!isDeepStrictEqual(JSON.parse(saved), input)) throw new Error('Saved audio input changed before resume');
+  } else {
+    await writeFile(inputPath, JSON.stringify(input), 'utf8');
+  }
   const args = [script, '--input', inputPath, '--output', outputDir, '--progress', join(jobDir, 'progress.json')];
+  if (options.resume) args.push('--resume');
   const log = join(jobDir, 'render.log');
   await run(python, [...args, '--prepare-only'], root, log, 30_000);
   const seconds = Number(process.env.VOXCPM_BATCH_TIMEOUT_SECONDS || 7200);

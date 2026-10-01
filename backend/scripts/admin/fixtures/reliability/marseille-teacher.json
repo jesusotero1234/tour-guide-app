@@ -1,0 +1,162 @@
+{
+  "case": {
+    "pieces": [
+      {
+        "pieceId": "Q1619084",
+        "name": "palais Longchamp",
+        "nextPieceId": null,
+        "text": "Terminamos en un lugar que nació para celebrar el agua. El palais Longchamp se encuentra en el barrio de las Cinq Avenues. Fue edificado a partir de 1862 por la municipalidad para celebrar la llegada de las aguas de la Durance a la ciudad, a través del canal de Marsella. Las obras fueron dirigidas por el arquitecto Henri-Jacques Espérandieu y se terminaron en 1869 por razones presupuestarias. Fue inaugurado en 1869. La fecha exacta se recuerda de formas distintas: se dice que la inauguración fue el 14 de agosto y que abrió al público el 15, día de la fiesta del emperador Napoleón III; otras versiones se limitan a indicar el año 1869.\n\nBajo su columnata circular, el palacio alberga dos museos: el Museo de Bellas Artes, en el ala izquierda, y el Museo de Historia Natural, en el ala derecha. El Museo de Historia Natural está instalado en el ala derecha desde 1869. Sus colecciones le valieron ser clasificado de “primera categoría” en 1967, como otros nueve grandes museos de Francia. Desde entonces depende del Ministerio de Educación Nacional, Enseñanza Superior e Investigación, con un conservador de Estado al frente. El Museo de Bellas Artes conserva pinturas, esculturas y dibujos del siglo XVI al XIX. El decorado interior de los museos también es notable.\n\nEn el exterior hay detalles que no conviene dejar pasar. El célebre escultor animalista Antoine Louis Barye realizó los leones y los tigres de la entrada. La fuente monumental del centro de la columnata es obra de Jules Cavelier.\n\nEl palacio es indisociable de sus jardines. Desde el inicio del proyecto, un conjunto de jardines debía adornar y magnificar el edificio, y servir de enlace con las colecciones de los dos museos. Además de los parterres que rodean el estanque en la entrada principal, hay dos grandes jardines complementarios detrás del edificio: el jardín botánico, al mismo nivel que el palacio, y el jardín zoológico, situado más abajo. Los jardines albergaron hasta 1987 un parque zoológico y albergan el Observatorio de Marsella.\n\nPara las fiestas de Marsella-Provenza 2013 se anunció que el parque zoológico sería restaurado y que en las jaulas y cercados abandonados se expondrían animales de fibra de vidrio, decorados por distintos artistas y financiados por mecenas. No hace falta saber si aquel proyecto se cumplió tal como se anunció para entender lo que revela: incluso un espacio pensado para el agua y el conocimiento puede convertirse en un lugar que hay que repensar.\n\nAquí termina nuestro recorrido.",
+        "paragraphs": [
+          {
+            "paragraphId": "p01",
+            "text": "Terminamos en un lugar que nació para celebrar el agua. El palais Longchamp se encuentra en el barrio de las Cinq Avenues. Fue edificado a partir de 1862 por la municipalidad para celebrar la llegada de las aguas de la Durance a la ciudad, a través del canal de Marsella. Las obras fueron dirigidas por el arquitecto Henri-Jacques Espérandieu y se terminaron en 1869 por razones presupuestarias. Fue inaugurado en 1869. La fecha exacta se recuerda de formas distintas: se dice que la inauguración fue el 14 de agosto y que abrió al público el 15, día de la fiesta del emperador Napoleón III; otras versiones se limitan a indicar el año 1869."
+          },
+          {
+            "paragraphId": "p02",
+            "text": "Bajo su columnata circular, el palacio alberga dos museos: el Museo de Bellas Artes, en el ala izquierda, y el Museo de Historia Natural, en el ala derecha. El Museo de Historia Natural está instalado en el ala derecha desde 1869. Sus colecciones le valieron ser clasificado de “primera categoría” en 1967, como otros nueve grandes museos de Francia. Desde entonces depende del Ministerio de Educación Nacional, Enseñanza Superior e Investigación, con un conservador de Estado al frente. El Museo de Bellas Artes conserva pinturas, esculturas y dibujos del siglo XVI al XIX. El decorado interior de los museos también es notable."
+          },
+          {
+            "paragraphId": "p03",
+            "text": "En el exterior hay detalles que no conviene dejar pasar. El célebre escultor animalista Antoine Louis Barye realizó los leones y los tigres de la entrada. La fuente monumental del centro de la columnata es obra de Jules Cavelier."
+          },
+          {
+            "paragraphId": "p04",
+            "text": "El palacio es indisociable de sus jardines. Desde el inicio del proyecto, un conjunto de jardines debía adornar y magnificar el edificio, y servir de enlace con las colecciones de los dos museos. Además de los parterres que rodean el estanque en la entrada principal, hay dos grandes jardines complementarios detrás del edificio: el jardín botánico, al mismo nivel que el palacio, y el jardín zoológico, situado más abajo. Los jardines albergaron hasta 1987 un parque zoológico y albergan el Observatorio de Marsella."
+          },
+          {
+            "paragraphId": "p05",
+            "text": "Para las fiestas de Marsella-Provenza 2013 se anunció que el parque zoológico sería restaurado y que en las jaulas y cercados abandonados se expondrían animales de fibra de vidrio, decorados por distintos artistas y financiados por mecenas. No hace falta saber si aquel proyecto se cumplió tal como se anunció para entender lo que revela: incluso un espacio pensado para el agua y el conocimiento puede convertirse en un lugar que hay que repensar."
+          },
+          {
+            "paragraphId": "p06",
+            "text": "Aquí termina nuestro recorrido."
+          }
+        ],
+        "targetWords": 334,
+        "targetNarrationSeconds": 167,
+        "evidence": {
+          "passages": [
+            {
+              "passageId": "p-38d8675ce33a87eb67bd",
+              "sourceId": "source-e89da236f828c8a1",
+              "quote": "Situé dans le quartier des Cinq Avenues, le Palais fut édifié à partir de 1862 par la municipalité pour célébrer l'arrivée des eaux de la Durance dans la ville, via le Canal de Marseille. Les travaux du Palais furent dirigés par l'architecte Henri-Jacques Espérandieu et achevés en 1869 pour des raisons budgétaires. Il a été inauguré le 14 août de la même année et ouvert au public le lendemain, 15 août, jour de la fête de l'Empereur Napoléon III."
+            },
+            {
+              "passageId": "p-586218501794f4a58b04",
+              "sourceId": "source-e89da236f828c8a1",
+              "quote": "Sous sa colonnade circulaire, le Palais abrite deux musées : le [Musée des Beaux-Arts](https://musees.marseille.fr/musee-des-beaux-arts)\n dans son aile gauche et le [Muséum d'Histoire Naturelle](https://musees.marseille.fr/museum-dhistoire-naturelle-0)\n dans son aile droite. Les jardins du Palais ont également accueilli jusqu'en 1987 un jardin zoologique. Ils abritent actuellement l'[Observatoire de Marseille](http://andromede.id.st/)\n."
+            },
+            {
+              "passageId": "p-61ca9b3a5c1d2fb97836",
+              "sourceId": "source-wiki-fr",
+              "quote": "Pour les fêtes de Marseille-Provence 2013, le parc zoologique sera restauré et des animaux en fibre de verre, décorés par différents artistes et financés par des mécènes, seront exposés dans les cages et enclos jusqu'alors abandonnés."
+            },
+            {
+              "passageId": "p-dc3ba4be44bcdd0d8805",
+              "sourceId": "source-e89da236f828c8a1",
+              "quote": "Le Muséum d’Histoire Naturelle est installé dans l'aile droite du palais depuis 1869. Ses collections lui ont valu d'être classé de « première catégorie » en 1967 comme neuf autres grands Muséums de France. Depuis, il se trouve sous tutelle du Ministère de l'Education Nationale, de l'Enseignement supérieur et de la Recherche avec, à sa tête, un conservateur d'Etat."
+            },
+            {
+              "passageId": "p-9ebea8eea24ffb7f4770",
+              "sourceId": "source-e89da236f828c8a1",
+              "quote": "Installé dans l'aile gauche du Palais, le Musée des Beaux-Arts conserve des peintures, des sculptures et des dessins du XVIe au XIXe siècle."
+            },
+            {
+              "passageId": "p-abebf4668feb360682bb",
+              "sourceId": "source-e89da236f828c8a1",
+              "quote": "Le célèbre sculpteur animalier Antoine Louis Barye a réalisé les lions et les tigres de l'entrée. La fontaine monumentale au centre de la colonnade est l’œuvre de Jules Cavelier.\n*   Le décor intérieur des musées est également remarquable."
+            },
+            {
+              "passageId": "p-add9d952cd64b66be72b",
+              "sourceId": "source-wiki-fr",
+              "quote": "Les jardins\nLe Palais Longchamp est indissociable des jardins qui l'environnent. Dès le début du projet, un ensemble de jardins devaient agrémenter et magnifier le bâtiment mais également servir de liens avec les collections des deux musées du site.\nOutre les parterres entourant le bassin au niveau de l'entrée principale du site, se trouvent également deux vastes jardins complémentaires situés à l'arrière de l'édifice: le Jardin botanique - au même niveau que le Palais - et le Jardin zoologique situé en contrebas.L'Observatoire se trouve à proximité immédiate du site."
+            }
+          ],
+          "sources": [
+            {
+              "sourceId": "source-e89da236f828c8a1",
+              "title": "Le Palais Longchamp | Ville de Marseille",
+              "url": "https://www.marseille.fr/culture/patrimoine-culturel/le-palais-longchamp",
+              "sourceLanguage": "fr"
+            },
+            {
+              "sourceId": "source-wiki-fr",
+              "title": "Palais Longchamp",
+              "url": "https://fr.wikipedia.org/wiki/Palais_Longchamp",
+              "sourceLanguage": "fr"
+            }
+          ],
+          "limits": [
+            "No se encontró en los spans evidencia literal de una comparación explícita con conector (por ejemplo 'a diferencia de' o 'en contraste con') que permita declarar un secondaryContrast válido.",
+            "La evidencia sobre el contraste entre el uso original del jardín zoológico y su estado abandonado proviene de dos publishers distintos, pero la restauración de 2013 solo está documentada por wikimedia."
+          ],
+          "discrepancies": [
+            "La Wikipedia francesa indica que el Palais fue inaugurado en 1869 sin precisar el día, mientras que el sitio marseille.fr precisa la fecha del 14 de agosto de 1869 y la apertura al público el 15 de agosto."
+          ]
+        }
+      }
+    ]
+  },
+  "response": {
+    "pieces": [
+      {
+        "pieceId": "Q1619084",
+        "decision": "ADJUST",
+        "memory": "Longchamp celebra el agua de la Durance; alberga dos museos, jardines y esculturas, y su historia incluye un zoo y un proyecto de 2013 que no se verifica como hecho consumado.",
+        "protect": [
+          {
+            "paragraphId": "p01",
+            "quote": "Fue edificado a partir de 1862 por la municipalidad para celebrar la llegada de las aguas de la Durance a la ciudad, a través del canal de Marsella.",
+            "why": "Da el propósito central del palacio: celebrar la llegada del agua."
+          },
+          {
+            "paragraphId": "p01",
+            "quote": "se dice que la inauguración fue el 14 de agosto y que abrió al público el 15, día de la fiesta del emperador Napoleón III; otras versiones se limitan a indicar el año 1869.",
+            "why": "Mantiene visible la incertidumbre sobre la fecha exacta sin ocultarla."
+          },
+          {
+            "paragraphId": "p03",
+            "quote": "El célebre escultor animalista Antoine Louis Barye realizó los leones y los tigres de la entrada. La fuente monumental del centro de la columnata es obra de Jules Cavelier.",
+            "why": "Señala detalles exteriores observables y con autoría concreta."
+          },
+          {
+            "paragraphId": "p04",
+            "quote": "hay dos grandes jardines complementarios detrás del edificio: el jardín botánico, al mismo nivel que el palacio, y el jardín zoológico, situado más abajo.",
+            "why": "Ayuda a entender la relación del palacio con su entorno."
+          },
+          {
+            "paragraphId": "p05",
+            "quote": "No hace falta saber si aquel proyecto se cumplió tal como se anunció para entender lo que revela: incluso un espacio pensado para el agua y el conocimiento puede convertirse en un lugar que hay que repensar.",
+            "why": "Ofrece una interpretación concreta y adecuada para cerrar el recorrido."
+          }
+        ],
+        "changes": [
+          {
+            "paragraphId": "p04",
+            "quote": "Los jardines albergaron hasta 1987 un parque zoológico y albergan el Observatorio de Marsella.",
+            "why": "La evidencia no es unánime sobre si el Observatorio está dentro de los jardines o en sus inmediaciones; afirmar “albergan” puede dar como certeza una ubicación discutida.",
+            "action": "Sustituir la afirmación directa por una formulación que conserve el dato del zoo hasta 1987 y presente el Observatorio como asociado al conjunto o situado en sus inmediaciones, sin fijar una ubicación exacta no corroborada.",
+            "acceptance": "El oyente conserva el dato del antiguo parque zoológico y no recibe como certeza una ubicación discutida del Observatorio."
+          }
+        ],
+        "factualConcerns": [
+          {
+            "paragraphId": "p04",
+            "quote": "Los jardines albergaron hasta 1987 un parque zoológico y albergan el Observatorio de Marsella.",
+            "problem": "Una fuente dice que los jardines albergan actualmente el Observatorio de Marsella; otra lo sitúa en la proximidad inmediata del sitio. El texto elige una de las dos formulaciones sin señalar la discrepancia.",
+            "evidence": [
+              {
+                "passageId": "p-586218501794f4a58b04",
+                "quote": "Les jardins du Palais ont également accueilli jusqu'en 1987 un jardin zoologique. Ils abritent actuellement l'Observatoire de Marseille."
+              },
+              {
+                "passageId": "p-add9d952cd64b66be72b",
+                "quote": "L'Observatoire se trouve à proximité immédiate du site."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

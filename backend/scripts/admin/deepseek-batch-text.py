@@ -4,25 +4,47 @@ import argparse
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import sys
 import time
 
 BACKEND = Path(__file__).resolve().parents[2]
-EDITORIAL = BACKEND / 'tmp/tour-quality-sandbox/sevilla-end-to-end-20260912/editorial'
+EDITORIAL = Path(__file__).resolve().parent / 'editorial_runtime'
 sys.path.insert(0, str(EDITORIAL))
 import client as q
 import contracts as c
 import prompts
 import run as editorial
+import citations
 
 
 def complete_json_envelope(text):
     try:
         value = json.loads(text)
     except (ValueError, TypeError):
-        return None
+        # Some complete replies contain one JSON object per piece. Accept only
+        # a fully consumed sequence; never salvage a truncated final object.
+        if not isinstance(text, str):
+            return None
+        decoder, rows, remaining = json.JSONDecoder(), [], text.strip()
+        try:
+            value, end = decoder.raw_decode(remaining)
+            if isinstance(value, dict) and remaining[end:].strip() == '}':
+                return value
+        except ValueError:
+            pass
+        try:
+            while remaining:
+                row, end = decoder.raw_decode(remaining)
+                if not isinstance(row, dict) or 'pieceId' not in row:
+                    return None
+                rows.append(row)
+                remaining = remaining[end:].strip()
+        except ValueError:
+            return None
+        return {'pieces': rows} if rows else None
     if isinstance(value, dict):
         return value
     if isinstance(value, list) and value and all(isinstance(row, dict) and 'pieceId' in row for row in value):
@@ -44,6 +66,148 @@ def save(path, obj):
     temporary = path.with_suffix(path.suffix + '.tmp')
     temporary.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + '\n')
     temporary.replace(path)
+
+
+ORIGINAL_CALL = getattr(q.call, '_batch_original_call', q.call)
+
+
+def repair_contract(base, payload, request_id, stage, piece, text_hash, validator, original):
+    """One correction of citation/coverage syntax; substantive judgments are immutable."""
+    raw = complete_json_envelope(original.get('rawContent'))
+    if raw is None or validator is None:
+        return original
+    def judgments(value):
+        if isinstance(value, list): return [judgments(item) for item in value]
+        if isinstance(value, dict):
+            return {k: judgments(v) for k, v in value.items() if k not in ('quote', 'paragraphId', 'coveredParagraphIds')}
+        return value
+    frozen = judgments(raw)
+    def check(value):
+        if judgments(value) != frozen:
+            return False, ['contract repair changed substantive content, decisions or objections']
+        return validator(value)
+    repaired_payload = copy.deepcopy(payload)
+    repaired_payload['messages'] = [*payload['messages'],
+        {'role': 'assistant', 'content': original['rawContent']},
+        {'role': 'user', 'content': 'Corrige SOLO las citas literales, paragraphId o coveredParagraphIds del JSON anterior. '
+         'Conserva íntegros todos los demás campos, decisiones, objeciones y gravedad. No traduzcas las citas. '
+         'Devuelve el JSON completo. Errores de contrato: ' + json.dumps(original['validation']['errors'], ensure_ascii=False)}]
+    folder = base / 'contract-recovery-v1' / request_id
+    binding = dict(originalPayloadHash=original.get('payloadHash'),
+                   originalRawSha256=q.sha_text(original['rawContent']), maxContractRepairs=1,
+                   recoveryDirectory=str(folder.resolve()))
+    root = Path(os.environ.get('DEEPSEEK_BUDGET_ROOT', base))
+    slots_file = root / 'contract-repair-slots.json'
+    slots = load(slots_file) if slots_file.exists() else {}
+    phase = stage.removesuffix('-piece')
+    if phase in slots and slots[phase] != binding:
+        return {**original, 'validation': {**original['validation'],
+            'errors': [*original['validation']['errors'], 'single contract repair for this stage already used']}}
+    slots[phase] = binding
+    save(slots_file, slots)
+    save(folder / 'original-binding.json', binding)
+    previous_base, previous_ledger = q.BASE, q.LEDGER
+    try:
+        bind(folder)
+        result = ORIGINAL_CALL(repaired_payload, request_id, stage, piece, text_hash, check)
+    finally:
+        q.BASE, q.LEDGER = previous_base, previous_ledger
+        editorial.BASE = Path(previous_base)
+    return result
+
+
+def resumable_call(payload, request_id, stage, piece, text_hash, validator=None):
+    """Reuse valid work; one opt-in recovery slot for a stopped PENDING call."""
+    base = Path(q.BASE)
+    result = ORIGINAL_CALL(payload, request_id, stage, piece, text_hash, validator)
+    if result['validation'].get('type') == 'contract_invalid' and os.environ.get('DEEPSEEK_RELIABILITY_PILOT') == '1':
+        result = repair_contract(base, payload, request_id, stage, piece, text_hash, validator, result)
+    q.LAST_RESULT = result
+    attempts = result.get('attempts') or []
+    if result['validation']['status'] != 'INCOMPLETE' or not attempts \
+            or attempts[-1].get('status') != 'PENDING':
+        return result
+    identity = q.sha_text(json.dumps({'payload': payload, 'textHash': text_hash},
+                                    sort_keys=True, ensure_ascii=False))
+    folder = base / 'frozen/request-and-response'
+    recovery = base / 'interrupted-recovery-v1' / request_id
+    sidecar = folder / (request_id + '.interrupted-recovery-v1.json')
+    binding = dict(version=1, requestId=request_id, payloadHash=identity, textHash=text_hash,
+                   recoveryDirectory=str(recovery), maxRecoveryPhysicalAttempts=1,
+                   originalAttempts={str(path.relative_to(base)): q.sha_file(str(path))
+                                     for path in sorted(folder.glob(request_id + '.attempt-*.json'))})
+
+    def blocked(status, message):
+        return {**result, 'validation': {'status': status, 'errors': [message]}}
+
+    if sidecar.exists() and load(sidecar) != binding:
+        return blocked('STALE_CACHE', 'interrupted recovery binding changed')
+    cached = list((recovery / 'frozen/request-and-response').glob('*.attempt-*.json'))
+    if cached and not sidecar.exists():
+        return blocked('STALE_CACHE', 'interrupted recovery has no original-request binding')
+    if len(cached) > 1:
+        return blocked('BUDGET_EXHAUSTED', 'one interrupted recovery physical attempt exhausted')
+    if cached and cached[0].name != request_id + '.attempt-1.json':
+        return blocked('STALE_CACHE', 'unexpected attempt in interrupted recovery slot')
+    if not cached and os.environ.get('DEEPSEEK_RECOVER_INTERRUPTED') != '1':
+        return blocked('INTERRUPTED', 'PENDING call requires DEEPSEEK_RECOVER_INTERRUPTED=1 after stopping the queue')
+    if not sidecar.exists():
+        save(sidecar, binding)
+    # Call the original client directly: the recovery slot cannot recover itself.
+    # Its ledger records the extra call; the binding retains the uncertain original.
+    previous_base, previous_ledger, previous_limit = q.BASE, q.LEDGER, q.MAX_ATTEMPTS
+    try:
+        q.BASE = str(recovery)
+        q.LEDGER = str(recovery / 'metrics/calls.jsonl')
+        q.MAX_ATTEMPTS = 1
+        recovered = ORIGINAL_CALL(payload, request_id, stage, piece, text_hash, validator)
+    finally:
+        q.BASE, q.LEDGER, q.MAX_ATTEMPTS = previous_base, previous_ledger, previous_limit
+    recovered = {**recovered, 'attempts': [*attempts, *[
+        dict(entry, recoverySlot='interrupted-v1') for entry in recovered.get('attempts', [])]],
+        'interruptionRecovery': binding}
+    if recovered['validation']['status'] == 'INCOMPLETE' \
+            and recovered['attempts'][-1].get('status') == 'PENDING':
+        recovered['validation'] = {'status': 'INTERRUPTED',
+                                  'errors': ['the single interrupted recovery slot is also PENDING']}
+    save(folder / (request_id + '.interrupted-recovery-v1.response.json'), recovered)
+    return recovered
+
+
+resumable_call._batch_original_call = ORIGINAL_CALL
+q.call = resumable_call
+
+
+def expand_evidence_ellipsis(quote, source):
+    try:
+        span = citations.resolve(quote, source)['after']
+        return span if span != quote else None
+    except ValueError:
+        return None
+
+
+def normalize_review_evidence(obj, case):
+    adjustments = []
+    pieces = {piece['pieceId']: piece for piece in case['pieces']}
+    for row in obj.get('pieces', []):
+        piece = pieces.get(row.get('pieceId'))
+        if not piece:
+            continue
+        passages = {passage['passageId']: passage for passage in piece.get('evidence', {}).get('passages', [])}
+        for issue_index, issue in enumerate(row.get('issues', [])):
+            for evidence_index, item in enumerate(issue.get('evidence', [])):
+                passage = passages.get(item.get('passageId'))
+                if not passage:
+                    continue  # The strict validator reports unknown passage IDs.
+                expanded = expand_evidence_ellipsis(item.get('quote'), passage['quote'])
+                if expanded is not None:
+                    adjustments.append(dict(pieceId=row['pieceId'],
+                        field=f'issues[{issue_index}].evidence[{evidence_index}].quote',
+                        passageId=passage['passageId'], sourceId=passage.get('sourceId'),
+                        sourceSha256=q.sha_text(passage['quote']), before=item['quote'], after=expanded,
+                        policy='unique ordered literal fragments expanded within one source passage'))
+                    item['quote'] = expanded
+    return adjustments
 
 
 def bind(folder):
@@ -148,25 +312,13 @@ def edit_master(directory, case):
     bind(directory / 'editorial')
     city = directory.name
     save(directory / 'editorial/case.json', case)
-    style = load(BACKEND / 'tmp/tour-quality-sandbox/quality-enough-pilot-20260912/frozen/style-example.json')
+    style = load(EDITORIAL / 'style-example.json')
     texts = {p['pieceId']: p['text'] for p in case['pieces']}
     def check_teacher(obj):
-        # Teacher notes identify a paragraph; they do not apply text replacements.
-        # Resolve a paraphrased citation to that actual paragraph. Historical
-        # evidence citations retain the strict source validator.
-        adjustments = []
-        for row in obj.get('pieces', []):
-            piece = next((p for p in case['pieces'] if p['pieceId'] == row.get('pieceId')), None)
-            if not piece:
-                continue
-            paragraphs = {p['paragraphId']: p['text'] for p in piece['paragraphs']}
-            for item in [*row.get('protect', []), *row.get('changes', []), *row.get('factualConcerns', [])]:
-                quote = item.get('quote', '')
-                parent = paragraphs.get(item.get('paragraphId'), '')
-                if isinstance(quote, str) and quote.strip() and parent and quote not in parent:
-                    adjustments.append(dict(pieceId=row['pieceId'], paragraphId=item['paragraphId'], before=quote, after=parent))
-                    item['quote'] = parent
-        save(directory / 'editorial/teacher-anchor-adjustments.json', adjustments)
+        adjustments = citations.normalize_response(obj, case)
+        audit_path = directory / 'editorial/teacher-anchor-adjustments-v2.json'
+        prior = load(audit_path) if audit_path.exists() else []
+        save(audit_path, prior + [x for x in adjustments if x not in prior])
         # Five protected details is a prompt target. Keep and validate a sixth
         # useful detail instead of rejecting an otherwise actionable brief.
         checked = copy.deepcopy(obj)
@@ -210,33 +362,105 @@ def edit_master(directory, case):
         if review is None:
             raise ValueError('Repair review incomplete')
         decision = editorial.selection(case, texts, review)
+    if (directory / 'editorial/manual-corrections.json').exists():
+        texts, review = correct_master_from_sources(directory, case, texts, review, decision)
+        decision = editorial.selection(case, texts, review)
     save(directory / 'editorial/selection.json', decision)
     if decision['status'] != 'SUFFICIENT_IN_REVIEW_SCOPE':
         raise ValueError('Spanish master has unresolved material issues; see editorial/selection.json')
     return [dict(pieceId=p['pieceId'], name=p['name'], text=texts[p['pieceId']]) for p in case['pieces']]
 
 
+def correct_master_from_sources(directory, case, texts, review, decision):
+    """Apply an audited local correction, then recheck every changed piece."""
+    plan = load(directory / 'editorial/manual-corrections.json')
+    assert plan['caseSha256'] == digest(case), 'Manual correction evidence changed'
+    assert plan['textsSha256'] == digest(texts), 'Manual correction source text changed'
+    assert plan['selectionSha256'] == digest(decision), 'Manual correction review changed'
+    changes = plan['changes']
+    assert isinstance(changes, list) and changes, 'Manual corrections must not be empty'
+    pieces = {p['pieceId']: p for p in case['pieces']}
+    updated, changed = dict(texts), set()
+    for change in changes:
+        pid = change['pieceId']
+        assert pid in decision['pendingPieceIds'] and pid not in changed, 'Correction must target one pending piece once'
+        old, new = change['oldText'], change['newText']
+        assert isinstance(old, str) and old and isinstance(new, str) and new.strip() and old != new, 'Invalid correction text'
+        assert isinstance(change['reason'], str) and change['reason'].strip(), 'Correction needs a reason'
+        assert updated[pid].count(old) == 1, 'Correction anchor must be unique and unchanged'
+        assert change['evidence'], 'Correction needs source evidence'
+        c.evidence(change['evidence'], pieces[pid])
+        updated[pid] = updated[pid].replace(old, new, 1)
+        changed.add(pid)
+    subset = {**case, 'pieces': [p for p in case['pieces'] if p['pieceId'] in changed],
+              'routeContext': [dict(pieceId=p['pieceId'], name=p['name'], text=updated[p['pieceId']])
+                               for p in case['pieces']]}
+    folder = directory / 'editorial/manual-recovery-v1'
+    # Separate finite ledger; prior provider attempts and successful pieces stay intact.
+    try:
+        bind(folder)
+        assessed = review_master(directory, 'manual-reviewer', subset, updated)
+    finally:
+        bind(directory / 'editorial')
+    if assessed is None:
+        raise ValueError('Manual correction review incomplete')
+    replacements = {row['pieceId']: row for row in assessed['pieces']}
+    combined = {'pieces': [replacements.get(row['pieceId'], row) for row in review['pieces']]}
+    valid, errors = c.validate_review(combined, case, updated)
+    assert valid, 'Corrected master review invalid: ' + '; '.join(errors)
+    save(folder / 'applied.json', dict(plan=plan, correctedTextsSha256=digest(updated),
+                                     reviewedPieceIds=list(replacements), humanApproved=False))
+    save(folder / 'texts.json', updated)
+    save(folder / 'review.json', combined)
+    return updated, combined
+
+
 def review_master(directory, stage, case, texts):
+    invocation_base = Path(q.BASE)
     context = copy.deepcopy(case)
     for piece in context['pieces']:
         piece['candidateParagraphs'] = c.paragraphs(texts[piece['pieceId']])
-    def check(obj):
-        adjustments = []
-        for row in obj.get('pieces', []):
-            piece = next((p for p in case['pieces'] if p['pieceId'] == row.get('pieceId')), None)
-            if not piece:
-                continue
-            paragraphs = {p['paragraphId']: p['text'] for p in piece['paragraphs']}
-            # Lost-detail notes are informational; resolve their referenced paragraph.
-            # Factual/editorial issue citations still use the strict validator.
-            for item in row.get('lostUsefulDetails', []):
-                quote, parent = item.get('quote', ''), paragraphs.get(item.get('paragraphId'), '')
-                if isinstance(quote, str) and quote.strip() and parent and quote not in parent:
-                    adjustments.append(dict(pieceId=row['pieceId'], before=quote, after=parent))
-                    item['quote'] = parent
-        save(directory / 'editorial' / (stage + '-diagnostic-anchors.json'), adjustments)
-        return c.validate_review(obj, case, texts)
-    return editorial.invoke(directory.name, stage, prompts.REVIEWER, {'tour': context}, check)
+    def check(obj, review_case=case):
+        adjustments = citations.normalize_response(obj, review_case, texts)
+        audit_path = directory / 'editorial' / (stage + '-citation-adjustments-v2.json')
+        prior = load(audit_path) if audit_path.exists() else []
+        save(audit_path, prior + [x for x in adjustments if x not in prior])
+        return c.validate_review(obj, review_case, texts)
+    result = editorial.invoke(directory.name, stage, prompts.REVIEWER, {'tour': context}, check)
+    if result is not None:
+        return result
+    original = load(invocation_base / 'cases' / directory.name / (stage + '-raw.json'))
+    if original['validation']['status'] != 'INCOMPLETE':
+        return None
+    last = (original.get('attempts') or [{}])[-1]
+    status = last.get('status', '')
+    if status.startswith('HTTP_4') and status != 'HTTP_429':
+        return None
+    # One persisted fallback per piece. Each retains the whole route's text for
+    # continuity, but only that piece's evidence needs the full factual audit.
+    # Existing valid writer/editor/repair responses remain bound to their hashes.
+    print(f'{directory.name}: {stage} recovery by piece', flush=True)
+    rows = []
+    try:
+        for piece in context['pieces']:
+            pid = piece['pieceId']
+            single = {**context, 'pieces': [piece]}
+            single['routeContext'] = [dict(pieceId=p['pieceId'], name=p['name'],
+                                           text=texts[p['pieceId']]) for p in case['pieces']]
+            bind(directory / 'editorial/recovery' / stage / pid)
+            reviewed = editorial.invoke(directory.name, stage + '-piece', prompts.REVIEWER,
+                                         {'tour': single}, lambda obj: check(obj, single))
+            if reviewed is None:
+                return None
+            rows.extend(reviewed['pieces'])
+    finally:
+        bind(invocation_base)
+    combined = {'pieces': rows}
+    valid, errors = check(combined)
+    if not valid:
+        raise ValueError('Combined review invalid: ' + '; '.join(errors))
+    save(directory / 'editorial/cases' / directory.name / (stage + '-recovered.json'), combined)
+    return combined
 
 
 def translation_units(pieces):
@@ -253,7 +477,7 @@ def translation_units(pieces):
     return units, groups
 
 
-def translate(directory, language, pieces):
+def _translate(directory, language, pieces):
     folder = directory / 'translations' / language
     source, groups = translation_units(pieces)
 
@@ -358,6 +582,22 @@ def translate(directory, language, pieces):
     return translated, folder / (stage + '.json')
 
 
+def translate(directory, language, pieces):
+    # Spanish editorial work and every target language have independent durable
+    # ceilings. This keeps translation retries from consuming the validated
+    # master's budget while still bounding every language to the same $0.50 cap.
+    previous_budget_root = os.environ.get('DEEPSEEK_BUDGET_ROOT')
+    if os.environ.get('DEEPSEEK_RELIABILITY_PILOT') == '1':
+        os.environ['DEEPSEEK_BUDGET_ROOT'] = str(directory / 'translation-budgets' / language)
+    try:
+        return _translate(directory, language, pieces)
+    finally:
+        if previous_budget_root is None:
+            os.environ.pop('DEEPSEEK_BUDGET_ROOT', None)
+        else:
+            os.environ['DEEPSEEK_BUDGET_ROOT'] = previous_budget_root
+
+
 def final(directory, language, pieces, master_hash, evidence):
     value = dict(language=language, sourceLanguage='es', masterSha256=master_hash, pieces=pieces,
                  review=dict(status='SUFFICIENT_IN_REVIEW_SCOPE', artifactPath=str(evidence),
@@ -380,9 +620,17 @@ def existing_final(directory, language, master_hash=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--city-dir', required=True, type=Path)
+    parser.add_argument('--languages', default='es,en,fr,de,it',
+                        help='Comma-separated output languages; Spanish master is required')
     parser.add_argument('--execute', action='store_true')
     args = parser.parse_args()
+    languages = args.languages.split(',')
+    if not languages or languages[0] != 'es' or len(set(languages)) != len(languages) \
+            or any(language not in ['es', *LANGUAGES] for language in languages):
+        parser.error('--languages must start with es and contain unique supported languages')
     directory = args.city_dir.resolve()
+    if os.environ.get('DEEPSEEK_RELIABILITY_PILOT') == '1':
+        os.environ['DEEPSEEK_BUDGET_ROOT'] = str(directory)
     inputs = load(directory / 'inputs.json')
     assert (directory / 'combined-prompt.md').is_file()
     lock = {'inputsSha256': digest(inputs), 'promptSha256': q.sha_file(directory / 'combined-prompt.md')}
@@ -408,7 +656,7 @@ def main():
             final(directory, 'es', pieces, master_hash, directory / 'editorial/selection.json')
         summary['completeLanguages'].append('es')
         save(directory / 'summary.json', summary)
-        for language in LANGUAGES:
+        for language in languages[1:]:
             try:
                 if not existing_final(directory, language, master_hash):
                     translated, evidence = translate(directory, language, pieces)
@@ -421,6 +669,9 @@ def main():
     except Exception as error:
         summary['failures']['es'] = str(error)
         print(str(error), file=sys.stderr, flush=True)
+        save(directory / 'text-result.json', dict(stage='text', status='failed',
+            type='editorial_objection' if 'unresolved material issues' in str(error) else getattr(q, 'LAST_RESULT', {}).get('validation', {}).get('type') or 'contract_invalid',
+            message=str(error)))
     summary['invocationSeconds'] = round(time.monotonic() - started, 3)
     save(directory / 'summary.json', summary)
     print(json.dumps(summary, ensure_ascii=False), flush=True)

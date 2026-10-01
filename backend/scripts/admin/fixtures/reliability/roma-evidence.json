@@ -1,0 +1,163 @@
+{
+  "pieceId": "tour-welcome",
+  "evidence": {
+    "passages": [
+      {
+        "passageId": "Q2943:p-53ba81d23a05b29a3172",
+        "sourceId": "Q2943:source-wiki-it",
+        "quote": "La Cappella Sistina (in latino Sacellum Sixtinum), dedicata a Santa Maria Assunta in Cielo, è la principale cappella del Palazzo Apostolico, nonché uno dei più famosi tesori culturali e artistici della Città del Vaticano, inserita nel percorso dei Musei Vaticani."
+      }
+    ],
+    "sources": [
+      {
+        "sourceId": "Q10285:source-1ce8e7c01de9d229",
+        "title": "Colosseo - Parco archeologico del Colosseo",
+        "url": "https://colosseo.it/area/colosseo/",
+        "sourceLanguage": "it-it"
+      },
+      {
+        "sourceId": "Q10285:source-wiki-it",
+        "title": "Colosseo",
+        "url": "https://it.wikipedia.org/wiki/Colosseo",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q5786:source-wiki-it",
+        "title": "Arco di Costantino",
+        "url": "https://it.wikipedia.org/wiki/Arco_di_Costantino",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q180212:source-9f55250ac9e6db3b",
+        "title": "Foro Romano - Parco archeologico del Colosseo",
+        "url": "https://parcocolosseo.it/area/foro-romano/",
+        "sourceLanguage": "it-it"
+      },
+      {
+        "sourceId": "Q180212:source-wiki-it",
+        "title": "Foro Romano",
+        "url": "https://it.wikipedia.org/wiki/Foro_Romano",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q99309:source-3a276dd51799c2ac",
+        "title": "Pantheon e Basilica di Santa Maria ad Martyres - Ministero della cultura",
+        "url": "https://cultura.gov.it/luogo/pantheon",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q99309:source-wiki-it",
+        "title": "Pantheon (Roma)",
+        "url": "https://it.wikipedia.org/wiki/Pantheon_(Roma)",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q463400:source-wiki-it",
+        "title": "Piazza Navona",
+        "url": "https://it.wikipedia.org/wiki/Piazza_Navona",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q486382:source-cddda2a9265c1edf",
+        "title": "Castel sant'Angelo, monumenti Roma, Activitaly",
+        "url": "https://web.archive.org/web/20180614164416/http://www.activitaly.it/monument/sangelo.htm",
+        "sourceLanguage": null
+      },
+      {
+        "sourceId": "Q486382:source-wiki-it",
+        "title": "Castel Sant'Angelo",
+        "url": "https://it.wikipedia.org/wiki/Castel_Sant'Angelo",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q2943:source-12684c9af92b3af4",
+        "title": "Musei Vaticani – Sito ufficiale",
+        "url": "https://www.museivaticani.va/content/museivaticani/it.html",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q2943:source-264734d2ebcbc664",
+        "title": "Un dono al popolo di Dio - Cappella \"Redemptoris\nMater\" - 14/11/1999",
+        "url": "https://www.vatican.va/news_services/liturgy/documents/ns_lit_doc_14111999_notificazione_it.html",
+        "sourceLanguage": null
+      },
+      {
+        "sourceId": "Q2943:source-wiki-it",
+        "title": "Cappella Sistina",
+        "url": "https://it.wikipedia.org/wiki/Cappella_Sistina",
+        "sourceLanguage": "it"
+      },
+      {
+        "sourceId": "Q12512:source-3ec7dca5f3511440",
+        "title": "Official Website of St. Peter's Basilica | A masterpiece to explore",
+        "url": "https://www.basilicasanpietro.va/",
+        "sourceLanguage": "en-us"
+      },
+      {
+        "sourceId": "Q12512:source-wiki-it",
+        "title": "Basilica di San Pietro in Vaticano",
+        "url": "https://it.wikipedia.org/wiki/Basilica_di_San_Pietro_in_Vaticano",
+        "sourceLanguage": "it"
+      }
+    ],
+    "limits": [
+      "Colosseo: La fonte colosseo.it aporta sobre todo información práctica (biglietti, trasporti, gestione cookie) y descripciones generales; no se han encontrado spans factuales útiles sobre rasgos materiales concretos más allá de la descripción general del anfiteatro.",
+      "Colosseo: No se han incluido proposiciones sobre los sotterranei o el Passaggio di Commodo por falta de spans descriptivos suficientes.",
+      "Colosseo: Las afirmaciones sobre el velarium y su anclaje dependen de interpretaciones de estudiosos citados en Wikipedia, no de evidencia arqueológica directa en los spans.",
+      "Arco di Costantino: Solo hay un publisher disponible (wikimedia), por lo que no se emiten proposiciones debatables ni se presentan dos soportes independientes.",
+      "Arco di Costantino: Las proposiciones se limitan a lo literalmente sostenido por los spans proporcionados; no se añaden hechos externos.",
+      "Arco di Costantino: No se escriben citas literales: solo se referencian evidenceSpanIds.",
+      "Foro Romano: Alcuni span delle fonti sono contenuti tecnici o di navigazione (cookie, mappe, collegamenti, didascalie di immagini) privi di contenuto storico utile e non sono stati usati come supporto.",
+      "Foro Romano: Le tradizioni sulle origini (battaglia tra Romani e Sabini, Lacus Curtius, Tarpeia) sono riportate dalle fonti come racconti di autori antichi e non come fatti archeologicamente accertati; non sono state incluse come proposizioni autonome.",
+      "Foro Romano: La proposizione sui visitatori del 2016 riguarda l'intero circuito archeologico Colosseo, Foro Romano e Palatino, non il solo Foro Romano.",
+      "Pantheon: Le informazioni su orari, biglietti e modalità di acquisto riflettono quanto pubblicato da cultura.gov.it e possono variare nel tempo.",
+      "Pantheon: La proposizione sulla cupola più grande al mondo dipende dalla qualificazione di Wikipedia che esclude la copertura del CNIT di Parigi e considera la cupola del Brunelleschi a Firenze con diagonale maggiore 45,5.",
+      "Pantheon: Non sono state incluse proposizioni su eventi o dettagli privi di span di supporto tra quelli forniti.",
+      "Piazza Navona: Solo un publisher (wikimedia) disponible: nessuna proposizione può essere marcata come debatable.",
+      "Piazza Navona: No se incluyen afirmaciones sobre la Fontana dei Quattro Fiumi representando el Danubio, el Gange, el Nilo y el Río de la Plata por no ser necesarias para las proposiciones seleccionadas.",
+      "Piazza Navona: No se incluyen datos de bibliografía, voci correlate ni collegamenti esterni por ser contenido de referencia, no factual sobre la parada.",
+      "Castel Sant'Angelo: La fonte archive.org (activitaly) contiene prevalentemente testo di navigazione e descrizioni parziali; solo pochi spans risultano factualmente utili.",
+      "Castel Sant'Angelo: Non si includono proposizioni su restauri, visitatori o citazioni artistiche prive di rilevanza per i cinque ruoli richiesti.",
+      "cappella Sistina: Los spans de academia.edu disponibles consisten mayoritariamente en notas bibliográficas, referencias cruzadas y discusiones sobre atribuciones de esculturas ajenas a la Cappella Sistina, por lo que no se usaron para proposiciones factuales sobre la parada.",
+      "cappella Sistina: No se encontró en los spans evidencia literal de un contraste documentado entre uso defensivo y uso palaciego ni entre asedio y uso actual, por lo que no se declaró ese tipo de tensión.",
+      "cappella Sistina: La proposición de tension_or_contrast se apoya únicamente en vatican.va y se marca como direct; no se dispone de un segundo publisher independiente para marcarla debatable.",
+      "basilica di San Pietro: La maggior parte degli span della fonte www.basilicasanpietro.va consiste in testi promozionali o elenchi di eventi e non fornisce dati storici o architettonici verificabili.",
+      "basilica di San Pietro: Non si dispone di span che documentino in dettaglio le fasi costruttive intermedie o le singole campagne di restauro.",
+      "basilica di San Pietro: La datazione della dedicazione della basilica compare solo in titoli di eventi e non è stata usata come proposizione per mancanza di contesto fattuale esplicito."
+    ],
+    "discrepancies": [
+      "Colosseo: La capienza stimata del Colosseo è indicata come un intervallo tra 50 000 e 87 000 spettatori, senza un valore unico consolidato.",
+      "Colosseo: L'origine del nome 'Colosseo' è presentata come incerta: deformazione popolare dell'aggettivo latino 'colosseum' oppure derivazione dalla vicinanza della statua colossale di Nerone.",
+      "Colosseo: La copertura con velarium sugli spalti e l'arena scoperta è attribuita a 'alcuni studiosi (Manzione)', quindi non è una ricostruzione unanime.",
+      "Arco di Costantino: Las dimensiones del prospetto se dan como 21 m de altura, 25,9 m de anchura y 7,4 m de profundidad en un pasaje, mientras que otro pasaje indica 21 metros de altura (con el ático), 25,70 de anchura y 7,40 de profundidad.",
+      "Arco di Costantino: La datación del monumento es discutida: una hipótesis propone una construcción en época de Adriano con un pesado remanente en época constantiniana, frente a la presentación habitual del arco como obra inaugurada en 315.",
+      "Foro Romano: Sulla datazione della prima pavimentazione del Foro: Wikipedia riporta che è comune asserire che risalga al primo periodo etrusco, databile verso la fine del VII secolo a.C. (source-wiki-it:span:0084), mentre il Parco del Colosseo indica che solo dalla fine del VII secolo a.C., dopo la bonifica della valle, iniziò a prendere forma il Foro Romano (source-9f55250ac9e6db3b:span:0031); Wikipedia colloca il drenaggio e la pavimentazione in tufo verso il 600 a.C. a opera di Tarquinio Prisco (source-wiki-it:span:0014).",
+      "Foro Romano: Sulla fine dell'uso monumentale del Foro: Wikipedia data al 608 la Colonna di Foca come ultimo monumento eretto nei Fori (source-wiki-it:span:0056), mentre il Parco del Colosseo la indica come ultimo monumento realizzato nel Foro, eretta nel 608 d.C. in onore dell'imperatore bizantino Foca (source-9f55250ac9e6db3b:span:0034).",
+      "Pantheon: La data della trasformazione in chiesa è indicata come 609 sia da cultura.gov.it sia da Wikipedia; Wikipedia menziona anche il 608 come anno della donazione da parte di Foca a papa Bonifacio IV.",
+      "Pantheon: Il diametro della cupola è indicato come 43,30 metri da cultura.gov.it; Wikipedia cita il diametro della cupola di San Pietro come 42,52 m e quello di Santa Sofia come 31,24 m, senza ripetere il valore del Pantheon nello stesso passaggio.",
+      "Pantheon: cultura.gov.it riporta una tariffa di ingresso di 7 euro con riduzione a 2 euro per i giovani tra i 18 e i 25 anni, mentre un altro passaggio dello stesso publisher indica un aumento da 5,00 € a 7,00 € a decorrere dal 1° luglio 2026.",
+      "Piazza Navona: La leggenda della presunta rivalità tra Bernini e Borromini (benda sul Nilo, mano del Rio della Plata) è dichiarata infondata dalla stessa fonte, che la data come credenza popolare errata.",
+      "Castel Sant'Angelo: La data di costruzione del Ponte Elio è indicata come 134 d.C. nella fonte archive.org, mentre la fonte wikimedia cita il ponte come 'appositamente costruito' senza fornire la data di inaugurazione.",
+      "cappella Sistina: La datazione della costruzione è indicata come \"tra il 1475 e il 1481 circa\" (source-wiki-it:span:0002), mentre il progetto architettonico è datato al 1473 e l'avvio dei lavori al 1477 (source-wiki-it:span:0010, source-wiki-it:span:0017).",
+      "cappella Sistina: Il numero dei restauri completi della Cappella Sistina è indicato come \"terzo restauro completo\" (source-264734d2ebcbc664:span:0015), mentre source-wiki-it:span:0073 parla genericamente di \"un certo numero di restauri\" con i più recenti tra il 1980 e il 1994.",
+      "basilica di San Pietro: La capienza della basilica è indicata in 60 000 fedeli, ma la stessa fonte segnala che secondo altre fonti è di 20 000."
+    ]
+  },
+  "issues": [
+    {
+      "kind": "FACTUAL",
+      "severity": "minor",
+      "origin": "NEW",
+      "paragraphId": "p01",
+      "quote": "Termina en el Vaticano, ante la Cappella Sistina y la basílica de San Pedro",
+      "explanation": "La Cappella Sistina está en el interior del Palazzo Apostolico y forma parte del recorrido de los Museos Vaticanos; no es un punto exterior ante el que se pueda parar. La frase puede hacer esperar una parada visible o accesible, aunque la parada Q2943 matiza después que sus obras son interiores y no se están viendo.",
+      "evidence": [
+        {
+          "passageId": "Q2943:p-53ba81d23a05b29a3172",
+          "quote": "La Cappella Sistina ... è la principale cappella del Palazzo Apostolico ... inserita nel percorso dei Musei Vaticani."
+        }
+      ]
+    }
+  ],
+  "originalResponseSha256": "6a300e7020368c571e9babbbd716e49d10fa83bbd26ccfc8865d067a1f16f2e5"
+}

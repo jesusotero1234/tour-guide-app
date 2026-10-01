@@ -22,6 +22,21 @@ describe('catalogue city names', () => {
     expect(citySearchAliases('   ')).toEqual([]);
   });
 
+  it.each([
+    ['París', 'FR', 'it', 'Parigi'], ['Lyon', 'FR', 'en', 'Lyon'], ['Marsella', 'FR', 'it', 'Marsiglia'],
+    ['Toulouse', 'FR', 'it', 'Tolosa'], ['Lille', 'FR', 'de', 'Lille'], ['Niza', 'FR', 'de', 'Nizza'],
+    ['Burdeos', 'FR', 'en', 'Bordeaux'], ['Estrasburgo', 'FR', 'de', 'Straßburg'], ['Nantes', 'FR', 'fr', 'Nantes'],
+    ['Montpellier', 'FR', 'it', 'Montpellier'], ['Berlín', 'DE', 'it', 'Berlino'], ['Múnich', 'DE', 'de', 'München'],
+    ['Hamburgo', 'DE', 'fr', 'Hambourg'], ['Fráncfort del Meno', 'DE', 'en', 'Frankfurt'], ['Colonia', 'DE', 'de', 'Köln'],
+    ['Düsseldorf', 'DE', 'en', 'Düsseldorf'], ['Dresde', 'DE', 'it', 'Dresda'], ['Núremberg', 'DE', 'de', 'Nürnberg'],
+    ['Stuttgart', 'DE', 'it', 'Stoccarda'], ['Leipzig', 'DE', 'it', 'Lipsia'], ['Roma', 'IT', 'en', 'Rome'],
+    ['Florencia', 'IT', 'it', 'Firenze'], ['Venecia', 'IT', 'fr', 'Venise'], ['Nápoles', 'IT', 'de', 'Neapel'],
+    ['Milán', 'IT', 'de', 'Mailand'], ['Turín', 'IT', 'it', 'Torino'], ['Palermo', 'IT', 'fr', 'Palermo'],
+    ['Bolonia', 'IT', 'fr', 'Bologne'], ['Pisa', 'IT', 'de', 'Pisa'], ['Verona', 'IT', 'en', 'Verona'],
+  ] as const)('localizes %s for %s in %s', (city, countryCode, language, expected) => {
+    expect(getCityNames(city, countryCode)?.[language]).toBe(expected);
+  });
+
   it('adds country-scoped aliases to catalogue search and keeps filters and pagination', async () => {
     const findMany = jest.fn().mockResolvedValue([]);
     const repository = new PostgresTourRepository({ tour: { findMany } } as unknown as PrismaClient);

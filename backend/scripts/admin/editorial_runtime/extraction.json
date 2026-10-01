@@ -1,0 +1,23 @@
+{
+  "policy": "byte-identical extraction before reliability changes",
+  "origins": {
+    "client.py": {
+      "original": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tour-quality-sandbox/sevilla-end-to-end-20260912/editorial/client.py",
+      "sha256": "8c0ac547fb1dc61773828c5f2742d6f3000cba29fa5e1b81a40933f850f30087"
+    },
+    "contracts.py": {
+      "original": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tour-quality-sandbox/sevilla-end-to-end-20260912/editorial/contracts.py",
+      "sha256": "74f61cd8897236c6674067f9aae569f8b46fad5bc92b362a24c6efc80c422dff"
+    },
+    "prompts.py": {
+      "original": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tour-quality-sandbox/sevilla-end-to-end-20260912/editorial/prompts.py",
+      "sha256": "e55a68e220ee13d2987744eeb6445a2193a702dcdbc3a1073771d7b79d186def"
+    },
+    "run.py": {
+      "original": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tour-quality-sandbox/sevilla-end-to-end-20260912/editorial/run.py",
+      "sha256": "f30480475a76da3acf5a8bcfb878d01d2eb18d5fbb4ac57df667ebf62b384717"
+    }
+  },
+  "styleOriginal": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tour-quality-sandbox/quality-enough-pilot-20260912/frozen/style-example.json",
+  "styleSha256": "df8bad57a04591b2758671cb9fc9ca3a47a12689946ac2ae22990259c1221028"
+}

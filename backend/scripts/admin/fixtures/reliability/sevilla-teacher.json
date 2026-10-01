@@ -1,0 +1,536 @@
+{
+  "case": {
+    "pieces": [
+      {
+        "pieceId": "tour-welcome",
+        "name": "Bienvenida",
+        "nextPieceId": "Q498261",
+        "text": "Bienvenido a Sevilla. En este recorrido vamos a escuchar una ciudad hecha de capas. No es una idea abstracta: el Real Alcázar es un conjunto palaciego amurallado construido en etapas distintas, y su recinto más antiguo, en la zona del actual Patio de Banderas, se sitúa entre mediados y finales del siglo XI. Más tarde, los almohades reformaron el espacio y unieron sus murallas hasta el cauce del Guadalquivir. Sobre esas bases se estableció después la corte cristiana.\n\nEsa mezcla de tiempos seguirá apareciendo. La ruta incluye la Casa de Pilatos, la Giralda, la Catedral de Santa María de la Sede, la plaza de toros de la Real Maestranza, el Palacio de San Telmo y la plaza de España. La Giralda, por ejemplo, tiene una parte inferior que corresponde al alminar de la antigua mezquita y una parte superior añadida en el siglo XVI para albergar el cuerpo de campanas. La catedral se levantó en el solar que quedó tras la demolición de la antigua mezquita aljama, de la que se conservan el alminar y el patio de los Naranjos. Y la plaza de España fue la construcción más grande de la Exposición Iberoamericana de 1929.\n\nNo hace falta memorizar fechas. La idea es ir viendo cómo un mismo lugar puede cambiar de uso, de dueño y de forma. Empezamos donde empieza esta suma de recintos y etapas: nuestra primera parada son los Reales Alcázares.",
+        "paragraphs": [
+          {
+            "paragraphId": "p01",
+            "text": "Bienvenido a Sevilla. En este recorrido vamos a escuchar una ciudad hecha de capas. No es una idea abstracta: el Real Alcázar es un conjunto palaciego amurallado construido en etapas distintas, y su recinto más antiguo, en la zona del actual Patio de Banderas, se sitúa entre mediados y finales del siglo XI. Más tarde, los almohades reformaron el espacio y unieron sus murallas hasta el cauce del Guadalquivir. Sobre esas bases se estableció después la corte cristiana."
+          },
+          {
+            "paragraphId": "p02",
+            "text": "Esa mezcla de tiempos seguirá apareciendo. La ruta incluye la Casa de Pilatos, la Giralda, la Catedral de Santa María de la Sede, la plaza de toros de la Real Maestranza, el Palacio de San Telmo y la plaza de España. La Giralda, por ejemplo, tiene una parte inferior que corresponde al alminar de la antigua mezquita y una parte superior añadida en el siglo XVI para albergar el cuerpo de campanas. La catedral se levantó en el solar que quedó tras la demolición de la antigua mezquita aljama, de la que se conservan el alminar y el patio de los Naranjos. Y la plaza de España fue la construcción más grande de la Exposición Iberoamericana de 1929."
+          },
+          {
+            "paragraphId": "p03",
+            "text": "No hace falta memorizar fechas. La idea es ir viendo cómo un mismo lugar puede cambiar de uso, de dueño y de forma. Empezamos donde empieza esta suma de recintos y etapas: nuestra primera parada son los Reales Alcázares."
+          }
+        ],
+        "targetWords": 180,
+        "targetNarrationSeconds": 90,
+        "evidence": {
+          "passages": [
+            {
+              "passageId": "Q498261:p-28a06115d459296390e6",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "El Real Alcázar de Sevilla es un conjunto palaciego amurallado construido en diferentes etapas históricas."
+            },
+            {
+              "passageId": "Q498261:p-84f86b2d8ddc751ce3ed",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "El conjunto del alcázar es fruto de la unión de varios recintos palatinos de épocas diversas; el recinto más antiguo es de mediados o finales del siglo XI, correspondiente a la zona del actual Patio de Banderas."
+            },
+            {
+              "passageId": "Q498261:p-5fd0ba1d2d0853b42368",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "En el siglo XII los almohades reformaron por completo todo este espacio. Crearon un sistema de murallas que unía el Alcázar con otras fortificaciones hasta el cauce del Guadalquivir."
+            },
+            {
+              "passageId": "Q498261:p-c2d6890f07cea56d3acd",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "La corte cristiana se estableció durante décadas en los antiguos espacios almohades.​ Entre 1252 y 1260 Alfonso X aprovechó el espacio del edificio principal para construir el palacio Gótico.​ Los demás edificios del Alcázar almohade fueron reformados para su posterior uso.​ En el siglo XIV, tras el terremoto sucedido en 1356, que afectó gravemente a la ciudad, el rey Pedro I ordenó el derribo de tres edificios palatinos almohades para construir el palacio Mudéjar, que se adosó al palacio Gótico alfonsí.​ La construcción comenzó el mismo año 1356​ y, según las inscripciones del propio Alcázar, finalizó en 1364.​\nEn 1366 comenzó la primera guerra civil castellana que enfrentó a Pedro I con "
+            },
+            {
+              "passageId": "Q498261:p-8f01496159934a86f730",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "Se conoce que este parto real fue asistido por una partera sevillana conocida como \"la Herradera\" y que contó con la presencia, como testigos designados por el rey Fernando, de Garci Téllez, Alonso Melgarejo, Fernando de Abrejo y Juan de Pineda, según marcaban las normas castellanas, para disipar la menor duda de que el hijo era de la reina.​ En 1526 se celebró en el Alcázar la boda de Carlos I con su prima Isabel de Portugal.​\nEntre 1729 y 1733 se estableció la Corte en el Alcázar de Sevilla."
+            },
+            {
+              "passageId": "Q498261:p-ce6e7c994b490d9acab2",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "En reformas posteriores se añadieron elementos renacentistas, manieristas​ y barrocos.​\nEs la residencia de los miembros de la familia real española cuando visitan Sevilla.​ Esto hace que sea el palacio real en uso más antiguo de Europa.​ La Unesco lo declaró Patrimonio de la Humanidad, junto a la catedral de Sevilla y al Archivo de Indias, en el año 1987.​\nEn 2019 recibió 2 067 016 visitantes, lo que lo convierte en uno de los monumentos más visitados de España.​"
+            },
+            {
+              "passageId": "Q498261:p-c5a8e3e9a270169568b3",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "En un edificio del patio de Banderas, el número 8, se han encontrado restos del palacio del rey poeta Al-Mutamid.​\nEn la puerta de la muralla que da acceso al patio de Banderas desde la plaza del Triunfo, hay un retablo, con la Inmaculada Concepción, del último tercio del siglo XVII.​\nEn el patio de Banderas se encuentra la puerta del Apeadero del Alcázar."
+            },
+            {
+              "passageId": "Q498261:p-0301a2d0bf6e3422f6ba",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "La única puerta de acceso conocida a esta alcazaba se encontraba a la altura del número 16 del patio de Banderas y de la que se conserva la jamba norte de un arco.​ Es un acceso en recodo, y otro directo, ambos a su vez comunicados."
+            },
+            {
+              "passageId": "Q498261:p-b1720a86a6c3cd297ed7",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "La zona se abandonó a partir del s.III d."
+            },
+            {
+              "passageId": "Q498261:p-287662f7da3cf295689d",
+              "sourceId": "Q498261:source-wiki-es",
+              "quote": "C. pasó a tener un uso religioso cristiano."
+            },
+            {
+              "passageId": "Q1046529:p-f5ee50fdb40541ec46fe",
+              "sourceId": "Q1046529:source-wiki-es",
+              "quote": "La Casa de Pilatos es un palacio situado en la ciudad española de Sevilla, en Andalucía, perteneciente a la Casa de Medinaceli. En él se integran diversos estilos arquitectónicos, como el renacentista italiano y el mudéjar español, fruto de las diferentes intervenciones acontecidas, desde el último tercio del siglo XV hasta el siglo XVII.​"
+            },
+            {
+              "passageId": "Q1046529:p-2b2ac45b940b6a7bc329",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "El Palacio de los Adelantados Mayores de Andalucía, más conocido como Casa de Pilatos, fue construido esencialmente entre los **siglos XV y XVI**."
+            },
+            {
+              "passageId": "Q1046529:p-3361ab572566d347b058",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "Declarado **Monumento Nacional desde 1931**, este palacio, prototipo de la arquitectura civil sevillana, es una delicada **síntesis de la tradición gótico-mudéjar** de fines de la Edad Media y de las innovaciones del **Renacimiento**."
+            },
+            {
+              "passageId": "Q1046529:p-84e65f5d7d9bba2df2b4",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "Considerado como el **paradigma de palacio sevillano** se ha ido construyendo y transfomando entre los siglos XV y XIX. Así, combina armoniosamente elementos **góticos, mudéjares, renacentistas y románticos**."
+            },
+            {
+              "passageId": "Q1046529:p-3f9eb8627b92dcbf909f",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "**La historia de esta casa**, en su doble sentido de edificio y de linaje, **discurre casi en paralelo con el auge y la decadencia de la ciudad de Sevilla**, en cuya historia, familia y palacio tuvieron un papel protagonista."
+            },
+            {
+              "passageId": "Q1046529:p-a1902599dc9e71fcf943",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "Una nieta del **marqués de Santillana**, un devoto **peregrino**, dos **virreyes de Nápoles** y un pintor, **maestro de Velázquez**, son algunos de los artífices que han modelado este palacio."
+            },
+            {
+              "passageId": "Q1046529:p-fa7567f862f18bd2e39b",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "Cuartel general del ejército inglés en Jerusalén, residencia de un mafioso, palacio de los duques que se burlan de don Quijote, **esta Casa ha servido de escenario a numerosas películas**."
+            },
+            {
+              "passageId": "Q1046529:p-37bb78ac288a816be8ca",
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "quote": "**Situado en pleno centro histórico de Sevilla,** en la frontera de la judería medieval y apenas a diez minutos a pie del núcleo Alcázar-Catedral, la Casa de Pilatos, el **conjunto residencial privado mayor y más suntuoso de la ciudad**, es un lugar privilegiado, único en Sevilla, para la **celebración de pequeños y grandes actos privados**. El palacio ofrece también la posibilidad de organizar **visitas privadas**, una vez cerradas las puertas al público, para conocerlo en exclusiva en grupos reducidos acompañados por un historiador del arte."
+            },
+            {
+              "passageId": "Q1046529:p-2148deab698fe5aae2d9",
+              "sourceId": "Q1046529:source-wiki-es",
+              "quote": "Descripción\nEl palacio, que ocupa una superficie de unos 10 000 metros cuadrados, está limitado al norte por la calle Imperial, al oeste con el Convento de San Leandro, al sur con la Plaza de Pilatos y al este con la Iglesia de San Esteban.​\nLas habitaciones inferiores se usaban en la época estival y se conocían como \"Palacio de Verano\" y las superiores en la época invernal y se conocían como \"Palacio de Invierno\".​"
+            },
+            {
+              "passageId": "Q1046529:p-8cb0eace6771f9f68f18",
+              "sourceId": "Q1046529:source-wiki-es",
+              "quote": "El patio principal, excluyendo sus galerías, tiene 324 metros cuadrados.​\nEl patio original, de los tiempos de Pedro Enríquez y Catalina de Ribera, era ya mudéjar pero tenía forma de U y estaba abierto hacia el actual Salón del Pretorio."
+            },
+            {
+              "passageId": "Q1046529:p-29623b60a32d09ae1b41",
+              "sourceId": "Q1046529:source-wiki-es",
+              "quote": "Por este motivo, en 1779 el pasadizo en altura que comunicaba el palacio con la Iglesia de San Esteban se cambió de lugar, del lado izquierdo al lado derecho de la puerta del templo.​\nEn 1810, durante la invasión francesa de Sevilla, se alojaron en el palacio numerosos soldados que causaron importantes daños."
+            },
+            {
+              "passageId": "Q834479:p-4f1225e5217dc0bd701c",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "La Giralda es la torre campanario de la catedral de Santa María de la Sede de la ciudad de Sevilla, en Andalucía (España)."
+            },
+            {
+              "passageId": "Q834479:p-ae6bc9c2f51317e587ea",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "La parte inferior de la torre corresponde al alminar de la antigua mezquita de la ciudad, de finales del siglo XII, levantado en época almohade, mientras que la parte superior es una construcción sobrepuesta en el siglo XVI, en época cristiana, para albergar el cuerpo de campanas."
+            },
+            {
+              "passageId": "Q834479:p-4bd06d592bb53b39bd63",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "En su cúspide se halla una estatua de bronce que representa el Triunfo de la Fe y que tiene función de veleta, el Giraldillo.​ Mide 94,69 m metros de altura.​\nEl 29 de diciembre de 1928 la catedral, incluida la Giralda, fue declarada Monumento Nacional.​ En 1987 el conjunto del Alcázar, el Archivo de Indias y la catedral, con su torre, fueron considerados Patrimonio de la Humanidad.​\nExisten réplicas y edificios inspirados en ella en España y en varios países del mundo.​"
+            },
+            {
+              "passageId": "Q834479:p-9ed41bef26025e897e01",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "La torre de la Giralda tiene 35 rampas​ lo suficientemente anchas como para permitir que el encargado de convocar a la población a la oración pudiera subir por ellas montado a caballo, aunque en ningún momento se ha podido constatar documentalmente que se usara para ello, y un tramo final de 17 escalones para acceder al nivel de campanas que es la zona actualmente visitable de la misma."
+            },
+            {
+              "passageId": "Q834479:p-e2d905fe78858542e4a1",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "Campanas\nLa Giralda cuenta con un total de 24 campanas, de las que 18 son de volteo y 6 de badajo; hay que añadir la campana del reloj en un piso superior, haciendo un total de 25 campanas."
+            },
+            {
+              "passageId": "Q834479:p-013fb738cc7f0b19adf5",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "Con posterioridad, el 14 de abril de 1182, Abu Yaacub Yúsuf pronunció la primera jutba en la mezquita.​\nEl 26 de mayo de 1184 Abu Yaacub Yúsuf mandó construir el alminar cuando llegó a Sevilla de paso para su campaña contra Santarém."
+            },
+            {
+              "passageId": "Q834479:p-2ee03f5ad1d8080dd1b1",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "El asedio duró hasta julio de 1184 y el 29 de julio  resultó muerto en combate.​​ El nuevo califa, Abu Yúsuf al-Mansur (conocido entre sus súbditos como Muminin) fue proclamado el 10 de agosto de 1184, en el Alcázar de Sevilla.​\nLa construcción del alminar debió comenzar en otoño de 1184.​ El que inició su construcción fue Ahmad Ben Baso."
+            },
+            {
+              "passageId": "Q834479:p-b896161a350fac19b71c",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "En 1248, el rey castellano-leonés, Fernando III, conquistó la ciudad de Sevilla y la mezquita fue consagrada como templo cristiano."
+            },
+            {
+              "passageId": "Q834479:p-603f121ace035d53c9c8",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "Algo habitual cuando los cristianos conquistaban poblaciones musulmanas era añadir campanas a los alminares, así como retirar el yâmûr para colocar una cruz y, bajo ella, una veleta, aunque este yâmûr no se retiró.​\nNo obstante, el 24 de agosto de 1356 se produjo un terremoto que trajo consigo el derrumbamiento de las cuatro bolas.​ No existe demasiada información sobre el aspecto de la torre entre este acontecimiento y el siglo XV.​ Al parecer, esta estructura fue sustituida por una espadaña con una campana y, en algún momento posterior, la torre se coronó con una cruz.​\nEn 2008 la investigadora Begoña Alonso Ruiz descubrió el plano más antiguo que se conserva de la catedral de Sevilla, en "
+            },
+            {
+              "passageId": "Q834479:p-171ecf4259dab61889e1",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "La obra, una alegoría de la Fe, fue realizada por Bartolomé Morel y colocada el 13 de agosto de 1568.​ Originalmente, la palabra \"Giralda\" hacía referencia a esta escultura y como tal aparece mencionada en El viaje entretenido (1603) de Agustín de Rojas Villandrando o en El Quijote (1605) de Miguel de Cervantes, que residió en la ciudad desde 1588."
+            },
+            {
+              "passageId": "Q834479:p-a9a46aa8df034b05e4ae",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "La Giralda se utilizaba como elemento de iluminación de la ciudad para la celebración de determinados acontecimientos tanto de carácter religioso, elección de un papa, canonización de un santo o la entrada de un nuevo arzobispo en la ciudad; en otras ocasiones eran celebraciones de carácter civil, como matrimonio de un rey, o nacimiento de un príncipe; y también en algunos casos por haber conseguido alguna victoria militar."
+            },
+            {
+              "passageId": "Q834479:p-62e24fc8126103351d50",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "En una de estas habitaciones nació la monja Bárbara de Santo Domingo, conocida como Hija de la Giralda, que se hizo célebre por sus visiones místicas.​\nGranero."
+            },
+            {
+              "passageId": "Q834479:p-cd1259d75971298e7395",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "Precedentes estilísticos\nLa construcción de la Giralda se basó en el alminar de la mezquita Kutubia de Marrakech (Marruecos), también construido en el siglo XII, considerado con sus setenta y nueve metros de altura, una obra maestra del arte magrebí, consta de una estructura muy similar a la torre sevillana, sigue la forma más típica de los alminares de la escuela hispanomarroquí, con un cuerpo principal de forma ortoédrica sobre el que se sitúa otro mucho más reducido, a modo de remate."
+            },
+            {
+              "passageId": "Q834479:p-28497b8326892bbb24c1",
+              "sourceId": "Q834479:source-wiki-es",
+              "quote": "Polonia\nEn Varsovia, Polonia, la torre del Palacio de la Cultura y de la Ciencia está inspirada en la Giralda.​"
+            },
+            {
+              "passageId": "Q231606:p-6af969e81aa51eb8f45a",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La Santa, Metropolitana y Patriarcal Iglesia Catedral de Santa María de la Sede y de la Asunción de Sevilla; más conocida como catedral de Sevilla, es una iglesia catedral de culto cristiano católico, sede de la archidiócesis de Sevilla."
+            },
+            {
+              "passageId": "Q231606:p-ecc28c6e6b163f61cfbf",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "Su estructura es de arquitectura gótica, con añadidos renacentistas."
+            },
+            {
+              "passageId": "Q231606:p-fbb6bcc55b7abd1b331c",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La Unesco la declaró en 1987, junto al Real Alcázar y el Archivo de Indias, Patrimonio de la Humanidad​ y, el 25 de julio de 2010, Bien de Valor Universal Excepcional.​​ En 1988 el Libro Guinness de los Récords certificó que era la catedral con mayor superficie del mundo.​​​ En 2017 recibió 1 934 373 visitantes, siendo así el quinto monumento más visitado de España,​ y en 2025 superó los dos millones trescientas mil visitas.​\nSegún la tradición, la construcción se inició en 1401, aunque no existe constancia documental del comienzo de los trabajos hasta 1433."
+            },
+            {
+              "passageId": "Q231606:p-cb884969bf72d2f785ab",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La edificación se realizó en el solar que quedó tras la demolición de la antigua mezquita aljama de Sevilla,​ ya en mal estado después de servir durante más de ciento cincuenta años como catedral cristiana."
+            },
+            {
+              "passageId": "Q231606:p-8ef1051126e544bb6324",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "De la antigua mezquita se conservan el alminar (la Giralda) y el patio (patio de los Naranjos).​ Uno de los primeros maestros de obras fue el maestre Carlín (Charles Galter), procedente de Normandía (Francia), que había trabajado previamente en otras grandes catedrales góticas europeas y llegó a España, según se cree, huyendo de la guerra de los Cien Años."
+            },
+            {
+              "passageId": "Q231606:p-ca5345cbe9f45c4a3ce1",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "El 10 de octubre de 1506 se procedió a la colocación de la piedra postrera en la parte más alta del cimborrio, con lo que simbólicamente la catedral quedó finalizada, aunque siguieron efectuándose trabajos de forma ininterrumpida a lo largo de los siglos, tanto para la decoración interior, como para añadir nuevas dependencias o consolidar y restaurar los desperfectos ocasionados por el paso del tiempo, o circunstancias extraordinarias, entre las que cabe destacar el terremoto de Lisboa de 1755 que produjo únicamente daños menores a pesar de su intensidad.​ En estas obras intervinieron los arquitectos Diego de Riaño, Martín de Gainza y Asensio de Maeda."
+            },
+            {
+              "passageId": "Q231606:p-36a646461258e6873a88",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La festividad de la Virgen de los Reyes es el 15 de agosto.​ El templo acoge los restos mortales de Cristóbal Colón y de tres de los seis reyes castellanos de la casa de Borgoña: Fernando III el Santo, su hijo Alfonso X el Sabio, y Pedro I el Cruel.​"
+            },
+            {
+              "passageId": "Q231606:p-1e6956f757e85d25a9af",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "Periodo almohade (1172-1248)\nDurante la administración musulmana, el califa almohade Abu Yacub Jusuf ordenó la construcción de una gran mezquita en Sevilla en los terrenos que actualmente ocupa la catedral.​\nLos trabajos se prolongaron entre abril de 1172 y marzo de 1198, aunque se inauguró el 30 de abril de 1182."
+            },
+            {
+              "passageId": "Q231606:p-9bd7f5d2eafd5f2b75a2",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La dirección de las obras fue encargada al prestigioso arquitecto de origen andalusí Ahmad Ben Baso, el mismo que edificó los palacios de la Buhayra en Sevilla, el cual construyó un hermoso edificio de planta rectangular de 113 x 135 m y con una superficie de más 15 000 m².​ Poseía 17 naves adornadas con arcos de herradura y un amplio patio, el sahn que aún se conserva con el nombre de patio de los Naranjos."
+            },
+            {
+              "passageId": "Q231606:p-81ff9b3f394d17f4f687",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "Los cristianos utilizaron durante más de ciento cincuenta años el edificio musulmán."
+            },
+            {
+              "passageId": "Q231606:p-7132721817e55a5b39aa",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "El 28 de diciembre de 1511, cuatro años después de la consagración del templo, falló uno de los enormes pilares y se produjo un derrumbe que afectó al cimborrio que cubría el crucero, todo al parecer causado por el peso excesivo de la estructura."
+            },
+            {
+              "passageId": "Q231606:p-abbad08acb2960b80a9e",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La Giralda es la torre y el campanario de la catedral de Sevilla."
+            },
+            {
+              "passageId": "Q231606:p-9a0b3ad4aef3c26a1ef4",
+              "sourceId": "Q231606:source-wiki-es",
+              "quote": "La sacristía mayor de la catedral de Sevilla es una construcción renacentista que fue realizada en el siglo XVI según proyecto del arquitecto Diego de Riaño, con rica ornamentación plateresca y soluciones técnicas novedosas para su época.​ Consta de una planta de cruz griega de brazos cortos."
+            },
+            {
+              "passageId": "Q2274061:p-cf30e6a7165166a63076",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "La plaza de toros de la Maestranza se encuentra en el barrio del Arenal de Sevilla, Andalucía, España. Fue construida entre los siglos XVIII y XIX. Es propiedad de la Real Maestranza de Caballería de Sevilla."
+            },
+            {
+              "passageId": "Q2274061:p-f59b4187c83ee8c5789a",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "En 1707 consta que existía una plaza de toros cuadrada en el Arenal de Sevilla, en la que los maestrantes practicaban la tauromaquia.​ Por Real Cédula de Felipe V del 2 de junio de 1730 recibió el título de real la Real Maestranza de Caballería de Sevilla.​ \nEn 1733 los maestros carpinteros Juan de Vera y Luis de Troya dictaminaron que la antigua plaza cuadrada se encontraba en un estado ruinoso y la desmontaron para realizar una circular en un lugar cercano.​ El lugar escogido fue el monte del Baratillo, que fue allanado a expensas de la maestranza."
+            },
+            {
+              "passageId": "Q2274061:p-6fb76454c900655301f1",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "La plaza tiene forma de polígono irregular de treinta lados.​\nEl edificio se estructura en un primer anillo alrededor del ruedo, que está constituido por las localidades de barrera y tendido y un segundo anillo en el que se encuentran las dependencias internas de la plaza (corrales, enfermería, etcétera), sobre las que se levantan las gradas cubiertas en una galería.​\nEl palco del Príncipe está reservado para la familia real.​\nEl interior del edificio alberga el Museo Taurino y la capilla de los Toreros.​\nJosé María de Cossío la consideró una de las mejores plazas de España por su arquitectura y tradición.​ Las corridas principales se celebran en la Feria de Abril y en la Feria de San "
+            },
+            {
+              "passageId": "Q2274061:p-c766c2f4a1764e2a61fc",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "La puerta principal es conocida como la puerta del Príncipe.​ Las edificaciones adosadas forman una manzana casi triangular delimitada por tres calles: paseo de Cristóbal Colón, calles Adriano y Antonia Díaz."
+            },
+            {
+              "passageId": "Q2274061:p-a9b4f071b3b5c1e640a9",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "La arquitectura de la plaza es de estilo tardo-barroco, característico de la segunda mitad del siglo XVIII."
+            },
+            {
+              "passageId": "Q2274061:p-6ccf8eb9e2ae1c5f3c5f",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "Fundación de Estudios Taurinos\nLa Maestranza aloja la Fundación de Estudios Taurinos, que aboga por un análisis riguroso y académico del toreo. Desde 1993 pública la Revista de Estudios Taurinos.​"
+            },
+            {
+              "passageId": "Q2274061:p-6db6c98346c3fcdde1d7",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "Bajo las gradas se construyeron almacenes y otras dependencias.​ \nEn 1794 se hizo cargo de las obras Gaspar San Martín, que no pudo proseguir con el círculo perfecto del coso debido a la construcción cercana de unas casas. Por ello, continuó realizando una construcción ligeramente elíptica.​ En 1799 la construcción se paralizó por falta de recursos, faltando por edificar de obra un tercio de la plaza.​\nEn 1876 se le encargó al arquitecto Juan Talavera de la Vega la finalización de la plaza."
+            },
+            {
+              "passageId": "Q2274061:p-eb59a53c5ab1c4378b6e",
+              "sourceId": "Q2274061:source-wiki-es",
+              "quote": "En 1946 Aurelio Gómez Millán adaptó la plaza al Reglamento Taurino de 1937 reformando las dependencias internas destinadas los toros y acondicionando dos accesos en los laterales.​\nEntre 2005 y 2011 la plaza fue restaurada por el arquitecto Antonio Carbajal Navarro.​\nEn esta plaza han toreado las grandes figuras del toreo, entre las que se encuentran: Antonio Reverte, José Gómez \"Gallito\", Pepín, Juan Belmonte, Ordóñez, Manuel Jiménez Moreno \"Chicuelo\", Pepe Luis Vázquez, Joaquín Rodríguez \"Cagancho\", Curro Romero, Carlos Arruza, César Girón, Manolete, José Tomás, Rafael Gómez \"El Gallo\" y Morante de la Puebla.​​En dicha plaza de toros se celebran corridas tanto en la Feria de Abril de "
+            },
+            {
+              "passageId": "Q2665595:p-4171b8a3b1a80d317bf3",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "El palacio de San Telmo es la sede de la Presidencia de la Junta de Andalucía. Se trata de un edificio barroco ubicado en Sevilla y construido entre los siglos XVII y XVIII para ser la sede de un colegio de marinos.​ En la segunda mitad del siglo XIX fue la residencia habitual del duque de Montpensier y de la infanta María Luisa. En el siglo XX sirvió como seminario diocesano."
+            },
+            {
+              "passageId": "Q2665595:p-2a056b7872be2919c0de",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "En 1607 comenzaron a realizarse gestiones para construir un colegio-seminario para enseñar a los niños huérfanos a ser pilotos y emplearlos así en los barcos que iban a las Indias."
+            },
+            {
+              "passageId": "Q2665595:p-ead7f1879b5ec7fa04f1",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "Este proyecto no se concretó hasta la Real Cédula de Carlos II del 17 de junio de 1681.​ \nSegún la Real Cédula, esta institución estaría a cargo de la Universidad de Mareantes."
+            },
+            {
+              "passageId": "Q2665595:p-690476ce875ae8d09ff9",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "comenzaron en 1682.​ El edificio siguió con la misma planta durante todo el proceso de construcción, que se prolongó durante el siglo XVIII.​ El colegio ya tenía algunos alumnos a finales del siglo XVII.​"
+            },
+            {
+              "passageId": "Q2665595:p-20987d2248ff0195f842",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "En 1691 consta que era director de las obras el albañil Antonio Rodríguez, que seguía trabajando en las estancias del edificio en 1696.​ En la década de 1690 realizaron labores de cantería los maestros Francisco Gómez Septier y Antonio Gil Gataón.​ En 1699 las obras se paralizaron por falta de fondos y no se reanudaron hasta 1722.​ En 1722 el arquitecto encargado de continuar el edificio fue Leonardo de Figueroa.​ Tras la muerte de este en 1730, su hijo Matías se encargó de finalizar los proyectos de su padre.​ Las obras se suspendieron de nuevo en 1736, no fueron reanudadas hasta 1775​ y se prolongaron un par de años más.​\nEn 1787 las obras fueron retomadas por Lucas Cintora, que se "
+            },
+            {
+              "passageId": "Q2665595:p-d04c641abd35e3961c07",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "El Gobierno les dijo que fijasen su residencia en Sevilla, para mantenerlos lejos de la capital y evitar que el duque de Montpensier se metiese en la política nacional.​​ El matrimonio se trasladó a Sevilla, y tras residir en el Alcázar, decidió mudarse al Palacio de San Telmo.​​ El 16 de junio de 1848, la venta del palacio al duque y a la infanta fue aprobada por el ministro de Comercio, Instrucción y Obras Públicas Juan Bravo Murillo y la reina.​\nEn 1849, el edificio había pasado a depender del Ministerio de Instrucción Pública."
+            },
+            {
+              "passageId": "Q2665595:p-517f8409f91bbcfd63d3",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "En 1893 la viuda, María Luisa Fernanda, donó al Ayuntamiento de Sevilla 18,5 hectáreas de los jardines para que fuesen un parque público. En la actualidad este es el parque de María Luisa."
+            },
+            {
+              "passageId": "Q2665595:p-c522d310e8c193890bc8",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "arquitectos bilbaínos José María de Basterra, que ya había trabajado para Ilundain en Orense, y Emiliano Amánn.​\nEn el proyecto de 1926 se llevó a cabo la reforma de las estancias interiores del edificio.​ En los años 20, el arquitecto Aníbal González intervino para delimitar el espacio de los jardines del palacio trazando la calle La Rábida y la curva de la calle Palos de la Frontera.​ La altura del muro de separación de los jardines fue aumentada en 1946 con un proyecto de Aurelio Gómez Millán.​ \nTras un aparatoso incendio en 1952, en el que se dañó la estructura y el patrimonio del archivo, el palacio fue restaurado por el arquitecto Antonio Illanes del Río. Esta fue la primera restauración que sufrió el inmueble.​ En 1962, el interior de la zona norte del edificio fue reformado en estilo moderno para crear nuevas estancias."
+            },
+            {
+              "passageId": "Q2665595:p-0a13317c6c313aa3532e",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "Galnares restauró las fachadas con un segundo proyecto, entre 1973 y 1974.​ En 1974, Antonio Delgado Roig creó varias estancias a base de parcelaciones en el entorno del patio de las Columnas.​\nLa Diputación Provincial de Sevilla intentó adquirir el edificio, sin éxito, en 1980.​ El 19 de septiembre de 1989 se firmó un convenio entre la Junta de Andalucía y el Arzobispado de Sevilla por el que se cedía el edificio para que fuese sede de la Presidencia. A cambio, la Junta de Andalucía construyó un nuevo seminario en la avenida de la Palmera.​ El inmueble fue restaurado durante tres años por Guillermo Vázquez Consuegra.​ El palacio comenzó a ser sede del Gobierno andaluz en 1992.​"
+            },
+            {
+              "passageId": "Q2665595:p-2a32190bb2b9a1b69414",
+              "sourceId": "Q2665595:source-wiki-es",
+              "quote": "Los principales elementos del palacio original conservados en la actualidad son la fachada principal, el patio principal y la capilla.​\nLa portada principal fue terminada en 1734, aunque la parte superior fue reformada entre 1775 y 1776.​ En el primer cuerpo se encuentra la entrada y, a ambos lados, columnas con diversos relieves."
+            },
+            {
+              "passageId": "Q956018:p-03dfeccd2e2e6aa1ea1f",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "La plaza de España es un conjunto arquitectónico enclavado en el parque de María Luisa de la ciudad de Sevilla (Andalucía, España)."
+            },
+            {
+              "passageId": "Q956018:p-8a65394ecc42d73a5195",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Se levantó entre 1914 y 1929 y es la construcción más grande de la Exposición Iberoamericana de 1929.​​\nEs una plaza semicircular con un gran edificio central que alberga un cuartel general del Ejército de Tierra, galerías con estructuras que albergan escaleras monumentales y, en los extremos, dos edificios con torres que albergan organismos estatales.​ Tiene una ría atravesada por cuatro puentes y una fuente central."
+            },
+            {
+              "passageId": "Q956018:p-af58caeb7012e6c4de5a",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Está decorada con 48 bancos dedicados a las provincias españolas,​ 52 medallones personajes ilustres de la historia de España​ y escudos heráldicos.​​\nEn una de las galerías está la entrada al Museo Histórico Militar de Sevilla.​\nEn julio de 2023 fue declarada bien de interés cultural.​"
+            },
+            {
+              "passageId": "Q956018:p-bfa9614ec4e4a11d1b21",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Fue proyectada por el arquitecto Aníbal González. Se levantó entre 1914 y 1929 y es la construcción más grande de la Exposición Iberoamericana de 1929.​​\nEs una plaza semicircular con un gran edificio central que alberga un cuartel general del Ejército de Tierra, galerías con estructuras que albergan escaleras monumentales y, en los extremos, dos edificios con torres que albergan organismos estatales.​ Tiene una ría atravesada por cuatro puentes y una fuente central."
+            },
+            {
+              "passageId": "Q956018:p-5f1ea507442511a395ea",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "En una reunión el 16 de mayo de 1913 el Comité Ejecutivo aprobó la ubicación definitiva de los pabellones de la Plaza de América y el traslado del Stadium a la huerta del Carmen, en terrenos de la Junta de Obras del Puerto, lo que implicaba aplazar su construcción.​ Donde iba a estar el Stadium se previó construir el Palacio de Actos y Fiestas en un espacio que se llamó Plaza de España.​\nEl 14 de julio de 1914 Aníbal González presentó el primer diseño de la Plaza de España."
+            },
+            {
+              "passageId": "Q956018:p-858411b57268cbdc0796",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "La restauración entre 2002 y 2010\nLa plaza de España fue objeto de un importante proceso de restauración que comenzó en 2002 y finalizó el 17 de octubre de 2010​ con una serie de actos conmemorativos para su reinauguración.​  \nLos elementos de cerámica fueron restaurados por el taller Plaza de España, creado por Patrimonio del Estado, el Servicio Andaluz de Empleo y el Ayuntamiento de Sevilla."
+            },
+            {
+              "passageId": "Q956018:p-fd776438aa75afeac4a6",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Sin embargo, el proyecto no prosperó.​\nEn 1927 se adaptó el edificio norte de la plaza para que pudiera servir como escuela industrial.​\nEn 1936 el general Gonzalo Queipo de Llano destinó toda la plaza a oficinas del Estado.​\nEn 1936 el cuartel de la II División Orgánica estaba en la Plaza de la Gavidia, en donde actualmente está la Consejería de Justicia de la Junta de Andalucía.​ En 1937 se trasladó el mando militar de la región al edificio central de la Plaza de España, por lo que pasó a ser conocido como la Capitanía General."
+            },
+            {
+              "passageId": "Q956018:p-9d5c15b67b23eb45124e",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Durante la guerra civil se habilitaron como prisiones el cine Jáuregui, el barco de vapor Cabo Carvoeiro, el cine Lumbreras, los sótanos de la Plaza de España​ y estancias de la Comandancia de Marina.​\nEn la actualidad en la Torre Sur se encuentra la Delegación del Gobierno de España en Andalucía​ y en la Torre Norte se encuentra la Subdelegación del Gobierno de España en Sevilla.​ En el edificio central, conocido como la Capitanía General, se encuentra el Cuartel General de la Fuerza Terrestre del Ejército de Tierra desde 2005.​\nEl 17 de diciembre de 1992 abrió al público el Museo Histórico Militar de Sevilla en esta plaza.​\nPor la parte de la plaza que da al Prado de San Sebastián se "
+            },
+            {
+              "passageId": "Q956018:p-62162cd51b04e27e32e7",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Tras añadir otros gastos de última hora, el coste rebasó los 17 millones de pesetas.​\nEl 9 de mayo de 1929 se realizó en la Plaza de España la ceremonia de inauguración de la Exposición Iberoamericana con la presencia de Alfonso XIII, Victoria Eugenia y demás autoridades.​"
+            },
+            {
+              "passageId": "Q956018:p-00f90f9593c8cc9d1553",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Tendría una gran explanada central y una ría semielíptica con ocho puentes."
+            },
+            {
+              "passageId": "Q956018:p-ecf7b4a281935183e230",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Los puentes quedaban reducidos a cuatro desde los ocho previstos."
+            },
+            {
+              "passageId": "Q956018:p-97daf0e33f530cee05c8",
+              "sourceId": "Q956018:source-wiki-es",
+              "quote": "Frente al Palacio de Actos y Fiestas, con fachada convexa, ideó una gran fuente monumental.​​ El proyecto fue aprobado por el Comité Ejecutivo el 31 de julio de 1914.​\nEl ingeniero francés Jean-Claude Nicolas Forestier, que colaboró en el diseño del parque de María Luisa, rechazaba la construcción de la ría por ser Sevilla una ciudad con escasez de agua.​"
+            }
+          ],
+          "sources": [
+            {
+              "sourceId": "Q498261:source-wiki-es",
+              "title": "Real Alcázar de Sevilla",
+              "url": "https://es.wikipedia.org/wiki/Real_Alc%C3%A1zar_de_Sevilla",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q1046529:source-f23286d1f063d47c",
+              "title": "Casa de Pilatos - Fundación Casa Ducal de Medinaceli",
+              "url": "https://www.fundacionmedinaceli.org/monumentos/pilatos/",
+              "sourceLanguage": "es-es"
+            },
+            {
+              "sourceId": "Q1046529:source-wiki-es",
+              "title": "Casa de Pilatos (Sevilla)",
+              "url": "https://es.wikipedia.org/wiki/Casa_de_Pilatos_(Sevilla)",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q834479:source-wiki-es",
+              "title": "Giralda",
+              "url": "https://es.wikipedia.org/wiki/Giralda",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q231606:source-wiki-es",
+              "title": "Catedral de Sevilla",
+              "url": "https://es.wikipedia.org/wiki/Catedral_de_Sevilla",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q2274061:source-wiki-es",
+              "title": "Plaza de toros de Sevilla",
+              "url": "https://es.wikipedia.org/wiki/Plaza_de_toros_de_Sevilla",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q2665595:source-wiki-es",
+              "title": "Palacio de San Telmo",
+              "url": "https://es.wikipedia.org/wiki/Palacio_de_San_Telmo",
+              "sourceLanguage": "es"
+            },
+            {
+              "sourceId": "Q956018:source-wiki-es",
+              "title": "Plaza de España (Sevilla)",
+              "url": "https://es.wikipedia.org/wiki/Plaza_de_Espa%C3%B1a_(Sevilla)",
+              "sourceLanguage": "es"
+            }
+          ],
+          "limits": [
+            "Reales Alcázares: Solo hay un publisher disponible (wikimedia), por lo que ninguna proposición se marca como debatable.",
+            "Reales Alcázares: Varios spans están truncados (p. ej. cortes de frase en dataciones y nombres), lo que limita la precisión de algunas afirmaciones.",
+            "Reales Alcázares: No se incluyen proposiciones sobre los tapices, la pintura o la arqueología prehistórica por no ser centrales a los roles priorizados.",
+            "Casa de Pilatos: No se incluyó evidencia del span source-f23286d1f063d47c:span:0002 por tratarse de un aviso de cookies sin contenido factual sobre la parada.",
+            "Casa de Pilatos: Las proposiciones sobre artífices y usos cinematográficos se marcan como directas por apoyarse en un único publisher.",
+            "Giralda: Solo hay un publisher disponible (wikimedia), por lo que ninguna proposición se marca como debatable.",
+            "Giralda: No se incluyen afirmaciones sobre la decoración pictórica rojiza del siglo XVI ni sobre el concurso de maestros mayores de 1556 por falta de spans contiguos suficientes para una proposición atómica sólida.",
+            "Catedral de Santa María de la Sede de Sevilla: Solo hay un publisher disponible (wikimedia), por lo que no se emiten proposiciones debatables ni corroboraciones independientes.",
+            "Catedral de Santa María de la Sede de Sevilla: Se omitieron datos de visitantes, cifras de récords y contenidos de referencias bibliográficas por no aportar a los roles requeridos o carecer de contexto suficiente.",
+            "plaza de toros de la Real Maestranza: La fuente realmaestranza.com solo aporta un span factual útil (span:0040) sobre la corporación; el resto de sus spans son menús, avisos de cookies o titulares sin contenido aprovechable.",
+            "plaza de toros de la Real Maestranza: No se han incluido afirmaciones sobre indultos, toreros o visitantes ilustres por no ser necesarias para cubrir los roles y evitar sobrecargar la cuota.",
+            "plaza de toros de la Real Maestranza: No se dispone de corroboración independiente para la mayoría de datos arquitectónicos y cronológicos, que quedan como proposiciones directas de wikimedia.",
+            "Palacio de San Telmo: Solo hay un publisher disponible (wikimedia), por lo que no se emiten proposiciones debatibles ni se corrobora con una segunda fuente independiente.",
+            "Palacio de San Telmo: No se incluyen afirmaciones sobre la visita del príncipe de Gales en 2012 ni sobre la segunda reforma de Guillermo Vázquez Consuegra entre 2005 y 2010 por no ser necesarias para cubrir los roles prioritarios.",
+            "plaza de España: Solo se dispone de un publisher (wikimedia), por lo que ninguna proposición puede marcarse como debatable; todas las proposiciones se emiten como direct.",
+            "plaza de España: Los spans 0088, 0093 y 0105 corresponden a bibliografía y enlaces externos, sin contenido factual aprovechable para la narrativa de la parada.",
+            "plaza de España: No se incluyen proposiciones sobre usos posteriores como conciertos o desfiles (span:0063, span:0061) por priorizar los cinco roles y el límite de proposiciones."
+          ],
+          "discrepancies": [
+            "Reales Alcázares: La fuente data el recinto más antiguo en el siglo XI y atribuye su construcción bien a Almutamid o bien a los almorávides, sin resolver la autoría.",
+            "Reales Alcázares: La datación por carbono 14 de la muralla (1090, +/- 40 años) se presenta como aproximación, no como fecha exacta.",
+            "Casa de Pilatos: La fuente wikimedia sitúa las intervenciones del palacio desde el último tercio del siglo XV hasta el siglo XVII, mientras que la fuente de la Fundación Medinaceli indica que se construyó esencialmente entre los siglos XV y XVI y que se transformó entre los siglos XV y XIX.",
+            "Giralda: El span 0066 señala que no se ha podido constatar documentalmente que las rampas se usaran para subir a caballo, pese a que su anchura lo permitía.",
+            "Catedral de Santa María de la Sede de Sevilla: La fecha de inicio de la construcción varía según la fuente: la tradición señala 1401, no hay constancia documental hasta 1433 y otras secciones indican que las obras se iniciaron en 1434.",
+            "Catedral de Santa María de la Sede de Sevilla: La fecha de colocación de la piedra postrera aparece como 10 de octubre de 1506 en un span y como 6 de octubre de 1506 en otro.",
+            "plaza de toros de la Real Maestranza: La fuente wikimedia sitúa la construcción de la plaza entre los siglos XVIII y XIX, mientras que el detalle de las campañas constructivas muestra paralizaciones y finalización escalonada (1766-1784, 1799, 1876), lo que matiza la idea de un único periodo continuo.",
+            "Palacio de San Telmo: El span 0001 sitúa la construcción entre los siglos XVII y XVIII, mientras que los spans 0009 y 0012 detallan el inicio en 1682 y la terminación del edificio original en 1796.",
+            "plaza de España: El número de puentes de la ría varía según la fuente: el diseño inicial de 1914 preveía ocho puentes (span:0018), mientras que el proyecto definitivo y la descripción actual reducen la cifra a cuatro (span:0028, span:0003, span:0042).",
+            "plaza de España: El número de medallones aparece como 52 en la descripción general (span:0004), mientras que span:0054 menciona 'buena parte de los 48 medallones' realizados por Pedro Navia Campos."
+          ]
+        }
+      }
+    ]
+  },
+  "response": {
+    "pieces": [
+      {
+        "pieceId": "tour-welcome",
+        "decision": "KEEP",
+        "memory": "Sevilla se leerá como una ciudad de capas; el primer caso es el Real Alcázar, conjunto amurallado de etapas diversas cuyo recinto más antiguo está en el Patio de Banderas.",
+        "protect": [
+          {
+            "paragraphId": "p01",
+            "quote": "el Real Alcázar es un conjunto palaciego amurallado construido en etapas distintas",
+            "why": "Fija la tesis del recorrido y prepara la mirada sobre superposiciones."
+          },
+          {
+            "paragraphId": "p01",
+            "quote": "su recinto más antiguo, en la zona del actual Patio de Banderas, se sitúa entre mediados y finales del siglo XI",
+            "why": "Ancla la primera etapa histórica y un lugar concreto."
+          },
+          {
+            "paragraphId": "p02",
+            "quote": "La Giralda, por ejemplo, tiene una parte inferior que corresponde al alminar de la antigua mezquita y una parte superior añadida en el siglo XVI para albergar el cuerpo de campanas.",
+            "why": "Anticipa el patrón alminar/campanario que se repetirá."
+          },
+          {
+            "paragraphId": "p02",
+            "quote": "la plaza de España fue la construcción más grande de la Exposición Iberoamericana de 1929",
+            "why": "Da escala y cierre a la ruta."
+          }
+        ],
+        "changes": [],
+        "factualConcerns": []
+      }
+    ]
+  }
+}
