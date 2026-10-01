@@ -35,8 +35,10 @@ export function AudioPlayer({ audioUrl, title, compact = false, language = 'en',
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !tourId || !placeId) return;
-    const detach = attachAudioAnalytics(audio, { tour_id: tourId, place_id: placeId, language });
+    if (!audio || !tourId) return;
+    // The introduction is listened to inside the tour, but has no place UUID.
+    const detach = attachAudioAnalytics(audio, { tour_id: tourId, language,
+      ...(placeId ? { place_id: placeId } : { segment: 'introduction' }) });
     return detach;
   }, [tourId, placeId, language, audioUrl, attempt]);
 

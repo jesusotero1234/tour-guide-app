@@ -1,15 +1,45 @@
 nomuvia.com {
     header {
         Cache-Control "private, no-store"
-        X-Robots-Tag "noindex, nofollow"
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
     }
-    reverse_proxy 127.0.0.1:3000 {
-        header_up X-Pilot-Proxy-Token {$PILOT_PROXY_TOKEN}
-        header_up -Authorization
-        header_up -X-Middleware-Subrequest
-        header_up -X-API-Key
+    @statisticsScript {
+        path /statistics/script.js
+        method GET HEAD
+    }
+    handle @statisticsScript {
+        uri strip_prefix /statistics
+        header X-Robots-Tag "noindex, nofollow"
+        reverse_proxy 127.0.0.1:3002
+    }
+    @statisticsCollect {
+        path /statistics/api/send
+        method POST
+    }
+    handle @statisticsCollect {
+        uri strip_prefix /statistics
+        header X-Robots-Tag "noindex, nofollow"
+        request_body {
+            max_size 32KB
+        }
+        reverse_proxy 127.0.0.1:3002 {
+            header_up X-Real-IP {remote_host}
+            header_up -Cookie
+            header_up -Authorization
+        }
+    }
+    handle /statistics/* {
+        header X-Robots-Tag "noindex, nofollow"
+        respond 404
+    }
+    handle {
+        reverse_proxy 127.0.0.1:3000 {
+            header_up X-Pilot-Proxy-Token {$PILOT_PROXY_TOKEN}
+            header_up -Authorization
+            header_up -X-Middleware-Subrequest
+            header_up -X-API-Key
+        }
     }
 }
 www.nomuvia.com {

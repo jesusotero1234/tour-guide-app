@@ -1,0 +1,64 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const ts = require('../node_modules/typescript');
+const code = ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/analyticsSession.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
+const inventoryContext = { exports: {} };
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/seoInventory.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText, inventoryContext);
+let allowed = false, now = 10000000, writes = 0;
+const stored = new Map();
+const window = new EventTarget();
+const document = { referrer: 'https://www.google.es/search?q=secret+query' };
+const location = { hostname: 'nomuvia.com', pathname: '/es/madrid', search: '?token=secret&utm_campaign=madrid-pilot' };
+const storage = { getItem: key => stored.get(key), setItem: (key, value) => { stored.set(key, value); writes++; }, removeItem: key => stored.delete(key) };
+function load() {
+  const context = { exports: {}, window, document, location, sessionStorage: storage, Date: { now: () => now }, URL, URLSearchParams,
+    require: name => name === './seoInventory' ? inventoryContext.exports : ({ analyticsAllowed: () => allowed, CONSENT_EVENT: 'consent' }) };
+  vm.runInNewContext(code, context);
+  return context.exports;
+}
+let api = load();
+assert.equal(Object.keys(api.measurementAttribution()).length, 0);
+assert.equal(writes, 0, 'no writes before consent');
+allowed = true;
+let attribution = api.measurementAttribution();
+assert.equal(attribution.acquisition_source, 'google');
+assert.equal(attribution.acquisition_medium, 'organic');
+assert.equal(attribution.entry_page, '/es/madrid');
+assert.ok(!JSON.stringify([...stored]).includes('secret'), 'no arbitrary query or referrer stored');
+location.pathname = '/tours/5b393fef-f58b-5e42-861e-b3baafbb3a8a';
+location.search = '';
+document.referrer = 'https://nomuvia.com/es/madrid';
+api = load();
+assert.equal(api.measurementAttribution().acquisition_source, 'google', 'persist attribution after full navigation');
+const data = { tour_id: '5b393fef-f58b-5e42-861e-b3baafbb3a8a', seconds: 60 };
+assert.equal(api.recordMeasuredTourEvent('audio_listening', data), false);
+assert.equal(api.recordMeasuredTourEvent('audio_listening', data), false, 'listening alone does not imply a tour start');
+assert.equal(api.recordMeasuredTourEvent('tour_started', data), true, '120 seconds + tour start activates');
+assert.equal(api.recordMeasuredTourEvent('audio_listening', data), false, 'one activation per session');
+api = load();
+assert.equal(api.recordMeasuredTourEvent('audio_listening', data), false, 'dedup survives reload');
+allowed = false;
+window.dispatchEvent(new Event('consent'));
+assert.equal(stored.size, 0, 'revocation clears measurement session');
+assert.equal(api.recordMeasuredTourEvent('audio_listening', data), false);
+allowed = true;
+location.pathname = '/es/madrid';
+location.search = '?utm_source=hotel&utm_medium=qr&utm_campaign=madrid-pilot&email=secret';
+attribution = api.measurementAttribution();
+assert.equal(attribution.acquisition_source, 'hotel');
+assert.equal(attribution.acquisition_medium, 'qr');
+assert.ok(!JSON.stringify([...stored]).includes('secret'));
+now += 31 * 60 * 1000;
+location.search = '?utm_source=secret&utm_medium=secret&utm_campaign=secret';
+document.referrer = 'https://google.es.evil.example/search?q=secret';
+attribution = api.measurementAttribution();
+assert.equal(attribution.acquisition_source, 'referral', 'unknown referrer cannot masquerade as Google');
+assert.equal(attribution.acquisition_campaign, undefined);
+assert.ok(!JSON.stringify([...stored]).includes('secret'));
+for (const [path, expected] of [['/fr/sevilla', '/fr/sevilla'], ['/it/barcelona/rutas/barcelona-essenziale', '/it/barcelona/rutas/barcelona-essenziale'], ['/de/madrid/rutas/private-name-secret', 'other'], ['/es/not-a-published-city', 'other']]) {
+  now += 31 * 60 * 1000;
+  location.pathname = path;
+  assert.equal(api.measurementAttribution().entry_page, expected, 'only registered locale/city/route paths retained');
+}
+console.log('PASS: consent, channel allowlist, navigation, expiry, revocation and activation deduplication.');

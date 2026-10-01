@@ -1,0 +1,23 @@
+[Unit]
+Description=Nomuvia consent-based analytics (Umami)
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=nomuvia-analytics
+Group=nomuvia-analytics
+WorkingDirectory=/opt/nomuvia-umami/current
+EnvironmentFile=/etc/tour-guide/umami.env
+ExecStart=/opt/nomuvia-node/bin/node server.js
+Restart=on-failure
+RestartSec=5
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/nomuvia-umami/current/.next/cache
+MemoryMax=768M
+
+[Install]
+WantedBy=multi-user.target

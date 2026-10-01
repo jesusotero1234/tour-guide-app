@@ -1,4 +1,5 @@
 import { analyticsAllowed, CONSENT_EVENT } from './consent';
+import { measurementAttribution, recordMeasuredTourEvent } from './analyticsSession';
 
 export type AnalyticsData = Record<string, string | number | boolean>;
 
@@ -57,6 +58,7 @@ async function sendAnalytics(name?: string, data?: AnalyticsData): Promise<boole
   const website = script.getAttribute('data-website-id');
   const src = script.getAttribute('src');
   if (!website || !src) return false;
+  const attribution = measurementAttribution();
 
   let cache: string | undefined;
   try {
@@ -97,13 +99,17 @@ async function sendAnalytics(name?: string, data?: AnalyticsData): Promise<boole
           url: location.pathname,
           title: document.title,
           name,
-          data,
+          data: { ...data, ...attribution },
         },
       }),
     });
     if (!response.ok) return false;
     const parsed = await response.json();
-    return typeof parsed?.cache === 'string' && parsed.cache.length > 0 && parsed.disabled !== true;
+    const delivered = typeof parsed?.cache === 'string' && parsed.cache.length > 0 && parsed.disabled !== true;
+    if (delivered && recordMeasuredTourEvent(name, data)) {
+      void sendAnalytics('tour_activated', { tour_id: data!.tour_id, language: data?.language ?? '' });
+    }
+    return delivered;
   } catch {
     return false;
   } finally {

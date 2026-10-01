@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily retention for Nomuvia analytics
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 UTC
+RandomizedDelaySec=600
+Persistent=true
+Unit=nomuvia-umami-retention.service
+
+[Install]
+WantedBy=timers.target

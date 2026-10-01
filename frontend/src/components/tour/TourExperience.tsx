@@ -78,19 +78,23 @@ export function TourExperience({ tour: sourceTour }: { tour: Tour }) {
   useEffect(() => {
     if (started !== true) return;
     let sent = false;
+    let sending = false;
     const send = () => {
-      if (sent) return;
-      sent = true;
-      trackEvent('tour_started', { tour_id: tour.id, language: tour.language });
+      if (sent || sending || !analyticsAllowed()) return;
+      sending = true;
+      void trackEvent('tour_started', { tour_id: tour.id, language: tour.language }).then(delivered => {
+        sent = delivered;
+        sending = false;
+      });
     };
-    const script = document.getElementById('umami-analytics');
-    if (script) {
-      send();
-    } else {
-      const handler = () => send();
-      window.addEventListener('umami-ready', handler);
-      return () => window.removeEventListener('umami-ready', handler);
-    }
+    const consentChanged = () => { if (!analyticsAllowed()) sent = false; else send(); };
+    if (document.getElementById('umami-analytics')) send();
+    window.addEventListener('umami-ready', send);
+    window.addEventListener(CONSENT_EVENT, consentChanged);
+    return () => {
+      window.removeEventListener('umami-ready', send);
+      window.removeEventListener(CONSENT_EVENT, consentChanged);
+    };
   }, [started, tour.id, tour.language]);
   useEffect(() => {
     // Keep Next's own history fields; internal views need only one extra browser entry.

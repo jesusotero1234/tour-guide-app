@@ -11,12 +11,16 @@ document.visibilityState = 'visible';
 document.title = 'Tour';
 document.getElementById = () => configured ? {getAttribute: key => key === 'src' ? 'https://stats.example.org/script.js' : '12345678-1234-4234-8234-123456789abc'} : null;
 const navigator = {doNotTrack: null, language:'es'};
-const context = {exports:{}, window, document, navigator, location:{hostname:'tours.example.org',pathname:'/tours/test',search:'?token=secret'}, screen:{width:390,height:844},
+const context = {exports:{}, window, document, navigator, location:{hostname:'tours.example.org',pathname:'/tours/test',search:'?token=secret'}, screen:{width:390,height:844}, URLSearchParams,
   localStorage:{getItem:key=>key==='tour-privacy-v1'?consent:disabled}, performance:{now:()=>now}, URL, Event, AbortController, setTimeout, clearTimeout,
   fetch:async (url, options)=>{requests.push({url:String(url),options,payload:JSON.parse(options.body).payload}); return {ok:status===200,json:async()=>body};}};
 const consentContext = {...context, exports:{}};
 vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/consent.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,consentContext);
-context.require = () => consentContext.exports;
+const inventoryContext = {...context, exports:{}};
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/seoInventory.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,inventoryContext);
+const sessionContext = {...context, exports:{}, require: name => name === './seoInventory' ? inventoryContext.exports : consentContext.exports};
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/analyticsSession.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,sessionContext);
+context.require = name => name === './analyticsSession' ? sessionContext.exports : consentContext.exports;
 vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../src/lib/analytics.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,context);
 const {trackEvent,attachAudioAnalytics}=context.exports;
 const emit=(target,event)=>target.dispatchEvent(new Event(event));

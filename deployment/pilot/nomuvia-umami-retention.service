@@ -1,0 +1,12 @@
+[Unit]
+Description=Remove Nomuvia analytics older than 90 days
+After=postgresql.service
+
+[Service]
+Type=oneshot
+User=postgres
+ExecStart=/usr/bin/psql -X --set=ON_ERROR_STOP=1 --dbname=nomuvia_umami --file=/opt/nomuvia-umami/retention.sql
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
