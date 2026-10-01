@@ -4,7 +4,7 @@ import { createHash, randomUUID } from 'crypto';
 import { RawPoi } from '../../domain/poi/RawPoi';
 
 const DAY = 86400000;
-interface Entry { version: 1; cityKey: string; queryHash: string; fetchedAt: number; expiresAt: number; pois: RawPoi[] }
+interface Entry { version: 1; cityKey: string; queryHash: string; fetchedAt: number; expiresAt: number; pois: RawPoi[]; provenance?: Record<string, unknown> }
 export class OverpassQueryCache {
   private pending = new Map<string, Promise<RawPoi[]>>();
   private lastCleanup = -Infinity;
@@ -30,7 +30,7 @@ export class OverpassQueryCache {
       await fs.rename(temporary, join(this.directory, key + '.json'));
     } finally { await fs.unlink(temporary).catch(() => undefined); }
   }
-  async getOrFetch(cityKey: string, query: string, load: () => Promise<RawPoi[]>): Promise<RawPoi[]> {
+  async getOrFetch(cityKey: string, query: string, load: () => Promise<RawPoi[]>, metadata?: { onHit?: (entry: Entry) => void; provenance?: () => Record<string, unknown>; requirePersistence?: boolean }): Promise<RawPoi[]> {
     if (!cityKey.trim()) throw new Error('Missing cache city identity');
     const queryHash = createHash('sha256').update(query).digest('hex');
     const key = createHash('sha256').update(JSON.stringify([1, cityKey, queryHash])).digest('hex');
@@ -40,12 +40,16 @@ export class OverpassQueryCache {
       const entry = await this.read(key);
       if (entry && entry.cityKey === cityKey && entry.queryHash === queryHash && entry.expiresAt > this.now()) {
         console.log(`[OverpassCache] hit city=${cityKey} pois=${entry.pois.length}`);
+        metadata?.onHit?.(entry);
         return entry.pois;
       }
       const pois = await load(); // Failure preserves the previous entry and propagates.
       const fetchedAt = this.now();
-      await this.write(key, { version: 1, cityKey, queryHash, fetchedAt, expiresAt: fetchedAt + this.ttlMs, pois })
-        .catch(error => console.warn('[OverpassCache] Could not persist response:', error.message));
+      await this.write(key, { version: 1, cityKey, queryHash, fetchedAt, expiresAt: fetchedAt + this.ttlMs, pois, provenance: metadata?.provenance?.() })
+        .catch(error => {
+          if (metadata?.requirePersistence) throw error;
+          console.warn('[OverpassCache] Could not persist response:', error.message);
+        });
       return pois;
     })();
     this.pending.set(key, operation);

@@ -1,3 +1,4 @@
+import { sourceRecord, sourceHash } from './SourceAcquisition';
 import axios from 'axios';
 import { GeocodedCity } from '../../domain/geocoder/GeocoderTypes';
 import { RawPoi } from '../../domain/poi/RawPoi';
@@ -301,6 +302,7 @@ export async function fetchCanonicalWikidataPois(city: GeocodedCity, theme: Them
   const radiusKm = getCanonicalSearchRadiusKm(city);
   const query = buildCanonicalHistoryQuery(city, radiusKm);
 
+  const started = Date.now();
   try {
     const response = await axios.get<WikidataSparqlResponse>(WIKIDATA_SPARQL_ENDPOINT, {
       params: { query, format: 'json' },
@@ -311,11 +313,19 @@ export async function fetchCanonicalWikidataPois(city: GeocodedCity, theme: Them
       timeout: 20000,
     });
 
-    return (response.data.results?.bindings ?? [])
-      .map(canonicalBindingToRawPoi)
-      .filter((poi): poi is RawPoi => Boolean(poi));
+    if (!Array.isArray(response.data.results?.bindings)) throw new Error('Missing canonical bindings');
+    const pois = response.data.results.bindings.map(canonicalBindingToRawPoi).filter((poi): poi is RawPoi => Boolean(poi));
+    sourceRecord('canonical-wikidata', { status: pois.length ? 'complete_under_policy' : 'valid_empty', optional: true,
+      query, queryHash: sourceHash(query), city, endpoint: WIKIDATA_SPARQL_ENDPOINT, count: pois.length,
+      elapsedMs: Date.now() - started, httpStatus: response.status, exhaustive: false });
+    return pois;
   } catch (error) {
-    console.warn('[WikidataCanonicalPoiFetcher] Failed to fetch canonical history POIs:', error);
+    const failure = { status: 'unavailable', optional: true, query, queryHash: sourceHash(query), city,
+      endpoint: WIKIDATA_SPARQL_ENDPOINT, elapsedMs: Date.now() - started, exhaustive: false,
+      message: error instanceof Error ? error.message : String(error),
+      httpStatus: axios.isAxiosError(error) ? error.response?.status ?? null : null };
+    sourceRecord('canonical-wikidata', failure);
+    console.warn('[WikidataCanonicalPoiFetcher] Optional discovery unavailable:', failure.message);
     return [];
   }
 }

@@ -1,35 +1,18 @@
-import axios, { AxiosError } from 'axios';
+import { sourceRecord, sourceEvent, sourceHash } from './SourceAcquisition';
+import { requestOverpass, OverpassCoordinatorError } from './OverpassCoordinator';
 import { RawPoi } from '../../domain/poi/RawPoi';
 import { GeocodedCity } from '../../domain/geocoder/GeocoderTypes';
 import { Theme, THEME_TAG_MAP } from '../../domain/poi/themeTags';
 import { dedupeByWikidata } from '../../domain/poi/dedupePois';
 import { fetchCanonicalWikidataPois, mergeCanonicalWikidataPois } from './WikidataCanonicalPoiFetcher';
 import { overpassQueryCache } from './OverpassQueryCache';
+import { fetchStaticOsmPois } from './StaticOsmPoiFallback';
 
-const USER_AGENT = 'tour-guide-app/1.0 (contact: jesusoteo1234@gmail.com)';
-const OVERPASS_BASE = 'https://overpass-api.de/api/interpreter';
-const MIN_INTERVAL_MS = 3000;
-// Overpass emits elements in type order (node -> way -> relation). Iconic landmarks
-// are almost always ways/relations (geometries), while nodes are dominated by statues,
-// markers, and bus stops. A single shared cap lets the node flood truncate the query
-// before any relation is emitted, so we give areas (way/relation) their own generous
-// budget separate from nodes. See diagnose-shortlist.ts for the evidence.
+// Separate output limits preserve area landmarks when numerous nodes match.
 const AREA_FETCH_LIMIT = 120;
 const NODE_FETCH_LIMIT = 60;
 const PRIORITIZED_POI_TOTAL_LIMIT = 300;
-const MAX_FETCH_RETRIES = 3;
 const OVERPASS_QUERY_TIMEOUT_S = 60;
-
-let lastRequestTime = 0;
-
-async function enforceRateLimit(): Promise<void> {
-  const now = Date.now();
-  const elapsed = now - lastRequestTime;
-  if (elapsed < MIN_INTERVAL_MS) {
-    await new Promise(resolve => setTimeout(resolve, MIN_INTERVAL_MS - elapsed));
-  }
-  lastRequestTime = Date.now();
-}
 
 interface OverpassElement {
   type: 'node' | 'way' | 'relation';
@@ -63,7 +46,7 @@ function partitionFiltersByType(filters: string[]): { areaFilters: string[]; nod
  * statements, each with its own limit. This prevents the node flood from starving
  * way/relation landmarks (the iconic ones) out of the result set.
  */
-function buildQuery(city: GeocodedCity, theme: Theme, filters: string[] = THEME_TAG_MAP[theme].unionFilters, areaLimit = AREA_FETCH_LIMIT, nodeLimit = NODE_FETCH_LIMIT): string {
+export function buildQuery(city: GeocodedCity, theme: Theme, filters: string[] = THEME_TAG_MAP[theme].unionFilters, areaLimit = AREA_FETCH_LIMIT, nodeLimit = NODE_FETCH_LIMIT): string {
   const { minLat, maxLat, minLng, maxLng } = city.boundingBox;
   const bbox = `${minLat},${minLng},${maxLat},${maxLng}`;
   const { areaFilters, nodeFilters } = partitionFiltersByType(filters);
@@ -101,78 +84,47 @@ function isLowValueHistoryPoi(poi: RawPoi): boolean {
 async function fetchPoisForFilters(city: GeocodedCity, theme: Theme, filters: string[], areaLimit = AREA_FETCH_LIMIT, nodeLimit = NODE_FETCH_LIMIT): Promise<RawPoi[]> {
   const query = buildQuery(city, theme, filters, areaLimit, nodeLimit);
   const cityKey = city.wikidataId || `${city.osmType}:${city.osmId}`;
-
-  return overpassQueryCache.getOrFetch(cityKey, query, async () => {
-    for (let attempt = 0; attempt <= MAX_FETCH_RETRIES; attempt++) {
-      await enforceRateLimit();
-
+  const queryHash = sourceHash(query);
+  const groupIndex = THEME_TAG_MAP[theme].priorityGroups?.indexOf(filters) ?? -1;
+  const descriptor = { cityKey, city, theme, group: groupIndex < 0 ? 'general' : groupIndex, filters, query, queryHash, areaLimit, nodeLimit, exhaustive: false };
+  let provenance: Record<string, unknown> = {};
+  sourceRecord('query-' + queryHash, descriptor);
+  try {
+    return await overpassQueryCache.getOrFetch(cityKey, query, async () => {
       try {
-        const response = await axios.post<OverpassResponse>(OVERPASS_BASE, query, {
-          headers: {
-            'User-Agent': USER_AGENT,
-            'Content-Type': 'text/plain',
-          },
-          timeout: (OVERPASS_QUERY_TIMEOUT_S + 10) * 1000,
-        });
-
-        const elements = response.data?.elements;
-        if (!Array.isArray(elements)) {
-          throw new Error('Overpass response missing elements array');
-        }
-        if (response.data?.remark && response.data.remark.trim() !== '') {
-          throw new Error(`Overpass partial runtime failure: ${response.data.remark}`);
-        }
-
-        return elements
-          .map(elementToRawPoi)
-          .filter((p): p is RawPoi => p !== null);
-      } catch (err) {
-        const axiosErr = err as AxiosError;
-        const status = axiosErr.response?.status;
-        // 429 (rate limit), 504/502/503 (gateway/overload), and network errors are
-        // transient: a dropped group silently shrinks the candidate pool and changes
-        // results run-to-run, so retry with backoff before giving up.
-        const retriable = !axiosErr.response || status === 429 || status === 502 || status === 503 || status === 504;
-
-        if (retriable && attempt < MAX_FETCH_RETRIES) {
-          // On 429, respect Retry-After header if present; otherwise exponential backoff.
-          // Retry-After can be seconds (integer) or HTTP-date (RFC 7231).
-          let backoffMs = MIN_INTERVAL_MS * Math.pow(2, attempt);
-          let minBackoffMs = 0;
-          if (status === 429) {
-            const retryAfter = axiosErr.response?.headers?.['retry-after'];
-            if (retryAfter) {
-              const asSeconds = parseInt(retryAfter, 10);
-              if (!isNaN(asSeconds)) {
-                minBackoffMs = asSeconds * 1000;
-              } else {
-                const asDate = Date.parse(retryAfter);
-                if (!isNaN(asDate)) {
-                  minBackoffMs = Math.max(0, asDate - Date.now());
-                }
-              }
-              backoffMs = Math.max(backoffMs, minBackoffMs);
-            }
-          }
-          // Jitter (+0-20%) but never drop below Retry-After minimum
-          const jitter = backoffMs * (1.0 + Math.random() * 0.2);
-          const waitMs = Math.max(Math.round(jitter), minBackoffMs);
-          console.warn(`[OverpassPoiFetcher] ${status ?? 'network'} error; retrying in ${waitMs}ms (attempt ${attempt + 1}/${MAX_FETCH_RETRIES})`);
-          await new Promise(resolve => setTimeout(resolve, waitMs));
-          continue;
-        }
-
-        const reason = status ? `server error ${status}` : `network error ${axiosErr.message}`;
-        console.error(`[OverpassPoiFetcher] Giving up after ${attempt + 1} attempt(s): ${reason}`);
-        throw new Error(`Overpass acquisition failed after ${attempt + 1} attempt(s): ${reason}`);
+        const result = await requestOverpass({ cityKey, query, cacheDirectory: overpassQueryCache.directory, ttlMs: overpassQueryCache.ttlMs });
+        if (!Array.isArray(result.pois)) throw new Error('Coordinator success is missing POIs');
+        provenance = result.provenance ?? {};
+        sourceRecord('result-' + queryHash, { ...descriptor, ...provenance,
+          status: result.pois.length ? 'complete_under_policy' : 'valid_empty', cacheHit: result.cacheHit });
+        return result.pois;
+      } catch (error) {
+        const failure = error instanceof OverpassCoordinatorError ? error.result : null;
+        if (!failure || !['source_recovery_exhausted', 'provider_recovery_exhausted'].includes(failure.type ?? '')) throw error;
+        sourceEvent({ event: 'static_osm_fallback_started', ...descriptor, overpassFailure: failure });
+        const result = await fetchStaticOsmPois({ city, filters, areaLimit, nodeLimit, queryHash });
+        provenance = result.provenance;
+        sourceRecord('result-' + queryHash, { ...descriptor, ...provenance,
+          status: result.pois.length ? 'complete_under_policy' : 'valid_empty', cacheHit: false });
+        sourceEvent({ event: 'static_osm_fallback_completed', ...descriptor, ...provenance });
+        return result.pois;
       }
-    }
-
-    throw new Error('Overpass acquisition failed: exhausted retries');
-  });
+    }, { onHit: entry => sourceRecord('result-' + queryHash, { ...descriptor,
+      status: entry.pois.length ? 'complete_under_policy' : 'valid_empty', cacheHit: true,
+      fetchedAt: entry.fetchedAt, expiresAt: entry.expiresAt, poiCount: entry.pois.length,
+      provenance: entry.provenance ?? { status: 'legacy_cache_provider_not_recorded' } }), provenance: () => provenance });
+  } catch (error) {
+    const failure = error instanceof OverpassCoordinatorError ? error.result : {
+      coordinated: true, status: 'error', type: 'coordinator_unavailable',
+      message: error instanceof Error ? error.message : String(error),
+    };
+    sourceRecord('source-failure', { ...descriptor, ...failure });
+    sourceEvent({ event: 'acquisition_deferred_or_failed', ...descriptor, ...failure });
+    throw error;
+  }
 }
 
-function elementToRawPoi(el: OverpassElement): RawPoi | null {
+export function elementToRawPoi(el: OverpassElement): RawPoi | null {
   const tags = el.tags ?? {};
   const name = tags['name'] ?? '';
 
@@ -199,7 +151,35 @@ function elementToRawPoi(el: OverpassElement): RawPoi | null {
   };
 }
 
-export async function fetchPoisForTheme(city: GeocodedCity, theme: Theme): Promise<RawPoi[]> {
+function exactIdentityFilters(wikidataIds: string[]): string[] {
+  const ids = [...new Set(wikidataIds)].sort();
+  if (!ids.length) return [];
+  if (ids.some(id => !/^Q\d+$/u.test(id))) throw new Error('Invalid protected Wikidata identity');
+  const expression = `^(${ids.join('|')})$`;
+  return ['node', 'way', 'relation'].map(type => `${type}["wikidata"~"${expression}"]`);
+}
+
+function acquisitionPriority(poi: RawPoi, protectedIds: Set<string>): number {
+  const tags = poi.tags;
+  let score = protectedIds.has(tags.wikidata ?? '') ? 10_000 : 0;
+  if (tags.wikidata) score += 20;
+  if (tags.wikipedia) score += 18;
+  if (tags.wikidata && tags.wikipedia) score += 8;
+  if (tags.tourism === 'attraction') score += 12;
+  if (tags.tourism === 'museum') score += 6;
+  if (tags.heritage) score += 5;
+  if (tags.historic && ['castle', 'palace', 'manor', 'city_gate', 'citywalls', 'memorial', 'monument'].includes(tags.historic)) score += 12;
+  if (tags.building && ['cathedral', 'palace', 'castle', 'government', 'parliament', 'civic', 'public'].includes(tags.building)) score += 10;
+  if (tags.place === 'square') score += 5;
+  if (poi.osmType !== 'node') score += 2;
+  return score;
+}
+
+export async function fetchPoisForTheme(
+  city: GeocodedCity,
+  theme: Theme,
+  protectedWikidataIds: string[] = []
+): Promise<RawPoi[]> {
   const priorityGroups = THEME_TAG_MAP[theme].priorityGroups;
   if (!priorityGroups) {
     return fetchPoisForFilters(city, theme, THEME_TAG_MAP[theme].unionFilters);
@@ -210,27 +190,47 @@ export async function fetchPoisForTheme(city: GeocodedCity, theme: Theme): Promi
   // could never yield more than its first page — it only ever marked itself
   // exhausted. A single generous pass per group is equivalent but honest, and the
   // area/node split (see buildQuery) is what actually fixes landmark coverage.
+  const protectedIds = new Set(protectedWikidataIds);
+  const protectedFilters = exactIdentityFilters(protectedWikidataIds);
+  const groups = protectedFilters.length ? [protectedFilters, ...priorityGroups] : priorityGroups;
   const seen = new Set<string>();
   const merged: RawPoi[] = [];
+  const completedGroups: number[] = [];
 
-  for (let groupIndex = 0; groupIndex < priorityGroups.length; groupIndex++) {
-    if (merged.length >= PRIORITIZED_POI_TOTAL_LIMIT) break;
-
-    const pois = await fetchPoisForFilters(city, theme, priorityGroups[groupIndex]);
+  for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
+    let pois: RawPoi[];
+    try { pois = await fetchPoisForFilters(city, theme, groups[groupIndex]); }
+    catch (error) {
+      sourceRecord('overpass-manifest', { status: 'unavailable', required: true, city, theme,
+        plannedGroups: groups.length, completedGroups, failedGroup: groupIndex, exhaustive: false });
+      throw error;
+    }
+    completedGroups.push(groupIndex);
     for (const poi of pois) {
       if (theme === 'history' && isLowValueHistoryPoi(poi)) continue;
       const key = `${poi.osmType}:${poi.osmId}`;
       if (seen.has(key)) continue;
       seen.add(key);
       merged.push(poi);
-      if (merged.length >= PRIORITIZED_POI_TOTAL_LIMIT) break;
     }
   }
 
+  sourceRecord('overpass-manifest', { status: merged.length ? 'complete_under_policy' : 'valid_empty',
+    city, theme, required: true, plannedGroups: groups.length, completedGroups, selectorLimit: PRIORITIZED_POI_TOTAL_LIMIT,
+    selectedBeforeWikidataDedupe: merged.length, exhaustive: false,
+    stoppedAtSelectorLimit: merged.length >= PRIORITIZED_POI_TOTAL_LIMIT });
   // Collapse multi-element landmarks (same wikidata id) before they reach tiering,
   // so the same place cannot occupy two shortlist slots / two tour stops.
-  const deduped = dedupeByWikidata(merged);
-  const collapsed = merged.length - deduped.length;
+  const uniquePois = dedupeByWikidata(merged);
+  const deduped = uniquePois
+    .sort((left, right) => acquisitionPriority(right, protectedIds) - acquisitionPriority(left, protectedIds)
+      || left.osmType.localeCompare(right.osmType) || left.osmId - right.osmId)
+    .slice(0, PRIORITIZED_POI_TOTAL_LIMIT);
+  const missingProtected = [...protectedIds].filter(id => !deduped.some(poi => poi.tags.wikidata === id));
+  if (missingProtected.length) {
+    throw new Error(`protected_identity_missing_from_map: ${missingProtected.join(', ')}`);
+  }
+  const collapsed = merged.length - uniquePois.length;
   const canonicalPois = theme === 'history'
     ? await fetchCanonicalWikidataPois(city, theme)
     : [];
