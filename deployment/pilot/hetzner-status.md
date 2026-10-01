@@ -1,6 +1,14 @@
 # Servidor de la beta en Hetzner
 
-**Último ajuste de interfaz:** `20260919-brand-header-v2`, logo original en la cabecera.
+**Release actual:** `20260920-canonical-head`. Canonical en la cabecera HTML
+inicial y redirección permanente de la portada al catálogo. Detalle al final.
+
+**Ampliación SEO, 20 de septiembre:** `20260920-seo-catalog`, 55 páginas
+de ciudad y 66 versiones de tour en cinco idiomas; 122 URLs en el sitemap.
+Se conservan Search Console y Umami con consentimiento. Ver «Ampliación SEO»
+al final. Las entradas anteriores son históricas.
+
+**Ajuste de interfaz del 19:** `20260919-brand-header-v2`, logo original en la cabecera.
 Diseño base: `20260919-mobile-design`, catálogo visual móvil,
 ficha previa del paseo y reproductor actualizado. Publicado y comprobado sobre
 HTTPS el 19 de septiembre. Catálogo y audios sin cambios. Detalles y reversión:
@@ -235,3 +243,155 @@ La prueba de regresión verifica también un Host público sin puerto frente a u
 origen con puerto interno. Build y test de acceso superados. Navegador real contra
 HTTPS: / y /passes redirigen a https://nomuvia.com/tours con respuesta 200 y selector
 de idioma visible. Sin credenciales, / sigue respondiendo 401.
+
+## SEO y medición: 20 de septiembre de 2026
+
+Primera entrega SEO; ampliada en la sección siguiente.
+
+- Release activo: `/srv/tour-guide/releases/20260920-seo-madrid-v2`. Se clonó la
+  versión `20260919-brand-header-v2`, se aplicaron únicamente los archivos del
+  manifiesto `seo-deployment-manifest.json`, se compiló y se cambió el enlace
+  `current`. La segunda versión añade la medición de escucha de la introducción,
+  identificada como segmento sin inventar un UUID de lugar. El backend, la base
+  de tours y los audios no se modificaron.
+- Caddy permite indexar el catálogo y cinco páginas nuevas: `/es/madrid`,
+  `/en/madrid`, `/es/madrid/rutas/madrid-esencial`,
+  `/en/madrid/rutas/madrid-highlights` y
+  `/es/madrid/rutas/madrid-de-los-austrias`. `robots.txt` y `sitemap.xml`
+  están disponibles. El sitemap contiene seis URLs, excluye el reproductor y
+  elimina páginas/equivalencias cuando se retira un tour del catálogo admitido.
+- La URL determina el idioma del HTML y los metadatos. El contenido de las
+  paradas se entrega desde el servidor; mapa bajo demanda y reproducción
+  siguen usando los componentes existentes. Se verificaron audio real,
+  navegación móvil, canonical, hreflang, cabeceras y errores del backend.
+- `GOOGLE_SITE_VERIFICATION` está configurado en el entorno privado del
+  frontend con la etiqueta facilitada por el propietario. Se comprobó en el
+  HTML de la portada redirigida y de las páginas nuevas. El propietario ha
+  confirmado la verificación en Search Console y el envío del sitemap con
+  estado «Correcto»; no se ha confirmado indexación.
+- Umami 3.4.0 corre en `nomuvia-umami`, puerto local 3002, con base separada
+  `nomuvia_umami`. Solo se publican script y colector bajo `/statistics/`.
+  El panel sigue accesible por túnel SSH. La contraseña inicial se sustituyó.
+- Recogida sujeta a consentimiento y DNT; atribución por canales limitados,
+  sin búsquedas ni referente completo. GeoLite2 Country aporta solo país.
+  Grabación de sesiones y telemetría de Umami desactivadas. Retención de
+  90 días con eliminación diaria mediante `nomuvia-umami-retention.timer`.
+  El aviso de privacidad se actualizó en sus cinco traducciones y se
+  sincronizó con la copia local privada. Detalles en [UMAMI.md](../UMAMI.md).
+- Copias de configuración anteriores: `/root/nomuvia-before-seo-20260920/`.
+  Para volver al frontend anterior, restaurar su enlace de release y
+  reiniciar el servicio. Para desactivar estadísticas, retirar únicamente
+  `UMAMI_SCRIPT_URL` y `UMAMI_WEBSITE_ID` del entorno y reiniciar el frontend.
+  Conservar `GOOGLE_SITE_VERIFICATION`. No eliminar bases de datos.
+
+## Ampliación SEO: 11 ciudades y cinco idiomas
+
+Release activo: `/srv/tour-guide/releases/20260920-seo-catalog`, clonado de
+`20260920-seo-madrid-v2` y compilado de forma aislada antes de cambiar `current`.
+El manifiesto `seo-catalog-manifest.json` registra 18 archivos añadidos/modificados,
+los hashes anteriores y la retirada de dos páginas exclusivas de Madrid,
+sustituidas por rutas dinámicas que conservan sus URLs.
+
+- 55 páginas de ciudad, 66 páginas de tour y el catálogo: 122 URLs. Las once
+  rutas generales tienen es/en/fr/de/it; los once temáticos solo español.
+  Inventario revisado en `frontend/src/lib/seoInventory.ts`. Las publicaciones
+  futuras se incorporan deliberadamente; cambiar el contenido de un tour
+  existente se refleja en cada lectura, sin almacenar copias públicas obsoletas.
+- Canonical propio, idioma de URL, equivalencias recíprocas, contenido completo
+  de paradas en HTML inicial y enlaces de ciudad/tour. Sitemap y páginas vuelven
+  a comprobar la admisión pública. La etiqueta de Google sigue presente.
+- Pruebas locales: compilación, 121 páginas de ciudad/tour y 122 URLs del sitemap,
+  retirada de versiones, fallo del backend, controles de acceso y lectura,
+  cinco idiomas, navegación móvil, catálogo y reproductor. Persisten únicamente
+  los dos avisos previos de dependencias de hooks en `TourExperience`.
+- La publicación detectó respuestas 429 al leer dos veces el sitemap: la API
+  agrupaba todas las peticiones de Next en la dirección loopback con el valor
+  predeterminado de **100 por 900.000 ms**. En `/etc/tour-guide/backend.env`
+  se fijaron **`RATE_LIMIT=1200`** y **`RATE_LIMIT_WINDOW_MS=60000`**. Es un
+  presupuesto compartido del servicio, no un límite individual ni una prueba
+  de capacidad. Se reinició únicamente la API para aplicar este ajuste;
+  su código, base de tours y audios permanecen iguales.
+- Copia privada anterior del entorno: `/root/nomuvia-before-seo-catalog-backend.env`
+  (0600). Caddy, las credenciales, la configuración de Google y Umami permanecen
+  iguales. El ajuste de límite no amplía métodos ni permisos de acceso.
+- Para revertir las páginas, cambiar `current` a la release anterior y reiniciar
+  `nomuvia-frontend`. Si también se revierte el límite, restaurar esa copia de
+  `backend.env` y reiniciar `nomuvia-backend`; hacerlo restablece el límite que
+  bloqueaba el rastreo. No eliminar datos ni retirar la etiqueta de Google.
+
+El propietario había confirmado Search Console y el envío inicial del sitemap
+como «Correcto». La dirección del sitemap no cambia; no se ha confirmado aún su
+lectura posterior a esta ampliación ni la indexación de las páginas nuevas.
+
+Validación pública final: 122/122 URLs HTTPS con respuesta 200, títulos únicos,
+canonical, equivalencias recíprocas, etiqueta de Google y todas las transcripciones
+publicadas en HTML inicial. Navegador real en fr/de/it a 320, 390 y 1280 píxeles,
+mapas, audio de muestra y entrada/reproducción del tour italiano correctos.
+En las últimas 900 respuestas de API comprobadas después del ajuste: 896 respuestas
+200 y cuatro 206; ninguna 429/500/503. Servicios activos sin reinicios inesperados.
+Informe: `output/seo/catalog-expansion-verification.json`.
+
+## Selector de idioma compacto: 20 de septiembre
+
+Release `/srv/tour-guide/releases/20260920-language-menu`, basada en
+`20260920-seo-catalog`. El idioma actual aparece junto al logo; al tocarlo se
+abren enlaces de 48 px de alto a las traducciones existentes, con el idioma
+actual marcado. Cierra al elegir, tocar fuera, salir con Tab o pulsar Escape.
+Las rutas con un solo idioma muestran su nombre sin un desplegable vacío.
+Se mantienen los enlaces en HTML y el selector básico funciona sin JavaScript.
+
+Compilación local/remota y prueba SEO existente superadas. Comprobación en
+HTTPS real: cinco idiomas a 320, 390 y 1280 px, cabecera en una fila,
+navegación táctil y por teclado, cambio a la misma ciudad/tour, cierre y
+alternativa sin JavaScript. Informe `output/seo/language-selector-verification.json`
+y capturas `language-selector-mobile-{closed,open}.png` en esa misma carpeta.
+Solo cambian tres archivos del componente/estilo y la interacción del test
+existente. `language-menu-manifest.json` contiene hashes y release anterior.
+Reversión: restaurar el enlace `current` a `20260920-seo-catalog` y reiniciar
+`nomuvia-frontend`. No hubo cambios en API, catálogo, audios ni configuración.
+
+
+## Consolidación canónica: 20 de septiembre
+
+Search Console mostró `/tours` como duplicada, sin canónica declarada y con
+`https://nomuvia.com/` elegida por Google (último rastreo indicado: 13:59:39).
+La solicitud de indexación aparece enviada. La revisión pública encontró la
+canónica de `/tours` fuera del `<head>` inicial, también con User-Agent de
+Googlebot, y una redirección temporal 307 desde `/` al catálogo. Esto identifica
+señales mejorables; no prueba la causa exacta de la selección de Google.
+
+Release `/srv/tour-guide/releases/20260920-canonical-head`, copiada de la anterior
+y cambiando únicamente `frontend/next.config.mjs` y `frontend/src/middleware.ts`.
+Los metadatos se entregan en el `<head>` inicial para todos los agentes mediante
+`htmlLimitedBots: /.*/`; la portada usa 308 hacia `/tours`. La redirección de pases
+sigue siendo temporal. El coste es esperar los metadatos antes de entregar el
+HTML inicial, en lugar de transmitirlos después.
+
+Compilación local/remota y regresión SEO con navegador superadas: 121 páginas de
+ciudad/ruta, 122 URLs del sitemap, cinco idiomas, retirada, errores y acceso. Se
+añadió comprobación de canónica en cabecera y de redirecciones. Antes de activar,
+la release candidata se verificó en un puerto local con el entorno de producción.
+Se reinició únicamente `nomuvia-frontend`; API, Umami, datos y audios permanecen
+con su configuración anterior. Verificación HTTPS posterior del catálogo para
+navegador/Googlebot y de la redirección permanente correcta.
+
+Evidencia local: `output/seo/canonical-fix-20260920/`, incluidos manifiesto,
+pruebas y respuestas públicas. El manifiesto fija las huellas antes/después.
+Reversión: restaurar `current` a `20260920-language-menu` y reiniciar el frontend.
+Google todavía debe rastrear y reprocesar las señales; no se declara conseguida
+la indexación ni se ha enviado otra solicitud desde el agente.
+
+## Expansión europea: 22 de septiembre
+
+Release activa: `/srv/tour-guide/releases/20260922-europe-history`. Se añadieron
+150 tours históricos de 30 ciudades de Francia, Alemania e Italia en cinco
+idiomas. El catálogo contiene 216 tours y 1.653 paradas con audio; el sitemap
+contiene 422 URLs. Se amplió el inventario SEO y el diccionario de nombres de
+ciudad sin modificar los 66 tours anteriores.
+
+Importación transaccional con IDs deterministas y audios en un directorio propio.
+Antes del cambio se guardaron el dump y la release anterior en
+`/root/nomuvia-before-europe-20260922-attempt2`. Verificación pública: 150 fichas,
+150 rutas, 300 rangos de audio `206`, 15 reproducciones reales y 15 páginas
+móviles correctas. Servicios activos y sin avisos posteriores. Informe completo:
+`docs/tours/publicacion-europa-20260922.md`.
