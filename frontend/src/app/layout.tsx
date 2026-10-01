@@ -5,13 +5,17 @@ import { pilotEnabled } from '@/lib/pilotMode';
 import { cookies, headers } from 'next/headers';
 import { preferredLanguage } from '@/lib/browseCopy';
 import { PageLanguageProvider } from '@/components/layout/PageLanguage';
+import { isSeoLocale, SITE_URL } from '@/lib/seoCatalog';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Nomuvia",
   applicationName: "Nomuvia",
   description: "Discover cities at your own pace with multilingual audio walking tours.",
+  robots: { index: false, follow: true },
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
 export default async function RootLayout({
@@ -20,7 +24,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const [cookieStore, requestHeaders] = await Promise.all([cookies(), headers()]);
-  const language = preferredLanguage(cookieStore.get('tour-page-language')?.value, requestHeaders.get('accept-language') ?? '');
+  const urlLanguage = requestHeaders.get('x-nomuvia-page-language') ?? '';
+  const language = isSeoLocale(urlLanguage) ? urlLanguage : preferredLanguage(cookieStore.get('tour-page-language')?.value, requestHeaders.get('accept-language') ?? '');
   const umamiScriptUrl = process.env.UMAMI_SCRIPT_URL ?? '';
   const umamiWebsiteId = process.env.UMAMI_WEBSITE_ID ?? '';
   const isUuid = (value: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);

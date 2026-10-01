@@ -3,10 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ToursList } from '@/components/tours/ToursList';
-import { PageLanguageSelect } from '@/components/layout/PageLanguage';
+import { PageLanguageSelect, usePageLanguage } from '@/components/layout/PageLanguage';
+import { SEO_CITIES } from '@/lib/seoInventory';
+import { seoCopy } from '@/lib/seoCopy';
 import '@/components/tours/MobileTours.css';
 
 export default function ToursPage() {
+  const { language } = usePageLanguage();
+  const t = seoCopy(language);
   return (
     <div className="tour-entry bg-surface">
       <main className="mobile-tour-shell">
@@ -15,8 +19,13 @@ export default function ToursPage() {
           <PageLanguageSelect />
         </header>
         <ToursList />
+        <nav className="discovery-closing" aria-label={t.allCities}>
+          <h2>{t.allCities}</h2>
+          <div className="discovery-city-links">{SEO_CITIES.map(city => <Link key={city.slug} className="tour-card-link" href={`/${language}/${city.slug}`} lang={language}>{city.names[language]}</Link>)}</div>
+        </nav>
       </main>
       <style jsx global>{`
+        .discovery-city-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
         body:has(.tour-entry) > div.min-h-screen { min-height: 0; }
         body:has(.tour-entry) > footer { background: var(--surface); }
         body:has(.tour-entry) > footer > div { max-width: 28rem; }

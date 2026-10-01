@@ -14,8 +14,7 @@ export async function middleware(request: NextRequest) {
       destination.host = request.headers.get('host') || destination.host;
       destination.pathname = '/tours';
       destination.search = '';
-      // The public homepage is the catalog; make that canonical destination explicit.
-      return NextResponse.redirect(destination, request.nextUrl.pathname === '/' ? 308 : 307);
+      return NextResponse.redirect(destination);
     }
   }
   if (request.nextUrl.pathname === '/pilot/madrid-history' && process.env.ENABLE_NARRATIVE_PILOT !== 'true') {

@@ -1,0 +1,68 @@
+[
+  {
+    "url": "https://nomuvia.com/",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 308,
+    "xRobotsTag": null,
+    "location": "https://nomuvia.com/tours"
+  },
+  {
+    "url": "https://nomuvia.com/tours",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": null,
+    "canonical": "https://nomuvia.com/tours",
+    "canonicalInHead": true,
+    "indexable": true,
+    "googleVerificationPresent": true
+  },
+  {
+    "url": "https://nomuvia.com/tours",
+    "userAgent": "Mozilla/5.0",
+    "status": 200,
+    "xRobotsTag": null,
+    "canonical": "https://nomuvia.com/tours",
+    "canonicalInHead": true,
+    "indexable": true,
+    "googleVerificationPresent": true
+  },
+  {
+    "url": "https://nomuvia.com/es/madrid",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": null,
+    "canonical": "https://nomuvia.com/es/madrid",
+    "canonicalInHead": true,
+    "indexable": true,
+    "googleVerificationPresent": true
+  },
+  {
+    "url": "https://nomuvia.com/en/madrid/rutas/madrid-highlights",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": null,
+    "canonical": "https://nomuvia.com/en/madrid/rutas/madrid-highlights",
+    "canonicalInHead": true,
+    "indexable": true,
+    "googleVerificationPresent": true
+  },
+  {
+    "url": "https://nomuvia.com/robots.txt",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": null
+  },
+  {
+    "url": "https://nomuvia.com/sitemap.xml",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": null,
+    "urlCount": 122
+  },
+  {
+    "url": "https://nomuvia.com/tours/169a5a4c-3748-51e9-8aa6-5f96df1eb8f4",
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "status": 200,
+    "xRobotsTag": "noindex, follow"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "previousRelease": "/srv/tour-guide/releases/20260920-language-menu",
+  "release": "/srv/tour-guide/releases/20260920-canonical-head",
+  "files": [
+    {
+      "path": "frontend/next.config.mjs",
+      "beforeSha256": "20f46301c9876aeb2331cbf4bc8e77dae599b55616d85d5938c386321df34be6",
+      "afterSha256": "498bc7092a060f826cd08f7b43c20432b2171e95b622a482b5cc9a671ed0ccac"
+    },
+    {
+      "path": "frontend/src/middleware.ts",
+      "beforeSha256": "c5228fb7f437c82472aeb01421ab12806ce48531828ab193ad77ce9a2a754bd5",
+      "afterSha256": "250d347f22af2cb4124172f8ecd7e29f45f3be024036175524c1dd871671b56a"
+    }
+  ]
+}

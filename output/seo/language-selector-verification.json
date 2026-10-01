@@ -1,0 +1,29 @@
+{
+  "release": "20260920-language-menu",
+  "locales": [
+    "es",
+    "en",
+    "fr",
+    "de",
+    "it"
+  ],
+  "widths": [
+    320,
+    390,
+    1280
+  ],
+  "touchTargetsMinimumPx": 44,
+  "checks": [
+    "one-row header",
+    "tap to open",
+    "current-language marker",
+    "Escape and focus restoration",
+    "outside tap closes",
+    "keyboard navigation",
+    "city and route translation links",
+    "menu closed after navigation",
+    "single-language route without dropdown",
+    "native fallback without JavaScript"
+  ],
+  "browserErrors": []
+}

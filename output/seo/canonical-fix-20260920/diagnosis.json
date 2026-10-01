@@ -1,0 +1,31 @@
+{
+  "reportedByUser": {
+    "inspectedUrlAssumed": "https://nomuvia.com/tours",
+    "lastCrawlDisplayed": "20 sept 2026, 13:59:39",
+    "status": "Duplicada: el usuario no ha indicado ninguna versión canónica",
+    "userCanonical": null,
+    "googleCanonical": "https://nomuvia.com/",
+    "indexingRequested": true
+  },
+  "liveBefore": {
+    "homepageStatus": 307,
+    "homepageLocation": "https://nomuvia.com/tours",
+    "catalogStatus": 200,
+    "catalogCanonical": "https://nomuvia.com/tours",
+    "catalogCanonicalInHead": false,
+    "catalogIndexable": true,
+    "agentsChecked": [
+      "browser",
+      "Googlebot smartphone user agent"
+    ]
+  },
+  "changes": [
+    "Disable streaming metadata so canonical and robots are in the initial head for all user agents.",
+    "Use a permanent 308 homepage redirect to the catalog in pilot/public mode; pass redirects remain temporary."
+  ],
+  "validation": {
+    "localBuild": "passed",
+    "seoRegressionWithBrowser": "passed: 121 city/route pages, 122 sitemap URLs, 5 locales plus catalog canonical and redirect regressions"
+  },
+  "caveat": "The live checks reproduce a weak redirect signal and metadata outside the initial head; they do not prove which caused the earlier Google canonical selection. Google must recrawl and reprocess; indexing is not confirmed."
+}

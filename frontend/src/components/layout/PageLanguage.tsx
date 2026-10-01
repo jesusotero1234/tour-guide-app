@@ -3,13 +3,18 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { Language } from '@/types/api';
 import { browseCopy, languageNames, supportedLanguage } from '@/lib/browseCopy';
+import { usePathname } from 'next/navigation';
 
 const LanguageContext = createContext<{ language: Language; setLanguage: (language: Language) => void }>({
   language: 'en', setLanguage: () => {},
 });
 
 export function PageLanguageProvider({ initialLanguage, children }: { initialLanguage: Language; children: React.ReactNode }) {
-  const [language, updateLanguage] = useState(initialLanguage);
+  const [selectedLanguage, updateLanguage] = useState(initialLanguage);
+  const pathname = usePathname();
+  const explicitLocale = /^\/(es|en|fr|de|it)\//.exec(pathname)?.[1];
+  const language = (explicitLocale || selectedLanguage) as Language;
+  useEffect(() => { if (explicitLocale) updateLanguage(explicitLocale as Language); }, [explicitLocale]);
   useEffect(() => { document.documentElement.lang = language; }, [language]);
   const setLanguage = (value: Language) => {
     if (!supportedLanguage(value)) return;
