@@ -1,0 +1,223 @@
+[
+  {
+    "id": "a-habitual",
+    "audio": "/home/jesusotero/coding/tour-guide-app/output/voxcpm2-emocion-20260920/a-habitual/0d392d17-22f9-5839-a476-4d2ee61bdeac.mp3",
+    "seconds": 55.25,
+    "sampleRate": 48000,
+    "peak": 0.9784237742424011,
+    "provenanceVerified": true,
+    "wordEdits": 7,
+    "expectedWords": 129,
+    "wordErrorRate": 0.0543,
+    "recognizedText": "Mira hacia el palacio real. Para empezar esta historia hay que imaginar otro edificio en su lugar, el Alcázar, una residencia que llevaba siglos cambiando. En 1561, Felipe II instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas. Convertirlo en Residencia de la Corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo XVIII. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo. Establecer aquí la Corte. En las próximas calles, veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "expectedText": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando. En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo dieciocho. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 5.76,
+        "text": "Mira hacia el palacio real. Para empezar esta historia hay que imaginar otro edificio en su"
+      },
+      {
+        "start": 5.76,
+        "end": 13.92,
+        "text": "lugar, el Alcázar, una residencia que llevaba siglos cambiando. En 1561, Felipe II instaló"
+      },
+      {
+        "start": 13.92,
+        "end": 19.0,
+        "text": "la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió"
+      },
+      {
+        "start": 19.0,
+        "end": 25.86,
+        "text": "una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas. Convertirlo"
+      },
+      {
+        "start": 25.86,
+        "end": 32.46,
+        "text": "en Residencia de la Corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció"
+      },
+      {
+        "start": 32.46,
+        "end": 38.94,
+        "text": "en un incendio ya en el siglo XVIII. Por eso, la fachada que tienes delante pertenece a una etapa"
+      },
+      {
+        "start": 38.94,
+        "end": 45.22,
+        "text": "posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo."
+      },
+      {
+        "start": 45.22,
+        "end": 52.18,
+        "text": "Establecer aquí la Corte. En las próximas calles, veremos cómo distintas instituciones"
+      },
+      {
+        "start": 52.18,
+        "end": 54.22,
+        "text": "fueron dando forma a esa capital."
+      }
+    ],
+    "numericNormalization": {
+      "1561": "mil quinientos sesenta y uno",
+      "ii": "segundo",
+      "xviii": "dieciocho"
+    },
+    "normalizedWordEdits": 0,
+    "normalizedWordErrorRate": 0.0
+  },
+  {
+    "id": "b-neutra",
+    "audio": "/home/jesusotero/coding/tour-guide-app/output/voxcpm2-emocion-20260920/b-neutra/0d392d17-22f9-5839-a476-4d2ee61bdeac.mp3",
+    "seconds": 50.7,
+    "sampleRate": 48000,
+    "peak": 0.9825654029846191,
+    "provenanceVerified": true,
+    "wordEdits": 8,
+    "expectedWords": 129,
+    "wordErrorRate": 0.062,
+    "recognizedText": "mirar hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar. El Alcázar, una residencia que llevaba siglos cambiando. En 1561, Felipe II instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas. Convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo XVIII. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo, establecer aquí la corte. En las próximas calles, veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "expectedText": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando. En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo dieciocho. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 2.08,
+        "text": "mirar hacia el Palacio Real."
+      },
+      {
+        "start": 2.08,
+        "end": 5.92,
+        "text": "Para empezar esta historia hay que imaginar otro edificio en su lugar."
+      },
+      {
+        "start": 5.92,
+        "end": 10.040000000000001,
+        "text": "El Alcázar, una residencia que llevaba siglos cambiando."
+      },
+      {
+        "start": 10.040000000000001,
+        "end": 15.0,
+        "text": "En 1561, Felipe II instaló la corte en Madrid."
+      },
+      {
+        "start": 15.0,
+        "end": 20.16,
+        "text": "Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas."
+      },
+      {
+        "start": 20.16,
+        "end": 23.2,
+        "text": "Se adaptaron habitaciones y se decoraron salas."
+      },
+      {
+        "start": 23.2,
+        "end": 28.6,
+        "text": "Convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos."
+      },
+      {
+        "start": 28.6,
+        "end": 32.72,
+        "text": "El Alcázar desapareció en un incendio ya en el siglo XVIII."
+      },
+      {
+        "start": 32.72,
+        "end": 37.120000000000005,
+        "text": "Por eso, la fachada que tienes delante pertenece a una etapa posterior."
+      },
+      {
+        "start": 37.120000000000005,
+        "end": 40.52,
+        "text": "El lugar, sin embargo, permite empezar por la decisión que"
+      },
+      {
+        "start": 40.52,
+        "end": 44.24,
+        "text": "organiza nuestro paseo, establecer aquí la corte."
+      },
+      {
+        "start": 44.24,
+        "end": 48.040000000000006,
+        "text": "En las próximas calles, veremos cómo distintas instituciones"
+      },
+      {
+        "start": 48.040000000000006,
+        "end": 50.96,
+        "text": "fueron dando forma a esa capital."
+      }
+    ],
+    "numericNormalization": {
+      "1561": "mil quinientos sesenta y uno",
+      "ii": "segundo",
+      "xviii": "dieciocho"
+    },
+    "normalizedWordEdits": 1,
+    "normalizedWordErrorRate": 0.0078
+  },
+  {
+    "id": "c-expresiva",
+    "audio": "/home/jesusotero/coding/tour-guide-app/output/voxcpm2-emocion-20260920/c-expresiva/0d392d17-22f9-5839-a476-4d2ee61bdeac.mp3",
+    "seconds": 48.24,
+    "sampleRate": 48000,
+    "peak": 0.9859552383422852,
+    "provenanceVerified": true,
+    "wordEdits": 7,
+    "expectedWords": 129,
+    "wordErrorRate": 0.0543,
+    "recognizedText": "Mira hacia el palacio real. Para empezar esta historia hay que imaginar otro edificio en su lugar. El Alcázar, una residencia que llevaba siglos cambiando. En 1561, Felipe II instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas. Convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo XVIII. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo. Establecer aquí la corte. En las próximas calles, veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "expectedText": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando. En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo dieciocho. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 5.16,
+        "text": "Mira hacia el palacio real. Para empezar esta historia hay que imaginar otro edificio en su lugar."
+      },
+      {
+        "start": 5.16,
+        "end": 13.120000000000001,
+        "text": "El Alcázar, una residencia que llevaba siglos cambiando. En 1561, Felipe II instaló la corte en Madrid."
+      },
+      {
+        "start": 13.120000000000001,
+        "end": 18.48,
+        "text": "Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas."
+      },
+      {
+        "start": 18.48,
+        "end": 26.52,
+        "text": "Se adaptaron habitaciones y se decoraron salas. Convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos."
+      },
+      {
+        "start": 26.52,
+        "end": 30.64,
+        "text": "El Alcázar desapareció en un incendio ya en el siglo XVIII."
+      },
+      {
+        "start": 30.64,
+        "end": 34.92,
+        "text": "Por eso, la fachada que tienes delante pertenece a una etapa posterior."
+      },
+      {
+        "start": 34.92,
+        "end": 40.0,
+        "text": "El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo."
+      },
+      {
+        "start": 40.0,
+        "end": 41.8,
+        "text": "Establecer aquí la corte."
+      },
+      {
+        "start": 41.8,
+        "end": 47.4,
+        "text": "En las próximas calles, veremos cómo distintas instituciones fueron dando forma a esa capital."
+      }
+    ],
+    "numericNormalization": {
+      "1561": "mil quinientos sesenta y uno",
+      "ii": "segundo",
+      "xviii": "dieciocho"
+    },
+    "normalizedWordEdits": 0,
+    "normalizedWordErrorRate": 0.0
+  }
+]

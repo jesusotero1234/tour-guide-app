@@ -1,0 +1,21 @@
+{
+  "name": "Guía español — voz A",
+  "modelId": "openbmb/VoxCPM2",
+  "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+  "reference": "/home/jesusotero/coding/tour-guide-app/pods/voxcpm-pod/presets/guide-es-a.wav",
+  "referenceText": "Bienvenidos. Soy su guía local para este recorrido; hablaré con claridad, calma y un ritmo constante.",
+  "seed": 42,
+  "paragraphPauseMs": 750,
+  "sentencePauseMs": 220,
+  "singleNewlineParagraphs": true,
+  "textReplacements": {
+    "1248": "mil doscientos cuarenta y ocho",
+    "1249": "mil doscientos cuarenta y nueve",
+    "siglo XI": "siglo once",
+    "siglo XIV": "siglo catorce",
+    "Alfonso X": "Alfonso décimo",
+    "Pedro I": "Pedro primero"
+  },
+  "generationMode": "controllable-cloning",
+  "stylePrompt": "Neutral, matter-of-fact historical narration. Clear articulation at a natural, steady pace."
+}

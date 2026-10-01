@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-20",
+  "tour": "Madrid de los Austrias",
+  "stop": "Una corte que decide quedarse",
+  "language": "es",
+  "source": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tours-tematicos-20260917/madrid/master.json",
+  "sourceSha256": "804ce7ccd3d521a562d8f87679b40ff83689332637d8ceee6425606595fa235f",
+  "originalAudio": "/home/jesusotero/coding/tour-guide-app/backend/tmp/madrid-austrias-fechas-20260916/audio/0d392d17-22f9-5839-a476-4d2ee61bdeac.mp3",
+  "text": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando. En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo dieciocho. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+  "textSha256": "bbd8dcb9b20368aa100c78529910513cd864e52d7e0025179fb81bb93d70c60b",
+  "preset": "/home/jesusotero/coding/tour-guide-app/pods/voxcpm-pod/presets/guide-es-a.json",
+  "presetSha256": "67dbd1447aa4fa254f1954a363aa6073c3518523cfc6555f84949195764c0ff6",
+  "reference": "/home/jesusotero/coding/tour-guide-app/pods/voxcpm-pod/presets/guide-es-a.wav",
+  "referenceSha256": "475753e08fe9bb194991fd4d7b50b62a0d65d9e371b94db43a28567160ab65bb",
+  "variants": [
+    {
+      "id": "a-habitual",
+      "label": "Voz habitual",
+      "style": null,
+      "mode": "continuation"
+    },
+    {
+      "id": "b-neutra",
+      "label": "Control de estilo: neutro",
+      "style": "Neutral, matter-of-fact historical narration. Clear articulation at a natural, steady pace.",
+      "mode": "controllable-cloning"
+    },
+    {
+      "id": "c-expresiva",
+      "label": "Control de estilo: calidez y curiosidad",
+      "style": "Warm, curious and expressive historical storytelling. Convey fascination and a sense of discovery, with lively intonation and natural emphasis. Keep a natural, steady pace and clear articulation.",
+      "mode": "controllable-cloning"
+    }
+  ],
+  "purpose": "Comparación exploratoria. B frente a C compara instrucciones de estilo en el mismo modo; A frente a B también cambia el modo de clonación. Una sola generación por variante; la valoración de emoción requiere escucha."
+}

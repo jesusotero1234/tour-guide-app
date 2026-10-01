@@ -1,0 +1,49 @@
+{
+  "tour": "Madrid de los Austrias",
+  "stop": "Una corte que decide quedarse",
+  "language": "es",
+  "text": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando. En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas. Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos. El Alcázar desapareció en un incendio ya en el siglo dieciocho. Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+  "textSha256": "bbd8dcb9b20368aa100c78529910513cd864e52d7e0025179fb81bb93d70c60b",
+  "reference": "/home/jesusotero/coding/tour-guide-app/pods/voxcpm-pod/presets/guide-es-a.wav",
+  "referenceSha256": "475753e08fe9bb194991fd4d7b50b62a0d65d9e371b94db43a28567160ab65bb",
+  "preset": "/home/jesusotero/coding/tour-guide-app/pods/voxcpm-pod/presets/guide-es-a.json",
+  "presetSha256": "67dbd1447aa4fa254f1954a363aa6073c3518523cfc6555f84949195764c0ff6",
+  "source": "/home/jesusotero/coding/tour-guide-app/backend/tmp/tours-tematicos-20260917/madrid/master.json",
+  "sourceSha256": "804ce7ccd3d521a562d8f87679b40ff83689332637d8ceee6425606595fa235f",
+  "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+  "seed": 42,
+  "sentencePauseMs": 220,
+  "paragraphPauseMs": 750,
+  "segments": [
+    {
+      "id": "entrada",
+      "emotion": "Cercanía y curiosidad",
+      "text": "Mira hacia el Palacio Real. Para empezar esta historia hay que imaginar otro edificio en su lugar: el Alcázar, una residencia que llevaba siglos cambiando.",
+      "instruction": "Warm and inviting, with gentle curiosity and anticipation. Natural conversational pace and clear articulation."
+    },
+    {
+      "id": "corte",
+      "emotion": "Entusiasmo y asombro",
+      "text": "En mil quinientos sesenta y uno, Felipe segundo instaló la corte en Madrid. Aquella decisión dio al viejo palacio un papel central y abrió una larga etapa de reformas.",
+      "instruction": "Excited and enthusiastic, conveying delight and wonder. Lively rising intonation and emphatic delivery, without shouting."
+    },
+    {
+      "id": "reformas",
+      "emotion": "Explicación tranquila",
+      "text": "Se adaptaron habitaciones y se decoraron salas; convertirlo en residencia de la corte fue también un trabajo de arquitectos y artesanos.",
+      "instruction": "Calm and matter-of-fact, with a natural steady pace and clear articulation."
+    },
+    {
+      "id": "incendio",
+      "emotion": "Gravedad y tristeza",
+      "text": "El Alcázar desapareció en un incendio ya en el siglo dieciocho.",
+      "instruction": "Somber and saddened, speaking softly and slowly with a grave, reflective tone."
+    },
+    {
+      "id": "cierre",
+      "emotion": "Calma y cercanía",
+      "text": "Por eso, la fachada que tienes delante pertenece a una etapa posterior. El lugar, sin embargo, permite empezar por la decisión que organiza nuestro paseo: establecer aquí la corte. En las próximas calles veremos cómo distintas instituciones fueron dando forma a esa capital.",
+      "instruction": "Warm, reassuring and composed. Return to a calm conversational pace, with gentle curiosity about what comes next."
+    }
+  ]
+}

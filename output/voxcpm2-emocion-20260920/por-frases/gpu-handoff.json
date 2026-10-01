@@ -1,0 +1,35 @@
+[
+  {
+    "stage": "gpu_reserved",
+    "elapsedSeconds": 0.008
+  },
+  {
+    "stage": "qwen_stopped",
+    "elapsedSeconds": 1.043,
+    "stopSeconds": 1.029
+  },
+  {
+    "stage": "gpu_memory_after_stop",
+    "elapsedSeconds": 1.129,
+    "memoryMiB": "16303, 1154, 14824"
+  },
+  {
+    "stage": "tts_started",
+    "elapsedSeconds": 1.129,
+    "command": [
+      "pods/voxcpm-pod/.venv/bin/python",
+      "output/voxcpm2-emocion-20260920/por-frases/render.py"
+    ]
+  },
+  {
+    "stage": "tts_finished",
+    "elapsedSeconds": 54.069,
+    "exitCode": 0
+  },
+  {
+    "stage": "qwen_restored",
+    "elapsedSeconds": 78.258,
+    "exitCode": 0,
+    "restartSeconds": 24.178
+  }
+]
