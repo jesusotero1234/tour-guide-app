@@ -28,6 +28,9 @@ CapabilityBoundingSet=
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 IPAddressDeny=any
 IPAddressAllow=localhost
+# Reclaim page cache before the hard limit: at MemoryMax the kernel drops loopback
+# packets (TcpExtTCPRcvQDrop) and every PostgreSQL reply waits for retransmission.
+MemoryHigh=640M
 MemoryMax=768M
 TasksMax=128
 StandardOutput=append:/var/log/tour-pilot/backend.log

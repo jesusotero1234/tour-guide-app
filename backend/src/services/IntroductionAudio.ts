@@ -4,6 +4,20 @@ import { join } from 'path';
 import { PrismaClient } from '@prisma/client';
 
 export const audioHash = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
+// Rehash an audio file only when its identity on disk changes; rereading every MP3 per request
+// kept the backend at its memory limit with page cache.
+const verifiedFiles = new Map<string, { identity: string; sha256: string }>();
+export async function audioFileSha256(path: string): Promise<string | null> {
+  const info = await stat(path);
+  if (!info.isFile() || info.size === 0) return null;
+  const identity = [info.ino, info.size, info.mtimeMs, info.ctimeMs].join(':');
+  const known = verifiedFiles.get(path);
+  if (known?.identity === identity) return known.sha256;
+  const sha256 = audioHash(await readFile(path));
+  if (verifiedFiles.size >= 50000) verifiedFiles.clear();
+  verifiedFiles.set(path, { identity, sha256 });
+  return sha256;
+}
 export type AudioRecord = { storagePath: string; language: string; metadata: unknown };
 export async function verifiedAudio(record: AudioRecord | null, storageDir: string,
   expected: { language: string; rendererKey: string; sourceHash: string }): Promise<boolean> {
@@ -12,9 +26,7 @@ export async function verifiedAudio(record: AudioRecord | null, storageDir: stri
   const metadata = record.metadata as Record<string, unknown>;
   if (metadata?.rendererKey !== expected.rendererKey || metadata?.sourceHash !== expected.sourceHash) return false;
   try {
-    const path = join(storageDir, record.storagePath);
-    const info = await stat(path);
-    return info.isFile() && info.size > 0 && metadata.fileSha256 === audioHash(await readFile(path));
+    return metadata.fileSha256 === await audioFileSha256(join(storageDir, record.storagePath));
   } catch { return false; }
 }
 

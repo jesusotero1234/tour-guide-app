@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import { createHash, randomUUID } from 'crypto';
-import { access, mkdir, readFile, rename, stat, writeFile } from 'fs/promises';
+import { access, mkdir, readFile, rename, writeFile } from 'fs/promises';
 import { dirname, join, resolve } from 'path';
 import { setTimeout as delay } from 'timers/promises';
 import { AudioRenderInput, runLocalVoxCpm, readRenderProgress, tourProjectRoot } from './LocalVoxCpmRenderer';
 import { audioDisclosure, audioIdentity } from './AudioProvenance';
-import { activeIntroduction } from './IntroductionAudio';
+import { activeIntroduction, audioFileSha256 } from './IntroductionAudio';
 
 export interface IntroductionAudioState {
   status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number;
@@ -122,9 +122,7 @@ export class TourAudioService {
           metadata?.sourceHash !== snapshot.hashes[row.placeId] ||
           !/^voxcpm2\/[0-9a-f-]{36}\/[0-9a-f-]{36}\.mp3$/.test(row.storagePath)) continue;
       try {
-        const info = await stat(join(this.storageDir, row.storagePath));
-        // ponytail: hash files directly for the small pilot; cache verified file identities if inventory grows.
-        if (info.isFile() && info.size > 0 && metadata.fileSha256 === hash(await readFile(join(this.storageDir, row.storagePath)))) valid.set(row.placeId, row);
+        if (metadata.fileSha256 === await audioFileSha256(join(this.storageDir, row.storagePath))) valid.set(row.placeId, row);
       } catch { /* Missing audio must be generated again. */ }
     }
     return valid;
