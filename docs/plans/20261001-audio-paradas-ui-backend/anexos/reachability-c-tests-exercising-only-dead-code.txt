@@ -1,0 +1,50 @@
+# test files whose all non-test imports are in (c)-sources
+# files=44 lines=5412
+
+## scripts/validation  (2 files, 159 lines)
+scripts/validation/narrative-deepseek-replay-v8.test.cjs	131
+scripts/validation/narrative-reviewer-loops-v8.test.cjs	28
+
+## src/services/poi  (42 files, 5253 lines)
+src/services/poi/AutonomousNarrativePilotV1.test.ts	253
+src/services/poi/EditorialCalibrationCandidatesV4.test.ts	22
+src/services/poi/EditorialCalibrationCandidatesV5.test.ts	24
+src/services/poi/EditorialCoreInputV6.test.ts	27
+src/services/poi/EditorialEvaluationManifest.test.ts	51
+src/services/poi/EditorialHumanReviewV4.test.ts	48
+src/services/poi/EditorialProfileV7.test.ts	210
+src/services/poi/EditorialRouteCriticV4.test.ts	125
+src/services/poi/EditorialRouteOptimizerV4.test.ts	151
+src/services/poi/EditorialRouteOptimizerV7.test.ts	217
+src/services/poi/EditorialRoutePortfolioV3.test.ts	104
+src/services/poi/EditorialSelectionV3.test.ts	113
+src/services/poi/EditorialStoryMapV4.test.ts	115
+src/services/poi/EditorialStoryPlanV7.test.ts	143
+src/services/poi/EditorialStructuredLlmV5.test.ts	90
+src/services/poi/EditorialWalkingMatrixV4.test.ts	52
+src/services/poi/EditorialWorkbenchV7.test.ts	128
+src/services/poi/EditorialWorkflowV7.test.ts	228
+src/services/poi/NarrativeBenchmarkCaseV2.test.ts	136
+src/services/poi/NarrativeBenchmarkCasesV2.test.ts	69
+src/services/poi/NarrativeClaimPlanV1.test.ts	221
+src/services/poi/NarrativeClaimPlanV4.test.ts	79
+src/services/poi/NarrativeCriticV4.test.ts	162
+src/services/poi/NarrativeDiagnosticsV5.test.ts	73
+src/services/poi/NarrativeEvidenceFixturesV8.test.ts	154
+src/services/poi/NarrativeEvidenceV4.test.ts	137
+src/services/poi/NarrativeMadridCorpusV6.test.ts	49
+src/services/poi/NarrativeMadridPilotPreviewV4.test.ts	62
+src/services/poi/NarrativeModelsV3.test.ts	39
+src/services/poi/NarrativePilotCriticV1.test.ts	128
+src/services/poi/NarrativePilotCriticV2.test.ts	289
+src/services/poi/NarrativePilotGemmaV1.test.ts	131
+src/services/poi/NarrativePilotGemmaV4.test.ts	146
+src/services/poi/NarrativePilotModelsV2.test.ts	276
+src/services/poi/NarrativePilotSmokeV1.test.ts	43
+src/services/poi/NarrativePilotV1.test.ts	171
+src/services/poi/NarrativePilotWriterV4.test.ts	41
+src/services/poi/NarrativePilotWriterV5.test.ts	95
+src/services/poi/NarrativeProseV2.test.ts	213
+src/services/poi/NarrativeProseV4.test.ts	126
+src/services/poi/NarrativeProseV5.test.ts	141
+src/services/poi/NarrativeRunStateV8.test.ts	171

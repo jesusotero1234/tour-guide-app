@@ -1,0 +1,22 @@
+# (b) reachable from scripts/admin (production batch pipeline) but NOT from server.ts
+# files=16 lines=2267
+
+## scripts/admin  (15 files, 2040 lines)
+scripts/admin/backfill-published-tour-images.cjs	179
+scripts/admin/deepseek-batch-deliver.cjs	169
+scripts/admin/deepseek-batch-images.cjs	66
+scripts/admin/deepseek-batch-prepare.cjs	111
+scripts/admin/deepseek-europe-audio.cjs	45
+scripts/admin/deepseek-europe-prepare.cjs	155
+scripts/admin/diagnose-overpass.cjs	32
+scripts/admin/french-audio-replacement.cjs	119
+scripts/admin/overpass-cache.ts	13
+scripts/admin/pilot-tours.ts	114
+scripts/admin/preparation_attempt.cjs	39
+scripts/admin/prepare-europe-publication.cjs	404
+scripts/admin/seed-flexible-pass-inventory.ts	168
+scripts/admin/tour-audio-batch.cjs	245
+scripts/admin/translate-europe-audio.cjs	181
+
+## scripts/validation  (1 files, 227 lines)
+scripts/validation/narrative-astra-tour-batching-v8.ts	227

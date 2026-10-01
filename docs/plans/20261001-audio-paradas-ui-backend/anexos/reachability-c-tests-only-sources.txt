@@ -1,0 +1,108 @@
+# (c) NON-TEST source files reachable only from tests (dead production code kept alive by tests)
+# files=96 lines=29554
+
+## scripts/validation  (6 files, 1242 lines)
+scripts/validation/narrative-author-route-canary-v8.ts	170
+scripts/validation/narrative-barcelona-curation-v8.cjs	152
+scripts/validation/narrative-deepseek-cases-v8.cjs	133
+scripts/validation/narrative-deepseek-replay-v8.cjs	193
+scripts/validation/narrative-plain-writer-pilot-v8.ts	327
+scripts/validation/narrative-reviewer-loops-v8.cjs	267
+
+## src/services  (1 files, 89 lines)
+src/services/TourBlueprint.test-support.ts	89
+
+## src/services/poi  (87 files, 27825 lines)
+src/services/poi/AutonomousNarrativePilotV1.ts	530
+src/services/poi/AutonomousNarrativeV2.ts	658
+src/services/poi/AutonomousNarrativeV3.ts	683
+src/services/poi/AutonomousNarrativeV4.ts	198
+src/services/poi/AutonomousNarrativeV5.ts	232
+src/services/poi/EditorialCoreInputV6.ts	107
+src/services/poi/EditorialCuratorBenchmark.ts	751
+src/services/poi/EditorialEntityV4.ts	222
+src/services/poi/EditorialEvaluationInput.ts	95
+src/services/poi/EditorialEvaluationInputV4.ts	94
+src/services/poi/EditorialEvaluationInputV5.ts	106
+src/services/poi/EditorialEvaluationManifest.ts	76
+src/services/poi/EditorialHumanReviewV4.ts	120
+src/services/poi/EditorialProfileV7.ts	404
+src/services/poi/EditorialRouteBrief.ts	323
+src/services/poi/EditorialRouteCriticV4.ts	278
+src/services/poi/EditorialRouteJuryV5.ts	457
+src/services/poi/EditorialRouteOptimizer.ts	542
+src/services/poi/EditorialRouteOptimizerV4.ts	498
+src/services/poi/EditorialRouteOptimizerV7.ts	416
+src/services/poi/EditorialRoutePortfolioV3.ts	466
+src/services/poi/EditorialRoutePortfolioV5.ts	601
+src/services/poi/EditorialRouteRepairV5.ts	309
+src/services/poi/EditorialSelectionV3.ts	372
+src/services/poi/EditorialSelectionWorkflowV5.ts	225
+src/services/poi/EditorialSiteV3.ts	257
+src/services/poi/EditorialStoryMapV4.ts	320
+src/services/poi/EditorialStoryPlanV7.ts	417
+src/services/poi/EditorialStructuredLlmV4.ts	139
+src/services/poi/EditorialStructuredLlmV5.ts	228
+src/services/poi/EditorialWalkingMatrixV4.ts	158
+src/services/poi/EditorialWorkbenchV7.ts	180
+src/services/poi/EditorialWorkflowV7.ts	355
+src/services/poi/NarrativeBenchmarkCaseV2.ts	236
+src/services/poi/NarrativeBenchmarkV2.ts	579
+src/services/poi/NarrativeBenchmarkV3.ts	590
+src/services/poi/NarrativeBenchmarkV6.ts	1295
+src/services/poi/NarrativeCalibrationV6.ts	455
+src/services/poi/NarrativeCanaryV8.ts	601
+src/services/poi/NarrativeClaimPlanV1.ts	289
+src/services/poi/NarrativeClaimPlanV4.ts	200
+src/services/poi/NarrativeContractsV3.ts	542
+src/services/poi/NarrativeCriticV3.ts	525
+src/services/poi/NarrativeCriticV4.ts	505
+src/services/poi/NarrativeDiagnosticsV3.ts	64
+src/services/poi/NarrativeDiagnosticsV5.ts	148
+src/services/poi/NarrativeEvidenceFixturesV8.test-support.ts	144
+src/services/poi/NarrativeEvidenceV3.ts	529
+src/services/poi/NarrativeEvidenceV4.ts	290
+src/services/poi/NarrativeExperiencePilotManifestV4.ts	102
+src/services/poi/NarrativeExperiencePilotManifestV5.ts	96
+src/services/poi/NarrativeFieldPilotV3.ts	151
+src/services/poi/NarrativeMadridCorpusV6.ts	266
+src/services/poi/NarrativeMadridEvidenceV4.ts	31
+src/services/poi/NarrativeMadridPilotFreezeV4.ts	265
+src/services/poi/NarrativeMadridPilotFreezeV5.ts	262
+src/services/poi/NarrativeMadridPilotPreviewV4.ts	160
+src/services/poi/NarrativeMadridPilotPreviewV5.ts	159
+src/services/poi/NarrativeMadridPilotQualificationV4.ts	570
+src/services/poi/NarrativeMadridPilotQualificationV5.ts	558
+src/services/poi/NarrativeMadridTrustedFixturesV6.ts	201
+src/services/poi/NarrativePilotCriticV1.ts	291
+src/services/poi/NarrativePilotCriticV2.ts	578
+src/services/poi/NarrativePilotDeepSeekV1.ts	68
+src/services/poi/NarrativePilotDeepSeekV2.ts	153
+src/services/poi/NarrativePilotGemmaV1.ts	149
+src/services/poi/NarrativePilotGemmaV2.ts	215
+src/services/poi/NarrativePilotGemmaV3.ts	127
+src/services/poi/NarrativePilotGemmaV4.ts	308
+src/services/poi/NarrativePilotGemmaV5.ts	445
+src/services/poi/NarrativePilotSmokeV1.ts	101
+src/services/poi/NarrativePilotV1.ts	529
+src/services/poi/NarrativePilotWriterV3.ts	169
+src/services/poi/NarrativePilotWriterV4.ts	111
+src/services/poi/NarrativePilotWriterV5.ts	207
+src/services/poi/NarrativeProseV2.ts	192
+src/services/poi/NarrativeProseV4.ts	294
+src/services/poi/NarrativeProseV5.ts	399
+src/services/poi/NarrativeResearchSnapshotV6.ts	425
+src/services/poi/NarrativeResearchV6.ts	1385
+src/services/poi/NarrativeReviewResumeV6.ts	159
+src/services/poi/NarrativeRunStateV8.ts	95
+src/services/poi/NarrativeStructuralRouteV6.ts	90
+src/services/poi/NarrativeToledoCanaryV6.ts	141
+src/services/poi/NarrativeUserCanaryV8.ts	300
+src/services/poi/ParisNarrativePilotV1.ts	171
+src/services/poi/PoiEnrichmentSnapshot.ts	93
+
+## src/services/poi/__fixtures__  (1 files, 168 lines)
+src/services/poi/__fixtures__/sevilla-walking-plan-v8.json	168
+
+## src/services/tourQuality  (1 files, 230 lines)
+src/services/tourQuality/TourQualityEvaluator.ts	230

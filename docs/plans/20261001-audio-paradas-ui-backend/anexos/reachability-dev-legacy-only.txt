@@ -1,0 +1,104 @@
+# reachable from server.ts or scripts/admin but only via dev routes (/tours,/cities,/passes, GenerationJobService) or non-Europe admin scripts
+# files=62 lines=10262
+
+## scripts/admin  (10 files, 1216 lines)
+scripts/admin/backfill-published-tour-images.cjs	179
+scripts/admin/deepseek-batch-deliver.cjs	169
+scripts/admin/deepseek-batch-images.cjs	66
+scripts/admin/deepseek-batch-prepare.cjs	111
+scripts/admin/diagnose-overpass.cjs	32
+scripts/admin/french-audio-replacement.cjs	119
+scripts/admin/overpass-cache.ts	13
+scripts/admin/pilot-tours.ts	114
+scripts/admin/seed-flexible-pass-inventory.ts	168
+scripts/admin/tour-audio-batch.cjs	245
+
+## scripts/validation  (1 files, 66 lines)
+scripts/validation/narrative-blueprint-author-v8.ts	66
+
+## src/api/controllers  (5 files, 473 lines)
+src/api/controllers/concepts.ts	64
+src/api/controllers/generationJobs.ts	78
+src/api/controllers/passes.ts	84
+src/api/controllers/tourAudio.ts	34
+src/api/controllers/tours.ts	213
+
+## src/api/middleware  (1 files, 160 lines)
+src/api/middleware/validation.ts	160
+
+## src/api/routes  (3 files, 52 lines)
+src/api/routes/concepts.ts	9
+src/api/routes/passes.ts	10
+src/api/routes/tours.ts	33
+
+## src/domain/concepts  (1 files, 59 lines)
+src/domain/concepts/TourConcept.ts	59
+
+## src/domain/entities  (2 files, 60 lines)
+src/domain/entities/AudioAsset.ts	10
+src/domain/entities/GenerationJob.ts	50
+
+## src/domain/errors  (3 files, 72 lines)
+src/domain/errors/CityNotAvailableError.ts	12
+src/domain/errors/CityQualityNotAvailableError.ts	28
+src/domain/errors/TourDurationNotRecommendedError.ts	32
+
+## src/domain/repositories  (2 files, 48 lines)
+src/domain/repositories/AudioAssetRepository.ts	6
+src/domain/repositories/GenerationJobRepository.ts	42
+
+## src/domain/storage  (1 files, 13 lines)
+src/domain/storage/AudioStorage.ts	13
+
+## src/infrastructure/geocoder  (1 files, 101 lines)
+src/infrastructure/geocoder/NominatimGeocoder.ts	101
+
+## src/infrastructure/local-storage  (1 files, 34 lines)
+src/infrastructure/local-storage/LocalFileAudioStorage.ts	34
+
+## src/infrastructure/postgres  (7 files, 854 lines)
+src/infrastructure/postgres/PostgresAudioAssetRepository.ts	65
+src/infrastructure/postgres/PostgresEnrichmentCacheRepository.ts	79
+src/infrastructure/postgres/PostgresGenerationJobRepository.ts	310
+src/infrastructure/postgres/PostgresNarrationCacheRepository.ts	60
+src/infrastructure/postgres/PostgresPoiCacheRepository.ts	43
+src/infrastructure/postgres/PostgresPoiEnrichmentCacheRepository.ts	172
+src/infrastructure/postgres/PostgresTourQualityReviewQueueRepository.ts	125
+
+## src/services  (13 files, 4598 lines)
+src/services/CodexTourArtifact.ts	144
+src/services/CodexTourGenerator.ts	103
+src/services/CodexTourProcess.ts	118
+src/services/CommonsImageCandidates.ts	122
+src/services/ContextualTourImages.ts	103
+src/services/GenerationJobService.ts	455
+src/services/MultilingualTourGenerator.ts	139
+src/services/TourImageModel.ts	199
+src/services/enrichTourImages.ts	47
+src/services/generationJobServiceInstance.ts	16
+src/services/orchestrationService.ts	2491
+src/services/walkingRouteServiceInstance.ts	3
+src/services/wikimediaService.ts	658
+
+## src/services/cityIntelligence  (3 files, 743 lines)
+src/services/cityIntelligence/ConceptDiscoveryService.ts	564
+src/services/cityIntelligence/conceptDisplayCopy.ts	84
+src/services/cityIntelligence/conceptRules.ts	95
+
+## src/services/enrichment  (1 files, 236 lines)
+src/services/enrichment/CityKnowledgeBase.ts	236
+
+## src/services/narrative  (1 files, 589 lines)
+src/services/narrative/NarrativeBuilder.ts	589
+
+## src/services/poi  (1 files, 177 lines)
+src/services/poi/PoiRanker.ts	177
+
+## src/services/tourQuality  (3 files, 467 lines)
+src/services/tourQuality/TourConfidenceGate.ts	176
+src/services/tourQuality/TourQualityRepair.ts	203
+src/services/tourQuality/VerifiedCities.ts	88
+
+## src/services/tourReadiness  (2 files, 244 lines)
+src/services/tourReadiness/contentReadiness.ts	195
+src/services/tourReadiness/publicationReadiness.ts	49

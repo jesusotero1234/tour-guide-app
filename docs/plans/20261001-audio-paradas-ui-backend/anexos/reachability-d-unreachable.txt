@@ -1,0 +1,63 @@
+# (d) unreachable from server.ts, scripts/admin and tests
+# files=51 lines=8873
+
+## prisma  (1 files, 92 lines)
+prisma/seed.ts	92
+
+## scripts  (1 files, 12 lines)
+scripts/build-narrative-assets.cjs	12
+
+## scripts/audit  (1 files, 182 lines)
+scripts/audit/multi-route-overlap.ts	182
+
+## scripts/validation  (47 files, 8480 lines)
+scripts/validation/audio-integration-canary.ts	28
+scripts/validation/audit-tour-quality.ts	45
+scripts/validation/audit-tour-text.ts	27
+scripts/validation/benchmark-editorial-curators.ts	374
+scripts/validation/calibrate-confidence-gate.ts	87
+scripts/validation/capture-editorial-holdout-sources-v4.ts	133
+scripts/validation/capture-source-snapshot-from-fixtures.ts	117
+scripts/validation/capture-tour-fixtures.ts	144
+scripts/validation/contextual-images-pilot.ts	38
+scripts/validation/diagnose-shortlist.ts	152
+scripts/validation/evaluate-editorial-core-v6.ts	90
+scripts/validation/inspect-osm-tour.ts	79
+scripts/validation/inspect-osm-tours-batch.ts	150
+scripts/validation/narrative-astra-audit-replay-v8.ts	320
+scripts/validation/narrative-barcelona-sources-v8.cjs	36
+scripts/validation/narrative-benchmark-v2.ts	116
+scripts/validation/narrative-benchmark-v3.ts	138
+scripts/validation/narrative-canary-v8.ts	528
+scripts/validation/narrative-codex-audit-replay-v8.ts	232
+scripts/validation/narrative-critic-smoke-paris-v1.ts	67
+scripts/validation/narrative-curation-audit-v8.cjs	37
+scripts/validation/narrative-curator-admission-replay-v8.ts	49
+scripts/validation/narrative-deepseek-translation-v8.cjs	169
+scripts/validation/narrative-editorial-local-pilot-v8.ts	76
+scripts/validation/narrative-editorial-nonregression-replay-v8.ts	45
+scripts/validation/narrative-local-repair-replay-v8.ts	39
+scripts/validation/narrative-madrid-pilot-v4.ts	164
+scripts/validation/narrative-madrid-pilot-v5.ts	229
+scripts/validation/narrative-mini-nano-prep-replay-v8.cjs	143
+scripts/validation/narrative-oneshot-experiment-v8.ts	172
+scripts/validation/narrative-pilot-paris-v1.ts	127
+scripts/validation/narrative-reference-probe-v8.ts	138
+scripts/validation/narrative-toledo-canary-v6.ts	164
+scripts/validation/narrative-user-canary-v6.ts	347
+scripts/validation/narrative-v6-benchmark.ts	71
+scripts/validation/narrative-v6-calibrate.ts	914
+scripts/validation/narrative-v6-preview.ts	167
+scripts/validation/probe-history-route-canonicality.ts	196
+scripts/validation/regenerate-tour-from-fixtures.ts	231
+scripts/validation/resolve-editorial-core-v6.ts	281
+scripts/validation/route-editorial-v2.ts	346
+scripts/validation/route-editorial-v3.ts	308
+scripts/validation/route-editorial-v4-holdout.ts	7
+scripts/validation/route-editorial-v4.ts	533
+scripts/validation/route-editorial-v5.ts	404
+scripts/validation/route-editorial-v7.ts	42
+scripts/validation/run-history-preflight-canary.ts	180
+
+## src/services/poi  (1 files, 107 lines)
+src/services/poi/EditorialEvaluationInputV3.ts	107

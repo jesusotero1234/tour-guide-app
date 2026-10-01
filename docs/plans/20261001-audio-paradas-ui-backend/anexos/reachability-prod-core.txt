@@ -1,0 +1,180 @@
+# production core = pilot-mode server closure ∪ Europe batch chain closure
+# files=136 lines=36752
+
+## scripts/admin  (5 files, 824 lines)
+scripts/admin/deepseek-europe-audio.cjs	45
+scripts/admin/deepseek-europe-prepare.cjs	155
+scripts/admin/preparation_attempt.cjs	39
+scripts/admin/prepare-europe-publication.cjs	404
+scripts/admin/translate-europe-audio.cjs	181
+
+## scripts/validation  (11 files, 4932 lines)
+scripts/validation/narrative-astra-tour-batching-v8.ts	227
+scripts/validation/narrative-audit-calibration-v8.ts	170
+scripts/validation/narrative-author-canary-material-v8.ts	111
+scripts/validation/narrative-codex-auditor-v8.ts	56
+scripts/validation/narrative-codex-author-v8.ts	294
+scripts/validation/narrative-codex-live-v8.ts	297
+scripts/validation/narrative-temporal-rule-v8.ts	31
+scripts/validation/narrative-tour-welcome-v8.ts	44
+scripts/validation/narrative-user-canary-v8.ts	2343
+scripts/validation/narrative-writer-benchmark-v8.ts	863
+scripts/validation/narrative-writer-briefing-pilot-v8.ts	496
+
+## src  (1 files, 85 lines)
+src/server.ts	85
+
+## src/api/routes  (1 files, 133 lines)
+src/api/routes/pilot.ts	133
+
+## src/config  (3 files, 43 lines)
+src/config/env.ts	23
+src/config/pilot.ts	4
+src/config/pilotLaunch.ts	16
+
+## src/domain  (1 files, 64 lines)
+src/domain/cityNames.ts	64
+
+## src/domain/entities  (3 files, 113 lines)
+src/domain/entities/Place.ts	44
+src/domain/entities/Tour.ts	21
+src/domain/entities/TourImage.ts	48
+
+## src/domain/geocoder  (1 files, 21 lines)
+src/domain/geocoder/GeocoderTypes.ts	21
+
+## src/domain/poi  (5 files, 448 lines)
+src/domain/poi/EnrichedPoi.ts	26
+src/domain/poi/PoiClassification.ts	75
+src/domain/poi/RawPoi.ts	23
+src/domain/poi/dedupePois.ts	61
+src/domain/poi/themeTags.ts	263
+
+## src/domain/repositories  (1 files, 22 lines)
+src/domain/repositories/TourRepository.ts	22
+
+## src/infrastructure/db  (1 files, 16 lines)
+src/infrastructure/db/prismaClient.ts	16
+
+## src/infrastructure/enrichment  (3 files, 407 lines)
+src/infrastructure/enrichment/WikidataEnricher.ts	226
+src/infrastructure/enrichment/WikipediaEnricher.ts	101
+src/infrastructure/enrichment/wikidataClient.ts	80
+
+## src/infrastructure/poi  (8 files, 1540 lines)
+src/infrastructure/poi/OverpassCoordinator.ts	93
+src/infrastructure/poi/OverpassCoordinatorPolicy.ts	117
+src/infrastructure/poi/OverpassPoiFetcher.ts	243
+src/infrastructure/poi/OverpassQueryCache.ts	97
+src/infrastructure/poi/OverpassRequestWorker.ts	174
+src/infrastructure/poi/SourceAcquisition.ts	33
+src/infrastructure/poi/StaticOsmPoiFallback.ts	452
+src/infrastructure/poi/WikidataCanonicalPoiFetcher.ts	331
+
+## src/infrastructure/postgres  (2 files, 320 lines)
+src/infrastructure/postgres/PostgresTourBlueprintRepository.ts	89
+src/infrastructure/postgres/PostgresTourRepository.ts	231
+
+## src/middleware  (3 files, 150 lines)
+src/middleware/auth.ts	17
+src/middleware/error-handler.ts	100
+src/middleware/rate-limit.ts	33
+
+## src/services  (11 files, 1583 lines)
+src/services/AudioProvenance.ts	28
+src/services/IntroductionAudio.ts	46
+src/services/LocalVoxCpmRenderer.ts	103
+src/services/PilotRelease.ts	145
+src/services/SourceCredits.ts	55
+src/services/TourAudioService.ts	318
+src/services/TourBlueprint.ts	163
+src/services/TourDestinationResolver.ts	339
+src/services/TourLocationSelection.ts	107
+src/services/WalkingRouteService.ts	275
+src/services/tourAudioServiceInstance.ts	4
+
+## src/services/narrative  (1 files, 354 lines)
+src/services/narrative/TourTextQuality.ts	354
+
+## src/services/poi  (71 files, 25313 lines)
+src/services/poi/DurationPlanning.ts	25
+src/services/poi/EditorialCandidate.ts	542
+src/services/poi/EditorialCoreResolverV6.ts	462
+src/services/poi/EditorialCoreWorkflowV6.ts	243
+src/services/poi/EditorialEvidenceV5.ts	275
+src/services/poi/EditorialProminenceCaptureV6.ts	633
+src/services/poi/EditorialProminenceV6.ts	196
+src/services/poi/EditorialStructuredLlmV6.ts	1152
+src/services/poi/EssentialRouteSelectionV8.ts	212
+src/services/poi/HistoryPlaceScoring.ts	217
+src/services/poi/HistoryTourCapacity.ts	222
+src/services/poi/LandmarkTiering.ts	448
+src/services/poi/LiveCityCandidatesV8.ts	929
+src/services/poi/MediaWikiRequestPolicyV8.ts	187
+src/services/poi/NarrativeArcArchitectV6.ts	116
+src/services/poi/NarrativeArcArchitectV8.ts	340
+src/services/poi/NarrativeAuthoritiesV7.ts	861
+src/services/poi/NarrativeCallSummaryV8.ts	22
+src/services/poi/NarrativeCanaryConsoleReporterV8.ts	342
+src/services/poi/NarrativeCompactVerificationV8.ts	128
+src/services/poi/NarrativeContractsV6.ts	297
+src/services/poi/NarrativeContrastCoverageV8.ts	102
+src/services/poi/NarrativeDossierV6.ts	417
+src/services/poi/NarrativeDossierV8.ts	860
+src/services/poi/NarrativeDurationReconciliationV8.ts	120
+src/services/poi/NarrativeDurationTargetsV8.ts	162
+src/services/poi/NarrativeEditDecisionV8.ts	169
+src/services/poi/NarrativeEditorialAgentsV6.ts	1059
+src/services/poi/NarrativeEditorialAgentsV8.ts	195
+src/services/poi/NarrativeEditorialEvidenceProjectionV8.ts	501
+src/services/poi/NarrativeEditorialIssuePolicyV8.ts	389
+src/services/poi/NarrativeEditorialStageStateV8.ts	171
+src/services/poi/NarrativeEditorialV6.ts	527
+src/services/poi/NarrativeEditorialWorkflowV6.ts	1179
+src/services/poi/NarrativeEditorialWorkflowV8.ts	474
+src/services/poi/NarrativeEvidenceBoundaryV8.ts	308
+src/services/poi/NarrativeHistoricalCorpusV8.ts	251
+src/services/poi/NarrativeHistoricalPageContextV8.ts	53
+src/services/poi/NarrativeLengthFitterAgentV8.ts	422
+src/services/poi/NarrativeLengthFitterV8.ts	389
+src/services/poi/NarrativeMarkdownV6.ts	289
+src/services/poi/NarrativeModelProfilesV6.ts	317
+src/services/poi/NarrativeProgressSpendGuardV6.ts	76
+src/services/poi/NarrativePublicationQualityV8.ts	246
+src/services/poi/NarrativeReferencesV8.ts	166
+src/services/poi/NarrativeResearchV8.ts	1655
+src/services/poi/NarrativeRichnessV8.ts	214
+src/services/poi/NarrativeRoutePlanningV8.ts	236
+src/services/poi/NarrativeRouteScopeReviewV8.ts	81
+src/services/poi/NarrativeSchedulerV6.ts	80
+src/services/poi/NarrativeSegmentEditV8.ts	126
+src/services/poi/NarrativeSentenceEditV8.ts	123
+src/services/poi/NarrativeSourcesV6.ts	503
+src/services/poi/NarrativeSourcesV7.ts	877
+src/services/poi/NarrativeSpansV7.ts	186
+src/services/poi/NarrativeSpendLedgerV6.ts	339
+src/services/poi/NarrativeTourScorecardV8.ts	69
+src/services/poi/NarrativeTourStyleV8.ts	349
+src/services/poi/NarrativeUserCanaryCheckpointV8.ts	700
+src/services/poi/NarrativeUserCanaryRuntimeV8.ts	265
+src/services/poi/NarrativeWalkingPlanV8.ts	178
+src/services/poi/NarrativeWriterBenchmarkV8.ts	205
+src/services/poi/NarrativeWriterContractV8.ts	323
+src/services/poi/OpenRouterPreflightV6.ts	261
+src/services/poi/PoiEnrichmentCache.ts	10
+src/services/poi/PoiEnrichmentPipeline.ts	105
+src/services/poi/RouteSelection.ts	1191
+src/services/poi/SourceUsePolicy.ts	36
+src/services/poi/TourGeometryV8.ts	362
+src/services/poi/WikidataEntityDataV8.ts	81
+src/services/poi/WikidataIdentityV8.ts	67
+
+## src/services/tourReadiness  (1 files, 53 lines)
+src/services/tourReadiness/TourLanguage.ts	53
+
+## src/types  (2 files, 269 lines)
+src/types/api.ts	172
+src/types/tourQuality.ts	97
+
+## src/utils  (1 files, 62 lines)
+src/utils/logger.ts	62
