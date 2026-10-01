@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { narrativeHttpHeadersV8 } from './poi/MediaWikiRequestPolicyV8';
 
 export interface ImageModel {
   complete(prompt: string, imageUrls: string[], signal?: AbortSignal): Promise<unknown>;
@@ -14,6 +15,12 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   'upload.wikimedia.org',
   'thumb.wikimedia.org',
 ]);
+const ALLOWED_INLINE_IMAGE_MIME = new Set([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+]);
+const MAX_INLINE_IMAGE_BYTES = 6 * 1024 * 1024;
 
 function validateImageUrl(url: string): boolean {
   try {
@@ -53,6 +60,7 @@ export class ChatImageModel implements ImageModel {
   private readonly model: string;
   private readonly apiKey: string;
   private readonly baseUrl: string;
+  private readonly inlineWikimediaImages: boolean;
 
   constructor(config: ChatImageModelConfig) {
     const model = config.model.trim();
@@ -78,6 +86,35 @@ export class ChatImageModel implements ImageModel {
     this.model = model;
     this.apiKey = apiKey;
     this.baseUrl = baseUrl;
+    this.inlineWikimediaImages = new URL(baseUrl).hostname === 'api.deepseek.com';
+  }
+
+  private async imageInputUrl(url: string, signal?: AbortSignal): Promise<string> {
+    if (!this.inlineWikimediaImages) return url;
+    const parsed = new URL(url);
+    parsed.search = '';
+    parsed.hash = '';
+    const response = await axios.get(parsed.href, {
+      responseType: 'arraybuffer',
+      timeout: 15000,
+      maxRedirects: 0,
+      maxContentLength: MAX_INLINE_IMAGE_BYTES,
+      maxBodyLength: MAX_INLINE_IMAGE_BYTES,
+      signal,
+      headers: {
+        ...narrativeHttpHeadersV8(),
+        ...(process.env.WIKIMEDIA_USER_AGENT ? { 'User-Agent': process.env.WIKIMEDIA_USER_AGENT } : {}),
+      },
+    });
+    const mime = String(response.headers?.['content-type'] || '').split(';')[0].trim().toLowerCase();
+    if (!ALLOWED_INLINE_IMAGE_MIME.has(mime)) {
+      throw new Error('Unsupported Wikimedia image MIME type');
+    }
+    const bytes = Buffer.from(response.data);
+    if (bytes.length === 0 || bytes.length > MAX_INLINE_IMAGE_BYTES) {
+      throw new Error('Wikimedia image exceeds inline size limit');
+    }
+    return `data:${mime};base64,${bytes.toString('base64')}`;
   }
 
   async complete(prompt: string, imageUrls: string[], signal?: AbortSignal): Promise<unknown> {
@@ -93,10 +130,11 @@ export class ChatImageModel implements ImageModel {
       }
     }
 
+    const modelImageUrls = await Promise.all(imageUrls.map(url => this.imageInputUrl(url, signal)));
     const content: Array<Record<string, unknown>> = [
       { type: 'text', text: prompt },
     ];
-    for (const url of imageUrls) {
+    for (const url of modelImageUrls) {
       content.push({
         type: 'image_url',
         image_url: { url, detail: 'high' },
@@ -108,7 +146,8 @@ export class ChatImageModel implements ImageModel {
       {
         model: this.model,
         temperature: 0,
-        max_tokens: 1800,
+        max_tokens: 512,
+        ...(this.inlineWikimediaImages ? { thinking: { type: 'disabled' } } : {}),
         response_format: { type: 'json_object' },
         messages: [
           {
