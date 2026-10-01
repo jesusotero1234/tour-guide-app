@@ -241,6 +241,37 @@ describe('loadLiveCityCandidatesV8', () => {
     expect(result.evidenceGaps).toEqual([]);
   });
 
+  it('passes reviewed identities to map acquisition and keeps them in the ready pool', async () => {
+    const scripted = scriptedGetV8();
+    let protectedIds: string[] | undefined;
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120,
+      pinnedIds: ['Q3123400'],
+    }, {
+      get: scripted.get,
+      fetchPois: async (city, theme, ids) => {
+        protectedIds = ids;
+        return scripted.fetchPois(city, theme);
+      },
+    });
+
+    expect(protectedIds).toEqual(['Q3123400']);
+    expect(result.readyEntities.some(entity => entity.canonicalId === 'Q3123400')).toBe(true);
+  });
+
+  it('removes a reviewed exclusion before enrichment and rejects conflicting pins', async () => {
+    const scripted = scriptedGetV8();
+    const result = await loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120,
+      excludedIds: ['Q3123400'],
+    }, { get: scripted.get, fetchPois: scripted.fetchPois });
+    expect(result.entities.some(entity => entity.canonicalId === 'Q3123400')).toBe(false);
+    await expect(loadLiveCityCandidatesV8({
+      city: 'valencia', cityKey: 'valencia', theme: 'history', language: 'es', durationMinutes: 120,
+      pinnedIds: ['Q3123400'], excludedIds: ['Q3123400'],
+    }, { get: scripted.get, fetchPois: scripted.fetchPois })).rejects.toThrow('disjoint');
+  });
+
   it('requests Wikidata and Wikipedia enrichment over the network endpoints', async () => {
     const { get, calls, fetchPois } = scriptedGetV8();
     await loadLiveCityCandidatesV8({
@@ -320,6 +351,46 @@ describe('loadLiveCityCandidatesV8', () => {
     expect(result.prefilteredCount).toBe(60);
     expect(wikidataEntityCalls.length).toBe(6);
     expect(wikipediaCalls.length).toBeLessThanOrEqual(8);
+  });
+
+  it('checks every type before ranking, then fetches only consumed details for the shortlist', async () => {
+    const base = scriptedGetV8();
+    const pois: RawPoi[] = Array.from({ length: 61 }, (_, index) => ({
+      osmType: 'node', osmId: index + 1, name: `Monumento ${index}`, lat: 39.47, lng: -0.376,
+      tags: { wikidata: `Q${9100000 + index}`, wikipedia: `es:Artículo ${index}`, tourism: 'attraction' },
+    }));
+    const references: string[] = [];
+    const claim = (value: unknown) => ({ mainsnak: { snaktype: 'value', datavalue: { value } } });
+    const get: LiveCityCandidatesV8Get = async (url, params, options) => {
+      if (!url.includes('wikidata.org')) return base.get(url, params, options);
+      const ids = String(params.ids).split('|');
+      if (String(params.props).includes('sitelinks')) {
+        return { data: { entities: Object.fromEntries(ids.map(id => {
+          const index = Number(id.slice(1)) - 9100000;
+          return [id, wikidataEntity(id, {
+            sitelinks: Object.fromEntries(Array.from({ length: index === 60 ? 100 : 2 }, (_, n) => [n ? `xx${n}wiki` : 'eswiki', { title: `Artículo ${index}` }])),
+            claims: {
+              P31: [claim({ id: index === 60 ? 'Q99999' : 'Q51642' })],
+              P84: [claim({ id: `Q${8100000 + index}` }), claim({ id: `Q${8200000 + index}` })],
+              P149: [claim('literal-style'), claim({ id: 'Q77777' })],
+            },
+          })];
+        })) } };
+      }
+      references.push(...ids);
+      return { data: { entities: Object.fromEntries(ids.map(id => [id, { id, labels: {
+        es: { value: id === 'Q99999' ? 'aircraft' : id === 'Q51642' ? 'church building' : id },
+      } }])) } };
+    };
+    const result = await loadLiveCityCandidatesV8({ city: 'Valencia', cityKey: 'Valencia', theme: 'history',
+      language: 'es', durationMinutes: 120 }, { get, fetchPois: async () => pois, wait: async () => {} });
+    expect(result.prefilteredCount).toBe(60);
+    expect(references).toEqual(expect.arrayContaining(['Q51642', 'Q99999', 'Q8100000']));
+    expect(references.filter(id => id === 'Q51642')).toHaveLength(1);
+    expect(references).not.toContain('Q8100060'); // Details of an excluded place.
+    expect(references).not.toContain('Q8200000'); // An unused secondary architect.
+    expect(references).not.toContain('Q77777'); // Never replace a first literal with a later QID.
+    expect(result.entities.map(entity => entity.canonicalId)).not.toContain('Q9100060');
   });
 
   it('retries a retryable 500 via the shared policy with a recorded Retry-After wait', async () => {

@@ -99,6 +99,8 @@ async function refineWalkingOrder(
 export async function planNarrativeWalkingRouteV8(input: {
   candidates: EssentialRouteCandidateV8[]; requiredIds: string[];
   durationMinutes: number; minStops: number; preferredStops: number; theme: string;
+  preferFeasible?: boolean;
+  onAttempt?: (plan: NarrativeWalkingPlanV8) => void;
 }, service: WalkingService = new WalkingRouteService(), signal?: AbortSignal): Promise<NarrativeWalkingPlanV8> {
   signal?.throwIfAborted();
   if (!Number.isFinite(input.durationMinutes) || input.durationMinutes <= 0
@@ -126,10 +128,13 @@ export async function planNarrativeWalkingRouteV8(input: {
     const geometry = await measureNarrativeWalkingRouteV8(stops, input.durationMinutes, service, signal);
     const candidate: NarrativeWalkingPlanV8 = { selection, geometry, timingSource: 'walking_graph',
       durationFit: durationFit(geometry.guidedDurationMinutes, input.durationMinutes) };
+    input.onAttempt?.(candidate);
     const distance = Math.abs(geometry.guidedDurationMinutes - input.durationMinutes);
     const previousDistance = best ? Math.abs(best.geometry.guidedDurationMinutes - input.durationMinutes) : Infinity;
-    if (!best || distance < previousDistance
-      || (distance === previousDistance && stops.length < best.geometry.stops.length)) best = candidate;
+    const feasibilityDiffers = input.preferFeasible && best
+      && (geometry.status === 'walkable') !== (best.geometry.status === 'walkable');
+    if (!best || (feasibilityDiffers ? geometry.status === 'walkable' : distance < previousDistance
+      || (distance === previousDistance && stops.length < best.geometry.stops.length))) best = candidate;
   };
   try {
     await attempt(initial);
@@ -138,7 +143,8 @@ export async function planNarrativeWalkingRouteV8(input: {
     if (!first) throw new Error('walking route has no measurable selection');
     if (first.durationFit === 'within_target') return await refineWalkingOrder(first, service, signal);
     const counts = first.durationFit === 'short'
-      ? [input.preferredStops + 1, input.preferredStops + 2].filter(count => count <= 12)
+      ? Array.from({ length: Math.max(0, Math.min(12, input.candidates.length) - input.preferredStops) },
+        (_, index) => input.preferredStops + index + 1)
       : Array.from({ length: input.preferredStops - input.minStops }, (_, index) => input.preferredStops - index - 1);
     for (const count of counts) {
       signal?.throwIfAborted();

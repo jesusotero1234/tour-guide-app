@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as crypto from "crypto";
+import { validateRoutePlanningDecisionV8, ROUTE_SCOPE_POLICY_V8 } from "./NarrativeRoutePlanningV8";
 import type { NarrativeNarrationTargetV8 } from "./NarrativeDurationTargetsV8";
 
 export type JsonValue =
@@ -56,9 +57,12 @@ export interface NarrativeUserCanaryCheckpointV8 {
     cityQid: string;
     language: string;
     requestFingerprint: string;
+    routePolicy?: string;
     priorSpendUsd: number;
   };
   candidates?: JsonValue;
+  planningInputs?: JsonValue;
+  routePlanning?: JsonValue;
   core?: NarrativeCheckpointCoreV8;
   route?: JsonValue;
   research?: JsonValue;
@@ -280,10 +284,20 @@ export function validateCheckpointV8(raw: unknown): NarrativeUserCanaryCheckpoin
     }
   }
 
+  if (run.routePolicy !== undefined && !['walking-v8-1', ROUTE_SCOPE_POLICY_V8].includes(run.routePolicy as string)) throw new Error('invalid route policy');
+  if (obj.routePlanning !== undefined) {
+    const decision = validateRoutePlanningDecisionV8(obj.routePlanning,
+      obj.route ? (obj.route as unknown as { stops: Array<{ stopId: string }> }).stops.map(s => s.stopId) : undefined);
+    if (run.routePolicy !== ROUTE_SCOPE_POLICY_V8 || decision.cityCore.cityKey !== run.city) throw new Error('planning policy/city mismatch');
+    if (obj.core && JSON.stringify((obj.core as unknown as NarrativeCheckpointCoreV8).requiredIds.slice().sort())
+      !== JSON.stringify(decision.requiredIds.slice().sort())) throw new Error('planning core mismatch');
+  }
   if (obj.core !== undefined) decodeCheckpointCoreV8(obj.core, "checkpoint");
 
   const cumulativeFields: (keyof NarrativeUserCanaryCheckpointV8)[] = [
     "candidates",
+    "planningInputs",
+    "routePlanning",
     "core",
     "route",
     "research",
@@ -623,7 +637,7 @@ export function assertCheckpointSupportsResumeV8(
 export function projectCheckpointStateForResumeV8(
   sourceCheckpoint: NarrativeUserCanaryCheckpointV8,
   resumeFrom: ResumeFromV8
-): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "core" | "route" | "research" | "evidenceManifest" | "arc" | "narrationTargets" | "editorial" | "scorecard">> {
+): Partial<Pick<NarrativeUserCanaryCheckpointV8, "candidates" | "planningInputs" | "routePlanning" | "core" | "route" | "research" | "evidenceManifest" | "arc" | "narrationTargets" | "editorial" | "scorecard">> {
   const clone = <T extends JsonValue>(value: T | undefined): T | undefined =>
     value === undefined ? undefined : JSON.parse(JSON.stringify(value)) as T;
 
@@ -632,10 +646,13 @@ export function projectCheckpointStateForResumeV8(
     case "route":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        planningInputs: clone(sourceCheckpoint.planningInputs),
       };
     case "research":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        planningInputs: clone(sourceCheckpoint.planningInputs),
+        routePlanning: clone(sourceCheckpoint.routePlanning),
         core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         narrationTargets: clone(sourceCheckpoint.narrationTargets),
@@ -643,6 +660,8 @@ export function projectCheckpointStateForResumeV8(
     case "arc":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        planningInputs: clone(sourceCheckpoint.planningInputs),
+        routePlanning: clone(sourceCheckpoint.routePlanning),
         core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
@@ -652,6 +671,8 @@ export function projectCheckpointStateForResumeV8(
     case "editorial":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        planningInputs: clone(sourceCheckpoint.planningInputs),
+        routePlanning: clone(sourceCheckpoint.routePlanning),
         core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),
@@ -665,6 +686,8 @@ export function projectCheckpointStateForResumeV8(
     case "scorecard":
       return {
         candidates: clone(sourceCheckpoint.candidates),
+        planningInputs: clone(sourceCheckpoint.planningInputs),
+        routePlanning: clone(sourceCheckpoint.routePlanning),
         core: decodeCheckpointCoreV8(sourceCheckpoint.core, "resume checkpoint"),
         route: clone(sourceCheckpoint.route),
         research: clone(sourceCheckpoint.research),

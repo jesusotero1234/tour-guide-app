@@ -9,6 +9,7 @@ import { NarrativeNarrationTargetV8 } from './poi/NarrativeDurationTargetsV8';
 import { NarrativeResearchHandoffStopV8, NarrativeEvidenceManifestV8, buildNarrativeEvidenceBoundaryV8 } from './poi/NarrativeEvidenceBoundaryV8';
 import { TourGeometryV8Result } from './poi/TourGeometryV8';
 import { RESEARCH_POLICY_VERSION } from './tourReadiness/TourLanguage';
+import { ROUTE_SCOPE_POLICY_V8, RoutePlanningDecisionV8, validateRoutePlanningDecisionV8 } from './poi/NarrativeRoutePlanningV8';
 
 export interface TourEvidenceCheckpoint {
   route: NarrativeRouteBriefV6;
@@ -22,6 +23,8 @@ export interface TourBlueprintSnapshot {
   destination: TourDestination;
   checkpoint: TourEvidenceCheckpoint;
   geometry: TourGeometryV8Result;
+  routePolicy?: string;
+  routePlanning?: RoutePlanningDecisionV8;
   fingerprint: string;
 }
 export interface TourBlueprint {
@@ -47,11 +50,12 @@ export interface TourBlueprintRepository {
   isCurrent(id: string): Promise<boolean>;
   findById(id: string): Promise<TourBlueprint | null>;
 }
-export function tourBaseKey(destination: TourDestination, request: Pick<TourRequest, 'theme' | 'durationMinutes'>): string {
+export function tourBaseKey(destination: TourDestination, request: Pick<TourRequest, 'theme' | 'durationMinutes'>, routePolicy = 'walking-v8-1'): string {
+  if (!['walking-v8-1', ROUTE_SCOPE_POLICY_V8].includes(routePolicy)) throw new Error('invalid route policy');
   return createHash('sha256').update(JSON.stringify({
     qid: destination.qid, countryCode: destination.countryCode, theme: request.theme,
     durationMinutes: request.durationMinutes, researchPolicy: RESEARCH_POLICY_VERSION,
-    routePolicy: 'walking-v8-1',
+    routePolicy,
   })).digest('hex');
 }
 function requireCondition(value: unknown, reason: string): asserts value {
@@ -85,6 +89,8 @@ export function createTourBlueprintSnapshot(input: Omit<TourBlueprintSnapshot, '
   const payload = JSON.parse(JSON.stringify({
     schemaVersion: 'tour-blueprint-1', destination: input.destination,
     checkpoint: { ...input.checkpoint, research }, geometry: input.geometry,
+    ...(input.routePolicy ? { routePolicy: input.routePolicy } : {}),
+    ...(input.routePlanning ? { routePlanning: input.routePlanning } : {}),
   })) as Omit<TourBlueprintSnapshot, 'fingerprint'>;
   return parseTourBlueprintSnapshot({ ...payload, fingerprint: narrativeFingerprintV6(payload) });
 }
@@ -102,6 +108,20 @@ export function parseTourBlueprintSnapshot(value: unknown): TourBlueprintSnapsho
     && d.researchLanguages.every(lang => /^[a-z]{2,3}$/.test(lang)), 'research languages');
   requireCondition(cp?.route && Array.isArray(cp.route.stops) && cp.route.stops.length >= 2, 'route');
   const route = cp.route;
+  if (snapshot.routePolicy !== undefined) requireCondition(['walking-v8-1', ROUTE_SCOPE_POLICY_V8].includes(snapshot.routePolicy), 'route policy');
+  if (snapshot.routePolicy === ROUTE_SCOPE_POLICY_V8) {
+    requireCondition(geometry?.timingSource === 'walking_graph' && geometry.durationFit === 'within_target'
+      && geometry.guidedDurationMinutes >= route.durationMinutes * 0.9
+      && geometry.guidedDurationMinutes <= route.durationMinutes * 1.1
+      && Array.isArray(geometry.legs) && geometry.legs.every(l => l.type === 'walking'), 'scoped policy requires measured walking fit');
+  }
+  if (snapshot.routePlanning) {
+    requireCondition(snapshot.routePolicy === ROUTE_SCOPE_POLICY_V8, 'planning policy');
+    const planning = validateRoutePlanningDecisionV8(snapshot.routePlanning, route.stops.map(s => s.stopId));
+    requireCondition(planning.cityCore.cityKey === d.city && planning.cityCore.durationMinutes === route.durationMinutes, 'planning destination');
+    requireCondition(geometry.timingSource === 'walking_graph' && geometry.durationFit === 'within_target'
+      && geometry.legs.every(l => l.type === 'walking'), 'planning walking duration');
+  }
   requireCondition(route.city === d.city && route.country === d.country && route.language === d.researchLanguages[0], 'route destination/language');
   requireCondition(route.theme === 'history' && [60, 120, 180, 240].includes(route.durationMinutes), 'route request');
   const { fingerprint: routeHash, ...routePayload } = route;

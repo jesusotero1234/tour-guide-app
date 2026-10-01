@@ -52,6 +52,18 @@ describe('bounded duration-aware walking plan V8', () => {
     expect(result.durationFit).toBe('short');
     expect(routing.getRoute).toHaveBeenCalledTimes(6);
   });
+  it('uses the allowed twelve stops when a compact city needs them to fill the requested tour', async () => {
+    const compactCandidates = Array.from({ length: 12 }, (_, index) => ({
+      ...candidates[index % candidates.length], wikidataId: `Q${index + 1}`,
+      name: `Compact place ${index + 1}`, importanceScore: 100 - index,
+    }));
+    const routing = service(2.2);
+    const result = await planNarrativeWalkingRouteV8({ ...input, candidates: compactCandidates }, routing);
+    expect(result.durationFit).toBe('within_target');
+    expect(result.geometry.stops).toHaveLength(12);
+    expect(result.geometry.guidedDurationMinutes).toBe(109);
+    expect(result.geometry.stops.map(stop => stop.stopId)).toEqual(expect.arrayContaining(input.requiredIds));
+  });
   it('labels provider failure as geometric fallback, never as verified timing', async () => {
     const routing = service(11);
     routing.getRoute.mockRejectedValue(new WalkingRouteUnavailableError());

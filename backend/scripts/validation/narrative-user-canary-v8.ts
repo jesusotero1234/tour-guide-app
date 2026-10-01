@@ -87,6 +87,9 @@ import {
 } from '../../src/services/poi/TourGeometryV8';
 import { getDurationPlan } from '../../src/services/poi/DurationPlanning';
 import { WalkingRouteService, WalkingRouteUnavailableError } from '../../src/services/WalkingRouteService';
+import { ROUTE_SCOPE_POLICY_V8, planNarrativeRouteWithRecoveryV8, RouteRecoveryReviewRequiredV8, RoutePlanningDecisionV8 } from '../../src/services/poi/NarrativeRoutePlanningV8';
+import { reviewNarrativeRouteScopesV8 } from '../../src/services/poi/NarrativeRouteScopeReviewV8';
+import { buildCoreAuditRequestV6 } from '../../src/services/poi/EditorialCoreResolverV6';
 import { planNarrativeWalkingRouteV8, measureNarrativeWalkingRouteV8 } from '../../src/services/poi/NarrativeWalkingPlanV8';
 import {
   createCheckpoint,
@@ -727,7 +730,8 @@ async function loadCoreV8(
     openRouterApiKey: string;
     openRouterPricing?: Record<string, EditorialPricingV6>;
     qwenLocalBaseUrl?: string;
-  }
+  },
+  saved?: { coreArtifactPath: string; coreArtifactSha256: string }
 ): Promise<{
   requiredIds: string[];
   disagreement: boolean;
@@ -736,11 +740,13 @@ async function loadCoreV8(
   resolution: CoreResolutionSnapshotV6;
 }> {
   const coreArtifact = option('--core-artifact');
-  if (coreArtifact) {
+  if (coreArtifact || saved) {
     const fs = await import('fs');
-    const artifact = JSON.parse(
-      fs.readFileSync(resolve(process.cwd(), coreArtifact), 'utf8')
-    ) as {
+    const artifactBytes = fs.readFileSync(resolve(process.cwd(), saved?.coreArtifactPath ?? coreArtifact!));
+    if (saved && require('crypto').createHash('sha256').update(artifactBytes).digest('hex') !== saved.coreArtifactSha256) {
+      throw new Error('saved core artifact changed');
+    }
+    const artifact = JSON.parse(artifactBytes.toString('utf8')) as {
       prominence?: WikimediaProminenceSnapshotV6;
       resolution?: CoreResolutionSnapshotV6;
     };
@@ -819,6 +825,20 @@ async function main(): Promise<void> {
   const resumeOptions = parseResumeOptionsV8(process.argv);
   const resumeFromPhase = resumeOptions?.resumeFrom ?? null;
   const researchRuntime = researchRuntimeV8();
+  const routePolicy = option('--route-policy') ?? 'walking-v8-1';
+  if (!['walking-v8-1', ROUTE_SCOPE_POLICY_V8].includes(routePolicy)) throw new Error('invalid --route-policy');
+  const pinnedIds = (option('--pinned-ids') ?? '').split(',').map(id => id.trim()).filter(Boolean).sort();
+  const excludedIds = (option('--excluded-ids') ?? '').split(',').map(id => id.trim()).filter(Boolean).sort();
+  if (new Set(pinnedIds).size !== pinnedIds.length || pinnedIds.some(id => !/^Q\d+$/u.test(id))) {
+    throw new Error('invalid --pinned-ids');
+  }
+  if (new Set(excludedIds).size !== excludedIds.length || excludedIds.some(id => !/^Q\d+$/u.test(id))) {
+    throw new Error('invalid --excluded-ids');
+  }
+  if (pinnedIds.some(id => excludedIds.includes(id))) throw new Error('pinned and excluded ids overlap');
+  if (pinnedIds.length && routePolicy !== ROUTE_SCOPE_POLICY_V8) {
+    throw new Error('--pinned-ids requires walking-v8-scoped-1');
+  }
   const ragMode = option('--rag') ?? 'off';
   if (ragMode !== 'off' && ragMode !== 'on') throw new Error('--rag must be off or on');
   const ragBaseUrl = ragMode === 'on' ? historicalCorpusOriginV8(option('--rag-base-url') ?? process.env.HISTORICAL_CORPUS_BASE_URL) : null;
@@ -937,6 +957,9 @@ async function main(): Promise<void> {
   };
   const baselineRequestFingerprint = narrativeFingerprintV6(requestIdentity);
   const requestFingerprint = narrativeFingerprintV6({ ...requestIdentity,
+    ...(routePolicy === ROUTE_SCOPE_POLICY_V8 ? { routePolicy } : {}),
+    ...(pinnedIds.length ? { editorialPins: pinnedIds } : {}),
+    ...(excludedIds.length ? { editorialExclusions: excludedIds } : {}),
     ...(ragMode === 'on' ? { historicalCorpus: ragConfig } : {}),
   });
   let checkpointCityQid = '';
@@ -948,10 +971,13 @@ async function main(): Promise<void> {
     cityQid: '',
     language: request.language,
     requestFingerprint,
+    ...(routePolicy === ROUTE_SCOPE_POLICY_V8 ? { routePolicy } : {}),
     priorSpendUsd,
   };
   let checkpointState: {
     candidates?: JsonValue;
+    planningInputs?: JsonValue;
+    routePlanning?: JsonValue;
     core?: NarrativeCheckpointCoreV8;
     route?: JsonValue;
     narrationTargets?: JsonValue;
@@ -1081,6 +1107,16 @@ async function main(): Promise<void> {
       });
     checkpointCityQid = cityQid;
     if (sourceCheckpoint && resumeOptions && resolvedSourcePath) {
+      const sourcePolicy = sourceCheckpoint.run.routePolicy ?? 'walking-v8-1';
+      const changingPolicy = sourcePolicy !== routePolicy;
+      if (changingPolicy && (resumeOptions.resumeFrom !== 'route' || !option('--route-policy'))) {
+        throw new Error('route policy change requires explicit --route-policy and --resume-from=route');
+      }
+      const compatibleFingerprint = changingPolicy
+        ? narrativeFingerprintV6({ ...requestIdentity,
+          ...(sourcePolicy === ROUTE_SCOPE_POLICY_V8 ? { routePolicy: sourcePolicy } : {}),
+          ...(ragMode === 'on' ? { historicalCorpus: ragConfig } : {}) })
+        : requestFingerprint;
       assertResumeCompatibilityV8(sourceCheckpoint, {
         profile,
         city: cityKey,
@@ -1088,7 +1124,7 @@ async function main(): Promise<void> {
         language: request.language,
         requestFingerprint: narrativeRagResumeRequestFingerprintV8({ enabled: ragMode === 'on',
           fromPhase: resumeOptions.resumeFrom, saved: sourceCheckpoint.run.requestFingerprint,
-          baseline: baselineRequestFingerprint, current: requestFingerprint }),
+          baseline: baselineRequestFingerprint, current: compatibleFingerprint }),
         priorSpendUsd,
       });
       assertCheckpointSupportsResumeV8(sourceCheckpoint, resumeOptions.resumeFrom);
@@ -1108,6 +1144,52 @@ async function main(): Promise<void> {
     let route: NarrativeRouteBriefV6;
     let routeWalkingSeconds: number | null = null;
     let core = { requiredIds: [] as string[], coverageRatio: 0, disagreement: false };
+    const planResolvedRoute = async (
+      candidates: Parameters<typeof planNarrativeWalkingRouteV8>[0]['candidates'],
+      coreResolution: Awaited<ReturnType<typeof loadCoreV8>>,
+      entities: EditorialEntityCandidateV5[],
+    ) => {
+      const durationPlan = getDurationPlan(request.durationMinutes);
+      const input = { candidates, requiredIds: coreResolution.requiredIds,
+        durationMinutes: request.durationMinutes, minStops: durationPlan.minStops,
+        preferredStops: durationPlan.maxStops, theme: request.theme,
+        ...(pinnedIds.length ? { pinnedIds } : {}) };
+      if (routePolicy !== ROUTE_SCOPE_POLICY_V8) return planNarrativeWalkingRouteV8(input, walkingRouteService, abortController.signal);
+      checkpointState.planningInputs = toJsonValue({ coreArtifactPath: corePrivatePath,
+        coreArtifactSha256: require('crypto').createHash('sha256').update(readFileSync(corePrivatePath)).digest('hex') });
+      checkpointState.core = decodeCheckpointCoreV8(core, 'planning core');
+      await persistCheckpoint('candidates');
+      const coreResult = coreResolution.resolution.coreResult;
+      if (coreResult?.status !== 'approved') throw new Error('scope recovery requires approved city core');
+      const evidence = buildCoreAuditRequestV6({ cityKey, theme: request.theme,
+        durationMinutes: request.durationMinutes }, entities, coreResolution.prominence, 'scope-evidence').candidates;
+      try {
+        const result = await planNarrativeRouteWithRecoveryV8({ ...input, core: coreResult.core }, walkingRouteService,
+          reviewInput => reviewNarrativeRouteScopesV8(reviewInput, evidence,
+            narrativeCanaryCoreProviderV8(profile, { provider: option('--provider'), model: option('--model') }),
+            { apiKey, ...narrativeCanaryCoreOpenRouterOptionsV8({
+                provider: narrativeCanaryCoreProviderV8(profile, {}).model,
+                openRouterApiKey, pricing: openRouterPricing }),
+              oneProviderApiKey: process.env.ONEPROVIDER_API_KEY?.trim(),
+              onProgress, runId, profile, qwenLocalBaseUrl, signal: abortController.signal },
+            (seed, value) => writeFileSync(resolve(directory, `route-scope-${seed}.private.json`), JSON.stringify(value), { mode: 0o600 })),
+          abortController.signal);
+        if (result.decision) {
+          checkpointState.routePlanning = toJsonValue(result.decision);
+          core = { requiredIds: result.decision.requiredIds, coverageRatio: result.decision.scopeCoverageRatio, disagreement: false };
+          writeFileSync(resolve(directory, 'route-planning.private.json'), JSON.stringify(result.decision), { mode: 0o600 });
+          console.log(`[v8-canary] scope recovered: ${result.decision.scope} | ${result.plan.geometry.guidedDurationMinutes} min | omitted=${result.decision.omissions.map(o => o.canonicalId).join(',')}`);
+        } else if (pinnedIds.length) {
+          const requiredIds = [...new Set([...coreResolution.requiredIds, ...pinnedIds])].sort();
+          core = { requiredIds, coverageRatio: 1, disagreement: false };
+        }
+        return result.plan;
+      } catch (error) {
+        if (error instanceof RouteRecoveryReviewRequiredV8) writeFileSync(resolve(directory, 'route-planning.private.json'), JSON.stringify(error.diagnostics), { mode: 0o600 });
+        throw error;
+      }
+    };
+
     if (routeArtifactPath) {
       const replayed = await loadReplayRoute(routeArtifactPath);
       route = replayed.route;
@@ -1138,7 +1220,8 @@ async function main(): Promise<void> {
         {
           onProgress, runId, profile, qwenLocalBaseUrl,
           openRouterApiKey, openRouterPricing,
-        }
+        },
+        checkpointState.planningInputs as unknown as Parameters<typeof loadCoreV8>[5]
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1152,11 +1235,7 @@ async function main(): Promise<void> {
       if (coreResolution.disagreement) {
         throw new Error(`core_disagreement: ${coreResolution.reason ?? 'core review required'}`);
       }
-      const plan = getDurationPlan(request.durationMinutes);
-      const { selection, geometry } = await planNarrativeWalkingRouteV8({
-        candidates, requiredIds: coreResolution.requiredIds, durationMinutes: request.durationMinutes,
-        minStops: plan.minStops, preferredStops: plan.maxStops, theme: request.theme,
-      }, walkingRouteService, abortController.signal);
+      const { selection, geometry } = await planResolvedRoute(candidates, coreResolution, readyEntities);
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
@@ -1218,6 +1297,8 @@ async function main(): Promise<void> {
         language: request.language,
         durationMinutes: request.durationMinutes,
         countryCode: request.countryCode,
+        ...(pinnedIds.length ? { pinnedIds } : {}),
+        ...(excludedIds.length ? { excludedIds } : {}),
       };
       const loaded = await loadLiveCityCandidatesV8(liveInput);
       const redirected = (loaded.identityResolutions ?? []).filter(identity => identity.redirectChain.length > 1).length;
@@ -1263,7 +1344,8 @@ async function main(): Promise<void> {
         {
           onProgress, runId, profile, qwenLocalBaseUrl,
           openRouterApiKey, openRouterPricing,
-        }
+        },
+        checkpointState.planningInputs as unknown as Parameters<typeof loadCoreV8>[5]
       );
       writeFileSync(corePrivatePath, `${JSON.stringify({
         prominence: coreResolution.prominence,
@@ -1277,11 +1359,7 @@ async function main(): Promise<void> {
       if (coreResolution.disagreement) {
         throw new Error(`core_disagreement: ${coreResolution.reason ?? 'core review required'}`);
       }
-      const plan = getDurationPlan(request.durationMinutes);
-      const { selection, geometry } = await planNarrativeWalkingRouteV8({
-        candidates, requiredIds: coreResolution.requiredIds, durationMinutes: request.durationMinutes,
-        minStops: plan.minStops, preferredStops: plan.maxStops, theme: request.theme,
-      }, walkingRouteService, abortController.signal);
+      const { selection, geometry } = await planResolvedRoute(candidates, coreResolution, loaded.readyEntities);
       if (selection.missingRequiredIds.length > 0) {
         throw new Error(`required_identity_missing: ${selection.missingRequiredIds.join(', ')}`);
       }
@@ -1424,6 +1502,20 @@ async function main(): Promise<void> {
         onProgress,
       });
       research = [];
+      const reusableResearch = new Map<string, NarrativeResearchHandoffStopV8>();
+      if (resumeFromPhase === 'research' && sourceCheckpoint?.run.requestFingerprint === requestFingerprint
+        && (sourceCheckpoint.route as unknown as NarrativeRouteBriefV6)?.fingerprint === route.fingerprint
+        && Array.isArray(sourceCheckpoint.research)) {
+        const previous = sourceCheckpoint.research as unknown as NarrativeResearchHandoffStopV8[];
+        for (const stop of route.stops) {
+          const matches = previous.filter(row => row.routeStopId === stop.stopId);
+          if (matches.length !== 1 || matches[0].result.status !== 'sufficient') continue;
+          // Rebuild evidence and gates before reusing a successful stop. This
+          // single-stop boundary is only an admission check, never a saved route.
+          const checked = buildNarrativeEvidenceBoundaryV8({ ...route, stops: [stop] }, matches);
+          if (checked.status === 'ready') reusableResearch.set(stop.stopId, matches[0]);
+        }
+      }
       const researchConcurrency = Math.min(
         NARRATIVE_MODEL_PROFILES_V6[profile].concurrency.researchStops,
         route.stops.length
@@ -1440,6 +1532,11 @@ async function main(): Promise<void> {
           .map((stop, offset) => ({ stop, index: batchStart + offset }));
         const completed = await Promise.all(batch.map(async ({ stop, index }) => {
           const startedAt = Date.now();
+          const reused = reusableResearch.get(stop.stopId);
+          if (reused) {
+            console.log(`[v8-canary] reusing verified research ${index + 1}/${route.stops.length}: ${stop.wikidataId}`);
+            return { stop, index, result: reused.result, elapsedMs: 0 };
+          }
           console.log(`[v8-canary] researching stop ${index + 1}/${route.stops.length}: ${stop.wikidataId} ${stop.name}`);
           const result = await researchNarrativeStopV8({
             runId,
@@ -1698,6 +1795,8 @@ async function main(): Promise<void> {
       if (destination.qid !== cityQid || destination.countryCode !== request.countryCode) throw new Error('Blueprint destination mismatch');
       const snapshot = createTourBlueprintSnapshot({
         destination, geometry: routeGeometry,
+        ...(routePolicy === ROUTE_SCOPE_POLICY_V8 ? { routePolicy } : {}),
+        ...(checkpointState.routePlanning ? { routePlanning: checkpointState.routePlanning as unknown as RoutePlanningDecisionV8 } : {}),
         checkpoint: { route, research, evidenceManifest, arc: architectResult.arc, narrationTargets: durationReconciliation.targets },
       });
       spendGuard.assertSettled();

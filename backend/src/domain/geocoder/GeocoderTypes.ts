@@ -1,6 +1,7 @@
 export interface GeocodedCity {
   osmType: string;
   osmId: number;
+  countryCode?: string;
   wikidataId: string | null;
   displayName: string;
   lat: number;
