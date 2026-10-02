@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { timingSafeEqual } from 'node:crypto';
 import { TourRepository } from '../../domain/repositories/TourRepository';
+import type { Tour } from '../../domain/entities/Tour';
 import { TourBlueprintRepository } from '../../services/TourBlueprint';
 import { TourAudioService } from '../../services/TourAudioService';
 import { admittedToPilot, presentPilotTour, validWalkingRoute, ownerAuthorized } from '../../services/PilotRelease';
@@ -36,7 +37,12 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (!uuid.test(id)) return null;
     if (localReviewIds && !localReviewIds.has(id)) return null;
     const tour = await tours.findById(id);
-    if (!tour) return null;
+    return tour ? releasedTour(tour) : null;
+  }
+  /** The admission gate for a tour that is already loaded, so the catalogue does not read each tour a second time. */
+  async function releasedTour(tour: Tour) {
+    const id = tour.id;
+    if (localReviewIds && !localReviewIds.has(id)) return null;
     if (localReviewIds && tour.status === 'published') {
       const state = await audio.get(id, true);
       return { tour, state };
@@ -67,10 +73,27 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
   };
   const notFound = (res: Response) => res.status(404).json({ error: { code: 'TOUR_NOT_FOUND', message: 'La guía no está disponible.' } });
 
+  // Optional short-lived cache of the admitted catalogue, off unless PILOT_CATALOG_CACHE_MS is set: a withdrawn tour must leave the list at once.
+  const catalogueTtl = () => {
+    const ms = Number(process.env.PILOT_CATALOG_CACHE_MS ?? 0);
+    return Number.isFinite(ms) && ms > 0 && !localReviewIds ? ms : 0;
+  };
+  const catalogue = new Map<string, { at: number; admitted: Promise<ReturnType<typeof presentPilotTour>[]> }>();
+  const CONCURRENCY = 10;
+  async function admittedCatalogue(filters: Record<string, string>) {
+    const candidates = await tours.list({ ...filters, cityMatch: 'contains', status: 'published' });
+    const admitted: ReturnType<typeof presentPilotTour>[] = [];
+    for (let index = 0; index < candidates.length; index += CONCURRENCY) {
+      const batch = await Promise.all(candidates.slice(index, index + CONCURRENCY).map(releasedTour));
+      for (const current of batch) if (current) admitted.push(presentPilotTour(current.tour, current.state, Boolean(localReviewIds)));
+    }
+    return admitted;
+  }
+
   router.get('/tours', get(async (req, res) => {
     const limit = req.query.limit === undefined ? 20 : Number(req.query.limit);
     const offset = req.query.offset === undefined ? 0 : Number(req.query.offset);
-    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 50 || !Number.isSafeInteger(offset) || offset < 0) return res.status(400).json({ error: { code: 'INVALID_PAGINATION' } });
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 200 || !Number.isSafeInteger(offset) || offset < 0) return res.status(400).json({ error: { code: 'INVALID_PAGINATION' } });
     const filters: Record<string, string> = {};
     for (const key of ['city', 'countryCode', 'language', 'theme']) {
       const value = req.query[key];
@@ -78,12 +101,19 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
       if (typeof value === 'string' && value) filters[key] = value;
     }
     // ponytail: review the small pilot inventory before pagination; index releases if the catalogue grows.
-    const candidates = await tours.list({ ...filters, cityMatch: 'contains', status: 'published' });
-    const admitted = [];
-    for (const candidate of candidates) {
-      const current = await released(candidate.id);
-      if (current) admitted.push(presentPilotTour(current.tour, current.state, Boolean(localReviewIds)));
+    const ttl = catalogueTtl();
+    const cacheKey = JSON.stringify(Object.entries(filters).sort(([a], [b]) => a.localeCompare(b)));
+    let entry = ttl ? catalogue.get(cacheKey) : undefined;
+    if (!entry || Date.now() - entry.at >= ttl) {
+      entry = { at: Date.now(), admitted: admittedCatalogue(filters) };
+      if (ttl) {
+        catalogue.set(cacheKey, entry);
+        // A failed read must not stay cached.
+        entry.admitted.catch(() => { if (catalogue.get(cacheKey) === entry) catalogue.delete(cacheKey); });
+        if (catalogue.size > 50) catalogue.delete(catalogue.keys().next().value as string);
+      }
     }
+    const admitted = await entry.admitted;
     res.json({ success: true, data: { tours: admitted.slice(offset, offset + limit), total: admitted.length } });
   }));
   router.get('/tours/:id', get(async (req, res) => {

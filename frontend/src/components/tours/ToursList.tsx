@@ -8,6 +8,7 @@ import { usePageLanguage } from '@/components/layout/PageLanguage';
 import { browseCopy, languageNames } from '@/lib/browseCopy';
 import { mobileTourCopy } from '@/lib/mobileTourCopy';
 
+const PAGE_SIZE = 200;
 const normalized = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase().trim();
 
 export const ToursList = () => {
@@ -28,14 +29,14 @@ export const ToursList = () => {
     const load = async () => {
       try {
         const tours: Tour[] = [];
-        // The API caps pages at 50. Complete the catalog before filtering cities locally.
-        for (let offset = 0; ; offset += 50) {
-          const page = await listTours({ language, readyOnly: true, limit: 50, offset }, controller.signal);
+        // One request normally returns the whole catalogue; the loop only continues if the backend reports more tours than it sent.
+        for (let offset = 0; ; offset = tours.length) {
+          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset }, controller.signal);
           if (controller.signal.aborted) return;
           const known = new Set(tours.map(tour => tour.id));
           const added = page.filter(tour => !known.has(tour.id));
           tours.push(...added);
-          if (page.length < 50 || !added.length) break;
+          if (!added.length || (total !== undefined && tours.length >= total)) break;
         }
         setResult({ language, tours, error: false });
       } catch {
@@ -77,7 +78,7 @@ export const ToursList = () => {
       {currentResult && (currentResult.error ? <div className="discovery-empty"><p role="alert">{t.searchError}</p><button className="tour-primary" onClick={() => { setResult(null); setRetry(value => value + 1); }}>{t.retry}</button></div>
         : filtered.length ? <section aria-label={t.resultsLabel}>
           <div className="discovery-section-title"><h2>{m.featured}</h2><span>{filtered.length}</span></div>
-          <div className="discovery-cards">{filtered.slice(0, visibleCount).map(tour => <TourCard key={tour.id} tour={tour} />)}</div>
+          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} />)}</div>
           {filtered.length > visibleCount && <button className="discovery-more" onClick={() => setVisibleCount(value => value + 6)}>{m.more} ↓</button>}
         </section> : <div className="discovery-empty"><h2>{query ? t.emptyTitle(city.trim(), t.languageNames[language]) : m.empty}</h2><p>{t.emptyHint}</p>{query && <button className="tour-primary" onClick={() => chooseCity('')}>{m.clear}</button>}</div>)}
     </div>

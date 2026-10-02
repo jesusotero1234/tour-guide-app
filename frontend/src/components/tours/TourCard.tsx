@@ -8,7 +8,7 @@ import { mobileTourCopy } from '@/lib/mobileTourCopy';
 import { TourCover } from './TourCover';
 import { TourSample } from './TourSample';
 
-export const TourCard = ({ tour }: { tour: Tour }) => {
+export const TourCard = ({ tour, priority = false }: { tour: Tour; priority?: boolean }) => {
   const { language } = usePageLanguage();
   const t = browseCopy(language);
   const m = mobileTourCopy(language);
@@ -16,7 +16,7 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
   const country = /^[A-Z]{2}$/i.test(tour.countryCode ?? '')
     ? new Intl.DisplayNames([language], { type: 'region' }).of(tour.countryCode.toUpperCase()) || tour.country : tour.country;
   return <article className="mobile-tour-card">
-    <TourCover tour={tour} />
+    <TourCover tour={tour} priority={priority} />
     <div className="mobile-tour-card-body">
       <p className="tour-eyebrow">{city} · {m.walkingTour}</p>
       {tour.localReview && <p className="tour-private-review">{t.privateReview}</p>}

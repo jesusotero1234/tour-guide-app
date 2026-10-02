@@ -196,8 +196,6 @@ export async function quoteFlexiblePass(request: FlexiblePassQuoteRequest): Prom
 
 export async function getTour(id: string): Promise<Tour> {
   try {
-    console.log(`Fetching tour with ID: ${id}`);
-    
     const response = await fetch(`${FRONTEND_TOUR_API}/tours/${encodeURIComponent(id)}`);
     
     if (!response.ok) {
@@ -207,8 +205,6 @@ export async function getTour(id: string): Promise<Tour> {
     }
     
     const tourData = await response.json();
-    console.log(`Tour fetched successfully with ${tourData.places?.length || 0} places`);
-    
     return tourData;
   } catch (error) {
     console.error('Error fetching tour:', error);
@@ -247,10 +243,8 @@ export function getWalkingRoute(id: string): Promise<WalkingRoute> {
   return request;
 }
 
-export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<Tour[]> {
+export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<{ tours: Tour[]; total?: number }> {
   try {
-    console.log('Fetching tours with params:', params);
-    
     // Build query string from params
     const queryParams = new URLSearchParams();
     if (params?.city) queryParams.append('city', params.city);
@@ -274,9 +268,7 @@ export async function listTours(params?: TourListParams, signal?: AbortSignal): 
     
     const data = await response.json();
     const tours = data.data?.tours || [];
-    console.log(`Fetched ${tours.length} tours successfully`);
-    
-    return tours;
+    return { tours, total: typeof data.data?.total === 'number' ? data.data.total : undefined };
   } catch (error) {
     if (signal?.aborted) throw error;
     console.error('Error listing tours:', error);
