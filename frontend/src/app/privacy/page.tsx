@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { cookies, headers } from 'next/headers';
-import { InfoLinks } from '@/components/legal/InfoLinks';
 import { ClearProgressButton } from '@/components/legal/ClearProgressButton';
 import { readPilotNotice } from '@/lib/pilotServer';
 import { preferredLanguage, supportedLanguage } from '@/lib/browseCopy';
@@ -31,6 +30,5 @@ export default async function Privacy({ searchParams }: { searchParams: Promise<
     {notice ? <><h2>{t.controller}</h2><p>{notice.operatorName} · <a href={'mailto:' + notice.contactEmail}>{notice.contactEmail}</a></p>{notice.contentLanguage !== language && <p>{t.translationPending}</p>}{fields.map(key => <section key={key}><h2>{t[key]}</h2><p lang={notice.contentLanguage}>{notice[key]}</p></section>)}</> : <p>{t.closed}</p>}
     <h2>{t.analyticsTitle}</h2>
     <p>{t.analytics}</p>
-    <InfoLinks language={language} />
   </main>;
 }
