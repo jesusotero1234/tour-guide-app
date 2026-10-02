@@ -1,4 +1,6 @@
 nomuvia.com {
+    # JSON, HTML and scripts only: Caddy's default list leaves audio and images alone, and Range requests are unaffected.
+    encode zstd gzip
     header {
         Cache-Control "private, no-store"
         X-Content-Type-Options "nosniff"
