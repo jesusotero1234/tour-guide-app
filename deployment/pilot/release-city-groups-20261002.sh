@@ -20,7 +20,7 @@ for f in "${FILES[@]}"; do
   mkdir -p "$WORK/files/$(dirname "$f")"
   git -C "$REPO" show "$COMMIT:$f" > "$WORK/files/$f"
 done
-tar czf "$WORK/release.tgz" -C "$WORK/files" backend frontend
+tar czf "$WORK/release.tgz" -C "$WORK/files" frontend
 scp -q -i "$KEY" "$WORK/release.tgz" "$HOST:/tmp/nomuvia-release-20261002c.tgz"
 
 ssh -i "$KEY" "$HOST" 'bash -s' <<'REMOTE'
