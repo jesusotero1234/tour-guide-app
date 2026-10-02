@@ -4,6 +4,7 @@ import { TourRepository } from '../../domain/repositories/TourRepository';
 import type { Tour } from '../../domain/entities/Tour';
 import { TourBlueprintRepository } from '../../services/TourBlueprint';
 import { TourAudioService } from '../../services/TourAudioService';
+import { presentPilotTourSummary } from '../../services/PilotCatalogSummary';
 import { admittedToPilot, presentPilotTour, validWalkingRoute, ownerAuthorized } from '../../services/PilotRelease';
 import { assertBlueprintSources, buildSourceCredits } from '../../services/SourceCredits';
 import { sha256 } from '../../services/AudioProvenance';
@@ -78,14 +79,15 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     const ms = Number(process.env.PILOT_CATALOG_CACHE_MS ?? 0);
     return Number.isFinite(ms) && ms > 0 && !localReviewIds ? ms : 0;
   };
-  const catalogue = new Map<string, { at: number; admitted: Promise<ReturnType<typeof presentPilotTour>[]> }>();
+  type Admitted = NonNullable<Awaited<ReturnType<typeof releasedTour>>>;
+  const catalogue = new Map<string, { at: number; admitted: Promise<Admitted[]> }>();
   const CONCURRENCY = 10;
   async function admittedCatalogue(filters: Record<string, string>) {
     const candidates = await tours.list({ ...filters, cityMatch: 'contains', status: 'published' });
-    const admitted: ReturnType<typeof presentPilotTour>[] = [];
+    const admitted: Admitted[] = [];
     for (let index = 0; index < candidates.length; index += CONCURRENCY) {
       const batch = await Promise.all(candidates.slice(index, index + CONCURRENCY).map(releasedTour));
-      for (const current of batch) if (current) admitted.push(presentPilotTour(current.tour, current.state, Boolean(localReviewIds)));
+      for (const current of batch) if (current) admitted.push(current);
     }
     return admitted;
   }
@@ -114,7 +116,9 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
       }
     }
     const admitted = await entry.admitted;
-    res.json({ success: true, data: { tours: admitted.slice(offset, offset + limit), total: admitted.length } });
+    // `view=summary` is the catalogue card: the tour's own page is where its stops, audio and credits are read.
+    const present = req.query.view === 'summary' ? presentPilotTourSummary : presentPilotTour;
+    res.json({ success: true, data: { tours: admitted.slice(offset, offset + limit).map(current => present(current.tour, current.state, Boolean(localReviewIds))), total: admitted.length } });
   }));
   router.get('/tours/:id', get(async (req, res) => {
     const current = await released(req.params.id);

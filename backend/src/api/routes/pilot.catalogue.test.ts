@@ -118,3 +118,25 @@ test('without PILOT_CATALOG_CACHE_MS nothing is cached, so a withdrawn tour leav
   expect((await hit('/tours')).body.data.total).toBe(1);
   expect(list).toHaveBeenCalledTimes(2);
 });
+
+test('view=summary lists the same tours as the full view, without their stops', async () => {
+  const { hit, items } = await start(3, undefined);
+  items[1].tour.metadata!.pilotRelease!.status = 'withdrawn';
+  const full = await hit('/tours?limit=10');
+  const summary = await hit('/tours?limit=10&view=summary');
+  expect(summary.body.data.total).toBe(2);
+  expect(summary.body.data.tours.map((t: { id: string }) => t.id)).toEqual(full.body.data.tours.map((t: { id: string }) => t.id));
+  for (const tour of summary.body.data.tours) {
+    expect(tour.places).toBeUndefined();
+    expect(tour.stopCount).toBe(2);
+    expect(tour.sampleAudioUrl).toContain('/audio/');
+  }
+  expect(full.body.data.tours[0].places).toHaveLength(2);
+});
+
+test('a cached catalogue serves both views from one calculation', async () => {
+  const { hit, list } = await start(2, '60000');
+  await hit('/tours');
+  await hit('/tours?view=summary');
+  expect(list).toHaveBeenCalledTimes(1);
+});

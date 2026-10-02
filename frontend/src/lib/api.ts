@@ -1,4 +1,4 @@
-import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language, WalkingRoute } from '@/types/api';
+import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourSummary, TourRequest, TourListParams, Language, WalkingRoute } from '@/types/api';
 
 const FRONTEND_TOUR_API = '/api/backend';
 const walkingRouteRequests = new Map<string, Promise<WalkingRoute>>();
@@ -243,7 +243,9 @@ export function getWalkingRoute(id: string): Promise<WalkingRoute> {
   return request;
 }
 
-export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<{ tours: Tour[]; total?: number }> {
+export async function listTours(params: TourListParams & { view: 'summary' }, signal?: AbortSignal): Promise<{ tours: TourSummary[]; total?: number }>;
+export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<{ tours: Tour[]; total?: number }>;
+export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<{ tours: Tour[] | TourSummary[]; total?: number }> {
   try {
     // Build query string from params
     const queryParams = new URLSearchParams();
@@ -254,6 +256,7 @@ export async function listTours(params?: TourListParams, signal?: AbortSignal): 
     if (typeof params?.readyOnly === 'boolean') queryParams.append('readyOnly', String(params.readyOnly));
     if (params?.limit) queryParams.append('limit', params.limit.toString());
     if (params?.offset) queryParams.append('offset', params.offset.toString());
+    if (params?.view) queryParams.append('view', params.view);
     
     const queryString = queryParams.toString();
     const url = `${FRONTEND_TOUR_API}/tours${queryString ? `?${queryString}` : ''}`;

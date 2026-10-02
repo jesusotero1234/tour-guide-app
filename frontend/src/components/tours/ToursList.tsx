@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { listTours } from '@/lib/api';
-import { Language, Tour } from '@/types/api';
+import { Language, TourSummary } from '@/types/api';
 import { TourCard } from './TourCard';
 import { usePageLanguage } from '@/components/layout/PageLanguage';
 import { browseCopy, languageNames } from '@/lib/browseCopy';
 import { mobileTourCopy } from '@/lib/mobileTourCopy';
 
 const PAGE_SIZE = 200;
+/** The first tours are the likeliest to be opened: their pages are fetched in the background so that opening one is immediate. */
+const PREFETCHED_TOURS = 6;
 const normalized = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase().trim();
 
 export const ToursList = () => {
@@ -18,7 +20,7 @@ export const ToursList = () => {
   const [city, setCity] = useState('');
   const [selectedLanguage, setLanguage] = useState<Language | null>(null);
   const language = selectedLanguage ?? pageLanguage;
-  const [result, setResult] = useState<{ language: Language; tours: Tour[]; error: boolean } | null>(null);
+  const [result, setResult] = useState<{ language: Language; tours: TourSummary[]; error: boolean } | null>(null);
   const [retry, setRetry] = useState(0);
   const [visibleCount, setVisibleCount] = useState(6);
   const currentResult = result?.language === language ? result : null;
@@ -28,10 +30,10 @@ export const ToursList = () => {
     const controller = new AbortController();
     const load = async () => {
       try {
-        const tours: Tour[] = [];
+        const tours: TourSummary[] = [];
         // One request normally returns the whole catalogue; the loop only continues if the backend reports more tours than it sent.
         for (let offset = 0; ; offset = tours.length) {
-          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset }, controller.signal);
+          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset, view: 'summary' }, controller.signal);
           if (controller.signal.aborted) return;
           const known = new Set(tours.map(tour => tour.id));
           const added = page.filter(tour => !known.has(tour.id));
@@ -78,7 +80,7 @@ export const ToursList = () => {
       {currentResult && (currentResult.error ? <div className="discovery-empty"><p role="alert">{t.searchError}</p><button className="tour-primary" onClick={() => { setResult(null); setRetry(value => value + 1); }}>{t.retry}</button></div>
         : filtered.length ? <section aria-label={t.resultsLabel}>
           <div className="discovery-section-title"><h2>{m.featured}</h2><span>{filtered.length}</span></div>
-          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} />)}</div>
+          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} prefetch={index < PREFETCHED_TOURS ? true : undefined} />)}</div>
           {filtered.length > visibleCount && <button className="discovery-more" onClick={() => setVisibleCount(value => value + 6)}>{m.more} ↓</button>}
         </section> : <div className="discovery-empty"><h2>{query ? t.emptyTitle(city.trim(), t.languageNames[language]) : m.empty}</h2><p>{t.emptyHint}</p>{query && <button className="tour-primary" onClick={() => chooseCity('')}>{m.clear}</button>}</div>)}
     </div>
