@@ -149,7 +149,8 @@ echo "página /tours: HTTP $code"
 curl -s -m 60 -o /tmp/nomuvia-tour.html -w '%{http_code}\n' "https://nomuvia.com/tours/$id" | grep -q '^200$' || rollback "ficha /tours/$id no responde 200"
 grep -q '<h1' /tmp/nomuvia-tour.html || rollback "la ficha no trae el título en el HTML inicial"
 echo "ficha /tours/$id: HTTP 200 con el título en el HTML inicial"
-n=$(curl -s -m 60 https://nomuvia.com/tours | grep -o 'class="discovery-country"' | wc -l)
+# styled-jsx adds its own class next to ours, so match the class name, not the whole attribute; `|| true` keeps a zero count from ending the script before the rollback.
+n=$(curl -s -m 60 https://nomuvia.com/tours | grep -o '<details class="[^"]*discovery-country' | wc -l || true)
 echo "/tours: $n grupos de país en el HTML"
 [ "$n" -ge 4 ] || rollback "/tours no trae los grupos de país"
 
