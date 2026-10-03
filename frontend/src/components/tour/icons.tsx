@@ -13,3 +13,7 @@ export const ChevronRightIcon = (props: Props) => <svg {...base} {...props}><pat
 /** A circular arrow with 15 inside it, the way players draw "back 15 seconds" and "forward 15 seconds". */
 export const SkipBackIcon = (props: Props) => <svg {...base} width={28} height={28} {...props}><path d="M5 12a7.5 7.5 0 1 0 2.4-5.5" /><path d="M5 4.5v4h4" /><text x="12" y="15.2" fontSize="7" textAnchor="middle" fill="currentColor" stroke="none">15</text></svg>;
 export const SkipForwardIcon = (props: Props) => <svg {...base} width={28} height={28} {...props}><path d="M19 12a7.5 7.5 0 1 1-2.4-5.5" /><path d="M19 4.5v4h-4" /><text x="12" y="15.2" fontSize="7" textAnchor="middle" fill="currentColor" stroke="none">15</text></svg>;
+export const LocateIcon = (props: Props) => <svg {...base} {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3" /></svg>;
+export const MapIcon = (props: Props) => <svg {...base} {...props}><path d="m9 4.5-5 2v13l5-2 6 2 5-2v-13l-5 2-6-2Z" /><path d="M9 4.5v13M15 6.5v13" /></svg>;
+export const CloseIcon = (props: Props) => <svg {...base} {...props}><path d="m6 6 12 12M18 6 6 18" /></svg>;
+export const ExternalIcon = (props: Props) => <svg {...base} {...props}><path d="M14 4.5h5.5V10M19.5 4.5 11 13" /><path d="M18 14v4.5a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1H10" /></svg>;

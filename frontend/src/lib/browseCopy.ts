@@ -35,7 +35,8 @@ const copy = {
     stopsCount: (n: number) => `${n} ${n === 1 ? 'parada' : 'paradas'}`,
     emptyTitle: (city: string, language: string) => `Todavía no hay tours en ${language} para ${city}`,
     otherLanguages: 'Otros idiomas', themeAll: 'Todos', themeHistory: 'Historia', themeThematic: 'Temáticos', themeLabel: 'Tipo de paseo',
-    nearYou: 'Cerca de ti', nearYouLocating: 'Buscando tu ubicación…', nearYouDenied: 'Sin ubicación no podemos ordenar por cercanía.', nearYouOn: 'Ordenado por cercanía',
+    nearYou: 'Cerca de ti', nearYouLocating: 'Buscando tu ubicación…', nearYouDenied: 'Sin ubicación no podemos ordenar por cercanía.', nearYouOn: 'Paseos a menos de 50 km de ti',
+    nearYouNone: 'No hay paseos a menos de 50 km. Te mostramos los más cercanos.', nearYouClear: 'Quitar «cerca de ti»', away: (d: string) => `a ${d}`,
     walksCount: (n: number) => `${n} ${n === 1 ? 'paseo' : 'paseos'}`,
   },
   en: {
@@ -52,7 +53,8 @@ const copy = {
     stopsCount: (n: number) => `${n} ${n === 1 ? 'stop' : 'stops'}`,
     emptyTitle: (city: string, language: string) => `No tours in ${language} for ${city} yet`,
     otherLanguages: 'Other languages', themeAll: 'All', themeHistory: 'History', themeThematic: 'Themed', themeLabel: 'Type of walk',
-    nearYou: 'Near you', nearYouLocating: 'Finding your location…', nearYouDenied: 'Without your location we cannot sort by distance.', nearYouOn: 'Sorted by distance',
+    nearYou: 'Near you', nearYouLocating: 'Finding your location…', nearYouDenied: 'Without your location we cannot sort by distance.', nearYouOn: 'Walks within 50 km of you',
+    nearYouNone: 'No walks within 50 km. Showing the closest ones.', nearYouClear: 'Turn off “near you”', away: (d: string) => `${d} away`,
     walksCount: (n: number) => `${n} ${n === 1 ? 'walk' : 'walks'}`,
   },
   fr: {
@@ -69,7 +71,8 @@ const copy = {
     stopsCount: (n: number) => `${n} ${n === 1 ? 'étape' : 'étapes'}`,
     emptyTitle: (city: string, language: string) => `Pas encore de visites en ${language} à ${city}`,
     otherLanguages: 'Autres langues', themeAll: 'Tous', themeHistory: 'Histoire', themeThematic: 'Thématiques', themeLabel: 'Type de balade',
-    nearYou: 'Près de vous', nearYouLocating: 'Recherche de votre position…', nearYouDenied: 'Sans votre position, nous ne pouvons pas trier par proximité.', nearYouOn: 'Trié par proximité',
+    nearYou: 'Près de vous', nearYouLocating: 'Recherche de votre position…', nearYouDenied: 'Sans votre position, nous ne pouvons pas trier par proximité.', nearYouOn: 'Balades à moins de 50 km de vous',
+    nearYouNone: 'Aucune balade à moins de 50 km. Voici les plus proches.', nearYouClear: 'Désactiver « près de vous »', away: (d: string) => `à ${d}`,
     walksCount: (n: number) => `${n} ${n === 1 ? 'balade' : 'balades'}`,
   },
   de: {
@@ -86,7 +89,8 @@ const copy = {
     stopsCount: (n: number) => `${n} ${n === 1 ? 'Station' : 'Stationen'}`,
     emptyTitle: (city: string, language: string) => `Noch keine Touren auf ${language} in ${city}`,
     otherLanguages: 'Andere Sprachen', themeAll: 'Alle', themeHistory: 'Geschichte', themeThematic: 'Themen', themeLabel: 'Art des Rundgangs',
-    nearYou: 'In deiner Nähe', nearYouLocating: 'Standort wird gesucht…', nearYouDenied: 'Ohne deinen Standort können wir nicht nach Entfernung sortieren.', nearYouOn: 'Nach Entfernung sortiert',
+    nearYou: 'In deiner Nähe', nearYouLocating: 'Standort wird gesucht…', nearYouDenied: 'Ohne deinen Standort können wir nicht nach Entfernung sortieren.', nearYouOn: 'Rundgänge im Umkreis von 50 km',
+    nearYouNone: 'Kein Rundgang im Umkreis von 50 km. Hier die nächstgelegenen.', nearYouClear: '„In deiner Nähe“ ausschalten', away: (d: string) => `${d} entfernt`,
     walksCount: (n: number) => `${n} ${n === 1 ? 'Rundgang' : 'Rundgänge'}`,
   },
   it: {
@@ -103,7 +107,8 @@ const copy = {
     stopsCount: (n: number) => `${n} ${n === 1 ? 'tappa' : 'tappe'}`,
     emptyTitle: (city: string, language: string) => `Non ci sono ancora tour in ${language} a ${city}`,
     otherLanguages: 'Altre lingue', themeAll: 'Tutti', themeHistory: 'Storia', themeThematic: 'Tematici', themeLabel: 'Tipo di percorso',
-    nearYou: 'Vicino a te', nearYouLocating: 'Ricerca della posizione…', nearYouDenied: 'Senza la tua posizione non possiamo ordinare per vicinanza.', nearYouOn: 'Ordinati per vicinanza',
+    nearYou: 'Vicino a te', nearYouLocating: 'Ricerca della posizione…', nearYouDenied: 'Senza la tua posizione non possiamo ordinare per vicinanza.', nearYouOn: 'Percorsi entro 50 km da te',
+    nearYouNone: 'Nessun percorso entro 50 km. Ecco i più vicini.', nearYouClear: 'Disattiva «vicino a te»', away: (d: string) => `a ${d}`,
     walksCount: (n: number) => `${n} ${n === 1 ? 'percorso' : 'percorsi'}`,
   },
 };

@@ -141,8 +141,8 @@ body:has(.tour-entry) .tour-info-links { justify-content: center; gap: 0 1rem; f
 /* Catalogue presentation (plan 06 E) */
 .discovery-filters { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-block: 2px 4px; }
 .discovery-themes { display: flex; gap: 8px; flex-wrap: wrap; }
-.discovery-themes button, .discovery-near, .discovery-language button { min-height: 44px; border: 1px solid var(--tour-line); padding: 9px 15px; border-radius: 24px; font-size: 13px; }
-.discovery-themes button[aria-pressed="true"], .discovery-near[aria-pressed="true"], .discovery-language button[aria-pressed="true"] { background: var(--tour-accent); color: var(--tour-panel); border-color: var(--tour-accent); }
+.discovery-themes button, .discovery-language button { min-height: 44px; border: 1px solid var(--tour-line); padding: 9px 15px; border-radius: 24px; font-size: 13px; }
+.discovery-themes button[aria-pressed="true"], .discovery-language button[aria-pressed="true"] { background: var(--tour-accent); color: var(--tour-panel); border-color: var(--tour-accent); }
 .discovery-near-status { font-size: 13px; color: var(--tour-muted); margin-top: 6px; }
 .discovery-language { display: block; margin-block: 8px 20px; color: var(--tour-muted); font-size: 13px; }
 .discovery-language summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
@@ -153,3 +153,52 @@ body:has(.tour-entry) .tour-info-links { justify-content: center; gap: 0 1rem; f
 .discovery-city-links { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; text-align: left; }
 .discovery-city-links a { display: flex; flex-direction: column; justify-content: center; min-height: 56px; padding: 8px 14px; border: 1px solid var(--tour-line); border-radius: 14px; background: var(--tour-panel); font-size: 14px; color: var(--tour-ink); text-decoration: none; }
 .discovery-city-links small { font-size: 12px; color: var(--tour-muted); margin-top: 2px; }
+
+/* Filters and route views, redesigned: one search field with "near you" inside it, city chips, and a segmented control for the type */
+.discovery-search { padding-right: 6px; }
+.discovery-search .discovery-near { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; min-height: 40px; padding: 0 12px; border: 0; border-radius: 9px; background: color-mix(in srgb, var(--tour-accent) 10%, transparent); color: var(--tour-accent); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.discovery-search .discovery-near svg { color: currentColor; }
+.discovery-search .discovery-near[aria-pressed="true"] { background: var(--tour-accent); color: var(--tour-panel); }
+.discovery-search .discovery-near:disabled { opacity: .6; }
+.discovery-near-status { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding: 4px 4px 4px 12px; border-radius: 10px; background: color-mix(in srgb, var(--tour-accent) 8%, transparent); color: var(--tour-ink); }
+.discovery-near-status button { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; color: var(--tour-muted); }
+.discovery-cities button { border-color: transparent; background: color-mix(in srgb, var(--tour-ink) 6%, transparent); }
+.discovery-cities button[aria-pressed="true"] { background: var(--tour-ink); border-color: var(--tour-ink); color: var(--tour-panel); }
+.discovery-segmented { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; padding: 3px; margin-top: 6px; border-radius: 12px; background: color-mix(in srgb, var(--tour-ink) 7%, transparent); }
+.discovery-segmented button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 0 10px; border: 0; border-radius: 9px; font-size: 13px; color: var(--tour-muted); }
+.discovery-segmented button[aria-pressed="true"] { background: var(--tour-panel); color: var(--tour-ink); font-weight: 500; box-shadow: 0 1px 3px rgb(0 0 0 / .12); }
+.tour-card-distance { color: var(--tour-accent); font-weight: 500; }
+.overview-view-toggle { margin-top: 0; flex-shrink: 0; }
+.overview-view-toggle button { padding: 0 12px; }
+.overview-expand { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; border: 1px solid var(--tour-line); border-radius: 12px; text-decoration: none; }
+.overview-expand[aria-expanded="true"] svg { transform: rotate(180deg); }
+.overview-map { margin-bottom: 8px; }
+.overview-map .map-frame { position: relative; height: 340px; }
+.overview-map .map-canvas { position: absolute; inset: 0; height: 100%; min-height: 0; border-radius: 16px; }
+.overview-map .map-route-status { padding-top: 8px; font-size: 12px; color: var(--tour-muted); }
+.overview-map .map-center { z-index: 500; min-height: 44px; }
+.overview-nearby { margin-block: 12px 0; font-size: 14px; color: var(--tour-muted); }
+.overview-getthere { margin-block: 18px 6px; padding: 14px; border: 1px solid var(--tour-line); border-radius: 14px; background: var(--tour-panel); }
+.overview-getthere-title { display: flex; gap: 10px; align-items: flex-start; }
+.overview-getthere-title > svg { flex-shrink: 0; margin-top: 2px; color: var(--tour-accent); }
+.overview-getthere-title strong { display: block; font-size: 14px; font-weight: 500; }
+.overview-getthere-title small { display: block; margin-top: 2px; font-size: 13px; color: var(--tour-muted); }
+.overview-maps { display: flex; gap: 8px; margin-top: 12px; }
+.overview-maps a { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border: 1px solid var(--tour-line); border-radius: 10px; font-size: 14px; }
+/* The type of walk reads like the section tabs of a printed guide: a serif word, underlined in olive when chosen */
+.discovery-tabs { display: flex; gap: 22px; margin-top: 10px; border-bottom: 1px solid var(--tour-line); }
+.discovery-tabs button { position: relative; min-height: 44px; padding: 0 1px; font: 17px/1 Georgia, serif; letter-spacing: -.2px; color: var(--tour-muted); transition: color .2s; }
+.discovery-tabs button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 2px; background: var(--tour-accent); transform: scaleX(0); transition: transform .25s ease; }
+.discovery-tabs button[aria-pressed="true"] { color: var(--tour-ink); font-style: italic; }
+.discovery-tabs button[aria-pressed="true"]::after { transform: scaleX(1); }
+.discovery-cards > * { animation: discovery-rise .45s ease both; }
+.discovery-cards > :nth-child(2) { animation-delay: .06s; }
+.discovery-cards > :nth-child(3) { animation-delay: .12s; }
+@keyframes discovery-rise { from { opacity: 0; transform: translateY(8px); } }
+.overview-getthere { position: relative; }
+.overview-getthere-title strong { font: 17px/1.25 Georgia, serif; letter-spacing: -.2px; }
+.overview-maps { padding-top: 12px; border-top: 1px dashed var(--tour-line); }
+.overview-maps a { background: var(--tour-paper); }
+@media (prefers-reduced-motion: reduce) { .discovery-cards > * { animation: none; } .discovery-tabs button, .discovery-tabs button::after { transition: none; } }
+.discovery-search input { text-overflow: ellipsis; }
+.discovery-language summary { gap: 4px; }

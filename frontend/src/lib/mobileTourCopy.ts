@@ -1,6 +1,9 @@
 import type { Language } from '@/types/api';
 
 const es = {
+  routeList: 'Lista',
+  routeMap: 'Mapa',
+  getToStart: 'Cómo llegar al punto de inicio',
   heading: 'La ciudad tiene mucho que contarte.',
   intro: 'Elige un paseo. Ponte los auriculares. Descubre lo que suele pasar desapercibido.',
   search: '¿Dónde quieres pasear?',
@@ -48,6 +51,9 @@ const es = {
 };
 
 const en: Record<keyof typeof es, string> = {
+  routeList: 'List',
+  routeMap: 'Map',
+  getToStart: 'Getting to the starting point',
   heading: 'The city has a lot to tell you.',
   intro: 'Pick a walk. Put on your headphones. Discover what usually goes unnoticed.',
   search: 'Where do you want to walk?',
@@ -95,6 +101,9 @@ const en: Record<keyof typeof es, string> = {
 };
 
 const fr: Record<keyof typeof es, string> = {
+  routeList: 'Liste',
+  routeMap: 'Carte',
+  getToStart: 'Rejoindre le point de départ',
   heading: 'La ville a beaucoup à vous raconter.',
   intro: 'Choisissez une promenade. Mettez vos écouteurs. Découvrez ce qui passe souvent inaperçu.',
   search: 'Où voulez-vous vous promener ?',
@@ -142,6 +151,9 @@ const fr: Record<keyof typeof es, string> = {
 };
 
 const de: Record<keyof typeof es, string> = {
+  routeList: 'Liste',
+  routeMap: 'Karte',
+  getToStart: 'So kommst du zum Startpunkt',
   heading: 'Die Stadt hat viel zu erzählen.',
   intro: 'Wähle einen Spaziergang. Setz deine Kopfhörer auf. Entdecke, was oft übersehen wird.',
   search: 'Wo möchtest du spazieren gehen?',
@@ -189,6 +201,9 @@ const de: Record<keyof typeof es, string> = {
 };
 
 const it: Record<keyof typeof es, string> = {
+  routeList: 'Elenco',
+  routeMap: 'Mappa',
+  getToStart: 'Come arrivare al punto di partenza',
   heading: 'La città ha molto da raccontarti.',
   intro: 'Scegli una passeggiata. Metti le cuffie. Scopri ciò che di solito passa inosservato.',
   search: 'Dove vuoi passeggiare?',
