@@ -131,6 +131,26 @@ class Guard(unittest.TestCase):
         _, errors, _ = nz.guard_detail(BODY + " La siguiente parada es la Plaza de la Virgen.", [], 'es', 'stop', ['Plaza de la Virgen'], 'Plaza de la Virgen', lenient_next_name=True)
         self.assertTrue(errors)
 
+    def test_strict_mode_refuses_the_mention_after_three_attempts_and_tells_the_model_what_to_do(self):
+        text = BODY + " Muy cerca queda la Plaza de la Virgen."
+        piece = {"pieceId": "p1", "text": text}
+        calls = []
+
+        def stubborn(system, request, request_id, validator):
+            calls.append(system)
+            return {"edits": []}
+        lenient = nz.neutralize_piece(piece, 'es', 'stop', stubborn, 'r', other_stops=['Plaza de la Virgen'], next_name='Plaza de la Virgen')
+        self.assertEqual(lenient["status"], "ok")
+        self.assertEqual([f['match'] for f in lenient["softFindings"]], ['Plaza de la Virgen'])
+        nz.STRICT_NEXT_NAME = True
+        try:
+            calls.clear()
+            strict = nz.neutralize_piece(piece, 'es', 'stop', stubborn, 'r', other_stops=['Plaza de la Virgen'], next_name='Plaza de la Virgen')
+        finally:
+            nz.STRICT_NEXT_NAME = False
+        self.assertEqual(strict["status"], "needs_manual")
+        self.assertTrue(all("SIN ese nombre" in system for system in calls))
+
     def test_introduction_start_and_last_stop_finish(self):
         intro = "Valencia nació como colonia romana en el año ciento treinta y ocho antes de Cristo y ha cambiado mucho desde entonces. Empezamos en las Torres de Serranos."
         _, errors = nz.guard(intro, [cut("Empezamos en las Torres de Serranos.", 'START')], 'es', 'introduction')

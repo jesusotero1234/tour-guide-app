@@ -66,7 +66,15 @@ export async function httpChecks(ctx: Ctx, db: PrismaClient, paths: { storageDir
       const hotStarted = Date.now();
       await get(`/tours?language=${language}&limit=50`);
       if (language === 'es' || !latency) latency = { cold, hot: Date.now() - hotStarted };
-      for (const tour of first.body.data.tours as Served[]) served.set(tour.id, tour);
+      let page = first;
+      for (let offset = 0; ; ) {
+        const tours = page.body.data.tours as Served[];
+        for (const tour of tours) served.set(tour.id, tour);
+        offset += tours.length;
+        if (!tours.length || offset >= page.body.data.total) break;
+        page = await get(`/tours?language=${language}&limit=50&offset=${offset}`);   // Spanish has 52 tours: one page of 50 would miss two
+        if (page.status !== 200) { problems.push(`/tours?language=${language}&offset=${offset} answered ${page.status}`); break; }
+      }
     }
     for (const id of options.tourIds) {
       const tour = served.get(id);

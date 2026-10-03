@@ -26,6 +26,9 @@ import order_neutral as on  # noqa: E402
 
 LANGUAGE_NAMES = {"es": "español", "en": "inglés", "fr": "francés", "de": "alemán", "it": "italiano"}
 MAX_ATTEMPTS = 3
+# NEUTRALIZE_STRICT_NEXT_NAME=1 turns off the last-attempt leniency below: a stop that still names its successor is refused, and the model is
+# told to rewrite that sentence without the name. It is for the re-run of the few pieces that were accepted with a flagged mention.
+STRICT_NEXT_NAME = os.environ.get("NEUTRALIZE_STRICT_NEXT_NAME") == "1"
 
 SYSTEM = (
     "Este texto es una parada de un paseo con audio. A partir de ahora las paradas pueden escucharse en cualquier orden. "
@@ -113,7 +116,15 @@ def guard_detail(original: str, edits: list, lang: str, role: str, stop_names: O
         soft = [f for f in remaining if f["kind"] == "NEXT_STOP" and f["match"].strip().lower() == next_name.strip().lower()]
         remaining = [f for f in remaining if f not in soft]
     if remaining:
-        errors.append("references to the order are still present: " + "; ".join(f"{f['kind']} «{f['match']}»" for f in remaining[:4]))
+        sentence_spans = on.sentences(body)
+
+        def where(f):    # the model needs the sentence that still gives it away, not only the word the detector matched
+            index = f.get("sentence_index")
+            if isinstance(index, int) and 0 <= index < len(sentence_spans):
+                start, end = sentence_spans[index]
+                return f" in the sentence «{body[start:end].strip()[:300]}»"
+            return ""
+        errors.append("references to the order are still present: " + "; ".join(f"{f['kind']} «{f['match']}»{where(f)}" for f in remaining[:4]))
     before_sentences, after_sentences = _sentences(original), set(_sentences(body))
     if intro:
         def only_announcement(name):          # a short sentence that only announces the stop (< 45 characters) may be deleted whole
@@ -151,6 +162,9 @@ def neutralize_piece(piece: dict, lang: str, role: str, call: Callable, request_
         system += (" En la introducción, si un itinerario enumera las paradas con «empezamos, seguiremos, después, luego, terminaremos», "
                    "reescribe CADA frase del itinerario entera, como una frase completa y autónoma que presente el lugar y lo que lo hace "
                    "especial, conservando su nombre y su contenido. Cada `before` debe ser la frase completa, no solo la fórmula de orden.")
+    if STRICT_NEXT_NAME and role == "stop":
+        system += (" Si la última frase nombra la siguiente parada aunque sea como dato, reescribe esa frase SIN ese nombre: usa una expresión "
+                   "genérica («otro monumento de la ciudad», «el puente») o quita solo esa cláusula. No añadas ningún dato nuevo.")
     reasons = []
     for attempt in range(1, MAX_ATTEMPTS + 1):
         request = {"language": lang, "role": role, "placeName": place_name, "otherStops": other_stops or [], "findings": findings, "text": text}
@@ -165,7 +179,7 @@ def neutralize_piece(piece: dict, lang: str, role: str, call: Callable, request_
         if answer is None:
             reasons.append("no valid answer from the model")
             continue
-        body, errors, soft = guard_detail(text, answer["edits"], lang, role, other_stops, next_name, lenient_next_name=(attempt == MAX_ATTEMPTS))
+        body, errors, soft = guard_detail(text, answer["edits"], lang, role, other_stops, next_name, lenient_next_name=(attempt == MAX_ATTEMPTS and not STRICT_NEXT_NAME))
         if not errors:
             record.update(body=body, edits=answer["edits"], status="ok", reasons=reasons, softFindings=soft)
             return record
