@@ -16,7 +16,7 @@ import phase_receipts
 
 BACKEND = Path(__file__).resolve().parents[2]
 ROOT = BACKEND.parent
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 SUPERVISOR = Path(__file__).with_name('deepseek-europe-supervise.py')
 
 

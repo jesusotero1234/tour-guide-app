@@ -1,3 +1,4 @@
+import { tourDataPath } from '../../config/dataDir';
 import { createHash, randomUUID } from 'crypto';
 import { createReadStream, existsSync, promises as fs } from 'fs';
 import { spawn } from 'child_process';
@@ -77,7 +78,7 @@ function backendRoot(): string {
 export function staticOsmFallbackDirectory(): string {
   const configured = process.env.STATIC_OSM_FALLBACK_DIR;
   if (configured && !isAbsolute(configured)) throw new Error('STATIC_OSM_FALLBACK_DIR must be absolute');
-  return configured || join(backendRoot(), 'tmp/static-osm-fallback');
+  return configured || tourDataPath(backendRoot(), 'static-osm-fallback');
 }
 
 function runProcess(command: string, args: string[], options: { timeoutMs?: number } = {}): Promise<string> {

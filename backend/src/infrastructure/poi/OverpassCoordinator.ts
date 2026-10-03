@@ -1,3 +1,4 @@
+import { tourDataPath } from '../../config/dataDir';
 import { spawn } from 'child_process';
 import { existsSync, promises as fs } from 'fs';
 import { isAbsolute, join, resolve } from 'path';
@@ -21,7 +22,7 @@ function backendRoot(): string {
 export function overpassCoordinatorDirectory(): string {
   const configured = process.env.OVERPASS_COORDINATOR_DIR;
   if (configured && !isAbsolute(configured)) throw new Error('OVERPASS_COORDINATOR_DIR must be absolute');
-  return configured || join(backendRoot(), 'tmp/source-control/overpass');
+  return configured || tourDataPath(backendRoot(), 'source-control/overpass');
 }
 export interface CoordinatedRequest {
   cityKey: string;

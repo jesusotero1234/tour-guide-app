@@ -6,10 +6,11 @@ const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 const { runLocalVoxCpm } = require('../../src/services/LocalVoxCpmRenderer');
 const { audioDisclosure, audioIdentity } = require('../../src/services/AudioProvenance');
+const { loadSpeech, spokenText } = require('./speech_stage.cjs');
 
 const backend = path.resolve(__dirname, '../..');
 const root = path.dirname(backend);
-const batch = path.join(backend, 'tmp/pilot-batch-europe-20260920');
+const batch = process.env.BATCH_STAGE || path.join(backend, 'tmp/pilot-batch-europe-20260920');
 const output = path.join(batch, 'translation-audio');
 const languages = ['en', 'fr', 'de', 'it'];
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -39,7 +40,7 @@ function prepare() {
   const source = read(path.join(batch, 'manifest.json'));
   const variants = [], frozen = { languages: {}, tours: {} };
   const languageTours = Object.fromEntries(languages.map(language => [language, []]));
-  const identities = {};
+  const identities = {}, speechVersions = {};
   for (const language of languages) {
     const presetPath = path.join(root, `pods/voxcpm-pod/presets/guide-${language}-a.json`);
     const preset = read(presetPath);
@@ -58,12 +59,15 @@ function prepare() {
       assert.equal(translated.review.status, 'SUFFICIENT_IN_REVIEW_SCOPE');
       assert.equal(hashFile(translated.review.artifactPath), translated.review.artifactSha256);
       assert.deepEqual(translated.pieces.map(piece => piece.pieceId), spanish.pieces.map(piece => piece.id));
+      const speech = loadSpeech(cityDir, language);
       const pieces = translated.pieces.map((piece, index) => {
         const base = spanish.pieces[index];
         const text = index === 0 ? `${audioDisclosure(language)}\n\n${piece.text}` : piece.text;
-        return { ...base, name: piece.name, text,
-          audioId: stableUuid(`${source.runId}|${city.slug}|${language}|${piece.pieceId}|${text}`), review: translated.review };
+        const spoken = spokenText(speech, piece.pieceId, index, audioDisclosure(language));
+        return { ...base, name: piece.name, text, ...(spoken ? { spokenText: spoken } : {}),
+          audioId: stableUuid(`${source.runId}|${city.slug}|${language}|${piece.pieceId}|${spoken ?? text}`), review: translated.review };
       });
+      speechVersions[language] = speech ? speech.version : speechVersions[language];
       const master = { ...spanish, title: title(city.city, language), language,
         editorialStatus: 'translated_reviewed_user_review_pending', sourceMasterSha256: translated.masterSha256,
         translationArtifactSha256: hashFile(sourcePath), pieces };
@@ -73,7 +77,7 @@ function prepare() {
       freeze(masterPath, master);
       const script = `${master.title}\n\n${pieces.map(piece => `${piece.name}\n\n${piece.text}`).join('\n\n')}\n`;
       fs.writeFileSync(scriptPath, script, { flag: 'wx', mode: 0o600 });
-      const stops = pieces.map(piece => ({ id: piece.audioId, text: piece.text }));
+      const stops = pieces.map(piece => ({ id: piece.audioId, text: piece.text, ...(piece.spokenText ? { spokenText: piece.spokenText } : {}) }));
       languageTours[language].push({ citySlug: city.slug, stops });
       const slug = `${city.slug}-${language}`;
       frozen.tours[slug] = { masterSha256: hashFile(masterPath), scriptSha256: hashFile(scriptPath) };
@@ -92,7 +96,7 @@ function prepare() {
     groups.forEach((group, index) => {
       const id = `batch-${String(index + 1).padStart(2, '0')}`;
       const inputPath = path.join(output, 'languages', language, id, 'audio-input.json');
-      freeze(inputPath, { language, identity: identities[language], stops: group.stops });
+      freeze(inputPath, { language, identity: identities[language], ...(speechVersions[language] ? { speechVersion: speechVersions[language] } : {}), stops: group.stops });
       frozen.languages[language].chapters += group.stops.length;
       frozen.languages[language].batches.push({ id, inputSha256: hashFile(inputPath), chapters: group.stops.length,
         citySlugs: group.citySlugs });

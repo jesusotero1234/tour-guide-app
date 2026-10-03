@@ -1,0 +1,40 @@
+# One job that runs exactly what developers run: scripts/check-all.sh (plan 07 section 7.9.3).
+# No GPU, no network services and no secrets are used. Failures that already exist are listed in scripts/check-all.known-failures.txt;
+# the script fails on any new failure and when a known one starts passing, so that list never goes stale.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      # The CPU tests of the voice pod need only these two (the normalizer and the audio input checks): no torch, no CUDA.
+      - run: python -m pip install num2words==0.5.14 numpy==2.2.6 soundfile==0.13.1
+      - run: npm ci
+        working-directory: backend
+      - run: npx prisma generate
+        working-directory: backend
+      - run: npm ci
+        working-directory: frontend
+      - run: bash scripts/check-all.sh
+        env:
+          VOXCPM_PYTHON: python

@@ -6,7 +6,7 @@ const { buildQuery } = require('../../src/infrastructure/poi/OverpassPoiFetcher'
 const { THEME_TAG_MAP } = require('../../src/domain/poi/themeTags');
 const { overpassQueryCache } = require('../../src/infrastructure/poi/OverpassQueryCache');
 async function main() {
-  const base = path.resolve(__dirname, '../../tmp/pilot-batch-europe-20260920/hamburg');
+  const base = path.join(process.env.BATCH_STAGE || path.resolve(__dirname, '../../tmp/pilot-batch-europe-20260920'), 'hamburg');
   const city = JSON.parse(fs.readFileSync(path.join(base, 'source-diagnostic-v1/city.json'), 'utf8'));
   const directory = path.join(base, 'source-diagnostic-shared-' + new Date().toISOString().replace(/[:.]/g, '-'));
   fs.mkdirSync(directory, { recursive: true });

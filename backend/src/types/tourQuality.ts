@@ -42,8 +42,21 @@ export interface TourHistoryPreflightMetadata {
   }>;
 }
 
+export interface TourCueManifestEntry {
+  kind: 'first' | 'next' | 'finish';
+  placeId?: string;
+  text: string;
+  version: string;
+}
+
 export interface TourMetadata {
   catalogTitle?: string;
+  /** The player may start anywhere and reorder the stops (plan 03). Requires cueManifest and walkingLegsSha256. */
+  orderFlexible?: boolean;
+  /** The link clips of the tour, written by the importer so admission never has to query tour_cue_audio. */
+  cueManifest?: TourCueManifestEntry[];
+  /** sha256 of the row in tour_walking_legs, copied here for the same reason. */
+  walkingLegsSha256?: string;
   pilotRelease?: import('../services/PilotRelease').PilotRelease;
   pilotWalkingRoute?: import('../services/WalkingRouteService').WalkingRouteData;
   qualityStatus?: TourQualityStatus;

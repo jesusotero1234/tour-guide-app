@@ -2,6 +2,7 @@
 import fcntl
 import json
 import os
+import shutil
 import re
 import signal
 import subprocess
@@ -14,9 +15,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 BACKEND = Path(__file__).resolve().parents[2]
-B = BACKEND / 'tmp/pilot-batch-europe-20260920'
+B = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 ROOT = BACKEND.parent
-NODE = Path('/home/jesusotero/.nvm/versions/node/v22.19.0/bin/node')
+NODE = Path(os.environ.get('NODE_BIN') or shutil.which('node') or 'node')
 AUDIO_PYTHON = ROOT / 'pods/voxcpm-pod/.venv/bin/python'
 STAGES = ('prepare', 'text', 'audio')
 LIMITS = {'prepare': 1, 'text': 2, 'audio': 1}
@@ -462,7 +463,7 @@ def main():
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         cities = read(B / 'manifest.json')['cities']
         slugs = [c['slug'] for c in cities]
-        assert len(slugs) == len(set(slugs)) == 30
+        assert len(slugs) == len(set(slugs)) == int(os.environ.get('EXPECTED_CITIES', 30))
         assert NODE.is_file() and AUDIO_PYTHON.is_file()
         all_texts_first = '--all-texts-first' in sys.argv
         if all_texts_first:
@@ -472,7 +473,7 @@ def main():
         if '--check' in sys.argv:
             for stage in STAGES:
                 assert Path(command(stage, slugs[0])[0]).is_file()
-            print('Queue valid: 30 cities; ' + json.dumps(EXECUTION_POLICY))
+            print('Queue valid: ' + str(len(slugs)) + ' cities; ' + json.dumps(EXECUTION_POLICY))
             return
         previous = read(B / 'queue-status.json') if (B / 'queue-status.json').exists() else {}
         pilots = {'marseille', 'hamburg', 'venezia'}

@@ -3,6 +3,7 @@
 import fcntl
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -12,11 +13,11 @@ from datetime import datetime, timezone
 
 BACKEND = Path(__file__).resolve().parents[2]
 ROOT = BACKEND.parent
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 STATE = BATCH / 'final-recovery-state.json'
 PREPARE_CITIES = ('toulouse', 'bologna', 'montpellier')
 TEXT_CITIES = ('strasbourg', 'torino', 'dresden', 'nantes', 'nuremberg')
-NODE = Path('/home/jesusotero/.nvm/versions/node/v22.19.0/bin/node')
+NODE = Path(os.environ.get('NODE_BIN') or shutil.which('node') or 'node')
 
 
 def now():
@@ -152,7 +153,7 @@ def launch():
 def main():
     if '--check' in sys.argv:
         manifest = read(BATCH / 'manifest.json')
-        assert len(manifest['cities']) == 30 and NODE.is_file()
+        assert len(manifest['cities']) == int(os.environ.get('EXPECTED_CITIES', 30)) and NODE.is_file()
         print('Final recovery worker valid: ' + ','.join((*PREPARE_CITIES, *TEXT_CITIES)))
         return
     wait_for_berlin()

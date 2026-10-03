@@ -3,7 +3,7 @@ import hashlib, html, json, os
 import overpass_control
 from datetime import datetime, timezone
 from pathlib import Path
-B=Path(__file__).resolve().parents[2]/'tmp/pilot-batch-europe-20260920'
+B=Path(os.environ.get('BATCH_STAGE') or Path(__file__).resolve().parents[2]/'tmp/pilot-batch-europe-20260920')
 read=lambda p:json.loads(Path(p).read_text())
 def save(p,value):
  p=Path(p);t=p.with_suffix('.tmp');t.write_text(json.dumps(value,ensure_ascii=False,indent=2));t.replace(p)
@@ -80,7 +80,7 @@ def index():
     parts.extend('<p>'+esc(para)+'</p>' for para in p['text'].split('\n\n'));parts.append('</details>')
   if (d/'sources.md').exists():parts.append('<p><a href="'+slug+'/sources.md">Fuentes y créditos</a></p>')
   parts.append('</article>')
- parts.append('</main><footer><p>'+str(completed)+' de 30 tours disponibles.</p></footer></body></html>');p=B/'escuchar.html';t=p.with_suffix('.html.'+str(os.getpid())+'.tmp');t.write_text('\n'.join(parts));t.replace(p)
- if completed==30:save(B/'completion.json',{'cities':30,'language':'es','review':'Pending user review','completedAudioTours':completed})
+ parts.append('</main><footer><p>'+str(completed)+' de '+str(len(m['cities']))+' tours disponibles.</p></footer></body></html>');p=B/'escuchar.html';t=p.with_suffix('.html.'+str(os.getpid())+'.tmp');t.write_text('\n'.join(parts));t.replace(p)
+ if completed==len(m['cities']):save(B/'completion.json',{'cities':len(m['cities']),'language':'es','review':'Pending user review','completedAudioTours':completed})
 
 if __name__=='__main__': index()

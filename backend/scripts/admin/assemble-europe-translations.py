@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import hashlib, json, sys
 from pathlib import Path
 import numpy as np
@@ -6,7 +7,7 @@ import soundfile as sf
 
 BACKEND = Path(__file__).resolve().parents[2]
 ROOT = BACKEND.parent
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 WORK = BATCH / 'translation-audio'
 sys.path.insert(0, str(ROOT / 'pods/voxcpm-pod/src'))
 from utils.audio_provenance import input_audio, verify_record, write_audio_record, utc_now, find_record

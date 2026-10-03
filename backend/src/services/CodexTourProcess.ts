@@ -1,3 +1,4 @@
+import { tourDataPath } from '../config/dataDir';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { access, readFile, stat, mkdir, writeFile, unlink } from 'node:fs/promises';
@@ -32,9 +33,9 @@ const executeTourPhase: TourPhaseRunner = async (input, progress, signal) => {
   await access(resolve(assetRoot, 'narrative-author-context-pack-20260906/malagueta-oneshot.md'));
   await access(resolve(assetRoot, 'narrative-plaza-mayor-reference-20260905.md'));
   await access(resolve(assetRoot, '../tours/regla-editorial-fechas-audioguias.md'));
-  const inputRoot = resolve(root, 'tmp/blueprint-inputs'), directory = resolve(root, 'tmp/narrative-v8', input.runId);
+  const inputRoot = tourDataPath(root, 'blueprint-inputs'), directory = tourDataPath(root, 'narrative-v8', input.runId);
   await mkdir(inputRoot, { recursive: true, mode: 0o700 });
-  await mkdir(resolve(root, 'tmp/narrative-v8'), { recursive: true, mode: 0o700 });
+  await mkdir(tourDataPath(root, 'narrative-v8'), { recursive: true, mode: 0o700 });
   const inputFile = resolve(inputRoot, input.runId + '.json');
   const destination = input.request.destination;
   if (input.mode === 'prepare' && !destination) throw new Error('Resolved destination required');

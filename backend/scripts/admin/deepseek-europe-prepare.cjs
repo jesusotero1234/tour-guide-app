@@ -5,10 +5,16 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
 const backend = path.resolve(__dirname, '../..');
-const batch = path.join(backend, 'tmp/pilot-batch-europe-20260920');
+const batch = process.env.BATCH_STAGE || path.join(backend, 'tmp/pilot-batch-europe-20260920');
 process.env.NARRATIVE_WIKIDATA_READ_MODE = 'entity-data';
 process.env.NARRATIVE_WIKIDATA_ENTITY_CACHE_DIR = path.join(batch, 'wikidata-entity-cache');
-const manifest = JSON.parse(fs.readFileSync(path.join(batch, 'manifest.json'), 'utf8'));
+// A new stage is seeded from the versioned city list (override with BATCH_MANIFEST); an existing manifest is never replaced.
+const manifestFile = path.join(batch, 'manifest.json');
+if (!fs.existsSync(manifestFile)) {
+  fs.mkdirSync(batch, { recursive: true });
+  fs.copyFileSync(process.env.BATCH_MANIFEST || path.join(__dirname, 'manifests/europe-20260920.json'), manifestFile, fs.constants.COPYFILE_EXCL);
+}
+const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
 const cities = manifest.cities;
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
 function freeze(file, value) {
@@ -20,8 +26,8 @@ async function setup() {
   assert.equal(manifest.requestedMinutes, 120);
   assert.equal(manifest.theme, 'history');
   assert.deepEqual(manifest.languages, ['es']);
-  assert.equal(cities.length, 30);
-  assert.equal(new Set(cities.map(c => c.slug)).size, 30);
+  assert.equal(cities.length, Number(process.env.EXPECTED_CITIES || 30));
+  assert.equal(new Set(cities.map(c => c.slug)).size, cities.length);
   const countries = { FR: 'Q142', DE: 'Q183', IT: 'Q38' };
   for (const code of Object.keys(countries)) assert.equal(cities.filter(c => c.countryCode === code).length, 10);
   const file = path.join(batch, 'destinations-wikidata.json');

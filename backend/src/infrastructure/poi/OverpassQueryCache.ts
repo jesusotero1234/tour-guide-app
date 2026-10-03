@@ -1,3 +1,4 @@
+import { tourDataPath } from '../../config/dataDir';
 import { promises as fs } from 'fs';
 import { resolve, join } from 'path';
 import { createHash, randomUUID } from 'crypto';
@@ -93,5 +94,5 @@ export class OverpassQueryCache {
 }
 const ttlDays = Number(process.env.OVERPASS_CACHE_TTL_DAYS ?? 7);
 export const overpassQueryCache = new OverpassQueryCache(
-  process.env.OVERPASS_CACHE_DIR || resolve(process.cwd(), 'tmp/osm-cache'), ttlDays * DAY,
+  process.env.OVERPASS_CACHE_DIR || tourDataPath(process.cwd(), 'osm-cache'), ttlDays * DAY,
 );

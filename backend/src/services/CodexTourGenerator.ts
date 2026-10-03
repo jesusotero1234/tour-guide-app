@@ -1,3 +1,4 @@
+import { tourDataPath } from '../config/dataDir';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
@@ -32,7 +33,7 @@ export const runCodexTour: CodexRun = async (request, runId, progress, signal) =
     '--city=' + request.city, '--country=' + request.country, '--country-code=' + request.countryCode,
     '--theme=' + request.theme, '--language=' + request.language, '--duration=' + request.durationMinutes,
     '--rag=off', '--prior-spend-usd=0', '--spend-limit-usd=' + limit, '--run-id=' + runId];
-  const directory = resolve(root, 'tmp/narrative-v8', runId);
+  const directory = tourDataPath(root, 'narrative-v8', runId);
   await progress?.({ step: 'routing', completedStops: 0, totalStops: 0, message: 'Preparing the route and supporting sources' });
   signal?.throwIfAborted();
   await new Promise<void>((resolveRun, rejectRun) => {

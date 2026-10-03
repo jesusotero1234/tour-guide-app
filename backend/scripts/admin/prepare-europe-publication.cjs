@@ -11,10 +11,15 @@ const { sourceUse, SOURCE_POLICY_VERSION } = require('../../src/services/poi/Sou
 
 const backend = path.resolve(__dirname, '../..');
 const root = path.dirname(backend);
-const batch = path.join(backend, 'tmp/pilot-batch-europe-20260920');
+const batch = process.env.BATCH_STAGE || path.join(backend, 'tmp/pilot-batch-europe-20260920');
 const stage = path.resolve(process.env.EUROPE_PUBLICATION_STAGE
   || path.join(os.homedir(), '.local/share/tour-guide/nomuvia/europe-launch-20260922'));
 const languages = ['es', 'en', 'fr', 'de', 'it'];
+// Expected size of the batch. Defaults are the 30-city European launch of 2026-09-22; override for another batch.
+const expectedCities = Number(process.env.EXPECTED_CITIES || 30);
+const expectedStops = Number(process.env.EXPECTED_STOPS || 1170);
+const expectedTours = expectedCities * languages.length;
+const expectedAudioFiles = expectedStops + expectedTours;
 const namespace = 'https://nomuvia.com/europe-history-20260922/';
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
@@ -163,10 +168,10 @@ function audioState(tour, assets, intro) {
   };
 }
 function verifyCatalog(catalog, audioRoot) {
-  assert.equal(catalog.tours.length, 150);
-  assert.equal(catalog.places.length, 1170);
-  assert.equal(catalog.audioAssets.length, 1170);
-  assert.equal(catalog.introductionAudios.length, 150);
+  assert.equal(catalog.tours.length, expectedTours);
+  assert.equal(catalog.places.length, expectedStops);
+  assert.equal(catalog.audioAssets.length, expectedStops);
+  assert.equal(catalog.introductionAudios.length, expectedTours);
   for (const rows of Object.values(catalog)) {
     const ids = rows.map(row => row.id);
     assert.equal(new Set(ids).size, ids.length, 'Duplicate row IDs');
@@ -191,7 +196,7 @@ function prepare() {
   fs.mkdirSync(stage, { recursive: true, mode: 0o700 });
   const sourceManifest = read(path.join(batch, 'manifest.json'));
   const citySlugs = sourceManifest.cities.map(city => city.slug).sort();
-  assert.equal(citySlugs.length, 30);
+  assert.equal(citySlugs.length, expectedCities);
   assert.equal(read(path.join(batch, 'translation-audio/status.json')).phase, 'completed');
   const identities = Object.fromEntries(languages.map(language => [language, voiceIdentity(language)]));
   const rendererKeys = Object.fromEntries(languages.map(language =>
@@ -339,7 +344,7 @@ function prepare() {
         routeDurationSeconds: route.durationSeconds, audio: evidence });
     }
   }
-  assert.equal(fileLines.length, 1320);
+  assert.equal(fileLines.length, expectedAudioFiles);
   verifyCatalog(catalog, audioRoot);
   save(path.join(stage, 'catalog.json'), catalog);
   save(path.join(stage, 'plan.json'), plan);
@@ -349,7 +354,7 @@ function prepare() {
     .reduce((sum, row) => sum + fs.statSync(path.join(audioRoot, row.storagePath)).size, 0);
   const manifest = {
     version: 1, generatedAt, jobId, sourceBatch: batch,
-    counts: { cities: 30, tours: 150, stops: 1170, introductions: 150, audioFiles: 1320,
+    counts: { cities: expectedCities, tours: expectedTours, stops: expectedStops, introductions: expectedTours, audioFiles: expectedAudioFiles,
       languages: Object.fromEntries(languages.map(language =>
         [language, catalog.tours.filter(tour => tour.language === language).length])) },
     audioBytes: bytes,
@@ -365,7 +370,7 @@ function verify() {
   const catalog = read(path.join(stage, 'catalog.json'));
   verifyCatalog(catalog, path.join(stage, 'audio'));
   const lines = fs.readFileSync(path.join(stage, 'audio.sha256'), 'utf8').trim().split('\n');
-  assert.equal(lines.length, 1320);
+  assert.equal(lines.length, expectedAudioFiles);
   for (const line of lines) {
     const [expected, relative] = line.split(/\s{2}/);
     assert.equal(fileSha(path.join(stage, 'audio', relative)), expected);

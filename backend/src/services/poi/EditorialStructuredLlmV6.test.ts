@@ -109,7 +109,8 @@ describe('editorial structured LLM v6 providers', () => {
       auditor_a: {
         provider: { kind: 'qwen_local', model: 'qwen-local' },
       },
-      auditor_b: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
+      // The full model audits: the profile moved auditor_b from gpt-5.4-mini to gpt-5.4.
+      auditor_b: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4' }, reasoning: 'medium', maxTokens: 8_000 },
       adjudicator: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
       repair: { provider: { kind: 'qwen_local', model: 'qwen-local' }, temperature: 0 },
       global_auditor: { provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini' } },
@@ -128,8 +129,14 @@ describe('editorial structured LLM v6 providers', () => {
       maxTokens: 4_000,
     });
 
+    // The canary keeps the cheaper auditor it was created with; every other support phase is the hybrid's.
+    expect(profile.phases.auditor_b).toEqual({
+      provider: { kind: 'openrouter', model: 'openai/gpt-5.4-mini', acceptedModels: ['openai/gpt-5.4-mini-20260317'] },
+      reasoning: 'low',
+      maxTokens: 2_000,
+    });
     for (const phase of Object.keys(hybrid.phases) as Array<keyof typeof hybrid.phases>) {
-      if (phase === 'writer') continue;
+      if (phase === 'writer' || phase === 'auditor_b') continue;
       expect(profile.phases[phase]).toEqual(hybrid.phases[phase]);
     }
     expect(profile.concurrency).toEqual(hybrid.concurrency);

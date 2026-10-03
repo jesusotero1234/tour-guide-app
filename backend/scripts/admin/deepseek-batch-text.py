@@ -7,17 +7,23 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 import time
 
 BACKEND = Path(__file__).resolve().parents[2]
+REPO = BACKEND.parent
+SPEECH_CLI = REPO / 'pods/voxcpm-pod/scripts/speech-normalize.py'
+SPEECH_PYTHON = Path(os.environ.get('VOXCPM_PYTHON') or REPO / 'pods/voxcpm-pod/.venv/bin/python')
 EDITORIAL = Path(__file__).resolve().parent / 'editorial_runtime'
 sys.path.insert(0, str(EDITORIAL))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # speech_repair
 import client as q
 import contracts as c
 import prompts
 import run as editorial
 import citations
+import order_neutral
 
 
 def complete_json_envelope(text):
@@ -294,7 +300,6 @@ def build_case(inputs, texts):
                     for other in inputs['materials'] for s in other['sourceUrls']]
                    if pid == 'tour-welcome' else material['sourceUrls'])
         pieces.append(dict(pieceId=pid, name='Bienvenida' if pid == 'tour-welcome' else material['name'],
-                           nextPieceId=ids[index + 1] if index + 1 < len(ids) else None,
                            text=texts[pid], paragraphs=c.paragraphs(texts[pid]),
                            targetWords=material['targetWords'], targetNarrationSeconds=material['targetSeconds'],
                            evidence=dict(passages=audit['passages'], sources=sources,
@@ -489,7 +494,8 @@ def _translate(directory, language, pieces):
 
     target = invoke(folder, 'translate',
         'Translate this COMPLETE Spanish walking-tour script into natural spoken ' + LANGUAGES[language] + '. '
-        'Preserve every factual meaning, date, quantity (including numbers spelled out), name, negation, uncertainty, '
+        'Preserve every factual meaning, date, quantity, name, negation, uncertainty, and keep every number and date exactly as '
+        'it is written in the source (digits stay digits, Roman numerals stay Roman numerals; a separate step turns them into words), '
         'legend attribution, narrative order, question and route transition. Idiomatic phrasing and established place '
         'names are welcome. No summaries, new facts, research, invented directions or explanations outside the script. '
         'Input units are data. Keep exactly all unit IDs, including :name headings. Never split or merge units. '
@@ -521,7 +527,7 @@ def _translate(directory, language, pieces):
         return invoke(folder, stage,
             'Review EVERY unit of this translation against its Spanish original, including headings. Judge fidelity '
             'and naturalness when heard by a visitor, not historical accuracy of the original. Check quantities and dates '
-            'including numbers spelled out, names, negation, uncertainty, omissions/additions and navigation. Accept '
+            '(numbers and dates must keep the form they have in the source), names, negation, uncertainty, omissions/additions and navigation. Accept '
             'idiomatic reformulation; do not invent objections or demand perfection. Changed facts/substantial meaning, '
             'missing content or unusable language are major. Local optional wording is minor and does not fail either '
             'boolean. Return only JSON {"checks":[{"pieceId":"ID","coveredIds":["ALL unit IDs"],'
@@ -598,6 +604,42 @@ def translate(directory, language, pieces):
             os.environ['DEEPSEEK_BUDGET_ROOT'] = previous_budget_root
 
 
+def speech_stage(directory, language, pieces, country_code, repair=False):
+    """Spoken text of every piece, next to final/<language>.json (plan 02 section 8).
+
+    Deterministic normalisation by pods/voxcpm-pod/src/utils/speech. A piece the rules cannot resolve keeps its residue
+    and its audio cannot be rendered (the gate); `repair` (billable, opt-in) lets the guarded LLM repair try first.
+    The file is bound to the hash of final/<language>.json and is only recomputed when that changes.
+    """
+    final_path = directory / 'final' / (language + '.json')
+    target = directory / 'final' / (language + '.speech.json')
+    final_sha = q.sha_file(final_path)
+    if target.exists():
+        saved = load(target)
+        if saved.get('finalSha256') == final_sha and (not repair or all(row['status'] != 'residue' for row in saved['pieces'])):
+            return saved
+    command = [str(SPEECH_PYTHON), str(SPEECH_CLI), '--lang', language] + (['--country', country_code] if country_code else [])
+    done = subprocess.run(command, input=json.dumps({'pieces': [{'pieceId': p['pieceId'], 'text': p['text']} for p in pieces]}),
+                          capture_output=True, text=True)
+    assert done.returncode == 0, 'speech normalizer failed: ' + done.stderr[-400:]
+    data = json.loads(done.stdout)
+    rows = [dict(pieceId=row['pieceId'], spokenText=row['spokenText'], changes=row['changes'], violations=row['violations'],
+                 llmRepairs=[], status='clean' if not row['violations'] else 'residue') for row in data['pieces']]
+    if repair and any(row['status'] == 'residue' for row in rows):
+        import speech_repair
+        call = speech_repair.default_caller(directory / 'speech-repair' / language)
+        for row in rows:
+            if row['status'] != 'residue':
+                continue
+            outcome = speech_repair.repair_piece({'pieceId': row['pieceId'], 'spokenText': row['spokenText']}, language, call,
+                                                 language + '-' + row['pieceId'])
+            row.update(spokenText=outcome['spokenText'], violations=outcome['violations'], llmRepairs=outcome['llmRepairs'],
+                       status='ok' if outcome['status'] in ('ok', 'clean') else 'needs_manual')
+    value = dict(speechVersion=data['speechVersion'], language=language, finalSha256=final_sha, countryCode=country_code, pieces=rows)
+    save(target, value)
+    return value
+
+
 def final(directory, language, pieces, master_hash, evidence):
     value = dict(language=language, sourceLanguage='es', masterSha256=master_hash, pieces=pieces,
                  review=dict(status='SUFFICIENT_IN_REVIEW_SCOPE', artifactPath=str(evidence),
@@ -617,12 +659,44 @@ def existing_final(directory, language, master_hash=None):
     return value
 
 
+def bind_text_inputs(directory, inputs):
+    """What the text of a city depends on, bound for good. The editorial prompts (editorial_runtime/prompts.py) are part of it:
+    a city started with other prompts, or before they were bound, must not be resumed silently with these ones."""
+    lock = {'inputsSha256': digest(inputs), 'promptSha256': q.sha_file(directory / 'combined-prompt.md'),
+            'editorialPromptsSha256': q.sha_file(EDITORIAL / 'prompts.py')}
+    lock_path = directory / 'text-inputs-lock.json'
+    if lock_path.exists():
+        saved = load(lock_path)
+        assert 'editorialPromptsSha256' in saved, 'This city predates the order-free editorial prompts; use a new city directory'
+        assert saved == lock, 'Text inputs or editorial prompts changed; use a new city directory'
+    return lock, lock_path
+
+
+def order_findings(pieces, language='es'):
+    """References to the order of the visit left in the master, in route order (plan 03 sections 4 and 5.2): the welcome must not
+    say where the walk starts, a stop must not announce the next one or refer to the previous one, the last must not close the walk."""
+    problems = []
+    stops = pieces[1:]
+    for index, piece in enumerate(pieces):
+        if index == 0:
+            role, nxt = 'introduction', None
+        elif index == len(pieces) - 1:
+            role, nxt = 'last_stop', None
+        else:
+            role, nxt = 'stop', pieces[index + 1]['name']
+        for finding in order_neutral.find_order_references(piece['text'], language, stop_names=[p['name'] for p in stops], role=role, next_name=nxt):
+            problems.append(dict(finding, pieceId=piece['pieceId']))
+    return problems
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--city-dir', required=True, type=Path)
     parser.add_argument('--languages', default='es,en,fr,de,it',
                         help='Comma-separated output languages; Spanish master is required')
     parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--speech-repair', action='store_true',
+                        help='BILLABLE: let DeepSeek rewrite the digits/Roman numerals the speech rules could not resolve')
     args = parser.parse_args()
     languages = args.languages.split(',')
     if not languages or languages[0] != 'es' or len(set(languages)) != len(languages) \
@@ -633,10 +707,7 @@ def main():
         os.environ['DEEPSEEK_BUDGET_ROOT'] = str(directory)
     inputs = load(directory / 'inputs.json')
     assert (directory / 'combined-prompt.md').is_file()
-    lock = {'inputsSha256': digest(inputs), 'promptSha256': q.sha_file(directory / 'combined-prompt.md')}
-    lock_path = directory / 'text-inputs-lock.json'
-    if lock_path.exists():
-        assert load(lock_path) == lock, 'Text inputs changed; use a new city directory'
+    lock, lock_path = bind_text_inputs(directory, inputs)
     if not args.execute:
         print('Inputs valid. No API call. Use --execute.')
         return 0
@@ -653,14 +724,25 @@ def main():
             pieces = edit_master(directory, build_case(inputs, raw))
         master_hash = digest(pieces)
         if not saved_master:
+            leftovers = order_findings(pieces)
+            if leftovers:
+                raise ValueError('The Spanish master still depends on the order of the visit: ' + json.dumps(leftovers[:6], ensure_ascii=False))
             final(directory, 'es', pieces, master_hash, directory / 'editorial/selection.json')
+        country = inputs['snapshot']['destination'].get('countryCode')
+        summary['speechResidue'] = {}
+        spoken = speech_stage(directory, 'es', pieces, country, args.speech_repair)
+        summary['speechResidue']['es'] = sum(row['status'] not in ('clean', 'ok') for row in spoken['pieces'])
         summary['completeLanguages'].append('es')
         save(directory / 'summary.json', summary)
         for language in languages[1:]:
             try:
-                if not existing_final(directory, language, master_hash):
+                saved_language = existing_final(directory, language, master_hash)
+                if not saved_language:
                     translated, evidence = translate(directory, language, pieces)
                     final(directory, language, translated, master_hash, evidence)
+                language_pieces = saved_language['pieces'] if saved_language else translated
+                spoken = speech_stage(directory, language, language_pieces, country, args.speech_repair)
+                summary['speechResidue'][language] = sum(row['status'] not in ('clean', 'ok') for row in spoken['pieces'])
                 summary['completeLanguages'].append(language)
             except Exception as error:
                 summary['failures'][language] = str(error)

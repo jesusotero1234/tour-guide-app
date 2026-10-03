@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run at most two city text jobs while the existing preparation batch advances."""
+import os
 import json
 from pathlib import Path
 import subprocess
@@ -7,7 +8,7 @@ import sys
 import time
 
 backend = Path(__file__).resolve().parents[2]
-batch = backend / 'tmp/pilot-batch-spain-20260912'
+batch = Path(os.environ.get('BATCH_STAGE') or backend / 'tmp/pilot-batch-spain-20260912')
 manifest = json.loads((batch / 'manifest.json').read_text())
 # Madrid was launched first and is monitored separately in this initial batch.
 pending = [city['slug'] for city in manifest['cities'] if city['slug'] not in sys.argv[1:]]

@@ -8,7 +8,7 @@ const { prismaClient: db } = require('../../src/infrastructure/db/prismaClient')
 const { PostgresTourRepository } = require('../../src/infrastructure/postgres/PostgresTourRepository');
 const { enrichTourImages } = require('../../src/services/enrichTourImages');
 const { createImageModel } = require('../../src/services/TourImageModel');
-const batch = path.resolve(__dirname, '../../tmp/pilot-batch-spain-20260912');
+const batch = process.env.BATCH_STAGE || path.resolve(__dirname, '../../tmp/pilot-batch-spain-20260912');
 const tours = new PostgresTourRepository(db);
 
 async function main() {

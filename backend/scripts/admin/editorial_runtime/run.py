@@ -28,7 +28,7 @@ def prepare():
     for item in read('frozen/origins.json'):
         c.require(q.sha_file(item['path']) == item['sha256'], 'original input changed')
     paths = [p for p in (BASE / 'frozen').iterdir() if p.is_file()]
-    paths += [BASE / name for name in ('run.py', 'client.py', 'contracts.py', 'prompts.py', 'PLAN.md', 'test_pilot.py')]
+    paths += [BASE / name for name in ('run.py', 'client.py', 'contracts.py', 'prompts.py') if (BASE / name).is_file()]
     protocol = dict(model=q.MODEL, reasoningEffort='low', maxOutputTokens=32768,
                     maxPhysicalCalls=5, maxAttemptsPerStage=1, maxRepairRounds=1,
                     audio=False, astraCalls=0, productionWrites=False,

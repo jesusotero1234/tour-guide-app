@@ -13,7 +13,7 @@ const { buildSourceCredits } = require('../../src/services/SourceCredits');
 const { WalkingRouteService } = require('../../src/services/WalkingRouteService');
 const { enrichTourImages } = require('../../src/services/enrichTourImages');
 const backend = path.resolve(__dirname, '../..');
-const batch = path.join(backend, 'tmp/pilot-batch-spain-20260912');
+const batch = process.env.BATCH_STAGE || path.join(backend, 'tmp/pilot-batch-spain-20260912');
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const hash = value => createHash('sha256').update(value).digest('hex');
 const ordered = value => Array.isArray(value) ? value.map(ordered) : value && typeof value === 'object'

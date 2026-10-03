@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -13,11 +14,11 @@ import phase_receipts
 
 
 BACKEND = Path(__file__).resolve().parents[2]
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 RUNS = BACKEND / 'tmp/narrative-v8'
 SUPERVISOR = Path(__file__).with_name('deepseek-europe-supervise.py')
 TRANSLATOR = Path(__file__).with_name('translate-europe-batch.py')
-NODE = Path('/home/jesusotero/.nvm/versions/node/v22.19.0/bin/node')
+NODE = Path(os.environ.get('NODE_BIN') or shutil.which('node') or 'node')
 STATE = BATCH / 'completion-and-translation-state.json'
 LOG = BATCH / 'completion-and-translation.log'
 SEARXNG = BACKEND.parent / 'scripts/searxng-local.sh'

@@ -15,10 +15,10 @@ import phase_receipts
 
 BACKEND = Path(__file__).resolve().parents[2]
 ROOT = BACKEND.parent
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 CITY = BATCH / 'berlin'
 STATE = BATCH / 'berlin-route-revision-state.json'
-NODE = Path('/home/jesusotero/.nvm/versions/node/v22.19.0/bin/node')
+NODE = Path(os.environ.get('NODE_BIN') or shutil.which('node') or 'node')
 PINNED_IDS = ['Q151897', 'Q82425', 'Q160700', 'Q152252', 'Q819081', 'Q68689']
 EXCLUDED_IDS = ['Q146138', 'Q151963', 'Q157298', 'Q156716', 'Q170103']
 COORDINATOR_MARKERS = (b'deepseek-europe-supervise.py', b'restart-europe-batch.py')

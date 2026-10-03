@@ -13,7 +13,7 @@ import phase_receipts
 
 
 BACKEND = Path(__file__).resolve().parents[2]
-BATCH = BACKEND / 'tmp/pilot-batch-europe-20260920'
+BATCH = Path(os.environ.get('BATCH_STAGE') or BACKEND / 'tmp/pilot-batch-europe-20260920')
 SCRIPT = Path(__file__).with_name('deepseek-batch-text.py')
 LANGUAGES = ('en', 'fr', 'de', 'it')
 LIMIT = 4
@@ -79,9 +79,9 @@ def publish(states, phase, started, **extra):
 def main():
     manifest = read(BATCH / 'manifest.json')
     slugs = [city['slug'] for city in manifest['cities']]
-    assert len(slugs) == len(set(slugs)) == 30 and SCRIPT.is_file()
+    assert len(slugs) == len(set(slugs)) == int(os.environ.get('EXPECTED_CITIES', 30)) and SCRIPT.is_file()
     if '--check' in sys.argv:
-        print('Translation queue valid: 30 cities; en,fr,de,it; parallel limit 4')
+        print('Translation queue valid: ' + str(len(slugs)) + ' cities; en,fr,de,it; parallel limit 4')
         return 0
     spanish_gate(slugs)
     started = now()

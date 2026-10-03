@@ -1,0 +1,398 @@
+{
+  "version": 1,
+  "runId": "pilot-europe-20260920",
+  "cities": [
+    {
+      "slug": "paris",
+      "city": "París",
+      "qid": "Q90",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "berlin",
+      "city": "Berlín",
+      "qid": "Q64",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "pinnedIds": [
+        "Q151897",
+        "Q82425",
+        "Q160700",
+        "Q152252",
+        "Q819081",
+        "Q68689"
+      ],
+      "excludedIds": [
+        "Q146138",
+        "Q151963",
+        "Q157298",
+        "Q156716",
+        "Q170103"
+      ],
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "roma",
+      "city": "Roma",
+      "qid": "Q220",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "nice",
+      "city": "Niza",
+      "qid": "Q33959",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "munich",
+      "city": "Múnich",
+      "qid": "Q1726",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "milan",
+      "city": "Milán",
+      "qid": "Q490",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "marseille",
+      "city": "Marsella",
+      "qid": "Q23482",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "hamburg",
+      "city": "Hamburgo",
+      "qid": "Q1055",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "venezia",
+      "city": "Venecia",
+      "qid": "Q641",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "lyon",
+      "city": "Lyon",
+      "qid": "Q456",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "frankfurt",
+      "city": "Fráncfort del Meno",
+      "qid": "Q1794",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "firenze",
+      "city": "Florencia",
+      "qid": "Q2044",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "bordeaux",
+      "city": "Burdeos",
+      "qid": "Q1479",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "cologne",
+      "city": "Colonia",
+      "qid": "Q365",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "napoli",
+      "city": "Nápoles",
+      "qid": "Q2634",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "toulouse",
+      "city": "Toulouse",
+      "qid": "Q7880",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "dusseldorf",
+      "city": "Düsseldorf",
+      "qid": "Q1718",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "bologna",
+      "city": "Bolonia",
+      "qid": "Q1891",
+      "country": "Italia",
+      "countryCode": "IT",
+      "pinnedIds": [
+        "Q5875446"
+      ],
+      "excludedIds": [
+        "Q2091949"
+      ],
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "strasbourg",
+      "city": "Estrasburgo",
+      "qid": "Q6602",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "stuttgart",
+      "city": "Stuttgart",
+      "qid": "Q1022",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "torino",
+      "city": "Turín",
+      "qid": "Q495",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "lille",
+      "city": "Lille",
+      "qid": "Q648",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "dresden",
+      "city": "Dresde",
+      "qid": "Q1731",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "verona",
+      "city": "Verona",
+      "qid": "Q2028",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "nantes",
+      "city": "Nantes",
+      "qid": "Q12191",
+      "country": "Francia",
+      "countryCode": "FR",
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "nuremberg",
+      "city": "Núremberg",
+      "qid": "Q2090",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "palermo",
+      "city": "Palermo",
+      "qid": "Q2656",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "montpellier",
+      "city": "Montpellier",
+      "qid": "Q6441",
+      "country": "Francia",
+      "countryCode": "FR",
+      "excludedIds": [
+        "Q3100546"
+      ],
+      "researchLanguages": [
+        "fr",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "leipzig",
+      "city": "Leipzig",
+      "qid": "Q2079",
+      "country": "Alemania",
+      "countryCode": "DE",
+      "researchLanguages": [
+        "de",
+        "es",
+        "en"
+      ]
+    },
+    {
+      "slug": "pisa",
+      "city": "Pisa",
+      "qid": "Q13375",
+      "country": "Italia",
+      "countryCode": "IT",
+      "researchLanguages": [
+        "it",
+        "es",
+        "en"
+      ]
+    }
+  ],
+  "languages": [
+    "es"
+  ],
+  "requestedMinutes": 120,
+  "theme": "history",
+  "scope": "Thirty general historical tours, same V8 preparation and full-tour writing/editing flow as Spain. 120 minutes including walking and listening; actual geometry and duration fit preserved. No reuse of short Palermo. User review after generation; no public release.",
+  "preparationLimitUsdPerCity": 2,
+  "astraApiCalls": 0
+}

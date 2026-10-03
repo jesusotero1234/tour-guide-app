@@ -53,12 +53,16 @@ describe('author canary material, offline and city independent', () => {
   test('shares exact canonical context with auditor and renders matching route identity to writer', () => {
     const m = prepare();
     expect(m[0].frozen.inputs[0].auditInput.canonicalContext).toEqual(m[0].canonicalContext);
-    expect(m[0].canonicalContext.nextStop).toEqual({ stopId: 'B', name: 'Torre' });
-    expect(m[1].canonicalContext.nextStop).toBeNull();
+    // Stops are heard in any order: the next stop is not part of what the author is given.
+    expect('nextStop' in m[0].canonicalContext).toBe(false);
+    expect(m[0].canonicalContext.previousStop).toBeNull();
     expect(m[0].canonicalContext.playbackAssumption).toBe('on_site_exterior');
     expect(m[0].authorPrompt).toContain('Parada 1 de 2');
-    expect(m[0].authorPrompt).toContain('Enlaza brevemente hacia Torre');
-    expect(m[1].authorPrompt).toContain('Esta es la última parada: concluye');
+    expect(m[0].authorPrompt).toContain('debe poder escucharse en cualquier orden');
+    expect(m[0].authorPrompt).not.toContain('Enlaza brevemente');
+    expect(m[0].authorPrompt).not.toContain('Siguiente: Torre');
+    expect(m[1].authorPrompt).toContain('no cierres el recorrido');
+    expect(m[1].authorPrompt).not.toContain('Esta es la última parada');
     expect(m[0].frozen.auditPrompt).toContain('No autoriza orientación exacta');
   });
   test('omits own-stop example and all old case-specific briefing', () => {

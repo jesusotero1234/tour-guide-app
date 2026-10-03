@@ -44,16 +44,14 @@ export function prepareAuthorCanaryMaterialV8(
       city: route.city, country: route.country, language: outputLocale,
       durationMinutes: route.durationMinutes, stopId: stop.stopId, stopName: stop.name,
       position: index, totalStops: route.stops.length, previousStop: identity(previous),
-      nextStop: identity(next), playbackAssumption: 'on_site_exterior' as const
+      playbackAssumption: 'on_site_exterior' as const
     };
-    const ending = next
-      ? 'Esta no es la última parada. Enlaza brevemente hacia ' + next.name + ' por su nombre, sin dar giros ni distancias ni anticipar hechos no entregados.'
-      : 'Esta es la última parada: concluye el recorrido sin inventar lo contado antes.';
+    // Stops can be heard in any order (plan 03): the visitor may arrive here first, and the link to the next stop is a separate clip.
+    const ending = 'Esta parada debe poder escucharse en cualquier orden. No nombres la parada anterior ni la siguiente, no anuncies adónde vamos y no cierres el recorrido. Puedes mencionar otros lugares solo como contexto histórico.';
     const auditInput = { ...buildFrozenAuditInputV8(checkpoint, stop.stopId), language: outputLocale, researchLanguage: dossier.language, canonicalContext };
     const caseText = [
       'Lugar: ' + stop.name + ', ' + route.city + ', ' + route.country + '. Idioma: ' + outputLocale + '.',
       'Parada ' + (index + 1) + ' de ' + route.stops.length + '. Identidad: ' + stop.stopId + '.',
-      'Anterior: ' + (previous?.name ?? 'ninguna, esta es la primera') + '. Siguiente: ' + (next?.name ?? 'ninguna, esta es la última') + '.',
       'Guion para escucha presencial junto a esta parada, en el exterior. No es una comprobación GPS ni autoriza acceso o visión interior, orientación, giros o distancias.',
       'Duración solicitada del recorrido completo: ' + route.durationMinutes + ' minutos, incluyendo desplazamientos y pausas.',
       'Objetivo de ESTA narración: aproximadamente ' + target.targetWords + ' palabras / ' + target.targetSeconds + ' segundos; no es el tiempo total del tour ni una medición TTS.',

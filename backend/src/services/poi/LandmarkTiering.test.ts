@@ -202,8 +202,11 @@ describe('LandmarkTiering', () => {
       Q2: { sitelinks: 8, instanceOfLabels: ['memorial'] },
     });
 
-    expect(tiered.map((poi) => poi.name)).toEqual(['Aviation Museum', 'Small Memorial']);
-    expect(tiered[0].landmarkTier).toBe('flagship');
+    // History scoring now penalises museum-like places that are not event sites, so the memorial ranks first. What this test is about is
+    // unchanged: a place with place-like labels is not "transferable" fame, so its sitelinks are not capped at 5 and its tier is not capped
+    // to "supporting" (an uncapped tier of the two is "major").
+    expect(tiered.map((poi) => poi.name)).toEqual(['Small Memorial', 'Aviation Museum']);
+    expect(tiered[1].landmarkTier).toBe('major');
   });
 
   it('keeps transferable-only pools non-empty in history', () => {

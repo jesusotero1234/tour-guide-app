@@ -103,9 +103,10 @@ describe('narrative v6 editorial agents', () => {
     expect((auditSchema.items as { properties: { propositionIds: object } })
       .properties.propositionIds).not.toHaveProperty('uniqueItems');
     expect(calls.slice(1).map((call) => call.body.max_tokens)).toEqual([2_000, 2_000]);
+    // The writer and the first auditor run on the DeepSeek id the profile uses today ("deepseek-flash", priced since 2026-09-10).
     expect(calls.map((call) => call.body.model)).toEqual([
-      DEEPSEEK_NARRATIVE_MODEL_V6,
-      DEEPSEEK_NARRATIVE_MODEL_V6,
+      'deepseek-flash',
+      'deepseek-flash',
       DEEPSEEK_NARRATIVE_AUDITOR_MODEL_V6,
     ]);
     const auditPrompt = auditBody.messages[0].content;

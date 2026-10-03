@@ -5,7 +5,7 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
 const backend = path.resolve(__dirname, '../..');
-const batch = path.join(backend, 'tmp/pilot-batch-spain-20260912');
+const batch = process.env.BATCH_STAGE || path.join(backend, 'tmp/pilot-batch-spain-20260912');
 const cities = [
   ['madrid', 'Madrid', 'Q2807'], ['barcelona', 'Barcelona', 'Q1492'],
   ['valencia', 'Valencia', 'Q8818'], ['zaragoza', 'Zaragoza', 'Q10305'],

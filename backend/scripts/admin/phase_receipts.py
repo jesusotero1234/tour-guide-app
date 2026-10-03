@@ -1,4 +1,6 @@
 """Content-bound completion receipts. Creation validates semantics; reuse verifies all bytes."""
+import os
+import shutil
 import hashlib
 import json
 from pathlib import Path
@@ -6,7 +8,7 @@ import subprocess
 import sys
 
 ROOT=Path(__file__).resolve().parents[3]
-NODE=Path('/home/jesusotero/.nvm/versions/node/v22.19.0/bin/node')
+NODE=Path(os.environ.get('NODE_BIN') or shutil.which('node') or 'node')
 PYTHON=ROOT/'pods/voxcpm-pod/.venv/bin/python'
 read=lambda p:json.loads(Path(p).read_text())
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -60,13 +62,19 @@ def create(directory,stage, *, audio_check=True):
         "const fs=require('fs');require('./src/services/TourBlueprint').parseTourBlueprintSnapshot(JSON.parse(fs.readFileSync(process.argv[1],'utf8')))",str(preparation['blueprintFile'])],cwd=ROOT/'backend',capture_output=True,text=True)
     assert validation.returncode==0,'blueprint validation failed: '+validation.stderr[-600:]
     if stage in ('text','audio'):
-        lock=include(directory/'text-inputs-lock.json');assert lock=={'inputsSha256':digest(inputs),'promptSha256':sha(prompt)},'text input binding changed'
+        lock=include(directory/'text-inputs-lock.json')
+        expected_lock={'inputsSha256':digest(inputs),'promptSha256':sha(prompt),**({'editorialPromptsSha256':sha(Path(__file__).parent/'editorial_runtime/prompts.py')} if 'editorialPromptsSha256' in lock else {})}
+        assert lock==expected_lock,'text input binding changed'
         budget_path=directory/'editorial-budget.json'
         if budget_path.exists():
             budget=include(budget_path)
             assert budget['limitUsd']==.50
             assert sum(r.get('chargedUpperBoundUsd',r['reservedUsd']) for r in budget['requests'].values())<=.50+1e-12
         final=include(directory/'final/es.json');review=include(final['review']['artifactPath'])
+        speech=None
+        if (directory/'final/es.speech.json').exists():  # spoken text exists from the speech-1 pipeline on; older cities have none
+            speech=include(directory/'final/es.speech.json');assert speech['finalSha256']==sha(directory/'final/es.json'),'spoken text is stale'
+            assert all(r['status'] in ('clean','ok') for r in speech['pieces']),'spoken text still has residue'
         assert final['review']['artifactSha256']==sha(final['review']['artifactPath'])
         assert final['review']['status']==review['status']=='SUFFICIENT_IN_REVIEW_SCOPE'
         assert not review['pendingPieceIds'] and not review['issuesToFix']
@@ -94,7 +102,11 @@ def create(directory,stage, *, audio_check=True):
         assert [p['id'] for p in master['pieces']]==ids
         for index,(p,f) in enumerate(zip(master['pieces'],final['pieces'])):
             assert p['text']==f['text'] if index else p['text'].endswith('\n\n'+f['text'])
-        assert audio['stops']==[{'id':p['audioId'],'text':p['text']} for p in master['pieces']]
+        assert audio['stops']==[{'id':p['audioId'],'text':p['text'],**({'spokenText':p['spokenText']} if 'spokenText' in p else {})} for p in master['pieces']]
+        if speech:
+            spoken={r['pieceId']:r['spokenText'] for r in speech['pieces']}
+            for index,p in enumerate(master['pieces']):
+                assert p.get('spokenText','').endswith(('\n\n' if index==0 else '')+spoken[p['id']]),'master spoken text differs from the speech file'
         assert include(directory/'tts-job/input.json')==audio
         progress=include(directory/'tts-job/progress.json')
         assert progress['phase']=='rendered' and progress['completedStops']==len(ids)

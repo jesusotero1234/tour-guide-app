@@ -15,17 +15,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-REPO = "/home/jesusotero/coding/tour-guide-app"
-TRIAL = os.path.join(REPO, "backend/tmp/astra-replacement-sandbox/reasoning-trial-20260911T202314Z")
-CHECKS = os.path.join(REPO, "backend/tmp/astra-replacement-sandbox/checks-fix-human-review-20260911T211230Z")
-MAX3 = os.path.join(TRIAL, "outputs/MAX-3.md")
-PROMPT = os.path.join(TRIAL, "frozen/combined-author-prompt.md")
-RESP = os.path.join(TRIAL, "responses/MAX-3.json")
-REQ = os.path.join(TRIAL, "requests/MAX-3.json")
-PREREG = os.path.join(TRIAL, "PREREGISTRATION.json")
-AMEND = os.path.join(TRIAL, "AMENDMENT-1.json")
-HASH_MAX3 = "e00a640148a6786707241f7e7b5a6879a9f83b8b7b057e778dbb4e2b3fbb8dbe"
-HASH_PROMPT = "92a1dc4905eb5a105a0a2301c3510dc882e5a5efe135169d8380713146b84c08"
+REPO = os.path.abspath(os.path.join(BASE, '..', '..', '..', '..'))
 MODEL = "deepseek-v4-flash"
 API = "https://api.deepseek.com/v1/chat/completions"
 MAX_ATTEMPTS = 1
