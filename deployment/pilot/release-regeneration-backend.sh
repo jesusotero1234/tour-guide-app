@@ -7,6 +7,11 @@
 # only reads: it checks the server and the files and stops before creating anything.
 #
 #   COMMIT=<commit with the final backend> [BASE=766286f] [DRY_RUN=1] deployment/pilot/release-regeneration-backend.sh
+#   COMMIT=<commit> SHIP_LIST=<file> SERVER_SNAP=<dir> [DRY_RUN=1] deployment/pilot/release-regeneration-backend.sh
+#
+# The server does not hold a checkout of any commit: its backend/src is a subset of files, each of an older version. With SHIP_LIST (one
+# path under backend/ per line) only those files are replaced, and the version each must have on the server is the one in SERVER_SNAP, a copy
+# of the server's backend/ taken read-only just before (src, prisma, package.json, tsconfig.json). The migration folder and schema are added.
 #
 # What it does, in order: verifies that the server holds the BASE version of every file it will replace; builds a candidate
 # release as nomuvia-admin (prisma generate + tsc, no root); takes a pg_dump; runs `prisma migrate deploy` with migration.env
@@ -22,9 +27,19 @@ KEY="${KEY:-$HOME/.ssh/tour-guide-hetzner}"
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 NAME="$(date +%Y%m%d)-spoken-text-cues"
 
-git -C "$REPO" cat-file -e "$COMMIT^{commit}" && git -C "$REPO" cat-file -e "$BASE^{commit}"
-mapfile -t CHANGES < <(git -C "$REPO" diff --name-status "$BASE" "$COMMIT" -- backend/src backend/prisma)
+git -C "$REPO" cat-file -e "$COMMIT^{commit}"
+[ -n "${SHIP_LIST:-}" ] || git -C "$REPO" cat-file -e "$BASE^{commit}"
 FILES=(); NEWFILES=()
+if [ -n "${SHIP_LIST:-}" ]; then
+  : "${SERVER_SNAP:?SHIP_LIST needs SERVER_SNAP, a copy of the backend directory of the server}"
+  while read -r path; do
+    [ -n "$path" ] || continue
+    FILES+=("backend/$path"); [ -e "$SERVER_SNAP/$path" ] || NEWFILES+=("backend/$path")
+  done < "$SHIP_LIST"
+  FILES+=(backend/prisma/schema.prisma)
+  while read -r path; do FILES+=("$path"); NEWFILES+=("$path"); done < <(git -C "$REPO" ls-tree -r --name-only "$COMMIT" -- backend/prisma/migrations/20261001220000_spoken_text_cues_legs)
+else
+mapfile -t CHANGES < <(git -C "$REPO" diff --name-status "$BASE" "$COMMIT" -- backend/src backend/prisma)
 for line in "${CHANGES[@]}"; do
   status=${line%%$'\t'*}; file=${line#*$'\t'}
   case "$status" in
@@ -33,6 +48,7 @@ for line in "${CHANGES[@]}"; do
     *) echo "unsupported change '$status $file': deletions and renames need their own review" >&2; exit 1 ;;
   esac
 done
+fi
 [ "${#FILES[@]}" -gt 0 ] || { echo "no backend changes between $BASE and $COMMIT" >&2; exit 1; }
 git -C "$REPO" ls-tree -r --name-only "$COMMIT" -- backend/prisma/migrations | grep -q 20261001220000_spoken_text_cues_legs || { echo "the migration is not in $COMMIT" >&2; exit 1; }
 echo "$COMMIT replaces ${#FILES[@]} files (${#NEWFILES[@]} new) relative to $BASE"
@@ -45,13 +61,14 @@ for f in "${FILES[@]}"; do
   git -C "$REPO" show "$COMMIT:$f" > "$WORK/files/$f"
   echo "$(sha256sum "$WORK/files/$f" | cut -d' ' -f1)  $f" >> "$WORK/next.sha256"
   if printf '%s\n' "${NEWFILES[@]:-}" | grep -qx -- "$f"; then echo "NEW  $f" >> "$WORK/base.sha256"
+  elif [ -n "${SHIP_LIST:-}" ]; then echo "$(sha256sum "$SERVER_SNAP/${f#backend/}" | cut -d' ' -f1)  $f" >> "$WORK/base.sha256"
   else echo "$(git -C "$REPO" show "$BASE:$f" | sha256sum | cut -d' ' -f1)  $f" >> "$WORK/base.sha256"; fi
 done
 tar czf "$WORK/release.tgz" -C "$WORK/files" backend
 SSH=(ssh -i "$KEY" -o IdentitiesOnly=yes -o BatchMode=yes)
 scp -q -i "$KEY" -o IdentitiesOnly=yes "$WORK/release.tgz" "$WORK/base.sha256" "$WORK/next.sha256" "$HOST:/tmp/"
 
-"${SSH[@]}" "DRY_RUN=${DRY_RUN:-0} NAME=$NAME bash -s" <<'REMOTE'
+"${SSH[@]}" "$HOST" "DRY_RUN=${DRY_RUN:-0} NAME=$NAME bash -s" <<'REMOTE'
 set -euo pipefail
 OLD=$(sudo -n readlink -f /srv/tour-guide/current)
 NEW=/srv/tour-guide/releases/$NAME
