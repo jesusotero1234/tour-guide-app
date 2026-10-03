@@ -209,6 +209,26 @@ export interface Place {
 
 export type Theme = 'architecture' | 'history' | 'food';
 
+/** A tour as the catalogue card shows it; the tour's own page loads the stops, the audio and the credits. */
+export interface TourSummary {
+  id: string;
+  city: string;
+  cityNames?: Partial<Record<Language, string>>;
+  country: string;
+  countryCode: string;
+  theme: string;
+  language: Language;
+  durationMinutes: number;
+  title?: string;
+  subtitle?: string;
+  introduction?: string;
+  localReview?: boolean;
+  stopCount: number;
+  start?: { latitude: number; longitude: number };
+  cover?: import('./tourImages').TourImage;
+  sampleAudioUrl?: string;
+}
+
 export interface TourListParams {
   city?: string;
   countryCode?: string;
@@ -217,6 +237,8 @@ export interface TourListParams {
   readyOnly?: boolean;
   limit?: number;
   offset?: number;
+  /** `summary`: only what a catalogue card shows (see `TourSummary`). */
+  view?: 'summary';
 }
 
 /**

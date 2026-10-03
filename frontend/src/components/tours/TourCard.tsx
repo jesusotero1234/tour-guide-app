@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Tour } from '@/types/api';
+import { stopCountOf, type CardTour } from '@/lib/tourSummary';
 import { usePageLanguage } from '@/components/layout/PageLanguage';
 import { browseCopy } from '@/lib/browseCopy';
 import { mobileTourCopy } from '@/lib/mobileTourCopy';
@@ -9,7 +9,7 @@ import { TourCover } from './TourCover';
 import { TourSample } from './TourSample';
 
 /** The whole card opens the tour through one link, the title (a stretched link); "View tour" is only a visual cue and is hidden from assistive technology. */
-export const TourCard = ({ tour, priority = false }: { tour: Tour; priority?: boolean }) => {
+export const TourCard = ({ tour, priority = false, prefetch }: { tour: CardTour; priority?: boolean; prefetch?: boolean }) => {
   const { language } = usePageLanguage();
   const t = browseCopy(language);
   const m = mobileTourCopy(language);
@@ -21,10 +21,10 @@ export const TourCard = ({ tour, priority = false }: { tour: Tour; priority?: bo
     <div className="mobile-tour-card-body">
       <p className="tour-eyebrow">{city} · {m.walkingTour}</p>
       {tour.localReview && <p className="tour-private-review">{t.privateReview}</p>}
-      <h3 lang={tour.title ? tour.language : language}><Link href={`/tours/${tour.id}`}>{tour.title || `${city}, ${country}`}</Link></h3>
+      <h3 lang={tour.title ? tour.language : language}><Link href={`/tours/${tour.id}`} prefetch={prefetch}>{tour.title || `${city}, ${country}`}</Link></h3>
       {tour.subtitle && <p className="tour-card-description" lang={tour.language}>{tour.subtitle}</p>}
       {!tour.subtitle && tour.introduction && <p className="tour-card-description" lang={tour.language}>{tour.introduction}</p>}
-      <p className="tour-card-meta">{tour.durationMinutes > 0 && <span>~{tour.durationMinutes} min <span className="sr-only">{m.estimated}</span></span>}<span>{t.stopsCount(tour.places.length)}</span><span lang={tour.language}>{tour.language.toUpperCase()}</span></p>
+      <p className="tour-card-meta">{tour.durationMinutes > 0 && <span>~{tour.durationMinutes} min <span className="sr-only">{m.estimated}</span></span>}<span>{t.stopsCount(stopCountOf(tour))}</span><span lang={tour.language}>{tour.language.toUpperCase()}</span></p>
       <div className="tour-card-actions"><TourSample tour={tour} language={language} /><span className="tour-card-link" aria-hidden="true">{t.viewTour}</span></div>
     </div>
   </article>;

@@ -4,6 +4,8 @@ nomuvia.com {
     # of the file and `private, no-store` otherwise (plan 06 A6).
     @notAudio not path_regexp audio ^/api/backend/tours/[0-9a-f-]{36}/(audio/(introduction|[0-9a-f-]{36})|cue/.+)$
     header @notAudio Cache-Control "private, no-store"
+    # JSON, HTML and scripts only: Caddy's default list leaves audio and images alone, and Range requests are unaffected.
+    encode zstd gzip
     header {
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"

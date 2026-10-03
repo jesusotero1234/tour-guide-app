@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { listTours } from '@/lib/api';
-import { Language, Tour } from '@/types/api';
+import { Language, TourSummary } from '@/types/api';
+import { startOf } from '@/lib/tourSummary';
 import { TourCard } from './TourCard';
 import { usePageLanguage } from '@/components/layout/PageLanguage';
 import { browseCopy, languageNames } from '@/lib/browseCopy';
@@ -10,6 +11,8 @@ import { mobileTourCopy } from '@/lib/mobileTourCopy';
 import { haversineDistanceMeters } from '@/lib/geo';
 
 const PAGE_SIZE = 200;
+/** The first tours are the likeliest to be opened: their pages are fetched in the background so that opening one is immediate. */
+const PREFETCHED_TOURS = 6;
 const normalized = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase().trim();
 
 export const ToursList = () => {
@@ -22,7 +25,7 @@ export const ToursList = () => {
   // "Near you" sorts by distance once, with a one-off reading that is kept in memory only: no coordinate is stored or sent anywhere.
   const [near, setNear] = useState<{ status: 'idle' | 'locating' | 'ready' | 'denied'; point?: { latitude: number; longitude: number } }>({ status: 'idle' });
   const language = selectedLanguage ?? pageLanguage;
-  const [result, setResult] = useState<{ language: Language; tours: Tour[]; error: boolean } | null>(null);
+  const [result, setResult] = useState<{ language: Language; tours: TourSummary[]; error: boolean } | null>(null);
   const [retry, setRetry] = useState(0);
   const [visibleCount, setVisibleCount] = useState(6);
   const currentResult = result?.language === language ? result : null;
@@ -32,10 +35,10 @@ export const ToursList = () => {
     const controller = new AbortController();
     const load = async () => {
       try {
-        const tours: Tour[] = [];
+        const tours: TourSummary[] = [];
         // One request normally returns the whole catalogue; the loop only continues if the backend reports more tours than it sent.
         for (let offset = 0; ; offset = tours.length) {
-          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset }, controller.signal);
+          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset, view: 'summary' }, controller.signal);
           if (controller.signal.aborted) return;
           const known = new Set(tours.map(tour => tour.id));
           const added = page.filter(tour => !known.has(tour.id));
@@ -53,11 +56,11 @@ export const ToursList = () => {
 
   const tours = currentResult?.tours ?? [];
   const query = normalized(city);
-  const distanceTo = (tour: Tour) => (near.point && tour.places[0] ? haversineDistanceMeters(near.point, tour.places[0]) : Infinity);
+  const distanceTo = (tour: TourSummary) => { const start = startOf(tour); return near.point && start ? haversineDistanceMeters(near.point, start) : Infinity; };
   const filtered = tours.filter(tour => (!query || [tour.city, ...Object.values(tour.cityNames ?? {})].some(name => normalized(name).includes(query)))
     && (theme === 'all' || (theme === 'thematic') === (tour.theme === 'thematic')))
     .sort((a, b) => (near.status === 'ready' ? distanceTo(a) - distanceTo(b) : Number(b.theme === 'thematic') - Number(a.theme === 'thematic')));
-  const cityName = (tour: Tour) => tour.cityNames?.[pageLanguage] || tour.city;
+  const cityName = (tour: TourSummary) => tour.cityNames?.[pageLanguage] || tour.city;
   const cities = [...new Set(tours.map(cityName))].sort(near.status === 'ready'
     ? (a, b) => Math.min(...tours.filter(x => cityName(x) === a).map(distanceTo)) - Math.min(...tours.filter(x => cityName(x) === b).map(distanceTo))
     : (a, b) => a.localeCompare(b, pageLanguage));
@@ -101,7 +104,7 @@ export const ToursList = () => {
       {currentResult && (currentResult.error ? <div className="discovery-empty"><p role="alert">{t.searchError}</p><button className="tour-primary" onClick={() => { setResult(null); setRetry(value => value + 1); }}>{t.retry}</button></div>
         : filtered.length ? <section aria-label={t.resultsLabel}>
           <div className="discovery-section-title"><h2>{m.featured}</h2><span>{filtered.length}</span></div>
-          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} />)}</div>
+          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} prefetch={index < PREFETCHED_TOURS ? true : undefined} />)}</div>
           {filtered.length > visibleCount && <button className="discovery-more" onClick={() => setVisibleCount(value => value + 6)}>{m.more} ↓</button>}
         </section> : <div className="discovery-empty"><h2>{query ? t.emptyTitle(city.trim(), t.languageNames[language]) : m.empty}</h2><p>{t.emptyHint}</p>{query && <button className="tour-primary" onClick={() => chooseCity('')}>{m.clear}</button>}</div>)}
     </div>

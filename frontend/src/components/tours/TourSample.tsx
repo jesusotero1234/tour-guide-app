@@ -1,20 +1,21 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import type { Language, Tour } from '@/types/api';
+import type { Language } from '@/types/api';
+import { sampleUrlOf, type CardTour } from '@/lib/tourSummary';
 import { mobileTourCopy } from '@/lib/mobileTourCopy';
 import { listeningCopy } from '@/components/tour/listeningCopy';
 
 const PREVIEW_EVENT = 'nomuvia-preview-play';
 
 /** A short, user-initiated preview. It never changes the walk's saved progress. */
-export function TourSample({ tour, language, expanded = false }: { tour: Tour; language: Language; expanded?: boolean }) {
+export function TourSample({ tour, language, expanded = false }: { tour: CardTour; language: Language; expanded?: boolean }) {
   const t = mobileTourCopy(language);
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const [finished, setFinished] = useState(false);
-  const url = tour.introductionAudio?.audioUrl || tour.places.find(place => place.audioUrl)?.audioUrl;
+  const url = sampleUrlOf(tour);
 
   useEffect(() => {
     const element = audio.current;
