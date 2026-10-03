@@ -15,8 +15,9 @@ etiqueta de archivo antes de empezar. Esa parte no se ha tocado. Lo que no destr
 | **7.6** `backend/tmp` | Hecho en lo que no mueve nada: variable `TOUR_DATA_DIR` (ruta absoluta; por defecto, el mismo `backend/tmp` de siempre), con prueba |
 | **7.7** Documentación | Hecho: `ARCHITECTURE.md` nuevo, `docs/README.md` corregido y 13 documentos del pipeline anterior movidos a `docs/archive/` con su aviso |
 | **7.5** Medición del servidor piloto | Medido (abajo); la refactorización **no** se hace: gana poco |
-| **7.1, 7.2, 7.3, 7.4, 7.8** | **Sin hacer.** Borran o mueven código de producción; necesitan tu autorización o van después de [04](../04-regeneracion-y-publicacion.md) |
-| Etiqueta `archive/pre-cleanup-20261001` | **Sin crear**: solo hace falta cuando se autorice un borrado |
+| **7.1** Experimentos y código muerto | **Hecho el 3 de octubre** (ver «Borrado del bloque 7.1» más abajo) |
+| **7.2, 7.3, 7.4, 7.8** | **Sin hacer.** 7.2 necesita que elijas A o B; 7.3 y 7.4 mueven el pipeline de producción |
+| Etiqueta `archive/pre-cleanup-20261001` | **Creada** antes de borrar: con ella se recupera todo |
 
 ## Las tres suites del núcleo
 
@@ -30,6 +31,30 @@ Se revisó en cada caso si estaba mal la prueba o el código. En las tres el có
 
 `scripts/check-all.known-failures.txt` ya no las lista. Quedan cuatro suites de Jest (`CodexTourGenerator`, `AutonomousNarrativePilotV1`, `NarrativePilotDeepSeekV1`,
 `NarrativeCalibrationV6`), que desaparecen con 7.1 y 7.2, y una prueba de voz.
+
+## Borrado del bloque 7.1 (3 de octubre)
+
+Autorizado por el usuario («borra lo otro») después de que terminara la regeneración. Dos commits en la rama `cleanup/7-1-dead-code`, sobre la etiqueta
+`archive/pre-cleanup-20261001`. En total **219 archivos y unas 48.800 líneas menos** (38.200 de ellas en `backend/src`).
+
+| Parte | Qué se borró |
+|---|---|
+| 1 | 47 scripts de experimento de `backend/scripts/validation/`, los 4 `validate-phase*.sh` y sus **28** entradas de `backend/package.json` |
+| 2 | **87 fuentes** que solo alcanzaban las pruebas (26.879 líneas) y **78 pruebas** que solo las ejercitaban (13.264 líneas) |
+
+**Cómo se eligió la parte 2.** La lista `reachability-c-tests-only-sources.txt` no se podía borrar tal cual: 69 archivos que se quedan (sobre todo pruebas) todavía
+mencionaban esas fuentes, porque las pruebas de un módulo muerto importan también algún apoyo vivo. Se tomó el cierre: una fuente se borra solo si todo
+lo que la importa también se borra, y se cuenta como prueba muerta la de su mismo nombre. Salieron **87 de 96**.
+
+**Se quedan a propósito** (los usa código vivo o pruebas vivas): `TourBlueprint.test-support.ts`, `EditorialEvaluationManifest.ts`, `EditorialRouteBrief.ts`,
+`EditorialSiteV3.ts`, `NarrativeBenchmarkV6.ts`, `NarrativeEvidenceFixturesV8.test-support.ts`, `PoiEnrichmentSnapshot.ts`, `TourQualityEvaluator.ts` y un fixture JSON.
+También se quedan, porque el plan pide tu confirmación: `prisma/seed.ts`, `scripts/audit/multi-route-overlap.ts` (y el inspector de lotes que importa) y
+`EditorialEvaluationInputV3.ts`.
+
+**Comprobado tras cada parte:** `tsc` de `src` y de `scripts`; Jest completo (solo fallan `CodexTourGenerator`, que desaparece con 7.2-A, y la integración de
+Overpass, que `check-all.sh` ya omite); 133 pruebas de Python de `scripts/admin`; `node --test`; carga de la app compilada en modo piloto; y `scripts/check-all.sh` en
+**verde**. Las tres suites de módulos muertos que fallaban (`AutonomousNarrativePilotV1`, `NarrativePilotDeepSeekV1`, `NarrativeCalibrationV6`) desaparecen con su código,
+y salen de `check-all.known-failures.txt`.
 
 ## Medición del servidor piloto
 
@@ -53,7 +78,7 @@ servidor vuelve a ir justo de memoria.
 
 ## Pendiente de ti
 
-1. Autorizar los bloques de borrado 7.1 (con la lista de `anexos/reachability-*.txt` regenerada) y crear antes la etiqueta de archivo.
+1. ~~Autorizar los bloques de borrado 7.1~~ Hecho el 3 de octubre. Falta decidir qué hacer con lo que se conservó a propósito: `prisma/seed.ts` (¿se usa en desarrollo?), `scripts/audit/multi-route-overlap.ts` y `EditorialEvaluationInputV3.ts`.
 2. Decidir 7.2 (A o B) y, con ella, el borrado de las rutas y tablas del camino antiguo, que además necesita comprobar en producción que están vacías.
 3. 7.3 y 7.4 (mover el pipeline fuera de `scripts/validation/` y unificar los dos juegos de lotes): conviene hacerlos cuando [04](../04-regeneracion-y-publicacion.md) haya terminado.
 4. Autorizar subir `.github/workflows/ci.yml`.
