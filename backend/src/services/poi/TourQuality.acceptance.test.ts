@@ -11,7 +11,7 @@ import { getVerifiedCityThemes } from '../tourQuality/VerifiedCities';
  * pipeline (tiering on a frozen pool; composeWalkingRoute on frozen candidates) and
  * asserts that the resulting tour looks like a credible first-visit product.
  *
- * Fixtures are committed snapshots captured via scripts/validation/capture-tour-fixtures.ts.
+ * Fixtures are committed snapshots (the script that captured them was removed in the 20261001 cleanup; see the tag archive/pre-cleanup-20261001).
  * The anchor oracle (fixtures/oracle/anchors.json) is EVALUATION-ONLY — production must
  * discover anchors via fame/tiering. See docs/architecture/tour-quality-fixtures-acceptance.md.
  */
