@@ -1,0 +1,7 @@
+{
+  "es": { "first": "Ahora, vamos hacia {name}.", "next": "Ahora, vamos hacia {name}.", "finish": "Aquí termina el paseo. Gracias por caminar con nosotros." },
+  "en": { "first": "Heading to {name}.", "next": "Heading to {name}.", "finish": "This is the end of the walk. Thank you for walking with us." },
+  "fr": { "first": "En route vers {name}.", "next": "En route vers {name}.", "finish": "C'est la fin de la promenade. Merci de nous avoir accompagnés." },
+  "de": { "first": "Weiter zu {name}.", "next": "Weiter zu {name}.", "finish": "Hier endet der Spaziergang. Danke, dass du dabei warst." },
+  "it": { "first": "Andiamo verso {name}.", "next": "Andiamo verso {name}.", "finish": "Qui finisce la passeggiata. Grazie per averci accompagnato." }
+}

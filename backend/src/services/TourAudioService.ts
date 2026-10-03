@@ -4,12 +4,16 @@ import { access, mkdir, readFile, rename, writeFile } from 'fs/promises';
 import { dirname, join, resolve } from 'path';
 import { setTimeout as delay } from 'timers/promises';
 import { AudioRenderInput, runLocalVoxCpm, readRenderProgress, tourProjectRoot } from './LocalVoxCpmRenderer';
-import { audioDisclosure, audioIdentity } from './AudioProvenance';
+import { audioDisclosure, audioIdentity, rendererKeyOf } from './AudioProvenance';
 import { activeIntroduction, audioFileSha256 } from './IntroductionAudio';
+import type { CueKind, CueManifestEntry } from './TourCues';
 
 export interface IntroductionAudioState {
   status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number;
 }
+
+export interface Cue { text: string; audioUrl: string; version: string; durationSeconds?: number }
+export interface TourCues { first: Record<string, Cue>; next: Record<string, Cue>; finish?: Cue }
 
 export interface TourAudioState {
   tourId: string;
@@ -83,24 +87,35 @@ export class TourAudioService {
     const preset = JSON.parse(presetBytes.toString('utf8')) as { reference: string };
     const reference = await readFile(resolve(dirname(presetPath), preset.reference));
     const identity = audioIdentity(presetBytes, reference);
-    const rendererKey = hash('nano-vllm-voxcpm-2.0.4-tempo-v1:' + JSON.stringify(identity));
+    const rendererKey = rendererKeyOf(identity);
+    // On-screen text (what the public API shows) and spoken text (what is synthesised and hashed) are different when the
+    // tour has been through the speech normalizer. Without spokenText every hash is exactly what it was before it existed.
     const introductionText = tour.introduction?.trim() ? [audioDisclosure(tour.language), tour.introduction.trim()].join('\n\n') : '';
-    const introductionHash = hash(tour.language + rendererKey + introductionText);
+    const introductionSpoken = introductionText && tour.introductionSpokenText?.trim()
+      ? [audioDisclosure(tour.language), tour.introductionSpokenText.trim()].join('\n\n') : introductionText;
+    const introductionHash = hash(tour.language + rendererKey + introductionSpoken);
+    const spokenOf = (place: { spokenText?: string | null; description: string }) => place.spokenText?.trim() || place.description.trim();
     const active = tour.places[0] && introductionText ? await activeIntroduction(this.client, this.storageDir, tour, {
       rendererKey, sourceHash: introductionHash, firstId: tour.places[0].id,
-      firstHash: hash(tour.language + rendererKey + tour.places[0].description.trim()),
+      firstHash: hash(tour.language + rendererKey + spokenOf(tour.places[0])),
     }) : null;
     const split = separateIntroduction || !!active;
-    const stops = tour.places.map((place, index) => ({
-      id: place.id,
-      text: index === 0 && !split
-        ? [audioDisclosure(tour.language), tour.introduction?.trim(), place.description.trim()].filter(Boolean).join('\n\n')
-        : place.description.trim(),
-    }));
-    if (!stops.length || stops.length > 40 || tour.places.some(place => !place.description.trim()) || stops.some(stop => !stop.text || stop.text.length > 50000)) {
+    const stops = tour.places.map((place, index) => {
+      const own = place.spokenText?.trim() || undefined;
+      if (index === 0 && !split) {
+        // The introduction is read inside this chapter: its spoken variant needs every piece to have its own spoken text.
+        const intro = tour.introductionSpokenText?.trim() || undefined;
+        const spokenText = own && intro ? [audioDisclosure(tour.language), intro, own].join('\n\n') : undefined;
+        return { id: place.id, text: [audioDisclosure(tour.language), tour.introduction?.trim(), place.description.trim()].filter(Boolean).join('\n\n'),
+          ...(spokenText ? { spokenText } : {}) };
+      }
+      return { id: place.id, text: place.description.trim(), ...(own ? { spokenText: own } : {}) };
+    });
+    if (!stops.length || stops.length > 40 || tour.places.some(place => !place.description.trim()) ||
+        stops.some(stop => !stop.text || stop.text.length > 50000 || (stop.spokenText?.length ?? 0) > 50000)) {
       throw new TourAudioError('NARRATION_NOT_READY', 'Every stop needs a complete narration before adding audio.', 422);
     }
-    const hashes = Object.fromEntries(stops.map(stop => [stop.id, hash(tour.language + rendererKey + stop.text)]));
+    const hashes = Object.fromEntries(stops.map(stop => [stop.id, hash(tour.language + rendererKey + (stop.spokenText ?? stop.text))]));
     const version = active ? introductionHash + '.' + (active.metadata as Record<string, unknown>).fileSha256 : undefined;
     return { language: tour.language, identity, stops, hashes, rendererKey, introductionText, introductionHash,
       requestHash: hash(JSON.stringify(hashes)),
@@ -126,6 +141,56 @@ export class TourAudioService {
       } catch { /* Missing audio must be generated again. */ }
     }
     return valid;
+  }
+
+  /**
+   * The link clips of an order-flexible tour, or null when the tour has none or any of them cannot be served. The tour
+   * lists its clips in metadata.cueManifest (so admission never queries for them); here each entry must be backed by a row
+   * of the current voice whose file verifies. Only GET /tours/:id/audio and the clip route call this, never the listing.
+   */
+  async cues(tourId: string): Promise<TourCues | null> {
+    const found = await this.resolveCues(tourId);
+    if (!found) return null;
+    const result: TourCues = { first: {}, next: {} };
+    for (const { entry, row } of found) {
+      const cue: Cue = { text: entry.text, version: entry.version, durationSeconds: row.durationSeconds ?? undefined,
+        audioUrl: '/api/backend/tours/' + tourId + '/cue/' + (entry.kind === 'finish' ? 'finish' : entry.kind + '/' + entry.placeId) + '?v=' + entry.version };
+      if (entry.kind === 'finish') result.finish = cue; else result[entry.kind][entry.placeId as string] = cue;
+    }
+    return result;
+  }
+
+  async cueFile(tourId: string, kind: CueKind, placeId: string | undefined, expectedVersion?: string): Promise<string> {
+    const found = await this.resolveCues(tourId);
+    const hit = found?.find(({ entry }) => entry.kind === kind && entry.placeId === placeId);
+    if (!hit) throw new TourAudioError('AUDIO_NOT_FOUND', 'This link clip is not ready.', 404);
+    if (expectedVersion && expectedVersion !== hit.entry.version) throw new TourAudioError('AUDIO_VERSION_CHANGED', 'Audio version changed.', 409);
+    return join(this.storageDir, hit.row.storagePath);
+  }
+
+  private async resolveCues(tourId: string) {
+    if (!uuid.test(tourId)) return null;
+    const tour = await this.client.tour.findUnique({ where: { id: tourId }, select: { metadata: true, language: true, places: { select: { id: true } } } });
+    const manifest = (tour?.metadata as { cueManifest?: CueManifestEntry[] } | undefined)?.cueManifest;
+    if (!tour || !Array.isArray(manifest) || !manifest.length) return null;
+    const { rendererKey } = await this.snapshot(tourId);
+    const rows = await this.client.tourCueAudio.findMany({ where: { tourId }, orderBy: { createdAt: 'desc' } });
+    const resolved: Array<{ entry: CueManifestEntry; row: typeof rows[number] }> = [];
+    for (const entry of manifest) {
+      let match: typeof rows[number] | undefined;
+      for (const row of rows) {
+        const metadata = row.metadata as Record<string, unknown>;
+        if (row.kind !== entry.kind || (row.placeId ?? undefined) !== entry.placeId || row.language !== tour.language
+          || metadata?.rendererKey !== rendererKey || entry.version !== metadata.sourceHash + '.' + metadata.fileSha256
+          || metadata.sourceHash !== hash(tour.language + rendererKey + row.spokenText)
+          || !/^voxcpm2\/[0-9a-f-]{36}\/[0-9a-f-]{36}\.mp3$/.test(row.storagePath)) continue;
+        try { if (metadata.fileSha256 === await audioFileSha256(join(this.storageDir, row.storagePath))) { match = row; break; } }
+        catch { /* A missing file is not served. */ }
+      }
+      if (!match) return null;
+      resolved.push({ entry, row: match });
+    }
+    return resolved;
   }
 
   private jobPath(tourId: string) { return join(this.jobsDir, tourId + '.json'); }

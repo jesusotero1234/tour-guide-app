@@ -17,6 +17,7 @@ model Tour {
   durationMinutes Int             @map("duration_minutes")
   status          String          @default("draft")
   introduction    String?
+  introductionSpokenText String? @map("introduction_spoken_text")
   metadata        Json            @default("{}")
   blueprintId     String?         @map("blueprint_id") @db.Uuid
   blueprint       TourBlueprint?  @relation(fields: [blueprintId], references: [id], onDelete: Restrict)
@@ -25,6 +26,8 @@ model Tour {
   places          Place[]
   generationJobs  GenerationJob[]
   introductionAudios TourIntroductionAudio[]
+  cueAudios       TourCueAudio[]
+  walkingLegs     TourWalkingLegs?
 
   @@index([blueprintId, language])
   @@map("tours")
@@ -35,6 +38,7 @@ model Place {
   tourId          String       @map("tour_id") @db.Uuid
   name            String
   description     String
+  spokenText      String?      @map("spoken_text")
   latitude        Float        @map("lat")
   longitude       Float        @map("lng")
   position        Int
@@ -79,6 +83,39 @@ model TourIntroductionAudio {
 
   @@index([tourId, language])
   @@map("tour_introduction_audio")
+}
+
+// Short clips that link one stop to the next, per destination (plan 03): first:<placeId>, next:<placeId>, finish.
+model TourCueAudio {
+  id              String   @id @default(uuid()) @db.Uuid
+  tourId          String   @map("tour_id") @db.Uuid
+  kind            String   // 'first' | 'next' | 'finish'
+  placeId         String?  @map("place_id") @db.Uuid   // null only for 'finish'
+  language        String
+  text            String   // on-screen text: the filled template
+  spokenText      String   @map("spoken_text")
+  format          String   @default("mp3")
+  storagePath     String   @map("storage_path")
+  durationSeconds Float?   @map("duration_seconds")
+  metadata        Json     @default("{}")   // { rendererKey, sourceHash, fileSha256, identity, speechVersion }
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+  tour            Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@index([tourId, kind, placeId])
+  @@map("tour_cue_audio")
+}
+
+// Walking time, distance and geometry between every pair of stops (plan 03 section 7). Kept out of the tour row so the
+// catalogue listing, which loads every tour, never carries the geometries.
+model TourWalkingLegs {
+  tourId    String   @id @map("tour_id") @db.Uuid
+  data      Json
+  sha256    String
+  createdAt DateTime @default(now()) @map("created_at")
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@map("tour_walking_legs")
 }
 
 model VoiceReferenceAudio {

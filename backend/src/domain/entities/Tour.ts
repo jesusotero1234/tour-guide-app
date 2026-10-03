@@ -13,6 +13,7 @@ export interface Tour {
   durationMinutes: number;
   status?: TourStatus;
   introduction?: string;
+  introductionSpokenText?: string;
   places: Place[];
   metadata?: TourMetadata;
   blueprintId?: string;

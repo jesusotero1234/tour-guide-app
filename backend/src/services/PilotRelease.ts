@@ -4,6 +4,8 @@ import type { TourAudioState } from './TourAudioService';
 import type { WalkingRouteData } from './WalkingRouteService';
 import { sha256 } from './AudioProvenance';
 import { SOURCE_POLICY_VERSION, sourceUse } from './poi/SourceUsePolicy';
+import { completeCueManifest } from './TourCues';
+import { flexibleOrderEnabled } from '../config/pilot';
 
 export interface PilotRelease {
   version: 1;
@@ -44,6 +46,11 @@ export function validatePilotMaterial(tour: Tour, audio: TourAudioState): void {
   if (tour.status !== 'published' || !tour.introduction?.trim() || tour.places.length < 2 || tour.places.length > 40
     || !validWalkingRoute(tour.metadata?.pilotWalkingRoute)) throw new Error('PILOT_MATERIAL_INCOMPLETE');
   if (tour.metadata?.codexAuthor?.legs.some(leg => leg.type === 'self_transfer')) throw new Error('PILOT_EXTERNAL_TRANSFER');
+  // A tour that declares itself order-flexible must carry every link clip and its walking legs. The files and the legs rows
+  // are verified where they are served (and by `verify` before publishing): admission runs for every tour on every catalogue
+  // request and must not query for them.
+  if (flexibleOrderEnabled() && tour.metadata?.orderFlexible === true && (!completeCueManifest(tour.metadata.cueManifest, tour.places.map(p => p.id))
+    || !/^[a-f0-9]{64}$/.test(tour.metadata.walkingLegsSha256 ?? ''))) throw new Error('PILOT_ORDER_INCOMPLETE');
   if (audio.status !== 'completed' || tour.places.some(place => !audio.audioVersions?.[place.id] || !audio.audioUrls[place.id])) throw new Error('PILOT_AUDIO_INCOMPLETE');
   for (const place of tour.places) {
     const pictures = place.metadata?.tourImages;
@@ -79,11 +86,18 @@ export function pilotFingerprint(tour: Tour, audio: TourAudioState): string {
     city: tour.city, country: tour.country, countryCode: tour.countryCode, language: tour.language,
     theme: tour.theme, durationMinutes: tour.durationMinutes, introduction: tour.introduction,
     ...(tour.metadata?.catalogTitle ? { catalogTitle: tour.metadata.catalogTitle } : {}),
+    // Fields added after the first publication enter the hash only when they have a value. Writing them as null or
+    // undefined would change the fingerprint of every tour already published, and the catalogue would empty out.
+    ...(tour.introductionSpokenText ? { introductionSpokenText: tour.introductionSpokenText } : {}),
+    ...(tour.metadata?.orderFlexible === true ? { orderFlexible: true } : {}),
+    ...(tour.metadata?.cueManifest?.length ? { cues: [...tour.metadata.cueManifest].sort((a, b) => (a.kind + (a.placeId ?? '')).localeCompare(b.kind + (b.placeId ?? ''))) } : {}),
+    ...(tour.metadata?.walkingLegsSha256 ? { walkingLegsSha256: tour.metadata.walkingLegsSha256 } : {}),
     ...(audio.introduction ? { introductionAudio: { version: audio.introduction.version, text: audio.introduction.text } } : {}),
     geometry: tour.metadata?.pilotWalkingRoute,
     places: [...tour.places].sort((a, b) => a.position - b.position).map(place => ({
       id: place.id, name: place.name, nameInTourLanguage: place.nameInTourLanguage, position: place.position,
       description: place.description, latitude: place.latitude, longitude: place.longitude,
+      ...(place.spokenText ? { spokenText: place.spokenText } : {}),
       sources: place.metadata?.sourceCredits, images: place.metadata?.tourImages,
       audioVersion: audio.audioVersions?.[place.id], transcript: audio.transcripts?.[place.id],
     })),
@@ -111,6 +125,7 @@ export function presentPilotTour(tour: Tour, audio: TourAudioState, localReview 
     cityNames: getCityNames(tour.city, tour.countryCode),
     theme: tour.theme, language: tour.language, durationMinutes: tour.durationMinutes,
     ...(tour.metadata?.catalogTitle ? { title: tour.metadata.catalogTitle } : {}),
+    ...(tour.metadata?.orderFlexible === true && flexibleOrderEnabled() ? { orderFlexible: true } : {}),
     status: tour.status, introduction: tour.introduction, createdAt: tour.createdAt, updatedAt: tour.updatedAt,
     ...(audio.introduction ? { introductionAudio: audio.introduction } : {}),
     pilot: localReview ? undefined : { approvalMode: release!.approvalMode ?? 'human-reviewed', reviewedAt: release!.reviewedAt, version: release!.fingerprint,

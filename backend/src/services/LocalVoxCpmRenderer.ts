@@ -8,7 +8,10 @@ import type { AudioIdentity } from './AudioProvenance';
 export interface AudioRenderInput {
   language: string;
   identity?: AudioIdentity;
-  stops: Array<{ id: string; text: string }>;
+  /** `text` is the on-screen narration; `spokenText`, when present, is exactly what is synthesised (it passes the speech gate). */
+  stops: Array<{ id: string; text: string; spokenText?: string }>;
+  /** Version of the normalizer that produced the spokenText values, recorded in the audio provenance. */
+  speechVersion?: string;
 }
 export interface AudioRenderProgress {
   phase: string;

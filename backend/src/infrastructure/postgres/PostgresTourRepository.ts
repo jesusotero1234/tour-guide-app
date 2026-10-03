@@ -10,6 +10,7 @@ type PrismaPlace = {
   tourId: string;
   name: string;
   description: string;
+  spokenText?: string | null;
   latitude: number;
   longitude: number;
   position: number;
@@ -30,6 +31,7 @@ type PrismaTour = {
   durationMinutes: number;
   status: string;
   introduction: string | null;
+  introductionSpokenText?: string | null;
   metadata: unknown;
   blueprintId: string | null;
   createdAt: Date;
@@ -60,6 +62,7 @@ function mapPlace(p: PrismaPlace, tourId: string): Place {
     tourId,
     name: p.name,
     description: p.description,
+    ...(p.spokenText ? { spokenText: p.spokenText } : {}),
     descriptionSections: metadata?.descriptionSections,
     nameInTourLanguage: metadata?.nameInTourLanguage,
     latitude: p.latitude,
@@ -85,6 +88,7 @@ function mapTour(t: PrismaTour): Tour {
     durationMinutes: t.durationMinutes,
     status: (t.status || 'draft') as TourStatus,
     introduction: t.introduction ?? undefined,
+    ...(t.introductionSpokenText ? { introductionSpokenText: t.introductionSpokenText } : {}),
     metadata: mapTourMetadata(t.metadata),
     blueprintId: t.blueprintId ?? undefined,
     places: t.places.map(p => mapPlace(p, t.id)),
@@ -109,6 +113,7 @@ export class PostgresTourRepository implements TourRepository {
         durationMinutes: tour.durationMinutes,
         status: tour.status ?? 'draft',
         introduction: tour.introduction ?? null,
+        introductionSpokenText: tour.introductionSpokenText ?? null,
         metadata: tour.metadata ?? {},
         blueprintId: tour.blueprintId ?? null
       };
@@ -127,6 +132,7 @@ export class PostgresTourRepository implements TourRepository {
           tourId: dbTour.id,
           name: place.name,
           description: place.description,
+          spokenText: place.spokenText ?? null,
           latitude: place.latitude,
           longitude: place.longitude,
           position,

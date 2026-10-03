@@ -31,6 +31,8 @@ export interface Place {
   name: string;
   nameInTourLanguage?: string;
   description: string;
+  /** What the TTS reads when it differs from the on-screen text: no digits, Roman numerals or abbreviations. */
+  spokenText?: string;
   descriptionSections?: Record<string, string>;
   latitude: number;
   longitude: number;

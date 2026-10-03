@@ -16,6 +16,8 @@ export function audioDisclosure(language: string): string {
   if (language === 'es') return 'Esta audioguía experimental utiliza una voz generada por inteligencia artificial.';
   throw new Error('AUDIO_LANGUAGE_UNSUPPORTED');
 }
+/** Identity of one rendering setup: part of every audio hash, so changing a voice file or the engine invalidates its audio. */
+export const rendererKeyOf = (identity: AudioIdentity): string => sha256('nano-vllm-voxcpm-2.0.4-tempo-v1:' + JSON.stringify(identity));
 export function audioIdentity(preset: Buffer, reference: Buffer): AudioIdentity {
   const config = JSON.parse(preset.toString('utf8')) as { modelRevision?: string; modelId?: string; renderVersion?: string };
   const modelId = config.modelId ?? VOXCPM_MODEL_ID;

@@ -1,6 +1,10 @@
 nomuvia.com {
+    # Every response is private and uncached, except the audio of a stop, of the introduction and of the link clips: those answer with
+    # their own Cache-Control (set by the backend, kept by the Next proxy), which is `immutable` only when the URL carries the version
+    # of the file and `private, no-store` otherwise (plan 06 A6).
+    @notAudio not path_regexp audio ^/api/backend/tours/[0-9a-f-]{36}/(audio/(introduction|[0-9a-f-]{36})|cue/.+)$
+    header @notAudio Cache-Control "private, no-store"
     header {
-        Cache-Control "private, no-store"
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
     }

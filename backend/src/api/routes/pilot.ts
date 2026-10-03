@@ -1,12 +1,16 @@
 import { Router, Request, Response } from 'express';
 import { timingSafeEqual } from 'node:crypto';
 import { TourRepository } from '../../domain/repositories/TourRepository';
+import type { Tour } from '../../domain/entities/Tour';
 import { TourBlueprintRepository } from '../../services/TourBlueprint';
 import { TourAudioService } from '../../services/TourAudioService';
 import { admittedToPilot, presentPilotTour, validWalkingRoute, ownerAuthorized } from '../../services/PilotRelease';
 import { assertBlueprintSources, buildSourceCredits } from '../../services/SourceCredits';
 import { sha256 } from '../../services/AudioProvenance';
 import { pilotLaunchReady } from '../../config/pilotLaunch';
+import { flexibleOrderEnabled } from '../../config/pilot';
+import { validWalkingLegs, walkingLegsSha256, type WalkingLegsStore } from '../../services/WalkingLegs';
+import type { CueKind } from '../../services/TourCues';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 export function validPilotKey(value: string | undefined): boolean {
@@ -15,8 +19,18 @@ export function validPilotKey(value: string | undefined): boolean {
     && timingSafeEqual(Buffer.from(sha256(value)), Buffer.from(sha256(key)));
 }
 
+/**
+ * A file asked for with the version it was published with (`?v=<text hash>.<file hash>`) never changes under that URL: when the audio is
+ * regenerated the version, and with it the URL, changes. So the browser may keep it for good and not download an MP3 again each time a
+ * stop is reopened (plan 06 A6). Without `v`, or with a version that is not the current one, nothing is cached.
+ */
+export const IMMUTABLE_AUDIO = 'private, max-age=31536000, immutable';
+const cacheIfVersioned = (req: Request, res: Response) => { if (typeof req.query.v === 'string' && req.query.v) res.setHeader('Cache-Control', IMMUTABLE_AUDIO); };
+
+export type PilotAudio = Pick<TourAudioService, 'get' | 'audioFile'> & Partial<Pick<TourAudioService, 'cues' | 'cueFile'>>;
+
 export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRepository,
-  audio: Pick<TourAudioService, 'get' | 'audioFile'>, ready = pilotLaunchReady): Router {
+  audio: PilotAudio, ready = pilotLaunchReady, legs?: WalkingLegsStore): Router {
   const requestedReviewIds = (process.env.LOCAL_REVIEW_TOUR_ID ?? '').split(',');
   const localReviewIds = process.env.NODE_ENV === 'development' && process.env.BIND_HOST === '127.0.0.1'
     && requestedReviewIds.length <= 60 && requestedReviewIds.every(id => uuid.test(id))
@@ -36,7 +50,12 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (!uuid.test(id)) return null;
     if (localReviewIds && !localReviewIds.has(id)) return null;
     const tour = await tours.findById(id);
-    if (!tour) return null;
+    return tour ? releasedTour(tour) : null;
+  }
+  /** The admission gate for a tour that is already loaded, so the catalogue does not read each tour a second time. */
+  async function releasedTour(tour: Tour) {
+    const id = tour.id;
+    if (localReviewIds && !localReviewIds.has(id)) return null;
     if (localReviewIds && tour.status === 'published') {
       const state = await audio.get(id, true);
       return { tour, state };
@@ -67,10 +86,29 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
   };
   const notFound = (res: Response) => res.status(404).json({ error: { code: 'TOUR_NOT_FOUND', message: 'La guía no está disponible.' } });
 
+  // The admitted catalogue changes only when a tour is released or withdrawn, so it is kept for a short while (0 turns it off). A withdrawn
+  // tour can stay listed for at most this long, but its page and audio go through `released` and stop at once. Never kept in local review.
+  const catalogueTtl = () => {
+    const configured = process.env.PILOT_CATALOG_CACHE_MS;
+    const ms = configured === undefined || configured === '' ? (process.env.NODE_ENV === 'test' ? 0 : 60_000) : Number(configured);
+    return Number.isFinite(ms) && ms > 0 && !localReviewIds ? ms : 0;
+  };
+  const catalogue = new Map<string, { at: number; admitted: Promise<ReturnType<typeof presentPilotTour>[]> }>();
+  const CONCURRENCY = 10;
+  async function admittedCatalogue(filters: Record<string, string>) {
+    const candidates = await tours.list({ ...filters, cityMatch: 'contains', status: 'published' });
+    const admitted: ReturnType<typeof presentPilotTour>[] = [];
+    for (let index = 0; index < candidates.length; index += CONCURRENCY) {
+      const batch = await Promise.all(candidates.slice(index, index + CONCURRENCY).map(releasedTour));
+      for (const current of batch) if (current) admitted.push(presentPilotTour(current.tour, current.state, Boolean(localReviewIds)));
+    }
+    return admitted;
+  }
+
   router.get('/tours', get(async (req, res) => {
     const limit = req.query.limit === undefined ? 20 : Number(req.query.limit);
     const offset = req.query.offset === undefined ? 0 : Number(req.query.offset);
-    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 50 || !Number.isSafeInteger(offset) || offset < 0) return res.status(400).json({ error: { code: 'INVALID_PAGINATION' } });
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 200 || !Number.isSafeInteger(offset) || offset < 0) return res.status(400).json({ error: { code: 'INVALID_PAGINATION' } });
     const filters: Record<string, string> = {};
     for (const key of ['city', 'countryCode', 'language', 'theme']) {
       const value = req.query[key];
@@ -78,12 +116,19 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
       if (typeof value === 'string' && value) filters[key] = value;
     }
     // ponytail: review the small pilot inventory before pagination; index releases if the catalogue grows.
-    const candidates = await tours.list({ ...filters, cityMatch: 'contains', status: 'published' });
-    const admitted = [];
-    for (const candidate of candidates) {
-      const current = await released(candidate.id);
-      if (current) admitted.push(presentPilotTour(current.tour, current.state, Boolean(localReviewIds)));
+    const ttl = catalogueTtl();
+    const cacheKey = JSON.stringify(Object.entries(filters).sort(([a], [b]) => a.localeCompare(b)));
+    let entry = ttl ? catalogue.get(cacheKey) : undefined;
+    if (!entry || Date.now() - entry.at >= ttl) {
+      entry = { at: Date.now(), admitted: admittedCatalogue(filters) };
+      if (ttl) {
+        catalogue.set(cacheKey, entry);
+        // A failed read must not stay cached.
+        entry.admitted.catch(() => { if (catalogue.get(cacheKey) === entry) catalogue.delete(cacheKey); });
+        if (catalogue.size > 50) catalogue.delete(catalogue.keys().next().value as string);
+      }
     }
+    const admitted = await entry.admitted;
     res.json({ success: true, data: { tours: admitted.slice(offset, offset + limit), total: admitted.length } });
   }));
   router.get('/tours/:id', get(async (req, res) => {
@@ -97,13 +142,42 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (!validWalkingRoute(route)) return res.status(503).json({ error: { code: 'WALKING_ROUTE_UNAVAILABLE' } });
     return res.json({ data: route });
   }));
+  const flexible = (tour: { metadata?: { orderFlexible?: boolean } }) => flexibleOrderEnabled() && tour.metadata?.orderFlexible === true;
   router.get('/tours/:id/audio', get(async (req, res) => {
     const current = await released(req.params.id);
-    return current ? res.json({ tourId: current.tour.id, status: current.state.status, phase: current.state.phase,
+    if (!current) return notFound(res);
+    // Link clips are looked up here and in the clip route only, never while listing the catalogue.
+    const cues = flexible(current.tour) && audio.cues ? await audio.cues(current.tour.id) : null;
+    return res.json({ tourId: current.tour.id, status: current.state.status, phase: current.state.phase,
       completedStops: current.state.completedStops, totalStops: current.state.totalStops,
       audioUrls: current.state.audioUrls, audioVersions: current.state.audioVersions,
-      transcripts: current.state.transcripts, introduction: current.state.introduction, canGenerate: false }) : notFound(res);
+      transcripts: current.state.transcripts, introduction: current.state.introduction, ...(cues ? { cues } : {}), canGenerate: false });
   }));
+  router.get('/tours/:id/walking-legs', get(async (req, res) => {
+    const current = await released(req.params.id);
+    if (!current || !flexible(current.tour) || !legs) return notFound(res);
+    const row = await legs.find(current.tour.id);
+    if (!row || row.sha256 !== current.tour.metadata?.walkingLegsSha256 || !validWalkingLegs(row.data, current.tour.places.map(p => p.id))
+      || walkingLegsSha256(row.data) !== row.sha256) return res.status(503).json({ error: { code: 'WALKING_LEGS_UNAVAILABLE' } });
+    return res.json({ data: row.data });
+  }));
+  const serveCue = (kind: CueKind) => get(async (req, res) => {
+    const current = await released(req.params.id);
+    const placeId = kind === 'finish' ? undefined : req.params.placeId;
+    if (!current || !flexible(current.tour) || !audio.cueFile || (kind !== 'finish' && !uuid.test(placeId ?? ''))) return notFound(res);
+    let path: string;
+    try { path = await audio.cueFile(req.params.id, kind, placeId, typeof req.query.v === 'string' ? req.query.v : undefined); }
+    catch (error) {
+      const code = (error as { code?: string }).code;
+      if (code === 'AUDIO_VERSION_CHANGED') return res.status(409).json({ error: { code } });
+      return notFound(res);
+    }
+    res.setHeader('Link', '</api/backend/tours/' + req.params.id + '/provenance>; rel="describedby"; type="application/json"');
+    cacheIfVersioned(req, res);
+    res.sendFile(path, error => { if (error && !res.headersSent) res.status(503).end(); });
+  });
+  router.get('/tours/:id/cue/finish', serveCue('finish'));
+  router.get('/tours/:id/cue/:kind(first|next)/:placeId', (req, res) => serveCue(req.params.kind as CueKind)(req, res));
   router.get('/tours/:id/provenance', get(async (req, res) => {
     const current = await released(req.params.id);
     if (!current) return notFound(res);
@@ -119,6 +193,7 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (req.query.v && req.query.v !== current.state.introduction.version) return res.status(409).json({ error: { code: 'AUDIO_VERSION_CHANGED' } });
     const path = await audio.audioFile(req.params.id, 'introduction', current.state.introduction.version);
     res.setHeader('Link', '</api/backend/tours/' + req.params.id + '/provenance>; rel="describedby"; type="application/json"');
+    cacheIfVersioned(req, res);
     res.sendFile(path, error => { if (error && !res.headersSent) res.status(503).end(); });
   }));
   router.get('/tours/:id/audio/:placeId', get(async (req, res) => {
@@ -127,6 +202,7 @@ export function createPilotRouter(tours: TourRepository, bases: TourBlueprintRep
     if (req.query.v && req.query.v !== current.state.audioVersions[req.params.placeId]) return res.status(409).json({ error: { code: 'AUDIO_VERSION_CHANGED' } });
     const path = await audio.audioFile(req.params.id, req.params.placeId, current.state.audioVersions[req.params.placeId]);
     res.setHeader('Link', '</api/backend/tours/' + req.params.id + '/provenance>; rel="describedby"; type="application/json"');
+    cacheIfVersioned(req, res);
     res.sendFile(path, error => { if (error && !res.headersSent) res.status(503).end(); });
   }));
   return router;
