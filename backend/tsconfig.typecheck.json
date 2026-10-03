@@ -14,8 +14,6 @@
     "dist-generation",
     "tmp",
     "prisma/seed.ts",
-    "scripts/admin/seed-flexible-pass-inventory.ts",
-    "scripts/validation/inspect-osm-tour.ts",
-    "scripts/validation/narrative-canary-v8.ts"
+    "scripts/admin/seed-flexible-pass-inventory.ts"
   ]
 }
