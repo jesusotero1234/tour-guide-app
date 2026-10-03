@@ -1,6 +1,6 @@
 # 03 · Paradas independientes del orden: cuerpo + enlaces
 
-Estado: propuesto · Depende de: [01](01-fase0-backend-base.md). Se programa en paralelo a [02](02-texto-hablado.md); usa su migración única (02 §7.1) y su normalizador solo para el texto hablado de los enlaces, en [04](04-regeneracion-y-publicacion.md) · Lo usan: [04](04-regeneracion-y-publicacion.md), [05](05-reproductor-empezar-cerca.md)
+Estado: **hecho en local** el 1 de octubre; falta ejecutar la neutralización (facturable); informe en [`resultados/03-paradas-sin-orden.md`](resultados/03-paradas-sin-orden.md) · Depende de: [01](01-fase0-backend-base.md). Se programa en paralelo a [02](02-texto-hablado.md); usa su migración única (02 §7.1) y su normalizador solo para el texto hablado de los enlaces, en [04](04-regeneracion-y-publicacion.md) · Lo usan: [04](04-regeneracion-y-publicacion.md), [05](05-reproductor-empezar-cerca.md)
 
 ## 1. Problema
 
@@ -133,17 +133,19 @@ model TourCueAudio {
   - `id` y el `<jobId>` de `storagePath` (`voxcpm2/<jobId>/<id>.mp3`) son **UUID**, porque `TourAudioService.ts:123` valida la ruta y `tour_audio_input.py:123` valida los ids;
   - `version = sourceHash + '.' + fileSha256`, en hexadecimal; debe casar con `[a-f0-9.]+`, como el audio de parada.
 - **Selección del clip vigente:** el más reciente cuyo `rendererKey` y `sourceHash` (= sha(lang + rendererKey + spokenText)) coincidan, igual que `TourAudioService.assets()` (`:113-129`).
-- **Rendimiento:** el listado `/tours` ya provocó el incidente del 1 de octubre.
-  - Para la **admisión y la huella**, los clips se leen de la BD (una consulta por tour, solo `kind`, `placeId`, `text`, `metadata.sourceHash` y `metadata.fileSha256`) **sin leer ni calcular el hash de archivos**.
-  - La verificación del archivo (sha, con la caché por inodo del commit `766286f`) se hace **al servir** el clip.
+- **Rendimiento:** el listado `/tours` ya provocó el incidente del 1 de octubre, y `released()` (`pilot.ts:35-63`) valida los 216 tours en **cada** petición del listado, sin caché (descartada por diseño, `docs/operations/nomuvia-catalogo-lento-20261001.md`). Por eso la admisión y la huella **no consultan `TourCueAudio`**:
+  - el importador escribe en `Tour.metadata.cueManifest` la lista ordenada por (kind, placeId) de `{kind, placeId, text, version}` (`version = sourceHash + '.' + fileSha256`; ~2 KB por tour), en la misma transacción que las filas;
+  - `validatePilotMaterial` y `pilotFingerprint` leen solo el manifiesto, que ya viene con el tour, como hoy `pilotWalkingRoute` y `tourImages`;
+  - `TourAudioService.cues(tourId)` (solo en `GET /tours/:id/audio`) lee las filas, descarta las que no casen con el manifiesto y verifica el archivo con la caché por inodo del commit `766286f`; `GET /cue/...` comprueba `v` contra el manifiesto antes de servir;
+  - la latencia del listado se mide en [04](04-regeneracion-y-publicacion.md) §8.2 y §9.2, con un presupuesto de +30 % sobre la línea base.
 - **`TourAudioService`:** nuevo método `cues(tourId)` que devuelve `{ first: Record<placeId, Cue>, next: Record<placeId, Cue>, finish?: Cue }` con `Cue = { text, audioUrl, version, durationSeconds }`.
   - Solo lo usa `GET /tours/:id/audio`; `get()` y el listado no.
   - La URL es `/api/backend/tours/:id/cue/:kind/:placeId?v=…` y, para `finish`, `/cue/finish?v=…`.
 - **`PilotRelease.pilotFingerprint`:** añadir **solo si existen** (regla de [02](02-texto-hablado.md) §7.5, para no cambiar las huellas heredadas):
   - `orderFlexible: true`;
-  - `cues`: lista ordenada por (kind, placeId) de `{kind, placeId, text, version}`;
-  - `walkingLegsSha256` (§7).
-- **`validatePilotMaterial`:** si el tour declara `metadata.orderFlexible === true`, exigir el conjunto completo de clips (N `first`, N `next`, 1 `finish`) y `TourWalkingLegs` válido. Si no lo declara, el tour sigue siendo válido con el comportamiento actual, lo que permite una migración gradual por tour.
+  - `cues`: `metadata.cueManifest` tal cual (lista ordenada por (kind, placeId) de `{kind, placeId, text, version}`), sin consultar `TourCueAudio`;
+  - `walkingLegsSha256`: `metadata.walkingLegsSha256` (§7), sin consultar `TourWalkingLegs`.
+- **`validatePilotMaterial`:** si el tour declara `metadata.orderFlexible === true`, exigir en `metadata.cueManifest` el conjunto completo de clips (N `first`, N `next`, 1 `finish`, cada uno con `version` y `text` no vacíos) y `metadata.walkingLegsSha256` presente. La validación profunda de los tramos (§7) se hace al servirlos y en `verify` ([04](04-regeneracion-y-publicacion.md) §9), no en el listado. Si no lo declara, el tour sigue siendo válido con el comportamiento actual, lo que permite una migración gradual por tour.
 
 ### 5.2 Detector de referencias al orden
 
@@ -298,9 +300,9 @@ model TourWalkingLegs {
   - `stopIds` igual al conjunto de ids de las paradas;
   - todas las geometrías de pares presentes y decodificables;
   - `sha256` recalculado coincide.
-- **Backend:** `GET /tours/:id/walking-legs` en `backend/src/api/routes/pilot.ts`, junto a `walking-route` (`:93-99`), con la misma comprobación `released()`.
+- **Backend:** `GET /tours/:id/walking-legs` en `backend/src/api/routes/pilot.ts`, junto a `walking-route` (`:93-99`), con la misma comprobación `released()`. Es el **único** lector de `TourWalkingLegs`: carga la fila, comprueba que su `sha256` coincide con `metadata.walkingLegsSha256` y, si no, responde 503 `WALKING_LEGS_UNAVAILABLE`.
 - **Frontend:** en modo piloto la ruta comodín `app/api/backend/[...path]/route.ts` devuelve 404. Hace falta un **archivo de ruta propio**, `frontend/src/app/api/backend/tours/[id]/walking-legs/route.ts`, copiando el de `walking-route`, además de ampliar la regex de `frontend/src/lib/backendProxy.ts:14`.
-- **Huella:** `walkingLegsSha256` entra en `pilotFingerprint` solo si existe la fila.
+- **Huella:** `Tour.metadata.walkingLegsSha256`, copia del `sha256` de la fila que el importador escribe en la misma transacción, entra en `pilotFingerprint` solo si existe. Así la admisión y la huella no consultan la tabla (§5.1).
 
 ## 8. Pruebas y aceptación
 
@@ -314,6 +316,7 @@ Criterios de aceptación:
 - [ ] Plantillas de enlace validadas por el usuario.
 - [ ] Modelos incluidos en la migración única y aplicados en local. API `cues` y `walking-legs` con pruebas, incluidas las rutas propias del proxy del frontend.
 - [ ] Prueba de regresión: un tour sin `orderFlexible`, enlaces ni tramos mantiene byte a byte su huella actual.
+- [ ] `admittedToPilot` de un tour flexible no hace ninguna consulta a `TourCueAudio` ni a `TourWalkingLegs` (prueba con un cliente Prisma simulado que falle si se consultan).
 - [ ] Informe en `resultados/03-paradas-sin-orden.md`.
 - [ ] Prompts de lote cambiados y detector integrado en la revisión.
 - [ ] Detector, guarda y prompt de neutralización implementados como módulos que usa [04](04-regeneracion-y-publicacion.md), y probados con los ejemplos reales de §1, descargados de la API pública. La muestra de Valencia y su aprobación se hacen dentro de 04 (§5–§6).

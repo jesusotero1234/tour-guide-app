@@ -1,6 +1,6 @@
 # 05 · Reproductor: empezar en la parada más cercana y orden dinámico
 
-Estado: propuesto · Depende de: los contratos de API de [03](03-paradas-sin-orden.md) §5 y §7. Para desarrollar basta con fixtures; los datos reales llegan con [04](04-regeneracion-y-publicacion.md).
+Estado: **hecho en local** el 1 y 2 de octubre; falta probarlo en un iPhone y un Android reales; informe en [`resultados/05-reproductor.md`](resultados/05-reproductor.md) · Depende de: los contratos de API de [03](03-paradas-sin-orden.md) §5 y §7. Para desarrollar basta con fixtures; los datos reales llegan con [04](04-regeneracion-y-publicacion.md).
 
 Todas las rutas son relativas a `frontend/src/` salvo que se indique otra cosa.
 
@@ -67,7 +67,7 @@ Todas las rutas son relativas a `frontend/src/` salvo que se indique otra cosa.
 const flexible = tour.orderFlexible === true && !!audio.cues && !!legs;
 ```
 
-Si `flexible` es falso, el comportamiento es **idéntico al actual**: sin «empezar aquí» y sin enlaces. Es lo que garantiza la compatibilidad de [04](04-regeneracion-y-publicacion.md) §10.3.
+Si `flexible` es falso, el comportamiento es **idéntico al actual**: sin «empezar aquí» y sin enlaces. Es lo que garantiza la compatibilidad de [04](04-regeneracion-y-publicacion.md) §10.3. El backend puede apagarlo todo con `PILOT_FLEXIBLE_ORDER=off` ([04](04-regeneracion-y-publicacion.md) §10.4); el frontend no necesita ningún indicador propio.
 
 ## 4. Orden activo
 
@@ -104,6 +104,14 @@ export function bestOpenPath(start: string, ids: string[], cost: (a: string, b: 
   - «Solo escuchar esta» no cambia el orden.
 - **«Volver al orden recomendado»** está en el menú de información del tour.
 - La reordenación **nunca** es automática.
+
+### 4.4 Traslado del progreso al cambiar la versión del audio
+
+La clave de progreso lleva la versión (`lib/tourProgress.ts:7`: `tour-listening:{tourId}:{placeId}:{version}`). La regeneración de [04](04-regeneracion-y-publicacion.md) cambia todas las versiones, así que, sin más, cada usuario perdería la posición y la marca «escuchada» de todas las paradas. Cambio en `lib/tourProgress.ts`:
+
+- al leer una clave que no existe, buscar `tour-listening:{tourId}:{placeId}:*` con otra versión; si alguna tiene `completed: true`, crear la clave nueva con `{ position: 0, duration: 0, completed: true }` y borrar las antiguas de ese `placeId`;
+- la posición no se traslada, porque el audio nuevo no mide lo mismo;
+- prueba unitaria con `node --test`.
 
 ## 5. Experiencia
 
@@ -146,7 +154,7 @@ export function bestOpenPath(start: string, ids: string[], cost: (a: string, b: 
    - Los `cue` no buscan posición, no guardan progreso y, si fallan, se ignoran en silencio.
 3. **Al terminar un `body`:**
    1. marcar `completed`;
-   2. si hay enlace (`cues.next[siguienteId]` del orden activo, `cues.finish` en la última y `cues.first[primeraId]` tras la introducción), hacer `audio.src = cue.url; audio.play()` en el **mismo** elemento.
+   2. si hay enlace (`cues.next[siguienteId]` del orden activo, `cues.finish` en la última y `cues.first[primeraId]` tras la introducción), hacer `audio.src = cue.url; audio.playbackRate = <velocidad elegida>; audio.play()` en el **mismo** elemento. Cambiar `src` restablece `playbackRate` (el mismo fallo de [06](06-ui.md) A4), así que el motor la reaplica en cada segmento.
 4. **Interfaz:**
    - `AudioPlayer` pasa a ser solo presentación, leyendo el estado del motor: tiempo, duración, reproducción y error del cuerpo.
    - Durante el enlace se muestra «Siguiente: X» en lugar del tiempo.
@@ -178,7 +186,8 @@ solo tiene 5 claves (`:79-80`, ver [06](06-ui.md)). Las distancias se formatean 
 - **Fixture:** `frontend/src/fixtures/flexible-tour.json`, un tour de 4 paradas con `orderFlexible`, `cues` y `walkingLegs`, más 4 MP3 de 2 s de silencio y 9 enlaces de 1 s en `frontend/public/test-audio/`. Se sirve con un modo de desarrollo, o se intercepta en Playwright con `page.route`.
 - **Unitarias** (script `.cjs` con `node --test`, como los existentes en `frontend/scripts/`):
   - `bestOpenPath`: exacto contra fuerza bruta para N ≤ 8, estable, y con N = 1 y N = 2;
-  - `tourOrder`: guardado, descarte al cambiar la versión y limpieza en `ClearProgressButton`.
+  - `tourOrder`: guardado, descarte al cambiar la versión y limpieza en `ClearProgressButton`;
+  - `tourProgress`: traslado de `completed` entre versiones (§4.4).
 - **Playwright** (ampliar `frontend/scripts/test-tour-listening.cjs`). Playwright no es dependencia del frontend; los scripts usan las variables `PLAYWRIGHT_MODULE`, `CHROMIUM_PATH` y `BASE_URL`:
   1. Con la geolocalización simulada junto a la parada 3, aparece la tarjeta de §5.1 → «Empezar ahí» → la cabecera muestra «Parada 1 de 4 · {nombre de la 3}».
   2. Termina el cuerpo → suena el enlace correcto (`next` de la siguiente del orden activo): comprobar el `src` del `<audio>`.
@@ -194,6 +203,7 @@ solo tiene 5 claves (`:79-80`, ver [06](06-ui.md)). Las distancias se formatean 
 - [ ] Con la ubicación activa se ven la distancia y el tiempo a la siguiente parada y el aviso de llegada, sin reproducción automática.
 - [ ] Desde la pantalla bloqueada funcionan siguiente y anterior, con título, ciudad y carátula.
 - [ ] Los tours no flexibles funcionan exactamente como antes.
+- [ ] Tras cambiar la versión del audio de un tour, las paradas ya escuchadas siguen marcadas.
 - [ ] Las pruebas unitarias y de Playwright están en verde, con capturas a 390×844 y 360×740 adjuntas al informe.
 - [ ] Probado en un iPhone y en un Android reales, con la pantalla bloqueada: enlace, siguiente y anterior.
 - [ ] Informe en `resultados/05-reproductor.md`.

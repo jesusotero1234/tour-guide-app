@@ -1,3 +1,5 @@
+> **Histórico:** describe el pipeline anterior a septiembre de 2026 (generación desde la app, Ollama, Kokoro). El sistema actual está en [`ARCHITECTURE.md`](../../../ARCHITECTURE.md).
+
 # Pipeline de Selección de POIs
 
 > Estado: Fase N-4 implementada el 2026-05-24 para el tema `history`.

@@ -1,6 +1,6 @@
 # 01 · Fase 0 del backend: dejar el pipeline real versionado y aislado
 
-Estado: propuesto · Sin dependencias · Bloquea: [02](02-texto-hablado.md), [03](03-paradas-sin-orden.md), [04](04-regeneracion-y-publicacion.md)
+Estado: **hecho en local** el 1 de octubre; informe en [`resultados/01-fase0.md`](resultados/01-fase0.md) · Sin dependencias · Bloquea: [02](02-texto-hablado.md), [03](03-paradas-sin-orden.md), [04](04-regeneracion-y-publicacion.md)
 
 Antes de tocar el audio hay que poder confiar en el código que lo produce. El pipeline
 que generó los 216 tours publicados se confirmó en git el 1 de octubre de 2026 (commits
@@ -62,7 +62,7 @@ Esta fase deja una base mínima y segura. La limpieza grande se hace en
    - `cd backend && npx tsc --noEmit && npx tsc --noEmit -p tsconfig.generation-worker.json`
    - `cd backend && npx jest --json --outputFile=<scratch>/jest.json`. Omitir `OverpassCoordinator.integration`, que escribe en `backend/tmp`.
    - `cd backend/scripts/admin && python3 -m unittest discover -p 'test_*.py'`
-   - `cd backend && node --test scripts/validation/*.test.cjs scripts/admin/test_preparation_attempt.cjs`. Ojo: `scripts/validation/__tests__/` contiene pruebas Jest `.ts`, no estas.
+   - `cd backend && node -r ts-node/register/transpile-only --test scripts/validation/*.test.cjs scripts/admin/test_preparation_attempt.cjs`. Ojo: `scripts/validation/__tests__/` contiene pruebas Jest `.ts`, no estas.
    - `cd pods/voxcpm-pod && .venv/bin/python scripts/test-tour-audio-input.py && .venv/bin/python scripts/test-sanitize.py`
    - `cd frontend && npx tsc --noEmit && npm run lint`
 2. Crear `scripts/check-all.sh` en la raíz con esos comandos (sin GPU, sin red y sin escritura fuera de un temporal). Es la comprobación común de todas las fases.

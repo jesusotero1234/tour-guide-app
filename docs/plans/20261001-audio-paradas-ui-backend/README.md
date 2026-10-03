@@ -1,7 +1,7 @@
 # Plan: audio hablado correcto, paradas sin orden fijo, UI del paseo y saneamiento del backend
 
 - **Fecha:** 1 de octubre de 2026.
-- **Estado:** propuesto, no iniciado.
+- **Estado:** 1–6 ejecutados en local el 1 y el 2 de octubre (informes en `resultados/`); 7 en curso. Nada confirmado en git ni desplegado. Lo que falta necesita tu autorización: ver el informe de cada paquete.
 - **Origen:** análisis de la UI en producción (nomuvia.com), del código y del catálogo publicado, más dos problemas que planteó el usuario.
 - **Destinatario:** el LLM que lo ejecute. Cada documento es un paquete de trabajo con contexto, decisiones, tareas, contratos, pruebas y criterios de aceptación.
 
@@ -145,6 +145,7 @@ Pista limpieza:       07.1 y 07.9 tras 01 ──► resto de 07 tras 04
 | 8 | Camino antiguo y generación con Codex CLI | [07](07-backend-limpieza.md) §7.2 | Eliminar ambos (opción A) |
 | 9 | Modo sin conexión (fase 2) | [06](06-ui.md) A6 | Después de la caché HTTP |
 | 10 | Archivar las 60 entradas sin uso de `backend/tmp` | [07](07-backend-limpieza.md) §7.6 | Archivar fuera del repo |
+| 11 | Frase de los clips de enlace si VoxCPM2 produce artefactos con textos de 2–3 s | [04](04-regeneracion-y-publicacion.md) §7 | Primero relleno de silencio; si no basta, frase completa |
 
 ## Estimaciones
 
@@ -168,3 +169,15 @@ Pista limpieza:       07.1 y 07.9 tras 01 ──► resto de 07 tras 04
 - **Tour flexible:** `metadata.orderFlexible === true`, con enlaces y `walkingLegs` completos.
 - **Huella:** `pilotFingerprint`, el hash del contenido aprobado. Si no coincide, el tour no se sirve.
 - **Snapshot:** exportación de solo lectura de lo publicado en producción, punto de partida de la regeneración.
+
+## Revisión cruzada (1 de octubre de 2026, 21:30)
+
+Segunda verificación contra el código en HEAD (`6aa4bc1`), hecha después de la revisión de las 21:22. Lo que esa revisión ya cubría (estado de git, huella condicional con prueba de regresión, presets intactos, `firstHash`, migración única con `migrate deploy`, clips sin hash de archivo en la admisión, tramos fuera de la fila del tour, ids UUID, `stage-local`) se deja como está. Añadido:
+
+1. **Admisión sin consultas extra:** `metadata.cueManifest` y `metadata.walkingLegsSha256`, para que `admittedToPilot` y la huella no consulten `TourCueAudio` ni `TourWalkingLegs` en el listado. Las tablas solo las leen `/audio`, `/cue` y `/walking-legs`. [03](03-paradas-sin-orden.md) §5.1 y §7; [04](04-regeneracion-y-publicacion.md) §8.3.
+2. **Comprobación «backend nuevo + datos viejos»** en local, antes de aplicar el paquete, con medición de la latencia del catálogo y presupuesto de +30 %. [04](04-regeneracion-y-publicacion.md) §8.2 y §9.2.
+3. **Copia completa del audio de producción** (~2,7 GB) en el snapshot, porque sin los archivos `verify` no puede admitir los tours. [04](04-regeneracion-y-publicacion.md) §4, §9.1 y §12.
+4. **Precondiciones de `publish`:** esquema migrado, release correcta y espacio en disco (el servidor tiene 40 GB). [04](04-regeneracion-y-publicacion.md) §10.1.
+5. **Interruptor `PILOT_FLEXIBLE_ORDER`**, primera palanca de reversión sin tocar datos. [04](04-regeneracion-y-publicacion.md) §10.4; [05](05-reproductor-empezar-cerca.md) §3.3.
+6. **Progreso de escucha:** las claves llevan la versión del audio y la regeneración las cambia todas; el motor traslada la marca «escuchada». [05](05-reproductor-empezar-cerca.md) §4.4; [04](04-regeneracion-y-publicacion.md) §10.3.
+7. **Detalles:** `playbackRate` al encadenar el enlace ([05](05-reproductor-empezar-cerca.md) §5.3); `²`, `³` y otros símbolos en la puerta y lista blanca global de romanos ([02](02-texto-hablado.md) §5); decisión pendiente 11.

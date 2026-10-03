@@ -1,3 +1,5 @@
+> **Histórico:** describe el pipeline anterior a septiembre de 2026 (generación desde la app, Ollama, Kokoro). El sistema actual está en [`ARCHITECTURE.md`](../../../ARCHITECTURE.md).
+
 # Tour Quality Rework — Landmark Tiering, Set Construction & Composition
 
 Status: **partially implemented** — landmark tiering + set construction landed; harvesting bug found & fixed (see Update log).

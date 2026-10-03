@@ -1,3 +1,5 @@
+> **Histórico:** describe el pipeline anterior a septiembre de 2026 (generación desde la app, Ollama, Kokoro). El sistema actual está en [`ARCHITECTURE.md`](../../../ARCHITECTURE.md).
+
 # Consistencia de Voz en el Pipeline TTS
 
 > Estado: Fase TTS-5 implementada el 2026-05-24 con referencias WAV reutilizables por idioma/modelo/perfil y auditoría DB/backend. Seed no soportado por la API pública revisada.

@@ -1,6 +1,6 @@
 # 07 · Limpieza del backend
 
-Estado: propuesto · Depende de: [01](01-fase0-backend-base.md). Es preferible hacerlo **después** de [04](04-regeneracion-y-publicacion.md), para no mover código mientras se regenera el catálogo; los pasos 7.1 y 7.9 pueden adelantarse.
+Estado: **hecho a medias**: lo que no borra nada está hecho; los borrados esperan tu autorización; informe en [`resultados/07-limpieza.md`](resultados/07-limpieza.md) · Depende de: [01](01-fase0-backend-base.md). Es preferible hacerlo **después** de [04](04-regeneracion-y-publicacion.md), para no mover código mientras se regenera el catálogo; los pasos 7.1 y 7.9 pueden adelantarse.
 
 Los anexos de `anexos/` se generaron con `anexos/reach.py`, un grafo estático de
 `import`, `require`, `import()` literal, `require.resolve` y `jest.mock`, más 5 aristas

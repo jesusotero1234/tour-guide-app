@@ -1,3 +1,5 @@
+> **Histórico:** describe el pipeline anterior a septiembre de 2026 (generación desde la app, Ollama, Kokoro). El sistema actual está en [`ARCHITECTURE.md`](../../../ARCHITECTURE.md).
+
 # Presupuesto VRAM local: RTX 5080 16GB
 
 > Documento de planificación. No cambia comportamiento de producción hasta que se implemente en código.

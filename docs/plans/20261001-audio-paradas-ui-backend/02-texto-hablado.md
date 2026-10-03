@@ -1,6 +1,6 @@
 # 02 · Texto hablado: fechas, números y abreviaturas legibles por el TTS
 
-Estado: propuesto · Depende de: [01](01-fase0-backend-base.md) · Lo usan: [03](03-paradas-sin-orden.md) (solo para el texto hablado de los enlaces, en 04), [04](04-regeneracion-y-publicacion.md) · Responsable de la migración Prisma única del plan (§7.1)
+Estado: **hecho en local** el 1 de octubre (normalizador, puerta y migración); faltan la reparación guiada y la escucha, que necesitan tu autorización; informe en [`resultados/02-texto-hablado.md`](resultados/02-texto-hablado.md) · Depende de: [01](01-fase0-backend-base.md) · Lo usan: [03](03-paradas-sin-orden.md) (solo para el texto hablado de los enlaces, en 04), [04](04-regeneracion-y-publicacion.md) · Responsable de la migración Prisma única del plan (§7.1)
 
 ## 1. Problema
 
@@ -223,7 +223,8 @@ Consecuencias:
 | Alfonso X | Alfonso décimo |
 | Alfonso XIII | Alfonso trece |
 | Luis XIV | Luis catorce |
-| 1657-1658 | mil seiscientos cincuenta y siete a mil seiscientos cincuenta y ocho |
+| 1657-1658 | de mil seiscientos cincuenta y siete a mil seiscientos cincuenta y ocho |
+| la guerra de 1657-1658 | la guerra de mil seiscientos cincuenta y siete a mil seiscientos cincuenta y ocho |
 | entre 1392 y 1398 | entre mil trescientos noventa y dos y mil trescientos noventa y ocho |
 | 15.800 tubos | quince mil ochocientos tubos |
 | 200 personas | doscientas personas |
@@ -361,9 +362,9 @@ Una violación bloquea el render. Se evalúa sobre el texto que se va a sintetiz
 | Tipo | Patrón | Notas |
 |---|---|---|
 | DIGIT | `\d` | Sin excepciones. |
-| ROMAN | token `\b[IVXLCDM]{2,}\b` que pase `roman_to_int`; además `«Nombre de §4.7» I\b` | Lista blanca por pieza (`allow`) para siglas legítimas («MIDI», «CIVIC»). |
+| ROMAN | token `\b[IVXLCDM]{2,}\b` que pase `roman_to_int`; además `«Nombre de §4.7» I\b` | Lista blanca global `lexicon/roman-allow.json` (siglas y palabras que son romanos válidos: «MIDI», «DIV», «MIX», «LIV», «CIVIC»…) más `allow` por pieza. El informe de corpus (§10.4) lista todos los ROMAN para alimentar la global. |
 | ABBR | es: `a\. ?C\.`, `d\. ?C\.`, `s\. `, `St\.`, `Sta\.`, `n\.º`, `nº`, `ca\.`, `c\. (?=\d)`; fr: `av\. J\.-C\.`, `apr\. J\.-C\.`, `St\b`, `Ste\b`, `n°`; de: `v\. Chr\.`, `n\. Chr\.`, `z\. ?B\.`, `bzw\.`, `Nr\.`, `St\.`, `Str\.`, `ca\.`; it: `a\.C\.`, `d\.C\.`, `S\. (?=[A-ZÀ-ÖØ-Þ])`; en: `B\.C\.`, `A\.D\.`, `St\.`, `c\. (?=\d)` | Ampliable. |
-| SYMBOL | `%`, `°`, `º`, `ª`, `€`, `$`, `&`, `#`, `/` entre letras, `§` | |
+| SYMBOL | `%`, `°`, `º`, `ª`, `²`, `³`, `¼`, `½`, `¾`, `€`, `$`, `£`, `&`, `#`, `@`, `+`, `=`, `<`, `>`, `~`, `*`, `^`, `_`, la barra vertical, `/` entre letras, `§` | `\d` no captura `²` ni `³` (no son categoría Nd); los convierte la regla de unidades de §4.1 (`m²`). |
 | BRACKET | `(`, `)`, `[`, `]`, `{`, `}` | Por el modo de clonación con `(stylePrompt)`. |
 | URL | `https?://`, `www\.` | |
 

@@ -1,3 +1,5 @@
+> **Histórico:** describe el pipeline anterior a septiembre de 2026 (generación desde la app, Ollama, Kokoro). El sistema actual está en [`ARCHITECTURE.md`](../../../ARCHITECTURE.md).
+
 # POI Selection Pipeline Rework Plan
 
 > **⚠️ Partially superseded (2026-05-30).** The quality diagnosis and the long-tour
