@@ -9,6 +9,7 @@ import { assembleTour } from '../assemble';
 import { withFingerprint } from '../assemble';
 import { computeUpdateFingerprint, createVerifier } from '../fingerprint';
 import { assertDisposableDatabase } from '../guard';
+import { regenUuid } from '../ids';
 import { reassignImages, type ImageMove } from '../images';
 import { manifestSha256 } from '../manifest';
 import { tourPieces, type ManifestTour, type TourRendered } from '../plan';
@@ -154,7 +155,10 @@ export function packagePhase(ctx: Ctx): PackageSummary {
     entries.push({ ...entry, update: { ...entry.update, metadata: { ...entry.update.metadata, pilotRelease: { ...entry.update.metadata.pilotRelease,
       authorizationReference: approval.authorizationReference!.trim(), reviewedAt } } } });
   }
-  const pkg: CatalogUpdatePackage = { version: 1, regenRunId: manifest.runId, basedOnSnapshotSha256: manifestSha256(manifest), tours: entries };
+  // A second package of the same run (--part 2: the tours that were left out of the first one) needs an id of its own: the installers name the
+  // upload folder and the database backup after it, and refuse a name that was used.
+  const part = ctx.flags.part ? String(ctx.flags.part) : '';
+  const pkg: CatalogUpdatePackage = { version: 1, regenRunId: part ? regenUuid(manifest.runId, 'package-part', part) : manifest.runId, basedOnSnapshotSha256: manifestSha256(manifest), tours: entries };
   const target = stage.write(pkg, 'package', 'catalog-update.json');
   const lines: string[] = [];
   let bytes = 0;

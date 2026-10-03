@@ -29,6 +29,7 @@ Options:
   neutralize / speech:  --execute / --repair spend money (DeepSeek); without them only the estimate runs
   render:        --execute starts the GPU; --max-hours N stops between jobs once N estimated hours are used; --limit-jobs N
   stage-local / verify:  --storage DIR (audio of the disposable database copy; default $AUDIO_STORAGE_PATH)
+  package:       --part N         a second package of the same run gets an id of its own (the installers refuse a name already used)
   rollback:      --package FILE   puts back the previous block in the disposable database
 Nothing here writes approvals.json: those are the user's decisions.`;
 

@@ -126,3 +126,18 @@ Tu decisión sobre los enlaces: **variante C** («Ahora, vamos hacia X.», «Hea
 - `legs` e `images` tomaban el mismo candado que el render y no podían correr a su lado durante 17 horas. El render usa `run.lock`, ellos `side.lock`, y el resto de comandos toman ambos.
 
 **Whisper** no se ha vuelto a ejecutar: con el texto hablado en la mano no aporta nada que justifique la hora de GPU que ocupa. Queda fuera salvo que me digas lo contrario.
+
+## Publicación (3 de octubre)
+
+| Paso | Resultado |
+|---|---|
+| Render | 214 de 214 tours, 0 piezas fallidas, tras añadir el artículo a dos enlaces en francés que la voz alargaba a 24 y 31 s («vers le Kölner Dom», «vers la plaza de Colón») |
+| `verify` del paquete | Falló dos veces por motivos distintos y corregidos: la herramienta solo leía las 50 primeras tours por idioma (español tiene 52), y 8 frases de Roma y Verona nombraban la siguiente parada. Las reescribió DeepSeek (6) o se editaron a mano con la misma guarda (Roma de e it). Después, `verify` en verde |
+| Backend | Release `20261003-spoken-text-cues` con la migración `20261001220000_spoken_text_cues_legs`; las 216 tours sirven igual |
+| Datos y audio | Paquete de 214 tours, 5.345 archivos, 2,87 GB: 214 actualizadas, 0 fallidas, 0 compensadas |
+| Frontend | Release `20261003-player`: reproductor nuevo, enlaces, tramos a pie y mejoras de interfaz. Los clips y los tramos responden 206 y 200 por la web pública |
+| Barcelona (es) y Venecia (fr) | Excluidas al principio porque el modelo citaba mal las frases de la introducción (itinerarios). Reescritas a mano con la misma guarda y publicadas en un segundo paquete (`--part 2`, 46 archivos, 36 MB): 2 actualizadas, 0 fallidas |
+
+**Defectos de la herramienta corregidos al publicar:** `stage-local` reutilizaba el resultado guardado de cada tour aunque cambiaran sus textos (ahora lo ata a los ficheros de entrada); `verify` no paginaba el catálogo; el script de release del backend no pasaba el servidor a `ssh` y suponía un commit base que el servidor no tiene (el servidor guarda un subconjunto de `backend/src` de versiones anteriores, así que ahora se sube una lista explícita de ficheros comprobada contra una copia del servidor); un segundo paquete del mismo run necesita un identificador propio (`package --part N`).
+
+**Pendiente:** el cambio de Caddy para que el navegador guarde los MP3 versionados (plan 06 A6), la prueba del reproductor en iPhone y Android con la pantalla bloqueada y los borrados del paquete 07.
