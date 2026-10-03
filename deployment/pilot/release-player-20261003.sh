@@ -2,7 +2,10 @@
 # Release 20261003-player: the start-anywhere player, the persistent audio engine, link clips, walking legs and the UI improvements
 # of plans 05 and 06 (frontend only; the backend and the data are already live: release-regeneration-backend.sh and update-install.sh).
 #
-#   COMMIT=<commit with the final frontend> SHIP_LIST=<file> SERVER_SNAP=<dir> [DRY_RUN=1] deployment/pilot/release-player-20261003.sh
+#   COMMIT=<commit with the final frontend> SHIP_LIST=<file> SERVER_SNAP=<dir> [NAME=<release>] [CHECK_TEXT=<text>] [DRY_RUN=1] deployment/pilot/release-player-20261003.sh
+#
+# NAME defaults to <date>-player; a later frontend release on the same day passes its own. CHECK_TEXT (default: the new player)
+# is a text the built frontend must contain; keep it free of accents, which may be stored escaped.
 #
 # The server does not hold a checkout of any commit: its frontend/src is a set of files of known older versions. SHIP_LIST has one path
 # under frontend/ per line; a line starting with "-" means "delete this file". SERVER_SNAP is a copy of the server's frontend/ (src,
@@ -17,7 +20,8 @@ set -euo pipefail
 HOST=nomuvia-admin@88.99.175.28
 KEY="${KEY:-$HOME/.ssh/tour-guide-hetzner}"
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-NAME="$(date +%Y%m%d)-player"
+NAME="${NAME:-$(date +%Y%m%d)-player}"
+CHECK_TEXT="${CHECK_TEXT:-Empezar aqu}"
 git -C "$REPO" cat-file -e "$COMMIT^{commit}"
 
 WORK="$(mktemp -d)"
@@ -48,7 +52,7 @@ echo "$COMMIT: $count files ($(wc -l < "$WORK/delete.list") to delete)"
 SSH=(ssh -i "$KEY" -o IdentitiesOnly=yes -o BatchMode=yes)
 scp -q -i "$KEY" -o IdentitiesOnly=yes "$WORK/release.tgz" "$WORK/base.sha256" "$WORK/next.sha256" "$WORK/delete.list" "$HOST:/tmp/"
 
-"${SSH[@]}" "$HOST" "DRY_RUN=${DRY_RUN:-0} NAME=$NAME bash -s" <<'REMOTE'
+"${SSH[@]}" "$HOST" "DRY_RUN=${DRY_RUN:-0} NAME=$NAME CHECK_TEXT='$CHECK_TEXT' bash -s" <<'REMOTE'
 set -euo pipefail
 OLD=$(sudo -n readlink -f /srv/tour-guide/current)
 NEW=/srv/tour-guide/releases/$NAME
@@ -93,7 +97,7 @@ sudo -n systemd-run --quiet --wait --pipe --collect --uid=nomuvia-admin --gid=to
 sudo -n chown -R root:tour-pilot "$NEW"; sudo -n chmod -R g+rX "$NEW"
 [ "$(sudo -n cat "$NEW/frontend/.next/BUILD_ID")" != "$(sudo -n cat "$OLD/frontend/.next/BUILD_ID")" ] || fail "the frontend was not rebuilt"
 # The accent may be stored escaped in the bundles, so the check stops before it.
-sudo -n grep -rqs 'Empezar aqu' "$NEW/frontend/.next/server" "$NEW/frontend/.next/static" || fail "the built frontend does not contain the new player"
+sudo -n grep -rqs "$CHECK_TEXT" "$NEW/frontend/.next/server" "$NEW/frontend/.next/static" || fail "the built frontend does not contain: $CHECK_TEXT"
 sudo -n test -d "$NEW/frontend/.next/server/app/api/backend/tours/[id]/cue" || fail "the built frontend has no link-clip route"
 echo "OK: frontend built"
 
