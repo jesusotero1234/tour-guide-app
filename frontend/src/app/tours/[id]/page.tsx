@@ -1,49 +1,24 @@
-'use client';
+import { notFound } from 'next/navigation';
+import { proxyBackend } from '@/lib/backendProxy';
+import { TourDetailClient } from '@/components/tours/TourDetailClient';
+import type { Tour } from '@/types/api';
 
-import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { getTour } from '@/lib/api';
-import { useTourStore } from '@/lib/store';
-import { Tour } from '@/types/api';
-import { TourExperience } from '@/components/tour/TourExperience';
-import { TourOverview } from '@/components/tours/TourOverview';
-import { usePageLanguage } from '@/components/layout/PageLanguage';
-import { mobileTourCopy } from '@/lib/mobileTourCopy';
-import { browseCopy } from '@/lib/browseCopy';
-import '@/components/tours/MobileTours.css';
+/** Read on the server, through the same gate as the browser proxy, so the page arrives with the tour instead of fetching it after loading. */
+async function loadTour(id: string): Promise<Tour | 'missing' | null> {
+  try {
+    const response = await proxyBackend(`tours/${encodeURIComponent(id)}`);
+    if ([400, 403, 404].includes(response.status)) return 'missing';
+    if (!response.ok) return null;
+    const tour = await response.json() as Tour;
+    // The API already sends the stops by position; the player depends on it, so it is not left to chance.
+    return Array.isArray(tour.places) ? { ...tour, places: [...tour.places].sort((a, b) => a.position - b.position) } : tour;
+  } catch {
+    return null;
+  }
+}
 
-export default function TourDetailPage() {
-  const params = useParams();
-  const search = useSearchParams();
-  const { language } = usePageLanguage();
-  const t = mobileTourCopy(language);
-  const { setTour, setLoading, setError } = useTourStore();
-  const [tour, setLocalTour] = useState<Tour | null>(null);
-  const [failed, setFailed] = useState(false);
-  const [attempt, setAttempt] = useState(0);
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setFailed(false);
-    setError(null);
-    setLocalTour(null);
-    void getTour(String(params.id)).then(data => {
-      if (!active) return;
-      setTour(data);
-      setLocalTour(data);
-    }).catch(() => {
-      if (active) setFailed(true);
-    }).finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [params.id, attempt, setTour, setLoading, setError]);
-
-  if (tour) return search.get('listen') === '1' ? <TourExperience key={tour.id} tour={tour} /> : <TourOverview key={tour.id} tour={tour} />;
-  return <main className="min-h-screen bg-surface p-6 text-darkBrown">
-    <Link href="/tours" className="inline-flex min-h-11 items-center">← {t.allWalks}</Link>
-    <div className="mx-auto mt-24 max-w-sm text-center">
-      <p role={failed ? 'alert' : 'status'}>{failed ? t.loadError : t.loading}</p>
-      {failed && <button className="mt-4 min-h-11 rounded-full border px-6" onClick={() => setAttempt(value => value + 1)}>{browseCopy(language).retry}</button>}
-    </div>
-  </main>;
+export default async function TourDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const tour = await loadTour((await params).id);
+  if (tour === 'missing') notFound();
+  return <TourDetailClient tour={tour} />;
 }

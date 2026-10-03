@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { InfoLinks } from '@/components/legal/InfoLinks';
 
 interface DataSource {
   name: string;
@@ -156,7 +155,6 @@ export default async function DataSourcesPage({
 
         <div className="mt-10">
           <Link href="/tours">{lang === 'fr' ? 'Retour aux visites' : 'Volver a los tours'}</Link>
-          <InfoLinks language={lang} />
         </div>
       </main>
     </div>
