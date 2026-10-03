@@ -6,9 +6,5 @@
 # The three core suites that failed on stale expectations were updated on 2026-10-02 (07 section 7.9.1).
 # Legacy development path: disappears with 07 section 7.2-A.
 jest src/services/CodexTourGenerator.test.ts
-# Dead modules: deleted in 07 section 7.1.
-jest src/services/poi/AutonomousNarrativePilotV1.test.ts
-jest src/services/poi/NarrativePilotDeepSeekV1.test.ts
-jest src/services/poi/NarrativeCalibrationV6.test.ts
 # Stale test: guide-fr-a.json is now controllable-cloning, the test still expects continuation mode for "legacy".
 voxcpm test_documentary_profile_uses_reference_without_continuation
