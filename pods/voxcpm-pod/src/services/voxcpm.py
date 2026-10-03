@@ -14,7 +14,8 @@ from voxcpm import VoxCPM
 from config import env
 from utils.audio_provenance import capture_generation, combine_generations, write_audio_record, model_revision, sha256_file, record_path
 from utils.logger import logger
-from utils.sanitize import TextChunk, chunk_text, sanitize_text
+from utils.sanitize import TextChunk, chunk_text
+from utils.tour_audio_input import prepare_piece_text
 
 
 VOICE_DESCRIPTIONS = {
@@ -243,7 +244,8 @@ class VoxCpmService:
                 logger.info("Queued VoxCPM request acquired generation lock", extra={"waitedMs": waited_ms})
 
             env.AUDIO_CACHE.mkdir(parents=True, exist_ok=True)
-            cleaned = sanitize_text(text)
+            # Same preparation as the saved-tour renderer (no preset here: no pronunciation replacements).
+            cleaned = prepare_piece_text(text, language, {})
             if not cleaned:
                 return {"success": False, "error": "Text is required"}
 

@@ -7,6 +7,7 @@ import re
 from uuid import UUID
 
 from utils.sanitize import chunk_text, sanitize_text
+from utils.speech.gate import gate
 
 
 _SMALL_NUMBERS = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf",
@@ -47,6 +48,37 @@ def _expand_french_years(text: str) -> str:
         return _french_number_to_words(int(match.group(0)))
     # Preserve decimals, grouped numbers and IDs; sentence punctuation is fine.
     return re.sub(r"(?<!\w)(?<!\d[.,\s])[1-9]\d{2,3}(?!\w|[.,\s]\d)", replace, text)
+
+
+def prepare_piece_text(text: str, language: str, preset: dict, *, spoken_text=None, piece_id=None) -> str:
+    """The text that is actually spoken for one piece, before it is split into chunks.
+
+    Single place for every render path: render-tour.py (through prepare_input) and the HTTP service.
+
+    With `spoken_text` (produced by utils.speech and persisted) that text is exactly what is synthesised: it must be a
+    fixed point of sanitize_text (SPEECH_NOT_CLEAN) and pass the gate (SPEECH_GATE), and no replacement of any kind is
+    applied. Without it, the legacy path: line endings, Spanish pronunciation replacements, paragraph layout,
+    sanitising and French year expansion, byte for byte as before.
+    """
+    if spoken_text is not None:
+        if not isinstance(spoken_text, str) or not spoken_text.strip():
+            raise ValueError("SPEECH_NOT_CLEAN", piece_id, "spokenText must be a nonempty string")
+        if sanitize_text(spoken_text) != spoken_text:
+            raise ValueError("SPEECH_NOT_CLEAN", piece_id, "spokenText changes under sanitize_text")
+        violations = gate(spoken_text, language)
+        if violations:
+            raise ValueError("SPEECH_GATE", piece_id, [v.as_dict() for v in violations])
+        return spoken_text
+    spoken = text.replace("\r\n", "\n").replace("\r", "\n")
+    if language == "es":
+        for phrase, replacement in preset.get("textReplacements", {}).items():
+            spoken = re.sub(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", lambda _: replacement, spoken)
+    if preset.get("singleNewlineParagraphs"):
+        spoken = re.sub(r"\n+", "\n\n", spoken)
+    spoken = sanitize_text(spoken)
+    if language == "fr":
+        spoken = _expand_french_years(spoken)
+    return spoken
 
 
 def write_progress(path: Path, payload: dict) -> None:
@@ -127,17 +159,12 @@ def prepare_input(input_path: Path, preset_path: Path) -> dict:
         text = stop.get("text")
         if not isinstance(text, str) or not text.strip() or len(text) > 50000:
             raise ValueError("Each stop must have a nonempty narration of at most 50000 characters")
-        spoken = text.replace("\r\n", "\n").replace("\r", "\n")
-        if data["language"] == "es":
-            for phrase, replacement in replacements.items():
-                spoken = re.sub(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", lambda _: replacement, spoken)
-        if preset.get("singleNewlineParagraphs"):
-            spoken = re.sub(r"\n+", "\n\n", spoken)
-        spoken = sanitize_text(spoken)
-        if data["language"] == "fr":
-            spoken = _expand_french_years(spoken)
+        provided = stop.get("spokenText")
+        spoken = prepare_piece_text(text, data["language"], preset, spoken_text=provided, piece_id=stop_id)
         chunks = chunk_text(spoken, max_chars=360)
         if not chunks:
             raise ValueError("Narration contains no speakable text")
-        prepared.append({"id": stop_id, "text": text, "spoken": spoken, "chunks": chunks})
+        prepared.append({"id": stop_id, "text": text, "spoken": spoken, "chunks": chunks,
+                         "speechSource": "provided" if provided is not None else "legacy",
+                         "speechVersion": stop.get("speechVersion") or data.get("speechVersion") if provided is not None else None})
     return {"language": data["language"], "preset": preset, "reference": str(reference), "stops": prepared, "identity": identity}

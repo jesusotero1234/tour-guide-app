@@ -251,6 +251,8 @@ def main():
                 'version': 1,
                 'identity': prepared['identity'],
                 'spokenText': stop['spoken'],
+                'speechSource': stop['speechSource'],
+                'speechVersion': stop['speechVersion'],
                 'stopId': stop['id'],
                 'postProcessing': {
                     'paragraphPauseMs': preset['paragraphPauseMs'],

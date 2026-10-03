@@ -11,7 +11,9 @@ import unittest
 
 POD = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(POD / "src"))
-from utils.tour_audio_input import generation_arguments, prepare_input
+from utils.tour_audio_input import _expand_french_years, generation_arguments, prepare_input, prepare_piece_text
+from utils.sanitize import sanitize_text
+import re
 
 STOP = "22222222-2222-4222-8222-222222222222"
 
@@ -175,6 +177,118 @@ class TourInputTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(progress.read_text())["phase"], "prepared")
         self.assertFalse((Path(self.temp.name) / "audio").exists())
+
+
+def _legacy_inline_preparation(text, language, preset):
+    """Frozen copy of the per-piece logic that lived inline in prepare_input before it moved to prepare_piece_text."""
+    spoken = text.replace("\r\n", "\n").replace("\r", "\n")
+    if language == "es":
+        for phrase, replacement in preset.get("textReplacements", {}).items():
+            spoken = re.sub(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", lambda _: replacement, spoken)
+    if preset.get("singleNewlineParagraphs"):
+        spoken = re.sub(r"\n+", "\n\n", spoken)
+    spoken = sanitize_text(spoken)
+    if language == "fr":
+        spoken = _expand_french_years(spoken)
+    return spoken
+
+
+class PreparePieceTextTests(unittest.TestCase):
+    SAMPLES = {
+        "es": ["Llegamos en 1248.\r\nAquí vivió Alfonso X.\r\n\r\nSeguimos hacia el patio.", "En el siglo XIV, Pedro I vivió a 3 km y 52 m de aquí.",
+               "1492. Año de la conquista.", "Visita St. Michel.\n\nAve. Central, 15.800 tubos.", "**Negrita** y [enlace](http://x.y) (nota)."],
+        "fr": ["En 1987, nous sommes ici.", "Le 14 juillet 1789, 1 500 personnes et 2,5 km.\nLigne suivante.", "L'an 1000 et 999."],
+        "en": ["Welcome to the square in 1248.\nSecond line.", "St. Paul's, 3 km away."],
+        "de": ["Willkommen auf dem Platz im Jahr 1248.", "Das 19. Jahrhundert.\r\nZweite Zeile."],
+        "it": ["Benvenuti nella piazza nel 1248.", "Il XIX secolo, a 52 m."],
+    }
+
+    def test_matches_the_previous_inline_logic_byte_for_byte(self):
+        for language, texts in self.SAMPLES.items():
+            preset = json.loads((POD / f"presets/guide-{language}-a.json").read_text())
+            for text in texts:
+                with self.subTest(language=language, text=text[:30]):
+                    self.assertEqual(prepare_piece_text(text, language, preset), _legacy_inline_preparation(text, language, preset))
+
+    def test_matches_with_synthetic_presets(self):
+        preset = {"textReplacements": {"Alfonso X": "Alfonso décimo"}, "singleNewlineParagraphs": True}
+        for language in self.SAMPLES:
+            for text in self.SAMPLES[language]:
+                self.assertEqual(prepare_piece_text(text, language, preset), _legacy_inline_preparation(text, language, preset))
+
+    def test_prepare_input_uses_the_same_function(self):
+        with tempfile.TemporaryDirectory() as temp:
+            for language, texts in self.SAMPLES.items():
+                preset_path = POD / f"presets/guide-{language}-a.json"
+                preset = json.loads(preset_path.read_text())
+                path = Path(temp) / "input.json"
+                path.write_text(json.dumps({"language": language, "stops": [{"id": STOP, "text": texts[0]}]}))
+                self.assertEqual(prepare_input(path, preset_path)["stops"][0]["spoken"], prepare_piece_text(texts[0], language, preset))
+
+    def test_http_service_uses_the_shared_function(self):
+        # voxcpm.py imports torch and the model, so it is checked as source text rather than imported.
+        source = (POD / "src/services/voxcpm.py").read_text()
+        self.assertIn("prepare_piece_text", source)
+        self.assertNotIn("cleaned = sanitize_text(text)", source)
+
+
+class SpokenTextInputTests(unittest.TestCase):
+    """A piece that carries spokenText is synthesised exactly as given, after the gate (plan 02 section 3.3)."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.path = Path(self.temp.name) / "input.json"
+
+    def prepare(self, stops, language="es", **extra):
+        self.path.write_text(json.dumps({"language": language, "stops": stops, **extra}))
+        return prepare_input(self.path, POD / f"presets/guide-{language}-a.json")
+
+    def test_provided_spoken_text_is_used_verbatim_and_replacements_do_not_apply(self):
+        # "Alfonso X" is a textReplacement of the Spanish preset: with spokenText it must not be touched.
+        spoken = "Alfonso décimo vivió aquí.\n\nSegundo párrafo."
+        prepared = self.prepare([{"id": STOP, "text": "Alfonso X vivió aquí.", "spokenText": spoken}], speechVersion="speech-1")
+        stop = prepared["stops"][0]
+        self.assertEqual(stop["spoken"], spoken)
+        self.assertEqual(stop["text"], "Alfonso X vivió aquí.")
+        self.assertEqual((stop["speechSource"], stop["speechVersion"]), ("provided", "speech-1"))
+        self.assertEqual(sum(c.boundary == "paragraph" for c in stop["chunks"]), 1)
+
+    def test_legacy_pieces_are_marked_legacy(self):
+        stop = self.prepare([{"id": STOP, "text": "Alfonso X vivió en 1248."}])["stops"][0]
+        self.assertEqual((stop["speechSource"], stop["speechVersion"]), ("legacy", None))
+        self.assertIn("Alfonso décimo", stop["spoken"])
+
+    def test_gate_blocks_digits_romans_abbreviations_and_symbols(self):
+        for bad in ("Llegó en 1248.", "Alfonso X vivió.", "Siglo I a. C.", "Un 45% más.", "Una nota (importante)."):
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError) as caught:
+                    self.prepare([{"id": STOP, "text": bad, "spokenText": bad}])
+                self.assertEqual(caught.exception.args[0], "SPEECH_GATE")
+                self.assertEqual(caught.exception.args[1], STOP)
+                self.assertTrue(caught.exception.args[2])
+
+    def test_spoken_text_must_be_a_fixed_point_of_sanitize(self):
+        for bad in ("Un **gran** rey.", "Hola\nmundo.", "Dos   espacios."):
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError) as caught:
+                    self.prepare([{"id": STOP, "text": "x", "spokenText": bad}])
+                self.assertEqual(caught.exception.args[0], "SPEECH_NOT_CLEAN")
+
+    def test_normalizer_output_always_passes(self):
+        sys.path.insert(0, str(POD / "src"))
+        from utils.speech import normalize
+        for language, text in (("es", "Jaime I vivió en 1248 y el siglo XIV."), ("fr", "Louis XIV en 1643, n° 5."), ("de", "Im 19. Jahrhundert, 1.665 Meter."),
+                               ("it", "Nel XIX secolo, 15.800 canne."), ("en", "In 1876, Louis XIV and 45%.")):
+            with self.subTest(language=language):
+                spoken = normalize(text, language).spoken
+                prepared = self.prepare([{"id": STOP, "text": text, "spokenText": spoken}], language)
+                self.assertEqual(prepared["stops"][0]["spoken"], spoken)
+
+    def test_sidecar_records_how_the_text_was_obtained(self):
+        source = (POD / "scripts/render-tour.py").read_text()
+        self.assertIn("'speechSource': stop['speechSource']", source)
+        self.assertIn("'speechVersion': stop['speechVersion']", source)
 
 
 class ResumeTests(unittest.TestCase):
