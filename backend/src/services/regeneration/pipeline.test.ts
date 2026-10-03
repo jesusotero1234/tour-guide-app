@@ -8,6 +8,7 @@ import { locksFor, parseArgs, status } from './cli';
 import { assertDisposableDatabase } from './guard';
 import { crossCheck, manifestFromDump, manifestSha256, type CatalogDump } from './manifest';
 import { cueDefinitions, cueKey, tourPieces, type Rendered, type TourRendered } from './plan';
+import { stagedInputSha } from './phases/finish';
 import { diffHtml, escapeHtml, wordDiff } from './phases/review';
 import { Stage } from './stage';
 import type { WalkingLegs } from '../WalkingLegs';
@@ -172,6 +173,17 @@ describe('guards and arguments', () => {
     expect(() => parseArgs(['render', '--stage'])).toThrow('needs a value');
     expect(parseArgs([]).command).toBe('help');
   });
+  it('a staged tour is reused only while the files it was built from are unchanged', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'stage-input-'));
+    const stage = new Stage(root);
+    for (const dir of ['neutral', 'speech', 'render', 'images', 'legs', 'cues']) stage.write({ dir, v: 1 }, dir, 't1.json');
+    const first = stagedInputSha({ stage }, 't1');
+    expect(stagedInputSha({ stage }, 't1')).toBe(first);
+    stage.write({ dir: 'neutral', v: 2 }, 'neutral', 't1.json');
+    expect(stagedInputSha({ stage }, 't1')).not.toBe(first);
+    await rm(root, { recursive: true, force: true });
+  });
+
   it('legs and images run beside the render (their own lock); everything else waits for both', () => {
     expect(locksFor('render')).toEqual(['run.lock']);
     expect(locksFor('legs')).toEqual(['side.lock']);

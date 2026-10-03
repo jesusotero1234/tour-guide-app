@@ -48,7 +48,10 @@ export function imagesPhase(ctx: Ctx) {
 
 /* -------------------------------------------------------------- stage-local */
 
-export interface StageLocalFile { tourId: string; entry: PackageTour; imageMoves: Record<string, ImageMove[]>; outcome: UpdateOutcome; materialError?: string }
+export interface StageLocalFile { tourId: string; entry: PackageTour; imageMoves: Record<string, ImageMove[]>; outcome: UpdateOutcome; materialError?: string; inputSha?: string }
+
+/** What a tour's staged entry is built from. A saved result is reused only while none of these files has changed. */
+export const stagedInputSha = (ctx: Pick<Ctx, 'stage'>, tourId: string) => sha256(['neutral', 'speech', 'render', 'images', 'legs', 'cues'].map(dir => ctx.stage.fileSha(dir, tourId + '.json')).join(':'));
 
 /** Where the audio of the local copy lives and where its job state goes. */
 export interface LocalPaths { storageDir: string; jobsDir: string }
@@ -100,7 +103,8 @@ export async function stageLocalPhase(ctx: Ctx, options: { storageDir: string })
   for (const tour of tours) {
     const file = ['stage-local', tour.tourId + '.json'];
     const before = stage.readOr<StageLocalFile | null>(null, ...file);
-    if (before && before.outcome.status === 'updated') { summary.updated++; continue; }
+    const inputSha = stagedInputSha(ctx, tour.tourId);
+    if (before && before.outcome.status === 'updated' && before.inputSha === inputSha) { summary.updated++; continue; }
     const current = await repository.findById(tour.tourId);
     const state = current ? await audio.get(tour.tourId, true) : undefined;
     const stored = current?.metadata?.pilotRelease?.fingerprint;
@@ -123,7 +127,7 @@ export async function stageLocalPhase(ctx: Ctx, options: { storageDir: string })
     const entry = withFingerprint(built.entry, fingerprint);
     const outcome = await applyTourUpdate(db as unknown as UpdateClient, entry, verifyTour);
     if (outcome.status === 'updated') summary.updated++; else if (outcome.status === 'skipped') summary.skipped++; else summary.failed++;
-    stage.write({ tourId: tour.tourId, entry, imageMoves: built.imageMoves, outcome } satisfies StageLocalFile, ...file);
+    stage.write({ tourId: tour.tourId, entry, imageMoves: built.imageMoves, outcome, inputSha } satisfies StageLocalFile, ...file);
   }
   deps.log(`stage-local: ${JSON.stringify(summary)}`);
   if (stage.list('stage-local').length) stage.writeReceipt('stage-local', stage.list('stage-local'), { ...summary, rehearsal: reference.authorizationReference === REHEARSAL_REFERENCE });
