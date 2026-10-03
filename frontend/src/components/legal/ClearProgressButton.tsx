@@ -7,7 +7,7 @@ export function ClearProgressButton({ language = 'es' }: { language?: Language }
   const [message, setMessage] = useState('');
   function clear() {
     try {
-      Object.keys(localStorage).filter(key => /^(tour-listening:|tour-progress:|tour-selection:|tour-reading:|tour-notice:|tour-welcome:)/.test(key)).forEach(key => localStorage.removeItem(key));
+      Object.keys(localStorage).filter(key => /^(tour-listening:|tour-progress:|tour-selection:|tour-reading:|tour-notice:|tour-welcome:|tour-order:|tour-location:|tour-playback-rate:)/.test(key)).forEach(key => localStorage.removeItem(key));
       setMessage(t.cleared);
     } catch {
       setMessage(t.clearError);

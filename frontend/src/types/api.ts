@@ -137,6 +137,8 @@ export interface Tour {
   language: Language;
   durationMinutes: number;
   status: 'draft' | 'review' | 'published' | 'archived';
+  /** Present and true only when the stops can be listened to in any order (link clips and walking legs exist). */
+  orderFlexible?: boolean;
   introduction?: string;
   introductionAudio?: { status: 'completed'; text: string; audioUrl: string; version: string; durationSeconds?: number };
   requestedDurationMinutes?: number;
@@ -215,4 +217,18 @@ export interface TourListParams {
   readyOnly?: boolean;
   limit?: number;
   offset?: number;
+}
+
+/**
+ * Walking time, distance and geometry between every pair of stops of a tour (backend WalkingLegs, plan 03 section 7).
+ * `geometries["<idA>|<idB>"]` holds idA < idB and the polyline (precision 5, [lat, lng]) in the direction A -> B.
+ */
+export interface WalkingLegs {
+  version: 1;
+  provider: string;
+  computedAt: string;
+  stopIds: string[];
+  durationsSeconds: number[][];
+  distancesMeters: number[][];
+  geometries: Record<string, string>;
 }

@@ -34,6 +34,9 @@ const copy = {
     resultsCount: (n: number) => `${n} ${n === 1 ? 'tour encontrado' : 'tours encontrados'}`,
     stopsCount: (n: number) => `${n} ${n === 1 ? 'parada' : 'paradas'}`,
     emptyTitle: (city: string, language: string) => `Todavía no hay tours en ${language} para ${city}`,
+    otherLanguages: 'Otros idiomas', themeAll: 'Todos', themeHistory: 'Historia', themeThematic: 'Temáticos', themeLabel: 'Tipo de paseo',
+    nearYou: 'Cerca de ti', nearYouLocating: 'Buscando tu ubicación…', nearYouDenied: 'Sin ubicación no podemos ordenar por cercanía.', nearYouOn: 'Ordenado por cercanía',
+    walksCount: (n: number) => `${n} ${n === 1 ? 'paseo' : 'paseos'}`,
   },
   en: {
     pageLanguage: 'Page language', eyebrow: 'The city, at your pace',
@@ -48,6 +51,9 @@ const copy = {
     resultsCount: (n: number) => `${n} ${n === 1 ? 'tour' : 'tours'} found`,
     stopsCount: (n: number) => `${n} ${n === 1 ? 'stop' : 'stops'}`,
     emptyTitle: (city: string, language: string) => `No tours in ${language} for ${city} yet`,
+    otherLanguages: 'Other languages', themeAll: 'All', themeHistory: 'History', themeThematic: 'Themed', themeLabel: 'Type of walk',
+    nearYou: 'Near you', nearYouLocating: 'Finding your location…', nearYouDenied: 'Without your location we cannot sort by distance.', nearYouOn: 'Sorted by distance',
+    walksCount: (n: number) => `${n} ${n === 1 ? 'walk' : 'walks'}`,
   },
   fr: {
     pageLanguage: 'Langue de la page', eyebrow: 'La ville, à votre rythme',
@@ -62,6 +68,9 @@ const copy = {
     resultsCount: (n: number) => `${n} ${n === 1 ? 'visite trouvée' : 'visites trouvées'}`,
     stopsCount: (n: number) => `${n} ${n === 1 ? 'étape' : 'étapes'}`,
     emptyTitle: (city: string, language: string) => `Pas encore de visites en ${language} à ${city}`,
+    otherLanguages: 'Autres langues', themeAll: 'Tous', themeHistory: 'Histoire', themeThematic: 'Thématiques', themeLabel: 'Type de balade',
+    nearYou: 'Près de vous', nearYouLocating: 'Recherche de votre position…', nearYouDenied: 'Sans votre position, nous ne pouvons pas trier par proximité.', nearYouOn: 'Trié par proximité',
+    walksCount: (n: number) => `${n} ${n === 1 ? 'balade' : 'balades'}`,
   },
   de: {
     pageLanguage: 'Sprache der Seite', eyebrow: 'Die Stadt, in deinem Tempo',
@@ -76,6 +85,9 @@ const copy = {
     resultsCount: (n: number) => `${n} ${n === 1 ? 'Tour' : 'Touren'} gefunden`,
     stopsCount: (n: number) => `${n} ${n === 1 ? 'Station' : 'Stationen'}`,
     emptyTitle: (city: string, language: string) => `Noch keine Touren auf ${language} in ${city}`,
+    otherLanguages: 'Andere Sprachen', themeAll: 'Alle', themeHistory: 'Geschichte', themeThematic: 'Themen', themeLabel: 'Art des Rundgangs',
+    nearYou: 'In deiner Nähe', nearYouLocating: 'Standort wird gesucht…', nearYouDenied: 'Ohne deinen Standort können wir nicht nach Entfernung sortieren.', nearYouOn: 'Nach Entfernung sortiert',
+    walksCount: (n: number) => `${n} ${n === 1 ? 'Rundgang' : 'Rundgänge'}`,
   },
   it: {
     pageLanguage: 'Lingua della pagina', eyebrow: 'La città, al tuo ritmo',
@@ -90,6 +102,9 @@ const copy = {
     resultsCount: (n: number) => `${n} ${n === 1 ? 'tour trovato' : 'tour trovati'}`,
     stopsCount: (n: number) => `${n} ${n === 1 ? 'tappa' : 'tappe'}`,
     emptyTitle: (city: string, language: string) => `Non ci sono ancora tour in ${language} a ${city}`,
+    otherLanguages: 'Altre lingue', themeAll: 'Tutti', themeHistory: 'Storia', themeThematic: 'Tematici', themeLabel: 'Tipo di percorso',
+    nearYou: 'Vicino a te', nearYouLocating: 'Ricerca della posizione…', nearYouDenied: 'Senza la tua posizione non possiamo ordinare per vicinanza.', nearYouOn: 'Ordinati per vicinanza',
+    walksCount: (n: number) => `${n} ${n === 1 ? 'percorso' : 'percorsi'}`,
   },
 };
 

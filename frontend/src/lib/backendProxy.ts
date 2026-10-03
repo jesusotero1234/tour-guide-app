@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers as requestHeaders } from 'next/headers';
 import { pilotEnabled, trustedPilotProxy } from './pilotMode';
+import { pilotPathAllowed } from './pilotPaths';
 
 const backendBaseUrl = process.env.API_URL
   || process.env.NEXT_PUBLIC_API_URL
@@ -11,7 +12,7 @@ const backendApiKey = process.env.API_KEY
 export async function proxyBackend(path: string, init?: RequestInit, stream = false): Promise<NextResponse> {
   const pilot = pilotEnabled();
   if (pilot && (!await trustedPilotProxy(await requestHeaders()) || !['GET', 'HEAD'].includes(init?.method ?? 'GET') ||
-    !/^tours(?:\?[^#]*)?$|^tours\/[0-9a-f-]{36}(?:\/(?:walking-route|provenance|audio(?:\/(?:[0-9a-f-]{36}|introduction))?))?(?:\?v=[a-f0-9.]+)?$/.test(path))) {
+    !pilotPathAllowed(path))) {
     return NextResponse.json({ error: { code: 'PILOT_READ_ONLY' } }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
   }
   const key = pilot ? process.env.PILOT_API_KEY : backendApiKey;

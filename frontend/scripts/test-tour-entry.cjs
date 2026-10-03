@@ -81,16 +81,18 @@ wav.write('RIFF'); wav.writeUInt32LE(wav.length - 8, 4); wav.write('WAVEfmt ', 8
     await page.locator('#tour-city').fill('Unknown');
     await page.getByRole('heading', { name: 'Todavía no hay tours en español para Unknown' }).waitFor();
     await page.getByRole('button', { name: 'Ver todos los paseos' }).click();
-    await page.locator('#tour-language').selectOption('de');
-    await page.locator('#tour-language').selectOption('fr');
+    // The tour language is a secondary filter now (plan 06 E3): a closed disclosure with one button per language.
+    await page.locator('details.discovery-language > summary').click();
+    await page.getByRole('button', { name: 'Deutsch', exact: true }).click();
+    await page.getByRole('button', { name: 'Français', exact: true }).click();
     await page.waitForFunction(() => document.querySelector('.tour-card-meta')?.textContent.includes('FR'));
     await delay(400);
     assert.ok((await page.locator('.tour-card-meta').first().textContent()).includes('FR'), 'Stale language response cannot overwrite selection');
     await page.locator('#page-language').selectOption('en');
-    assert.equal(await page.locator('#tour-language').inputValue(), 'fr');
+    assert.equal(await page.locator('details.discovery-language button[aria-pressed="true"]').getAttribute('lang'), 'fr', 'The selected tour language survives a change of the page language');
     await page.getByRole('heading', { name: 'Seville, Spain' }).waitFor();
     await page.locator('#page-language').selectOption('es');
-    await page.locator('#tour-language').selectOption('es');
+    await page.getByRole('button', { name: 'Español', exact: true }).click();
     await page.waitForFunction(() => document.querySelector('.tour-card-meta')?.textContent.includes('ES'));
     const firstSample = page.locator('.tour-sample-button').nth(0);
     const secondSample = page.locator('.tour-sample-button').nth(1);
@@ -138,7 +140,8 @@ wav.write('RIFF'); wav.writeUInt32LE(wav.length - 8, 4); wav.write('WAVEfmt ', 8
     await page.getByRole('heading', { name: 'Descalzas Reales', exact: true }).waitFor();
     await page.goto(origin + '/tours');
     mode = 'error';
-    await page.locator('#tour-language').selectOption('it');
+    await page.locator('details.discovery-language > summary').click();
+    await page.getByRole('button', { name: 'Italiano', exact: true }).click();
     await page.getByRole('alert').filter({ hasText: 'No hemos podido buscar' }).waitFor();
     mode = 'empty';
     await page.getByRole('button', { name: 'Reintentar' }).click();

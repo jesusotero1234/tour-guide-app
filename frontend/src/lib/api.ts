@@ -1,7 +1,8 @@
-import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language, WalkingRoute } from '@/types/api';
+import { CityConceptDiscoveryResult, ConceptTourRequest, FlexiblePassCitySummary, FlexiblePassOptionsResponse, FlexiblePassQuoteRequest, FlexiblePassQuoteResponse, GenerationJob, Tour, TourRequest, TourListParams, Language, WalkingLegs, WalkingRoute } from '@/types/api';
 
 const FRONTEND_TOUR_API = '/api/backend';
 const walkingRouteRequests = new Map<string, Promise<WalkingRoute>>();
+const walkingLegsRequests = new Map<string, Promise<WalkingLegs>>();
 
 export type { TourListParams } from '@/types/api';
 
@@ -196,8 +197,6 @@ export async function quoteFlexiblePass(request: FlexiblePassQuoteRequest): Prom
 
 export async function getTour(id: string): Promise<Tour> {
   try {
-    console.log(`Fetching tour with ID: ${id}`);
-    
     const response = await fetch(`${FRONTEND_TOUR_API}/tours/${encodeURIComponent(id)}`);
     
     if (!response.ok) {
@@ -207,9 +206,8 @@ export async function getTour(id: string): Promise<Tour> {
     }
     
     const tourData = await response.json();
-    console.log(`Tour fetched successfully with ${tourData.places?.length || 0} places`);
-    
-    return tourData;
+    // The API already sends the stops by position; the player depends on it, so it is not left to chance.
+    return Array.isArray(tourData.places) ? { ...tourData, places: [...tourData.places].sort((a: { position: number }, b: { position: number }) => a.position - b.position) } : tourData;
   } catch (error) {
     console.error('Error fetching tour:', error);
     throw new Error('Failed to fetch tour. Please try again.');
@@ -247,10 +245,34 @@ export function getWalkingRoute(id: string): Promise<WalkingRoute> {
   return request;
 }
 
-export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<Tour[]> {
+function isWalkingLegs(value: unknown): value is WalkingLegs {
+  const legs = value as WalkingLegs | null;
+  if (!legs || legs.version !== 1 || !Array.isArray(legs.stopIds) || !legs.stopIds.length) return false;
+  const n = legs.stopIds.length;
+  const square = (matrix: unknown) => Array.isArray(matrix) && matrix.length === n && matrix.every(row => Array.isArray(row) && row.length === n && row.every(cell => Number.isFinite(cell) && cell >= 0));
+  return square(legs.durationsSeconds) && square(legs.distancesMeters) && !!legs.geometries && typeof legs.geometries === 'object';
+}
+
+/** Walking time, distance and geometry between every pair of stops. Only tours that can be walked in any order have them. */
+export function getWalkingLegs(id: string): Promise<WalkingLegs> {
+  const existing = walkingLegsRequests.get(id);
+  if (existing) return existing;
+  const request = (async () => {
+    const response = await fetch(`${FRONTEND_TOUR_API}/tours/${encodeURIComponent(id)}/walking-legs`);
+    const payload = await response.json();
+    if (!response.ok) throw createApiRequestError(payload, 'Walking legs are unavailable');
+    const legs = payload && typeof payload === 'object' && 'data' in payload ? (payload as { data: unknown }).data : null;
+    if (!isWalkingLegs(legs)) throw new Error('Walking legs are unavailable');
+    return legs;
+  })();
+  walkingLegsRequests.set(id, request);
+  const forget = () => { if (walkingLegsRequests.get(id) === request) walkingLegsRequests.delete(id); };
+  void request.then(forget, forget);
+  return request;
+}
+
+export async function listTours(params?: TourListParams, signal?: AbortSignal): Promise<{ tours: Tour[]; total?: number }> {
   try {
-    console.log('Fetching tours with params:', params);
-    
     // Build query string from params
     const queryParams = new URLSearchParams();
     if (params?.city) queryParams.append('city', params.city);
@@ -274,9 +296,7 @@ export async function listTours(params?: TourListParams, signal?: AbortSignal): 
     
     const data = await response.json();
     const tours = data.data?.tours || [];
-    console.log(`Fetched ${tours.length} tours successfully`);
-    
-    return tours;
+    return { tours, total: typeof data.data?.total === 'number' ? data.data.total : undefined };
   } catch (error) {
     if (signal?.aborted) throw error;
     console.error('Error listing tours:', error);

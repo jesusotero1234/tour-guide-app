@@ -1,11 +1,11 @@
 /* Mobile discovery and tour details share the approved paper / olive palette. */
 .tour-entry {
-  --tour-paper: #f8f5ef;
-  --tour-panel: #fffdf8;
-  --tour-ink: #393c30;
-  --tour-muted: #696d5f;
-  --tour-line: #deded1;
-  --tour-accent: #48583f;
+  --tour-paper: var(--paper);
+  --tour-panel: var(--paper-panel);
+  --tour-ink: var(--olive-ink);
+  --tour-muted: var(--olive-muted);
+  --tour-line: var(--olive-line);
+  --tour-accent: var(--olive);
   background: var(--tour-paper);
   color: var(--tour-ink);
   font-family: 'Trebuchet MS', Arial, sans-serif;
@@ -18,7 +18,7 @@
 .nomuvia-brand-icon { width: 40px; height: 40px; object-fit: contain; margin-right: 7px; flex-shrink: 0; }
 .mobile-tour-header label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .mobile-tour-header select { background: transparent; border: 0; font-size: 12px; color: var(--tour-muted); }
-.tour-eyebrow { font-size: 10px; line-height: 1.6; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; color: var(--tour-accent); }
+.tour-eyebrow { font-size: 12px; line-height: 1.6; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; color: var(--tour-accent); }
 .discovery-intro { padding-block: 24px 22px; }
 .discovery-intro h1 { font: 36px/1.1 Georgia, serif; letter-spacing: -1.3px; margin-block: 14px 16px; max-width: 355px; }
 .discovery-intro > p:last-child { font-size: 14px; line-height: 1.65; color: var(--tour-muted); max-width: 330px; }
@@ -48,15 +48,15 @@
 .tour-cover figure { margin: 0; }
 .tour-cover figure > button { border-radius: 0; }
 .tour-cover figure > button img { width: 100%; height: 205px; object-fit: cover; border-radius: 0; background: #e8dfce; }
-.tour-cover figcaption { padding: 0 14px; font: 11px/1.5 'Trebuchet MS', Arial, sans-serif; color: var(--tour-muted); }
+.tour-cover figcaption { padding: 0 14px; font: 13px/1.5 'Trebuchet MS', Arial, sans-serif; color: var(--tour-muted); }
 .tour-cover figure > details { margin-top: 0; padding-inline: 14px; }
-.tour-cover figure > details summary { padding-block: 10px; min-height: 44px; font-size: 11px; font-weight: 400; color: var(--tour-muted); }
+.tour-cover figure > details summary { padding-block: 10px; min-height: 44px; font-size: 13px; font-weight: 400; color: var(--tour-muted); }
 .tour-cover figure > details > div { padding-bottom: 12px; margin-top: 0; overflow-wrap: anywhere; }
 .tour-sample { min-width: 0; }
 .tour-sample-button { display: flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; text-align: left; }
 .tour-sample-button strong { font-weight: 500; }
 .tour-sample-icon { display: grid; place-items: center; flex-shrink: 0; }
-.tour-sample-button small { display: block; font-size: 11px; line-height: 1.5; color: var(--tour-muted); margin-top: 4px; }
+.tour-sample-button small { display: block; font-size: 13px; line-height: 1.5; color: var(--tour-muted); margin-top: 4px; }
 .tour-sample.expanded { border: 1px solid var(--tour-line); border-radius: 12px; padding: 12px; background: var(--tour-panel); }
 .expanded .tour-sample-button { width: 100%; }
 .expanded .tour-sample-icon { width: 40px; height: 40px; background: var(--tour-accent); color: var(--tour-panel); border-radius: 50%; }
@@ -73,7 +73,7 @@
 .tour-primary { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 15px; min-height: 54px; padding: 14px 18px; border-radius: 12px; background: var(--tour-accent); color: var(--tour-panel); font-size: 16px; }
 .overview-back { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; }
 .overview-back a { min-height: 44px; display: inline-flex; align-items: center; }
-.overview-back > span { color: var(--tour-muted); text-transform: uppercase; font-size: 10px; letter-spacing: 1px; text-align: right; }
+.overview-back > span { color: var(--tour-muted); text-transform: uppercase; font-size: 12px; letter-spacing: 1px; text-align: right; }
 .tour-overview > .tour-cover { border-radius: 16px; overflow: hidden; background: var(--tour-panel); }
 .tour-overview .tour-cover figure > button img { height: 220px; }
 .overview-body { padding-top: 23px; }
@@ -82,7 +82,7 @@
 .overview-introduction { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .overview-facts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; border-block: 1px solid var(--tour-line); padding-block: 18px; margin-block: 22px 16px; }
 .overview-facts > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; overflow-wrap: anywhere; }
-.overview-facts dt { font-size: 11px; color: var(--tour-muted); line-height: 1.4; }
+.overview-facts dt { font-size: 13px; color: var(--tour-muted); line-height: 1.4; }
 .overview-facts dd { font-size: 14px; }
 .overview-distance { font-size: 12px; color: var(--tour-muted); margin-block: 0 18px; }
 .overview-route-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-block: 28px 20px; }
@@ -91,7 +91,7 @@
 .overview-stops li { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 20px; }
 .overview-stop-number { display: grid; place-items: center; min-width: 30px; height: 30px; border: 1px solid var(--tour-line); background: var(--tour-panel); border-radius: 50%; font-size: 12px; }
 .overview-stops strong { display: block; font-size: 14px; font-weight: 500; line-height: 1.5; }
-.overview-stops small { display: block; margin-top: 4px; font-size: 11px; color: var(--tour-muted); }
+.overview-stops small { display: block; margin-top: 4px; font-size: 13px; color: var(--tour-muted); }
 .overview-directions { display: flex; align-items: center; min-height: 48px; text-decoration: underline; text-underline-offset: 4px; font-size: 12px; }
 .overview-start { margin-block: 18px 24px; }
 .overview-start > p { margin-top: 10px; font-size: 12px; text-align: center; color: var(--tour-muted); line-height: 1.6; }
@@ -110,3 +110,46 @@ body:has(.tour-entry) .tour-info-links { justify-content: center; gap: 0 1rem; f
   .discovery-intro h1, .overview-body h1 { font-size: 32px; }
   .tour-sample-wave { display: none; }
 }
+
+/* Order-flexible walk (plan 05): start at any stop, or at the one nearest to you */
+.overview-start-here { display: inline-flex; align-items: center; min-height: 44px; margin-top: 2px; font-size: 13px; text-decoration: underline; }
+.overview-nearby { margin-block: 4px 18px; }
+.overview-locate { min-height: 44px; padding: 0 18px; border: 1px solid var(--tour-line); border-radius: 22px; font-size: 14px; }
+.overview-nearby-card { border: 1px solid var(--tour-line); border-radius: 14px; padding: 14px; background: var(--tour-panel); font-size: 14px; line-height: 1.5; }
+.overview-nearby-card > div { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-top: 8px; }
+.overview-nearby-card a { min-height: 44px; display: inline-flex; align-items: center; }
+.overview-nearby-card a:not(.tour-primary) { text-decoration: underline; }
+
+/* The start bar stays at the bottom of the screen while the page scrolls (plan 06 B2) */
+.overview-start { position: sticky; bottom: 0; z-index: 5; margin: 18px -20px 0; padding: 12px 20px max(14px, env(safe-area-inset-bottom)); background: linear-gradient(to bottom, transparent, var(--tour-paper) 22%); }
+.overview-start > p { margin-top: 6px; }
+.overview-stop-link { display: block; min-height: 44px; padding-block: 8px 2px; }
+.overview-share { min-height: 44px; margin-top: 4px; padding: 0 4px; font-size: 14px; text-decoration: underline; }
+.overview-shared { font-size: 12px; color: var(--tour-muted); }
+
+/* Loading screen of a tour (plan 06 B5) */
+.tour-loading { min-height: 100dvh; padding: 24px 20px; }
+.loading-bar, .loading-cover { background: var(--tour-line); border-radius: 10px; animation: tour-loading 1.4s ease-in-out infinite alternate; }
+.loading-bar { height: 14px; margin-block: 14px; }
+.loading-bar-short { width: 32%; }
+.loading-bar-medium { width: 62%; }
+.loading-bar-title { height: 34px; width: 74%; margin-top: 26px; }
+.loading-cover { height: 220px; border-radius: 18px; margin-top: 18px; }
+@keyframes tour-loading { from { opacity: .55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .loading-bar, .loading-cover { animation: none; } }
+
+/* Catalogue presentation (plan 06 E) */
+.discovery-filters { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-block: 2px 4px; }
+.discovery-themes { display: flex; gap: 8px; flex-wrap: wrap; }
+.discovery-themes button, .discovery-near, .discovery-language button { min-height: 44px; border: 1px solid var(--tour-line); padding: 9px 15px; border-radius: 24px; font-size: 13px; }
+.discovery-themes button[aria-pressed="true"], .discovery-near[aria-pressed="true"], .discovery-language button[aria-pressed="true"] { background: var(--tour-accent); color: var(--tour-panel); border-color: var(--tour-accent); }
+.discovery-near-status { font-size: 13px; color: var(--tour-muted); margin-top: 6px; }
+.discovery-language { display: block; margin-block: 8px 20px; color: var(--tour-muted); font-size: 13px; }
+.discovery-language summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+.discovery-language > div { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 6px; }
+.mobile-tour-card { position: relative; }
+.mobile-tour-card h3 a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.mobile-tour-card .tour-sample-button, .mobile-tour-card .tour-card-actions button, .mobile-tour-card .tour-card-actions a:not(.tour-card-link) { position: relative; z-index: 2; }
+.discovery-city-links { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; text-align: left; }
+.discovery-city-links a { display: flex; flex-direction: column; justify-content: center; min-height: 56px; padding: 8px 14px; border: 1px solid var(--tour-line); border-radius: 14px; background: var(--tour-panel); font-size: 14px; color: var(--tour-ink); text-decoration: none; }
+.discovery-city-links small { font-size: 12px; color: var(--tour-muted); margin-top: 2px; }

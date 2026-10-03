@@ -9,6 +9,16 @@
   --ink: #4a3f35;
   --ink-muted: #766a5f;
   --accent: #c0a65f;
+  /* One palette for the mobile pages (catalogue, overview and player): paper and olive. --tour-* and --listen-* are names for these. */
+  --paper: #f8f5ef;
+  --paper-panel: #fffdf8;
+  --paper-image: #e8e6dc;
+  --olive: #48583f;
+  --olive-ink: #393c30;
+  --olive-muted: #696d5f;
+  --olive-line: #deded1;
+  /* The gold on paper is 2.2:1; this one is 4.8:1, for text, borders that carry meaning and focus rings (plan 06 D5). */
+  --accent-strong: #84661a;
   --border: rgba(74, 63, 53, 0.18);
   --danger: #b6493a;
   --danger-surface: #fceeea;
@@ -25,7 +35,7 @@
   --color-danger-surface: var(--danger-surface);
   --color-beige: var(--surface);
   --color-darkBrown: var(--ink);
-  --color-mutedGold: var(--accent);
+  --color-mutedGold: var(--accent-strong);
   --font-sans: var(--font-body), Georgia, serif;
   --font-serif: var(--font-heading), "Times New Roman", serif;
   --animate-fade-in: fade-in 0.4s ease-in-out;
@@ -92,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .legal-page a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-strong);
   outline-offset: 2px;
 }
 
@@ -132,7 +142,7 @@ body[data-pilot="true"] header a[href="/passes"] {
   overflow-y: auto;
   padding: 1.5rem;
   border: 1px solid var(--border);
-  border-top: 3px solid var(--accent);
+  border-top: 3px solid var(--accent-strong);
   border-radius: 1rem;
   background: var(--surface-elevated);
   color: var(--ink);

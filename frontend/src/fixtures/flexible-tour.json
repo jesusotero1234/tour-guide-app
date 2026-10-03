@@ -1,0 +1,309 @@
+{
+ "tour": {
+  "id": "flex-test",
+  "city": "Valencia",
+  "country": "España",
+  "countryCode": "ES",
+  "theme": "history",
+  "language": "es",
+  "status": "published",
+  "durationMinutes": 60,
+  "orderFlexible": true,
+  "pilot": {
+   "approvalMode": "owner-authorized",
+   "reviewedAt": "2026-10-01T00:00:00.000Z",
+   "version": "fp-flex-1",
+   "scriptLicense": "CC BY-SA 4.0",
+   "changes": "Fixture de prueba"
+  },
+  "introduction": "Bienvenido a Valencia. Puedes empezar por cualquier parada.",
+  "introductionAudio": {
+   "status": "completed",
+   "text": "Bienvenido a Valencia. Puedes empezar por cualquier parada.",
+   "audioUrl": "/test-audio/introduction.wav",
+   "version": "intro-v1"
+  },
+  "places": [
+   {
+    "id": "stop-0",
+    "tourId": "flex-test",
+    "name": "Torres de Serranos",
+    "nameInTourLanguage": "Torres de Serranos",
+    "description": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+    "position": 0,
+    "latitude": 39.47,
+    "longitude": -0.376,
+    "audioVersion": "v1",
+    "metadata": {
+     "sourceCredits": {
+      "version": "test",
+      "items": [
+       {
+        "sourceId": "wiki",
+        "title": "Fuente de prueba",
+        "url": "https://es.wikipedia.org/wiki/Valencia",
+        "attribution": "Wikipedia contributors",
+        "capturedAt": "2026-09-08",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "permitted",
+        "usage": "research"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "stop-1",
+    "tourId": "flex-test",
+    "name": "Plaza de la Virgen",
+    "nameInTourLanguage": "Plaza de la Virgen",
+    "description": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+    "position": 1,
+    "latitude": 39.473,
+    "longitude": -0.376,
+    "audioVersion": "v1",
+    "metadata": {
+     "sourceCredits": {
+      "version": "test",
+      "items": [
+       {
+        "sourceId": "wiki",
+        "title": "Fuente de prueba",
+        "url": "https://es.wikipedia.org/wiki/Valencia",
+        "attribution": "Wikipedia contributors",
+        "capturedAt": "2026-09-08",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "permitted",
+        "usage": "research"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "stop-2",
+    "tourId": "flex-test",
+    "name": "Lonja de la Seda",
+    "nameInTourLanguage": "Lonja de la Seda",
+    "description": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+    "position": 2,
+    "latitude": 39.476,
+    "longitude": -0.376,
+    "audioVersion": "v1",
+    "metadata": {
+     "sourceCredits": {
+      "version": "test",
+      "items": [
+       {
+        "sourceId": "wiki",
+        "title": "Fuente de prueba",
+        "url": "https://es.wikipedia.org/wiki/Valencia",
+        "attribution": "Wikipedia contributors",
+        "capturedAt": "2026-09-08",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "permitted",
+        "usage": "research"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "stop-3",
+    "tourId": "flex-test",
+    "name": "Mercado Central",
+    "nameInTourLanguage": "Mercado Central",
+    "description": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+    "position": 3,
+    "latitude": 39.479,
+    "longitude": -0.376,
+    "audioVersion": "v1",
+    "metadata": {
+     "sourceCredits": {
+      "version": "test",
+      "items": [
+       {
+        "sourceId": "wiki",
+        "title": "Fuente de prueba",
+        "url": "https://es.wikipedia.org/wiki/Valencia",
+        "attribution": "Wikipedia contributors",
+        "capturedAt": "2026-09-08",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "status": "permitted",
+        "usage": "research"
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "createdAt": "2026-10-01T00:00:00.000Z"
+ },
+ "audio": {
+  "tourId": "flex-test",
+  "status": "completed",
+  "phase": "completed",
+  "completedStops": 4,
+  "totalStops": 4,
+  "canGenerate": false,
+  "audioUrls": {
+   "stop-0": "/test-audio/stop-0.wav",
+   "stop-1": "/test-audio/stop-1.wav",
+   "stop-2": "/test-audio/stop-2.wav",
+   "stop-3": "/test-audio/stop-3.wav"
+  },
+  "audioVersions": {
+   "stop-0": "v1",
+   "stop-1": "v1",
+   "stop-2": "v1",
+   "stop-3": "v1"
+  },
+  "transcripts": {
+   "stop-0": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+   "stop-1": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+   "stop-2": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. ",
+   "stop-3": "Esta parada se puede escuchar en cualquier orden. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. La historia de Valencia se lee con calma mientras suena la narración. "
+  },
+  "introduction": {
+   "status": "completed",
+   "text": "Bienvenido a Valencia. Puedes empezar por cualquier parada.",
+   "audioUrl": "/test-audio/introduction.wav",
+   "version": "intro-v1"
+  },
+  "cues": {
+   "first": {
+    "stop-0": {
+     "text": "Primera parada: Torres de Serranos.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/first/stop-0?v=f0.a",
+     "version": "f0.a",
+     "durationSeconds": 1
+    },
+    "stop-1": {
+     "text": "Primera parada: Plaza de la Virgen.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/first/stop-1?v=f1.a",
+     "version": "f1.a",
+     "durationSeconds": 1
+    },
+    "stop-2": {
+     "text": "Primera parada: Lonja de la Seda.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/first/stop-2?v=f2.a",
+     "version": "f2.a",
+     "durationSeconds": 1
+    },
+    "stop-3": {
+     "text": "Primera parada: Mercado Central.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/first/stop-3?v=f3.a",
+     "version": "f3.a",
+     "durationSeconds": 1
+    }
+   },
+   "next": {
+    "stop-0": {
+     "text": "Siguiente parada: Torres de Serranos.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/next/stop-0?v=n0.a",
+     "version": "n0.a",
+     "durationSeconds": 1
+    },
+    "stop-1": {
+     "text": "Siguiente parada: Plaza de la Virgen.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/next/stop-1?v=n1.a",
+     "version": "n1.a",
+     "durationSeconds": 1
+    },
+    "stop-2": {
+     "text": "Siguiente parada: Lonja de la Seda.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/next/stop-2?v=n2.a",
+     "version": "n2.a",
+     "durationSeconds": 1
+    },
+    "stop-3": {
+     "text": "Siguiente parada: Mercado Central.",
+     "audioUrl": "/api/backend/tours/flex-test/cue/next/stop-3?v=n3.a",
+     "version": "n3.a",
+     "durationSeconds": 1
+    }
+   },
+   "finish": {
+    "text": "Aquí termina el paseo. Gracias por caminar con nosotros.",
+    "audioUrl": "/api/backend/tours/flex-test/cue/finish?v=end.a",
+    "version": "end.a",
+    "durationSeconds": 1
+   }
+  }
+ },
+ "legs": {
+  "version": 1,
+  "provider": "fossgis-osrm-foot",
+  "computedAt": "2026-10-01T00:00:00.000Z",
+  "stopIds": [
+   "stop-0",
+   "stop-1",
+   "stop-2",
+   "stop-3"
+  ],
+  "durationsSeconds": [
+   [
+    0,
+    334,
+    667,
+    1001
+   ],
+   [
+    334,
+    0,
+    334,
+    667
+   ],
+   [
+    667,
+    334,
+    0,
+    334
+   ],
+   [
+    1001,
+    667,
+    334,
+    0
+   ]
+  ],
+  "distancesMeters": [
+   [
+    0,
+    334,
+    667,
+    1001
+   ],
+   [
+    334,
+    0,
+    334,
+    667
+   ],
+   [
+    667,
+    334,
+    0,
+    334
+   ],
+   [
+    1001,
+    667,
+    334,
+    0
+   ]
+  ],
+  "geometries": {
+   "stop-0|stop-1": "o~{oF~lhAkH{@kHz@",
+   "stop-0|stop-2": "o~{oF~lhAwQ{@wQz@",
+   "stop-0|stop-3": "o~{oF~lhAc[{@c[z@",
+   "stop-1|stop-2": "gq|oF~lhAkH{@kHz@",
+   "stop-1|stop-3": "gq|oF~lhAwQ{@wQz@",
+   "stop-2|stop-3": "_d}oF~lhAkH{@kHz@"
+  }
+ }
+}

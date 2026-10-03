@@ -7,7 +7,9 @@ import { TourCard } from './TourCard';
 import { usePageLanguage } from '@/components/layout/PageLanguage';
 import { browseCopy, languageNames } from '@/lib/browseCopy';
 import { mobileTourCopy } from '@/lib/mobileTourCopy';
+import { haversineDistanceMeters } from '@/lib/geo';
 
+const PAGE_SIZE = 200;
 const normalized = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase().trim();
 
 export const ToursList = () => {
@@ -16,6 +18,9 @@ export const ToursList = () => {
   const m = mobileTourCopy(pageLanguage);
   const [city, setCity] = useState('');
   const [selectedLanguage, setLanguage] = useState<Language | null>(null);
+  const [theme, setTheme] = useState<'all' | 'history' | 'thematic'>('all');
+  // "Near you" sorts by distance once, with a one-off reading that is kept in memory only: no coordinate is stored or sent anywhere.
+  const [near, setNear] = useState<{ status: 'idle' | 'locating' | 'ready' | 'denied'; point?: { latitude: number; longitude: number } }>({ status: 'idle' });
   const language = selectedLanguage ?? pageLanguage;
   const [result, setResult] = useState<{ language: Language; tours: Tour[]; error: boolean } | null>(null);
   const [retry, setRetry] = useState(0);
@@ -28,14 +33,14 @@ export const ToursList = () => {
     const load = async () => {
       try {
         const tours: Tour[] = [];
-        // The API caps pages at 50. Complete the catalog before filtering cities locally.
-        for (let offset = 0; ; offset += 50) {
-          const page = await listTours({ language, readyOnly: true, limit: 50, offset }, controller.signal);
+        // One request normally returns the whole catalogue; the loop only continues if the backend reports more tours than it sent.
+        for (let offset = 0; ; offset = tours.length) {
+          const { tours: page, total } = await listTours({ language, readyOnly: true, limit: PAGE_SIZE, offset }, controller.signal);
           if (controller.signal.aborted) return;
           const known = new Set(tours.map(tour => tour.id));
           const added = page.filter(tour => !known.has(tour.id));
           tours.push(...added);
-          if (page.length < 50 || !added.length) break;
+          if (!added.length || (total !== undefined && tours.length >= total)) break;
         }
         setResult({ language, tours, error: false });
       } catch {
@@ -48,9 +53,20 @@ export const ToursList = () => {
 
   const tours = currentResult?.tours ?? [];
   const query = normalized(city);
-  const filtered = tours.filter(tour => !query || [tour.city, ...Object.values(tour.cityNames ?? {})].some(name => normalized(name).includes(query)))
-    .sort((a, b) => Number(b.theme === 'thematic') - Number(a.theme === 'thematic'));
-  const cities = [...new Set(tours.map(tour => tour.cityNames?.[pageLanguage] || tour.city))].sort((a, b) => a.localeCompare(b, pageLanguage));
+  const distanceTo = (tour: Tour) => (near.point && tour.places[0] ? haversineDistanceMeters(near.point, tour.places[0]) : Infinity);
+  const filtered = tours.filter(tour => (!query || [tour.city, ...Object.values(tour.cityNames ?? {})].some(name => normalized(name).includes(query)))
+    && (theme === 'all' || (theme === 'thematic') === (tour.theme === 'thematic')))
+    .sort((a, b) => (near.status === 'ready' ? distanceTo(a) - distanceTo(b) : Number(b.theme === 'thematic') - Number(a.theme === 'thematic')));
+  const cityName = (tour: Tour) => tour.cityNames?.[pageLanguage] || tour.city;
+  const cities = [...new Set(tours.map(cityName))].sort(near.status === 'ready'
+    ? (a, b) => Math.min(...tours.filter(x => cityName(x) === a).map(distanceTo)) - Math.min(...tours.filter(x => cityName(x) === b).map(distanceTo))
+    : (a, b) => a.localeCompare(b, pageLanguage));
+  const locate = () => {
+    if (!navigator.geolocation) { setNear({ status: 'denied' }); return; }
+    setNear({ status: 'locating' });
+    navigator.geolocation.getCurrentPosition(position => setNear({ status: 'ready', point: { latitude: position.coords.latitude, longitude: position.coords.longitude } }),
+      () => setNear({ status: 'denied' }), { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 });
+  };
   const chooseCity = (value: string) => { setCity(value); setVisibleCount(6); };
 
   return <div className="mobile-discovery">
@@ -68,19 +84,26 @@ export const ToursList = () => {
         <button type="button" aria-pressed={!query} onClick={() => chooseCity('')}>{m.allCities}</button>
         {cities.map(name => <button key={name} type="button" aria-pressed={normalized(name) === query} onClick={() => chooseCity(name)}>{name}</button>)}
       </div>}
-      <div className="discovery-language"><label htmlFor="tour-language">{t.tourLanguage}</label><select id="tour-language" value={language} onChange={event => { setLanguage(event.target.value as Language); setVisibleCount(6); }}>
-        {Object.entries(languageNames).map(([value, label]) => <option key={value} value={value} lang={value}>{label}</option>)}
-      </select></div>
+      <div className="discovery-filters">
+        <div role="group" aria-label={t.themeLabel} className="discovery-themes">
+          {(['all', 'history', 'thematic'] as const).map(value => <button key={value} type="button" aria-pressed={theme === value} onClick={() => { setTheme(value); setVisibleCount(6); }}>{value === 'all' ? t.themeAll : value === 'history' ? t.themeHistory : t.themeThematic}</button>)}
+        </div>
+        <button type="button" className="discovery-near" aria-pressed={near.status === 'ready'} disabled={near.status === 'locating'} onClick={() => (near.status === 'ready' ? setNear({ status: 'idle' }) : locate())}>{t.nearYou}</button>
+      </div>
+      {near.status !== 'idle' && <p role="status" className="discovery-near-status">{near.status === 'locating' ? t.nearYouLocating : near.status === 'denied' ? t.nearYouDenied : t.nearYouOn}</p>}
+      <details className="discovery-language">
+        <summary>{t.otherLanguages}:{" "}<span lang={language}>{languageNames[language]}</span></summary>
+        <div role="group" aria-label={t.tourLanguage}>{Object.entries(languageNames).map(([value, label]) => <button key={value} type="button" lang={value} aria-pressed={language === value} onClick={() => { setLanguage(value as Language); setVisibleCount(6); }}>{label}</button>)}</div>
+      </details>
     </form>
     <p role="status" className={loading ? 'discovery-status' : 'sr-only'}>{loading ? t.loading : currentResult && !currentResult.error ? t.resultsCount(filtered.length) : ''}</p>
     <div aria-busy={loading}>
       {currentResult && (currentResult.error ? <div className="discovery-empty"><p role="alert">{t.searchError}</p><button className="tour-primary" onClick={() => { setResult(null); setRetry(value => value + 1); }}>{t.retry}</button></div>
         : filtered.length ? <section aria-label={t.resultsLabel}>
           <div className="discovery-section-title"><h2>{m.featured}</h2><span>{filtered.length}</span></div>
-          <div className="discovery-cards">{filtered.slice(0, visibleCount).map(tour => <TourCard key={tour.id} tour={tour} />)}</div>
+          <div className="discovery-cards">{filtered.slice(0, visibleCount).map((tour, index) => <TourCard key={tour.id} tour={tour} priority={index === 0} />)}</div>
           {filtered.length > visibleCount && <button className="discovery-more" onClick={() => setVisibleCount(value => value + 6)}>{m.more} ↓</button>}
         </section> : <div className="discovery-empty"><h2>{query ? t.emptyTitle(city.trim(), t.languageNames[language]) : m.empty}</h2><p>{t.emptyHint}</p>{query && <button className="tour-primary" onClick={() => chooseCity('')}>{m.clear}</button>}</div>)}
     </div>
-    <p className="discovery-closing">{t.closing}</p>
   </div>;
 };

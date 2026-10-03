@@ -4,7 +4,7 @@ import { useId, useState, useEffect, useRef } from 'react';
 import { analyticsAllowed, CONSENT_EVENT } from '@/lib/consent';
 import { trackEvent } from '@/lib/analytics';
 
-type Language = 'fr' | 'es' | 'en';
+type Language = 'fr' | 'es' | 'en' | 'de' | 'it';
 
 const COPY: Record<Language, {
   summary: string;
@@ -46,6 +46,26 @@ const COPY: Record<Language, {
     success: 'Merci pour votre retour.',
     error: 'Une erreur est survenue. Veuillez réessayer.',
   },
+  de: {
+    summary: 'Diesen Rundgang bewerten',
+    legend: 'Wie hat dir der Rundgang gefallen?',
+    ratingLabel: 'Bewertung',
+    commentLabel: 'Kommentar (optional)',
+    commentHint: 'Bitte teile keine persönlichen Daten.',
+    submit: 'Senden',
+    success: 'Danke für deine Rückmeldung.',
+    error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
+  },
+  it: {
+    summary: 'Valuta questo tour',
+    legend: 'Che ne pensi del tour?',
+    ratingLabel: 'Valutazione',
+    commentLabel: 'Commento (facoltativo)',
+    commentHint: 'Evita di condividere informazioni personali.',
+    submit: 'Invia',
+    success: 'Grazie per il tuo commento.',
+    error: 'Qualcosa è andato storto. Riprova.',
+  },
 };
 
 export function TourFeedback({
@@ -55,7 +75,7 @@ export function TourFeedback({
   tourId: string;
   language: string;
 }) {
-  const lang: Language = (['fr', 'es', 'en'].includes(language.split('-')[0]) ? language.split('-')[0] : 'en') as Language;
+  const lang: Language = (['fr', 'es', 'en', 'de', 'it'].includes(language.split('-')[0]) ? language.split('-')[0] : 'en') as Language;
   const copy = COPY[lang];
 
   const [ready, setReady] = useState(false);

@@ -4,13 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ToursList } from '@/components/tours/ToursList';
 import { PageLanguageSelect, usePageLanguage } from '@/components/layout/PageLanguage';
-import { SEO_CITIES } from '@/lib/seoInventory';
+import { SEO_CITIES, SEO_ROUTE_DEFINITIONS } from '@/lib/seoInventory';
+import { browseCopy } from '@/lib/browseCopy';
 import { seoCopy } from '@/lib/seoCopy';
 import '@/components/tours/MobileTours.css';
 
 export default function ToursPage() {
   const { language } = usePageLanguage();
   const t = seoCopy(language);
+  const b = browseCopy(language);
   return (
     <div className="tour-entry bg-surface">
       <main className="mobile-tour-shell">
@@ -21,11 +23,13 @@ export default function ToursPage() {
         <ToursList />
         <nav className="discovery-closing" aria-label={t.allCities}>
           <h2>{t.allCities}</h2>
-          <div className="discovery-city-links">{SEO_CITIES.map(city => <Link key={city.slug} className="tour-card-link" href={`/${language}/${city.slug}`} lang={language}>{city.names[language]}</Link>)}</div>
+          <ul className="discovery-city-links">{SEO_CITIES.map(city => {
+            const walks = SEO_ROUTE_DEFINITIONS.filter(route => route.city === city.slug && route.locale === language).length;
+            return <li key={city.slug}><Link href={`/${language}/${city.slug}`} lang={language}><span>{city.names[language]}</span>{walks > 0 && <small>{b.walksCount(walks)}</small>}</Link></li>;
+          })}</ul>
         </nav>
       </main>
       <style jsx global>{`
-        .discovery-city-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
         body:has(.tour-entry) > div.min-h-screen { min-height: 0; }
         body:has(.tour-entry) > footer { background: var(--surface); }
         body:has(.tour-entry) > footer > div { max-width: 28rem; }

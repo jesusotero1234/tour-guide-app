@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AttributionFooter } from "@/components/layout/AttributionFooter";
 import { pilotEnabled } from '@/lib/pilotMode';
@@ -8,6 +8,9 @@ import { PageLanguageProvider } from '@/components/layout/PageLanguage';
 import { isSeoLocale, SITE_URL } from '@/lib/seoCatalog';
 
 export const dynamic = 'force-dynamic';
+
+// The player and the tour sheets use env(safe-area-inset-*): without viewport-fit=cover those values are 0 on phones with a notch.
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover', themeColor: '#f8f5ef' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -1,0 +1,80 @@
+import type { Language } from '@/types/api';
+
+/** Texts of the order-flexible walk (plan 05): start anywhere, reordered stops, distance and arrival. Distances arrive already formatted. */
+const en = {
+  startHere: 'Start here', useLocation: 'Use my location', locating: 'Finding your location…',
+  nearTitle: (distance: string, name: string, n: number) => `You are ${distance} from ${name} (stop ${n}). Start there?`,
+  startThere: 'Start there', fromBeginning: 'From the beginning',
+  farTitle: (distance: string, minutes: string) => `The first stop is ${distance} · ${minutes} on foot`,
+  getThere: 'Get directions', locationDeniedHere: 'Location is off. You can still pick any stop to start.',
+  goTo: (name: string) => `Go to ${name}`,
+  continueHere: 'Continue from here? We’ll reorder the remaining stops.', reorder: 'Yes, reorder', listenOnly: 'Just listen to this one',
+  backToRecommended: 'Back to the recommended order', yourOrder: 'Your order', recommendedOrder: 'Recommended order',
+  arrived: (name: string) => `You have arrived at ${name}`, listenNow: 'Listen',
+  nextToStop: (name: string) => `You are next to ${name}. Listen to it now?`, notNow: 'Not now',
+  alreadyListened: 'Already listened', viewStop: 'View this stop', walkHere: 'Walk here',
+  nextLink: 'Next', locationOn: 'Location on', minutes: (n: number) => `${n} min`,
+  stopOfTotal: (n: number, total: number) => `Stop ${n} of ${total}`,
+};
+const es: typeof en = {
+  startHere: 'Empezar aquí', useLocation: 'Usar mi ubicación', locating: 'Buscando tu ubicación…',
+  nearTitle: (distance, name, n) => `Estás a ${distance} de ${name} (parada ${n}). ¿Empezar ahí?`,
+  startThere: 'Empezar ahí', fromBeginning: 'Desde el principio',
+  farTitle: (distance, minutes) => `La primera parada está a ${distance} · ${minutes} a pie`,
+  getThere: 'Cómo llegar', locationDeniedHere: 'La ubicación está desactivada. Puedes elegir cualquier parada para empezar.',
+  goTo: name => `Ir a ${name}`,
+  continueHere: '¿Seguir desde aquí? Reordenaremos las paradas que faltan.', reorder: 'Sí, reordenar', listenOnly: 'Solo escuchar esta',
+  backToRecommended: 'Volver al orden recomendado', yourOrder: 'Tu orden', recommendedOrder: 'Orden recomendado',
+  arrived: name => `Has llegado a ${name}`, listenNow: 'Escuchar',
+  nextToStop: name => `Estás junto a ${name}. ¿Escucharla ahora?`, notNow: 'Ahora no',
+  alreadyListened: 'Ya escuchada', viewStop: 'Ver esta parada', walkHere: 'Ir hasta aquí',
+  nextLink: 'Siguiente', locationOn: 'Ubicación activada', minutes: n => `${n} min`,
+  stopOfTotal: (n, total) => `Parada ${n} de ${total}`,
+};
+const fr: typeof en = {
+  startHere: 'Commencer ici', useLocation: 'Utiliser ma position', locating: 'Recherche de votre position…',
+  nearTitle: (distance, name, n) => `Vous êtes à ${distance} de ${name} (étape ${n}). Commencer là ?`,
+  startThere: 'Commencer là', fromBeginning: 'Depuis le début',
+  farTitle: (distance, minutes) => `La première étape est à ${distance} · ${minutes} à pied`,
+  getThere: 'Itinéraire', locationDeniedHere: 'La localisation est désactivée. Vous pouvez choisir n’importe quelle étape pour commencer.',
+  goTo: name => `Aller à ${name}`,
+  continueHere: 'Continuer d’ici ? Nous réorganiserons les étapes restantes.', reorder: 'Oui, réorganiser', listenOnly: 'Écouter seulement celle-ci',
+  backToRecommended: 'Revenir à l’ordre recommandé', yourOrder: 'Votre ordre', recommendedOrder: 'Ordre recommandé',
+  arrived: name => `Vous êtes arrivé à ${name}`, listenNow: 'Écouter',
+  nextToStop: name => `Vous êtes près de ${name}. L’écouter maintenant ?`, notNow: 'Pas maintenant',
+  alreadyListened: 'Déjà écoutée', viewStop: 'Voir cette étape', walkHere: 'S’y rendre',
+  nextLink: 'Suivante', locationOn: 'Position activée', minutes: n => `${n} min`,
+  stopOfTotal: (n, total) => `Étape ${n} sur ${total}`,
+};
+const de: typeof en = {
+  startHere: 'Hier beginnen', useLocation: 'Meinen Standort verwenden', locating: 'Standort wird gesucht…',
+  nearTitle: (distance, name, n) => `Du bist ${distance} von ${name} entfernt (Station ${n}). Dort beginnen?`,
+  startThere: 'Dort beginnen', fromBeginning: 'Von Anfang an',
+  farTitle: (distance, minutes) => `Die erste Station ist ${distance} entfernt · ${minutes} zu Fuß`,
+  getThere: 'Route anzeigen', locationDeniedHere: 'Der Standort ist aus. Du kannst trotzdem jede Station als Start wählen.',
+  goTo: name => `Zu ${name}`,
+  continueHere: 'Von hier aus weitergehen? Wir ordnen die übrigen Stationen neu.', reorder: 'Ja, neu ordnen', listenOnly: 'Nur diese anhören',
+  backToRecommended: 'Zurück zur empfohlenen Reihenfolge', yourOrder: 'Deine Reihenfolge', recommendedOrder: 'Empfohlene Reihenfolge',
+  arrived: name => `Du bist bei ${name} angekommen`, listenNow: 'Anhören',
+  nextToStop: name => `Du bist bei ${name}. Jetzt anhören?`, notNow: 'Jetzt nicht',
+  alreadyListened: 'Schon gehört', viewStop: 'Diese Station ansehen', walkHere: 'Hierhin gehen',
+  nextLink: 'Weiter', locationOn: 'Standort an', minutes: n => `${n} Min.`,
+  stopOfTotal: (n, total) => `Station ${n} von ${total}`,
+};
+const it: typeof en = {
+  startHere: 'Inizia da qui', useLocation: 'Usa la mia posizione', locating: 'Ricerca della posizione…',
+  nearTitle: (distance, name, n) => `Sei a ${distance} da ${name} (tappa ${n}). Iniziare da lì?`,
+  startThere: 'Inizia da lì', fromBeginning: 'Dall’inizio',
+  farTitle: (distance, minutes) => `La prima tappa è a ${distance} · ${minutes} a piedi`,
+  getThere: 'Come arrivare', locationDeniedHere: 'La posizione è disattivata. Puoi comunque scegliere qualsiasi tappa da cui iniziare.',
+  goTo: name => `Vai a ${name}`,
+  continueHere: 'Continuare da qui? Riordineremo le tappe rimaste.', reorder: 'Sì, riordina', listenOnly: 'Ascolta solo questa',
+  backToRecommended: 'Torna all’ordine consigliato', yourOrder: 'Il tuo ordine', recommendedOrder: 'Ordine consigliato',
+  arrived: name => `Sei arrivato a ${name}`, listenNow: 'Ascolta',
+  nextToStop: name => `Sei vicino a ${name}. Ascoltarla ora?`, notNow: 'Non ora',
+  alreadyListened: 'Già ascoltata', viewStop: 'Vedi questa tappa', walkHere: 'Vai qui',
+  nextLink: 'Prossima', locationOn: 'Posizione attiva', minutes: n => `${n} min`,
+  stopOfTotal: (n, total) => `Tappa ${n} di ${total}`,
+};
+const copy: Record<Language, typeof en> = { es, en, fr, de, it };
+export const flexibleCopy = (language: string) => copy[language as Language] ?? en;

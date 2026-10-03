@@ -22,6 +22,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await page.getByRole('button',{name:'Aceptar estadísticas',exact:true}).click();
   await page.waitForFunction(()=>!!window.umami);
   await page.locator('.safety-start').click();
+  await page.locator('.tour-information > summary').click();
   await page.getByText('Valorar este tour',{exact:true}).click();
   await page.getByRole('radio',{name:'5',exact:true}).check();
   await page.getByLabel('Comentario (opcional)').fill('Me gustó la narración.');

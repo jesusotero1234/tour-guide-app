@@ -8,7 +8,8 @@ import { mobileTourCopy } from '@/lib/mobileTourCopy';
 import { TourCover } from './TourCover';
 import { TourSample } from './TourSample';
 
-export const TourCard = ({ tour }: { tour: Tour }) => {
+/** The whole card opens the tour through one link, the title (a stretched link); "View tour" is only a visual cue and is hidden from assistive technology. */
+export const TourCard = ({ tour, priority = false }: { tour: Tour; priority?: boolean }) => {
   const { language } = usePageLanguage();
   const t = browseCopy(language);
   const m = mobileTourCopy(language);
@@ -16,7 +17,7 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
   const country = /^[A-Z]{2}$/i.test(tour.countryCode ?? '')
     ? new Intl.DisplayNames([language], { type: 'region' }).of(tour.countryCode.toUpperCase()) || tour.country : tour.country;
   return <article className="mobile-tour-card">
-    <TourCover tour={tour} />
+    <TourCover tour={tour} priority={priority} />
     <div className="mobile-tour-card-body">
       <p className="tour-eyebrow">{city} · {m.walkingTour}</p>
       {tour.localReview && <p className="tour-private-review">{t.privateReview}</p>}
@@ -24,7 +25,7 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
       {tour.subtitle && <p className="tour-card-description" lang={tour.language}>{tour.subtitle}</p>}
       {!tour.subtitle && tour.introduction && <p className="tour-card-description" lang={tour.language}>{tour.introduction}</p>}
       <p className="tour-card-meta">{tour.durationMinutes > 0 && <span>~{tour.durationMinutes} min <span className="sr-only">{m.estimated}</span></span>}<span>{t.stopsCount(tour.places.length)}</span><span lang={tour.language}>{tour.language.toUpperCase()}</span></p>
-      <div className="tour-card-actions"><TourSample tour={tour} language={language} /><Link href={`/tours/${tour.id}`} className="tour-card-link">{t.viewTour}</Link></div>
+      <div className="tour-card-actions"><TourSample tour={tour} language={language} /><span className="tour-card-link" aria-hidden="true">{t.viewTour}</span></div>
     </div>
   </article>;
 };

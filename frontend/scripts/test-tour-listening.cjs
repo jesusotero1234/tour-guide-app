@@ -37,6 +37,8 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
   });
   const start = async (target = page, showNotice = false) => {
     const privacyNotice = target.locator('.privacy-banner');
+    // The notice renders after hydration; waiting for it avoids a race in which it appears later over the player.
+    await privacyNotice.waitFor({timeout: 4000}).catch(() => {});
     if (await privacyNotice.isVisible()) await privacyNotice.getByRole('button', {name: 'Entendido', exact: true}).click();
     if (showNotice) { const b = target.getByRole('button', {name:'Entendido, empezar',exact:true}); await b.waitFor(); await b.click(); }
     else { await target.locator('.listening-header').waitFor(); assert.equal(await target.locator('.tour-safety h1').count(), 0); }
@@ -86,7 +88,10 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
       }
       await menu();
       assert.equal(await page.locator('.stop-popover ol li').count(), 3, 'The introduction is not counted as a real stop');
-      assert.doesNotMatch(await page.locator('[data-stop="0"]').innerText(), /Escuchada/, 'Introduction completion does not complete stop one');
+      // The mark saved for stop one under its previous audio version carries over to the new version (plan 05 section 4.4, the audio is
+      // regenerated and every version changes); finishing the introduction is a different key and never marks a stop.
+      assert.match(await page.locator('[data-stop="0"]').innerText(), /Escuchada/, 'A completed mark survives a new audio version of the same stop');
+      assert.doesNotMatch(await page.locator('[data-stop="1"]').innerText(), /Escuchada/, 'Introduction completion does not complete another stop');
       await page.keyboard.press('Escape');
       await button('Ir a la primera parada →').click(); await ready();
       await button('Mapa').click(); await page.locator('details.map-options summary').click();
@@ -172,11 +177,12 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     assert.equal(await page.locator('details.map-options').evaluate(e => e.open), false);
     assert.equal(await page.locator('details.map-options select').isVisible(), false);
     assert.equal(await page.locator('.listening-tabs button').count(), 3);
+    assert.equal(await button('Usar mi ubicación').isVisible(), true, 'The location button is visible on the map without opening the options (plan 06 A1)');
     await page.locator('details.map-options summary').click();
     await page.locator('details.map-options select').waitFor();
     assert.equal(await page.locator('details.map-options select').isVisible(), true);
     assert.equal(await page.evaluate(() => window.gpsCalls || 0), 0);
-    await button('Mostrar mi ubicación').click();
+    await button('Usar mi ubicación').click();
     await page.getByText('La ubicación está desactivada.', {exact: false}).waitFor();
     assert.equal(await page.evaluate(() => window.gpsCalls), 1);
     await page.getByText('Recorrido no disponible.', {exact: false}).waitFor();
@@ -240,7 +246,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     assert.ok(mapSummaryBox.x >= 0 && mapSummaryBox.x + mapSummaryBox.width <= 320 && mapSummaryBox.y >= 0 && mapSummaryBox.y + mapSummaryBox.height <= 568);
     assert.ok(await page.locator('.map-canvas').evaluate(e => e.getBoundingClientRect().height > 0));
     await page.locator('details.map-options summary').click();
-    const creditBox = await page.getByText('Walking route:', {exact: false}).boundingBox();
+    const creditBox = await page.getByText('Ruta a pie:', {exact: false}).boundingBox();
     const optionsBox = await page.locator('details.map-options').boundingBox();
     assert.ok(creditBox.y + creditBox.height <= optionsBox.y, 'Map credits must not overlap expanded options');
     await page.locator('details.map-options select').scrollIntoViewIfNeeded();
@@ -275,9 +281,7 @@ wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34); wav.write('data', 36); wav.
     await privacy.goto(url); await start(privacy);
     await privacy.getByRole('button',{name:'Mapa',exact:true}).click();
     assert.equal(await privacy.evaluate(()=>window.gpsCalls||0),0);
-    await privacy.locator('details.map-options summary').click();
-    await privacy.getByRole('button',{name:'Mostrar mi ubicación',exact:true}).click();
-    await privacy.locator('details.map-options summary').click();
+    await privacy.getByRole('button',{name:'Usar mi ubicación',exact:true}).click();
     await privacy.getByRole('button',{name:'Dejar de usar mi ubicación',exact:true}).click();
     await privacy.evaluate(()=>window.lateGPS({coords:{latitude:37.4,longitude:-5.9}}));
     assert.equal(await privacy.evaluate(()=>window.gpsCleared),1);
