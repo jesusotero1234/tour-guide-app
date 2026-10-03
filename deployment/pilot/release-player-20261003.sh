@@ -92,7 +92,9 @@ sudo -n systemd-run --quiet --wait --pipe --collect --uid=nomuvia-admin --gid=to
   "$NODE/npm" run build
 sudo -n chown -R root:tour-pilot "$NEW"; sudo -n chmod -R g+rX "$NEW"
 [ "$(sudo -n cat "$NEW/frontend/.next/BUILD_ID")" != "$(sudo -n cat "$OLD/frontend/.next/BUILD_ID")" ] || fail "the frontend was not rebuilt"
-sudo -n grep -rqs 'Empezar aquí' "$NEW/frontend/.next/server" || fail "the built frontend does not contain the new player"
+# The accent may be stored escaped in the bundles, so the check stops before it.
+sudo -n grep -rqs 'Empezar aqu' "$NEW/frontend/.next/server" "$NEW/frontend/.next/static" || fail "the built frontend does not contain the new player"
+sudo -n test -d "$NEW/frontend/.next/server/app/api/backend/tours/[id]/cue" || fail "the built frontend has no link-clip route"
 echo "OK: frontend built"
 
 rollback() {
